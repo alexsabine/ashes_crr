@@ -111,3 +111,9 @@ by its own format rule** (loader read 0 series); study MEAS2 with the loader
 corrected and hypotheses verbatim, pushed (57b6302) before the run; 1080
 city-cell-metric rows, byte-identical rerun; ledger rows MEAS-1..3 (VOID),
 MEAS2-1 (FAIL), MEAS2-2 (FAIL), MEAS2-3 (control line PASS); reports/meas2.md.
+
+## 8 — received 2026-09-15T21:34Z, logged 2026-09-15T21:34Z
+
+> What does this mean in standard epistemological terms? Explain to me in simple terms whether CRR was useful here or not. I understand it failed the stringent pipeline, but what did hold, what did you learn?
+
+Context: question only; answered in chat from the ledger. No study work.
