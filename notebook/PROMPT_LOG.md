@@ -256,3 +256,9 @@ Context: the Omega-sweep implications posted as "Questions for Daniel" on PR #19
 > How do I post a full explanation for Daniel in the Issues box, like he did?
 
 Context: how-to question (GitHub Issues); answered in chat, with an offer to open the issue via API.
+
+## 23 — received 2026-09-15T23:49Z, logged 2026-09-15T23:49Z
+
+> Can you write out the issue note so it's clear for Daniel as the next step (the equanimity rule as a fixed parameter and what this means)
+
+Context: issue text drafted in chat for the owner to post (or for the agent to post on instruction); ledger numbers only, playground qualitative.
