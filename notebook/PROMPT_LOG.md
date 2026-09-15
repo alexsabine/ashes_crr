@@ -232,3 +232,9 @@ Context: conceptual question, answered in chat from the ledger (EQX, ARC rows) a
 > Okay, Daniel can run on his own python system on the official repo. Am I allowed to run a playground test with you to further explore it in principle? I don't want to disturb or clutter the repo. It is just an opportunity to learn more about it
 
 Context: question about running exploratory work outside the repository (agent scratchpad). Answered in chat; conditions stated (prompts still logged; synthetic data only, or any real data appended to SEEN.md; nothing from the playground enters the ledger).
+
+## 19 — received 2026-09-15T23:23Z, logged 2026-09-15T23:23Z
+
+> Yes, run the test
+
+Context: playground (agent scratchpad, outside the repo, synthetic data only): does the norm-ratio weight recover a tuned mixed-units replay weight across setups? No repo artefacts; no ledger numbers.
