@@ -1,0 +1,17 @@
+gate for A3
+  must FAIL on ['S-A sine', "S-A'' AM sine (constant period)", 'S-F van der Pol mu=5.0']
+  must PASS on []
+
+  S-A sine                                                               FAIL  cv_antipodal=0.000 cv_peakcut=0.000 ci=-0.000,0.000 n_ant=119 n_pk=120
+  S-A' FM sine (constant amplitude)                                      FAIL  cv_antipodal=0.001 cv_peakcut=0.000 ci=0.000,0.001 n_ant=119 n_pk=120
+  S-A'' AM sine (constant period)                                        FAIL  cv_antipodal=0.155 cv_peakcut=0.152 ci=-0.020,0.026 n_ant=119 n_pk=119
+  S-A''' AM+FM sine                                                      FAIL  cv_antipodal=0.152 cv_peakcut=0.148 ci=-0.021,0.028 n_ant=119 n_pk=119
+  S-B sine + dicrotic bump                                               FAIL  cv_antipodal=0.052 cv_peakcut=0.052 ci=-0.007,0.008 n_ant=119 n_pk=120
+  S-C lobed ramp (lambda=1.0)                                            PASS  cv_antipodal=0.175 cv_peakcut=0.266 ci=-0.112,-0.071 n_ant=118 n_pk=118
+  S-D sine + white noise (rho~20.0)                                      FAIL  cv_antipodal=0.126 cv_peakcut=0.146 ci=-0.048,0.009 n_ant=119 n_pk=120
+  S-E asymmetric multi-harmonic                                          PASS  cv_antipodal=0.079 cv_peakcut=0.115 ci=-0.045,-0.026 n_ant=119 n_pk=120
+  S-F van der Pol mu=5.0                                                 FAIL  cv_antipodal=0.064 cv_peakcut=0.000 ci=0.000,0.111 n_ant=60 n_pk=60
+  S-G relaxation osc. (clock-regular, amplitude-variable)                FAIL  cv_antipodal=0.460 cv_peakcut=0.134 ci=0.286,0.361 n_ant=118 n_pk=118
+  S-G2 relaxation osc. (arc-regular by construction)                     FAIL  cv_antipodal=0.422 cv_peakcut=0.001 ci=0.387,0.448 n_ant=118 n_pk=118
+
+GATE OPEN

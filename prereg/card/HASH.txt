@@ -1,0 +1,9 @@
+57dd66c0082750e8a82c2c5941ecdb2567055d417b34eca7150edc168de04c07  ../../runs/card/frozen/CRR.md
+39cca6081fac292f6bb3c21ff745fd0ea8dea30ab2218a4bbaccef1895f08bf0  ../../runs/card/frozen/battery.py
+c2bed1b4467778ad5769d0306524e942df9514bf151f7f066c0434bd16226df6  ../../runs/card/frozen/card_score.py
+cde44bd5194a982bce8a80be8ad38f81cf1abec2957f416251fb521185e7096e  ../../runs/card/frozen/core.py
+39826c74970d5b2bf5fb33dcb29380b922b9a1436fd93bebf697e5fd6be2c12e  ../../runs/card/frozen/gate.py
+474474f8fcbb15d1d1a1014dba7708b6cca67009d4acc4357476941df1dba5d7  ./PREREG.md
+0f651e8220245a408cca3545cb891185cb835da512f0647b68590f0b54d1bf07  ./gate_A3.txt
+10a478ef02a96d3a37908267b8a3c5d2923ff57c3320f8ee264821893307b489  ./gate_CUT.txt
+643edea0c1a236555aaa514bbc9b7305b708e91da71f4f5250885b63e5fddfc3  ./gate_L5.txt

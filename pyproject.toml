@@ -10,6 +10,7 @@ dependencies = [
   "opentimestamps-client>=0.7",
   "pyreadr>=0.5",
   "rdata>=0.11",
+  "wfdb>=4.1",
 ]
 
 [tool.pytest.ini_options]

@@ -1,0 +1,17 @@
+gate for L5
+  must FAIL on ['S-A sine', "S-A'' AM sine (constant period)", 'S-G relaxation osc. (clock-regular, amplitude-variable)']
+  must PASS on ["S-A' FM sine (constant amplitude)", 'S-G2 relaxation osc. (arc-regular by construction)']
+
+  S-A sine                                                               FAIL  cv_arc=0.000 cv_clock=0.000 cv_amp=0.000 ci=0.000,0.000
+  S-A' FM sine (constant amplitude)                                      PASS  cv_arc=0.000 cv_clock=0.118 cv_amp=0.000 ci=-0.131,-0.101
+  S-A'' AM sine (constant period)                                        FAIL  cv_arc=0.176 cv_clock=0.000 cv_amp=0.176 ci=0.150,0.197
+  S-A''' AM+FM sine                                                      FAIL  cv_arc=0.179 cv_clock=0.118 cv_amp=0.179 ci=0.031,0.086
+  S-B sine + dicrotic bump                                               FAIL  cv_arc=0.061 cv_clock=0.059 cv_amp=0.061 ci=-0.008,0.012
+  S-C lobed ramp (lambda=1.0)                                            FAIL  cv_arc=0.061 cv_clock=0.059 cv_amp=0.062 ci=-0.008,0.012
+  S-D sine + white noise (rho~20.0)                                      FAIL  cv_arc=0.087 cv_clock=0.000 cv_amp=0.037 ci=0.064,0.109
+  S-E asymmetric multi-harmonic                                          FAIL  cv_arc=0.062 cv_clock=0.059 cv_amp=0.062 ci=-0.008,0.012
+  S-F van der Pol mu=5.0                                                 FAIL  cv_arc=0.010 cv_clock=0.002 cv_amp=0.000 ci=0.006,0.010
+  S-G relaxation osc. (clock-regular, amplitude-variable)                FAIL  cv_arc=0.134 cv_clock=0.000 cv_amp=0.134 ci=0.111,0.155
+  S-G2 relaxation osc. (arc-regular by construction)                     PASS  cv_arc=0.001 cv_clock=0.135 cv_amp=0.001 ci=-0.153,-0.110
+
+GATE OPEN

@@ -117,3 +117,18 @@ MEAS2-1 (FAIL), MEAS2-2 (FAIL), MEAS2-3 (control line PASS); reports/meas2.md.
 > What does this mean in standard epistemological terms? Explain to me in simple terms whether CRR was useful here or not. I understand it failed the stringent pipeline, but what did hold, what did you learn?
 
 Context: question only; answered in chat from the ledger. No study work.
+
+## 9 — received 2026-09-15T21:40Z, logged 2026-09-15T21:40Z
+
+> Okay, run on cardiac
+
+Context: study on a cardiac carrier (CLAUDE.md §4 L5x: PhysioNet Autonomic Aging 0061–0120 named; availability to be checked).
+Work under prompt 9: PhysioNet unreachable (403); no GitHub mirror with ≥ 10
+comparable ECG+BP records found (probed: wfdb sample-data, NeuroKit, others —
+single heterogeneous records only). Study CARD built as CLAUDE.md §4 names it
+(Autonomic Aging 0061–0090): `studies/card/card_score.py` (Pan–Tompkins-style
+R-peaks with published constants, BP/ECG arc vs RR, identity metric with the
+P9 disclosure), gates L5/CUT/A3 committed; `gate_A3` showed the L5x-3
+comparison passes on jittered asymmetric surrogates (S-C, S-E), so it is a
+diagnostic, not a hypothesis. Prereg hashed and pushed; the records must be
+supplied by the human (upload) before the run.
