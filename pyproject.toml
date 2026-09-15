@@ -1,0 +1,15 @@
+[project]
+name = "crr-validation"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=2.0",
+  "scipy>=1.14",
+  "sympy>=1.13",
+  "pytest>=8",
+  "opentimestamps-client>=0.7",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["instrument/tests"]
