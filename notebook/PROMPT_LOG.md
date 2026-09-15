@@ -220,3 +220,9 @@ by PR and #13 closed. A second upload `crr_cl_ledger.zip` (upload id
 4d740e51) is compared against `archive/cl_ledger_2026-09-14/`; a
 retrospective on the 2026-09-14 continual-learning results and a forward
 plan is to be written (`reports/cl_retrospective.md`).
+
+## 17 — received 2026-09-15T23:18Z, logged 2026-09-15T23:18Z
+
+> Right, so in the report before we said w=1 was just standard replay. Think carefully, why does this omega=1 principle matter? The idea before was that we were reducing replay and replacing a tuned parameter for a derived one
+
+Context: conceptual question, answered in chat from the ledger (EQX, ARC rows) and the gate_EQ table; no study work.
