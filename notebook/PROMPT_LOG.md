@@ -70,3 +70,9 @@ blocked) and the signed tag could not be pushed (remote refused tag refs) —
 both recorded in `runs/eqx/RUNLOG.md`; three unseen PMLB datasets fetched
 (LFS-oid-verified), `data/SEEN.md` appended; 198 runs from the frozen script;
 scored once; 17 ledger rows appended (12 archive, 5 EQX); `reports/eqx.md`.
+
+## 4 — received 2026-09-15T18:23Z, logged 2026-09-15T18:23Z
+
+> What is surviving so far, in basic terms?
+
+Context: question only; answered in chat from the ledger. No study work.
