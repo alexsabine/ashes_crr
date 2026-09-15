@@ -42,14 +42,17 @@ CLOSED.
 
 ```bash
 mkdir -p prereg/<study> runs/<study>/frozen
-cp src/crr/instrument/core.py <study>_score.py theory/CRR.md runs/<study>/frozen/
+cp src/crr/instrument/core.py theory/CRR.md runs/<study>/frozen/
+cp prereg/<study>/<study>_score.py runs/<study>/frozen/   # the scoring script lives in the prereg folder
 ```
 
 `PREREG.md` is written from [`prereg/PREREG_TEMPLATE.md`](../../prereg/PREREG_TEMPLATE.md):
 hypotheses with ids matching `theory/CRR.md`, the data (exact record ids,
 each confirmed absent from [`data/SEEN.md`](../../data/SEEN.md)), every
 named instrument parameter, the baseline set (R7), the sensitivity table
-plan, and the path of the frozen scoring script.
+plan, and the path of the frozen scoring script. The scoring script is
+written into the prereg folder — it is covered by the hash — and
+`runs/<study>/frozen/` holds byte-identical copies taken at freeze time.
 
 *Forbidden:* naming a threshold that is not also swept in the planned
 sensitivity table (R5); scoring "per study" where the prereg will say

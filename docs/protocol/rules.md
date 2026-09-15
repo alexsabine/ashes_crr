@@ -19,8 +19,9 @@ the four failure modes the September 2026 audit found in every prior
 "positive finding".
 
 **R2 — Hash before you look.**
-Prereg + frozen scoring script + instrument code + theory doc go in one
-folder; `sha256sum` over the sorted file list is written to
+The prereg folder (prereg, scoring script, gate output) and the
+frozen-copy folder (instrument code + theory doc) are hashed together:
+`sha256sum` over the sorted file list of both is written to
 `prereg/<study>/HASH.txt`, anchored with OpenTimestamps, and committed
 with a signed git tag. Only after the tag exists may any data for that
 study be downloaded or opened. The proof of "before" is the anchor,
