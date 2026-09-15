@@ -244,3 +244,9 @@ Context: playground (agent scratchpad, outside the repo, synthetic data only): d
 > Run a full sweep and see if it falls on Omega=1 and what the implications are of this for a fuller test that Daniel can run
 
 Context: playground (scratchpad, synthetic only): Omega sweep on the mixed-units learner; no repo artefacts, no ledger numbers.
+
+## 21 — received 2026-09-15T23:41Z, logged 2026-09-15T23:41Z
+
+> Can you add this to the PR as Questions for Daniel please?
+
+Context: the Omega-sweep implications posted as "Questions for Daniel" on PR #19 (merged), phrased as design questions; playground numbers are not quoted (R1/R8: the scratchpad scripts are not committed).
