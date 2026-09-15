@@ -250,3 +250,9 @@ Context: playground (scratchpad, synthetic only): Omega sweep on the mixed-units
 > Can you add this to the PR as Questions for Daniel please?
 
 Context: the Omega-sweep implications posted as "Questions for Daniel" on PR #19 (merged), phrased as design questions; playground numbers are not quoted (R1/R8: the scratchpad scripts are not committed).
+
+## 22 — received 2026-09-15T23:48Z, logged 2026-09-15T23:48Z
+
+> How do I post a full explanation for Daniel in the Issues box, like he did?
+
+Context: how-to question (GitHub Issues); answered in chat, with an offer to open the issue via API.
