@@ -207,6 +207,14 @@ which "change has its own clock" is true by construction. H-L5 is therefore
 an empirical claim about which class a real system belongs to; it is not
 tautological, and the gate (`surrogates/gate.py L5`) shows the instrument
 separates the two classes.
+**Ledger (2026-09-15, rows MEAS2-1, MEAS2-2):** on measles epidemics in 17
+English cities (own events = epidemic onsets; Fisher-native Poisson carrier,
+the first carrier in this repository where the metric is not decorative),
+0/17 cities satisfied the criterion under either metric; the bare inequality
+CV(C) < CV(Δt) held in only 5/17 (Poisson) and 1/17 (identity). Measles
+belongs to the clock-regular class: the biennial cycle is more regular than
+the arc, which varies with epidemic size. Not fragile across 26 detector
+cells. Untested elsewhere.
 
 ---
 

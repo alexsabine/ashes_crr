@@ -1,0 +1,110 @@
+==============================================================================================================
+MEAS scoring — thresholds from prereg/meas2/PREREG.md; per-city values shown for the primary cell
+==============================================================================================================
+
+[primary cell, metric=poisson]  detector {'rise_factor': 2.0, 'floor_frac': 0.25, 'min_cases': 20.0, 'min_gap': 20}
+  Bedwellty      onsets=11 cv_arc=0.392 cv_clock=0.342 cv_amp=0.147 ci=(-0.071,+0.162) ci_amp=(+0.123,+0.344) cv_arc_peakcut=0.572 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Birmingham     onsets=18 cv_arc=0.498 cv_clock=0.261 cv_amp=0.602 ci=(+0.086,+0.417) ci_amp=(-0.182,-0.044) cv_arc_peakcut=0.484 rho=1.5  -> FAIL
+  Bradford       onsets=14 cv_arc=0.329 cv_clock=0.410 cv_amp=0.334 ci=(-0.169,+0.013) ci_amp=(-0.070,+0.066) cv_arc_peakcut=0.327 rho=5.7  -> FAIL
+  Bristol        onsets=13 cv_arc=0.358 cv_clock=0.339 cv_amp=0.427 ci=(-0.074,+0.113) ci_amp=(-0.185,+0.028) cv_arc_peakcut=0.420 rho=4.0  -> FAIL
+  Cardiff        onsets=14 cv_arc=0.383 cv_clock=0.479 cv_amp=0.465 ci=(-0.204,+0.096) ci_amp=(-0.222,+0.084) cv_arc_peakcut=0.628 rho=4.2  -> FAIL
+  Consett        onsets=11 cv_arc=0.308 cv_clock=0.359 cv_amp=0.300 ci=(-0.116,+0.015) ci_amp=(-0.101,+0.113) cv_arc_peakcut=0.459 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Dalton.in.Furness onsets= 9 cv_arc=0.519 cv_clock=0.283 cv_amp=0.272 ci=(+0.009,+0.395) ci_amp=(+0.012,+0.509) cv_arc_peakcut=0.474 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Hastings       onsets=12 cv_arc=0.391 cv_clock=0.343 cv_amp=0.345 ci=(-0.089,+0.162) ci_amp=(-0.083,+0.195) cv_arc_peakcut=0.561 rho=3.3  -> FAIL
+  Hull           onsets=15 cv_arc=0.425 cv_clock=0.399 cv_amp=0.481 ci=(-0.094,+0.171) ci_amp=(-0.163,+0.040) cv_arc_peakcut=0.426 rho=2.6  -> FAIL
+  Leeds          onsets=18 cv_arc=0.472 cv_clock=0.355 cv_amp=0.505 ci=(+0.018,+0.231) ci_amp=(-0.113,+0.035) cv_arc_peakcut=0.233 rho=2.7  -> FAIL
+  Liverpool      onsets=17 cv_arc=0.324 cv_clock=0.283 cv_amp=0.286 ci=(-0.058,+0.093) ci_amp=(-0.098,+0.112) cv_arc_peakcut=0.418 rho=4.4  -> FAIL
+  London         onsets=15 cv_arc=0.375 cv_clock=0.397 cv_amp=0.366 ci=(-0.100,+0.043) ci_amp=(-0.064,+0.079) cv_arc_peakcut=0.424 rho=3.5  -> FAIL
+  Manchester     onsets=12 cv_arc=0.276 cv_clock=0.254 cv_amp=0.282 ci=(-0.049,+0.093) ci_amp=(-0.132,+0.119) cv_arc_peakcut=0.447 rho=4.8  -> FAIL
+  Northwich      onsets=11 cv_arc=0.336 cv_clock=0.343 cv_amp=0.207 ci=(-0.083,+0.075) ci_amp=(-0.021,+0.267) cv_arc_peakcut=0.462 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Nottingham     onsets=18 cv_arc=0.345 cv_clock=0.309 cv_amp=0.474 ci=(-0.065,+0.133) ci_amp=(-0.227,-0.034) cv_arc_peakcut=0.614 rho=2.1  -> FAIL
+  Oswestry       onsets= 8 cv_arc=0.263 cv_clock=0.200 cv_amp=0.153 ci=(-0.015,+0.137) ci_amp=(-0.075,+0.274) cv_arc_peakcut=0.394 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Sheffield      onsets=14 cv_arc=0.471 cv_clock=0.368 cv_amp=0.530 ci=(-0.058,+0.304) ci_amp=(-0.188,+0.056) cv_arc_peakcut=0.218 rho=1.9  -> FAIL
+  Halesworth     EXCLUDED: 2 onsets < 8
+  Lees           EXCLUDED: 5 onsets < 8
+  Mold           EXCLUDED: 5 onsets < 8
+  per-city PASS 0/17 = 0.000, binomial p = 0.0000; plain cv_arc<cv_clock in 5/17; control (iii) arc-between-onsets beats arc-between-peaks in 12/17; excluded 3
+
+[primary cell, metric=identity]  detector {'rise_factor': 2.0, 'floor_frac': 0.25, 'min_cases': 20.0, 'min_gap': 20}
+  Bedwellty      onsets=11 cv_arc=0.466 cv_clock=0.342 cv_amp=0.255 ci=(-0.065,+0.277) ci_amp=(+0.037,+0.366) cv_arc_peakcut=0.736 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Birmingham     onsets=18 cv_arc=0.762 cv_clock=0.261 cv_amp=0.843 ci=(+0.250,+0.807) ci_amp=(-0.140,-0.027) cv_arc_peakcut=0.425 rho=1.2  -> FAIL
+  Bradford       onsets=14 cv_arc=0.410 cv_clock=0.410 cv_amp=0.513 ci=(-0.184,+0.195) ci_amp=(-0.153,-0.028) cv_arc_peakcut=0.376 rho=3.6  -> FAIL
+  Bristol        onsets=13 cv_arc=0.481 cv_clock=0.339 cv_amp=0.584 ci=(-0.046,+0.333) ci_amp=(-0.184,-0.010) cv_arc_peakcut=0.368 rho=3.0  -> FAIL
+  Cardiff        onsets=14 cv_arc=0.580 cv_clock=0.479 cv_amp=0.810 ci=(-0.112,+0.437) ci_amp=(-0.328,-0.001) cv_arc_peakcut=0.512 rho=2.8  -> FAIL
+  Consett        onsets=11 cv_arc=0.435 cv_clock=0.359 cv_amp=0.562 ci=(-0.035,+0.184) ci_amp=(-0.226,-0.019) cv_arc_peakcut=0.623 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Dalton.in.Furness onsets= 9 cv_arc=0.648 cv_clock=0.283 cv_amp=0.570 ci=(+0.070,+0.549) ci_amp=(-0.188,+0.420) cv_arc_peakcut=0.623 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Hastings       onsets=12 cv_arc=0.600 cv_clock=0.343 cv_amp=0.760 ci=(-0.024,+0.384) ci_amp=(-0.283,+0.127) cv_arc_peakcut=0.813 rho=1.7  -> FAIL
+  Hull           onsets=15 cv_arc=0.600 cv_clock=0.399 cv_amp=0.711 ci=(-0.032,+0.485) ci_amp=(-0.197,-0.034) cv_arc_peakcut=0.388 rho=1.6  -> FAIL
+  Leeds          onsets=18 cv_arc=0.660 cv_clock=0.355 cv_amp=0.777 ci=(+0.125,+0.504) ci_amp=(-0.194,-0.048) cv_arc_peakcut=0.334 rho=2.0  -> FAIL
+  Liverpool      onsets=17 cv_arc=0.410 cv_clock=0.283 cv_amp=0.439 ci=(-0.006,+0.219) ci_amp=(-0.126,+0.039) cv_arc_peakcut=0.444 rho=2.7  -> FAIL
+  London         onsets=15 cv_arc=0.515 cv_clock=0.397 cv_amp=0.582 ci=(-0.005,+0.229) ci_amp=(-0.121,+0.016) cv_arc_peakcut=0.398 rho=2.6  -> FAIL
+  Manchester     onsets=12 cv_arc=0.389 cv_clock=0.254 cv_amp=0.471 ci=(-0.026,+0.227) ci_amp=(-0.187,+0.040) cv_arc_peakcut=0.388 rho=2.9  -> FAIL
+  Northwich      onsets=11 cv_arc=0.289 cv_clock=0.343 cv_amp=0.393 ci=(-0.199,+0.132) ci_amp=(-0.210,+0.009) cv_arc_peakcut=0.510 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Nottingham     onsets=18 cv_arc=0.673 cv_clock=0.309 cv_amp=0.801 ci=(+0.136,+0.623) ci_amp=(-0.200,-0.034) cv_arc_peakcut=0.556 rho=1.3  -> FAIL
+  Oswestry       onsets= 8 cv_arc=0.285 cv_clock=0.200 cv_amp=0.287 ci=(-0.069,+0.252) ci_amp=(-0.058,+0.061) cv_arc_peakcut=0.708 rho=n/a (too few occasions for the named detrender)  -> FAIL
+  Sheffield      onsets=14 cv_arc=0.650 cv_clock=0.368 cv_amp=0.701 ci=(+0.002,+0.663) ci_amp=(-0.089,+0.020) cv_arc_peakcut=0.249 rho=1.3  -> FAIL
+  Halesworth     EXCLUDED: 2 onsets < 8
+  Lees           EXCLUDED: 5 onsets < 8
+  Mold           EXCLUDED: 5 onsets < 8
+  per-city PASS 0/17 = 0.000, binomial p = 0.0000; plain cv_arc<cv_clock in 1/17; control (iii) arc-between-onsets beats arc-between-peaks in 6/17; excluded 3
+
+--------------------------------------------------------------------------------------------------------------
+MEAS-1 (Poisson metric, primary): 0/17 cities pass (frac 0.000, p 0.0000) -> FAIL
+   sensitivity: verdict differs from primary in 0/26 cells -> not fragile
+     primary             0/17 pass  p=0.000  plain  5/17  (iii) 12/17  excl 3  FAIL
+     rf1.5_ff0.15_mg12   0/17 pass  p=0.000  plain  7/17  (iii) 10/17  excl 3  FAIL
+     rf1.5_ff0.15_mg20   0/17 pass  p=0.000  plain  6/17  (iii) 12/17  excl 3  FAIL
+     rf1.5_ff0.15_mg30   0/17 pass  p=0.000  plain  7/17  (iii) 15/17  excl 3  FAIL
+     rf1.5_ff0.25_mg12   0/17 pass  p=0.000  plain  7/17  (iii) 10/17  excl 3  FAIL
+     rf1.5_ff0.25_mg20   0/17 pass  p=0.000  plain  3/17  (iii) 11/17  excl 3  FAIL
+     rf1.5_ff0.25_mg30   0/17 pass  p=0.000  plain  4/17  (iii) 15/17  excl 3  FAIL
+     rf1.5_ff0.5_mg12    0/17 pass  p=0.000  plain  4/17  (iii)  8/17  excl 3  FAIL
+     rf1.5_ff0.5_mg20    0/17 pass  p=0.000  plain  2/17  (iii) 11/17  excl 3  FAIL
+     rf1.5_ff0.5_mg30    0/17 pass  p=0.000  plain  3/17  (iii) 14/17  excl 3  FAIL
+     rf2.0_ff0.15_mg12   0/17 pass  p=0.000  plain  8/17  (iii) 10/17  excl 3  FAIL
+     rf2.0_ff0.15_mg20   0/17 pass  p=0.000  plain  7/17  (iii) 12/17  excl 3  FAIL
+     rf2.0_ff0.15_mg30   0/17 pass  p=0.000  plain  8/17  (iii) 15/17  excl 3  FAIL
+     rf2.0_ff0.25_mg12   0/17 pass  p=0.000  plain  7/17  (iii) 10/17  excl 3  FAIL
+     rf2.0_ff0.25_mg30   0/17 pass  p=0.000  plain  6/17  (iii) 15/17  excl 3  FAIL
+     rf2.0_ff0.5_mg12    0/17 pass  p=0.000  plain  6/17  (iii)  9/17  excl 3  FAIL
+     rf2.0_ff0.5_mg20    0/17 pass  p=0.000  plain  4/17  (iii) 12/17  excl 3  FAIL
+     rf2.0_ff0.5_mg30    0/17 pass  p=0.000  plain  6/17  (iii) 14/17  excl 3  FAIL
+     rf3.0_ff0.15_mg12   1/17 pass  p=0.000  plain  9/17  (iii) 11/17  excl 3  FAIL
+     rf3.0_ff0.15_mg20   1/17 pass  p=0.000  plain  8/17  (iii) 14/17  excl 3  FAIL
+     rf3.0_ff0.15_mg30   1/17 pass  p=0.000  plain  9/17  (iii) 15/17  excl 3  FAIL
+     rf3.0_ff0.25_mg12   0/17 pass  p=0.000  plain  8/17  (iii) 11/17  excl 3  FAIL
+     rf3.0_ff0.25_mg20   0/17 pass  p=0.000  plain  6/17  (iii) 13/17  excl 3  FAIL
+     rf3.0_ff0.25_mg30   0/17 pass  p=0.000  plain  9/17  (iii) 15/17  excl 3  FAIL
+     rf3.0_ff0.5_mg12    0/17 pass  p=0.000  plain  8/17  (iii) 10/17  excl 3  FAIL
+     rf3.0_ff0.5_mg20    0/17 pass  p=0.000  plain  4/17  (iii) 12/17  excl 3  FAIL
+     rf3.0_ff0.5_mg30    0/17 pass  p=0.000  plain  9/17  (iii) 14/17  excl 3  FAIL
+MEAS-2 (identity metric): 0/17 cities pass (frac 0.000, p 0.0000) -> FAIL
+   sensitivity: verdict differs from primary in 0/26 cells -> not fragile
+     primary             0/17 pass  p=0.000  plain  1/17  (iii)  6/17  excl 3  FAIL
+     rf1.5_ff0.15_mg12   0/17 pass  p=0.000  plain  1/17  (iii)  6/17  excl 3  FAIL
+     rf1.5_ff0.15_mg20   0/17 pass  p=0.000  plain  2/17  (iii)  6/17  excl 3  FAIL
+     rf1.5_ff0.15_mg30   0/17 pass  p=0.000  plain  1/17  (iii) 12/17  excl 3  FAIL
+     rf1.5_ff0.25_mg12   0/17 pass  p=0.000  plain  1/17  (iii)  5/17  excl 3  FAIL
+     rf1.5_ff0.25_mg20   0/17 pass  p=0.000  plain  2/17  (iii)  6/17  excl 3  FAIL
+     rf1.5_ff0.25_mg30   0/17 pass  p=0.000  plain  1/17  (iii) 11/17  excl 3  FAIL
+     rf1.5_ff0.5_mg12    0/17 pass  p=0.000  plain  1/17  (iii)  6/17  excl 3  FAIL
+     rf1.5_ff0.5_mg20    0/17 pass  p=0.000  plain  0/17  (iii)  6/17  excl 3  FAIL
+     rf1.5_ff0.5_mg30    0/17 pass  p=0.000  plain  0/17  (iii)  9/17  excl 3  FAIL
+     rf2.0_ff0.15_mg12   0/17 pass  p=0.000  plain  1/17  (iii)  7/17  excl 3  FAIL
+     rf2.0_ff0.15_mg20   0/17 pass  p=0.000  plain  1/17  (iii)  7/17  excl 3  FAIL
+     rf2.0_ff0.15_mg30   0/17 pass  p=0.000  plain  1/17  (iii) 14/17  excl 3  FAIL
+     rf2.0_ff0.25_mg12   0/17 pass  p=0.000  plain  1/17  (iii)  5/17  excl 3  FAIL
+     rf2.0_ff0.25_mg30   0/17 pass  p=0.000  plain  1/17  (iii) 13/17  excl 3  FAIL
+     rf2.0_ff0.5_mg12    0/17 pass  p=0.000  plain  1/17  (iii)  6/17  excl 3  FAIL
+     rf2.0_ff0.5_mg20    0/17 pass  p=0.000  plain  0/17  (iii)  6/17  excl 3  FAIL
+     rf2.0_ff0.5_mg30    0/17 pass  p=0.000  plain  0/17  (iii) 12/17  excl 3  FAIL
+     rf3.0_ff0.15_mg12   0/17 pass  p=0.000  plain  1/17  (iii)  7/17  excl 3  FAIL
+     rf3.0_ff0.15_mg20   0/17 pass  p=0.000  plain  1/17  (iii)  7/17  excl 3  FAIL
+     rf3.0_ff0.15_mg30   0/17 pass  p=0.000  plain  1/17  (iii) 15/17  excl 3  FAIL
+     rf3.0_ff0.25_mg12   0/17 pass  p=0.000  plain  1/17  (iii)  5/17  excl 3  FAIL
+     rf3.0_ff0.25_mg20   0/17 pass  p=0.000  plain  1/17  (iii)  6/17  excl 3  FAIL
+     rf3.0_ff0.25_mg30   0/17 pass  p=0.000  plain  1/17  (iii) 14/17  excl 3  FAIL
+     rf3.0_ff0.5_mg12    0/17 pass  p=0.000  plain  1/17  (iii)  6/17  excl 3  FAIL
+     rf3.0_ff0.5_mg20    0/17 pass  p=0.000  plain  0/17  (iii)  6/17  excl 3  FAIL
+     rf3.0_ff0.5_mg30    0/17 pass  p=0.000  plain  0/17  (iii) 13/17  excl 3  FAIL
+MEAS-3 (control iii, Poisson): onset-arc more regular than peak-cut arc in 12/17 cities -> PASS (needs >= 70%)

@@ -102,3 +102,12 @@ at the next write and the human may strike it. No study work, no numbers.
 > Okay. Now please run the test on the measles data, in accordance with the pipeline. Thank you
 
 Context: study MEAS (H-L5 on epidemic waves, theory/SCOPE.md §3 "measles").
+
+Work under prompt 7: instrument extended (amplitude-control CI, Poisson
+transform P6/P9, onset detector); S-P rate battery and gate_L5R (GATE OPEN,
+both metrics; the concavity trap documented); study MEAS pre-registered,
+hashed, pushed before download (32f18c3 / 3869ba2), data fetched, **voided
+by its own format rule** (loader read 0 series); study MEAS2 with the loader
+corrected and hypotheses verbatim, pushed (57b6302) before the run; 1080
+city-cell-metric rows, byte-identical rerun; ledger rows MEAS-1..3 (VOID),
+MEAS2-1 (FAIL), MEAS2-2 (FAIL), MEAS2-3 (control line PASS); reports/meas2.md.

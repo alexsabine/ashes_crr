@@ -22,7 +22,9 @@ Start here, in this order:
 Status: no hypothesis has a held-out PASS. Study EQX (2026-09-15, three
 unseen streams) found that the equanimity rule Ω = 1 reduces to a fixed
 replay weight and does not beat ER-sum (`ledger/LEDGER.md` rows EQX-1..5,
-`reports/eqx.md`). The 2026-09-14 continual-learning bundle is archived under
+`reports/eqx.md`). Study MEAS2 (2026-09-15, measles in 17 English cities,
+the first Fisher-native carrier) found H-L5 fails in 0/17 cities under both
+metrics (rows MEAS2-1..3, `reports/meas2.md`). The 2026-09-14 continual-learning bundle is archived under
 `archive/` and recomputed in `audit/`; it is context, not evidence.
 
 ```
@@ -34,5 +36,6 @@ uv run python surrogates/gate.py L5
 uv run python surrogates/gate.py CUT
 uv run python surrogates/gate.py T1
 uv run python surrogates/gate.py EQ
+uv run python surrogates/gate.py L5R
 uv run python audit/recompute_2026-09-14.py
 ```
