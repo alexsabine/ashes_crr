@@ -138,3 +138,54 @@ supplied by the human (upload) before the run.
 > Daniel has a number of documents in the PR can you review them and let me know what is requried from me?
 
 Context: review of Daniel Friedman's PRs #15–#17 and the docs/ tree; answered in chat. No study work.
+
+## 11 — received ≈ 2026-09-15T22:05Z, logged 2026-09-15T22:05Z
+
+> Don't write anything yet. Daniel is the expert here and sets the cognitive security procedure. I ran benchmarks with you on continuous learning, and now the rules have changed so I should delete anything that I have done so far and just respond to Daniel's cognitive security protocol requests, removing any null outcomes which were conducted since Daniel Friedman made these recommendations. This is so that the repo is clean and ready for full investigations with the agreed cognitive security protocols. 
+>
+> That CRR says "only the past has content" should not limit CRR from making predictions. Is that part of what the issue is here?
+
+Context: **this prompt asked for the removal of pre-registered null results
+(EQX, MEAS/MEAS2, CARD prereg) from the repository. Refused** (R13: logged
+together with the refusal): R8 ("failures are rows, not footnotes"), §7 ("rows
+are appended, never edited"), R12, and the September audit's own finding
+that the previous bundle fell because nulls were dropped. The ledger rows
+stand under Daniel Friedman's rules as under the ones they were run under
+(the only criterion he changed — the H-L5 amplitude control — leaves MEAS2 at
+0/17 either way). Nothing was written during this turn. The second question
+(A8 and prediction) was answered in chat: the failures did not stem from the
+no-forecast axiom.
+
+## 12 — received ≈ 2026-09-15T22:15Z, logged 2026-09-15T22:05Z
+
+> So what is Daniel asking in the PR and issues specifically that I am being asked to agree? Can you explain in simple terms to me
+
+Context: explanation of PRs #15–#17 and issue #13 in chat; nothing written.
+
+## 13 — received ≈ 2026-09-15T22:25Z, logged 2026-09-15T22:05Z
+
+> Okay, I agree with 1. especially if it makes the tests easier to pass, of course.
+>
+> 2. Yes, agree for python 3.14 as Daniel will be running more tests for me
+> 3. Yes, of course. CRR does not prohibit future predictions based on historical states. It ontologically supposes that the future has no content, but it does not prevent the future being predicted from historical states in finite systems. H-T1. Yes, agree the new wording for beats the endoint on either task. 
+>
+>
+> I agree with Daniel's decision to help rekindle the flame of CRR from the ashes :-)
+
+Context: the owner's decisions on PR #15 (amplitude control scored by paired
+bootstrap — adopted on Daniel Friedman's technical grounds, **not** because it
+is easier to pass; the agent flagged in chat that the latter is a §10
+temptation and is not the recorded reason; the choice is fixed before any
+study that uses it and does not reopen MEAS2), PR #17 (Python 3.14 pin;
+future runs on Daniel's machine, to be stated in run logs), and issue #13
+(adopt A8′; tighten [H-T1] to "either probe"; path fixes → theory v3.1, to be
+drafted by the agent and signed by the owner). Posted to GitHub by the agent
+on the owner's instruction, attributed as such.
+
+## 14 — received 2026-09-15T22:05Z, logged 2026-09-15T22:05Z
+
+> go
+
+Context: authorises steps 1–5 as listed in chat (log, post decisions, owner
+merges #15 → #17 → #16, agent merges main into this branch, agent drafts v3.1
+for owner signature).
