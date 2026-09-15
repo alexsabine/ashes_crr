@@ -43,16 +43,26 @@ def gate_L5(x, ev, meta):
     The criterion is SCALE-FREE: CV is invariant under any positive rescaling
     of the statistic, so no sigma enters the comparison and the unit_sigma
     estimate is not consulted here (a degenerate unit scale must not flip a
-    verdict). rho = extent/sigma (extent = mean peak-to-peak of a half-turn
-    trace) is REPORTED per row, never used inside the criterion (R5)."""
+    verdict). rho = extent/sigma (extent = mean peak-to-peak of an occasion
+    trace) is REPORTED per row, never used inside the criterion (R5).
+
+    Amplitude control (CRR.md [H-L5] control (i)), scored as CRR.md prescribes
+    — by the PAIRED bootstrap on the CV difference, not by point CVs: it
+    vetoes only when amplitude alone is significantly more regular than the
+    arc (ci95_amp excluding 0 on the amplitude side). Point CVs of arc and
+    peak-to-peak amplitude are proportional on constant-period carriers and
+    tie at instrument resolution (a ~1e-14 relative gap is float dust, which
+    a strict point comparison turned into a spurious veto)."""
     if ev is None or len(ev) < 12:
         return None
     r = regularity(x, ev, sigma=1.0)
     extent = float(np.mean([np.ptp(x[a:b + 1]) for a, b in zip(ev[:-1], ev[1:])]))
     res = rho(extent, 1.0)
-    passes = (r["cv_arc"] < r["cv_clock"]) and (r["ci95"][1] < 0) and (r["cv_arc"] < r["cv_amp"])
+    passes = ((r["cv_arc"] < r["cv_clock"]) and (r["ci95"][1] < 0)
+              and not (r["ci95_amp"][0] > 0))
     detail = (f"cv_arc={r['cv_arc']:.3f} cv_clock={r['cv_clock']:.3f} cv_amp={r['cv_amp']:.3f} "
-              f"ci={r['ci95'][0]:.3f},{r['ci95'][1]:.3f} C_mean={r['C_mean']:.2f}sigma rho={res:.2f}")
+              f"ci={r['ci95'][0]:.3f},{r['ci95'][1]:.3f} ci_amp={r['ci95_amp'][0]:.3f},{r['ci95_amp'][1]:.3f} "
+              f"C_mean={r['C_mean']:.2f}sigma rho={res:.2f}")
     return passes, detail
 
 

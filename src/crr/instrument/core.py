@@ -173,7 +173,12 @@ def regularity(x: np.ndarray, events: np.ndarray, sigma: float = 1.0, dt: float 
             ddof=1 CVs need)
     Returns CVs for arc, clock, amplitude (control i), the mean arc per
     occasion in sigma (C_mean), identity-metric arc is the
-    same as arc here (1-D; control ii applies in >1-D), and the bootstrap CI.
+    same as arc here (1-D; control ii applies in >1-D), and the paired
+    bootstrap 95% CIs for both differences: cv_arc - cv_clock (the H-L5
+    criterion) and cv_arc - cv_amp (the amplitude control, CRR.md [H-L5]
+    control (i); on constant-period signals arc and peak-to-peak amplitude
+    are proportional, so their CVs tie at instrument resolution and only a
+    CI excluding 0 on the amplitude side is a match).
     For scoring across units/levels/subjects use sign_test_units (R6)."""
     x = np.asarray(x, float)
     events = np.asarray(events)
@@ -188,12 +193,16 @@ def regularity(x: np.ndarray, events: np.ndarray, sigma: float = 1.0, dt: float 
     C, T, A = map(np.asarray, (C, T, A))
     rng = np.random.default_rng(seed)
     diffs = []
+    amp_diffs = []
     for _ in range(n_boot):
         idx = rng.integers(0, len(C), len(C))
         diffs.append(cv(C[idx]) - cv(T[idx]))
+        amp_diffs.append(cv(C[idx]) - cv(A[idx]))
     lo, hi = np.percentile(diffs, [2.5, 97.5])
+    alo, ahi = np.percentile(amp_diffs, [2.5, 97.5])
     return dict(n=len(C), C_mean=float(C.mean()), cv_arc=cv(C), cv_clock=cv(T), cv_amp=cv(A),
-                diff=cv(C) - cv(T), ci95=(float(lo), float(hi)))
+                diff=cv(C) - cv(T), ci95=(float(lo), float(hi)),
+                diff_amp=cv(C) - cv(A), ci95_amp=(float(alo), float(ahi)))
 
 
 # ---------------------------------------------------------------- learners (D6)
