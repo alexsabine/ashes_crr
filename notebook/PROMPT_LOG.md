@@ -208,3 +208,15 @@ Issues and PRs; this entry is logged once, in the first restructure PR
 series): 13 audit issues filed (#2-#14); src/crr packaging, mirrored
 tests, thin scripts/, audit-fix batch, protocol-docs batch.
 theory/CRR.md untouched; ledger empty.
+
+## 16 — received 2026-09-15T22:5xZ (see logged time), logged 2026-09-15T22:24Z
+
+> @"/root/.claude/uploads/77fb7a2b-ce3d-5c52-a1a6-710031fa20e9/4d740e51-crr_cl_ledger.zip" Great. Sign.
+>
+>  I think we should also add these tests into the repo and explain why they appeared to work at the time and how we might further develop the continual learning research with Daniel's support and new cognitive security agreements.
+
+Context: owner signs theory v3.1 (commit 69442ed) — to be carried to `main`
+by PR and #13 closed. A second upload `crr_cl_ledger.zip` (upload id
+4d740e51) is compared against `archive/cl_ledger_2026-09-14/`; a
+retrospective on the 2026-09-14 continual-learning results and a forward
+plan is to be written (`reports/cl_retrospective.md`).
