@@ -88,3 +88,16 @@ def test_convex_learner_endpoint_is_sufficient_for_forgetting():
     loops = [r for r in runs if r["schedule"] == "loop"]
     S_old = [path_length(r["pred_old"], kl=kl_gauss)["S"] for r in loops]
     assert min(S_old) > 0  # a loop schedule travels far but ends near where it started
+
+
+def test_onset_detector_fires_once_per_epidemic():
+    from instrument.core import onset_events
+    from surrogates.battery import S_P_am, S_P_amfm
+    for gen in (S_P_am, S_P_amfm):
+        x, ev, _ = gen(n=12)
+        det = onset_events(x, rise_factor=2.0, floor_frac=0.25, min_cases=20.0, min_gap=20)
+        # one detected onset per synthetic epidemic after the first (the first cycle starts at 0)
+        assert len(det) == len(ev) - 1
+        # each detected onset sits shortly after a true cycle start, never before it
+        lag = np.array([d - ev[ev <= d].max() for d in det])
+        assert lag.min() >= 0 and lag.max() <= 12

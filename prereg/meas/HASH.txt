@@ -1,0 +1,9 @@
+d87299b464bb4d449ca1a4ccb459fe8510353776d2e03da3c2071c4e721cab8d  ../../runs/meas/frozen/CRR.md
+256a93246c1514080044e455569bd9805c9e07f087fae01ed8c2ec32b9467266  ../../runs/meas/frozen/__pycache__/battery.cpython-311.pyc
+b98609900b3f7885949c2218457322d773cfcc08a246da29f4b56c6b67dd1e98  ../../runs/meas/frozen/__pycache__/core.cpython-311.pyc
+39cca6081fac292f6bb3c21ff745fd0ea8dea30ab2218a4bbaccef1895f08bf0  ../../runs/meas/frozen/battery.py
+cde44bd5194a982bce8a80be8ad38f81cf1abec2957f416251fb521185e7096e  ../../runs/meas/frozen/core.py
+da6488cfa526e466ffa77a8068d1a6f21ff44e8d51273b336ed38134eda0347f  ../../runs/meas/frozen/gate.py
+c06151150d98a063430978fd70e64b19c1ee95cff5f4ca09ea64c959772dd570  ../../runs/meas/frozen/meas_score.py
+1bd619b1b341640ce8b686a3b2b2200254f97eb5ac1b84c99ba6dde7cc4e7289  ./PREREG.md
+5c12f7f4bc5b0889ca930b32799c6847637eefaa5a09802d493d28394ce5155b  ./gate_L5R.txt
