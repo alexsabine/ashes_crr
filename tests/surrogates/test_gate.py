@@ -20,7 +20,7 @@ def _passes(gate_fn, gen):
     x, ev, meta = gen()
     out = gate_fn(x, ev, meta)
     assert out is not None, f"{meta['name']}: gate returned n/a (row not scored)"
-    return out[0]
+    return bool(out[0])
 
 
 def _row(name):
