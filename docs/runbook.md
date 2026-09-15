@@ -24,7 +24,7 @@ uv lock --check         # lockfile is current
 
 ## Full command sequence
 
-The quickstart chain (README) post-restructure:
+The full check chain:
 
 ```bash
 uv sync --frozen

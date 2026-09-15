@@ -42,8 +42,7 @@ CLOSED.
 
 ```bash
 mkdir -p prereg/<study> runs/<study>/frozen
-cp src/crr/instrument/core.py theory/CRR.md runs/<study>/frozen/
-cp prereg/<study>/<study>_score.py runs/<study>/frozen/   # the scoring script lives in the prereg folder
+cp src/crr/instrument/core.py prereg/<study>/<study>_score.py theory/CRR.md runs/<study>/frozen/
 ```
 
 `PREREG.md` is written from [`prereg/PREREG_TEMPLATE.md`](../../prereg/PREREG_TEMPLATE.md):
