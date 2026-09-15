@@ -1,5 +1,5 @@
 # CRR — Coherence, Rupture, Regeneration
-## Canonical statement, v3 (September 2026)
+## Canonical statement, v3.1 (September 2026)
 
 This is the complete statement of the framework as it stands. It is written
 in the positive: nothing here depends on earlier formulations, and nothing
@@ -33,8 +33,9 @@ motion.
 
 Consequences of that shape, which are also its testing rules:
 
-- CRR **cannot forecast content or timing** (§7). Any test "against the future"
-  is not a test of CRR.
+- CRR **claims no certainty about content or timing** (§8, A8). A forecast
+  from settled occasions, scored comparatively with its error distribution,
+  is admissible; a claim that the future is fixed is not.
 - CRR is tested **at cuts**, and **comparatively**: a quantity CRR names must
   predict something the system does better than the conventional quantity
   (clock time, endpoint displacement) — see §4, §5.
@@ -116,7 +117,7 @@ Consequences that matter for testing:
 - **Peak detection is not the cut.** A pipeline that locates cuts with a peak
   finder is measuring waveform extrema, and its results say nothing about
   A3. The cut must be implemented as an oriented phase criterion
-  (`instrument/core.py: antipodal_cuts`).
+  (`src/crr/instrument/core.py: antipodal_cuts`).
 - A3 is testable only where the antipodal cut and the peak cut **disagree**:
 
 **[H-CUT]** On carriers where phase-antipode and extremum differ (asymmetric
@@ -205,7 +206,7 @@ PASS):* a frequency-modulated sine with constant amplitude and a relaxation
 oscillator with fixed threshold and variable charging rate — systems in
 which "change has its own clock" is true by construction. H-L5 is therefore
 an empirical claim about which class a real system belongs to; it is not
-tautological, and the gate (`surrogates/gate.py L5`) shows the instrument
+tautological, and the gate (`python -m crr.surrogates.gate L5`) shows the instrument
 separates the two classes.
 **Ledger (2026-09-15, rows MEAS2-1, MEAS2-2):** on measles epidemics in 17
 English cities (own events = epidemic onsets; Fisher-native Poisson carrier,
@@ -231,9 +232,12 @@ second order, √(2·KL(p_{θ_{t−1}} ‖ p_{θ_t})) averaged over the probe. S
 
 **[H-T1] Forgetting tracks the path, not the endpoint.** For fine-tuning on a
 new task, the forgetting F of an old task (rise in old-task loss) is
-predicted better by C_new or C_old than by E on the new task, **with learning
-rate controlled** (path length varied at fixed lr by schedule) and scored on
-held-out runs. *Must fail on:* a convex learner (linear model, convex loss),
+predicted better by C_new or C_old than by the endpoint displacement E on
+**either** probe (E_new or E_old), **with learning rate controlled** (path
+length varied at fixed lr by schedule) and scored on held-out runs. *(v3.1:
+tightened from "than by E on the new task": for a convex learner E_old is a
+sufficient statistic for F — `theory/checks/verify_scope_math.py`; ledger row
+ARC-T1b.)* *Must fail on:* a convex learner (linear model, convex loss),
 where forgetting is a function of the endpoint alone.
 
 ---
@@ -278,10 +282,15 @@ reparameterisation, not a measurement.
 **[A7] Relational tense.** What is future for a system can only be fed by
 what is already past for something. Nothing is fed by a future.
 
-**[A8] No valence, no forecast.** Persistence proves regeneratability, not
-truth. CRR forbids itself any prediction of the *content* or *clock time* of
-a future occasion. Its predictions are relations that hold at cuts,
-inequalities, and comparisons of regularity.
+**[A8] No valence, no certainty.** Persistence proves regeneratability, not
+truth. CRR supposes ontologically that the future has no content. It does
+not prohibit predicting the future of a finite system from its settled past;
+such a forecast is a prediction with an error distribution, scored
+comparatively against the conventional forecast (clock time, endpoint), and
+never knowledge of the future. CRR makes no claim that the *content* or
+*clock time* of a future occasion is fixed. Its predictions are relations
+that hold at cuts, inequalities, comparisons of regularity, and conditional
+forecasts of that kind. *(v3.1: amended from "no forecast"; see changelog.)*
 
 ---
 
@@ -291,7 +300,19 @@ inequalities, and comparisons of regularity.
 |---|---|---|---|
 | H-CUT | own events sit at the phase antipode, not the extremum | extremum wins where they differ | symmetric cycles (nothing to test); scored on events, not on noise-induced disagreement |
 | H-L5 | C between events more regular than clock, beyond controls | CV_C ≥ CV_Δt, or a control matches it | pure sine, AM sine, clock-regular relaxation oscillator (must pass on FM sine and arc-regular oscillator) |
-| H-T1 | forgetting tracks path length, lr controlled | endpoint predicts as well | convex learner |
+| H-T1 | forgetting tracks path length, lr controlled | an endpoint on either probe predicts as well | convex learner |
 | H-EQ | Ω = 1 gradient balance beats ER-sum and best fixed w | ties either | convex learner |
 
 Everything else in this document is definition, standard mathematics, or open.
+
+---
+
+## Changelog
+
+**v3.1 (2026-09-15, owner-approved, issue #13).** [A8] amended from "no
+forecast" to "no certainty": conditional, comparative forecasts from settled
+occasions are admissible (this opens the H-F quota-forecaster form,
+SCOPE.md §5, once `gate_F` exists). [H-T1] tightened to "either probe". Code
+paths in §2 and §4 refreshed to the `src/crr` layout. No axiom, definition or
+proposition other than A8 changed. Frozen copies of v3 under
+`runs/*/frozen/CRR.md` remain as hashed.

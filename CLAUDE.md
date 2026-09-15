@@ -300,8 +300,12 @@ random-walk-scaled arc (arc computed with identity metric); CV of arc under
   excludes 0. FAIL if < 60 % or CI includes 0.
 - L5x-2 margin: median relative margin ≥ the smallest margin that survives
   the sensitivity sweep (state the number). Report all margins.
-- L5x-3 antipode specificity: arc under `antipodal_cut` beats arc under
-  `peak_cut` in ≥ 70 % of units. This is the only line that tests A3.
+- L5x-3 antipode specificity — **diagnostic only, not a hypothesis** (v3.1):
+  arc under `antipodal_cut` vs arc under `peak_cut`. `gate_A3` shows this
+  comparison passes on jittered asymmetric surrogates with no CRR content
+  (S-C, S-E) because the peak finder segments them inconsistently; it is
+  reported per unit, never scored. A3 is tested only by H-CUT (own events
+  vs antipode vs extremum), which needs its own gate.
 - Quality gate: exclude units with ρ < ρ_floor (state it), flat channel,
   or < N cycles; count exclusions.
 - Sensitivity table (required): phase method × filter window × prominence
