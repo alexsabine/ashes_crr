@@ -1,12 +1,13 @@
 """Hypothesis gate (CLAUDE.md R4).
 
-    uv run python surrogates/gate.py L5
-    uv run python surrogates/gate.py CUT
-    uv run python surrogates/gate.py T1
+    uv run python -m crr.surrogates.gate L5
+    uv run python -m crr.surrogates.gate CUT
+    uv run python -m crr.surrogates.gate T1
 
 Prints one row per surrogate: the statistic, PASS/FAIL under the candidate
 criterion, and whether that outcome is the one theory/CRR.md requires. Commit
-the output into prereg/<study>/gate_<hyp>.txt. A hypothesis whose row for a
+the output into prereg/<study>/gate_<hyp>.txt (the standing Phase-A outputs
+are committed at runs/phaseA/gate_<hyp>.txt). A hypothesis whose row for a
 "must fail" surrogate reads PASS may not enter a pre-registration.
 """
 from __future__ import annotations
@@ -15,10 +16,9 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, ".")
-from instrument.core import (antipodal_cuts, intrinsic_phase, kl_gauss, path_length,  # noqa: E402
-                             peak_cuts, regularity, unit_sigma)
-from surrogates.battery import BATTERY, LEARNER_BATTERY  # noqa: E402
+from crr.instrument.core import (antipodal_cuts, intrinsic_phase, kl_gauss, path_length,
+                                 peak_cuts, regularity, unit_sigma)
+from crr.surrogates.battery import BATTERY, LEARNER_BATTERY
 
 # Negative controls: the hypothesis MUST fail here (no CRR content, or nothing to distinguish).
 MUST_FAIL = {

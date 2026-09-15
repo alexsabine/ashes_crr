@@ -1,8 +1,9 @@
 import numpy as np
 import pytest
 
-from instrument.core import (antipodal_cuts, arc_length, chord, intrinsic_phase, kl_gauss,
-                             occasions, path_length, peak_cuts, regularity, surplus, unit_sigma)
+from crr.instrument.core import (antipodal_cuts, arc_length, chord, intrinsic_phase, kl_gauss,
+                                occasions, path_length, peak_cuts, regularity, surplus, unit_sigma)
+from crr.surrogates.battery import S_H_convex_learner
 
 
 def test_surplus_nonnegative_and_zero_iff_monotone():
@@ -80,7 +81,6 @@ def test_kl_gauss_sqrt2kl_is_exact_fr_distance():
 def test_convex_learner_endpoint_is_sufficient_for_forgetting():
     # SCOPE.md lemma: on S-H, F is (up to the held-out set) a fixed multiple of E_old,
     # so E_old explains F almost perfectly and the path cannot add to it.
-    from surrogates.battery import S_H_convex_learner
     runs, _, _ = S_H_convex_learner(n_runs=30)
     F = np.array([r["F"] for r in runs])
     E_old = np.array([path_length(r["pred_old"], kl=kl_gauss)["E"] for r in runs])
