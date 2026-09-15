@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  phase-a:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      # R9: run logs carry the provenance (commit, lock hash, interpreter).
+      - name: Provenance
+        run: |
+          echo "commit: $(git rev-parse HEAD)"
+          echo "sha256(uv.lock): $(sha256sum uv.lock | cut -d' ' -f1)"
+          uv run python --version
+
+      - name: Sync pinned environment
+        run: |
+          uv sync --frozen
+          uv lock --check
+
+      - name: Tests (instrument, surrogates, theory checks)
+        run: uv run pytest
+
+      - name: Symbolic verification of the [P] propositions
+        run: |
+          uv run python theory/checks/verify_math.py
+          uv run python theory/checks/verify_scope_math.py
+
+      - name: Surrogate gates must read GATE OPEN
+        run: |
+          uv run python -m crr.surrogates.gate L5
+          uv run python -m crr.surrogates.gate CUT
+          uv run python -m crr.surrogates.gate T1
