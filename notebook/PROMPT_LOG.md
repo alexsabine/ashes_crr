@@ -226,3 +226,9 @@ plan is to be written (`reports/cl_retrospective.md`).
 > Right, so in the report before we said w=1 was just standard replay. Think carefully, why does this omega=1 principle matter? The idea before was that we were reducing replay and replacing a tuned parameter for a derived one
 
 Context: conceptual question, answered in chat from the ledger (EQX, ARC rows) and the gate_EQ table; no study work.
+
+## 18 — received 2026-09-15T23:22Z, logged 2026-09-15T23:22Z
+
+> Okay, Daniel can run on his own python system on the official repo. Am I allowed to run a playground test with you to further explore it in principle? I don't want to disturb or clutter the repo. It is just an opportunity to learn more about it
+
+Context: question about running exploratory work outside the repository (agent scratchpad). Answered in chat; conditions stated (prompts still logged; synthetic data only, or any real data appended to SEEN.md; nothing from the playground enters the ledger).
