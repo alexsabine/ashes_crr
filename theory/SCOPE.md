@@ -151,6 +151,7 @@ can only lose to it. The gate table shows it:
 S-H  convex learner   R2(C)=0.09  R2(E_new)=0.98  R2(E_old)=0.997   -> FAIL (correct)
 S-H2 wear learner     R2(C)=0.45  R2(E_new)=0.17  R2(E_old)=0.22    -> PASS (instrument sees path-dependence)
 ```
+(emitting output committed at runs/phaseA/gate_T1.txt)
 
 Two consequences for Study T1x as written in CLAUDE.md §5:
 

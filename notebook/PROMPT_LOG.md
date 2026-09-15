@@ -49,3 +49,14 @@ S-H / S-H2 learner surrogates, `kl_gauss`, `gate_T1` (GATE OPEN); CLAUDE.md
 §3.2, §3.3, §5 updated to match. `theory/CRR.md` untouched. `gate_EQ` not
 written. The seed zip is removed from the tree (superseded by the unpacked
 files).
+
+## 3 — received ≈ 2026-09-15T18:35Z, logged 2026-09-15T20:21Z
+
+> Now -- this is a repo we are helping to audit and structure. So ultrathink and orchestrate an audit, make informative PRs with all improvements, additions, refactorings, including e.g. a docs/ folder with modular subfolders, src/ with sub-modules, tests/ folder with same structure as the src/ , thin orchestrator scripts/ folder, retaining and refining the analytical essence and detail of the CRR, comprehensively working carefully and using Issues and PRs to maximum extent.
+
+Context: prompt directs a repo-wide audit-and-restructure programme using
+Issues and PRs; this entry is logged once, in the first restructure PR
+(docs and CI PRs cross-reference it). Work under this prompt (this commit
+series): 13 audit issues filed (#2-#14); src/crr packaging, mirrored
+tests, thin scripts/, audit-fix batch, protocol-docs batch.
+theory/CRR.md untouched; ledger empty.

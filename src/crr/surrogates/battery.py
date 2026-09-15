@@ -7,6 +7,8 @@ the sample indices of the signal's own boundary events (or None).
 """
 from __future__ import annotations
 
+from functools import partial
+
 import numpy as np
 from scipy.integrate import solve_ivp
 
@@ -74,11 +76,45 @@ def S_E_asymmetric(n=60, seed=0):
 
 def S_F_vanderpol(mu=5.0, T=400.0, dt=0.05, seed=0):
     f = lambda t, y: [y[1], mu * (1 - y[0] ** 2) * y[1] - y[0]]
-    sol = solve_ivp(f, (0, T), [2.0, 0.0], t_eval=np.arange(0, T, dt), rtol=1e-8, atol=1e-10)
+    # explicit RK45 on a fixed eval grid: byte-identical across reruns on the
+    # locked scipy (R9)
+    sol = solve_ivp(f, (0, T), [2.0, 0.0], t_eval=np.arange(0, T, dt), method="RK45",
+                    rtol=1e-8, atol=1e-10)
     x = sol.y[0][int(50 / dt):]
     # events: upward zero crossings
     ev = np.where((x[:-1] < 0) & (x[1:] >= 0))[0]
     return x, ev, {"name": f"S-F van der Pol mu={mu}"}
+
+
+def S_F_roessler(T=1200.0, dt=0.05, seed=0):
+    """Rössler attractor (a=0.2, b=0.2, c=5.7). Events: upward zero crossings
+    of x. Chaotic: no control verdict is assigned to this row (CLAUDE.md §3.2
+    lists it for coverage, not as a control)."""
+    def f(t, y):
+        return [-y[1] - y[2], y[0] + 0.2 * y[1], 0.2 + y[2] * (y[0] - 5.7)]
+    # explicit RK45 on a fixed eval grid: byte-identical across reruns on the
+    # locked scipy (R9)
+    sol = solve_ivp(f, (0, T), [1.0, 0.0, 0.0], t_eval=np.arange(0, T, dt), method="RK45",
+                    rtol=1e-8, atol=1e-10)
+    x = sol.y[0][int(100 / dt):]
+    ev = np.where((x[:-1] < 0) & (x[1:] >= 0))[0]
+    return x, ev, {"name": "S-F Rossler (a=0.2, b=0.2, c=5.7)"}
+
+
+def S_F_duffing(T=1000.0, dt=0.05, seed=0):
+    """Forced double-well Duffing oscillator x'' + 0.15 x' - x + x^3 = 0.3 cos(t)
+    (standard chaotic parameters: delta=0.15, gamma=0.3, omega=1). Events:
+    upward zero crossings of x (interwell hops). Chaotic: no control verdict
+    is assigned to this row (CLAUDE.md §3.2 lists it for coverage)."""
+    def f(t, y):
+        return [y[1], 0.3 * np.cos(t) - 0.15 * y[1] + y[0] - y[0] ** 3]
+    # explicit RK45 on a fixed eval grid: byte-identical across reruns on the
+    # locked scipy (R9)
+    sol = solve_ivp(f, (0, T), [1.0, 0.0], t_eval=np.arange(0, T, dt), method="RK45",
+                    rtol=1e-8, atol=1e-10)
+    x = sol.y[0][int(100 / dt):]
+    ev = np.where((x[:-1] < 0) & (x[1:] >= 0))[0]
+    return x, ev, {"name": "S-F forced Duffing (delta=0.15, gamma=0.3, omega=1)"}
 
 
 def S_G_relaxation(n=60, seed=0, thresh_cv=0.15):
@@ -88,7 +124,7 @@ def S_G_relaxation(n=60, seed=0, thresh_cv=0.15):
     T = 100
     xs, ev, pos = [], [0], 0
     for _ in range(n):
-        thr = 1.0 * rng.normal(1, thresh_cv)
+        thr = rng.normal(1, thresh_cv)
         ramp = np.linspace(0, thr, T, endpoint=False)
         xs.append(ramp); pos += T; ev.append(pos)
     return np.concatenate(xs), np.asarray(ev[:-1]), {"name": "S-G relaxation osc. (clock-regular, amplitude-variable)"}
@@ -113,7 +149,7 @@ def S_G2_relaxation_arc_regular(n=60, seed=0, rate_cv=0.15):
 LEARNER_SCHEDULES = ("constant", "sawtooth", "cosine_restarts", "grad_noise", "loop")
 
 
-def _lr_multiplier(schedule: str, t: int, T: int) -> float:
+def _lr_multiplier(schedule: str, t: int) -> float:
     if schedule == "constant" or schedule == "grad_noise" or schedule == "loop":
         return 1.0
     if schedule == "sawtooth":  # linear decay 1 -> 0.1 every 20 steps
@@ -158,7 +194,7 @@ def _linear_finetune_runs(seed, n_runs, wear, d=20, n_train=200, n_probe=200, T=
                 g = 2 * XB.T @ (XB @ th - yB) / n_train
             if schedule == "grad_noise":
                 g = g + 1.0 * run_rng.standard_normal(d)
-            step = -lr * _lr_multiplier(schedule, t, T) * g
+            step = -lr * _lr_multiplier(schedule, t) * g
             th = th + step; wear_acc += np.linalg.norm(step)
             pred_old.append(probe_old @ th); pred_new.append(probe_new @ th)
         if not np.all(np.isfinite(th)):
@@ -185,6 +221,14 @@ def S_H2_wear_learner(n_runs=60, seed=0, gamma=0.5):
 
 LEARNER_BATTERY = [S_H_convex_learner, S_H2_wear_learner]
 
-BATTERY = [S_A_sine, S_A1_fm_sine, S_A2_am_sine, S_A3_amfm_sine, S_B_sine_bump,
-           S_C_lobed_ramp, S_D_noisy_sine, S_E_asymmetric, S_F_vanderpol,
-           S_G_relaxation, S_G2_relaxation_arc_regular]
+# One ROW per registered parameter value: the row name encodes the parameter
+# (the gate keys MUST_FAIL/MUST_PASS on these names). The sweeps of S-C and
+# S-D and the mu=1 van der Pol variant are separate rows of the same generator.
+BATTERY = [
+    S_A_sine, S_A1_fm_sine, S_A2_am_sine, S_A3_amfm_sine, S_B_sine_bump,
+    *[partial(S_C_lobed_ramp, lam=lam) for lam in (0.0, 0.25, 0.5, 1.0)],
+    *[partial(S_D_noisy_sine, rho=r) for r in (5.0, 10.0, 20.0, 40.0, 80.0)],
+    S_E_asymmetric,
+    S_F_vanderpol, partial(S_F_vanderpol, mu=1.0), S_F_roessler, S_F_duffing,
+    S_G_relaxation, S_G2_relaxation_arc_regular,
+]

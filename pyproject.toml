@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
 [project]
 name = "crr-validation"
 version = "0.1.0"
@@ -10,6 +14,9 @@ dependencies = [
   "opentimestamps-client>=0.7",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/crr"]
+
 [tool.pytest.ini_options]
-pythonpath = ["."]
-testpaths = ["instrument/tests"]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
