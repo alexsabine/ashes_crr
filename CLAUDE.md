@@ -341,6 +341,7 @@ logs are available; if not, say so.
 
 **What the ledger actually showed.** The adaptive rule
 w = Ω·‖ḡ_present‖/‖ḡ_past‖ with Ω = 1 was within 1 pt of a fixed w = 1,
+Fisher vs Euclidean made no difference, and the ER baseline in
 `mlp_bench.py` (prior-work artifact, not in this tree; recreate and freeze
 before any EQ prereg) concatenates stream and replay batches into one mean
 loss (replay weight ≈ r), so "Ω = 1" may simply be "sum the two losses",
@@ -411,7 +412,7 @@ uv run python -m crr.surrogates.gate <hypothesis-id> > prereg/<study>/gate_<hypo
 
 # 2. write PREREG.md; copy frozen scripts
 mkdir -p prereg/<study> runs/<study>/frozen
-cp src/crr/instrument/core.py src/crr/surrogates/<study>_score.py theory/CRR.md runs/<study>/frozen/
+cp src/crr/instrument/core.py prereg/<study>/<study>_score.py theory/CRR.md runs/<study>/frozen/
 
 # 3. hash + anchor + tag (BEFORE any data) — one hash over the prereg folder
 #    plus the frozen-script folder (R2)
