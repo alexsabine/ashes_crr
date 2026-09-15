@@ -1,0 +1,27 @@
+gate for CUT
+  must FAIL on ['S-A sine', 'S-F van der Pol mu=1.0', 'S-F van der Pol mu=5.0']
+  must PASS on ['S-E asymmetric multi-harmonic']
+
+  S-A sine                                                FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-A' FM sine (constant amplitude)                       FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-A'' AM sine (constant period)                         FAIL  median |antipode-extremum| = 0.020 half-turns
+  S-A''' AM+FM sine                                       FAIL  median |antipode-extremum| = 0.019 half-turns
+  S-B sine + dicrotic bump                                FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-C lobed ramp (lambda=0.0)                             PASS  median |antipode-extremum| = 0.482 half-turns
+  S-C lobed ramp (lambda=0.25)                            PASS  median |antipode-extremum| = 0.463 half-turns
+  S-C lobed ramp (lambda=0.5)                             PASS  median |antipode-extremum| = 0.495 half-turns
+  S-C lobed ramp (lambda=1.0)                             PASS  median |antipode-extremum| = 0.555 half-turns
+  S-D sine + white noise (rho~5.0)                        PASS  median |antipode-extremum| = 0.500 half-turns (noise reference line, SCOPE §7.4)
+  S-D sine + white noise (rho~10.0)                       PASS  median |antipode-extremum| = 0.232 half-turns (noise reference line, SCOPE §7.4)
+  S-D sine + white noise (rho~20.0)                       PASS  median |antipode-extremum| = 0.136 half-turns (noise reference line, SCOPE §7.4)
+  S-D sine + white noise (rho~40.0)                       FAIL  median |antipode-extremum| = 0.041 half-turns (noise reference line, SCOPE §7.4)
+  S-D sine + white noise (rho~80.0)                       FAIL  median |antipode-extremum| = 0.020 half-turns (noise reference line, SCOPE §7.4)
+  S-E asymmetric multi-harmonic                           PASS  median |antipode-extremum| = 0.063 half-turns
+  S-F van der Pol mu=5.0                                  FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-F van der Pol mu=1.0                                  FAIL  median |antipode-extremum| = 0.014 half-turns
+  S-F Rossler (a=0.2, b=0.2, c=5.7)                       PASS  median |antipode-extremum| = 0.146 half-turns
+  S-F forced Duffing (delta=0.15, gamma=0.3, omega=1)     FAIL  median |antipode-extremum| = 0.039 half-turns
+  S-G relaxation osc. (clock-regular, amplitude-variable) PASS  median |antipode-extremum| = 0.264 half-turns
+  S-G2 relaxation osc. (arc-regular by construction)      PASS  median |antipode-extremum| = 0.394 half-turns
+
+GATE OPEN

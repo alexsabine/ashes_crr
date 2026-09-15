@@ -1,0 +1,10 @@
+gate for T1
+  must FAIL on ['S-H convex learner (endpoint-sufficient)']
+  must PASS on ['S-H2 wear learner (path-dependent by construction)']
+
+  S-H convex learner (endpoint-sufficient)                FAIL  R2(C_new)=0.093 R2(C_old)=0.083 R2(E_new)=0.978 R2(E_old)=0.997  |  path-endpoint=-0.904  n=60  S<0 in 0% of runs (old probe)  |  partial-R2(+lr): R2(C_new|lr)=0.188 R2(E_old|lr)=0.997
+  S-H2 wear learner (path-dependent by construction)      PASS  R2(C_new)=0.435 R2(C_old)=0.453 R2(E_new)=0.172 R2(E_old)=0.222  |  path-endpoint=+0.231  n=60  S<0 in 0% of runs (old probe)  |  partial-R2(+lr): R2(C_old|lr)=0.507 R2(E_old|lr)=0.406
+
+  (EQ is not gated yet: gate_EQ needs a replay learner and the ER-sum control; see SCOPE.md §6)
+
+GATE OPEN
