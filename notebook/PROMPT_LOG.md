@@ -49,3 +49,14 @@ S-H / S-H2 learner surrogates, `kl_gauss`, `gate_T1` (GATE OPEN); CLAUDE.md
 §3.2, §3.3, §5 updated to match. `theory/CRR.md` untouched. `gate_EQ` not
 written. The seed zip is removed from the tree (superseded by the unpacked
 files).
+
+## 3 — received 2026-09-15T18:00Z, logged 2026-09-15T18:12Z
+
+> @"/root/.claude/uploads/77fb7a2b-ce3d-5c52-a1a6-710031fa20e9/1f80d1a1-crr_cl_ledger.zip" Okay. Let's focus on the continual learning checks please. Test the equanimity rule Omega=1 .
+>
+> Add this set to the repo, and run the full epistemic checks in accordance with the pipeline, see what surivives, if anything. Thank you
+
+Context: the upload is `crr_cl_ledger.zip` (the 14 September 2026
+continual-learning bundle: ledger, five pre-registrations, MLP / CIFAR / LM
+pipelines, run scripts, raw jsonl results, and a 13-page prior-art PDF).
+Imported verbatim to `archive/cl_ledger_2026-09-14/`.
