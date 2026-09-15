@@ -83,9 +83,12 @@ hypothesis must be restated or a control added before anything proceeds
 
 ### What each gate tests
 
-- **L5** — the H-L5 shape (CRR.md §4): arc-CV beats clock-CV, the
-  paired-bootstrap CI of the difference excludes 0 on the negative side,
-  and arc also beats the amplitude-only control.
+- **L5** — the H-L5 shape (CRR.md §4): arc-CV beats clock-CV with the
+  paired-bootstrap CI of the difference excluding 0 on the negative
+  side, and the amplitude control scored the same way — by its own CI
+  (`ci95_amp`), not by strict point CVs, which tie at floating-point
+  precision on constant-period carriers. L5 rows in the committed
+  tables carry `ci_amp=lo,hi`.
 - **CUT** — *testability* of A3, not a prediction: on a symmetric cycle
   (sine, van der Pol) antipodes and extrema coincide — nothing to test,
   gate reads FAIL; on an asymmetric waveform (S-E) they disagree. The

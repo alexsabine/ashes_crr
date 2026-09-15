@@ -110,12 +110,16 @@ The H-L5 statistic: CV of the arc accumulated between consecutive
 boundary events vs CV of the clock duration between the same events,
 with a **paired bootstrap** (occasion resampling, `n_boot` draws, fixed
 `seed`) 95% CI on the difference. Returns `n`, `cv_arc`, `cv_clock`,
-`cv_amp`, `diff`, `ci95`, and `C_mean` (mean arc per occasion, in σ —
-added by the restructure PR). `events` are the sample indices of the
-**system's own** boundary events; fewer than 3 raises `ValueError`
-(post-fix, audit #4). The amplitude control (control i) is reported as
-`cv_amp`; the identity-metric arc coincides with `arc_length` in 1-D,
-so control (ii) has bite only in >1-D (`theory/SCOPE.md` §2).
+`diff`, `ci95`, and `C_mean` (mean arc per occasion, in σ — added by
+the restructure PR), plus the amplitude control's `cv_amp`, `diff_amp`
+and `ci95_amp`. `events` are the sample indices of the **system's own**
+boundary events; fewer than 3 raises `ValueError` (post-fix, audit #4).
+The amplitude control (control i) is scored by its own paired
+bootstrap — point CVs of arc vs amplitude tie at floating-point
+precision on constant-period carriers, so the comparison runs on the
+CI, not on strict point CVs. The identity-metric arc coincides with
+`arc_length` in 1-D, so control (ii) has bite only in >1-D
+(`theory/SCOPE.md` §2).
 
 ### `sign_test_units(unit_stats) -> (fraction, p)`
 
