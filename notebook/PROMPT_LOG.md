@@ -238,3 +238,9 @@ Context: question about running exploratory work outside the repository (agent s
 > Yes, run the test
 
 Context: playground (agent scratchpad, outside the repo, synthetic data only): does the norm-ratio weight recover a tuned mixed-units replay weight across setups? No repo artefacts; no ledger numbers.
+
+## 20 — received 2026-09-15T23:30Z, logged 2026-09-15T23:30Z
+
+> Run a full sweep and see if it falls on Omega=1 and what the implications are of this for a fuller test that Daniel can run
+
+Context: playground (scratchpad, synthetic only): Omega sweep on the mixed-units learner; no repo artefacts, no ledger numbers.
