@@ -60,3 +60,13 @@ Context: the upload is `crr_cl_ledger.zip` (the 14 September 2026
 continual-learning bundle: ledger, five pre-registrations, MLP / CIFAR / LM
 pipelines, run scripts, raw jsonl results, and a 13-page prior-art PDF).
 Imported verbatim to `archive/cl_ledger_2026-09-14/`.
+
+Work under this prompt: archive imported (`archive/cl_ledger_2026-09-14/`);
+`audit/recompute_2026-09-14.py` recomputed every EQ / T1 / T2 / T3 number from
+the raw jsonl; S-R / S-V convex replay surrogates and `gate_EQ` written (GATE
+OPEN); study EQX pre-registered (`prereg/eqx/`), hashed, committed and pushed
+(`231f75b`, 18:15:10Z) **before** any download; `ots stamp` failed (calendars
+blocked) and the signed tag could not be pushed (remote refused tag refs) —
+both recorded in `runs/eqx/RUNLOG.md`; three unseen PMLB datasets fetched
+(LFS-oid-verified), `data/SEEN.md` appended; 198 runs from the frozen script;
+scored once; 17 ledger rows appended (12 archive, 5 EQX); `reports/eqx.md`.

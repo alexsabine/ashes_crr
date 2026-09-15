@@ -22,11 +22,15 @@ say so.
 
 `theory/CRR.md` is the complete statement of the framework. It contains four
 falsifiable hypotheses (H-CUT, H-L5, H-T1, H-EQ) and nothing else that can
-be tested. The repository ledger is empty: **no hypothesis has a held-out
-PASS**. Two earlier results (below) motivated H-L5 and H-T1; they were
-produced under a pipeline the audit rejected and are context, not evidence. Both are
-*comparative* claims: a quantity CRR names beats a conventional quantity at
-predicting something the system does.
+be tested. **No hypothesis has a held-out PASS.** The ledger holds (i) twelve
+`ARC-*` rows recomputed from the 2026-09-14 continual-learning bundle
+(`archive/`, seen data, no hashes in bundle) and (ii) five `EQX-*` rows from
+study EQX (2026-09-15, three unseen PMLB streams, weakly anchored): the
+equanimity rule at Ω = 1 **reduces to a fixed replay weight** and does not
+beat ER-sum (`reports/eqx.md`). Two earlier results (below) motivated H-L5
+and H-T1; they were produced under a pipeline the audit rejected and are
+context, not evidence. Both are *comparative* claims: a quantity CRR names
+beats a conventional quantity at predicting something the system does.
 
 - **L5 (p4581 stick-slip).** Fisher arc travelled since the last slip is a
   more regular predictor of the next slip than clock time: CV(arc-to-slip)
@@ -36,6 +40,9 @@ predicting something the system does.
   travelled during fine-tuning (Σ√(2·KL_step)) better than the endpoint
   displacement (KL base→final on the new task): R² 0.89 vs 0.76, n = 20
   runs, gap opening on sawtooth schedules. Confounded by learning rate.
+  Recomputed 2026-09-15 (ledger ARC-T1b): the endpoint KL on the **old**
+  probe gives R² 0.99 on the same runs — the path did not beat the endpoint,
+  it beat the wrong endpoint.
 
 Treat all prior "confirmations" as if they do not exist. Do not cite them,
 and do not go looking for earlier CRR documents or repositories: any

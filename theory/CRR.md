@@ -174,6 +174,12 @@ the Fisher metric made no difference. It counts as a result only if it beats
 experience replay with the two losses summed (the standard baseline) and the
 best fixed w, on data not used to choose the estimator. *Must fail on:* a
 convex learner with no forgetting to trade off.
+**Ledger (2026-09-15, rows EQX-1…5):** on three unseen streams the rule was
+behind the best fixed w on 3/3 and never ahead of ER-sum by a resolvable
+step; its median effective w was 1.04–1.12. It reduces to the constant. The
+Euclidean ratio beat the Fisher ratio on all three. H-EQ is retired as an
+adaptive rule; it survives only as the observation that summing the two batch
+means (w = 1) is a reasonable default.
 
 ---
 

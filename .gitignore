@@ -3,3 +3,4 @@ runs/**/stdout*.txt
 __pycache__/
 .pytest_cache/
 *.npz
+runs/data

@@ -19,9 +19,11 @@ Start here, in this order:
    until a study runs.
 7. `notebook/PROMPT_LOG.md` — every human prompt, verbatim (rule R13).
 
-Status: no hypothesis has a held-out PASS. Earlier work on CRR (before
-September 2026) was withdrawn after independent audit and is not part of
-this repository.
+Status: no hypothesis has a held-out PASS. Study EQX (2026-09-15, three
+unseen streams) found that the equanimity rule Ω = 1 reduces to a fixed
+replay weight and does not beat ER-sum (`ledger/LEDGER.md` rows EQX-1..5,
+`reports/eqx.md`). The 2026-09-14 continual-learning bundle is archived under
+`archive/` and recomputed in `audit/`; it is context, not evidence.
 
 ```
 uv sync --frozen
@@ -31,4 +33,6 @@ uv run python theory/checks/verify_scope_math.py
 uv run python surrogates/gate.py L5
 uv run python surrogates/gate.py CUT
 uv run python surrogates/gate.py T1
+uv run python surrogates/gate.py EQ
+uv run python audit/recompute_2026-09-14.py
 ```
