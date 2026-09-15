@@ -104,6 +104,87 @@ def S_G2_relaxation_arc_regular(n=60, seed=0, rate_cv=0.15):
     return np.concatenate(xs), np.asarray(ev[:-1]), {"name": "S-G2 relaxation osc. (arc-regular by construction)"}
 
 
+# ---------------------------------------------------------------- learner surrogates (H-T1, H-EQ)
+# These do not return a signal; they return a list of fine-tuning RUNS. Each run
+# is a dict with per-step predictions on a fixed old-task probe and a fixed
+# new-task probe, plus the forgetting F it produced. The gate scores whether
+# path length predicts F better than endpoint displacement (CLAUDE.md §5).
+
+LEARNER_SCHEDULES = ("constant", "sawtooth", "cosine_restarts", "grad_noise", "loop")
+
+
+def _lr_multiplier(schedule: str, t: int, T: int) -> float:
+    if schedule == "constant" or schedule == "grad_noise" or schedule == "loop":
+        return 1.0
+    if schedule == "sawtooth":  # linear decay 1 -> 0.1 every 20 steps
+        return 1.0 - 0.9 * ((t % 20) / 20.0)
+    if schedule == "cosine_restarts":  # cosine 1 -> 0 every 25 steps
+        return 0.5 * (1 + np.cos(np.pi * (t % 25) / 25.0))
+    raise ValueError(schedule)
+
+
+def _linear_finetune_runs(seed, n_runs, wear, d=20, n_train=200, n_probe=200, T=100,
+                          lrs=(0.02, 0.05, 0.1), noise_sd=0.3, wear_gamma=0.0):
+    """Linear model, squared loss (convex). Trained to the task-A optimum, then
+    fine-tuned on task B under a schedule. Predictive family: N(x.theta, 1).
+
+    wear=False (S-H): forgetting F = L_A(theta_T) - L_A(theta_0) on a held-out
+        task-A set — a function of the endpoint only (SCOPE.md lemma).
+    wear=True  (S-H2): F additionally accumulates gamma * ||delta theta|| per step —
+        path-dependent damage by construction (the instrument must see it).
+    """
+    rng = np.random.default_rng(seed)
+    thA = rng.standard_normal(d); thB = thA + 1.5 * rng.standard_normal(d)
+    # tasks have different (anisotropic) input covariances so that endpoint
+    # displacement on the NEW probe is not trivially the same number as on the OLD one
+    sA = np.exp(rng.uniform(-0.7, 0.7, d)); sB = np.exp(rng.uniform(-0.7, 0.7, d))  # lr grid is stable for these
+    XA = rng.standard_normal((n_train, d)) * sA; yA = XA @ thA + noise_sd * rng.standard_normal(n_train)
+    XB = rng.standard_normal((n_train, d)) * sB; yB = XB @ thB + noise_sd * rng.standard_normal(n_train)
+    XA_test = rng.standard_normal((n_probe, d)) * sA; yA_test = XA_test @ thA + noise_sd * rng.standard_normal(n_probe)
+    probe_old = rng.standard_normal((n_probe, d)) * sA; probe_new = rng.standard_normal((n_probe, d)) * sB
+    th0 = np.linalg.lstsq(XA, yA, rcond=None)[0]
+    LA0 = np.mean((XA_test @ th0 - yA_test) ** 2)
+    runs = []
+    k = 0
+    while len(runs) < n_runs:
+        schedule = LEARNER_SCHEDULES[k % len(LEARNER_SCHEDULES)]
+        lr = lrs[(k // len(LEARNER_SCHEDULES)) % len(lrs)]
+        run_rng = np.random.default_rng(seed * 1000 + k)
+        th = th0.copy(); pred_old = [probe_old @ th]; pred_new = [probe_new @ th]; wear_acc = 0.0
+        for t in range(T):
+            if schedule == "loop" and (t // 10) % 2 == 1:  # every other block trains back toward task A
+                g = 2 * XA.T @ (XA @ th - yA) / n_train
+            else:
+                g = 2 * XB.T @ (XB @ th - yB) / n_train
+            if schedule == "grad_noise":
+                g = g + 1.0 * run_rng.standard_normal(d)
+            step = -lr * _lr_multiplier(schedule, t, T) * g
+            th = th + step; wear_acc += np.linalg.norm(step)
+            pred_old.append(probe_old @ th); pred_new.append(probe_new @ th)
+        if not np.all(np.isfinite(th)):
+            raise RuntimeError(f"surrogate run diverged (schedule={schedule}, lr={lr}); lr grid must be stable")
+        F = float(np.mean((XA_test @ th - yA_test) ** 2) - LA0)
+        if wear:
+            F += wear_gamma * wear_acc
+        runs.append(dict(pred_old=pred_old, pred_new=pred_new, F=F, schedule=schedule, lr=lr, seed=k))
+        k += 1
+    return runs
+
+
+def S_H_convex_learner(n_runs=60, seed=0):
+    """S-H: convex learner. Forgetting is a function of the endpoint alone;
+    H-T1 and H-EQ MUST FAIL here (theory/CRR.md §5, §3)."""
+    return _linear_finetune_runs(seed, n_runs, wear=False), None, {"name": "S-H convex learner (endpoint-sufficient)"}
+
+
+def S_H2_wear_learner(n_runs=60, seed=0, gamma=0.5):
+    """S-H2: same convex learner with path-dependent damage added to forgetting
+    by construction. Positive control: H-T1 MUST PASS or the instrument is blind."""
+    return _linear_finetune_runs(seed, n_runs, wear=True, wear_gamma=gamma), None, {"name": "S-H2 wear learner (path-dependent by construction)"}
+
+
+LEARNER_BATTERY = [S_H_convex_learner, S_H2_wear_learner]
+
 BATTERY = [S_A_sine, S_A1_fm_sine, S_A2_am_sine, S_A3_amfm_sine, S_B_sine_bump,
            S_C_lobed_ramp, S_D_noisy_sine, S_E_asymmetric, S_F_vanderpol,
            S_G_relaxation, S_G2_relaxation_arc_regular]

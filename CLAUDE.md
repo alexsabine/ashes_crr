@@ -142,6 +142,7 @@ this section is logged too, together with the refusal.
 CLAUDE.md                  this file
 pyproject.toml, uv.lock    pinned environment (R9)
 theory/CRR.md              the theory (read first); theory/checks/verify_math.py proves every [P]
+theory/SCOPE.md            domain scope review; proposed P6–P9 proved in theory/checks/verify_scope_math.py
 instrument/core.py         §3 — arc, cut, unit, regularity, path length (implemented, tested)
 surrogates/battery.py      §3 — synthetic signal battery;  surrogates/gate.py — the gate (implemented)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots
@@ -200,22 +201,25 @@ Deterministic generators. Present now:
 - S-F van der Pol (μ = 1, 5), Rössler, forced Duffing.
 - S-G relaxation oscillator, clock-regular by construction (negative control
   for H-L5); S-G2 arc-regular by construction (positive control).
-- **To add:** S-H, a CL surrogate — a convex learner (linear model) whose
-  forgetting depends on the endpoint only; H-T1 and H-EQ must FAIL on it.
+- S-H convex learner (linear model, squared loss): forgetting is a function
+  of the endpoint only (lemma in `theory/checks/verify_scope_math.py`);
+  H-T1 and H-EQ must FAIL on it. S-H2 wear learner: path-dependent
+  forgetting by construction; H-T1 must PASS. Both in `LEARNER_BATTERY`.
 
-### 3.3 The gate (`surrogates/gate.py`) — implemented for L5 and CUT
+### 3.3 The gate (`surrogates/gate.py`) — implemented for L5, CUT and T1
 
-`uv run python surrogates/gate.py L5` and `... CUT` print one row per
-surrogate with PASS/FAIL and flag any violation: a PASS on a negative
+`uv run python surrogates/gate.py L5`, `... CUT` and `... T1` print one row
+per surrogate with PASS/FAIL and flag any violation: a PASS on a negative
 control (the hypothesis holds on a signal with no CRR content) or a FAIL on
-a positive control (the instrument cannot see the effect). Both gates
+a positive control (the instrument cannot see the effect). All three gates
 currently read GATE OPEN. Commit the output into the prereg folder for any
 study that uses the hypothesis; if you change the instrument, re-run the
 gate and commit the new output.
 
 Still to gate before use:
-- T1-shape and EQ: write S-H and add `gate_T1`, `gate_EQ`. Both must FAIL on
-  S-H.
+- EQ: add `gate_EQ` (design in `theory/SCOPE.md` §4.3: a convex replay
+  learner on which H-EQ must FAIL, and a mismatched-gradient-scale learner
+  on which it must PASS, both against ER-*sum*).
 - Any new hypothesis: add it to `MUST_FAIL`/`MUST_PASS` with a reason, then
   gate it. No hypothesis enters a prereg without a gate table.
 
@@ -279,12 +283,15 @@ status per R10) re-scored with path length if per-step checkpoints or
 logs are available; if not, say so.
 
 **Pre-registered hypotheses.**
-- T1x-1: held-out R²(C_new or C_old) ≥ R²(E_new) + 0.05 with lr controlled.
-  FAIL if E_new wins by ≥ 0.05.
+- T1x-1: held-out R²(best of C_new, C_old) ≥ R²(best of E_new, E_old,
+  EWC Fisher-weighted endpoint distance) + 0.05 with lr controlled. FAIL if
+  any endpoint predictor wins by ≥ 0.05. (E_old is required: on a convex
+  learner it is a sufficient statistic for forgetting — `theory/SCOPE.md`
+  §4.1 — so a win over E_new alone would only show old probe beats new probe.)
 - T1x-2: on the fixed-lr arm alone, Spearman(C, F) ≥ 0.6 and
   Spearman(E_new, F) < Spearman(C, F) − 0.2.
 - T1x-3 (surrogate S-H control, in-prereg): on the convex learner,
-  R²(C) − R²(E) ≤ 0.02.
+  R²(C) − R²(E) ≤ 0.02 (`gate.py T1`; S-H2 must PASS in the same table).
 - Report S/C* per run and whether high-S runs fall off the endpoint curve.
 
 ---

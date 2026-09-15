@@ -168,10 +168,25 @@ def kl_step(p_old: np.ndarray, p_new: np.ndarray) -> float:
     return float(np.mean(np.sum(p_old * (np.log(p_old) - np.log(p_new)), axis=1)))
 
 
-def path_length(prob_snapshots: list[np.ndarray]) -> dict:
-    """C = sum_t sqrt(2 KL_t), E = KL(p_0 || p_T), C* = sqrt(2E), S = C - C*."""
-    steps = [np.sqrt(2 * kl_step(a, b)) for a, b in zip(prob_snapshots[:-1], prob_snapshots[1:])]
+def kl_gauss(mu_old: np.ndarray, mu_new: np.ndarray, var: float = 1.0) -> float:
+    """mean_probe KL(N(mu_old, var) || N(mu_new, var)) for fixed-variance Gaussian
+    predictives (N,) — the predictive family of a regression model. Here
+    sqrt(2 KL) equals the Fisher–Rao distance exactly (SCOPE.md P8)."""
+    mu_old = np.asarray(mu_old, float); mu_new = np.asarray(mu_new, float)
+    return float(np.mean((mu_old - mu_new) ** 2) / (2.0 * var))
+
+
+def path_length(snapshots: list[np.ndarray], kl=kl_step) -> dict:
+    """C = sum_t sqrt(2 KL_t), E = KL(p_0 || p_T), C* = sqrt(2E), S = C - C*.
+
+    snapshots  per-step predictive distributions on ONE fixed probe set
+    kl         kl_step (categorical, (N,K)) or kl_gauss (regression, (N,));
+               named in the prereg
+    S may be negative here: sqrt(2 KL) is the FR length only to second order
+    (exactly for kl_gauss), so P1 is not guaranteed and the sign distribution
+    must be reported (CLAUDE.md §3.1 item 5)."""
+    steps = [np.sqrt(2 * kl(a, b)) for a, b in zip(snapshots[:-1], snapshots[1:])]
     C = float(np.sum(steps))
-    E = kl_step(prob_snapshots[0], prob_snapshots[-1])
+    E = kl(snapshots[0], snapshots[-1])
     Cs = float(np.sqrt(2 * E))
     return dict(C=C, E=E, Cstar=Cs, S=C - Cs)

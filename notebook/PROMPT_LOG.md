@@ -40,3 +40,12 @@ Nothing committed.
 Context: "Yes" answers the offer at the end of the reply to prompt 1
 (commit the seed; generate `uv.lock`; write the S-H convex-learner
 surrogate and `gate_T1` / `gate_EQ`).
+
+Work under this prompt (same commit series): rule R13 added; seed
+committed and `uv.lock` generated; `theory/SCOPE.md` written (domain
+review, A8′ proposal, H-F forecasting form, E_old baseline finding);
+`theory/checks/verify_scope_math.py` (P6–P9 + convex-learner lemma);
+S-H / S-H2 learner surrogates, `kl_gauss`, `gate_T1` (GATE OPEN); CLAUDE.md
+§3.2, §3.3, §5 updated to match. `theory/CRR.md` untouched. `gate_EQ` not
+written. The seed zip is removed from the tree (superseded by the unpacked
+files).

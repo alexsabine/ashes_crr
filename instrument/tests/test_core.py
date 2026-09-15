@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from instrument.core import (antipodal_cuts, arc_length, chord, intrinsic_phase, occasions,
-                             path_length, peak_cuts, regularity, surplus, unit_sigma)
+from instrument.core import (antipodal_cuts, arc_length, chord, intrinsic_phase, kl_gauss,
+                             occasions, path_length, peak_cuts, regularity, surplus, unit_sigma)
 
 
 def test_surplus_nonnegative_and_zero_iff_monotone():
@@ -68,3 +68,23 @@ def test_path_length_dominates_endpoint():
         snaps.append(p)
     r = path_length(snaps)
     assert r["C"] >= r["Cstar"] - 1e-9 and r["S"] > 0
+
+
+def test_kl_gauss_sqrt2kl_is_exact_fr_distance():
+    mu0 = np.zeros(50); mu1 = np.full(50, 0.7)
+    assert abs(np.sqrt(2 * kl_gauss(mu0, mu1)) - 0.7) < 1e-12
+    r = path_length([mu0, mu1], kl=kl_gauss)
+    assert abs(r["C"] - r["Cstar"]) < 1e-12 and abs(r["S"]) < 1e-12  # one straight step: S = 0
+
+
+def test_convex_learner_endpoint_is_sufficient_for_forgetting():
+    # SCOPE.md lemma: on S-H, F is (up to the held-out set) a fixed multiple of E_old,
+    # so E_old explains F almost perfectly and the path cannot add to it.
+    from surrogates.battery import S_H_convex_learner
+    runs, _, _ = S_H_convex_learner(n_runs=30)
+    F = np.array([r["F"] for r in runs])
+    E_old = np.array([path_length(r["pred_old"], kl=kl_gauss)["E"] for r in runs])
+    assert np.corrcoef(F, E_old)[0, 1] ** 2 > 0.95
+    loops = [r for r in runs if r["schedule"] == "loop"]
+    S_old = [path_length(r["pred_old"], kl=kl_gauss)["S"] for r in loops]
+    assert min(S_old) > 0  # a loop schedule travels far but ends near where it started
