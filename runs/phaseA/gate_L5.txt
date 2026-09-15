@@ -1,0 +1,27 @@
+gate for L5
+  must FAIL on ['S-A sine', "S-A'' AM sine (constant period)", 'S-G relaxation osc. (clock-regular, amplitude-variable)']
+  must PASS on ["S-A' FM sine (constant amplitude)", 'S-G2 relaxation osc. (arc-regular by construction)']
+
+  S-A sine                                                FAIL  cv_arc=0.000 cv_clock=0.000 cv_amp=0.000 ci=0.000,0.000 ci_amp=0.000,0.000 C_mean=4.00sigma rho=2.00
+  S-A' FM sine (constant amplitude)                       PASS  cv_arc=0.000 cv_clock=0.118 cv_amp=0.000 ci=-0.131,-0.101 ci_amp=-0.000,0.000 C_mean=4.00sigma rho=2.00
+  S-A'' AM sine (constant period)                         FAIL  cv_arc=0.176 cv_clock=0.000 cv_amp=0.176 ci=0.150,0.197 ci_amp=-0.000,0.000 C_mean=4.03sigma rho=2.02
+  S-A''' AM+FM sine                                       FAIL  cv_arc=0.179 cv_clock=0.118 cv_amp=0.179 ci=0.031,0.086 ci_amp=-0.000,0.000 C_mean=4.20sigma rho=2.10
+  S-B sine + dicrotic bump                                FAIL  cv_arc=0.061 cv_clock=0.059 cv_amp=0.061 ci=-0.008,0.012 ci_amp=-0.000,0.000 C_mean=4.06sigma rho=2.03
+  S-C lobed ramp (lambda=0.0)                             FAIL  cv_arc=0.062 cv_clock=0.059 cv_amp=0.062 ci=-0.008,0.012 ci_amp=-0.000,0.000 C_mean=2.01sigma rho=1.01
+  S-C lobed ramp (lambda=0.25)                            FAIL  cv_arc=0.062 cv_clock=0.059 cv_amp=0.062 ci=-0.008,0.012 ci_amp=-0.000,0.000 C_mean=2.04sigma rho=1.01
+  S-C lobed ramp (lambda=0.5)                             FAIL  cv_arc=0.062 cv_clock=0.059 cv_amp=0.062 ci=-0.007,0.012 ci_amp=-0.000,0.000 C_mean=2.23sigma rho=1.01
+  S-C lobed ramp (lambda=1.0)                             FAIL  cv_arc=0.061 cv_clock=0.059 cv_amp=0.062 ci=-0.008,0.012 ci_amp=-0.000,0.000 C_mean=2.71sigma rho=1.01
+  S-D sine + white noise (rho~5.0)                        FAIL  cv_arc=0.091 cv_clock=0.000 cv_amp=0.090 ci=0.068,0.113 ci_amp=-0.025,0.027 C_mean=45.41sigma rho=3.40
+  S-D sine + white noise (rho~10.0)                       FAIL  cv_arc=0.090 cv_clock=0.000 cv_amp=0.060 ci=0.068,0.112 ci_amp=0.008,0.054 C_mean=22.91sigma rho=2.65
+  S-D sine + white noise (rho~20.0)                       FAIL  cv_arc=0.087 cv_clock=0.000 cv_amp=0.037 ci=0.064,0.109 ci_amp=0.028,0.071 C_mean=11.86sigma rho=2.29
+  S-D sine + white noise (rho~40.0)                       FAIL  cv_arc=0.068 cv_clock=0.000 cv_amp=0.022 ci=0.051,0.085 ci_amp=0.030,0.062 C_mean=6.71sigma rho=2.13
+  S-D sine + white noise (rho~80.0)                       FAIL  cv_arc=0.036 cv_clock=0.000 cv_amp=0.012 ci=0.029,0.042 ci_amp=0.017,0.030 C_mean=4.69sigma rho=2.06
+  S-E asymmetric multi-harmonic                           FAIL  cv_arc=0.062 cv_clock=0.059 cv_amp=0.062 ci=-0.008,0.012 ci_amp=-0.000,0.000 C_mean=10.61sigma rho=4.77
+  S-F van der Pol mu=5.0                                  FAIL  cv_arc=0.010 cv_clock=0.002 cv_amp=0.000 ci=0.006,0.010 ci_amp=0.007,0.012 C_mean=8.08sigma rho=4.04
+  S-F van der Pol mu=1.0                                  FAIL  cv_arc=0.006 cv_clock=0.003 cv_amp=0.000 ci=0.002,0.003 ci_amp=0.005,0.006 C_mean=8.03sigma rho=4.02
+  S-F Rossler (a=0.2, b=0.2, c=5.7)                       FAIL  cv_arc=0.186 cv_clock=0.092 cv_amp=0.186 ci=0.070,0.118 ci_amp=-0.000,0.001 C_mean=28.11sigma rho=14.06
+  S-F forced Duffing (delta=0.15, gamma=0.3, omega=1)     FAIL  cv_arc=0.208 cv_clock=0.388 cv_amp=0.128 ci=-0.240,-0.111 ci_amp=0.030,0.138 C_mean=7.65sigma rho=2.83
+  S-G relaxation osc. (clock-regular, amplitude-variable) FAIL  cv_arc=0.134 cv_clock=0.000 cv_amp=0.134 ci=0.111,0.155 ci_amp=-0.000,0.000 C_mean=2.01sigma rho=1.00
+  S-G2 relaxation osc. (arc-regular by construction)      PASS  cv_arc=0.001 cv_clock=0.135 cv_amp=0.001 ci=-0.153,-0.110 ci_amp=-0.000,0.000 C_mean=1.98sigma rho=0.99
+
+GATE OPEN

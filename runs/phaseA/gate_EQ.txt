@@ -1,0 +1,8 @@
+gate for EQ
+  must FAIL on ['S-R convex replay, constant label scale (adaptivity idle)']
+  must PASS on ['S-V convex replay, 16x label-scale swings (adaptivity load-bearing)']
+
+  S-R convex replay, constant label scale (adaptivity idle) FAIL  EQ(Ω=1)=1.4416 ER-sum(w=1)=1.2250 best fixed w=1.0:1.2250 (w_med of EQ=0.607) | rel.gain vs best fixed -0.177 (seeds>0: 0/5) vs ER-sum -0.177 | best Ω=2.0 landscape 0.5:1.661 0.71:1.582 1.0:1.442 1.41:1.257 2.0:1.226
+  S-V convex replay, 16x label-scale swings (adaptivity load-bearing) PASS  EQ(Ω=1)=1.1992 ER-sum(w=1)=6.8422 best fixed w=0.25:1.7700 (w_med of EQ=0.599) | rel.gain vs best fixed +0.318 (seeds>0: 5/5) vs ER-sum +0.815 | best Ω=0.5 landscape 0.5:1.059 0.71:1.088 1.0:1.199 1.41:1.663 2.0:3.397
+
+GATE OPEN

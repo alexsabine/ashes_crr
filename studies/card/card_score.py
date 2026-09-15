@@ -51,7 +51,7 @@ if (HERE / "core.py").exists():
 else:
     ROOT = HERE.parents[1]
     sys.path.insert(0, str(ROOT))
-    from instrument.core import (antipodal_cuts, arc_length, cv, intrinsic_phase, peak_cuts,  # noqa: E402
+    from crr.instrument.core import (antipodal_cuts, arc_length, cv, intrinsic_phase, peak_cuts,  # noqa: E402
                                  regularity, unit_sigma)
 
 DATA = ROOT / "data" / "raw" / "autonomic_aging"

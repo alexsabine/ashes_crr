@@ -61,8 +61,10 @@ beside it. No numbers from chat, memory, docstrings, or previous bundles.
 If you cannot regenerate it, delete it.
 
 **R2 — Hash before you look.**
-Prereg + frozen scoring script + instrument code + theory doc go in one
-folder. Compute `sha256sum` over the folder (sorted file list), write it to
+Prereg + frozen scoring script in `prereg/<study>/`, and the frozen
+instrument + theory code in `runs/<study>/frozen/`. Compute one `sha256sum`
+over the two folders together (sorted file list — one hash over the prereg
+folder plus the frozen-script folder), write it to
 `prereg/<study>/HASH.txt`, anchor with OpenTimestamps (`ots stamp`), and
 commit with a signed tag (`git tag -s prereg-<study>-<date>`). Only after
 the tag exists may any data for that study be downloaded or opened. The
@@ -149,14 +151,22 @@ this section is logged too, together with the refusal.
 
 ```
 CLAUDE.md                  this file
-pyproject.toml, uv.lock    pinned environment (R9)
+pyproject.toml, uv.lock    pinned environment (R9); package built from src/crr
+src/crr/                   the importable package (clean cutover; no top-level modules)
+  instrument/core.py       §3 — arc, cut, unit, regularity, path length, rho,
+                           sign_test_units (implemented, tested)
+  surrogates/battery.py    §3 — synthetic signal battery (one ROW per
+                           registered parameter value)
+  surrogates/gate.py       §3 — the gate (L5, CUT, T1; -m crr.surrogates.gate)
+tests/                     mirrors src/crr/: instrument/, surrogates/, theory/
 theory/CRR.md              the theory (read first); theory/checks/verify_math.py proves every [P]
 theory/SCOPE.md            domain scope review; proposed P6–P9 proved in theory/checks/verify_scope_math.py
-instrument/core.py         §3 — arc, cut, unit, regularity, path length (implemented, tested)
-surrogates/battery.py      §3 — synthetic signal battery;  surrogates/gate.py — the gate (implemented)
+scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
+prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots
 data/                      raw data (gitignored) + SEEN.md + sha256 manifests
 runs/<study>/              frozen scripts copied at hash time + logs + JSON outputs
+runs/phaseA/               standing gate outputs (gate_L5.txt, gate_CUT.txt, gate_T1.txt)
 ledger/LEDGER.md           §7 — the one curated table
 notebook/PROMPT_LOG.md     R13 — every human prompt, verbatim, timestamped
 reports/<study>.md         narrative, written AFTER the ledger row, quoting it
@@ -164,50 +174,76 @@ reports/<study>.md         narrative, written AFTER the ledger row, quoting it
 
 Rules for the layout:
 - `prereg/` and `runs/<study>/frozen/` are write-once after the tag.
-- `instrument/` may evolve, but a study uses the copy frozen in its run dir.
+- `src/crr/` may evolve, but a study uses the copy frozen in its run dir
+  (frozen-copy semantics unchanged: the hash covers the copy, not the tip).
 - Nothing in `reports/` may contain a number absent from `runs/`.
 
 ---
 
 ## 3. Phase A — instrument and surrogate gate (no real data)
 
-### 3.1 Instrument (`instrument/core.py`) — already implemented and tested
+### 3.1 Instrument (`src/crr/instrument/core.py`) — implemented and tested
 
-Run `uv run pytest instrument/tests` before anything else. The library
-provides (extend it, never bypass it):
+Run `uv run pytest tests` before anything else. The library provides
+(extend it, never bypass it); every estimator constant is a named argument:
 
-1. `arc(x, metric)` — real-valued Fisher–Rao arc length of a sampled path.
-   No integer step counting. Expose the metric (identity / diagonal Fisher /
-   KL-based) as a parameter.
-2. `phase(x)` — intrinsic phase on a cycle carrier (analytic signal or
-   Poincaré section; both implemented, choice is a prereg parameter).
-3. `antipodal_cut(phase)` — cut where phase advances by half a turn from
-   the last cut. This is A3. Also implement `peak_cut(x)` (find_peaks) so
-   the two can be compared and the prereg can name cases where they differ.
-4. `unit(x, statistic)` — ONE resolvable-step statistic per study, chosen
-   by name in the prereg (e.g. "robust residual of per-occasion peak
-   amplitude"). Return σ and ρ = extent/σ. All constants are arguments.
-5. `surplus(C, Cstar)` — S = C − C*, real-valued, may be negative; the
-   report must show the sign distribution.
-6. `regularity(events, quantity)` — the L5 statistic: CV of the named
-   quantity accumulated between consecutive events vs CV of clock
-   duration between the same events; plus a paired bootstrap CI on the
-   difference and a sign test across levels/subjects.
-7. `path_length(model_snapshots, probe)` — Σ√(2·KL_step) on a fixed probe
-   set; endpoint KL; C* (straight-line KL); S = C − C*.
+1. `arc_length(x, sigma=1.0, metric=None)` — real-valued Fisher–Rao arc
+   length of a sampled path, in units of sigma. No integer step counting.
+   The metric is a parameter: None (identity), a diagonal `g` (d,), or a
+   full constant `g` (d,d). Companions: `chord(x, sigma, metric)` and
+   `surplus(x, sigma, metric) -> (C, C*, S)`; S >= 0 by P1 up to
+   floating-point round-off — report the sign distribution, never clamp.
+2. `intrinsic_phase(x, detrend=True)` — unwrapped analytic-signal phase
+   (radians). This is the ONE implemented intrinsic phase; a prereg may
+   name another (a Poincaré section is a named alternative in
+   `theory/CRR.md`), which must then be implemented and both reported.
+3. `antipodal_cuts(phase, start=0, half_turn=pi)` — cut where the phase
+   advances by half a turn from the last cut (oriented, sub-sample
+   interpolated; strictly increasing indices, undersampling collisions
+   dropped). This is A3. `peak_cuts(x, prominence, distance)`
+   (find_peaks, maxima + minima) exists only so the two can be compared
+   and the prereg can name cases where they differ.
+4. `unit_sigma(stat, detrend_window=9, detrend_order=2, scale="mad",
+   min_sigma=None)` — ONE resolvable-step statistic per study, chosen by
+   name in the prereg. Robust scale of the detrended residual across
+   TRAINING occasions; raises (rejects the record) on degenerate
+   residuals or below min_sigma — no floor, no additive epsilon.
+   `rho(extent, sigma) = extent/sigma` (A1' resolution) is for REPORTING
+   (gates, reports, preregs); it is never an input to a threshold (R5).
+5. `regularity(x, events, sigma=1.0, dt=1.0, n_boot=2000, seed=0)` — the
+   L5 statistic: CVs of arc, clock and amplitude between consecutive
+   events, mean arc per occasion (C_mean, in sigma), and paired bootstrap
+   95% CIs on cv_arc−cv_clock and on cv_arc−cv_amp (the amplitude
+   control). Raises below 3 events. `cv(v)` is unsigned (denominator
+   |mean|). For cross-unit scoring use
+   `sign_test_units(unit_stats) -> (win fraction, exact binomial p)` —
+   per-unit first, then the sign test (R6).
+6. `path_length(snapshots, kl=kl_step)` — C = Σ√(2·KL_step) on a fixed
+   probe set; E = endpoint KL; C* = √(2E); S = C − C* (sign distribution
+   reported). KL choices: `kl_step` (categorical (N,K); rows renormalised
+   after the log guard) or `kl_gauss(mu_old, mu_new, var=1.0)` (regression;
+   √(2KL) is then the exact Fisher–Rao distance, SCOPE.md P8).
+   `occasions(x, cuts, sigma)` returns per-occasion (C, C*, S) between
+   consecutive cuts.
 
-### 3.2 Surrogate battery (`surrogates/battery.py`) — implemented
+---
 
-Deterministic generators. Present now:
+### 3.2 Surrogate battery (`src/crr/surrogates/battery.py`) — implemented
+
+Deterministic generators (one ROW per registered parameter value; row
+names encode the parameter). Present now:
 
 - S-A pure sine; S-A′ sine with period jitter (FM); S-A″ sine with
   amplitude jitter (AM); S-A‴ AM+FM.
 - S-B sine + one Gaussian bump on the descent (the "dicrotic" surrogate).
-- S-C two sin² lobes on a linear ramp (the "ECG" surrogate), with lobe
-  size λ ∈ {0, 0.25, 0.5, 1}.
+- S-C two sin² lobes on a linear ramp (the "ECG" surrogate), registered
+  at λ ∈ {0, 0.25, 0.5, 1}.
 - S-D white noise added to S-A at ρ ∈ {5, 10, 20, 40, 80}.
 - S-E asymmetric multi-harmonic (sin t + 1.2 sin 2t + 0.6 sin 3t).
-- S-F van der Pol (μ = 1, 5), Rössler, forced Duffing.
+- S-F van der Pol (μ = 5 and a registered μ = 1 row), Rössler
+  (a=0.2, b=0.2, c=5.7), forced Duffing (δ=0.15, γ=0.3, ω=1). Integrators
+  pinned to explicit RK45 on fixed eval grids (byte-identical reruns on
+  the locked scipy, R9).
 - S-G relaxation oscillator, clock-regular by construction (negative control
   for H-L5); S-G2 arc-regular by construction (positive control).
 - S-H convex learner (linear model, squared loss): forgetting is a function
@@ -215,20 +251,24 @@ Deterministic generators. Present now:
   H-T1 and H-EQ must FAIL on it. S-H2 wear learner: path-dependent
   forgetting by construction; H-T1 must PASS. Both in `LEARNER_BATTERY`.
 
-### 3.3 The gate (`surrogates/gate.py`) — implemented for L5, CUT and T1
+### 3.3 The gate (`src/crr/surrogates/gate.py`) — implemented for L5, CUT and T1
 
-`uv run python surrogates/gate.py L5`, `... CUT` and `... T1` print one row
-per surrogate with PASS/FAIL and flag any violation: a PASS on a negative
+`uv run python -m crr.surrogates.gate L5`, `... CUT` and `... T1` print one
+row per surrogate with PASS/FAIL and flag any violation: a PASS on a negative
 control (the hypothesis holds on a signal with no CRR content) or a FAIL on
 a positive control (the instrument cannot see the effect). All three gates
-currently read GATE OPEN. Commit the output into the prereg folder for any
-study that uses the hypothesis; if you change the instrument, re-run the
+currently read GATE OPEN; the standing Phase-A outputs are committed at
+`runs/phaseA/gate_<hyp>.txt`. Commit the output into the prereg folder for
+any study that uses the hypothesis; if you change the instrument, re-run the
 gate and commit the new output.
 
 Still to gate before use:
 - EQ: add `gate_EQ` (design in `theory/SCOPE.md` §4.3: a convex replay
   learner on which H-EQ must FAIL, and a mismatched-gradient-scale learner
   on which it must PASS, both against ER-*sum*).
+- H-F: add `gate_F` (design in `theory/SCOPE.md` §5: S-A″ and S-G must
+  FAIL, S-A′ and S-G2 must PASS, on the quota-forecaster error) before any
+  forecasting prereg.
 - Any new hypothesis: add it to `MUST_FAIL`/`MUST_PASS` with a reason, then
   gate it. No hypothesis enters a prereg without a gate table.
 
@@ -285,7 +325,8 @@ endpoint displacement, once learning rate is controlled?
   in-sample R².
 - n ≥ 60 runs per model.
 
-**Models.** (a) the existing byte-level LM (`lm_bench.py`, frozen copy);
+**Models.** (a) a byte-level LM (`lm_bench.py`) — prior-work artifact, not
+in this tree; recreate and freeze before T1x;
 (b) GPT-2-small class model on a public domain stream; (c) the public
 RL's Razor data (Shenfeld et al. 2025 — fetch, record version and link
 status per R10) re-scored with path length if per-step checkpoints or
@@ -310,9 +351,10 @@ logs are available; if not, say so.
 **What the ledger actually showed.** The adaptive rule
 w = Ω·‖ḡ_present‖/‖ḡ_past‖ with Ω = 1 was within 1 pt of a fixed w = 1,
 Fisher vs Euclidean made no difference, and the ER baseline in
-`mlp_bench.py` concatenates stream and replay batches into one mean loss
-(replay weight ≈ r), so "Ω = 1" may simply be "sum the two losses", which
-is standard ER. The prereg estimator was also changed after Q1 failed.
+`mlp_bench.py` (prior-work artifact, not in this tree; recreate and freeze
+before any EQ prereg) concatenates stream and replay batches into one mean
+loss (replay weight ≈ r), so "Ω = 1" may simply be "sum the two losses",
+which is standard ER. The prereg estimator was also changed after Q1 failed.
 
 **Design.**
 - Use a standard CL framework for baselines (Mammoth, aimagelab) so ER,
@@ -324,8 +366,9 @@ is standard ER. The prereg estimator was also changed after Q1 failed.
 - Estimator frozen at hash time: `ratio=ema, smooth=0.9, Fisher metric`.
   No change permitted after any run (R3). The Ω grid is
   {0.25, 0.35, 0.5, 0.71, 1, 1.41, 2, 2.83, 4}.
-- Datasets: Split-CIFAR-10 (conv), Split-CIFAR-100 (10 tasks),
-  Split-TinyImageNet, plus one LM domain stream. MNIST-family are SEEN and
+- Datasets: Split-CIFAR-10 (conv) — SEEN (confirmatory only per R11);
+  Split-CIFAR-100 (10 tasks), Split-TinyImageNet, plus one LM domain
+  stream (unseen). MNIST-family are SEEN and
   excluded. Standard and recurring streams. Seeds 0–4.
 - lr × {¼, 1, 4} and batch × {½, 1, 2} on one dataset for invariance.
 
@@ -370,23 +413,24 @@ Rules:
 
 ```bash
 # 0. environment
-uv sync && uv lock --check && uv run python -c "import numpy, scipy; print('ok')"
+uv sync --frozen && uv lock --check && uv run python -c "import numpy, scipy; print('ok')"
 
 # 1. Phase A: instrument tests + surrogate gate
-uv run pytest instrument/tests
-uv run python surrogates/gate.py <hypothesis-id> > prereg/<study>/gate_<hypothesis-id>.txt
+uv run pytest tests
+uv run python -m crr.surrogates.gate <hypothesis-id> > prereg/<study>/gate_<hypothesis-id>.txt
 
 # 2. write PREREG.md; copy frozen scripts
 mkdir -p prereg/<study> runs/<study>/frozen
-cp instrument/core.py <study>_score.py theory/CRR.md runs/<study>/frozen/
+cp src/crr/instrument/core.py prereg/<study>/<study>_score.py theory/CRR.md runs/<study>/frozen/
 
-# 3. hash + anchor + tag (BEFORE any data)
+# 3. hash + anchor + tag (BEFORE any data) — one hash over the prereg folder
+#    plus the frozen-script folder (R2)
 ( cd prereg/<study> && find . ../../runs/<study>/frozen -type f | sort | xargs sha256sum > HASH.txt )
 uv run ots stamp prereg/<study>/HASH.txt          # produces HASH.txt.ots
 git add -A && git commit -m "prereg <study>" && git tag -s prereg-<study>-$(date -I) -m "prereg"
 git push --tags
 
-# 4. data (only now)
+# 4. data (only now) — fetch_* and manifest are to write before the first study
 uv run python data/fetch_<dataset>.py --records <range> && uv run python data/manifest.py
 # append opened records to data/SEEN.md in the same commit
 
@@ -394,12 +438,15 @@ uv run python data/fetch_<dataset>.py --records <range> && uv run python data/ma
 uv run python runs/<study>/frozen/<study>_score.py > runs/<study>/stdout.txt
 uv run python runs/<study>/frozen/<study>_score.py > runs/<study>/stdout_rerun.txt && cmp runs/<study>/stdout.txt runs/<study>/stdout_rerun.txt
 
-# 6. ledger + report
+# 6. ledger + report — append.py is to write before the first study
 uv run python ledger/append.py runs/<study>/results.json
 ```
 
 Never run step 4 or 5 before step 3's tag exists. If you find you must
 change a script after step 3, the study is void: start a new study id.
+`data/fetch_<dataset>.py`, `data/manifest.py` and `ledger/append.py` do not
+exist yet: write them before the first study that needs them, and commit
+them before that study's hash step.
 
 ---
 

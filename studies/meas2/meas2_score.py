@@ -46,7 +46,7 @@ if (HERE / "core.py").exists():
 else:
     ROOT = HERE.parents[1]
     sys.path.insert(0, str(ROOT))
-    from instrument.core import (arc_length, cv, onset_events, peak_cuts, poisson_transform,  # noqa: E402
+    from crr.instrument.core import (arc_length, cv, onset_events, peak_cuts, poisson_transform,  # noqa: E402
                                  regularity, unit_sigma)
 
 RAW = ROOT / "data" / "raw" / "measles" / "twentymeas.RData"
@@ -203,7 +203,7 @@ if __name__ == "__main__":
         if (HERE / "battery.py").exists():
             from battery import S_P_amfm, S_P_fm_compensating
         else:
-            from surrogates.battery import S_P_amfm, S_P_fm_compensating
+            from crr.surrogates.battery import S_P_amfm, S_P_fm_compensating
         for gen in (S_P_amfm, S_P_fm_compensating):
             x, ev, meta = gen(n=12)
             print(meta["name"], json.dumps(score_city(x, "poisson", PRIMARY)))
