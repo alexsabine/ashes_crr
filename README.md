@@ -70,6 +70,15 @@ Start here, in this order:
     the 2026-09-15 audit record and the restructure programme it
     produced.
 
+Status: no hypothesis has a held-out PASS. Study EQX (2026-09-15, three
+unseen streams) found that the equanimity rule Ω = 1 reduces to a fixed
+replay weight and does not beat ER-sum (`ledger/LEDGER.md` rows EQX-1..5,
+`reports/eqx.md`). Study MEAS2 (2026-09-15, measles in 17 English cities,
+the first Fisher-native carrier) found H-L5 fails in 0/17 cities under both
+metrics (rows MEAS2-1..3, `reports/meas2.md`). The 2026-09-14 continual-learning
+bundle is archived under `archive/` and recomputed in `audit/`; it is context,
+not evidence.
+
 The map of the repository — canonical, measurement, verification and
 evidence layers, and how a number flows from instrument to report — is
 [docs/architecture.md](docs/architecture.md).
@@ -82,8 +91,8 @@ with its output committed beside it; pre-registrations are hashed,
 OpenTimestamps-anchored and signed-tagged before any data is touched;
 every hypothesis must fail on a surrogate battery before it may enter a
 prereg; scoring is per-record with the full distribution shown; the
-ledger is the only curated document, it is append-only, and it is
-currently empty. The plain-language version is
+ledger is the only curated document and it is append-only (rows ARC-*,
+EQX-*, MEAS-*, MEAS2-* at the time of writing; no held-out PASS). The plain-language version is
 [docs/protocol/rules.md](docs/protocol/rules.md) and the binding text is
 [CLAUDE.md](CLAUDE.md).
 
@@ -104,5 +113,9 @@ uv run python theory/checks/verify_scope_math.py
 uv run python -m crr.surrogates.gate L5
 uv run python -m crr.surrogates.gate CUT
 uv run python -m crr.surrogates.gate T1
+uv run python -m crr.surrogates.gate EQ
+uv run python -m crr.surrogates.gate L5R
+uv run python -m crr.surrogates.gate A3
+uv run python audit/recompute_2026-09-14.py
 bash scripts/check_all.sh
 ```

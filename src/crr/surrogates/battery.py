@@ -221,6 +221,163 @@ def S_H2_wear_learner(n_runs=60, seed=0, gamma=0.5):
 
 LEARNER_BATTERY = [S_H_convex_learner, S_H2_wear_learner]
 
+
+# ---------------------------------------------------------------- replay-weighting surrogates (H-EQ)
+# Convex learner with a replay buffer. The update is g = g_present_mean + w * g_past_mean,
+# exactly the form of the equanimity rule (theory/CRR.md [H-EQ]) and of ER-sum (w = 1).
+# The gate asks whether the ADAPTIVE w (Omega * ||g_present|| / ||g_past||) beats the best
+# FIXED w, including the constant it reduces to (its own median w). Returns a runner.
+
+def _replay_learner(scales, method, value, seed, d=32, n_task=2000, n_test=500, bs=10, r=0.2,
+                    buf=200, lr=0.01, smooth=0.9, metric="euclid", wcap=20.0, noise_sd=0.3):
+    """One online pass over K tasks (linear model, squared loss). Task k has LABEL scale
+    scales[k]: y = scale * (x.theta_k + noise). Gradient magnitude scales with it, the Hessian
+    (2 X'X) does not, so every arm is stable at the same lr. Returns normalised held-out MSE."""
+    rng = np.random.default_rng(seed)
+    K = len(scales)
+    tasks = []
+    for k, sc in enumerate(scales):
+        th = rng.standard_normal(d)
+        X = rng.standard_normal((n_task, d)); y = sc * (X @ th + noise_sd * rng.standard_normal(n_task))
+        Xt = rng.standard_normal((n_test, d)); yt = sc * (Xt @ th + noise_sd * rng.standard_normal(n_test))
+        tasks.append((X, y, Xt, yt))
+    theta = np.zeros(d)
+    bufX = np.zeros((buf, d)); bufy = np.zeros(buf); nb = 0; seen = 0
+    ev_p = ev_q = None; Fd = np.full(d, 1e-3); wlog = []
+    rb = max(1, int(round(r * bs)))
+    for k in range(K):
+        X, y, _, _ = tasks[k]
+        perm = rng.permutation(n_task)
+        for i in range(0, n_task, bs):
+            idx = perm[i:i + bs]; xb, yb = X[idx], y[idx]
+            g_p = 2 * xb.T @ (xb @ theta - yb) / len(idx)
+            if nb > 0:
+                sel = rng.choice(nb, min(rb, nb), replace=False)
+                g_q = 2 * bufX[sel].T @ (bufX[sel] @ theta - bufy[sel]) / len(sel)
+                if method == "fixed":
+                    w = value
+                elif method == "eq":
+                    if ev_p is None: ev_p, ev_q = g_p.copy(), g_q.copy()
+                    else: ev_p = smooth * ev_p + (1 - smooth) * g_p; ev_q = smooth * ev_q + (1 - smooth) * g_q
+                    M = Fd if metric == "fisher" else 1.0
+                    w = min(value * np.sqrt(np.sum(M * ev_p * ev_p) / max(np.sum(M * ev_q * ev_q), 1e-18)), wcap)
+                else:
+                    raise ValueError(method)
+                wlog.append(w)
+                g = g_p + w * g_q
+            else:
+                g = g_p
+            theta = theta - lr * g
+            Fd = 0.99 * Fd + 0.01 * g_p * g_p
+            for j in idx:  # reservoir
+                seen += 1
+                if nb < buf: bufX[nb] = X[j]; bufy[nb] = y[j]; nb += 1
+                else:
+                    t = rng.integers(seen)
+                    if t < buf: bufX[t] = X[j]; bufy[t] = y[j]
+    per_task = []
+    for (_, _, Xt, yt) in tasks:
+        per_task.append(float(np.mean((Xt @ theta - yt) ** 2) / np.var(yt)))
+    return dict(metric=float(np.mean(per_task)), per_task=per_task, w_med=float(np.median(wlog)) if wlog else None)
+
+
+def S_R_convex_replay_constant(seed=0):
+    """S-R: convex replay learner, all tasks at the same input scale. The present/past
+    gradient-norm ratio is stationary, so a fixed w matches the adaptive rule: H-EQ
+    (adaptivity beats the best constant) MUST FAIL here."""
+    scales = (1.0, 1.0, 1.0, 1.0, 1.0)
+    return (lambda method, value, s: _replay_learner(scales, method, value, s)), None, {"name": "S-R convex replay, constant label scale (adaptivity idle)"}
+
+
+def S_V_convex_replay_varying(seed=0):
+    """S-V: convex replay learner whose task LABEL scales swing 16x between consecutive
+    tasks, so the present/past gradient-norm ratio swings ~16x and no single fixed w is
+    right for every task. Positive control: adaptivity MUST PASS or the gate is blind."""
+    scales = (1.0, 4.0, 0.25, 4.0, 0.25)
+    return (lambda method, value, s: _replay_learner(scales, method, value, s)), None, {"name": "S-V convex replay, 16x label-scale swings (adaptivity load-bearing)"}
+
+
+REPLAY_BATTERY = [S_R_convex_replay_constant, S_V_convex_replay_varying]
+
+
+# ---------------------------------------------------------------- rate surrogates (H-L5 on count series, SCOPE.md P6/P9)
+# Synthetic epidemic curves: non-negative rate lam(t) built from cycles, then Poisson
+# counts. events = the true cycle starts (the onsets), known by construction.
+# The concavity trap: under the Poisson metric arc = TV(2 sqrt lam), and sqrt halves the
+# CV of a variable peak height, so a variable-amplitude, variable-period curve can show
+# CV(arc) < CV(clock) with no CRR content. Control (i) (amplitude, scored in the SAME
+# metric, by paired bootstrap) is what must catch it. S-P rows test exactly that.
+
+def _rate_cycles(periods, peaks, shape, base=2.0, seed=0):
+    rng = np.random.default_rng(seed)
+    lam, ev, pos = [], [], 0
+    for p, a in zip(periods, peaks):
+        u = np.linspace(0, 1, int(p), endpoint=False)
+        lam.append(base + a * shape(u)); ev.append(pos); pos += int(p)
+    lam = np.concatenate(lam)
+    counts = rng.poisson(lam).astype(float)
+    return counts, np.asarray(ev)
+
+
+def _hump(u):  # one epidemic hump per cycle: rise then fall, zero at both ends
+    return np.sin(np.pi * u) ** 2
+
+
+def _two_humps(u, h1, h2):  # two humps of heights h1, h2 inside one cycle
+    return np.where(u < 0.5, h1 * np.sin(2 * np.pi * u) ** 2, h2 * np.sin(2 * np.pi * u) ** 2)
+
+
+def S_P_am(n=60, seed=0, peak=400.0, jitter=0.3):
+    rng = np.random.default_rng(seed)
+    a = peak * rng.uniform(1 - jitter, 1 + jitter, n)
+    x, ev = _rate_cycles(np.full(n, 52), a, _hump, seed=seed)
+    return x, ev, {"name": "S-P AM epidemics (constant period, variable peak)"}
+
+
+def S_P_fm(n=60, seed=0, peak=400.0, jitter=0.25):
+    rng = np.random.default_rng(seed)
+    p = rng.uniform(52 * (1 - jitter), 52 * (1 + jitter), n)
+    x, ev = _rate_cycles(p, np.full(n, peak), _hump, seed=seed)
+    return x, ev, {"name": "S-P FM epidemics (variable period, constant peak; arc ties amplitude)"}
+
+
+def S_P_amfm(n=60, seed=0, peak=400.0):
+    rng = np.random.default_rng(seed)
+    p = rng.uniform(40, 64, n); a = peak * rng.uniform(0.7, 1.3, n)
+    x, ev = _rate_cycles(p, a, _hump, seed=seed)
+    return x, ev, {"name": "S-P AM+FM epidemics (the concavity trap: no CRR content)"}
+
+
+def S_P_fm_compensating(n=60, seed=0, peak=400.0, jitter=0.25):
+    """Variable period; each cycle has two humps whose heights sum to a constant, so the
+    arc (sum of rises and falls) is constant while the peak amplitude varies: arc beats
+    amplitude BY CONSTRUCTION. Positive control for 'beyond control (i)'."""
+    rng = np.random.default_rng(seed)
+    p = rng.uniform(52 * (1 - jitter), 52 * (1 + jitter), n)
+    f = rng.uniform(0.3, 0.7, n)
+    lam, ev, pos = [], [], 0
+    for pk, fk in zip(p, f):
+        u = np.linspace(0, 1, int(pk), endpoint=False)
+        lam.append(2.0 + peak * _two_humps(u, fk, 1 - fk)); ev.append(pos); pos += int(pk)
+    lam = np.concatenate(lam)
+    return rng.poisson(lam).astype(float), np.asarray(ev), {"name": "S-P FM two-hump compensating (arc constant, amplitude variable)"}
+
+
+def S_P_clock_regular_two_hump(n=60, seed=0, peak=400.0):
+    """Constant period; two humps whose heights vary independently, so both arc and
+    amplitude vary while the clock does not: clock-regular by construction, must FAIL."""
+    rng = np.random.default_rng(seed)
+    lam, ev, pos = [], [], 0
+    for _ in range(n):
+        u = np.linspace(0, 1, 52, endpoint=False)
+        h1, h2 = rng.uniform(0.3, 1.0, 2)
+        lam.append(2.0 + peak * _two_humps(u, h1, h2)); ev.append(pos); pos += 52
+    lam = np.concatenate(lam)
+    return rng.poisson(lam).astype(float), np.asarray(ev), {"name": "S-P clock-regular two-hump (constant period, variable arc)"}
+
+
+RATE_BATTERY = [S_P_am, S_P_fm, S_P_amfm, S_P_fm_compensating, S_P_clock_regular_two_hump]
+
 # One ROW per registered parameter value: the row name encodes the parameter
 # (the gate keys MUST_FAIL/MUST_PASS on these names). The sweeps of S-C and
 # S-D and the mu=1 van der Pol variant are separate rows of the same generator.

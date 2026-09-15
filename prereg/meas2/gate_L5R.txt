@@ -1,0 +1,18 @@
+gate for L5R
+  must FAIL on ['S-P AM epidemics (constant period, variable peak)', 'S-P AM+FM epidemics (the concavity trap: no CRR content)', 'S-P clock-regular two-hump (constant period, variable arc)']
+  must PASS on ['S-P FM two-hump compensating (arc constant, amplitude variable)']
+
+  --- metric = poisson ---
+  S-P AM epidemics (constant period, variable peak)                      FAIL  cv_arc=0.082 cv_clock=0.000 cv_amp=0.095 ci=0.067,0.094 ci_amp=-0.025,-0.000
+  S-P FM epidemics (variable period, constant peak; arc ties amplitude)  FAIL  cv_arc=0.076 cv_clock=0.148 cv_amp=0.032 ci=-0.092,-0.052 ci_amp=0.034,0.053
+  S-P AM+FM epidemics (the concavity trap: no CRR content)               FAIL  cv_arc=0.097 cv_clock=0.136 cv_amp=0.101 ci=-0.060,-0.017 ci_amp=-0.018,0.009
+  S-P FM two-hump compensating (arc constant, amplitude variable)        PASS  cv_arc=0.047 cv_clock=0.148 cv_amp=0.061 ci=-0.119,-0.081 ci_amp=-0.027,-0.001
+  S-P clock-regular two-hump (constant period, variable arc)             FAIL  cv_arc=0.107 cv_clock=0.000 cv_amp=0.111 ci=0.087,0.124 ci_amp=-0.022,0.014
+  --- metric = identity ---
+  S-P AM epidemics (constant period, variable peak)                      FAIL  cv_arc=0.151 cv_clock=0.000 cv_amp=0.172 ci=0.127,0.171 ci_amp=-0.036,-0.006
+  S-P FM epidemics (variable period, constant peak; arc ties amplitude)  FAIL  cv_arc=0.094 cv_clock=0.148 cv_amp=0.032 ci=-0.076,-0.030 ci_amp=0.048,0.075
+  S-P AM+FM epidemics (the concavity trap: no CRR content)               FAIL  cv_arc=0.169 cv_clock=0.136 cv_amp=0.173 ci=0.002,0.061 ci_amp=-0.023,0.015
+  S-P FM two-hump compensating (arc constant, amplitude variable)        PASS  cv_arc=0.076 cv_clock=0.148 cv_amp=0.106 ci=-0.091,-0.051 ci_amp=-0.050,-0.009
+  S-P clock-regular two-hump (constant period, variable arc)             FAIL  cv_arc=0.198 cv_clock=0.000 cv_amp=0.189 ci=0.161,0.231 ci_amp=-0.016,0.034
+
+GATE OPEN

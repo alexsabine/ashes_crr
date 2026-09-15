@@ -14,6 +14,11 @@ file in the same commit as any data download.
 | SPY daily prices | 2010–2026 | whole series | 2026-09-12 |
 | Split-MNIST, Split-Fashion-MNIST, Split-KMNIST | standard | all | 2026-09-08 to 09-14 |
 | Split-CIFAR-10 | standard | all | 2026-09-12 |
+| PMLB `optdigits` (GitHub mirror, master) | sha256 in data/manifests/eqx.sha256 | all rows | 2026-09-15 (study EQX, after tag prereg-eqx-2026-09-15) |
+| PMLB `pendigits` (GitHub mirror, master) | sha256 in data/manifests/eqx.sha256 | all rows | 2026-09-15 (study EQX) |
+| PMLB `letter` (GitHub mirror, master) | sha256 in data/manifests/eqx.sha256 | all rows | 2026-09-15 (study EQX) |
+| tsiR `twentymeas` (Grenfell; E&W measles, 20 cities, biweekly, 22 y) | tsiR 0.4.2, GitHub master; sha256 in data/manifests/meas.sha256 | all 20 cities | 2026-09-15 (study MEAS, after commit 3869ba2) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
-experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream.
+experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
+PMLB `satimage`, `usps` (not mirrored), other PMLB classification sets.

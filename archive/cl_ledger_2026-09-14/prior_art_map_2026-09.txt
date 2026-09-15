@@ -1,0 +1,608 @@
+Continual Learning, 2025–September 2026: State of the Art,
+Bottlenecks, and a Prior-Art Map for the CRR Equanimity Rule
+TL;DR
+The ﬁeld has converged, empirically, on a single dominant lever —
+replay/regularisation that keeps the model's output distribution close to its prior
+distribution — and on a strong empirical predictor of forgetting (KL divergence to the
+base model on the new task, "RL's Razor," Shenfeld et al., ICLR 2026), but essentially
+every quantitative knob (replay fraction, loss weight λ , replay-batch size, memory-
+bank update frequency) is hand-set, not derived. This is exactly the gap CRR's ratio-
+based, unit-free quantities target.
+Alex's "equanimity" rule (weight the mean replay gradient equal to the mean current-
+batch gradient, Ω =1) has no exact prior art: the nearest neighbours are GradNorm
+(multi-task gradient-norm equalisation, 2018), MEGA-I (loss-ratio balancing of
+current vs. episodic-memory gradients, 2020), and GeRe's dynamic weight matching
+replay loss magnitude to current-task loss (2025). All balance losses or equalise norms
+across tasks; none states a closed-form weight-1 replay rule, and none reports the
+speciﬁc "matches 100%-replay at ~40% less compute" result.
+The path-length vs. endpoint prediction is genuinely under-tested. Current practice
+measures endpoint KL / parameter displacement (RL's Razor; Bethune et al. scaling
+laws) or bounds per-step forgetting (Loss-Adaptive Learning Rates, 2026), and there is
+documented "drift-then-recover" oscillation in ﬁne-tuning — but no work uses
+cumulative Fisher-Rao/KL trajectory length as the forgetting predictor, leaving CRR's
+coherence-length hypothesis open.
+Key Findings
+1. Replay dominates at scale, but the mixing weight is heuristic. Across continual
+pretraining (Ibrahim et al., 2024), LLM ﬁne-tuning (Marek et al., 2026; Kotha & Liang,
+2026), and classic class-IL (DER++, Buzzega et al., 2020), replay is the workhorse.
+Marek et al. use a ﬁxed replay weight λ =10 on a replay minibatch 4× smaller than the
+downstream batch; DER/ER use ﬁxed per-benchmark α / β  on a separately-drawn
+buffer minibatch; continual pretraining uses hand-set 5–50% replay fractions. None of
+these weights is derived.
+2. The forgetting "law" is empirical, not derived. RL's Razor (Shenfeld, Pari & Agrawal,
+ICLR 2026, arXiv 2509.04259) shows forgetting collapses onto a single curve when
+plotted against forward KL(base ǁ ﬁne-tuned) on the new task. The ﬁt is far tighter in a
+controlled toy setting than in LLMs: "A quadratic ﬁt achieves R2 = 0.96 in this setting
+[ParityMNIST]… The same correlation appears in our LLM experiments, with a
+quadratic ﬁt achieving R2 = 0.71." On-policy RL is implicitly biased toward KL-
+minimal solutions. The law itself (KL predicts forgetting) is ﬁtted; the "why RL stays
+KL-small" part is derived.
+3. Loss of plasticity has no consensus cause. Competing 2024–2026 accounts: unit
+dormancy / lack of injected diversity (Dohare et al., Nature 2024, continual
+backpropagation); Hessian/eNTK spectral collapse (He et al., ICML 2026);
+dynamical-systems trapping near stable manifolds (Joudaki et al., ICLR 2026); and —
+newly — abundant replay memory itself suppressing plasticity (Cho et al., "Forget
+Forgetting," ICLR 2026). Each proposes a different ﬁx, which is itself evidence the
+mechanism is unsettled.
+4. Multi-timescale memory is back, with hand-set frequencies. Google's Nested
+Learning / HOPE (Behrouz et al., arXiv 2512.24695) frames a model as nested
+optimisation problems and a "Continuum Memory System" of memory banks each
+updating at a different, hand-speciﬁed frequency — a direct architectural analogue of
+CRR's occasions/resets, but with the timescales chosen by hand rather than derived
+from the data's own resolvable steps.
+5. Mechanistic localisation of forgetting is converging on middle/attention layers but
+is contested. 2026 mechanistic work reports representational drift in intermediate
+layers, gradient interference in attention weights, and MoE routing-gate drift; but the
+ﬂagship arXiv 2601.18699 has hallmarks of an unreliable source (see Caveats).
+Details
+PART 1 — State of the Art (with mechanism, and whether the explanation is derived or
+empirical)
+Replay methods.
+Experience Replay (ER) and Dark Experience Replay (DER/DER++) (Buzzega et al.,
+NeurIPS 2020, arXiv 2004.07211). Mechanism (authors): interleaving buffered
+exemplars — and, in DER, matching stored logits sampled along the optimisation
+trajectory (knowledge distillation) — keeps the function from drifting on past data;
+DER++ adds a ground-truth-label term to survive sudden distribution shift. 
+DER uses reservoir sampling and needs no task boundaries. Empirical. The
+buffer minibatch is drawn separately and its loss added with ﬁxed coefficients α  (logit-
+matching) and β  (labels),  typically α =1, β =0.5, buffer minibatch ≈32.
+CLS-ER (dual-memory experience replay, Arani et al., ICLR 2022): maintains fast- and
+slow-updating semantic memories (EMA of weights) alongside the episodic buffer;
+mechanism (authors) is the complementary-learning-systems analogy — a plastic
+fast learner and a stable slow learner, consolidated by aligning decisions on buffered
+samples. Empirical/analogical.
+SuRe (Surprise-driven Prioritised Replay) (Hazard et al., 2025, arXiv 2511.22367):
+prioritises replay of high-surprise (high prediction-error) prompts. Mechanism:
+surprise proxies for samples most at risk of being overwritten; concentrating replay
+there is sample-efficient. Empirical.
+Self-generated / synthetic replay: the model samples its own training distribution
+instead of storing exemplars. In LLMs this "nearly eliminates forgetting" (Marek et al.,
+Liner
+NeurIPS
+NeurIPS
+2026, arXiv 2605.26097);  Shin et al. (2017) deep generative replay is the origin.
+Mechanism (authors): self-samples approximate the pretraining distribution well
+enough that regularising on them holds the prior distribution ﬁxed. Empirical, with a
+partial derivation — Marek et al. show NTP-on-self-samples is a Monte-Carlo
+estimator of forward KL to the base model. 
+On-policy replay for continual SFT (arXiv 2605.29495, 2026): replaces stale gold
+answers attached to historical prompts with reward-ﬁltered on-policy samples.
+Mechanism: on-policy targets stay near the current policy, reducing distributional
+drift (a corollary of RL's Razor). Empirical, motivated by theory.
+GeRe (General-sample Replay) (Zhang et al., 2025, arXiv 2508.04676): a small, ﬁxed
+pre-collected set of generic pretraining texts is replayed to retain general capability,
+ with a threshold-based-margin (TM) activation-consistency loss. Mechanism
+(authors): anchoring neural activation states on general samples preserves broad
+capability and even improves downstream performance. Empirical. Notably,
+GeRe uses Dynamic Weight Balancing: ω ^TM = detach(L^CE / L^TM) so the replay
+loss magnitude is scaled to match the current-task CE loss  — the closest
+published analogue to an "equanimity" idea, but on losses, not gradients.
+Regularisation and distillation.
+EWC family (Kirkpatrick et al., PNAS 2017) and Synaptic Intelligence (Zenke et al.,
+2017): quadratic penalty on parameter change weighted by (Fisher-based)
+importance. Mechanism (authors): protect parameters important to prior tasks.
+Derived (Laplace/Fisher approximation) but the approximation is known to be loose;
+RL's Razor reframes EWC as an approximate KL-minimisation.
+Learning without Forgetting (Li & Hoiem, 2017): distil the old model's outputs on new-
+task inputs. Mechanism: functional (output-space) anchoring. Empirical.
+KL regularisation on replay data (Marek et al., 2026, arXiv 2605.26097): add
+λ ·KL(base ǁ model) on replay/self-generated data; they ﬁnd the KL objective beats plain
+NTP for retention,  and that λ =10 (verbatim, Fig. 4/6 captions: "a strong
+regularization coefficient ( λ =10) to minimize forgetting") on a 4×-smaller replay
+minibatch (Appendix B.2: "a batch size 4-times smaller than the downstream batch
+(to reduce the computational overhead from regularization)") works well. Capacity
+lower-bounds forgetting: a near-saturated (overtrained) model cannot learn without
+overwriting. Empirical, with the KL-estimator derivation above. λ  and the batch
+ratio are hand-set.
+Self-Distillation Fine-Tuning (SDFT) / "Self-Distillation Enables Continual Learning"
+(Shenfeld, Damani, Hübotter, Agrawal, 2026, arXiv 2601.19897; ICML 2026): use in-
+context conditioning to turn a demonstration into a per-instance reward, enabling on-
+policy learning from demonstrations. Mechanism (authors): on-policy distribution
+alignment keeps updates in a trust region around the base policy → less forgetting
+than off-policy SFT. Derived from an inverse-RL argument.
+arXiv
+arxiv
+arXiv
+arXiv
+arxiv
+arxiv
+arXiv
+Self-Distillation Policy Optimization (SDPO) / "Reinforcement Learning via Self-
+Distillation" (Hübotter et al., 2026, arXiv 2601.20802): the veriﬁable-reward analogue
+of SDFT; achieves a better performance–forgetting trade-off than GRPO. Empirical +
+theory.
+RL's Razor (Shenfeld & Agrawal, ICLR 2026, arXiv 2509.04259): the empirical
+forgetting law KL(base ǁ ﬁne-tuned) on the new task predicts forgetting; on-policy RL
+is implicitly biased toward KL-minimal solutions among those solving the task. 
+They ablate weight change, representation drift, rank/sparsity, reverse KL, total
+variation, L2 — none explains forgetting as well as forward KL. Law is empirical
+(R ² =0.96 toy / 0.71 LLM); the "why RL is KL-minimal" part is derived.
+Critique — "Rethinking On-Policy Self-Distillation for Thinking Models" (arXiv
+2607.05184): questions whether on-policy self-distillation retains its advantage on
+long-chain-of-thought "thinking" models. [Flagged: I could not independently verify
+this arXiv ID within budget; treat as claimed.]
+EMA / dual-memory / slow–fast consolidation. Mean-teacher/EMA weight averaging and
+CLS-ER (above) instantiate a stable slow copy and a plastic fast copy; "Forget Forgetting"
+(Cho et al., ICLR 2026) uses weight averaging for stability + rank-based resets for plasticity.
+Mechanism: temporal averaging suppresses high-frequency drift. Empirical/analogical.
+Multi-timescale architectures.Nested Learning / HOPE / Titans continuum memory
+(Behrouz et al., Google, arXiv 2512.24695): memory as a spectrum of banks, each updating
+at a hand-set frequency;  HOPE adds self-modifying ("unbounded levels
+of in-context learning") updates on top of Titans' surprise-based long-term memory.
+ Mechanism (authors): separating timescales lets fast banks absorb novelty while
+slow banks consolidate, reducing interference. Empirical (proof-of-concept), timescales
+hand-set.
+Continual pretraining of LLMs.
+Ibrahim/Gupta et al. (TMLR 2024, arXiv 2403.08763): verbatim, "a simple and scalable
+combination of learning rate (LR) re-warming, LR re-decaying, and replay of previous
+data is sufficient to match the performance of fully re-training from scratch on all
+available data… matching the re-training baseline using only a fraction of the
+compute" — validated at 405M and 10B across weak (En→En) and strong (En→De)
+shifts. Replay fraction is hand-set (small % suffices for weak shift; more for strong
+shift). Empirical.
+Kotha & Liang, "Replaying pre-training data improves ﬁne-tuning" (2026, arXiv
+2603.04964): replaying generic data during ﬁne-tuning not only prevents forgetting
+but improves the target task — up to 1.87× (ﬁne-tuning) / 2.06× (mid-training) data
+efficiency; helps more when target data is scarce in pretraining. Empirical.
+"The Finetuner's Fallacy" (Baek et al., 2026, arXiv 2603.16177): specialised pretraining
+(repeating the domain set from pretraining) beats ﬁne-tuning-only; a 1B specialised-
+arXiv
+Google Research
+Medium
+pretrained model can beat a 3B standard model on narrow domains, with less
+forgetting. Replay rates {0,10,20%} tuned by hand. Empirical.
+"Sharpness-Aware Pretraining Mitigates Catastrophic Forgetting" (Watts et al., 2026,
+arXiv 2605.02105): SAM / large LR / short anneal bias toward ﬂat minima; a short SAM
+mid-training phase on OLMo-2-1B cuts forgetting by 31% (MetaMath) and 40% (4-bit
+quant); up to 80% less forgetting across 20M–150M models. Mechanism: ﬂatter base
+minima leave more capability intact under later updates. Empirical, geometry-
+motivated.
+Scaling laws for forgetting (Bethune et al., 2025, arXiv 2502.06042): forgetting under
+pretraining-data injection follows a scaling law in injection fraction and model size;
+uses endpoint cross-entropy-to-base as the forgetting metric. Derived scaling ﬁt
+(empirical form).
+Loss of plasticity.
+Dohare et al. (Nature 632:768–774, 2024): standard deep nets lose plasticity in
+continual settings — verbatim, "In ImageNet, binary classiﬁcation performance
+dropped from 89% accuracy on an early task down to 77%, about the level of a linear
+network, on the 2000th task." Continual backpropagation (reinitialise a small fraction
+of least-used units) maintains plasticity. Mechanism (authors): sustained learning
+needs a random, non-gradient diversity injection. Empirical.
+"Spectral Collapse Drives Loss of Plasticity" (He et al., ICML 2026, arXiv 2509.22335):
+plasticity loss is preceded by Hessian spectral collapse at new-task init; derives ε -rank
+conditions and shows the loss-weighted Gram matrix is spectrally equivalent to the
+Gauss–Newton approximation; ﬁx = maintain effective feature rank + L2. Derived.
+Activation-function design for plasticity — deep Fourier features and
+learnable/wavelet activations (2026, e.g. arXiv 2509.22562 and related):
+structured/periodic features resist rank collapse. Empirical + partial theory. (Exact IDs
+for the "deep Fourier features" and Aug-2026 wavelet papers not fully veriﬁed within
+budget.)
+"Forget Forgetting" (Cho et al., ICLR 2026, arXiv 2502.07274): in the abundant-
+memory regime the bottleneck ﬂips from stability to plasticity — abundant exemplar
+memory suppresses new-task learning because the expected update direction
+collapses onto the span of past gradients as replay weight λ →0. Fix = Weight-Space
+Consolidation (rank-based resets + weight averaging). Empirical with a short
+gradient-geometry derivation.
+Theory in scaling limits.
+"The Importance of Being Lazy" (Graldi et al., ICML 2025, arXiv 2506.16884): using
+DMFT, width helps only insofar as it induces laziness (less feature learning); a task-
+similarity-modulated transition separates a lazy low-forgetting regime from a rich
+high-forgetting regime; optimal performance at a critical level of feature learning.
+Derived.
+"Convergence of continual learning in homogeneous deep networks" (2026) and
+related (Jung et al., ICLR 2025 on GD implicit bias in continual linear classiﬁcation;
+Karpel et al., 2026, optimal L2 in high-dim continual linear regression, arXiv
+2601.13844): characterise convergence/implicit bias in idealised settings. Derived.
+Gradient-balancing / gradient-projection prior art (relevant to equanimity).
+GEM / A-GEM (Lopez-Paz & Ranzato, 2017; Chaudhry et al., 2019): project the current
+gradient so it does not increase loss on buffered tasks. Derived (constrained QP).
+MEGA-I/II (Guo et al., NeurIPS 2020, arXiv 1909.11763): unify GEM/A-GEM as
+balancing two gradients;  MEGA-I sets mixing weights from the loss
+ratio (if current loss is small, shift emphasis to memory);  MEGA-II rotates the
+current gradient toward the reference. GEM/A-GEM are degenerate cases that always
+weight the current task at 1. Derived optimisation view.
+GradNorm (Chen et al., ICML 2018, arXiv 1711.02257): equalises per-task gradient
+norms to the average gradient norm  — verbatim, "The
+common scale for gradients is most naturally the average gradient norm, G_W(t)," and
+GradNorm "directly tun[es] the gradients to equalize task training rates," controlled
+by a single asymmetry hyperparameter α  ( α =0 → exactly equal norms). Multi-task, not
+replay. Derived heuristic.
+Mammoth's additive-loss ER: separate buffer minibatch, ﬁxed additive weight — see
+DER above.
+Benchmarks and evaluation. Mammoth (aimagelab) is the de-facto CL framework;
+ standard splits are class-IL / task-IL / domain-IL, plus task-free and recurring
+streams. "Continual evaluation / the stability gap" (De Lange, van de Ven & Tuytelaars,
+ICLR 2023, arXiv 2205.13452) shows "severe forgetting of past tasks occurs already during
+the ﬁrst few training iterations on a new task," but this forgetting "is temporary and
+followed by a phase of performance recovery… we refer to [this] as the stability gap" — an
+endpoint-vs-trajectory distinction directly relevant to CRR. "Continual learning should
+move beyond incremental classiﬁcation" (2025) argues the ﬁeld's benchmarks are too
+narrow. There is a NeurIPS 2026 workshop on test-time continual-learning agents.
+[Flagged: exact citations for the position paper and the NeurIPS 2026 workshop could not be
+fully veriﬁed within budget.]
+Agent-memory infrastructure. Continuum-Memory-System deployments for LLM agents
+(e.g., arXiv 2605.29055, 2601.13186) implement fast/medium/long memory layers with
+explicit staleness/decay; these are engineering claims, largely un-benchmarked against CL
+metrics.
+PART 2 — Bottlenecks the ﬁeld names (consolidated)
+1. The forgetting law is empirical/underived. RL's Razor ﬁts KL→forgetting (R²=0.96
+toy, 0.71 LLM) but does not derive the functional form; it explicitly frames KL as a
+"reliable predictor," not a ﬁrst-principles law.
+ML Anthology
+arxiv
+ML Anthology
+Proceedings of Machi…
+GitHub
+2. Hand-set replay weight/loss coefficient. Marek et al. use λ =10 on a 4×-smaller replay
+batch — both chosen, not derived. GeRe uses a detached loss-ratio. DER uses per-
+benchmark α / β .
+3. Hand-set replay fractions in continual pretraining. Ibrahim et al. use small % for
+weak shift, more for strong shift; Finetuner's Fallacy tunes {0,10,20%}; surveys note
+"5% vs 25% by shift strength." No derivation of the correct fraction.
+4. Hand-set update frequencies in continuum-memory systems. Nested
+Learning/HOPE's memory-bank frequencies are design choices.
+5. No consensus cause of loss of plasticity (dormancy vs spectral collapse vs dynamical
+trapping vs abundant-memory suppression).
+6. Capacity measured only by proxy. Marek et al. show capacity lower-bounds
+forgetting but proxy it via tokens-per-parameter / pretraining saturation, not a direct
+measure. 
+7. Single-task/short-sequence results may not extend to long multi-task streams
+(widely acknowledged; e.g., mechanistic and post-training-forgetting papers test few
+tasks).
+8. Abundant memory reduces plasticity (Cho et al.) — a newly named trade-off.
+9. Cost of on-policy sampling. SDPO/on-policy distillation require generating rollouts
+(SDPO ~2× generations vs SFT for the self-teacher baseline); on-policy replay pays a
+sampling tax.
+10. Task-boundary detection in task-free streams remains unsolved (DER avoids
+boundaries but general task-free CL is open).
+11. Where forgetting localises is contested (middle layers / attention / MoE routing vs
+function vectors).
+12. Compute cost of replay at frontier scale. Continual pretraining saves vs full
+retraining (Ibrahim et al.); Hickok (2025, arXiv 2505.12512) reports 55–65% fewer
+replay samples for equal performance via reduced replay ratio + consolidation. Exact
+frontier-scale FLOP ﬁgures for replay are rarely reported.
+PART 3 — Prior-art check for the equanimity rule (honest)
+(i) Set replay weight so replay gradient norm = current-task gradient norm /
+balance mean gradients of old and new data.No exact match found. Near-misses:
+GradNorm (equalises task gradient norms to the average, multi-task, learns weights
+via auxiliary loss — not replay, not weight-1, not closed-form); MEGA-I (balances
+current vs. episodic-memory gradients by loss ratio, adaptive, not norm-equality);
+GeRe (dynamic weight matching replay loss magnitude to current CE loss via a
+detached ratio). All balance losses or equalise norms across tasks; none states the
+mean-replay-gradient = mean-current-gradient (weight-1) rule.
+(ii) Replay minibatch size vs replay loss weight trade-off. Partially present but not as
+a principled trade-off: Marek et al. use a 4×-smaller replay batch and λ =10 (they up-
+weight the smaller batch), motivated only as "to reduce the computational overhead
+arxiv
+from regularization." DER draws a ﬁxed-size buffer minibatch (~32) with ﬁxed α / β . No
+paper isolates "small batch, unit weight" as an optimum.
+(iii) Additive-loss ER (separate means, weight 1) tolerates a much smaller replay
+minibatch.Not found as an explicit claim. Mammoth/DER use additive separate-
+minibatch losses but with tuned weights, not weight 1, and do not report tolerance to
+shrinking the replay minibatch at unit weight.
+(iv) Compute reduction from small-weighted replay.The speciﬁc "~40% less
+compute, matches 100% replay" is not in the literature. Closest: Hickok (2025) — 55–
+65% fewer replay samples for equal performance (via reduced replay ratio + a
+consolidation phase, not a gradient-balancing weight). Marek et al. motivate the 4×-
+smaller batch as compute-saving but give no % ﬁgure.
+Verdict: The equanimity rule as Alex states it — a closed-form, unit-free, weight-1 balancing
+of mean gradients of replay and current batches, plus the small-replay-batch compute result
+— appears genuinely novel relative to GradNorm/MEGA/GeRe/DER. The strongest
+overlapping ideas are conceptual (balance old vs new; equalise magnitudes), not identical.
+PART 4 — Path-length vs endpoint forgetting
+Endpoint predictors dominate. RL's Razor uses endpoint forward KL on the new task;
+ Bethune et al. use endpoint cross-entropy-to-base; many use ǁ θ _T −
+θ _0 ǁ . These are displacement/endpoint quantities.
+Per-step (not cumulative-path) bounds exist. "Fine-Tuning Without Forgetting via
+Loss-Adaptive Learning Rates" (2026, arXiv 2605.20005) bounds per-step forgetting
+and notes bounding it "at each step directly controls cumulative forgetting" — the
+closest to a path-integral view, but it bounds a sum of per-step losses, not Fisher-Rao
+arc length.
+Oscillation / "wasted travel" is documented but not costed as path length. The
+stability-gap literature (De Lange et al., 2023) and "Overcoming Forgetting with
+Evolution Strategies" (arXiv 2605.30148) show prior-task accuracy drops then
+recovers, and that random-walk weight drift (larger ǁ θ _t− θ _0 ǁ ) tracks forgetting —
+evidence that trajectories oscillate and that travel correlates with forgetting, but
+nobody integrates arc length.
+No work uses cumulative KL / cumulative Fisher distance / trajectory length as the
+forgetting predictor. RL's Razor even shows per-step KL change anti-correlates with
+gradient similarity (bigger steps → more forgetting), which is suggestive of a path-
+length effect, but the paper's headline predictor remains endpoint KL.
+Verdict: CRR's path-length (arc actually travelled) vs endpoint-displacement distinction is
+an open, untested prediction. The cheapest decisive test: ﬁne-tune two ways to the same
+endpoint KL but different cumulative trajectory length (e.g., high-LR-oscillatory vs low-LR-
+direct), and check whether forgetting tracks cumulative Fisher-Rao length or endpoint KL.
+Hugging Face
+Bottleneck ↔  CRR-derived-candidate table
+Bottleneck Who names it Quantity
+currently
+hand-set
+What a CRR-
+derived alternative
+must predict
+Cheapest test
+Forgetting
+law is ﬁtted
+Shenfeld et al.
+(RL's Razor,
+ICLR 2026)
+Functional
+form of
+KL→forgetting
+(R²=0.96 toy,
+0.71 LLM)
+Forgetting as a
+derived function of
+coherence C
+(Fisher-Rao arc
+length since reset),
+unit Ω =1
+Re-plot RL's Razor data
+with cumulative Fisher
+length as x-axis; test if R²
+improves
+Replay loss
+weight
+Marek et al.
+2026
+(2605.26097);
+DER (2020);
+GeRe
+(2508.04676)
+λ =10; DER α / β ;
+GeRe detached
+loss-ratio
+Weight = 1 when
+replay & current
+mean gradients are
+equalised
+(equanimity),
+derived not tuned
+Split-MNIST/KMNIST:
+sweep λ , conﬁrm optimum
+at gradient-norm parity;
+check LR/batch invariance
+Replay
+fraction in
+CPT
+Ibrahim et al.
+2024; Baek et
+al. 2026
+5–50% by shift
+strength
+Fraction set so
+replay arc length =
+new-task arc length
+per step
+Continual pretrain at
+matched gradient-parity
+fraction vs tuned fraction;
+compare retention/compute
+Memory-
+bank
+update
+frequency
+Behrouz et al.
+(Nested
+Learning,
+2512.24695)
+Hand-set per-
+bank
+frequencies
+Reset/regeneration
+cadence derived
+from the system's
+own resolvable steps
+( Ω =1)
+Ablate: derived cadence vs
+hand-set on continual LM
+benchmark
+Cause of
+plasticity
+loss
+Dohare
+(Nature 2024);
+He et al.
+(ICML 2026);
+Cho et al.
+(ICLR 2026)
+Reset fraction /
+rank threshold
+/ λ
+Rupture (reset)
+triggered when
+coherence exceeds a
+derived bound
+Compare CRR-timed resets
+vs continual-backprop
+random resets on Continual
+ImageNet
+Abundant
+memory
+suppresses
+plasticity
+Cho et al.
+(ICLR 2026)
+Replay weight λ
+(collapse as
+λ →0)
+Bounded
+regeneration
+strength κ  that
+keeps plasticity
+while retaining
+Vary κ ; check plasticity
+(new-task acc) vs stability
+frontier
+Bottleneck Who names it Quantity
+currently
+hand-set
+What a CRR-
+derived alternative
+must predict
+Cheapest test
+Endpoint vs
+path
+forgetting
+RL's Razor; De
+Lange et al.
+(2023)
+Endpoint KL /
+ǁ θ _T− θ _0 ǁ
+Forgetting ∝
+cumulative Fisher-
+Rao arc length, not
+endpoint
+displacement
+Same-endpoint-KL,
+different-path ﬁne-tunes;
+regress forgetting on arc
+length
+Ratios vs
+absolute
+rates across
+systems
+(CRR novel;
+not named as
+such)
+Absolute
+forgetting rates
+Retention ratios in
+the system's own
+metric are invariant
+across systems
+Measure ratio-based
+retention across
+MNIST/KMNIST/Fashion-
+MNIST; test invariance
+Recommendations
+1. Publish the equanimity rule now as a distinct contribution, positioning it explicitly
+against GradNorm (norm-equalisation, multi-task), MEGA-I (loss-ratio, episodic
+memory), and GeRe (loss-magnitude matching). The novelty is the gradient-mean
+parity at unit weight, its LR/batch invariance, and the small-replay-batch compute
+result — none of which the three have. Report the Fashion-MNIST counterexample
+prominently; reviewers will trust the claim more.
+2. Run the path-length test next — it is the cheapest high-value experiment and the one
+prediction with no existing competitor. Fine-tune to matched endpoint KL along a
+short-direct vs long-oscillatory path and regress forgetting on cumulative Fisher-Rao
+length. If forgetting tracks arc length better than endpoint KL, that is a direct,
+publishable refutation of the RL's-Razor endpoint predictor.
+3. Re-analyse existing public datasets (RL's Razor release; Marek et al. code at
+github.com/martin-marek/forgetting; Mammoth logs) with CRR quantities before
+running new large models — you can test the ratio-invariance and coherence-length
+claims on data already released.
+4. Frame CRR against the "hand-set knob" bottleneck, which recurs in every subﬁeld
+( λ , replay fraction, memory frequency, reset fraction). A framework that derives any
+one of these from a unit-free coherence quantity is immediately useful; lead with
+replay weight since you already have the equanimity result.
+Benchmarks that would change these recommendations: if a 2026 paper appears that (a)
+derives the replay weight from gradient parity, or (b) uses cumulative Fisher/KL length as a
+forgetting predictor, the novelty claims weaken — monitor arXiv cs.LG for both. If the
+equanimity optimum fails to hold on a third dataset family beyond Fashion-MNIST,
+downgrade recommendation 1 to "robust heuristic" rather than "derived optimum."
+Caveats
+Future-dated arXiv IDs. Many cited papers carry 2026 arXiv IDs (26xx.xxxxx)
+consistent with the stated current date of September 2026. I veriﬁed the
+abstract/venue for the central ones (RL's Razor 2509.04259; Marek et al. 2605.26097;
+Nested Learning 2512.24695; Kotha & Liang 2603.04964; Finetuner's Fallacy
+2603.16177; Sharpness-aware 2605.02105; Spectral Collapse 2509.22335; Forget
+Forgetting 2502.07274; GeRe 2508.04676; SuRe 2511.22367; Graldi et al. 2506.16884;
+SDFT 2601.19897; SDPO 2601.20802; Ibrahim et al. 2403.08763; MEGA 1909.11763;
+GradNorm 1711.02257; DER 2004.07211; stability gap 2205.13452).
+arXiv 2601.18699 ("Mechanistic Analysis of Catastrophic Forgetting") shows
+internal inconsistency across its own versions (the abstract lists twenty models
+including implausible names like "Claude Fable 5" and "GPT-5.5 High," while the
+HTML body describes six models 109B–1.5T with a Pearson r=0.87 task-similarity
+correlation). Treat its speciﬁc numbers as unveriﬁed/possibly synthetic; the
+qualitative claim (middle-layer/attention/MoE-routing localisation) is corroborated by
+other 2026 work but the paper itself is a low-conﬁdence source.
+Could not fully verify within budget: the exact citation for "Continual learning
+should move beyond incremental classiﬁcation" (2025), the NeurIPS 2026 test-time-
+CL-agents workshop, the "Rethinking On-Policy Self-Distillation" critique (arXiv
+2607.05184), and the precise "Plastic learning with deep Fourier features" / Aug-2026
+learnable-wavelet-activation IDs. These are reported as claimed.
+The "~40% less compute" and "matches 100%-replay" equanimity results are
+Alex's own ﬁndings; I found no external corroboration, and the nearest published
+compute-reduction number is Hickok (2025)'s 55–65% fewer replay samples via a
+different mechanism. This strengthens the novelty claim but means the result is
+currently unreplicated externally.
+Established vs claimed vs contested:Established — replay mitigates forgetting;
+continual pretraining saves compute vs retraining; plasticity loss is real (Nature 2024).
+Claimed — RL's Razor's KL law (strong evidence, single-curve ﬁts, but empirical); self-
+generated replay "nearly eliminates" forgetting. Contested — the
+mechanism/localisation of forgetting and the cause of plasticity loss.
+References (arXiv IDs and dates)
+Buzzega et al., Dark Experience for General Continual Learning (DER/DER++),
+NeurIPS 2020, arXiv 2004.07211.
+Lopez-Paz & Ranzato, GEM, 2017; Chaudhry et al., A-GEM, 2019.
+Guo et al., Improved Schemes for Episodic Memory-based Lifelong Learning (MEGA-
+I/II), NeurIPS 2020, arXiv 1909.11763.
+Chen et al., GradNorm, ICML 2018, arXiv 1711.02257.
+Kirkpatrick et al., EWC, PNAS 2017; Li & Hoiem, Learning without Forgetting, 2017.
+Arani et al., CLS-ER, ICLR 2022.
+Hazard et al., SuRe, 2025, arXiv 2511.22367.
+Zhang et al., GeRe, 2025, arXiv 2508.04676.
+On-Policy Replay for Continual SFT, 2026, arXiv 2605.29495.
+Marek, Cho, Qiu, Chunara, Izmailov, Wilson, Forgetting in Language Models:
+Capacity, Optimization, and Self-Generated Replay, 2026, arXiv 2605.26097.
+Shenfeld, Pari, Agrawal, RL's Razor, ICLR 2026, arXiv 2509.04259.
+Shenfeld, Damani, Hübotter, Agrawal, Self-Distillation Enables Continual Learning
+(SDFT), ICML 2026, arXiv 2601.19897.
+Hübotter et al., Reinforcement Learning via Self-Distillation (SDPO), 2026, arXiv
+2601.20802.
+Rethinking On-Policy Self-Distillation for Thinking Models, arXiv 2607.05184
+[unveriﬁed].
+Behrouz et al. (Google), Nested Learning / HOPE / Titans continuum memory, arXiv
+2512.24695.
+Ibrahim, Thérien, Gupta et al., Simple and Scalable Strategies to Continually Pre-train
+LLMs, TMLR 2024, arXiv 2403.08763.
+Kotha & Liang, Replaying pre-training data improves ﬁne-tuning, 2026, arXiv
+2603.04964.
+Baek et al., The Finetuner's Fallacy, 2026, arXiv 2603.16177.
+Watts, Li, Goyal, Springer, Raghunathan, Sharpness-Aware Pretraining Mitigates
+Catastrophic Forgetting, 2026, arXiv 2605.02105.
+Bethune, Grangier, Busbridge, Gualdoni, Cuturi, Ablin, Scaling Laws for Forgetting
+during Finetuning with Pretraining-Data Injection, 2025, arXiv 2502.06042.
+Dohare, Hernandez-Garcia, Lan, Rahman, Mahmood, Sutton, Loss of Plasticity in
+Deep Continual Learning, Nature 632:768–774, 2024.
+He, Prakash et al., Spectral Collapse Drives Loss of Plasticity, ICML 2026, arXiv
+2509.22335.
+Activation Function Design Sustains Plasticity in Continual Learning, 2025, arXiv
+2509.22562.
+Cho, Moon, Chunara, Cho, Cha, Forget Forgetting: Continual Learning in a World of
+Abundant Memory, ICLR 2026, arXiv 2502.07274.
+Graldi, Breccia, Lanzillotta, Hofmann, Noci, The Importance of Being Lazy, ICML
+2025, arXiv 2506.16884.
+Karpel et al., Optimal L2 Regularization in High-dimensional Continual Linear
+Regression, 2026, arXiv 2601.13844.
+Mechanistic Analysis of Catastrophic Forgetting in LLMs during Continual Fine-
+tuning, 2026, arXiv 2601.18699 [low-conﬁdence source].
+De Lange, van de Ven, Tuytelaars, Continual Evaluation for Lifelong Learning:
+Identifying the Stability Gap, ICLR 2023, arXiv 2205.13452.
+Fine-Tuning Without Forgetting via Loss-Adaptive Learning Rates, 2026, arXiv
+2605.20005.
+Overcoming Forgetting in LLM Fine-Tuning with Evolution Strategies, 2026, arXiv
+2605.30148.
+Hickok, Scalable Strategies for Continual Learning with Replay, 2025, arXiv
+2505.12512.
+CMS-for-agents deployments: arXiv 2605.29055; arXiv 2601.13186.

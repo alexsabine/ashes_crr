@@ -257,3 +257,40 @@ def sign_test_units(unit_stats: list[dict]) -> tuple[float, float]:
     wins = [u["cv_arc"] < u["cv_clock"] for u in unit_stats]
     k = int(np.sum(wins)); n = len(wins)
     return k / n, float(binomtest(k, n, 0.5, alternative="two-sided").pvalue)
+
+
+# ---------------------------------------------------------------- rate carriers (SCOPE.md P6, P9)
+def poisson_transform(lam: np.ndarray) -> np.ndarray:
+    """y = 2*sqrt(lam): on a Poisson-rate carrier the Fisher-Rao arc of lam(t) equals the
+    total variation of y (P6, P9). Feeding y to arc_length / regularity with the identity
+    metric IS the Fisher-Rao arc of the rate. lam must be >= 0 (counts or rates)."""
+    lam = np.asarray(lam, float)
+    if np.any(lam < 0):
+        raise ValueError("poisson_transform needs a non-negative rate")
+    return 2.0 * np.sqrt(lam)
+
+
+def onset_events(cases: np.ndarray, rise_factor: float = 2.0, floor_frac: float = 0.25,
+                 min_cases: float = 20.0, min_gap: int = 20) -> np.ndarray:
+    """Epidemic onsets — the system's own boundary events on a count series.
+
+    One onset per peak-recession-rise. Since the last onset let M = max(cases) at index
+    t_M and m = min(cases) over the samples AFTER t_M (the recession). An onset fires at
+    the first t with
+        cases[t] >= rise_factor * m,   m <= floor_frac * M   (the epidemic has receded),
+        cases[t] >= min_cases,         t - last_onset >= min_gap.
+    Before the first onset, M and m are taken over the samples seen so far in the same
+    way. No smoothing, no peak finder; every constant is a named parameter to be listed
+    in the prereg and swept in the sensitivity table. Returns sample indices."""
+    c = np.asarray(cases, float)
+    ev = []
+    last = 0; M = c[0]; t_M = 0; m = np.inf
+    for t in range(1, len(c)):
+        if c[t - 1] >= M:
+            M = c[t - 1]; t_M = t - 1; m = np.inf          # new peak: the recession restarts
+        else:
+            m = min(m, c[t - 1])
+        if (t - last >= min_gap and np.isfinite(m) and c[t] >= min_cases
+                and c[t] >= rise_factor * m and m <= floor_frac * M):
+            ev.append(t); last = t; M = c[t]; t_M = t; m = np.inf
+    return np.asarray(ev, int)

@@ -1,0 +1,94 @@
+====================================================================================================
+RECOMPUTE of archive/cl_ledger_2026-09-14 — equanimity (EQ) claims
+====================================================================================================
+
+[§3] 'Ω = 1 is the sharp interior optimum in 6/6 landscapes; ±√2 costs 5–45 pts'
+     ratio=ema smooth=0.98 WCAP=50, standard stream, seeds 0–2; values = final acc %
+  kmnist  r=0.1: Ω=0.5:27.62  Ω=0.71:43.47  Ω=1.0:54.18  Ω=1.41:44.71  Ω=2.0:29.41  | best Ω=1.0  cost(0.71)=+10.71 cost(1.41)=+9.47  -> as claimed  | median w at Ω=1 per seed [0.89, 1.03, 1.03]
+  kmnist  r=0.2: Ω=0.5:28.90  Ω=0.71:50.63  Ω=1.0:62.45  Ω=1.41:56.45  Ω=2.0:42.05  | best Ω=1.0  cost(0.71)=+11.83 cost(1.41)=+6.01  -> as claimed  | median w at Ω=1 per seed [1.93, 1.86, 1.63]
+  mnist   r=0.1: Ω=0.5:45.21  Ω=0.71:67.32  Ω=1.0:75.89  Ω=1.41:64.36  Ω=2.0:51.18  | best Ω=1.0  cost(0.71)=+8.57 cost(1.41)=+11.53  -> as claimed  | median w at Ω=1 per seed [0.99, 1.15, 1.13]
+  mnist   r=0.2: Ω=0.5:47.33  Ω=0.71:75.16  Ω=1.0:80.60  Ω=1.41:65.10  Ω=2.0:44.76  | best Ω=1.0  cost(0.71)=+5.44 cost(1.41)=+15.50  -> as claimed  | median w at Ω=1 per seed [1.28, 2.23, 1.83]
+  fmnist  r=0.1: Ω=0.5:38.59  Ω=0.71:53.23  Ω=1.0:65.86  Ω=1.41:21.05  Ω=2.0:15.61  | best Ω=1.0  cost(0.71)=+12.63 cost(1.41)=+44.81  -> as claimed  | median w at Ω=1 per seed [0.7, 0.71, 0.87]
+  fmnist  r=0.2: Ω=0.5:39.73  Ω=0.71:55.13  Ω=1.0:66.90  Ω=1.41:35.31  Ω=2.0:14.11  | best Ω=1.0  cost(0.71)=+11.77 cost(1.41)=+31.59  -> as claimed  | median w at Ω=1 per seed [1.46, 1.1, 0.98]
+  landscapes as claimed: 6/6
+
+[§3] 'r = 0.2 matches 100 % replay at 40 % less compute'  (EQ Ω=1 ema r=0.2 vs ER r=1.0)
+  kmnist  EQ(0.2,Ω=1)=62.4533 (seeds 63.22, 61.52, 62.62)  ER(1.0)=61.1400 (seeds 63.30, 61.78, 58.34)  ER(0.2)=50.2133 (seeds 53.46, 49.74, 47.44)  Δ(EQ−ER1.0)=+1.31  compute 3.599 vs 5.997 (40% less)
+  mnist   EQ(0.2,Ω=1)=80.6000 (seeds 78.02, 80.52, 83.26)  ER(1.0)=79.8667 (seeds 76.40, 83.16, 80.04)  ER(0.2)=69.6067 (seeds 68.44, 70.90, 69.48)  Δ(EQ−ER1.0)=+0.73  compute 3.599 vs 5.997 (40% less)
+  fmnist  EQ(0.2,Ω=1)=66.9000 (seeds 67.08, 64.62, 69.00)  ER(1.0)=74.7467 (seeds 76.48, 74.92, 72.84)  ER(0.2)=65.9133 (seeds 67.44, 61.66, 68.64)  Δ(EQ−ER1.0)=-7.85  compute 3.599 vs 5.997 (40% less)
+
+[§4 A1] 'fixed w = 1 (61.4) within 1.0 of adaptive (62.5)' — KMNIST r=0.2, seeds 0–2
+  fixed w=1.0: 61.4200 (seeds 62.22, 61.10, 60.94)
+  fixed w=2.0: 60.7933 (seeds 60.76, 60.90, 60.72)
+  fixed w=4.0: 52.5133 (seeds 50.98, 51.22, 55.34)
+  fixed w=8.0: 16.1933 (seeds 13.46, 19.08, 16.04)
+  adaptive Ω=1: 62.4533 (seeds 63.22, 61.52, 62.62)
+  adaptive − fixed(w=1): mean 1.0333  per seed ['+1.00', '+0.42', '+1.68']
+  prereg A1: FAIL (adaptivity irrelevant) if some fixed w within 1.0 -> at full precision the gap is 1.0333, i.e. NOT within 1.0; the ledger's '61.4 vs 62.5' rounds both sides and reads 1.1.
+  per-seed: 2/3 seeds within 1.0; 2/3 seeds ≥ 1.0  -> verdict FRAGILE at the boundary (R6)
+  ER-sum ≡ fixed w = 1 in this pipeline (g = g_stream_mean + 1·g_replay_mean). ER(r) in the same pipeline is the
+  concatenated-batch mean, i.e. fixed w = r with lr scaled by bs/(bs+rb): fixed w=0.2..0.5 was never run (results_adv2 lost).
+  Effective replay weight of the adaptive rule at Ω=1 (median w per seed): [1.93, 1.86, 1.63]
+  and at Ω=1.41: [3.01, 4.06, 3.8] (acc 56.4467 (seeds 61.02, 52.36, 55.96)) vs fixed w=4: 52.5133 (seeds 50.98, 51.22, 55.34), w=2: 60.7933 (seeds 60.76, 60.90, 60.72)
+
+[§4 A2] loss-ratio balancing (MEGA-I) — KMNIST r=0.2
+  MEGA smooth=0.0: 30.0533 (seeds 28.38, 25.96, 35.82)   adaptive − MEGA: mean +32.40 per seed ['+34.84', '+35.56', '+26.80']  -> ≥1.0 in 3/3 seeds
+  MEGA smooth=0.98: 60.0400 (seeds 57.58, 61.26, 61.28)   adaptive − MEGA: mean +2.41 per seed ['+5.64', '+0.26', '+1.34']  -> ≥1.0 in 2/3 seeds
+
+[§4 A3] optimum stays at Ω = 1 under lr ×¼, ×4 and batch 5, 20 (KMNIST r=0.2)
+  lr=0.0125  Ω=0.5:29.99  Ω=0.71:51.58  Ω=1.0:62.17  Ω=1.41:61.78  Ω=2.0:57.36  | best Ω=1.0, runner-up Ω=1.41 trails by 0.39
+  lr=0.2     Ω=0.5:34.07  Ω=0.71:49.51  Ω=1.0:55.56  Ω=1.41:33.64  Ω=2.0:15.05  | best Ω=1.0, runner-up Ω=0.71 trails by 6.05
+  bs=5       Ω=0.5:28.70  Ω=0.71:46.96  Ω=1.0:59.36  Ω=1.41:54.91  Ω=2.0:31.75  | best Ω=1.0, runner-up Ω=1.41 trails by 4.45
+  bs=20      Ω=0.5:25.55  Ω=0.71:42.80  Ω=1.0:59.37  Ω=1.41:54.34  Ω=2.0:48.95  | best Ω=1.0, runner-up Ω=1.41 trails by 5.03
+
+[§4] 'Euclidean norm gives the same optimum (62.1)' — KMNIST r=0.2 smooth=0.98
+  euclid Ω=0.71: 44.7067 (seeds 48.70, 44.86, 40.56)
+  euclid Ω=1.0: 62.1467 (seeds 63.42, 61.54, 61.48)
+  euclid Ω=1.41: 58.2400 (seeds 60.48, 58.72, 55.52)
+  fisher Ω=1:   62.4533 (seeds 63.22, 61.52, 62.62)
+
+[§5 T3] abundant memory (buffer 500 → 5000), KMNIST: final acc / last-task acc
+  ER(1.0)            acc 61.14 → 66.84   last-task 87.69 → 85.12  (Δ last-task -2.57; per seed ['-1.3', '-1.9', '-4.5'])
+  EQ(0.2,Ω=1 ema)    acc 62.45 → 64.49   last-task 83.20 → 79.46  (Δ last-task -3.74; per seed ['-7.6', '-1.6', '-2.0'])
+  fixed w=1 (0.2)    acc 61.42 → 65.06   last-task 85.49 → 82.03  (Δ last-task -3.46; per seed ['-1.1', '-3.3', '-6.0'])
+  prereg T3: FAIL if EQ's last-task acc drops by > 2.0 or ER's does not drop.
+
+[PREREG_equanimity.md vs run_eq*.sh] hypotheses as written vs what was run
+  Q1–Q4 are written for r = 0.05 with Ω ∈ {0.25, 0.5, 1, 2, 4}. run_eq.sh ran r ∈ {0.2, 0.5} with ratio=unbiased;
+  run_eq3.sh ran r ∈ {0.1, 0.2} with ratio=ema and a different Ω grid. No r = 0.05 EQ run exists in the bundle.
+  -> Q1, Q2, Q4 cannot be scored as pre-registered; the ledger's §3 scores a different design (labelled 'estimator
+     finalised post hoc on KMNIST seed 0'). Q3 (LM regime, r=0.05) was never run (LM EQ ran at r ∈ {0.1, 0.25}).
+  results_eq.jsonl (ratio=unbiased, the first estimator), KMNIST standard:
+    r=0.2: Ω=0.25:34.73  Ω=0.5:49.13  Ω=1.0:59.23  Ω=2.0:61.59  Ω=4.0:61.21
+    r=0.5: Ω=0.25:39.18  Ω=0.5:52.66  Ω=1.0:60.48  Ω=2.0:64.19  Ω=4.0:62.27
+
+[§5 T1] path length vs endpoint, lm/results_path.jsonl (n = 20, in-sample R² of log F as pre-registered)
+  R²(log F ~ C_new) = 0.9274   R²(log F ~ log C_new) = 0.8875
+  R²(log F ~ C_old) = 0.9222   R²(log F ~ log C_old) = 0.9006
+  R²(log F ~ E_new) = 0.7541   R²(log F ~ log E_new) = 0.7564
+  R²(log F ~ E_old) = 0.9843   R²(log F ~ log E_old) = 0.9935
+  ledger quotes 0.887 (C_new) / 0.901 (C_old) vs 0.756 (E_new); E_old was 'reported, not a candidate'.
+  Under the strengthened baseline (theory/SCOPE.md §4.1: E_old is a required endpoint predictor) the pass line
+  is R²(best C) ≥ R²(best E) + 0.05. See the numbers above. Also: lr is not controlled (5 lrs × 2 schedules × 2 seeds).
+  within-lr check (does path beat endpoint once lr is fixed? 4 runs per lr):
+    lr=0.0002: F=[0.509, 0.402, 0.52, 0.416]  C_new=[4.22, 4.64, 4.12, 3.19]  E_new=[0.759, 0.65, 0.729, 0.618]  E_old=[0.404, 0.321, 0.391, 0.313]
+    lr=0.0005: F=[0.666, 0.528, 0.69, 0.545]  C_new=[8.25, 9.24, 8.28, 9.65]  E_new=[1.046, 0.846, 1.024, 0.798]  E_old=[0.523, 0.421, 0.519, 0.413]
+    lr=0.001: F=[0.841, 0.662, 0.886, 0.727]  C_new=[12.6, 13.71, 12.94, 14.08]  E_new=[1.241, 0.98, 1.214, 0.992]  E_old=[0.636, 0.504, 0.635, 0.534]
+    lr=0.002: F=[1.063, 0.939, 1.165, 0.964]  C_new=[18.85, 19.1, 19.87, 19.84]  E_new=[1.385, 1.092, 1.395, 1.112]  E_old=[0.757, 0.673, 0.792, 0.688]
+    lr=0.005: F=[1.569, 1.55, 1.74, 1.624]  C_new=[32.29, 30.65, 33.44, 31.68]  E_new=[1.357, 1.14, 1.406, 1.105]  E_old=[1.011, 0.982, 1.048, 1.047]
+
+[§5 T2] LM 4-domain stream, lm/results_t2.jsonl (seeds 0–1): D0 bpb (forgetting) / domain bpb (plasticity)
+  ER(0.25)           D0 2.607 (seeds [2.61, 2.605])  dom 3.371
+  ER(0.5)            D0 2.461 (seeds [2.459, 2.463])  dom 3.252
+  EQ(0.1,Ω=1)        D0 2.535 (seeds [2.54, 2.531])  dom 3.447
+  EQ(0.25,Ω=1)       D0 2.439 (seeds [2.443, 2.436])  dom 3.311
+  KLrep(0.25,λ=10)   D0 2.377 (seeds [2.388, 2.366])  dom 3.986
+  prereg T2 PASS line: EQ(0.25) within 0.03 bpb of KLrep(0.25) on D0 -> gap +0.063: FAIL as pre-registered
+  lm/results_t2b.jsonl holds four klrep rows for 'λ=1, λ=3' but the script does not print λ: the rows are attributable
+  only by run order (R1 violation: the ledger's λ=1 / λ=3 numbers are transcriptions).
+  No fixed-w or ER-sum arm exists in the LM regime: the reduction test cannot be scored there.
+
+[R2] pre-registration hashes: none of the five PREREG_*.md has a HASH.txt or .ots in the bundle ('sha256 in the shell logs').
+     Every archived row therefore carries prereg hash = 'not in bundle' and unseen = N (all datasets in data/SEEN.md).
+
+[§10] mlp_bench.py's docstring carries an 8 Sept results table (CRR-CLS 0.874 etc.) that no jsonl in the bundle reproduces.

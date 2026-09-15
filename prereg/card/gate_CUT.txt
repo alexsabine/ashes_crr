@@ -1,0 +1,17 @@
+gate for CUT
+  must FAIL on ['S-A sine', 'S-F van der Pol mu=5.0']
+  must PASS on ['S-E asymmetric multi-harmonic']
+
+  S-A sine                                                               FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-A' FM sine (constant amplitude)                                      FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-A'' AM sine (constant period)                                        FAIL  median |antipode-extremum| = 0.020 half-turns
+  S-A''' AM+FM sine                                                      FAIL  median |antipode-extremum| = 0.019 half-turns
+  S-B sine + dicrotic bump                                               FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-C lobed ramp (lambda=1.0)                                            PASS  median |antipode-extremum| = 0.555 half-turns
+  S-D sine + white noise (rho~20.0)                                      PASS  median |antipode-extremum| = 0.136 half-turns
+  S-E asymmetric multi-harmonic                                          PASS  median |antipode-extremum| = 0.063 half-turns
+  S-F van der Pol mu=5.0                                                 FAIL  median |antipode-extremum| = 0.000 half-turns
+  S-G relaxation osc. (clock-regular, amplitude-variable)                PASS  median |antipode-extremum| = 0.264 half-turns
+  S-G2 relaxation osc. (arc-regular by construction)                     PASS  median |antipode-extremum| = 0.394 half-turns
+
+GATE OPEN
