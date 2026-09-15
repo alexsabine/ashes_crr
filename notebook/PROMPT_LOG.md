@@ -132,3 +132,9 @@ P9 disclosure), gates L5/CUT/A3 committed; `gate_A3` showed the L5x-3
 comparison passes on jittered asymmetric surrogates (S-C, S-E), so it is a
 diagnostic, not a hypothesis. Prereg hashed and pushed; the records must be
 supplied by the human (upload) before the run.
+
+## 10 — received 2026-09-15T21:51Z, logged 2026-09-15T21:51Z
+
+> Daniel has a number of documents in the PR can you review them and let me know what is requried from me?
+
+Context: review of Daniel Friedman's PRs #15–#17 and the docs/ tree; answered in chat. No study work.
