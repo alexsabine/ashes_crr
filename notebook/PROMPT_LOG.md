@@ -189,3 +189,9 @@ on the owner's instruction, attributed as such.
 Context: authorises steps 1–5 as listed in chat (log, post decisions, owner
 merges #15 → #17 → #16, agent merges main into this branch, agent drafts v3.1
 for owner signature).
+
+## 15 — received 2026-09-15T22:07Z, logged 2026-09-15T22:07Z
+
+> merge please via api. I am happy, this is my click!
+
+Context: owner authorises the agent to merge PRs #15 → #17 → #16 into main via the GitHub API on the owner's behalf.
