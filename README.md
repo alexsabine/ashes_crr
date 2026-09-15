@@ -24,11 +24,11 @@ September 2026) was withdrawn after independent audit and is not part of
 this repository.
 
 ```
-uv sync --frozen
-uv run pytest instrument/tests
+uv run pytest tests
 uv run python theory/checks/verify_math.py
 uv run python theory/checks/verify_scope_math.py
-uv run python surrogates/gate.py L5
-uv run python surrogates/gate.py CUT
-uv run python surrogates/gate.py T1
+uv run python -m crr.surrogates.gate L5
+uv run python -m crr.surrogates.gate CUT
+uv run python -m crr.surrogates.gate T1
+bash scripts/check_all.sh
 ```
