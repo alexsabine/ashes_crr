@@ -292,3 +292,9 @@ Context: playground (scratchpad, synthetic streams): a dry run of the revised EQ
 > Can you just state this as a clean pitch so Daniel can test it on his system with the most promising possibility of it working, but, of course, in accordance with the rules of the pipeline? Make it very clear and double check your wording because he will prompt his client with this prompt (I will add it to the Issues folder)
 
 Context: the EQ2 design rewritten as a single self-contained prompt for Daniel's agent (study id `eq2`; online EWC primary arm; ER-sum, DER++/LwF, SI/MAS controls; reduction test; gate, prereg, hash, OTS, tag, run, ledger in CLAUDE.md §8 order). Delivered in chat for the owner to post as an issue; playground numbers not quoted; no repo artefacts beyond this log entry.
+
+## 29 — received 2026-09-16T23:19Z, logged 2026-09-16T23:19Z
+
+> Can you check the Issues tab to see what's going on? Daniel has done something
+
+Context: read-only check of the repository's GitHub issues; reported in chat.
