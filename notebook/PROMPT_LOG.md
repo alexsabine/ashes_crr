@@ -268,3 +268,9 @@ Context: issue text drafted in chat for the owner to post (or for the agent to p
 > Can we run another test in the scratchpad to see what this equanimity principle is? I need a clear "Explain to a 5th grader" explanation
 
 Context: playground (scratchpad, synthetic 2-D toy) to illustrate the rule; explanation in chat; no repo artefacts.
+
+## 25 — received 2026-09-16T03:21Z, logged 2026-09-16T03:21Z
+
+> Run tests on this in the scratchpad, we need to know whether CRR's equanimity rule can add value to existing systems
+
+Context: playground (scratchpad, synthetic streams): the norm-ratio weight dropped into existing CL methods (ER, DER, LwF, online EWC) against each method's tuned weight across three synthetic "datasets" with different scales. No repo artefacts.
