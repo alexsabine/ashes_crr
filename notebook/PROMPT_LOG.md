@@ -298,3 +298,9 @@ Context: the EQ2 design rewritten as a single self-contained prompt for Daniel's
 > Can you check the Issues tab to see what's going on? Daniel has done something
 
 Context: read-only check of the repository's GitHub issues; reported in chat.
+
+## 30 — received 2026-09-16T23:36Z, logged 2026-09-16T23:36Z
+
+> So what exactly is going on here Claude? I am confused, are we making the test too harsh
+
+Context: question about the closed EQ2 gate (PR #23, issue #20); answered in chat, no repo work.
