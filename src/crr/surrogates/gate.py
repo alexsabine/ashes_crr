@@ -31,6 +31,11 @@ MUST_FAIL = {
     "CUT": {"S-A sine", "S-F van der Pol mu=5.0", "S-F van der Pol mu=1.0"},
     "T1": {"S-H convex learner (endpoint-sufficient)"},
     "EQ": {"S-R convex replay, constant label scale (adaptivity idle)"},
+    # EQ2 (issue #20 §3): same-units replay stays redundant, and a constraint whose
+    # tuned weight is a small fraction of the present pull is over-regularised by
+    # same-length pulling. If either passes, the mechanism statement is wrong.
+    "EQ2": {"S-R convex replay, constant label scale (adaptivity idle)",
+            "S-X constraint learner, tuned weight a small fraction of present norm"},
     "L5R": {"S-P AM epidemics (constant period, variable peak)",
             "S-P AM+FM epidemics (the concavity trap: no CRR content)",
             "S-P clock-regular two-hump (constant period, variable arc)"},
@@ -44,6 +49,9 @@ MUST_PASS = {
     "CUT": {"S-E asymmetric multi-harmonic"},
     "T1": {"S-H2 wear learner (path-dependent by construction)"},
     "EQ": {"S-V convex replay, 16x label-scale swings (adaptivity load-bearing)"},
+    # EQ2 (issue #20 §3): the exact Laplace penalty of a past quadratic loss with a
+    # 16x curvature-scale mismatch is where the rule has a use (tuning-free EWC step).
+    "EQ2": {"S-W EWC-Laplace convex replay, 16x curvature-scale mismatch"},
     "L5R": {"S-P FM two-hump compensating (arc constant, amplitude variable)"},
     "A3": set(),   # no positive control is known for this comparison; stated in the prereg that uses it
 }
@@ -197,6 +205,35 @@ def gate_EQ(runner, _ev, meta, seeds=range(5), fixed_grid=(0.25, 0.5, 1.0, 2.0, 
     return passes, detail
 
 
+def gate_EQ2(runner, _ev, meta, seeds=range(5), fixed_grid=(0.0625, 0.25, 0.5, 1.0, 2.0, 4.0),
+             omega_grid=(0.5, 0.71, 1.0, 1.41, 2.0), margin=0.05):
+    """EQ2 statistic (issue #20 §3): the rule at Omega = 1 is NOT BEHIND the tuned
+    fixed weight by a step. The fixed weight is tuned ON THE SCORED SEEDS -- in-sample
+    bias that favours the baseline, and that is the design intent: the criterion is
+    one-sided, the rule need only not lose. A step is the relative margin `margin`
+    (gate_EQ's); the rule is behind by a step iff mean((rule - tuned)/tuned) > margin,
+    counted per seed and reported. fixed_grid is gate_EQ's grid extended to 0.0625:
+    the 16x-stiff Laplace penalty moves the tuned weight below the replay family's,
+    and R7 requires the baseline to be able to win. The Omega landscape and the
+    reduction arm (fixed w at the rule's own median w, the constant it reduces to)
+    are reported, not gated."""
+    seeds = list(seeds)
+    eq = {om: np.array([runner("eq", om, s)["metric"] for s in seeds]) for om in omega_grid}
+    wmed = float(np.median([runner("eq", 1.0, s)["w_med"] for s in seeds]))
+    wm = round(wmed, 3)
+    grid = tuple(sorted(set(fixed_grid) | {wm}))
+    fx = {w: np.array([runner("fixed", w, s)["metric"] for s in seeds]) for w in grid}
+    tuned_w = min(fx, key=lambda w: fx[w].mean())
+    behind = (eq[1.0] - fx[tuned_w]) / fx[tuned_w]      # >0: the rule is behind the tuned weight
+    passes = bool(behind.mean() <= margin)
+    best_om = min(eq, key=lambda o: eq[o].mean())
+    detail = (f"EQ(Ω=1)={eq[1.0].mean():.4f} tuned w={tuned_w}:{fx[tuned_w].mean():.4f} "
+              f"(w_med of EQ={wmed:.3f}) | behind-by {behind.mean():+.3f} (seeds>step: {int((behind > margin).sum())}/{len(seeds)}) "
+              f"| best Ω={best_om} landscape " + " ".join(f"{o}:{eq[o].mean():.3f}" for o in omega_grid)
+              + f" | reduction arm w={wm}:{fx[wm].mean():.4f}")
+    return passes, detail
+
+
 def gate_L5R(x, ev, meta, metric="poisson"):
     """H-L5 on a count/rate carrier, scored as study MEAS pre-registers it.
 
@@ -242,9 +279,9 @@ def gate_A3(x, ev, meta, n_boot=2000, seed=0):
     return passes, f"cv_antipodal={cv(Ca):.3f} cv_peakcut={cv(Cp):.3f} ci={lo:.3f},{hi:.3f} n_ant={len(ant)} n_pk={len(pk)}"
 
 
-GATES = {"L5": gate_L5, "CUT": gate_CUT, "T1": gate_T1, "EQ": gate_EQ, "L5R": gate_L5R, "A3": gate_A3}
+GATES = {"L5": gate_L5, "CUT": gate_CUT, "T1": gate_T1, "EQ": gate_EQ, "EQ2": gate_EQ2, "L5R": gate_L5R, "A3": gate_A3}
 LEARNER_GATES = {"T1"}
-REPLAY_GATES = {"EQ"}
+REPLAY_GATES = {"EQ", "EQ2"}
 RATE_GATES = {"L5R"}
 
 
