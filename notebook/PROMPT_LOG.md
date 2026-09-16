@@ -274,3 +274,9 @@ Context: playground (scratchpad, synthetic 2-D toy) to illustrate the rule; expl
 > Run tests on this in the scratchpad, we need to know whether CRR's equanimity rule can add value to existing systems
 
 Context: playground (scratchpad, synthetic streams): the norm-ratio weight dropped into existing CL methods (ER, DER, LwF, online EWC) against each method's tuned weight across three synthetic "datasets" with different scales. No repo artefacts.
+
+## 26 — received 2026-09-16T03:29Z, logged 2026-09-16T03:29Z
+
+> So I need to update the note for Daniel in the Issues folder, so he runs the right test? Are you sure you have the wording note for Daniel correct this time? You can include the 5th Grader explanation for what the "Equanimity Law" is doing in the continual learning tests
+
+Context: revised issue text for Daniel drafted in chat (target family changed to EWC-type penalties; DER/LwF as negative controls; plain-language explanation included); confidence stated explicitly; playground numbers not quoted.
