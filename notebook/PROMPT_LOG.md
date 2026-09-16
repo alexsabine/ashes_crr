@@ -280,3 +280,9 @@ Context: playground (scratchpad, synthetic streams): the norm-ratio weight dropp
 > So I need to update the note for Daniel in the Issues folder, so he runs the right test? Are you sure you have the wording note for Daniel correct this time? You can include the 5th Grader explanation for what the "Equanimity Law" is doing in the continual learning tests
 
 Context: revised issue text for Daniel drafted in chat (target family changed to EWC-type penalties; DER/LwF as negative controls; plain-language explanation included); confidence stated explicitly; playground numbers not quoted.
+
+## 27 — received 2026-09-16T03:36Z, logged 2026-09-16T03:36Z
+
+> Run the new version of the test in the scratchpad to make sure we have this correctly instructed for Daniel tomorrow
+
+Context: playground (scratchpad, synthetic streams): a dry run of the revised EQ2 design as drafted for Daniel — EWC-family arms (online EWC, SI-style importance penalty) as the primary target, ER-sum as the same-units negative control, DER and LwF as the constraint negative controls, Ω grid, more seeds and datasets — to check that each pre-registered pass/fail line in the draft issue is one the design can actually decide. No repo artefacts; no playground numbers quoted on GitHub.
