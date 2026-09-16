@@ -287,7 +287,7 @@ Context: revised issue text for Daniel drafted in chat (target family changed to
 
 Context: playground (scratchpad, synthetic streams): a dry run of the revised EQ2 design as drafted for Daniel — EWC-family arms (online EWC, SI-style importance penalty) as the primary target, ER-sum as the same-units negative control, DER and LwF as the constraint negative controls, Ω grid, more seeds and datasets — to check that each pre-registered pass/fail line in the draft issue is one the design can actually decide. No repo artefacts; no playground numbers quoted on GitHub.
 
-## 28 — received 2026-09-16T03:58Z, logged 2026-09-16T03:58Z
+## 28 — received 2026-09-16T04:09Z, logged 2026-09-16T04:09Z
 
 > Can you just state this as a clean pitch so Daniel can test it on his system with the most promising possibility of it working, but, of course, in accordance with the rules of the pipeline? Make it very clear and double check your wording because he will prompt his client with this prompt (I will add it to the Issues folder)
 
