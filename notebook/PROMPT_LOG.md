@@ -286,3 +286,9 @@ Context: revised issue text for Daniel drafted in chat (target family changed to
 > Run the new version of the test in the scratchpad to make sure we have this correctly instructed for Daniel tomorrow
 
 Context: playground (scratchpad, synthetic streams): a dry run of the revised EQ2 design as drafted for Daniel — EWC-family arms (online EWC, SI-style importance penalty) as the primary target, ER-sum as the same-units negative control, DER and LwF as the constraint negative controls, Ω grid, more seeds and datasets — to check that each pre-registered pass/fail line in the draft issue is one the design can actually decide. No repo artefacts; no playground numbers quoted on GitHub.
+
+## 28 — received 2026-09-16T03:58Z, logged 2026-09-16T03:58Z
+
+> Can you just state this as a clean pitch so Daniel can test it on his system with the most promising possibility of it working, but, of course, in accordance with the rules of the pipeline? Make it very clear and double check your wording because he will prompt his client with this prompt (I will add it to the Issues folder)
+
+Context: the EQ2 design rewritten as a single self-contained prompt for Daniel's agent (study id `eq2`; online EWC primary arm; ER-sum, DER++/LwF, SI/MAS controls; reduction test; gate, prereg, hash, OTS, tag, run, ledger in CLAUDE.md §8 order). Delivered in chat for the owner to post as an issue; playground numbers not quoted; no repo artefacts beyond this log entry.
