@@ -304,3 +304,9 @@ Context: read-only check of the repository's GitHub issues; reported in chat.
 > So what exactly is going on here Claude? I am confused, are we making the test too harsh
 
 Context: question about the closed EQ2 gate (PR #23, issue #20); answered in chat, no repo work.
+
+## 31 — received 2026-09-16T23:38Z, logged 2026-09-16T23:38Z
+
+> Can we give Daniel a proper test to run now please? Something that will actually work?
+
+Context: build a positive control for gate_EQ2 that matches where the effect was seen (a nonconvex softmax classifier with online EWC), verify it against the gate function on PR #23's branch in the scratchpad, and hand Daniel the control plus the gate output only if the gate opens; if it does not open, report that instead. Nothing enters the repo from this session beyond this log entry unless the owner says so.
