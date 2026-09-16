@@ -262,3 +262,9 @@ Context: how-to question (GitHub Issues); answered in chat, with an offer to ope
 > Can you write out the issue note so it's clear for Daniel as the next step (the equanimity rule as a fixed parameter and what this means)
 
 Context: issue text drafted in chat for the owner to post (or for the agent to post on instruction); ledger numbers only, playground qualitative.
+
+## 24 — received 2026-09-16T03:18Z, logged 2026-09-16T03:18Z
+
+> Can we run another test in the scratchpad to see what this equanimity principle is? I need a clear "Explain to a 5th grader" explanation
+
+Context: playground (scratchpad, synthetic 2-D toy) to illustrate the rule; explanation in chat; no repo artefacts.
