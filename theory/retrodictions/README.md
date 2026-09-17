@@ -417,6 +417,63 @@ occasion with S = 0 and a depth-one state.
 regime (linear-coordinate clipping) and the diffusion row's class flipped with the drift for no
 mechanism; the models and the grading were corrected, not the wording.
 
+## The wild-systems battery (owner request, 2026-09-18, prompt-log entry 51)
+
+`wild_systems.py` → `wild_systems.txt` (pinned; CI reproduces it byte for byte). Eight model systems in
+eight classes chosen to be as far from the earlier batteries as a computable model allows: road
+traffic, handwriting, mast seeding, pulsar glitches, immune imprinting, maintenance scheduling, a
+dripping tap and cache replacement. Model systems only; no dataset opened.
+
+| row | system | grade |
+|---|---|---|
+| 1 | Nagel-Schreckenberg traffic, a tagged car's stop-to-stop occasions | OPEN |
+| 2 | handwriting strokes: isochrony vs constant-speed timing | DESCR |
+| 3 | mast seeding (Isagi resource-budget model) under weather-driven production | OPEN |
+| 4 | pulsar glitches as threshold release: backward vs forward size/waiting-time correlations (A6) | FAILS |
+| 5 | immune imprinting (antigenic seniority): measured influence, a third memory class | DESCR |
+| 6 | maintenance scheduling: odometer vs calendar under variable usage | DESCR |
+| 7 | dripping tap: Tate's-law drops vs variable pinch-off mass | DESCR |
+| 8 | cache replacement: LRU (age weights) vs LFU (an accumulated count, A6) | FAILS |
+| all (8) | 0 SHARP / 0 CONSIST / 4 DESCR / 2 FAILS / 0 TENSION / 2 OPEN | |
+
+**Two clauses of A6 fail on ordinary engineered and astrophysical memories.** A6 says the next
+occasion is seeded from the settled past and that regeneration "never" returns an accumulated
+count. Row 4: in a variable-threshold reservoir model of glitching the next glitch carries no
+information from the last (forward correlation −0.07, backward 1.00), while a variable-release model
+gives the opposite (forward 1.00, backward −0.02); the forward dependence A6 asserts is a signature
+of which quantity varies, not a consequence of regeneration. Row 8: a cache that re-counts its past
+(LFU) keeps evicting and beats age weights by 0.118 in hit rate on a stationary Zipf stream, and loses
+to them by 0.186 under drift. What survives of A6 is O2's condition: the better weighting depends on
+whether the past recurs in-family.
+
+**The clock-regular class has a physiology of its own (row 2).** Handwriting strokes under isochrony
+give CV_arc 0.503 against CV_clock 0.053 (and 0.133 under the empirical weak scaling), clock-regular
+by the motor system's own law, the mirror image of the adder. The slogan "change has its own clock"
+has a natural counter-class, and the battery now records one.
+
+**A resource-driven system that is not arc-regular (row 3).** The masting tree is an adder whose
+store after a mast varies with the overshoot; at k = 1.5 and k = 3 it reads clock-regular (CV_arc
+1.307 vs 0.412; 0.879 vs 0.503), and k = 0.5 collapses to annual flowering (2917 masts in 3000
+years, the model's fixed point). The arc-regular class needs a fixed chord *and* a fixed reset;
+the framework's slogan would have predicted the opposite here.
+
+**Three memory classes are now on record (row 5, with the driven and cognitive batteries).**
+Recency (the reservoir, age weights with q < 1), wiping-out (Preisach, influence 1 or 0), and
+primacy (antigenic seniority, age weights with q = 1.67 > 1; masked to 1.08 by an antigenic-distance
+kernel). The framework's P2/P3 distinguish none of them, and a T5 prereg must name the class before
+the gate.
+
+**Kitchen and fleet adders (rows 6 and 7).** The odometer (CV_arc 0.091 vs CV_clock 0.198 under
+variable usage) and Tate's-law drops (0.027 vs 0.152 under variable flow) are arc-regular by
+construction and tie when the threshold varies instead; they show how ordinary the arc-regular class
+is when a threshold fixes the chord, and that the practice (mileage-based maintenance) predates the
+framework. Traffic (row 1) reads arc-regular by 0.17 on both CVs near 2, a class assignment at one
+density.
+
+**Decisions** (AGENT_LOG 22): the masting row's first registered value collapsed to the annual fixed
+point and the imprinting row mixed seniority with antigenic distance; the registered values and the
+variants were corrected, not the wording.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
