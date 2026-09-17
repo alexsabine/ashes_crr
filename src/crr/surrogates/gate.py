@@ -35,7 +35,8 @@ MUST_FAIL = {
     # tuned weight is a small fraction of the present pull is over-regularised by
     # same-length pulling. If either passes, the mechanism statement is wrong.
     "EQ2": {"S-R convex replay, constant label scale (adaptivity idle)",
-            "S-X constraint learner, tuned weight a small fraction of present norm"},
+            "S-X constraint learner, tuned weight a small fraction of present norm",
+            "S-Y/LwF softmax MLP, distillation constraint (input scale 4)"},
     "L5R": {"S-P AM epidemics (constant period, variable peak)",
             "S-P AM+FM epidemics (the concavity trap: no CRR content)",
             "S-P clock-regular two-hump (constant period, variable arc)"},
@@ -51,7 +52,10 @@ MUST_PASS = {
     "EQ": {"S-V convex replay, 16x label-scale swings (adaptivity load-bearing)"},
     # EQ2 (issue #20 §3): the exact Laplace penalty of a past quadratic loss with a
     # 16x curvature-scale mismatch is where the rule has a use (tuning-free EWC step).
-    "EQ2": {"S-W EWC-Laplace convex replay, 16x curvature-scale mismatch"},
+    # PR #23 showed the convex S-W row cannot open (a fixed weight is metric-optimal on a
+    # quadratic); S-W stays as an informational row. The positive control is the nonconvex
+    # S-Y row, where the present gradient decays within a task.
+    "EQ2": {"S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4)"},
     "L5R": {"S-P FM two-hump compensating (arc constant, amplitude variable)"},
     "A3": set(),   # no positive control is known for this comparison; stated in the prereg that uses it
 }
@@ -190,6 +194,7 @@ def gate_EQ(runner, _ev, meta, seeds=range(5), fixed_grid=(0.25, 0.5, 1.0, 2.0, 
     the relative improvement over the best fixed w is >= margin in the seed mean AND in a
     majority of seeds. Omega landscape reported, not gated."""
     seeds = list(seeds)
+    fixed_grid = tuple(meta.get("fixed_grid", fixed_grid))   # a row may widen the grid so its baseline can win (R7)
     eq = {om: np.array([runner("eq", om, s)["metric"] for s in seeds]) for om in omega_grid}
     wmed = float(np.median([runner("eq", 1.0, s)["w_med"] for s in seeds]))
     grid = tuple(sorted(set(fixed_grid) | {round(wmed, 3)}))
@@ -218,6 +223,7 @@ def gate_EQ2(runner, _ev, meta, seeds=range(5), fixed_grid=(0.0625, 0.25, 0.5, 1
     reduction arm (fixed w at the rule's own median w, the constant it reduces to)
     are reported, not gated."""
     seeds = list(seeds)
+    fixed_grid = tuple(meta.get("fixed_grid", fixed_grid))   # a row may widen the grid so its baseline can win (R7)
     eq = {om: np.array([runner("eq", om, s)["metric"] for s in seeds]) for om in omega_grid}
     wmed = float(np.median([runner("eq", 1.0, s)["w_med"] for s in seeds]))
     wm = round(wmed, 3)

@@ -1,0 +1,10 @@
+gate for EQ2
+  must FAIL on ['S-R convex replay, constant label scale (adaptivity idle)', 'S-X constraint learner, tuned weight a small fraction of present norm']
+  must PASS on ['S-W EWC-Laplace convex replay, 16x curvature-scale mismatch']
+
+  S-R convex replay, constant label scale (adaptivity idle) FAIL  EQ(Ω=1)=1.4416 tuned w=1.0:1.2250 (w_med of EQ=0.607) | behind-by +0.177 (seeds>step: 5/5) | best Ω=2.0 landscape 0.5:1.661 0.71:1.582 1.0:1.442 1.41:1.257 2.0:1.226 | reduction arm w=0.607:1.2799
+  S-V convex replay, 16x label-scale swings (adaptivity load-bearing) FAIL  EQ(Ω=1)=1.1992 tuned w=0.0625:1.1024 (w_med of EQ=0.599) | behind-by +0.088 (seeds>step: 3/5) | best Ω=0.5 landscape 0.5:1.059 0.71:1.088 1.0:1.199 1.41:1.663 2.0:3.397 | reduction arm w=0.599:3.9393
+  S-W EWC-Laplace convex replay, 16x curvature-scale mismatch FAIL  EQ(Ω=1)=0.0654 tuned w=0.0625:0.0570 (w_med of EQ=1.409) | behind-by +0.156 (seeds>step: 5/5) | best Ω=0.71 landscape 0.5:0.055 0.71:0.053 1.0:0.065 1.41:0.065 2.0:0.065 | reduction arm w=1.409:0.0654   <-- VIOLATION: fails on a positive control (instrument cannot see the effect)
+  S-X constraint learner, tuned weight a small fraction of present norm FAIL  EQ(Ω=1)=0.9420 tuned w=0.25:0.8803 (w_med of EQ=1.284) | behind-by +0.071 (seeds>step: 4/5) | best Ω=1.0 landscape 0.5:1.478 0.71:1.182 1.0:0.942 1.41:1.072 2.0:1.414 | reduction arm w=1.284:0.9430
+
+GATE CLOSED (1 violation(s)): restate the hypothesis or add a control

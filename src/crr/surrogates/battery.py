@@ -441,8 +441,172 @@ def S_X_constraint_learner(seed=0):
         {"name": "S-X constraint learner, tuned weight a small fraction of present norm"}
 
 
+# ---------------------------------------------------------------- nonconvex EWC / LwF surrogates (EQ2 positive control, issue #20)
+# The convex S-W row shows that on a quadratic loss with a quadratic penalty a fixed weight
+# is metric-optimal and the rule reduces to a constant (PR #23). The effect the EQ2 claim is
+# about needs a present gradient that DECAYS as the task is learned (a softmax classifier),
+# so that a fixed lambda right early in a task is too strong late in it; the rule co-scales
+# the penalty step with the present step. S-Y is that learner. S-Y/LwF is the same network
+# with a distillation constraint as the past term: the same-family negative control.
+# Every constant is named here; the estimator constants (smooth, wcap) are the ones the EQ2
+# prereg registers, and the row's own sensitivity to them is reported in the PR that adds it.
+
+_SY_K, _SY_H, _SY_BS, _SY_LR, _SY_N_PER_CLASS, _SY_STEPS = 10, 32, 32, 0.05, 400, 150
+
+
+def _sy_data(rng, d, sep, scale):
+    mu = rng.standard_normal((_SY_K, d)) * sep
+    X, y = [], []
+    for c in range(_SY_K):
+        X.append((mu[c] + rng.standard_normal((2 * _SY_N_PER_CLASS, d))) * scale)
+        y.append(np.full(2 * _SY_N_PER_CLASS, c))
+    X = np.concatenate(X); y = np.concatenate(y)
+    te = np.zeros(len(y), bool)
+    for c in range(_SY_K):
+        ii = np.where(y == c)[0]; te[ii[: len(ii) // 2]] = True
+    return (X[~te], y[~te]), (X[te], y[te])
+
+
+def _sy_softmax(z):
+    z = z - z.max(1, keepdims=True); p = np.exp(z); return p / p.sum(1, keepdims=True)
+
+
+class _SyMLP:
+    """Two-layer ReLU MLP, single softmax head over all _SY_K classes (class-IL)."""
+    def __init__(self, rng, d):
+        self.p = [rng.normal(0, np.sqrt(2 / d), (d, _SY_H)), np.zeros(_SY_H),
+                  rng.normal(0, np.sqrt(2 / _SY_H), (_SY_H, _SY_K)), np.zeros(_SY_K)]
+    def fwd(self, x):
+        W1, b1, W2, b2 = self.p; h = np.maximum(0, x @ W1 + b1); return h, h @ W2 + b2
+    def grad(self, x, dz, h):
+        W1, b1, W2, b2 = self.p; dh = dz @ W2.T; dh[h <= 0] = 0
+        return np.concatenate([(x.T @ dh).ravel(), dh.sum(0), (h.T @ dz).ravel(), dz.sum(0)])
+    def flat(self): return np.concatenate([a.ravel() for a in self.p])
+    def set_flat(self, v):
+        i = 0
+        for a in self.p:
+            a[...] = v[i:i + a.size].reshape(a.shape); i += a.size
+    def copy(self):
+        m = _SyMLP.__new__(_SyMLP); m.p = [a.copy() for a in self.p]; return m
+    def err(self, x, y):
+        with np.errstate(all="ignore"):
+            z = self.fwd(x)[1]
+        if not np.all(np.isfinite(z)):
+            return 1.0                                   # a diverged model: every prediction wrong
+        return float((z.argmax(1) != y).mean())
+
+
+def _sy_ce_grad(net, x, y):
+    h, z = net.fwd(x); p = _sy_softmax(z); dz = p; dz[np.arange(len(y)), y] -= 1; dz /= len(y)
+    return net.grad(x, dz, h)
+
+
+def _sy_mlp_learner(method, value, seed, past="ewc", d=32, sep=1.4, scale=4.0,
+                    smooth=0.9, wcap=1e4, n_fisher=20):
+    """One online pass over 5 tasks x 2 classes. past='ewc': online-EWC penalty gradient
+    2*F*(theta - theta_star), lambda REMOVED, F the empirical Fisher accumulated at every
+    boundary (mean squared per-batch gradient over n_fisher batches, times the batch size).
+    past='lwf': distillation gradient on the current batch against the model frozen at the
+    last boundary (LwF constraint, weight removed). method='fixed': w = value.
+    method='eq': w = value * ||ema g_present|| / ||ema g_past|| (Euclidean, EMA of the
+    gradient vectors, capped at wcap). Returns the final class-IL ERROR rate over all classes
+    (lower is better) and the median derived weight. Deterministic given the seed."""
+    rng = np.random.default_rng(seed)
+    (Xtr, ytr), (Xte, yte) = _sy_data(rng, d, sep, scale)
+    net = _SyMLP(rng, d); n = net.flat().size
+    fisher = np.zeros(n); theta_star = None; prev = None
+    ema_p = ema_q = None; wlog = []
+    with np.errstate(all="ignore"):
+        for task in range(5):
+            cls = (2 * task, 2 * task + 1)
+            ii_task = rng.permutation(np.where(np.isin(ytr, cls))[0])
+            for _ in range(_SY_STEPS):
+                ii = ii_task[rng.integers(0, len(ii_task), _SY_BS)]; x, y = Xtr[ii], ytr[ii]
+                g_p = _sy_ce_grad(net, x, y)
+                g_q = None
+                if past == "ewc" and theta_star is not None:
+                    g_q = 2 * fisher * (net.flat() - theta_star)
+                elif past == "lwf" and prev is not None:
+                    h, z = net.fwd(x); zp = prev.fwd(x)[1]
+                    g_q = net.grad(x, (_sy_softmax(z) - _sy_softmax(zp)) / _SY_BS, h)
+                if g_q is None:
+                    net.set_flat(net.flat() - _SY_LR * g_p); continue
+                if method == "fixed":
+                    w = value
+                elif method == "eq":
+                    ema_p = g_p if ema_p is None else smooth * ema_p + (1 - smooth) * g_p
+                    ema_q = g_q if ema_q is None else smooth * ema_q + (1 - smooth) * g_q
+                    w = min(value * np.linalg.norm(ema_p) / max(np.linalg.norm(ema_q), 1e-12), wcap)
+                else:
+                    raise ValueError(method)
+                wlog.append(w)
+                net.set_flat(net.flat() - _SY_LR * (g_p + w * g_q))
+            prev = net.copy()                            # boundary: frozen copy (LwF)
+            if past == "ewc":                            # boundary: accumulate the empirical Fisher, reset the anchor
+                f = np.zeros(n)
+                for _ in range(n_fisher):
+                    ii = ii_task[rng.integers(0, len(ii_task), _SY_BS)]
+                    f += _sy_ce_grad(net, Xtr[ii], ytr[ii]) ** 2
+                fisher = fisher + f / n_fisher * _SY_BS
+                theta_star = net.flat().copy()
+    return dict(metric=net.err(Xte, yte), w_med=float(np.median(wlog)) if wlog else None)
+
+
+_SY_GRID_EWC = (0.0625, 0.25, 1.0, 4.0, 16.0, 64.0, 128.0, 256.0, 512.0, 1024.0)
+_SY_GRID_LWF = (0.0625, 0.25, 0.5, 1.0, 2.0, 4.0, 16.0, 64.0)
+
+
+def S_Y_mlp_online_ewc(seed=0):
+    """S-Y: softmax MLP (class-IL, 5 tasks x 2 classes, one online pass) with online EWC; past
+    term = penalty gradient 2*F*(theta - theta_star), lambda removed; inputs at scale 4, so
+    F (a squared gradient) is 16x the unit-scale one. Positive control: the rule at Omega=1
+    must not be behind the tuned fixed weight (EQ2 MUST PASS). The row's fixed_grid reaches
+    1024 because the tuned weight sits in the hundreds (R7: the baseline must be able to win)."""
+    return (lambda method, value, s: _sy_mlp_learner(method, value, s, past="ewc", scale=4.0)), None, \
+        {"name": "S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4)", "fixed_grid": _SY_GRID_EWC}
+
+
+def S_Y_mlp_online_ewc_unit_scale(seed=0):
+    """S-Y at unit input scale: informational row, no control role. Reported so the reader can
+    see how much of the effect is the scale mismatch."""
+    return (lambda method, value, s: _sy_mlp_learner(method, value, s, past="ewc", scale=1.0)), None, \
+        {"name": "S-Y softmax MLP, online EWC, unit input scale (informational)", "fixed_grid": _SY_GRID_EWC}
+
+
+def S_Y_mlp_online_ewc_cap100(seed=0):
+    """S-Y with the ratio cap lowered to 100 (registered value 1e4): informational row. The
+    derived weight sits in the thousands, so a low cap turns the rule into a weaker fixed
+    weight than the tuned one; the pass is specific to the registered cap and the prereg
+    sensitivity table must say so."""
+    return (lambda method, value, s: _sy_mlp_learner(method, value, s, past="ewc", scale=4.0, wcap=100.0)), None, \
+        {"name": "S-Y softmax MLP, online EWC, scale 4, cap=100 (informational)", "fixed_grid": _SY_GRID_EWC}
+
+
+def S_Y_mlp_online_ewc_smooth080(seed=0):
+    """S-Y with EMA smoothing 0.8 (registered 0.9): informational row."""
+    return (lambda method, value, s: _sy_mlp_learner(method, value, s, past="ewc", scale=4.0, smooth=0.8)), None, \
+        {"name": "S-Y softmax MLP, online EWC, scale 4, smooth=0.8 (informational)", "fixed_grid": _SY_GRID_EWC}
+
+
+def S_Y_mlp_online_ewc_smooth098(seed=0):
+    """S-Y with EMA smoothing 0.98 (registered 0.9): informational row."""
+    return (lambda method, value, s: _sy_mlp_learner(method, value, s, past="ewc", scale=4.0, smooth=0.98)), None, \
+        {"name": "S-Y softmax MLP, online EWC, scale 4, smooth=0.98 (informational)", "fixed_grid": _SY_GRID_EWC}
+
+
+def S_Y_mlp_lwf_constraint(seed=0):
+    """S-Y/LwF: the same network and stream; past term = distillation gradient on the current
+    batch against the model frozen at the last boundary (LwF, weight removed): a constraint,
+    not a loss on the past task. Negative control in the same nonconvex family: EQ2 MUST FAIL."""
+    return (lambda method, value, s: _sy_mlp_learner(method, value, s, past="lwf", scale=4.0)), None, \
+        {"name": "S-Y/LwF softmax MLP, distillation constraint (input scale 4)", "fixed_grid": _SY_GRID_LWF}
+
+
 REPLAY_BATTERY = [S_R_convex_replay_constant, S_V_convex_replay_varying,
-                  S_W_ewc_laplace_replay, S_X_constraint_learner]
+                  S_W_ewc_laplace_replay, S_X_constraint_learner,
+                  S_Y_mlp_online_ewc, S_Y_mlp_online_ewc_unit_scale,
+                  S_Y_mlp_online_ewc_cap100, S_Y_mlp_online_ewc_smooth080, S_Y_mlp_online_ewc_smooth098,
+                  S_Y_mlp_lwf_constraint]
 
 
 # ---------------------------------------------------------------- rate surrogates (H-L5 on count series, SCOPE.md P6/P9)

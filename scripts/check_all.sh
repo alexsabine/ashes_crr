@@ -32,6 +32,8 @@ echo "== gates =="
 uv run python -m crr.surrogates.gate L5
 uv run python -m crr.surrogates.gate CUT
 uv run python -m crr.surrogates.gate T1
+uv run python -m crr.surrogates.gate EQ
+uv run python -m crr.surrogates.gate EQ2
 echo
 
 echo "== all checks done =="
