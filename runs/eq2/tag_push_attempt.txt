@@ -1,0 +1,3 @@
+fatal: the remote end hung up unexpectedly
+Everything up-to-date
+tag push exit 0
