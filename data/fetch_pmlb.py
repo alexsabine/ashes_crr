@@ -1,7 +1,9 @@
-"""Download the PMLB datasets named in prereg/eqx/PREREG.md and write a sha256 manifest.
+"""Download the PMLB datasets named in a study's PREREG.md and write a sha256 manifest.
 Run ONLY after the prereg tag exists (CLAUDE.md R2).
 
-    uv run python data/fetch_pmlb.py optdigits pendigits letter
+    uv run python data/fetch_pmlb.py [--manifest <study>] <name> ...
+    uv run python data/fetch_pmlb.py optdigits pendigits letter                 # study EQX (default manifest)
+    uv run python data/fetch_pmlb.py --manifest eq2 mfeat_fourier mfeat_pixel texture
 """
 import datetime as dt
 import hashlib
@@ -11,7 +13,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw" / "pmlb"; RAW.mkdir(parents=True, exist_ok=True)
-MAN = ROOT / "data" / "manifests" / "eqx.sha256"
+ARGS = sys.argv[1:]
+STUDY = ARGS.pop(ARGS.index("--manifest") + 1) if "--manifest" in ARGS else "eqx"
+if "--manifest" in ARGS: ARGS.remove("--manifest")
+MAN = ROOT / "data" / "manifests" / f"{STUDY}.sha256"
 # PMLB stores the .tsv.gz files in Git LFS: the raw.githubusercontent URL named in the prereg
 # returns a 131-byte pointer carrying the object's sha256 (oid). The bytes come from the LFS
 # media host; the pointer's oid is checked against the downloaded file (independent integrity check).
@@ -19,7 +24,7 @@ PTR = "https://raw.githubusercontent.com/EpistasisLab/pmlb/master/datasets/{n}/{
 BASE = "https://media.githubusercontent.com/media/EpistasisLab/pmlb/master/datasets/{n}/{n}.tsv.gz"
 
 lines = []
-for n in sys.argv[1:]:
+for n in ARGS:
     url = BASE.format(n=n); dest = RAW / f"{n}.tsv.gz"
     with urllib.request.urlopen(PTR.format(n=n), timeout=120) as r:
         ptr = r.read().decode()
