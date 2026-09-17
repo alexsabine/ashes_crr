@@ -605,3 +605,7 @@ Okay. Now, in the scratchpad only. Compare crr to FEP please. Consider pedagogic
 This scratchpad chat is useful. Consider the Dirac delta as ‘Now’ and past states as coherence. The future has no content. Only the past has content. Check the crr mathematics regarding how the future is a reciprocal of the past in every moment.
 
 Consider crr as a temporal dynamics for fep / active inference, and the implications of this for active inference (Daniel is the director of the institute)
+
+## 47. 2026-09-17T22:35:00Z
+
+Just in scratchpad. What are the implications for fep if crr gives it a derived clock, falsifiability and precision as a measured unit?
