@@ -284,6 +284,72 @@ unlocked pair labelled locked, a mis-scaled balance metric, an anti-phase ring l
 The models were corrected, not the wording, and every class or regime label in the output is
 now computed from the number it describes.
 
+## The driven-systems battery (owner request, 2026-09-17, prompt-log entry 42)
+
+`driven_systems.py` → `driven_systems.txt` (pinned; CI reproduces it byte for byte). Nine model
+systems in five classes no earlier battery covered: geophysical threshold systems, materials
+with memory, engineered control loops, a chemical relaxation oscillator, and a two-parameter
+thermodynamic protocol. Model systems only; no dataset opened. Where an event is a jump (a slip,
+a window halving, an avalanche) the segmentation is exclusive, per prompt-log entry 41.
+
+| row | system | grade |
+|---|---|---|
+| 1 | spring-slider fault: strength jitter / loading-rate jitter / both (the L5x question on a model) | OPEN |
+| 2 | Olami-Feder-Christensen earthquake automaton: size exponent and recurrence of large events | DESCR |
+| 3 | Kramers escape in a double well, unforced and periodically forced (tipping prototype) | DESCR |
+| 4 | Paris-law fatigue under variable-amplitude loading: which path functional | DESCR |
+| 5 | Preisach hysteresis: measured influence of each settled excursion vs the occasion-weight law (T5) | FAILS |
+| 6 | AIMD congestion control: buffer-limited and random loss under RTT jitter | DESCR |
+| 7 | M/M/1 busy periods: natural time against clock | DESCR |
+| 8 | Oregonator under drifting recovery time or stoichiometry | OPEN |
+| 9 | two-parameter harmonic-trap protocol: does S order the excess work | DESCR |
+| all (9) | 0 SHARP / 0 CONSIST / 6 DESCR / 1 FAILS / 0 TENSION / 2 OPEN | |
+
+**The one result with teeth: T5 fails where influence is measured (row 5).** The roadmap said
+the occasion-weight law π ∝ e^{S/Ω} could only be tested on a carrier where the influence of a
+settled occasion is *measured*, not imposed, and no battery had such a row. A Preisach ensemble
+is one: the final magnetisation after six excursions of surplus 0.60, 1.10, 1.60, 0.90, 1.30 and
+0.40 changes by 0.1490 when the largest excursion is removed and by exactly 0 when any of the
+other five is removed. The law's log-odds between the two largest occasions is their surplus
+difference, 0.30; the system's is infinite. Wiping-out (only the running maximum survives) is a
+memory with depth greater than one that the MaxEnt form cannot express, so the spec's own
+depth-one exemption does not cover it. This is the first FAILS on the law rather than on a clause
+of the older text, and it names the class the law must exclude before T5 is pre-registered.
+
+**The roadmap's 2-D thermodynamic question, answered on a model (row 9).** With centre and
+stiffness as controls the Boltzmann family is Gaussian and its Fisher metric is a hyperbolic
+half-plane, so the geodesic has a closed form (C* = 2.612, reproduced numerically). Three
+protocols with the same endpoints and duration: the geodesic at constant Fisher speed (S = 0,
+W_ex 0.1029), a detour at constant speed (S = 0.832, W_ex 0.2035), and the geodesic traversed
+with 90 % of its length in 30 % of the time (S = 0, W_ex 0.3015). S does not order dissipation:
+the zero-surplus bursty protocol dissipates 2.93× the constant-speed geodesic and more than the
+positive-surplus detour. The exact trap friction tensor is not a scalar multiple of the Fisher
+metric (the two conjugate forces relax at different rates), so even the geodesic CRR names is
+not the minimum-dissipation one. Sivak-Crooks' bound in the friction length holds on all three.
+
+**H-T1's analogue on a wear system (row 4).** Paris-law damage is path-dependent by construction
+and the endpoint predicts nothing (R² 0.020), but the path functional the material obeys carries
+the exponent m = 3 (R² 0.979) and the Fisher arc with exponent 1 is the wrong functional
+(R² 0.958). H-T1 names path-dependence; the domain supplies which path integral.
+
+**The class map, and the limit of H-L5.** The spring-slider shows the L5x question in its
+simplest form: strength jitter makes arc and clock the same variable (an exact tie), loading
+jitter makes the arc regular (0.001 against 0.029), both together give a margin below reading.
+Which of the two a fault varies is what L5x measures. AIMD is arc-regular under both loss
+processes (0.008 vs 0.027; 0.367 vs 0.717) because the window rises one per round trip, so the
+arc *is* the round-trip count: the first engineered system arc-regular by design. The Oregonator
+is arc-regular under recovery-time drift (0.007 vs 0.151) and a tie under stoichiometry drift.
+The Kramers row generalises prompt-log entry 41's finding to a system with no threshold: unforced
+and forced transitions both tie exactly (1.108 and 0.520 on both CVs), because the arc of a
+noise-dominated path is the noise's total variation, which grows with elapsed time. H-L5 can
+discriminate only where the surplus is small against the chord, and every L5-type prereg should
+say so. The M/M/1 row is a definition: on a count carrier the arc is 2N − 1, so natural time and
+coherence are one statistic (CVs 1.249 for N, 1.673 for the arc, 1.751 for the duration).
+
+**OFC (row 2).** Size-distribution slope −1.99 on sizes 1–64 at α = 0.2, 1.22 % of avalanches at
+64 sites or more, and the large events read arc-regular on the mean-stress carrier (0.837 vs
+0.852). The exponent and its α-dependence are the automaton's.
+
 ## TENSION and the minimal rewording
 
 One TENSION (row 16). Minimal resolution: give the two laws different names. Keep "equanimity"

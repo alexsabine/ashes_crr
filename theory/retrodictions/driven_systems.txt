@@ -1,0 +1,102 @@
+CRR retrodiction battery on engineered, geophysical and driven-dissipative systems — 9 model systems, 5 classes. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (g) Spring-slider fault (stick-slip), stress carrier: strength jitter vs loading-rate jitter vs both
+     clause:     D5 (slip = own event), A3 (the drop is the cut, exclusive segmentation), H-L5 (the L5x question)
+     BORROWED:   single-degree-of-freedom slider with static/dynamic strength; Ornstein-Uhlenbeck loading
+     FLOW:       the loading rate and the strength sequence (fault-supplied)
+     derivation: A strength jitter: 60 slips, CV_arc 0.177 vs CV_clock 0.177 -> tie; B loading jitter: 60 slips, CV_arc 0.001 vs CV_clock 0.029 -> arc-regular; C both: 60 slips, CV_arc 0.177 vs CV_clock 0.172 -> clock-regular
+     known:      the recurrence of laboratory stick-slip depends on loading rate and on strength evolution (rate-and-state friction); which varies more is an empirical property of the fault
+     verdict:    the class is set by which of the two the fault varies: with strength jitter arc and clock are the same variable (tie), with loading jitter the arc is the regular one (arc-regular), with both: clock-regular by 0.005, below the 0.01 this battery treats as a reading; the framework names the two classes and does not say which a fault belongs to (rule 2): that is the L5x study
+     GRADE:      OPEN
+     weakness:   the p4581 result in CLAUDE.md section 0 (arc-regular at 11/12 levels) would say the lab fault is in class B; the model cannot confirm or deny it, and the study that can is gated but not run
+[ 2] (g) Olami-Feder-Christensen earthquake automaton (L = 32, alpha = 0.2): avalanche sizes and the recurrence of large events
+     clause:     A1' (unit = one site), D5 (large avalanche = own event), H-L5; no clause on exponents
+     BORROWED:   OFC 1992 spring-block automaton; self-organised criticality
+     FLOW:       the uniform loading (drive) and the conservation parameter alpha
+     derivation: 20000 avalanches after transient; size-distribution log-log slope on 1..64: -1.99; fraction of avalanches >= 64 sites: 0.0122; large events (244), carrier = mean stress, events counted in avalanches: CV_arc 0.837 vs CV_clock 0.852 -> arc-regular
+     known:      OFC gives a Gutenberg-Richter-like size distribution whose exponent depends on alpha; large events recur quasi-periodically only near conservation
+     verdict:    the exponent is the automaton's; the recurrence class of large events is assigned by the instrument, and no clause predicts it
+     GRADE:      DESCR
+     H-L5 class: arc-regular (CV_arc 0.837, CV_clock 0.852)
+     weakness:   class assignment on a model at one alpha and one L; the exponent's alpha-dependence is not reached by any clause
+[ 3] (g) Kramers escape in a double well: well-to-well transitions, unforced and periodically forced (tipping / Dansgaard-Oeschger prototype)
+     clause:     D5 (transition = own event), D2 (arc on the state carrier), H-L5
+     BORROWED:   Kramers rate theory; stochastic resonance
+     FLOW:       the noise (D) and the forcing (A, period)
+     derivation: unforced: 178 transitions, mean residence 112.6 (CV 1.11), CV_arc 1.108 vs CV_clock 1.108 -> tie; forced A = 0.20, period 200: 229 transitions, mean residence 87.6 (CV 0.52), CV_arc 0.520 vs CV_clock 0.520 -> tie
+     known:      unforced escapes are Poisson (residence-time CV near 1); with weak periodic forcing near the matching noise level the transitions synchronise to the forcing (stochastic resonance)
+     verdict:    unforced: tie — in the fluctuation-driven regime the arc between transitions is the noise's total variation, which grows with elapsed time, so arc and clock carry the same variability (prompt-log entry 41's finding, here on a system with no threshold); forced: tie (residence CV 0.52 against 1.11 unforced); no clause predicts either
+     GRADE:      DESCR
+     weakness:   the arc of a noise-dominated 1-D path is a clock: H-L5 can discriminate only where the surplus is small against the chord, which is a limit of the instrument to write into every L5-type prereg
+[ 4] (m) Paris-law fatigue crack growth under variable-amplitude loading: does damage track the path, and which path functional?
+     clause:     H-T1 class (path vs endpoint) read onto a wear system; D2 (the Fisher arc with the identity metric is sum |dsigma| n)
+     BORROWED:   Paris 1963 law; Palmgren-Miner linear damage
+     FLOW:       the material constants Cp, m and the load sequence
+     derivation: 200 random 12-block sequences: R^2 of log crack growth on log Miner sum (exponent m = 3) = 0.979; on the arc-like sum (exponent 1) = 0.958; on the endpoint (last amplitude) = 0.020
+     known:      under Paris without load interaction the damage is a function of the Miner sum alone (separable ODE); the endpoint carries nothing
+     verdict:    path-dependent by construction (the S-H2 class), so 'path beats endpoint' holds (0.979 and 0.958 against 0.020); but the path functional the material obeys carries the exponent m, and the Fisher arc (m = 1) is the wrong functional by 0.021 in R^2: the domain supplies the exponent, CRR supplies only 'a path integral'
+     GRADE:      DESCR
+     weakness:   H-T1 names path-dependence; it does not say which path functional, and here the correct one is not the Fisher arc
+[ 5] (m) Preisach hysteresis ensemble: measured influence of each settled excursion on the final state vs the occasion-weight law
+     clause:     spec T5 / v3.1 P2 (pi_m proportional to exp(beta S_m), read at beta = 1), A6 (regeneration from settled occasions), D4 (S of a closed excursion = its arc)
+     BORROWED:   Preisach 1935 model; Mayergoyz wiping-out and congruency properties
+     FLOW:       the input sequence (the excursion amplitudes) and the hysteron density
+     derivation: 6 excursions with S = 0.60, 1.10, 1.60, 0.90, 1.30, 0.40; measured influence (remove-one change in output) = 0.0000, 0.0000, 0.1490, 0.0000, 0.0000, 0.0000; 5 of 6 occasions have exactly zero influence; correlation(S, influence) = 0.679; law's log-odds between the two largest occasions = S_i - S_j = 0.30, measured log-odds = infinite (zero influence)
+     known:      wiping-out: an excursion is erased from memory by any later larger excursion; the final state depends on the running maximum only
+     verdict:    the influence of a settled occasion is 1 or 0 by the wiping-out rule, not exp(S): the log-odds law gives a finite number where the system gives an infinite one, and five of six occasions with positive surplus have no influence at all; T5 FAILS on the first system where influence is measured rather than imposed
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: a memory with return-point (wiping-out) structure is outside the law's MaxEnt form; the spec's own class restriction (A4, 'depth one says OPEN') does not cover it because Preisach has depth greater than one and still contradicts the weights
+[ 6] (e) AIMD congestion control (TCP-like): loss events with buffer-limited vs random loss under round-trip-time jitter
+     clause:     D5 (loss = own event), A3 (the halving is the cut, exclusive segmentation), H-L5
+     BORROWED:   additive-increase multiplicative-decrease (Chiu-Jain 1989); fluid model of TCP
+     FLOW:       the round-trip time sequence and the loss process (network-supplied)
+     derivation: buffer-limited, RTT CV 0.15: CV_arc 0.008 vs CV_clock 0.027 -> arc-regular; random loss p = 0.002, RTT CV 0.15: CV_arc 0.367 vs CV_clock 0.717 -> arc-regular
+     known:      with a fixed buffer the window sawtooth has a fixed amplitude B/2 and a period set by the RTT; with random loss the amplitude is random
+     verdict:    arc-regular in both variants (arc-regular, arc-regular) and by construction: the window rises by one per round trip, so the arc of a cycle is its round-trip count and only the RTT jitter separates clock from arc, whatever the loss process (the S-G2 mechanism in an engineered loop); the framework names the class and the protocol supplies it
+     GRADE:      DESCR
+     weakness:   the first engineered system in the batteries that is arc-regular by design rather than by physics; nothing about TCP is derived
+[ 7] (e) M/M/1 queue busy periods: natural time (customers served) against clock duration
+     clause:     O3 (natural time gives the unit for point processes), D2 (arc on the count carrier), A4 (Markov: depth one)
+     BORROWED:   M/M/1 busy-period theory (Borel-Tanner); memoryless service and arrivals
+     FLOW:       the arrival and service rates
+     derivation: 3000 busy periods at rho = 0.5: mean customers served 1.97 (theory 1/(1 - rho) = 2.00), mean duration 1.98 (theory 1/(mu - lambda) = 2.00); CV(natural time) 1.249, CV(arc = 2N - 1) 1.673, CV(duration) 1.751; correlation(arc, duration) 0.944
+     known:      busy-period length and customers served are both heavy-tailed at rho near 1 and are functions of the same random walk
+     verdict:    the arc of a counting carrier is the event count: 'natural time' and 'coherence' are one statistic here (a definition), and the queue is Markov so nothing settled beyond the present length has any effect (A4)
+     GRADE:      DESCR
+     weakness:   the arc adds nothing to the count; the count's regularity against the clock is the random walk's, not CRR's
+[ 8] (c) Oregonator (Belousov-Zhabotinsky) relaxation oscillator under slowly drifting recovery time or stoichiometry: cycle class
+     clause:     D5 (the excitation = own event), D2 on log10 x, H-L5
+     BORROWED:   Field-Koros-Noyes mechanism; Tyson 1985 two-variable reduction
+     FLOW:       the rate constants and the registered drift (experimenter-supplied)
+     derivation: drift in tau_z: 480 excitations, period mean 5.64 (CV 0.151), CV_arc 0.007 vs CV_clock 0.151 -> arc-regular; drift in f: 467 excitations, period mean 5.79 (CV 0.007), CV_arc 0.007 vs CV_clock 0.007 -> tie
+     known:      the BZ period is set by the slow variable's recovery; the excursion shape is nearly fixed by the fast subsystem; the stoichiometric factor moves the period little inside the oscillatory range
+     verdict:    recovery-time drift: arc-regular (the fast excursion is fixed and the recovery time varies, the S-G2 mechanism); stoichiometry drift: tie by 0.000, below the 0.01 this battery treats as a reading; the drift, not the framework, decides the class
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 0.007, CV_clock 0.151)
+     weakness:   class assignment on a model under two registered drifts; the Hopf-side behaviour of the Oregonator is covered by the Hopf rows of the earlier batteries
+[ 9] (t) Two-parameter harmonic-trap protocol (centre and stiffness) in linear response: does the surplus S order the excess work?
+     clause:     D2-D4 (C, C*, S on the control manifold with the Fisher metric), P1; the roadmap's open item (section 2)
+     BORROWED:   Sivak-Crooks 2012 thermodynamic length (W_ex >= L_zeta^2 / tau); Crooks 2007 Fisher metric of the Boltzmann family; the exact harmonic-trap friction tensor
+     FLOW:       the protocol speed and the friction tensor (system-supplied)
+     derivation: g-geodesic, constant speed: C = 2.612, S = 0.000, L_zeta = 2.185, W_ex = 0.1029; detour, constant speed: C = 3.444, S = 0.832, L_zeta = 3.050, W_ex = 0.2035; g-geodesic, bursty speed: C = 2.612, S = 0.000, L_zeta = 2.185, W_ex = 0.3015; C* = 2.612 (closed form; numerical geodesic length 2.612); bound W_ex >= L_zeta^2/tau holds on all three: True; ordering by S alone: no (the bursty g-geodesic has S = 0 and W_ex 2.93x the constant-speed g-geodesic's; the detour has S > 0 and W_ex 1.98x)
+     known:      minimum-dissipation protocols are constant-speed geodesics of the friction metric zeta; W_ex >= L_zeta^2 / tau by Cauchy-Schwarz
+     verdict:    the constant-speed geodesic is optimal (inherited from Sivak-Crooks, CONSIST on paper as the earlier batteries said); S orders the excess work only among constant-speed protocols: a zero-surplus protocol traversed at uneven speed dissipates more than a positive-surplus one at constant speed, so S is not a dissipation ordering, the speed profile in the friction metric is; and here the friction metric is not the Fisher metric up to a scalar, so even the geodesic CRR names is not the optimal one
+     GRADE:      DESCR
+     weakness:   answers the roadmap's 2-D question negatively on the model: to order dissipation one needs the full speed profile in zeta, which is the thermodynamic-length result, not a CRR quantity
+
+====================================================================================================
+TALLY
+class                               SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(g) geophysical / threshold             0        0        2        0        0        1
+(m) materials with memory               0        0        1        1        0        0
+(e) engineered loops                    0        0        2        0        0        0
+(c) chemical                            0        0        0        0        0        1
+(t) thermodynamic                       0        0        1        0        0        0
+all                                     0        0        6        1        0        2
+
+H-L5 class map (model systems with their own events):
+  arc-regular                                  Olami-Feder-Christensen earthquake automaton (L = 32, alpha = 0.2): avalanche sizes and the recurrence of large events
+  arc-regular                                  Oregonator (Belousov-Zhabotinsky) relaxation oscillator under slowly drifting recovery time or stoichiometry: cycle class
+
+rows where the coherence integral's velocity is system-supplied (FLOW != none): 9/9
+Rows where a CRR clause reaches a result the domain did not already have: 0 of 9.
