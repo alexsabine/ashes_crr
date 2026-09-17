@@ -551,3 +551,9 @@ Context: question; answered in chat with a recommendation (no new retrodictions;
 > @"/root/.claude/uploads/77fb7a2b-ce3d-5c52-a1a6-710031fa20e9/fcdaf8c4-CRR_retrodiction_outcomes_1.pdf" Okay, but my Fable 5.1 found these "Sharp" findings. We should run them in here please, through the pipeline. Do this first.
 
 Context: the attached PDF (sha256 885e56256572fc4aa0e96d66b61b8f8e3aafd23ee72afd8a63ca52b6887daf3f; stored verbatim under theory/external/ with its extracted text) reports 16 SHARP rows from a retrodiction run outside this repository whose script was not supplied. Each SHARP claim is re-derived here as a row of theory/retrodictions/sharp_claims.py under the issue-#21 rules (definitional test, rule-4 asymmetric member, rule-2 observable/unit choice), its printed numbers reproduced where the claim allows, and regraded; output pinned and read in theory/retrodictions/README.md.
+
+## 37 — received 2026-09-17T00:54Z, logged 2026-09-17T00:54Z
+
+> Great. Let's run a new suite of continual learning benchmark checks please. Thank you.
+
+Context: study SAL (salience-weighted replay): the first test of the specification's equanimity law (H1/T5: past occasions weighted pi_m ∝ e^{lambda S_m}, lambda = 1 in the per-update Fisher unit, equal retention by design) on a continual learner, under the CLAUDE.md §8 order: learner in src/crr/instrument/replay.py, gate_SAL with positive and negative surrogates, prereg, hash, anchor attempt, signed tag, three unseen PMLB carriers, run, ledger, report. The hypothesis is not in theory/CRR.md v3.1 (owner decision on v3.2 pending); the prereg and the ledger rows name their source.
