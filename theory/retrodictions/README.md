@@ -350,9 +350,76 @@ coherence are one statistic (CVs 1.249 for N, 1.673 for the arc, 1.751 for the d
 64 sites or more, and the large events read arc-regular on the mean-stress carrier (0.837 vs
 0.852). The exponent and its α-dependence are the automaton's.
 
+## The cognitive-collective battery (owner request, 2026-09-17, prompt-log entry 48)
+
+`cognitive_collective.py` → `cognitive_collective.txt` (pinned; CI reproduces it byte for byte). Nine
+model systems in six classes no earlier battery covered: cognitive models, learning machines other
+than the ledger's, an economic time series, collective synchronisation, an evolutionary game cycle
+and social diffusion. Model systems only; no dataset opened.
+
+| row | system | grade |
+|---|---|---|
+| 1 | drift-diffusion decision model at two drifts and two sampling steps | TENSION |
+| 2 | Rescorla-Wagner learning rate against the Kalman gain at Fisher speed v (P4) | DESCR |
+| 3 | retention in natural time vs clock time under variable-rate interference (P5) | DESCR |
+| 4 | linear echo-state reservoir: measured influence of past input blocks, age (P3) vs surplus (P2) | FAILS |
+| 5 | simulated annealing of a two-level system: three schedules of equal Fisher length | CONSIST |
+| 6 | GARCH(1,1) volatility clustering vs i.i.d. returns, exceedance events | DESCR |
+| 7 | Kuramoto synchronisation transition (exact order parameter) and the criticality clause | DESCR |
+| 8 | rock-paper-scissors replicator with an attracting heteroclinic cycle, Fisher-native simplex | CONSIST |
+| 9 | Bass diffusion of an innovation as one occasion | DESCR |
+| all (9) | 0 SHARP / 2 CONSIST / 5 DESCR / 1 FAILS / 1 TENSION / 0 OPEN | |
+
+**A theorem about the instrument, not the systems (row 1).** The Fisher arc of a Brownian path is
+its total variation, which is not finite. On the drift-diffusion model the mean arc per trial falls
+from 9.31 to 2.93 when the sampling step goes from 1e-3 to 1e-2 (ratio 3.18 against √10 = 3.16) while
+the reaction times do not change. So on a diffusion carrier D2's C is a property of the sampling
+step, and every arc-versus-clock comparison on such a carrier compares the clock with itself. This
+is graded TENSION because it is internal to the framework: D2 presumes a rectifiable path. It is
+also the explanation of the exact ties the Kramers and integrate-and-fire rows produced earlier. A
+prereg on a diffusion carrier must name a smoothing scale or a rectifiable Fisher-native carrier.
+
+**The second measured-influence system, and O2 decided against surplus (row 4).** On a linear
+echo-state reservoir the influence of each past input block on the final state is measured by
+removal. Age explains it with R² 0.918 and a fitted decay of 0.907 per step against the spectral
+radius 0.9 (P3, which is the spectral radius renamed); the surplus explains 0.376 alone and adds
+0.011 beyond age; what remains is the input's magnitude (R² 0.948 with age and log scale). P2's
+exponential-in-surplus weights fail on the first system that meets O2's own condition (occasions
+that differ in-family and recur), after failing on the Preisach ensemble. Two measured-influence
+systems, two failures, one of each memory class.
+
+**Arc-regular by dynamics on a Fisher-native carrier (row 8).** The rock-paper-scissors replicator
+with an attracting heteroclinic cycle, integrated in log coordinates on the simplex with the
+Shahshahani metric (P7), has dominance epochs whose durations grow without bound (last twelve: CV
+0.274 at a = 1.1, 0.780 at a = 1.3) while the Fisher arc of each epoch converges to the
+vertex-to-vertex distance π (last arcs 3.134 and 3.142; CV 0.030 and 0.074). Neutral cycles tie
+exactly. This is the second system after the adder that is arc-regular by its own dynamics rather
+than by construction, and the first on a carrier where the metric is not decorative. The saturation
+value is a definition; the regularity is dynamical. CONSIST.
+
+**Inherited optimality (row 5).** Three annealing schedules with identical Fisher length 1.307 give
+lag integrals 0.1974 (linear in T), 0.0539 (linear in β) and 0.0441 (constant Fisher speed). The
+length cannot rank them; the speed profile does, as on the two-parameter trap. CONSIST, inherited
+from Salamon-Nulton.
+
+**Readings (rows 2, 3, 6, 7, 9).** The Rescorla-Wagner optimum tracks the Kalman gain of the
+environment's Fisher speed (best α 0.12, 0.30, 0.60 against K(v) 0.095, 0.258, 0.618 at v = 0.1,
+0.3, 1), so 1/φ is privileged only at v = 1 and P4 says of itself that it is not CRR's. Retention
+in natural time predicts by construction (R² 0.998 against 0.938 for clock time) and restates the
+interference hypothesis. GARCH exceedances are more regular in realised-variation time than in
+clock time (CV 2.400 against 2.984, margin 0.585; the i.i.d. control 0.887 against 0.899), which is
+Clark's subordination reading with a chosen event (rule 2). Kuramoto's order parameter matches the
+exact Lorentzian result to 0.013 above onset and vanishes into the finite-N floor at onset, a fourth
+data point for the class dependence of the older criticality clause. Bass diffusion is a monotone
+occasion with S = 0 and a depth-one state.
+
+**Decisions** (AGENT_LOG 21): the first run's rock-paper-scissors row did not reach the heteroclinic
+regime (linear-coordinate clipping) and the diffusion row's class flipped with the drift for no
+mechanism; the models and the grading were corrected, not the wording.
+
 ## TENSION and the minimal rewording
 
-One TENSION (row 16). Minimal resolution: give the two laws different names. Keep "equanimity"
+One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
 for the occasion-weight law π ∝ e^{S/Ω}, Ω = 1 (spec H1, T5), which has a Fisher-unit meaning
 and no ledger row yet; call v3.1's H-EQ what it is, a normalised-gradient step with a cap, and
 carry its ledger (EQX, EQ2) under that name.

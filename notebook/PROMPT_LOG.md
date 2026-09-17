@@ -609,3 +609,9 @@ Consider crr as a temporal dynamics for fep / active inference, and the implicat
 ## 47. 2026-09-17T22:35:00Z
 
 Just in scratchpad. What are the implications for fep if crr gives it a derived clock, falsifiability and precision as a measured unit?
+
+## 48. 2026-09-17T22:50:00Z
+
+Okay. Leave that ringfenced in the scratchpad for now. We might return to it at a later time. 
+
+Please run another full battery of general tests on different systems using the pipeline. Thank you
