@@ -29,6 +29,8 @@ is transcribed by hand (issue rule 1).
 """
 
 
+
+
 # =====================================================================
 # CLASS (a) — two-state / occupancy families
 # =====================================================================
@@ -934,7 +936,7 @@ def _c5_blackbody():
     detail = (f"geometric-family FR line element ds^2 = 1/(n(1+n)^2); arc primitive 2 arctan(sqrt(n)); "
               f"total diameter = {total} reached only as n -> oo — pairwise distances are strictly < pi, "
               "so no antipodal pair exists in the family and A3 never fires on this carrier")
-    return bool(ok), detail
+    return None, detail  # OPEN row: the framework declines; ok=None per contract
 
 
 SYSTEMS_C = [
@@ -1348,7 +1350,7 @@ def _e3_pendulum():
     ok = sp.simplify(ratio_small - 1) == 0 and ratio_half > 1.07
     detail = (f"T(A=pi/2)/T0 = {ratio_half:.6f} (exact elliptic; known grows with amplitude); "
               "no framework clause derives the period-amplitude law (O1 declines)")
-    return bool(ok), detail
+    return None, detail  # OPEN row: the framework declines; ok=None per contract
 
 
 def _e4_lc():
@@ -1389,7 +1391,7 @@ def _e5_rossler():
     ok = cv_T > 0.02 and 0.001 < D_phi < 0.5 and cv_z > 0.5
     detail = (f"CV_T={cv_T:.3f} D_phi={D_phi:.4f} (return-time phase diffusion) CV_z={cv_z:.2f}; "
               "phase coherent, amplitude chaotic — no framework clause addresses D_phi (declines)")
-    return bool(ok), detail
+    return None, detail  # OPEN row: the framework declines; ok=None per contract
 
 
 SYSTEMS_E = [
@@ -2334,8 +2336,6 @@ SYSTEMS_H = [
         "weakness": "Same D8 route and choices as h1 (OU own-unit reading, Δt, r_own = s² — flagged uncertain); the gap-to-relaxation-rate reading k = Ω₋ is standard but is a reading. The fidelity-susceptibility exponent is not pinned by this check (direction only). Mean-field exponents (ν = 1/2, z = 1) are external; the framework cannot distinguish them from h3's. A3's occasion semantics on this carrier: the two superradiant phases ±α merge in Fisher distance at gc (2|α| → 0) and O1 disclaims off-random-walk retention — no external depth target exists.",
     },
 ]
-
-
 # =====================================================================
 #  Runner — one row per system, tally at the end. Issue #21 rule 1:
 #  every number printed by this file is produced by the checks above.

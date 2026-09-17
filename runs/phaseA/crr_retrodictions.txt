@@ -83,7 +83,7 @@
      weakness: direction-only: the framework fixes the direction of the divergence, not the exponent; and the divergence lives only at the symmetric point (h != 0 probe rounds it) — the criticality clause does not say which symmetry is load-bearing.
 
 [c5] blackbody / Bose occupancy: the diameter that is never reached
-     class c | clause A3 (no antipodal pair -> no cut) + D2 (thermal family as carrier) + A6 | verdict OPEN | check ok
+     class c | clause A3 (no antipodal pair -> no cut) + D2 (thermal family as carrier) + A6 | verdict OPEN | check declines
      carrier: mean occupancy n of a Bose mode (geometric family); unit under A1' = one quantum
      detail: geometric-family FR line element ds^2 = 1/(n(1+n)^2); arc primitive 2 arctan(sqrt(n)); total diameter = pi reached only as n -> oo — pairwise distances are strictly < pi, so no antipodal pair exists in the family and A3 never fires on this carrier
      weakness: near-tension documented, not graded TENSION: D2's thermal-carrier claim and A3's cut requirement coexist only because D2 also names families that DO have antipodes; a reader wanting 'thermal systems cut' would need a clause that does not exist. Graded OPEN (framework declines: no occasions complete on this carrier).
@@ -131,7 +131,7 @@
      weakness: phase defined via the analytic signal (a named choice); drive delta=0.5, F=1, omega=1 and alpha in {0, 1/2} are chosen probe members; antipode and extremum positions are averaged over all cycles in the window. DESCR because the coincidence on reversible members is time-reversal symmetry and the split is definitional, not a derivation landing on known physics.
 
 [e3] ideal pendulum: period grows with amplitude
-     class e | clause O1 (framework supplies the unit only) | verdict OPEN | check ok
+     class e | clause O1 (framework supplies the unit only) | verdict OPEN | check declines
      carrier: pendulum angle theta; unit under A1' from the per-cycle amplitude statistic
      detail: T(A=pi/2)/T0 = 1.180341 (exact elliptic; known grows with amplitude); no framework clause derives the period-amplitude law (O1 declines)
      weakness: graded OPEN because no clause addresses the quantity, not because a check failed.
@@ -143,7 +143,7 @@
      weakness: deliberate negative baseline: a row that can only be DESCR (a symmetry fact), included per the issue's demand that the battery not stop at flattering systems.
 
 [e5] Rossler attractor: phase-coherent chaos
-     class e | clause — (no clause addresses chaotic phase diffusion) | verdict OPEN | check ok
+     class e | clause — (no clause addresses chaotic phase diffusion) | verdict OPEN | check declines
      carrier: (x, y, z) chaotic trajectory; phase from return-time statistics
      detail: CV_T=0.087 D_phi=0.0255 (return-time phase diffusion) CV_z=3.27; phase coherent, amplitude chaotic — no framework clause addresses D_phi (declines)
      weakness: return-time-based phase estimator is a named choice (alternatives: analytic signal, Poincare section — same qualitative verdict); parameters are the canonical (0.2, 0.2, 5.7). OPEN because the framework declines, not because a check failed.
