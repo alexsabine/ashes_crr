@@ -539,3 +539,9 @@ Context: the attached file (sha256 0591a3a258a4aebcfc6c94649ff9b07eece928262279c
 > Okay, first, let's make all necessary pull requests so the repo is clean and tidy. I give full authority for you to pull in the API so everything is on the main branch. Thanks
 
 Context: survey every remote branch and open pull request; open and merge pull requests for any branch carrying commits not on main; report the state of branches and issues afterwards.
+
+## 35 — received 2026-09-17T00:43Z, logged 2026-09-17T00:43Z
+
+> Great. Now we have learned from GPT6, I wonder whether we should make a new set of retrodictive predictions and a falsifiable prediction about equanimity, as well as a new set of continual learning benchmark checks?
+
+Context: question; answered in chat with a recommendation (no new retrodictions; one pre-registered test of the specification's equanimity law T5 as surplus-weighted replay, gated first; continual-learning checks folded into that study and into EQ3 on Daniel's machine). No repo work beyond this entry.
