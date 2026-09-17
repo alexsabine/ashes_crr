@@ -609,6 +609,62 @@ REPLAY_BATTERY = [S_R_convex_replay_constant, S_V_convex_replay_varying,
                   S_Y_mlp_lwf_constraint]
 
 
+# ---------------------------------------------------------------- salience-replay surrogates (study SAL: the occasion-weight law on a learner)
+# Synthetic class-IL streams for crr.instrument.replay.salience_replay. Each generator returns
+# (runner, None, meta) with runner(lam, seed, **kw) -> the learner's result dict.
+#   S-SAL-P  positive control: tasks of unequal difficulty, so their learning paths have unequal
+#            surplus and the harder tasks are the ones forgotten; weighting replay by e^{S} must
+#            help (MUST PASS).
+#   S-SAL-F  flat negative control: identical task difficulty, so surplus is (nearly) equal across
+#            tasks and the weights are uniform whatever lambda: the rule must add nothing (MUST FAIL).
+#   S-SAL-D  decoupled negative control: equal difficulty, but gradient noise injected during two
+#            tasks inflates their surplus without changing what is learned or forgotten; the
+#            rule must not help (MUST FAIL).
+_SAL_K, _SAL_D, _SAL_N = 10, 24, 300
+
+
+def _sal_data(seed, seps):
+    rng = np.random.default_rng(seed)
+    X, y = [], []
+    for c in range(_SAL_K):
+        mu = rng.standard_normal(_SAL_D) * seps[c // 2]
+        X.append(mu + rng.standard_normal((2 * _SAL_N, _SAL_D))); y.append(np.full(2 * _SAL_N, c))
+    X = np.concatenate(X); y = np.concatenate(y)
+    te = np.zeros(len(y), bool)
+    for c in range(_SAL_K):
+        ii = np.where(y == c)[0]; te[ii[:_SAL_N]] = True
+    return X[~te], y[~te], X[te], y[te]
+
+
+def _sal_runner(seps, grad_noise=None):
+    from crr.instrument.replay import salience_replay
+    def run(lam, seed, **kw):
+        Xtr, ytr, Xte, yte = _sal_data(seed, seps)
+        return salience_replay(Xtr, ytr, Xte, yte, _SAL_K, 2, lam, seed, hid=64, epochs=2, grad_noise=grad_noise, **kw)
+    return run
+
+
+def S_SAL_positive(seed=0):
+    """S-SAL-P: five tasks with separations (2.0, 0.6, 2.0, 0.6, 2.0): the two hard tasks have
+    higher surplus and are forgotten more under uniform replay; e^{S}-weighting MUST PASS."""
+    return _sal_runner((2.0, 0.6, 2.0, 0.6, 2.0)), None, {"name": "S-SAL-P unequal task difficulty (surplus tracks forgetting)"}
+
+
+def S_SAL_flat(seed=0):
+    """S-SAL-F: five tasks of equal separation: surplus nearly equal, weights uniform for every
+    lambda; the rule MUST FAIL (nothing to act on)."""
+    return _sal_runner((1.2, 1.2, 1.2, 1.2, 1.2)), None, {"name": "S-SAL-F equal task difficulty (surplus flat)"}
+
+
+def S_SAL_decoupled(seed=0):
+    """S-SAL-D: equal separation, gradient noise (sd 0.3) during tasks 1 and 3 inflates their
+    surplus without changing the task: surplus is decoupled from forgetting; MUST FAIL."""
+    return _sal_runner((1.2, 1.2, 1.2, 1.2, 1.2), grad_noise={1: 0.3, 3: 0.3}), None, {"name": "S-SAL-D surplus inflated by gradient noise (decoupled from forgetting)"}
+
+
+SALIENCE_BATTERY = [S_SAL_positive, S_SAL_flat, S_SAL_decoupled]
+
+
 # ---------------------------------------------------------------- rate surrogates (H-L5 on count series, SCOPE.md P6/P9)
 # Synthetic epidemic curves: non-negative rate lam(t) built from cycles, then Poisson
 # counts. events = the true cycle starts (the onsets), known by construction.
