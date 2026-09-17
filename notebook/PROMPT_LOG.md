@@ -567,3 +567,9 @@ Context: study SAL (salience-weighted replay): the first test of the specificati
 > The idea is to get this repo up to scratch for HumLab and ensuring that everything passes through Daniel's cognitive security benchmarks so we are being very careful about the testing, re-testing, numbers and gates / everything recorded carefully, placed in the repo and a full chain of thought at all times
 
 Context: direction-setting. Answered with a programme (docs/ROADMAP_2026-Q4.md) and two notebook additions: notebook/AGENT_LOG.md (the agent-side decision ledger: observed issue, decision, alternative rejected, per decision, from this session onward) and a note on terminology ("confirmatory" is reserved by R11 for seen data; cross-system checks are retrodictive and graded, never called confirmations). No study run.
+
+## 39 — received 2026-09-17T01:38Z, logged 2026-09-17T01:38Z
+
+> Great. We need to run more checks for retrodictive predictions on a range of existing biological systems now, please. Thank you
+
+Context: a biological retrodiction battery (theory/retrodictions/bio_retrodictions.py): model systems with known results across neural, cardiac, epidemiological, population/evolutionary, molecular/cellular and behavioural classes, graded under the issue-#21 rules with BORROWED and FLOW fields, and, for every system with its own events, the H-L5 class (clock-regular vs arc-regular) computed on the model so the battery becomes the map the roadmap asks for. Model systems only: no dataset is opened (R2). Output pinned; CI reproduces it.
