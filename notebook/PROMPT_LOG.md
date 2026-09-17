@@ -545,3 +545,9 @@ Context: survey every remote branch and open pull request; open and merge pull r
 > Great. Now we have learned from GPT6, I wonder whether we should make a new set of retrodictive predictions and a falsifiable prediction about equanimity, as well as a new set of continual learning benchmark checks?
 
 Context: question; answered in chat with a recommendation (no new retrodictions; one pre-registered test of the specification's equanimity law T5 as surplus-weighted replay, gated first; continual-learning checks folded into that study and into EQ3 on Daniel's machine). No repo work beyond this entry.
+
+## 36 — received 2026-09-17T00:49Z, logged 2026-09-17T00:49Z
+
+> @"/root/.claude/uploads/77fb7a2b-ce3d-5c52-a1a6-710031fa20e9/fcdaf8c4-CRR_retrodiction_outcomes_1.pdf" Okay, but my Fable 5.1 found these "Sharp" findings. We should run them in here please, through the pipeline. Do this first.
+
+Context: the attached PDF (sha256 885e56256572fc4aa0e96d66b61b8f8e3aafd23ee72afd8a63ca52b6887daf3f; stored verbatim under theory/external/ with its extracted text) reports 16 SHARP rows from a retrodiction run outside this repository whose script was not supplied. Each SHARP claim is re-derived here as a row of theory/retrodictions/sharp_claims.py under the issue-#21 rules (definitional test, rule-4 asymmetric member, rule-2 observable/unit choice), its printed numbers reproduced where the claim allows, and regraded; output pinned and read in theory/retrodictions/README.md.
