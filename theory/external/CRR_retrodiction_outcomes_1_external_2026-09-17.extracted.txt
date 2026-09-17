@@ -1,0 +1,528 @@
+--- page 1 ---
+CRR retrodiction battery — outcomes
+Independent run per the retrodiction prompt. One script (crr_retrodictions.py), no free parameters, every number printed by the
+script. Systems chosen per class by the runner; grades per the five-verdict scheme. Cross-listed rows (a system that answers in
+two classes) are counted once.
+Tally (unique systems: 42)
+ SHARP
+CONSIST
+DESCR
+FAILS
+TENSION
+OPEN
+16
+12
+9
+2
+1
+2
+By class
+ class
+SHARP
+CONSIST
+DESCR
+FAILS
+TENSION
+OPEN
+(a) Two-state / occupancy families
+7
+0
+1
+0
+0
+0
+(b) Quantum states and dynamics
+3
+1
+2
+0
+0
+0
+(c) Thermal ensembles / finite-time thermodynamics
+3
+1
+1
+0
+0
+1
+(d) Parametric estimation and filtering
+1
+4
+0
+1
+0
+0
+(e) Oscillators and limit cycles
+0
+1
+2
+1
+0
+1
+(f) Point processes / natural time
+1
+4
+0
+0
+0
+0
+(g) Gravitational / astrophysical / cosmological
+0
+0
+2
+0
+0
+0
+(h) Bifurcations and critical phenomena
+1
+1
+1
+0
+1
+0
+Reading
+Where the framework is sharp: on families whose Fisher geometry is the physics' own. Every two-state occupancy law tested
+(half-life, logistic inflection, KM/Hill, pKa, Fermi level, Langmuir, laser threshold) is the single statement 'the cut is at occupation
+one-half', forced by the Bernoulli family's half-turn with nothing supplied from outside. In quantum dynamics the cut rule
+reproduces the Mandelstam–Tamm speed limit and gives the actual cut time for spin-j and neutrino carriers. In thermal physics
+A1's admissibility condition (Var(E) > 0) rejects the Schwarzschild and de Sitter thermal families outright, and D2 coincides with
+thermodynamic length so that S is the excess length of a sub-optimal protocol. D8 turns critical slowing down into divergent
+memory depth.
+Where it is not: oscillators. Class (e) produced no SHARP row. The phase arc of a rotor is pi per half-turn by definition, so content
+must be read from an observable whose metric the framework has to choose; the equal-half-turn-arcs claim fails on every
+asymmetric cycle (FHN 0.945, biased Duffing 0.934) and holds on van der Pol only by symmetry; the cut placement on a
+relaxation oscillator is an assignment, not a derivation. Classes (d) and (f) are almost entirely CONSIST: the framework's forms
+coincide with Kalman, Cramér–Rao, Poisson and Omori but fix no constant.
+Failures: the equanimity gain K(1)=1/phi is a random-walk result and drifts (0.60 to 0.50) as mean reversion strengthens; equal
+arms is a symmetry, not a theorem. Open: the cost of a cut (Landauer) and the length L of a rotor's carrier.
+Tension and proposed rewording: 'criticality = maximal openness, rho to 0' is true at a Hopf point and false at a second-order
+thermal transition, where the Fisher metric diverges with the correlation length and rho to infinity. Minimal fix: state criticality
+through D8 (memory depth d = 1/K(v) diverges as the relaxation rate vanishes), which holds for both, and confine the rho-to-0
+statement to the Hopf case.
+
+--- page 2 ---
+All rows
+cls
+system
+clause
+verdict
+printed numbers
+note
+a
+First-order decay
+(radioactive, unimolecular)
+A3 antipode on
+Bernoulli family
+SHARP
+Fisher half-turn at p=[1/2]; t at p=1/2
+is ln2/k
+the cut is the half-life; forced, no
+constant supplied
+a
+Logistic growth
+A3 antipode
+SHARP
+antipode p=1/2 = inflection (max
+dN/dt at N=K/2)
+forced by the same family
+a
+Michaelis–Menten and Hill
+binding
+A3 antipode
+SHARP
+theta=1/2 at S=[K_M] for every Hill
+n
+K_M / K_d / K_half are the
+antipode; cooperativity does not
+move it
+a
+Acid–base titration
+(Henderson–Hasselbalch)
+A3 antipode
+SHARP
+ionised fraction 1/2 at pH = pKa
+half-equivalence point is the cut
+a
+Fermi–Dirac occupation
+A3 antipode
+SHARP
+f(E=mu) = 1/2
+the chemical potential is the
+antipode of the occupation family
+a
+Thermal two-level system /
+laser threshold
+A3 antipode
+SHARP
+equilibrium p_upper -> 1/2 only as T
+-> oo (lim = 1/2); crosses 1/2 only
+under pumping
+no thermal cut at finite T;
+population inversion = crossing the
+antipode = laser threshold
+a
+Langmuir adsorption
+A3 antipode
+SHARP
+theta = 1/2 at P = 1/K_ads
+half-coverage pressure is the cut
+(same family as Michaelis–Menten)
+a
+Ising mean-field
+magnetisation
+A3 antipode
+DESCR
+m=0 <-> up-fraction 1/2 at T>=Tc;
+below Tc the family sits off the
+antipode
+the disordered phase is the
+antipode of the spin-occupation
+family; true, but definitional
+b
+Qubit precession
+(Rabi/Larmor)
+A3 cut time = half-turn
+/ Fisher speed
+SHARP
+t_orth=2.4151, pi*hbar/(2
+dE)=2.4166
+reproduces the
+Mandelstam–Tamm quantum
+speed limit, saturated
+b
+Spin-j coherent state under
+rotation
+A3
+SHARP
+antipode at rotation angle pi for all j:
+t=pi/omega; MT bound pi/(omega
+sqrt(2j)) saturated only at j=1/2
+framework gives the actual cut
+time; MT gives a bound; both agree
+at j=1/2
+b
+Two-flavour neutrino
+oscillation
+A3 antipode
+reachability
+SHARP
+max conversion sin^2(2theta)=[0.
+0.262 0.756 1. ]
+flavour state reaches its Bures
+antipode iff mixing is maximal
+b
+Coherent-state displacement
+A3 no antipode
+DESCR
+|<0|alpha>|^2 = e^{-|alpha|^2} > 0
+for all alpha
+never orthogonal, never cuts
+b
+Quantum Zeno effect
+A3 reset before the
+antipode
+CONSIST
+survival after n=1000 resets in one
+half-turn: 0.9975
+cuts arriving before the antipode
+never complete an occasion; the
+framework does not derive the
+(t/n)^2 law
+b
+Decoherence (T2) / mixed
+states
+A3 no antipode for
+mixed states
+DESCR
+Bures antipode exists only for pure
+states
+occasions stop completing at the
+decoherence time
+c
+Finite-time thermodynamics
+(thermodynamic length,
+Crooks 2007)
+D2 = thermodynamic
+length; S = excess
+length
+SHARP
+Cauchy–Schwarz: <v^2> = 1.084
+>= <v>^2 = 0.724; equality iff
+constant Fisher speed
+minimum dissipation path is the
+geodesic at constant Fisher speed;
+S^2 bounds excess dissipation
+c
+Ideal-gas thermometer
+A1' resolution
+CONSIST
+resolvable temperature steps =
+log((T2/T1)**(sqrt(6)*sqrt(N)/2))
+sqrt(N) resolution; standard Fisher
+metric of the canonical ensemble
+c
+Ideal gas (Ruppeiner)
+A1 carrier
+DESCR
+Ruppeiner curvature R = 0
+flat carrier, no interactions;
+consistent, uninformative
+c
+Schwarzschild thermal family
+A1 admissibility
+(Var(E) = C_V T^2 > 0)
+SHARP
+g_bb = -1/(8*pi) < 0 for all M
+Hawking's thermal family is not a
+carrier; only the unitary/microstate
+description is admissible
+c
+de Sitter horizon
+(Gibbons–Hawking)
+A1 admissibility
+SHARP
+C = T dS/dT = -2*pi/H**2 < 0
+static-patch thermal description
+likewise rejected as a carrier
+c
+Landauer erasure
+cost of a cut
+OPEN
+not derived
+whether a cut costs kT ln2 per
+resolvable step is not fixed by the
+axioms
+d
+Random-walk Kalman filter
+P4 + A9
+CONSIST
+K(1) = -1/2 + sqrt(5)/2
+golden-ratio gain at q=r is textbook;
+framework supplies the reading
+only
+d
+Mean-reverting
+(Ornstein–Uhlenbeck)
+tracking
+A9 as a gain law
+FAILS
+optimal K by phi: {0.99:
+0.6000000000000001, 0.6: 0.55,
+0.2: 0.5} vs 1/phi=0.618
+equanimity gain holds only in the
+random-walk limit; off it the state
+model sets the gain
+d
+Cramér–Rao bound
+A1' unit
+CONSIST
+sigma = 1/sqrt(I)
+identity
+d
+sqrt(2KL) as Fisher–Rao
+length
+D2 for parametric
+models
+CONSIST
+fixed-variance Gaussian:
+sqrt(2*mu^2/2) = Abs(mu)
+second-order identity, standard
+
+--- page 3 ---
+cls
+system
+clause
+verdict
+printed numbers
+note
+d
+Critical slowing down ->
+memory depth
+D8
+SHARP
+k=[1. 0.3 0.1 0.03 0.01] -> d=[ 1.6
+2.4 3.7 6.3 10.5]
+depth diverges as the relaxation
+rate vanishes; long memory near
+criticality, derived not fitted
+d
+Poisson rate estimation
+A1 Fisher metric
+g=1/lambda
+CONSIST
+L(1->4) = 2 = 2(sqrt4 - sqrt1)
+distinguishable rates scale as
+sqrt(N) (Wootters); shot noise
+e
+van der Pol vs
+FitzHugh–Nagumo vs biased
+Duffing — equal half-turn
+arcs
+symmetry check on A3
+FAILS
+arm ratio vdP=1.001, FHN=0.945,
+Duffing(biased)=0.934
+equal arms hold only for x->-x
+symmetric cycles; not a
+consequence of the cut
+e
+Isochronous pendulum vs
+integrate-and-fire
+D2 regularity of arc vs
+clock
+DESCR
+pendulum CV(arc)=0.28 >
+CV(clock)=0; IAF CV(arc)=0.00 <
+CV(clock)=0.23
+instrument recovers the known
+dichotomy; nothing derived
+e
+Relaxation oscillator
+(sawtooth) — cut placement
+A3 on a rotor
+OPEN
+one event per turn; the phase
+antipode falls mid-ramp where
+nothing happens
+on a rotor A3 does not fix L;
+whether an inter-event interval is a
+half-turn or a turn is an assignment
+(O3)
+e
+Hopf / Stuart–Landau normal
+form
+criticality clause, rho ~
+amplitude
+CONSIST
+amplitude ~ sqrt(mu) -> rho ~
+sqrt(mu)
+square-root law inherited from the
+normal form
+e
+Kepler orbit
+symmetry check on A3
+DESCR
+perihelion/aphelion arms equal by
+time-reversal
+symmetry, not framework
+f
+Aftershock decay (Omori)
+P5 natural-time
+retention
+CONSIST
+e^{-A/rho} is a power law in clock
+time iff p=1
+consistency relation; p not derived
+f
+Black-hole evaporation in
+emitted quanta
+A1' + A3 (half the
+steps)
+SHARP
+quanta fraction == entropy fraction:
+True; cut at t/t_ev=0.6464
+the natural-time antipode is the
+Page point
+f
+Radioactive counting /
+photon shot noise
+A1' natural time
+CONSIST
+rate resolution after N counts ~
+sqrt(N) steps
+identity with the Poisson metric
+f
+Black-hole scrambling
+(Sekino–Susskind)
+A1' in quanta
+CONSIST
+t* = (beta/2pi) ln S ~ ln S steps
+form only; prefactor not derived
+f
+Dieterich rate-and-state
+aftershocks
+P5
+CONSIST
+rate-and-state gives p=1
+independently; matches the
+natural-time exponential
+same relation as Omori, from a
+mechanism the framework lacks
+g
+Schwarzschild (again, as
+carrier)
+A1
+SHARP
+see class c: thermal family
+inadmissible
+forces the unitary side
+g
+Page curve
+A3 in natural time
+SHARP
+see class f
+cut = Page point
+g
+Solar dynamo
+(Hale/Schwabe)
+A3 two cuts per turn;
+A6 depth-one seed
+DESCR
+polarity reversal at each half-turn;
+next cycle seeded by polar field at
+the cut
+compatible with the polar precursor
+and one-cycle memory; nothing
+derived
+g
+de Sitter (again)
+A1
+SHARP
+see class c
+thermal static patch inadmissible
+g
+Free diffusion / cosmic
+expansion in a Gaussian
+family
+A3 no antipode
+DESCR
+C = sqrt2 ln sigma, unbounded
+never cuts; irreversibility as
+absence of an antipode
+h
+Hopf point
+criticality clause
+CONSIST
+rho -> 0 with amplitude
+normal form
+h
+Second-order thermal
+transition (Curie–Weiss,
+Ising)
+criticality clause via
+thermal Fisher metric
+TENSION
+g_TT = C_V/T^2 diverges -> rho ->
+infinity
+opposite sign to the Hopf case; the
+carrier-independent statement
+must be D8 (depth), not rho
+h
+Saddle-node / critical slowing
+down
+D8
+SHARP
+relaxation rate -> 0 => Fisher speed
+~ sqrt(k) -> 0 => depth -> infinity
+long memory at the transition
+h
+Ruppeiner geometry near
+criticality
+A1 / D1
+DESCR
+|R| ~ xi^d
+resolvable steps count correlation
+volumes
+Reproduce: python3 crr_retrodictions.py (numpy, scipy, sympy). The script writes battery.json; this PDF is generated from it and contains no hand-typed
+number.
+
