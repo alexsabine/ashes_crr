@@ -599,3 +599,9 @@ And how are we doing on the continuous learning tests? Again, scratchpad only pl
 ## 45. 2026-09-17T22:00:00Z
 
 Okay. Now, in the scratchpad only. Compare crr to FEP please. Consider pedagogical ease, falsifiability, epistemic nature and whether crr might help to resolve some of FEPs current main problems. Thanks
+
+## 46. 2026-09-17T22:20:00Z
+
+This scratchpad chat is useful. Consider the Dirac delta as ‘Now’ and past states as coherence. The future has no content. Only the past has content. Check the crr mathematics regarding how the future is a reciprocal of the past in every moment.
+
+Consider crr as a temporal dynamics for fep / active inference, and the implications of this for active inference (Daniel is the director of the institute)
