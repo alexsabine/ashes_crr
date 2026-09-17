@@ -1,0 +1,20 @@
+[PASS] [T1] Bernoulli FR length equal in p and in psi = 2 asin sqrt(p)  [INHERITED; V3.1-SAME]  length invariant under the smooth reparameterisation (3 endpoint pairs, rel 1e-10)
+[PASS] [T1] corollary: same numbers, different model (Poisson vs Bernoulli) -> different length  [INHERITED; V3.1-SAME (A1 carrier)]  Poisson 0.6325 vs Bernoulli 0.7259
+[PASS] [T2] C >= D on 2000 random 1-D paths  [INHERITED; V3.1-SAME (P1)]  
+[PASS] [T3] equality iff geodesic: great circle C = D, small circle C > D  [INHERITED; V3.1-SAME (P1)]  great: C=1.57080 D=1.57080; small: C=1.29643 D=1.24631
+[PASS] [T4] 1-D: S = 2 x backward travel (net displacement >= 0)  [V3.1-NEW]  max |S-2B| = 1.4e-14
+[PASS] [T5] log(pi_i/pi_j) = (S_i - S_j)/Omega + log(r_i/r_j)  [V3.1-NEW (from P2 + O1)]  
+[PASS] [T5] at Omega = 1, equal retention: one Fisher unit of surplus multiplies influence by e  [V3.1-NEW]  
+[PASS] [T6] P(W > w) = w^(-beta*Omega)  [V3.1-NEW]  
+[PASS] [T6] p-th moment of W = e^S finite iff p < beta (Omega = 1)  [V3.1-NEW]  convergence condition from sympy: (beta - p > 0) & Ne(beta/p, 1)
+[PASS] [T7] steady-state gain equals (v/2)(sqrt(v^2+4)-v) with v = sqrt(q/r)  [INHERITED; V3.1-SAME (P4)]  
+[PASS] [T7] K(1) = 1/phi  [INHERITED; V3.1-SAME (P4)]  
+[PASS] [T7] DARE numeric K(1) matches 1/phi  K=0.618033989
+[PASS] [X] dB/dC = 0 at C = H - Omega  [V3.1-NEW; issue-#21 text P6]  
+[PASS] [X] interior maximum (second derivative negative there)  [V3.1-NEW]  
+[PASS] [A1a] I_N = N I_1 for N iid Gaussian observations (per-elementary-event unit)  [INHERITED; V3.1-SAME (A1')]  
+[PASS] [D5] A(A(u)) = u mod L on the rotor  [V3.1-SAME (A3)]  
+[PASS] [XI.1] C*Omega = 1 and C/H = 1 coincide iff H = 1 at Omega = 1  [V3.1: A3 note already calls the scalar form a reduction]  
+[PASS] [H-EQ vs A9] gradient-norm ratio w -> infinity as ||g_past|| -> 0 (needs a cap; the spec's weight law does not)  [V3.1-CONFLICT with issue-#21 text A9]  
+
+all checks passed
