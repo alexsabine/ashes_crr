@@ -533,3 +533,9 @@ Issue #21 (Retrodictive Predictions), filed 2026-09-16T19:06:12Z:
 > The aim here is to absorb this GPT 6 output into the repo and then produce a new note for Daniel of the existing findings, what the Equanimity Law means (in simple terms), and a suite of further tests to run]
 
 Context: the attached file (sha256 0591a3a258a4aebcfc6c94649ff9b07eece928262279c58bfefe965e92ba092f) is stored verbatim under theory/external/ with a provenance note; its [T] items are checked in theory/checks/verify_spec_math.py; a retrodiction battery (issue #21's task) is run as theory/retrodictions/crr_retrodictions.py with a "borrowed" and a "flow" column per row; a reconciliation of the external spec against theory/CRR.md v3.1 is written (no change to CRR.md without the owner's signature); the note for Daniel quotes the ledger only; the working branch is then merged to main by pull request as asked.
+
+## 34 — received 2026-09-17T00:38Z, logged 2026-09-17T00:38Z
+
+> Okay, first, let's make all necessary pull requests so the repo is clean and tidy. I give full authority for you to pull in the API so everything is on the main branch. Thanks
+
+Context: survey every remote branch and open pull request; open and merge pull requests for any branch carrying commits not on main; report the state of branches and issues afterwards.
