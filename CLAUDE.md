@@ -177,6 +177,8 @@ runs/<study>/              frozen scripts copied at hash time + logs + JSON outp
 runs/phaseA/               standing gate outputs (gate_L5.txt, gate_CUT.txt, gate_T1.txt)
 ledger/LEDGER.md           §7 — the one curated table
 notebook/PROMPT_LOG.md     R13 — every human prompt, verbatim, timestamped
+notebook/AGENT_LOG.md      the agent-side decision ledger (observed issue, decision, alternative rejected)
+docs/ROADMAP_2026-Q4.md    the programme: readiness for HumLab, studies in order, applied implications
 reports/<study>.md         narrative, written AFTER the ledger row, quoting it
 ```
 
