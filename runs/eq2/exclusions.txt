@@ -1,0 +1,22 @@
+carrier        regime method   mode        runs non-finite
+mfeat_fourier  std    derpp    fixed         35          8
+mfeat_fourier  std    ewc      fixed         85         23
+mfeat_fourier  std    ewc      gradnorm       5          5
+mfeat_fourier  std    ewc      reduction      5          5
+mfeat_fourier  std    mas      fixed         35         15
+mfeat_fourier  std    si       fixed         35         22
+mfeat_fourier  x4     ewc      fixed         55         33
+mfeat_fourier  x4     ewc      reduction      5          5
+mfeat_pixel    std    derpp    fixed         35         10
+mfeat_pixel    std    ewc      fixed         85          8
+mfeat_pixel    std    ewc      gradnorm       5          5
+mfeat_pixel    std    ewc      reduction      5          1
+mfeat_pixel    std    mas      fixed         35         15
+mfeat_pixel    std    si       fixed         35         21
+texture        std    derpp    fixed         35          6
+texture        std    ewc      fixed         85         20
+texture        std    mas      fixed         35         20
+texture        std    si       fixed         35         24
+texture        x4     ewc      fixed         55         21
+
+total runs 1395, non-finite 267 (all kept and scored as 0, per prereg quality gate)

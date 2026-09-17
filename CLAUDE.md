@@ -29,7 +29,10 @@ study EQX (2026-09-15, three unseen PMLB streams, weakly anchored): the
 equanimity rule at Ω = 1 **reduces to a fixed replay weight** and does not
 beat ER-sum (`reports/eqx.md`); and (iii) rows `MEAS-*`/`MEAS2-*` from the
 measles study (2026-09-15, 17 cities, Poisson-rate carrier): **H-L5 FAILs**
-0/17 under both metrics (`reports/meas2.md`). Two earlier results (below) motivated H-L5
+0/17 under both metrics (`reports/meas2.md`); and (iv) rows `EQ2-*` from study EQ2
+(2026-09-17, three unseen PMLB streams, online-EWC past term, weakly anchored):
+EQ2-1 **PASS but fragile** (cap-dependent), control EQ2-4 **violated** by DER++,
+Ω a plateau (`reports/eq2.md`). Two earlier results (below) motivated H-L5
 and H-T1; they were produced under a pipeline the audit rejected and are
 context, not evidence. Both are *comparative* claims: a quantity CRR names
 beats a conventional quantity at predicting something the system does.
