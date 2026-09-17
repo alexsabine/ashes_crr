@@ -1,0 +1,102 @@
+CRR on E-I networks — 11 model systems. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN. Literature record: docs/citations/ei_networks_2026-09-17.md
+
+[ 1] (wc) Wilson-Cowan E-I network: inhibition-stabilised regime and the paradoxical effect
+     clause:     A4 (the (E, I) state is Markov: depth one); no clause reaches the regime
+     BORROWED:   threshold-linear Wilson-Cowan rate equations; ISN theory (Tsodyks 1997; Ozeki 2009)
+     FLOW:       the recurrent weights and inputs (system-supplied)
+     derivation: ISN (w_EE = 1.5 > 1, stable: True): extra drive to I moves I from 2.1111 to 2.0000 (paradoxical decrease) and E from 2.2222 to 2.0000; non-ISN (w_EE = 0.5): I from 0.7436 to 0.7692 (increase)
+     known:      surround suppression is a withdrawal of excitation in an ISN (Ozeki 2009)
+     verdict:    no CRR clause concerns the sign of a steady-state response; the network is depth one, so the salience law is silent by A4
+     GRADE:      OPEN
+     weakness:   the paradoxical effect is linear-algebra of the weight matrix; CRR adds nothing
+[ 2] (wc) Wilson-Cowan E-I oscillator (1972 parameter set): onset of the E-I rhythm and what sets its frequency
+     clause:     issue-#21 text criticality clause (rho ~ amplitude at a Hopf point); v3.1 O3 (nothing sets L)
+     BORROWED:   Hopf normal form (amplitude^2 linear in the control parameter past onset); Wilson-Cowan 1972; Brunel 2000 (frequency set by synaptic/membrane time scales)
+     FLOW:       the recurrent gain w_EE, the drive P = 1.25 and the inhibitory time constant
+     derivation: amplitude and frequency at w_EE = 14: (0.000, nan), 15: (0.095, 0.2075), 16: (0.170, 0.1975), 18: (0.258, 0.1975), 20: (0.308, 0.2075); amplitude^2 on the oscillating points fits w_EE linearly with onset w_c = 14.36 (Hopf scaling); at w_EE = 16 the frequency at tau_I = 1: 0.1975, 1.5: 0.0850, 2: 0.0675 (ratio f(1)/f(2) = 2.93, not the 2.00 of a pure 1/tau_I law)
+     known:      gamma emerges by a Hopf-type instability; its frequency is set by the inhibitory time scale (Brunel 2000: 'almost fully controlled by the synaptic time scale')
+     verdict:    the amplitude scaling at onset is the Hopf normal form's; the frequency is set by tau_I and the recurrent gains together; no CRR clause reaches the onset value w_c or the period
+     GRADE:      OPEN
+     weakness:   CRR names the cycle as an occasion and is silent on its period and on where oscillation begins
+[ 3] (wc) Noisy Wilson-Cowan rhythm: are its half-cycles arc-regular or clock-regular?
+     clause:     A3 (antipodal cut on the intrinsic phase), D5, H-L5
+     BORROWED:   analytic-signal phase; the same Wilson-Cowan oscillator with additive white noise (registered levels)
+     FLOW:       the noise level and the recurrent dynamics
+     derivation: noise 0: 375 half-cycles, CV_arc 0.092 vs CV_clock 0.099 -> arc-regular; noise 0.003: 373 half-cycles, CV_arc 0.233 vs CV_clock 0.235 -> arc-regular; noise 0.01: 322 half-cycles, CV_arc 0.639 vs CV_clock 0.744 -> arc-regular; noise 0.03: 244 half-cycles, CV_arc 0.876 vs CV_clock 0.893 -> arc-regular; classes over the three noisy levels: ['arc-regular']
+     known:      cortical gamma is a noisy oscillation with variable amplitude and frequency (bursts)
+     verdict:    the instrument assigns arc-regular at every noisy level; no clause predicts the class
+     GRADE:      OPEN
+     weakness:   at noise 0 the CVs are not 0: the half-turn cut alternates on an asymmetric waveform (the A3 gate's S-C/S-E finding), so a share of every CV here is the instrument's; the margins |CV_arc - CV_clock| are 0.007, 0.003, 0.105, 0.017 (two below 0.01); class assignment on a model, not a result
+[ 4] (spk) Balanced E-I network of leaky integrate-and-fire neurons (sparse, strong synapses J = 1/sqrt K)
+     clause:     D5 (spikes as own events), H-L5, A9 read as 'E and I balance' (a rename, see the next row)
+     BORROWED:   van Vreeswijk & Sompolinsky 1996 balance; Brunel 2000 asynchronous irregular state
+     FLOW:       external drive, connectivity, synaptic strengths
+     derivation: N = 400, K = 40: mean rates E 18.2 Hz, I 16.0 Hz; ISI CV across 320 E cells: median 0.83 (irregular); |net input|/total excitatory input = 0.063 against the O(1/sqrt K) = 0.158 scale (cancellation); neuron 0 (membrane-potential carrier, spikes as events): arc-regular (CV_arc 0.755, CV_ISI 0.802)
+     known:      irregular firing (CV ~ 1) from cancellation of large E and I inputs; linear network response
+     verdict:    the arc per ISI is regular because the threshold fixes the chord (as in the biological battery); the balance itself is a sqrt-K scaling result that no CRR clause states
+     GRADE:      DESCR
+     H-L5 class: arc-regular (CV_arc 0.755, CV_clock 0.802)
+     weakness:   the E-I balance is not CRR's equanimity: it is a cancellation of two currents, not a weighting of past against present
+[ 5] (bayes) Two readings of 'equanimity' on one Gaussian update; Tucker-Luu-Friston's 'balanced feedforward (excitatory) and feedback (inhibitory) precision'
+     clause:     issue-#21 text A9 (equal precision) vs P4 at v = 1 (Fisher speed); the abstract of Tucker, Luu & Friston 2025 (Entropy 27:829)
+     BORROWED:   Bayesian fusion; scalar Kalman steady state
+     FLOW:       none (a single update)
+     derivation: equal prior and likelihood precision gives gain 0.5000; the random-walk filter at Fisher speed v = 1 gives gain 0.6180: the two readings called equanimity disagree on the same update. Equal-precision weighting is Bayes-optimal only at precision ratio 1: MSE inflation at ratios 0.1: 3.025x, 1: 1.000x, 10: 3.025x
+     known:      optimal belief updating weights prior and likelihood by their precisions (inverse variances); the abstract states updating 'rests on balanced ... prior and likelihood precision'
+     verdict:    'balanced precision' is Bayes-optimal exactly when the precisions are equal and otherwise a bias; CRR's own two equanimity readings give different gains, so CRR cannot even state which balance it would predict
+     GRADE:      TENSION
+     weakness:   the Tucker-Luu-Friston claim is the free-energy framing's, not CRR's; CRR inherits its limitation and adds an internal disagreement (retrodiction battery row 16)
+[ 6] (osc) Theta-gamma n:m phase-phase coupling (Tucker & Luu 2026: Resonant Oscillatory Coherence)
+     clause:     A1' (unit = one gamma cycle), D5 (occasion = one theta cycle), natural time
+     BORROWED:   coupled phase oscillators; Arnold-tongue locking
+     FLOW:       the intrinsic frequencies (6 Hz, 31 Hz) and the coupling
+     derivation: 5:1 locking condition |w_gamma - 5 w_theta| = 6.28 rad/s < eps = 25: True; with coupling, gamma cycles per theta cycle = [5] (CV 0.000); without coupling (31/6 not an integer): [5, 6] (CV 0.072)
+     known:      n:m locking fixes an integer number of gamma cycles per theta cycle; the abstract says a ROC 'persists long enough' for NMDA facilitation, with no duration given
+     verdict:    under locking the natural-time count of gamma per theta occasion is constant by definition of locking; a persistence threshold in gamma cycles and one in clock time are then the same statement, so CRR's clock adds nothing here
+     GRADE:      DESCR
+     weakness:   the abstract's mechanism (ROC -> early LTP) is not quantified; the framework cannot be tested against it without a stated duration or ratio
+[ 7] (crit) Neuronal avalanches at E-I balance as a critical branching process (Poil et al. 2012; Tucker-Luu-Friston 'criticality')
+     clause:     issue-#21 text criticality clause; A1' (unit = one spike); no clause on exponents
+     BORROWED:   Galton-Watson branching process; power-law avalanche sizes at sigma = 1
+     FLOW:       the branching ratio (set by E-I balance)
+     derivation: size-distribution log-log slope at sigma = 1: -1.57 (mean-field -1.5); at sigma = 0.8: -2.13 (exponential cutoff); Fisher information about sigma per ancestor = 1/sigma: 0.8: 1.250, 1: 1.000, 1.2: 0.833 (finite and smooth through sigma = 1)
+     known:      critical branching gives P(s) ~ s^(-3/2); balance tunes the branching ratio to 1
+     verdict:    the exponent is the branching process's; the Fisher metric of the control parameter does not diverge at the critical point (a third counterexample to the universal divergence claim)
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: 'criticality = Fisher divergence' is false on the standard model of neuronal avalanches; CRR reaches neither the exponent nor the balance condition
+[ 8] (wc) Stabilised supralinear network: supralinear-to-sublinear summation with contrast
+     clause:     no clause
+     BORROWED:   Ahmadian, Rubin & Miller 2013; Hennequin et al. 2018
+     FLOW:       the power-law gain and the recurrent weights
+     derivation: E response ratio r(2c)/r(c) at c = 0.5: 4.10, 2: 4.49, 8: 6.65, 32: 1.32 (above 2 = supralinear, below 2 = sublinear)
+     known:      weak inputs sum supralinearly, strong inputs sublinearly (normalisation)
+     verdict:    no CRR clause reaches a steady-state input-output curve
+     GRADE:      OPEN
+[ 9] (plast) Homeostatic synaptic scaling restoring a target rate after an E/I perturbation
+     clause:     A4 (depth one), O1 (retention not claimed)
+     BORROWED:   synaptic scaling as first-order relaxation to a set point
+     FLOW:       the scaling time constant and target
+     derivation: rate relaxes from 6.00 to 5.000 Hz (target 5.0); the relaxation is Markov in (g): no multi-occasion effect
+     known:      homeostatic plasticity maintains E/I balance (Poil et al. attribute balance to it)
+     verdict:    depth one: the framework predicts nothing beyond the state
+     GRADE:      DESCR
+[10] (wave) Cortical travelling wave (ring of coupled phase oscillators, twisted state): deep-layer 'excitatory travelling waves' (Tucker & Luu 2026)
+     clause:     A3 (cut per half-turn at each site), D5
+     BORROWED:   Kuramoto ring; twisted state; wave speed = frequency x wavelength
+     FLOW:       the intrinsic frequency, the winding number and the coupling
+     derivation: steady phase gradient 0.1047 rad/site (2 pi/N = 0.1047; spread 1.8e-04); wave speed omega/gradient = 360.0 sites/s = f x N; each site cuts every half-turn by definition
+     known:      travelling waves propagate at speeds set by conduction, coupling and wavelength
+     verdict:    the antipodal cut is a definition on a phase rotor; the speed is the winding number's and the frequency's, and the coupling only stabilises the twist: no clause reaches it
+     GRADE:      DESCR
+[11] (code) Population Fisher information with differential correlations (limit on the A1' unit of a neural population)
+     clause:     A1' (unit = 1/sqrt(I) for the population)
+     BORROWED:   Moreno-Bote et al. 2014 (differential correlations saturate information)
+     FLOW:       the tuning curves and the correlation structure
+     derivation: I_pop at N = 10: 6.7, 100: 16.7, 1000: 19.6, 10000: 20.0 -> saturates at 1/eps = 20: the population's resolvable step floors at sqrt(eps)
+     known:      information-limiting correlations bound the population code
+     verdict:    A1' inherits the bound; whether E-I circuitry produces such correlations is not a CRR question
+     GRADE:      DESCR
+
+====================================================================================================
+TALLY  SHARP=0  CONSIST=0  DESCR=5  FAILS=1  TENSION=1  OPEN=4
+Does CRR add anything to what is known about E-I networks? Clauses that reach a known E-I result: 0 of 11 rows (every DESCR row is the domain's own result or a definition; the FAILS row is a clause of the older text; the TENSION row is internal; the OPEN rows name no clause).

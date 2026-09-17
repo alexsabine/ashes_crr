@@ -46,8 +46,8 @@ item below ends in a ledger row or in a gate table, or it does not happen.
 
 ## 2. Retrodiction across more systems: what is worth adding
 
-The three batteries cover 72 systems in eight classes. Adding rows has value only where a
-class is thin or a claim is untested:
+The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological and 11 E-I
+model systems. Adding rows has value only where a class is thin or a claim is untested:
 
 - **Point processes with events the system owns** (neuronal spike trains, stick-slip, glitches,
   epidemics): the one class where A3/D5 and H-L5 have content. Each new row should compute the
@@ -63,6 +63,10 @@ class is thin or a claim is untested:
   with block-wise interference measured (the spec's §XV, re-run under the protocol),
   ecological or epidemiological systems with recorded successive outbreaks and a measurable
   effect of each on the next.
+
+- **E-I networks**: closed as a retrodiction target (0 of 11 rows reach a known result;
+  `theory/retrodictions/README.md`). The only prospective item is the T5-type experiment on
+  block-wise interference; Tucker and Luu's full texts are still to be read (abstracts only here).
 
 Not worth adding: more occupancy, quantum or gravitational rows (the batteries have shown
 their content is definitional), and anything Markov in its present state (A4).
