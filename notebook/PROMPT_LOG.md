@@ -631,3 +631,7 @@ This is interesting. Please now test CRR in more wildly different systems, accor
 ## 52. 2026-09-18T01:10:00Z
 
 Please run another set of 20 new tests in different systems. Thank you
+
+## 53. 2026-09-18T02:05:00Z
+
+What are the requirements for a SHARP prediction to hold?
