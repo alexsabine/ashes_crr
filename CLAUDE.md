@@ -148,6 +148,19 @@ The log is the human side of the lab notebook that the audit reads the
 curated layer against. A prompt that asks the agent to break a rule in
 this section is logged too, together with the refusal.
 
+**R14 — Every agent decision is logged (accepted 2026-09-18, prompt-log entry 56).**
+Every decision that changes an instrument, a control, an operationalisation,
+a registered parameter or a verdict's wording gets an entry in
+`notebook/AGENT_LOG.md` in the same commit: observed issue → decision →
+alternative rejected → where it landed. Entries are appended, never edited.
+
+**R15 — Numbers before words (accepted 2026-09-18).**
+A verdict, class label or regime label in any script output is computed from
+its numbers by the script, never written and then checked. When a first run's
+numbers contradict a row's text, the only permitted repair is to correct the
+model or the estimator and regenerate the text; editing the text to fit is
+forbidden, and the correction is an R14 entry.
+
 ---
 
 ## 2. Repository layout
@@ -421,6 +434,20 @@ If EQ-1 triggers, the ledger row reads "Ω = 1 ≡ fixed replay weight 1
 Rules:
 - Rows are appended, never edited; corrections are new rows referencing
   the old id.
+- A PASS carries a level (accepted 2026-09-18; `docs/notes/2026-09-18_sharp_regime_review.md` §4):
+  **PASS-0** (provisional): R2–R9 satisfied as written. **PASS-1** (a result):
+  PASS-0 and the sensitivity table flips in at most one cell, no pre-registered
+  control violated, no reduction to a constant, strong anchoring (OpenTimestamps
+  or the two-person protocol), carrier admissibility stated (smoothing scale on
+  a noisy carrier; segmentation rule for reset jumps). **PASS-2** (a finding):
+  PASS-1 replicated on a second unseen carrier under a fresh prereg on a later
+  day (R3), or by a second person on a second machine with the same frozen
+  scripts, both rows referencing each other. Only a PASS-2 may be quoted
+  outside the ledger as a finding.
+- Retrodiction rows (theory/retrodictions/) are not ledger rows. Their grades
+  are read as kind × outcome (DEF / INHERITED / CLASS / COMPARATIVE ×
+  AGREES / DISAGREES / SILENT / INTERNAL); SHARP is retired for retrodictions
+  and PROSPECTIVE CANDIDATE (the note's §3.2) is the only forward-looking label.
 - "Observed" is printed at full precision plus rounded; never rounded
   alone at a boundary.
 - Each study report (`reports/<study>.md`) is written after its rows exist,

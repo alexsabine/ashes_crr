@@ -1,0 +1,16 @@
+gate for EQ2
+  must FAIL on ['S-R convex replay, constant label scale (adaptivity idle)', 'S-X constraint learner, tuned weight a small fraction of present norm', 'S-Y/LwF softmax MLP, distillation constraint (input scale 4)']
+  must PASS on ['S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4)']
+
+  S-R convex replay, constant label scale (adaptivity idle) FAIL  EQ(Ω=1)=1.4416 tuned w=1.0:1.2250 (w_med of EQ=0.607) | behind-by +0.177 (seeds>step: 5/5) | best Ω=2.0 landscape 0.5:1.661 0.71:1.582 1.0:1.442 1.41:1.257 2.0:1.226 | reduction arm w=0.607:1.2799
+  S-V convex replay, 16x label-scale swings (adaptivity load-bearing) FAIL  EQ(Ω=1)=1.1992 tuned w=0.0625:1.1024 (w_med of EQ=0.599) | behind-by +0.088 (seeds>step: 3/5) | best Ω=0.5 landscape 0.5:1.059 0.71:1.088 1.0:1.199 1.41:1.663 2.0:3.397 | reduction arm w=0.599:3.9393
+  S-W EWC-Laplace convex replay, 16x curvature-scale mismatch FAIL  EQ(Ω=1)=0.0654 tuned w=0.0625:0.0570 (w_med of EQ=1.409) | behind-by +0.156 (seeds>step: 5/5) | best Ω=0.71 landscape 0.5:0.055 0.71:0.053 1.0:0.065 1.41:0.065 2.0:0.065 | reduction arm w=1.409:0.0654
+  S-X constraint learner, tuned weight a small fraction of present norm FAIL  EQ(Ω=1)=0.9420 tuned w=0.25:0.8803 (w_med of EQ=1.284) | behind-by +0.071 (seeds>step: 4/5) | best Ω=1.0 landscape 0.5:1.478 0.71:1.182 1.0:0.942 1.41:1.072 2.0:1.414 | reduction arm w=1.284:0.9430
+  S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4) PASS  EQ(Ω=1)=0.1740 tuned w=256.0:0.1977 (w_med of EQ=1833.531) | behind-by -0.075 (seeds>step: 1/5) | best Ω=0.5 landscape 0.5:0.128 0.71:0.168 1.0:0.174 1.41:0.213 2.0:0.215 | reduction arm w=1833.531:0.8257
+  S-Y softmax MLP, online EWC, unit input scale (informational) FAIL  EQ(Ω=1)=0.0544 tuned w=128.0:0.0394 (w_med of EQ=559.599) | behind-by +0.634 (seeds>step: 3/5) | best Ω=1.41 landscape 0.5:0.036 0.71:0.037 1.0:0.054 1.41:0.036 2.0:0.053 | reduction arm w=559.599:0.2152
+  S-Y softmax MLP, online EWC, scale 4, cap=100 (informational) FAIL  EQ(Ω=1)=0.2814 tuned w=256.0:0.1977 (w_med of EQ=84.093) | behind-by +0.438 (seeds>step: 5/5) | best Ω=2.0 landscape 0.5:0.287 0.71:0.285 1.0:0.281 1.41:0.277 2.0:0.273 | reduction arm w=84.093:0.2651
+  S-Y softmax MLP, online EWC, scale 4, smooth=0.8 (informational) PASS  EQ(Ω=1)=0.1484 tuned w=256.0:0.1977 (w_med of EQ=575.167) | behind-by -0.182 (seeds>step: 1/5) | best Ω=0.71 landscape 0.5:0.138 0.71:0.137 1.0:0.148 1.41:0.180 2.0:0.200 | reduction arm w=575.167:0.4224
+  S-Y softmax MLP, online EWC, scale 4, smooth=0.98 (informational) FAIL  EQ(Ω=1)=0.2470 tuned w=256.0:0.1977 (w_med of EQ=3304.236) | behind-by +0.490 (seeds>step: 3/5) | best Ω=0.5 landscape 0.5:0.211 0.71:0.250 1.0:0.247 1.41:0.312 2.0:0.276 | reduction arm w=3304.236:1.0000
+  S-Y/LwF softmax MLP, distillation constraint (input scale 4) FAIL  EQ(Ω=1)=0.7305 tuned w=0.0625:0.2106 (w_med of EQ=1.678) | behind-by +2.782 (seeds>step: 5/5) | best Ω=0.5 landscape 0.5:0.292 0.71:0.395 1.0:0.730 1.41:0.879 2.0:0.903 | reduction arm w=1.678:0.7347
+
+GATE OPEN

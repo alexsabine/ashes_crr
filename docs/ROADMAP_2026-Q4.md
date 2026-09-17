@@ -31,7 +31,10 @@ item below ends in a ledger row or in a gate table, or it does not happen.
    `ots stamp` on it from his machine and commits the `.ots`; only then does the agent fetch
    data. That makes future rows *strongly* anchored. For the five existing studies Daniel's
    stamp would be a later time and the rows stay "weakly anchored"; say so.
-3. **Both sides of the notebook.** `notebook/PROMPT_LOG.md` (human, R13) and
+3. **Accepted 2026-09-18:** R14 (agent ledger) and R15 (numbers before words) are in CLAUDE.md §1;
+   PASS-0/1/2 levels are in §7; EQ2-1 is re-labelled PASS-0 (ledger EQ2-1b); SHARP is retired
+   for retrodictions. Study EQ2R (below) is the first replication attempt under PASS-2.
+3b. **Both sides of the notebook.** `notebook/PROMPT_LOG.md` (human, R13) and
    `notebook/AGENT_LOG.md` (agent decisions: observed issue, decision, alternative rejected)
    are the chain of thought the audit reads the curated layer against. Proposed rule for the
    owner to add to CLAUDE.md §1 as R14: every decision that changes an instrument, a control,
