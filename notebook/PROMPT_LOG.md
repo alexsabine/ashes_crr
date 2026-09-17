@@ -595,3 +595,7 @@ Right. Can you now count the total number reaching consistent and descriptive ? 
 ## 44. 2026-09-17T21:45:00Z
 
 And how are we doing on the continuous learning tests? Again, scratchpad only please.
+
+## 45. 2026-09-17T22:00:00Z
+
+Okay. Now, in the scratchpad only. Compare crr to FEP please. Consider pedagogical ease, falsifiability, epistemic nature and whether crr might help to resolve some of FEPs current main problems. Thanks
