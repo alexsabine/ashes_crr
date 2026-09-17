@@ -26,12 +26,16 @@ echo
 echo "== theory checks =="
 uv run python theory/checks/verify_math.py
 uv run python theory/checks/verify_scope_math.py
+uv run python theory/checks/verify_spec_math.py
+uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'
 echo
 
 echo "== gates =="
 uv run python -m crr.surrogates.gate L5
 uv run python -m crr.surrogates.gate CUT
 uv run python -m crr.surrogates.gate T1
+uv run python -m crr.surrogates.gate EQ
+uv run python -m crr.surrogates.gate EQ2
 echo
 
 echo "== all checks done =="

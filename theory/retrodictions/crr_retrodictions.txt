@@ -1,0 +1,298 @@
+CRR retrodiction battery — 32 systems, 8 classes (issue #21). Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (a) Bernoulli occupancy: 'the antipode is p = 1/2'
+     clause:     A3 (issue-#21 text: 'half-turn at p = 1/2'); v3.1 A3 (rotor only)
+     BORROWED:   Fisher metric 1/(p(1-p)); arcsine coordinate
+     FLOW:       none (kinematics only)
+     derivation: FR length of the family = 3.14159 = pi; half-turn from p=0 lands at p=0.500; from p=0.7 it would need psi=3.553 > pi (off the interval)
+     known:      the Bernoulli manifold is an interval, not a circle
+     verdict:    p = 1/2 is the antipode only of the boundary start; there is no antipode from a general p
+     GRADE:      FAILS
+     weakness:   special-case property presented as universal (issue-#21 text); v3.1 restricts A3 to cyclic carriers, where it returns OPEN
+[ 2] (a) Two-state chemical kinetics A <-> B (mass action relaxation)
+     clause:     D2, D3, D4 on the Bernoulli carrier
+     BORROWED:   Fisher metric of the Bernoulli family; arcsine transform
+     FLOW:       mass-action rate constants k1, k2 (system-supplied)
+     derivation: C = 1.527773 (numeric integral), D = 1.527773 (closed form), S = 8.88e-16: monotone relaxation is a geodesic
+     known:      variance-stabilising arcsine transform of a proportion
+     verdict:    C reproduces the arcsine coordinate change; nothing beyond it
+     GRADE:      CONSIST
+     weakness:   the framework does not fix k1, k2, p_inf or the relaxation time; it relabels the arcsine distance
+[ 3] (a) Voltage-gated channel open probability, Boltzmann curve, ramp -80 -> 0 mV
+     clause:     D2 with A1' unit = one channel event
+     BORROWED:   Boltzmann occupancy; Bernoulli Fisher metric
+     FLOW:       voltage ramp rate (protocol-supplied)
+     derivation: arc over the ramp = 2.99896 Fisher units, independent of ramp speed (1-D arc = total variation, monotone)
+     known:      the open-probability curve is a sigmoid in V
+     verdict:    the arc is a function of the endpoints only on a monotone ramp
+     GRADE:      DESCR
+     weakness:   a reparameterisation of the endpoints; no prediction about the channel
+[ 4] (a) Poisson counts (epidemic incidence, photon counts)
+     clause:     A1' (unit = one event), D2 on the Poisson carrier; SCOPE P6
+     BORROWED:   Fisher metric 1/lambda; Anscombe / square-root variance stabilisation
+     FLOW:       the incidence curve lambda(t) (system-supplied)
+     derivation: FR distance lambda 4 -> 9 = 2.0000 = 2(sqrt9 - sqrt4)
+     known:      square-root transform stabilises Poisson variance
+     verdict:    C on counts is the total variation of 2 sqrt(lambda)
+     GRADE:      CONSIST
+     weakness:   standard; H-L5 built on it FAILED 0/17 on measles (ledger MEAS2-1)
+[ 5] (b) Qubit, resonant Rabi drive to the orthogonal state (pi pulse)
+     clause:     A2a / v3.1 A3 on the Bloch great circle; D2, D3
+     BORROWED:   Fubini-Study / Wootters statistical distance; Bloch sphere
+     FLOW:       the Hamiltonian (Rabi frequency Omega, system-supplied)
+     derivation: C = 1.570796, D = 1.570796 = pi/2, S = -6.4e-11; the cut (orthogonal state) is reached at t = pi/Omega
+     known:      a pi pulse takes |0> to |1> along a great circle
+     verdict:    C/H = 1 on the geodesic, as A2a says; the time pi/Omega is the Hamiltonian's
+     GRADE:      CONSIST
+     weakness:   the framework does not fix Omega or the pulse time; it names the geodesic
+[ 6] (b) Qubit, detuned drive: Anandan-Aharonov / Mandelstam-Tamm bound
+     clause:     P1 (C >= D) on the Fubini-Study carrier
+     BORROWED:   Fubini-Study metric; energy variance as speed (Anandan-Aharonov 1990)
+     FLOW:       the Hamiltonian (detuning Delta, drive Omega)
+     derivation: C = 1.50000 = DeltaE*t = 1.50000; D = 0.82344; C > D by 0.6766; orthogonality never reached (max D < pi/2)
+     known:      time to orthogonality >= pi/(2 DeltaE)
+     verdict:    the QSL is the triangle inequality P1 in the FS metric
+     GRADE:      CONSIST
+     weakness:   the bound is Anandan-Aharonov's; CRR adds the name 'surplus' to the slack
+[ 7] (b) Qutrit: the orthogonal 'antipode'
+     clause:     A2a / A2c (spec); v3.1 A3
+     BORROWED:   Hilbert-space orthogonality
+     FLOW:       none
+     derivation: orthogonal complement of a qutrit state has dimension 2: no unique target
+     known:      a state in d >= 3 has a (d-1)-dimensional orthogonal subspace
+     verdict:    no canonical antipode; CRR must return OPEN
+     GRADE:      OPEN
+     weakness:   the spec's A2c says so; the issue-#21 text ('the orthogonal state') presumes uniqueness that does not hold
+[ 8] (b) Mixed qubit states under dephasing: 'mixed states never cut'
+     clause:     A3 note (issue-#21 text); spec XI.3 removes it
+     BORROWED:   Bures angle / Uhlmann fidelity
+     FLOW:       the dephasing map (system-supplied)
+     derivation: full-rank pair: Bures angle 0.9273 < pi/2 (never orthogonal); rank-1 pair: 1.5708 = pi/2 (orthogonal)
+     known:      orthogonality needs disjoint supports
+     verdict:    full-rank mixed states never reach the antipode; rank-deficient ones can
+     GRADE:      FAILS
+     weakness:   the universal 'never' is false; the correct statement is support-dependent (spec XI.3)
+[ 9] (c) Two-level (Schottky) system: thermodynamic length from T = inf to T = 0
+     clause:     D2 on the canonical-ensemble carrier in beta
+     BORROWED:   Fisher information = energy variance; thermodynamic length (Weinhold, Ruppeiner, Crooks)
+     FLOW:       the cooling protocol beta(t)
+     derivation: L = int sqrt(Var E) dbeta = 1.570796 = pi/2 = 1.570796 (finite)
+     known:      thermodynamic length of a two-level system is pi/2
+     verdict:    C reproduces the thermodynamic length
+     GRADE:      CONSIST
+     weakness:   constant fixed by the Bernoulli geometry, not by CRR
+[10] (c) Harmonic trap stiffness protocol k1 -> k2: minimum-dissipation (slow-driving) protocol
+     clause:     P1 / T3: a geodesic has S = 0
+     BORROWED:   thermodynamic length; linear-response dissipation W_diss ~ L^2/tau (Sivak-Crooks 2012)
+     FLOW:       the protocol speed k-dot (experimenter-supplied)
+     derivation: FR length = 0.98026; action: linear protocol 1.12500, geodesic (log-linear) 0.96091 = L^2/tau = 0.96091
+     known:      the optimal slow protocol is the constant-speed geodesic (exponential k(t))
+     verdict:    S = 0 picks the geodesic; the constant-speed rule is Cauchy-Schwarz
+     GRADE:      CONSIST
+     weakness:   CRR names the geodesic; the dissipation bound and the protocol are inherited
+[11] (c) Mean-field Ising: Fisher metric g_beta,beta at the critical point
+     clause:     SCOPE/issue-#21 text 'thermal Fisher metric diverges at criticality'
+     BORROWED:   Fisher metric = heat capacity / beta^2 (energy variance)
+     FLOW:       none (equilibrium family)
+     derivation: max Var(E) on beta in [0.8,1.2] = 1.4864 (finite jump at beta_c = 1); no divergence
+     known:      mean-field specific heat has a finite jump
+     verdict:    the universal divergence claim fails in the mean-field class
+     GRADE:      FAILS
+     weakness:   divergence is universality-class dependent (spec XI.4); v3.1 makes no criticality claim, the issue-#21 text does
+[12] (c) 2-D Ising (Onsager): Fisher metric at the critical point
+     clause:     same clause as the mean-field row
+     BORROWED:   Onsager's exact specific heat (elliptic integrals)
+     FLOW:       none
+     derivation: Cv at |1-K/Kc| = 0.1: 0.822, 0.01: 1.968, 0.001: 3.109, 0.0001: 4.248 (grows without bound, log divergence)
+     known:      logarithmic specific-heat divergence
+     verdict:    here the Fisher metric does diverge: the claim is class-dependent
+     GRADE:      CONSIST
+     weakness:   true in this class, false in mean field (previous row): as a framework law it is FAILS; as a class statement it is Onsager's
+[13] (d) Scalar random-walk Kalman filter
+     clause:     P4
+     BORROWED:   steady-state Riccati equation
+     FLOW:       the state recursion (q, r supplied)
+     derivation: K(1) = 0.618034 = 1/phi; K -> 1 as v -> inf
+     known:      textbook steady-state gain
+     verdict:    identical; CRR reads v = sqrt(q/r) as a Fisher speed
+     GRADE:      CONSIST
+     weakness:   v3.1 itself says the formula is not CRR's
+[14] (d) Cramer-Rao unit and Fisher additivity I_N = N I_1
+     clause:     A1' / spec A1a
+     BORROWED:   Cramer-Rao bound; additivity of Fisher information under iid sampling
+     FLOW:       none
+     derivation: unit = 1/sqrt(I_1) per elementary event; N observations shorten the unit by sqrt(N) (verified symbolically in verify_spec_math.py)
+     known:      standard estimation theory
+     verdict:    a definition of the unit
+     GRADE:      DESCR
+     weakness:   no prediction
+[15] (d) Sequential Bayesian updating of a Gaussian mean (posterior-mean path)
+     clause:     D2-D4, T4 (S = 2B) in the per-event unit
+     BORROWED:   Gaussian conjugacy; FR distance |dmu|/sigma (SCOPE P8)
+     FLOW:       the data order (the stream)
+     derivation: C = 3.1998, D = 0.4192, S = 2.7806 = 2B = 2.7806: surplus is twice the posterior's backtracking
+     known:      posterior mean wanders then settles
+     verdict:    S is a name for the backtracking of the estimate
+     GRADE:      DESCR
+     weakness:   no prediction about the data; a Markov (depth-one) system by A4/spec: the salience law would predict nothing here
+[16] (d) Two-source fusion: 'equal pull' (A9 / H-EQ) against Bayes-optimal precision weighting
+     clause:     A9 (issue-#21 text: equal precision, 'never a ratio of pull magnitudes') vs v3.1 H-EQ (ratio of gradient norms)
+     BORROWED:   Bayesian fusion (inverse-variance weights)
+     FLOW:       none
+     derivation: equal-precision weight is Bayes-optimal iff the precisions are equal: MSE inflation at precision ratio 0.1: 3.025x, 1: 1.000x, 10: 3.025x; the norm-ratio form gives w = 100 when the past gradient is small (the issue text calls this ill-posed; EQ2's pass lives there, cap 1e4)
+     known:      inverse-variance weighting
+     verdict:    the two clauses disagree whenever pull magnitudes are not precisions
+     GRADE:      TENSION
+     weakness:   the spec's [P7]/[H1] (weights on occasions) and v3.1's [H-EQ] (gradient-norm ratio) are different laws under one name; resolve before any further EQ prereg
+[17] (e) Harmonic oscillator, amplitude A
+     clause:     A3 (antipodal cut on the phase rotor), D2 with identity metric; SCOPE P9
+     BORROWED:   Hilbert / analytic-signal phase; 1-D arc = total variation
+     FLOW:       the oscillator's own period (irrelevant to the arc)
+     derivation: arc per half-turn = 5.0000 (= 2A = 5.0); period does not enter
+     known:      a half cycle sweeps 2A
+     verdict:    definition
+     GRADE:      DESCR
+[18] (e) Asymmetric multi-harmonic oscillator: are the two half-turn arcs equal?
+     clause:     A3 note (v3.1): 'equal arcs are not a consequence of A3'
+     BORROWED:   analytic-signal phase
+     FLOW:       the waveform
+     derivation: sine: consecutive half-turn arcs CV = 0.0002; asymmetric: CV = 0.1174 (unequal)
+     known:      symmetry of the waveform
+     verdict:    equal half-turn arcs hold only by symmetry; v3.1 already declines the claim
+     GRADE:      DESCR
+     weakness:   a symmetry check that passes only on the symmetric member (issue rule 4) — correctly not claimed
+[19] (e) 'Change has its own clock' (H-L5) on a limit cycle with period jitter vs amplitude jitter
+     clause:     H-L5
+     BORROWED:   coefficient of variation; the S-A'/S-A'' surrogates of the battery
+     FLOW:       the modulation (which quantity jitters)
+     derivation: period jitter: CV_clock = 0.142, CV_arc = 0.000 by construction (arc wins); amplitude jitter: CV_clock = 0.000, CV_arc = 0.160 (clock wins)
+     known:      both classes exist in nature (measles: clock-regular, ledger MEAS2)
+     verdict:    nothing in the axioms picks the class; the claim is empirical, not derived
+     GRADE:      FAILS
+     weakness:   as a derivation: the framework cannot say which clock a system keeps; it can only measure it (v3.1 says so; the slogan overstates)
+[20] (e) Plane pendulum with amplitude jitter (exact period via K(k))
+     clause:     H-L5 controls (i) amplitude, clock
+     BORROWED:   elliptic-integral period T(A)
+     FLOW:       gravity and length (set the period), the jitter (set by the drive)
+     derivation: CV_arc (= CV of 2A) = 0.1082; CV_clock (= CV of T(A)) = 0.0144: the clock is the more regular quantity
+     known:      period grows slowly with amplitude
+     verdict:    a physical oscillator in the clock-regular class, like measles
+     GRADE:      DESCR
+     weakness:   confirms the measles reading on a textbook system; no CRR content
+[21] (f) Homogeneous Poisson process: natural time
+     clause:     A1' (unit = one event), D5 (occasion = inter-event interval)
+     BORROWED:   exponential inter-event law; Fisher metric of the rate family 1/lambda^2 per unit time
+     FLOW:       the rate
+     derivation: FR distance between rates lambda1, lambda2 per unit exposure = |ln(lambda2/lambda1)| (from g = 1/lambda^2): 1.0986 for 2 -> 6
+     known:      natural time (Varotsos) counts events
+     verdict:    a definition of the unit
+     GRADE:      DESCR
+[22] (f) Omori aftershock decay lambda = K (t+c)^-p
+     clause:     P5 (consistency relation), D2 on the Poisson carrier
+     BORROWED:   Omori law; natural time; power-law/exponential calculus
+     FLOW:       the rate lambda(t) (rate-and-state friction supplies p)
+     derivation: retention at p=1: (c/(c + t))**(K/rho) (a power law in shifted time, exactly as P5 states); Poisson arc to infinity = 2*sqrt(K)/c**(p/2) (finite) while the count diverges for p <= 1
+     known:      p ~ 1 empirically; the count of aftershocks diverges logarithmically
+     verdict:    P5 is calculus; 'the arc converges' is Anscombe on a decaying rate
+     GRADE:      CONSIST
+     weakness:   p is not fixed by CRR (v3.1 says so)
+[23] (f) Hawkes process with exponential kernel: does history beyond the present intensity matter?
+     clause:     A4 (spec: screening-off / depth-one gate)
+     BORROWED:   Markov property of the exponential-kernel intensity
+     FLOW:       the kernel (system-supplied)
+     derivation: future intensity after 0.5 s from four different histories sharing lambda(t0) = 1.7: 0.9415 (all equal)
+     known:      the intensity is a sufficient statistic
+     verdict:    depth one: CRR must predict no multi-occasion salience effect here
+     GRADE:      DESCR
+     weakness:   the e^S law would be falsified if applied; the gate exists to stop that (spec Decision 7)
+[24] (f) Natural-time variance kappa_1 = 0.070 at criticality (Varotsos)
+     clause:     none
+     BORROWED:   natural-time analysis
+     FLOW:       none
+     derivation: CRR has no clause that produces kappa_1 or 0.070
+     known:      kappa_1 -> 0.070 before main shocks (empirical)
+     verdict:    not derivable from the axioms
+     GRADE:      OPEN
+[25] (g) Kepler ellipse (e = 0.6): the two half-turns between apsides
+     clause:     A3 (antipode = apoapsis from periapsis), D2 with the Euclidean metric on the orbit plane
+     BORROWED:   orbital mechanics; the true anomaly as phase
+     FLOW:       gravity (sets the speed; the arc is geometric)
+     derivation: arc periapsis->apoapsis = 2.836167, apoapsis->periapsis = 2.836167: equal by reflection symmetry
+     known:      an ellipse is symmetric about its major axis
+     verdict:    equal half-turn arcs by symmetry only (a perturbed orbit breaks it)
+     GRADE:      DESCR
+     weakness:   no statistical carrier here: the Euclidean metric is a stand-in, which v3.1 A1 does not license
+[26] (g) Binary inspiral chirp: occasions per half-turn of the gravitational-wave phase
+     clause:     A3, D5, H-L5 (natural time = phase)
+     BORROWED:   post-Newtonian phase evolution Phi ~ (t_c - t)^(5/8)
+     FLOW:       general relativity (the chirp rate)
+     derivation: 11 half-turns; clock interval falls from 0.1166 to 0.03074 s while the phase interval is pi by construction
+     known:      the chirp accelerates; cycles to merger are finite
+     verdict:    phase-regular by definition of the cut; says nothing
+     GRADE:      DESCR
+[27] (g) Cosmological parameter inference (CMB Fisher forecasts)
+     clause:     A1 (carrier exists), A3 (no cut)
+     BORROWED:   Fisher-matrix forecasting
+     FLOW:       none
+     derivation: a statistical manifold with a Fisher metric exists (the likelihood), but no occasion boundary: quantitative CRR returns OPEN
+     known:      Fisher forecasting is standard cosmology
+     verdict:    no occasion structure
+     GRADE:      OPEN
+[28] (g) Schwarzschild geodesics
+     clause:     A1 (carrier requirement)
+     BORROWED:   differential geometry of spacetime
+     FLOW:       none
+     derivation: no statistical family; the spacetime metric is not a Fisher metric: not a carrier
+     known:      —
+     verdict:    not a carrier
+     GRADE:      OPEN
+     weakness:   the gravitational class yields only OPEN/DESCR rows
+[29] (h) Hopf normal form: cycle amplitude r = sqrt(mu - mu_c)
+     clause:     D1 resolution rho = extent/sigma (issue-#21 text: rho -> 0 at Hopf)
+     BORROWED:   normal-form amplitude scaling
+     FLOW:       the normal form
+     derivation: rho = 2r/sigma with sigma fixed at 0.05: mu=0.1: 12.65, mu=0.01: 4.00, mu=0.001: 1.26 -> 0
+     known:      amplitude vanishes at the Hopf point
+     verdict:    true if sigma is fixed; the spec removes universality because sigma is measured (D1)
+     GRADE:      CONSIST
+     weakness:   conditional on a fixed resolution; v3.1 D1 says rho is never predicted
+[30] (h) Critical slowing down: AR(1) state x' = (1-k)x + w observed in noise, Kalman depth d = 1/K as k -> 0
+     clause:     D8 (issue-#21 text: 'd -> inf near a bifurcation'); v3.1 O1 (retention not claimed)
+     BORROWED:   discrete algebraic Riccati equation
+     FLOW:       the state recursion (k, q, r supplied)
+     derivation: K at k = 0.5: 0.5311, 0.1: 0.5974, 0.01: 0.6159, 0.001: 0.6178 -> random-walk value 0.6180: d stays finite (1/K -> 1.618)
+     known:      the filter approaches the random-walk filter
+     verdict:    'depth diverges at criticality' is false at fixed q, r; it needs q -> 0 too
+     GRADE:      FAILS
+     weakness:   v3.1 O1 already declines a retention law (OPEN there); the issue-#21 text's D8 is the clause that fails
+[31] (h) Landau pitchfork (Boltzmann family in the control mu): Fisher information at the bifurcation
+     clause:     issue-#21 text criticality clause
+     BORROWED:   Fisher information of an exponential family = variance of the sufficient statistic
+     FLOW:       none (equilibrium family)
+     derivation: I(mu) at mu = -1: 0.0783, -0.1: 0.1283, 0: 0.1358, 0.1: 0.1437, 1: 0.2391 (finite and smooth through mu = 0)
+     known:      mean-field transition, finite fluctuations at fixed T
+     verdict:    no divergence: a second counterexample to the universal claim
+     GRADE:      FAILS
+[32] (h) Logistic-map period doubling (Feigenbaum)
+     clause:     A1 (canonical carrier)
+     BORROWED:   renormalisation theory
+     FLOW:       the map
+     derivation: no observation model is supplied, so there is no statistical carrier; delta = 4.669... is not touched by any clause
+     known:      Feigenbaum constants
+     verdict:    not a carrier without an independently justified observation model
+     GRADE:      OPEN
+
+====================================================================================================
+TALLY
+class                                 SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(a) two-state / occupancy                 0        2        1        1        0        0
+(b) quantum                               0        2        0        1        0        1
+(c) thermal                               0        3        0        1        0        0
+(d) estimation / filtering                0        1        2        0        1        0
+(e) oscillators                           0        0        3        1        0        0
+(f) point processes / natural time        0        1        2        0        0        1
+(g) gravitational / cosmological          0        0        2        0        0        2
+(h) bifurcations / criticality            0        1        0        2        0        1
+all                                       0       10       10        6        1        5
+
+rows whose BORROWED field is empty: 0; rows where the coherence integral's velocity is system-supplied (FLOW != none): 25

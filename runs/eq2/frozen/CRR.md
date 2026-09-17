@@ -181,15 +181,6 @@ step; its median effective w was 1.04–1.12. It reduces to the constant. The
 Euclidean ratio beat the Fisher ratio on all three. H-EQ is retired as an
 adaptive rule; it survives only as the observation that summing the two batch
 means (w = 1) is a reasonable default.
-**Ledger (2026-09-17, rows EQ2-0…8, weakly anchored):** on three further
-unseen tabular streams with an online-EWC penalty as the past term, the rule
-at Ω = 1 was ahead of the tuned λ on 3/3 carriers (+3.30, +2.10, +2.78 pt)
-and did not reduce to a constant — but the pass is fragile (it vanishes when
-the ratio cap is below the tuned λ), one pre-registered control (DER++) was
-violated, SI/MAS did not miss as predicted, and Ω is a plateau over 0.5–1.41
-with no peak at 1. What survives is narrower than A9: a cap-dependent,
-tuning-free way of running an EWC penalty above the fixed-λ stability edge
-(`reports/eq2.md`).
 
 ---
 

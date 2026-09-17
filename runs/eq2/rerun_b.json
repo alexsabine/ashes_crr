@@ -1,0 +1,1 @@
+{"method": "ewc", "mode": "eq", "value": 1.0, "seed": 3, "smooth": 0.9, "wcap": 10000.0, "acc": 29.25, "w_med": 87.25043072759284, "w_cap_frac": 0.2578125, "fwd_bwd_per_sample": 3.0, "n_stream": 4800, "finite": true, "dataset": "mfeat_fourier", "regime": "std"}

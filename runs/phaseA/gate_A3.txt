@@ -19,8 +19,8 @@ gate for A3
   S-E asymmetric multi-harmonic                           PASS  cv_antipodal=0.079 cv_peakcut=0.115 ci=-0.045,-0.026 n_ant=119 n_pk=120
   S-F van der Pol mu=5.0                                  FAIL  cv_antipodal=0.064 cv_peakcut=0.000 ci=0.000,0.111 n_ant=60 n_pk=60
   S-F van der Pol mu=1.0                                  FAIL  cv_antipodal=0.006 cv_peakcut=0.000 ci=0.000,0.010 n_ant=104 n_pk=104
-  S-F Rossler (a=0.2, b=0.2, c=5.7)                       FAIL  cv_antipodal=0.286 cv_peakcut=0.277 ci=-0.020,0.037 n_ant=375 n_pk=375
-  S-F forced Duffing (delta=0.15, gamma=0.3, omega=1)     FAIL  cv_antipodal=0.361 cv_peakcut=0.375 ci=-0.106,0.073 n_ant=110 n_pk=143
+  S-F Rossler (a=0.2, b=0.2, c=5.7)                       FAIL  cv_antipodal=0.287 cv_peakcut=0.278 ci=-0.020,0.036 n_ant=375 n_pk=375
+  S-F forced Duffing (delta=0.15, gamma=0.3, omega=1)     PASS  cv_antipodal=0.332 cv_peakcut=0.413 ci=-0.151,-0.012 n_ant=107 n_pk=143
   S-G relaxation osc. (clock-regular, amplitude-variable) FAIL  cv_antipodal=0.460 cv_peakcut=0.134 ci=0.286,0.361 n_ant=118 n_pk=118
   S-G2 relaxation osc. (arc-regular by construction)      FAIL  cv_antipodal=0.422 cv_peakcut=0.001 ci=0.387,0.448 n_ant=118 n_pk=118
 
