@@ -1,0 +1,204 @@
+CRR retrodiction battery on biological systems — 19 model systems, 6 classes. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (n) Leaky integrate-and-fire neuron with noisy input current
+     clause:     D5 (the spike is the system's own event), D2-D4, H-L5
+     BORROWED:   threshold-reset dynamics; Ornstein-Uhlenbeck subthreshold voltage
+     FLOW:       the input current (mean and noise, experimenter-supplied)
+     derivation: 58 spikes; CV_arc = 0.438, CV_ISI = 0.472; chord birth->spike = 0.992 (fixed at threshold - reset by construction, CV 5.6e-03)
+     known:      ISI variability from input noise; threshold fixed
+     verdict:    arc-regular: the arc (voltage travelled) is more regular than the interval because the threshold fixes the chord and noise adds a bounded surplus
+     GRADE:      CONSIST
+     H-L5 class: arc-regular (CV_arc 0.438, CV_clock 0.472)
+     weakness:   the regular quantity is the chord, a definition of the model (threshold minus reset); the arc inherits it; nothing about the neuron is derived
+[ 2] (n) FitzHugh-Nagumo relaxation oscillator under slowly varying drive (class-2 model neuron)
+     clause:     D5, D2, H-L5 (the S-G2 mechanism: threshold fixed, charging rate varies)
+     BORROWED:   FitzHugh-Nagumo equations; relaxation-oscillator geometry
+     FLOW:       the drive current I(t) (supplied)
+     derivation: 22 spikes; CV_arc = 0.041, CV_ISI = 0.470; spike amplitude CV = 0.009
+     known:      spike shape is stereotyped, rate follows the drive
+     verdict:    arc-regular: a relaxation oscillator with a fixed excursion and a variable charging rate keeps arc, not time
+     GRADE:      CONSIST
+     H-L5 class: arc-regular (CV_arc 0.041, CV_clock 0.470)
+     weakness:   true by the relaxation-oscillator mechanism (the battery's S-G2); the framework names the class, the neuron model supplies it
+[ 3] (n) Onset of repetitive firing: class 1 (SNIC) vs class 2 (Hopf) excitability
+     clause:     issue-#21 text criticality clause (rho -> 0 at a Hopf point) applied to neurons
+     BORROWED:   Ermentrout-Kopell normal form; Hodgkin's excitability classes
+     FLOW:       the injected current near threshold
+     derivation: SNIC: frequency at I = 0.1: 0.1003, 0.01: 0.0324, 0.001: 0.0100 -> 0 while the excursion stays 2*pi (rho fixed); Hopf: amplitude 0.316, 0.100, 0.032 -> 0 (rho -> 0)
+     known:      class 1 neurons start firing at arbitrarily low rate with full-size spikes; class 2 at finite rate with growing amplitude
+     verdict:    rho -> 0 at onset holds only for the Hopf (class 2) member; class 1 keeps a full-size occasion at vanishing rate
+     GRADE:      FAILS
+     weakness:   rule 4: the criticality claim is a property of the Hopf member; v3.1 makes no criticality claim, the issue text does
+[ 4] (n) Perceptual discrimination: Weber's law and the Fechner scale
+     clause:     A1' (the resolvable step as the unit), D2
+     BORROWED:   Fisher-information account of discrimination (JND = 1/sqrt(I)); Weber's law I(s) ∝ 1/s^2
+     FLOW:       the stimulus schedule
+     derivation: with Weber fraction 0.1 the FR arc from s = 10 to 80 is ln(s2/s1) = 2.0794, i.e. 20.8 JNDs: the Fechner scale is the Fisher arc
+     known:      Fechner's logarithmic scale follows from Weber's law
+     verdict:    the unit A1' names is the JND and the arc is the psychophysical scale; both are the domain's own
+     GRADE:      CONSIST
+     weakness:   the Fisher-information reading of JNDs is standard psychophysics; Weber's law itself is not derived
+[ 5] (c) Respiratory sinus arrhythmia: RR interval modulated by breathing, pulse shape fixed
+     clause:     H-L5 (S-A' mechanism: period jitter, amplitude constant)
+     BORROWED:   vagal modulation of sinus rate; the pulse waveform
+     FLOW:       the sinus node and the respiratory drive
+     derivation: CV_arc = 0.000, CV_clock = 0.061 over 60 beats (period 0.90 ± 0.08 s, amplitude fixed)
+     known:      RSA is frequency modulation of the heartbeat
+     verdict:    arc-regular: with the waveform fixed and the period modulated, arc per beat is the regular quantity
+     GRADE:      DESCR
+     H-L5 class: arc-regular (CV_arc 0.000, CV_clock 0.061)
+     weakness:   true by construction of RSA (an FM class member); study CARD will test it on records, this row cannot
+[ 6] (c) Pulsus alternans: fixed rate, alternating pulse amplitude
+     clause:     A3 note (v3.1): equal half-turn arcs are not a consequence of A3; H-L5
+     BORROWED:   cardiac alternans (period-doubling of the beat amplitude at fixed pacing)
+     FLOW:       the pacing rate and the alternans mechanism
+     derivation: CV_arc = 0.177, CV_clock = 0.000: consecutive occasions alternate in arc while the clock is exact
+     known:      alternans is amplitude alternation at constant period
+     verdict:    clock-regular: the clock keeps, the arc alternates; equal arcs fail on an asymmetric (alternating) member
+     GRADE:      DESCR
+     H-L5 class: clock-regular (CV_arc 0.177, CV_clock 0.000)
+     weakness:   a class assignment on a model waveform; nothing derived
+[ 7] (c) Irregular rhythm with variable pulse amplitude (fibrillation-like)
+     clause:     H-L5
+     BORROWED:   the pulse train model
+     FLOW:       the arrhythmia (both period and amplitude random)
+     derivation: CV_arc = 0.277, CV_clock = 0.249: neither quantity is regular
+     known:      irregularly irregular rhythm
+     verdict:    no clause says which clock such a system keeps; the instrument reports the class it falls in
+     GRADE:      OPEN
+     H-L5 class: clock-regular (CV_arc 0.277, CV_clock 0.249)
+     weakness:   class assignment only; the framework has no claim about it
+[ 8] (e) Seasonally forced SIR (measles-like, period-2 regime): which events are the occasions?
+     clause:     H-L5 on the Poisson carrier (SCOPE P6); v3.1 O3 (natural time gives the unit, not the cut)
+     BORROWED:   SIR dynamics with seasonal transmission; Poisson Fisher metric (square-root coordinate)
+     FLOW:       the transmission rate and its seasonal forcing
+     derivation: period-2 regime: inter-peak years [1.32, 0.68, 1.32, 0.68], peak sizes [2.9, 1.6, 2.9, 1.6]k. Events = every peak (40): CV_arc = 0.252, CV_clock = 0.322 -> arc-regular. Events = major peaks only (20, the ledger's onset-like rule): CV_arc = 0.000, CV_clock = 0.000 -> tie
+     known:      biennial measles cycles alternate in size (Grenfell); the ledger found 17/17 English cities clock-regular between epidemic onsets (MEAS2-1)
+     verdict:    the class depends on the event rule: counting every peak makes the clock alternate too (arc-regular by a small margin); counting major epidemics only, both quantities are exact on this deterministic period-2 orbit (tie), so the model has no variability to decide the class the ledger found on real cities
+     GRADE:      OPEN
+     H-L5 class: tie (major peaks) / arc-regular (all peaks) (CV_arc 0.000, CV_clock 0.000)
+     weakness:   rule 2: the event definition decides the class and the framework does not supply it (O3); the model neither confirms nor contradicts the ledger row on its own
+[ 9] (e) SIR single epidemic wave (R0 = 2.5): the wave as one occasion
+     clause:     D2-D4 on the Poisson carrier; final-size relation
+     BORROWED:   SIR final-size relation 1 - S_inf = 1 - exp(-R0 (1 - S_inf))
+     FLOW:       the transmission and recovery rates
+     derivation: C = 1.8711, chord = 0.0631, S = 1.8080: the whole wave is surplus (it returns to where it started); final susceptible fraction 0.1072
+     known:      the epidemic burns out leaving a final size fixed by R0
+     verdict:    S = C is the definition of a closed excursion; the final size is untouched by any clause
+     GRADE:      OPEN
+     weakness:   the one quantity epidemiology wants (final size, R0) is not reached by the framework
+[10] (e) SIS endemic equilibrium with demographic noise (infected fraction)
+     clause:     A4 (spec screening-off gate) on the Bernoulli occupancy carrier
+     BORROWED:   SIS dynamics; Markov property of the infected fraction
+     FLOW:       the contact and recovery rates
+     derivation: infected fraction is Markov: mean 0.306; the state screens off its path, so no multi-occasion salience effect is predicted
+     known:      the endemic state is a fluctuating equilibrium
+     verdict:    depth one: the e^S law has nothing to act on
+     GRADE:      DESCR
+     weakness:   the gate keeps the framework silent where it should be
+[11] (p) Selection on one locus: replicator dynamics as a gradient flow in the Shahshahani (Fisher) metric
+     clause:     A1 (the Fisher metric on the simplex), D2-D4
+     BORROWED:   Shahshahani 1979 / Harper 2009: the replicator equation is the gradient of mean fitness in the Fisher metric; Fisher's fundamental theorem
+     FLOW:       selection coefficients (the fitnesses)
+     derivation: Fisher speed = |p'|/sqrt(p(1-p)) = sqrt(Var(w)) to leading order: max ratio speed^2/Var(w) = 1.0001; C = 1.4417 = chord 1.4417 (monotone sweep, S = -3.8e-05)
+     known:      the rate of increase of mean fitness equals the additive genetic variance
+     verdict:    the Fisher-Rao speed of evolution is the fitness standard deviation: the framework's arc is the geometry population genetics already uses
+     GRADE:      CONSIST
+     weakness:   the identity is Shahshahani's and Fisher's; a monotone sweep is a geodesic, so S = 0 and the framework adds a name
+[12] (p) Lotka-Volterra predator-prey cycle: the two half-turns of a prey oscillation
+     clause:     A3 note (v3.1): equal half-turn arcs are a symmetry, not a consequence
+     BORROWED:   Lotka-Volterra conserved cycles; analytic-signal phase
+     FLOW:       the interaction rates and the initial condition (set the amplitude)
+     derivation: consecutive half-turn arcs (prey, identity metric) alternate: CV = 0.338 over 17 half-turns (ratio of the two arms 0.525)
+     known:      the cycle is asymmetric (fast crash, slow recovery)
+     verdict:    unequal arms on an asymmetric member; v3.1 already declines the equal-arms claim
+     GRADE:      DESCR
+     weakness:   a symmetry check that correctly fails on an asymmetric cycle
+[13] (p) Bacterial cell-size control: adder vs timer under growth-rate variability
+     clause:     H-L5 with the occasion = one cell cycle, own event = division, carrier = cell volume (identity metric)
+     BORROWED:   adder principle (Campos 2014; Taheri-Araghi 2015); exponential single-cell growth
+     FLOW:       the growth rate (physiology-supplied)
+     derivation: adder: CV(added size) = 0.075 < CV(interdivision time) = 0.322 (arc-regular); timer: CV(added size) = 0.353 > CV(time) = 0.078 (clock-regular)
+     known:      E. coli and B. subtilis add a constant volume per cycle (adder), not a constant time
+     verdict:    an adder is an arc-regular system by its own physiology; a timer is clock-regular; the framework names the distinction, the cell supplies it
+     GRADE:      CONSIST
+     H-L5 class: arc-regular (adder) / clock-regular (timer) (CV_arc 0.075, CV_clock 0.322)
+     weakness:   the first biological system in the battery that is arc-regular by mechanism rather than by construction; a real-data L5x row on single-cell growth data is the study this points at
+[14] (m) Single ion channel, two-state Markov gating
+     clause:     A4 (depth one) and D5 (own events = transitions)
+     BORROWED:   memoryless (exponential) dwell times
+     FLOW:       the opening and closing rates
+     derivation: mean open dwell 0.992 (1/kc = 1.0), mean closed 0.486 (1/ko = 0.5); CV of dwells 0.991, 0.961 (exponential: 1)
+     known:      dwell times are exponential; the channel has no memory beyond its state
+     verdict:    depth one: no multi-occasion effect; natural time counts transitions
+     GRADE:      DESCR
+     weakness:   definitional
+[15] (m) Hill cooperativity / ultrasensitivity in a binding curve
+     clause:     D2 on the Bernoulli occupancy carrier
+     BORROWED:   Hill equation
+     FLOW:       the ligand schedule
+     derivation: arc from s = 0.5 K to 2 K in occupancy: n=1: 0.6797, n=2: 1.2870, n=4: 2.1617, n=8: 2.8919 (grows with n) but the switch-like shape itself is not a clause
+     known:      cooperativity sharpens the response
+     verdict:    the arc registers the sharper transition as a longer Fisher path; nothing predicts n
+     GRADE:      OPEN
+     weakness:   the quantity biology wants (the Hill coefficient, the mechanism of cooperativity) is not reached
+[16] (m) Bursty gene expression (telegraph model): mRNA counts
+     clause:     A1' (unit = one transcript), A1 (Poisson vs negative-binomial carrier)
+     BORROWED:   telegraph model; negative-binomial count statistics
+     FLOW:       promoter switching and transcription rates
+     derivation: burst size 20, mean count 4, Fano factor 21 (>1: not Poisson): the carrier must be the negative binomial, which A1 requires to be fixed before any arc is computed
+     known:      bursting gives super-Poissonian counts
+     verdict:    the framework's only contribution is the carrier-choice discipline; no rate or burst size is derived
+     GRADE:      OPEN
+     weakness:   rule 2: the carrier is a choice that changes every length
+[17] (b) Motor adaptation, two-state (fast/slow) model: does the path of an occasion matter beyond its end state?
+     clause:     A4 (depth one) vs the occasion-weight law (spec T5); the spec's §XV system
+     BORROWED:   Smith, Ghazizadeh & Shadmehr 2006 two-state model
+     FLOW:       the perturbation schedule (experimenter-supplied)
+     derivation: two 60-trial occasions: surplus S_A = 0.000 (steady), S_B = 2.130 (with a reversal); end states (fast, slow) A = (0.322, 0.367), B = (0.348, 0.318); the model's behaviour 30 trials on depends only on those states (A: 0.100, B: 0.086)
+     known:      savings and interference are carried by the slow state
+     verdict:    the standard model is depth one: the path surplus of a block has no effect beyond the state it leaves; the salience law predicts one. That difference is the T5 experiment the roadmap names, and it is prospective
+     GRADE:      OPEN
+     weakness:   not a retrodiction: the framework and the standard model disagree only on an experiment not yet run under the protocol (the spec's §XV run is unlogged)
+[18] (b) Circadian phase oscillator (free-running 24.6 h) entrained by a light cycle
+     clause:     A3 (cut per half-turn of the phase rotor), D5
+     BORROWED:   phase-oscillator entrainment (Arnold tongue)
+     FLOW:       the light schedule and the intrinsic period
+     derivation: entrained period 24.000 h (CV 1.1e-02) against a free-running 24.6 h: the clock is locked; the phase advances a fixed 2 pi per cycle by definition
+     known:      entrainment locks the period to 24 h
+     verdict:    clock-regular and phase-regular at once; nothing about the entrainment range is derived
+     GRADE:      DESCR
+     H-L5 class: clock-regular (CV_arc 0.000, CV_clock 0.011)
+     weakness:   the antipodal cut on a phase rotor is a definition here
+[19] (b) Habituation of a reflex over repeated stimuli (Aplysia-like response decrement)
+     clause:     P3 (age weights) vs P2 (surplus weights); O2 (which constraint is open)
+     BORROWED:   exponential habituation kinetics
+     FLOW:       the stimulus schedule
+     derivation: response over 12 trials decays geometrically (ratio 0.782); a geometric age weight (P3) fits it by construction; a surplus weight (P2) has nothing to work with because every occasion is the same stimulus
+     known:      habituation follows an exponential decrement (Thompson & Spencer)
+     verdict:    the framework leaves the constraint open (O2); the geometric form is its P3 with q fitted
+     GRADE:      OPEN
+     weakness:   q is fitted, not derived (v3.1 says CRR does not fix q)
+
+====================================================================================================
+TALLY
+class                               SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(n) neural                              0        3        0        1        0        0
+(c) cardiac / physiological             0        0        2        0        0        1
+(e) epidemiological                     0        0        1        0        0        2
+(p) population / evolutionary           0        2        1        0        0        0
+(m) molecular / cellular                0        0        1        0        0        2
+(b) behavioural / adaptive              0        0        1        0        0        2
+all                                     0        5        6        1        0        7
+
+H-L5 CLASS MAP (systems with their own events, computed on the model with crr.instrument.core.regularity)
+  arc-regular                                  Leaky integrate-and-fire neuron with noisy input current
+  arc-regular                                  FitzHugh-Nagumo relaxation oscillator under slowly varying drive (class-2 model neuron)
+  arc-regular                                  Respiratory sinus arrhythmia: RR interval modulated by breathing, pulse shape fixed
+  clock-regular                                Pulsus alternans: fixed rate, alternating pulse amplitude
+  clock-regular                                Irregular rhythm with variable pulse amplitude (fibrillation-like)
+  tie (major peaks) / arc-regular (all peaks)  Seasonally forced SIR (measles-like, period-2 regime): which events are the occasions?
+  arc-regular (adder) / clock-regular (timer)  Bacterial cell-size control: adder vs timer under growth-rate variability
+  clock-regular                                Circadian phase oscillator (free-running 24.6 h) entrained by a light cycle
+
+rows where the coherence integral's velocity is system-supplied (FLOW != none): 19/19
