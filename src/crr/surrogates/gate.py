@@ -22,7 +22,7 @@ import numpy as np
 from crr.instrument.core import (antipodal_cuts, arc_length, cv, intrinsic_phase, kl_gauss,
                                  path_length, peak_cuts, poisson_transform, regularity, rho,
                                  unit_sigma)
-from crr.surrogates.battery import BATTERY, LEARNER_BATTERY, RATE_BATTERY, REPLAY_BATTERY
+from crr.surrogates.battery import BATTERY, LEARNER_BATTERY, RATE_BATTERY, REPLAY_BATTERY, SALIENCE_BATTERY
 
 # Negative controls: the hypothesis MUST fail here (no CRR content, or nothing to distinguish).
 MUST_FAIL = {
@@ -37,6 +37,8 @@ MUST_FAIL = {
     "EQ2": {"S-R convex replay, constant label scale (adaptivity idle)",
             "S-X constraint learner, tuned weight a small fraction of present norm",
             "S-Y/LwF softmax MLP, distillation constraint (input scale 4)"},
+    "SAL": {"S-SAL-F equal task difficulty (surplus flat)",
+            "S-SAL-D surplus inflated by gradient noise (decoupled from forgetting)"},
     "L5R": {"S-P AM epidemics (constant period, variable peak)",
             "S-P AM+FM epidemics (the concavity trap: no CRR content)",
             "S-P clock-regular two-hump (constant period, variable arc)"},
@@ -56,6 +58,7 @@ MUST_PASS = {
     # quadratic); S-W stays as an informational row. The positive control is the nonconvex
     # S-Y row, where the present gradient decays within a task.
     "EQ2": {"S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4)"},
+    "SAL": {"S-SAL-P unequal task difficulty (surplus tracks forgetting)"},
     "L5R": {"S-P FM two-hump compensating (arc constant, amplitude variable)"},
     "A3": set(),   # no positive control is known for this comparison; stated in the prereg that uses it
 }
@@ -240,6 +243,28 @@ def gate_EQ2(runner, _ev, meta, seeds=range(5), fixed_grid=(0.0625, 0.25, 0.5, 1
     return passes, detail
 
 
+def gate_SAL(runner, _ev, meta, seeds=range(5), lam_grid=(-1.0, -0.5, -0.25, 0.0, 0.1, 0.25, 0.5, 1.0, 2.0), margin=1.0, min_seeds=4):
+    """Study-SAL instrument-sensitivity statistic: SOME lambda on the pre-registered grid makes
+    salience-weighted replay beat uniform replay (lambda = 0) by >= `margin` accuracy points on
+    the seed mean, positive in >= `min_seeds` seeds. This is the gate for the spec's three-way
+    protocol (lambda = 0 / lambda = 1 / free lambda): a positive control must show the instrument
+    can see a salience effect at all; the law's own value lambda = 1 is then scored by the study,
+    and its gain is printed here for the record. Also printed: the anti-salience arm, the
+    surplus values under lambda = 0, and the Spearman correlation across past tasks between
+    surplus and forgetting."""
+    from scipy.stats import spearmanr
+    seeds = list(seeds)
+    acc = {lam: np.array([runner(lam, s)["acc"] for s in seeds]) for lam in lam_grid}
+    r0 = [runner(0.0, s) for s in seeds]
+    gain = {lam: acc[lam] - acc[0.0] for lam in lam_grid}
+    best = max(lam_grid, key=lambda l: gain[l].mean())
+    passes = bool(gain[best].mean() >= margin and int((gain[best] > 0).sum()) >= min_seeds)
+    S_mean = np.mean([r["S"] for r in r0], 0)
+    rho = float(np.mean([spearmanr(r["S"][:-1], r["forgetting"][:-1]).statistic for r in r0]))
+    detail = (f"acc(lam=0) {acc[0.0].mean():.2f} | gain over lam=0: " + " ".join(f"{l:+g}:{gain[l].mean():+.2f}({int((gain[l] > 0).sum())})" for l in lam_grid)
+              + f" | best lam={best:+g} | lam=1 gain {gain[1.0].mean():+.2f} | S per task {np.round(S_mean, 2).tolist()} | Spearman(S, forgetting) {rho:+.2f}")
+    return passes, detail
+
 def gate_L5R(x, ev, meta, metric="poisson"):
     """H-L5 on a count/rate carrier, scored as study MEAS pre-registers it.
 
@@ -285,9 +310,10 @@ def gate_A3(x, ev, meta, n_boot=2000, seed=0):
     return passes, f"cv_antipodal={cv(Ca):.3f} cv_peakcut={cv(Cp):.3f} ci={lo:.3f},{hi:.3f} n_ant={len(ant)} n_pk={len(pk)}"
 
 
-GATES = {"L5": gate_L5, "CUT": gate_CUT, "T1": gate_T1, "EQ": gate_EQ, "EQ2": gate_EQ2, "L5R": gate_L5R, "A3": gate_A3}
+GATES = {"L5": gate_L5, "CUT": gate_CUT, "T1": gate_T1, "EQ": gate_EQ, "EQ2": gate_EQ2, "L5R": gate_L5R, "A3": gate_A3, "SAL": gate_SAL}
 LEARNER_GATES = {"T1"}
 REPLAY_GATES = {"EQ", "EQ2"}
+SALIENCE_GATES = {"SAL"}
 RATE_GATES = {"L5R"}
 
 
@@ -315,7 +341,7 @@ def main(hyp: str):
     print(f"gate for {hyp}\n  must FAIL on {sorted(MUST_FAIL[hyp])}\n  must PASS on {sorted(MUST_PASS[hyp])}\n")
     bad = 0
     battery = (LEARNER_BATTERY if hyp in LEARNER_GATES else REPLAY_BATTERY if hyp in REPLAY_GATES
-               else RATE_BATTERY if hyp in RATE_GATES else BATTERY)
+               else SALIENCE_BATTERY if hyp in SALIENCE_GATES else RATE_BATTERY if hyp in RATE_GATES else BATTERY)
     metrics = ("poisson", "identity") if hyp in RATE_GATES else (None,)
     for metric in metrics:
         if metric is not None:
