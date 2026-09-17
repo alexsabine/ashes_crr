@@ -1,0 +1,26 @@
+================================================================================================================
+EQ2R-CC compute-cost scoring — rows CC-1..3 as pre-registered in prereg/eq2r_cc/PREREG.md; per-seed values in brackets
+================================================================================================================
+
+[mfeat_fourier] step = 1.0000; tuned lambda = 30 over 17 configurations
+   CC-1 passes per stream sample: rule 3.0000, tuned lambda 3.0000 -> identical
+   CC-2 tuning-inclusive compute (sample passes): tuned lambda 1.224e+06 over 17 configs, rule 7.200e+04 over 1 config, ratio 0.0588 (budget <= 0.1)
+        accuracy: tuned 26.1000 [26.50 24.75 27.50 25.50 26.25], rule 29.4000 [31.00 26.75 32.00 29.25 28.00], rule - tuned +3.3000 -> not behind
+        default lambda = 30 (1 config, same compute as the rule): 26.1000 [26.50 24.75 27.50 25.50 26.25], rule - default +3.3000 -> rule ahead by a step
+
+[mfeat_pixel] step = 3.5121; tuned lambda = 1410 over 17 configurations
+   CC-1 passes per stream sample: rule 3.0000, tuned lambda 3.0000 -> identical
+   CC-2 tuning-inclusive compute (sample passes): tuned lambda 1.224e+06 over 17 configs, rule 7.200e+04 over 1 config, ratio 0.0588 (budget <= 0.1)
+        accuracy: tuned 50.0500 [49.50 49.50 46.75 47.75 56.75], rule 52.1500 [47.75 53.25 52.25 47.75 59.75], rule - tuned +2.1000 -> not behind
+        default lambda = 30 (1 config, same compute as the rule): 34.6000 [29.50 35.25 32.25 36.25 39.75], rule - default +17.5500 -> rule ahead by a step
+
+[texture] step = 3.6120; tuned lambda = 100 over 17 configurations
+   CC-1 passes per stream sample: rule 3.0000, tuned lambda 3.0000 -> identical
+   CC-2 tuning-inclusive compute (sample passes): tuned lambda 3.060e+06 over 17 configs, rule 1.800e+05 over 1 config, ratio 0.0588 (budget <= 0.1)
+        accuracy: tuned 48.5600 [47.80 52.40 48.20 42.40 52.00], rule 51.3400 [48.60 53.30 54.50 47.80 52.50], rule - tuned +2.7800 -> not behind
+        default lambda = 30 (1 config, same compute as the rule): 48.0000 [48.40 50.20 47.60 42.00 51.80], rule - default +3.3400 -> default suffices
+
+----------------------------------------------------------------------------------------------------------------
+CC-1 per-step compute: PASS (the rule adds no passes; only two norms and an EMA)
+CC-2 tuning compute: not behind on 3/3 carriers; compute ratio <= 0.1 on 3/3; ahead of the default lambda by a step on 2/3 (needs >= 2/3) -> PASS
+CC-3: array carrier not present (n/a)
