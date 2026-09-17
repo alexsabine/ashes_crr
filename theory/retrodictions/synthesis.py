@@ -31,28 +31,9 @@ from scipy import optimize
 from crr.instrument.core import antipodal_cuts, cv, intrinsic_phase, regularity, unit_sigma
 from crr.surrogates.battery import S_G_relaxation
 
-TOL_G = 1e-2     # T-G: the ingredient did work only if CRR value and null differ by more than 1 % (relative)
-TOL_N = 1e-2     # T-N: the domain already has Q if its own theorem gives the CRR value within 1 % (relative)
+from crr.synthesis.harness import TOL_G, TOL_N, outcome, rel   # the shared harness (one source of truth for the outcome rule)
+
 ROWS = []
-
-
-def rel(a, b):
-    return abs(a - b) / max(abs(a), abs(b), 1e-12)
-
-
-def outcome(crr=None, null=None, domain=None, check=None, internal=False, unstated=False):
-    """The label, from the numbers only."""
-    if unstated:
-        return "UNSTATED"
-    if internal:
-        return "INTERNAL"
-    if rel(crr, null) <= TOL_G:
-        return "REDUNDANT-IG"
-    if domain is not None and rel(crr, domain) <= TOL_N:
-        return "REDUNDANT-DOMAIN"
-    if check is None:
-        return "PROPOSES"
-    return "ADDS" if check else "WRONG"
 
 
 def row(cls, system, Q, ingredient, null, domain_theorem, numbers, tg, tn, tc, out, reading, weakness=""):
