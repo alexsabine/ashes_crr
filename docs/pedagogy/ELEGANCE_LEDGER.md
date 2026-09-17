@@ -16,6 +16,29 @@ of the world, only that it can be carried in plain words.
 - elegance: Half a turn, no knobs: on a great circle, going halfway round lands you at the point opposite your start, and that point is also the farthest you can get and the top of the population swing. One picture gives A3's rule and, in the same stroke, why the rule cannot be tested on a perfectly round trip: the far point and the turning point are one place.
 - for a fifth grader: Imagine walking halfway around a big ball. You end up exactly opposite where you began, and that is also the farthest you can ever get from your start. On a perfectly round trip 'halfway round' and 'farthest away' are the same spot, so you cannot tell which one a rule is really using. To tell them apart you need a lopsided trip.
 
+## theory/retrodictions/synthesis_batches/batch_02.txt
+
+### [1] Two-level (Schottky) system on its canonical carrier p(beta) = 1/(1 + e^(beta eps)), Fisher metric = Var E, traversed once from T = 0+ through T = inf to T = 0- (population inversion)
+
+- source row: theory/retrodictions/crr_retrodictions.txt [9] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: The whole temperature line, cold through infinitely hot to 'hotter than infinite' (population inversion), is a single arc of length pi (a quarter circle) in the system's own geometry, and infinitely hot sits exactly at its midpoint: a picture with no knobs.
+- for a fifth grader: Think of a dimmer switch that goes from all-off to all-on. Heating a two-level system only ever gets you to half-on, and physicists call half-on 'infinitely hot'. To go past it you would have to flip more than half the atoms up, which they call a negative temperature. So 'infinitely hot' is not the end of the switch's travel; it is exactly the middle.
+
+### [2] Overdamped particle in a harmonic trap, stiffness protocol k1 -> k2 in time tau (beta = gamma = 1), excess work in the slow-driving linear-response form W_ex = int zeta(k) k-dot^2 dt with the friction tensor zeta = beta int <dX(0) dX(t)> dt
+
+- source row: theory/retrodictions/crr_retrodictions.txt [10] (CONSIST)
+- outcome: WRONG
+- elegance: The domain's rule has no knobs: drive at constant speed in the metric that includes how long the system takes to follow, so you slow down where it is slow. CRR's rule is the same picture with the ground assumed the same everywhere.
+- for a fifth grader: If you pull a wagon with a wobbly load, you go slowest on the bumpy bits where the load takes longest to settle, not at one speed all the way. 'One speed all the way' is only right when the ground is the same everywhere; here it is not.
+
+### [5] An occasion statistic measured as the mean of N iid draws (noise s1 = 4) on a system whose own value varies from occasion to occasion (s_sys = 1), 400000 occasions per N, seed 0
+
+- source row: theory/retrodictions/crr_retrodictions.txt [14] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: One rule with no knobs: the smallest step that counts is how much the system itself differs from one occasion to the next, not how finely the dial can be read.
+- for a fifth grader: If a plant grows a different amount each day, buying a finer ruler does not make the days more alike. The smallest step worth talking about is how much the days differ from each other, and measuring more carefully only helps until you reach that.
+
 ## theory/retrodictions/synthesis_batches/batch_05.txt
 
 ### [1] Canonical two-level system: Bernoulli family in the excited fraction p(x) = 1/(1 + e^x), x = Delta/(k T), pole-start occasion from T = 0 (Daniel's battery row a3 re-read)
@@ -69,4 +92,4 @@ of the world, only that it can be carried in plain words.
 - elegance: A shaky path has no length of its own: the closer you look, the longer it gets. So on a shaky road the odometer is only a clock in disguise.
 - for a fifth grader: Measure a very wiggly line with a smaller and smaller ruler and it keeps getting longer and never settles. So for a shaky, wiggly path, adding up the wiggles only tells you how long you watched, like a clock.
 
-Entries: 8.
+Entries: 11.
