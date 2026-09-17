@@ -310,3 +310,9 @@ Context: question about the closed EQ2 gate (PR #23, issue #20); answered in cha
 > Can we give Daniel a proper test to run now please? Something that will actually work?
 
 Context: build a positive control for gate_EQ2 that matches where the effect was seen (a nonconvex softmax classifier with online EWC), verify it against the gate function on PR #23's branch in the scratchpad, and hand Daniel the control plus the gate output only if the gate opens; if it does not open, report that instead. Nothing enters the repo from this session beyond this log entry unless the owner says so.
+
+## 32 — received 2026-09-17T00:00Z, logged 2026-09-17T00:00Z
+
+> Run the test please. Daniel has authorised it on our version of Python. Thank you
+
+Context: run study EQ2 in this environment (Python 3.14 pin) under the CLAUDE.md §8 order: merge PR #23's gate code, add the S-Y positive control, commit the gate table, prereg, hash, anchor (attempted), signed tag, then data, run, ledger, report. Mammoth/CIFAR/TinyImageNet are not reachable from this environment; the carriers for this run are unseen PMLB streams named in the prereg, with the Mammoth run left to Daniel's machine as issue #20 specifies.
