@@ -220,14 +220,17 @@ Run `uv run pytest tests` before anything else. The library provides
    residuals or below min_sigma — no floor, no additive epsilon.
    `rho(extent, sigma) = extent/sigma` (A1' resolution) is for REPORTING
    (gates, reports, preregs); it is never an input to a threshold (R5).
-5. `regularity(x, events, sigma=1.0, dt=1.0, n_boot=2000, seed=0)` — the
+5. `regularity(x, events, sigma=1.0, dt=1.0, n_boot=2000, seed=0,
+   segment_end="inclusive")` — the
    L5 statistic: CVs of arc, clock and amplitude between consecutive
    events, mean arc per occasion (C_mean, in sigma), and paired bootstrap
    95% CIs on cv_arc−cv_clock and on cv_arc−cv_amp (the amplitude
    control). Raises below 3 events. `cv(v)` is unsigned (denominator
    |mean|). For cross-unit scoring use
    `sign_test_units(unit_stats) -> (win fraction, exact binomial p)` —
-   per-unit first, then the sign test (R6).
+   per-unit first, then the sign test (R6). `segment_end="exclusive"` leaves a
+   jump located at the event (an instantaneous reset) out of the arc: the
+   jump is the cut, not content (A3); name the choice in the prereg.
 6. `path_length(snapshots, kl=kl_step)` — C = Σ√(2·KL_step) on a fixed
    probe set; E = endpoint KL; C* = √(2E); S = C − C* (sign distribution
    reported). KL choices: `kl_step` (categorical (N,K); rows renormalised

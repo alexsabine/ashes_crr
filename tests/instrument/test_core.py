@@ -106,3 +106,21 @@ def test_onset_detector_fires_once_per_epidemic():
         # each detected onset sits shortly after a true cycle start, never before it
         lag = np.array([d - ev[ev <= d].max() for d in det])
         assert lag.min() >= 0 and lag.max() <= 12
+
+
+def test_regularity_segment_end_excludes_a_reset_jump():
+    # A noiseless integrate-to-threshold ramp with an instantaneous reset: the rise from
+    # 0 to 1 is 1 sigma of arc; with the reset jump counted (inclusive) every occasion
+    # carries 2 sigma. Both segmentations give CV_arc = 0 here; the means differ by the jump.
+    import numpy as np
+    from crr.instrument.core import regularity
+    x = np.concatenate([np.linspace(0, 1, 11)] * 6)          # 6 rises, reset at each block start
+    ev = np.arange(0, 66, 11)                                 # event = the post-reset sample
+    inc = regularity(x, ev, n_boot=10)
+    exc = regularity(x, ev, n_boot=10, segment_end="exclusive")
+    assert abs(inc["C_mean"] - 2.0) < 1e-9 and abs(exc["C_mean"] - 1.0) < 1e-9
+    assert inc["cv_arc"] < 1e-9 and exc["cv_arc"] < 1e-9
+    import pytest
+    with pytest.raises(ValueError):
+        regularity(x, ev, n_boot=10, segment_end="both")
+

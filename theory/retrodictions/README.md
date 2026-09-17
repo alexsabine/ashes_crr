@@ -144,31 +144,45 @@ with its own events the H-L5 class computed on the model with the repository's o
 
 | class | SHARP | CONSIST | DESCR | FAILS | TENSION | OPEN |
 |---|---|---|---|---|---|---|
-| (n) neural | 0 | 3 | 0 | 1 | 0 | 0 |
+| (n) neural | 0 | 2 | 0 | 1 | 0 | 1 |
 | (c) cardiac / physiological | 0 | 0 | 2 | 0 | 0 | 1 |
 | (e) epidemiological | 0 | 0 | 1 | 0 | 0 | 2 |
 | (p) population / evolutionary | 0 | 2 | 1 | 0 | 0 | 0 |
 | (m) molecular / cellular | 0 | 0 | 1 | 0 | 0 | 2 |
 | (b) behavioural / adaptive | 0 | 0 | 1 | 0 | 0 | 2 |
-| all (19) | 0 | 5 | 6 | 1 | 0 | 7 |
+| all (19) | 0 | 4 | 6 | 1 | 0 | 8 |
 
 **What has content.** The CONSIST rows are where a biological quantity already *is* the Fisher
 geometry: the replicator equation is a gradient flow in the Shahshahani (Fisher) metric and the
 Fisher speed of selection is the fitness standard deviation (Fisher's fundamental theorem);
 the Fechner scale is the Fisher arc under Weber's law; a relaxation-oscillator neuron under a
-varying drive and a noisy integrate-and-fire neuron keep arc rather than time, because their
-threshold fixes the chord (the battery's S-G2 mechanism); and bacterial cell-size control is
+varying drive keeps arc rather than time because its threshold fixes the chord (the battery's
+S-G2 mechanism); and bacterial cell-size control is
 the first system in any of the batteries that is **arc-regular by its own physiology rather than
 by construction**: an adder adds a constant volume per cycle while its interdivision time varies
 with growth rate (CV 0.075 against 0.322 on the model), a timer is the opposite. That row names
 the real-data study it points at: an L5x row on single-cell growth data, gated first.
+
+**Correction, 2026-09-17 (AGENT_LOG 18; prompt-log entry 41).** The integrate-and-fire row was
+first graded CONSIST, arc-regular (CV_arc 0.438 against CV_ISI 0.472), with the reset jump
+counted inside the arc of every interspike interval. The jump is the cut, not arc (v3.1 A3: the
+cut has no content), and as a constant 1 σ added to every occasion it lowers CV_arc by
+arithmetic. On the rise alone the row reads CV_arc 0.471 against CV_ISI 0.472, a margin of
+0.0017, below the 0.01 this battery treats as a reading, and the row is now OPEN. The reason is
+general: the median rise arc is 11.84 σ, so the fixed chord is 8 % of the arc, and in the
+fluctuation-driven regime the arc is the noise's total variation, which grows with elapsed time,
+so the arc becomes a clock. The script now prints both segmentations; the instrument carries the
+choice as a named parameter (`regularity(..., segment_end)`), default unchanged, and the gates
+are unaffected (their outputs differ from the pinned files only on the two chaotic rows that
+already differed before the change, AGENT_LOG 10 and 19). The E-I battery's balanced-LIF row had
+the same bias and is corrected in the same commit.
 
 **The one FAILS.** "ρ → 0 at onset" (the issue text's criticality clause) is a property of class-2
 (Hopf) neurons; class-1 (SNIC) neurons start firing at vanishing rate with full-size spikes
 (rule 4). v3.1 makes no criticality claim.
 
 **The H-L5 class map** (model systems; the ledger's real-data rows are MEAS2 for measles and
-CARD, pending): arc-regular: integrate-and-fire (narrowly), FitzHugh–Nagumo under varying
+CARD, pending): arc-regular: FitzHugh–Nagumo under varying
 drive, respiratory sinus arrhythmia (by construction), the adder; clock-regular: pulsus
 alternans, a fibrillation-like rhythm (neither is regular), the entrained circadian oscillator,
 the timer. The forced-SIR row shows the map's limit: counting every peak makes it arc-regular by
@@ -198,7 +212,7 @@ by Daniel or the owner before any prereg cites them. Model systems only; no data
 | 1 | Wilson-Cowan inhibition-stabilised network, paradoxical effect (Ozeki 2009) | OPEN |
 | 2 | Wilson-Cowan 1972 oscillator: Hopf onset and what sets the frequency | OPEN |
 | 3 | the same oscillator with noise: H-L5 class of its half-cycles | OPEN |
-| 4 | balanced LIF network (van Vreeswijk-Sompolinsky, Brunel) | DESCR |
+| 4 | balanced LIF network (van Vreeswijk-Sompolinsky, Brunel); H-L5 on five cells, both segmentations | DESCR |
 | 5 | "balanced precision" (Tucker, Luu & Friston 2025) against CRR's two equanimity readings | TENSION |
 | 6 | theta-gamma n:m locking, Resonant Oscillatory Coherence (Tucker & Luu 2026) | DESCR |
 | 7 | avalanches at E-I balance as a critical branching process (Poil 2012) | FAILS |
@@ -206,9 +220,10 @@ by Daniel or the owner before any prereg cites them. Model systems only; no data
 | 9 | homeostatic scaling | DESCR |
 | 10 | cortical travelling wave (Kuramoto ring, twisted state) | DESCR |
 | 11 | population Fisher information under differential correlations | DESCR |
-| all (11) | 0 SHARP / 0 CONSIST / 5 DESCR / 1 FAILS / 1 TENSION / 4 OPEN | |
+| 12 | the removed "one Ω before rupture" rule, C·Ω = 1, run on rows 3 and 4 (prompt-log entry 41) | FAILS |
+| all (12) | 0 SHARP / 0 CONSIST / 5 DESCR / 2 FAILS / 1 TENSION / 4 OPEN | |
 
-**Answer to the question asked: no.** Clauses that reach a known E-I result: 0 of 11. Every
+**Answer to the question asked: no.** Clauses that reach a known E-I result: 0 of 12. Every
 result the domain owns is reproduced by the domain's own mathematics and none by a CRR clause:
 the paradoxical decrease of inhibition under extra inhibitory drive (I from 2.1111 to 2.0000
 in the ISN, an increase in the non-ISN) is linear algebra of the weight matrix; the onset of
@@ -237,13 +252,33 @@ The older text's "criticality is Fisher divergence" clause FAILS on it (the thir
 counterexample across the batteries); v3.1 makes no criticality claim.
 
 **What the E-I rows add to the H-L5 class map.** A noisy Wilson-Cowan rhythm reads arc-regular
-at every registered noise level, but two of the four margins are below 0.01 and the noise-free
-oscillator already has non-zero CVs because the half-turn cut alternates on an asymmetric
-waveform (the A3 gate's S-C/S-E finding); a balanced LIF neuron reads arc-regular for the reason
-the biological battery gave (the threshold fixes the chord). Neither is a result; both say what a
-real-data row would have to gate against.
+at every registered noise level and under all three carriers (identity, Bernoulli-Fisher
+0.757 vs 0.816, Poisson-Fisher 0.766 vs 0.813), but two of the four margins are below 0.01 and
+the noise-free oscillator already has non-zero CVs because the half-turn cut alternates on an
+asymmetric waveform (the A3 gate's S-C/S-E finding). The balanced LIF cells read arc-regular on
+4 of 5 cells with the reset jump counted inside the arc and on 0 of 5 without it: in the
+fluctuation-driven regime the rise arc is 11–13 σ against a chord of 1, so the chord's regularity
+is not inherited and the arc is a clock (the correction above). Neither is a result; both say
+what a real-data row would have to gate against.
 
-**Decisions taken while building it** (AGENT_LOG 16–17): the first run of four rows printed
+**The "one Ω before rupture" rule (row 12, prompt-log entry 41).** The owner asked whether the
+battery used the full CRR and the rule C·Ω = 1. It did not, and it should not: v3.1 holds the
+antipodal cut A3 and says the scalar condition "is not the axiom"; D1 says ρ is measured, never
+predicted; the external specification removed the rule (its §XI.1) because a monotone cut occurs
+at C = ρ, not at C = 1/Ω. Row 12 records what the rule would have predicted on two of the E-I
+models. On the noisy Wilson-Cowan rhythm the unit is σ = 0.0333 (A1′, training half) and
+ρ = 4.54, so the rule cuts 9.29 times per antipodal half-turn at Ω = 1 (4.70 and 18.15 at Ω = 0.5
+and 2); it coincides with A3 only where ρ = 1/Ω. On the balanced LIF neuron, with σ = the
+threshold gap, the rise arc is 10.77 σ against a chord of 1.117, the C = 1 cut fires at 4 % of the
+interspike interval and before the spike on 100 % of intervals, and the rule cuts 13.9 times per
+spike at Ω = 1. The neuron's own event is a chord condition, C* = 1, the opposite reading of
+"one unit before rupture". Graded FAILS as a clause of the older text. The rest of CRR that the
+battery could not use is stated in the script: the gradient rule needs a learner with a past
+penalty (no E-I row has one; homeostatic scaling is depth one), and the occasion-weight law
+π ∝ e^{S/Ω} needs a measured influence of settled occasions, which no E-I observable supplies
+(the surplus per half-turn, median 4.90 σ, is computed and nothing in the model reads it).
+
+**Decisions taken while building it** (AGENT_LOG 16–19): the first run of four rows printed
 numbers that contradicted their text (a fixed point where an oscillator was claimed, an
 unlocked pair labelled locked, a mis-scaled balance metric, an anti-phase ring labelled a wave).
 The models were corrected, not the wording, and every class or regime label in the output is

@@ -20,7 +20,7 @@ import sys
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from crr.instrument.core import regularity
+from crr.instrument.core import arc_length, regularity
 
 ROWS = []
 
@@ -33,9 +33,10 @@ def row(cls, system, clause, borrowed, flow, derivation, known, verdict, grade, 
 def cv(x): x = np.asarray(x, float); return float(x.std(ddof=1) / abs(x.mean()))
 
 
-def l5_class(x, events, dt=1.0):
-    """H-L5 on a model trace with its own events: returns (label, cv_arc, cv_clock)."""
-    r = regularity(np.asarray(x, float), np.asarray(events, int), sigma=1.0, dt=dt, n_boot=200, seed=0)
+def l5_class(x, events, dt=1.0, segment_end="inclusive"):
+    """H-L5 on a model trace with its own events: returns (label, cv_arc, cv_clock).
+    segment_end="exclusive" leaves an instantaneous reset located at the event out of the arc (see core.regularity)."""
+    r = regularity(np.asarray(x, float), np.asarray(events, int), sigma=1.0, dt=dt, n_boot=200, seed=0, segment_end=segment_end)
     if abs(r["cv_arc"] - r["cv_clock"]) < 1e-3: lab = "tie"          # below instrument resolution: neither quantity wins
     else: lab = "arc-regular" if r["cv_arc"] < r["cv_clock"] else "clock-regular"
     return lab, r["cv_arc"], r["cv_clock"]
@@ -50,13 +51,22 @@ def n_lif_noisy():
         if V >= 1.0: spikes.append(i); V = 0.0
         trace.append(V)
     trace = np.array(trace); spikes = np.array(spikes)[2:60]
-    lab, ca, cc = l5_class(trace, spikes, dt)
+    # trace[b] is the post-reset sample at spike b and trace[b-1] the threshold sample: "inclusive" segments count the
+    # 1-sigma reset jump inside every occasion's arc; "exclusive" segments are the rise only (the jump is the cut).
+    lab_inc, ca_inc, cc_inc = l5_class(trace, spikes, dt)
+    lab, ca, cc = l5_class(trace, spikes, dt, segment_end="exclusive")
+    rises = [arc_length(trace[a:b], 1.0) for a, b in zip(spikes[:-1], spikes[1:])]
     chord = [abs(trace[b - 1] - trace[a]) for a, b in zip(spikes[:-1], spikes[1:])]
-    row("n", "Leaky integrate-and-fire neuron with noisy input current", "D5 (the spike is the system's own event), D2-D4, H-L5",
+    share = 100.0 / np.median(rises); margin = cc - ca
+    verdict = {"arc-regular": (f"arc-regular on the rise alone by a margin of {margin:.4f}" + (", below the 0.01 this battery treats as a reading: in the fluctuation-driven regime the arc is the noise's total variation, which grows with elapsed time, so the arc becomes a clock and the fixed chord (8% of the arc) fixes nothing measurable" if margin < 0.01 else ": the threshold fixes the chord and the surplus is bounded")),
+               "clock-regular": "clock-regular on the rise alone: the arc is the noise surplus, not the chord, and the surplus varies more than the interval",
+               "tie": "a tie at instrument resolution on the rise alone: the fixed chord is a small part of an arc dominated by the noise surplus, so fixing the chord fixes nothing measurable"}[lab]
+    row("n", "Leaky integrate-and-fire neuron with noisy input current", "D5 (the spike is the system's own event), D2-D4, H-L5; A3 (the cut has no content: the reset jump is the cut, not arc)",
         "threshold-reset dynamics; Ornstein-Uhlenbeck subthreshold voltage", "the input current (mean and noise, experimenter-supplied)",
-        f"{len(spikes)} spikes; CV_arc = {ca:.3f}, CV_ISI = {cc:.3f}; chord birth->spike = {np.mean(chord):.3f} (fixed at threshold - reset by construction, CV {cv(chord):.1e})",
-        "ISI variability from input noise; threshold fixed", f"{lab}: the arc (voltage travelled) is more regular than the interval because the threshold fixes the chord and noise adds a bounded surplus",
-        "CONSIST", (lab, ca, cc), "the regular quantity is the chord, a definition of the model (threshold minus reset); the arc inherits it; nothing about the neuron is derived")
+        f"{len(spikes)} spikes; reset jump counted in the arc (inclusive): CV_arc = {ca_inc:.3f}, CV_ISI = {cc_inc:.3f} -> {lab_inc}; rise only (exclusive): CV_arc = {ca:.3f}, CV_ISI = {cc:.3f} -> {lab}; "
+        f"chord birth->spike = {np.mean(chord):.3f} (fixed at threshold - reset by construction, CV {cv(chord):.1e}); median rise arc {np.median(rises):.2f} sigma, so the 1-sigma jump is {share:.0f}% of every inclusive arc (a constant that lowers CV_arc by arithmetic)",
+        "ISI variability from input noise; threshold fixed", verdict + " (corrected 2026-09-17, AGENT_LOG 18: the first pinned output graded the inclusive segmentation)",
+        "CONSIST" if (lab == "arc-regular" and margin >= 0.01) else "OPEN", (lab, ca, cc), "the regular quantity is the chord, a definition of the model (threshold minus reset); whether the arc inherits it depends on the surplus-to-chord ratio, which the input noise sets, not CRR")
 
 
 def n_fhn_varying_drive():

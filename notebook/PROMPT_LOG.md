@@ -579,3 +579,7 @@ Context: a biological retrodiction battery (theory/retrodictions/bio_retrodictio
 > Good work. Are we able to run a thorough check on E-I networks? Specifically, whether CRR adds anything to what is already known. This will require checking the latest papers by Tucker and Luu, and others. Thank you
 
 Context: an excitatory–inhibitory network retrodiction battery (model systems: Wilson–Cowan, balanced LIF, branching-process avalanches, inhibition-stabilised and supralinear regimes) graded under the issue-#21 rules for whether any CRR clause reaches a known E-I result; literature checked on the day per R10 (Tucker & Luu and the standard E-I references), with fetch status and versions recorded in docs/citations/. No dataset opened.
+
+## 41. 2026-09-17T19:35:00Z
+
+Did we use the full CRR and the "one omega before rupture" rule here? Check the mathematics and run a python check in the sandbox to see whether you missed something
