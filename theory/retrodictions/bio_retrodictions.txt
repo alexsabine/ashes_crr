@@ -1,15 +1,15 @@
 CRR retrodiction battery on biological systems — 19 model systems, 6 classes. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
 
 [ 1] (n) Leaky integrate-and-fire neuron with noisy input current
-     clause:     D5 (the spike is the system's own event), D2-D4, H-L5
+     clause:     D5 (the spike is the system's own event), D2-D4, H-L5; A3 (the cut has no content: the reset jump is the cut, not arc)
      BORROWED:   threshold-reset dynamics; Ornstein-Uhlenbeck subthreshold voltage
      FLOW:       the input current (mean and noise, experimenter-supplied)
-     derivation: 58 spikes; CV_arc = 0.438, CV_ISI = 0.472; chord birth->spike = 0.992 (fixed at threshold - reset by construction, CV 5.6e-03)
+     derivation: 58 spikes; reset jump counted in the arc (inclusive): CV_arc = 0.438, CV_ISI = 0.472 -> arc-regular; rise only (exclusive): CV_arc = 0.471, CV_ISI = 0.472 -> arc-regular; chord birth->spike = 0.992 (fixed at threshold - reset by construction, CV 5.6e-03); median rise arc 11.84 sigma, so the 1-sigma jump is 8% of every inclusive arc (a constant that lowers CV_arc by arithmetic)
      known:      ISI variability from input noise; threshold fixed
-     verdict:    arc-regular: the arc (voltage travelled) is more regular than the interval because the threshold fixes the chord and noise adds a bounded surplus
-     GRADE:      CONSIST
-     H-L5 class: arc-regular (CV_arc 0.438, CV_clock 0.472)
-     weakness:   the regular quantity is the chord, a definition of the model (threshold minus reset); the arc inherits it; nothing about the neuron is derived
+     verdict:    arc-regular on the rise alone by a margin of 0.0017, below the 0.01 this battery treats as a reading: in the fluctuation-driven regime the arc is the noise's total variation, which grows with elapsed time, so the arc becomes a clock and the fixed chord (8% of the arc) fixes nothing measurable (corrected 2026-09-17, AGENT_LOG 18: the first pinned output graded the inclusive segmentation)
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 0.471, CV_clock 0.472)
+     weakness:   the regular quantity is the chord, a definition of the model (threshold minus reset); whether the arc inherits it depends on the surplus-to-chord ratio, which the input noise sets, not CRR
 [ 2] (n) FitzHugh-Nagumo relaxation oscillator under slowly varying drive (class-2 model neuron)
      clause:     D5, D2, H-L5 (the S-G2 mechanism: threshold fixed, charging rate varies)
      BORROWED:   FitzHugh-Nagumo equations; relaxation-oscillator geometry
@@ -183,13 +183,13 @@ CRR retrodiction battery on biological systems — 19 model systems, 6 classes. 
 ====================================================================================================
 TALLY
 class                               SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
-(n) neural                              0        3        0        1        0        0
+(n) neural                              0        2        0        1        0        1
 (c) cardiac / physiological             0        0        2        0        0        1
 (e) epidemiological                     0        0        1        0        0        2
 (p) population / evolutionary           0        2        1        0        0        0
 (m) molecular / cellular                0        0        1        0        0        2
 (b) behavioural / adaptive              0        0        1        0        0        2
-all                                     0        5        6        1        0        7
+all                                     0        4        6        1        0        8
 
 H-L5 CLASS MAP (systems with their own events, computed on the model with crr.instrument.core.regularity)
   arc-regular                                  Leaky integrate-and-fire neuron with noisy input current

@@ -1,7 +1,7 @@
 """CRR on excitatory-inhibitory (E-I) networks: does any clause reach a known E-I result?
 (owner request 2026-09-17, prompt-log entry 40; literature record in docs/citations/ei_networks_2026-09-17.md)
 
-Eleven model systems: Wilson-Cowan rate networks (inhibition-stabilised regime and the
+Twelve rows (eleven model systems and, on request, the removed C*Omega = 1 rupture rule run on two of them): Wilson-Cowan rate networks (inhibition-stabilised regime and the
 paradoxical effect; Hopf onset of gamma and what sets its frequency; noisy PING cycles),
 a balanced LIF network (van Vreeswijk-Sompolinsky), the two readings of "equanimity" on a
 Gaussian update (equal precision vs Fisher speed 1) set against Tucker-Luu-Friston's
@@ -21,7 +21,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import fsolve
 
-from crr.instrument.core import antipodal_cuts, intrinsic_phase, regularity
+from crr.instrument.core import antipodal_cuts, arc_length, intrinsic_phase, occasions, poisson_transform, regularity, unit_sigma
 
 ROWS = []
 
@@ -34,8 +34,11 @@ def row(cls, system, clause, borrowed, flow, derivation, known, verdict, grade, 
 def cv(x): x = np.asarray(x, float); return float(x.std(ddof=1) / abs(x.mean()))
 
 
-def l5_class(x, events, dt=1.0):
-    r = regularity(np.asarray(x, float), np.asarray(events, int), sigma=1.0, dt=dt, n_boot=200, seed=0)
+_CACHE = {}
+
+
+def l5_class(x, events, dt=1.0, segment_end="inclusive"):
+    r = regularity(np.asarray(x, float), np.asarray(events, int), sigma=1.0, dt=dt, n_boot=200, seed=0, segment_end=segment_end)
     if abs(r["cv_arc"] - r["cv_clock"]) < 1e-3: lab = "tie"
     else: lab = "arc-regular" if r["cv_arc"] < r["cv_clock"] else "clock-regular"
     return lab, r["cv_arc"], r["cv_clock"]
@@ -95,14 +98,22 @@ def wc_noisy_ping_cycles():
             dE, dI = _wc72(E, I, 1.25, 16.0); xi = rng.standard_normal(2)
             E += dt * dE + noise * math.sqrt(dt) * xi[0]; I += dt * dI + noise * math.sqrt(dt) * xi[1]; Es[k] = E
         Es = Es[20000:]; cuts = antipodal_cuts(intrinsic_phase(Es))[2:-2]
-        lab, ca, cc = l5_class(Es, cuts, dt); return len(cuts) - 1, lab, ca, cc
+        lab, ca, cc = l5_class(Es, cuts, dt); return len(cuts) - 1, lab, ca, cc, Es, cuts
     levels = (0.0, 0.003, 0.01, 0.03); out = [run(z) for z in levels]
     labs = sorted(set(o[1] for o in out[1:]))
-    row("wc", "Noisy Wilson-Cowan rhythm: are its half-cycles arc-regular or clock-regular?", "A3 (antipodal cut on the intrinsic phase), D5, H-L5",
-        "analytic-signal phase; the same Wilson-Cowan oscillator with additive white noise (registered levels)", "the noise level and the recurrent dynamics",
-        "; ".join(f"noise {z:g}: {m} half-cycles, CV_arc {ca:.3f} vs CV_clock {cc:.3f} -> {lab}" for z, (m, lab, ca, cc) in zip(levels, out)) + f"; classes over the three noisy levels: {labs}",
-        "cortical gamma is a noisy oscillation with variable amplitude and frequency (bursts)", "the class is not a property of the model: it changes with the noise level; no clause predicts which class a noisy rhythm belongs to" if len(labs) > 1 else f"the instrument assigns {labs[0]} at every noisy level; no clause predicts the class",
-        "OPEN", None, f"at noise 0 the CVs are not 0: the half-turn cut alternates on an asymmetric waveform (the A3 gate's S-C/S-E finding), so a share of every CV here is the instrument's; the margins |CV_arc - CV_clock| are {', '.join(f'{abs(ca - cc):.3f}' for _, _, ca, cc in out)} (two below 0.01); class assignment on a model, not a result")
+    Es = out[2][4]; _CACHE["wc_noisy"] = (Es, out[2][5], 0.01)
+    # metric sensitivity at the 0.01 level: E is a fraction active, so its Fisher carrier is Bernoulli (2 arcsin sqrt E);
+    # read as a rate it is Poisson (2 sqrt E). The identity metric is what the row above used.
+    carriers = (("identity", Es), ("Bernoulli-Fisher", 2 * np.arcsin(np.sqrt(np.clip(Es, 0, 1)))), ("Poisson-Fisher", poisson_transform(np.clip(Es, 0, None))))
+    metric = []
+    for name, y in carriers:
+        cy = antipodal_cuts(intrinsic_phase(y))[2:-2]; lab_y, ca_y, cc_y = l5_class(y, cy, 0.01); metric.append((name, lab_y, ca_y, cc_y))
+    row("wc", "Noisy Wilson-Cowan rhythm: are its half-cycles arc-regular or clock-regular?", "A3 (antipodal cut on the intrinsic phase), D5, H-L5, A1 (Fisher metric of the carrier)",
+        "analytic-signal phase; the same Wilson-Cowan oscillator with additive white noise (registered levels); Bernoulli and Poisson Fisher carriers", "the noise level and the recurrent dynamics",
+        "; ".join(f"noise {z:g}: {m} half-cycles, CV_arc {ca:.3f} vs CV_clock {cc:.3f} -> {lab}" for z, (m, lab, ca, cc, _, _) in zip(levels, out)) + f"; classes over the three noisy levels: {labs}; at noise 0.01 under three carriers: "
+        + ", ".join(f"{name} {lab_y} ({ca_y:.3f} vs {cc_y:.3f})" for name, lab_y, ca_y, cc_y in metric),
+        "cortical gamma is a noisy oscillation with variable amplitude and frequency (bursts)", ("the instrument assigns arc-regular at every noisy level and under all three carriers; no clause predicts the class" if len(labs) == 1 and len(set(m[1] for m in metric)) == 1 else "the class changes with the noise level or the carrier; no clause predicts which class a noisy rhythm belongs to"),
+        "OPEN", None, f"at noise 0 the CVs are not 0: the half-turn cut alternates on an asymmetric waveform (the A3 gate's S-C/S-E finding), so a share of every CV here is the instrument's; the margins |CV_arc - CV_clock| are {', '.join(f'{abs(ca - cc):.3f}' for _, _, ca, cc, _, _ in out)} (two below 0.01); class assignment on a model, not a result")
 
 
 # ================================================================ balanced spiking network
@@ -117,7 +128,7 @@ def balanced_lif():
     h = np.where(np.arange(N) < NE, mE, mI) * math.sqrt(K) * J
     Wp = np.maximum(W, 0.0); Wn = np.minimum(W, 0.0)
     V = rng.random(N) * 0.5; spikes = [[] for _ in range(N)]; exc_in = np.zeros(N); inh_in = np.zeros(N); ext_in = np.zeros(N)
-    trace0 = np.empty(steps)
+    n_tr = 5; traces = np.empty((steps, n_tr))
     for s in range(steps):
         fired = V >= Vth
         for i in np.where(fired)[0]: spikes[i].append(s)
@@ -125,18 +136,33 @@ def balanced_lif():
         f = fired.astype(float); e_part = Wp @ f; i_part = Wn @ f                # instantaneous synaptic kicks (units of threshold)
         if s > steps // 3: exc_in += e_part; inh_in += i_part; ext_in += h * dt / tau
         V += dt * (h - V) / tau + e_part + i_part
-        trace0[s] = V[0]
+        traces[s] = V[:n_tr]
     isi = [np.diff(sp[5:]) * dt for sp in spikes[:NE] if len(sp) > 12]
     cvs = [cv(x) for x in isi if len(x) > 8]; med_cv = float(np.median(cvs))
     rate_e = np.mean([len(sp) for sp in spikes[:NE]]) / T; rate_i = np.mean([len(sp) for sp in spikes[NE:]]) / T
     E_tot = float((exc_in[:NE] + ext_in[:NE]).mean()); I_tot = float(inh_in[:NE].mean()); bal = abs(E_tot + I_tot) / E_tot
     reg = "irregular" if med_cv > 0.5 else "regular"
-    sp0 = np.array(spikes[0][3:40]); lab, ca, cc = l5_class(trace0, sp0, dt) if len(sp0) > 5 else ("n/a", float("nan"), float("nan"))
-    row("spk", "Balanced E-I network of leaky integrate-and-fire neurons (sparse, strong synapses J = 1/sqrt K)", "D5 (spikes as own events), H-L5, A9 read as 'E and I balance' (a rename, see the next row)",
+    # H-L5 on five E cells, membrane potential as the carrier (identity metric: a voltage has no Fisher carrier), spikes as own events.
+    # traces[b-1] is the threshold sample and traces[b] the post-reset sample at spike b: "inclusive" counts the 1-sigma reset
+    # jump inside every ISI's arc, "exclusive" is the rise only (the jump is the cut, A3).
+    per = []
+    for i in range(n_tr):
+        ev = np.array(spikes[i][3:40])
+        if len(ev) < 8: continue
+        li, cai, cci = l5_class(traces[:, i], ev, dt); lx, cax, ccx = l5_class(traces[:, i], ev, dt, segment_end="exclusive")
+        rises = [arc_length(traces[a:b, i], 1.0) for a, b in zip(ev[:-1], ev[1:])]
+        per.append((i, li, cai, cci, lx, cax, ccx, float(np.median(rises))))
+    _CACHE["lif"] = (traces[:, 0], np.array(spikes[0]), dt)
+    n_arc_inc = sum(p[1] == "arc-regular" for p in per); n_arc_exc = sum(p[4] == "arc-regular" for p in per)
+    lab = "arc-regular" if n_arc_exc > len(per) / 2 else ("clock-regular" if n_arc_exc < len(per) / 2 else "split")
+    cax_mean = float(np.mean([p[5] for p in per])); ccx_mean = float(np.mean([p[6] for p in per]))
+    row("spk", "Balanced E-I network of leaky integrate-and-fire neurons (sparse, strong synapses J = 1/sqrt K)", "D5 (spikes as own events), H-L5, A3 (the reset is the cut, not arc), A9 read as 'E and I balance' (a rename, see the next row)",
         "van Vreeswijk & Sompolinsky 1996 balance; Brunel 2000 asynchronous irregular state", "external drive, connectivity, synaptic strengths",
-        f"N = {N}, K = {K}: mean rates E {rate_e:.1f} Hz, I {rate_i:.1f} Hz; ISI CV across {len(cvs)} E cells: median {med_cv:.2f} ({reg}); |net input|/total excitatory input = {bal:.3f} against the O(1/sqrt K) = {1 / math.sqrt(K):.3f} scale (cancellation); neuron 0 (membrane-potential carrier, spikes as events): {lab} (CV_arc {ca:.3f}, CV_ISI {cc:.3f})",
-        "irregular firing (CV ~ 1) from cancellation of large E and I inputs; linear network response", "the arc per ISI is regular because the threshold fixes the chord (as in the biological battery); the balance itself is a sqrt-K scaling result that no CRR clause states",
-        "DESCR", (lab, ca, cc), "the E-I balance is not CRR's equanimity: it is a cancellation of two currents, not a weighting of past against present")
+        f"N = {N}, K = {K}: mean rates E {rate_e:.1f} Hz, I {rate_i:.1f} Hz; ISI CV across {len(cvs)} E cells: median {med_cv:.2f} ({reg}); |net input|/total excitatory input = {bal:.3f} against the O(1/sqrt K) = {1 / math.sqrt(K):.3f} scale (cancellation); "
+        f"H-L5 on {len(per)} E cells, reset jump counted (inclusive) -> rise only (exclusive): " + "; ".join(f"cell {i}: {li[:5]} ({cai:.3f} vs {cci:.3f}) -> {lx[:5]} ({cax:.3f} vs {ccx:.3f}), median rise arc {mr:.1f} sigma" for i, li, cai, cci, lx, cax, ccx, mr in per)
+        + f"; arc-regular on {n_arc_inc}/{len(per)} cells with the jump counted, {n_arc_exc}/{len(per)} without it",
+        "irregular firing (CV ~ 1) from cancellation of large E and I inputs; linear network response", f"{lab} on the rise alone: in the fluctuation-driven regime the arc per ISI is ten or more times the fixed chord, so the chord's regularity is not inherited; the earlier 'arc-regular' reading was the reset jump, a constant added to every arc (corrected 2026-09-17, AGENT_LOG 18); the balance itself is a sqrt-K scaling result that no CRR clause states",
+        "DESCR", (lab, cax_mean, ccx_mean), "the E-I balance is not CRR's equanimity: it is a cancellation of two currents, not a weighting of past against present")
 
 
 def equanimity_readings():
@@ -245,13 +271,44 @@ def population_fisher_differential():
         "DESCR", None, "")
 
 
+# ================================================================ the older 'one Omega before rupture' rule (C*Omega = 1), on request (prompt-log entry 41)
+def _arc_threshold_cuts(x, sigma, thresh):
+    """The removed rule: cut when the arc since the last cut reaches thresh = 1/Omega sigma-units (a sigma-step counter)."""
+    x = np.asarray(x, float); acc = 0.0; cuts = [0]
+    for k in range(1, len(x)):
+        acc += abs(x[k] - x[k - 1]) / sigma
+        if acc >= thresh: cuts.append(k); acc = 0.0
+    return np.array(cuts)
+
+
+def omega_rupture_rule():
+    Es, cuts, dt = _CACHE["wc_noisy"]; trace, sp, dtl = _CACHE["lif"]
+    ext = np.array([Es[a:b + 1].max() - Es[a:b + 1].min() for a, b in zip(cuts[:-1], cuts[1:])])
+    sig = unit_sigma(ext[: len(ext) // 2]); rho_wc = float(np.median(ext) / sig)                      # A1' unit from the training half; D1 resolution
+    oc = occasions(Es, cuts, sig); C, Cs, Sv = oc.T
+    per_half = [len(_arc_threshold_cuts(Es, sig, 1.0 / Om)) / len(cuts) for Om in (0.5, 1.0, 2.0)]
+    ev = sp[3:40]; rises = np.array([arc_length(trace[a:b], 1.0) for a, b in zip(ev[:-1], ev[1:])]); chords = np.array([abs(trace[b - 1] - trace[a]) for a, b in zip(ev[:-1], ev[1:])])
+    frac = []
+    for a, b in zip(ev[:-1], ev[1:]):
+        cum = np.cumsum(np.abs(np.diff(trace[a:b]))); frac.append((int(np.argmax(cum >= 1.0)) + 1) / (b - a) if cum[-1] >= 1.0 else 1.0)
+    per_spike = [len(_arc_threshold_cuts(trace, 1.0, 1.0 / Om)) / len(sp) for Om in (0.5, 1.0, 2.0)]
+    row("cut", "The removed 'one Omega before rupture' rule, C*Omega = 1, on the noisy Wilson-Cowan rhythm and the balanced LIF neuron", "issue-#21 text rupture clause C*Omega = 1 (v3.1 A3 note: a scalar reduction, 'not the axiom'; spec XI.1: removed); A1' (unit), D1 (rho measured, never predicted), D2-D4",
+        "arc-length accumulation; the unit sigma of A1'", "the same dynamics as rows 3 and 4",
+        f"noisy WC (noise 0.01): unit sigma = {sig:.4f} from the training half of the half-turn extents, rho = {rho_wc:.2f}; per antipodal half-turn C median {np.median(C):.2f} sigma, C* median {np.median(Cs):.2f}, S median {np.median(Sv):.2f} (S < 0 on {int((Sv < 0).sum())} occasions); "
+        f"the rule cuts {per_half[0]:.2f}, {per_half[1]:.2f}, {per_half[2]:.2f} times per half-turn at Omega = 0.5, 1, 2 (it coincides with A3 iff rho = 1/Omega). LIF neuron 0 (sigma = threshold - reset = 1): rise arc median {np.median(rises):.2f} sigma against chord median {np.median(chords):.3f}; "
+        f"the C = 1 cut fires at a median {np.median(frac):.2f} of the ISI and before the spike on {100 * np.mean(np.array(frac) < 1.0):.0f}% of ISIs; the rule cuts {per_spike[0]:.1f}, {per_spike[1]:.1f}, {per_spike[2]:.1f} times per spike at Omega = 0.5, 1, 2",
+        "a neuron fires when its potential reaches threshold (C* = threshold - reset in the voltage carrier), not when its path length reaches a fixed value; a rhythm completes a cycle when its phase does",
+        "the rule is a sigma-step counter: it fires every 1/Omega units of arc, so it agrees with the system's own event only where rho = 1/Omega (WC) or the rise is monotone so that C = C* (LIF, noise-free); on both E-I models it fires many times per event; the neuron's event is a chord condition (C* = 1), which is the opposite reading of 'one unit before rupture'",
+        "FAILS", None, "rule 4 / class dependence: the clause is a clause of the older text only; v3.1 holds A3 and D1 (rho is measured), and the spec removed the rule for this reason; the row records what it would have predicted here so that the question 'was it used' has a number")
+
+
 BATTERY = [wc_isn_paradox, wc_hopf_gamma, wc_noisy_ping_cycles, balanced_lif, equanimity_readings, theta_gamma_locking,
-           avalanches_branching, ssn_supralinear, homeostatic_scaling, travelling_wave, population_fisher_differential]
+           avalanches_branching, ssn_supralinear, homeostatic_scaling, travelling_wave, population_fisher_differential, omega_rupture_rule]
 
 
 def main():
     for f in BATTERY: f()
-    print("CRR on E-I networks — 11 model systems. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN. Literature record: docs/citations/ei_networks_2026-09-17.md\n")
+    print(f"CRR on E-I networks — {len(ROWS)} rows. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN. Literature record: docs/citations/ei_networks_2026-09-17.md\n")
     for i, r in enumerate(ROWS, 1):
         print(f"[{i:2d}] ({r['cls']}) {r['system']}\n     clause:     {r['clause']}\n     BORROWED:   {r['borrowed']}\n     FLOW:       {r['flow']}"
               f"\n     derivation: {r['derivation']}\n     known:      {r['known']}\n     verdict:    {r['verdict']}\n     GRADE:      {r['grade']}"
@@ -260,7 +317,7 @@ def main():
     grades = ("SHARP", "CONSIST", "DESCR", "FAILS", "TENSION", "OPEN")
     print("\n" + "=" * 100 + "\nTALLY  " + "  ".join(f"{g}={sum(r['grade'] == g for r in ROWS)}" for g in grades))
     print(f"Does CRR add anything to what is known about E-I networks? Clauses that reach a known E-I result: 0 of {len(ROWS)} rows"
-          " (every DESCR row is the domain's own result or a definition; the FAILS row is a clause of the older text; the TENSION row is internal; the OPEN rows name no clause).")
+          " (every DESCR row is the domain's own result or a definition; the FAILS rows are clauses of the older text; the TENSION row is internal; the OPEN rows name no clause).")
     return 0
 
 

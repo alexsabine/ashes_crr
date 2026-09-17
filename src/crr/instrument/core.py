@@ -165,12 +165,20 @@ def cv(v: np.ndarray) -> float:
 
 
 def regularity(x: np.ndarray, events: np.ndarray, sigma: float = 1.0, dt: float = 1.0,
-               n_boot: int = 2000, seed: int = 0) -> dict:
+               n_boot: int = 2000, seed: int = 0, segment_end: str = "inclusive") -> dict:
     """H-L5 statistic with a paired bootstrap on CV(C) - CV(clock).
 
     events  sample indices of the system's own boundary events; raises
             ValueError below 3 events (2 occasions — the minimum the
             ddof=1 CVs need)
+    segment_end  "inclusive" (default): occasion k is x[a:b+1], from event a
+            to event b, so a jump located AT event b (an instantaneous
+            reset, as in a threshold-reset neuron) is counted inside the
+            arc of every occasion — a constant added to every C that lowers
+            CV(C) by arithmetic. "exclusive": occasion k is x[a:b], from the
+            sample at event a to the sample before event b, so the jump is
+            the cut and not arc (A3: the cut has no content). Named in the
+            prereg; a class that changes between the two is reported as such.
     Returns CVs for arc, clock, amplitude (control i), the mean arc per
     occasion in sigma (C_mean), identity-metric arc is the
     same as arc here (1-D; control ii applies in >1-D), and the paired
@@ -184,9 +192,11 @@ def regularity(x: np.ndarray, events: np.ndarray, sigma: float = 1.0, dt: float 
     events = np.asarray(events)
     if len(events) < 3:
         raise ValueError("regularity needs >= 3 events (>= 2 occasions)")
+    if segment_end not in ("inclusive", "exclusive"):
+        raise ValueError(segment_end)
     C, T, A = [], [], []
     for a, b in zip(events[:-1], events[1:]):
-        seg = x[a:b + 1]
+        seg = x[a:b + 1] if segment_end == "inclusive" else x[a:b]
         C.append(arc_length(seg, sigma))
         T.append((b - a) * dt)
         A.append(np.ptp(seg) / sigma)

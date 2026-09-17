@@ -1,4 +1,4 @@
-CRR on E-I networks — 11 model systems. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN. Literature record: docs/citations/ei_networks_2026-09-17.md
+CRR on E-I networks — 12 rows. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN. Literature record: docs/citations/ei_networks_2026-09-17.md
 
 [ 1] (wc) Wilson-Cowan E-I network: inhibition-stabilised regime and the paradoxical effect
      clause:     A4 (the (E, I) state is Markov: depth one); no clause reaches the regime
@@ -19,23 +19,23 @@ CRR on E-I networks — 11 model systems. Grades: SHARP CONSIST DESCR FAILS TENS
      GRADE:      OPEN
      weakness:   CRR names the cycle as an occasion and is silent on its period and on where oscillation begins
 [ 3] (wc) Noisy Wilson-Cowan rhythm: are its half-cycles arc-regular or clock-regular?
-     clause:     A3 (antipodal cut on the intrinsic phase), D5, H-L5
-     BORROWED:   analytic-signal phase; the same Wilson-Cowan oscillator with additive white noise (registered levels)
+     clause:     A3 (antipodal cut on the intrinsic phase), D5, H-L5, A1 (Fisher metric of the carrier)
+     BORROWED:   analytic-signal phase; the same Wilson-Cowan oscillator with additive white noise (registered levels); Bernoulli and Poisson Fisher carriers
      FLOW:       the noise level and the recurrent dynamics
-     derivation: noise 0: 375 half-cycles, CV_arc 0.092 vs CV_clock 0.099 -> arc-regular; noise 0.003: 373 half-cycles, CV_arc 0.233 vs CV_clock 0.235 -> arc-regular; noise 0.01: 322 half-cycles, CV_arc 0.639 vs CV_clock 0.744 -> arc-regular; noise 0.03: 244 half-cycles, CV_arc 0.876 vs CV_clock 0.893 -> arc-regular; classes over the three noisy levels: ['arc-regular']
+     derivation: noise 0: 375 half-cycles, CV_arc 0.092 vs CV_clock 0.099 -> arc-regular; noise 0.003: 373 half-cycles, CV_arc 0.233 vs CV_clock 0.235 -> arc-regular; noise 0.01: 322 half-cycles, CV_arc 0.639 vs CV_clock 0.744 -> arc-regular; noise 0.03: 244 half-cycles, CV_arc 0.876 vs CV_clock 0.893 -> arc-regular; classes over the three noisy levels: ['arc-regular']; at noise 0.01 under three carriers: identity arc-regular (0.639 vs 0.744), Bernoulli-Fisher arc-regular (0.757 vs 0.816), Poisson-Fisher arc-regular (0.766 vs 0.813)
      known:      cortical gamma is a noisy oscillation with variable amplitude and frequency (bursts)
-     verdict:    the instrument assigns arc-regular at every noisy level; no clause predicts the class
+     verdict:    the instrument assigns arc-regular at every noisy level and under all three carriers; no clause predicts the class
      GRADE:      OPEN
      weakness:   at noise 0 the CVs are not 0: the half-turn cut alternates on an asymmetric waveform (the A3 gate's S-C/S-E finding), so a share of every CV here is the instrument's; the margins |CV_arc - CV_clock| are 0.007, 0.003, 0.105, 0.017 (two below 0.01); class assignment on a model, not a result
 [ 4] (spk) Balanced E-I network of leaky integrate-and-fire neurons (sparse, strong synapses J = 1/sqrt K)
-     clause:     D5 (spikes as own events), H-L5, A9 read as 'E and I balance' (a rename, see the next row)
+     clause:     D5 (spikes as own events), H-L5, A3 (the reset is the cut, not arc), A9 read as 'E and I balance' (a rename, see the next row)
      BORROWED:   van Vreeswijk & Sompolinsky 1996 balance; Brunel 2000 asynchronous irregular state
      FLOW:       external drive, connectivity, synaptic strengths
-     derivation: N = 400, K = 40: mean rates E 18.2 Hz, I 16.0 Hz; ISI CV across 320 E cells: median 0.83 (irregular); |net input|/total excitatory input = 0.063 against the O(1/sqrt K) = 0.158 scale (cancellation); neuron 0 (membrane-potential carrier, spikes as events): arc-regular (CV_arc 0.755, CV_ISI 0.802)
+     derivation: N = 400, K = 40: mean rates E 18.2 Hz, I 16.0 Hz; ISI CV across 320 E cells: median 0.83 (irregular); |net input|/total excitatory input = 0.063 against the O(1/sqrt K) = 0.158 scale (cancellation); H-L5 on 5 E cells, reset jump counted (inclusive) -> rise only (exclusive): cell 0: arc-r (0.755 vs 0.802) -> clock (0.812 vs 0.802), median rise arc 10.8 sigma; cell 1: arc-r (0.897 vs 0.901) -> clock (0.961 vs 0.901), median rise arc 13.0 sigma; cell 2: arc-r (0.767 vs 0.812) -> clock (0.822 vs 0.812), median rise arc 12.8 sigma; cell 3: arc-r (0.913 vs 0.958) -> clock (0.983 vs 0.958), median rise arc 11.0 sigma; cell 4: tie (0.696 vs 0.696) -> clock (0.751 vs 0.696), median rise arc 12.5 sigma; arc-regular on 4/5 cells with the jump counted, 0/5 without it
      known:      irregular firing (CV ~ 1) from cancellation of large E and I inputs; linear network response
-     verdict:    the arc per ISI is regular because the threshold fixes the chord (as in the biological battery); the balance itself is a sqrt-K scaling result that no CRR clause states
+     verdict:    clock-regular on the rise alone: in the fluctuation-driven regime the arc per ISI is ten or more times the fixed chord, so the chord's regularity is not inherited; the earlier 'arc-regular' reading was the reset jump, a constant added to every arc (corrected 2026-09-17, AGENT_LOG 18); the balance itself is a sqrt-K scaling result that no CRR clause states
      GRADE:      DESCR
-     H-L5 class: arc-regular (CV_arc 0.755, CV_clock 0.802)
+     H-L5 class: clock-regular (CV_arc 0.866, CV_clock 0.834)
      weakness:   the E-I balance is not CRR's equanimity: it is a cancellation of two currents, not a weighting of past against present
 [ 5] (bayes) Two readings of 'equanimity' on one Gaussian update; Tucker-Luu-Friston's 'balanced feedforward (excitatory) and feedback (inhibitory) precision'
      clause:     issue-#21 text A9 (equal precision) vs P4 at v = 1 (Fisher speed); the abstract of Tucker, Luu & Friston 2025 (Entropy 27:829)
@@ -96,7 +96,16 @@ CRR on E-I networks — 11 model systems. Grades: SHARP CONSIST DESCR FAILS TENS
      known:      information-limiting correlations bound the population code
      verdict:    A1' inherits the bound; whether E-I circuitry produces such correlations is not a CRR question
      GRADE:      DESCR
+[12] (cut) The removed 'one Omega before rupture' rule, C*Omega = 1, on the noisy Wilson-Cowan rhythm and the balanced LIF neuron
+     clause:     issue-#21 text rupture clause C*Omega = 1 (v3.1 A3 note: a scalar reduction, 'not the axiom'; spec XI.1: removed); A1' (unit), D1 (rho measured, never predicted), D2-D4
+     BORROWED:   arc-length accumulation; the unit sigma of A1'
+     FLOW:       the same dynamics as rows 3 and 4
+     derivation: noisy WC (noise 0.01): unit sigma = 0.0333 from the training half of the half-turn extents, rho = 4.54; per antipodal half-turn C median 8.25 sigma, C* median 3.34, S median 4.90 (S < 0 on 0 occasions); the rule cuts 4.70, 9.29, 18.15 times per half-turn at Omega = 0.5, 1, 2 (it coincides with A3 iff rho = 1/Omega). LIF neuron 0 (sigma = threshold - reset = 1): rise arc median 10.77 sigma against chord median 1.117; the C = 1 cut fires at a median 0.04 of the ISI and before the spike on 100% of ISIs; the rule cuts 7.6, 13.9, 24.3 times per spike at Omega = 0.5, 1, 2
+     known:      a neuron fires when its potential reaches threshold (C* = threshold - reset in the voltage carrier), not when its path length reaches a fixed value; a rhythm completes a cycle when its phase does
+     verdict:    the rule is a sigma-step counter: it fires every 1/Omega units of arc, so it agrees with the system's own event only where rho = 1/Omega (WC) or the rise is monotone so that C = C* (LIF, noise-free); on both E-I models it fires many times per event; the neuron's event is a chord condition (C* = 1), which is the opposite reading of 'one unit before rupture'
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: the clause is a clause of the older text only; v3.1 holds A3 and D1 (rho is measured), and the spec removed the rule for this reason; the row records what it would have predicted here so that the question 'was it used' has a number
 
 ====================================================================================================
-TALLY  SHARP=0  CONSIST=0  DESCR=5  FAILS=1  TENSION=1  OPEN=4
-Does CRR add anything to what is known about E-I networks? Clauses that reach a known E-I result: 0 of 11 rows (every DESCR row is the domain's own result or a definition; the FAILS row is a clause of the older text; the TENSION row is internal; the OPEN rows name no clause).
+TALLY  SHARP=0  CONSIST=0  DESCR=5  FAILS=2  TENSION=1  OPEN=4
+Does CRR add anything to what is known about E-I networks? Clauses that reach a known E-I result: 0 of 12 rows (every DESCR row is the domain's own result or a definition; the FAILS rows are clauses of the older text; the TENSION row is internal; the OPEN rows name no clause).
