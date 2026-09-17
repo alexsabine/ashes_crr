@@ -7,6 +7,18 @@ wherever a result could hold by symmetry, at least four systems per class, and a
 field naming the mathematics inherited from the domain plus a `FLOW` field naming what
 supplies the velocity inside the coherence integral C = ∫ √(ẋᵀ g ẋ) dt.
 
+## Grade reading, accepted 2026-09-18
+
+The grades printed by the battery scripts are frozen with their pinned outputs. They are now read
+as two labels (`docs/notes/2026-09-18_sharp_regime_review.md` §3): *kind* (DEF / INHERITED / CLASS /
+COMPARATIVE) × *outcome* (AGREES / DISAGREES / SILENT / INTERNAL). CONSIST is INHERITED-AGREES
+except where a row says the regularity is dynamical (the adder, the heteroclinic cycle,
+FitzHugh–Nagumo under drive), which are CLASS-AGREES; DESCR is DEF-AGREES; FAILS is DISAGREES with
+rule 4's reason; OPEN is SILENT; TENSION is INTERNAL. SHARP is retired for retrodictions: no CRR
+row can reach it, because every coherence integral has a system-supplied velocity and every unit
+is the system's own. The only forward-looking label is PROSPECTIVE CANDIDATE (the note's §3.2),
+which is a ticket to a prereg and not evidence.
+
 ## Tally
 
 | class | SHARP | CONSIST | DESCR | FAILS | TENSION | OPEN |
