@@ -591,3 +591,7 @@ Okay. Run another battery of crr tests on various different systems according to
 ## 43. 2026-09-17T21:30:00Z
 
 Right. Can you now count the total number reaching consistent and descriptive ? Do this in the scratchpad only please. I am just asking for a couple of brief updates regarding the consistent and descriptive and what these checks mean in basic epistemological terms, please
+
+## 44. 2026-09-17T21:45:00Z
+
+And how are we doing on the continuous learning tests? Again, scratchpad only please.
