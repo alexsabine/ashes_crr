@@ -39,6 +39,52 @@ of the world, only that it can be carried in plain words.
 - elegance: One rule with no knobs: the smallest step that counts is how much the system itself differs from one occasion to the next, not how finely the dial can be read.
 - for a fifth grader: If a plant grows a different amount each day, buying a finer ruler does not make the days more alike. The smallest step worth talking about is how much the days differ from each other, and measuring more carefully only helps until you reach that.
 
+## theory/retrodictions/synthesis_batches/batch_03.txt
+
+### [3] Periodic signals with several harmonics under the analytic-signal phase: when are the two A3 occasions of a cycle equal in arc?
+
+- source row: theory/retrodictions/crr_retrodictions.txt [18] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Flip the wave upside down and slide it half a period: if it lands on itself, the two halves of every cycle carry the same length of road, wherever you start counting. A rule with no knobs, and a picture.
+- for a fifth grader: Draw a wavy line. Turn the drawing upside down and slide it along by half a wave. If it lies exactly on top of the old line, then every half-wave has the same amount of up-and-down in it, no matter where you start measuring. If it does not land on itself, the two halves usually have different amounts, but not always.
+
+### [4] Plane pendulum with amplitude jitter, exact period T(A) = 4 sqrt(l/g) K(sin(A/2)), one half-swing (turning point to turning point) as the occasion
+
+- source row: theory/retrodictions/crr_retrodictions.txt [20] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: One pendulum keeps both of CRR's clocks: swung low, its timing is the steady thing and the size of the swing wanders; swung nearly to the top, the size is the steady thing and the timing wanders. The switch is where a one-per-cent bigger swing costs a one-per-cent longer swing: a rule with no knobs.
+- for a fifth grader: Push a playground swing gently and every back-and-forth takes the same time no matter how high it goes. Push it almost over the top and it hangs near the top for ages, so now how high it goes is the steady thing and the timing is not. The same swing keeps two different clocks depending on how hard you push.
+
+### [5] Homogeneous Poisson process (rate lambda): the seed of the next occasion from the settled inter-event intervals, as a forecast of the next interval
+
+- source row: theory/retrodictions/crr_retrodictions.txt [21] (DESCR)
+- outcome: WRONG
+- elegance: A process with no memory is the cleanest teacher of what a seed can and cannot do: the past can only add noise, and the only past that helps is all of it, averaged.
+- for a fifth grader: Raindrops hit a roof at random. If you try to guess when the next one will land by watching the last few and trusting the newest ones most, you do worse than just knowing how often they fall on average. Sometimes the past is not a clue, and remembering it a little is worse than remembering all of it.
+
+## theory/retrodictions/synthesis_batches/batch_04.txt
+
+### [1] Omori aftershock decay lambda = K (t + c)^-p as an inhomogeneous Poisson process (K = 20000, c = 0.01, p = 1.1, T = 365 days; Ogata thinning, seed 22), read in the system's own unit
+
+- source row: theory/retrodictions/crr_retrodictions.txt [22] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: The shocks keep their own clock. Numbered by their own expected count instead of by the minutes, every aftershock gap is the same kind of gap: a rule with no knobs, and it is also the domain's own test of an Omori fit.
+- for a fifth grader: After a big earthquake the small ones come fast at first and then slower and slower. If you put away the stopwatch and let the earthquakes count themselves, the gaps stop shrinking: each next shock is just as much of a surprise as the last. The earthquakes have their own clock, and it ticks once per shock.
+
+### [3] Kepler ellipse e = 0.6, a = 1, unit mean motion; 8 orbits at 4096 samples per orbit from Kepler's equation; r(t) as the 1-D trace, orbit-plane position for the arc (Euclidean stand-in metric, as the source row)
+
+- source row: theory/retrodictions/crr_retrodictions.txt [25] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: The cut is a place a child can point at: the far point of the orbit is the antipode of the near point, and the two halves of the trip are mirror images. It teaches what an occasion is without a formula, though the equality is the ellipse's, not CRR's.
+- for a fifth grader: A planet goes round the sun on a squashed circle. Start when it is closest. Halfway round, it is farthest away; that is where one lap-half ends and the next begins. The two halves of the trip are mirror images, so they are the same length of road.
+
+### [5] Stochastic Hopf normal form dz = ((mu + i) z - |z|^2 z) dt + sqrt(2D) dW, D = 0.0001, mu in (0.1, 0.3, 1.0) (mu/sqrt(D) = 10..100); stochastic Heun, dt = 0.01, 1000 realisations x 40 cycles after a 20-cycle burn-in, seed 29; occasion = half-turn of the normal form's own angle, occasion statistic = |z| at the cut, unit sigma = 1.4826 MAD about the median across occasions, rho = 2 median/sigma (source model h_hopf, which fixed sigma = 0.05)
+
+- source row: theory/retrodictions/crr_retrodictions.txt [29] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: One picture with one moving ruler: as the knob approaches the tipping point the wobble shrinks and the system's own ruler grows, so the number of wobbles it can tell apart vanishes twice as fast (in the exponent) as the wobble itself.
+- for a fifth grader: Think of a wobble that fades out as you turn a knob toward the point where it stops. Near that point the wobble gets small, but it also gets jittery, so the thing is worse and worse at telling one of its own wobbles from the next. Its own ruler gets longer just as the thing it measures gets shorter.
+
 ## theory/retrodictions/synthesis_batches/batch_05.txt
 
 ### [1] Canonical two-level system: Bernoulli family in the excited fraction p(x) = 1/(1 + e^x), x = Delta/(k T), pole-start occasion from T = 0 (Daniel's battery row a3 re-read)
@@ -92,4 +138,4 @@ of the world, only that it can be carried in plain words.
 - elegance: A shaky path has no length of its own: the closer you look, the longer it gets. So on a shaky road the odometer is only a clock in disguise.
 - for a fifth grader: Measure a very wiggly line with a smaller and smaller ruler and it keeps getting longer and never settles. So for a shaky, wiggly path, adding up the wiggles only tells you how long you watched, like a clock.
 
-Entries: 11.
+Entries: 17.
