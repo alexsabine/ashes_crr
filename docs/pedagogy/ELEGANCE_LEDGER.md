@@ -46,4 +46,27 @@ of the world, only that it can be carried in plain words.
 - elegance: Doubling the volume is the same length wherever you start: the isotherm's length depends only on the ratio V2/V1. A rule with no knobs (it is the scale invariance of the logarithm), and it is the domain's.
 - for a fifth grader: Blowing a balloon up from one cup of air to two cups is the same amount of change as blowing it from ten cups to twenty. This kind of length counts change by ratios, like the steps up a piano keyboard, not by cups.
 
-Entries: 5.
+## theory/retrodictions/synthesis_batches/batch_06.txt
+
+### [1] Finite-time thermodynamics of a driven two-level system (Bernoulli family, Fisher metric dp^2/(p(1-p)) as the friction, relaxation time 1): dissipated work W = int pdot^2/(p(1-p)) dt over protocols of duration tau = 1 from p = 0.2 to p = 0.8, including one that overshoots to p = 0.9
+
+- source row: runs/phaseA/crr_retrodictions.txt [c3] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Cheapest change: take the shortest road and walk it at one steady pace; every detour and every burst of speed is paid for in waste. No knobs: a length and a duration.
+- for a fifth grader: Pushing a heavy box from one spot to another wastes the least effort if you go by the shortest path at one steady speed. Taking a detour costs extra, and so does rushing and then stopping.
+
+### [2] Curie-Weiss / Landau mean-field magnet below Tc (a = b = 1, t = -1, spinodal field h_sp = 0.3849), overdamped mdot = -(a t m + b m^3 - h) driven by h(t) = H sin(omega t) with H = 0.6 > h_sp, omega = 0.02 (a hysteresis loop; fixed-grid RK4, 6400 steps per period, 6 cycles scored after 1 transient)
+
+- source row: runs/phaseA/crr_retrodictions.txt [c4] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: Push a magnet's field up and then down and it flips over at the same push both ways: the two flips are mirror images, and 'half a turn' is just the mirror.
+- for a fifth grader: A magnet that you push back and forth clicks over at the same push each way, like a light switch. Going up and coming down are mirror images of each other, so the click always comes exactly halfway round.
+
+### [5] Drifted Brownian motion dX = mu dt + sigma dW (mu = 1, sigma = 1) whose own events are the first passages of the levels k Delta (Delta = 1), sampled at dt = 0.001 and the same path at dt = 0.01
+
+- source row: runs/phaseA/crr_retrodictions.txt [d3] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: A shaky path has no length of its own: the closer you look, the longer it gets. So on a shaky road the odometer is only a clock in disguise.
+- for a fifth grader: Measure a very wiggly line with a smaller and smaller ruler and it keeps getting longer and never settles. So for a shaky, wiggly path, adding up the wiggles only tells you how long you watched, like a clock.
+
+Entries: 8.
