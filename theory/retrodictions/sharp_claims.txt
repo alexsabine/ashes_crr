@@ -1,0 +1,69 @@
+External SHARP claims re-derived under the issue-#21 rules. Shared premise of the seven class-(a) rows: the Bernoulli
+half-turn from a pole is at p = 0.5 for every monotone occupancy curve (symbolic), so that prediction cannot come out
+otherwise (rule 3) and the physics enters only through which point the domain chose to name.
+
+[ 1] (a) First-order decay: 'the cut is the half-life'
+     claimed:    cut at p = 1/2, t = ln2/k = 0.9902  [reproduced: yes]
+     probe:      the half-life is DEFINED as the time to p = 1/2; a second-order decay 1/(1+kt) has its half-time at t = 1/k = 1.4286 and the cut lands there too: the cut tracks the definition, not the rate law
+     GRADE:      DESCR  (rule 3: the antipode of a pole-started Bernoulli family is 1/2 for every monotone curve; 'half-life' is the name of that point)
+[ 2] (a) Logistic growth: 'antipode p = 1/2 = inflection'
+     claimed:    inflection at N = K/2 (max dN/dt)  [reproduced: yes]
+     probe:      asymmetric members of the same class: Gompertz inflection at N/K = 0.3679, Richards (nu = 2) at 0.5774, (nu = 0.5) at 0.4444; the Bernoulli antipode stays at 0.5
+     GRADE:      FAILS  (rule 4: antipode = inflection holds only for the symmetric (logistic) member)
+[ 3] (a) Michaelis-Menten / Hill: 'theta = 1/2 at S = K_M for every n'
+     claimed:    theta(S = K_M) = 0.50 (n = 1), 0.50 (n = 4)  [reproduced: yes]
+     probe:      K_M (and K_half) is DEFINED as the substrate concentration at half-saturation; the coincidence is the definition of the constant
+     GRADE:      DESCR  (rule 3: a definition)
+[ 4] (a) Acid-base titration: 'ionised fraction 1/2 at pH = pKa'
+     claimed:    fraction at pH = pKa: 0.50  [reproduced: yes]
+     probe:      pKa is DEFINED by pH = pKa at half-ionisation (Henderson-Hasselbalch is the definition rearranged); a diprotic acid's total-ionisation curve crosses 1/2 at neither pKa (the occupancy observable had to be chosen, rule 2)
+     GRADE:      DESCR  (rule 3: a definition; rule 2 on the observable)
+[ 5] (a) Fermi-Dirac occupation: 'f(E = mu) = 1/2, the chemical potential is the antipode'
+     claimed:    f(mu) = 0.50  [reproduced: yes]
+     probe:      particle-hole symmetry of the Fermi function (f(mu+x) = 1 - f(mu-x)); the other occupation statistics have no such point tied to mu: Bose-Einstein n = 1/2 at E - mu = T ln 3 = 1.0986 T, Maxwell-Boltzmann at T ln 2 = 0.6931 T
+     GRADE:      DESCR  (rule 3: a symmetry of the chosen family; mu is defined through that family)
+[ 6] (a) Laser threshold: 'population inversion = crossing the antipode = laser threshold'
+     claimed:    thermal p_upper -> 1/2 only as T -> inf; crossing 1/2 under pumping  [reproduced: yes]
+     probe:      a pumped two-level system saturates at p_upper = 0.4998 < 1/2 for any pump (no inversion: lasers need 3 or 4 levels); with cavity loss the threshold is gain = loss, i.e. p_upper = 0.550 for loss/(sigma n) = 0.1: the threshold is above the antipode by an amount the cavity sets
+     GRADE:      FAILS  (the derivation contradicts the physics: inversion is necessary, the threshold is set by the cavity, and a two-level carrier cannot be inverted)
+[ 7] (a) Langmuir adsorption: 'theta = 1/2 at P = 1/K'
+     claimed:    theta(P = 1/K) = 0.50  [reproduced: yes]
+     probe:      K is DEFINED by the half-coverage pressure; on a BET isotherm coverage is unbounded and there is no antipode (the carrier had to be chosen, rule 2)
+     GRADE:      DESCR  (rule 3: a definition)
+[ 8] (b) Qubit precession: 'the cut time reproduces the Mandelstam-Tamm limit, saturated'
+     claimed:    t_orth = 2.4166, pi hbar/(2 DeltaE) = 2.4166  [reproduced: yes]
+     probe:      detuned member (Delta = 0.8): minimum overlap |<psi0|psi(t)>| = 0.5241 > 0, the antipode is never reached and MT is a bound, not a cut time; saturation is the geodesic (resonant) member only
+     GRADE:      CONSIST  (rule 4: the equality holds on the symmetric member; off it the framework has P1 (C >= D), which is the MT/Anandan-Aharonov bound itself, inherited)
+[ 9] (b) Spin-j coherent state under rotation: 'antipode at angle pi for all j'
+     claimed:    overlap |<j,j|R(pi)|j,j>| = j=0.5: 0.0e+00, j=1: 0.0e+00, j=2: 1.7e-16  [reproduced: yes]
+     probe:      the same rotation applied to the non-coherent member |1,0> gives overlap 1.0000: it never reaches an antipode (d^1_00(pi) = -1); 'antipode at pi' is a property of the highest-weight state, i.e. SU(2) representation theory
+     GRADE:      FAILS  (rule 4: holds on the symmetric (coherent, highest-weight) member only; the number is Wigner's, not the framework's)
+[10] (b) Two-flavour neutrino oscillation: 'the flavour state reaches its antipode iff mixing is maximal'
+     claimed:    max conversion sin^2(2 theta) = 0.000 0.264 0.761 1.000  [reproduced: yes]
+     probe:      the two-flavour formula P = sin^2(2 theta) sin^2(Delta m^2 L / 4E) is the whole content; 'antipode reachable iff theta = pi/4' restates that P_max = 1 iff sin^2(2 theta) = 1; theta itself is not predicted
+     GRADE:      CONSIST  (form coincides with the known law; no constant fixed)
+[11] (c) Finite-time thermodynamics: 'minimum dissipation is the constant-Fisher-speed geodesic; S^2 bounds excess dissipation'
+     claimed:    <v^2> = 1.2812 >= <v>^2 = 0.9609  [reproduced: yes]
+     probe:      Cauchy-Schwarz on the thermodynamic length (Salamon-Berry 1983, Crooks 2007, Sivak-Crooks 2012); the framework renames L as C; and on a 1-D carrier every monotone protocol has S = 0, so S cannot bound dissipation there (the two batteries' rows c3 and 10)
+     GRADE:      CONSIST  (inherited identity wearing the framework's name; the S-bound claim is false on 1-D carriers)
+[12] (c) Schwarzschild thermal family: 'A1 rejects it as a carrier (Var E = C T^2 < 0); forces the unitary side'
+     claimed:    C = -8*pi*M**2, Var(E) = C T^2 = -1/(8*pi)  [reproduced: yes]
+     probe:      C < 0 means the canonical ensemble does not exist for a black hole (Hawking 1976; Gibbons-Perry 1978): a variance cannot be negative, so the family is not an exponential family at all. That is the domain's own statement. The microcanonical description is admissible and thermal; nothing here selects 'the unitary side'
+     GRADE:      CONSIST  (the inadmissibility is the known sign of the heat capacity; the framework adds the label 'not a carrier')
+[13] (c) de Sitter horizon: 'A1 rejects the static-patch thermal family'
+     claimed:    C = T dS/dT = -2*pi/H**2  [reproduced: yes]
+     probe:      same as Schwarzschild: negative heat capacity is the known obstruction to a canonical description of horizon thermodynamics; the framework restates it
+     GRADE:      CONSIST  (inherited)
+[14] (d/h) Critical slowing down -> memory depth (D8): 'depth diverges as the relaxation rate vanishes, derived not fitted'
+     claimed:    own-unit reading d = 1/K(v), v^2 = 1 - e^{-2k}: k=1: 1.7, k=0.3: 2.1, k=0.1: 2.9, k=0.03: 4.7, k=0.01: 7.6  [reproduced: yes]
+     probe:      the divergence needs the observation variance to be read as the equilibrium variance (the 'own unit'); with the instrument noise and process noise held fixed the same AR(1) filter gives d = 2.00, 1.78, 1.67, 1.63, 1.62 -> 1.618 (finite, the random-walk value): the divergence is a unit choice, not a derivation
+     GRADE:      CONSIST  (rule 2: the unit was chosen to make the check pass; direction-only in that reading (both batteries: rows 30 and h1))
+[15] (f/g) Black-hole evaporation: 'the natural-time antipode (half the quanta) is the Page point'
+     claimed:    cut at t/t_ev = 1 - 2^(-3/2) = 0.6464  [reproduced: yes]
+     probe:      the Page time is DEFINED as the half-entropy point (Page 1993); 'half the quanta' equals it only under the assumption quanta ∝ entropy, which the check assumed; and a count is not a rotor: v3.1 O3 says natural time supplies the unit but not the cut, and the spec's A2c forbids a manufactured antipode, so 'cut at half the count' is a rule the framework does not contain
+     GRADE:      FAILS  (manufactured cut (O3, A2c) reproducing a definition)
+
+====================================================================================================
+TALLY over the 15 unique systems the external run graded SHARP
+SHARP=0 CONSIST=6 DESCR=5 FAILS=4 TENSION=0 OPEN=0
+numbers reproduced: 15/15; grade SHARP survives on: 0

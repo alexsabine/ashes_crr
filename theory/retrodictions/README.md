@@ -102,6 +102,40 @@ the framework's self-collisions are all in the clauses v3.1 does not carry (the 
 criticality and antipode parentheticals) plus the one v3.1 does (H-EQ against the spec's A9).
 CI reproduces this battery byte for byte and Daniel's verdict by verdict (his Rössler row's return-time statistics drift at the third decimal across Python patch versions, as the chaotic gate rows do; the verdict does not).
 
+## The external "SHARP" claims, re-run here (owner upload, 2026-09-17)
+
+A third run, done outside this repository by another instance of the same model and supplied
+as a PDF (`theory/external/CRR_retrodiction_outcomes_1_external_2026-09-17.pdf`, script not
+supplied), reported 16 SHARP rows over 42 systems. `sharp_claims.py` re-derives each of its 15
+unique SHARP claims (Schwarzschild, de Sitter and the Page point are cross-listed, and the
+saddle-node repeats D8), reproduces every printed number (15/15), and applies the issue's
+rules to the claim as stated. Result: **SHARP 0, CONSIST 6, DESCR 5, FAILS 4** (output pinned
+in `sharp_claims.txt`).
+
+- The seven occupancy rows (half-life, logistic inflection, K_M, pKa, Fermi level, laser
+  threshold, Langmuir) share one premise: the Bernoulli half-turn from a pole is at p = 1/2
+  for every monotone curve, so the prediction cannot come out otherwise (rule 3). Five of the
+  seven coincide with a *definition* made at one-half (half-life, K_M, pKa, μ, K_ads): DESCR.
+  Two fail on an asymmetric member (rule 4): the logistic inflection is at K/2 but Gompertz's
+  is at K/e and Richards' moves with its exponent; and a two-level carrier cannot be inverted
+  at all, while a real laser's threshold sits above the antipode by an amount the cavity sets.
+- The quantum rows: the Mandelstam–Tamm saturation is the resonant (geodesic) member only,
+  off resonance the framework has the bound (P1), which is Anandan–Aharonov's (CONSIST); the
+  spin-j antipode at angle π holds for the highest-weight state and fails for |1, 0⟩, which
+  never reaches an antipode under the same rotation (FAILS, rule 4); the neutrino row restates
+  the two-flavour formula (CONSIST).
+- Thermodynamic length (CONSIST, Salamon–Berry); the Schwarzschild and de Sitter rejections
+  are the known negative heat capacity, i.e. the known absence of a canonical ensemble, with
+  the microcanonical description still admissible, so nothing "forces the unitary side"
+  (CONSIST); the memory-depth divergence exists only under the own-unit reading of the
+  observation variance and vanishes at fixed instrument noise (CONSIST, rule 2, as rows 30 and
+  h1 of the two batteries found); the Page point is the half-entropy point by definition, and
+  "cut at half the count" is a rule v3.1's O3 and the spec's A2c do not allow (FAILS).
+
+Three independent runs now agree: no clause of CRR forces a known result on its own. The
+external run's SHARP rows are what the issue's rule 2 warns about: an observable, a unit or a
+cut rule chosen after the fact, or a domain constant that was defined at the framework's point.
+
 ## TENSION and the minimal rewording
 
 One TENSION (row 16). Minimal resolution: give the two laws different names. Keep "equanimity"
