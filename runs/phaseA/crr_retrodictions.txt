@@ -1,0 +1,251 @@
+[a1] two-state antipode location (A3 parenthetical)
+     class a | clause A3 (two-state antipode parenthetical) | verdict FAILS | check fails
+     carrier: Bernoulli two-point simplex in occupancy p (ion-channel open fraction); unit: one channel event (A1'); FR arc in radians, family length pi
+     detail: L_family=3.141593=pi; antipode from pole p0=0 -> 0.5000 (=1/2, parenthetical holds); probe p0=0.200 -> 0.9000 != 0.5 (generic antipode 1/2+sqrt(p0(1-p0))=0.9000; second probe p0=0.050 -> 0.7179)
+     weakness: FAILS as a framework claim per issue rule 4: the parenthetical survives only when the last cut is a pole (the symmetric member); the asymmetric probe (interior cut) kills it. Minimal repair: reword to 'the antipode of a two-state occupancy family reached from a boundary state is p = 1/2' (generic antipode 1/2 +/- sqrt(p_n(1-p_n))); under that reading the row would be DESCR
+
+[a2] ion channel: is the cut the event or the mid-arc state? (A3 vs D5)
+     class a | clause A3 + D5 + A1' (cut-object collision) | verdict TENSION | check fails
+     carrier: same channel, two carriers: N=1 two-state Markov point process (unit: one event, D5) vs N-channel ensemble occupancy p(t) (Bernoulli family; unit 1/N per event, A1')
+     detail: pole distance=3.1416=pi (premises_ok=True); ensemble p(t) crosses 1/2 at t*=0.8600 (analytic), stochastic occupancy first hit 100/200 at t=0.8055; single molecule fired 5 events by T=6 (1 by t*), none at p=1/2 (single-channel states in {0,1})
+     weakness: TENSION between A3 and D5 on the same system (verified numerically: the ensemble mid-arc crossing at t* is not a single-channel event, and a single channel never occupies p=1/2). Rates kf, kr are representative members, not fitted; the collision is rate-independent. Charitable reading (A3 = ensemble carrier only, D5 = point-process carrier only) would make this two DIFFERENT carriers and downgrade to DESCR; as written the clauses collide
+
+[a3] Boltzmann two-level populations vs temperature (cut only at T=infinity)
+     class a | clause A3 (pole-start cut) + D2 (arc) | verdict DESCR | check ok
+     carrier: Bernoulli family in excited-state fraction p, parameterized by T through the canonical ensemble; unit: one quantum (A1')
+     detail: p=1/2 <=> u=Delta/(kT)=0 => T_cut=infinity (p(0)=1/2 exactly, dp/du<0 unique); at T=Delta/k (u=1): p=0.2689, C=1.0904<pi/2=1.5708 (occasion incomplete); degeneracy probe g=4: p=1/2 at u=ln4, T_cut=Delta/(k*1.3863) finite, antipode still p=1/2
+     weakness: DESCR: the coincidence is forced by the Boltzmann form alone; the framework adds only the cut reading and fixes no temperature scale. Choices: carrier = canonical equilibrium path, pole-start occasion (needed after a1), upper-level degeneracy for the probe; A1' unit (one quantum) is not connected to the FR arc for occupancy carriers (see a5)
+
+[a4] chemical relaxation A<=>B: surplus S on a monotone occasion
+     class a | clause D2 + D3 + D4 + P1 (arc, chord, surplus) | verdict DESCR | check ok
+     carrier: Bernoulli family in mole fraction x of species A; unit: one conversion event (A1')
+     detail: monotone A<=>B (x0=0.05->0.8): C=1.75863102 vs C*=1.75863102, |S|=3.96e-10 (P1 equality, S=0 identically); non-monotone probe (x0=0.3): C=1.4013 > C*=1.0510, S=0.3503 > 0, C >= C* holds
+     weakness: framework-internal theorem + carrier fact (orchestrator rule): DESCR, not SHARP. The framework does not derive lambda, x_eq, or the exponential form (A8: no flow). Probe trajectory is synthetic (amplitude 0.15, frequency 6.0, start x0=0.3 chosen); mole-fraction carrier and event unit are choices
+
+[a5] salience window on an occupancy ensemble: rho is not one number (D1 vs P6)
+     class a | clause P6 + D1 (rho in a threshold; A1' under-determines sigma) | verdict TENSION | check fails
+     carrier: N-channel Bernoulli ensemble in occupancy p; unit: one channel event (A1')
+     detail: rho readings (count, arc, CR) at p=1/2: N=1 -> 0.500, 0.785, 3.142 (count/arc say no window, CR says window); N=100 -> 50.0, 7.854, 3.142 (all >1, mutually different); D1: rho 'never used inside a threshold'; P6: 'window exists iff rho > 1'
+     weakness: TENSION graded on the clauses as written (D1 forbids threshold use of rho; P6 thresholds it; A1' gives three mutually inconsistent sigma readings). A charitable D1 reading — the prohibition aimed at algorithmic cut-firing cutoffs, not property statements — would downgrade to DESCR with the sigma ambiguity remaining. Count reading assumes pole-anchored half-turn (a1)
+
+[b1] pure qubit on the Bloch sphere: Fisher half-turn = orthogonal state
+     class b | clause A3 (pure-state antipode) + A1 (Cencov scale) | verdict CONSIST | check ok
+     carrier: pure-qubit family {|psi(th,phi)>} = CP^1; metric = Fisher-Rao = QFI tensor diag(1, sin^2 th) (= Fubini-Study; Bures = FS/4), Cencov-unique up to scale; unit sigma = Cramer-Rao length 1/sqrt(I) under A1' — not fixed without an estimation context, so rho and the D7/P6 window are not computed
+     detail: QFI=FS tensor diag(1,sin^2 theta), Bures=FS/4 [sympy]; overlap half-angle identity |<psi1|psi2>|^2=(1+n1.n2)/2 [sympy]; meridian geodesic arc=Theta [sympy]; d_FS(orthogonal)=pi, d_B(orthogonal)=pi/2; antipode fraction 1/2 of the closed orbit in BOTH Cencov scales (FS 2*pi, Bures pi)
+     weakness: not SHARP: A3's quantum parenthetical stipulates the target rather than deriving it; the check confirms the stipulation is geometrically exact and Cencov-scale-invariant — standard CP^1 geometry wearing the framework's cut rule. Also: Fisher-Rao = FS requires the optimal phase-sensitive measurement; a FIXED sigma_z probe has I_phiphi = 0 (degenerate family — A1 would bar the carrier); the framework does not regulate the probe choice (recorded).
+
+[b2] Rabi-flopped two-level: cut at the antipode once per population cycle?
+     class b | clause A3 + D2 + D4 (issue rule 4 symmetry probe) | verdict FAILS | check fails
+     carrier: driven two-level pure state |psi(t)>: resonant e^{-i Om t sx/2}|0>, detuned e^{-i(Om sx + Dl sz)t/2}|0>; metric = QFI/FS on CP^1; unit sigma unfixed (no estimation context) -> rho and the D7/P6 window not computed
+     detail: resonant: FS speed=Omega [sympy 4*|dpsi_perp|^2=Om^2]; t*=pi/Om, P1(t*)=1 [sympy]; C*=Om t on [0,pi] so S=0 (great circle); detuned Delta=Om: min|<psi0|psi(t)>| = Delta/Omeff = 0.7071 > 0 for all t [sympy identity 1-Om^2/Oe^2 = Delta^2/Oe^2] -> antipode never reached, no cut ever fires; S(pi/Om) = pi - C* = 1.9464 > 0 (small circle) -> issue rule 4: claim survives only on the resonant geodesic member
+     weakness: on the resonant member the framework's numbers are exact and match the textbook; the FAILS is the class-level claim (issue rule 4: it survives only on the measure-zero geodesic member). Second A3 ambiguity recorded, not graded: the rotor branch of A3 (half the closed TRAJECTORY length) would cut the detuned drive at t = pi/Omeff at a non-orthogonal state, against the family branch (never cuts). sigma (Cramer-Rao) unfixed — D7/P6 left open here.
+
+[b3] Rabi two-level: occupancy antipode (p=1/2) vs pure-state antipode (orthogonal)
+     class b | clause A3 (two-state-occupancy parenthetical) vs A3 (pure-state parenthetical) | verdict TENSION | check fails
+     carrier: one Rabi trajectory under two A3-sanctioned carriers: occupancy simplex {p = P1(t)} (Bernoulli, FR length pi) vs pure-state family CP^1 (FS metric); shared origin p = 0 <-> |0>
+     detail: Bernoulli FR length = pi [sympy int_0^1 dp/sqrt(p(1-p)) = pi], half-turn at p=1/2 -> t_occ = pi/(2 Om), P1 = 1/2; there the pure-state rule sits at FS arc C = pi/2 (quarter-turn, not the half-turn pi); pure-state half-turn at t_pure = pi/Om where P1 = 1 (not 1/2); t_pure = 2*t_occ exactly [sympy] — A3's two parentheticals cut the same Rabi cycle a factor 2 apart
+     weakness: both rules live inside a single clause (A3); if the orchestrator reads A3 as one rule with carrier-dependent branches, this row is an ambiguity rather than a TENSION. Second unresolved A3 ambiguity recorded, not graded: rotor branch vs family branch under detuning (see b2). Substitutes for the menu's fidelity-susceptibility item, which the menu itself routes to class (h).
+
+[b4] coherent-state displacement family: no antipode, never cuts
+     class b | clause A3 (no-antipode list) | verdict OPEN | check declines
+     carrier: coherent-state displacement family {|alpha> = D(alpha)|0>}, alpha in C, non-compact; intrinsic metric = Bures/QFI (flat dx^2+dp^2); unit sigma = Cramer-Rao on (x,p) under A1' (recorded; not load-bearing)
+     detail: |<0|alpha>|^2 = exp(-|alpha|^2) > 0 for every finite |alpha| [sympy] -> no orthogonal member exists in the family; 1-|<x|x+d>|^2 = 1-exp(-d^2) = (F/4)d^2 with F = 4*1 [sympy limit] -> intrinsic Bures metric = dx^2+dp^2: flat, non-compact, no closed geodesic, no half-turn point (no cross term either [sympy]); probe alpha = 3e^(i0) and 3e^(i*pi/2): ambient angle 1.5597 < pi/2 = 1.5708 in both directions — antipode absent in every direction; A3 no-antipode list names this family -> never cuts -> OPEN
+     weakness: OPEN by the framework's own text (A3 names this family); the check verifies only the geometric premise. Note the AMBIENT FS angle 2 acos|<0|alpha>| tends to pi without attaining it — under either reading (ambient angle or intrinsic flat metric) the family has no in-carrier antipode.
+
+[b5] Landau-Zener sweep: does any clause fix P_LZ?
+     class b | clause D2 + A8 (no-forecast) | verdict OPEN | check declines
+     carrier: Landau-Zener Hamiltonian H(tau) = (v tau/2) sz + (Delta/2) sx; carrier = instantaneous-eigenstate (adiabatic) family on CP^1; metric = QFI/FS
+     detail: sympy: eigenpath of n(tau) = (Delta,0,v*tau)/eps runs a meridian; |dtheta/dtau| = v*Delta/eps^2 and C = int over tau = pi for EVERY (Delta,v) [exact; depends only on |v*Delta| -> sweep-sign independent]; P_LZ = exp(-pi*Delta^2/(2v)) over the same grid (Delta,v) in {0.5,1,2}^2 spans 3.49e-06..0.822 (orders of magnitude) while the framework's only dynamical quantity stays constant; the half-turn completes only as tau -> inf (never at finite tau); A8: 'predicts nothing about the traversal' -> no clause fixes P_LZ -> OPEN
+     weakness: expected OPEN, confirmed: the eigenpath arc — the framework's only applicable quantity — is exactly P_LZ-blind (constant pi); the actual-state trajectory would need a dynamical model the framework refuses to supply (A8). Carrier choice recorded: the adiabatic eigenpath is the standard reading of an LZ sweep; a non-adiabatic trajectory changes C but nothing in the framework connects either to P_LZ.
+
+[c1] ideal-gas isotherm: D2 arc = thermodynamic length
+     class c | clause D2 ('on a thermal family this is thermodynamic length') | verdict CONSIST | check ok
+     carrier: ideal gas in the entropy representation, coordinates (U, V); unit under A1' from the Ruppeiner/Weinhold metric
+     detail: L_isotherm(V->2V) = sqrt(N k_B) ln 2 (Ruppeiner entropy-rep; Weinhold energy-rep = this * sqrt(T) — a convention); flatness probe: gVV = (d/dV sqrt(N k_B) ln V)^2 exactly
+     weakness: the form is standard thermodynamic geometry wearing the framework's unit (D2 says so itself); the entropy-vs-energy representation convention (and hence the sqrt(T) factor) is not fixed by the axioms.
+
+[c2] Schottky anomaly vs the Fisher peak
+     class c | clause D2 (Fisher metric) — which peak is 'the' Fisher feature is the question | verdict CONSIST | check ok
+     carrier: two-level system over temperature; unit under A1' from the per-level energy statistic
+     detail: heat-capacity peak at beta*Delta = 2.3994 (stationarity 2/x+1 = 2e^x/(1+e^x); unique numeric crossing 2.3991 — the Schottky temperature); Fisher peak wrt beta at x = 0 (T = inf); Fisher peak wrt T at T/Delta = 0.242 (= x 4.13, distinct from the C peak in T units 0.417) — three locations, none selected by the framework
+     weakness: the heat-capacity peak is known physics and C IS the Fisher information of the beta-family up to a factor (Var(E) relation) — but 'the Fisher peak' as a framework prediction is coordinate-dependent; three locations computed, none selected.
+
+[c3] finite-time thermodynamics: length vs dissipated work
+     class c | clause D2 + D4 (surplus S as 'excess length') | verdict CONSIST | check ok
+     carrier: two-level family driven over tau; Bernoulli Fisher metric dp^2/(p(1-p))
+     detail: S = arc - chord = 0.000000 identically for EVERY monotone protocol on this 1-D family (P1 equality: the monotone path is the geodesic); W_diss(const Fisher speed)=1.656 < W_diss(lopsided)=2.199 (Salamon-Berry K >= 1, saturated at constant speed) — S is degenerate here and cannot order dissipation
+     weakness: the bound and its constant are standard finite-time thermo, not axioms (the framework's D2 names the metric, nothing more). The S-finding is a negative result recorded in detail: on 1-D carriers S is identically zero (P1 equality), so any 'surplus = waste' reading is NOT supported there.
+
+[c4] Curie-Weiss paramagnet near Tc
+     class c | clause A1 (Fisher metric) + Criticality clause (thermal branch: rho -> inf) | verdict CONSIST | check ok
+     carrier: magnetization m of the mean-field Curie-Weiss free energy; unit under A1' = Cramer-Rao length of the m-family
+     detail: |chi(T<Tc)| = 1/(3 a|t|) = 0.3333, |chi(T>Tc)| = 1/(a|t|) = 1.0000 — Fisher ~ chi diverges at Tc, gamma = 1 (mean-field, external; the 1/3 amplitude ratio is the Landau factor); h != 0 probe: |chi(0, h)| = 1/(3 b^(1/3) h^(2/3)) = 0.3333 finite — the divergence lives only at the symmetric point
+     weakness: direction-only: the framework fixes the direction of the divergence, not the exponent; and the divergence lives only at the symmetric point (h != 0 probe rounds it) — the criticality clause does not say which symmetry is load-bearing.
+
+[c5] blackbody / Bose occupancy: the diameter that is never reached
+     class c | clause A3 (no antipodal pair -> no cut) + D2 (thermal family as carrier) + A6 | verdict OPEN | check declines
+     carrier: mean occupancy n of a Bose mode (geometric family); unit under A1' = one quantum
+     detail: geometric-family FR line element ds^2 = 1/(n(1+n)^2); arc primitive 2 arctan(sqrt(n)); total diameter = pi reached only as n -> oo — pairwise distances are strictly < pi, so no antipodal pair exists in the family and A3 never fires on this carrier
+     weakness: near-tension documented, not graded TENSION: D2's thermal-carrier claim and A3's cut requirement coexist only because D2 also names families that DO have antipodes; a reader wanting 'thermal systems cut' would need a clause that does not exist. Graded OPEN (framework declines: no occasions complete on this carrier).
+
+[d1] scalar random-walk Kalman gain
+     class d | clause P4 + A9 (Omega = 1 sets v = 1) | verdict CONSIST | check ok
+     carrier: scalar random-walk state, process var q, observation var r; unit = Fisher speed v = sqrt(q/r) (A1')
+     detail: Riccati K(v) = (v/2)(sqrt(v^2+4)-v); K(1)=0.618034 (1/phi=0.618034); probe v=2: K=0.828427 (= 2*sqrt(2)-2 = 0.828427); K -> 1 as v -> oo, K -> 0 as v -> 0
+     weakness: the FORM is textbook Riccati (the issue's own P4 says so); the only framework content is reading sqrt(q/r) as a Fisher speed and v = 1 from Omega = 1.
+
+[d2] Cramer-Rao unit 1/sqrt(I)
+     class d | clause A1' | verdict DESCR | check ok
+     carrier: Gaussian location family p(x|mu) = N(mu, s^2); unit under A1' = 1/sqrt(I) per datum
+     detail: score = -(x-mu)/s^2 -> I = 1/s^2; A1' unit 1/sqrt(I) = s (the family's own spread); CRB var >= 1/(n I) = s^2/n: the smallest resolvable change is the CR length, by definition
+     weakness: framework-internal/definitional: A1' *names* the Cramer-Rao length as the unit -- this is standard mathematics declared, not derived; also which information counts as the occasion's (per datum vs per window) is a carrier fact the axioms do not fix.
+
+[d3] drifted Brownian 1/sqrt(T) scaling
+     class d | clause A1' | verdict CONSIST | check ok
+     carrier: drifted Brownian motion dX = mu dt + sigma dW observed for window T; unit under A1' = 1/sqrt(I(mu, T))
+     detail: score = (X_T - mu*T)/sigma^2 -> I(mu, T) = T/sigma^2; A1' unit = sigma/sqrt(T); exact MLE var = sigma^2/T attains the bound; dI/dmu = 0 (mu=0 and mu!=0 carry equal information)
+     weakness: standard CRB wearing the unit: I(mu, T) = T/sigma^2 is classical Fisher information, derived by no clause of the framework; the window T and the terminal observable X_T are estimator choices the axioms do not fix. Scaling only -- no constant predicted.
+
+[d4] Ornstein-Uhlenbeck steady filter
+     class d | clause P4 (domain) + O1 | verdict OPEN | check declines
+     carrier: AR(1)/OU state X_{k+1} = a X_k + w (OU sampled at unit interval, a = exp(-theta)), observation var r; Fisher speed v = sqrt(q/r) plus the contraction a
+     detail: P4's own Riccati with contraction a: K_ou(v, a) = M/(M+r), M = a^2 M r/(M+r) + q; K_ou(v=1, a=1) = 0.618034 = 1/phi (P4 limit), but K_ou(v=1, a=0.9) = 0.597407 != 1/phi -- the gain needs the contraction a beyond v = sqrt(q/r); P4 is stated for the random walk only and O1 supplies the unit only off it: the framework declines to derive this gain
+     weakness: OPEN by O1, checked mechanically: the gain needs the contraction a beyond v = sqrt(q/r) (K_ou(1, 0.9) = 0.597 vs 1/phi = 0.618, while a = 1 recovers P4 exactly). No framework claim is contradicted -- there is no claim to check; the framework explicitly declines.
+
+[d5] N-probe phase estimation CRB
+     class d | clause A1' | verdict CONSIST | check ok
+     carrier: N independent Ramsey probes of a qubit phase phi, |psi_phi> = sqrt(p)|0> + e^{i phi} sqrt(1-p)|1>; unit under A1' = 1/sqrt(N F_Q), quantum Fisher information per probe
+     detail: F_Q = 4p(1-p) (pure-state QFI = 4 Var(sigma_z/2)); balanced probe p=1/2: F_Q = 1 -> var(phi_hat) >= 1/N, Delta phi >= 1/sqrt(N) (shot-noise limit); probe p=1/3: F_Q = 8/9 = 8/9 < 1 -- F_Q is carried by the chosen probe state, not fixed by A1'
+     weakness: A1' supplies the CRB form only; F_Q is a property of the chosen probe state -- the balanced p = 1/2 probe is a metrology choice the axioms do not force (probe p = 1/3 gives F_Q = 8/9, checked); no clause reaches entangled probes, so the Heisenberg limit 1/N is outside the framework.
+
+[e1] Hopf normal form: extent, relaxation, D8 depth
+     class e | clause Criticality clause (Hopf: rho -> 0) + D8 (depth -> inf) | verdict CONSIST | check ok
+     carrier: (x, y) amplitude-phase plane of the Hopf normal form; unit under A1' = Cramer-Rao length of the two-parameter Gaussian family at the cycle
+     detail: extent/sqrt(mu)=1.000..1.000 (Hopf amplitude ~ sqrt(mu)); k/(2 mu)=1.031..1.048 (relaxation rate 2 mu); shear probe extent=0.319 vs symmetric 0.316 at mu=0.1; D8 route: v~sqrt(k) -> K~v -> d=1/K -> oo as mu->0
+     weakness: direction-only: the framework fixes neither the amplitude exponent nor the relaxation form (both are normal-form mathematics). The rho->0 (amplitude) and d->inf (memory) statements are two different quantities, both framework assertions — flagged by the class-(h) audit as a would-be tension; graded non-tension because no clause contradicts another.
+
+[e2] driven damped Duffing: antipode vs extremum
+     class e | clause A3 (antipode cut) vs peak detection — the framework's own testability boundary | verdict DESCR | check ok
+     carrier: periodic forced response x(t) of the driven damped Duffing oscillator; intrinsic phase via the analytic signal
+     detail: alpha=0: antipode@0.5000 opposite-extremum@0.4998 skew=0.0020 dc=0.0014 (coincide — time-reversal); alpha=1/2 driven: antipode@0.5084 opposite-extremum@0.5146 skew=0.3796 dc=-0.1187 (split — A3 becomes testable)
+     weakness: phase defined via the analytic signal (a named choice); drive delta=0.5, F=1, omega=1 and alpha in {0, 1/2} are chosen probe members; antipode and extremum positions are averaged over all cycles in the window. DESCR because the coincidence on reversible members is time-reversal symmetry and the split is definitional, not a derivation landing on known physics.
+
+[e3] ideal pendulum: period grows with amplitude
+     class e | clause O1 (framework supplies the unit only) | verdict OPEN | check declines
+     carrier: pendulum angle theta; unit under A1' from the per-cycle amplitude statistic
+     detail: T(A=pi/2)/T0 = 1.180341 (exact elliptic; known grows with amplitude); no framework clause derives the period-amplitude law (O1 declines)
+     weakness: graded OPEN because no clause addresses the quantity, not because a check failed.
+
+[e4] ideal LC tank: the perfectly symmetric baseline
+     class e | clause A3 (symmetric rotor — nothing to disagree on) | verdict DESCR | check ok
+     carrier: (charge, current) phase circle; Fisher speed constant along the cycle
+     detail: half-turn arc fraction = pi/2*pi = 1/2 exactly (uniform speed on the circle); perfect symmetry: nothing for A3 to disagree with (DESCR by symmetry)
+     weakness: deliberate negative baseline: a row that can only be DESCR (a symmetry fact), included per the issue's demand that the battery not stop at flattering systems.
+
+[e5] Rossler attractor: phase-coherent chaos
+     class e | clause — (no clause addresses chaotic phase diffusion) | verdict OPEN | check declines
+     carrier: (x, y, z) chaotic trajectory; phase from return-time statistics
+     detail: CV_T=0.087 D_phi=0.0255 (return-time phase diffusion) CV_z=3.27; phase coherent, amplitude chaotic — no framework clause addresses D_phi (declines)
+     weakness: return-time-based phase estimator is a named choice (alternatives: analytic signal, Poincare section — same qualitative verdict); parameters are the canonical (0.2, 0.2, 5.7). OPEN because the framework declines, not because a check failed.
+
+[f1] constant-rate Poisson: where is the cut?
+     class f | clause A3 vs D5 | verdict TENSION | check ok
+     carrier: homogeneous Poisson process; carrier = Poisson counting family (state = cumulative intensity A since the cut, Fisher metric g=1/mu, FR arc 2|sqrt(m2)-sqrt(m1)|); unit = one event (A1')
+     detail: A3: counting-family FR extent=oo -> no antipode -> 0 cuts; D5: cut=event, C=2*sqrt(A), A~Exp(1) -> CV(arc)=0.524 vs CV(dt)=1.004 (theory sqrt(4/pi-1)=0.5227, CV^2=(4 - pi)/pi); identity metric: CV=1.004 (equal trivially)
+     weakness: Carrier/metric choices named: counting-mean state with the Poisson metric (identity metric makes CV(C)=CV(dt) trivially; a static-rate carrier gives arc identically 0). The A3/D5 contradiction is robust across all three carriers: none locates the event as an antipode. The manufactured CV 0.52 is recorded as an instrument hazard — the repo's MEAS2 identity-metric control exists for exactly this. The CV data alone would be DESCR; the graded content is the clause clash.
+
+[f2] Omori sequence, p = 1: retention consistency
+     class f | clause P5 (CRR.md v3.1 sec.7 — absent from the issue's inline framework; the binding menu names it for this row) | verdict CONSIST | check ok
+     carrier: Poisson process with intensity lambda(t)=K(t+c)^{-p}, p=1 (aftershock sequence); unit = one event (A1')
+     detail: p=1: R=((t+c)/c)^(-K/rho) exact, elasticity dlnR/dln(t+c)=-K/rho constant; p=2: elasticity t-dependent (=+0.2500 at t=c=K=rho=1), stretched exp, not a power law; R(t=1,c=0.01,K=rho=1)=0.009901
+     weakness: P5 provenance flagged (sec.7 numbering, not in the issue's inline framework). rho is unfixed (O1: no retention law off the random walk), so the exponent K/rho is unfixed; c is a fitted physical parameter of the known law, not a framework constant. No constant is forced from the axioms: CONSIST, not SHARP.
+
+[f3] Erlang-2 renewal process
+     class f | clause D5 applies (cuts = events, occasions defined); P4/D8/O1 and A6/A8 decline | verdict OPEN | check declines
+     carrier: renewal process, inter-events iid Gamma(k=2, rate theta); unit = one event (A1')
+     detail: known CV=sqrt(1/2)=0.7071 < 1 (printed as the missed target; cv^2=1/2); framework declines: D5 gives cuts=events but no clause derives the renewal law — P4/D8 are random-walk only (O1: no retention law claimed elsewhere), A6 seeds content, A8 disclaims occasion timing
+     weakness: OPEN row: ok=None because the framework declines, not because a check failed. No carrier ambiguity affects the verdict: every clause that could reach the interval law is explicitly random-walk-scoped in the issue.
+
+[f4] dead-time Geiger counter (refractory)
+     class f | clause D5 applies (cuts = recorded events); P4/D8/O1 and A6/A8 decline | verdict OPEN | check declines
+     carrier: non-paralyzable detector: hazard 0 during dead time tau_d, then lambda; unit = one recorded event (A1')
+     detail: known: CV(dt)=1/(1+lam*tau_d)=0.1000 at lam*tau_d=9 (refractory regularizes in CLOCK time, S-G-like); framework arc C=2*sqrt(A) with A~Exp(1) is tau_d-blind: CV(arc)=0.522 (theory 0.5227) at any lam*tau_d; identity metric: arc proportional to dt, CV=0.1000 trivially. No clause (P4/D8 random-walk only; A8 disclaims timing) derives any of it
+     weakness: The binding menu's parenthetical ('refractory -> arc-regular-ish, akin S-G2') is NOT borne out: under the framework's own Poisson metric the refractory system is clock-regular (S-G-like); under the identity metric arc and clock coincide trivially. Flagged for orchestrator audit. Choices named: hazard carrier, Poisson metric for the arc. ok=None because the framework declines.
+
+[f5] Hawkes self-excitation
+     class f | clause A6 near-miss (defused); A8 declines; P4/D8 random-walk only | verdict OPEN | check declines
+     carrier: stationary Hawkes process lambda(t)=mu+sum phi(t-t_i), phi=alpha*exp(-beta t); unit = one event (A1')
+     detail: known: branching structure clusters events (immigrants Poisson, mean n=alpha/beta=0.8 offspring): CV=1.500 > CV_poisson-control=0.996 ~ 1 (mu=1, T=4000, burn=500, seed 4711, n_events=20857); framework declines: A6's kernel look-alike renormalizes by Z, is bounded (kappa), and seeds CONTENT at cuts, not an intensity; A8 disclaims occasion timing
+     weakness: Simulation parameters (mu=1, alpha=0.8, beta=1, seeds 4711/4712) are illustration choices for the printed target only — the OPEN verdict rests on the clause scan, not the number. The A6-as-Hawkes-kernel reading is defused by renormalization and content-vs-intensity, not by an explicit clause; if the orchestrator reads A6 as an intensity law, this row becomes a TENSION candidate (A6/A8) — flagged.
+
+[g1] Kepler ellipse half-orbit arcs
+     class g | clause A3 (rotor antipode at L/2) + A3's own caveat: 'equal Fisher arcs on the two half-turns are NOT a consequence of A3; where they hold they are a symmetry of the system' | verdict DESCR | check fails
+     carrier: orbital phase rotor u(t) = mean anomaly M(t) in R/2piZ; metric on the rotor uniform BY CHOICE (no statistical family is given for a deterministic orbit — free choice recorded)
+     detail: e=0.1: t/T=0.500000, s/P=0.500000, s(pi/2)/P=0.2500; e=0.5: t/T=0.500000, s/P=0.500000, s(pi/2)/P=0.2500; e=0.9: t/T=0.500000, s/P=0.500000, s(pi/2)/P=0.2500  (cut at apoapsis = T/2 = P/2 for ALL e — reflection symmetry survives every e)
+     weakness: Equal half-orbit arcs are a symmetry of the ellipse, as the issue's A3 caveat itself concedes — a framework claim that they follow from A3 would be FAILS-by-symmetry. The uniform rotor metric and the choice of phase variable (mean vs true anomaly) are free choices that agree only through that symmetry; a precessing rosette orbit would break it.
+
+[g2] tidal disruption fallback rate t^-5/3
+     class g | clause P5 (theory/CRR.md §7 — NOT restated in issue #21's framework statement; flagged): 'exponential retention in natural time is a power law in shifted clock time iff p = 1' | verdict CONSIST | check ok
+     carrier: fallback debris stream as a point process with event rate lambda(t) = K (t+c)^(-p), p = 5/3; unit: one debris return event (A1'); c, K, rho supplied by the system, not chosen to pass
+     detail: p=1: log R + (K/rho)log((t+c)/c) = 0 (=> R = ((t+c)/c)^-(K/rho) exact); R1(1)=0.5000; p=5/3: dlnR/dlnt = -K*t/(rho*(c + t)**(5/3)) -> 0 (not constant: d/dt = K*(-3*c + 2*t)/(3*rho*(c + t)**(8/3)) != 0), R53(1)=0.5740, lim t->inf R53 = exp(-3*K/(2*c**(2/3)*rho)) != 0
+     weakness: Standard calculus wearing the framework's unit: P5 is the iff-statement verified, the exponent 5/3 is supplied entirely by GR + orbital mechanics. Reading the fallback rate as a point-process rate, and rho, are free choices. P5 itself is absent from the issue's clause list — cited from theory/CRR.md §7.
+
+[g3] pulsar glitches as events
+     class g | clause A3/D5 (cuts = glitch events) + A6/P2/P3/O2 (reset map over settled occasions) — O2 explicitly leaves which constraint applies open | verdict OPEN | check declines
+     carrier: pulsar spin as the state; glitches as the point process (D5: the cut is the event, an occasion is one inter-glitch interval); unit under A1': one glitch event
+     detail: refusal: no committed glitch data in this tree (none may be fetched); literature alone leaves both inputs A6 needs unsettled — glitch-size law (power-law-like vs exponential-like across pulsars, Melatos & Peralta 2007 / Howitt, Melatos & Delaigle 2018) and waiting-time process (Poisson-like vs clustered); O2 leaves the reset constraint (state-at-cut vs salience) open
+     weakness: Graded honestly without data: issue rule 1 (a number exists only if a script prints it) forbids hand-transcribed numbers and there is no committed dataset in the tree; the check declines rather than guess. Even with data, O2's openness means the reset constraint itself would be a free choice.
+
+[g4] CMB acoustic peak phase spacing
+     class g | clause A3 (antipode every half acoustic cycle) + A3's own caveat: equal spacing is a symmetry of a linear constant-coefficient oscillator, not an A3 consequence | verdict DESCR | check ok
+     carrier: acoustic standing wave of the photon-baryon fluid; phase rotor theta = k r_s in R/piZ (one half-cycle = one acoustic phase unit, an A1' choice); amplitudes/envelope supplied by plasma physics
+     detail: probe1 (pure mode): spacings/(pi/r_s) = [1. 1. 1.] (exact); probe2 (damping kd=20 + beta=0.15 2nd harmonic): [1.0033 0.9759 1.017 ] (max drift 2.41%), successive peak-height ratio 1.257 (odd/even alternation, spacing intact); probe3 (damping kd=8): [0.9703 0.9713 0.9727] (max drift 2.97% — envelope drift visible, spacing tracks phase not maxima)
+     weakness: Equal phase spacing of a linear constant-coefficient oscillator is a symmetry no one would bet against — and CRR supplies no number: r_s, c_s, the damping envelope, the harmonic content, and even the identification of the plasma oscillation as a 'rotor' are all choices from plasma physics. Diffusion damping shifts peak maxima slightly; 'acoustic scale' is defined by phase, which makes equal spacing close to a definition.
+
+[g5] Hubble expansion history
+     class g | clause A1 admissibility + A3 (non-cutting families) — the framework explicitly declines: no cut, no occasions, no reset map | verdict OPEN | check declines
+     carrier: FLRW cosmology: state = scale factor a(t) (or redshift z), observed via redshift+distance with Gaussian errors; A1' unit would be the datum residual — never reached
+     detail: refusal: A3 fires only on a rotor or a compact family with a Fisher antipode; the FLRW scale factor a(t) is monotone (no half-turn exists) and the redshift-error family is Gaussian in its spread — A3's own stated non-cutting example; no occasion completes, so A6/P2/P3 have no occasions to read and no clause derives H(z) or the acceleration
+     weakness: Correctly graded OPEN rather than dressed up: the honest failure is that nothing about a(t) is statistical in the framework's sense. If one instead chose 'phase of a density-perturbation oscillator' as the carrier, the row would silently become g4 — that substitution is refused here because the Hubble flow itself is the named system.
+
+[h1] saddle-node: D8 depth divergence vs critical slowing down
+     class h | clause D8 + P4 vs A3 (+O1) — TENSION | verdict TENSION | check ok
+     carrier: overdamped relaxation near a saddle-node, linearized to a Gaussian/OU family with fixed thermal noise D; unit = A1' Cramér–Rao length s = 1/sqrt(I) (own unit); per-step = one sampling step dt
+     detail: k=|f'(x*)|=2*sqrt(mu)->0; own-unit speed v^2=q*I=1-exp(-2*k*dt)~2*k*dt (v~sqrt(k), D-independent); K~v so d=1/K~1/sqrt(k)->inf; asym probe mu-x^2+b*x^3: k_asym/(2*sqrt(mu))->1 (same leading rate); A3 side: Gaussian mean-family FR length (theta-theta0)/s unbounded -> no antipode -> never cuts
+     weakness: Every step after k → 0 makes a choice: the OU linearization, the step Δt, and above all r_own = s² — reading the filter's observation variance as the equilibrium fluctuation variance (A1' names the CR length as the unit but does not force this identification; flagged uncertain). The exponent is reading-dependent: own-unit OU gives d ∝ k^(−1/2); the deterministic-path reading gives d ∝ 1/k (matching τ ∝ 1/k); instrument-referenced r (fixed D) gives no divergence at all — direction (divergence) is the only stable content, so the direction-vs-form grade alone would be CONSIST; the D8-vs-A3/O1 collision is graded TENSION per the discipline.
+
+[h2] 2D Ising at Tc: Fisher metric divergence with known gamma = 7/4
+     class h | clause A1 + Criticality clause (thermal branch) | verdict CONSIST | check ok
+     carrier: 2D Ising Boltzmann family over (T, h), magnetization direction; unit = A1' Cramér–Rao length 1/sqrt(I_hh)
+     detail: I_hh=d^2 lnZ/dh^2=B^2 Var(m) (Fisher==susceptibility, beta^2 units); exact chain gamma=(2-eta)nu=(2-1/4)*1=7/4, delta=1+gamma/beta_mag=15; chi~|t|^-7/4->inf both sides of Tc; asym probe (Z2 broken by h): chi(Tc,h)~|h|^-(delta-1)/delta=|h|^(-14/15)->inf; framework contributes direction only, fixes no exponent
+     weakness: Exponent not fixed by the framework (γ = 7/4 is external exact data). ρ → ∞ requires choosing the family window over which the half-turn extent is measured (fixed window → ∞; order-parameter window need not diverge). I_hh = β²Var(M) carries β² unit conventions. O1 disclaims any retention law off the random walk, so only the Fisher-divergence direction is claimable on this carrier — the depth half of the criticality sentence is not.
+
+[h3] Landau mean-field pitchfork: mean-field exponents, framework exponent-blind
+     class h | clause A1 + Criticality clause (thermal branch, mean-field) | verdict CONSIST | check ok
+     carrier: Landau order-parameter family F = a t φ²/2 + b φ⁴/4 − hφ with mean-field (Gaussian-fluctuation) treatment; unit = A1' Cramér–Rao length
+     detail: phi0=sqrt(a|t|/b)->beta=1/2; chi=1/(at+3b phi^2)=1/(at) above, 1/(2a|t|) below ->gamma=1; phi~h^(1/3)->delta=3 (all from minimizing F, external to framework); Fisher I~chi->inf: criticality direction holds; two-phase Fisher separation 2*phi0*sqrt(I)=sqrt(2/b)-type O(1) constant; asym probe h!=0: chi(t=0,h)~(1/3)b^(-1/3) h^(-2/3)->inf off the symmetric line
+     weakness: The exponents come from minimizing F plus the Gaussian (mean-field) fluctuation treatment — standard mathematics external to the framework; the framework contributes A1's χ ≡ Fisher-component reading and the divergence direction only. It cannot distinguish this γ = 1 from 2D Ising's γ = 7/4 (exponent-blind). ρ is window-dependent: fixed parameter window → ∞, two-phase window → O(1).
+
+[h4] critical opalescence: observability of the Fisher divergence
+     class h | clause A1 + Criticality clause (thermal branch, observability) | verdict DESCR | check ok
+     carrier: grand-canonical density family p(N) at (T, μ) of a near-critical fluid; unit = A1' Cramér–Rao length 1/sqrt(I_μμ)
+     detail: I_mumu=d^2 lnXi/dmu^2=B^2 Var(N); d<N>/d mu=B Var(N); Fisher~kappa_T->inf both approach paths (asym probe: coexistence t<0 and isochore paths both diverge); OZ: S(q0)~|t|^(2nu-gamma)/q0^2 — fixed-q intensity saturates/decays at asymptotic criticality, opalescence is the crossover regime xi~lambda_optical
+     weakness: DESCR: textbook fluctuation physics wearing the Fisher unit; the OZ structure factor and the Gibbs–Duhem bridge are external standard mathematics; no number is predicted. ρ → ∞ needs the same window choice as h2. Flagged: the fixed-q saturation (S(q₀) ∝ |t|^(2ν−γ)) means the framework's 'resolution at all scales' should be read on the correlation length, not on a fixed-wavelength intensity.
+
+[h5] superradiant QPT (Dicke): soft-mode closure and D8 route
+     class h | clause A1 + D8 + Criticality clause (quantum soft mode) | verdict CONSIST | check ok
+     carrier: RWA Dicke ground-state family over the coupling g in the thermodynamic limit (quadratic bosonic form, exact there); unit = A1' Cramér–Rao (Bures) length along g
+     detail: detK=w0 w (w0 w - g^2) -> gc=sqrt(w0 w); Omega_-^2=(T-sqrt((w0^2-w^2)^2+4g^2 w0 w))/2, Omega_-(gc)=0, Omega_-^2 ~ C (gc-g) with C=2(w0 w)^(3/2)/(w0^2+w^2)>0 -> gap ~ (gc-g)^(1/2); D8 route: v~sqrt(k)~(gc-g)^(1/4), d~(gc-g)^(-1/4)->inf; known tau ~ (gc-g)^(-1/2): direction matches, exponent -1/4 vs -1/2 differs; detune probe w0=1,w=2: Omega_-(sqrt(2))=0 (closure is not a resonance artifact)
+     weakness: Same D8 route and choices as h1 (OU own-unit reading, Δt, r_own = s² — flagged uncertain); the gap-to-relaxation-rate reading k = Ω₋ is standard but is a reading. The fidelity-susceptibility exponent is not pinned by this check (direction only). Mean-field exponents (ν = 1/2, z = 1) are external; the framework cannot distinguish them from h3's. A3's occasion semantics on this carrier: the two superradiant phases ±α merge in Fisher distance at gc (2|α| → 0) and O1 disclaims off-random-walk retention — no external depth target exists.
+
+=== tally by class ===
+  class a (two-state / occupancy families (chemical, biochemical, condensed matter)): n=5 | DESCR=2, FAILS=1, TENSION=2
+  class b (quantum states and quantum dynamics): n=5 | CONSIST=1, FAILS=1, TENSION=1, OPEN=2
+  class c (thermal ensembles and finite-time thermodynamics): n=5 | CONSIST=4, OPEN=1
+  class d (parametric estimation and filtering): n=5 | CONSIST=3, DESCR=1, OPEN=1
+  class e (oscillators and limit cycles (physical)): n=5 | CONSIST=1, DESCR=2, OPEN=2
+  class f (point processes and natural-time systems): n=5 | CONSIST=1, TENSION=1, OPEN=3
+  class g (gravitational / astrophysical / cosmological systems): n=5 | CONSIST=1, DESCR=2, OPEN=2
+  class h (bifurcations and critical phenomena): n=5 | CONSIST=3, DESCR=1, TENSION=1
+=== total ===
+  CONSIST=14 | DESCR=8 | FAILS=2 | TENSION=5 | OPEN=11 | n=40 | errors=0
