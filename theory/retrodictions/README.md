@@ -136,6 +136,53 @@ Three independent runs now agree: no clause of CRR forces a known result on its 
 external run's SHARP rows are what the issue's rule 2 warns about: an observable, a unit or a
 cut rule chosen after the fact, or a domain constant that was defined at the framework's point.
 
+## The biological battery (owner request, 2026-09-17)
+
+`bio_retrodictions.py` → `bio_retrodictions.txt` (pinned; CI reproduces it byte for byte). 19
+model systems in six classes, model systems only (no dataset opened, R2), and for every system
+with its own events the H-L5 class computed on the model with the repository's own instrument.
+
+| class | SHARP | CONSIST | DESCR | FAILS | TENSION | OPEN |
+|---|---|---|---|---|---|---|
+| (n) neural | 0 | 3 | 0 | 1 | 0 | 0 |
+| (c) cardiac / physiological | 0 | 0 | 2 | 0 | 0 | 1 |
+| (e) epidemiological | 0 | 0 | 1 | 0 | 0 | 2 |
+| (p) population / evolutionary | 0 | 2 | 1 | 0 | 0 | 0 |
+| (m) molecular / cellular | 0 | 0 | 1 | 0 | 0 | 2 |
+| (b) behavioural / adaptive | 0 | 0 | 1 | 0 | 0 | 2 |
+| all (19) | 0 | 5 | 6 | 1 | 0 | 7 |
+
+**What has content.** The CONSIST rows are where a biological quantity already *is* the Fisher
+geometry: the replicator equation is a gradient flow in the Shahshahani (Fisher) metric and the
+Fisher speed of selection is the fitness standard deviation (Fisher's fundamental theorem);
+the Fechner scale is the Fisher arc under Weber's law; a relaxation-oscillator neuron under a
+varying drive and a noisy integrate-and-fire neuron keep arc rather than time, because their
+threshold fixes the chord (the battery's S-G2 mechanism); and bacterial cell-size control is
+the first system in any of the batteries that is **arc-regular by its own physiology rather than
+by construction**: an adder adds a constant volume per cycle while its interdivision time varies
+with growth rate (CV 0.075 against 0.322 on the model), a timer is the opposite. That row names
+the real-data study it points at: an L5x row on single-cell growth data, gated first.
+
+**The one FAILS.** "ρ → 0 at onset" (the issue text's criticality clause) is a property of class-2
+(Hopf) neurons; class-1 (SNIC) neurons start firing at vanishing rate with full-size spikes
+(rule 4). v3.1 makes no criticality claim.
+
+**The H-L5 class map** (model systems; the ledger's real-data rows are MEAS2 for measles and
+CARD, pending): arc-regular: integrate-and-fire (narrowly), FitzHugh–Nagumo under varying
+drive, respiratory sinus arrhythmia (by construction), the adder; clock-regular: pulsus
+alternans, a fibrillation-like rhythm (neither is regular), the entrained circadian oscillator,
+the timer. The forced-SIR row shows the map's limit: counting every peak makes it arc-regular by
+a small margin, counting major epidemics makes both quantities exact on the deterministic orbit,
+so the event rule, which the framework does not supply (v3.1 O3), decides the class; the model
+neither confirms nor contradicts the measles ledger row.
+
+**OPEN, and why it matters.** The quantities biology wants are not reached: the final size of an
+epidemic, the Hill coefficient, burst size in gene expression, the habituation rate. And the one
+place the framework and a standard model *disagree* is prospective: in the two-state model of
+motor adaptation the path surplus of a block has no effect beyond the state it leaves (depth
+one), while the occasion-weight law predicts one. That is the T5 experiment the roadmap names
+and the spec's §XV system; it is not a retrodiction and is graded OPEN here.
+
 ## TENSION and the minimal rewording
 
 One TENSION (row 16). Minimal resolution: give the two laws different names. Keep "equanimity"
