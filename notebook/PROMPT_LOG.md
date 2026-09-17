@@ -523,3 +523,13 @@ Issue #21 (Retrodictive Predictions), filed 2026-09-16T19:06:12Z:
 > For each system: (i) name the carrier (which statistical family, which unit under A1′); (ii) state which clause is being applied (A1 admissibility, A3 antipode, D2/D4 arc and surplus, A6/P2/P3 reset map, P4/D8 retention, P6 window, the criticality clause); (iii) derive the framework's answer mechanically; (iv) state the known physics; (v) verify the coincidence or contradiction in code; (vi) grade. Where the framework's answer depends on a choice the physics did not make for you (which observable, which coordinates, which metric on a rotor), say so in the row and downgrade.
 >
 > Do not stop at the systems where the framework looks good. The battery is only informative if it contains systems where it might not.
+
+## 33 — received 2026-09-17T00:23Z, logged 2026-09-17T00:23Z
+
+> @"/root/.claude/uploads/77fb7a2b-ce3d-5c52-a1a6-710031fa20e9/03e598fc-CRR_Fable_5_1_test_specification.md" Excellent. Please merge this finding and add the attached documentation from GPT 6 Astra for further evidence toward CRR as a falsifiable framework. 
+>
+> Please process the mathematics in here thoroughly, then run a full suite of Retrodictive predictions using CRR and show precisely when any existing mathematics is "borrowed" from within a domain, including flow-rates etc. in the coherence integral. 
+>
+> The aim here is to absorb this GPT 6 output into the repo and then produce a new note for Daniel of the existing findings, what the Equanimity Law means (in simple terms), and a suite of further tests to run]
+
+Context: the attached file (sha256 0591a3a258a4aebcfc6c94649ff9b07eece928262279c58bfefe965e92ba092f) is stored verbatim under theory/external/ with a provenance note; its [T] items are checked in theory/checks/verify_spec_math.py; a retrodiction battery (issue #21's task) is run as theory/retrodictions/crr_retrodictions.py with a "borrowed" and a "flow" column per row; a reconciliation of the external spec against theory/CRR.md v3.1 is written (no change to CRR.md without the owner's signature); the note for Daniel quotes the ledger only; the working branch is then merged to main by pull request as asked.
