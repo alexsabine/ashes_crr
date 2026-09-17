@@ -198,6 +198,29 @@ of the world, only that it can be carried in plain words.
 - elegance: Near the tipping point the two choices move closer together while the jitter grows, and whether the jitter wins depends only on the number of dimensions: below four it does, above four it does not. A rule with one integer and no knobs.
 - for a fifth grader: Imagine a crowd deciding to face left or right. Near the moment when it cannot decide, 'left' and 'right' look more and more alike, and everyone fidgets more. In our three-dimensional world the fidgeting wins near that moment, so you cannot tell which way the crowd has chosen; in a world with more than four directions you still could.
 
+## theory/retrodictions/synthesis_batches/batch_09.txt
+
+### [1] Near-critical fluid on the grand-canonical density family (Daniel's battery row h4 re-read): I_mumu = beta^2 Var N, Var N/<N> = n kT kappa_T (fluctuation-compressibility sum rule), kappa_T ~ |t|^-gamma, xi ~ |t|^-nu, coexistence gap ~ |t|^beta; exact 2-D Ising lattice-gas exponents as the source battery's row h2 lists them, mean field, and the source row's 3-D numbers
+
+- source row: runs/phaseA/crr_retrodictions.txt [h4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Count in patches, not in metres: near the critical point the liquid and the gas are made of ever-larger patches, and measured in patches they stay the same number of steps apart even as they become alike. A rule with no knobs, and it is the domain's (hyperscaling).
+- for a fifth grader: Near one special temperature a liquid and its steam start to look the same, and the liquid turns milky because it is full of patches, some thicker and some thinner, that grow bigger and bigger. If you use a patch as your ruler, the liquid and the steam stay the same number of patches apart right up to the end; it is only a fixed ruler that sees them melt together.
+
+### [4] Ligand binding to a receptor with m sites, Adair binding polynomial Z(S) = sum a_i S^i: the receptor's own carrier is its ligation-state distribution p_i = a_i S^i / Z (categorical, m + 1 states), the domain's is the fractional saturation Y (Bernoulli); Michaelis-Menten is m = 1, the Hill equation is the all-or-none m-site member; constants illustrative, S_50 = 1 by choice of units where the polynomial is symmetric
+
+- source row: theory/retrodictions/sharp_claims.txt [3] (DESCR)
+- outcome: WRONG
+- elegance: A grabber with two hands is exactly half full at one amount of ligand, however much the hands help or hinder each other: the geometric mean of the two grip strengths. A rule with no knobs, and it is the domain's; the picture stops at two hands.
+- for a fifth grader: Imagine a toy with two hands that can each hold a ball, and a room with balls floating around. Whether the hands help each other or get in each other's way, there is one amount of balls in the room at which the toy is exactly half full, and you can work it out from the two grip strengths alone. With three hands that easy rule can stop working.
+
+### [5] Diprotic acid H2A on its own carrier, the species distribution (H2A, HA-, A2-) over pH, for three pKa pairs, against the source row's ionised-fraction carrier and the titration curve n_b(pH) of 0.1 M acid with strong base; the source row's monoprotic acid (pKa 4.76) beside it
+
+- source row: theory/retrodictions/sharp_claims.txt [4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Giving away the first proton and taking back the second are mirror images, so the in-between form of a two-proton acid sits exactly halfway between its two pKa's, whatever they are. A picture with no knobs, and it is the domain's.
+- for a fifth grader: A two-proton acid can give away two hydrogen 'balls'. Letting go of the first and getting the second back are mirror images of each other, so the moment when it holds exactly one ball is exactly halfway between the two sourness levels where each ball comes off. That is true for every such acid, so you never need to look it up.
+
 ## theory/retrodictions/synthesis_batches/batch_10.txt
 
 ### [3] Resonance fluorescence of the source's qubit: resonant Rabi drive Omega = 1.3 with spontaneous emission at rate Gamma (quantum-jump unravelling; each emission resets the state to |g> and is the atom's own event; the reset is the cut, not arc), scanned over Omega/Gamma; Fubini-Study arc with orthogonality at pi/2
@@ -237,4 +260,20 @@ of the world, only that it can be carried in plain words.
 - elegance: Count in steps you can actually tell apart and the 'usual' level of what you have seen is the middle of the doublings, not the middle of the numbers. A rule with no knobs, and it is the one the psychologists found by fitting.
 - for a fifth grader: Suppose you lift a few things one after another, some light, some heavy. Your hands settle on a feel for the 'normal' weight. That normal is not the plain average of the weights; it sits in the middle of the doublings, because your hands notice a weight doubling, not a weight going up by a fixed amount. Scientists who study the senses worked that out long ago.
 
-Entries: 30.
+## theory/retrodictions/synthesis_batches/batch_12.txt
+
+### [1] Heartbeat under breathing as a fixed-shape pulse train with the two respiratory modulations the pulse literature names: RR-interval (frequency) modulation of depth a/T0 = 0.0889 (the source's RSA, 0.90 +/- 0.08 s) and pulse-amplitude modulation of depth b, 60 beats at 2000 Hz, onsets as the system's own events
+
+- source row: theory/retrodictions/bio_retrodictions.txt [5] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: Breathing bends the heartbeat two ways: it stretches the gaps between beats and it changes the size of the beats. Whichever bend is bigger decides which of the two clocks the heart keeps: no knobs, a ratio of two depths.
+- for a fifth grader: When you breathe in and out, your heartbeats get a little closer together and further apart, and each beat also gets a little bigger and smaller. If the timing wobbles more than the size, then the size is the steady thing; if the size wobbles more, the timing is the steady thing.
+
+### [2] Cardiac alternans in the APD-restitution map A(n+1) = F(DI(n)), DI(n) = BCL - A(n), F(DI) = 300 - 200 exp(-DI/60) ms, with A6 regeneration: the diastolic interval the next beat responds to is the P3 age-weighted mean of the settled diastolic intervals, M(n) = (1 - q) DI(n) + q M(n - 1)
+
+- source row: theory/retrodictions/bio_retrodictions.txt [6] (DESCR)
+- outcome: ADDS
+- elegance: A beat that copies only the beat before it can be pushed into big-small-big-small forever; a beat that takes the average of a few settled beats smooths the see-saw out. The rule is one sentence: remember a little, and alternation needs a steeper push.
+- for a fifth grader: Imagine each heartbeat deciding how long to last by looking only at the one before it: a small wobble can bounce back and forth, long-short-long-short, without stopping. If each beat instead looks at a few earlier beats and takes their average, the wobble gets evened out, and it takes a much harder push to make the heart see-saw.
+
+Entries: 35.
