@@ -583,3 +583,7 @@ Context: an excitatory–inhibitory network retrodiction battery (model systems:
 ## 41. 2026-09-17T19:35:00Z
 
 Did we use the full CRR and the "one omega before rupture" rule here? Check the mathematics and run a python check in the sandbox to see whether you missed something
+
+## 42. 2026-09-17T20:40:00Z
+
+Okay. Run another battery of crr tests on various different systems according to the pipeline please

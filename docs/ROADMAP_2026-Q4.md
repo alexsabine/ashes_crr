@@ -46,20 +46,22 @@ item below ends in a ledger row or in a gate table, or it does not happen.
 
 ## 2. Retrodiction across more systems: what is worth adding
 
-The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological and 11 E-I
-model systems. Adding rows has value only where a class is thin or a claim is untested:
+The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I and 9
+driven-system rows. Adding rows has value only where a class is thin or a claim is untested:
 
 - **Point processes with events the system owns** (neuronal spike trains, stick-slip, glitches,
   epidemics): the one class where A3/D5 and H-L5 have content. Each new row should compute the
   L5 statistic on a published record and grade it, so the battery becomes a map of which
   systems are clock-regular and which are arc-regular. Measles and the pendulum are the first
   two entries in the clock-regular column; none is yet in the other.
-- **Thermal systems with a measured protocol** (optical-trap experiments with recorded stiffness
-  schedules): the thermodynamic-length rows are CONSIST on paper; a row on a published dataset
-  would show whether S orders measured dissipation (the two batteries say it cannot on a 1-D
-  carrier; a 2-D protocol is the test).
+- **Thermal systems with a measured protocol**: answered on a model (driven-systems battery row
+  9): on a two-parameter trap protocol S does not order the excess work, the speed profile in the
+  friction metric does, and the friction metric is not the Fisher metric up to a scalar. No
+  real-data row is needed for this question.
 - **Multi-occasion systems where influence is measured, not imposed**: this is the only place
-  the spec's T5 can be tested, and no battery has a row. Candidates: human motor adaptation
+  the spec's T5 can be tested. The first such row (driven-systems battery row 5, a Preisach
+  hysteresis ensemble) FAILS the law: influence is 1 or 0 by wiping-out, not e^{S}. A T5 prereg
+  must first state the memory class the law excludes. Candidates: human motor adaptation
   with block-wise interference measured (the spec's §XV, re-run under the protocol),
   ecological or epidemiological systems with recorded successive outbreaks and a measurable
   effect of each on the next.
