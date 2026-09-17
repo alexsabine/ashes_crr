@@ -661,3 +661,7 @@ the text of every entry is verbatim and unchanged. From this note on, entry time
 ## 57. 2026-09-17T21:06:34Z
 
 Please go ahead and run the continual learning benchmark checks. Do full sweeps and focus on whether CRR's potential to save compute cost.
+
+## 58. 2026-09-17T21:13:47Z
+
+Fair enough. In this case, please run the CRR through the mathematics of Shannon Information theory, especially focussing on 2026 papers and its current status. Run the full pipeline on this please. Thank you
