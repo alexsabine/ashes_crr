@@ -1,0 +1,118 @@
+CRR at zero — 13 boundary checks in 5 groups. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (def) The empty occasion: a carrier that does not move
+     clause:     D2-D4 (C, C*, S at zero), P1 (equality), A1'/D1 (the unit)
+     BORROWED:   arc length of a constant path
+     derivation: C = 0.0, C* = 0.0, S = 0.0 (P1 holds with equality); the unit on a constant statistic: unit_sigma raised ValueError: degenerate residual: record rejected (no floor is applied)
+     known:      a path of zero length has zero length
+     verdict:    the quantities are all zero by definition and the unit does not exist: the framework cannot count on a carrier that does not change, which is what A1' says (the unit is a resolvable step of the system's own change)
+     GRADE:      DESCR
+     weakness:   the instrument rejects the record rather than reporting zero occasions: an empty carrier has no unit, not a unit of zero
+[ 2] (def) The cut as a Dirac delta in phase: unit count, zero measure
+     clause:     A3 ('the cut has no duration and no content'), D5
+     BORROWED:   distributions: delta and Heaviside
+     derivation: integral of delta over a half-turn = 1 (the cut counts once); measure of its support = 0; d/dx Heaviside = DiracDelta(x) (Now is the derivative of the settlement function)
+     known:      a delta has unit integral and zero support
+     verdict:    A3's 'no content' is the zero-measure support of a delta and 'partitions the history' is the Heaviside it differentiates; both are definitions, and they hold exactly
+     GRADE:      DESCR
+     weakness:   the theory's first statement about emptiness is a definition that cannot fail
+[ 3] (def) A closed loop: the endpoint says nothing changed, the arc says everything did
+     clause:     D3 (C* = 0 on a closed loop), D4 (S = C), D6/H-T1 (path vs endpoint)
+     BORROWED:   arc length of the unit circle
+     derivation: unit circle traversed once: C = 6.2832 (2 pi = 6.2832), C* = 2.45e-16, S = 6.2832: all of the arc is surplus
+     known:      a loop has zero displacement and positive length
+     verdict:    the one place where CRR's reading and an endpoint reading differ maximally is the loop: an empty endpoint displacement with a full arc; this is the content of D4 and the design of the 'loop' schedules in T1x, and it is a definition until a system's forgetting is shown to track it (the ledger's T1 rows say the old-probe endpoint won)
+     GRADE:      DESCR
+     weakness:   true by definition; whether any system cares about S when C* = 0 is exactly what H-T1 and the Preisach/reservoir rows tested, and they said no
+[ 4] (def) The future has no content: the settled sum has no terms ahead of Now
+     clause:     A8 ('the future has no content'), A7 (nothing is fed by a future), D5
+     BORROWED:   counting cuts
+     derivation: 20 cuts on 10 cycles; at the midpoint the settled count is 11 and the terms the settled sum can contain from ahead of Now: 0 by construction (the terms 'ahead', 9, exist only once the run is over)
+     known:      one cannot sum what has not happened
+     verdict:    A8 is the statement that the sum over settled occasions has an upper limit n(t), a step function; the framework then permits a comparative forecast (A8 v3.1) but never a content: a definition of tense, not a claim about the world
+     GRADE:      DESCR
+     weakness:   the theory's second statement about emptiness is also a definition; it becomes testable only as the comparative forecasts it licenses (F1, gated but not built)
+[ 5] (carrier) The boundary of a Fisher-native carrier: empty rate, empty category, empty probability
+     clause:     A1 (Fisher-Rao carrier), P6/P7 (SCOPE.md), D1
+     BORROWED:   Fisher-Rao distances of the Poisson, Bernoulli and categorical families (Cencov)
+     derivation: Poisson: distance from lambda = 0 to lambda = 1 is 2 sqrt(lambda) = 2.0000 while the metric 1/lambda diverges at 0; Bernoulli: metric 1/(p*(1 - p)) diverges at p = 0, distance from p = 0 to 1/2 is 1.5708 and to p = 1 is 3.1416 (= pi); categorical: an empty category is a simplex vertex at distance 3.1416 (= pi) from any other vertex
+     known:      the Fisher metric of an exponential family is singular at the boundary but the boundary is at finite distance
+     verdict:    emptiness on a Fisher carrier is infinitely curved and finitely far: a carrier fact the geometry supplies, on which the framework's unit and cut are then defined; nothing about zero is derived
+     GRADE:      DESCR
+     weakness:   inherited (Cencov); the spec's removal of the Bernoulli 'p = 1/2 antipode' is the same fact read from the other end
+[ 6] (carrier) A count carrier that is mostly zero (a sparse spike train or case series)
+     clause:     A1' (unit from residuals), P6 (arc = total variation of 2 sqrt lambda), R11 (flat-channel gate)
+     BORROWED:   the Poisson transform; total variation
+     derivation: 200 bins, 8 non-zero (all isolated: False): Fisher arc of the whole series = 43.027; sum over events of 4 sqrt(k) = 47.027 (equal iff the events are isolated); the unit from a training window of zeros: unit_sigma raised ValueError: degenerate residual: record rejected (no floor is applied)
+     known:      a sparse count series has a residual scale of zero almost everywhere
+     verdict:    on a mostly-empty carrier the arc is a sum of event-sized jumps and the unit does not exist: the framework's own quality gate (R11) rejects the record, so emptiness is not a state the framework describes but one it excludes
+     GRADE:      DESCR
+     weakness:   the measles carrier avoided this because its counts were never zero; a spike-train carrier would hit it, and the prereg would have to name a rate-smoothing window (which the diffusion-carrier row also demands)
+[ 7] (rule) The normalised step (v3.1 H-EQ) when the past or the present gradient is zero
+     clause:     H-EQ (w = Omega ||g_present|| / ||g_past||), the EQ2 cap; A9 of the issue text
+     BORROWED:   limits of a ratio
+     derivation: w as ||g_past|| -> 0: oo (an empty past is weighted infinitely: the cap the EQ2 prereg had to add); w as ||g_present|| -> 0: 0 (an empty present silences the past entirely)
+     known:      a ratio has opposite limits at the two zeros
+     verdict:    the rule's two zero limits are opposite in kind: nothing left to remember is weighted without bound, nothing left to learn drops the past to zero; the second is a behaviour (a converged learner stops protecting old tasks) that no ledger row has tested and the EQ2 report did not name
+     GRADE:      TENSION
+     weakness:   internal: the two emptinesses of the rule are not symmetric, and one of them (empty present) is the ordinary end state of every training run
+[ 8] (rule) The Kalman identity (P4) at zero Fisher speed and at infinite speed
+     clause:     P4 (K(v)), O1
+     BORROWED:   steady-state Riccati equation
+     derivation: K(0) = 0: with nothing happening the present is ignored and the past kept whole; K(oo) = 1: with an empty (uninformative) past the present is taken whole; K(1) = -1/2 + sqrt(5)/2
+     known:      the Kalman gain runs from 0 to 1 with the process-to-observation noise ratio
+     verdict:    the two emptinesses are the two ends of the gain, and the golden-ratio value sits at v = 1 between them; P4 says of itself that the formula is not CRR's
+     GRADE:      DESCR
+     weakness:   standard; a control for the H-EQ row: here the two limits are the expected ones
+[ 9] (rule) The MaxEnt occasion weights at zero surplus, zero temperature and zero age
+     clause:     P2 (pi proportional to e^{beta S}), P3 (pi proportional to q^k), O2
+     BORROWED:   Gibbs and geometric distributions
+     derivation: all surpluses zero: weights [0.25 0.25 0.25 0.25] (uniform: emptiness of surplus is indifference); beta = 0 gives the same; q -> 0: [1. 0. 0. 0.] (only Now); q -> 1: [0.25 0.25 0.25 0.25] (all ages equal, mean age unbounded)
+     known:      a Gibbs distribution with equal energies is uniform; a geometric distribution degenerates at its endpoints
+     verdict:    with nothing to distinguish occasions the framework weights them equally, and with q at its ends it keeps only the present or everything: definitions of the two constraint families, and CRR fixes neither beta nor q
+     GRADE:      DESCR
+     weakness:   O2 says the choice between the families is untested; the batteries have since found five kernels, one of them in these families
+[10] (inst) Signal below one resolvable step: does the antipodal cut fire on emptiness?
+     clause:     A3 (the cut is a phase criterion, scale-free), D1 (rho reported), R5/R11 (rho floor as a quality gate)
+     BORROWED:   analytic-signal phase of noise
+     derivation: amplitude 1 sigma (rho = 2): 621 cuts on 20 true cycles; amplitude 0.1 sigma (rho = 0.2): 1246 cuts on 20 true cycles; amplitude 0 sigma (rho = 0): 1248 cuts on 20 true cycles
+     known:      the analytic-signal phase of pure noise still advances, so a phase criterion fires on nothing
+     verdict:    the cut is scale-free and fires on an empty signal at the noise's own rate: emptiness produces occasions unless the quality gate removes the record; that is why rho is reported and a floor is pre-registered, and it is an instrument property, not a claim
+     GRADE:      DESCR
+     weakness:   the gate (S-D rows) handles this; a prereg that forgets the rho floor would count occasions in noise
+[11] (inst) Zero, one, two and three events: what the regularity statistic can say
+     clause:     H-L5 (CV across occasions), R6 (per-unit scoring), O3 (natural time needs events)
+     BORROWED:   the definition of a coefficient of variation
+     derivation: two events (one occasion): regularity raised ValueError: regularity needs >= 3 events (>= 2 occasions); three events (two occasions): returned n = 2 occasions, cv_arc 0.011, cv_clock 0.007; zero units: sign_test_units raised ValueError: sign_test_units needs at least one unit; one unit: win fraction 1.0, exact binomial p = 1.00
+     known:      a variance needs two samples and a sign test needs many
+     verdict:    with fewer than two occasions there is no regularity to compare, and with one unit the sign test cannot reject anything (p = 1): emptiness of events is silence, enforced by the instrument rather than stated by the theory
+     GRADE:      DESCR
+     weakness:   the minimum counts belong in every prereg's exclusion rules (R6)
+[12] (quantum) The quantum vacuum displaced to a coherent state: how far is emptiness from its antipode?
+     clause:     A3 (cut at the antipode), A1 (Fubini-Study carrier), the main battery's qubit rows
+     BORROWED:   Fubini-Study distance; overlap of coherent states |<0|alpha>|^2 = exp(-|alpha|^2)
+     derivation: |alpha| = 0.5: distance 0.979; |alpha| = 1: distance 1.838; |alpha| = 2: distance 2.870; |alpha| = 3: distance 3.119 (antipode at pi = 3.142, reached only as |alpha| -> infinity)
+     known:      a coherent state is never orthogonal to the vacuum
+     verdict:    the empty mode has an antipode that displacement never reaches, so A3 never fires on this path: the framework says OPEN by its own rule (no canonical cut), and the vacuum is a carrier point like any other
+     GRADE:      OPEN
+     weakness:   a control: emptiness in the quantum sense is not special to the framework; only orthogonality is, and displacement never produces it
+[13] (def) Zero surplus: the monotone path (P1's equality case) against one with a single reversal
+     clause:     P1 (S >= 0, equality iff geodesic), D4
+     BORROWED:   the triangle inequality
+     derivation: monotone ramp: C = 3.000, C* = 3.000, S = 0.0e+00; ramp with one reversal: C = 3.000, C* = 1.000, S = 2.000 (twice the backtrack)
+     known:      a path has zero surplus iff it never backtracks (in one dimension)
+     verdict:    emptiness of surplus is the absence of backtracking: a definition (P1 says of itself that it is the triangle inequality), and the quantity every 'wear' row (Paris law, annealing) was shown to be the wrong functional for
+     GRADE:      DESCR
+     weakness:   the surplus is well defined at zero; whether anything reads it is the T5 question, which failed twice
+
+====================================================================================================
+TALLY
+group                                   SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(def) the theory's definitions at zero        0        0        5        0        0        0
+(carrier) empty carriers                      0        0        2        0        0        0
+(rule) rules at zero                       0        0        2        0        1        0
+(inst) the instrument at zero              0        0        2        0        0        0
+(quantum) the vacuum                          0        0        0        0        0        1
+all                                         0        0       11        0        1        1
+
+What the framework says about emptiness: two definitions (the cut has no content; the future has no content), both exact; at every other zero the definitions behave as their mathematics dictates, the instrument refuses to count (no unit, too few events), and one rule (the normalised step) has opposite limits at its two zeros. Rows where a clause reaches a result the domain did not have: 0 of 13.
