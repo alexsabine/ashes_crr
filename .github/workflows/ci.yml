@@ -42,6 +42,7 @@ jobs:
           uv run python theory/retrodictions/driven_systems.py > /tmp/drv.txt && cmp /tmp/drv.txt theory/retrodictions/driven_systems.txt
           uv run python theory/retrodictions/cognitive_collective.py > /tmp/cc.txt && cmp /tmp/cc.txt theory/retrodictions/cognitive_collective.txt
           uv run python theory/retrodictions/wild_systems.py > /tmp/wild.txt && cmp /tmp/wild.txt theory/retrodictions/wild_systems.txt
+          uv run python theory/retrodictions/twenty_systems.py > /tmp/t20.txt && cmp /tmp/t20.txt theory/retrodictions/twenty_systems.txt
           uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt)
 
       - name: Surrogate gates must read GATE OPEN

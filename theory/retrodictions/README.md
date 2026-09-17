@@ -474,6 +474,83 @@ density.
 point and the imprinting row mixed seniority with antigenic distance; the registered values and the
 variants were corrected, not the wording.
 
+## The twenty-systems battery (owner request, 2026-09-18, prompt-log entry 52)
+
+`twenty_systems.py` → `twenty_systems.txt` (pinned; CI reproduces it byte for byte). Twenty model
+systems in eighteen domains none of the eight earlier batteries touched. Model systems only; no
+dataset opened. Tally: 0 SHARP / 1 CONSIST / 12 DESCR / 1 FAILS / 0 TENSION / 6 OPEN.
+
+| row | system | grade |
+|---|---|---|
+| 1 | radioactive decay chain (Bateman): a Markov control | OPEN |
+| 2 | passively Q-switched laser: gain build-up to a saturable-absorber threshold | DESCR |
+| 3 | geyser eruptions (reservoir with variable release): forward size/interval rule | CONSIST |
+| 4 | ENSO delayed oscillator with weather noise at two levels | OPEN |
+| 5 | Paillard three-state ice-age model under synthetic orbital forcing | OPEN |
+| 6 | tokamak sawtooth crashes, complete and incomplete | DESCR |
+| 7 | two-process sleep model, entrained vs free-running | OPEN |
+| 8 | bacterial run-and-tumble: run length vs run duration | DESCR |
+| 9 | hippocampal theta phase precession (H-CUT) | FAILS |
+| 10 | Rosenzweig-MacArthur predator-prey cycle with environmental noise | OPEN |
+| 11 | bullwhip effect under moving-average forecasting (a windowed memory) | DESCR |
+| 12 | fibre-bundle cascading failure: critical load and burst exponent | DESCR |
+| 13 | TD(λ): accumulating vs replacing eligibility traces | DESCR |
+| 14 | Kovacs memory effect in a two-mode glass model | DESCR |
+| 15 | Elo ratings: best K-factor against skill volatility (P4) | DESCR |
+| 16 | cricket chirps under drifting temperature (Dolbear's law) | DESCR |
+| 17 | the spacing effect with ACT-R's activation-dependent decay | DESCR |
+| 18 | cobweb model: a depth-one control | DESCR |
+| 19 | RHEED growth oscillations as natural time | DESCR |
+| 20 | fire regimes: fuel-limited vs ignition-limited | OPEN |
+
+**The first H-CUT row, and it fails (row 9).** H-CUT says a system's own events sit at the phase
+antipode. A place cell's spikes advance through the whole theta cycle as the animal crosses the
+field: the mean resultant length of spike phases is 0.100 for the precessing cell against 0.879 for
+an antipode-locked control with the same jitter. Phase precession is the best-known phase code in
+neuroscience and it is exactly the class H-CUT must exclude before its gate is written.
+
+**The one CONSIST is the geyser, and it is the pulsar row's mirror (row 3).** With a fixed threshold
+and a variable release, the eruption size predicts the following interval (forward correlation 1.00,
+backward −0.05), the rule Old Faithful's rangers use and the reading A6 gives. The wild-systems
+battery's pulsar row showed the same clause failing when the threshold varies instead. A6 reads the
+variable-release class correctly and is wrong about the other; the forward rule is the reservoir
+model's, not regeneration's.
+
+**Memory kernels: five on record, one covered.** The bullwhip forecast weights the past uniformly
+over its window and not at all beyond (amplification 2.92 at window 5 and 1.34 at window 20, equal
+to the closed form for the policy); the spacing effect's kernel is a power law in age (R² 1.000
+against 0.577 for the geometric form), and spaced practice wins by 0.902 in activation only once
+the decay rate depends on the state at practice, a regeneration rule the framework does not have;
+TD(λ) traces are geometric by design, and at λ = 0.95 the counting trace loses to the capped one by
+0.044 RMS, the opposite of the cache row's stationary case. With the reservoir (geometric),
+Preisach (wiping-out) and antigenic seniority (primacy), five kernels are now measured and P2/P3
+cover one.
+
+**The adder in four more domains, with its two conditions visible.** The Q-switched laser (CV_arc
+0.004 vs 0.250 under pump noise), the sawtooth with complete crashes (0.003 vs 0.092), cricket
+chirps (0.029 vs 0.084) and RHEED oscillations (0.003 vs 0.104) are arc-regular by construction:
+a fixed chord and a fixed reset. The incomplete sawtooth crash (0.506 vs 0.510) and the
+threshold-jittered laser (0.128 vs 0.127) show what happens when either condition fails. The
+ignition-limited fire regime is arc-regular (0.141 vs 0.505) for a reason that has nothing to do
+with fire: the fuel saturates while waiting, so saturation fixes the chord.
+
+**Class assignments where the framework predicts nothing.** ENSO ties at noise 0.3 and is within
+0.002 at noise 0.6; the Paillard model reads arc-regular (0.262 vs 0.324) with terminations 55 kyr
+apart under the synthetic forcing; the entrained sleep cycle ties within 0.001 because the gate
+moves the threshold with the clock, while the free-running homeostat is an exact adder (0.000 vs
+0.100); the predator-prey cycle reads clock-regular at the reading edge (0.041 vs 0.031).
+
+**Controls and readings.** The decay chain and the cobweb are depth-one systems on which the
+framework is correctly silent (the daughter peak at 4.02 and the amplitude ratio 0.640 are the
+closed forms). The fibre bundle fails at 0.2509 per fibre against the exact 1/4 with a burst slope
+of −3.07 on small sizes (asymptotic −5/2); the Kovacs hump (0.0031 against 1.7e-18 for the
+equilibrium control) is a two-dimensional state read as path dependence; the Elo optimum rises
+with volatility (K = 2, 128, 256 at v = 0.03, 0.1, 0.3), the Kalman reading in a logistic setting;
+run-and-tumble at constant speed ties exactly because the arc is the clock times a constant.
+
+**Decisions** (AGENT_LOG 23): seven rows' first numbers contradicted their text; the models and
+estimators were corrected and every verdict is computed from its numbers.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"

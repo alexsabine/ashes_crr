@@ -47,7 +47,7 @@ item below ends in a ledger row or in a gate table, or it does not happen.
 ## 2. Retrodiction across more systems: what is worth adding
 
 The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9
-driven-system, 9 cognitive-collective and 8 wild-system rows. Adding rows has value only where a class is thin or a claim is untested:
+driven-system, 9 cognitive-collective, 8 wild-system and 20 twenty-systems rows. Adding rows has value only where a class is thin or a claim is untested:
 
 - **Point processes with events the system owns** (neuronal spike trains, stick-slip, glitches,
   epidemics): the one class where A3/D5 and H-L5 have content. Each new row should compute the

@@ -1,0 +1,220 @@
+CRR retrodiction battery: twenty model systems in eighteen domains — 20 rows. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (nuc) Radioactive decay chain A -> B -> C (Bateman): the daughter's rise and fall
+     clause:     A4 (the state (N_A, N_B) is Markov: depth one), D2-D4 on N_B; O3 (no cut without a rotor)
+     BORROWED:   Bateman 1910 equations
+     FLOW:       the decay constants (nuclear-supplied)
+     derivation: daughter peak at t = 4.02 (closed form ln(l_B/l_A)/(l_B - l_A) = 4.02); arc of N_B over the run C = 0.2669, chord 0.0006, surplus S = 0.2663 (the rise and the fall counted, a definition)
+     known:      the daughter activity peaks at a time set by the two decay constants; the chain is memoryless
+     verdict:    a Markov system with no event of its own: the framework says OPEN by its own rule (spec Decision 4); the surplus is the sum of the rise and the fall, a restatement of the curve
+     GRADE:      OPEN
+     weakness:   a control row: the framework is correctly silent, and nothing in the Bateman solution is reached
+[ 2] (opt) Passively Q-switched laser: pulse train from gain build-up to a saturable-absorber threshold
+     clause:     D5 (pulse = own event), A3 (the dump is the cut, exclusive segmentation), D2 (arc = gain accumulated), H-L5
+     BORROWED:   Q-switching rate equations (Statz-deMars); pulse-energy clamping by the saturable absorber
+     FLOW:       the pump rate (source-supplied) and the absorber threshold
+     derivation: pump noise, fixed threshold: CV_arc 0.004 vs CV_clock 0.250 -> arc-regular; steady pump, threshold jitter: CV_arc 0.128 vs CV_clock 0.127 -> clock-regular
+     known:      passively Q-switched pulses have nearly constant energy and a repetition rate that follows the pump; timing jitter comes from pump and threshold noise
+     verdict:    pump noise: arc-regular; threshold jitter: clock-regular by 0.001, below the 0.01 this battery treats as a reading; the absorber fixes the chord, so the pulse energy (arc) is the regular quantity when the pump varies: the adder mechanism in optics
+     GRADE:      DESCR
+     weakness:   rule 3: constant pulse energy is the absorber's clamp, not a CRR result
+[ 3] (geo) Geyser eruptions (reservoir model with variable release): eruption size and the following interval
+     clause:     A6 (the next occasion is seeded from the settled past), D5 (eruption = own event), A8 (comparative forecast from settled occasions)
+     BORROWED:   reservoir/refill models of geysers; the Old Faithful duration-to-next-interval rule
+     FLOW:       the heat flux and the released fraction (geyser-supplied)
+     derivation: variable release, fixed threshold: corr(size_n, following interval) = 1.00 (forward), corr(size_n, preceding interval) = -0.05 (backward)
+     known:      for Old Faithful the eruption duration predicts the interval to the next eruption (a forward rule used by park rangers)
+     verdict:    here the settled occasion does carry the next one, and A6's forward seeding reads it correctly; but the wild-systems battery's pulsar row shows the same clause fails when the threshold rather than the release varies, so what holds is the reservoir model's forward rule, which the geyser literature already had
+     GRADE:      CONSIST
+     weakness:   inherited from the reservoir model (rule 3 borderline); the forward correlation is a class property (variable release), not a consequence of regeneration
+[ 4] (clim) ENSO as a delayed oscillator (Suarez-Schopf) with weather noise at two registered levels: warm events as occasions
+     clause:     D5 (warm event = own event), D2, H-L5
+     BORROWED:   Suarez & Schopf 1988 delayed-oscillator model
+     FLOW:       the delay (wave transit time), the feedback strength and the weather noise (ocean- and atmosphere-supplied)
+     derivation: noise 0.3: 516 warm events, mean period 9.7 (CV 0.35), CV_arc 0.347 vs CV_clock 0.346 -> tie; noise 0.6: 594 warm events, mean period 8.4 (CV 0.36), CV_arc 0.362 vs CV_clock 0.364 -> arc-regular
+     known:      ENSO recurs irregularly every 2-7 years; the delayed oscillator gives a period set by the delay and the feedback, made irregular by noise
+     verdict:    noise 0.3: tie; noise 0.6: arc-regular by 0.002, below the 0.01 this battery treats as a reading; the period is the delay's, the irregularity is the noise's, and the class is assigned by the instrument: no clause predicts it
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 0.362, CV_clock 0.364)
+     weakness:   class assignment on a model at one delay; on a noisy 1-D carrier the sampled arc carries the noise's total variation (prompt-log entry 48)
+[ 5] (clim) Paillard three-state ice-age model under synthetic orbital forcing: glacial terminations as occasions
+     clause:     D5 (termination = own event), D2 (arc of ice volume), H-L5; A4 (the state is (V, discrete state): depth one)
+     BORROWED:   Paillard 1998 multiple-state threshold model; Milankovitch pacing
+     FLOW:       the insolation forcing (orbital) and the thresholds (climate-supplied)
+     derivation: 53 terminations in 3000 kyr; mean spacing 55.0 kyr (CV 0.32); CV_arc 0.262 vs CV_clock 0.324 -> arc-regular
+     known:      terminations are paced by insolation but require enough ice volume: the ~100 kyr cycle emerges from thresholds, not from a 100 kyr forcing
+     verdict:    arc-regular: the ice volume must reach v_max (a chord condition) and the forcing must then cross i1 (a clock condition); the class is decided by which wait dominates, and the framework does not say
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 0.262, CV_clock 0.324)
+     weakness:   class assignment on a synthetic forcing; the 100 kyr problem is the model's, not reached by any clause
+[ 6] (plasma) Tokamak sawtooth crashes: core temperature ramps to an instability threshold and crashes, completely or incompletely
+     clause:     D5 (crash = own event), A3 (the crash is the cut, exclusive segmentation), D2 (arc = temperature ramp), H-L5
+     BORROWED:   Kadomtsev sawtooth model; incomplete reconnection
+     FLOW:       the heating power (operator-supplied) and the crash fraction (plasma-supplied)
+     derivation: heating noise, complete crash: CV_arc 0.003 vs CV_clock 0.092 -> arc-regular; heating noise, incomplete crash (variable residual): CV_arc 0.506 vs CV_clock 0.510 -> arc-regular
+     known:      the sawtooth period scales with the heating time to the q = 1 threshold; incomplete crashes make the cycle irregular
+     verdict:    complete crash: arc-regular; incomplete crash: arc-regular by 0.004, below the 0.01 this battery treats as a reading; the same lesson as the masting tree: a fixed chord makes the arc regular only if the reset is fixed too
+     GRADE:      DESCR
+     weakness:   rule 3: the adder mechanism with and without a variable reset
+[ 7] (sleep) Two-process model of sleep regulation (Borbely): sleep onsets as occasions, entrained vs free-running
+     clause:     D5 (sleep onset = own event), D2 (arc of the homeostatic pressure S), H-L5
+     BORROWED:   Borbely 1982 two-process model; Daan-Beersma-Borbely thresholds
+     FLOW:       the circadian modulation and the homeostatic time constants (physiology-supplied)
+     derivation: entrained (circadian thresholds): 60 onsets, mean cycle 24.0 h (CV 0.05), CV_arc 0.049 vs CV_clock 0.050 -> arc-regular; free-running (flat thresholds, jittered rise): 78 onsets, mean cycle 18.3 h (CV 0.10), CV_arc 0.000 vs CV_clock 0.100 -> arc-regular
+     known:      entrained sleep recurs at 24 h; without the circadian gate the sleep-wake cycle free-runs at a homeostatically set period
+     verdict:    entrained: arc-regular by 0.001, below the 0.01 this battery treats as a reading (the gate moves the threshold with the clock, so arc and clock vary together); free-running: arc-regular (a fixed threshold makes the homeostat an adder); the class is the gate's, not the framework's
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 0.049, CV_clock 0.050)
+     weakness:   class assignment on a model; the known result (entrainment) is the gate's
+[ 8] (micro) Bacterial run-and-tumble: run length (arc) against run duration (clock)
+     clause:     D5 (tumble = own event), D2 (arc = distance swum, monotone so S = 0), H-L5
+     BORROWED:   Berg & Brown 1972 run-and-tumble; exponential run durations
+     FLOW:       the swimming speed and the tumble rate (cell-supplied)
+     derivation: constant swimming speed: CV_arc 1.006 vs CV_clock 1.006 -> tie; speed varying run to run (CV 0.2): CV_arc 1.027 vs CV_clock 1.006 -> clock-regular
+     known:      runs are exponentially distributed in duration; speed is nearly constant, so run lengths inherit the duration distribution
+     verdict:    constant speed: tie (the arc is the clock times a constant); variable speed: clock-regular; a control row: at constant speed D2 and the clock are one quantity
+     GRADE:      DESCR
+     weakness:   rule 3: the arc of uniform motion is v times t
+[ 9] (neuro) Hippocampal theta phase precession: are a place cell's spikes at the theta antipode?
+     clause:     H-CUT (own events at the phase antipode), A3, D5
+     BORROWED:   O'Keefe & Recce 1993 phase precession; circular statistics (mean resultant length)
+     FLOW:       the running speed and the theta rhythm (animal-supplied)
+     derivation: mean resultant length of spike phases: precessing cell 0.100, antipode-locked control 0.879 (1 = one phase, 0 = uniform)
+     known:      spike phase advances systematically through the theta cycle as the animal crosses the field, so spikes are not locked to any single phase
+     verdict:    the system's own events sweep the whole cycle by the domain's own mechanism, so 'own events sit at the antipode' fails on the best-known phase-coded system in neuroscience; H-CUT can hold only on systems without phase coding
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: the first H-CUT row in the batteries; v3.1 H-CUT is gated for real data, and this model says which class the gate must exclude
+[10] (eco) Rosenzweig-MacArthur predator-prey limit cycle with environmental noise (hare-lynx-like): prey peaks as occasions
+     clause:     D5 (prey peak = own event), D2 on log prey, H-L5
+     BORROWED:   Rosenzweig & MacArthur 1963; paradox of enrichment
+     FLOW:       the growth, attack and mortality rates (ecology-supplied) and the noise
+     derivation: 65 cycles; mean period 46.5 (CV 0.03); CV_arc 0.041 vs CV_clock 0.031 -> clock-regular
+     known:      population cycles have a period set by the interaction rates and amplitudes that noise makes irregular
+     verdict:    clock-regular: the class is the instrument's assignment; the period and the amplitude are the model's
+     GRADE:      OPEN
+     H-L5 class: clock-regular (CV_arc 0.041, CV_clock 0.031)
+     weakness:   class assignment on a model; the paradox of enrichment (cycle onset with K) is a Hopf, covered earlier
+[11] (ops) Bullwhip effect: order-variance amplification under moving-average forecasting (a windowed memory)
+     clause:     A6 (regeneration from the settled past), P3 (age weights), O2
+     BORROWED:   Chen, Drezner, Ryan & Simchi-Levi 2000; order-up-to policies
+     FLOW:       the demand process and the forecast window (manager-supplied)
+     derivation: window p = 5: Var(orders)/Var(demand) = 2.92 (closed form for this policy 1 + 2(L+1)/p + 2(L+1)^2/p^2 = 2.92; Chen et al.'s bound has the same form in their lead-time convention); window p = 20: Var(orders)/Var(demand) = 1.34 (closed form for this policy 1 + 2(L+1)/p + 2(L+1)^2/p^2 = 1.34; Chen et al.'s bound has the same form in their lead-time convention)
+     known:      amplification falls with the forecast window and rises with the lead time; the bound is attained by the order-up-to policy on i.i.d. demand
+     verdict:    the forecast weights the past uniformly over a window and not at all beyond it: neither geometric age (P3) nor surplus (P2); the amplification is the window's, and the framework names none of it
+     GRADE:      DESCR
+     weakness:   the fourth measured memory class in the batteries (window); the T5 prereg must exclude it or model it
+[12] (mat) Fibre-bundle model of cascading failure: bursts, critical load and the burst-size exponent
+     clause:     A1' (unit = one fibre), D5 (burst = own event); no clause on exponents or critical loads
+     BORROWED:   Daniels 1945 fibre bundle; Hemmer & Hansen 1992 burst exponent -5/2
+     FLOW:       the threshold distribution (material-supplied)
+     derivation: N = 20000: maximum sustainable load per fibre 0.2509 (exact 1/4 = 0.25); 6034 bursts, size-distribution log-log slope on 1..32 = -3.07 (asymptotic -5/2)
+     known:      equal-load-sharing bundles fail at a critical load with power-law burst sizes of exponent -5/2 near criticality
+     verdict:    the critical load and the exponent are the bundle's; the burst is an occasion the framework can count, and nothing else
+     GRADE:      DESCR
+     weakness:   no CRR clause reaches a critical load or an avalanche exponent; a fourth avalanche system with the same verdict
+[13] (rl) TD(lambda) on a 19-state random walk: accumulating vs replacing eligibility traces
+     clause:     P3 (age weights: the trace is (gamma lambda)^k by design), A6 ('never an accumulated count': the accumulating trace counts revisits)
+     BORROWED:   Sutton & Barto; Singh & Sutton 1996 (replacing traces)
+     FLOW:       the return process and the trace decay (designer-supplied)
+     derivation: lambda = 0.4: accumulating RMS 0.195 (alpha 0.4), replacing RMS 0.205 (alpha 0.4); lambda = 0.8: accumulating RMS 0.176 (alpha 0.2), replacing RMS 0.149 (alpha 0.4); lambda = 0.95: accumulating RMS 0.243 (alpha 0.1), replacing RMS 0.199 (alpha 0.2)
+     known:      replacing traces are more robust than accumulating traces at high lambda in tabular problems; both are geometric in age
+     verdict:    the geometric age weight is a design choice (P3 renamed); at lambda = 0.95 the counting trace is worse than the capped one by 0.044 RMS, so here A6's distrust of the count is on the winning side, unlike the cache row: the count-vs-cap choice is the learner's, and no clause decides it
+     GRADE:      DESCR
+     weakness:   rule 3 on the kernel; the count question is decided problem by problem (cache: count wins on stationary streams; here: the cap wins at high lambda)
+[14] (mat) Kovacs memory effect in a two-mode glass model: the same volume at the same temperature, different futures
+     clause:     A4 (depth one only in the full state), D6/H-T1 class (the path matters), A6
+     BORROWED:   Kovacs 1963 memory experiment; multi-mode (TNM/KAHR-type) linear relaxation
+     FLOW:       the mode spectrum and the thermal history (material- and experimenter-supplied)
+     derivation: after quench to T1 = 0.8 for 30 time units and a jump to T2 = 0.867 where delta already equals delta_eq(T2): initial deviation 1.1e-05, maximum later deviation (the Kovacs hump) 0.0031; control started at equilibrium at T2: maximum deviation 1.7e-18
+     known:      a glass with the same macroscopic volume and temperature can evolve differently depending on its thermal history: the observable state is not the full state
+     verdict:    the path matters because the observable (volume) is a projection of a two-dimensional state, not because of any surplus: a textbook hidden-variable memory that D6/H-T1 would read as path dependence and A4 explains away once the full state is named
+     GRADE:      DESCR
+     weakness:   the framework's path-vs-endpoint distinction reduces here to the choice of state variables; nothing about glasses is derived
+[15] (games) Elo ratings: the best K-factor against skill volatility, read against the Kalman gain (P4)
+     clause:     P4 (gain follows the Fisher speed), O1
+     BORROWED:   Elo 1978; Glicko as its Kalman-style extension
+     FLOW:       the skill volatility (player-supplied) and the opponent pool
+     derivation: skill speed v = 0.03: best K = 2; skill speed v = 0.1: best K = 128; skill speed v = 0.3: best K = 256 (grid 2-256); best K non-decreasing in v: True
+     known:      the K-factor is set by convention per federation and by rating age; rating systems with an uncertainty term adapt it
+     verdict:    the best gain rises with the volatility on this grid, the Kalman reading in a logistic setting; P4 says of itself that it is not CRR's, and no value of K is privileged
+     GRADE:      DESCR
+     weakness:   the Rescorla-Wagner row's conclusion in a different domain
+[16] (acoust) Cricket chirps under drifting temperature (Dolbear's law): a fixed motor pattern at a temperature-set rate
+     clause:     D5 (chirp = own event), D2 (arc = the chirp's fixed motor excursion), H-L5
+     BORROWED:   Dolbear 1897 (chirp rate linear in temperature); central pattern generation
+     FLOW:       the temperature (environment-supplied)
+     derivation: temperature range 19.8-26.7: chirp interval CV 0.084, chirp arc CV 0.029 -> arc-regular
+     known:      chirp rate rises linearly with temperature while the chirp's structure is conserved
+     verdict:    arc-regular by construction: the pattern generator's excursion is fixed and its rate is the environment's; a thermometer made of arc-regularity
+     GRADE:      DESCR
+     weakness:   rule 3: the adder mechanism in bioacoustics
+[17] (learn) The spacing effect (ACT-R with activation-dependent decay): retention after massed vs spaced practice, and the shape of the age kernel
+     clause:     P3 (geometric age weights from a mean-age constraint), P5 (retention in natural time), O2, A6 (the past is re-weighted, not re-counted)
+     BORROWED:   Anderson & Schooler 1991 base-level learning; Pavlik & Anderson 2005 activation-dependent decay; the spacing effect (Ebbinghaus)
+     FLOW:       the decay parameters and the practice schedule (learner- and teacher-supplied)
+     derivation: activation at test one week after the last practice: massed -1.547, spaced -0.646 (spaced higher by 0.902); influence of one practice at age 1..10^4 min: 1.000, 0.665, 0.443, 0.294, 0.196; R^2 of log influence on age (geometric) = 0.577, on log age (power law) = 1.000
+     known:      spaced practice is retained better than massed practice; memory strength decays as a power law of age, faster when practice arrives at high activation
+     verdict:    spaced practice wins in this model; the age kernel is a power law, not the geometric form a mean-age MaxEnt gives (P3), and not a surplus weight (P2); the spacing effect is the decay rule's dependence on the state at practice, which is a regeneration rule the framework does not have
+     GRADE:      DESCR
+     weakness:   rule 3 on the model; taxonomic value: five memory kernels are now on record (geometric, wiping-out, primacy, window, power law) and the framework's two constraints cover one of them
+[18] (econ) Cobweb model of price and lagged supply: convergent oscillation around the equilibrium
+     clause:     A4 (the state is last period's price: depth one), O3 (no cut without a rotor)
+     BORROWED:   Ezekiel 1938 cobweb; linear first-order difference equation
+     FLOW:       the supply and demand slopes (market-supplied)
+     derivation: equilibrium price 5.000; amplitude ratio over one cycle 0.640 (theory (d/b)^2 = 0.640)
+     known:      prices oscillate and converge when supply is less steep than demand; the period is two
+     verdict:    a depth-one linear map: the framework is silent by its own rule, and the period-two oscillation is the sign of -d/b
+     GRADE:      DESCR
+     weakness:   a control row like the decay chain: nothing to test
+[19] (surf) RHEED intensity oscillations in layer-by-layer growth: one oscillation per monolayer under a varying flux
+     clause:     O3 (natural time = the monolayer count), D5 (layer completion = own event), D2 (arc = coverage), H-L5
+     BORROWED:   Neave, Joyce et al. 1983 RHEED oscillations; layer-by-layer (Frank-van der Merwe) growth
+     FLOW:       the deposition flux (source-supplied)
+     derivation: CV_arc 0.003 vs CV_clock 0.104 -> arc-regular
+     known:      growers count monolayers by counting oscillations, whatever the flux does
+     verdict:    arc-regular by construction: each oscillation is one monolayer, and the technique is natural time used as a ruler; the framework describes a practice thirty years old
+     GRADE:      DESCR
+     weakness:   rule 3: natural time as the industry counts it
+[20] (fire) Fire regimes: fuel accumulation to a threshold with fuel-limited vs ignition-limited burning
+     clause:     D5 (fire = own event), A3 (the burn is the cut, exclusive segmentation), D2 (arc = fuel accumulated), H-L5
+     BORROWED:   hazard-of-fire models with fuel build-up (Weibull fire-interval models)
+     FLOW:       the fuel recovery time and the ignition hazard (landscape- and weather-supplied)
+     derivation: fuel-limited (hazard 5/yr above threshold): mean interval 4.7 yr (CV 0.05), CV_arc 0.028 vs CV_clock 0.050 -> arc-regular; ignition-limited (hazard 0.2/yr): mean interval 10.4 yr (CV 0.50), CV_arc 0.141 vs CV_clock 0.505 -> arc-regular
+     known:      fire intervals are fuel-limited where ignitions are frequent and ignition-limited where they are rare; the hazard rises with time since fire
+     verdict:    fuel-limited: arc-regular; ignition-limited: arc-regular (the fuel saturates while waiting for an ignition, so the chord is fixed by saturation and the arc is regular for a reason that has nothing to do with the fire); the class is the landscape's, and the framework names it
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 0.141, CV_clock 0.505)
+     weakness:   class assignment on a model; the known fuel-vs-ignition dichotomy is the ecology's
+
+====================================================================================================
+TALLY
+class                               SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(nuc) nuclear physics                 0        0        0        0        0        1
+(opt) laser physics                   0        0        1        0        0        0
+(geo) geothermal                      0        1        0        0        0        0
+(clim) climate                         0        0        0        0        0        2
+(plasma) plasma physics                  0        0        1        0        0        0
+(sleep) sleep physiology                0        0        0        0        0        1
+(micro) microbial motility              0        0        1        0        0        0
+(neuro) systems neuroscience            0        0        0        1        0        0
+(eco) population ecology              0        0        0        0        0        1
+(ops) operations management           0        0        1        0        0        0
+(mat) materials                       0        0        2        0        0        0
+(rl) reinforcement learning          0        0        1        0        0        0
+(games) rating systems                  0        0        1        0        0        0
+(acoust) bioacoustics                    0        0        1        0        0        0
+(learn) human learning                  0        0        1        0        0        0
+(econ) economics                       0        0        1        0        0        0
+(surf) surface science                 0        0        1        0        0        0
+(fire) fire ecology                    0        0        0        0        0        1
+all                                     0        1       12        1        0        6
+
+H-L5 class map (model systems with their own events):
+  arc-regular                                  ENSO as a delayed oscillator (Suarez-Schopf) with weather noise at two registered levels: warm events as occasions
+  arc-regular                                  Paillard three-state ice-age model under synthetic orbital forcing: glacial terminations as occasions
+  arc-regular                                  Two-process model of sleep regulation (Borbely): sleep onsets as occasions, entrained vs free-running
+  clock-regular                                Rosenzweig-MacArthur predator-prey limit cycle with environmental noise (hare-lynx-like): prey peaks as occasions
+  arc-regular                                  Fire regimes: fuel accumulation to a threshold with fuel-limited vs ignition-limited burning
+
+rows where the coherence integral's velocity is system-supplied (FLOW != none): 20/20
+Rows where a CRR clause reaches a result the domain did not already have: 0 of 20.
