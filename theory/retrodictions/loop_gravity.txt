@@ -1,0 +1,76 @@
+CRR against loop quantum gravity — 8 rows in 3 groups. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (bh) Black-hole entropy by state counting on a punctured horizon: the Barbero-Immirzi parameter fixed by S = A/4
+     clause:     A1' (unit = one puncture's area quantum), D1 (rho = number of punctures); no clause on entropy
+     BORROWED:   Rovelli 1996 / Ashtekar-Baez-Corichi-Krasnov counting; Domagala-Lewandowski and Meissner 2004 (all-j counting)
+     derivation: j = 1/2 only (two states per puncture): gamma = ln 2 / (pi sqrt 3) = 0.1274; all spins with two states per puncture (sum_j 2 e^(-2 pi gamma sqrt(j(j+1))) = 1): gamma = 0.2375; all spins with (2j+1) states per puncture: gamma = 0.2741; with the two-state value the smallest area quantum is 5.170 l_P^2 and a horizon of area A carries A / 5.170 punctures
+     known:      matching the Bekenstein-Hawking entropy fixes the Immirzi parameter; its value depends on the counting (three countings, three values, all computed here)
+     verdict:    the entropy is linear in the number of punctures, which is D1's resolvable-step count of the horizon's area: S = (ln 2 or the all-j constant) x rho; the constant is the counting's, the count is a definition, and the parameter that makes it A/4 is fixed from outside (Bekenstein-Hawking), not by any clause
+     GRADE:      DESCR
+     weakness:   inherited; which counting is right is the field's question (docs/citations/loop_gravity_2026-09-17.md) and CRR has no clause that reaches it
+[ 2] (kin) The LQG area spectrum: a fundamental quantum of area against CRR's estimated unit
+     clause:     A1' (the unit is estimated from the system's own residuals, no floor), D1
+     BORROWED:   Rovelli-Smolin / Ashtekar-Lewandowski area spectrum A_j = 8 pi gamma l_P^2 sqrt(j(j+1))
+     derivation: gamma = 0.2375: A(1/2) = 5.170 l_P^2; gaps between consecutive j: 3.273, 3.118, 2.996, 2.986 -> 8 pi gamma = 5.970 asymptotically; the spectrum is discrete with a smallest non-zero value
+     known:      area is quantised in LQG with a minimal quantum and asymptotically uniform spacing
+     verdict:    LQG's unit is fundamental and fixed; CRR's unit is a measured residual scale with no floor (A1' says the instrument's own step is not the unit): the two are different objects, and on a carrier whose steps are fundamental A1' would have nothing to estimate
+     GRADE:      DESCR
+     weakness:   a conceptual difference stated as a computation; nothing about geometry is reached
+[ 3] (cos) The LQC bounce with a massless scalar (effective dynamics): the scale factor's path through the bounce, and the maximal Hubble rate
+     clause:     D2-D4 on ln a (a chosen carrier, rule 2), O3 (no rotor: nothing sets a cut), A3
+     BORROWED:   effective LQC Friedmann equation H^2 = (8 pi/3) rho (1 - rho/rho_c); the massless-scalar solution a(t) = a_b (1 + 24 pi rho_c t^2)^(1/6)
+     derivation: rho_c = 0.41: H_max from the trajectory = 0.9267, closed form sqrt(2 pi rho_c / 3) = 0.9267; ln a over the symmetric interval [-20, 20]: arc C = 3.1409, chord C* = 0.0e+00, so S = C (a loop in a, not in time)
+     known:      the big bang is replaced by a bounce at rho = rho_c; the Hubble rate is bounded
+     verdict:    the bounce is a turning point of a, an extremum and not a phase antipode; there is no rotor, so A3 has no cut to place and O3 says so; the loop-like surplus of ln a is a definition of the symmetric trajectory; the bounded Hubble rate is the effective equation's
+     GRADE:      OPEN
+     weakness:   rule 2 (carrier chosen) and O3 (no cut): the framework is correctly silent on the bounce
+[ 4] (cos) The massless scalar as LQC's relational clock: the volume's logarithmic speed in the phi clock
+     clause:     A7 (relational tense), O3 (natural time from the system's own variable), D2 (arc per unit of the chosen clock)
+     BORROWED:   relational (Dirac) observables; the exact massless-scalar LQC solution v(phi) = v_b cosh(sqrt(12 pi G) phi)
+     derivation: |d ln v / d phi|: at the bounce 0.0000, far from it 6.1400 (= sqrt(12 pi) = 6.1400); the volume's log-arc per unit scalar clock is constant away from the bounce and vanishes at it
+     known:      in LQC the scalar field serves as an internal clock because it is monotonic; time is read from a physical variable
+     verdict:    LQC's 'time from a physical variable' and CRR's 'change has its own clock' are both clocks read from the system, and they are different objects: LQC's is a chosen monotonic Dirac observable, CRR's is the Fisher arc of a carrier; the coincidence is of slogan, not of mathematics
+     GRADE:      DESCR
+     weakness:   a reading; the constant speed far from the bounce is the exact solution's
+[ 5] (cos) Cyclic loop cosmology with a Tolman entropy increment: are the cycles arc- or clock-regular?
+     clause:     D5 (the bounce as the cut), H-L5, A6 (each cycle seeded by the last)
+     BORROWED:   Tolman 1934 (entropy growth lengthens successive cycles); bounce-recollapse LQC models
+     derivation: 20 cycles, a_max growing by 10% per cycle: CV of the arc of ln a per cycle 0.281, CV of the period 0.548 -> arc-regular
+     known:      with entropy production successive cycles grow; a genuinely periodic cyclic universe needs a mechanism that resets entropy
+     verdict:    arc-regular by construction: the arc of ln a grows logarithmically with a_max while the period grows linearly, so the comparison is between a log and a power; no clause predicts the growth, and A6's 'seeded by the last' is Tolman's argument renamed
+     GRADE:      DESCR
+     weakness:   rule 3; a class assignment on a toy sequence
+[ 6] (kin) Spin-j coherent states (the building blocks of coherent intertwiners): the antipode and the Fisher length of a half-turn
+     clause:     A3 (cut at the antipode), A1 (Fubini-Study carrier), D1 (rho of a half-turn)
+     BORROWED:   SU(2) coherent states (Perelomov); Livine-Speziale coherent intertwiners; quantum Fisher information of a rotation
+     derivation: j = 0.5: half-turn Fisher length 1.571, i.e. 1.00 orthogonality distances (pi/2), antipode overlap 6e-17; j = 1: half-turn Fisher length 2.221, i.e. 1.41 orthogonality distances (pi/2), antipode overlap 4e-33; j = 5: half-turn Fisher length 4.967, i.e. 3.16 orthogonality distances (pi/2), antipode overlap 7e-163; j = 50: half-turn Fisher length 15.708, i.e. 10.00 orthogonality distances (pi/2), antipode overlap 0e+00
+     known:      the antipodal coherent state is orthogonal for every j; higher spins are 'more classical' with more distinguishable states along a rotation
+     verdict:    A3's antipode exists for every j and is reached at theta = pi; the resolution of a half-turn grows as sqrt(2j): the cut is a definition on this carrier and the resolution is the QFI's, so the spin-network building block gives the framework a rotor and nothing to predict
+     GRADE:      DESCR
+     weakness:   inherited; the qubit rows of the main battery extended to spin j
+[ 7] (kin) The polymer harmonic oscillator (LQG-inspired quantisation with a fundamental scale mu): a Mathieu spectrum
+     clause:     A1' (a fundamental unit against an estimated one), D1
+     BORROWED:   polymer quantum mechanics (Ashtekar-Fairhurst-Willis 2003); Mathieu characteristic values
+     derivation: mu = 0.2: E_n - (n + 1/2) for n = 0..5 = -0.0051, -0.0255, -0.0669, -0.1300, -0.2158, -0.3251 (parity splitting of level 0: 4.5e-15); mu = 0.3: E_n - (n + 1/2) for n = 0..5 = -0.0115, -0.0588, -0.1570, -0.3115, -0.5315, -0.8396 (parity splitting of level 0: 3.2e-09)
+     known:      polymer quantisation reproduces the standard oscillator at low excitation and departs from it at high excitation, at a scale set by mu
+     verdict:    the fundamental scale shows in the spectrum as a growing negative correction; CRR's unit would have to be estimated from residuals of these levels and would find mu only if the levels were its carrier: the unit is the domain's, and the framework's is a way of measuring it, not of predicting it
+     GRADE:      DESCR
+     weakness:   inherited (a Mathieu problem); the row exists to show what 'fundamental discreteness' looks like next to A1'
+[ 8] (kin) The instrument's unit estimator run on the area spectrum's gaps
+     clause:     A1' (unit from the residual of one occasion statistic), D1 (rho reported)
+     BORROWED:   the area spectrum; the repository's unit_sigma
+     derivation: unit_sigma over the first 30 gaps = 1.44e-05 l_P^2 (the detrended residual of a converging sequence); the gaps themselves are 3.273 .. 2.985 l_P^2
+     known:      the spectrum's spacing converges to 8 pi gamma; its residual about a smooth trend is tiny
+     verdict:    applied to a fundamental spectrum, A1' returns the residual of the spectrum's convergence, not the quantum of area: the estimated unit and the fundamental unit are not the same quantity, which is the row-1 point made by the instrument itself
+     GRADE:      DESCR
+     weakness:   an instrument fact; on a fundamentally discrete carrier the prereg would have to name the quantum as the unit and skip the estimator
+
+====================================================================================================
+TALLY
+group                                   SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(kin) kinematics and units                0        0        4        0        0        0
+(bh) black-hole entropy                  0        0        1        0        0        0
+(cos) loop quantum cosmology              0        0        2        0        0        1
+all                                         0        0        7        0        0        1
+
+Rows where a CRR clause reaches a result the domain did not already have: 0 of 8. Loop quantum gravity supplies a fundamental unit, a rotor (spin coherent states) and a relational clock; the framework can name each and predicts nothing about any of them.

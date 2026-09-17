@@ -672,6 +672,53 @@ theorem: when the observed state is Markov the path carries nothing the state do
 path dependence appeared the observed state was not the full state. Information theory answers
 CRR's path-versus-endpoint question per system, and the answer is "name the state".
 
+## CRR against loop quantum gravity (owner request, prompt-log entry 59)
+
+`loop_gravity.py` → `loop_gravity.txt` (pinned; CI reproduces it byte for byte). Eight rows on the places
+where a CRR quantity can be put next to loop quantum gravity or loop quantum cosmology at all; the 2026
+literature status is in `docs/citations/loop_gravity_2026-09-17.md` (search snippets only; nothing in
+this field is on PubMed). Tally: 0 SHARP / 0 CONSIST / 7 DESCR / 0 FAILS / 0 TENSION / 1 OPEN.
+
+| row | placement | grade |
+|---|---|---|
+| 1 | black-hole entropy by puncture counting: three countings give γ = 0.1274, 0.2375, 0.2741 (all computed) | DESCR |
+| 2 | the area spectrum as a fundamental unit against A1′'s estimated unit (A(1/2) = 5.170 l_P², gaps → 5.970) | DESCR |
+| 3 | the LQC bounce with a massless scalar: an extremum, not an antipode; H_max 0.9267 = closed form | OPEN |
+| 4 | the scalar field as LQC's relational clock: log-volume speed 0 at the bounce, 6.1400 far from it | DESCR |
+| 5 | cyclic loop cosmology with a Tolman increment: arc-regular by construction (0.281 vs 0.548) | DESCR |
+| 6 | spin-j coherent states: the antipode is orthogonal for every j; a half-turn spans √(2j) orthogonality distances | DESCR |
+| 7 | the polymer oscillator (a Mathieu spectrum): corrections grow with excitation at the scale μ | DESCR |
+| 8 | the instrument's unit run on the area spectrum's gaps returns 1.44e-05 l_P², not the quantum | DESCR |
+
+**What loop quantum gravity gives the framework, and what it does not.** It gives a fundamental unit
+(the area quantum), a rotor (spin coherent states, whose antipode is orthogonal for every j and whose
+half-turn spans √(2j) distinguishable states), and a relational clock (the scalar field in LQC, in which
+the volume's log-speed is constant away from the bounce and vanishes at it). CRR can name each and
+predicts nothing about any of them. The one place a cut might have been claimed, the bounce, is a
+turning point of the scale factor and not a phase antipode: there is no rotor, and O3 says the framework
+is silent. Black-hole entropy is linear in the number of punctures, which is D1's resolvable-step count
+of the horizon, but the constant is the counting's and the parameter that makes it A/4 is fixed from
+outside.
+
+**The unit question is the sharpest contrast.** LQG's unit is fundamental and fixed; A1′'s unit is a
+residual scale estimated from the system's own change, with no floor. Row 8 makes the point with the
+instrument: run on the area spectrum's own gaps, `unit_sigma` returns the residual of a converging
+sequence, five orders of magnitude below the quantum. On a fundamentally discrete carrier a prereg would
+have to name the quantum as the unit and skip the estimator, which A1′ as written does not provide for.
+
+**The field's 2026 status against the battery.** The stated open problems are the continuum limit of
+spin foams ("remains a central open problem", Bruno, Colafranceschi, Mele and Rovelli, snippet), the
+Hamiltonian constraint's graph-changing action, triangulation dependence of spin-foam amplitudes, and the
+clock ambiguity in relational time ("cannot be solved by a purely relational condition", Stoica,
+snippet). Observationally, loop cosmology's prediction is a power-suppression scale set by the bounce
+density, which depends on the Immirzi parameter and the area gap (Mena Marugán et al., snippet); a 2026
+gamma-ray-burst analysis finds the data "compatible with Lorentz invariance ... to within 2.8σ" (Jiang,
+Li and Wang, snippet). One 2026 abstract says that quantum gravity "typically violates some of the Čencov
+assumptions, allowing the Fisher metric and Born rule to vary between observers" (Berglund et al.,
+snippet): if so, A1's licence for a unique Fisher carrier does not extend to this domain at all. No 2026
+paper puts a Fisher or Fubini–Study metric on spin-network states, and none uses "natural time". Nothing
+in the battery bears on any of these problems.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
