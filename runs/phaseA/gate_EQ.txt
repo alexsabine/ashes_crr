@@ -4,5 +4,7 @@ gate for EQ
 
   S-R convex replay, constant label scale (adaptivity idle) FAIL  EQ(Ω=1)=1.4416 ER-sum(w=1)=1.2250 best fixed w=1.0:1.2250 (w_med of EQ=0.607) | rel.gain vs best fixed -0.177 (seeds>0: 0/5) vs ER-sum -0.177 | best Ω=2.0 landscape 0.5:1.661 0.71:1.582 1.0:1.442 1.41:1.257 2.0:1.226
   S-V convex replay, 16x label-scale swings (adaptivity load-bearing) PASS  EQ(Ω=1)=1.1992 ER-sum(w=1)=6.8422 best fixed w=0.25:1.7700 (w_med of EQ=0.599) | rel.gain vs best fixed +0.318 (seeds>0: 5/5) vs ER-sum +0.815 | best Ω=0.5 landscape 0.5:1.059 0.71:1.088 1.0:1.199 1.41:1.663 2.0:3.397
+  S-W EWC-Laplace convex replay, 16x curvature-scale mismatch FAIL  EQ(Ω=1)=0.0654 ER-sum(w=1)=0.0652 best fixed w=0.25:0.0627 (w_med of EQ=1.409) | rel.gain vs best fixed -0.045 (seeds>0: 0/5) vs ER-sum -0.005 | best Ω=0.71 landscape 0.5:0.055 0.71:0.053 1.0:0.065 1.41:0.065 2.0:0.065
+  S-X constraint learner, tuned weight a small fraction of present norm FAIL  EQ(Ω=1)=0.9420 ER-sum(w=1)=0.9322 best fixed w=0.25:0.8803 (w_med of EQ=1.284) | rel.gain vs best fixed -0.071 (seeds>0: 0/5) vs ER-sum -0.010 | best Ω=1.0 landscape 0.5:1.478 0.71:1.182 1.0:0.942 1.41:1.072 2.0:1.414
 
 GATE OPEN

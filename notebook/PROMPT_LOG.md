@@ -316,3 +316,210 @@ Context: build a positive control for gate_EQ2 that matches where the effect was
 > Run the test please. Daniel has authorised it on our version of Python. Thank you
 
 Context: run study EQ2 in this environment (Python 3.14 pin) under the CLAUDE.md §8 order: merge PR #23's gate code, add the S-Y positive control, commit the gate table, prereg, hash, anchor (attempted), signed tag, then data, run, ledger, report. Mammoth/CIFAR/TinyImageNet are not reachable from this environment; the carriers for this run are unseen PMLB streams named in the prereg, with the Mammoth run left to Daniel's machine as issue #20 specifies.
+
+## D4 — Daniel Friedman's directing prompt (his entry 17 on `study/eq2-phase-a`, merged here verbatim, numbering kept separate as for D3); received ≈ 2026-09-16T19:15Z (exact minute not recorded; arrived after issues #20/#21 were filed at 19:06Z), logged 2026-09-16T23:02Z
+
+> Now with the highest degree of integrity and software craft -- orchestrate to address all https://github.com/alexsabine/ashes_crr/issues and suggest updates as PRs or make issues as needed.
+
+Context: prompt directs execution of the two open owner-issued study prompts, logged verbatim below because R13 requires the human side of the notebook; both are public issue bodies.
+
+Issue #20 (EQ2 design: the equanimity rule reduces to a fixed weight where units agree — pre-register it as a units-fixer, with the Ω drift predicted (R3, R4, R7), filed 2026-09-16T00:58:53Z:
+
+> Study EQ2 — the equanimity rule as a tuning-free step for online EWC
+>
+> Prompt for the agent running this study. Paste it whole. It is written to be executed in alexsabine/ashes_crr under CLAUDE.md; the rules there (R1–R13) override anything in this prompt. If any instruction below conflicts with a rule, stop and say so.
+>
+> 0. Before anything else
+> Read CLAUDE.md in full, then [theory/CRR.md](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/theory/CRR.md) in full, then [reports/eqx.md](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/reports/eqx.md) and ledger rows EQX-1 to EQX-5.
+> Log this prompt verbatim in [notebook/PROMPT_LOG.md](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/notebook/PROMPT_LOG.md) with a UTC timestamp (R13).
+> Study id is eq2. Use the command order in CLAUDE.md §8 exactly: gate, prereg, hash, OpenTimestamps anchor, signed tag, and only then data.
+> Every number in the prereg thresholds below is fixed now. Nothing in this prompt may be changed after the tag exists (R3). If you must change it, the study is void and gets a new id.
+> 1. The claim, in plain words and then precisely
+>
+> Plain. A model learning something new is like a wagon pulled by two kids. The New kid pulls toward the new task, the Old kid toward what the model already knows. Every continual-learning method adds the two pulls with a hand-set weight on the Old kid, and that weight has to be retuned for every dataset because the two pulls are measured in different units. The equanimity rule says: at every step, measure how hard each kid is pulling right now, and make the Old kid's pull the same length as the New kid's. Ω = 1 means "the same length". The rule is not a weight chosen once. It is a step in the Old direction whose length is always the length of the New step.
+>
+> Precise. With g_present the gradient of the current-task loss and g_past the gradient of the past term (both over all parameters), the update direction is
+>
+> g_present + w · g_past,   w = Ω · ‖ĝ_present‖ / ‖ĝ_past‖,   Ω = 1
+>
+> where ĝ is an exponential moving average of the gradient vector (not of its norm), the norm is Euclidean, and w is capped. Algebraically, w · g_past = Ω · ‖ĝpresent‖ · (g_past / ‖ĝpast‖) up to the smoothing: the past term's direction with the present term's step length.
+>
+> Where it should work, and why. Study EQX showed that when the past term is the same loss as the present term (plain replay), the rule reduces to a constant near 1 and adds nothing. The claim for EQ2 is that the rule is useful exactly when the past term is the past task's loss or its Fisher-curvature (Laplace) approximation, which is online EWC's penalty Σ F_i (θi − θ*i)². There the penalty gradient is near zero at the anchor and grows with displacement, so a fixed λ that is stable far from the anchor is too weak near it, and a fixed λ that holds near it diverges far from it; a step of fixed length in the penalty direction is stable in both places. Nothing in this claim depends on the units of the penalty, so it removes EWC's λ, the most dataset-dependent hyperparameter in the field.
+>
+> Where it must not work. Same-units replay (ER-sum): redundant. Heuristic constraints that are not a loss on the past task (DER++ logit matching, LwF distillation): the correct strength of those terms is a small fraction of the present's, so "same length" over-regularises. Importance penalties whose weights are not a curvature of the past loss (SI, MAS): the penalty direction is not a descent direction on the old task. These are the controls. If any of them passes, the mechanism is wrong and the study says so.
+>
+> 2. Exact definitions (write these into the prereg verbatim)
+> g_present: gradient of the cross-entropy on the current stream batch, all parameters, flattened.
+> g_past, per method: EWC-online: gradient of the penalty Σ F_i (θi − θ*i)² with λ removed. ER-sum: gradient of the cross-entropy on the replay batch (a separate batch mean, summed with the stream batch mean; not Mammoth's concatenated single mean). DER++: gradient of the logit-matching term with α removed. LwF: gradient of the distillation term with its weight removed. SI, MAS: gradient of the importance penalty with its weight removed.
+> Estimator, fixed at hash time: ratio = ema of the gradient vectors, smooth = 0.9, Euclidean norm (chosen on EQX, where Euclidean beat Fisher on 3/3 datasets; this prereg names that as the source), cap = 1e4, floor on the denominator 1e-12. The cap is a named parameter and is swept in the sensitivity table; the registered verdict uses cap = 1e4.
+> Score: Mammoth's final Class-IL mean accuracy over all tasks, per seed, seeds 0–4. Aggregation is the mean over five seeds. Per-seed values are reported next to every mean (R6).
+> Resolvable step, per carrier: step = max(1.0 pt, 2 × SE) where SE is the standard error of the tuned-λ EWC accuracy over the five seeds. Written into the ledger row. No threshold is finer than the step (R5).
+> Tuned λ, per carrier and method: the grid value with the highest five-seed mean. λ is tuned on the same seeds it is scored on. This is in-sample for λ and therefore biased in favour of the fixed baseline, which is the direction we want.
+> 3. Phase A: the gate (before the prereg, R4)
+>
+> Extend [src/crr/surrogates/gate.py](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/src/crr/surrogates/gate.py) with gate_EQ2. Add to MUST_PASS a convex learner whose past term is the exact quadratic (Laplace) penalty of a past quadratic loss with parameter scale mismatched 16× against the present term; add to MUST_FAIL (a) the existing same-units replay learner S-R and (b) a learner whose past term is a constraint whose tuned weight is a small fraction of the present gradient's norm. The gate statistic is the EQ2 statistic: "rule at Ω = 1 not behind the tuned fixed weight by a step". Commit [prereg/eq2/gate_EQ2.txt](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/prereg/eq2/gate_EQ2.txt) and [runs/phaseA/gate_EQ2.txt](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/runs/phaseA/gate_EQ2.txt); the gate must read OPEN before the prereg is written. If it does not open, stop and report (R12).
+>
+> 4. Pre-registered rows (prereg order; each becomes a ledger row)
+> EQ2-0 Precondition (decidability). For EWC-online, tuned λ across the three carriers spans ≥ 10× (max/min). If not, the row reads "not decidable: tuned λ did not move" and rows EQ2-1 and EQ2-2 are reported without a verdict.
+> EQ2-1 H-EQ2 (the claim). On every carrier, mean(rule at Ω = 1) − mean(tuned λ) > −step, AND the best single λ across carriers is behind the tuned λ by ≥ step on at least one carrier. PASS requires both. FAIL if the rule is behind by ≥ step on any carrier, or if a single λ transfers. Two-sided reporting; the verdict is one-sided by design (the rule need only not lose).
+> EQ2-2 Reduction test. Fixed w = per-carrier median of the derived w from the Ω = 1 run. If mean(fixed at median) is within a step of mean(rule) on every carrier, the row reads "reduces to a per-carrier constant". If it is behind by ≥ step or diverges on any carrier, the row reads "does not reduce: normalised-gradient method". Either outcome is reported, neither is a failure.
+> EQ2-3 Control, same units (ER-sum). Must FAIL to help: mean(rule at Ω = 1) − mean(best fixed w on the grid {0.5, 1, 2, 4}) < step on every carrier, and the reduction test reads "reduces". If the rule beats the best fixed w by ≥ step on any carrier, the control is violated.
+> EQ2-4 Control, constraint (DER++ and LwF). Must FAIL to land: for each of the two methods, on every carrier, the rule at its best Ω on the grid is behind the tuned weight by ≥ step. If it lands within a step on any carrier for either method, the control is violated.
+> EQ2-5 Diagnostic, penalty in other units (SI and MAS, if present in Mammoth at the pinned commit). Same statistic as EQ2-1; expected to miss. Report only; no verdict.
+> EQ2-6 Ω plateau. On the EWC arm, the best Ω on {0.5, 0.71, 1, 1.41, 2} lies in {0.71, 1, 1.41}. Report the full Ω profile; never write "Ω = 1 exactly", the grid cannot resolve it.
+> EQ2-7 Published baselines (R7). On the EWC arm, report A-GEM, GradNorm (α = 0, implemented as in its paper with learned weights), and MEGA-I loss-ratio at equal compute. Report only, with one sentence: if any of them is ahead of the rule by ≥ step on every carrier, the rule is dominated by a published method and the row says so.
+> Any violated control → the mechanism statement in §1 is falsified; the report says so in its first line, whatever EQ2-1 read.
+> 5. Arms, grids, and what to cut if compute is short
+>
+> Per carrier, in priority order (cut from the bottom, and write the cut into the prereg before hashing):
+>
+> EWC-online, fixed λ: coarse grid {0.1, 0.3, 1, 3, 10, 30, 100, 300, 1000, 3000, 10000}, five seeds; then a refinement at √2 spacing over [best/√10, best·√10], skipping points already on the coarse grid. The tuned λ is the best of the union. (This two-stage procedure is the pre-registered tuning rule.)
+> EWC-online, rule at Ω ∈ {0.5, 0.71, 1, 1.41, 2}, five seeds.
+> EWC-online, reduction arm (fixed w = median derived w), five seeds.
+> EWC-online sensitivity at Ω = 1: cap ∈ {10, 100, 1e4} × smooth ∈ {0.8, 0.9, 0.98}, five seeds each. A verdict on EQ2-1 that flips in more than one cell is reported "fragile".
+> ER-sum: fixed w ∈ {0.5, 1, 2, 4}, rule at Ω = 1, reduction arm; five seeds; replay batch = stream batch.
+> DER++ and LwF: published defaults plus the coarse grid {0.01, 0.03, 0.1, 0.3, 1, 3, 10} on their weight, rule at the five Ω values; five seeds.
+> A-GEM, GradNorm, MEGA-I on the EWC penalty; five seeds.
+> SI and MAS: coarse grid plus rule at Ω = 1; five seeds.
+>
+> Epochs per task, batch size, buffer size (for ER, DER++, A-GEM) and backbone are fixed once for all arms and written into the prereg; equal compute per stream sample is logged (forward/backward counts).
+>
+> 6. Carriers and data hygiene (R11)
+>
+> Three streams, all absent from [data/SEEN.md](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/data/SEEN.md) before the hash: Split-CIFAR-100 (10 tasks), Split-TinyImageNet, and a third unseen Mammoth stream chosen by Daniel and named in the prereg. Three are required because EQ2-0 needs a λ spread across carriers and EQ2-1's "every carrier" needs a denominator larger than two. Split-CIFAR-10 and the MNIST family are SEEN and excluded. Record Mammoth's commit hash, dataset versions, download dates and raw-file sha256 in [data/manifests/eq2.sha256](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/data/manifests/eq2.sha256); append the opened records to [data/SEEN.md](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/data/SEEN.md) in the same commit as the first download.
+>
+> 7. Order of operations (R2)
+> uv sync --frozen && uv lock --check
+> uv run pytest tests
+> uv run python -m crr.surrogates.gate EQ2 > prereg/eq2/gate_EQ2.txt        # must read OPEN
+> # write prereg/eq2/PREREG.md from prereg/PREREG_TEMPLATE.md with §2 and §4 verbatim
+> mkdir -p runs/eq2/frozen && cp <scoring script> src/crr/instrument/core.py theory/CRR.md runs/eq2/frozen/
+> ( cd prereg/eq2 && find . ../../runs/eq2/frozen -type f ! -name '*.pyc' | sort | xargs sha256sum > HASH.txt )
+> uv run ots stamp prereg/eq2/HASH.txt
+> git add -A && git commit -m "prereg eq2" && git tag -s prereg-eq2-$(date -I) -m "prereg" && git push --tags
+> # only now: clone Mammoth at a pinned commit, download the three streams, write the manifest, update SEEN.md
+> # run once; rerun one unit and cmp; append rows with ledger/append.py; write reports/eq2.md quoting rows only
+> 8. Reporting
+>
+> [reports/eq2.md](https://github.com/alexsabine/ashes_crr/blob/claude/relaxed-hypatia-m8ikp5/reports/eq2.md) is written after the ledger rows exist and contains no number absent from runs/eq2/. It carries the per-seed table for every arm, the sensitivity table, the exclusion count, and ends with "What a surrogate would have done" pointing at gate_EQ2.txt. Citations (EWC, online EWC, SI, MAS, DER++, LwF, A-GEM, GradNorm, MEGA-I, Mammoth) are fetched on the day with version and date (R10).
+>
+> 9. Outcomes, named now
+> EQ2-1 PASS, controls 3–4 hold, EQ2-2 "does not reduce": the rule is a tuning-free normalised penalty step for Fisher-type penalties. One narrow, real use. The ledger says exactly that and no more.
+> EQ2-1 PASS, EQ2-2 "reduces": the rule is a units-fixer that picks λ once per carrier. Also a real use, smaller; say which.
+> EQ2-1 FAIL: the rule has no use on any existing method. Retire it; the ledger row is the record.
+> Any control violated: the mechanism is wrong; back to the gate before any further prereg.
+
+Issue #21 (Retrodictive Predictions), filed 2026-09-16T19:06:12Z:
+
+> ## Your task
+>
+> Apply the framework below, **with no free parameters**, to a broad array of physical and physico-chemical systems, and report for each whether the framework's derivation lands on the known physics. This is a *retrodiction* battery: the results are known; the question is whether the axioms, applied mechanically, reproduce them, contradict them, or say nothing.
+>
+> Rules:
+>
+> 1. **A number exists only if a script prints it.** Every check is a Python function (sympy for closed forms, numpy/scipy for numerics) in one file, `crr_retrodictions.py`, that runs from a clean tree and prints one row per system with a verdict. No number may be transcribed by hand.
+> 2. **No tuning.** If a check needs a constant the axioms do not fix, the check is graded CONSIST at best, never SHARP. If you find yourself choosing an observable, a coordinate system, or a metric to make a check pass, record that choice as the check's weakness and grade accordingly.
+> 3. **Grade every row with one of five verdicts:**
+>    - **SHARP** — the derivation could have come out otherwise and did not; the axioms *force* the known result with no constant supplied from outside.
+>    - **CONSIST** — the framework's form coincides with a known law, but the framework does not fix the constant or exponent (it is standard mathematics wearing the framework's unit).
+>    - **DESCR** — true, but no one would bet against it (a symmetry, a definition, a carrier fact).
+>    - **FAILS** — the derivation contradicts the known physics, or a claim the framework makes turns out to be a property of a special case (e.g. a symmetry) rather than a consequence of the axioms.
+>    - **TENSION** — two clauses of the framework give opposite answers on the same system.
+>    Use **OPEN** for a system where the framework explicitly declines to derive the quantity.
+> 4. **Symmetry check.** Wherever a result holds on a symmetric system (a sine, van der Pol, an elliptical orbit), test the same claim on an asymmetric member of the class before grading. A claim that survives only by symmetry is FAILS as a framework claim.
+> 5. **Aim for 30 systems** spread across these classes, with at least four in each: (a) two-state / occupancy families (chemical, biochemical, condensed-matter), (b) quantum states and quantum dynamics, (c) thermal ensembles and finite-time thermodynamics, (d) parametric estimation and filtering, (e) oscillators and limit cycles (physical, not physiological), (f) point processes and natural-time systems, (g) gravitational / astrophysical / cosmological systems, (h) bifurcations and critical phenomena. Choose your own systems within each class; do not restrict yourself to the illustrative examples in the text below.
+> 6. **Report the tally and, separately, a one-paragraph reading of where the framework is sharp and where it is not, by class.** Say plainly if a class yields nothing but DESCR rows. Note any TENSION and propose the minimal rewording that would resolve it.
+> 7. Deliver `crr_retrodictions.py`, its printed output, and the reading. Nothing else.
+>
+> ---
+>
+> ## CRR — Coherence, Rupture, Regeneration
+>
+> A finite system is a settled past up to a contentless Now, which cuts when its carrier has advanced half a turn, and the next occasion grows only out of that past, weighted by what mattered.
+>
+> Tags: **[A]** axiom (a commitment, not derived) · **[D]** definition · **[P]** proposition (standard mathematics; verify symbolically before use) · **[O]** open (the framework does not fix this).
+>
+> ### 1. Carrier, metric, unit
+>
+> **[A1] Carrier.** A finite system's state is a point x on a statistical manifold; its history is a curve x(t). The manifold carries the Fisher–Rao metric g, which Čencov's theorem fixes up to a positive scale. A family on which g is not positive-definite is not a carrier.
+>
+> **[A1′] Unit.** Lengths are counted in units of σ, the smallest change the system itself resolves: one event for a point process; one channel event, one quantum, one datum where the state is an occupancy or an amplitude; for a continuous trace, the robust residual of one occasion statistic across occasions. The recording instrument's noise is never the unit. On a parametric family the unit is the Cramér–Rao length 1/√I.
+>
+> **[D1] Resolution.** ρ = (extent of one half-turn)/σ, the number of resolvable steps in a half-turn. Measured; never predicted; never used inside a threshold.
+>
+> ### 2. Coherence
+>
+> **[D2] Coherence.** Since the last cut at t_n,
+>
+>     C(t) = ∫_{t_n}^{t} √( ẋ(τ)ᵀ g(x(τ)) ẋ(τ) ) dτ,
+>
+> the Fisher–Rao arc length travelled, in units of σ, real-valued. On a thermal family this is thermodynamic length; for a parametric model with predictive distribution p_θ on a fixed probe set, one update has length √(2·KL(p_{θ_{t−1}} ‖ p_{θ_t})) to second order and C = Σ_t √(2·KL_t).
+>
+> **[D3] Chord.** C*(t) = d_FR(x(t_n), x(t)), the geodesic distance from the last cut to the present state, in units of σ.
+>
+> **[P1]** C ≥ C*, with equality iff the path is a geodesic (in one dimension: iff monotone). Triangle inequality; not a result of CRR.
+>
+> **[D4] Lived surplus.** S = C − C* ≥ 0. Zero iff the occasion was traversed without backtracking at resolution σ. It is the excess length of the route beyond the geodesic.
+>
+> ### 3. Rupture
+>
+> **[A3] Partition and cut.** Let Θ_n(τ) = Θ(t_n − τ) be the indicator of the settled past. The cut is its derivative,
+>
+>     δ(Now) = dΘ_n/dt = δ(t − t_n),
+>
+> fired when the carrier reaches its **antipode**: on a rotor u ∈ ℝ/Lℤ, when u(t) − u(t_n) = L/2; on a compact statistical family, at the state a Fisher half-turn from the last cut — for a two-state occupancy family with occupation p this is p = 1/2 (the Fisher–Rao length of the Bernoulli family is π, so the half-turn is at π/2); for a pure quantum state it is the orthogonal state (Bures angle π/2). The cut has no duration and no content. It settles the completed occasion with (C_m, C*_m, S_m), resets C to zero, and orients the next half-turn. Successive cuts form the Dirac comb Σ_n δ(t − t_n). A family with no antipode (a Gaussian family in its spread, a coherent-state displacement family, mixed quantum states) never cuts: no occasion completes.
+>
+> Consequences: the scalar condition δ(C·Ω − 1) is only the monotone reduction of A3 and carries the Jacobian 1/(Ω·L(t*)), L the Fisher speed at the cut. Locating cuts by peak detection is not A3. Equal Fisher arcs on the two half-turns are *not* a consequence of A3; where they hold they are a symmetry of the system.
+>
+> **[D5] Occasion.** The interval between consecutive cuts; for a point process the cut is the event and an occasion is one inter-event interval.
+>
+> ### 4. Regeneration
+>
+> **Ω** is the one temperature of the framework, in the system's own Fisher unit.
+>
+> **[A6] Reset map.** With counting measure over settled occasions (one settled occasion = one unit of measure; dC is the measure only *inside* an occasion),
+>
+>     𝓡(t_n) = (1/Z) Σ_m Φ_m e^{S_m/Ω} Θ(t_n − t_m),    Z = Σ_m e^{S_m/Ω} Θ(t_n − t_m),
+>
+> and the next occasion is seeded at the Fisher–Rao Fréchet mean X_{n+1} = argmin_y Σ_m π_m d²_FR(y, Φ_m) at bounded strength κ. The weights π_m are a maximum-entropy distribution over occasions under one history constraint. Regeneration returns reweighted content, never an accumulated count.
+>
+> **[P2]** Constraint on ⟨S⟩ gives π_m ∝ exp(S_m/Ω) (salience). Standard (Jaynes).
+> **[P3]** Constraint on mean age gives π_k ∝ q^k, ⟨k⟩ = q/(1−q) (recency; a Bose–Einstein ladder). Standard.
+> **[O2]** Which constraint a given system uses is open. A system whose reset map reads only the state at the cut has depth one and no salience term.
+>
+> **[A9] Equanimity.** Ω = 1: the settled past and the arriving occasion exert equal pull in the system's own metric. Stated as *equal precision*: a second source enters with Ω times the receiver's own posterior precision — never as a ratio of pull magnitudes (that form is ill-posed when either pull vanishes). Its forms: π_m ∝ e^{S_m}; for a random-walk state, the filtering gain at Fisher speed 1 is 1/φ (P4's domain only); for a learner, present and replayed-past gradients combined at equal Fisher precision; between systems, another's settled past weighted at equal precision to one's own, provided that precision has been independently audited.
+>
+> ### 5. Retention
+>
+> **[P4] Kalman identity.** For a scalar random-walk state with process variance q and observation variance r, the steady-state gain depends on the data only through the Fisher speed v = √(q/r):
+>
+>     K(v) = (v/2)(√(v² + 4) − v),   K(1) = 1/φ = (√5 − 1)/2,   K → 1 as v → ∞.
+>
+> Standard steady-state Riccati; the framework's contribution is only the reading of √(q/r) as a speed in Fisher units.
+>
+> **[D8] Depth.** d = 1/K(v). Near a bifurcation the relaxation rate k → 0, the per-step Fisher speed scales as √k, and d → ∞.
+>
+> **[O1]** Retention depth off the random walk follows the system's own state model; the framework supplies the unit only, and claims no retention law there.
+>
+> ### 6. Edge of criticality
+>
+> **[D7]** Within an occasion, B(C) = e^{C/Ω}(C* − C): salience weight times headroom before the cut.
+> **[P6]** B is maximised at C_a = C* − Ω; under A9, C_a = C* − 1, i.e. ρ − 1 resolvable steps into the half-turn, a fraction 1 − 1/ρ of the occasion; the window exists iff ρ > 1.
+> **Criticality.** Two carriers behave oppositely: at a Hopf point the cycle amplitude vanishes and ρ → 0; at a thermal critical point the Fisher metric diverges with the correlation length and ρ → ∞. The carrier-independent statement is D8: memory depth diverges at criticality.
+>
+> ### 7. Prohibitions
+>
+> **[A7] Relational tense.** Θ is A7 in symbols: only what has settled — for this system or for another (P_B → δ_A → P′_A) — feeds a next occasion. Nothing is fed by a future.
+> **[A8] No valence, no forecast.** Persistence proves regeneratability, not truth. The framework predicts nothing about the traversal or clock time of a future occasion. It predicts what holds at cuts: the seed of the next occasion as a function of the settled past (A6), inequalities, and comparisons of regularity. Past states may represent future states statistically; the model that does so is supplied outside the framework.
+>
+> ### Shape
+>
+> No flow. The framework supplies a guard (A3) and a reset map (A6, temperature fixed by A9); the trajectory within an occasion belongs to the system's own dynamics. Thermodynamics-shaped: a unit, a state function, an inequality that becomes an equality in a limiting case, MaxEnt forms for what it cannot derive.
+>
+> ---
+>
+> ## What a retrodiction check looks like
+>
+> For each system: (i) name the carrier (which statistical family, which unit under A1′); (ii) state which clause is being applied (A1 admissibility, A3 antipode, D2/D4 arc and surplus, A6/P2/P3 reset map, P4/D8 retention, P6 window, the criticality clause); (iii) derive the framework's answer mechanically; (iv) state the known physics; (v) verify the coincidence or contradiction in code; (vi) grade. Where the framework's answer depends on a choice the physics did not make for you (which observable, which coordinates, which metric on a rotor), say so in the row and downgrade.
+>
+> Do not stop at the systems where the framework looks good. The battery is only informative if it contains systems where it might not.

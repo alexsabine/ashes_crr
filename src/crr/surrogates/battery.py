@@ -297,7 +297,152 @@ def S_V_convex_replay_varying(seed=0):
     return (lambda method, value, s: _replay_learner(scales, method, value, s)), None, {"name": "S-V convex replay, 16x label-scale swings (adaptivity load-bearing)"}
 
 
-REPLAY_BATTERY = [S_R_convex_replay_constant, S_V_convex_replay_varying]
+# ---------------------------------------------------------------- EWC / constraint surrogates (EQ2, issue #20 §3)
+# Same convex stream as the replay family, but the past term is NOT replayed data:
+#   S-W: the exact quadratic (Laplace) penalty of the past quadratic loss (EWC-online
+#        with lambda removed -- the rule or the fixed w supplies the weight).
+#   S-X: a logit-matching soft constraint on a frozen copy of the model (DER++/LwF
+#        style): not a loss on the past task; its metric-optimal weight is a small
+#        fraction of the present pull, so equal-length pulling over-regularises.
+# The update stays g = g_present + w * g_past, so gate_EQ2 scores both against the
+# same fixed-w grid it scores S-R on.
+
+def _ewc_laplace_learner(scales, method, value, seed, d=32, n_task=2000, n_test=500, bs=10,
+                         lr=0.01, smooth=0.9, wcap=1.5, noise_sd=0.3, mismatch=16.0,
+                         offset=0.25, n_past=2):
+    """One online pass over tasks that share a base solution (each task's optimum is
+    `offset` away from the shared base: the continual fine-tuning regime). Tasks
+    0..n_past-1 are the PAST phase: trained jointly on their pooled rows, then frozen
+    into the exact Laplace penalty of that past quadratic loss -- anchor theta_star =
+    where training stopped (the penalty gradient is exactly zero there), curvature
+    F = mismatch * Xp'Xp / n_past_samples. The past loss is measured in units
+    `mismatch` x the present term's (its Hessian is mismatch * 2 * Xp'Xp/n against the
+    present's 2 * X'X/n ~ 2I): the 16x curvature-scale mismatch that makes a fixed
+    lambda dataset-dependent. The penalty gradient carries NO lambda:
+    g_q = 2 * (F @ (theta - theta_star)); the rule or the fixed w supplies the weight.
+    Present tasks keep unit data scale; their LOSS is weighted by scales[k] (y is NOT
+    scaled), so their pull magnitude swings 16x (4.0 -> 0.25) while their optima stay
+    put -- a fixed lambda lands at a pull-dependent fraction of each gap, the rule at
+    Omega re-derives the weight every step. The stream is task-balanced (n_past past
+    vs the same number of present tasks): equal pull is then the symmetric compromise,
+    which is the mechanism EQ2 claims. wcap=1.5, not the replay family's 20.0: with
+    2*lambda_max(F) ~ 35, the cap keeps lr * w * 2 * lambda_max(F) ~ 0.5, so the
+    penalty step stays a damped step, not an oscillator. Returns normalised held-out
+    MSE over all tasks."""
+    rng = np.random.default_rng(seed)
+    K = len(scales)
+    th_base = rng.standard_normal(d)
+    tasks = []
+    for k in range(K):
+        th = th_base + offset * rng.standard_normal(d)
+        X = rng.standard_normal((n_task, d)); y = X @ th + noise_sd * rng.standard_normal(n_task)
+        Xt = rng.standard_normal((n_test, d)); yt = Xt @ th + noise_sd * rng.standard_normal(n_test)
+        tasks.append((X, y, Xt, yt))
+    Xp = np.vstack([tasks[k][0] for k in range(n_past)])    # pooled past rows
+    yp = np.concatenate([tasks[k][1] for k in range(n_past)])
+    theta = np.zeros(d)
+    permp = rng.permutation(len(yp))
+    for i in range(0, len(yp), bs):                  # train the past loss alone
+        idx = permp[i:i + bs]
+        theta = theta - lr * 2 * Xp[idx].T @ (Xp[idx] @ theta - yp[idx]) / len(idx)
+    theta_star = theta.copy()                        # anchor: where the past loss ended
+    F = mismatch * (Xp.T @ Xp / len(yp))             # exact Laplace curvature, 16x units
+    ev_p = ev_q = None; wlog = []
+    for k in range(n_past, K):
+        X, y, _, _ = tasks[k]
+        perm = rng.permutation(n_task)
+        for i in range(0, n_task, bs):
+            idx = perm[i:i + bs]; xb, yb = X[idx], y[idx]
+            g_p = scales[k] * 2 * xb.T @ (xb @ theta - yb) / len(idx)   # pull swings, optimum does not
+            g_q = 2 * (F @ (theta - theta_star))     # penalty gradient, lambda removed
+            if method == "fixed":
+                w = value
+            elif method == "eq":
+                if ev_p is None: ev_p, ev_q = g_p.copy(), g_q.copy()
+                else: ev_p = smooth * ev_p + (1 - smooth) * g_p; ev_q = smooth * ev_q + (1 - smooth) * g_q
+                w = min(value * np.sqrt(np.sum(ev_p * ev_p) / max(np.sum(ev_q * ev_q), 1e-18)), wcap)
+            else:
+                raise ValueError(method)
+            wlog.append(w)
+            theta = theta - lr * (g_p + w * g_q)
+    per_task = []
+    for (_, _, Xt, yt) in tasks:
+        per_task.append(float(np.mean((Xt @ theta - yt) ** 2) / np.var(yt)))
+    return dict(metric=float(np.mean(per_task)), per_task=per_task, w_med=float(np.median(wlog)) if wlog else None)
+
+def _constraint_learner(scales, method, value, seed, d=32, n_task=2000, n_test=500, bs=10,
+                        lr=0.01, smooth=0.9, wcap=2.0, noise_sd=0.3, logit_scale=4.0):
+    """One online pass, all tasks at unit input and label scale. At each task boundary
+    the model is frozen into a copy theta_prev; the past term is then a logit-matching
+    CONSTRAINT on the current batch, mean_i (logit_scale * x_i . (theta -
+    theta_prev))^2, with gradient
+    g_q = 2 * logit_scale^2 * Xb'Xb (theta - theta_prev) / bs and NO lambda. The
+    logit_scale is the DER++/LwF unit mismatch: logits are large-magnitude objects, so
+    the constraint's natural weight is a small fraction of the present pull, and
+    equal-length pulling over-regularises. The constraint is not a loss on the past
+    task: its curvature is the current batch's own (rank <= bs of d, redrawn every
+    step), so it descends no past loss. wcap=2.0: the constraint's effective curvature
+    is logit_scale^2 x the batch Hessian, and the cap keeps lr * w * 2 * lambda_max
+    safely under the overshoot bound at the family lr. During task 0 the copy equals
+    the model (nothing is settled yet), so the constraint gradient is zero there."""
+    rng = np.random.default_rng(seed)
+    K = len(scales)
+    tasks = []
+    for k, sc in enumerate(scales):
+        th = rng.standard_normal(d)
+        X = rng.standard_normal((n_task, d)); y = sc * (X @ th + noise_sd * rng.standard_normal(n_task))
+        Xt = rng.standard_normal((n_test, d)); yt = sc * (Xt @ th + noise_sd * rng.standard_normal(n_test))
+        tasks.append((X, y, Xt, yt))
+    theta = np.zeros(d)
+    ev_p = ev_q = None; wlog = []
+    for k in range(K):
+        theta_prev = theta.copy()                    # frozen copy at the boundary (DER++/LwF style)
+        X, y, _, _ = tasks[k]
+        perm = rng.permutation(n_task)
+        for i in range(0, n_task, bs):
+            idx = perm[i:i + bs]; xb, yb = X[idx], y[idx]
+            g_p = 2 * xb.T @ (xb @ theta - yb) / len(idx)
+            g_q = 2 * logit_scale ** 2 * (xb.T @ xb) @ (theta - theta_prev) / len(idx)   # logit-match gradient, no lambda
+            if method == "fixed":
+                w = value
+            elif method == "eq":
+                if ev_p is None: ev_p, ev_q = g_p.copy(), g_q.copy()
+                else: ev_p = smooth * ev_p + (1 - smooth) * g_p; ev_q = smooth * ev_q + (1 - smooth) * g_q
+                w = min(value * np.sqrt(np.sum(ev_p * ev_p) / max(np.sum(ev_q * ev_q), 1e-18)), wcap)
+            else:
+                raise ValueError(method)
+            wlog.append(w)
+            theta = theta - lr * (g_p + w * g_q)
+    per_task = []
+    for (_, _, Xt, yt) in tasks:
+        per_task.append(float(np.mean((Xt @ theta - yt) ** 2) / np.var(yt)))
+    return dict(metric=float(np.mean(per_task)), per_task=per_task, w_med=float(np.median(wlog)) if wlog else None)
+
+
+def S_W_ewc_laplace_replay(seed=0, mismatch=16.0):
+    """S-W: convex learner whose past term is the exact quadratic (Laplace) penalty of
+    a past quadratic loss (EWC-online, lambda removed), measured in units 16x the
+    present term's (curvature scale mismatch=16), with the present loss weights
+    swinging 16x (4.0 -> 0.25) against it. Positive control: the rule at Omega = 1
+    must not be behind the tuned fixed weight (EQ2 MUST PASS) or the gate cannot see
+    the mechanism."""
+    scales = (1.0, 1.0, 4.0, 0.25)
+    return (lambda method, value, s: _ewc_laplace_learner(scales, method, value, s, mismatch=mismatch)), None, \
+        {"name": f"S-W EWC-Laplace convex replay, {int(round(mismatch))}x curvature-scale mismatch"}
+
+
+def S_X_constraint_learner(seed=0):
+    """S-X: convex learner whose past term is a logit-matching soft constraint on a
+    frozen copy of the model (DER++/LwF style), not a loss on the past task: its
+    metric-optimal weight is a small fraction of the present pull, so the same-length
+    rule over-regularises. Negative control: EQ2 MUST FAIL here."""
+    scales = (1.0, 1.0, 1.0, 1.0, 1.0)
+    return (lambda method, value, s: _constraint_learner(scales, method, value, s)), None, \
+        {"name": "S-X constraint learner, tuned weight a small fraction of present norm"}
+
+
+REPLAY_BATTERY = [S_R_convex_replay_constant, S_V_convex_replay_varying,
+                  S_W_ewc_laplace_replay, S_X_constraint_learner]
 
 
 # ---------------------------------------------------------------- rate surrogates (H-L5 on count series, SCOPE.md P6/P9)
