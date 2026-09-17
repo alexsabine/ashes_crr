@@ -1,0 +1,110 @@
+CRR against Shannon information theory — 12 rows in 5 groups. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (geom) The Fisher metric is the Hessian of the Kullback-Leibler divergence; D6's step sqrt(2 KL) is the Fisher-Rao distance to second order
+     clause:     D6 (C = sum sqrt(2 KL_step)), P8 (exact for a fixed-variance Gaussian), A1
+     BORROWED:   KL divergence; Fisher information as its Hessian (Kullback 1959); SCOPE.md P8
+     derivation: fixed-variance Gaussian shift 0.7: sqrt(2 KL) = 0.7000 = Fisher-Rao distance 0.7000 exactly; Bernoulli at p = 0.3, ratio sqrt(2 KL)/d_FR for steps 0.2: 0.9858, 0.05: 0.9934, 0.01: 0.9985, 0.001: 0.9998 -> 1 as the step -> 0
+     known:      KL(p_theta || p_theta+d) = (1/2) g d^2 + O(d^3): the Fisher metric is the local quadratic form of Shannon's divergence
+     verdict:    the bridge from CRR's arc to Shannon's divergence is the standard second-order identity; D6's path length is exact only in the small-step limit (or the Gaussian case), and the discretisation error is the domain's, not a CRR quantity
+     GRADE:      DESCR
+     weakness:   inherited; the framework's arc is Shannon's divergence integrated along the path
+[ 2] (geom) de Bruijn's identity: entropy rate along the heat flow equals half the Fisher information
+     clause:     D2 read on the path of smoothed distributions (a Fisher speed), A1
+     BORROWED:   de Bruijn's identity (Stam 1959); Gaussian convolution of a uniform density
+     derivation: X uniform on [-1, 1] plus sqrt(t) Z at t = 0.5: dh/dt = 0.60514 (finite difference), J/2 = 0.60514; relative difference 5.5e-07
+     known:      d/dt h(X + sqrt t Z) = (1/2) J(X + sqrt t Z): Shannon entropy grows along diffusion at half the Fisher information
+     verdict:    along the smoothing path the Fisher information is the entropy's rate of growth: the one classical identity that makes CRR's Fisher quantity a Shannon quantity, and it is Stam's, not CRR's
+     GRADE:      CONSIST
+     weakness:   inherited (Stam 1959); the framework reads the identity, it did not produce it
+[ 3] (geom) Stam's inequality: entropy power times Fisher information is at least one, with equality only for the Gaussian
+     clause:     A1' (the unit is 1/sqrt(J)), D1 (resolution)
+     BORROWED:   Stam 1959; entropy power N = e^{2h}/(2 pi e)
+     derivation: N J: Laplace(1) = 1.7305 (= 2e/pi), Gaussian = 1.0000; the bound is 1
+     known:      the Gaussian has the least Fisher information for a given entropy: a resolvable step (1/sqrt J) is never larger than the entropy-power width
+     verdict:    CRR's unit (one resolvable step, 1/sqrt J) is bounded above by Shannon's entropy power for every density: the two notions of 'how much room a distribution has' agree up to a factor fixed by Stam, and the factor is the domain's
+     GRADE:      DESCR
+     weakness:   inherited; a carrier fact about the unit
+[ 4] (prior) The Jeffreys prior (density proportional to sqrt g) as the prior that maximises the mutual information between parameter and data
+     clause:     A1 (Fisher carrier), A1' (the unit is one step of sqrt g), P2/P3 (MaxEnt weights)
+     BORROWED:   Bernardo 1979 reference priors; Clarke & Barron 1994 (Jeffreys is asymptotically reference for regular models)
+     derivation: Bernoulli, n = 200, priors Beta(a, a): I(theta; data) in nats = a = 0.25: 2.3581, a = 0.5: 2.4123, a = 1: 2.2392, a = 2: 1.9491, a = 4: 1.6251; maximum at a = 0.5 (Jeffreys is a = 0.5)
+     known:      the prior that lets the data say the most is uniform in Fisher-Rao arc length: one prior mass per resolvable step
+     verdict:    Shannon's optimal prior is uniform in CRR's unit: a genuine Fisher-Shannon bridge, and it is Bernardo's and Clarke-Barron's; CRR's A1' unit is the measure that bridge already uses
+     GRADE:      CONSIST
+     weakness:   inherited; the framework did not produce the reference-prior theorem, it uses its measure
+[ 5] (prior) Clarke-Barron asymptotics: the mutual information under the Jeffreys prior is the log of the number of resolvable steps of the carrier
+     clause:     D1 (rho = extent / unit), A1' (unit = 1/sqrt(n g) at n observations)
+     BORROWED:   Clarke & Barron 1990/1994: I(theta; X^n) = (d/2) log(n / 2 pi e) + log int sqrt(det g) + o(1) under Jeffreys
+     derivation: Bernoulli under Jeffreys: n = 100: I = 2.0816 nats, log rho = 2.0284 (rho = pi sqrt(n/2 pi e) = 7.6 resolvable steps); n = 1000: I = 3.1962 nats, log rho = 3.1797 (rho = pi sqrt(n/2 pi e) = 24.0 resolvable steps); n = 10000: I = 4.3362 nats, log rho = 4.3310 (rho = pi sqrt(n/2 pi e) = 76.0 resolvable steps); the Fisher length of the family is pi = 3.1416
+     known:      asymptotically the data distinguish sqrt(n/2 pi e) times the Fisher length of the family many parameter values, and the information is their logarithm
+     verdict:    CRR's resolution rho (D1) is exactly the count whose logarithm is Shannon's mutual information at n observations: the strongest bridge in the battery, exact asymptotically, and it is Clarke-Barron's theorem read with CRR's names
+     GRADE:      CONSIST
+     weakness:   inherited; D1 says rho is reported and never used in a threshold, and this row says why rho is the right thing to report: its log is the information the record carries about where the system is
+[ 6] (code) Rate-distortion of a Gaussian source at distortion equal to the unit's variance
+     clause:     A1' (unit sigma), D1 (rho)
+     BORROWED:   Shannon's rate-distortion function R(D) = (1/2) log(sigma^2 / D) for a Gaussian source
+     derivation: distortion D = unit variance: R = log2(sigma_signal / sigma_unit) = log2 rho bits: rho = 2: 1.000 bits, rho = 10: 3.322 bits, rho = 100: 6.644 bits
+     known:      describing a Gaussian source to within one unit of error costs log2 rho bits per sample
+     verdict:    the unit turns Shannon's rate into log rho by substitution: a definition, and the same count as the Clarke-Barron row from the coding side
+     GRADE:      DESCR
+     weakness:   rule 3: a change of variables in R(D)
+[ 7] (code) The data-processing inequality on a Markov chain: the past adds nothing to the present state
+     clause:     A4 (depth one), H-T1's convex-learner lemma (the endpoint is a sufficient statistic), O1
+     BORROWED:   data-processing inequality; Markov chains X -> Y -> Z
+     derivation: random 4-state chain X -> Y -> Z: I(X; Y) = 0.3725 nats >= I(X; Z) = 0.0511 nats (difference 0.3215)
+     known:      no processing of Y can recover information about X that Y has lost
+     verdict:    A4's 'depth one' and the ledger's 'the old-probe endpoint predicts forgetting' are the data-processing inequality: when the state is Markov the path carries no information the state does not; where the batteries found path dependence (Preisach, Kovacs) the observed state was not the full state
+     GRADE:      DESCR
+     weakness:   inherited (Shannon); the framework's path-vs-endpoint question is 'is the observed state Markov?', which information theory answers per system
+[ 8] (thermo) Landauer's bound at a reset cut: erasing the settled occasion's position costs at least kT ln 2 per bit
+     clause:     A3 ('the cut has no content'), A6 (the settled past is retained as reweighted content, not erased), D1
+     BORROWED:   Landauer 1961; Bennett 1982 (copying is free, erasure is not)
+     derivation: an adder-type cut resets a carrier resolved to rho steps: bits erased = log2 rho, minimum dissipation in kT: rho = 2: 1.00 bits, 0.69 kT, rho = 10: 3.32 bits, 2.30 kT, rho = 100: 6.64 bits, 4.61 kT
+     known:      resetting a memory to a standard state dissipates at least kT ln 2 per bit; retaining a record does not
+     verdict:    the framework's cut is content-free for the future but a physical reset erases the occasion's position, at a cost Landauer fixes and CRR does not mention; A6 (the past retained as content) and the threshold-reset systems (the past erased) are on opposite sides of Bennett's line, and no clause says which a system does
+     GRADE:      OPEN
+     weakness:   no clause about the energetics of the cut; a real-data row would need a measured erasure cost per occasion (single-electron or optical-trap memories), gated first
+[ 9] (thermo) Information length of a relaxing Gaussian: D2 on the path of distributions, against its geodesic chord
+     clause:     D2-D4 on a path of distributions (the Fisher-Rao arc of p_t), P1
+     BORROWED:   information length (Kim and co-workers; Crooks 2007 for the metric); the Gaussian family's Fisher-Rao metric (a hyperbolic half-plane)
+     derivation: mean 2 -> 0 and sd 2.5 -> 1 relaxing exponentially: information length C = 1.7737, geodesic chord C* = 1.7267, surplus S = 0.0471; with the sd fixed the length is |delta m| / sigma = 1.9950 exactly (a monotone path, S = 0)
+     known:      the information length counts the statistically distinguishable states a time-dependent distribution passes through
+     verdict:    information length is CRR's coherence on a distribution-valued carrier, and the surplus is the excess over the geodesic: the same objects the thermodynamic-length rows found, with the same verdict: the quantity is the domain's, the naming is CRR's
+     GRADE:      CONSIST
+     weakness:   inherited; the batteries' thermodynamic-length verdict restated for non-equilibrium PDF paths
+[10] (code) Binary symmetric channel: capacity against Fisher information across the crossover probability
+     clause:     the removed 'p = 1/2 antipode' (spec XI.2), A1 (Fisher metric of the Bernoulli family)
+     BORROWED:   Shannon channel capacity of the BSC, C = 1 - H2(p); Fisher information of the Bernoulli family
+     derivation: p = 0.01: C = 0.9192 bits, g = 101.01; p = 0.1: C = 0.5310 bits, g = 11.11; p = 0.3: C = 0.1187 bits, g = 4.76; p = 0.5: C = 0.0000 bits, g = 4.00
+     known:      capacity vanishes at p = 1/2 and is largest near p = 0 or 1; Fisher information is smallest at 1/2 and diverges at the ends
+     verdict:    the Bernoulli family's Fisher midpoint is the channel's dead point: had the older text's 'p = 1/2 antipode' been kept, the cut of a binary carrier would have sat at zero capacity; the spec removed it, and the removal is consistent with Shannon's reading
+     GRADE:      DESCR
+     weakness:   a carrier fact; the two curves are unrelated functions of p and neither is a CRR result
+[11] (point) Natural time as the time-change under which a Poisson process has unit entropy per event
+     clause:     O3 (natural time gives the unit for point processes), D5 [M] (the event is the cut)
+     BORROWED:   differential entropy of the exponential distribution, h = 1 - ln lambda nats; time change tau = lambda t
+     derivation: rate 0.1: interval entropy in clock time 3.3026 nats, in natural time 1.0000 nat; rate 1: interval entropy in clock time 1.0000 nats, in natural time 1.0000 nat; rate 10: interval entropy in clock time -1.3026 nats, in natural time 1.0000 nat
+     known:      rescaling time by the rate makes every Poisson process the unit-rate process
+     verdict:    natural time is the clock in which each occasion of a Poisson process carries exactly one nat of interval entropy: a change of variables that says what O3's unit is in Shannon's terms, and nothing more
+     GRADE:      DESCR
+     weakness:   rule 3: a definition of the unit
+[12] (prior) P2's surplus weights as the Shannon-entropy maximiser under a mean-surplus constraint
+     clause:     P2 (pi proportional to e^{beta S}), P3, O2
+     BORROWED:   Jaynes 1957 maximum entropy; Gibbs distributions
+     derivation: five occasions, beta = 1.3: Gibbs weights [0.0745 0.1851 0.4038 0.0966 0.24  ] with entropy 1.4402 nats; among 2000 random distributions projected onto the same mean surplus, 0 had higher entropy
+     known:      the maximum-entropy distribution under a linear constraint is the Gibbs form
+     verdict:    P2 and P3 are Shannon-entropy maximisers by construction (the theory says so: 'standard, Jaynes'); the framework fixes neither beta nor the constraint, and the measured-influence rows found kernels outside both families
+     GRADE:      DESCR
+     weakness:   rule 3: CRR's weights are Jaynes's
+
+====================================================================================================
+TALLY
+group                                       SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(geom) Fisher-Shannon identities               0        1        2        0        0        0
+(prior) priors, mutual information and MaxEnt        0        2        1        0        0        0
+(code) coding and processing                   0        0        3        0        0        0
+(thermo) thermodynamics of information           0        1        0        0        0        1
+(point) point processes                         0        0        1        0        0        0
+all                                             0        4        7        0        0        1
+
+Rows where a CRR clause reaches a result the domain did not already have: 0 of 12. Every Fisher-Shannon bridge in the battery (de Bruijn, Stam, Bernardo/Clarke-Barron, Landauer, information length, Jaynes) predates the framework; CRR's contribution is the naming.

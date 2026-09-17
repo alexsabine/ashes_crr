@@ -51,7 +51,8 @@ item below ends in a ledger row or in a gate table, or it does not happen.
 
 The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9
 driven-system, 9 cognitive-collective, 8 wild-system and 20 twenty-systems rows, plus a
-13-row boundary battery on emptiness (CRR at zero). Adding rows has value only where a class is thin or a claim is untested:
+13-row boundary battery on emptiness (CRR at zero) and a 12-row battery against Shannon
+information theory. Adding rows has value only where a class is thin or a claim is untested:
 
 - **Point processes with events the system owns** (neuronal spike trains, stick-slip, glitches,
   epidemics): the one class where A3/D5 and H-L5 have content. Each new row should compute the
