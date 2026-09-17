@@ -1,0 +1,96 @@
+CRR retrodiction battery on systems far from the earlier batteries — 8 model systems, 8 classes. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (traf) Nagel-Schreckenberg traffic (jammed regime): a tagged car's stop-to-stop occasions on its velocity carrier
+     clause:     D5 (the stop = own event), D2 (arc of the velocity path), H-L5
+     BORROWED:   Nagel-Schreckenberg 1992 cellular automaton; stop-and-go waves
+     FLOW:       the density, the randomisation p and the other cars (system-supplied)
+     derivation: 263 stops in 4000 steps; mean stop-to-stop interval 15.1 steps (CV 2.05), mean velocity arc per occasion 8.6 (CV 1.88); CV_arc 1.882 vs CV_clock 2.050 -> arc-regular
+     known:      jams propagate upstream at a characteristic speed; a car's stop-to-stop interval is set by the jam spacing, which the randomisation makes broadly distributed
+     verdict:    arc-regular: a car that stops and restarts traverses a velocity path whose arc is roughly twice v_max whenever it reaches free flow and less when it crawls; the class is set by how often it crawls, a property of the density, not of any clause
+     GRADE:      OPEN
+     H-L5 class: arc-regular (CV_arc 1.882, CV_clock 2.050)
+     weakness:   class assignment on a model at one density; the known results (jam speed, fundamental diagram) are not reached by any clause
+[ 2] (motor) Handwriting strokes (minimum-jerk): the isochrony principle vs constant-speed timing
+     clause:     D5 (stroke onset = own event), D2 (arc = stroke amplitude, monotone so S = 0), H-L5
+     BORROWED:   Viviani & Terzuolo isochrony; minimum-jerk model (Flash & Hogan 1985); the two-thirds power law
+     FLOW:       the timing law of the motor system (physiology-supplied)
+     derivation: isochrony (T fixed): CV_arc 0.503 vs CV_clock 0.053 -> clock-regular; constant peak speed (T ~ A): CV_arc 0.503 vs CV_clock 0.511 -> arc-regular; empirical T ~ A^0.25: CV_arc 0.503 vs CV_clock 0.133 -> clock-regular
+     known:      stroke duration is nearly independent of stroke size (isochrony), so speed scales with size; the exact exponent of the residual dependence is debated
+     verdict:    isochrony: clock-regular; constant speed: arc-regular by 0.009, below the 0.01 this battery treats as a reading; empirical exponent: clock-regular; the motor system is clock-regular by its own law, the mirror image of the adder, and the framework only names the class the law already fixes
+     GRADE:      DESCR
+     weakness:   rule 3: the class is the timing law renamed; the first system in the batteries that is clock-regular by physiology rather than by construction, and it says the clock claim of H-L5 has a natural counter-class
+[ 3] (eco) Mast seeding (Isagi resource-budget model) with weather-driven production: mast years as occasions
+     clause:     D5 (mast year = own event), A3 (the depletion is the cut, exclusive segmentation), D2 (arc of the resource store), H-L5
+     BORROWED:   Isagi et al. 1997 resource budget; Satake & Iwasa 2000 (k > 1 gives chaotic masting)
+     FLOW:       the photosynthate rate (weather-supplied) and the depletion coefficient k
+     derivation: k = 0.5: 2917 masts in 3000 years (annual flowering, the fixed point); k = 1.5: 2031 masts, mean interval 1.5 years (CV 0.41), CV_arc 1.307 vs CV_clock 0.412 -> clock-regular; k = 3: 1297 masts, mean interval 2.3 years (CV 0.50), CV_arc 0.879 vs CV_clock 0.503 -> clock-regular
+     known:      mast intervals are irregular when the fruiting cost exceeds the flowering cost (k > 1); masting is resource-driven, not calendar-driven
+     verdict:    k = 1.5: clock-regular; k = 3: clock-regular; the tree is an adder whose starting store after a mast varies with the overshoot, so the arc to the next threshold varies as much as or more than the interval: the resource-budget model is not in the arc-regular class even though it is resource-driven, and the framework's slogan would have predicted otherwise
+     GRADE:      OPEN
+     H-L5 class: clock-regular (CV_arc 0.879, CV_clock 0.503)
+     weakness:   class assignment on a model; a resource-driven system that is not arc-regular because the reset is variable: the class needs both a fixed chord and a fixed reset, which the adder has and the masting tree does not
+[ 4] (astro) Pulsar glitches as threshold release: backward vs forward size/waiting-time correlations in two reservoir models
+     clause:     A6 (the next occasion is seeded from the settled past: a forward dependence), D5 (glitch = own event), A8 (a comparative forecast from settled occasions)
+     BORROWED:   superfluid-reservoir (snowplough) glitch models; size/waiting-time correlation analysis
+     FLOW:       the spin-down rate and the threshold or release statistics (star-supplied)
+     derivation: model A (variable threshold, full release): corr(size_n, preceding wait_n) = 1.00 (backward), corr(size_n, following wait_n+1) = -0.07 (forward); model B (fixed threshold, variable release): backward -0.02, forward 1.00
+     known:      glitching pulsars show size/waiting-time correlations of either kind; which kind is a property of the pulsar
+     verdict:    A6 read as universal predicts a forward dependence of the next occasion on the settled one; model A has none (the next glitch is set by the next threshold, not by the past release), model B has it exactly; so the forward correlation is a signature of which quantity varies, not a consequence of regeneration
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: on the variable-threshold model the settled occasion carries no information about the next; A6 holds only where the release, not the threshold, varies; the real forecast (A8) is model B's and is the domain's own
+[ 5] (immu) Immune imprinting (antigenic seniority): measured influence of each settled exposure on the final titre
+     clause:     P3 (age weights, pi_k proportional to q^k), P2 (surplus weights), A6; O2 (which constraint)
+     BORROWED:   antigenic seniority / original antigenic sin (Lessler et al. 2012 as the seniority form); cross-reactivity as a similarity kernel
+     FLOW:       the exposure history and the similarity kernel (immunology-supplied)
+     derivation: equal cross-reactivity: influence by exposure order = 1.000, 0.600, 0.360, 0.216, 0.130, 0.078, geometric age fit q = 1.67 (1/s = 1.67), correlation(age, log influence) = 1.00; antigenic-distance kernel: influence by exposure order = 0.080, 0.093, 0.092, 0.082, 0.065, 0.061, geometric age fit q = 1.08 (1/s = 1.67), correlation(age, log influence) = 0.78
+     known:      antibody responses are dominated by the first strains encountered (imprinting); later exposures add progressively less; cross-reactivity modulates this
+     verdict:    seniority alone gives age weights with q = 1.67 > 1, the opposite of fading memory; with the distance kernel the oldest-strongest ordering is partly masked (q = 1.08); P2 gives uniform weights because the exposures have equal surplus; the row is constructed (rule 3) but records a third memory class, primacy, beside recency and wiping-out, none of which the framework distinguishes
+     GRADE:      DESCR
+     weakness:   rule 3: the model encodes the answer; the value is taxonomic: any T5 prereg must say which of the three memory classes its carrier belongs to before the gate
+[ 6] (eng) Maintenance scheduling: odometer (usage-based) vs calendar intervals under variable usage
+     clause:     D5 (failure = own event), A3 (the replacement is the cut, exclusive segmentation), D2 (arc = accumulated usage), H-L5
+     BORROWED:   wear-threshold reliability models; usage-based vs time-based preventive maintenance
+     FLOW:       the usage rate (operator-supplied) and the wear threshold (component-supplied)
+     derivation: variable usage, tight threshold: CV_arc 0.091 vs CV_clock 0.198 -> arc-regular; steady usage, variable threshold: CV_arc 0.378 vs CV_clock 0.374 -> clock-regular
+     known:      usage-based intervals (mileage, cycles) beat calendar intervals when usage varies; calendar intervals suffice when usage is steady
+     verdict:    variable usage: arc-regular; variable threshold: clock-regular by 0.004, below the 0.01 this battery treats as a reading; the odometer is the arc and the practice is the class map: the framework names what every fleet manager already does
+     GRADE:      DESCR
+     weakness:   rule 3: the adder mechanism in an engineered setting; the everyday reading of 'change has its own clock' is a mileage counter
+[ 7] (fluid) Dripping tap: Tate's-law drops under variable flow vs variable pinch-off mass
+     clause:     D5 (drop = own event), A3 (detachment = the cut, exclusive segmentation), D2 (arc = hanging mass), H-L5
+     BORROWED:   Tate's law (1864); the dripping faucet as a chaotic system (Shaw 1984) for the second regime
+     FLOW:       the flow rate (tap-supplied) and the pinch-off mass (liquid- and nozzle-supplied)
+     derivation: Tate regime, variable flow: CV_arc 0.027 vs CV_clock 0.152 -> arc-regular; variable pinch-off mass, steady flow: CV_arc 0.246 vs CV_clock 0.245 -> clock-regular
+     known:      at low flow the drop mass is fixed by surface tension and the drip interval by the flow; at higher flow the drop size becomes irregular and the dripping chaotic
+     verdict:    Tate regime: arc-regular; variable mass: clock-regular by 0.001, below the 0.01 this battery treats as a reading; a kitchen adder: the drop is arc-regular exactly where Tate's law holds, and the law, not the framework, says where that is
+     GRADE:      DESCR
+     weakness:   rule 3: the same mechanism as the adder, the spring-slider and the odometer; included because the owner asked for systems far from the earlier ones, and it shows how ordinary the arc-regular class is when a threshold fixes the chord
+[ 8] (comp) Cache replacement: LRU (age weights) vs LFU (an accumulated count) on stationary and drifting Zipf request streams
+     clause:     A6 ('regeneration returns a reweighted content, never an accumulated count'), P3 (age weights), O2
+     BORROWED:   LRU/LFU cache analysis; Zipf popularity; the recency-frequency trade-off
+     FLOW:       the request stream (workload-supplied)
+     derivation: stationary: hit rate LRU 0.260, LFU 0.378 (LFU ahead by 0.118); drifting: hit rate LRU 0.262, LFU 0.076 (LRU ahead by 0.186)
+     known:      frequency-based replacement wins on stationary popularity, recency-based replacement wins under drift; both keep evicting
+     verdict:    an engineered memory that re-counts its past (LFU) does not stop cutting: it evicts on every miss and outperforms age weights on the stationary stream by 0.118; under drift age weights win by 0.186; A6's prohibition of the count is false as a universal and the choice between count and age is the workload's (O2 again, decided by stationarity)
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: A6's 'never an accumulated count' fails on a working counting memory; what survives is that the better weighting depends on whether the past recurs in-family (O2's own condition)
+
+====================================================================================================
+TALLY
+class                               SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(traf) road traffic                    0        0        0        0        0        1
+(motor) human motor control             0        0        1        0        0        0
+(eco) plant ecology                   0        0        0        0        0        1
+(astro) neutron stars                   0        0        0        1        0        0
+(immu) immunology                      0        0        1        0        0        0
+(eng) maintenance engineering         0        0        1        0        0        0
+(fluid) fluid mechanics                 0        0        1        0        0        0
+(comp) computer systems                0        0        0        1        0        0
+all                                     0        0        4        2        0        2
+
+H-L5 class map (model systems with their own events):
+  arc-regular                                  Nagel-Schreckenberg traffic (jammed regime): a tagged car's stop-to-stop occasions on its velocity carrier
+  clock-regular                                Mast seeding (Isagi resource-budget model) with weather-driven production: mast years as occasions
+
+rows where the coherence integral's velocity is system-supplied (FLOW != none): 8/8
+Rows where a CRR clause reaches a result the domain did not already have: 0 of 8.
