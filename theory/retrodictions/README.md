@@ -17,7 +17,11 @@ FitzHugh–Nagumo under drive), which are CLASS-AGREES; DESCR is DEF-AGREES; FAI
 rule 4's reason; OPEN is SILENT; TENSION is INTERNAL. SHARP is retired for retrodictions: no CRR
 row can reach it, because every coherence integral has a system-supplied velocity and every unit
 is the system's own. The only forward-looking label is PROSPECTIVE CANDIDATE (the note's §3.2),
-which is a ticket to a prereg and not evidence.
+which is a ticket to a prereg and not evidence. A fourth kind, SYNTHESIS (prompt-log entry 60,
+`docs/notes/2026-09-17_synthesis_class.md`, harness `synthesis.py`), asks a different question of a
+row: not whether CRR agrees with the domain but whether CRR, taken whole, adds a checkable statement
+the domain's own mathematics does not already contain; its outcomes are ADDS (candidate) / PROPOSES /
+REDUNDANT-IG / REDUNDANT-DOMAIN / WRONG / INTERNAL / UNSTATED, computed from printed numbers.
 
 ## Tally
 
@@ -718,6 +722,47 @@ assumptions, allowing the Fisher metric and Born rule to vary between observers"
 snippet): if so, A1's licence for a unique Fisher carrier does not extend to this domain at all. No 2026
 paper puts a Fisher or Fubini–Study metric on spin-network states, and none uses "natural time". Nothing
 in the battery bears on any of these problems.
+
+## The SYNTHESIS class: does CRR add anything? (owner request, prompt-log entry 60)
+
+`synthesis.py` → `synthesis.txt` (pinned; CI reproduces it byte for byte). The class, its three tests,
+its gate and the expert protocol that closes it are in `docs/notes/2026-09-17_synthesis_class.md`. Each
+row states one proposition Q about a domain, in the domain's own terms, built with a CRR-proper
+ingredient, and the script computes the outcome from three tests: T-G (ablate the ingredient: agree
+within 1 % → REDUNDANT-IG), T-N (the domain's own theorem gives the value → REDUNDANT-DOMAIN), T-C
+(the check in the domain's mathematics: holds → ADDS, fails → WRONG, unavailable → PROPOSES). Eleven
+rows: two gate controls and nine real domains. Gate: positive control ADDS, decoy WRONG, negative
+control WRONG → GATE OPEN. Real-domain tally: 0 ADDS / 1 PROPOSES / 2 REDUNDANT-IG /
+2 REDUNDANT-DOMAIN / 2 WRONG / 1 INTERNAL / 1 UNSTATED.
+
+| row | domain, Q, ingredient | outcome |
+|---|---|---|
+| 1 | gate, positive: equal-total-variation cycles (2.0000 σ) with random height and duration; CV(C) 1.659e-13, CV(clock) 0.144, CV(amplitude) 0.164; decoy unit (amplitude) reads WRONG | ADDS |
+| 2 | gate, negative: S-G clock-regular; CV(C) 0.134, CV(clock) 0.000 | WRONG |
+| 3 | Bayesian estimation: the state after K occasions is the Fréchet mean of the per-occasion posteriors (A6); spread 0.3833 at K = 64 vs Bayes 0.0395 | WRONG |
+| 4 | quantum mechanics: the cut is the first orthogonal state at the Mandelstam–Tamm time (A3); arc half-turn at 1.9238 vs antipode at 2.0944 on levels (0,1,2); no antipode on (0,1,3), minimum overlap 0.2024 | INTERNAL |
+| 5 | two-tone signal: A3 occasion rate 1.9995 = 2 f₁, not 2 × centroid 2.1588; the analytic-signal theorem | REDUNDANT-DOMAIN |
+| 6 | replicator: geodesic iff ≤ 2 distinct fitness values (S 6.43e-02 vs −2.56e-09); D4 is information geometry's | REDUNDANT-IG |
+| 7 | heteroclinic RPS re-read: mean epoch arc 3.1416 = the edge length π (relative difference 6.54e-06) while durations run 32.9 → 544.5 | REDUNDANT-IG |
+| 8 | adder with A6 + P3 memory: lag-2 partial coefficient 0.1290 (q = 0.3), 0.1634 (q = 0.6) vs 0.0080 (adder); needs lineage data | PROPOSES |
+| 9 | Tolman cyclic cosmology: bounded cycle maxima (A6); Tolman growth 0.9702 vs A6 −0.0493 | WRONG |
+| 10 | thermal time beside the arc clock: arc rate 0.0000 on a stationary state, thermal rate 1.0000; no Q | UNSTATED |
+| 11 | horizon entropy per resolvable step: ln 2 under the j = ½ counting (the counting's definition); 1.8644 bits under the all-j counting | REDUNDANT-DOMAIN |
+
+**What the class did that the earlier readings could not.** Row 6 is true, checkable and information
+geometry's: T-G shows CRR added nothing. Row 7 re-reads a "dynamical CONSIST": the arc per epoch is the
+simplex edge length, so the constant is geometry's and the CLASS label stands without the synthesis
+credit. A6 read as a rule for any system with occasions is contradicted by two accumulating domains
+(rows 3 and 9); its escape clause is a scope restriction and a new prereg (CLAUDE.md §10). A3 has two
+readings on a projective carrier (row 4) and must be fixed by a theory change. The one PROPOSES (row 8)
+is the hand-off: an adder whose setpoint references the age-weighted Fréchet mean of past birth sizes
+predicts a positive lag-2 term the plain adder sets to zero, and single-cell lineage data can decide it.
+
+**Decisions** (AGENT_LOG 29): the first run's rock–paper–scissors row used the payoff convention with
+wins larger than losses, which makes the interior point attracting; the epochs were then noise
+between near-equal components (arc 0.0000) and the label was wrong. The convention was matched to
+the cognitive-collective battery (losses larger than wins) and the arc settled at π. Two T-G verdict
+words and one bit count that had been written as text were made script-computed (R15).
 
 ## TENSION and the minimal rewording
 

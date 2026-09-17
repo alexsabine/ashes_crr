@@ -448,6 +448,18 @@ Rules:
   are read as kind × outcome (DEF / INHERITED / CLASS / COMPARATIVE ×
   AGREES / DISAGREES / SILENT / INTERNAL); SHARP is retired for retrodictions
   and PROSPECTIVE CANDIDATE (the note's §3.2) is the only forward-looking label.
+- A fourth kind, **SYNTHESIS** (owner request 2026-09-17, prompt-log entry 60;
+  `docs/notes/2026-09-17_synthesis_class.md`; harness `theory/retrodictions/synthesis.py`):
+  CRR taken whole against a domain's own mathematics, one proposition Q per row
+  built with a CRR-proper ingredient (A3/D5, A6, P2/P3, A1′/D1, H-L5, D6/H-T1, H-EQ,
+  A7/A8; the Fisher–Rao metric, arc, chord and surplus are information geometry's,
+  not CRR's). Three printed tests decide the outcome: T-G ablation against the null
+  (agree within 1 % → REDUNDANT-IG), T-N the domain's own theorem (→ REDUNDANT-DOMAIN),
+  T-C the check in the domain's mathematics (holds → ADDS, fails → WRONG, unavailable
+  → PROPOSES); INTERNAL and UNSTATED as in the note. ADDS is always a candidate: novelty
+  is judged only by a named domain expert answering the note's three questions on the
+  record. The harness carries its own gate (a positive control that must read ADDS, a
+  decoy unit and a negative control that must not).
 - "Observed" is printed at full precision plus rounded; never rounded
   alone at a boundary.
 - Each study report (`reports/<study>.md`) is written after its rows exist,
