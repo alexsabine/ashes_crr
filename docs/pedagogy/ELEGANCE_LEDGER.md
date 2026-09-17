@@ -184,7 +184,7 @@ of the world, only that it can be carried in plain words.
 - elegance: The debris comes home in order of how tightly it was held, so counted in its own order the fallback ends at 'half the star'; counted by the clock it never ends. One picture: a finite queue served ever more slowly.
 - for a fifth grader: When a star is torn apart by a black hole, half of it is flung away for good and half comes falling back, the tightly held bits first and the loosely held bits later and later. If you count the pieces as they arrive, the story ends when the last piece is home. If you watch the clock instead, it never quite ends, because the stragglers keep arriving more and more slowly.
 
-### [3] Acoustic transfer function of the photon-baryon fluid in the source row's model: cos(k r_s), r_s = 1, times a diffusion envelope exp(-(k/k_d)^2) and a second harmonic beta cos(2 k r_s) (the source's three probes), on the even extension k in [-10 pi, 10 pi] at 1200001 samples (the transfer function is even in k, so the analytic signal has no edge at k = 0); cuts and extrema read on 0 < k r_s < 8 pi; a fourth probe adds the baryon-loading offset -R
+### [3] Acoustic transfer function of the photon-baryon fluid in the source row's model: cos(k r_s), r_s = 1, times a diffusion envelope exp(-(k/k_d)^2) and a second harmonic beta cos(2 k r_s) (the source's three probes), on the even extension k in [-10 pi, 10 pi] at 200001 samples (the transfer function is even in k, so the analytic signal has no edge at k = 0); cuts and extrema read on 0 < k r_s < 8 pi; a fourth probe adds the baryon-loading offset -R
 
 - source row: runs/phaseA/crr_retrodictions.txt [g4] (DESCR)
 - outcome: REDUNDANT-DOMAIN
