@@ -1,0 +1,149 @@
+SYNTHESIS class: CRR taken whole against a domain's own mathematics (prompt-log entry 60)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (gate) Positive control: a synthetic event train whose cycles have equal total variation but random height, wiggle and duration (the domain sees a renewal process with CV 0.15 and nothing else)
+     Q:          the arc of one occasion between the system's own events is constant: CV(C) -> 0 while CV(clock) and CV(amplitude) stay at their construction values
+     ingredient: A3/D5 (occasion = interval between own events, the reset jump is the cut: segment_end = exclusive), D2 with A1' (sigma = 1), H-L5 (the class claim)
+     null:       the clock: the interval statistics the domain already has
+     domain:     none cited
+     numbers:    59 occasions: CV(C) = 1.659e-13, CV(clock) = 0.144, CV(amplitude) = 0.164; C_mean = 2.0000 sigma; paired-bootstrap 95 % CI of CV(C) - CV(clock) = [-0.167, -0.115]; decoy framework (unit = peak-to-peak amplitude, an outside constant): its CV 0.164 reads WRONG
+     T-G:        CV(C) 1.659e-13 vs null CV(clock) 0.144: differ
+     T-N:        no domain theorem for the arc; the renewal description has no such quantity
+     T-C:        CV(C) < 0.02 and below both controls: holds
+     OUTCOME:    ADDS
+     reading:    the harness prints ADDS where a CRR-proper ingredient adds structure by construction and WRONG for the decoy unit; ADDS is reachable, and not by measuring excursion size
+     weakness:   by construction; a synthetic domain says only that the harness can see the effect
+
+[ 2] (gate) Negative control: S-G, a relaxation oscillator firing at a fixed time with a variable threshold (clock-regular by construction)
+     Q:          the same Q as row 1: the arc of one occasion is more regular than the clock
+     ingredient: A3/D5, D2, H-L5 (as row 1)
+     null:       the clock
+     domain:     none cited
+     numbers:    59 occasions: CV(C) = 0.134, CV(clock) = 0.000, CV(amplitude) = 0.134
+     T-G:        CV(C) 0.134 vs null 0.000: differ
+     T-N:        none
+     T-C:        CV(C) < CV(clock): fails
+     OUTCOME:    WRONG
+     reading:    a signal with no CRR content reads WRONG: the class is not empty of failures
+     weakness:   by construction
+
+[ 3] (stat) Bayesian estimation of a Gaussian mean (known variance) from K evidence occasions of n = 10 draws each
+     Q:          the state after K occasions is the Fisher-Rao Frechet mean of the K per-occasion posteriors at bounded strength (A6: never an accumulated count), so its spread does not shrink with K
+     ingredient: A6 (Frechet mean over settled occasions, bounded strength), D5 (occasion = one batch), A1 (Fisher-Rao on the Gaussian family = hyperbolic half-plane, closed-form distance)
+     null:       the domain's accumulation: the posterior after nK draws, N(mean, 1/sqrt(nK))
+     domain:     Bayes' theorem (posterior consistency: spread ~ 1/sqrt(nK))
+     numbers:    K = 4: Frechet mean N(-0.0515, 0.3537), accumulated posterior N(-0.0604, 0.1581); K = 16: Frechet mean N(0.0255, 0.3905), accumulated posterior N(0.0342, 0.0791); K = 64: Frechet mean N(-0.0368, 0.3833), accumulated posterior N(-0.0409, 0.0395); per-occasion spread 0.3162: the Frechet spread stays at or above it (it rises with the scatter of the occasion means, a property of the hyperbolic plane) while the accumulated spread falls as K^-1/2
+     T-G:        K = 64: Frechet spread 0.3833 vs null (accumulated) 0.0395: differ
+     T-N:        Bayes' theorem gives the accumulated value, not the Frechet one: no domain theorem produces Q
+     T-C:        Q against Bayes at K = 64: relative difference in spread 0.897 (holds if <= 0.05): fails
+     OUTCOME:    WRONG
+     reading:    read as an inference rule, A6 is contradicted by the domain: evidence accumulates and the Frechet mean does not; the axiom's own clause ('a system that re-counts its past stops cutting') says a Bayesian accumulator is not a regenerating system, which is a scope restriction and, by CLAUDE.md section 10, a new prereg rather than a repair
+     weakness:   the occasion is taken as one batch; O3 says a monotone posterior path has no rotor and hence no cut, which would make Q vacuous rather than false
+
+[ 4] (qm) A pure state under a time-independent Hamiltonian (equal-weight superposition of three levels), quantum Fisher metric (Fubini-Study, distance to orthogonality = pi)
+     Q:          the occasion boundary of a unitary evolution is the first orthogonal state (the antipode), reached when the Fisher arc has advanced a half-turn: t_cut = pi / (2 dE), the Mandelstam-Tamm time
+     ingredient: A3 (cut at the half-turn), D2/D3 (arc 2 dE t, chord 2 arccos|<psi0|psi_t>|), D4
+     null:       the two readings of A3 itself: 'phase advanced half a turn' (arc = pi) against 'the antipode' (chord = pi, orthogonality)
+     domain:     Mandelstam-Tamm bound t_perp >= pi/(2 dE), saturated only on a geodesic (Anandan-Aharonov)
+     numbers:    levels (0.0, 1.0, 2.0): dE = 0.8165, arc half-turn at t = 1.9238, first orthogonal state at t = 2.0944 (surplus at the antipode S = 0.2785); levels (0.0, 1.0, 3.0): dE = 1.2472, arc half-turn at t = 1.2594, no orthogonal state in a full period (minimum overlap 0.2024)
+     T-G:        levels (0.0, 1.0, 2.0): arc reading 1.9238 vs antipode reading 2.0944: differ; levels (0.0, 1.0, 3.0): arc reading 1.2594 vs antipode reading none (no antipode occurs)
+     T-N:        the domain has both times (Mandelstam-Tamm and the actual orthogonality time) and the geometric statement that they coincide only on geodesics
+     T-C:        not reached: the two readings of the ingredient must agree before Q can be checked
+     OUTCOME:    INTERNAL
+     reading:    on a non-geodesic unitary evolution 'half a turn of phase' and 'the antipode' are different events, and for a generic spectrum the antipode never occurs while the arc keeps turning; CRR.md's own note ('cut when C = C* (something) coincides with A3 only on monotone traversals') is this tension seen from the other side
+     weakness:   the rotor CRR's A3 assumes (a circle of circumference L) does not exist on the projective space; which of the two readings is A3 must be fixed before any quantum row can be graded
+
+[ 5] (sig) A two-tone signal cos(2 pi f1 t) + 0.6 cos(2 pi f2 t), f1 = 1, f2 = 1.3, analytic-signal phase
+     Q:          the A3 occasion rate (half-turns per unit time) is twice the frequency of the stronger tone, not twice the spectral centroid
+     ingredient: A3 on the intrinsic phase (antipodal_cuts), D5
+     null:       the spectral centroid, the domain's mean frequency
+     domain:     the time average of the instantaneous frequency of a two-tone signal is the frequency of the stronger component (Boashash 1992 review; Gabor/Ville analytic signal)
+     numbers:    400 cuts over 200 s: rate 1.9995 half-turns/s; 2 f1 = 2.0000; 2 x centroid = 2.1588
+     T-G:        rate 1.9995 vs null 2 x centroid 2.1588: differ
+     T-N:        domain theorem gives 2.0000: the domain has Q
+     T-C:        rate within 1 % of 2 f1: holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the A3 count is a majority statistic of the phase, which the analytic-signal literature already states; CRR renames it
+     weakness:   1-D signal; no metric content
+
+[ 6] (evo) Constant-fitness replicator dynamics on the 3-simplex with the Shahshahani (Fisher-Rao) metric
+     Q:          a replicator trajectory is a Fisher-Rao geodesic (surplus S = 0) iff the fitness vector takes at most two distinct values; otherwise S > 0
+     ingredient: D4 (surplus) - NOT CRR-proper: arc minus geodesic distance is information geometry
+     null:       the same S computed by information geometry alone (identical by construction)
+     domain:     the replicator flow is an e-geodesic of the exponential family (Amari), which is a Levi-Civita geodesic only when the sqrt-embedded path is planar
+     numbers:    three distinct fitness values (0, 0.5, 1): C = 1.9763, C* = 1.9120, S = 6.43e-02; two distinct fitness values (0, 1, 1): C = 1.6504, C* = 1.6504, S = -2.56e-09
+     T-G:        S 0.0643 vs null S 0.0643: agree (no CRR-proper ingredient in Q)
+     T-N:        the e-geodesic statement is the domain's
+     T-C:        S(two values) < 1e-4 and S(three values) > 1e-2: holds (the criterion is true, and it is information geometry's)
+     OUTCOME:    REDUNDANT-IG
+     reading:    a true and checkable statement about the domain that CRR did not add: every symbol in it is shared with information geometry
+     weakness:   included to show T-G failing on a correct proposition
+
+[ 7] (evo) Rock-paper-scissors replicator with an attracting heteroclinic cycle (loss a = 1.3, win b = 1; cognitive-collective battery row 8 read again under the synthesis class)
+     Q:          the arc of each dominance epoch is a constant, so the epochs are arc-regular while their clock durations grow without bound
+     ingredient: H-L5 (class claim), D5 (own event = dominance switch), A1 (P7 metric)
+     null:       the edge of the simplex: a geodesic of length pi between two vertices (information geometry, no dynamics)
+     domain:     none cited
+     numbers:    12 last epochs: mean arc 3.1416 (CV 0.001); durations 32.9 -> 544.5 (CV 0.865); vertex-to-vertex geodesic pi = 3.1416; relative difference 6.54e-06
+     T-G:        mean arc 3.1416 vs null pi 3.1416: agree
+     T-N:        none cited
+     T-C:        not reached
+     OUTCOME:    REDUNDANT-IG
+     reading:    the regularity is real and it is geometry: once the attracting cycle has pulled the trajectory onto the boundary, every epoch runs one edge, and every edge has length pi; the dynamical fact (attraction to the boundary) is the domain's, the constant is information geometry's, and CRR's arc adds a name; the CLASS-AGREES reading of the earlier row stands, the synthesis reading is REDUNDANT-IG
+     weakness:   the same reading applies to any heteroclinic network on a simplex
+
+[ 8] (bio) The bacterial adder (division at birth size + Delta) with A6 regeneration: the division setpoint references the age-weighted Frechet mean of past birth sizes instead of the current one
+     Q:          birth-size lineages carry a positive partial autocorrelation at lag 2 (a grandmother term), which the plain adder (an AR(1) with coefficient 1/2) sets to zero
+     ingredient: A6 (Frechet mean over settled occasions), P3 (geometric age weights q^k), D5 (occasion = one cell cycle)
+     null:       the plain adder (q = 0)
+     domain:     the adder model: b_{n+1} = (b_n + Delta)/2 + noise, lag-k correlation 2^-k, partial autocorrelation zero beyond lag 1
+     numbers:    q = 0: regression of b_n+1 on (b_n, b_n-1): coefficients (0.4997, 0.0080); q = 0.3: regression of b_n+1 on (b_n, b_n-1): coefficients (0.3533, 0.1290); q = 0.6: regression of b_n+1 on (b_n, b_n-1): coefficients (0.2203, 0.1634); 20000 generations, Delta = 1, division noise 10 %
+     T-G:        lag-2 coefficient 0.1290 (q = 0.3) vs null 0.0080 (adder): differ
+     T-N:        the adder gives 0 for the lag-2 partial coefficient: the domain's standard model does not contain Q
+     T-C:        unavailable here: needs single-cell lineage data (mother-machine E. coli lineages, not fetched, absent from data/SEEN.md); the prereg would score the lag-2 coefficient per lineage against zero with the paired bootstrap
+     OUTCOME:    PROPOSES
+     reading:    the one row in this battery where CRR's regeneration axiom, integrated with the domain's own rule, produces a statement the domain's standard model does not make and that data can decide; whether lineage-memory models in the domain already contain it is the expert's question, not this script's
+     weakness:   a memory term beyond the adder is not unique to A6: any AR(2) does it; the CRR content is the sign and the geometric shape of the weights, which a prereg must test, not just the nonzero lag-2 term
+
+[ 9] (cos) Cyclic cosmology with a Tolman entropy increment per cycle (radiation-filled closed cycles, a_max ~ S^2/3), the bounce-to-bounce cycle as the occasion
+     Q:          the maximum scale factor of successive cycles stays bounded: each cycle is seeded from the Frechet mean of past cycles at bounded strength (A6: never an accumulated count)
+     ingredient: A6 (Frechet regeneration), P3 (age weights, q = 0.5), D5 (cycle = occasion)
+     null:       Tolman's accumulation: S_{n+1} = S_n + dS, a_max growing without bound
+     domain:     Tolman 1934: entropy increase makes successive cycles larger
+     numbers:    50 cycles after 5 seeded ones: Tolman growth of ln a_max = 0.9702; A6 growth = -0.0493 (the seeded history's weighted mean, then constant)
+     T-G:        A6 growth -0.0493 vs null (Tolman) 0.9702: differ
+     T-N:        Tolman's theorem gives the opposite of Q
+     T-C:        Q (bounded) against the domain's cycles: fails
+     OUTCOME:    WRONG
+     reading:    read as a law of cyclic cosmology, A6 is contradicted by the domain's own thermodynamics; the escape ('a system that re-counts its past stops cutting', so a Tolman universe is not a regenerating system) is a scope restriction and a new prereg, not a repair
+     weakness:   a two-line model of Tolman's argument; the loop-gravity battery's row 5 has the arc/clock reading of the same cycles
+
+[10] (cos) Connes-Rovelli thermal time (the modular flow of a KMS state, dt/ds = beta) beside CRR's arc clock, on a two-level Gibbs family
+     Q:          none could be formed: the two clocks measure different objects
+     ingredient: D2 (arc as the clock), A7/A8 (tense)
+     null:       thermal time
+     domain:     Connes-Rovelli 1994 (thermal time hypothesis): physical time = beta x modular time
+     numbers:    beta = 1, level spacing 1: excited population p = 0.2689; arc rate on the stationary state = 0.0000 (nothing changes); thermal-time rate = 1.0000; under slow cooling (d beta/dt = 0.01) the arc rate is 0.00443 per unit time
+     T-G:        no decisive quantity: the arc clock stops on a stationary state and thermal time does not
+     T-N:        none
+     T-C:        none
+     OUTCOME:    UNSTATED
+     reading:    CRR's clock counts change of the state; thermal time is the state's own flow at fixed state; no proposition relating a rate of change to a rate of flow was found that is not a definition
+     weakness:   the honest outcome for Rovelli's own domain in this battery: silence
+
+[11] (lqg) A quantum horizon of N punctures with S = A/4 (loop-gravity battery row 1), the smallest area quantum named as the unit
+     Q:          the entropy per resolvable step of horizon area (D1: rho = A / A_min) is one bit
+     ingredient: A1'/D1 (the unit named as the system's smallest step, rho = extent/unit)
+     null:       the instrument's estimated unit (unit_sigma on the spectrum's gaps, loop-gravity row 8)
+     domain:     the j = 1/2 two-state counting fixes gamma so that each puncture carries ln 2 (one bit per puncture)
+     numbers:    j = 1/2 counting: gamma = 0.1274, A_min = 2.7726 l_P^2, entropy per step = 0.6931 nats = 1.0000 bits; all-j two-state counting: gamma = 0.2375, A_min = 5.1693, entropy per minimal step = 1.2923 nats = 1.8644 bits (the step is not a bit); estimated unit sigma = 1.57e-06 l_P^2 -> 3.92e-07 nats per estimated step
+     T-G:        per named step 0.6931 vs null per estimated step 3.92e-07: differ
+     T-N:        the counting's own construction gives ln 2 = 0.6931: the domain has Q
+     T-C:        one bit exactly under the j = 1/2 counting: holds (and it is the counting's definition)
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    naming the quantum as the unit reproduces the counting that defined it; under the counting the field prefers, the minimal step carries 1.864 bits and D1's step is not the domain's bit
+     weakness:   a definition read back
+
+GATE (synthesis class): positive control ADDS (must be ADDS), its decoy unit WRONG (must not be ADDS), negative control WRONG (must not be ADDS) -> GATE OPEN
+TALLY (rows 3-11, real domains): 0 ADDS / 1 PROPOSES / 2 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 2 WRONG / 1 INTERNAL / 1 UNSTATED
+TALLY (all rows):                1 ADDS / 1 PROPOSES / 2 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 3 WRONG / 1 INTERNAL / 1 UNSTATED
