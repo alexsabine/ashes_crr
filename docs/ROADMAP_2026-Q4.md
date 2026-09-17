@@ -46,8 +46,8 @@ item below ends in a ledger row or in a gate table, or it does not happen.
 
 ## 2. Retrodiction across more systems: what is worth adding
 
-The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I and 9
-driven-system rows. Adding rows has value only where a class is thin or a claim is untested:
+The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9
+driven-system and 9 cognitive-collective rows. Adding rows has value only where a class is thin or a claim is untested:
 
 - **Point processes with events the system owns** (neuronal spike trains, stick-slip, glitches,
   epidemics): the one class where A3/D5 and H-L5 have content. Each new row should compute the
@@ -60,8 +60,14 @@ driven-system rows. Adding rows has value only where a class is thin or a claim 
   real-data row is needed for this question.
 - **Multi-occasion systems where influence is measured, not imposed**: this is the only place
   the spec's T5 can be tested. The first such row (driven-systems battery row 5, a Preisach
-  hysteresis ensemble) FAILS the law: influence is 1 or 0 by wiping-out, not e^{S}. A T5 prereg
-  must first state the memory class the law excludes. Candidates: human motor adaptation
+  hysteresis ensemble) FAILS the law: influence is 1 or 0 by wiping-out, not e^{S}; the second
+  (a linear echo-state reservoir) is explained by age weights and the surplus adds 0.011 in R².
+  A T5 prereg must first state the memory class the law excludes and name a system where
+  neither wiping-out nor linear fading applies.
+- **Diffusion carriers**: the Fisher arc of a Brownian path is not finite (cognitive-collective
+  battery row 1, TENSION), so every L5-type prereg on a noisy carrier must name a smoothing
+  scale or a rectifiable Fisher-native carrier before the gate; the exact ties of the Kramers
+  and integrate-and-fire rows were this, not a property of those systems. Candidates: human motor adaptation
   with block-wise interference measured (the spec's §XV, re-run under the protocol),
   ecological or epidemiological systems with recorded successive outbreaks and a measurable
   effect of each on the next.

@@ -1,0 +1,103 @@
+CRR retrodiction battery on cognitive, learning-machine, economic, collective, evolutionary-game and social-diffusion systems — 9 model systems, 6 classes. Grades: SHARP CONSIST DESCR FAILS TENSION OPEN
+
+[ 1] (cog) Drift-diffusion decision model (two absorbing bounds): reaction time vs evidence-path arc, at two drifts and two sampling steps
+     clause:     D5 (the decision = own event), D3 (the bound fixes the chord), D2 (arc of a diffusion path), D4, H-L5
+     BORROWED:   Ratcliff drift-diffusion model; first-passage times of Brownian motion with drift; Brownian paths have infinite total variation
+     FLOW:       the drift rate (task-supplied), the noise, and the sampling step (instrument-supplied)
+     derivation: mu = 3, dt = 0.001: mean RT 0.371 (CV 0.59), mean arc per trial 9.31 (chord 1), CV_arc 0.604 vs CV_clock 0.592 -> clock-regular; mu = 3, dt = 0.01: mean RT 0.369 (CV 0.40), mean arc per trial 2.93 (chord 1), CV_arc 0.392 vs CV_clock 0.395 -> arc-regular; mu = 0.3, dt = 0.001: mean RT 1.049 (CV 0.73), mean arc per trial 26.42 (chord 1), CV_arc 0.724 vs CV_clock 0.732 -> arc-regular; mu = 0.3, dt = 0.01: mean RT 1.236 (CV 0.87), mean arc per trial 9.79 (chord 1), CV_arc 0.861 vs CV_clock 0.869 -> arc-regular; arc ratio between the two sampling steps: 3.18 and 2.70 (sqrt(10) = 3.16); the reaction times do not change
+     known:      RT distributions are right-skewed with CV set by the drift-to-noise ratio; the bound fixes the evidence at decision
+     verdict:    drift-dominated: clock-regular (dt 1e-3), arc-regular by 0.003, below the 0.01 this battery treats as a reading (dt 1e-2); diffusion-dominated: arc-regular by 0.007, below the 0.01 this battery treats as a reading, arc-regular by 0.008, below the 0.01 this battery treats as a reading; the arc per trial is the noise's total variation and scales as 1/sqrt(dt): on a diffusion carrier D2's C is a property of the sampling step, not of the system, and every CV comparison on such a carrier is a comparison of the clock with itself
+     GRADE:      TENSION
+     weakness:   internal: D2 presumes a rectifiable path; the cognitive, economic, Kramers and integrate-and-fire carriers are diffusions, so the tie results across the batteries are this theorem, not a finding about the systems; a prereg on a diffusion carrier must name a smoothing scale or a Fisher-native carrier that is rectifiable
+[ 2] (cog) Rescorla-Wagner learning rate read against the steady-state Kalman gain at Fisher speed v (P4)
+     clause:     P4 (K(v), K(1) = 1/phi; 'the formula itself is not CRR's'), O1 (no retention law)
+     BORROWED:   Rescorla-Wagner 1972 (fixed-gain error correction); Kalman filter as its normative counterpart (Dayan-Kakade)
+     FLOW:       the reward volatility q and observation noise r (environment-supplied)
+     derivation: v = 0.1: empirically best alpha 0.12, Kalman K(v) = 0.095; v = 0.3: empirically best alpha 0.30, Kalman K(v) = 0.258; v = 1: empirically best alpha 0.60, Kalman K(v) = 0.618; 1/phi = 0.618 is the optimum only at v = 1
+     known:      the optimal learning rate rises with reward volatility; conditioning fits typically give alpha well below 0.5
+     verdict:    the learning rate is the Kalman gain of the environment's Fisher speed, a standard identity; 'Omega = 1 <-> v = 1 -> alpha = 1/phi' is not a clause of v3.1, and if it were read as a prediction it would fail whenever the environment's speed is not 1 (rule 2: the observable v is the environment's)
+     GRADE:      DESCR
+     weakness:   P4 says of itself that it is not CRR's; the row records that nothing in the reading fixes a learner's alpha
+[ 3] (cog) Retention under variable-rate interference: forgetting in natural time (events) vs clock time (P5)
+     clause:     P5 (retention e^{-A/rho} in natural time), O3 (natural time gives the unit for point processes)
+     BORROWED:   interference theory of forgetting (Jenkins & Dallenbach 1924 sleep-wake asymmetry); Poisson interference
+     FLOW:       the interference event rate lambda(t) (environment-supplied) and the unit rho
+     derivation: 300 items, delays 0.5-24 h, wake rate 4/h, sleep rate 0.4/h: R^2 of log retention on natural time A(t) = 0.998, on clock time t = 0.938
+     known:      retention over a sleep interval exceeds retention over an equal wake interval; decay-vs-interference is decided by whether elapsed time or intervening events predicts forgetting
+     verdict:    natural time predicts by construction (rule 3: the model retains in A); the content is the classic interference hypothesis, which CRR restates as 'the unit is the event count'; a real test needs retention data with recorded event rates, which no row has opened
+     GRADE:      DESCR
+     weakness:   the row says only that CRR's P5 is the interference hypothesis in Fisher units; nothing about memory is derived
+[ 4] (ai) Linear echo-state reservoir: measured influence of each past input block on the final state, age weights (P3) vs surplus weights (P2)
+     clause:     O2 (which constraint: age or surplus), P3 (pi_k proportional to q^k), P2 (pi_m proportional to e^{beta S_m}), D4
+     BORROWED:   echo-state networks (Jaeger 2001), fading memory; linear systems theory
+     FLOW:       the spectral radius (designer-supplied) and the input stream
+     derivation: 12 blocks of 8 inputs, spectral radius 0.9: R^2 of log influence on age = 0.918 (fitted q per step = 0.907 against rho_s = 0.9), on surplus S = 0.376, on age + S = 0.928, on age + log input scale = 0.948
+     known:      a linear reservoir's memory fades geometrically at the spectral radius; the effect of an input is linear in its magnitude
+     verdict:    age weights hold with q = the spectral radius (P3, by the system's linearity); the surplus adds 0.011 in R^2 beyond age, and what remains is the input's magnitude, not e^{S}: on this carrier O2 is decided for age and against surplus
+     GRADE:      FAILS
+     weakness:   rule 4 / class dependence: P2's exponential-in-surplus weights fail on a linear fading-memory system; P3 holds but is the spectral radius renamed (DESCR on its own)
+[ 5] (ai) Simulated annealing of a two-level system: three schedules of identical Fisher length, only the speed profile differs
+     clause:     D2 (the Fisher length of the schedule), P1; the driven battery's row 9 in a learning-machine setting
+     BORROWED:   Salamon-Nulton-Andresen constant-thermodynamic-speed annealing; Fisher metric of the Boltzmann family g = Var(E)
+     FLOW:       the relaxation time tau_r and the schedule (designer-supplied)
+     derivation: Fisher length of every schedule = 1.307 (same path in beta); final excess occupation and lag integral: linear in T: 3.90e-02, 0.1974; linear in beta: 9.04e-04, 0.0539; constant Fisher speed: 3.19e-03, 0.0441; least lag: constant Fisher speed
+     known:      constant thermodynamic speed minimises the excess dissipation of an annealing schedule of fixed duration
+     verdict:    the length is the same for all three, so no CRR path quantity distinguishes them; the domain's optimum is the speed profile (constant Fisher speed), the same finding as the two-parameter trap row: the Fisher metric supplies the right notion of speed, and CRR inherits it
+     GRADE:      CONSIST
+     weakness:   inherited (thermodynamic geometry); CRR's arc is the schedule's length, which cannot rank schedules of equal length
+[ 6] (econ) GARCH(1,1) volatility clustering vs i.i.d. returns: exceedance events on the log-price carrier (realised absolute variation as the arc)
+     clause:     D5 read with a chosen event (rule 2), D2 (arc = realised absolute variation), H-L5, A4 (the conditional variance is the Markov state)
+     BORROWED:   Bollerslev 1986 GARCH; volatility clustering (Mandelbrot 1963); time deformation / subordination (Clark 1973: returns are more regular in transaction or volatility time than in clock time)
+     FLOW:       the return process (market-supplied)
+     derivation: GARCH(1,1): 421 exceedances, gap CV 2.98, lag-1 gap autocorrelation 0.13, CV_arc 2.400 vs CV_clock 2.984 -> arc-regular; i.i.d. control: 106 exceedances, gap CV 0.90, lag-1 gap autocorrelation 0.08, CV_arc 0.887 vs CV_clock 0.899 -> arc-regular
+     known:      large returns cluster in time (gap autocorrelation positive under GARCH, zero i.i.d.); in volatility time the return process is closer to homogeneous (subordination)
+     verdict:    GARCH: arc-regular by a margin of 0.585; i.i.d.: arc-regular; under clustering the exceedances are more regular in realised-variation time than in clock time, which is the subordination reading the domain already has (Clark 1973); the event is chosen, not the market's own (rule 2), so the row is a reading, not a result
+     GRADE:      DESCR
+     H-L5 class: arc-regular (CV_arc 2.400, CV_clock 2.984)
+     weakness:   the first carrier in the batteries where the arc-regular class appears on a chosen-event economic series; a real-data row (daily index returns are public) would be a legitimate L5-type prereg only with the event rule fixed in advance
+[ 7] (col) Kuramoto synchronisation transition (N = 1000, Lorentzian frequencies): exact order parameter and the criticality clause
+     clause:     issue-#21 text criticality clause (rho -> 0 at onset); v3.1 has no criticality clause; A1' (unit = the finite-N fluctuation floor)
+     BORROWED:   Kuramoto 1975; Ott-Antonsen exact reduction for Lorentzian frequencies r = sqrt(1 - K_c/K)
+     FLOW:       the coupling K and the frequency distribution (system-supplied)
+     derivation: r(K) simulated vs exact: K = 0.6: 0.042 (0.000, sd 0.020), K = 0.9: 0.070 (0.000, sd 0.030), K = 1.1: 0.352 (0.302, sd 0.020), K = 1.3: 0.468 (0.480, sd 0.014), K = 1.6: 0.605 (0.612, sd 0.013), K = 2: 0.707 (0.707, sd 0.010), K = 3: 0.827 (0.816, sd 0.007); max |simulated - exact| for K >= 1.3: 0.013; r / fluctuation floor: 0.6: 1.3, 0.9: 2.2, 1.1: 11.1, 1.3: 14.8, 1.6: 19.1, 2: 22.4, 3: 26.1
+     known:      the order parameter grows as sqrt(K - K_c) above onset (a mean-field, Hopf-like transition); the incoherent state has r ~ 1/sqrt N
+     verdict:    the sqrt law and K_c are Kuramoto's; the older clause's 'rho -> 0 at onset' holds on this class as it did on the Hopf rows (the order parameter vanishes into the finite-N floor), and fails on the SNIC and branching classes recorded earlier: class-dependent, not a universal, and v3.1 makes no such claim
+     GRADE:      DESCR
+     weakness:   a fourth data point for the class dependence of the criticality clause; no CRR clause reaches K_c or the exponent
+[ 8] (evo) Rock-paper-scissors replicator with an attracting heteroclinic cycle: dominance epochs on the Fisher-native simplex
+     clause:     D5 (dominance switch = own event), A1 (Shahshahani/Fisher metric on the simplex, P7), D2, H-L5
+     BORROWED:   replicator dynamics; May-Leonard heteroclinic cycles; Shahshahani metric
+     FLOW:       the payoff asymmetry a - b (game-supplied)
+     derivation: a = 1.1: 55 epochs, first duration 3.50, last-12 durations 9.58 -> 22.02 (CV 0.274), first arc 0.420, last arc 3.134 (last-12 CV 0.030; vertex-to-vertex distance pi = 3.142) -> arc-regular; a = 1.3: 25 epochs, first duration 3.20, last-12 durations 6.04 -> 63.36 (CV 0.780), first arc 0.448, last arc 3.142 (last-12 CV 0.074; vertex-to-vertex distance pi = 3.142) -> arc-regular; neutral (a = b = 1): 27 epochs, duration CV 0.003, arc CV 0.003 -> tie
+     known:      near an attracting heteroclinic cycle the time spent near each saddle grows geometrically while the orbit converges to the boundary cycle
+     verdict:    attracting cycle: arc-regular (a = 1.1) and arc-regular (a = 1.3), by the system's own dynamics rather than by construction: the epochs lengthen without bound while the Fisher arc of each epoch converges to the fixed vertex-to-vertex distance; neutral cycles: tie (nothing varies); the saturation value pi is a definition (P7), the regularity is dynamical
+     GRADE:      CONSIST
+     H-L5 class: arc-regular (CV_arc 0.030, CV_clock 0.274)
+     weakness:   the second system in the batteries (after the adder) that is arc-regular by its own dynamics; a real-data row would need a population with recorded strategy frequencies over several cycles
+[ 9] (soc) Bass diffusion of an innovation: the adoption wave as one occasion (peak time and peak fraction)
+     clause:     D5 (the wave as one occasion), D2-D4 on the adopted fraction, A4 (F is Markov: depth one)
+     BORROWED:   Bass 1969 diffusion model; logistic-type growth
+     FLOW:       the innovation and imitation coefficients p, q (market-supplied)
+     derivation: p = 0.03, q = 0.38: simulated peak at t = 6.19 with F = 0.460; closed form t* = 6.19, F* = 0.461; arc to the peak C = 0.460 equals the chord C* = 0.460 (monotone: S = 0.0e+00)
+     known:      the peak of adoption occurs at ln(q/p)/(p+q) with (q - p)/(2q) adopted; the curve is set by p and q alone
+     verdict:    the wave is a monotone occasion (S = 0 by P1) and the state is depth one, so the framework has nothing to add to the closed form
+     GRADE:      DESCR
+     weakness:   rule 3: the occasion structure is a relabelling of the S-shaped curve
+
+====================================================================================================
+TALLY
+class                               SHARP  CONSIST    DESCR    FAILS  TENSION     OPEN
+(cog) cognitive models                  0        0        2        0        1        0
+(ai) learning machines                 0        1        0        1        0        0
+(econ) economic time series              0        0        1        0        0        0
+(col) collective dynamics               0        0        1        0        0        0
+(evo) evolutionary games                0        1        0        0        0        0
+(soc) social diffusion                  0        0        1        0        0        0
+all                                     0        2        5        1        1        0
+
+H-L5 class map (model systems with their own events):
+  arc-regular                                  GARCH(1,1) volatility clustering vs i.i.d. returns: exceedance events on the log-price carrier (realised absolute variation as the arc)
+  arc-regular                                  Rock-paper-scissors replicator with an attracting heteroclinic cycle: dominance epochs on the Fisher-native simplex
+
+rows where the coherence integral's velocity is system-supplied (FLOW != none): 9/9
+Rows where a CRR clause reaches a result the domain did not already have: 0 of 9.

@@ -587,3 +587,31 @@ Did we use the full CRR and the "one omega before rupture" rule here? Check the 
 ## 42. 2026-09-17T20:40:00Z
 
 Okay. Run another battery of crr tests on various different systems according to the pipeline please
+
+## 43. 2026-09-17T21:30:00Z
+
+Right. Can you now count the total number reaching consistent and descriptive ? Do this in the scratchpad only please. I am just asking for a couple of brief updates regarding the consistent and descriptive and what these checks mean in basic epistemological terms, please
+
+## 44. 2026-09-17T21:45:00Z
+
+And how are we doing on the continuous learning tests? Again, scratchpad only please.
+
+## 45. 2026-09-17T22:00:00Z
+
+Okay. Now, in the scratchpad only. Compare crr to FEP please. Consider pedagogical ease, falsifiability, epistemic nature and whether crr might help to resolve some of FEPs current main problems. Thanks
+
+## 46. 2026-09-17T22:20:00Z
+
+This scratchpad chat is useful. Consider the Dirac delta as ‘Now’ and past states as coherence. The future has no content. Only the past has content. Check the crr mathematics regarding how the future is a reciprocal of the past in every moment.
+
+Consider crr as a temporal dynamics for fep / active inference, and the implications of this for active inference (Daniel is the director of the institute)
+
+## 47. 2026-09-17T22:35:00Z
+
+Just in scratchpad. What are the implications for fep if crr gives it a derived clock, falsifiability and precision as a measured unit?
+
+## 48. 2026-09-17T22:50:00Z
+
+Okay. Leave that ringfenced in the scratchpad for now. We might return to it at a later time. 
+
+Please run another full battery of general tests on different systems using the pipeline. Thank you
