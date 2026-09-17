@@ -611,6 +611,67 @@ pre-registered. Emptiness is a state the pipeline excludes, not one the theory d
 already contain. The vacuum row is a control: displacement never reaches the vacuum's antipode, so
 A3 never fires and the framework is correctly silent.
 
+## CRR against Shannon information theory (owner request, prompt-log entry 58)
+
+`shannon.py` → `shannon.txt` (pinned; CI reproduces it byte for byte). Twelve rows on the places where
+the Fisher–Rao quantities CRR uses meet Shannon's; the 2026 literature status is in
+`docs/citations/shannon_2026-09-17.md` (abstracts and snippets only). Tally: 0 SHARP / 4 CONSIST /
+7 DESCR / 0 FAILS / 0 TENSION / 1 OPEN.
+
+| row | bridge | grade |
+|---|---|---|
+| 1 | the Fisher metric is the Hessian of KL; D6's √(2KL) step is the Fisher–Rao distance to second order | DESCR |
+| 2 | de Bruijn: entropy rate along the heat flow = half the Fisher information (checked to 5.5e-7) | CONSIST |
+| 3 | Stam: entropy power × Fisher information ≥ 1 (Laplace 1.7305, Gaussian 1.0000) | DESCR |
+| 4 | Jeffreys prior maximises mutual information (Bernoulli n = 200: 2.4123 nats at a = 0.5, the maximum) | CONSIST |
+| 5 | Clarke–Barron: mutual information under Jeffreys = log of the number of resolvable steps (n = 10000: I 4.3362 vs log ρ 4.3310) | CONSIST |
+| 6 | rate–distortion at the unit: R = log₂ ρ bits | DESCR |
+| 7 | data-processing inequality = A4 (I(X;Y) 0.3725 ≥ I(X;Z) 0.0511) | DESCR |
+| 8 | Landauer at a reset cut: log₂ ρ bits erased, ≥ 0.69 / 2.30 / 4.61 kT at ρ = 2 / 10 / 100 | OPEN |
+| 9 | information length is D2 on a path of distributions (C 1.7737, C* 1.7267, S 0.0471) | CONSIST |
+| 10 | BSC capacity is zero at the Fisher midpoint p = 1/2 (g = 4.00 there) | DESCR |
+| 11 | natural time gives unit entropy per Poisson event (1.0000 nat at every rate) | DESCR |
+| 12 | P2's weights are Shannon-entropy maximisers (0 of 2000 constrained alternatives higher) | DESCR |
+
+**The bridges are real and none is CRR's.** Every identity that turns a Fisher quantity into a
+Shannon quantity in this battery predates the framework: de Bruijn and Stam (1959), Bernardo (1979),
+Clarke–Barron (1990), Landauer (1961), Jaynes (1957), information length (Kim). CRR's contribution on
+each is a name. The strongest bridge is row 5: the resolution ρ that D1 says to report and never to
+use in a threshold is exactly the count whose logarithm is the mutual information the record carries
+about the parameter at n observations, asymptotically and under the Jeffreys prior. That is why ρ is
+the right thing to report, and it is Clarke and Barron's theorem read with CRR's names.
+
+**One place the framework is silent where physics is not (row 8).** A reset cut erases the settled
+occasion's position; Landauer fixes the minimum cost at kT ln 2 per bit, which for ρ resolvable steps
+is ln ρ in units of kT. A3 says the cut has no content, A6 says the settled past is retained as
+reweighted content; the threshold-reset systems of the earlier batteries erase it. No clause says
+which a system does or what it pays. A real-data row would need a measured erasure cost per occasion
+(single-electron or optical-trap memories), gated first.
+
+**The field's 2026 status against the battery (`docs/citations/shannon_2026-09-17.md`; abstracts and
+snippets only).** Where the battery inherits, the field is still moving: the log-convexity of Fisher
+information along the heat flow (the identity behind row 2) was reported disproved in dimension two
+and above this year (Zou, Fan, Gao and Wang, arXiv:2605.18081, snippet), and de Bruijn identities now
+exist for Tsallis and nonlocal Fisher informations; the Fisher–Rao metric in infinite dimensions
+"lacks a bounded inverse" (Cheng and Tong, Entropy 28:374, PubMed), which bounds any nonparametric
+carrier CRR might name; rate–distortion–perception theory is the live form of row 6's question and
+its perceptual term's "theoretical origin" is stated as unclear. Where the battery says OPEN, the
+field says the same in experiment: a 2026 DRAM erasure measurement reports that "the Landauer
+limit was not achieved, even under effectively infinite-time bit erasure" (Shimizu et al., Phys Rev
+Lett 136:117103, PubMed), so row 8's cost is a bound, not a value. The stated bottlenecks the
+battery does not touch are estimation ("no accepted tests exist to detect when neural
+network-based estimators fail", Abdelaleem et al., snippet), the information bottleneck's
+"unresolved theoretical ambiguities", scaling laws ("no existing theory can quantitatively predict
+the exponents", Cagnetta et al., snippet), and computationally bounded information (Finzi et al.,
+"epiplexity"). None of these is a place where a Fisher arc, a cut or a surplus has a role the field
+lacks; CRR has nothing to offer them and the battery does not pretend otherwise.
+
+**What the data-processing inequality says about the batteries (row 7).** A4's depth one, the
+ledger's "the old-probe endpoint predicts forgetting", and the reservoir and Kovacs rows are one
+theorem: when the observed state is Markov the path carries nothing the state does not, and where
+path dependence appeared the observed state was not the full state. Information theory answers
+CRR's path-versus-endpoint question per system, and the answer is "name the state".
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"

@@ -36,6 +36,7 @@ uv run python theory/retrodictions/cognitive_collective.py | cmp - theory/retrod
 uv run python theory/retrodictions/wild_systems.py | cmp - theory/retrodictions/wild_systems.txt && echo 'wild-systems battery byte-identical to the committed output'
 uv run python theory/retrodictions/twenty_systems.py | cmp - theory/retrodictions/twenty_systems.txt && echo 'twenty-systems battery byte-identical to the committed output'
 uv run python theory/retrodictions/emptiness.py | cmp - theory/retrodictions/emptiness.txt && echo 'emptiness (CRR at zero) battery byte-identical to the committed output'
+uv run python theory/retrodictions/shannon.py | cmp - theory/retrodictions/shannon.txt && echo 'Shannon battery byte-identical to the committed output'
 uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt) && echo 'second retrodiction battery (PR #24): all 40 verdicts reproduced (the Rossler row drifts at the third decimal across Python patch versions, as the chaotic gate rows do)'
 echo
 
