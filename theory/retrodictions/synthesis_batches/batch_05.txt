@@ -1,0 +1,82 @@
+Synthesis batch 05: rows 21-25 (prompt-log entry 61)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (thermo) Canonical two-level system: Bernoulli family in the excited fraction p(x) = 1/(1 + e^x), x = Delta/(k T), pole-start occasion from T = 0 (Daniel's battery row a3 re-read)
+     source:     runs/phaseA/crr_retrodictions.txt [a3] (DESCR)
+     Q:          the occasion begun at T = 0 closes at the infinite-temperature state beta = 0 (p = 1/2), and the successor occasion is the negative-temperature branch beta < 0, of the same arc: the population-inversion boundary is the antipode of the ground state
+     ingredient: A3 (pole-start antipodal cut on the Bernoulli family), D5 (the inverted branch as the next occasion), D2 (arc 2 asin sqrt p)
+     null:       the domain's own landmark for 'where the system changes most', the Schottky heat-capacity peak (an extremum cut on the same axis)
+     domain:     Ramsey's negative temperatures: beta = 0 is the boundary between the positive- and negative-temperature branches, the populations are equal there, and the branch beyond it is the inverted one
+     numbers:    cut at x = 0 (T = infinity): p = 0.5000; arc T = 0 -> cut = 1.5708, arc cut -> T = 0- (p = 1/2 -> 1) = 1.5708, pi/2 = 1.5708; Schottky peak at x = 2.3994: p = 0.0832, arc from the pole 0.5853; degeneracy probe g = 4: p = 1/2 at x = 1.3863 = ln g = 1.3863 (the antipode is still p = 1/2, at finite T)
+     T-G:        p at the A3 cut 0.5000 vs null p at the Schottky peak 0.0832: differ
+     T-N:        the domain's boundary (populations equal at beta = 0) gives p = 0.5000: the domain has Q
+     T-C:        the two half-turns are equal and each is pi/2: holds (computed; not the deciding test, the label stops at T-N)
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the cut reading of the canonical family restates the beta = 0 boundary that negative-temperature thermodynamics already draws, and the equal arcs on either side of it are the Bernoulli family's symmetry p <-> 1 - p; CRR supplies the word 'antipode' and fixes no temperature scale (the source row's own weakness stands); the label is REDUNDANT-DOMAIN
+     weakness:   one carrier (the Bernoulli family in p); the extremum null is the heat-capacity peak because p(x) itself is monotone and has no extremum; the degeneracy probe moves the cut to finite T without changing p = 1/2, which is the family's geometry, not the domain's thermodynamics
+     elegance:   The antipode of the frozen system is the fair coin: equal populations at infinite temperature, and the same half-turn again reaches the fully inverted state. One arc of length pi cut at its middle, with no knobs, and the picture carries negative temperature without a formula.
+     child:      Imagine a box of tiny switches that are all off when it is freezing cold. Heat the box and more switches flip on, but even at the hottest it can ever get, exactly half are on, like a fair coin. Getting more than half on is what physicists call 'hotter than infinitely hot', and the fair-coin point, halfway along, is the natural place to draw the line between the two.
+
+[ 2] (chem) Reversible first-order relaxation A <=> B, x(t) = x_eq + (x0 - x_eq) e^(-lambda t) on the Bernoulli family in the mole fraction x, one occasion x0 = 0.05 -> x_eq = 0.8 (Daniel's battery row a4 re-read)
+     source:     runs/phaseA/crr_retrodictions.txt [a4] (DESCR)
+     Q:          the surplus of the monotone relaxation is zero and that of a non-monotone trace is positive: S measures the backtracking of the mole fraction
+     ingredient: D4 (surplus C - C*) on the Bhattacharyya-angle coordinate y = 2 asin sqrt x, with D2, D3 and P1 - NOT CRR-proper: every symbol is information geometry's
+     null:       the same S computed by information geometry alone (identical by construction)
+     domain:     none cited
+     numbers:    monotone occasion: C = 1.75863102, C* = 1.75863102, S = 0.00e+00 (monotone: True); the source row's quadrature estimator gives C = 1.75863102; non-monotone probe (x0 = 0.3, amplitude 0.15, frequency 6): C = 1.4013, C* = 1.0510, S = 0.3503 (non-monotone: True); proper ingredients tried - A3: the path is monotone, so there is no rotor (O3) and no cut is defined; run blind, the analytic-signal phase spans 6.0183 rad on it and antipodal_cuts fires at t = 2.0672 on a trace with no cycle (an artefact of the Hilbert transform, not an occasion); A6: a single occasion has no settled past to regenerate from; A1': one conversion event among N = 100 molecules is 0.0459, 0.0200, 0.0250 Fisher units at x = 0.05, 0.5, 0.8: the event unit is not one number along the path (the source battery's row a5)
+     T-G:        S 0.3503 vs null S 0.3503: agree (no CRR-proper ingredient in Q)
+     T-N:        none cited: chemical kinetics has no surplus; its own theorem (reversible first-order A <=> B relaxes monotonically as a single exponential) is what makes S vanish
+     T-C:        |S| < 1e-7 on the monotone occasion and S > 1e-3 on the probe: holds (true, and it is P1's equality case)
+     OUTCOME:    REDUNDANT-IG
+     reading:    the source row's content is exactly P1's equality case, a true and checkable statement that CRR did not add; each CRR-proper ingredient was tried and none forms a Q on this carrier (no rotor to cut, one occasion to regenerate from, an event unit that varies along the path), so the label is REDUNDANT-IG
+     weakness:   the probe trace is the source row's synthetic one; the blind-phase artefact is recorded as a caution for any prereg that runs antipodal_cuts on a monotone carrier, not as a finding
+     elegance:   'If you never turn back, the road you walked is exactly how far you got.' P1's equality case is a rule with no knobs; it is geometry's, not CRR's, and it says in one sentence what the surplus measures.
+     child:      Think of walking to a friend's house. If you walk straight there, the distance you walked equals how far away the house is. If you wander back and forth on the way, you walked more than that, and the extra is the surplus. A chemical reaction that settles smoothly walks straight, so its surplus is zero.
+
+[ 3] (qm) Pure qubit cos(theta/2)|0> + sin(theta/2)|1> precessing under H = diag(0, omega), Fubini-Study metric (orthogonal = pi), the source row's carrier CP^1 (Daniel's battery row b1 re-read; synthesis.py row 4 found A3 INTERNAL on three levels)
+     source:     runs/phaseA/crr_retrodictions.txt [b1] (CONSIST)
+     Q:          for every pure qubit state the A3 cut of the precession is the orthogonal state (the source row's stipulation 'Fisher half-turn = orthogonal state')
+     ingredient: A3 in its three readings on this carrier: (i) the rotor reading, the axiom's text - the intrinsic phase (Bloch azimuth) advances half a turn, antipodal_cuts on the Bloch x-component; (ii) the arc reading - the Fisher arc 2 dE t reaches pi, half the closed geodesic; (iii) the antipode reading - the first orthogonal state
+     null:       the domain's own events: the Mandelstam-Tamm time pi/(2 dE) and the orthogonality time
+     domain:     Mandelstam-Tamm bound t_perp >= pi/(2 dE), attained iff the evolution is a Fubini-Study geodesic (Anandan-Aharonov), i.e. iff the state is an equal-weight superposition of the two eigenstates (theta = pi/2)
+     numbers:    theta = pi/2: dE = 0.5000, rotor reading t = 3.1417 (far point of the orbit, chord 3.1415, at t = 3.1416), arc reading t = 3.1416 (overlap there 0.0000), orthogonal state at t = 3.1416; theta = pi/3: dE = 0.4330, rotor reading t = 3.1417 (far point of the orbit, chord 2.0944, at t = 3.1416), arc reading t = 3.6276 (overlap there 0.5417), no orthogonal state (minimum overlap 0.5000 = cos theta); theta = pi/6: dE = 0.2500, rotor reading t = 3.1417 (far point of the orbit, chord 1.0472, at t = 3.1416), arc reading t = 6.2832 (overlap there 1.0000), no orthogonal state (minimum overlap 0.8660 = cos theta); omega = 1, pi = 3.1416, Mandelstam-Tamm time on the equator = 3.1416
+     T-G:        theta = pi/2: rotor 3.1417 / arc 3.1416 / antipode 3.1416: agree; theta = pi/3: rotor 3.1417 / arc 3.6276 / antipode none: differ; theta = pi/6: rotor 3.1417 / arc 6.2832 / antipode none: differ; readings agree at 1 of 3 states
+     T-N:        on the equator the domain's Mandelstam-Tamm time 3.1416 is the cut time (within 0.01): the sub-case label from outcome(arc reading, orthogonality time, MT time) is REDUNDANT-IG; off the equator the domain has both times and the statement that they differ
+     T-C:        not reached: the readings must agree before Q can be checked, and they agree only on the geodesic set
+     OUTCOME:    INTERNAL
+     reading:    the two-level carrier does not escape row 4's INTERNAL, it sharpens it: the three readings of A3 coincide at 1 of 3 states (the equal-weight superposition) and there the cut is the domain's Mandelstam-Tamm event (REDUNDANT-IG); elsewhere the rotor reading fires at t = pi/omega for every theta at the far point of the orbit, whose chord 2 theta is not pi, the arc reading fires later, at pi/(omega sin theta), and at theta = pi/6 it fires when the state has returned to itself (overlap 1.0000); the set on which A3 is one rule is the geodesic set, which the domain already names (Anandan-Aharonov)
+     weakness:   omega = 1 and three values of theta; the rotor reading takes the Bloch x-component as the trace (one choice of intrinsic phase, R5) and antipodal_cuts returns the sample nearest the interpolated crossing (grid step 6.28e-05); which reading is A3 on a projective carrier is a theory decision (v3.2), not this row's
+     elegance:   A state reaches its opposite only when it runs the equator; on any other latitude it circles back without ever being opposite. 'Halfway round' and 'as far as you can get' are the same thing only on a great circle, and the picture needs no formula.
+     child:      Picture an ant walking round a globe. If it walks along the equator, halfway round it stands exactly on the opposite side of the world. If it walks round a small circle near the North Pole, halfway round it is as far from home as that path allows, but nowhere near the opposite side. A quantum bit is like the ant: only the equator path ever reaches the exactly-opposite state.
+
+[ 4] (thermo) Ideal gas in the entropy representation S(U, V) = N k_B (ln V + 3/2 ln U), Ruppeiner metric, isotherm V -> 2V (Daniel's battery row c1 re-read)
+     source:     runs/phaseA/crr_retrodictions.txt [c1] (CONSIST)
+     Q:          the D2 arc of the isotherm V -> 2V is sqrt(N k_B) ln 2, the same from every starting volume
+     ingredient: D2 (arc) with A1 (the Ruppeiner metric as the Fisher-Rao metric of the thermal family) - NOT CRR-proper: D2 itself says 'on a thermal family this is thermodynamic length'
+     null:       the same length by thermodynamic geometry alone (the quadrature of sqrt g_VV, identical by construction)
+     domain:     Ruppeiner's thermodynamic length on the ideal-gas isotherm, L = sqrt(N k_B) ln(V2/V1), on a flat metric
+     numbers:    N k_B = 1: arc by the instrument on the flat coordinate = 0.6931471806, by quadrature of sqrt g_VV = 0.6931471806, closed form sqrt(N k_B) ln 2 = 0.6931471806 (relative difference 0.00e+00); V -> 2V from V = 3: 0.693147, from V = 10: 0.693147; mixed component |g_UV| by central differences = 0.00e+00 (the metric is diagonal and flat); proper ingredient tried - A1': in the metric's own unit (one fluctuation) the isotherm for N = 10000 spans rho = sqrt(N) ln 2 = 69.31 resolvable steps (D1: reported, never predicted), which is the distinguishability count thermodynamic geometry already reads off the same length; the Weinhold (energy-representation) length is this times sqrt T, a convention the axioms do not fix
+     T-G:        arc 0.693147 vs null 0.693147: agree (no CRR-proper ingredient in Q)
+     T-N:        Ruppeiner's length gives 0.693147: the domain has Q
+     T-C:        arc equals sqrt(N k_B) ln 2 within 1e-9: holds (true, and it is thermodynamic geometry's)
+     OUTCOME:    REDUNDANT-IG
+     reading:    the source row's content is exactly D2 read on a thermal family, which D2 names as thermodynamic length; the one proper ingredient with purchase (A1', the unit) returns the count of distinguishable states that the domain reads off the same length, so the label is REDUNDANT-IG
+     weakness:   one isotherm on one flat family; N k_B = 1 fixes the scale by choice
+     elegance:   Doubling the volume is the same length wherever you start: the isotherm's length depends only on the ratio V2/V1. A rule with no knobs (it is the scale invariance of the logarithm), and it is the domain's.
+     child:      Blowing a balloon up from one cup of air to two cups is the same amount of change as blowing it from ten cups to twenty. This kind of length counts change by ratios, like the steps up a piano keyboard, not by cups.
+
+[ 5] (thermo) Two-level Schottky system over temperature: heat capacity C/k_B = x^2 e^x/(1 + e^x)^2, x = beta Delta, and the Fisher information of the Bernoulli family in four coordinates (Daniel's battery row c2 re-read)
+     source:     runs/phaseA/crr_retrodictions.txt [c2] (CONSIST)
+     Q:          the Schottky heat-capacity peak is the peak of the family's Fisher information in the log-temperature coordinate
+     ingredient: A1 (the Fisher metric) in a chosen coordinate - NOT CRR-proper; the proper ingredient tried as the selector of the coordinate is A1' (the system's own unit, one quantum Delta)
+     null:       the same peak by the domain's fluctuation identity C/k_B = beta^2 Var(E) (the same function, identical by construction)
+     domain:     the fluctuation-dissipation identity C_V = k_B beta^2 Var(E): the heat capacity is beta^2 times the beta-Fisher information, i.e. the Fisher information in ln beta
+     numbers:    Fisher peak in ln T at x = 2.3994 (grid), Schottky peak (root of the stationarity condition) at x = 2.3994 = T/Delta 0.4168; Fisher peak in beta at x = 0.0000 (T = infinity, value 0.2500); Fisher peak in T at T/Delta = 0.2421 (x = 4.1309); Fisher information in U/Delta (the A1' one-quantum coordinate): minimum 4.0000 at x = 0.0000, 1.63e+05 at x = 12 - no peak, it diverges at both ends; in the arc coordinate the density is 1 by definition over a total arc 1.5708 = pi/2 - no peak
+     T-G:        ln-T Fisher peak 2.3994 vs null (the identity's C peak) 2.3994: agree (no CRR-proper ingredient in Q)
+     T-N:        the fluctuation identity gives 2.3994: the domain has Q
+     T-C:        ln-T Fisher peak within 1e-3 of the Schottky peak: holds (true, and it is the domain's identity)
+     OUTCOME:    REDUNDANT-IG
+     reading:    four coordinates, four answers (x = 0.0000, 4.1309, 2.3994, none): the Fisher 'peak' is a density and a density has no coordinate-free maximum; A1' was tried as the selector and gives the energy-in-quanta coordinate, where the information has a minimum, not a peak; the one coordinate that reproduces the Schottky peak does so by the domain's own identity, so no Q with a CRR-proper ingredient forms and the label is REDUNDANT-IG; the source row's finding (none selected by the framework) stands
+     weakness:   Delta = 1; the grids fix the peak locations to their spacing (1.0e-04 in x, 1.0e-04 in T); the A1' coordinate is one reading of 'one quantum' (the source battery's row a5 has three)
+
+TALLY: 0 ADDS / 0 PROPOSES / 3 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 0 WRONG / 1 INTERNAL / 0 UNSTATED

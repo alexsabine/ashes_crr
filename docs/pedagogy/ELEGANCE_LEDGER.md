@@ -7,4 +7,43 @@ pinned row prints. The child line is a fifth-grader explanation of the principle
 for teaching it to children, families and communities; it is not a claim that the principle is true
 of the world, only that it can be carried in plain words.
 
-Entries: 0.
+## theory/retrodictions/synthesis_batches/batch_01.txt
+
+### [4] Qubit, resonant Rabi drive Omega = 1 from |0> (pi pulse); Fubini-Study carrier in the source rows' convention (orthogonality at pi/2; synthesis.py row 4 uses twice this)
+
+- source row: theory/retrodictions/crr_retrodictions.txt [5] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: Half a turn, no knobs: on a great circle, going halfway round lands you at the point opposite your start, and that point is also the farthest you can get and the top of the population swing. One picture gives A3's rule and, in the same stroke, why the rule cannot be tested on a perfectly round trip: the far point and the turning point are one place.
+- for a fifth grader: Imagine walking halfway around a big ball. You end up exactly opposite where you began, and that is also the farthest you can ever get from your start. On a perfectly round trip 'halfway round' and 'farthest away' are the same spot, so you cannot tell which one a rule is really using. To tell them apart you need a lopsided trip.
+
+## theory/retrodictions/synthesis_batches/batch_05.txt
+
+### [1] Canonical two-level system: Bernoulli family in the excited fraction p(x) = 1/(1 + e^x), x = Delta/(k T), pole-start occasion from T = 0 (Daniel's battery row a3 re-read)
+
+- source row: runs/phaseA/crr_retrodictions.txt [a3] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: The antipode of the frozen system is the fair coin: equal populations at infinite temperature, and the same half-turn again reaches the fully inverted state. One arc of length pi cut at its middle, with no knobs, and the picture carries negative temperature without a formula.
+- for a fifth grader: Imagine a box of tiny switches that are all off when it is freezing cold. Heat the box and more switches flip on, but even at the hottest it can ever get, exactly half are on, like a fair coin. Getting more than half on is what physicists call 'hotter than infinitely hot', and the fair-coin point, halfway along, is the natural place to draw the line between the two.
+
+### [2] Reversible first-order relaxation A <=> B, x(t) = x_eq + (x0 - x_eq) e^(-lambda t) on the Bernoulli family in the mole fraction x, one occasion x0 = 0.05 -> x_eq = 0.8 (Daniel's battery row a4 re-read)
+
+- source row: runs/phaseA/crr_retrodictions.txt [a4] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: 'If you never turn back, the road you walked is exactly how far you got.' P1's equality case is a rule with no knobs; it is geometry's, not CRR's, and it says in one sentence what the surplus measures.
+- for a fifth grader: Think of walking to a friend's house. If you walk straight there, the distance you walked equals how far away the house is. If you wander back and forth on the way, you walked more than that, and the extra is the surplus. A chemical reaction that settles smoothly walks straight, so its surplus is zero.
+
+### [3] Pure qubit cos(theta/2)|0> + sin(theta/2)|1> precessing under H = diag(0, omega), Fubini-Study metric (orthogonal = pi), the source row's carrier CP^1 (Daniel's battery row b1 re-read; synthesis.py row 4 found A3 INTERNAL on three levels)
+
+- source row: runs/phaseA/crr_retrodictions.txt [b1] (CONSIST)
+- outcome: INTERNAL
+- elegance: A state reaches its opposite only when it runs the equator; on any other latitude it circles back without ever being opposite. 'Halfway round' and 'as far as you can get' are the same thing only on a great circle, and the picture needs no formula.
+- for a fifth grader: Picture an ant walking round a globe. If it walks along the equator, halfway round it stands exactly on the opposite side of the world. If it walks round a small circle near the North Pole, halfway round it is as far from home as that path allows, but nowhere near the opposite side. A quantum bit is like the ant: only the equator path ever reaches the exactly-opposite state.
+
+### [4] Ideal gas in the entropy representation S(U, V) = N k_B (ln V + 3/2 ln U), Ruppeiner metric, isotherm V -> 2V (Daniel's battery row c1 re-read)
+
+- source row: runs/phaseA/crr_retrodictions.txt [c1] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: Doubling the volume is the same length wherever you start: the isotherm's length depends only on the ratio V2/V1. A rule with no knobs (it is the scale invariance of the logarithm), and it is the domain's.
+- for a fifth grader: Blowing a balloon up from one cup of air to two cups is the same amount of change as blowing it from ten cups to twenty. This kind of length counts change by ratios, like the steps up a piano keyboard, not by cups.
+
+Entries: 5.
