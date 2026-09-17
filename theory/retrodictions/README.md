@@ -100,7 +100,7 @@ finds four clause collisions inside the issue-#21 text's A3 family and between D
 D8 and A3; this one finds the collision between the two laws named "equanimity". Read together,
 the framework's self-collisions are all in the clauses v3.1 does not carry (the issue text's
 criticality and antipode parentheticals) plus the one v3.1 does (H-EQ against the spec's A9).
-Both scripts are reproduced byte for byte in CI (`.github/workflows/ci.yml`).
+CI reproduces this battery byte for byte and Daniel's verdict by verdict (his Rössler row's return-time statistics drift at the third decimal across Python patch versions, as the chaotic gate rows do; the verdict does not).
 
 ## TENSION and the minimal rewording
 
