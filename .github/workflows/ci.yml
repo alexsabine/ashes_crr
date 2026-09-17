@@ -36,6 +36,7 @@ jobs:
           uv run python theory/checks/verify_scope_math.py
           uv run python theory/checks/verify_spec_math.py
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
+          uv run python crr_retrodictions.py > /tmp/retro2.txt && cmp /tmp/retro2.txt runs/phaseA/crr_retrodictions.txt
 
       - name: Surrogate gates must read GATE OPEN
         run: |

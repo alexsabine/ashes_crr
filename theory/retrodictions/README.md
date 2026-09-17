@@ -86,6 +86,22 @@ goes to zero (FAILS for the issue text's D8; v3.1's O1 already declines); the La
 Fisher information is finite through the bifurcation (FAILS as universal); period doubling has
 no carrier (OPEN).
 
+## The second battery (Daniel Friedman, PR #24)
+
+Daniel ran the same task independently: `crr_retrodictions.py` at the repository root, output
+pinned at `runs/phaseA/crr_retrodictions.txt`, 40 systems (5 per class). His tally: 0 SHARP,
+14 CONSIST, 8 DESCR, 2 FAILS, 5 TENSION, 11 OPEN. The two batteries were written without
+sight of each other and agree on the headline (no SHARP row anywhere; the gravitational class
+has no content; the thermal and estimation classes are Fisher machinery on home ground) and on
+one FAILS (the Bernoulli `p = 1/2` antipode as a pole-anchored special case). His battery also
+fails the Rabi cut on the detuned member; this one grades the same trajectory CONSIST, as the
+quantum speed limit (P1), rather than as an A3 claim. They differ in what they grade TENSION: his
+finds four clause collisions inside the issue-#21 text's A3 family and between D1 and P6 and
+D8 and A3; this one finds the collision between the two laws named "equanimity". Read together,
+the framework's self-collisions are all in the clauses v3.1 does not carry (the issue text's
+criticality and antipode parentheticals) plus the one v3.1 does (H-EQ against the spec's A9).
+Both scripts are reproduced byte for byte in CI (`.github/workflows/ci.yml`).
+
 ## TENSION and the minimal rewording
 
 One TENSION (row 16). Minimal resolution: give the two laws different names. Keep "equanimity"
