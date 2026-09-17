@@ -557,3 +557,13 @@ Context: the attached PDF (sha256 885e56256572fc4aa0e96d66b61b8f8e3aafd23ee72afd
 > Great. Let's run a new suite of continual learning benchmark checks please. Thank you.
 
 Context: study SAL (salience-weighted replay): the first test of the specification's equanimity law (H1/T5: past occasions weighted pi_m ∝ e^{lambda S_m}, lambda = 1 in the per-update Fisher unit, equal retention by design) on a continual learner, under the CLAUDE.md §8 order: learner in src/crr/instrument/replay.py, gate_SAL with positive and negative surrogates, prereg, hash, anchor attempt, signed tag, three unseen PMLB carriers, run, ledger, report. The hypothesis is not in theory/CRR.md v3.1 (owner decision on v3.2 pending); the prereg and the ledger rows name their source.
+
+## 38 — received 2026-09-17T01:10Z, logged 2026-09-17T01:10Z
+
+> Okay. I have just spoken to Daniel. We agreed that we should run more confirmationary checks on a variety of different systems. We are not seeking "Sharp", only retrodictive predictions, and the implications of this. 
+>
+> We can now start broadening out with CRR, showing its implications, potential applied use cases in 2026 and beyond. That is the general next steps. Daniel will be helping me alongside with the prompting and offline GPU checks with his own systems. 
+>
+> The idea is to get this repo up to scratch for HumLab and ensuring that everything passes through Daniel's cognitive security benchmarks so we are being very careful about the testing, re-testing, numbers and gates / everything recorded carefully, placed in the repo and a full chain of thought at all times
+
+Context: direction-setting. Answered with a programme (docs/ROADMAP_2026-Q4.md) and two notebook additions: notebook/AGENT_LOG.md (the agent-side decision ledger: observed issue, decision, alternative rejected, per decision, from this session onward) and a note on terminology ("confirmatory" is reserved by R11 for seen data; cross-system checks are retrodictive and graded, never called confirmations). No study run.
