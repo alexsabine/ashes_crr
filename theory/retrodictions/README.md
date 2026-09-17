@@ -551,6 +551,54 @@ run-and-tumble at constant speed ties exactly because the arc is the clock times
 **Decisions** (AGENT_LOG 23): seven rows' first numbers contradicted their text; the models and
 estimators were corrected and every verdict is computed from its numbers.
 
+## CRR at zero: the emptiness battery (owner request, 2026-09-18, prompt-log entry 54)
+
+`emptiness.py` → `emptiness.txt` (pinned; CI reproduces it byte for byte). Not a set of systems but a
+set of boundaries: what every definition, rule and instrument in the repository does at zero, plus the
+theory's own two statements of no content. Thirteen rows in five groups. Tally: 0 SHARP / 0 CONSIST /
+11 DESCR / 0 FAILS / 1 TENSION / 1 OPEN.
+
+| row | boundary | grade |
+|---|---|---|
+| 1 | the empty occasion (a carrier that does not move): C = C* = S = 0, no unit | DESCR |
+| 2 | the cut as a delta: unit count, zero measure; Now is the derivative of settlement | DESCR |
+| 3 | a closed loop: endpoint displacement 2e-16, arc 2π, all of it surplus | DESCR |
+| 4 | the future has no content: the settled sum has no terms ahead of Now | DESCR |
+| 5 | the boundary of a Fisher-native carrier: infinitely curved, finitely far (2, π/2, π) | DESCR |
+| 6 | a mostly-empty count carrier: arc is a sum of event jumps, the unit does not exist | DESCR |
+| 7 | the normalised step at zero gradient: ∞ for an empty past, 0 for an empty present | TENSION |
+| 8 | the Kalman identity at zero and infinite Fisher speed: K = 0 and K = 1 | DESCR |
+| 9 | MaxEnt weights at zero surplus, zero temperature, zero age: uniform; only Now; all equal | DESCR |
+| 10 | a signal below one resolvable step: the cut fires on pure noise (1248 cuts on nothing) | DESCR |
+| 11 | zero, one, two, three events: the instrument refuses below two occasions and one unit | DESCR |
+| 12 | the quantum vacuum under displacement: its antipode is never reached (3.119 at |α| = 3) | OPEN |
+| 13 | zero surplus is the monotone path; one reversal makes S twice the backtrack | DESCR |
+
+**What the framework says about emptiness.** Exactly two things, both definitions and both exact:
+the cut has no content (a delta of unit integral and zero support, the derivative of the Heaviside
+that partitions past from future) and the future has no content (the settled sum's upper limit is
+the number of cuts so far). Everything else at zero is the mathematics of the borrowed objects
+behaving as it must: Fisher boundaries are singular but at finite distance (Cencov); a loop has
+zero displacement and full arc; MaxEnt with nothing to distinguish is uniform; the Kalman gain runs
+between its two emptinesses with the golden ratio at speed one between them.
+
+**The one TENSION (row 7).** The normalised step has opposite limits at its two zeros: as the past
+gradient vanishes the weight on the past is unbounded (the cap EQ2 had to add), and as the present
+gradient vanishes the weight on the past goes to zero. The second is the ordinary end state of every
+training run, a converged learner that stops protecting old tasks, and no ledger row has tested it;
+the EQ2 report did not name it. It belongs in the EQ3 prereg as a pre-registered diagnostic.
+
+**The instrument at zero.** The instrument does not report zero; it refuses. A constant or
+mostly-zero statistic has no unit (`unit_sigma` raises; R11's flat-channel gate), fewer than two
+occasions give no regularity, one unit gives a sign test with p = 1. Conversely the antipodal cut,
+being a phase criterion, fires on pure noise at the noise's own rate (1248 cuts on a signal of
+amplitude zero against 20 true cycles at amplitude one), which is why ρ is reported and a floor is
+pre-registered. Emptiness is a state the pipeline excludes, not one the theory describes.
+
+**Nothing derived.** No row reaches a result about zero that the borrowed mathematics did not
+already contain. The vacuum row is a control: displacement never reaches the vacuum's antipode, so
+A3 never fires and the framework is correctly silent.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
