@@ -138,4 +138,142 @@ of the world, only that it can be carried in plain words.
 - elegance: A shaky path has no length of its own: the closer you look, the longer it gets. So on a shaky road the odometer is only a clock in disguise.
 - for a fifth grader: Measure a very wiggly line with a smaller and smaller ruler and it keeps getting longer and never settles. So for a shaky, wiggly path, adding up the wiggles only tells you how long you watched, like a clock.
 
-Entries: 17.
+## theory/retrodictions/synthesis_batches/batch_07.txt
+
+### [1] N independent Ramsey probes sqrt(p)|0> + e^{i phi} sqrt(1-p)|1> of a phase phi (generator sigma_z/2); quantum Fisher information per probe F_Q = 4p(1-p), unit under A1' = 1/sqrt(N F_Q); the phase orbit as the rotor (A3), Fubini-Study carrier with orthogonal states at pi/2 (the source rows' convention)
+
+- source row: runs/phaseA/crr_retrodictions.txt [d5] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: The best way to sense a turn is to stand halfway between a point and its opposite, not at the opposite: from the midpoint every small turn shows, from the far point nothing does.
+- for a fifth grader: Imagine a friend on the other side of a merry-go-round: if you sit right across from them, a tiny turn hardly changes how they look to you. If you sit a quarter of the way round, every little turn shows. The best seat for noticing turns is a quarter of the way round, not the far side.
+
+### [3] Driven damped Duffing oscillator x'' + 0.5 x' + x + alpha x^2 + x^3 = 1 cos(1 t), alpha in (0, 1/2), from rest; fixed-grid RK4, dt = 0.005, window t in [100, 400]; period-1 response (median zero-crossing interval 6.2850 vs drive period 6.2832)
+
+- source row: runs/phaseA/crr_retrodictions.txt [e2] (DESCR)
+- outcome: INTERNAL
+- elegance: Half a turn depends on what you call a turn: on a lopsided wave three reasonable clocks put 'halfway round' at three different places, so a rule about the halfway point must first say which clock it uses.
+- for a fifth grader: If a race track is a perfect circle, everyone agrees where halfway is. On a lopsided track, halfway by distance, halfway by time and halfway by the number of bends are three different spots. Before you can check a rule about the halfway point you have to say which halfway you mean.
+
+### [4] Ideal LC tank: charge sin(2 pi t/T) and current cos(2 pi t/T) on the (q, i) circle, 400 samples per period, 40 periods, interior occasions scored (edge cuts dropped)
+
+- source row: runs/phaseA/crr_retrodictions.txt [e4] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: On a perfectly round trip nothing marks a place: the only special point is where you started counting. A rule can only be tested on something lopsided.
+- for a fifth grader: Walk around a perfectly round pond and every spot looks the same, so nobody can say where the 'special' place is except the place you started. To test a rule about special places you need a pond with a bumpy edge.
+
+### [5] Omori aftershock sequence lambda(t) = K (t + c)^-p as an inhomogeneous Poisson process (K = 20000 per day, c = 0.05 day, window 100 days, p in (0.8, 1, 1.2); exact time-rescaling inversion, seed 35), read in the system's own unit
+
+- source row: runs/phaseA/crr_retrodictions.txt [f2] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Count aftershocks, not days: each one wears away the same share of the big quake's memory, and when they thin out as one over time that share-per-event turns into the slow, long fading everyone sees on the calendar.
+- for a fifth grader: After a big earthquake, little ones keep coming, fewer and fewer each day. If you count the little ones instead of the days, the memory of the big one fades by the same amount with every little quake. Counting that way turns a slow, dragged-out fading on the calendar into a plain steady one.
+
+## theory/retrodictions/synthesis_batches/batch_08.txt
+
+### [1] Kepler orbit (mu = 1, a = 1, e0 = 0.3) under a weak uniform perturbing force (0, f), f = 0.001 (the classical Stark problem: orbit-averaged, a is conserved and the eccentricity vector rotates); 60 orbits by fixed-step RK4 at 2000 steps per unperturbed period; own events = the apsides (extrema of r), occasion = one half-orbit; arc = orbit-plane Euclidean length (the stand-in metric of the source row and of batch 04 row 3)
+
+- source row: runs/phaseA/crr_retrodictions.txt [g1] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A planet's year depends on the size of its orbit, not on its shape: a rule with no knobs. So when something slowly squashes the orbit, the half-years stay the same while the roads travelled in them change, and the clock, not the road, is the steady one.
+- for a fifth grader: A planet's year depends only on how big its orbit is, not on how squashed it is. If something slowly squashes the orbit, each half-year still takes the same time, but the road the planet travels in that half-year gets shorter or longer. So here the clock is the steady thing, not the road.
+
+### [2] Tidal disruption fallback: N = 1000 equal-mass debris parcels with a flat energy distribution on [-dE, dE] (Rees 1988), the bound half returning after Keplerian periods t_j = t_min (dE/|E_j|)^(3/2), t_min = 1; in the source row's form the rate is lambda(t) = K (t + c)^(-5/3) with c = t_min and K = (2/3) N_b c^(2/3) = 333.3333
+
+- source row: runs/phaseA/crr_retrodictions.txt [g2] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: The debris comes home in order of how tightly it was held, so counted in its own order the fallback ends at 'half the star'; counted by the clock it never ends. One picture: a finite queue served ever more slowly.
+- for a fifth grader: When a star is torn apart by a black hole, half of it is flung away for good and half comes falling back, the tightly held bits first and the loosely held bits later and later. If you count the pieces as they arrive, the story ends when the last piece is home. If you watch the clock instead, it never quite ends, because the stragglers keep arriving more and more slowly.
+
+### [3] Acoustic transfer function of the photon-baryon fluid in the source row's model: cos(k r_s), r_s = 1, times a diffusion envelope exp(-(k/k_d)^2) and a second harmonic beta cos(2 k r_s) (the source's three probes), on the even extension k in [-10 pi, 10 pi] at 200001 samples (the transfer function is even in k, so the analytic signal has no edge at k = 0); cuts and extrema read on 0 < k r_s < 8 pi; a fourth probe adds the baryon-loading offset -R
+
+- source row: runs/phaseA/crr_retrodictions.txt [g4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: The ripples in the sky are spaced by their beat, not by their crests: damping pulls the crests inward, but the beat keeps time. A child can count beats on a fading drum.
+- for a fifth grader: A drum that is fading still keeps its beat. If you mark where the sound is loudest, the fading pulls those marks a little early; if you mark the beat itself, the marks stay evenly spaced. The pattern of hot and cold spots in the oldest light in the sky is like that fading drum, and scientists measure its beat, not its loudest points.
+
+### [5] Landau mean-field pitchfork F = a t phi^2/2 + b phi^4/4 - h phi (a = b = 1, beta = 1) below Tc (t = -tau, tau in (0.1, 0.01, 0.001)), with Gaussian fluctuations of the order parameter averaged over one correlation volume xi^d, xi = xi0 tau^(-1/2) (mean-field nu = 1/2), xi0 = 1, d in (2, 3, 4, 5)
+
+- source row: runs/phaseA/crr_retrodictions.txt [h3] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Near the tipping point the two choices move closer together while the jitter grows, and whether the jitter wins depends only on the number of dimensions: below four it does, above four it does not. A rule with one integer and no knobs.
+- for a fifth grader: Imagine a crowd deciding to face left or right. Near the moment when it cannot decide, 'left' and 'right' look more and more alike, and everyone fidgets more. In our three-dimensional world the fidgeting wins near that moment, so you cannot tell which way the crowd has chosen; in a world with more than four directions you still could.
+
+## theory/retrodictions/synthesis_batches/batch_09.txt
+
+### [1] Near-critical fluid on the grand-canonical density family (Daniel's battery row h4 re-read): I_mumu = beta^2 Var N, Var N/<N> = n kT kappa_T (fluctuation-compressibility sum rule), kappa_T ~ |t|^-gamma, xi ~ |t|^-nu, coexistence gap ~ |t|^beta; exact 2-D Ising lattice-gas exponents as the source battery's row h2 lists them, mean field, and the source row's 3-D numbers
+
+- source row: runs/phaseA/crr_retrodictions.txt [h4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Count in patches, not in metres: near the critical point the liquid and the gas are made of ever-larger patches, and measured in patches they stay the same number of steps apart even as they become alike. A rule with no knobs, and it is the domain's (hyperscaling).
+- for a fifth grader: Near one special temperature a liquid and its steam start to look the same, and the liquid turns milky because it is full of patches, some thicker and some thinner, that grow bigger and bigger. If you use a patch as your ruler, the liquid and the steam stay the same number of patches apart right up to the end; it is only a fixed ruler that sees them melt together.
+
+### [4] Ligand binding to a receptor with m sites, Adair binding polynomial Z(S) = sum a_i S^i: the receptor's own carrier is its ligation-state distribution p_i = a_i S^i / Z (categorical, m + 1 states), the domain's is the fractional saturation Y (Bernoulli); Michaelis-Menten is m = 1, the Hill equation is the all-or-none m-site member; constants illustrative, S_50 = 1 by choice of units where the polynomial is symmetric
+
+- source row: theory/retrodictions/sharp_claims.txt [3] (DESCR)
+- outcome: WRONG
+- elegance: A grabber with two hands is exactly half full at one amount of ligand, however much the hands help or hinder each other: the geometric mean of the two grip strengths. A rule with no knobs, and it is the domain's; the picture stops at two hands.
+- for a fifth grader: Imagine a toy with two hands that can each hold a ball, and a room with balls floating around. Whether the hands help each other or get in each other's way, there is one amount of balls in the room at which the toy is exactly half full, and you can work it out from the two grip strengths alone. With three hands that easy rule can stop working.
+
+### [5] Diprotic acid H2A on its own carrier, the species distribution (H2A, HA-, A2-) over pH, for three pKa pairs, against the source row's ionised-fraction carrier and the titration curve n_b(pH) of 0.1 M acid with strong base; the source row's monoprotic acid (pKa 4.76) beside it
+
+- source row: theory/retrodictions/sharp_claims.txt [4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Giving away the first proton and taking back the second are mirror images, so the in-between form of a two-proton acid sits exactly halfway between its two pKa's, whatever they are. A picture with no knobs, and it is the domain's.
+- for a fifth grader: A two-proton acid can give away two hydrogen 'balls'. Letting go of the first and getting the second back are mirror images of each other, so the moment when it holds exactly one ball is exactly halfway between the two sourness levels where each ball comes off. That is true for every such acid, so you never need to look it up.
+
+## theory/retrodictions/synthesis_batches/batch_10.txt
+
+### [3] Resonance fluorescence of the source's qubit: resonant Rabi drive Omega = 1.3 with spontaneous emission at rate Gamma (quantum-jump unravelling; each emission resets the state to |g> and is the atom's own event; the reset is the cut, not arc), scanned over Omega/Gamma; Fubini-Study arc with orthogonality at pi/2
+
+- source row: theory/retrodictions/sharp_claims.txt [8] (CONSIST)
+- outcome: WRONG
+- elegance: An atom lit gently leans over to a fixed tilt and waits there to blink, so the road between blinks is nearly always the same short road while the waits are random; lit hard it keeps spinning, and the road between blinks is as random as the wait. One picture says when 'change has its own clock' and when it does not.
+- for a fifth grader: Imagine a spinning top that gives a flash and stands back up every so often. Pushed gently, it tips to one lean and just waits there until the next flash: every trip between flashes is about the same length, even though the waiting is random. Pushed hard, it never stops spinning, so a long wait means a long trip. Only the gently pushed top keeps its own clock.
+
+### [4] Two-flavour neutrino oscillation, |nu_e> = cos theta |nu_1> + sin theta |nu_2>, in vacuum and in matter of constant density (MSW), L in units of 4E / Delta m^2 (vacuum oscillation length pi, first maximum at pi/2), matter term a = A / Delta m^2; Fubini-Study carrier as batch 01
+
+- source row: theory/retrodictions/sharp_claims.txt [10] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: A neutrino can turn completely into the other flavour only if the two are mixed exactly half-and-half, and the Sun's matter can tune the mixing to half-and-half at one density: the resonance is where the path is lifted onto the equator. A picture with one dial, and the dial is the Sun's.
+- for a fifth grader: A neutrino is born as one kind and can change into another as it flies. It can change all the way only if the two kinds are mixed exactly half-and-half, which they usually are not. Inside the Sun the crowd of electrons changes the mix, and at one depth it becomes exactly half-and-half: there, and only there, the neutrino can turn completely into the other kind.
+
+### [5] Overdamped particle in a harmonic trap with BOTH parameters driven, centre x0: 0 -> 1 and stiffness k: 1 -> 4 in tau = 1 (beta = gamma = 1), excess work in the slow-driving form W = int zeta_ij lambda_i' lambda_j' dt with the friction tensor from the OU autocorrelations; the source's stiffness-only protocol is batch 02 row 2
+
+- source row: theory/retrodictions/sharp_claims.txt [11] (CONSIST)
+- outcome: WRONG
+- elegance: Slide a cup and tighten its spring at once: the cup's position settles twice as slowly as its jiggle-width, so the cheapest plan goes slower on the slow dial. One speed on one ruler is right only when every dial settles alike, and here they do not.
+- for a fifth grader: Suppose you have to move a wobbly tray and also tighten the strap that holds it, in the same amount of time. The tray's place takes longer to settle than its wobble does, so you go slower on the moving part and quicker on the tightening part. Doing both at one steady pace wastes effort.
+
+## theory/retrodictions/synthesis_batches/batch_11.txt
+
+### [4] FitzHugh-Nagumo relaxation oscillator (eps = 0.08, a = 0.7, b = 0.8) under the slowly varying drive I(t) = 0.5 + 0.2 sin(0.03 t), t in [0, 1200] on 240001 RK4 steps; spikes = upward crossings of v = 0.5, first two dropped; the source row's model
+
+- source row: theory/retrodictions/bio_retrodictions.txt [2] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: A spike is the same size every time; what changes is the wait between spikes. Measured by how far the voltage travels, every beat is one full loop of the same track; measured by the clock, the beats wander with the drive. The picture teaches what an arc-regular system is, and also that the regularity here belongs to the track, not to the traveller.
+- for a fifth grader: A nerve cell fires by making a spike that always looks the same, like a runner doing one lap of the same track. When the cell is pushed harder it laps more often, and when it is pushed less it waits longer, but each lap is the same length of track. So if you count in laps the cell is perfectly steady, and if you count in seconds it is not. The steadiness comes from the track being fixed, not from the runner.
+
+### [5] Perceptual magnitude under Weber's law (Weber fraction k = 0.1, Fisher information 1/(k s)^2, JND = one resolvable step): a settled series of 12 stimulus magnitudes on [10, 80] and the level the observer is seeded with for the next
+
+- source row: theory/retrodictions/bio_retrodictions.txt [4] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Count in steps you can actually tell apart and the 'usual' level of what you have seen is the middle of the doublings, not the middle of the numbers. A rule with no knobs, and it is the one the psychologists found by fitting.
+- for a fifth grader: Suppose you lift a few things one after another, some light, some heavy. Your hands settle on a feel for the 'normal' weight. That normal is not the plain average of the weights; it sits in the middle of the doublings, because your hands notice a weight doubling, not a weight going up by a fixed amount. Scientists who study the senses worked that out long ago.
+
+## theory/retrodictions/synthesis_batches/batch_12.txt
+
+### [1] Heartbeat under breathing as a fixed-shape pulse train with the two respiratory modulations the pulse literature names: RR-interval (frequency) modulation of depth a/T0 = 0.0889 (the source's RSA, 0.90 +/- 0.08 s) and pulse-amplitude modulation of depth b, 60 beats at 2000 Hz, onsets as the system's own events
+
+- source row: theory/retrodictions/bio_retrodictions.txt [5] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: Breathing bends the heartbeat two ways: it stretches the gaps between beats and it changes the size of the beats. Whichever bend is bigger decides which of the two clocks the heart keeps: no knobs, a ratio of two depths.
+- for a fifth grader: When you breathe in and out, your heartbeats get a little closer together and further apart, and each beat also gets a little bigger and smaller. If the timing wobbles more than the size, then the size is the steady thing; if the size wobbles more, the timing is the steady thing.
+
+### [2] Cardiac alternans in the APD-restitution map A(n+1) = F(DI(n)), DI(n) = BCL - A(n), F(DI) = 300 - 200 exp(-DI/60) ms, with A6 regeneration: the diastolic interval the next beat responds to is the P3 age-weighted mean of the settled diastolic intervals, M(n) = (1 - q) DI(n) + q M(n - 1)
+
+- source row: theory/retrodictions/bio_retrodictions.txt [6] (DESCR)
+- outcome: ADDS
+- elegance: A beat that copies only the beat before it can be pushed into big-small-big-small forever; a beat that takes the average of a few settled beats smooths the see-saw out. The rule is one sentence: remember a little, and alternation needs a steeper push.
+- for a fifth grader: Imagine each heartbeat deciding how long to last by looking only at the one before it: a small wobble can bounce back and forth, long-short-long-short, without stopping. If each beat instead looks at a few earlier beats and takes their average, the wobble gets evened out, and it takes a much harder push to make the heart see-saw.
+
+Entries: 35.

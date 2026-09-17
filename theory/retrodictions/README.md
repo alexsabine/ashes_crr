@@ -815,6 +815,57 @@ signal-to-noise). No row in the wave produced a proposition the domain lacks.
 
 **Corrections and decisions** are AGENT_LOG 30–33. **Elegance**: 14 entries in the ledger after wave 1.
 
+**Wave 2, batches 07–12 (queue rows 31–60: Daniel's rows d5–h5, sharp-claims rows 1–14, bio rows 2–12).**
+Tally over 30 rows: 1 ADDS / 0 PROPOSES / 10 REDUNDANT-IG / 10 REDUNDANT-DOMAIN / 3 WRONG / 6 INTERNAL /
+0 UNSTATED. Running total after 60 rows: 1 / 0 / 22 / 19 / 6 / 12 / 0.
+
+| batch | rows | tally (ADDS / PROPOSES / R-IG / R-DOM / WRONG / INTERNAL / UNSTATED) |
+|---|---|---|
+| 07 | Daniel d5, e1, e2, e4, f2 | 0 / 0 / 3 / 1 / 0 / 1 / 0 |
+| 08 | Daniel g1, g2, g4, h2, h3 | 0 / 0 / 0 / 5 / 0 / 0 / 0 |
+| 09 | Daniel h4, h5; sharp 1, 3, 4 | 0 / 0 / 0 / 2 / 1 / 2 / 0 |
+| 10 | sharp 5, 7, 8, 10, 11 | 0 / 0 / 3 / 0 / 2 / 0 / 0 |
+| 11 | sharp 12, 13, 14; bio 2, 4 | 0 / 0 / 2 / 2 / 0 / 1 / 0 |
+| 12 | bio 5, 6, 10, 11, 12 | 1 / 0 / 2 / 0 / 0 / 2 / 0 |
+
+**The one ADDS is a candidate and carries a caution.** Batch 12 row 2: cardiac alternans in the
+APD-restitution map with the diastolic interval replaced by the P3 age-weighted mean of the settled
+intervals (A6). The threshold slope for alternans rises from 1.0000 to (1 + q)/(1 − q) (1.5000 at q = 0.2,
+2.3333 at q = 0.4) and the pacing interval at onset falls from 312.24 to 181.40 ms. The label follows the
+class's rule (the memoryless restitution criterion is the only domain theorem computed), and the row's
+own weakness says why it may not survive the expert protocol: any exponential-kernel memory on the
+diastolic interval gives the same multiplier, so the CRR content is the weights' shape and the bounded
+strength, and the domain has memory-restitution models (Otani–Gilmour 1997, Fox 2002, Tolkacheva 2003,
+named only, not fetched, R10) in which memory moves the threshold. It goes to the expert with question 1
+("is Q known?") expected to matter most (AGENT_LOG 39).
+
+**What wave 2 added to the INTERNAL list.** Three more places where a CRR clause has two readings on the
+domain, each now a v3.2 decision: which intrinsic phase A3 cuts on (batch 07 row 3: under the oscillator's
+own phase-plane angle the half-turn from a maximum is identically the next minimum, so on that reading A3
+is the peak cut for every 1-D trace and H-CUT is empty; the antipode-versus-extremum split the Duffing
+row found, 0.0066 cycles, is the analytic signal's; batch 12 row 5 finds three readings on the
+Lotka–Volterra cycle); which carrier the pole-start "p = 1/2" cut lives on (batch 09 rows 3–4: on the
+fraction carrier it is a definition, on the count-rate carrier a first-order decay cuts at two half-lives,
+and on a receptor's ligation-state carrier 3 of 9 binding polynomials cut off the half-saturation
+constant); and which reading of A1′ sets a memory depth or a seed (batch 09 row 2, batch 11 row 3, batch
+12 row 4: fluctuation against displacement units, Fréchet against mixture seeds).
+
+**What wave 2 added to the WRONG list.** The two-dial trap (batch 10 row 5) closes the escape batch 02
+left open: with centre and stiffness both driven the friction tensor is Fisher times diag(1/k, 1/2k),
+ratio 2 at every k, so no scalar unit makes CRR's geodesic the optimum (+12.29 %) and the S²/τ clause fails
+on the domain's own optimum. Resonance fluorescence (batch 10 row 3) is arc-regular at 5 of 9 drives and
+clock-regular at 3, so "arc-regular at every drive" fails on the one qubit with events of its own. The
+FitzHugh–Nagumo re-read (batch 11 row 4) keeps the bare CV(arc) < CV(clock) reading but finds the
+amplitude control the more regular quantity (CI [0.0189, 0.0383]), so H-L5 as stated fails there and
+the SHARP review's "dynamical CONSIST" list is down to the adder (AGENT_LOG 34), whose own amplitude
+control is batch 13's first task.
+
+**Corrections to earlier batteries recorded in wave 2** (pinned outputs not edited): Daniel's row h3
+multiplies a magnetisation by the square root of the field-direction metric (batch 08 row 5; his own row
+h5 has the consistent reading), and his row h2's ρ → ∞ is the unit at the singular point, not the count
+across a window, which is finite with exponent 8/15 (batch 08 row 4). **Decisions** are AGENT_LOG 34–39.
+**Elegance**: 35 entries after wave 2.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
