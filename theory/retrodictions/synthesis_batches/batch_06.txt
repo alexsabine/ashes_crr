@@ -1,0 +1,80 @@
+Synthesis batch 06: rows 26-30 (prompt-log entry 61)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (thermo) Finite-time thermodynamics of a driven two-level system (Bernoulli family, Fisher metric dp^2/(p(1-p)) as the friction, relaxation time 1): dissipated work W = int pdot^2/(p(1-p)) dt over protocols of duration tau = 1 from p = 0.2 to p = 0.8, including one that overshoots to p = 0.9
+     source:     runs/phaseA/crr_retrodictions.txt [c3] (CONSIST)
+     Q:          the minimum dissipation of a protocol is set by the length of the path it takes (the arc L), not by the displacement between its endpoints (the chord d): an overshooting protocol 0.2 -> 0.9 -> 0.8 dissipates at least L^2/tau > d^2/tau, and its excess over the direct protocol is S(2d + S)/tau with S = L - d
+     ingredient: D6/H-T1 (path against endpoint) read on a thermodynamic protocol; D2/D3/D4 supply L, d and S (not CRR-proper)
+     null:       the endpoint predictor: the chord d (geodesic distance between the initial and final states) squared over tau
+     domain:     Salamon-Berry 1983: dissipated availability >= L^2/tau x (relaxation time) for a path of thermodynamic length L, saturated at constant thermodynamic speed
+     numbers:    chord d = 1.2870, overshoot arc L = 1.8546, surplus S = 0.5676; direct protocol at constant speed: W = 1.6564 (d^2/tau = 1.6564); the source's lopsided monotone protocol: W = 2.1986; surplus integrated from the sampled paths: direct 6.63e-12, lopsided 1.41e-11 (P1 equality on a monotone 1-D path), overshoot 0.5676 (closed form 0.5676); overshoot at constant speed: W = 3.4395 (L^2/tau = 3.4395); excess over the direct protocol 1.7831 against S(2d + S)/tau = 1.7831
+     T-G:        path predictor L^2/tau 3.4395 vs endpoint predictor d^2/tau 1.6564: differ
+     T-N:        Salamon-Berry gives L^2/tau = 3.4395 for the path taken: the domain has Q
+     T-C:        numerical W of the constant-speed overshoot protocol 3.4395 against L^2/tau 3.4395 (relative difference 7.5e-06), above the direct protocol's 1.6564, excess matching S(2d + S)/tau: holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the path-against-endpoint reading of dissipation is the domain's own theorem: the bound is written in the length of the path taken, and the excess of a detour is its excess length times (2d + S), information geometry's algebra; the source row's S orders nothing on the two monotone protocols (|S| at most 1.4e-11 for both while their dissipation differs, 1.656 against 2.199: the speed profile, not the length, separates them), which the source recorded
+     weakness:   the overshoot protocol is chosen to make L differ from d; on any monotone 1-D protocol path and endpoint coincide and Q is empty; no proper ingredient beyond the path/endpoint reading was found (A3 has no rotor on an open protocol, A6 has no occasions)
+     elegance:   Cheapest change: take the shortest road and walk it at one steady pace; every detour and every burst of speed is paid for in waste. No knobs: a length and a duration.
+     child:      Pushing a heavy box from one spot to another wastes the least effort if you go by the shortest path at one steady speed. Taking a detour costs extra, and so does rushing and then stopping.
+
+[ 2] (mag) Curie-Weiss / Landau mean-field magnet below Tc (a = b = 1, t = -1, spinodal field h_sp = 0.3849), overdamped mdot = -(a t m + b m^3 - h) driven by h(t) = H sin(omega t) with H = 0.6 > h_sp, omega = 0.02 (a hysteresis loop; fixed-grid RK4, 6400 steps per period, 6 cycles scored after 1 transient)
+     source:     runs/phaseA/crr_retrodictions.txt [c4] (CONSIST)
+     Q:          the magnetisation reversals (the system's own events: the sign flips of m at the spinodal jump) are the antipodal cuts of the intrinsic phase of m(t): each reversal is exactly half a turn of phase after the previous one, and it sits away from the extremum of m (H-CUT's antipode-not-extremum reading on a hysteresis loop)
+     ingredient: A3 (antipodal cut on the intrinsic phase, antipodal_cuts), D5 (occasion = one reversal to the next), H-CUT
+     null:       the drive's own clock: half a period of the field, T/2
+     domain:     the Z2 symmetry of the Landau free energy (m -> -m, h -> -h) with a half-wave antisymmetric drive h(t + T/2) = -h(t): on the periodic attractor m(t + T/2) = -m(t), so reversals are T/2 apart and the analytic signal z(t + T/2) = -z(t) advances its phase by exactly pi between them
+     numbers:    12 reversals (9 interior intervals): phase advance between reversals 1.00000 +/- 0.00001 half-turns; clock advance 1.00000 +/- 0.00000 half-periods; antisymmetry max|m(t + T/2) + m(t)| = 2.2e-14; antipodal cuts seeded at a reversal land within 0 sample(s) of every later reversal; phase offset of a reversal from the nearest extremum of m: 0.352 +/- 0.000 half-turns (11 extrema); clock offset from a reversal to the next extremum of m: 0.4494 +/- 0.0000 quarter periods; lag of the extremum of m behind the extremum of the field: 0.0038 +/- 0.0000 quarter periods; |h| at reversal 0.4589 against h_sp 0.3849 (the zero crossing comes after the spinodal at this sweep rate)
+     T-G:        phase advance 1.00000 vs null clock advance 1.00000 (in half-turns / half-periods): agree
+     T-N:        the symmetry gives exactly 1.0 half-turn per reversal: the domain has Q
+     T-C:        every interval within 0.01 of one half-turn and every reversal more than 0.1 half-turn from an extremum: holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the antipode lands on the reversal, and so does the clock: the cut adds nothing beyond the half period that the domain symmetry already fixes; the antipode-not-extremum distinction is real (offset 0.352 half-turns, 0.45 quarter periods on the clock) and is the domain's timing: the extremum of m sits at the extremum of the field (lag 0.004 quarter periods) while the reversal is where the spinodal jump completes within the half-cycle; on the paramagnetic side, where the source row lives, no proper-ingredient Q formed: the chi divergence is A1's, and D1's rho across the critical isotherm is the Fisher length, Wootters' count of distinguishable states, information geometry's
+     weakness:   one drive amplitude and one sweep rate; the reversal is located at the zero crossing of m, which at this rate comes after the spinodal field; a drive without half-wave antisymmetry (a biased field) would break the symmetry and is the case where the antipode and the half period could differ, not run here
+     elegance:   Push a magnet's field up and then down and it flips over at the same push both ways: the two flips are mirror images, and 'half a turn' is just the mirror.
+     child:      A magnet that you push back and forth clicks over at the same push each way, like a light switch. Going up and coming down are mirror images of each other, so the click always comes exactly halfway round.
+
+[ 3] (filt) Scalar random-walk Kalman filter (process variance q, observation variance r, Fisher speed v = sqrt(q/r)); steady-state Riccati M = M r/(M + r) + q, gain K = M/(M + r)
+     source:     runs/phaseA/crr_retrodictions.txt [d1] (CONSIST)
+     Q:          at Omega = 1 the filter's steady-state gain is fixed by CRR with no constant chosen: reading (i), the source row's, Omega = 1 sets the Fisher speed v = 1 and K = 1/phi; reading (ii), H-EQ's text ('settled past and present exert equal pull in the Fisher norm'), gives the prior and the datum equal precision, M = r, so K = 1/2, which the Riccati equation places at v = 1/sqrt(2)
+     ingredient: H-EQ (Omega = 1, the normalised step) integrated with P4 (the Riccati identity, which CRR.md says is not CRR's)
+     null:       the Riccati gain at any v (the domain fixes nothing at any particular speed)
+     domain:     steady-state Kalman gain of a random walk (textbook Riccati): K(v) = (v/2)(sqrt(v^2 + 4) - v), K -> 1 as v -> inf, K -> 0 as v -> 0
+     numbers:    reading (i): v = 1 -> Riccati M = 1.618034, K = 0.618034 (closed form 0.618034; 1/phi = 0.618034); reading (ii): equal precisions M = r -> K = 0.500000, reached at v = 0.707107 (1/sqrt(2) = 0.707107; Riccati check M = 1.000000, K = 0.500000); source's probe v = 2: K = 0.828427; relative difference between the two readings' gains 0.1910 (TOL_G 0.01)
+     T-G:        reading (i) K = 0.618034 vs reading (ii) K = 0.500000: differ (the ingredient has two values on the domain)
+     T-N:        the Riccati equation gives both gains, at v = 1 and at v = 1/sqrt(2), and selects neither
+     T-C:        not reached: the two readings of Omega = 1 must agree before Q can be checked
+     OUTCOME:    INTERNAL
+     reading:    the golden-ratio gain belongs to the reading 'Omega = 1 is v = 1', which the source's own weakness line calls the only framework content; the equanimity reading puts the balanced filter at v = 0.7071 and gives K = 0.5; which of the two Omega = 1 is must be fixed before the domain can be asked, and H-EQ's ledger status (within seed noise of a fixed w = 1 on EQX, cap-dependent on EQ2) offers no third number
+     weakness:   the map from H-EQ's batch gradients to a one-step Gaussian update is a reading, not a derivation: at the prior the past gradient vanishes and the rule's norm ratio is undefined, so the precision (Hessian) form of 'equal pull' is used; P4 says of itself that the formula is not CRR's
+
+[ 4] (stat) Gaussian location family N(mu, s^2), s = 1, observed in occasions of n = 10 draws (K = 100000 occasions, occasion statistic = the occasion mean; also per-datum occasions, n = 1)
+     source:     runs/phaseA/crr_retrodictions.txt [d2] (DESCR)
+     Q:          the unit A1' names (the Cramer-Rao length of the occasion, 1/sqrt(n I) = s/sqrt(n)) is the unit A1''s operational clause estimates (1.4826 MAD of the occasion statistic's residual under the named detrender, unit_sigma), so the two clauses of A1' agree on the one family where the unit is known in closed form
+     ingredient: A1'/D1 (the unit as the system's own resolvable step) in its two readings: named, 1/sqrt(I) (the source's), and estimated, unit_sigma with the registered detrender (window 9, order 2, MAD)
+     null:       the Cramer-Rao length itself, the domain's unit
+     domain:     Cramer-Rao (Fisher 1925; Rao 1945; Cramer 1946): var >= 1/(n I), I = 1/s^2; and the leverage of a local least-squares fit: the residual of a Savitzky-Golay fit of white noise has variance (1 - c0) times the noise variance, c0 the filter's centre weight
+     numbers:    named unit s/sqrt(n) = 0.316228; estimated unit (window 9): 0.271014 (MAD), 0.271954 (std); predicted by the leverage sqrt(1 - c0) s/sqrt(n) = 0.272872 with c0 = 0.255411 (= 59/231); window 21: 0.297652 (MAD), 0.298438 (std), predicted 0.298739 with c0 = 0.107551; per datum (n = 1): named 1.000000, estimated 0.859128, predicted 0.862896; ratio estimated/named at window 9: 0.8570 (sqrt(1 - c0) = 0.8629); relative difference 0.1430 (TOL_G 0.01)
+     T-G:        named unit 0.316228 vs estimated unit 0.271014: differ (the ingredient has two values on the domain)
+     T-N:        Cramer-Rao gives the named value and least-squares leverage gives the estimated one: the domain has both numbers and the factor between them
+     T-C:        not reached: the two readings of A1' must agree before Q can be checked
+     OUTCOME:    INTERNAL
+     reading:    the two clauses of A1' disagree by the factor the detrender sets (sqrt(1 - c0) = 0.8629 at window 9, 0.9447 at window 21): the operational unit is biased low by the leverage of its own detrender on a family with no trend to remove, and the two readings are one only after the residual scale is divided by sqrt(1 - c0), a correction the instrument does not make; the source's per-datum-versus-per-window question is answered by naming the occasion (D5): the unit scales as 1/sqrt(n) with the occasion's size (per datum 0.8591, per window of 10 0.2710), which is Fisher additivity, the domain's
+     weakness:   the factor is a property of unit_sigma's registered constants, not of the family; every study prereg names the detrender, so the bias is registered, but the rho those studies report is inflated by 1/sqrt(1 - c0) = 1.1589 relative to the Cramer-Rao unit on white residuals (a candidate R14 entry for the instrument, not a repair made here)
+
+[ 5] (stoch) Drifted Brownian motion dX = mu dt + sigma dW (mu = 1, sigma = 1) whose own events are the first passages of the levels k Delta (Delta = 1), sampled at dt = 0.001 and the same path at dt = 0.01
+     source:     runs/phaseA/crr_retrodictions.txt [d3] (CONSIST)
+     Q:          between consecutive level crossings the Fisher arc (in the increment's own unit sigma sqrt(dt)) is exactly as regular as the clock, CV(C) = CV(Delta t): C is the discretised total variation, Delta t times a constant that the sampling step sets (it scales as 1/sqrt(dt)) up to a sqrt(Delta t) fluctuation, so H-L5 can assign this carrier to neither class
+     ingredient: D5/A1' point-process reading (own events = level crossings, natural time), H-L5's class claim; D2 the arc (not proper)
+     null:       the clock: the first-passage (inverse-Gaussian) interval statistics the domain already has
+     domain:     Levy: a Brownian path has infinite total variation and finite quadratic variation; on a grid E|dX| = sigma sqrt(dt) [sqrt(2/pi) e^(-z^2/2) + z(1 - 2 Phi(-z))], z = mu sqrt(dt)/sigma, so E[C | Delta t] = Delta t E|dX|/dt by the law of large numbers over the increments: CV(C) = CV(Delta t) at leading order
+     numbers:    dt = 0.001: 273 occasions, CV(C) = 1.0129, CV(clock) = 1.0114, paired-bootstrap 95 % CI of the difference [-0.0020, 0.0047]; arc per unit time 25.194 (domain E|dX|/dt = 25.244); arc in own units per sample 0.7967 (sqrt(2/pi) = 0.7979); dt = 0.01: 273 occasions, CV(C) = 1.0166, CV(clock) = 1.0250, CI [-0.0239, 0.0050]; arc per unit time 7.940 (domain 8.019); per sample 0.7940; arc-rate ratio between the grids 3.173 (sqrt(10) = 3.162); mean occasion 1.0973 time units (Delta/mu = 1)
+     T-G:        CV(C) 1.0129 vs null CV(clock) 1.0114: agree; on the coarse grid 1.0166 vs 1.0250: agree
+     T-N:        the law of large numbers gives CV(C) = CV(clock) = 1.0114 at leading order, and E|dX|/dt = 25.244 against the observed 25.194: the domain has Q
+     T-C:        CI of CV(C) - CV(clock) includes 0 on both grids and the arc rate scales as sqrt(10) within 5 %: holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the diffusion-carrier theorem of the cognitive-collective battery (row 1; AGENT_LOG 21) in the harness's own language: on a diffusion carrier the arc is the clock times a constant the sampling step sets (arc per sample 0.797 and 0.794 own units on the two grids: the arc counts samples), so the CV comparison is the clock against itself and the ingredient did no work; the domain has the theorem; the source row's own content, the sigma/sqrt(T) unit of the drift, is Fisher additivity on the rectifiable carrier (the drift estimate) that a prereg on such data would have to name
+     weakness:   one drift-to-noise ratio and one level spacing; the arc-regular / clock-regular classes are undefined here rather than decided, which is the theorem, not a finding about the process
+     elegance:   A shaky path has no length of its own: the closer you look, the longer it gets. So on a shaky road the odometer is only a clock in disguise.
+     child:      Measure a very wiggly line with a smaller and smaller ruler and it keeps getting longer and never settles. So for a shaky, wiggly path, adding up the wiggles only tells you how long you watched, like a clock.
+
+TALLY: 0 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 0 WRONG / 2 INTERNAL / 0 UNSTATED

@@ -1,0 +1,80 @@
+Synthesis batch 04: rows 16-20 (prompt-log entry 61)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (seis) Omori aftershock decay lambda = K (t + c)^-p as an inhomogeneous Poisson process (K = 20000, c = 0.01, p = 1.1, T = 365 days; Ogata thinning, seed 22), read in the system's own unit
+     source:     theory/retrodictions/crr_retrodictions.txt [22] (CONSIST)
+     Q:          measured in the system's own unit (A1': one event = one step; natural time = the compensator A(t) = int lambda, the clock P5 uses), the occasions of an Omori sequence are i.i.d. unit exponential (mean 1, CV 1, no trend) for every p: in natural time the aftershock sequence is a homogeneous Poisson process
+     ingredient: A1'/D1 (the unit is the system's own step, one event; natural time), D5 (occasion = inter-event interval), P5 (retention in natural time)
+     null:       the clock: the inter-event intervals in clock time, the domain's raw observable
+     domain:     the time-rescaling theorem (Meyer 1971; Ogata 1988, residual analysis of point processes): the compensator maps any point process with intensity lambda(t) to a unit-rate Poisson process
+     numbers:    206803 events in 365 days (expected A(T) = 206112.3); clock intervals: CV = 4.0687, first 2.32e-08, last 2.90e-02 days; natural-time intervals dA: mean = 0.9967, CV = 1.0007, KS distance to Exp(1) = 0.0021 (p = 0.300), Spearman(dA, event index) = -0.0001; the other reading of A1' (natural time = the event count) gives dN = 1 per occasion, CV = 0.0000 by definition
+     T-G:        CV(dA) 1.0007 vs null CV(dt) 4.0687: differ
+     T-N:        the time-rescaling theorem gives CV = 1.0000 and mean 1 in natural time: agree (the domain has Q)
+     T-C:        mean dA and CV(dA) within 0.01 of 1 and KS p > 0.05: holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the unit does real work (T-G: the clock intervals span 1249600x while the natural-time intervals are stationary), and the object it produces is the compensator: putting an aftershock sequence into natural time and testing it for stationary Poisson is Ogata's residual analysis, the tool seismology uses to check an Omori or ETAS fit; CRR renames it. P5's 'power law iff p = 1' is calculus on the same object, so the source row's CONSIST stands and the synthesis reading is REDUNDANT-DOMAIN
+     weakness:   A1' names natural time as the event count; the count reading makes every occasion one step (CV 0.0, a tautology) and the compensator reading (P5's A(t)) gives the exponential; the row uses the second, and CRR.md D2 rejects the integer counter. K, c and p are the domain's fitted constants, not CRR's
+     elegance:   The shocks keep their own clock. Numbered by their own expected count instead of by the minutes, every aftershock gap is the same kind of gap: a rule with no knobs, and it is also the domain's own test of an Omori fit.
+     child:      After a big earthquake the small ones come fast at first and then slower and slower. If you put away the stopwatch and let the earthquakes count themselves, the gaps stop shrinking: each next shock is just as much of a surprise as the last. The earthquakes have their own clock, and it ticks once per shock.
+
+[ 2] (pp) Hawkes process with exponential kernel (mu = 0.5, alpha = 0.6, beta = 2, branching ratio 0.3; 200000 events by Ogata thinning, seed 23): H-T1's path against endpoint read on a point process
+     source:     theory/retrodictions/crr_retrodictions.txt [23] (DESCR)
+     Q:          the next occasion's duration is forecast by the endpoint alone: the Fisher arc travelled over the last five occasions adds nothing to a forecast of the next inter-event interval beyond the intensity at the cut (H-T1's must-fail case, on a point process instead of a convex learner)
+     ingredient: D6/H-T1 (path vs endpoint), D5 (occasion = inter-event interval), A3 (the jump at the event is the cut, not content: excluded from the arc), D2 on the Poisson carrier (arc = 2 |d sqrt(lambda)|)
+     null:       the endpoint: the intensity just after the event, the domain's state variable
+     domain:     the Markov property of the exponential-kernel intensity (Oakes 1975: the exponential kernel is the one kernel for which lambda(t) is Markov); the intensity is a sufficient statistic for the future, so the endpoint forecast is the optimal one
+     numbers:    alpha = 0.6: intensity after the cut in [1.10, 5.00], corr(endpoint, path) = -0.824; held-out RMSE of the next interval: endpoint (40 quantile bins) 1.78985 (R2 0.0115), endpoint x path terciles 1.79051 (R2 0.0108), R2 gain of the path -0.00074; within-bin Spearman(path, next interval) = -0.0008 +/- 0.0029 (SE over 40 bins). alpha = 1.6 (branching ratio 0.8): intensity in [2.10, 44.89], RMSE endpoint 0.88679 (R2 0.1035) vs with path 0.88730 (R2 0.1025), within-bin Spearman +0.0038 +/- 0.0025
+     T-G:        RMSE with the path 1.79051 vs null endpoint-only 1.78985: agree (alpha = 1.6: 0.88730 vs 0.88679: agree)
+     T-N:        the Markov property makes the endpoint forecast the domain's own optimum, so the domain's value for the target is the null itself
+     T-C:        held-out R2 gain of the path -0.00074 <= 0.005 and the partial Spearman within 2 SE (0.0058): holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the ingredient did no work because the domain's theorem forbids it: with an exponential kernel the intensity screens off the path, so H-T1 must fail here exactly as CRR.md section 5 says it must on the convex learner; the exponential Hawkes process is the point-process twin of that control, and the source row's depth-one reading is the Markov property under another name. The synthesis reading is REDUNDANT-IG
+     weakness:   for a power-law kernel (ETAS) the intensity is not Markov and the path would matter, but the domain's own predictor is then the full intensity, which already carries the history: the CRR path would compete with that, not with a scalar endpoint. One estimator (40 intensity bins x 3 path terciles, even/odd split); the branching ratio was varied, the kernel was not
+
+[ 3] (orb) Kepler ellipse e = 0.6, a = 1, unit mean motion; 8 orbits at 4096 samples per orbit from Kepler's equation; r(t) as the 1-D trace, orbit-plane position for the arc (Euclidean stand-in metric, as the source row)
+     source:     theory/retrodictions/crr_retrodictions.txt [25] (DESCR)
+     Q:          the occasion of an orbit is the apsis-to-apsis half-orbit: the A3 cut on the intrinsic phase of r(t), started at periapsis, lands on apoapsis and periapsis alternately, and the two half-orbit arcs are equal
+     ingredient: A3 (antipodal cut on the analytic-signal phase, antipodal_cuts), D5 (occasion = half-turn), D2 with a Euclidean stand-in metric
+     null:       the extremum cut (peak_cuts on r: the apsides as extrema, the domain's own events)
+     domain:     reflection symmetry of the ellipse about its major axis: the two half-orbit arcs are equal (closed form by quadrature)
+     numbers:    A3 cuts sit on the apsides (max offset 0 samples), extrema too (max offset 0 samples); per-occasion arc under A3: mean 2.836166, spread 1.4e-14 over 15 half-orbits; under extrema: mean 2.836166; quadrature L(peri->apo) = 2.836167, L(apo->peri) = 2.836167, relative difference 1.6e-16. Generic start at true anomaly 1.5720: true anomaly at the next cut = 3.4027 (analytic-signal phase), 4.7142 (true anomaly), 3.6319 (eccentric anomaly), 3.2830 (mean anomaly): the four readings differ (max relative spread 0.304)
+     T-G:        mean half-orbit arc under A3 2.836166 vs null under extrema 2.836166: agree
+     T-N:        quadrature by symmetry gives 2.836167: agree
+     T-C:        L1 = L2 to 1e-9, A3 cuts on the apsides, arc within 0.01 of quadrature: holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the source row's content exactly: on a trace symmetric about its extrema the antipode and the extremum coincide, so A3 does no work and the equality is the ellipse's symmetry; CRR supplied a name for the apsides. Away from an apsis the four readings of 'the phase' disagree on where the next cut falls, so a cut sequence anchored at a generic point is a choice of phase variable, which is Kepler's equation seen from CRR's side. The synthesis reading is REDUNDANT-IG
+     weakness:   no statistical carrier: the Euclidean metric is a stand-in that A1 does not license; four phase readings, one implemented (the analytic signal), and only their agreement at the apsides is used
+     elegance:   The cut is a place a child can point at: the far point of the orbit is the antipode of the near point, and the two halves of the trip are mirror images. It teaches what an occasion is without a formula, though the equality is the ellipse's, not CRR's.
+     child:      A planet goes round the sun on a squashed circle. Start when it is closest. Halfway round, it is farthest away; that is where one lap-half ends and the next begins. The two halves of the trip are mirror images, so they are the same length of road.
+
+[ 4] (gw) Binary inspiral chirp at leading post-Newtonian order, dimensionless: Phi(t) = -k (t_c - t)^(5/8), k = 2000, t_c = 1, amplitude ~ f^(2/3), t in [0, 0.99] at 2^18 samples; analysed on t in [0.05, 0.98)
+     source:     theory/retrodictions/crr_retrodictions.txt [26] (DESCR)
+     Q:          the number of occasions the binary completes between two instants is the number of half-turns of its gravitational-wave phase: the model-free A3 count on the strain's intrinsic phase equals the post-Newtonian half-cycle count, and each A3 cut falls on the post-Newtonian half-turn
+     ingredient: A3 (antipodal cut on the analytic-signal phase of h(t)), D5 (occasion = half-turn), H-L5 read as natural time = phase
+     null:       extremum counting (peak_cuts on h: one extremum per half-cycle)
+     domain:     the post-Newtonian phase: N_half = (Phi(t2) - Phi(t1))/pi with Phi ~ (t_c - t)^(5/8), the cycles-to-merger count every matched filter integrates
+     numbers:    window frequency 202.8 -> 862.7 (dimensionless); A3 occasions 561, extrema 561, post-Newtonian half-turns 561.322; offset of each A3 cut from its post-Newtonian half-turn instant: max 0.0038, mean 0.00083 of the local half-period; max |analytic-signal phase - Phi| in the window = 0.0125 rad; per occasion: CV(clock) = 0.3161 (half-period 0.00246 -> 0.00059), CV(arc, identity metric) = 0.2662 (arc 2.019 -> 5.240), CV(phase increment) = 0.00109 (pi by construction of the cut)
+     T-G:        A3 count 561 vs null extrema count 561: agree
+     T-N:        post-Newtonian half-turn count 561.322: agree
+     T-C:        every A3 cut within 0.01 of a half-period of its post-Newtonian instant: holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the source row's 'says nothing' survives synthesis: on a chirp every half-turn carries one extremum, so A3 counts what peak counting counts, and both count what the post-Newtonian phase already integrates; the H-L5 numbers show the chirp is neither arc-regular nor clock-regular (both trend with the frequency) and phase-regular by construction of the cut. The synthesis reading is REDUNDANT-IG
+     weakness:   no statistical carrier for the strain (identity metric); the template manifold with the noise-weighted inner product is the domain's Fisher-native carrier and was not used; leading post-Newtonian order only, no noise
+
+[ 5] (bif) Stochastic Hopf normal form dz = ((mu + i) z - |z|^2 z) dt + sqrt(2D) dW, D = 0.0001, mu in (0.1, 0.3, 1.0) (mu/sqrt(D) = 10..100); stochastic Heun, dt = 0.01, 1000 realisations x 40 cycles after a 20-cycle burn-in, seed 29; occasion = half-turn of the normal form's own angle, occasion statistic = |z| at the cut, unit sigma = 1.4826 MAD about the median across occasions, rho = 2 median/sigma (source model h_hopf, which fixed sigma = 0.05)
+     source:     theory/retrodictions/crr_retrodictions.txt [29] (CONSIST)
+     Q:          the resolution of a noisy Hopf oscillator vanishes linearly in the distance to the bifurcation, rho ~ mu (exponent 1), not as the amplitude sqrt(mu): the system's own unit grows as mu^-1/2 while the amplitude shrinks as mu^1/2
+     ingredient: A1'/D1 (the unit is the system's own resolvable step, measured from the occasion statistic's residual; rho = extent/sigma), A3/D5 (occasion = half-turn of the intrinsic angle)
+     null:       the source row's fixed outside unit sigma = 0.05 (rho = 2 median/0.05)
+     domain:     the stationary density of the stochastic Hopf normal form, P(r) ~ r exp((mu r^2/2 - r^4/4)/D): the drift is -grad U plus a rotation tangent to U's level sets, so P ~ exp(-U/D); its median and MAD give the same rho by quadrature (the amplitude signal-to-noise ratio of the noisy precursor)
+     numbers:    mu = 0.1: 81167 occasions, median |z| = 0.31631, measured sigma = 0.02244 (density: median 0.31623, sigma 0.02236; linearised sqrt(D/2mu) = 0.02236), rho measured = 28.19, rho from the density = 28.28 (relative difference 0.0033), rho with sigma fixed = 12.65; mu = 0.3: 80960 occasions, median |z| = 0.54761, measured sigma = 0.01295 (density: median 0.54772, sigma 0.01291; linearised sqrt(D/2mu) = 0.01291), rho measured = 84.58, rho from the density = 84.85 (relative difference 0.0031), rho with sigma fixed = 21.90; mu = 1: 80932 occasions, median |z| = 0.99996, measured sigma = 0.00709 (density: median 1.00000, sigma 0.00707; linearised sqrt(D/2mu) = 0.00707), rho measured = 282.27, rho from the density = 282.84 (relative difference 0.0020), rho with sigma fixed = 40.00; exponent d ln rho / d ln mu over the grid: measured unit 1.0006, fixed unit 0.4999, density 1.0001
+     T-G:        exponent with the measured unit 1.0006 vs null with the fixed unit 0.4999: differ
+     T-N:        the stationary density gives exponent 1.0001 and rho within 0.0033 (relative) at every mu: agree (the domain has Q)
+     T-C:        density exponent within 0.02 of 1 and measured rho within 0.01 of the density's at every mu: holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A1' does real work (T-G): measuring the unit turns the source row's sqrt(mu) into mu, and 'true if sigma is fixed' was the source row's own caveat. The number it produces is the amplitude signal-to-noise ratio of the noisy normal form, which the stationary density gives in closed form: the domain has the mu law (the noisy-precursor literature computes exactly these fluctuations), and CRR's part is to insist that the unit be measured, which the domain does whenever it computes fluctuations. The synthesis reading is REDUNDANT-DOMAIN
+     weakness:   the exponent is asymptotic (mu >> sqrt(D)); at mu/sqrt(D) of order one the density is far from Gaussian and neither reading is a power law; the median is the stationary case of A1''s named detrender, and the normal form's own angle stands in for the analytic-signal phase; D is the domain's constant
+     elegance:   One picture with one moving ruler: as the knob approaches the tipping point the wobble shrinks and the system's own ruler grows, so the number of wobbles it can tell apart vanishes twice as fast (in the exponent) as the wobble itself.
+     child:      Think of a wobble that fades out as you turn a knob toward the point where it stops. Near that point the wobble gets small, but it also gets jittery, so the thing is worse and worse at telling one of its own wobbles from the next. Its own ruler gets longer just as the thing it measures gets shorter.
+
+TALLY: 0 ADDS / 0 PROPOSES / 3 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED

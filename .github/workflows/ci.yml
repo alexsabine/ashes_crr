@@ -47,6 +47,9 @@ jobs:
           uv run python theory/retrodictions/shannon.py > /tmp/sh.txt && cmp /tmp/sh.txt theory/retrodictions/shannon.txt
           uv run python theory/retrodictions/loop_gravity.py > /tmp/lqg.txt && cmp /tmp/lqg.txt theory/retrodictions/loop_gravity.txt
           uv run python theory/retrodictions/synthesis.py > /tmp/syn.txt && cmp /tmp/syn.txt theory/retrodictions/synthesis.txt
+          for f in theory/retrodictions/synthesis_batches/batch_*.py; do [ -e "$f" ] || continue; uv run python "$f" > /tmp/b.txt && cmp /tmp/b.txt "${f%.py}.txt" || exit 1; done
+          uv run python theory/retrodictions/synthesis_batches/build_queue.py > /tmp/q.md && cmp /tmp/q.md theory/retrodictions/synthesis_batches/QUEUE.md
+          uv run python docs/pedagogy/build_elegance_ledger.py > /tmp/e.md && cmp /tmp/e.md docs/pedagogy/ELEGANCE_LEDGER.md
           uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt)
 
       - name: Surrogate gates must read GATE OPEN

@@ -1,0 +1,80 @@
+Synthesis batch 02: rows 6-10 (prompt-log entry 61)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (thermo) Two-level (Schottky) system on its canonical carrier p(beta) = 1/(1 + e^(beta eps)), Fisher metric = Var E, traversed once from T = 0+ through T = inf to T = 0- (population inversion)
+     source:     theory/retrodictions/crr_retrodictions.txt [9] (CONSIST)
+     Q:          the A3 cut of a two-level system on the thermal carrier is the fully inverted state T = 0-: no protocol at positive temperature ever completes an occasion, the arc from the ground state to the cut is pi, and T = inf is the exact midpoint (the source row's pi/2)
+     ingredient: A3 (cut at half a turn of arc, pi, from the last cut) with D5; D2 with A1 (Var E) supplies the arc
+     null:       a peak cut on the domain's own landmark: the Schottky heat-capacity maximum
+     domain:     the Bhattacharyya angle between the two pure populations p = 0 and p = 1 is 2 arccos 0 = pi (information geometry of the Bernoulli family)
+     numbers:    arc T = 0+ -> T = inf: 1.570796 (pi/2 = 1.570796); arc T = 0+ -> T = 0-: 3.141593 (pi = 3.141593); approach to the cut at negative temperature: beta eps = -5: 2.9778, beta eps = -10: 3.1281, beta eps = -20: 3.1415 (the cut is reached only as beta -> -inf); Schottky peak at beta eps = 2.3994 (excited population 0.0832), arc from the ground state to it 0.5853
+     T-G:        arc at the A3 cut 3.1416 vs null arc at the Schottky-peak cut 0.5853: differ
+     T-N:        Bhattacharyya angle 3.141593 vs the A3 arc 3.141593: agree (the domain has Q)
+     T-C:        T = inf at half the cut arc: 1.570796 vs 1.570796: holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A3 placed on the beta line says the two-level system's occasion is the whole line, ground state to inverted state, and that the cut is population inversion; the arc it names, 3.1416, is the length of the Bernoulli family between its two pure points, which information geometry already gives as the Bhattacharyya angle; the domain (negative temperatures) already reads beta as the natural line with T = inf interior. The source row's pi/2 is the half of this that positive temperatures can reach.
+     weakness:   the thermal family is not a rotor (O3): 'half a turn' here is the scalar condition C = pi, which CRR.md says coincides with A3 only on monotone traversals (the beta line traversed once is monotone in p); the cut is reached only as a limit, so no finite protocol cuts
+     elegance:   The whole temperature line, cold through infinitely hot to 'hotter than infinite' (population inversion), is a single arc of length pi (a quarter circle) in the system's own geometry, and infinitely hot sits exactly at its midpoint: a picture with no knobs.
+     child:      Think of a dimmer switch that goes from all-off to all-on. Heating a two-level system only ever gets you to half-on, and physicists call half-on 'infinitely hot'. To go past it you would have to flip more than half the atoms up, which they call a negative temperature. So 'infinitely hot' is not the end of the switch's travel; it is exactly the middle.
+
+[ 2] (thermo) Overdamped particle in a harmonic trap, stiffness protocol k1 -> k2 in time tau (beta = gamma = 1), excess work in the slow-driving linear-response form W_ex = int zeta(k) k-dot^2 dt with the friction tensor zeta = beta int <dX(0) dX(t)> dt
+     source:     theory/retrodictions/crr_retrodictions.txt [10] (CONSIST)
+     Q:          the minimum-dissipation stiffness protocol is the constant-speed geodesic of the Fisher-Rao metric fixed by A1/A1' with one global scale (S = 0 in that metric): k(t) exponential
+     ingredient: A1' (the metric is Fisher-Rao with its scale fixed once, globally, by the system's unit) with D4/P1 (S = 0 selects the geodesic)
+     null:       the geodesic of the domain's own dissipation metric, the friction tensor zeta = g tau_r(k): Fisher-Rao with a LOCAL scale, the relaxation time (k^-1/2 linear in t)
+     domain:     Sivak-Crooks 2012 (the source row's citation): W_ex >= L_zeta^2 / tau by Cauchy-Schwarz, with equality on the constant-speed geodesic of zeta
+     numbers:    zeta(k) = g tau_r = 1/(4 k^3): direct integral of the x^2 autocorrelation at k = 1 gives 0.250000 vs 1/(4 k^3) = 0.250000; excess work under the domain's functional: linear protocol 0.35156, Fisher geodesic (exponential k) 0.25993 (closed form 0.25993), friction-tensor geodesic 0.25000, bound L_zeta^2/tau = 0.25000 (L_zeta = 0.50000); numerical minimum over an 8-mode endpoint-preserving family started AT the Fisher geodesic: 0.25000 (first mode coefficient -0.1225, 14 BFGS iterations); the source row's functional (Fisher metric as the friction) reproduced: linear 1.12500, exponential 0.96091 = L_F^2/tau with L_F = 0.98026
+     T-G:        Fisher-geodesic dissipation 0.25993 vs null (friction-tensor geodesic) 0.25000: differ (relative gap +3.97%)
+     T-N:        the domain's minimum L_zeta^2/tau = 0.25000 vs the CRR value 0.25993: differ
+     T-C:        Fisher geodesic within 1% of the minimum: fails (it dissipates +3.97% relative to the bound; the numerical optimiser started at it leaves it, 0.25000)
+     OUTCOME:    WRONG
+     reading:    the domain's dissipation metric is the Fisher metric times a relaxation time that varies along the protocol (tau_r = gamma/2k); A1' fixes the Fisher scale once, so CRR's geodesic is the domain's optimum only where tau_r is constant, and for the stiffness protocol it is not the optimum (+3.97%); the source row's 'known' line (exponential k(t) is the optimal slow protocol) was the Fisher geodesic, not the domain's minimum-dissipation protocol, so its CONSIST was graded against a misstated known
+     weakness:   one system, one protocol, linear response only (the exact finite-time optimum with its end jumps is outside the cited functional); a metric that is Fisher times a local factor is conformal to Fisher, so a v3.2 that let the unit vary along the path would recover the domain's rule, at the price of A1' as stated
+     elegance:   The domain's rule has no knobs: drive at constant speed in the metric that includes how long the system takes to follow, so you slow down where it is slow. CRR's rule is the same picture with the ground assumed the same everywhere.
+     child:      If you pull a wagon with a wobbly load, you go slowest on the bumpy bits where the load takes longest to settle, not at one speed all the way. 'One speed all the way' is only right when the ground is the same everywhere; here it is not.
+
+[ 3] (ising) 2-D Ising model (Onsager), Fisher metric per spin g_KK = Cv/K^2 with Cv the exact specific heat, on the window K in [Kc/2, 3Kc/2] through the critical point
+     source:     theory/retrodictions/crr_retrodictions.txt [12] (CONSIST)
+     Q:          the Fisher-Rao length of a path through the 2-D Ising critical point is finite although the metric diverges there: the logarithmic singularity of sqrt(g) is integrable, so the critical point is a place of unbounded resolution over vanishing extent
+     ingredient: D2 (arc) with A1 (Fisher metric = energy variance) - NOT CRR-proper; no proper ingredient attaches (tried: A3/D5: the thermal family is not a rotor and has no own events (O3), no cut can be placed; H-L5: no events, no occasions; A6: no occasions to regenerate from; H-T1/H-EQ: no learner; A1'/D1: the unit of an N-spin equilibrium family is the Cramer-Rao step 1/sqrt(N g), so rho over a window is sqrt(N) times the length below, i.e. the domain's own count of distinguishable temperatures)
+     null:       the same length computed by information geometry (identical by construction)
+     domain:     thermodynamic length (Ruppeiner / Crooks): the same integral int sqrt(Cv)/K dK, with Onsager's Cv ~ -ln|1 - K/Kc| integrable
+     numbers:    Cv at |1 - K/Kc| = 0.1: 0.822, 0.01: 1.968, 0.001: 3.109, 0.0001: 4.248 (grows without bound); length over [Kc/2, 3Kc/2] = 0.756454 (Kc = 0.440687); contribution of |1 - K/Kc| < delta: 0.1: 2.281e-01, 0.01: 3.127e-02, 0.001: 3.789e-03, 0.0001: 4.350e-04; modulus clip reached 14 times in total, per window 0.1: 0, 0.01: 0, 0.001: 0, 0.0001: 14
+     T-G:        length 0.756454 vs null (information geometry's same integral) 0.756454: agree (no CRR-proper ingredient in Q)
+     T-N:        the domain's thermodynamic length is the same integral, 0.756454: agree
+     T-C:        length finite and the inner contribution shrinking to below 1 % of it: holds (innermost 4.350e-04 vs 7.565e-03)
+     OUTCOME:    REDUNDANT-IG
+     reading:    the source row's content is Onsager's specific heat read as a metric, and every quantity that can be formed from it (the divergence, its integrability, the finite length, the distinguishable-temperature count) is information geometry's or the domain's; CRR's proper ingredients need a rotor, own events, occasions or a learner, and an equilibrium family has none, which is the same silence as the thermal-time row of the first battery
+     weakness:   the integrable divergence is a property of the 2-D class (log); in a class with alpha > 0 the length across Tc is still finite (sqrt(g) ~ |t|^-alpha/2 with alpha < 2), so even the finiteness is not specific to Onsager
+
+[ 4] (filter) Scalar random-walk Kalman filter at steady state (r = 1, q = v^2), the update read as a learner with a present batch (the observation, precision I_obs = 1/r) and a settled past (the prior, precision I_past = 1/P-)
+     source:     theory/retrodictions/crr_retrodictions.txt [13] (CONSIST)
+     Q:          the steady-state Kalman gain is the equanimity weight: the update that balances settled past and present at Omega = 1 has gain K(v) of P4
+     ingredient: H-EQ (Omega = 1) in its two readings in CRR.md: (A) the ledger's 'w = 1, sum the two batch means' and (B) the text's 'equal pull in the Fisher norm'
+     null:       ER-sum: the two quadratic losses summed with w = 1 (which is Bayes' precision weighting)
+     domain:     P4 / the steady-state Riccati equation: K(v) = (v/2)(sqrt(v^2 + 4) - v); CRR.md says the formula is not CRR's
+     numbers:    v = 0.5000: Riccati K = 0.390388, P4 0.390388, reading A 0.390388, reading B 0.500000 (P- = 0.6404, sqrt(I_past/I_obs) = 1.2496); v = 0.7071: Riccati K = 0.500000, P4 0.500000, reading A 0.500000, reading B 0.500000 (P- = 1.0000, sqrt(I_past/I_obs) = 1.0000); v = 1.0000: Riccati K = 0.618034, P4 0.618034, reading A 0.618034, reading B 0.500000 (P- = 1.6180, sqrt(I_past/I_obs) = 0.7862); v = 2.0000: Riccati K = 0.828427, P4 0.828427, reading A 0.828427, reading B 0.500000 (P- = 4.8284, sqrt(I_past/I_obs) = 0.4551); v = 4.0000: Riccati K = 0.944272, P4 0.944272, reading A 0.944272, reading B 0.500000 (P- = 16.9443, sqrt(I_past/I_obs) = 0.2429); the two readings cross at v* = 0.707107 (1/sqrt 2 = 0.707107), where I_past = I_obs
+     T-G:        reading A 0.618034 vs null (ER-sum) 0.618034: agree; reading B 0.500000 vs null 0.618034: differ (v = 1)
+     T-N:        P4 gives 0.618034: reading A agrees, reading B differs
+     T-C:        not reached: readings A and B differ at v = 1 (0.6180 vs 0.5000); on its own, reading A would read REDUNDANT-IG and reading B WRONG
+     OUTCOME:    INTERNAL
+     reading:    on the one domain where the optimal balance of past and present is a theorem, H-EQ is not one rule: summing the losses (A) is Bayes' precision weighting and reduces to its own null, as the ledger found on learners; equal pull in the Fisher norm (B) fixes the gain at 0.5 for every v and is right only at v* = 0.7071, where the two precisions happen to be equal; the literal formula w = ||g_present||_F / ||g_past||_F has no fixed point here (its norm ratio at the w-solution is w sqrt(I_past/I_obs) = w x 0.7862 at v = 1, so the self-consistent w is 0 or infinite unless v = v*)
+     weakness:   the filter has one parameter and Gaussian losses, so 'gradient' and 'precision' are the same object; a learner's smoothed gradients need not be, which is where the ledger's EQ2 rows live
+
+[ 5] (estim) An occasion statistic measured as the mean of N iid draws (noise s1 = 4) on a system whose own value varies from occasion to occasion (s_sys = 1), 400000 occasions per N, seed 0
+     source:     theory/retrodictions/crr_retrodictions.txt [14] (DESCR)
+     Q:          the resolvable step of a recurring system, estimated across its own occasions (A1'), does not shorten as N^-1/2 with the number of draws per occasion: it saturates at the system's own between-occasion scatter, and Fisher additivity I_N = N I_1 governs only the instrument's part
+     ingredient: A1' (the unit is the system's own resolvable step, the robust scale of one occasion statistic across occasions; 'the recording instrument's sample-level noise is not the unit') with D1
+     null:       the Cramer-Rao unit 1/sqrt(N I_1) = s1/sqrt(N) (the source row: N observations shorten the unit by sqrt N)
+     domain:     the law of total variance (one-way random-effects model): Var(stat) = s_sys^2 + s1^2/N
+     numbers:    N = 1: A1' unit 4.1132, Cramer-Rao unit 4.0000, total-variance unit 4.1231; N = 4: A1' unit 2.2258, Cramer-Rao unit 2.0000, total-variance unit 2.2361; N = 16: A1' unit 1.4107, Cramer-Rao unit 1.0000, total-variance unit 1.4142; N = 64: A1' unit 1.1162, Cramer-Rao unit 0.5000, total-variance unit 1.1180; N = 256: A1' unit 1.0274, Cramer-Rao unit 0.2500, total-variance unit 1.0308; N = 1024: A1' unit 1.0098, Cramer-Rao unit 0.1250, total-variance unit 1.0078
+     T-G:        N = 256: A1' unit 1.0274 vs null (Cramer-Rao) 0.2500: differ
+     T-N:        law of total variance gives 1.0308: agree (the domain has Q)
+     T-C:        saturation: A1' unit at N = 1024 is 1.0098 vs the system's own scatter 1.0000 (within 5 %): holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A1''s refusal to take the instrument's noise as the unit is, in the domain's terms, the between-occasion variance component of a random-effects model, and Fisher additivity is the within component; the domain has both in one identity, and CRR's contribution is the modelling choice ([M]) of which component to call the unit, not a theorem
+     weakness:   the within-occasion mean is drawn from its exact Gaussian sampling law rather than from N draws, so Fisher additivity is used, not tested, and the row tests only the saturation; the instrument's unit_sigma adds a detrender whose leverage is not modelled here
+     elegance:   One rule with no knobs: the smallest step that counts is how much the system itself differs from one occasion to the next, not how finely the dial can be read.
+     child:      If a plant grows a different amount each day, buying a finer ruler does not make the days more alike. The smallest step worth talking about is how much the days differ from each other, and measuring more carefully only helps until you reach that.
+
+TALLY: 0 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 1 WRONG / 1 INTERNAL / 0 UNSTATED
