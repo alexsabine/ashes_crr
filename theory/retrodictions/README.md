@@ -183,6 +183,72 @@ motor adaptation the path surplus of a block has no effect beyond the state it l
 one), while the occasion-weight law predicts one. That is the T5 experiment the roadmap names
 and the spec's §XV system; it is not a retrodiction and is graded OPEN here.
 
+## The E-I network battery (owner request, 2026-09-17, prompt-log entry 40)
+
+`ei_networks.py` → `ei_networks.txt` (pinned; CI reproduces it byte for byte). Question asked:
+does CRR add anything to what is already known about excitatory-inhibitory networks, with the
+latest Tucker and Luu papers as the reference point. Literature record, checked on the day
+(R10): `docs/citations/ei_networks_2026-09-17.md`. **Only abstracts were readable in this
+environment** (the full-text hosts are blocked by the egress proxy); every statement the battery
+attributes to a paper is taken from its abstract and marked so, and the full texts must be read
+by Daniel or the owner before any prereg cites them. Model systems only; no dataset opened.
+
+| row | system | grade |
+|---|---|---|
+| 1 | Wilson-Cowan inhibition-stabilised network, paradoxical effect (Ozeki 2009) | OPEN |
+| 2 | Wilson-Cowan 1972 oscillator: Hopf onset and what sets the frequency | OPEN |
+| 3 | the same oscillator with noise: H-L5 class of its half-cycles | OPEN |
+| 4 | balanced LIF network (van Vreeswijk-Sompolinsky, Brunel) | DESCR |
+| 5 | "balanced precision" (Tucker, Luu & Friston 2025) against CRR's two equanimity readings | TENSION |
+| 6 | theta-gamma n:m locking, Resonant Oscillatory Coherence (Tucker & Luu 2026) | DESCR |
+| 7 | avalanches at E-I balance as a critical branching process (Poil 2012) | FAILS |
+| 8 | stabilised supralinear network (Ahmadian-Rubin-Miller 2013) | OPEN |
+| 9 | homeostatic scaling | DESCR |
+| 10 | cortical travelling wave (Kuramoto ring, twisted state) | DESCR |
+| 11 | population Fisher information under differential correlations | DESCR |
+| all (11) | 0 SHARP / 0 CONSIST / 5 DESCR / 1 FAILS / 1 TENSION / 4 OPEN | |
+
+**Answer to the question asked: no.** Clauses that reach a known E-I result: 0 of 11. Every
+result the domain owns is reproduced by the domain's own mathematics and none by a CRR clause:
+the paradoxical decrease of inhibition under extra inhibitory drive (I from 2.1111 to 2.0000
+in the ISN, an increase in the non-ISN) is linear algebra of the weight matrix; the onset of
+the E-I rhythm is a Hopf bifurcation (amplitude² linear in w_EE with onset w_c = 14.36 on the
+1972 parameter set) and its frequency is set by τ_I *together with* the recurrent gains
+(f(τ_I = 1)/f(τ_I = 2) = 2.93, not the 2.00 of a pure 1/τ_I law); balance is a √K cancellation
+(median ISI CV 0.83, net input 6.3 % of the excitatory input against the 15.8 % scale of 1/√K);
+n:m locking fixes the count of gamma cycles per theta cycle by definition (exactly 5 with the
+coupling, 5 or 6 without). On each, CRR names the cycle as an occasion and is silent on the
+number the domain wants.
+
+**Tucker and Luu.** Their abstracts state three things the battery can address. (i) "Balanced
+feedforward (excitatory) and feedback (inhibitory) precision" as optimal updating: on one
+Gaussian update equal precision is Bayes-optimal only at precision ratio 1 and inflates the
+squared error 3.025× at ratios 0.1 and 10, and CRR's two readings of "equanimity" give
+*different* gains on the same update (0.5000 from equal precision, 0.6180 from Fisher speed 1),
+so the framework cannot say which balance it would predict: TENSION, internal, the same one
+the main battery's row 16 records. (ii) Resonant Oscillatory Coherence, theta-gamma n:m
+phase-phase coupling persisting "long enough" for NMDA facilitation: under locking a threshold
+in gamma cycles and a threshold in clock time are the same statement, so CRR's natural time
+adds nothing, and the abstract gives no duration or ratio to test against: DESCR. (iii)
+Criticality at E-I balance: the standard model of neuronal avalanches (a branching process at
+σ = 1) has a size-distribution slope of −1.57 at balance and −2.13 away from it, and the Fisher
+information about the branching ratio is 1/σ, finite and smooth through the critical point.
+The older text's "criticality is Fisher divergence" clause FAILS on it (the third such
+counterexample across the batteries); v3.1 makes no criticality claim.
+
+**What the E-I rows add to the H-L5 class map.** A noisy Wilson-Cowan rhythm reads arc-regular
+at every registered noise level, but two of the four margins are below 0.01 and the noise-free
+oscillator already has non-zero CVs because the half-turn cut alternates on an asymmetric
+waveform (the A3 gate's S-C/S-E finding); a balanced LIF neuron reads arc-regular for the reason
+the biological battery gave (the threshold fixes the chord). Neither is a result; both say what a
+real-data row would have to gate against.
+
+**Decisions taken while building it** (AGENT_LOG 16–17): the first run of four rows printed
+numbers that contradicted their text (a fixed point where an oscillator was claimed, an
+unlocked pair labelled locked, a mis-scaled balance metric, an anti-phase ring labelled a wave).
+The models were corrected, not the wording, and every class or regime label in the output is
+now computed from the number it describes.
+
 ## TENSION and the minimal rewording
 
 One TENSION (row 16). Minimal resolution: give the two laws different names. Keep "equanimity"

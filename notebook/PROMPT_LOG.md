@@ -573,3 +573,9 @@ Context: direction-setting. Answered with a programme (docs/ROADMAP_2026-Q4.md) 
 > Great. We need to run more checks for retrodictive predictions on a range of existing biological systems now, please. Thank you
 
 Context: a biological retrodiction battery (theory/retrodictions/bio_retrodictions.py): model systems with known results across neural, cardiac, epidemiological, population/evolutionary, molecular/cellular and behavioural classes, graded under the issue-#21 rules with BORROWED and FLOW fields, and, for every system with its own events, the H-L5 class (clock-regular vs arc-regular) computed on the model so the battery becomes the map the roadmap asks for. Model systems only: no dataset is opened (R2). Output pinned; CI reproduces it.
+
+## 40 — received 2026-09-17T01:49Z, logged 2026-09-17T01:49Z
+
+> Good work. Are we able to run a thorough check on E-I networks? Specifically, whether CRR adds anything to what is already known. This will require checking the latest papers by Tucker and Luu, and others. Thank you
+
+Context: an excitatory–inhibitory network retrodiction battery (model systems: Wilson–Cowan, balanced LIF, branching-process avalanches, inhibition-stabilised and supralinear regimes) graded under the issue-#21 rules for whether any CRR clause reaches a known E-I result; literature checked on the day per R10 (Tucker & Luu and the standard E-I references), with fetch status and versions recorded in docs/citations/. No dataset opened.
