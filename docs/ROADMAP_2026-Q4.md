@@ -55,8 +55,9 @@ driven-system, 9 cognitive-collective, 8 wild-system and 20 twenty-systems rows,
 information theory, an 8-row battery against loop quantum gravity and an 11-row SYNTHESIS battery
 (does CRR add anything to a domain's own mathematics: 0 ADDS on nine real domains, 1 PROPOSES,
 `docs/notes/2026-09-17_synthesis_class.md`), now being applied to every CONSIST/DESCR row in batches of five
-(`theory/retrodictions/synthesis_batches/`, 127 rows; after 90 rows: 2 ADDS candidates, 16 INTERNAL, 12 WRONG, the rest redundant; the SHARP review's
-dynamical-CONSIST list is empty). Adding rows has value only where a class is thin or a claim is untested:
+(`theory/retrodictions/synthesis_batches/`, 127 rows, complete: 2 ADDS candidates / 0 PROPOSES / 34 REDUNDANT-IG / 50 REDUNDANT-DOMAIN / 17 WRONG /
+21 INTERNAL / 3 UNSTATED; the SHARP review's dynamical-CONSIST list is empty; the 21 INTERNAL rows are the
+v3.2 decision list; 92 elegance entries). Adding rows has value only where a class is thin or a claim is untested:
 
 - **Point processes with events the system owns** (neuronal spike trains, stick-slip, glitches,
   epidemics): the one class where A3/D5 and H-L5 have content. Each new row should compute the
