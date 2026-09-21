@@ -1,0 +1,31 @@
+The cut on a machine: five facts (ontology/06_cut_as_content.md). Deterministic; every number the folder quotes about grids, floats, deltas, resets and non-local phase is printed here.
+
+[1] A point on a grid is a cell: the measure of one sample is 1/n of the record, never zero
+     n =    100 samples: measure of one sample = 1.00e-02 of the record; a cut placed at a sample owns that share
+     n =   1000 samples: measure of one sample = 1.00e-03 of the record; a cut placed at a sample owns that share
+     n = 100000 samples: measure of one sample = 1.00e-05 of the record; a cut placed at a sample owns that share
+
+[2] A Dedekind cut has no member of its own, yet it is the number; on a machine the cut has a width
+     rationals with denominator <=   10: nearest below sqrt 2 = 7/5 = 1.400000, nearest above = 10/7 = 1.428571, gap 2.86e-02; no rational squares to 2 (the cut is empty of rationals)
+     rationals with denominator <=  100: nearest below sqrt 2 = 140/99 = 1.414141, nearest above = 99/70 = 1.414286, gap 1.44e-04; no rational squares to 2 (the cut is empty of rationals)
+     rationals with denominator <= 1000: nearest below sqrt 2 = 1393/985 = 1.414213, nearest above = 577/408 = 1.414216, gap 2.49e-06; no rational squares to 2 (the cut is empty of rationals)
+     float64: spacing (ulp) at 1.0 = 2.220e-16, at sqrt 2 = 2.220e-16, at 1e6 = 1.164e-10: the finest cut a float can make has this width, and sqrt 2 in float64 is 1.4142135623730951 exactly, a rational
+
+[3] A delta has zero support and unit mass: on a grid it is one cell of height 1/dx, and it still integrates to 1
+     n =    10: cell width 0.2000, delta height 5.0, integral (rectangle rule) = 1.000000, support = one cell of width 0.2000
+     n =   100: cell width 0.0200, delta height 50.0, integral (rectangle rule) = 1.000000, support = one cell of width 0.0200
+     n =  1000: cell width 0.0020, delta height 500.0, integral (rectangle rule) = 1.000000, support = one cell of width 0.0020
+
+[4] A reset located at the cut is a finite displacement with no duration: counted as arc it is content, and a constant content lowers CV(arc) by arithmetic
+     2000 occasions, rise ~ N(1, 0.2), reset jump 1 at every cut: CV(rise) = 0.2012; CV(rise + jump) = 0.1003; ratio 0.4986 (closed form 1/(1 + jump/mean rise) = 0.4986)
+     with a jump that varies like the rise (independent, same CV): CV(rise + jump) = 0.1404 (a constant at the cut regularises; a variable one does not)
+
+[5] The analytic-signal phase is a functional of the whole record: what the future does changes the phase before it, most at the nearest samples and less with distance (the Hilbert kernel 1/(pi t) has no compact support); a section computed from the settled samples alone is unchanged
+     the future altered from sample 1210 onward (inside a cycle):
+        future removed (record truncated at b, the causal reading): phase change (half-turns) at 1, 5, 20, 40, 100, 500 samples before: 1: 0.1600, 5: 0.0038, 20: 0.0210, 40: 0.0132, 100: 0.0058, 500: 0.0004; last cut before b: sample 1200 -> 1200 (+0); section crossings before b identical
+        future scaled by 3 (same phase): phase change (half-turns) at 1, 5, 20, 40, 100, 500 samples before: 1: 0.2973, 5: 0.0699, 20: 0.0143, 40: 0.0040, 100: 0.0005, 500: 0.0010; last cut before b: sample 1200 -> 1200 (+0); section crossings before b identical
+        future shifted by a quarter turn (same amplitude): phase change (half-turns) at 1, 5, 20, 40, 100, 500 samples before: 1: 0.3152, 5: 0.1309, 20: 0.0356, 40: 0.0175, 100: 0.0066, 500: 0.0015; last cut before b: sample 1200 -> 1200 (+0); section crossings before b identical
+     the future altered from sample 1200 onward (at a cycle boundary, where the periodic transform sees no edge):
+        future removed (record truncated at b, the causal reading): phase change (half-turns) at 1, 5, 20, 40, 100, 500 samples before: 1: 0.0000, 5: 0.0000, 20: 0.0000, 40: 0.0000, 100: 0.0000, 500: 0.0000; last cut before b: sample 1180 -> 1180 (+0); section crossings before b identical
+        future scaled by 3 (same phase): phase change (half-turns) at 1, 5, 20, 40, 100, 500 samples before: 1: 0.0211, 5: 0.0742, 20: 0.0000, 40: 0.0000, 100: 0.0000, 500: 0.0000; last cut before b: sample 1180 -> 1180 (+0); section crossings before b identical
+        future shifted by a quarter turn (same amplitude): phase change (half-turns) at 1, 5, 20, 40, 100, 500 samples before: 1: 0.0169, 5: 0.0026, 20: 0.0000, 40: 0.0000, 100: 0.0000, 500: 0.0000; last cut before b: sample 1180 -> 1199 (+19); section crossings before b identical
