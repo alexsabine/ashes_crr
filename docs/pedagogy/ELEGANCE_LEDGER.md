@@ -276,6 +276,29 @@ of the world, only that it can be carried in plain words.
 - elegance: A beat that copies only the beat before it can be pushed into big-small-big-small forever; a beat that takes the average of a few settled beats smooths the see-saw out. The rule is one sentence: remember a little, and alternation needs a steeper push.
 - for a fifth grader: Imagine each heartbeat deciding how long to last by looking only at the one before it: a small wobble can bounce back and forth, long-short-long-short, without stopping. If each beat instead looks at a few earlier beats and takes their average, the wobble gets evened out, and it takes a much harder push to make the heart see-saw.
 
+## theory/retrodictions/synthesis_batches/batch_13.txt
+
+### [1] Bacterial cell-size control as one sampled lineage (the source's draws: Delta = 1, 8 % division noise, 25 % growth-rate spread, 400 cycles at 200 samples per unit time, the first 50 dropped): exponential growth from birth to division, the division as the system's own event, the halving as a reset jump at it; the adder (divide at v_b + Delta) against the timer (divide after a fixed time)
+
+- source row: theory/retrodictions/bio_retrodictions.txt [13] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: Grow, add a fixed amount, split. A cell that follows that rule is perfectly steady if you count what it added and unsteady if you count the minutes, because fast growers finish sooner. The steadiness sits in the rule, and the arc is just the amount added, with no knob to turn.
+- for a fifth grader: A bacterium grows and then splits in two. It does not split after a fixed number of minutes; it splits when it has grown by a fixed amount, the same amount every time. So if you measure a cell's life by how much it grew, every life is the same length; if you measure it by the clock, the fast-growing cells have short lives and the slow ones long lives. The regular thing is the amount added, and that is the rule the cell itself follows.
+
+### [2] Single ion channel, two-state Markov gating (the source's channel: opening rate 2, closing rate 1, 4000 transitions, seed 11), with A6 regeneration on the open-dwell carrier: the scale the next open dwell is drawn with is the P3 age-weighted Frechet mean of the settled open dwells (q = 0.3)
+
+- source row: theory/retrodictions/bio_retrodictions.txt [14] (DESCR)
+- outcome: WRONG
+- elegance: A channel is a switch that forgets: how long it stays open next has nothing to do with how long it stayed open before. That is the one thing CRR's regeneration rule cannot say, and a switch is the cleanest place to see it fail.
+- for a fifth grader: Imagine a door that opens and shuts on its own at random. If you time how long it stays open each time, the times are all over the place, and the next opening does not remember the last one at all. CRR has a rule that says the next thing a system does is built from what it settled before. The door says no: it starts fresh every time. So here the rule is wrong, and that is worth knowing.
+
+### [4] Balanced E-I network of leaky integrate-and-fire neurons (the source's network: N = 400, K = 40, J = 1/sqrt K = 0.158, instantaneous kicks, dt = 0.1 ms, seed 4), run for 6 s (the source ran 3 s); H-L5 on the first 5 E cells with the membrane potential as the carrier (identity metric), spikes as own events, the first 3 dropped; mean rates E 18.2 Hz, I 16.0 Hz
+
+- source row: theory/retrodictions/ei_networks.txt [4] (DESCR)
+- outcome: WRONG
+- elegance: Between two spikes a neuron's voltage is shoved up and down thousands of times by the crowd around it. Add up all that shoving and you mostly get how long the neuron waited, plus the crowd's noise. So counting the travel is a noisier way of counting the wait, and the clock wins.
+- for a fifth grader: A nerve cell in a busy brain gets pushed up and down all the time by its neighbours, like a boat in choppy water. Between one signal and the next it bobs thousands of times. If you add up all the bobbing, you mostly learn how long it waited, but with extra wobble from the choppiness. So the plain stopwatch is the steadier measure here, and CRR's idea that the travelled distance is steadier does not work for this cell.
+
 ## theory/retrodictions/synthesis_batches/batch_14.txt
 
 ### [1] Homeostatic synaptic scaling (the source's loop: rate r = 20 g, gain g relaxing as dg/dt = (set point - r)/50, an E/I perturbation that has raised the rate to 6.00 Hz) with the set point read four ways: the domain's constant 5 Hz; A6's regeneration, the Fisher-Rao Frechet mean of the settled rates on the Poisson-rate carrier (mean of sqrt r, squared) under P3 age weights q = 0.9; its Euclidean replacement (the arithmetic mean); and the BCM degree-2 sliding threshold; occasions of one time unit
@@ -440,4 +463,4 @@ of the world, only that it can be carried in plain words.
 - elegance: Two shopkeepers remember the same distance into the past on average. One remembers the last five weeks equally; the other remembers mostly last week and a fading bit of every week before. The second one jumps more with every new week. The teaching is that the shape of a memory, not only its length, sets how much you overreact.
 - for a fifth grader: Imagine two shopkeepers deciding how much to order. One looks at the last five weeks and treats them all the same. The other pays most attention to last week and only a little to the weeks before, even though on average both look back just as far. The second shopkeeper's orders jump around more, because every new week counts for more in their memory.
 
-Entries: 57.
+Entries: 60.
