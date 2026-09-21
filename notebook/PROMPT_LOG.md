@@ -687,3 +687,7 @@ Continue working through this set using a group of sub-agents to run through eac
 ## 62. 2026-09-21T22:58:11Z
 
 Great work! In the scratchpad only. We have shown the crr equations, which have metaphysical commitments is consistent, descriptive or ‘redundant’ in how many different domains. Recount the breadth of domains and restate the metaphysical commitments and the metaphysical/ontological/epistemological implications of crr being found in so many different domains
+
+## 63. 2026-09-21T23:05:36Z
+
+Okay, still on scratchpad only. What about the continuous learning tests? Omega=1 principle?
