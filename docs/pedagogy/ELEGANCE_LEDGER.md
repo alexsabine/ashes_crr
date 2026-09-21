@@ -463,4 +463,244 @@ of the world, only that it can be carried in plain words.
 - elegance: Two shopkeepers remember the same distance into the past on average. One remembers the last five weeks equally; the other remembers mostly last week and a fading bit of every week before. The second one jumps more with every new week. The teaching is that the shape of a memory, not only its length, sets how much you overreact.
 - for a fifth grader: Imagine two shopkeepers deciding how much to order. One looks at the last five weeks and treats them all the same. The other pays most attention to last week and only a little to the weeks before, even though on average both look back just as far. The second shopkeeper's orders jump around more, because every new week counts for more in their memory.
 
-Entries: 60.
+## theory/retrodictions/synthesis_batches/batch_19.txt
+
+### [2] TD(lambda) on the source's 19-state random walk (gamma = 1, start at the centre, +1 / -1 at the ends), lambda = 1, accumulating against replacing eligibility traces, scored offline (increments applied at the end of the episode) beside the source's online estimator, 50 runs of 10 episodes on a common set of episodes
+
+- source row: theory/retrodictions/twenty_systems.txt [13] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Count each place once per trip, however many times you pass through it. One rule with no knob, and it is the difference between a memory that stays bounded and one that runs away.
+- for a fifth grader: Imagine walking back and forth along a corridor of doors and keeping a tally of which doors you passed, to decide which ones led you to the prize at the end. If you add a mark every time you pass a door, the doors you dithered in front of get huge tallies and your guesses swing wildly. If you just mark each door once per walk, every walk counts the same and the guesses settle down.
+
+### [3] The source's two-mode linear glass model (delta = a1 + a2, da_i/dt = -(a_i - w_i delta_eq(T))/tau_i(T), Arrhenius tau_i with E = 8) under the Kovacs protocol, Euler at dt = 0.01, against the same protocol on the kernel A6 with P3 gives: one exponential (one history constraint) with tau0 the w-weighted mean of the two tau0
+
+- source row: theory/retrodictions/twenty_systems.txt [14] (DESCR)
+- outcome: WRONG
+- elegance: A memory that fades at one speed cannot tell two stories at once. The glass looks settled, but a fast part has overshot and a slow part is still catching up, and only a memory with two speeds can hold that.
+- for a fifth grader: Squeeze a sponge and let it go: it springs back. Now imagine a sponge with a quick part and a slow part. Warm it so the quick part has already sprung back but the slow part is still moving, and the sponge is exactly its normal size for a moment, yet it keeps changing, bulging out and coming back. A sponge with only one speed could never do that.
+
+### [4] Elo ratings (R <- R + K (S - E), E logistic on the 400/ln 10 scale) of a player whose skill is a random walk, the source's fixed-opponent model reproduced and rerun on common random numbers, and a pool model (opponents around the player's skill) at two pool widths and three skill volatilities
+
+- source row: theory/retrodictions/twenty_systems.txt [15] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A game you were sure about teaches almost nothing, so a rating must move further per surprise when the games stop being surprising. The step size is not a number to pick; it is how much one game can tell you.
+- for a fifth grader: If you always play people much weaker than you and win, one more win says almost nothing about how good you are, so your score should hardly move. If you play people about as good as you, every game is real news, and your score can move a lot. The best amount to move after a game is how much that game could actually tell you.
+
+### [5] Cricket chirps under the source's drifting temperature (a clipped random walk, 300 chirps) built as a pulse train: chirp rate by Dolbear's law (T - 4)/10, a chirp of wing strokes at a pulse rate proportional to the chirp rate to the power gamma (gamma = 1: pulses per chirp conserved), each stroke one half-sine, the chirp onset as the cut
+
+- source row: theory/retrodictions/twenty_systems.txt [16] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: Warm the cricket and it sings the same song faster; count the strokes and the song never changes, count the seconds and you have a thermometer. Two ways of counting, one of them the cricket's own.
+- for a fifth grader: A cricket's chirp is a few flicks of its wings, always the same flicks. On a warm night it chirps quickly and on a cool night slowly, but each chirp still has the same flicks in it. So if you count the flicks you learn nothing about the weather, and if you count the chirps in a minute you can tell the temperature. Dolbear worked that out in 1897.
+
+## theory/retrodictions/synthesis_batches/batch_20.txt
+
+### [1] The spacing effect in ACT-R with the Pavlik-Anderson activation-dependent decay (c = 0.277, a = 0.177; the source's model): 24 schedules, n in {2, 4, 8} practices at gaps of 1, 3, 10, 30, 100, 300, 1000, 3000 min, retention = activation one week after the last practice; the activation trajectory m(t) = ln sum_j (t - t_j)^-d_j sampled 2000 points per interval from 1 min after each practice; predictors fitted on the schedules with gaps 1, 10, 100, 1000 min and scored on those with gaps 3, 30, 300, 3000 min (held-out); ln n partialled out of retention and predictor over all 24 schedules before the split
+
+- source row: theory/retrodictions/twenty_systems.txt [17] (DESCR)
+- outcome: WRONG
+- elegance: How well you feel you know something at the end of a session predicts how much you will keep a week later, but backwards; spreading the same practice out makes each session feel harder and the memory last longer. One sentence, no knobs, and it is the endpoint that carries it, not the path.
+- for a fifth grader: If you practise the same thing eight times in a row, it feels really easy by the end, and a week later most of it is gone. If you spread those eight practices over days, each one feels harder, and that is exactly why it sticks. Feeling sure at the end of a session is the worst sign, not the best.
+
+### [2] Cobweb market (demand p = 10 - q, supply q = 1 + d p^e, the source's parameters with d/b in {0.8, 1.5, 2.5}) whose suppliers expect the P3 age-weighted mean of settled prices, p^e_{t+1} = (1 - alpha) p^e_t + alpha p_t (weights alpha (1 - alpha)^k, alpha in {1, 0.5, 0.25}); 60 periods from an initial expected price of 3
+
+- source row: theory/retrodictions/twenty_systems.txt [18] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Farmers who plant on a fading average of past prices instead of last year's price alone turn a runaway hog cycle into a settling one; the memory does the calming, not the market. A rule with one number, how fast the past fades.
+- for a fifth grader: Imagine farmers deciding how many pigs to raise. If they only look at last year's price, they all raise too many when it was high, the price crashes, then they all raise too few, and the swings can grow. If they remember several past years and let the old ones fade, the swings die down instead.
+
+### [3] Layer-by-layer growth on a 64 x 64 solid-on-solid lattice (deposition at flux F per site, adatoms hopping to their lowest neighbour at rate D = 50, dt = 0.002, seed 0) to 8 monolayers under four flux histories, with the kinematic out-of-phase RHEED intensity I = |sum_n p_n (-1)^n|^2 read at every completed monolayer
+
+- source row: theory/retrodictions/twenty_systems.txt [19] (DESCR)
+- outcome: WRONG
+- elegance: The electron beam sees the wall as it is now, not the story of how it was built: slow down and let the bumps fill in, and the flicker brightens again. The count of layers is a clock; the shine is a state.
+- for a fifth grader: When you build a wall one layer of bricks at a time, a light shining on it flickers once for every layer. How bright the flicker is depends on how bumpy the top is right now, not on how many layers you have laid: if you slow down and let the bumps fill in, the flicker gets bright again.
+
+### [5] A3's cut delta(u(t) - u(t_n) - L/2) on a linear chirp u(t) = 2 pi (t + t^2/4) over 6 s (phase velocity rising from 6.283 to 25.133 rad/s), the delta realised as a Gaussian of width 0.005 rad in phase and integrated against the clock at each of its 29 cuts
+
+- source row: theory/retrodictions/emptiness.txt [2] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A finish line has no width, but ask how much of the race each finish line took and the answer is the time between lines, longer when the runner is slow; counted in laps every line is exactly one. One picture for a cut that has no duration and still knows the clock.
+- for a fifth grader: A finish line has no width. But if you ask how much of the race each finish line took, the answer is the time between one line and the next, which is longer when the runner is slow. Counted in laps, every finish line is just one lap.
+
+## theory/retrodictions/synthesis_batches/batch_21.txt
+
+### [1] A stochastic pump: one site between two reservoirs at equal chemical potential, total coupling G = 1, the occupation driven round the closed loop p(t) = 0.5 + 0.25 sin(wt), period 20 (dt = 0.005, RK4, 2 transient and 3 scored cycles), under four coupling protocols that leave p(t) untouched and move only the split g_L/G
+
+- source row: theory/retrodictions/emptiness.txt [3] (DESCR)
+- outcome: WRONG
+- elegance: A scallop that only opens and closes cannot swim: back and forth along one line, however far, carries nothing, and only a loop that goes round something does. What a closed loop carries is the area it encloses, not the distance it travelled.
+- for a fifth grader: Stir your soup round in a circle and the soup goes round with the spoon. Push the spoon back and forth along one line just as far, and the soup ends up where it started. How far the spoon travelled is not what matters; what matters is whether it went round something.
+
+### [2] The instrument's own cut under A7: the antipodal cut on the analytic-signal phase (intrinsic_phase, two-sided Hilbert transform over the whole record) against the same cut located from the record up to t + d, d samples of future, d = 0 the causal reading; the source's sine, the same with the mean known, a period-jittered sine, and the asymmetric S-E waveform; the Poincare section (x = 0, either direction) as CRR.md's named causal alternative
+
+- source row: theory/retrodictions/emptiness.txt [4] (DESCR)
+- outcome: INTERNAL
+- elegance: You only know you have passed the top of a hill a few steps down the other side. The cut at Now can be named only later, by as much later as the shape of the hill demands; a line you can see yourself cross needs no later at all.
+- for a fifth grader: When you walk over a hill in fog you cannot say exactly where the top was until you have gone a little past it and feel the ground going down. CRR's 'cut' is like the top: to place it the way the instrument does you need to see what comes next, so it cannot be named at the moment it happens. But if the cut is a line on the ground you step over, you know it the moment your foot lands.
+
+### [3] A lost allele (an empty category, a vertex of the simplex) regenerated from the settled generations: a Wright-Fisher population of N = 200 in which each individual's parent lives 1 + k generations back with P3 weights q^k (A6 with age weights, bounded strength), q = 0 the memoryless population; the genealogy of a pair of lineages simulated (60000 pairs, seed 0) and derived
+
+- source row: theory/retrodictions/emptiness.txt [5] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A plant that vanishes from a field is not gone while its seeds lie in the soil: each spring's seedlings come from several past years, the nearer years more. Memory that fades by a fixed fraction each year is one number, and the same number says how much more slowly the field forgets.
+- for a fifth grader: Some plants disappear from a field for a year and then come back, because seeds from earlier years are still waiting in the ground, and last year's seeds are more likely to sprout than older ones. So the field remembers its past for a while. CRR has a rule for remembering the past in exactly that way, and the seed scientists already use it.
+
+### [4] Three spike trains as count carriers at 1 ms bins over 100 s (seed 6): a gamma(4) renewal train, a Poisson train and a bursting train; the spike as the cut, the interspike interval as the occasion, the Fisher arc of the binned rate (poisson_transform) at the bin scale and on a causal exponentially smoothed rate at four time constants
+
+- source row: theory/retrodictions/emptiness.txt [6] (DESCR)
+- outcome: UNSTATED
+- elegance: Between two clicks of a Geiger counter there is nothing to add up: all the travel is in the clicks, and every click is the same size. On a train of clicks, distance is only the count.
+- for a fifth grader: A Geiger counter clicks now and then. Between clicks nothing happens that you could measure, and every click is just a click, the same as the last. So if you try to measure how far the counter has 'travelled', all you can do is count the clicks, and that tells you nothing new about what made them.
+
+### [5] Scalar random-walk Kalman filter at steady state (observation variance r = 1, process variance q = v^2, Fisher speed v = sqrt(q/r)), its gain K(v) of P4 from the Riccati recursion and its impulse response, read as A6 regeneration from the settled observations with P3 age weights, across v from 0.01 to 100 (the two zeros of the source row approached from inside)
+
+- source row: theory/retrodictions/emptiness.txt [8] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A filter that trusts its model completely stops listening; one with no model only listens. How far back it listens is one number, and it is the same number as how much it trusts the newest datum.
+- for a fifth grader: Imagine guessing tomorrow's temperature from past days. If you believe the weather never really changes, you average every day you have ever seen and barely notice today. If you believe it changes wildly, you trust only today. In between, how many old days you keep counting and how much you trust today are one choice, one dial, not two.
+
+## theory/retrodictions/synthesis_batches/batch_22.txt
+
+### [1] Recursive least squares with exponential forgetting (forgetting factor lambda = q = 0.9, scalar regressor phi = 1 when excited), the domain in which P3's two ends have names: lambda = 1 is the estimator that falls asleep (gain 1/t) and lambda -> 0 keeps only the newest datum; the domain's zero is a stretch of m = 30 unexcited samples (phi = 0), where the standard estimator winds up (covariance windup)
+
+- source row: theory/retrodictions/emptiness.txt [9] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A memory that fades by the calendar forgets even while nothing happens, and then over-trusts the next thing it sees; a memory that fades by the event keeps its footing through the quiet. One rule, no knobs: age is counted in things that happened.
+- for a fifth grader: Imagine you keep a running guess of how fast your friend runs, trusting recent races most. If you let old races fade just because days pass, then after a long break with no races you have forgotten everything and the next race, good or bad, becomes your whole opinion. If you let races fade only when a new race happens, the break changes nothing.
+
+### [2] Gaussian noise band-limited about f_n = 0.05 cycles/sample (spectral width 0.005; 10 samples per half-turn, inside the instrument's sampling rule) with a sine of frequency f_s = 0.03 added at rho = 0, 0.2, 0.5, 1, 2, 4, 8 resolvable steps (D1: rho = 2a / sigma_noise, the source row's scale); 2^18 samples, seed 0; the domain's named case is Rice's sine wave plus random noise, and the zero is rho = 0
+
+- source row: theory/retrodictions/emptiness.txt [10] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Even silence, counted in half-turns, has a rate: the average pitch of the hiss. A faint signal does not add occasions, it bends that rate toward its own, and how far it bends is set by how many steps above the hiss it stands.
+- for a fifth grader: Radio hiss still wobbles up and down at some average speed. If a quiet whistle is hidden in the hiss, the wobble speed drifts toward the whistle's note, and the louder the whistle, the closer it gets. So counting wobbles on an empty channel does not give zero; it gives the hiss's own speed.
+
+### [3] Three events (two occasions) under the instrument's regularity statistic, read in the spike-train domain where the two-interval statistic has a name: Holt's CV2 = 2 |I_2 - I_1| / (I_2 + I_1) (Holt, Softky, Koch and Douglas 1996), the local measure built to remove slow rate modulation from the global CV; Poisson intervals as the domain's null, 200000 pairs, seed 0
+
+- source row: theory/retrodictions/emptiness.txt [11] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: Two steps can tell you whether they matched each other; they can never tell you whether the walker is steady. The smallest question has a name in the spike-train literature, and it is the local one.
+- for a fifth grader: If you hear only two heartbeats, you can say whether the gap between them was about the same as the one before, and that is all. To say whether a heart is steady you need many beats. Doctors and brain scientists use the two-beat question on purpose, because it ignores slow speeding up and slowing down.
+
+### [4] Kinematic hardening in metal plasticity: the backstress X under the Armstrong-Frederick rule dX = c d(eps_p) - gamma X |d(eps_p)| (c = 20000 MPa, gamma = 200) against Prager's linear rule X = c eps_p, on the source row's two paths in plastic strain: a monotone ramp 0 -> 0.02 (S = 0) and a ramp with one reversal 0 -> 0.03 -> 0.02 (the same endpoint, S = 0.02); RK4 on the arc parameter, 20000 steps per segment; the reversal's named effect is Bauschinger's
+
+- source row: theory/retrodictions/emptiness.txt [13] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Bend a paperclip and it remembers not where it is but how far it has been bent, out and back counted together: a paperclip counts road, not distance. One rule, no knobs, and it is why a bent clip gives way more easily when bent back.
+- for a fifth grader: Bend a paperclip a little one way and it gets stubborn in that direction. Bend it far and then part-way back, so it ends up in the same place as before, and now it is stubborn the other way. The clip does not remember where it is; it remembers how much bending it has been through.
+
+### [5] Logistic regression on linearly separable data (x = +-1 with matching labels, one weight w) under gradient descent (learning rate 0.5, 20000 steps), the named case in which the parameter diverges as ln t (Soudry, Hoffer, Nacson, Gunasekar and Srebro 2018, the implicit bias of gradient descent); D6's path length on a probe of four inputs against the exact Fisher-Rao length of the same predictive path in the probe-averaged metric, with the reverse-oriented and the symmetrised (Jeffreys) steps; convergence orders on a Bernoulli path 0.1 -> 0.6
+
+- source row: theory/retrodictions/shannon.txt [1] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: You can walk forever in the space of weights and get nowhere new in what the model predicts: once it is sure, more sureness is not more distance. Measured where it matters, the road to certainty is short and has an end.
+- for a fifth grader: A model that is already sure of its answer keeps making its numbers bigger and bigger for ever, but its answers stop changing. If you measure how far it has travelled by its answers instead of by its numbers, the trip is short and it ends.
+
+## theory/retrodictions/synthesis_batches/batch_23.txt
+
+### [1] Heat flow X_t = X + sqrt(t) Z from X uniform on [-1, 1] (the source row's model), t on (0.1, 0.25, 0.5, 1.0, 2.0, 4.0); entropy h(t) and location Fisher information J(t) by quadrature, rates by central differences (eps = 1e-3 t); Gaussian control from closed forms
+
+- source row: theory/retrodictions/shannon.txt [2] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Blur a picture and two things shrink together: how many spots you can still tell apart, and how much surprise each spot holds. The surprise per spot only ever goes down, and it stops going down once the blur is a bell curve. A picture with no knobs.
+- for a fifth grader: When you blur a photo, you can tell apart fewer and fewer little spots, and each spot you can still make out holds less of a surprise than it did. That amount only ever goes down, and it stops changing once the blur looks like one smooth hill.
+
+### [3] Bernoulli family, n = 200 draws per record, mutual information I(theta; k) on a 2001-point grid uniform in the Fisher arc (nats); priors: one mass per A1' step in the named reading (Jeffreys), in the estimated reading (1.4826 x the exact MAD of k/n at each theta, record rejected where the MAD is 0), uniform in theta, and the Blahut-Arimoto maximiser (3000 iterations)
+
+- source row: theory/retrodictions/shannon.txt [4] (CONSIST)
+- outcome: INTERNAL
+- elegance: Spread your guesses evenly over the notches you can tell apart, not evenly over the ruler: where the notches crowd together, put more guesses there. A rule with no knobs, and it is the field's own.
+- for a fifth grader: Suppose a ruler has notches close together at its ends and far apart in the middle. If you want to guess fairly where something is, put one guess on each notch, not one guess per inch; that way you learn the most from what you see.
+
+### [4] Bernoulli family under the Jeffreys prior at n in (100, 1000, 10000, 100000): exact mutual information by quadrature against D1's resolution rho = (extent of the family, its one A3 half-turn of Fisher length 3.141593) / (A1' unit at n draws, 1/sqrt n in Fisher length) = pi sqrt n
+
+- source row: theory/retrodictions/shannon.txt [5] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: How much you learn about a dial from looking is the log of how many of its notches you can still tell apart, less one fixed toll that the bell curve charges. One count and one constant.
+- for a fifth grader: Imagine a dial with notches. After you look at some data you can only tell apart so many notches on it. What you learned is how many notches that is, counted in doublings, and a little less than that because your guess is a soft hill, not a sharp point.
+
+### [5] Memoryless Gaussian source (sd = 1), Shannon's R(D) = 1/2 log2(sd^2 / D); the A1' unit taken from the source itself (occasion = one sample, statistic = the sample; median detrender, and the registered Savitzky-Golay window 9 beside it); and a trace with a rotor (sine A = 5 in unit noise, 100 samples per half-turn, 40 half-turns, seed 0) for D1's rho
+
+- source row: theory/retrodictions/shannon.txt [6] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: To describe something to within the size of its own wobble costs nothing: say where it usually is and you are done. The counting starts only when you want to know it finer than it wobbles.
+- for a fifth grader: If your friend asks where the dog is and the dog always wanders around the same yard, saying 'in the yard' is free and good enough. You only have to start counting and explaining if you want to say where in the yard, more exactly than the dog wanders.
+
+## theory/retrodictions/synthesis_batches/batch_24.txt
+
+### [1] A three-step Markov chain X -> Y -> Z on 4 states (the source's chain: Dirichlet(0.7) transition rows, Dirichlet(1) start, seed 1), forecasting Z from the settled history against the present, and the same chain seen through a symmetric observation channel with error eps
+
+- source row: theory/retrodictions/shannon.txt [7] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: What a message loses on the way it cannot get back: each step can only pass on what it received. The picture is a line of people whispering, and it needs no formula.
+- for a fifth grader: Imagine whispering a secret down a line of friends. Each friend can only pass on what they heard, never more. If the third friend garbled it, the fourth cannot fix it by thinking harder, and asking the second friend again only helps if the fourth heard the third one badly.
+
+### [2] A Gaussian relaxing under Ornstein-Uhlenbeck dynamics dx = -x dt + sqrt(2) dW (stationary state N(0, 1)): mean m0 e^-t, variance 1 + (s0^2 - 1) e^-2t, on a 24-start grid m0 in {0, 0.5, 1, 2, 3} x s0 in {0.4, 0.7, 1, 1.5, 2.5}; the source's path (mean 2 -> 0 and sd 2.5 -> 1 at one rate) reproduced first
+
+- source row: theory/retrodictions/shannon.txt [9] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: The disorder a relaxing system creates for good depends only on where it started and where it settles, not on the road between. A rule a child can hold: the price is set by the two ends, and it is the domain's H-theorem, not CRR's.
+- for a fifth grader: A cup of cocoa left on the table settles to room temperature. The mess it makes in the room's warmth, the part that can never be tidied back up, is fixed by how the cup started and how the room is, not by the road it took to get there. And two cups that look equally far from settled, one too hot and one too cold, can leave different amounts of mess.
+
+### [4] Renewal point processes with gamma intervals of mean 1 (shape a = 3, CV 0.577, and a = 0.5, CV 1.414), each rescaled by the integrated hazard of a gamma model of shape a' (a' = a is the process's own compensator, a' = 1 the clock), the rescaled mean normalised to 1; entropies by quadrature; the source's Poisson rates reproduced
+
+- source row: theory/retrodictions/shannon.txt [11] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Among all the ways of stretching a clock that keep the average gap the same, the system's own clock, the one that counts expected events, is the one that makes each gap as unpredictable as a gap of that size can be. A rule with no knobs, and it is Shannon's exponential.
+- for a fifth grader: Imagine heartbeats that sometimes bunch up and sometimes spread out. Measured with a stopwatch, some gaps look predictable. If instead you measure each gap by how many beats you expected in it, every gap becomes a pure surprise, the biggest surprise a gap of that average size can be. The heart's own clock is the one that keeps the most surprise.
+
+### [5] Five settled occasions with surpluses S = (0.2, 0.9, 1.5, 0.4, 1.1) (the source's) and a regenerating system that recalls them by N uniform random draws conditioned on the mean surplus of the draws equalling P2's target at beta = 1.3; N = 20, 100, 500, 2000, exact conditional frequencies by the tilted generating polynomial (surpluses on a lattice of 0.1)
+
+- source row: theory/retrodictions/shannon.txt [12] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Pick old days to remember by rolling a die, but keep rolling until the days you picked carry the right average amount of extra: the days you end up favouring follow one fixed exponential curve, and no other shape can come out. The rule has no knobs but the average.
+- for a fifth grader: Suppose you choose which old days to remember by rolling a die, but you have to keep going until the days you picked have, on average, a certain amount of extra in them. Which days will you have picked most? The ones with the most extra, and by an amount that grows in the same steady way from one day to the next. That is the only pattern that can come out.
+
+## theory/retrodictions/synthesis_batches/batch_25.txt
+
+### [1] A quantum horizon of N punctures with S = A/4 under the source row's three countings (j = 1/2 two-state; all-j two-state; all-j (2j+1)-state), the puncture as the occasion and its area as the occasion statistic, A1' applied as written (estimated, never named); synthesis.py row 11 named the smallest quantum as the unit and is not repeated
+
+- source row: theory/retrodictions/loop_gravity.txt [1] (DESCR)
+- outcome: INTERNAL
+- elegance: You cannot measure the size of a brick by how much the bricks differ if they are all the same brick. A rule about measuring with no knobs, and it says exactly where CRR's own unit stops working: on anything built from identical pieces.
+- for a fifth grader: One way to learn how big a brick is, without a ruler, is to look at how much the bricks in a wall differ from each other. But if every brick is exactly the same, there is no difference to look at, and that way of measuring gives up; you just have to pick up one brick. In this theory a black hole's surface is a wall of mostly identical bricks, so the difference-measuring rule gives up on it.
+
+### [3] LQC with a massless scalar, effective dynamics, flat: a(t) = (1 + 24 pi rho_c t^2)^(1/6), v = a^3 (v_b = 1), rho_c = 0.41, p_phi = v_b sqrt(2 rho_c) = 0.9055, phi(t) = asinh(sqrt(24 pi rho_c) t) / sqrt(12 pi), so v = cosh(sqrt(12 pi) phi) (the source row's exact solution; max |v - cosh(k phi)| = 1.3e-13), t in [-20, 20] on 40001 points
+
+- source row: theory/retrodictions/loop_gravity.txt [4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A clock that counts change stands still at the moment the universe turns around, because at that moment nothing is changing. One sentence, no knobs, and it explains why the physicists chose a different clock.
+- for a fifth grader: Imagine measuring time not with a ticking clock but by how much the world changes: lots of change, lots of time. In this theory the universe shrinks, stops for an instant, and grows again. At that instant the size is not changing at all, so the change-clock freezes. The physicists use a field that keeps sliding even then, so their clock never stops; in fact it runs fastest right at the turn.
+
+### [4] Closed radiation universe with the effective LQC bounce, a'^2 = (8 pi/3)(E/a^2 - E^2/(rho_c a^6)) - 1, E = rho_r a^4 grown by Tolman's irreversibility as E' = lambda E |H| (entropy S ~ E^(3/4)), rho_c = 0.41, E_0 = 400, lambda = 0.02, fixed-step RK4 dt = 0.02 from the first bounce (a_b = 5.6020, against (E_0/rho_c)^(1/4) = 5.5888), 24 bounces integrated, bounces 3-23 scored (20 cycles); the bounce as the system's own event and cut; carrier ln a with the identity metric (the source's)
+
+- source row: theory/retrodictions/loop_gravity.txt [5] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: Measure a universe's cycle in doublings and every cycle is nearly the same; measure it in years and each one is longer than the last. But the doublings are just the height of the bounce, so the steadiness belongs to the size, not to the clock.
+- for a fifth grader: Suppose the universe grows, shrinks, bounces and grows again, and each time it grows a little bigger than before. Counted in years, each round trip takes longer. Counted in 'how many times did it double', each round trip is almost the same. That sounds like a magic clock, but it only says the bounce grows slowly, a little bigger each time.
+
+### [5] Spin-j coherent state |j, j> rotated about a perpendicular axis, |theta> = e^(-i theta J_y) |j, j>, on the projective carrier with the quantum Fisher (Fubini-Study) metric normalised to orthogonality = pi (batch 05 row 3's convention), j in {1/2, 1, 2, 5, 20}, matrices built and exponentiated; the source row's carrier (the building block of coherent intertwiners)
+
+- source row: theory/retrodictions/loop_gravity.txt [6] (DESCR)
+- outcome: INTERNAL
+- elegance: A big spinning top turned by a small angle already looks nothing like it did, but it takes a half-turn to point the opposite way; only the smallest spin has 'looks different' and 'points opposite' at the same angle. A picture of why 'halfway' needs a rule before it can be a rule.
+- for a fifth grader: Turn a small compass needle and it takes a full half-turn before it points the opposite way, and only then does it look truly different. A big heavy top is different: turn it just a little and it already looks like a new top, but it still needs the whole half-turn to point the other way. So 'when has it changed enough to count?' has two answers for the big top, and the theory has not yet said which one it means.
+
+## theory/retrodictions/synthesis_batches/batch_26.txt
+
+### [1] The polymer harmonic oscillator H = sin^2(mu p)/(2 mu^2) + x^2/2 (the source's convention: q = 1/(4 mu^4), level n from the Mathieu characteristic value a_n, the b_(n+1) partner the other parity): the momentum is periodic (the Hamiltonian has period pi/mu in p), the position a lattice of step mu; levels n = 0..5 at mu = 0.2 and 0.3 (the source's grid) and at the mu values that hold the resolution fixed
+
+- source row: theory/retrodictions/loop_gravity.txt [7] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A grid only shows when it is coarser than the blur of what sits on it, and the oscillator's blur sharpens as it climbs, so the grid shows in the high levels first; one number, grid step over blur, says how much.
+- for a fifth grader: A picture made of tiny tiles looks smooth from far away; you only see the tiles when you draw something about as small as a tile. A swinging weight draws with a sharper and sharper pencil the higher it swings, so up high the tiles start to show through.
+
+### [2] The LQG area spectrum A_j = 8 pi gamma sqrt(j(j+1)) l_P^2, gamma = 0.2375 (the source's all-j two-state counting), j = 1/2 .. 30; the instrument's unit_sigma on its first 30 consecutive gaps as the source ran it (window 9, order 2, MAD, no quantisation step named), and as A1' is written (the quantisation step named, min_sigma)
+
+- source row: theory/retrodictions/loop_gravity.txt [8] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A ruler cannot report a tick finer than the finest tick that exists: when the wobble you measure is far below the smallest step the world has, throw the wobble away and count steps. A rule with no knobs.
+- for a fifth grader: If a floor is made of tiles, the tile is the smallest step there is: you cannot stand halfway inside one. If your ruler says the floor wobbles by a thousandth of a tile, it is measuring its own scratches, not the floor, so you throw that away and count tiles instead.
+
+Entries: 92.

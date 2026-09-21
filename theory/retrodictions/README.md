@@ -923,6 +923,86 @@ AGENT_LOG 45); the bio battery's circadian row typed its zero CV(arc) (batch 13 
 construction, AGENT_LOG 46); the cognitive battery's GARCH clustering belongs to the outside unit (batch
 16 row 3). **Decisions** are AGENT_LOG 41–46. **Elegance**: 60 entries after wave 3.
 
+**Wave 4, batches 19–26 (queue rows 91–127: twenty rows 12–19, emptiness rows 1–13, Shannon rows 1–12,
+loop-gravity rows 1–8; batch 26 has two rows).** Tally over 37 rows: 0 ADDS / 0 PROPOSES / 6 REDUNDANT-IG /
+18 REDUNDANT-DOMAIN / 5 WRONG / 5 INTERNAL / 3 UNSTATED.
+
+| batch | rows | tally (ADDS / PROPOSES / R-IG / R-DOM / WRONG / INTERNAL / UNSTATED) |
+|---|---|---|
+| 19 | twenty 12, 13, 14, 15, 16 | 0 / 0 / 1 / 2 / 2 / 0 / 0 |
+| 20 | twenty 17, 18, 19; emptiness 1, 2 | 0 / 0 / 0 / 2 / 2 / 0 / 1 |
+| 21 | emptiness 3, 4, 5, 6, 8 | 0 / 0 / 0 / 2 / 1 / 1 / 1 |
+| 22 | emptiness 9, 10, 11, 13; Shannon 1 | 0 / 0 / 2 / 3 / 0 / 0 / 0 |
+| 23 | Shannon 2, 3, 4, 5, 6 | 0 / 0 / 0 / 3 / 0 / 2 / 0 |
+| 24 | Shannon 7, 9, 10, 11, 12 | 0 / 0 / 2 / 2 / 0 / 0 / 1 |
+| 25 | loop gravity 1, 2, 4, 5, 6 | 0 / 0 / 1 / 2 / 0 / 2 / 0 |
+| 26 | loop gravity 7, 8 | 0 / 0 / 0 / 2 / 0 / 0 / 0 |
+
+**The counter-case to the two ADDS candidates.** Batch 19 row 3: a glass with a single P3 kernel shows no
+Kovacs hump (at most 4.3e-18 against 0.003113 for the two-mode model); the one-constraint exponential
+kernel that the alternans and Bass rows read as candidates is exactly what cannot produce a memory
+effect the domain has. **Two more WRONG on the path-versus-endpoint hypothesis:** the spacing effect,
+where the endpoint wins once the practice count is controlled (held-out R² 0.9312 against 0.8909) and
+predicts retention backwards, the ARC-T1b lesson repeated (batch 20 row 1); and RHEED damping, a state
+functional whose envelope differs 36-fold across flux histories at the same coverage (batch 20 row 3).
+**Two more WRONG on the cut and the loop:** the fibre bundle collapses at Daniels' extremum, not the
+antipode, on 3 of 3 Weibull shapes (batch 19 row 1), and what a closed loop transports is the enclosed
+parameter area, not a function of its arc (four protocols with the identical state path, arc 2.0944,
+pump +0.31416 to −0.31416; batch 21 row 1). **Three honest UNSTATED rows:** the empty occasion, the
+mostly-zero count carrier and the binary symmetric channel, where every proper ingredient returned zero,
+an exception or a definition.
+
+**What wave 4 added to the INTERNAL list.** The causal cut (batch 21 row 2): located from the settled
+past alone, as A7 requires, the analytic-signal cut sits 0.146 half-turns from the registered one and
+needs about a hundred samples of future to settle, while the Poincaré section CRR.md names as the
+alternative places the cuts within one sample with no future; this bears on the intrinsic-phase decision
+of batch 07. A1′ named against estimated by two new mechanisms (batch 23 rows 2 and 3: the operational
+unit is a quantile width no entropy bound controls, disagreeing on 4 of 5 densities, and on a count
+carrier it rejects the family's edges). The horizon's entropy per step under A1′'s event and residual
+readings (batch 25 row 1), and the three A3 readings on spin-j coherent states, which agree only at
+j = ½ and diverge as √(2j) (batch 25 row 5).
+
+**Corrections to earlier batteries recorded in wave 4** (pinned outputs not edited): the twenty-systems
+Elo row compared each K on a different skill realisation (batch 19 row 4, AGENT_LOG 51); the Shannon
+battery's Clarke–Barron row folded a constant into its unit, which was 4.1327 times the A1′ unit
+(batch 23 row 4, AGENT_LOG 52); the loop-gravity row 2 asymptote names the slope where the printed gaps
+converge to 4πγ per half-step (batch 26 row 2, AGENT_LOG 48). **Decisions** are AGENT_LOG 47–54.
+**Elegance**: 92 entries after wave 4.
+
+### The whole queue: 127 rows, what the SYNTHESIS class found
+
+Final tally: **2 ADDS (candidates) / 0 PROPOSES / 34 REDUNDANT-IG / 50 REDUNDANT-DOMAIN / 17 WRONG /
+21 INTERNAL / 3 UNSTATED.** With the eleven rows of `synthesis.py` (0 ADDS on nine real domains,
+1 PROPOSES) the class has been run 138 times.
+
+- **Eighty-four rows are redundant.** Thirty-four are information geometry's (the surplus on a monotone
+  path, the half-orbit of an ellipse, the diffusion carrier, the simplex edge, the loop's total variation,
+  the adder's added volume) and fifty are the domain's own theorem (Cramér–Rao counts, time-rescaling,
+  Salamon–Berry, Nerlove, Muth, the seed-bank scaling, the delayed-field theorem, Adler's mean). Every
+  CONSIST row that looked dynamical is in the first group.
+- **Seventeen rows are wrong,** and they cluster: A6 read as a rule (Bayesian evidence, Tolman cycles,
+  homeostatic set points, channel dwells, Poisson forecasts, P2 seeds); H-CUT's antipode where the domain
+  has an extremum (the ring, the fibre bundle); the constant-Fisher-speed protocol wherever the friction
+  is not Fisher times a scalar (three trap rows); H-L5 as stated on carriers where the amplitude control
+  is the arc; D6/H-T1 wherever the domain's state variable is the endpoint (spacing, RHEED, Paris, the
+  loop).
+- **Twenty-one rows are internal,** and they are the v3.2 decision list: which intrinsic phase A3 cuts on
+  (analytic signal, phase-plane angle, Poincaré section, drive phase; rotor, arc and antipode readings on
+  projective carriers); which unit A1′ names (event or window on a count carrier, named or estimated,
+  sampling or two-state on a diffusion carrier); which Ω = 1 H-EQ means; whether P3 is a finite-history
+  MaxEnt or the infinite-horizon closed form; what a partial reset is; which boundary jumps are arc.
+- **Two rows are candidates,** both the same shape: an exponential memory kernel inside a domain's own
+  map (alternans, Bass), with the Kovacs row as the counter-case showing what such a kernel cannot do.
+  Neither is a finding; each goes to the expert protocol with the domain's memory models as the first
+  question.
+
+**Elegance ledger.** Ninety-two rows carry an elegance note and a fifth-grader line
+(`docs/pedagogy/ELEGANCE_LEDGER.md`). The pictures that recur are the ant on the globe (only the
+equator path reaches the opposite point), the walk to a friend's house (if you never turn back, the
+road you walked is how far you got), the shocks that keep their own clock, and the ruler that cannot
+report a tick finer than the finest tick that exists. Most of them are the domain's pictures, and the
+ledger says so on each.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
