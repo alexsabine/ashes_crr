@@ -866,6 +866,63 @@ h5 has the consistent reading), and his row h2's ρ → ∞ is the unit at the s
 across a window, which is finite with exponent 8/15 (batch 08 row 4). **Decisions** are AGENT_LOG 34–39.
 **Elegance**: 35 entries after wave 2.
 
+**Wave 3, batches 13–18 (queue rows 61–90: bio rows 13–18, E-I rows 4–11, driven rows 2–9, cognitive rows
+2–9, wild rows 2–7, twenty rows 2–11).** Written 2026-09-21 after the first six agents died on 2026-09-18
+(usage credits; AGENT_LOG 40). Tally over 30 rows: 1 ADDS / 0 PROPOSES / 6 REDUNDANT-IG /
+13 REDUNDANT-DOMAIN / 6 WRONG / 4 INTERNAL / 0 UNSTATED. Running total after 90 rows:
+2 / 0 / 28 / 32 / 12 / 16 / 0.
+
+| batch | rows | tally (ADDS / PROPOSES / R-IG / R-DOM / WRONG / INTERNAL / UNSTATED) |
+|---|---|---|
+| 13 | bio 13, 14, 18; E-I 4, 6 | 0 / 0 / 1 / 2 / 2 / 0 / 0 |
+| 14 | E-I 9, 10, 11; driven 2, 3 | 0 / 0 / 0 / 2 / 2 / 1 / 0 |
+| 15 | driven 4, 6, 7, 9; cognitive 2 | 0 / 0 / 1 / 1 / 2 / 1 / 0 |
+| 16 | cognitive 3, 5, 6, 7, 8 | 0 / 0 / 0 / 5 / 0 / 0 / 0 |
+| 17 | cognitive 9; wild 2, 5, 6, 7 | 1 / 0 / 1 / 2 / 0 / 1 / 0 |
+| 18 | twenty 2, 3, 6, 8, 11 | 0 / 0 / 3 / 1 / 0 / 1 / 0 |
+
+**The dynamical-CONSIST list is empty.** The SHARP review named three rows whose arc-regularity looked
+dynamical. Wave 1 read the heteroclinic cycle as the simplex edge length, wave 2 read FitzHugh–Nagumo as
+the loop's total variation, and batch 13 reads the adder: on the volume carrier a cell cycle is one
+monotone traversal, so its arc is its added volume and H-L5's amplitude control is the arc itself
+(CV 0.0749 against 0.0749, CI of the difference [0.0000, 0.0000]). The bare arc-regular class stands
+(CV(clock) 0.3319) and it is the adder principle in CRR's words. Batch 18 reads the geyser, the
+twenty-systems battery's one CONSIST, the same way: the refill arc is the volume the previous eruption
+released (to 1.3e-03), and the class is the refill rate's.
+
+**The second ADDS candidate, with the same caution as the first.** Batch 17 row 1: Bass diffusion with
+the imitation pressure taken as the P3-faded adopter fraction instead of the accumulated count. The
+Bass plot bends below its line and the peak fraction falls from 0.4606 to 0.3981, 0.2651 and 0.0863 at
+κ = 0.1, 0.3, 1, while the existence condition q > p is unchanged. Any exponential-kernel memory bends
+it, the CRR content is the weights' shape and bounded strength, and the domain has non-uniform-influence
+models (named, not fetched); it goes to the expert protocol (AGENT_LOG 42).
+
+**What wave 3 added to the WRONG list.** Six rows, four of them A6 or A3 read as a rule: a homeostatic
+set point regenerated from the settled past is homogeneous of degree 1 in the rate, so the loop has a zero
+eigenvalue and never restores its target (batch 14 row 1, settles at 5.1956 Hz against 5.0000); the
+antipode reading of H-CUT puts a ring's breaking twist at half a turn where the domain's stability
+boundary and the coupling force's extremum put it at a quarter turn (batch 14 row 2); A6-seeded ion
+channel dwells would be correlated (0.6835) where the channel's are not (−0.0215 at SE 0.0224, batch 13
+row 2); the balanced LIF cell is clock-regular on 5/5 cells once the reset is the cut (batch 13 row 4);
+Paris-law damage is not a function of the Fisher path (R² 0.9642 against Miner's 1.000000, batch 15
+row 1); and the two-parameter trap on the source's own endpoints (+21.08 %, batch 15 row 4).
+
+**What wave 3 added to the INTERNAL list.** Which boundary jumps are arc on a queue (batch 15 row 3:
+three readings, two classes); A1′ on a diffusion carrier (batch 14 row 5: the sampling unit gives the
+clock, the two-state unit gives a constant, and every smoothing scale between moves the class); partial
+resets (batch 18 row 3: the sawtooth's class flips between "the crash is the cut" and "the crash is
+content"); and P3's normalisation (batch 17 row 3: MaxEnt on a finite history returns q = 1/s = 1.6667 and
+reproduces the seniority profile, so primacy is P3's λ < 0 branch, while CRR.md's closed form
+⟨k⟩ = q/(1 − q) assumes an infinite past and cannot represent it).
+
+**Corrections to earlier batteries recorded in wave 3** (pinned outputs not edited): the driven battery's
+AIMD row counted the descent from the previous loss inside the next occasion (batch 15 row 2; in the
+loop's own units the random-loss variant is a tie, AGENT_LOG 41); its OFC row's arc-regular verdict was
+against the avalanche count, and on the loading clock the automaton is clock-regular (batch 14 row 4,
+AGENT_LOG 45); the bio battery's circadian row typed its zero CV(arc) (batch 13 row 3, a correct zero by
+construction, AGENT_LOG 46); the cognitive battery's GARCH clustering belongs to the outside unit (batch
+16 row 3). **Decisions** are AGENT_LOG 41–46. **Elegance**: 60 entries after wave 3.
+
 ## TENSION and the minimal rewording
 
 One TENSION in the main battery (row 16); the cognitive-collective battery adds a second, internal one (D2 on diffusion carriers). Minimal resolution: give the two laws different names. Keep "equanimity"
