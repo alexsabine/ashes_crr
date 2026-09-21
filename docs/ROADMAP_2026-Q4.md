@@ -33,7 +33,7 @@ item below ends in a ledger row or in a gate table, or it does not happen.
    stamp would be a later time and the rows stay "weakly anchored"; say so.
 3. **Accepted 2026-09-18:** R14 (agent ledger) and R15 (numbers before words) are in CLAUDE.md §1;
    PASS-0/1/2 levels are in §7; EQ2-1 is re-labelled PASS-0 (ledger EQ2-1b); SHARP is retired
-   for retrodictions. Study EQ2R (below) is the first replication attempt under PASS-2.
+   for retrodictions. Study EQ2R (below) was the first replication attempt under PASS-2; it is VOID (ledger EQ2R-VOID, AGENT_LOG 40: the frozen scorer crashed at its first DER++ arm), and a replication needs a new study id on carriers still unseen.
 3b. **Both sides of the notebook.** `notebook/PROMPT_LOG.md` (human, R13) and
    `notebook/AGENT_LOG.md` (agent decisions: observed issue, decision, alternative rejected)
    are the chain of thought the audit reads the curated layer against. Proposed rule for the
