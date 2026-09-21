@@ -657,6 +657,36 @@ of the world, only that it can be carried in plain words.
 - elegance: Pick old days to remember by rolling a die, but keep rolling until the days you picked carry the right average amount of extra: the days you end up favouring follow one fixed exponential curve, and no other shape can come out. The rule has no knobs but the average.
 - for a fifth grader: Suppose you choose which old days to remember by rolling a die, but you have to keep going until the days you picked have, on average, a certain amount of extra in them. Which days will you have picked most? The ones with the most extra, and by an amount that grows in the same steady way from one day to the next. That is the only pattern that can come out.
 
+## theory/retrodictions/synthesis_batches/batch_25.txt
+
+### [1] A quantum horizon of N punctures with S = A/4 under the source row's three countings (j = 1/2 two-state; all-j two-state; all-j (2j+1)-state), the puncture as the occasion and its area as the occasion statistic, A1' applied as written (estimated, never named); synthesis.py row 11 named the smallest quantum as the unit and is not repeated
+
+- source row: theory/retrodictions/loop_gravity.txt [1] (DESCR)
+- outcome: INTERNAL
+- elegance: You cannot measure the size of a brick by how much the bricks differ if they are all the same brick. A rule about measuring with no knobs, and it says exactly where CRR's own unit stops working: on anything built from identical pieces.
+- for a fifth grader: One way to learn how big a brick is, without a ruler, is to look at how much the bricks in a wall differ from each other. But if every brick is exactly the same, there is no difference to look at, and that way of measuring gives up; you just have to pick up one brick. In this theory a black hole's surface is a wall of mostly identical bricks, so the difference-measuring rule gives up on it.
+
+### [3] LQC with a massless scalar, effective dynamics, flat: a(t) = (1 + 24 pi rho_c t^2)^(1/6), v = a^3 (v_b = 1), rho_c = 0.41, p_phi = v_b sqrt(2 rho_c) = 0.9055, phi(t) = asinh(sqrt(24 pi rho_c) t) / sqrt(12 pi), so v = cosh(sqrt(12 pi) phi) (the source row's exact solution; max |v - cosh(k phi)| = 1.3e-13), t in [-20, 20] on 40001 points
+
+- source row: theory/retrodictions/loop_gravity.txt [4] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A clock that counts change stands still at the moment the universe turns around, because at that moment nothing is changing. One sentence, no knobs, and it explains why the physicists chose a different clock.
+- for a fifth grader: Imagine measuring time not with a ticking clock but by how much the world changes: lots of change, lots of time. In this theory the universe shrinks, stops for an instant, and grows again. At that instant the size is not changing at all, so the change-clock freezes. The physicists use a field that keeps sliding even then, so their clock never stops; in fact it runs fastest right at the turn.
+
+### [4] Closed radiation universe with the effective LQC bounce, a'^2 = (8 pi/3)(E/a^2 - E^2/(rho_c a^6)) - 1, E = rho_r a^4 grown by Tolman's irreversibility as E' = lambda E |H| (entropy S ~ E^(3/4)), rho_c = 0.41, E_0 = 400, lambda = 0.02, fixed-step RK4 dt = 0.02 from the first bounce (a_b = 5.6020, against (E_0/rho_c)^(1/4) = 5.5888), 24 bounces integrated, bounces 3-23 scored (20 cycles); the bounce as the system's own event and cut; carrier ln a with the identity metric (the source's)
+
+- source row: theory/retrodictions/loop_gravity.txt [5] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: Measure a universe's cycle in doublings and every cycle is nearly the same; measure it in years and each one is longer than the last. But the doublings are just the height of the bounce, so the steadiness belongs to the size, not to the clock.
+- for a fifth grader: Suppose the universe grows, shrinks, bounces and grows again, and each time it grows a little bigger than before. Counted in years, each round trip takes longer. Counted in 'how many times did it double', each round trip is almost the same. That sounds like a magic clock, but it only says the bounce grows slowly, a little bigger each time.
+
+### [5] Spin-j coherent state |j, j> rotated about a perpendicular axis, |theta> = e^(-i theta J_y) |j, j>, on the projective carrier with the quantum Fisher (Fubini-Study) metric normalised to orthogonality = pi (batch 05 row 3's convention), j in {1/2, 1, 2, 5, 20}, matrices built and exponentiated; the source row's carrier (the building block of coherent intertwiners)
+
+- source row: theory/retrodictions/loop_gravity.txt [6] (DESCR)
+- outcome: INTERNAL
+- elegance: A big spinning top turned by a small angle already looks nothing like it did, but it takes a half-turn to point the opposite way; only the smallest spin has 'looks different' and 'points opposite' at the same angle. A picture of why 'halfway' needs a rule before it can be a rule.
+- for a fifth grader: Turn a small compass needle and it takes a full half-turn before it points the opposite way, and only then does it look truly different. A big heavy top is different: turn it just a little and it already looks like a new top, but it still needs the whole half-turn to point the other way. So 'when has it changed enough to count?' has two answers for the big top, and the theory has not yet said which one it means.
+
 ## theory/retrodictions/synthesis_batches/batch_26.txt
 
 ### [1] The polymer harmonic oscillator H = sin^2(mu p)/(2 mu^2) + x^2/2 (the source's convention: q = 1/(4 mu^4), level n from the Mathieu characteristic value a_n, the b_(n+1) partner the other parity): the momentum is periodic (the Hamiltonian has period pi/mu in p), the position a lattice of step mu; levels n = 0..5 at mu = 0.2 and 0.3 (the source's grid) and at the mu values that hold the resolution fixed
@@ -673,4 +703,4 @@ of the world, only that it can be carried in plain words.
 - elegance: A ruler cannot report a tick finer than the finest tick that exists: when the wobble you measure is far below the smallest step the world has, throw the wobble away and count steps. A rule with no knobs.
 - for a fifth grader: If a floor is made of tiles, the tile is the smallest step there is: you cannot stand halfway inside one. If your ruler says the floor wobbles by a thousandth of a tile, it is measuring its own scratches, not the floor, so you throw that away and count tiles instead.
 
-Entries: 88.
+Entries: 92.
