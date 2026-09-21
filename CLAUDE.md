@@ -32,7 +32,10 @@ measles study (2026-09-15, 17 cities, Poisson-rate carrier): **H-L5 FAILs**
 0/17 under both metrics (`reports/meas2.md`); and (iv) rows `EQ2-*` from study EQ2
 (2026-09-17, three unseen PMLB streams, online-EWC past term, weakly anchored):
 EQ2-1 **PASS but fragile** (cap-dependent), control EQ2-4 **violated** by DER++,
-Ω a plateau (`reports/eq2.md`). Two earlier results (below) motivated H-L5
+Ω a plateau (`reports/eq2.md`); and (v) rows `EQ2R-VOID`/`CC-VOID`: the replication
+study EQ2R (2026-09-21, three unseen PMLB carriers) is **VOID**, its frozen scorer
+crashing at the first DER++ arm (AGENT_LOG 40); no row scored, the carriers now SEEN.
+Two earlier results (below) motivated H-L5
 and H-T1; they were produced under a pipeline the audit rejected and are
 context, not evidence. Both are *comparative* claims: a quantity CRR names
 beats a conventional quantity at predicting something the system does.
