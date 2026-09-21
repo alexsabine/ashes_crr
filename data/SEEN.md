@@ -21,7 +21,10 @@ file in the same commit as any data download.
 | PMLB `mfeat_fourier` (GitHub mirror, master) | sha256 in data/manifests/eq2.sha256 | all rows | 2026-09-17 (study EQ2, after tag prereg-eq2-2026-09-17 at commit 4ba6035) |
 | PMLB `mfeat_pixel` (GitHub mirror, master) | sha256 in data/manifests/eq2.sha256 | all rows | 2026-09-17 (study EQ2) |
 | PMLB `texture` (GitHub mirror, master) | sha256 in data/manifests/eq2.sha256 | all rows (classes beyond the first ten dropped by the script) | 2026-09-17 (study EQ2) |
+| PMLB `mfeat_karhunen` (GitHub mirror, master) | sha256 in data/manifests/eq2r.sha256 | all rows | 2026-09-21 (study EQ2R, after prereg commit 231cb26 (PR #40, 2026-09-17T20:59Z) and EQ2R-CC prereg commit 708e9b1 (PR #41); fetched after the R3 hold of AGENT_LOG 25) |
+| PMLB `mfeat_zernike` (GitHub mirror, master) | sha256 in data/manifests/eq2r.sha256 | all rows | 2026-09-21 (study EQ2R) |
+| PMLB `vowel` (GitHub mirror, master) | sha256 in data/manifests/eq2r.sha256 | all rows | 2026-09-21 (study EQ2R) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
-PMLB `satimage`, `usps` (not mirrored), `mfeat_karhunen`, `mfeat_zernike`, `vowel`, other PMLB classification sets.
+PMLB `satimage`, `usps` (not mirrored), other PMLB classification sets.
