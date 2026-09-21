@@ -703,3 +703,15 @@ Okay. I’d like you to start with that last scratchpad output finding in what y
 Do this in full and create a new folder called ontology in which you unpack the crr commitments in the context of philosophy, contemplative traditions and metaphysics, a fair review of all findings so far in the repo, followed by the next steps.
 
 Highlight the mathematical reasons for why the cut itself in the mathematics counts as content when the cut should be empty, and what this suggests in terms of mathematics, machines and number theory in general
+
+## 66. 2026-09-21T23:58:39Z
+
+In the final part of that account, you introduce some interesting mathematical findings regarding Turing systems. I’d like you to keep treating the crr as a falsifiable metaphysics and run the equations on existing mathematics of Turing systems, AI safety and platonic ingression.
+
+My current conjecture is that the forms are the result of choices made through time at all scales. E.g the point is to appreciate the difference, the forms that arise.
+
+To be finite is to be able to have an experience at all. Otherwise we’d have nothing out there to love.
+
+Look at Richard Watson and Levins work, as well as philosophical traditions and see where CRR might add value.
+
+Put these findings in the Ontology folder please
