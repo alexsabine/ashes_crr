@@ -691,3 +691,7 @@ Great work! In the scratchpad only. We have shown the crr equations, which have 
 ## 63. 2026-09-21T23:05:36Z
 
 Okay, still on scratchpad only. What about the continuous learning tests? Omega=1 principle?
+
+## 64. 2026-09-21T23:10:35Z
+
+Scratchpad only. Which systems required a future? You must explore these points at which the open future axiom failed because it also contests other ontologies such as the growing block universe and any open future ontology. This requires careful examination please
