@@ -276,4 +276,191 @@ of the world, only that it can be carried in plain words.
 - elegance: A beat that copies only the beat before it can be pushed into big-small-big-small forever; a beat that takes the average of a few settled beats smooths the see-saw out. The rule is one sentence: remember a little, and alternation needs a steeper push.
 - for a fifth grader: Imagine each heartbeat deciding how long to last by looking only at the one before it: a small wobble can bounce back and forth, long-short-long-short, without stopping. If each beat instead looks at a few earlier beats and takes their average, the wobble gets evened out, and it takes a much harder push to make the heart see-saw.
 
-Entries: 35.
+## theory/retrodictions/synthesis_batches/batch_13.txt
+
+### [1] Bacterial cell-size control as one sampled lineage (the source's draws: Delta = 1, 8 % division noise, 25 % growth-rate spread, 400 cycles at 200 samples per unit time, the first 50 dropped): exponential growth from birth to division, the division as the system's own event, the halving as a reset jump at it; the adder (divide at v_b + Delta) against the timer (divide after a fixed time)
+
+- source row: theory/retrodictions/bio_retrodictions.txt [13] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: Grow, add a fixed amount, split. A cell that follows that rule is perfectly steady if you count what it added and unsteady if you count the minutes, because fast growers finish sooner. The steadiness sits in the rule, and the arc is just the amount added, with no knob to turn.
+- for a fifth grader: A bacterium grows and then splits in two. It does not split after a fixed number of minutes; it splits when it has grown by a fixed amount, the same amount every time. So if you measure a cell's life by how much it grew, every life is the same length; if you measure it by the clock, the fast-growing cells have short lives and the slow ones long lives. The regular thing is the amount added, and that is the rule the cell itself follows.
+
+### [2] Single ion channel, two-state Markov gating (the source's channel: opening rate 2, closing rate 1, 4000 transitions, seed 11), with A6 regeneration on the open-dwell carrier: the scale the next open dwell is drawn with is the P3 age-weighted Frechet mean of the settled open dwells (q = 0.3)
+
+- source row: theory/retrodictions/bio_retrodictions.txt [14] (DESCR)
+- outcome: WRONG
+- elegance: A channel is a switch that forgets: how long it stays open next has nothing to do with how long it stayed open before. That is the one thing CRR's regeneration rule cannot say, and a switch is the cleanest place to see it fail.
+- for a fifth grader: Imagine a door that opens and shuts on its own at random. If you time how long it stays open each time, the times are all over the place, and the next opening does not remember the last one at all. CRR has a rule that says the next thing a system does is built from what it settled before. The door says no: it starts fresh every time. So here the rule is wrong, and that is worth knowing.
+
+### [4] Balanced E-I network of leaky integrate-and-fire neurons (the source's network: N = 400, K = 40, J = 1/sqrt K = 0.158, instantaneous kicks, dt = 0.1 ms, seed 4), run for 6 s (the source ran 3 s); H-L5 on the first 5 E cells with the membrane potential as the carrier (identity metric), spikes as own events, the first 3 dropped; mean rates E 18.2 Hz, I 16.0 Hz
+
+- source row: theory/retrodictions/ei_networks.txt [4] (DESCR)
+- outcome: WRONG
+- elegance: Between two spikes a neuron's voltage is shoved up and down thousands of times by the crowd around it. Add up all that shoving and you mostly get how long the neuron waited, plus the crowd's noise. So counting the travel is a noisier way of counting the wait, and the clock wins.
+- for a fifth grader: A nerve cell in a busy brain gets pushed up and down all the time by its neighbours, like a boat in choppy water. Between one signal and the next it bobs thousands of times. If you add up all the bobbing, you mostly learn how long it waited, but with extra wobble from the choppiness. So the plain stopwatch is the steadier measure here, and CRR's idea that the travelled distance is steadier does not work for this cell.
+
+## theory/retrodictions/synthesis_batches/batch_14.txt
+
+### [1] Homeostatic synaptic scaling (the source's loop: rate r = 20 g, gain g relaxing as dg/dt = (set point - r)/50, an E/I perturbation that has raised the rate to 6.00 Hz) with the set point read four ways: the domain's constant 5 Hz; A6's regeneration, the Fisher-Rao Frechet mean of the settled rates on the Poisson-rate carrier (mean of sqrt r, squared) under P3 age weights q = 0.9; its Euclidean replacement (the arithmetic mean); and the BCM degree-2 sliding threshold; occasions of one time unit
+
+- source row: theory/retrodictions/ei_networks.txt [9] (DESCR)
+- outcome: WRONG
+- elegance: A thermostat that sets its target to the average of the temperatures it has felt lately will follow the room instead of fixing it. Memory of the past makes a fine sensor and a useless goal: one sentence, no knobs.
+- for a fifth grader: A thermostat keeps a room at one number: too warm, it cools; too cold, it heats. Imagine a thermostat that decided what 'just right' means by averaging the last few days. After a hot week it would settle for hotter, and after a cold week for colder. It would never pull the room back to the same place, because its goal keeps moving with its memory.
+
+### [2] The source's cortical travelling wave: a ring of N = 60 phase oscillators with nearest-neighbour coupling kappa = 40 in the q-twisted state (neighbour phase gap 2 pi q/N, wave speed omega/gap); the ring's own event is the breaking of the wave (a phase slip that changes the winding number q); fixed-grid RK4, dt = 1e-3, 2 time units, gap noise 0.05 rad
+
+- source row: theory/retrodictions/ei_networks.txt [10] (DESCR)
+- outcome: WRONG
+- elegance: A circle of people holding hands, each turned a little more than the last, can keep the twist only while every pair's pull is still growing; at a quarter turn the pull is as strong as hands get, and past it the circle breaks, long before anyone faces backwards. One picture, one number: a quarter, not a half.
+- for a fifth grader: Imagine friends in a circle holding hands, each one turned a bit more than the one before, so the turn goes all the way round. The circle holds as long as each pair is turned less than a quarter turn from each other, because that is where hands pull hardest. Turn more than that and hands slip apart, even though nobody is facing backwards yet.
+
+### [3] The source's population code: N neurons with tuning slope f' = 1, private variance 1 and differential correlations Sigma = 1 I + 0.05 f' f'^T (Moreno-Bote et al. 2014), Fisher information I_pop = f'^T Sigma^-1 f'
+
+- source row: theory/retrodictions/ei_networks.txt [11] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A crowd reading one slightly wrong clock cannot know the time better than that clock, however many people you ask. The shared error is the smallest step anyone can tell apart.
+- for a fifth grader: If a hundred children all read the same clock that runs a little wrong, asking more children does not fix the clock. Their private mistakes cancel out when you ask many of them, but the clock's mistake is in every answer. So the smallest difference the crowd can notice is set by the clock, not by how big the crowd is.
+
+### [4] The source's Olami-Feder-Christensen automaton (L = 32, alpha = 0.2, seed 2, 20000 avalanches after a transient of 10000), large events = avalanches of >= 64 sites (244 of them), carrier = the mean stress as a sawtooth (one sample after each loading, one after each avalanche), the large drop left out of the occasion (exclusive segmentation, A3: the jump is the cut)
+
+- source row: theory/retrodictions/driven_systems.txt [2] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Pour sand in at a steady rate and let it trickle out in little slides: the total sand that moved is the pouring counted twice, less what stayed. The odometer of the pile is its ledger, and the ledger was already kept.
+- for a fifth grader: If you pour sand onto a pile at a steady rate and it keeps sliding off in small slides, then all the sand that moved is just the sand you poured in plus the sand that slid out. Adding up every up and down does not tell you anything new: it is the pouring, counted twice.
+
+### [5] The source's Kramers double well (overdamped x' = x - x^3 + noise 0.4, dt = 0.01, 2e6 steps, hysteretic transitions at +/- 0.5 as the system's own events), unforced and forced (A = 0.2, period 200), with A1''s unit read two ways: (i) the sampling step sigma sqrt(dt) = 0.04 (the increment's own spread, batch 06 row 5's reading), (ii) the well separation 2 (the domain's two-state reduction: what the bistable element itself resolves)
+
+- source row: theory/retrodictions/driven_systems.txt [3] (DESCR)
+- outcome: INTERNAL
+- elegance: Between two valleys the ball's trip is always the same trip; only the waiting differs. But count every jiggle as travel and the trip is as random as the wait. Which of the two you call 'the trip' is the whole question, and the ball does not say.
+- for a fifth grader: A ball sits in one of two dips and now and then hops to the other. Every hop is the same short trip, so if you count trips, they are all alike and only the waiting between them is random. But if you count every tiny wobble the ball makes while it waits, the 'distance' it travelled is just how long it waited. You have to decide what counts as moving before you can say which is steadier.
+
+## theory/retrodictions/synthesis_batches/batch_15.txt
+
+### [1] Paris-law fatigue crack growth da/dN = Cp (dsigma Y sqrt(pi a))^m, m = 3, Cp = 1e-11, a0 = 0.001 m, under 200 random 12-block load sequences of 2000 cycles per block (amplitudes uniform on [60, 140], seed 4; the source's model with its separable ODE solved in closed form)
+
+- source row: theory/retrodictions/driven_systems.txt [4] (DESCR)
+- outcome: WRONG
+- elegance: Two load histories with the same total travel wear the metal differently: six hard blocks and six soft ones do half again the damage of twelve middling ones. The road length is not the wear; how hard each step lands counts, and it counts as a cube.
+- for a fifth grader: Bend a paper clip back and forth and it breaks. If you bend it the same total amount but with some big bends and some tiny ones, it breaks sooner than with all medium bends. Counting how far you bent it in total is not enough: the big bends count extra.
+
+### [3] M/M/1 queue (mu = 1, rho = lambda/mu in {0.25, 0.5, 0.75}; the source's rho = 0.5): the busy period as the occasion on the queue-length carrier (identity metric), its own events the arrival to an empty queue and the departure that empties it
+
+- source row: theory/retrodictions/driven_systems.txt [7] (DESCR)
+- outcome: INTERNAL
+- elegance: Whether the person who walks up to an empty counter and the person who leaves it empty count as part of the rush or as its edges decides whether the rush is steadier counted in people or in minutes. The rule 'the edge has no content' is a real choice with a real consequence, and a child can see it at any shop counter.
+- for a fifth grader: Watch a shop counter. A rush starts when someone walks up to an empty counter and ends when the last person leaves. If you count the first and last person as part of the rush, the rushes are steadier counted in people than in minutes. If you count neither (they are the edges, not the rush), most rushes are one person with nothing inside, and then the minutes are steadier. Where you draw the edge changes the answer.
+
+### [4] Overdamped particle in a harmonic trap, control (x0, k) from (0, 1) to (2, 4) in tau = 50 (kT = gamma = 1), linear response W_ex = int lambda-dot^T zeta lambda-dot dt with the exact friction tensor zeta = diag(1, 1/(4k^3)); the source's three protocols reproduced and the domain's optimum added
+
+- source row: theory/retrodictions/driven_systems.txt [9] (DESCR)
+- outcome: WRONG
+- elegance: Even on the best road, rushing and then dawdling costs more than walking evenly, and the extra cost is exactly how unevenly you walked. How far you strayed from the road is a different number and cannot see it.
+- for a fifth grader: Suppose you carry a full cup across a room. Walking at one steady pace spills the least. If you rush the first part and creep the rest, you spill more even on the very same path. How much more depends only on how uneven your speed was, not on the path.
+
+### [5] Rescorla-Wagner learning on a random-walk reward (process variance v^2, observation variance 1, Fisher speed v; T = 1000000 trials, seed 2, first 100000 dropped), the learner read as A6 regeneration with P3 age weights q = 1 - alpha
+
+- source row: theory/retrodictions/cognitive_collective.txt [2] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Learn a little from each surprise and let the old lessons fade at the same rate: that is one rule with one knob, and the knob is how fast the world moves. A world that never changes wants a memory that never fades, which the rule cannot give.
+- for a fifth grader: When you guess how long the school bus will take, you mostly trust the last few days and slowly forget older ones. If the traffic keeps changing, trust the newest days more and forget faster; if nothing ever changes, the best thing is to remember every day forever, and a rule that always forgets can never quite do that.
+
+## theory/retrodictions/synthesis_batches/batch_16.txt
+
+### [1] Retention R = exp(-A/rho) in natural time (A = the count of interference events since learning, rho = 20) on two interference carriers: the source's environment-time carrier (wake 4/h for 16 h, sleep 0.4/h for 8 h, the same stream for every trace) and a trace-time carrier lambda = K/(t + c) with K = 4/h, c = 1 h (the rate decays since the trace's own learning: P5's p = 1)
+
+- source row: theory/retrodictions/cognitive_collective.txt [3] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Forgetting keeps a clock, and the question is whose: if the world's events do the erasing, an old memory and a new one fade at the same rate tonight; if the erasing comes from the memory's own fading context, the old one fades slower. Jost's old law is the tell, with no knobs.
+- for a fifth grader: Suppose every noisy thing that happens rubs a little off your memories. If the noise comes from the world, an old memory and a new one get rubbed at the same rate on the same day. If the noise comes from things that look like the memory itself, those get rarer as time goes on, so the old memory is safer than the new one. Whether old memories fade slower tells you where the rubbing comes from.
+
+### [2] Simulated annealing of a two-level system (gap D = 1, relaxation time tau_r = 1) from beta = 0.2 to 5 along three schedules of identical Fisher length L = 1.3072, integrated exactly (zero-order hold) at durations tau = 40, 400, 4000; the source's tau = 40 and a registered slow arm tau = 400
+
+- source row: theory/retrodictions/cognitive_collective.txt [5] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Three cooling recipes cover the same distance in the system's own ruler; the one that moves the same small amount every second wastes least, and every other recipe pays exactly for how uneven its pace is. A rule with one number, the unevenness of the pace.
+- for a fifth grader: Three ways to cool something down the same distance in the same time. The way that goes at one steady pace, measured by how much the thing can actually feel, wastes the least. Rushing some parts and dawdling others always costs extra, and the extra is just how uneven the pace was.
+
+### [3] GARCH(1,1) daily returns (omega = 1e-06, alpha = 0.09, beta = 0.9, persistence 0.99; 1600000 steps, seed 5) with exceedance events |return| > 3 units, the unit being either the outside constant (the unconditional standard deviation, the source's rule) or the system's own resolvable step (the conditional standard deviation sqrt(h_t), the GARCH state); log-price carrier, exclusive segmentation (the exceedance return is the cut)
+
+- source row: theory/retrodictions/cognitive_collective.txt [6] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Measure a market's jumps against a ruler it does not keep and they come in clusters; measure them against its own ruler, the size of today's wobble, and they come one at a time with no memory. The clustering was the ruler's.
+- for a fifth grader: On some days a market jiggles a lot and on others hardly at all. If you call a move 'big' by one fixed ruler, the big moves bunch up on the jiggly days. If instead you call it big compared with that day's own jiggle, the big moves are spread out at random, like coin flips. The bunching came from using the wrong ruler.
+
+### [4] Kuramoto model, N = 1000, Lorentzian frequencies (width gamma = 0.5, centre omega0 = 1), each oscillator pulled toward the P3 age-weighted mean of the past mean fields (tau_m Z' = z - Z, tau_m = 1) instead of the instantaneous mean field; Euler dt = 0.02, 6000 transient + 2000 measured steps, seed 6; Ott-Antonsen reduction of both models
+
+- source row: theory/retrodictions/cognitive_collective.txt [7] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A crowd that follows where the crowd was a moment ago, not where it is, needs more persuasion to fall into step whenever the crowd is drifting; if the crowd stands still, remembering changes nothing. One picture: memory of a moving target is a lag plus a shrink.
+- for a fifth grader: Imagine dancers trying to clap together by copying the group. If each dancer copies what the group was doing a moment ago, and the group's beat is drifting, everyone is always a little behind and it takes a stronger pull to get them clapping together. If the beat is not drifting, copying the past works just as well as copying the present.
+
+### [5] Rock-paper-scissors replicator with an attracting heteroclinic cycle (loss a = 1.3, win b = 1; RK4 in log coordinates, dt = 0.01, window 400, start (0.4, 0.35, 0.25)), read in a population's own unit: one individual, the smallest frequency step 1/N (A1'), D1 rho = N
+
+- source row: theory/retrodictions/cognitive_collective.txt [8] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A game that remembers every past round slows down forever, and a population of N players can only slow down until one strategy is down to its last player. The size of the crowd, not the game, sets how long the longest round can be.
+- for a fifth grader: In rock-paper-scissors played by a whole crowd, each strategy takes turns being the winner, and every turn lasts longer than the last because the losing strategy gets squeezed smaller and smaller. But a strategy cannot be smaller than one person. So the turns can only get so long, and how long depends on how big the crowd is: a bigger crowd, longer turns, and then one strategy disappears.
+
+## theory/retrodictions/synthesis_batches/batch_17.txt
+
+### [2] Handwriting strokes of random amplitude A (lognormal, 200 strokes, the source's draw) under three timing laws (isochrony, constant peak speed, T ~ A^0.25), read in the motor system's own unit: Schmidt's law, effective endpoint spread W_e = a + b A / T
+
+- source row: theory/retrodictions/wild_systems.txt [2] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A bigger stroke is a sloppier stroke, by exactly as much as it is bigger and faster. Counted in its own sloppiness every stroke is the same length, and that is the same sentence as 'every stroke takes the same time': one rule, no knobs, and the unit is the hand's, not the ruler's.
+- for a fifth grader: When you write a big letter as fast as a small one, your hand wobbles more. If you measure each letter in wobbles instead of in centimetres, the big letter and the small letter come out the same size. That is why they take the same time to write.
+
+### [3] Immune imprinting as antigenic seniority (the source's model: six exposures, response weight s^(m-1) with s = 0.6, influence of each settled exposure measured by removal, with and without an antigenic-distance kernel), asked whether A6's MaxEnt age weight (P3) can produce a primacy profile
+
+- source row: theory/retrodictions/wild_systems.txt [5] (DESCR)
+- outcome: INTERNAL
+- elegance: 'First is strongest' and 'newest is strongest' are the same ladder read from opposite ends: one rule, each step a fixed fraction of the last, and only the direction differs.
+- for a fifth grader: Your body remembers the first flu it ever met best, and each later one a little less. That is the same rule as remembering the newest thing best, just turned upside down: each step back is the same fraction bigger instead of the same fraction smaller.
+
+### [4] A repairable component with a Weibull(2, 1) baseline hazard (increasing failure rate), failure = own event, repair = the cut, with A6 regeneration: the age the next occasion starts from is the geometric (P3) re-weighting of the settled inter-failure intervals, V_n = q (V_n-1 + X_n), against the accumulated alternative V_n = V_n-1 + q X_n; 40000 failures, seed 6
+
+- source row: theory/retrodictions/wild_systems.txt [6] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Three ways to fix a machine: as good as new (forget everything), as bad as old (keep everything), or in between (keep a fixed fraction of the past). Only the first two are famous; the third is the one where the memory stays bounded and the machine keeps a steady pace.
+- for a fifth grader: Imagine a bike that gets repaired every time it breaks. If each repair makes it brand new, its past does not matter. If each repair only patches it, all the old wear stays, and it breaks faster and faster. In between, a repair undoes part of the wear, so the bike remembers only a bit of its past and keeps breaking at a steady pace.
+
+### [5] Dripping tap in the Tate regime (the source's model and draw: flow Ornstein-Uhlenbeck with CV 0.2, drop mass CV 0.03, 100 drops, seed 7; own event = pinch-off, the reset is the cut, exclusive segmentation), the hanging mass as the carrier
+
+- source row: theory/retrodictions/wild_systems.txt [7] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: A drop lets go when it gets too heavy to hang on, so every drop is the same size: a drop is a unit of water, not of time. Nurses set an intravenous drip by counting drops per minute for exactly this reason. To know how much water came out, count the drops and put the stopwatch away.
+- for a fifth grader: A dripping tap makes drops that are all the same size, because a drop falls when it gets too heavy to hold on. So if you want to know how much water came out, count the drops. Do not watch the clock: the tap can drip fast or slow, but each drop is the same.
+
+## theory/retrodictions/synthesis_batches/batch_18.txt
+
+### [1] Passively Q-switched laser as the source's integrate-to-threshold train (gain ramp under a pump with OU noise, saturable-absorber threshold, dump to a residual; dt = 0.01, 80 pulses, first three dropped, the dump as the cut): the two source cases and a third with both noises
+
+- source row: theory/retrodictions/twenty_systems.txt [2] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: A tipping bucket under a tap spills the same amount every time it tips; only how often it tips depends on the tap. A rule with no knobs, and the whole of the arc-regular class in one picture.
+- for a fifth grader: Think of a bucket on a hinge under a dripping tap. When it is full it tips, empties, and swings back. Every tip spills the same bucketful, no matter how fast the tap drips; the tap only changes how long you wait between tips. The laser is a bucket like that, filled by its pump and tipped by its shutter.
+
+### [2] Geyser as a reservoir refilled to a boiling threshold (thr = 1) at a per-occasion refill rate, each eruption releasing a fraction f ~ clip(0.5 + 0.2 z, 0.05, 0.95) of the reservoir (the source's release law), 400 eruptions at dt = 0.001, first three dropped, the eruption as the cut; constant refill rate and a rate varying per occasion (CV 0.15)
+
+- source row: theory/retrodictions/twenty_systems.txt [3] (CONSIST)
+- outcome: REDUNDANT-IG
+- elegance: After an eruption the pot refills exactly what it lost, so the size of what just happened tells the wait until the next one; the clock does not. The rangers' rule, and a picture of an occasion seeded by the one before it.
+- for a fifth grader: When a geyser erupts it throws out some of its hot water, sometimes a lot and sometimes a little. Then it has to fill back up before it can go again. So a big eruption means a long wait and a small one a short wait. Park rangers at Old Faithful time the eruption to tell visitors when the next one will come.
+
+### [4] Bacterial run-and-tumble as the source's model: 400 exponential run durations (mean 1), swimming speed 20 constant or varying run to run (CV 0.2), run length = speed x duration; plus the compensating law v ∝ tau^-gamma on the same runs
+
+- source row: theory/retrodictions/twenty_systems.txt [8] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: At one steady speed, counting metres and counting seconds is the same count: the odometer is a clock. The two come apart only when the speed changes, and then whichever one you trust is a fact about the speed, not about the road.
+- for a fifth grader: A swimming germ goes in a straight line, then tumbles and picks a new direction. If it always swims at the same speed, saying how far it went and saying how long it swam are the same thing, like an odometer that only ticks when the car moves at one speed. The two numbers only disagree if the germ speeds up or slows down.
+
+### [5] Order-up-to retailer on i.i.d. demand (10 + N(0, 1), 1000000 periods, seed 11, lead time L = 2) whose forecast is the P3 age-weighted mean of settled demand (A6 regeneration at bounded strength) against the source's p-period moving average, matched at the window's mean age (p - 1)/2, which is also equal forecast variance
+
+- source row: theory/retrodictions/twenty_systems.txt [11] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Two shopkeepers remember the same distance into the past on average. One remembers the last five weeks equally; the other remembers mostly last week and a fading bit of every week before. The second one jumps more with every new week. The teaching is that the shape of a memory, not only its length, sets how much you overreact.
+- for a fifth grader: Imagine two shopkeepers deciding how much to order. One looks at the last five weeks and treats them all the same. The other pays most attention to last week and only a little to the weeks before, even though on average both look back just as far. The second shopkeeper's orders jump around more, because every new week counts for more in their memory.
+
+Entries: 60.
