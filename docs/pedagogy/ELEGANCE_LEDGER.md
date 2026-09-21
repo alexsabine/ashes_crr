@@ -523,6 +523,43 @@ of the world, only that it can be carried in plain words.
 - elegance: A finish line has no width, but ask how much of the race each finish line took and the answer is the time between lines, longer when the runner is slow; counted in laps every line is exactly one. One picture for a cut that has no duration and still knows the clock.
 - for a fifth grader: A finish line has no width. But if you ask how much of the race each finish line took, the answer is the time between one line and the next, which is longer when the runner is slow. Counted in laps, every finish line is just one lap.
 
+## theory/retrodictions/synthesis_batches/batch_21.txt
+
+### [1] A stochastic pump: one site between two reservoirs at equal chemical potential, total coupling G = 1, the occupation driven round the closed loop p(t) = 0.5 + 0.25 sin(wt), period 20 (dt = 0.005, RK4, 2 transient and 3 scored cycles), under four coupling protocols that leave p(t) untouched and move only the split g_L/G
+
+- source row: theory/retrodictions/emptiness.txt [3] (DESCR)
+- outcome: WRONG
+- elegance: A scallop that only opens and closes cannot swim: back and forth along one line, however far, carries nothing, and only a loop that goes round something does. What a closed loop carries is the area it encloses, not the distance it travelled.
+- for a fifth grader: Stir your soup round in a circle and the soup goes round with the spoon. Push the spoon back and forth along one line just as far, and the soup ends up where it started. How far the spoon travelled is not what matters; what matters is whether it went round something.
+
+### [2] The instrument's own cut under A7: the antipodal cut on the analytic-signal phase (intrinsic_phase, two-sided Hilbert transform over the whole record) against the same cut located from the record up to t + d, d samples of future, d = 0 the causal reading; the source's sine, the same with the mean known, a period-jittered sine, and the asymmetric S-E waveform; the Poincare section (x = 0, either direction) as CRR.md's named causal alternative
+
+- source row: theory/retrodictions/emptiness.txt [4] (DESCR)
+- outcome: INTERNAL
+- elegance: You only know you have passed the top of a hill a few steps down the other side. The cut at Now can be named only later, by as much later as the shape of the hill demands; a line you can see yourself cross needs no later at all.
+- for a fifth grader: When you walk over a hill in fog you cannot say exactly where the top was until you have gone a little past it and feel the ground going down. CRR's 'cut' is like the top: to place it the way the instrument does you need to see what comes next, so it cannot be named at the moment it happens. But if the cut is a line on the ground you step over, you know it the moment your foot lands.
+
+### [3] A lost allele (an empty category, a vertex of the simplex) regenerated from the settled generations: a Wright-Fisher population of N = 200 in which each individual's parent lives 1 + k generations back with P3 weights q^k (A6 with age weights, bounded strength), q = 0 the memoryless population; the genealogy of a pair of lineages simulated (60000 pairs, seed 0) and derived
+
+- source row: theory/retrodictions/emptiness.txt [5] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A plant that vanishes from a field is not gone while its seeds lie in the soil: each spring's seedlings come from several past years, the nearer years more. Memory that fades by a fixed fraction each year is one number, and the same number says how much more slowly the field forgets.
+- for a fifth grader: Some plants disappear from a field for a year and then come back, because seeds from earlier years are still waiting in the ground, and last year's seeds are more likely to sprout than older ones. So the field remembers its past for a while. CRR has a rule for remembering the past in exactly that way, and the seed scientists already use it.
+
+### [4] Three spike trains as count carriers at 1 ms bins over 100 s (seed 6): a gamma(4) renewal train, a Poisson train and a bursting train; the spike as the cut, the interspike interval as the occasion, the Fisher arc of the binned rate (poisson_transform) at the bin scale and on a causal exponentially smoothed rate at four time constants
+
+- source row: theory/retrodictions/emptiness.txt [6] (DESCR)
+- outcome: UNSTATED
+- elegance: Between two clicks of a Geiger counter there is nothing to add up: all the travel is in the clicks, and every click is the same size. On a train of clicks, distance is only the count.
+- for a fifth grader: A Geiger counter clicks now and then. Between clicks nothing happens that you could measure, and every click is just a click, the same as the last. So if you try to measure how far the counter has 'travelled', all you can do is count the clicks, and that tells you nothing new about what made them.
+
+### [5] Scalar random-walk Kalman filter at steady state (observation variance r = 1, process variance q = v^2, Fisher speed v = sqrt(q/r)), its gain K(v) of P4 from the Riccati recursion and its impulse response, read as A6 regeneration from the settled observations with P3 age weights, across v from 0.01 to 100 (the two zeros of the source row approached from inside)
+
+- source row: theory/retrodictions/emptiness.txt [8] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A filter that trusts its model completely stops listening; one with no model only listens. How far back it listens is one number, and it is the same number as how much it trusts the newest datum.
+- for a fifth grader: Imagine guessing tomorrow's temperature from past days. If you believe the weather never really changes, you average every day you have ever seen and barely notice today. If you believe it changes wildly, you trust only today. In between, how many old days you keep counting and how much you trust today are one choice, one dial, not two.
+
 ## theory/retrodictions/synthesis_batches/batch_22.txt
 
 ### [1] Recursive least squares with exponential forgetting (forgetting factor lambda = q = 0.9, scalar regressor phi = 1 when excited), the domain in which P3's two ends have names: lambda = 1 is the estimator that falls asleep (gain 1/t) and lambda -> 0 keeps only the newest datum; the domain's zero is a stretch of m = 30 unexcited samples (phi = 0), where the standard estimator winds up (covariance windup)
@@ -636,4 +673,4 @@ of the world, only that it can be carried in plain words.
 - elegance: A ruler cannot report a tick finer than the finest tick that exists: when the wobble you measure is far below the smallest step the world has, throw the wobble away and count steps. A rule with no knobs.
 - for a fifth grader: If a floor is made of tiles, the tile is the smallest step there is: you cannot stand halfway inside one. If your ruler says the floor wobbles by a thousandth of a tile, it is measuring its own scratches, not the floor, so you throw that away and count tiles instead.
 
-Entries: 83.
+Entries: 88.
