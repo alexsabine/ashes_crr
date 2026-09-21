@@ -276,4 +276,64 @@ of the world, only that it can be carried in plain words.
 - elegance: A beat that copies only the beat before it can be pushed into big-small-big-small forever; a beat that takes the average of a few settled beats smooths the see-saw out. The rule is one sentence: remember a little, and alternation needs a steeper push.
 - for a fifth grader: Imagine each heartbeat deciding how long to last by looking only at the one before it: a small wobble can bounce back and forth, long-short-long-short, without stopping. If each beat instead looks at a few earlier beats and takes their average, the wobble gets evened out, and it takes a much harder push to make the heart see-saw.
 
-Entries: 35.
+## theory/retrodictions/synthesis_batches/batch_15.txt
+
+### [1] Paris-law fatigue crack growth da/dN = Cp (dsigma Y sqrt(pi a))^m, m = 3, Cp = 1e-11, a0 = 0.001 m, under 200 random 12-block load sequences of 2000 cycles per block (amplitudes uniform on [60, 140], seed 4; the source's model with its separable ODE solved in closed form)
+
+- source row: theory/retrodictions/driven_systems.txt [4] (DESCR)
+- outcome: WRONG
+- elegance: Two load histories with the same total travel wear the metal differently: six hard blocks and six soft ones do half again the damage of twelve middling ones. The road length is not the wear; how hard each step lands counts, and it counts as a cube.
+- for a fifth grader: Bend a paper clip back and forth and it breaks. If you bend it the same total amount but with some big bends and some tiny ones, it breaks sooner than with all medium bends. Counting how far you bent it in total is not enough: the big bends count extra.
+
+### [3] M/M/1 queue (mu = 1, rho = lambda/mu in {0.25, 0.5, 0.75}; the source's rho = 0.5): the busy period as the occasion on the queue-length carrier (identity metric), its own events the arrival to an empty queue and the departure that empties it
+
+- source row: theory/retrodictions/driven_systems.txt [7] (DESCR)
+- outcome: INTERNAL
+- elegance: Whether the person who walks up to an empty counter and the person who leaves it empty count as part of the rush or as its edges decides whether the rush is steadier counted in people or in minutes. The rule 'the edge has no content' is a real choice with a real consequence, and a child can see it at any shop counter.
+- for a fifth grader: Watch a shop counter. A rush starts when someone walks up to an empty counter and ends when the last person leaves. If you count the first and last person as part of the rush, the rushes are steadier counted in people than in minutes. If you count neither (they are the edges, not the rush), most rushes are one person with nothing inside, and then the minutes are steadier. Where you draw the edge changes the answer.
+
+### [4] Overdamped particle in a harmonic trap, control (x0, k) from (0, 1) to (2, 4) in tau = 50 (kT = gamma = 1), linear response W_ex = int lambda-dot^T zeta lambda-dot dt with the exact friction tensor zeta = diag(1, 1/(4k^3)); the source's three protocols reproduced and the domain's optimum added
+
+- source row: theory/retrodictions/driven_systems.txt [9] (DESCR)
+- outcome: WRONG
+- elegance: Even on the best road, rushing and then dawdling costs more than walking evenly, and the extra cost is exactly how unevenly you walked. How far you strayed from the road is a different number and cannot see it.
+- for a fifth grader: Suppose you carry a full cup across a room. Walking at one steady pace spills the least. If you rush the first part and creep the rest, you spill more even on the very same path. How much more depends only on how uneven your speed was, not on the path.
+
+### [5] Rescorla-Wagner learning on a random-walk reward (process variance v^2, observation variance 1, Fisher speed v; T = 1000000 trials, seed 2, first 100000 dropped), the learner read as A6 regeneration with P3 age weights q = 1 - alpha
+
+- source row: theory/retrodictions/cognitive_collective.txt [2] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Learn a little from each surprise and let the old lessons fade at the same rate: that is one rule with one knob, and the knob is how fast the world moves. A world that never changes wants a memory that never fades, which the rule cannot give.
+- for a fifth grader: When you guess how long the school bus will take, you mostly trust the last few days and slowly forget older ones. If the traffic keeps changing, trust the newest days more and forget faster; if nothing ever changes, the best thing is to remember every day forever, and a rule that always forgets can never quite do that.
+
+## theory/retrodictions/synthesis_batches/batch_17.txt
+
+### [2] Handwriting strokes of random amplitude A (lognormal, 200 strokes, the source's draw) under three timing laws (isochrony, constant peak speed, T ~ A^0.25), read in the motor system's own unit: Schmidt's law, effective endpoint spread W_e = a + b A / T
+
+- source row: theory/retrodictions/wild_systems.txt [2] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A bigger stroke is a sloppier stroke, by exactly as much as it is bigger and faster. Counted in its own sloppiness every stroke is the same length, and that is the same sentence as 'every stroke takes the same time': one rule, no knobs, and the unit is the hand's, not the ruler's.
+- for a fifth grader: When you write a big letter as fast as a small one, your hand wobbles more. If you measure each letter in wobbles instead of in centimetres, the big letter and the small letter come out the same size. That is why they take the same time to write.
+
+### [3] Immune imprinting as antigenic seniority (the source's model: six exposures, response weight s^(m-1) with s = 0.6, influence of each settled exposure measured by removal, with and without an antigenic-distance kernel), asked whether A6's MaxEnt age weight (P3) can produce a primacy profile
+
+- source row: theory/retrodictions/wild_systems.txt [5] (DESCR)
+- outcome: INTERNAL
+- elegance: 'First is strongest' and 'newest is strongest' are the same ladder read from opposite ends: one rule, each step a fixed fraction of the last, and only the direction differs.
+- for a fifth grader: Your body remembers the first flu it ever met best, and each later one a little less. That is the same rule as remembering the newest thing best, just turned upside down: each step back is the same fraction bigger instead of the same fraction smaller.
+
+### [4] A repairable component with a Weibull(2, 1) baseline hazard (increasing failure rate), failure = own event, repair = the cut, with A6 regeneration: the age the next occasion starts from is the geometric (P3) re-weighting of the settled inter-failure intervals, V_n = q (V_n-1 + X_n), against the accumulated alternative V_n = V_n-1 + q X_n; 40000 failures, seed 6
+
+- source row: theory/retrodictions/wild_systems.txt [6] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Three ways to fix a machine: as good as new (forget everything), as bad as old (keep everything), or in between (keep a fixed fraction of the past). Only the first two are famous; the third is the one where the memory stays bounded and the machine keeps a steady pace.
+- for a fifth grader: Imagine a bike that gets repaired every time it breaks. If each repair makes it brand new, its past does not matter. If each repair only patches it, all the old wear stays, and it breaks faster and faster. In between, a repair undoes part of the wear, so the bike remembers only a bit of its past and keeps breaking at a steady pace.
+
+### [5] Dripping tap in the Tate regime (the source's model and draw: flow Ornstein-Uhlenbeck with CV 0.2, drop mass CV 0.03, 100 drops, seed 7; own event = pinch-off, the reset is the cut, exclusive segmentation), the hanging mass as the carrier
+
+- source row: theory/retrodictions/wild_systems.txt [7] (DESCR)
+- outcome: REDUNDANT-IG
+- elegance: A drop lets go when it gets too heavy to hang on, so every drop is the same size: a drop is a unit of water, not of time. Nurses set an intravenous drip by counting drops per minute for exactly this reason. To know how much water came out, count the drops and put the stopwatch away.
+- for a fifth grader: A dripping tap makes drops that are all the same size, because a drop falls when it gets too heavy to hold on. So if you want to know how much water came out, count the drops. Do not watch the clock: the tap can drip fast or slow, but each drop is the same.
+
+Entries: 43.
