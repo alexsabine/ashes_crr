@@ -560,6 +560,36 @@ of the world, only that it can be carried in plain words.
 - elegance: You can walk forever in the space of weights and get nowhere new in what the model predicts: once it is sure, more sureness is not more distance. Measured where it matters, the road to certainty is short and has an end.
 - for a fifth grader: A model that is already sure of its answer keeps making its numbers bigger and bigger for ever, but its answers stop changing. If you measure how far it has travelled by its answers instead of by its numbers, the trip is short and it ends.
 
+## theory/retrodictions/synthesis_batches/batch_23.txt
+
+### [1] Heat flow X_t = X + sqrt(t) Z from X uniform on [-1, 1] (the source row's model), t on (0.1, 0.25, 0.5, 1.0, 2.0, 4.0); entropy h(t) and location Fisher information J(t) by quadrature, rates by central differences (eps = 1e-3 t); Gaussian control from closed forms
+
+- source row: theory/retrodictions/shannon.txt [2] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Blur a picture and two things shrink together: how many spots you can still tell apart, and how much surprise each spot holds. The surprise per spot only ever goes down, and it stops going down once the blur is a bell curve. A picture with no knobs.
+- for a fifth grader: When you blur a photo, you can tell apart fewer and fewer little spots, and each spot you can still make out holds less of a surprise than it did. That amount only ever goes down, and it stops changing once the blur looks like one smooth hill.
+
+### [3] Bernoulli family, n = 200 draws per record, mutual information I(theta; k) on a 2001-point grid uniform in the Fisher arc (nats); priors: one mass per A1' step in the named reading (Jeffreys), in the estimated reading (1.4826 x the exact MAD of k/n at each theta, record rejected where the MAD is 0), uniform in theta, and the Blahut-Arimoto maximiser (3000 iterations)
+
+- source row: theory/retrodictions/shannon.txt [4] (CONSIST)
+- outcome: INTERNAL
+- elegance: Spread your guesses evenly over the notches you can tell apart, not evenly over the ruler: where the notches crowd together, put more guesses there. A rule with no knobs, and it is the field's own.
+- for a fifth grader: Suppose a ruler has notches close together at its ends and far apart in the middle. If you want to guess fairly where something is, put one guess on each notch, not one guess per inch; that way you learn the most from what you see.
+
+### [4] Bernoulli family under the Jeffreys prior at n in (100, 1000, 10000, 100000): exact mutual information by quadrature against D1's resolution rho = (extent of the family, its one A3 half-turn of Fisher length 3.141593) / (A1' unit at n draws, 1/sqrt n in Fisher length) = pi sqrt n
+
+- source row: theory/retrodictions/shannon.txt [5] (CONSIST)
+- outcome: REDUNDANT-DOMAIN
+- elegance: How much you learn about a dial from looking is the log of how many of its notches you can still tell apart, less one fixed toll that the bell curve charges. One count and one constant.
+- for a fifth grader: Imagine a dial with notches. After you look at some data you can only tell apart so many notches on it. What you learned is how many notches that is, counted in doublings, and a little less than that because your guess is a soft hill, not a sharp point.
+
+### [5] Memoryless Gaussian source (sd = 1), Shannon's R(D) = 1/2 log2(sd^2 / D); the A1' unit taken from the source itself (occasion = one sample, statistic = the sample; median detrender, and the registered Savitzky-Golay window 9 beside it); and a trace with a rotor (sine A = 5 in unit noise, 100 samples per half-turn, 40 half-turns, seed 0) for D1's rho
+
+- source row: theory/retrodictions/shannon.txt [6] (DESCR)
+- outcome: REDUNDANT-DOMAIN
+- elegance: To describe something to within the size of its own wobble costs nothing: say where it usually is and you are done. The counting starts only when you want to know it finer than it wobbles.
+- for a fifth grader: If your friend asks where the dog is and the dog always wanders around the same yard, saying 'in the yard' is free and good enough. You only have to start counting and explaining if you want to say where in the yard, more exactly than the dog wanders.
+
 ## theory/retrodictions/synthesis_batches/batch_24.txt
 
 ### [1] A three-step Markov chain X -> Y -> Z on 4 states (the source's chain: Dirichlet(0.7) transition rows, Dirichlet(1) start, seed 1), forecasting Z from the settled history against the present, and the same chain seen through a symmetric observation channel with error eps
@@ -606,4 +636,4 @@ of the world, only that it can be carried in plain words.
 - elegance: A ruler cannot report a tick finer than the finest tick that exists: when the wobble you measure is far below the smallest step the world has, throw the wobble away and count steps. A rule with no knobs.
 - for a fifth grader: If a floor is made of tiles, the tile is the smallest step there is: you cannot stand halfway inside one. If your ruler says the floor wobbles by a thousandth of a tile, it is measuring its own scratches, not the floor, so you throw that away and count tiles instead.
 
-Entries: 79.
+Entries: 83.
