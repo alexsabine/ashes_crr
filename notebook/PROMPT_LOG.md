@@ -829,3 +829,9 @@ Which of the two frameworks are more pedagogically digestible to a public audien
 ## 81 — 2026-09-22T07:06:21Z
 
 Which of the two frameworks is more falsifiable?
+
+## 82 — 2026-09-22T07:12:30Z
+
+Check the epistemic status of the pipeline please. I understand that crr made predictions in different systems which passed, but which did not beat the existing mathematics within those systems. However, the specific small set of equations I have you is still able to make predictions registered held out predictions with specific numbers which are passing in various domains? 
+
+They may be retrodictive but they’re still working. Would FEP mathematics have survived the same rigorous testing? Think about it carefully
