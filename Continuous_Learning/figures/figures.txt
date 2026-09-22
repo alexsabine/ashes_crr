@@ -1,0 +1,86 @@
+Continuous_Learning figures (deterministic; numbers drawn on the figures)
+[F1] Omega 0.5: w = 0.1667, net pull +0.5000
+[F1] Omega 1: w = 0.3333, net pull +0.0000
+[F1] Omega 2: w = 0.6667, net pull -1.0000
+[figure] F01_tug_of_war.png
+[F2] Omega 0.7: |update|/|g_p| on the curve at lambda 0.1, 1, 10 = 0.300000, 0.300000, 0.300000
+[F2] Omega 1: |update|/|g_p| on the curve at lambda 0.1, 1, 10 = 0.000000, 0.000000, 0.000000
+[F2] Omega 1.4: |update|/|g_p| on the curve at lambda 0.1, 1, 10 = 0.400000, 0.400000, 0.400000
+[figure] F02_pareto_field.png
+[F3] exact rule (instantaneous norms): Omega 0.25 endpoint (2.0000, 1.0000) L_present 0.0000 L_past 43.9999 lambda_eff 0.0001 distance to curve 5.74e-03
+[F3] exact rule (instantaneous norms): Omega 0.35 endpoint (2.0000, 1.0000) L_present 0.0000 L_past 43.9996 lambda_eff 0.0001 distance to curve 5.73e-03
+[F3] exact rule (instantaneous norms): Omega 0.5 endpoint (2.0000, 0.9999) L_present 0.0000 L_past 43.9963 lambda_eff 0.0001 distance to curve 5.64e-03
+[F3] exact rule (instantaneous norms): Omega 0.71 endpoint (1.9981, 0.9962) L_present 0.0000 L_past 43.8458 lambda_eff 0.0001 distance to curve 1.56e-03
+[F3] exact rule (instantaneous norms): Omega 1 endpoint (0.0411, 0.0069) L_present 2.1652 L_past 0.0141 lambda_eff 2.985 distance to curve 6.78e-05
+[F3] exact rule (instantaneous norms): Omega 1.41 endpoint (0.0335, -0.0133) L_present 2.1902 L_past 0.0111 lambda_eff 4.074 distance to curve 1.87e-02
+[F3] exact rule (instantaneous norms): Omega 2 endpoint (0.0190, 0.0438) L_present 2.1908 L_past 0.0259 lambda_eff 4.786 distance to curve 4.01e-02
+[F3] exact rule (instantaneous norms): Omega 2.83 endpoint (0.0128, 0.0680) L_present 2.1918 L_past 0.0567 lambda_eff 5.248 distance to curve 6.49e-02
+[F3] exact rule (instantaneous norms): Omega 4 endpoint (0.0397, -0.0510) L_present 2.1975 L_past 0.0438 lambda_eff 4.074 distance to curve 5.69e-02
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 0.25 endpoint (2.0000, 1.0000) L_present 0.0000 L_past 43.9998 lambda_eff 0.0001 distance to curve 5.74e-03
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 0.35 endpoint (2.0000, 1.0000) L_present 0.0000 L_past 43.9993 lambda_eff 0.0001 distance to curve 5.73e-03
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 0.5 endpoint (1.9999, 0.9998) L_present 0.0000 L_past 43.9920 lambda_eff 0.0001 distance to curve 5.52e-03
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 0.71 endpoint (1.9949, 0.9902) L_present 0.0000 L_past 43.6043 lambda_eff 0.0001905 distance to curve 1.20e-03
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 1 endpoint (0.0339, 0.0057) L_present 2.1799 L_past 0.0096 lambda_eff 3.631 distance to curve 5.47e-05
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 1.41 endpoint (0.0153, -0.1659) L_present 2.3094 L_past 0.3322 lambda_eff 1e+06 distance to curve 1.67e-01
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 2 endpoint (0.0127, -0.2313) L_present 2.3537 L_past 0.6432 lambda_eff 1e+06 distance to curve 2.32e-01
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 2.83 endpoint (0.0117, -0.3237) L_present 2.4147 L_past 1.2586 lambda_eff 1e+06 distance to curve 3.24e-01
+[F3] registered estimator (EMA 0.9 of the gradients, cap 1e4): Omega 4 endpoint (0.0113, -0.4544) L_present 2.5063 L_past 2.4789 lambda_eff 1e+06 distance to curve 4.55e-01
+[figure] F03_trajectories.png
+[F4] noise 0: total loss per Omega 0.25:69.662 0.35:69.662 0.5:69.662 0.71:69.662 1:19.875 1.41:18.602 2:31.023 2.83:57.141 4:47.592
+[F4] noise 0.5: total loss per Omega 0.25:68.513 0.35:67.307 0.5:65.262 0.71:61.265 1:3.479 1.41:11.146 2:11.010 2.83:56.787 4:101.379
+[F4] noise 2: total loss per Omega 0.25:71.861 0.35:66.991 0.5:59.231 0.71:45.890 1:4.412 1.41:4.525 2:4.647 2.83:8.766 4:31.483
+[figure] F04_plateau.png
+[F5] edge lambda* = 1.2575; fixed converged for lambda <= 1.1253; first divergent lambda 1.3594; rule Omega=1 lambda_eff 0.04467 total loss 19.8753 median w 0.04444
+[figure] F05_stability_edge.png
+[F6] v = 0.1: ratio 1/phi 4.7193, ratio 1/2 3.5392
+[F6] v = 1: ratio 1/phi 1.0000, ratio 1/2 1.0787
+[F6] v = 10: ratio 1/phi 17.7028, ratio 1/2 34.0000
+[figure] F06_kalman.png
+[F7] EQ2 mfeat_fourier: tuned lambda 30 mean 26.1000 step 1.0000; rule per Omega 0.5:29.7000 0.71:28.7500 1:29.4000 1.41:28.9000 2:29.0000
+[F7] EQ2 mfeat_pixel: tuned lambda 1410 mean 50.0500 step 3.5121; rule per Omega 0.5:50.7500 0.71:50.4000 1:52.1500 1.41:50.7000 2:52.6000
+[F7] EQ2 texture: tuned lambda 100 mean 48.5600 step 3.6120; rule per Omega 0.5:49.8200 0.71:51.1000 1:51.3400 1.41:51.5800 2:46.5200
+[F7] EQ3 fars: tuned lambda 283 mean 13.0000 step 3.3508; rule per Omega 0.25:9.2600 0.35:9.2600 0.5:9.2600 0.71:9.2600 1:9.2600 1.41:9.2600 2:9.2800 2.83:9.2600 4:9.2600
+[F7] EQ3 krkopt: tuned lambda 3 mean 16.9031 step 8.9180; rule per Omega 0.25:15.6044 0.35:16.8432 0.5:17.8222 0.71:17.5225 1:17.8821 1.41:18.6613 2:18.9411 2.83:19.0809 4:19.6204
+[F7] EQ3 led24: tuned lambda 30 mean 18.5915 step 4.3633; rule per Omega 0.25:18.1847 0.35:19.2175 0.5:19.4679 0.71:19.6557 1:19.2801 1.41:20.2191 2:20.2817 2.83:19.0297 4:19.9687
+[F7] EQ3 led7: tuned lambda 0.212766 mean 21.9688 step 3.2031; rule per Omega 0.25:24.6250 0.35:24.9688 0.5:25.8125 0.71:26.0000 1:26.0312 1.41:26.8125 2:26.1562 2.83:28.9688 4:27.9062
+[F7] EQ3 mfeat_factors: tuned lambda 300 mean 54.4500 step 4.5371; rule per Omega 0.25:55.6000 0.35:56.0000 0.5:57.1500 0.71:57.9000 1:58.3500 1.41:58.0000 2:58.3500 2.83:57.5500 4:56.6000
+[F7] EQ3 mfeat_morphological: tuned lambda 2.83 mean 34.2000 step 4.8719; rule per Omega 0.25:31.5000 0.35:36.2000 0.5:37.0000 0.71:37.3000 1:37.9000 1.41:39.6500 2:38.9000 2.83:41.6500 4:40.5000
+[figure] F07_omega_profiles.png
+[F8] EQ2 mfeat_fourier: tuned 30 (26.1000); rule median w 1337 accuracy 29.4000; first fixed lambda above tuned with mean under half the best: 300.0
+[F8] EQ2 mfeat_pixel: tuned 1410 (50.0500); rule median w 3184 accuracy 52.1500; first fixed lambda above tuned with mean under half the best: 10000.0
+[F8] EQ2 texture: tuned 100 (48.5600); rule median w 110.6 accuracy 51.3400; first fixed lambda above tuned with mean under half the best: 283.0
+[F8] EQ3 fars: tuned 283 (13.0000); rule median w 426.3 accuracy 9.2600; first fixed lambda above tuned with mean under half the best: 1000.0
+[F8] EQ3 krkopt: tuned 3 (16.9031); rule median w 4.761 accuracy 17.8821; first fixed lambda above tuned with mean under half the best: 6.0
+[F8] EQ3 led24: tuned 30 (18.5915); rule median w 31.7 accuracy 19.2801; first fixed lambda above tuned with mean under half the best: 84.9
+[F8] EQ3 led7: tuned 0.212766 (21.9688); rule median w 2.777 accuracy 26.0312; first fixed lambda above tuned with mean under half the best: 3.0
+[F8] EQ3 mfeat_factors: tuned 300 (54.4500); rule median w 1066 accuracy 58.3500; first fixed lambda above tuned with mean under half the best: 3000.0
+[F8] EQ3 mfeat_morphological: tuned 2.83 (34.2000); rule median w 14.67 accuracy 37.9000; first fixed lambda above tuned with mean under half the best: 30.0
+[figure] F08_lambda_grids.png
+[F9] EQ2 mfeat_fourier: Omega=1 - tuned by cap x smooth cap10/sm0.8:-0.35; cap10/sm0.9:-0.35; cap10/sm0.98:-0.35; cap100/sm0.8:+0.05; cap100/sm0.9:+0.15; cap100/sm0.98:+0.05; cap10000/sm0.8:+2.80; cap10000/sm0.9:+3.30; cap10000/sm0.98:+3.15
+[F9] EQ2 mfeat_pixel: Omega=1 - tuned by cap x smooth cap10/sm0.8:-16.60; cap10/sm0.9:-16.60; cap10/sm0.98:-16.60; cap100/sm0.8:-13.45; cap100/sm0.9:-13.45; cap100/sm0.98:-13.40; cap10000/sm0.8:+2.90; cap10000/sm0.9:+2.10; cap10000/sm0.98:+1.35
+[F9] EQ2 texture: Omega=1 - tuned by cap x smooth cap10/sm0.8:-1.02; cap10/sm0.9:-1.26; cap10/sm0.98:-1.46; cap100/sm0.8:+0.30; cap100/sm0.9:+0.16; cap100/sm0.98:+0.04; cap10000/sm0.8:+0.98; cap10000/sm0.9:+2.78; cap10000/sm0.98:-2.18
+[F9] EQ3 fars: Omega=1 - tuned by cap x smooth cap10/sm0.8:-3.72; cap10/sm0.9:-3.72; cap10/sm0.98:-3.72; cap100/sm0.8:-3.74; cap100/sm0.9:-3.74; cap100/sm0.98:-3.74; cap10000/sm0.8:-3.74; cap10000/sm0.9:-3.74; cap10000/sm0.98:-3.72
+[F9] EQ3 krkopt: Omega=1 - tuned by cap x smooth cap10/sm0.8:+2.14; cap10/sm0.9:+1.32; cap10/sm0.98:+0.66; cap100/sm0.8:+2.18; cap100/sm0.9:+1.26; cap100/sm0.98:+0.12; cap10000/sm0.8:+1.48; cap10000/sm0.9:+0.98; cap10000/sm0.98:+2.20
+[F9] EQ3 led24: Omega=1 - tuned by cap x smooth cap10/sm0.8:-1.56; cap10/sm0.9:-1.56; cap10/sm0.98:-1.56; cap100/sm0.8:+1.53; cap100/sm0.9:+1.19; cap100/sm0.98:+0.94; cap10000/sm0.8:+1.28; cap10000/sm0.9:+0.69; cap10000/sm0.98:+0.63
+[F9] EQ3 led7: Omega=1 - tuned by cap x smooth cap10/sm0.8:+3.00; cap10/sm0.9:+3.00; cap10/sm0.98:+3.00; cap100/sm0.8:+3.16; cap100/sm0.9:+2.66; cap100/sm0.98:+2.69; cap10000/sm0.8:+3.16; cap10000/sm0.9:+4.06; cap10000/sm0.98:+6.03
+[F9] EQ3 mfeat_factors: Omega=1 - tuned by cap x smooth cap10/sm0.8:-11.15; cap10/sm0.9:-11.15; cap10/sm0.98:-11.15; cap100/sm0.8:-5.25; cap100/sm0.9:-5.20; cap100/sm0.98:-5.15; cap10000/sm0.8:+3.65; cap10000/sm0.9:+3.90; cap10000/sm0.98:+2.70
+[F9] EQ3 mfeat_morphological: Omega=1 - tuned by cap x smooth cap10/sm0.8:+3.65; cap10/sm0.9:+2.75; cap10/sm0.98:+3.85; cap100/sm0.8:+4.10; cap100/sm0.9:+2.70; cap100/sm0.98:+3.35; cap10000/sm0.8:+5.20; cap10000/sm0.9:+3.70; cap10000/sm0.98:+6.20
+[figure] F09_sensitivity.png
+[F10] rule at Ω = 1: minus tuned lambda per carrier fars:-3.7400, krkopt:+0.9790, led24:+0.6886, led7:+4.0625, mfeat_factors:+3.9000, mfeat_morphological:+3.7000
+[F10] Bayes (Laplace 1/2) arm: minus tuned lambda per carrier fars:-3.7200, krkopt:+1.2587, led24:-2.7543, led7:+0.0000, mfeat_factors:-12.5000, mfeat_morphological:-7.6000
+[F10] reduction arm (fixed w = rule's median w): minus tuned lambda per carrier fars:-6.1600, krkopt:-6.7133, led24:+0.0626, led7:-12.1875, mfeat_factors:-19.6500, mfeat_morphological:-10.7000
+[figure] F10_eq3_arms.png
+[F11] optdigits fisher: rule per Omega 0.5:81.6370 0.71:85.4626 1:89.4128 1.41:88.7900 2:87.0463
+[F11] optdigits euclid: rule per Omega 1:90.8719
+[F11] optdigits fixed: 0.2:82.8648 0.5:88.1139 1:91.0498 2:89.4306 4:75.0712
+[F11] pendigits fisher: rule per Omega 0.5:86.6212 0.71:93.1878 1:92.0418 1.41:86.2483 2:78.9632
+[F11] pendigits euclid: rule per Omega 1:94.3156
+[F11] pendigits fixed: 0.2:89.0314 0.5:92.5057 1:91.1960 2:90.0591 4:86.1301
+[F11] letter fisher: rule per Omega 0.5:53.3083 0.71:62.8836 1:67.1264 1.41:59.6802 2:48.5507
+[F11] letter euclid: rule per Omega 1:69.0255
+[F11] letter fixed: 0.2:58.6807 0.5:65.3973 1:67.5962 2:68.8756 4:63.6282
+[figure] F11_eqx_reduction.png
+[F12] ratio 0.25: theta_B 0.2000; Omega=1 fixed-point interval [0, 1]
+[F12] ratio 1: theta_B 0.5000; Omega=1 fixed-point interval [0, 1]
+[F12] ratio 4: theta_B 0.8000; Omega=1 fixed-point interval [0, 1]
+[figure] F12_bayes_line.png

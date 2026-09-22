@@ -48,6 +48,8 @@ uv run python ontology/checks/turing_safety_ingression.py | cmp - ontology/check
 uv run python ontology/checks/genesis_from_emptiness.py | cmp - ontology/checks/genesis_from_emptiness.txt && echo 'ontology exploratory check (genesis from emptiness) byte-identical to the committed output'
 uv run python runs/eq3/frozen/eq3_score.py smoke | cmp - prereg/eq3/smoke.txt && echo 'EQ3 frozen scorer smoke byte-identical to the committed output'
 uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null | cmp - prereg/eq3/smokefull.txt && echo 'EQ3 frozen scorer end-to-end smoke byte-identical to the committed output'
+uv run python Continuous_Learning/build/make_figures.py 2>/dev/null | cmp - Continuous_Learning/figures/figures.txt && echo 'Continuous Learning figure numbers byte-identical to the committed output'
+uv run python Continuous_Learning/build/build_pdf.py > /dev/null 2>&1 && echo 'Continuous Learning PDF rebuilds'
 uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt) && echo 'second retrodiction battery (PR #24): all 40 verdicts reproduced (the Rossler row drifts at the third decimal across Python patch versions, as the chaotic gate rows do)'
 echo
 

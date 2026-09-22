@@ -23,3 +23,9 @@ packages = ["src/crr"]
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]
 testpaths = ["tests"]
+
+[dependency-groups]
+docs = [
+    "fpdf2>=2.8.8",
+    "pypdfium2>=5.13.0",
+]
