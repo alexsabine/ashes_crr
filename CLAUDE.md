@@ -200,7 +200,8 @@ ontology/                  CRR's commitments against philosophy, contemplative t
                            genesis_from_emptiness (exploratory, no verdict))
 Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Markdown source, figures drawn from pinned
                            records by build/make_figures.py with figures.txt pinned and CI-checked, build/build_pdf.py); a
-                           note, not evidence (R8)
+                           note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods
+                           (battery theory/checks/omega_vs_methods.py, pinned, CI-checked)
 scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
 prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots

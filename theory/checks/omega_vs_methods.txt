@@ -1,0 +1,29 @@
+Omega = 1 against the rules other methods use, on the two-task quadratic of omega_sweeps.py (F = 16 H; noise 0.5; lr 0.05; 4000 steps; 5 seeds; start at the old-task optimum)
+stability edge of a fixed weight: lambda* = 1.2575 at F, 0.0786 at 16F; tuned fixed weight (in-sample, grid (0.003, 0.01, 0.03, 0.1, 0.3, 0.6, 1.0, 1.2, 1.5, 3.0)): lambda = 1 total 3.3168 at F, lambda = 0.03 total 14.7298 at 16F
+
+method       knob  L_present   L_past    total  /tuned | 16F: total  /tuned |  knob x10 | label
+fixed           1     3.1169   0.1999   3.3168   1.000 |        nan     inf |  DIVERGES | not scale-robust; has a divergence edge in its knob
+omega           1     2.8203   0.6585   3.4789   1.049 |     9.7260   0.660 |    finite | scale-robust; no edge found at knob x10
+gradnorm        0     2.8010   0.7296   3.5306   1.064 |        nan     inf |       n/a | not scale-robust; no knob
+mega            0     2.6479   1.0830   3.7309   1.125 |        nan     inf |       n/a | not scale-robust; no knob
+agem            0     0.2066  40.1317  40.3382  12.162 |   639.0390  43.384 |       n/a | not scale-robust; no knob
+softproj      0.5     0.0215  65.2291  65.2506  19.672 |  1043.5128  70.843 |    finite | not scale-robust; no edge found at knob x10
+subspace        2     2.9920  15.7519  18.7439   5.651 |   255.0219  17.313 |    finite | not scale-robust; no edge found at knob x10
+klctrl          1     2.6652   1.0382   3.7035   1.117 |        nan     inf |    finite | not scale-robust; no edge found at knob x10
+select        0.8     3.1797   0.1855   3.3652   1.015 |        nan     inf |       n/a | not scale-robust; no knob
+
+computed:
+  fixed      [fixed weight (EWC/L2-SP/KL penalty); lambda = 1 is also the Bayes/ER-sum weight in this model; needs a sweep of lambda] -> within 10 % of the tuned fixed weight at F: True, at 16F with the same knob: False; scale-robust: False; divergence edge: True
+  omega      [normalised gradient (the rule under test); needs smoothing, cap, floor] -> within 10 % of the tuned fixed weight at F: True, at 16F with the same knob: True; scale-robust: True; divergence edge: False
+  gradnorm   [learned task weights (GradNorm alpha = 0); needs a weight learning rate] -> within 10 % of the tuned fixed weight at F: True, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  mega       [loss ratio (MEGA-I); needs smoothing] -> within 10 % of the tuned fixed weight at F: False, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  agem       [conflict projection (A-GEM); needs nothing] -> within 10 % of the tuned fixed weight at F: False, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  softproj   [soft conflict projection (PCR-style); needs a fraction c] -> within 10 % of the tuned fixed weight at F: False, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  subspace   [protected subspace, no past term (OGD / OGPSA / SafeAnchor-style); needs a rank k] -> within 10 % of the tuned fixed weight at F: False, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  klctrl     [target controller on the past loss (adaptive-KL-style); needs a target] -> within 10 % of the tuned fixed weight at F: False, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  select     [gradient-based sample selection at fixed lambda = 1; needs a quantile] -> within 10 % of the tuned fixed weight at F: True, at 16F with the same knob: False; scale-robust: False; divergence edge: False
+  scale-robust methods (within 10 % of the tuned fixed weight at both F and 16F with one knob setting): ['omega']
+  methods that diverge at 16F with the knob that worked at F: ['fixed', 'gradnorm', 'mega', 'klctrl', 'select']
+  methods that forget (L_past more than 10 x the tuned fixed weight's 0.1999) at F: ['agem', 'softproj', 'subspace']
+  methods with a divergence edge in their own knob: ['fixed']
+  reading (from the lists above): the rules that weight the past pull by a fixed number, a learned number or a loss ratio carry that number's units and fail when the past curvature changes scale; the rules that project rather than weight never diverge but drop the past wherever the two gradients do not conflict; the rule that scales the past pull by the present pull is the one in this list whose quality survives the change of scale, because its step is bounded by the present step
