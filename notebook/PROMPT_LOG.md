@@ -835,3 +835,9 @@ Which of the two frameworks is more falsifiable?
 Check the epistemic status of the pipeline please. I understand that crr made predictions in different systems which passed, but which did not beat the existing mathematics within those systems. However, the specific small set of equations I have you is still able to make predictions registered held out predictions with specific numbers which are passing in various domains? 
 
 They may be retrodictive but they’re still working. Would FEP mathematics have survived the same rigorous testing? Think about it carefully
+
+## 83 — 2026-09-22T07:19:09Z
+
+I think that’s worth noting in the pipeline documentation under epistemic status please. Include a highly technical philosophical explanation and a 5th grader explanation.
+
+Once you have done that, please re-check the Dirac delta as Now, and the edge of criticality as one omega before rupture (I think it is in the axioms somewhere maybe?)
