@@ -38,6 +38,11 @@ this repository — see [docs/audit/2026-09-15-audit.md](docs/audit/2026-09-15-a
 for the audit record.
 
 
+Study BAYES-1 (2026-09-22): the registered rule against the exact sequential Bayes posterior on six unseen regression
+streams; the precondition (the Bayes arm within 0.1 posterior sd) was NOT DECIDABLE on 6/6, so its rows are reported
+without verdict; the numbers put the rule 5–18 posterior sd from the posterior with a median derived weight of 51–108
+(`reports/bayes1.md`).
+
 ### Epistemic status (2026-09-22)
 
 Stated once in `docs/notes/2026-09-22_epistemic_status.md` (technical and fifth-grader versions). In short: two

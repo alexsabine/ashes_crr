@@ -1,0 +1,1 @@
+{"calib": 1.0, "d": 7.286624162205313, "dataset": "201_pol", "epochs": 50, "finite": true, "lr": 0.004940391459237548, "mode": "eq", "mse": 0.9185935507046888, "seed": 0, "smooth": 0.9, "start_at_posterior": false, "value": 1.0, "w_cap_frac": 0.1386, "w_med": 107.11236429280059, "wcap": 10000.0}

@@ -841,3 +841,7 @@ They may be retrodictive but they’re still working. Would FEP mathematics have
 I think that’s worth noting in the pipeline documentation under epistemic status please. Include a highly technical philosophical explanation and a 5th grader explanation.
 
 Once you have done that, please re-check the Dirac delta as Now, and the edge of criticality as one omega before rupture (I think it is in the axioms somewhere maybe?)
+
+## 84 — 2026-09-22T15:40:05Z
+
+Okay, let’s run the Bayes 1 test first now please

@@ -1,0 +1,9 @@
+gate for BAYES-1 (synthetic drifting stream, d = 6, n = 2500, 5 chunks, 30 whitened random features, lr 0.00548, 50 epochs per chunk)
+  Bayes arm d = 0.0650 (B0: converged within 0.1); step = 0.0500
+  B1 negative control (a second Bayes arm, 100 epochs): d = 0.0636, beyond a step of Bayes: False -> fails as it must
+  B1 positive control (fixed lambda = 4, not the Bayes weight): d = 1.7672, beyond a step of Bayes: True -> passes as it must
+  informational: the rule at Omega = 1, ordinary start d = 7.1693; started AT the exact posterior each chunk d = 2.0024 -> it drifts away (the EMA estimator with mini-batch noise does not rest on the knife edge)
+  informational B2 at c = 16:   fixed lambda = 1 d = 3.3812, rule d = 7.4000 -> the surrogate says B2 FAIL
+  informational B2 at c = 1/16: fixed lambda = 1 d = 4.6847, rule d = 6.1273 -> the surrogate says B2 FAIL
+  informational B3: d(rule) at c = 1/16, 1, 16 = 6.1273, 7.1693, 7.4000 -> the surrogate says B3 FAIL (the invariance is to the term, not to the mini-batch noise, omega_reprocessed.txt [1])
+GATE OPEN

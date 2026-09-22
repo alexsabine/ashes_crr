@@ -1,0 +1,1 @@
+{"calib": 1.0, "d": 5.731385702051147, "dataset": "225_puma8NH", "epochs": 50, "finite": true, "lr": 0.00783284332502048, "mode": "eq", "mse": 0.8592496022324457, "seed": 0, "smooth": 0.9, "start_at_posterior": false, "value": 1.0, "w_cap_frac": 0.1482, "w_med": 51.09422164288809, "wcap": 10000.0}

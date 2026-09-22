@@ -1,0 +1,1 @@
+{"calib": 1.0, "d": 13.649505566066866, "dataset": "537_houses", "epochs": 50, "finite": true, "lr": 0.005504448881307064, "mode": "eq", "mse": 2.5967580236591297, "seed": 0, "smooth": 0.9, "start_at_posterior": false, "value": 1.0, "w_cap_frac": 0.1251, "w_med": 73.56979380796247, "wcap": 10000.0}
