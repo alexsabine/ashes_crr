@@ -4,8 +4,9 @@ The complete technical record of the Ω = 1 normalised penalty step (CRR hypothe
 
 | file | what it is |
 |---|---|
-| `Continuous_Learning.pdf` | the main document (54 pages), built from the Markdown source below by `build/build_pdf.py`; byte-identical on rebuild |
+| `Continuous_Learning.pdf` | the main document (68 pages), built from the Markdown source below by `build/build_pdf.py`; byte-identical on rebuild |
 | `CROSS_VERIFICATION.md` | the paper-by-paper cross-verification of the rule against existing catastrophic-forgetting solutions, 2026 work included (owner request 2026-09-22, prompt-log entry 73); its battery is `theory/checks/omega_vs_methods.py` (pinned output CI-checked); the literature record with the access statement is `docs/citations/continual_learning_2026-09-22.md` |
+| §7.6 of the document | the mathematics reprocessed after the cross-verification (`theory/checks/omega_reprocessed.py`, pinned, CI-checked), the bounded rule EQ-B, its two gates (`prereg/eq4/gate_EQB.txt`, `gate_EQBM.txt`), the exploratory run on the seen carriers (`runs/eq4_dev/`) and the pre-registered study EQ4 (`prereg/eq4/PREREG.md`; data on a later day under R3) |
 | `CONTINUOUS_LEARNING.md` | the source of the document, readable on GitHub (display mathematics in `$$` lines; the appendices embed repository files) |
 | `figures/F01…F12.png` | the twelve figures, drawn by `build/make_figures.py` from the pinned run records and the mathematics check; `figures/figures.txt` pins every number placed on them (CI-checked) |
 | `build/make_figures.py` | the figure script (deterministic; validated palette from the data-visualisation reference instance) |

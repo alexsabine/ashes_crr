@@ -131,3 +131,19 @@ def test_battery_deterministic_on_rerun():
         assert m1["name"] == m2["name"]
         assert np.array_equal(x1, x2)
         assert np.array_equal(ev1, ev2)
+
+
+def test_eqb_clip_bounds_an_extreme_batch_and_leaks_at_most_kappa_per_batch():
+    from crr.surrogates.battery import _eqb_clip
+    rng = np.random.default_rng(0); hist = []
+    for _ in range(20):
+        g = rng.standard_normal(8); ref = max(hist[-50:]) if len(hist) >= 10 else np.inf
+        out = _eqb_clip(g, hist, kappa=2.0, n_hist=50, n_min=10)
+        assert np.linalg.norm(out) <= 2.0 * ref + 1e-12
+    ref = max(hist[-50:])
+    big = 1000.0 * rng.standard_normal(8); out = _eqb_clip(big, hist, kappa=2.0)
+    assert abs(np.linalg.norm(out) - 2.0 * ref) < 1e-9          # clipped to kappa x the largest kept length
+    assert abs(hist[-1] - 2.0 * ref) < 1e-9                      # the history keeps the KEPT length, so the leak is a factor kappa per batch
+    out2 = _eqb_clip(big, hist, kappa=2.0)
+    assert abs(np.linalg.norm(out2) - 4.0 * ref) < 1e-9          # second extreme batch: at most kappa^2 x the reference
+    assert np.isfinite(_eqb_clip(rng.standard_normal(8), hist, kappa=2.0)).all()

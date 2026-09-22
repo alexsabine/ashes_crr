@@ -1,0 +1,55 @@
+H-EQ reprocessed (2026-09-22, prompt-log entry 74): the two-task quadratic of omega_sweeps.py (d = 5, F 16x H, noise 0.5, lr 0.05, 4000 steps, 5 seeds, start at the past optimum b)
+
+[1] The rule is invariant to the SCALE of the past term (exactly, when the past term's noise scales with it) and not to its SHAPE
+     max over steps and seeds of |theta_t(F) - theta_t(16F)| under the rule, past noise scaled with the term: 0.000e+00  -> identical trajectories: w(cF) = w(F)/c exactly, the EMA being linear in g_q
+     the same with the past noise left at 0.5 (not scaled): 4.252e+00  -> the invariance is to the term, not to a noise of fixed size added to it
+     mean endpoint distance between F and F with its diagonal reversed (same eigenvalues, other coordinates): 0.0412  -> the shape of F changes the endpoint; the rule does not see shape
+     consequence: every method that changes the importance estimate (which coordinate is protected how much) composes with the rule and is untouched by it; the 16F test of omega_vs_methods.py measures scale only
+
+[2] The step bound |g_p + w g_q| <= (1 + Omega) |g_p|: on which gradients does it hold, and what does EQ-B add to it?
+     rule  smoothed: max |ema_p + w ema_q| / |ema_p| = 1.9778, fraction above 2: 0.0000  -> bound holds
+     rule  raw:      max |g_p + w g_q| / |g_p| = 38.6579, fraction above 2: 0.0089, median 0.4903; max |g_p + w g_q| = 84.4515
+     EQ-B  smoothed: max |ema_p + w ema_q| / |ema_p| = 1.9778, fraction above 2: 0.0000  -> bound holds
+     EQ-B  raw:      max |g_p + w g_q| / |g_p| = 38.6579, fraction above 2: 0.0089, median 0.4903; max |g_p + w g_q| = 84.4515
+     computed: the ratio bound is a bound on the smoothed pull; the raw ratio exceeds 2 on a fraction of steps for both rules (a small |g_p| in the denominator), and EQ-B does not lower the largest raw step (84.4515 vs 84.4515): what EQ-B bounds is the present gradient's LENGTH (kappa x the largest kept length of its recent batches), hence the absolute step, not the ratio
+
+[3] Does a past term whose minimum is a SET (rank-deficient F: a constraint on a subspace) break the rule's premise that |g_q| measures distance from the past? (the candidate mechanism for the two-signed LwF control of EQ3-4)
+     full-rank F                      max w 6.815, fraction of steps at the cap 0.0000, finite True, total loss 3.4789
+     rank-3 F (two free directions)   max w 12.24, fraction of steps at the cap 0.0000, finite True, total loss 1.2541
+     free directions under rank-3 F: max |theta - a| over the two free coordinates at the end = 0.1178 (the present optimum is reached there: the constraint says nothing about them, and the rule's w is driven by the constrained directions only)
+     median derived w: full-rank 0.5516, rank-3 0.5409  -> NO: on a quadratic constraint the free directions relax to the present optimum and the derived weight is unchanged; the quadratic model supplies no mechanism for the two-signed LwF control, which stays an empirical statement (EQ3-4) with the softmax non-identifiability argument as the open candidate
+
+[4] Poisoned present batches (gradient x factor for `run` consecutive steps from step 2000): which rule fails first, and whether EQ-B (present gradient clipped at kappa x the largest kept length of its recent batches) survives
+     clean reference: tuned fixed lambda = 1, total 3.3168; clean totals: rule 3.4789, EQ-B 3.4789
+      factor  run |                  fixed |             fixed+clip |                   rule |                   EQ-B   (total after 4000 steps; DIVERGED if any seed is non-finite; max w of the rule arms)
+          10    1 |     3.3168 w<=       1 |     3.3168 w<=       1 |     3.4767 w<=    6.82 |     3.4786 w<=    6.82
+          10    5 |     3.3168 w<=       1 |     3.3168 w<=       1 |     3.4409 w<=    6.82 |     3.4307 w<=    6.82
+         100    1 |     3.3168 w<=       1 |     3.3168 w<=       1 |     3.4554 w<=    8.04 |     3.4786 w<=    6.82
+         100    5 |     3.3168 w<=       1 |     3.3168 w<=       1 |    17.2000 w<=    8.04 |     3.4244 w<=    6.82
+        1000    1 |     3.3168 w<=       1 |     3.3168 w<=       1 |     3.4457 w<=    75.4 |     3.4786 w<=    6.82
+        1000    5 |   DIVERGED w<=       1 |     3.3168 w<=       1 |   DIVERGED w<=    75.4 |     3.4244 w<=    6.82
+       10000    1 |     3.3168 w<=       1 |     3.3168 w<=       1 |     3.4445 w<=     749 |     3.4786 w<=    6.82
+       10000    5 |   DIVERGED w<=       1 |     3.3168 w<=       1 |   DIVERGED w<=     749 |     3.4244 w<=    6.82
+     computed: first (factor, run) at which each arm diverges, in sweep order: fixed: (1000.0, 5); fixed+clip: never; rule: (1000.0, 5); EQ-B: never
+     computed: first (factor, run) at which each arm's total exceeds twice its clean total (or diverges): fixed: (1000.0, 5); fixed+clip: never; rule: (100.0, 5); EQ-B: never
+     computed: the registered rule degrades before the tuned fixed weight does: True; EQ-B degrades in the sweep: False
+     computed: the registered rule has a poison threshold in this sweep: True; EQ-B survives the whole sweep: True; the tuned fixed weight has a threshold: True; the rule fails where the fixed weight does not: False
+     computed: on the clean stream EQ-B is within 1 % of the registered rule: True (totals 3.4789 vs 3.4789); the bound is idle on the clean stream
+
+[5] The Fisher-norm ratio of H-EQ as written (|.|_F^-1 on both gradients) has the same fixed-point set as the Euclidean one: any positive scalar w needs g_p antiparallel to g_q, i.e. theta on the Pareto curve
+     Euclidean ratio: nearest Pareto lambda 0.4926 at distance 0.0558 | Fisher ratio: lambda 0.4763 at distance 0.0566
+     computed: both endpoints sit within 0.2 of the curve: True; the metric moves the stopping point along the curve, it does not change the set (A1's metric is a choice of stopping point, not of mechanism)
+
+[6] Under Adam (the rule upstream of the preconditioner) the divergence edge disappears for every method and the scale test becomes a question of endpoint quality
+     tuned fixed lambda under Adam: 1 (total 3.2859) at F; 1.2 (total 3.4399) at 16F
+     fixed lambda (tuned at F)  F: total 3.2859 (/tuned 1.000, finite True) | 16F, same knob: total 3.4403 (/tuned 1.000, finite True)
+     rule Omega = 1             F: total 3.3370 (/tuned 1.016, finite True) | 16F, same knob: total 3.4812 (/tuned 1.012, finite True)
+     EQ-B Omega = 1             F: total 3.3370 (/tuned 1.016, finite True) | 16F, same knob: total 3.4812 (/tuned 1.012, finite True)
+     computed: scale-robust under Adam (within 10 % of the Adam-tuned fixed weight at both scales): ['fixed lambda (tuned at F)', 'rule Omega = 1', 'EQ-B Omega = 1']; every arm finite: True
+     computed: the fixed weight is scale-robust under Adam too: the rule has no scale advantage under Adam in this model, its property is an SGD property
+
+[7] What changes in H-EQ (proposal for the v3.2 list; theory/CRR.md is not edited here), each line conditional on the numbers above:
+     (a) scope: the quadratic model gives NO mechanism for excluding constraint terms ([3]); the narrowing of H-EQ to losses on the past rests on EQ3-4 (empirical, two-signed) and is stated as an empirical scope, not a derived one;
+     (b) the bound is the mechanism ([2]): the claim is 'the past pull never exceeds (1 + Omega) x the present pull in the smoothed gradients', not 'equal pull is optimal' (omega_sweeps.txt [1]-[2]);
+     (c) present bound: the registered rule degrades at poison (100.0, 5) (diverges at (1000.0, 5)) where EQ-B survives the whole sweep ([4]); EQ-B is the enhancement to test, with the poisoned stream as its positive control and the clean stream as its negative control (the bound must be idle there);
+     (d) the metric is a stopping point on the Pareto curve, not a mechanism ([5]); (e) the optimiser is a registered parameter ([6]), and under Adam the fixed weight is scale-robust too, so the scale claim is SGD-only.

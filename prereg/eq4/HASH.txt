@@ -1,0 +1,11 @@
+cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  ../../runs/eq4/frozen/CRR.md
+d4f8b7bd2b91dd54b64c1dd07f8e2f417294d5de6b87778d81218b2606885892  ../../runs/eq4/frozen/battery.py
+d506f4a235cdb38f87285ac15953ca3ebf4a8547c38422a3b3bb10622e0a771d  ../../runs/eq4/frozen/core.py
+57faf2583a3c69bb98b4068f907889e9bc7cadad2cb80fa9c4593c836de7f1f3  ../../runs/eq4/frozen/eq4_score.py
+31ffe8d623b163d2530e0db7d04eb387cfe74fcc5906ab98a59fa745a7a99982  ../../runs/eq4/frozen/exclusions.py
+32308e7179c226e0ef57ee33356aa7ba685dd091a96818f27dcf7d7c92f863a6  ../../runs/eq4/frozen/gate.py
+9c841e29dbb0fa11d06dca9bdbf723fbb33d33b719ff4fa8232e1e0ebc0f150f  ./PREREG.md
+32a9bfee0e6546118425c8e068b25f5b9afa6246b740e12f52b15bb00f6b03a1  ./gate_EQB.txt
+6ff21f1ac722fae8ae9095f1295e2e3069862424d5fa28a9e05e4b31100bfb3c  ./gate_EQBM.txt
+21e3009e134d7dda648e14e8875fcfcbe82fc9268c2bff9f7d99bcf308ce98ad  ./smoke.txt
+c4ad1a550726448205380e9715468fb8ed239d584d4f7854e6c9a26cfa9c7580  ./smokefull.txt

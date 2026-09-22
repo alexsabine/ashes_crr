@@ -51,6 +51,13 @@ item below ends in a ledger row or in a gate table, or it does not happen.
    ledger → reports → gate tables → notebooks. `docs/README.md` carries it; nothing else is
    needed, and no summary of "findings" is written (§9).
 
+3b. **EQ4 (pre-registered 2026-09-22, `prereg/eq4/`; data on or after 2026-09-23 under R3):** the bounded rule EQ-B
+(present gradient clipped at κ × the largest kept recent length, then the equanimity ratio; `theory/checks/omega_reprocessed.py`,
+gates EQB/EQBM open) beside the registered rule on six unseen PMLB carriers (satimage, segmentation, yeast, wine_quality_white,
+sleep, page_blocks), with a poisoned regime whose R7 baseline is the fixed weight with the same clip, and the class-selection
+rule that answers the fars defect. Rows EQ4-0…I; no row until the data day. What a PASS would mean: the enhancement is a
+result at PASS-0 (anchoring); what EQ4-4 INERT would mean: the poison property is surrogate-only.
+
 ## 2. Retrodiction across more systems: what is worth adding
 
 The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9

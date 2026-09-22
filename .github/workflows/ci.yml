@@ -37,6 +37,7 @@ jobs:
           uv run python theory/checks/verify_spec_math.py
           uv run python theory/checks/omega_sweeps.py > /tmp/om.txt && cmp /tmp/om.txt theory/checks/omega_sweeps.txt
           uv run python theory/checks/omega_vs_methods.py > /tmp/ovm.txt && cmp /tmp/ovm.txt theory/checks/omega_vs_methods.txt
+          uv run python theory/checks/omega_reprocessed.py 2>/dev/null > /tmp/orp.txt && cmp /tmp/orp.txt theory/checks/omega_reprocessed.txt
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
           uv run python theory/retrodictions/sharp_claims.py > /tmp/sharp.txt && cmp /tmp/sharp.txt theory/retrodictions/sharp_claims.txt
           uv run python theory/retrodictions/bio_retrodictions.py > /tmp/bio.txt && cmp /tmp/bio.txt theory/retrodictions/bio_retrodictions.txt
@@ -57,6 +58,8 @@ jobs:
           uv run python ontology/checks/genesis_from_emptiness.py > /tmp/o3.txt && cmp /tmp/o3.txt ontology/checks/genesis_from_emptiness.txt
           uv run python runs/eq3/frozen/eq3_score.py smoke > /tmp/s3.txt && cmp /tmp/s3.txt prereg/eq3/smoke.txt
           uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null > /tmp/s3f.txt && cmp /tmp/s3f.txt prereg/eq3/smokefull.txt
+          uv run python runs/eq4/frozen/eq4_score.py smoke > /tmp/s4.txt && cmp /tmp/s4.txt prereg/eq4/smoke.txt
+          uv run python runs/eq4/frozen/eq4_score.py smokefull --out /tmp/eq4_smokefull.jsonl 2>/dev/null > /tmp/s4f.txt && cmp /tmp/s4f.txt prereg/eq4/smokefull.txt
           uv run python Continuous_Learning/build/make_figures.py 2>/dev/null > /tmp/cl.txt && cmp /tmp/cl.txt Continuous_Learning/figures/figures.txt
           uv run python Continuous_Learning/build/build_pdf.py > /dev/null 2>&1
           uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt)
@@ -68,3 +71,5 @@ jobs:
           uv run python -m crr.surrogates.gate T1
           uv run python -m crr.surrogates.gate EQ
           uv run python -m crr.surrogates.gate EQ2
+          uv run python -m crr.surrogates.gate EQB
+          uv run python -m crr.surrogates.gate EQBM
