@@ -1,0 +1,48 @@
+================================================================================================================
+EQ3 scoring — per-seed values in brackets (seeds 0-4); thresholds from prereg/eq3/PREREG.md
+================================================================================================================
+
+[synthetic]  resolvable step = max(1.0, 2*SE) = 2.8221  (tuned-lambda SE 1.4110)
+   EWC fixed-lambda grid: 0.1:24.88  0.3:24.95  1:25.42  3:26.49  10:30.50  30:37.19  35.3357:38.60  50:40.13  70.922:41.27  100:42.14  141:34.05  200:34.25  283:16.59  300:16.59  1000:0.00  3000:0.00  10000:0.00
+   EWC tuned lambda = 100: 42.1405 [39.13 41.14 41.81 47.49 41.14]
+   EWC rule Ω=0.25: 38.4615 [38.80 40.47 36.45 40.47 36.12]   Ω − tuned: -3.6789
+   EWC rule Ω=0.35: 40.7358 [39.80 41.47 38.13 44.15 40.13]   Ω − tuned: -1.4047
+   EWC rule Ω=0.5 : 42.4080 [40.13 41.81 41.14 45.48 43.48]   Ω − tuned: +0.2676
+   EWC rule Ω=0.71: 41.2709 [39.46 40.47 40.13 45.48 40.80]   Ω − tuned: -0.8696
+   EWC rule Ω=1.0 : 42.2742 [39.13 42.47 40.80 46.82 42.14]   Ω − tuned: +0.1338
+   EWC rule Ω=1.41: 42.2742 [38.13 45.15 39.13 46.15 42.81]   Ω − tuned: +0.1338
+   EWC rule Ω=2.0 : 42.0736 [39.13 42.14 39.80 40.80 48.49]   Ω − tuned: -0.0669
+   EWC rule Ω=2.83: 43.2776 [41.47 44.48 41.47 44.48 44.48]   Ω − tuned: +1.1371
+   EWC rule Ω=4.0 : 39.7993 [40.13 41.47 40.80 39.46 37.12]   Ω − tuned: -2.3411
+   EWC reduction arm (fixed w = median derived 200.423): 34.2475 [40.47 41.81 42.81 46.15 0.00]   rule(Ω=1) − reduction: +8.0268
+   EWC Bayes arm (Laplace weight 0.5 on the task-size-weighted Fisher): 25.2174 [24.75 25.42 25.08 25.08 25.75]   Bayes − tuned: -16.9231; rule(Ω=1) − Bayes: +17.0569
+   sensitivity (Ω=1 − tuned): cap10/sm0.8:-11.64  cap10/sm0.9:-11.64  cap10/sm0.98:-11.64  cap100/sm0.8:-0.07  cap100/sm0.9:-0.07  cap100/sm0.98:+0.00  cap10000/sm0.8:-1.27  cap10000/sm0.9:+0.13  cap10000/sm0.98:+0.47
+   EWC baseline agem    : 30.5017 [30.77 30.77 29.43 31.77 29.77]   rule(Ω=1) − baseline: +11.7726
+   EWC baseline gradnorm: 13.7124 [0.00 0.00 34.78 33.78 0.00]   rule(Ω=1) − baseline: +28.5619
+   EWC baseline mega    : 24.8829 [24.08 25.08 24.75 25.08 25.42]   rule(Ω=1) − baseline: +17.3913
+   ER-sum grid: 0.5:79.00  1:80.94  2:81.27  4:80.74; rule Ω=1: 81.5385 [81.61 81.27 81.61 83.28 79.93]  rule − best fixed: +0.2676; reduction arm: 81.2709 [80.94 83.28 79.26 82.61 80.27]  rule − reduction: +0.2676
+   derpp tuned w=0.1: 82.3411 [81.61 80.94 86.29 82.61 80.27]; rule best Ω=0.5: 80.5351 [80.27 79.60 81.94 82.61 78.26]  best-Ω − tuned: -1.8060; Ω=1 − tuned: -6.5552; finite-grid span 2.8094 -> INERT (excluded from EQ3-4)
+   lwf   tuned w=1: 41.1371 [38.13 43.81 46.15 37.46 40.13]; rule best Ω=0.71: 32.0401 [32.44 33.11 33.78 30.43 30.43]  best-Ω − tuned: -9.0970; Ω=1 − tuned: -16.8562; finite-grid span 23.0769 -> load-bearing
+   si    tuned w=0.1: 44.4816 [45.82 45.82 42.47 47.83 40.47]; rule Ω=1: 29.8328 [37.79 24.75 28.09 28.43 30.10]  Ω=1 − tuned: -14.6488
+   mas   tuned w=0.3: 65.8863 [64.55 65.89 66.56 66.89 65.55]; rule Ω=1: 60.7358 [57.19 60.20 67.22 58.86 60.20]  Ω=1 − tuned: -5.1505
+   x4 regime: tuned lambda=1: 35.3177 [39.80 33.78 33.44 32.78 36.79]; rule Ω=1: 39.2642 [40.13 35.12 39.80 39.80 41.47]  Ω=1 − tuned: +3.9465; reduction: 28.5619 [39.13 31.10 39.13 0.00 33.44]
+
+----------------------------------------------------------------------------------------------------------------
+EQ3-0 precondition: tuned lambda per carrier {'synthetic': 100.0}, span 1.00x -> NOT DECIDABLE: tuned lambda did not move >= 10x
+EQ3-1 H-EQ2: Ω=1 − tuned per carrier synthetic:+0.1338 (step 2.82; seeds not behind 5/5); best single lambda=100 loses synthetic:0.0000; not behind on 1/1 -> FAIL (reported without verdict: EQ3-0 not decidable)
+EQ3-2 reduction: rule − fixed@median per carrier synthetic:+8.0268 -> DOES NOT REDUCE: normalised-gradient method
+EQ3-3 control ER-sum: rule − best fixed synthetic:+0.2676; rule − reduction synthetic:+0.2676 -> holds
+EQ3-4 control DER++/LwF (load-bearing cells only): best-Ω − tuned synthetic/derpp:-1.8060 (inert), synthetic/lwf:-9.0970; load-bearing 1/2, inert 1 -> holds
+EQ3-5 diagnostic SI/MAS: Ω=1 − tuned synthetic/si:-14.6488, synthetic/mas:-5.1505 (report only)
+EQ3-6 Ω plateau: best Ω per carrier {'synthetic': 2.83} -> FAIL
+EQ3-7 published baselines vs rule(Ω=1): synthetic/agem:-11.7726, synthetic/gradnorm:-28.5619, synthetic/mega:-17.3913 -> no published baseline is ahead of the rule by a step on every carrier
+EQ3-S sensitivity: EQ3-1 'not behind' flips in 3 of 9 cells -> FRAGILE
+EQ3-8 diagnostic x4 regime: Ω=1 − tuned synthetic:+3.9465 (tuned 1) (report only)
+controls: all hold
+EQ3-C cap axis (Ω=1 − tuned at each cap; nb = not behind by a step; predicted nb iff cap >= tuned lambda): synthetic/cap10:-11.64(behind; predicted behind), synthetic/cap100:-0.07(nb; predicted nb), synthetic/cap10000:+0.13(nb; predicted nb) -> PASS
+EQ3-D empty-present diagnostic: synthetic: late-w median 229.1 vs whole-run median 200.4 (ratio 1.143; seeds with late-w < 1: 0/5) (report only)
+EQ3-A capacity x epochs on synthetic: hidden256/ep3: tuned 100 -> 42.14, rule 42.27, diff +0.13 (step 2.82) nb; hidden64/ep1: tuned 30 -> 47.56, rule 46.02, diff -1.54 (step 2.20) nb; hidden64/ep3: tuned 30 -> 45.35, rule 44.15, diff -1.20 (step 2.26) nb; hidden256/ep1: tuned 30 -> 31.84, rule 45.42, diff +13.58 (step 9.20) nb -> not behind in 4/4 cells -> PASS
+EQ3-I lr x batch invariance on synthetic: lr0.05/bs10: tuned 100 -> 42.14, rule 42.27, diff +0.13 (step 2.82) nb; lr0.0125/bs10: tuned 100 -> 45.42, rule 45.69, diff +0.27 (step 1.81) nb; lr0.2/bs10: tuned 3 -> 31.10, rule 41.87, diff +10.77 (step 3.25) nb; lr0.05/bs5: tuned 100 -> 39.26, rule 40.80, diff +1.54 (step 2.09) nb; lr0.05/bs20: tuned 30 -> 38.46, rule 44.35, diff +5.89 (step 1.93) nb -> not behind in 5/5 cells -> PASS
+EQ3-B Bayes arm (Laplace weight 1/2): Bayes − tuned synthetic:-16.9231; rule(Ω=1) − Bayes synthetic:+17.0569; Bayes not behind tuned on 0/1 (report only)
+EQ3-P plateau width on the nine-point grid: synthetic: 7 of 9 within a step of the best (0.35..2.83, contiguous); median width 7 (report only)
+replication summary: EQ3-1 FAIL (not behind on 1/1); fragile: True; controls: ER-sum holds, DER++/LwF holds; cap axis: PASS
