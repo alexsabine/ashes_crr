@@ -1,0 +1,21 @@
+================================================================================================================
+T1x scoring — held-out R^2 of log forgetting on log predictor with log lr as a covariate; thresholds from prereg/t1x/PREREG.md
+================================================================================================================
+
+[synthetic] n = 2400 of 2400 rows, d = 6; base task-1 test MSE 0.2538, task-2 4.0025; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:5.99x  lr0.005:6.17x  lr0.01:8.34x  lr0.02:17.37x -> decidable
+   forgetting: median 6.2174, range [0.0689, 15297.8500]; negative (task 1 improved) in 0/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 43.5252, S < 0 in 0/108 runs (round-off only, P1); S/C* median 19.437
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:0.037  C_old:0.032  E_new:0.406  E_old:0.999  ewc:0.660  -> best path 0.037, best endpoint 0.999, path − endpoint -0.962 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:+0.081  C_old:+0.060  E_new:-0.431  E_old:+0.999  ewc:+0.465 -> C_old >= 0.6: False; E_new < C_old − 0.2: True -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = +0.233 -> high-S runs do not fall off the endpoint curve (threshold 0.3, report only)
+
+----------------------------------------------------------------------------------------------------------------
+T1x-0 precondition: decidable on 1/1 carriers
+T1x-1 path vs endpoint (held-out, lr controlled): synthetic:-0.962 FAIL -> PASS on 0/1, FAIL on 1/1 -> FAIL
+T1x-2 fixed-lr arm: synthetic:FAIL (rho C_old +0.060, E_new -0.431, E_old +0.999) -> PASS on 0/1
+T1x-3 surrogate control: prereg/t1x/gate_T1.txt (S-H must FAIL, S-H2 must PASS; the gate reads its own verdict)
+T1x-S sensitivity: T1x-1 flips in 0 of 9 cells -> not fragile
+T1x-D S diagnostic: synthetic:+0.233 (report only)
+summary: T1x-1 FAIL on 1 decidable carriers; T1x-2 PASS on 0/1; fragile False

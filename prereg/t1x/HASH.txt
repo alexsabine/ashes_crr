@@ -1,0 +1,7 @@
+cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  ../../runs/t1x/frozen/CRR.md
+d506f4a235cdb38f87285ac15953ca3ebf4a8547c38422a3b3bb10622e0a771d  ../../runs/t1x/frozen/core.py
+b286791c226be4cc1d42c0bca5dce6c488861f39d7a5a9caf1edf13b1167192f  ../../runs/t1x/frozen/t1x_score.py
+1df82cdbb88a09fadec592a17b16788dac2e349f5be12bea5e099b29452d0342  ./PREREG.md
+3b109c0ca8ef7ed4590b954f5ad38b70bab565bea00016319b7dfcff15f3dbc3  ./gate_T1.txt
+3467bf4bd09afe2d63ae9c6c5309c0dacf69af563e8d13e1f4b485a8199d8d64  ./smoke.txt
+32c93445af5aa36d01fc6247e8ba67737c08de27ba86f9d5957e960c91e89b97  ./smokefull.txt
