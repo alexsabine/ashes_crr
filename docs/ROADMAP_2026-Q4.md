@@ -34,6 +34,10 @@ item below ends in a ledger row or in a gate table, or it does not happen.
 3. **Accepted 2026-09-18:** R14 (agent ledger) and R15 (numbers before words) are in CLAUDE.md §1;
    PASS-0/1/2 levels are in §7; EQ2-1 is re-labelled PASS-0 (ledger EQ2-1b); SHARP is retired
    for retrodictions. Study EQ2R (below) was the first replication attempt under PASS-2; it is VOID (ledger EQ2R-VOID, AGENT_LOG 40: the frozen scorer crashed at its first DER++ arm), and a replication needs a new study id on carriers still unseen.
+3a. **EQ3 (2026-09-22, ledger EQ3-0…P, EQ2-1c):** the replication on six unseen PMLB streams fails on
+   1/6 (fars, a degenerate carrier under the pre-registered subsample) and holds on 5/6; both controls are
+   violated; Ω is a plateau over the whole nine-point grid; the mathematics (theory/checks/omega_sweeps.py)
+   says why. EQ2-1b stays PASS-0 with the failed replication recorded. No further Ω study is planned.
 3b. **Both sides of the notebook.** `notebook/PROMPT_LOG.md` (human, R13) and
    `notebook/AGENT_LOG.md` (agent decisions: observed issue, decision, alternative rejected)
    are the chain of thought the audit reads the curated layer against. Proposed rule for the
