@@ -803,3 +803,21 @@ Consider the Dirac delta as a boundary in time, distributing unit mass. Consider
 Run tests on FEP. Consider other current FEP aspects that CRR might be applicable to resolving in terms of its ontological commitments.
 
 Consider precision as a measurable variable.
+
+## 79 — 2026-09-22T06:46:01Z
+
+So FEP already claims a Now? That’s new information to me!
+
+I think of crr as a processual reading, it allows for Bayesian models but provides a processual layer.
+
+Consider the FEPs model of time as nested markov blankets in representational state space.
+
+Consider markovian and non-markovian commitments in each framework.
+
+Consider the number of consistent hits crr has had with existing systems in the pipeline (consistent / descriptive)
+
+Consider the ontological, metaphysical and contemplative (where structural) comparisons between FEP and CRR.
+
+Consider whether FEP fully accounts for when a model must end. Consider whether fep commits to only the past having content and the implications of this.
+
+Consider both crr and fep’s general reading and understanding of these things
