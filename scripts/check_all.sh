@@ -43,6 +43,7 @@ for f in theory/retrodictions/synthesis_batches/batch_*.py; do [ -e "$f" ] || co
 uv run python theory/retrodictions/synthesis_batches/build_queue.py | cmp - theory/retrodictions/synthesis_batches/QUEUE.md && echo 'synthesis queue reproduces from the pinned batteries'
 uv run python docs/pedagogy/build_elegance_ledger.py | cmp - docs/pedagogy/ELEGANCE_LEDGER.md && echo 'elegance ledger reproduces from the pinned synthesis outputs'
 uv run python ontology/checks/cut_on_a_machine.py | cmp - ontology/checks/cut_on_a_machine.txt && echo 'ontology check (the cut on a machine) byte-identical to the committed output'
+uv run python ontology/checks/turing_safety_ingression.py | cmp - ontology/checks/turing_safety_ingression.txt && echo 'ontology battery (Turing systems, AI safety, ingression) byte-identical to the committed output'
 uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt) && echo 'second retrodiction battery (PR #24): all 40 verdicts reproduced (the Rossler row drifts at the third decimal across Python patch versions, as the chaotic gate rows do)'
 echo
 
