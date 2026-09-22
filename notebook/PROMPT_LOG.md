@@ -825,3 +825,7 @@ Consider both crr and fep’s general reading and understanding of these things
 ## 80 — 2026-09-22T07:03:40Z
 
 Which of the two frameworks are more pedagogically digestible to a public audience?
+
+## 81 — 2026-09-22T07:06:21Z
+
+Which of the two frameworks is more falsifiable?
