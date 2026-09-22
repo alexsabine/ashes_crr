@@ -789,3 +789,9 @@ Okay. We can save that test to run tomorrow.
 What other domains could be high value targets for crr predictions, in terms of applied use cases and products?
 
 What about distributed AI alignment principles?
+
+## 77 — 2026-09-22T06:16:22Z
+
+Crr is compatible across a wide range of systems we have tested it on so far. 
+
+Now we have realised the bayes optimal point, do you think we could run some FEP checks to see whether CRR’s clock holds there?
