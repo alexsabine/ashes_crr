@@ -1,0 +1,1 @@
+{"calib": 1.0, "d": 9.019369807097045, "dataset": "529_pollen", "epochs": 50, "finite": true, "lr": 0.005491790407138038, "mode": "eq", "mse": 1.1105885583290607, "seed": 0, "smooth": 0.9, "start_at_posterior": false, "value": 1.0, "w_cap_frac": 0.104, "w_med": 73.59944805089476, "wcap": 10000.0}

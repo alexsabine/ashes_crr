@@ -58,6 +58,13 @@ sleep, page_blocks), with a poisoned regime whose R7 baseline is the fixed weigh
 rule that answers the fars defect. Rows EQ4-0…I; no row until the data day. What a PASS would mean: the enhancement is a
 result at PASS-0 (anchoring); what EQ4-4 INERT would mean: the poison property is surrogate-only.
 
+3c. **BAYES-1 (2026-09-22, `prereg/bayes1/`, hashed before data; data the same day: the rule is unchanged since EQ2 and the
+scoring was defined from the mathematics, R3 statement in the prereg):** the registered rule against the exact sequential
+Bayes posterior on six unseen PMLB regression streams with a whitened random-feature readout; score = distance to the posterior
+in posterior-sd units; a calibration axis c ∈ {1/16, 1, 16} on the past curvature. Rows B0–B7, BS. The surrogate gate
+predicts B1 PASS (the rule is not Bayes) and B2/B3 FAIL (a Bayes with the curvature wrong by 16× is closer to the posterior
+than the rule; the invariance does not survive mini-batch noise). EQ-B is not in it (R3); a later day.
+
 ## 2. Retrodiction across more systems: what is worth adding
 
 The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9

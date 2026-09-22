@@ -1,0 +1,1 @@
+{"calib": 1.0, "d": 18.16463157153344, "dataset": "197_cpu_act", "epochs": 50, "finite": true, "lr": 0.0066597194014725615, "mode": "eq", "mse": 5.771862674384953, "seed": 0, "smooth": 0.9, "start_at_posterior": false, "value": 1.0, "w_cap_frac": 0.05915, "w_med": 54.22050999867797, "wcap": 10000.0}

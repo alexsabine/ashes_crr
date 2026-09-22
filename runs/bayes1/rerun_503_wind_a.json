@@ -1,0 +1,1 @@
+{"calib": 1.0, "d": 8.360642654644774, "dataset": "503_wind", "epochs": 50, "finite": true, "lr": 0.006778749303475575, "mode": "eq", "mse": 0.8726033592996456, "seed": 0, "smooth": 0.9, "start_at_posterior": false, "value": 1.0, "w_cap_frac": 0.1021, "w_med": 54.001876385068826, "wcap": 10000.0}

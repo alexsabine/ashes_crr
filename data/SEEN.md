@@ -30,6 +30,12 @@ file in the same commit as any data download.
 | PMLB `led24` (GitHub mirror, master) | sha256 in data/manifests/eq3.sha256 | all rows | 2026-09-22 (study EQ3, after prereg commit daf50e7 pushed 2026-09-22T01:22:03Z; fetched 2026-09-22T01:22:03Z) |
 | PMLB `krkopt` (GitHub mirror, master) | sha256 in data/manifests/eq3.sha256 | all rows (first 10 classes in remapped label order used; stratified subsample to 5000 rows, seed 777) | 2026-09-22 (study EQ3, after prereg commit daf50e7 pushed 2026-09-22T01:22:03Z; fetched 2026-09-22T01:22:03Z) |
 | PMLB `fars` (GitHub mirror, master) | sha256 in data/manifests/eq3.sha256 | all rows (8 classes; stratified subsample to 5000 rows, seed 777) | 2026-09-22 (study EQ3, after prereg commit daf50e7 pushed 2026-09-22T01:22:03Z; fetched 2026-09-22T01:22:03Z) |
+| PMLB `503_wind` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
+| PMLB `529_pollen` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
+| PMLB `197_cpu_act` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
+| PMLB `225_puma8NH` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
+| PMLB `537_houses` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
+| PMLB `201_pol` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
