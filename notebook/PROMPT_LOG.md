@@ -865,3 +865,11 @@ Are we allowed to do anything else today, please?
 ## 89 — 2026-09-22T22:15:53Z
 
 I would like to run more continous learning checks somehow
+
+## 90 — 2026-09-22T22:44:15Z
+
+Scratchpad. So am I right in thinking that the Omega=1 rule has helped to reveal the bound required for continuous learning in KL terms?
+
+## 91 — 2026-09-22T22:48:50Z
+
+Can we run the test where you said that the future must have content because the cut was on a machine? You said you had a test to see whether only the past has content? Can we run that? A metaphysical falsifiable test?

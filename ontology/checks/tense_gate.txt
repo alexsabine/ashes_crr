@@ -1,0 +1,37 @@
+Tense test (ontology/checks/tense_gate.py): synthetic; score = fraction of steps in the viable arc; 10 seeds, T = 3000, ring N = 12, V = (4, 5, 6, 7), push probability 0.6, delay 2 on 'delayed'
+[1] Gate
+    NEG martingale: random 0.3299 vs planner 0.3299; d +0.0000, step 0.0100 -> TIE (must TIE: ok)
+    POS drift: random 0.7494 vs planner 0.9986; d -0.2492, step 0.0100 -> planner AHEAD (must be planner AHEAD: ok)
+    GATE OPEN
+[2] The test: each regenerator against the planner (and against the volatile planner), per world
+    drift      R-dur 0.7533 vs planner 0.9986: d -0.2452 (step 0.0673; seeds ahead 0/10) -> planner AHEAD
+    drift      R-dur 0.7533 vs planner-v 0.9988: d -0.2454 (step 0.0673; seeds ahead 0/10) -> planner-v AHEAD
+    drift      R-age 0.6270 vs planner 0.9986: d -0.3715 (step 0.0587; seeds ahead 0/10) -> planner AHEAD
+    drift      R-age 0.6270 vs planner-v 0.9988: d -0.3717 (step 0.0590; seeds ahead 0/10) -> planner-v AHEAD
+    delayed    R-dur 0.7995 vs planner 0.7963: d +0.0033 (step 0.0363; seeds ahead 6/10) -> TIE
+    delayed    R-dur 0.7995 vs planner-v 0.7705: d +0.0290 (step 0.0336; seeds ahead 6/10) -> TIE
+    delayed    R-age 0.7665 vs planner 0.7963: d -0.0298 (step 0.0211; seeds ahead 1/10) -> planner AHEAD
+    delayed    R-age 0.7665 vs planner-v 0.7705: d -0.0041 (step 0.0205; seeds ahead 5/10) -> TIE
+    switch     R-dur 0.8000 vs planner 0.9844: d -0.1844 (step 0.0410; seeds ahead 0/10) -> planner AHEAD
+    switch     R-dur 0.8000 vs planner-v 0.9972: d -0.1972 (step 0.0381; seeds ahead 0/10) -> planner-v AHEAD
+    switch     R-age 0.7290 vs planner 0.9844: d -0.2554 (step 0.0509; seeds ahead 0/10) -> planner AHEAD
+    switch     R-age 0.7290 vs planner-v 0.9972: d -0.2682 (step 0.0431; seeds ahead 0/10) -> planner-v AHEAD
+    martingale R-dur 0.3299 vs planner 0.3299: d +0.0000 (step 0.0100; seeds ahead 0/10) -> TIE
+    martingale R-dur 0.3299 vs planner-v 0.3299: d +0.0000 (step 0.0100; seeds ahead 0/10) -> TIE
+    martingale R-age 0.3299 vs planner 0.3299: d +0.0000 (step 0.0100; seeds ahead 0/10) -> TIE
+    martingale R-age 0.3299 vs planner-v 0.3299: d +0.0000 (step 0.0100; seeds ahead 0/10) -> TIE
+[2b] The floor: planner against random per world (where the planner is not a step above random, the world decides nothing)
+    drift      planner 0.9986 vs random 0.7494: d +0.2492 (step 0.0100) -> planner AHEAD; decidable True
+    delayed    planner 0.7963 vs random 0.7682: d +0.0281 (step 0.0100) -> planner AHEAD; decidable True
+    switch     planner 0.9844 vs random 0.7496: d +0.2348 (step 0.0146) -> planner AHEAD; decidable True
+    martingale planner 0.3299 vs random 0.3299: d +0.0000 (step 0.0100) -> TIE; decidable False
+[3] Sensitivity of R-dur against the planner (beta_rel x eps) on the structured worlds
+    drift      registered planner AHEAD: (0.5,0.05):planner (0.5,0.1):planner (0.5,0.2):planner (1.0,0.05):planner (1.0,0.1):planner (1.0,0.2):planner (2.0,0.05):planner (2.0,0.1):planner (2.0,0.2):planner
+    delayed    registered TIE: (0.5,0.05):TIE (0.5,0.1):TIE (0.5,0.2):planner (1.0,0.05):TIE (1.0,0.1):TIE (1.0,0.2):TIE (2.0,0.05):R-dur (2.0,0.1):TIE (2.0,0.2):R-dur
+    switch     registered planner AHEAD: (0.5,0.05):planner (0.5,0.1):planner (0.5,0.2):planner (1.0,0.05):planner (1.0,0.1):planner (1.0,0.2):planner (2.0,0.05):planner (2.0,0.1):planner (2.0,0.2):planner
+    labels differing from the registered cell: 3 of 27
+[4] Reading (computed)
+    drift     : R-dur vs planner planner AHEAD -> the cost of A8 is measured here
+    delayed   : R-dur vs planner TIE -> A8's empty future costs nothing here
+    switch    : R-dur vs planner planner AHEAD -> the cost of A8 is measured here
+    martingale: R-dur vs planner TIE -> NOT DECIDABLE: the planner is not a step above random here, so a tie is two agents at the floor

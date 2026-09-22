@@ -210,7 +210,8 @@ ontology/                  CRR's commitments against philosophy, contemplative t
                            output; checks/*.py + .txt pinned and CI-checked: cut_on_a_machine, turing_safety_ingression,
                            genesis_from_emptiness (exploratory, no verdict)); 09_free_energy_principle.md reads synthesis
                            batches 27-28 (the FEP: the clock, the Dirac boundary, equanimity, precision); 10_fep_and_crr.md the
-                           side-by-side reading (time, Markov commitments, the tallies, the end of a model, future content)
+                           side-by-side reading (time, Markov commitments, the tallies, the end of a model, future content); 11_tense_test.md
+                           the tense test (checks/tense_gate.py: a valence-free A6 regenerator against an active-inference planner)
 Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Markdown source, figures drawn from pinned
                            records by build/make_figures.py with figures.txt pinned and CI-checked, build/build_pdf.py); a
                            note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods

@@ -83,3 +83,5 @@ and until then the honest sentence is the one in file 04 §3.
 > The only thing that would show CRR is right about the world is winning the same bet twice, in
 > advance, with a machine that does not peek and a witness who sealed the envelope. We are not
 > there. We now know exactly what "there" is.
+
+10. The tense test (file 11, added 2026-09-22): run on four synthetic worlds; the valence-free regenerator loses to the planner where structure can be exploited. Next: a regenerator that carries a forecast learned from its settled past (admitted by A8 v3.1), which separates the forward model from the preferences; a new design, declared before it runs.
