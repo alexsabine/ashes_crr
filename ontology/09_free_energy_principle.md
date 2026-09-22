@@ -142,3 +142,39 @@ Batch 27: 0 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 2 WRONG. B
 0 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 3 WRONG. No ledger row exists or is proposed from this file; retrodiction and
 synthesis rows are not ledger rows (CLAUDE.md §7). The one ADDS goes to the expert protocol with the two earlier
 candidates (`05_next_steps.md`).
+
+## 5. Re-check (prompt-log entry 83): the Dirac delta as Now, and "one Ω before rupture"
+
+`ontology/checks/delta_now.py` (pinned, CI-checked). Two corrections to what this file said above.
+
+**The delta of A3 is not the delta of row 28-1.** A3 writes the cut as δ(Now) = δ(u(t) − u(t_n) − L/2): a Dirac delta
+in the **phase** of a cyclic carrier, whose mass is one cut per half-turn whatever the speed profile. Computed on a rotor
+at constant speed, at a speed varying fourfold and with random bursts, the mass per half-turn over the interior cuts is
+1.0000, 0.9993 and 1.0000, while the cut spacing in **time** varies with the speed (coefficient of variation 0.0028,
+0.4930, 0.4783). So "a boundary in time distributing unit mass" is exactly right for A3, with one precision: the unit
+mass is per half-turn of the carrier, and where it lands in time is the phase speed at the antipode. Row 28-1 tested a
+different object: an infinite-precision **observation**, a delta in the likelihood of a Kalman filter, on a belief path
+that owns no rotor (its analytic phase advanced 6.95 turns over 4000 steps of a random walk, which is not a cycle of the
+system). A3 begins "where the system is cyclic"; the Kalman belief is not, so A3's delta has no application there, and
+row 28-1's WRONG is a verdict on the FEP's delta read as a cut, not on A3's delta. The reading of row 28-1 stands as a
+statement about infinite-precision data (the datum's mass lands at once, the belief's change spreads afterwards); it
+is not a test of the axiom.
+
+**"The edge of criticality as one Ω before rupture" is not in v3.1.** The strong form C·Ω = 1, rupture when the
+accumulated arc reaches 1/Ω, belongs to the issue-#21 text and the external specification, which removed it
+(`theory/external/CRR_test_specification_GPT6_Astra_2026-09-16.md` §XI.1; `theory/checks/verify_spec_math.txt` [XI.1]:
+it coincides with the half-turn cut only when the half-turn is one Fisher unit; `theory/SPEC_RECONCILIATION.md` §3).
+v3.1 has no criticality clause at all, and Ω belongs to regeneration (H-EQ), not to the cut. What the pinned mathematics
+has in its place is the fixed weight's stability edge, λ* = 1.2575 on the two-task quadratic, and the rule's position
+below it; and on the Ω grid the registered rule's total loss is 3.479 at Ω = 1, 11.146 at 1.41, 11.010 at 2, 56.787 at
+2.83 and 101.379 at 4, with no Ω diverging. The degradation begins one grid step above 1, a factor 1.41, and it is a
+degradation, not a rupture. At Ω = 1 itself the update on the Pareto curve has norm |1 − Ω|‖g_p‖ = 0: Ω = 1 is at the
+edge of stalemate, not one step before a rupture. The owner's memory is of the older formulation; the retrodiction rows
+11, 12, 29 and 31 found criticality class-dependent, and the specification's Decision 13 restricted the criticality
+claims for that reason.
+
+> Two checks on two sentences. "The cut is a spike in time carrying exactly one unit": true, once you say the unit is
+> one cut per half-turn of the thing's own cycle, and the earlier test used a different kind of spike (a perfectly sharp
+> measurement) on a thing that does not cycle, so it does not count against the rule. "The edge is one Ω before things
+> break": that was an old version of the rules, since removed; in the current rules Ω = 1 is the balance point itself,
+> and above it things get worse gradually, not suddenly.

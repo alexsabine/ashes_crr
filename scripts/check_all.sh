@@ -48,6 +48,7 @@ uv run python docs/pedagogy/build_elegance_ledger.py | cmp - docs/pedagogy/ELEGA
 uv run python ontology/checks/cut_on_a_machine.py | cmp - ontology/checks/cut_on_a_machine.txt && echo 'ontology check (the cut on a machine) byte-identical to the committed output'
 uv run python ontology/checks/turing_safety_ingression.py | cmp - ontology/checks/turing_safety_ingression.txt && echo 'ontology battery (Turing systems, AI safety, ingression) byte-identical to the committed output'
 uv run python ontology/checks/genesis_from_emptiness.py | cmp - ontology/checks/genesis_from_emptiness.txt && echo 'ontology exploratory check (genesis from emptiness) byte-identical to the committed output'
+uv run python ontology/checks/delta_now.py 2>/dev/null | cmp - ontology/checks/delta_now.txt && echo 'ontology check (delta(Now) and the edge) byte-identical to the committed output'
 uv run python runs/eq3/frozen/eq3_score.py smoke | cmp - prereg/eq3/smoke.txt && echo 'EQ3 frozen scorer smoke byte-identical to the committed output'
 uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null | cmp - prereg/eq3/smokefull.txt && echo 'EQ3 frozen scorer end-to-end smoke byte-identical to the committed output'
 uv run python runs/eq4/frozen/eq4_score.py smoke | cmp - prereg/eq4/smoke.txt && echo 'EQ4 frozen scorer smoke byte-identical to the committed output'

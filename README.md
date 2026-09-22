@@ -37,6 +37,16 @@ September 2026) was withdrawn after independent audit and is not part of
 this repository — see [docs/audit/2026-09-15-audit.md](docs/audit/2026-09-15-audit.md)
 for the audit record.
 
+
+### Epistemic status (2026-09-22)
+
+Stated once in `docs/notes/2026-09-22_epistemic_status.md` (technical and fifth-grader versions). In short: two
+registered held-out rows carry a PASS, both PASS-0, both on one kind of system and one rule, one of them fragile with a
+violated control and a failed replication on 1/6; every other PASS is on seen data or a control line; the retrodictions
+agree with the domains because CRR's computable core is information geometry, and the synthesis re-reads found the
+CRR-proper ingredients redundant in 84 of 127 cases, wrong in 17, and candidates in 3 of 148. Anchoring is
+push-timestamp only; one operator; no second-person run. A framework refuted in parts has demonstrated content; the
+free-energy principle's core, which cannot be refuted, would be removed at this repository's gate rather than tested.
 ## Reading order
 
 Start here, in this order:
