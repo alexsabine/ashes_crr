@@ -765,3 +765,9 @@ Please be thorough. There should be a main PDF including expertly produced graph
 You can cite existing papers as needed and reference directly from these. You must clearly explain how this approach differs to existing methods and why it works, as you just started to explain the in the previous outputs. Provide a clear introduction and very clear tables, graphs and visuals. Run computational crr demonstrations to clearly demonstrate this in visual format. 
 
 Thank you
+
+## 73. 2026-09-22T04:26:08Z
+
+Excellent. Should we reference some 2026 papers as well? We need to cross verify against existing catastrophic forgetting solutions thoroughly please. Take your time with each paper and cross referencing against this omega=1 rule.
+
+You may also process crr further as required if necessary, as you go
