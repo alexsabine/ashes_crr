@@ -1,0 +1,1 @@
+{"method": "ewc", "mode": "eq", "value": 1.0, "seed": 0, "smooth": 0.9, "wcap": 10000.0, "hidden": 256, "epochs": 3, "lr": 0.05, "bs": 10, "acc": 25.624999999999996, "w_med": 12.755140947872805, "w_late_med": 12.313853999996056, "w_cap_frac": 0.0016260162601626016, "fwd_bwd_per_sample": 3.0, "n_stream": 7680, "finite": true, "dataset": "led7", "regime": "std"}
