@@ -1,0 +1,55 @@
+carrier              regime method   mode        runs non-finite
+fars                 std    derpp    fixed         35         14
+fars                 std    ewc      fixed         85         16
+fars                 std    ewc      reduction      5          2
+fars                 std    mas      fixed         35         15
+fars                 std    si       fixed         35         20
+fars                 x4     ewc      fixed         55         29
+fars                 x4     ewc      reduction      5          2
+krkopt               std    derpp    fixed         35          6
+krkopt               std    ewc      fixed         85         50
+krkopt               std    ewc      gradnorm       5          5
+krkopt               std    ewc      reduction      5          3
+krkopt               std    mas      fixed         35         16
+krkopt               std    si       fixed         35         30
+krkopt               x4     ewc      fixed         55         46
+krkopt               x4     ewc      reduction      5          4
+led24                std    derpp    fixed         35          5
+led24                std    ewc      fixed         85         32
+led24                std    ewc      gradnorm       5          1
+led24                std    mas      fixed         35         15
+led24                std    si       fixed         35         25
+led24                x4     ewc      fixed         55         38
+led24                x4     ewc      reduction      5          1
+led7                 std    derpp    fixed         35          7
+led7                 std    ewc      fixed         85         39
+led7                 std    ewc      gradnorm       5          5
+led7                 std    ewc      mega           5          1
+led7                 std    ewc      reduction      5          3
+led7                 std    mas      fixed         35         18
+led7                 std    si       fixed         35         26
+led7                 x4     ewc      fixed         55         48
+led7                 x4     ewc      reduction      5          4
+mfeat_factors        std    derpp    fixed         35         10
+mfeat_factors        std    ewc      fixed        470         93
+mfeat_factors        std    ewc      gradnorm       5          5
+mfeat_factors        std    ewc      reduction      5          2
+mfeat_factors        std    mas      fixed         35         15
+mfeat_factors        std    si       fixed         35         21
+mfeat_factors        x4     ewc      fixed         55          6
+mfeat_factors        x4     ewc      reduction      5          1
+mfeat_morphological  std    derpp    fixed         35          9
+mfeat_morphological  std    ewc      fixed         85         32
+mfeat_morphological  std    ewc      gradnorm       5          5
+mfeat_morphological  std    ewc      reduction      5          2
+mfeat_morphological  std    mas      fixed         35         19
+mfeat_morphological  std    si       fixed         35         30
+mfeat_morphological  x4     ewc      fixed         55         37
+mfeat_morphological  x4     ewc      reduction      5          2
+total runs 3360, non-finite 815 (kept, scored 0, as pre-registered)
+fars: rows dropped for NaN 0; rows dropped beyond the used classes 0; rows before/after the pre-registered subsample 100968/5001; class counts [0, 2086, 746, 15, 991, 688, 430, 45]; classes with 0 rows after the pre-registered subsample (their share of 5000 rows rounds to 0) (their task has one class): [0]; classes under 50 rows: [(3, 15), (7, 45)]
+krkopt: rows dropped for NaN 0; rows dropped beyond the used classes 11112; rows before/after the pre-registered subsample 16944/5000; class counts [825, 423, 842, 639, 139, 58, 1344, 505, 23, 202]; classes under 50 rows: [(8, 23)]
+led24: rows dropped for NaN 0; rows dropped beyond the used classes 0; rows before/after the pre-registered subsample 3200/3200; class counts [327, 302, 329, 335, 296, 327, 337, 320, 308, 319]
+led7: rows dropped for NaN 0; rows dropped beyond the used classes 0; rows before/after the pre-registered subsample 3200/3200; class counts [325, 333, 319, 270, 336, 335, 341, 304, 327, 310]
+mfeat_factors: rows dropped for NaN 0; rows dropped beyond the used classes 0; rows before/after the pre-registered subsample 2000/2000; class counts [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
+mfeat_morphological: rows dropped for NaN 0; rows dropped beyond the used classes 0; rows before/after the pre-registered subsample 2000/2000; class counts [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
