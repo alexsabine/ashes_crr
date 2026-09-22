@@ -715,3 +715,17 @@ To be finite is to be able to have an experience at all. Otherwise we’d have n
 Look at Richard Watson and Levins work, as well as philosophical traditions and see where CRR might add value.
 
 Put these findings in the Ontology folder please
+
+## 67. 2026-09-22T00:34:41Z
+
+Add to ontological folder.
+
+Start with emptiness and build a universe with crr. Test whether mathematical forms can appear from the crr equations as stated. 
+
+This is an exploratory request. I know that there must be a first distinguishable state from emptiness of course. Follow the geometric laws of crr and run through the mathematics of crr, line and circle. 
+
+We are exploring metaphysics and physics in tandem. This is a question to see whether mathematics itself can grow from the crr equations from scratch. 
+
+Be robust and allow exploration and state wherever a change is required for the crr equations as written along the way.
+
+Add this to the ontological folder as Exploratory
