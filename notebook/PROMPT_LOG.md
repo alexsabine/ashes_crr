@@ -845,3 +845,7 @@ Once you have done that, please re-check the Dirac delta as Now, and the edge of
 ## 84 — 2026-09-22T15:40:05Z
 
 Okay, let’s run the Bayes 1 test first now please
+
+## 85 — 2026-09-22T16:08:15Z
+
+Scratchpad only. What does this mean for crr, in simple terms please?
