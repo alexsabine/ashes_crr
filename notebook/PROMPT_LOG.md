@@ -853,3 +853,7 @@ Scratchpad only. What does this mean for crr, in simple terms please?
 ## 86 — 2026-09-22T16:12:15Z
 
 Are there any outstanding continuous learning / catastrophic forgetting / AI safety tests that we can run with crr now, after everything we have learned so far?
+
+## 87 — 2026-09-22T16:17:10Z
+
+Please run t1x first. Thank you
