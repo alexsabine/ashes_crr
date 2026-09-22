@@ -741,3 +741,27 @@ Let’s run comprehensive sweeps on the omega=1 equanimity rule on existing math
 I hear there is a threshold either side of 1, but 1 is also bayes optimum (check that in existing mathematics) then check the kalman filter tuned versus fixed parameter rule, please.
 
 Run full comprehensive tests on continual learning benchmarks / SOTA methods. Thanks
+
+## 70. 2026-09-22T02:23:11Z
+
+Thank you. Please now give a summary of the current status of the continual learning test
+
+## 71. 2026-09-22T02:26:44Z
+
+Thank you. Please now consider the implications of this if it holds on GPU tests and can be implemented into LLM systems. 
+
+Provide estimates USD for the invention in the wild and for the organisation who successfully IPs this technique.
+
+## 72. 2026-09-22T03:48:12Z
+
+Please can you produce a folder entitled Continuous Learning and write a complete document with all of the mathematics required to arrive at this finding so far. Explain Omega in full, precisely what it means in this context and how Omega=1 behaves. Use your previous two outputs as the starting point. Show the full code sets in appendix and explain all positive tests conducted and also show failures. Explain precisely why these are failures.
+
+Keep it highly technical and precise. Ensure that all mathematics is fully explained and exposed throughout.
+
+Use 5th grader explanations throughout the technical specification, especially around the omega=1 rule and what this means in relation to bayes optimum in continual learning systems.
+
+Please be thorough. There should be a main PDF including expertly produced graphs and visual representations of this, alongside all required code sets.
+
+You can cite existing papers as needed and reference directly from these. You must clearly explain how this approach differs to existing methods and why it works, as you just started to explain the in the previous outputs. Provide a clear introduction and very clear tables, graphs and visuals. Run computational crr demonstrations to clearly demonstrate this in visual format. 
+
+Thank you

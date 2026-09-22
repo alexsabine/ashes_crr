@@ -198,6 +198,9 @@ ontology/                  CRR's commitments against philosophy, contemplative t
                            a fair review of all findings; next steps (notes, not evidence; every number from a pinned
                            output; checks/*.py + .txt pinned and CI-checked: cut_on_a_machine, turing_safety_ingression,
                            genesis_from_emptiness (exploratory, no verdict))
+Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Markdown source, figures drawn from pinned
+                           records by build/make_figures.py with figures.txt pinned and CI-checked, build/build_pdf.py); a
+                           note, not evidence (R8)
 scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
 prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots
