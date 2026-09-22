@@ -43,6 +43,11 @@ streams; the precondition (the Bayes arm within 0.1 posterior sd) was NOT DECIDA
 without verdict; the numbers put the rule 5–18 posterior sd from the posterior with a median derived weight of 51–108
 (`reports/bayes1.md`).
 
+Study T1x (2026-09-22): the held-out test of H-T1 (path length against endpoint displacement as a forgetting predictor,
+learning rate controlled) on six unseen regression streams is VOID: the frozen scorer crashed on one carrier and its scoring
+step on another, so no row was scored and the carriers are now seen (`reports/t1x.md`, ledger row T1X-VOID). The corrected
+study T1x2 is pre-registered and hashed (`prereg/t1x2/`) with its data step held to a later day under R3.
+
 ### Epistemic status (2026-09-22)
 
 Stated once in `docs/notes/2026-09-22_epistemic_status.md` (technical and fifth-grader versions). In short: two
