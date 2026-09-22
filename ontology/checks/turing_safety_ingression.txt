@@ -1,0 +1,148 @@
+ontology battery 2026-09-22: Turing systems, AI safety, platonic ingression (SYNTHESIS class; owner request, prompt-log entry 66)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (SYNTHESIS) busy-beaver champions n = 2, 3 (found by exhaustive search) and n = 4 (Brady's table, simulated)
+     source:     Rado 1962 (Sigma(n) <= S(n)); Lin and Rado 1965; Brady 1983 (context, not fetched)
+     Q:          in the machine's own unit (A1': one step) the surplus S = steps - ones of a busy-beaver run is the work not kept on the tape, and it is non-negative
+     ingredient: A1' own unit = one step, D2-D4 arc/chord/surplus
+     null:       arc under the identity metric on the tape (only writes that change a cell count)
+     domain:     Rado: Sigma(n) <= S(n), so S(n) - Sigma(n) >= 0 from the published counts
+     numbers:    n=2: exhaustive search over 20736 tables (808 halt): step champion 6 steps with 4 ones (published S(2) = 6), ones champion 4 ones in 6 steps (published Sigma(2) = 4); the same machine | n=3: exhaustive search over 1048576 tables (471236 halt): step champion 21 steps with 5 ones (published S(3) = 21), ones champion 6 ones in 14 steps (published Sigma(3) = 6); different machines | n=4: Brady's table simulated: 107 steps (published 107), 13 ones (published 13) | n=2 step champion: C = 6, C* = 4, S = 2; changed writes 4, S_null = 0; published S(2) - Sigma(2) = 2 | n=3 step champion: C = 21, C* = 5, S = 16; changed writes 15, S_null = 10; published S(3) - Sigma(3) = 15 | n=4 step champion: C = 107, C* = 13, S = 94; changed writes 79, S_null = 66; published S(4) - Sigma(4) = 94 | decisive: n = 4, S_crr 94, S_null 66, S_domain 94, S >= 0 True
+     T-G:        S_crr 94 vs S_null 66: the own unit does work (a rewrite of the same symbol is a step but not a change)
+     T-N:        S_domain 94 from the published S(4), Sigma(4): agrees exactly
+     T-C:        S >= 0: True
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    on a Turing machine A1' names the step and the surplus is Rado's S(n) - Sigma(n) where one machine holds both records (n = 2, 4); at n = 3 the search finds the step record (21) and the ones record (6) on different machines, so the published difference 15 is no machine's surplus (16 and 8 are); the domain has the inequality and the simulation reproduces the published values
+     weakness:   the chord is the least number of writes, which ignores head travel; a chord counting travel would be larger and S smaller, and CRR does not say which chord
+     elegance:   every step of a machine is one unit; the ones left on the tape are what the steps bought, and the surplus is what they did not
+     child:      A busy-beaver machine takes 107 steps and leaves 13 marks; the other 94 steps were work it did not keep.
+
+[ 2] (SYNTHESIS) all 2-state 2-symbol Turing machines (12^4 tables) from the blank tape
+     source:     Turing 1936 (the halting problem); Rado 1962 S(2) = 6 (context, not fetched)
+     Q:          A8 with the geyser clause (ontology/05 section 3): the clock of the machine's one event (the halt) is not fixed by the settled past; is it, on a machine, when the settled past is the configurations seen so far?
+     ingredient: A7/A8 tense: what the settled past fixes about the next cut
+     null:       the settled past at k = 0 (the blank tape alone)
+     domain:     none cited
+     numbers:    20736 machines, 9784 halt, latest halt at step 6 (S(2) = 6) | k=0: 20736 machines still running, 1 distinct settled pasts (1 mixed); H(remaining clock) = 1.5442 bits, H(remaining clock | settled configurations) = 1.5442 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic) | k=1: 13824 machines still running, 8 distinct settled pasts (4 mixed); H(remaining clock) = 0.9389 bits, H(remaining clock | settled configurations) = 0.6582 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic) | k=2: 11520 machines still running, 36 distinct settled pasts (10 mixed); H(remaining clock) = 0.3466 bits, H(remaining clock | settled configurations) = 0.1558 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic) | k=3: 11136 machines still running, 92 distinct settled pasts (22 mixed); H(remaining clock) = 0.1404 bits, H(remaining clock | settled configurations) = 0.0478 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic) | k=4: 11008 machines still running, 162 distinct settled pasts (14 mixed); H(remaining clock) = 0.0505 bits, H(remaining clock | settled configurations) = 0.0140 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic) | k=5: 10992 machines still running, 190 distinct settled pasts (10 mixed); H(remaining clock) = 0.0347 bits, H(remaining clock | settled configurations) = 0.0100 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic) | k=6: 10952 machines still running, 260 distinct settled pasts (0 mixed); H(remaining clock) = 0.0000 bits, H(remaining clock | settled configurations) = 0.0000 bits, H(remaining clock | configurations + table) = 0.0000 bits (deterministic)
+     T-G:        H(remaining clock | settled configurations) at k = 3: 0.0478 bits vs 1.5442 bits at k = 0: the settled past does work
+     T-N:        no closed form cited; Turing's theorem is about the absence of a general procedure, and all these machines are decided by running them
+     T-C:        two readings: (i) the settled past is the configurations seen, and the remaining clock keeps positive entropy at every k until the last halt; (ii) the settled past includes the machine's table, and the clock is fixed (0 bits) from k = 0
+     OUTCOME:    INTERNAL
+     reading:    whether a deterministic machine has an open clock depends on whether its law is part of its settled past; CRR does not say, so the geyser clause has two values on every machine
+     weakness:   the entropy is over a uniform prior on tables, which is one convention; the reading does not depend on it
+     elegance:   the same machine has a blank future or none at all, depending only on whether you count its rulebook as part of its past
+     child:      If you watch a robot without reading its instructions, you cannot tell when it will stop; if you read them, you can. So 'is its future open?' has two answers, and CRR has to pick one.
+
+[ 3] (SYNTHESIS) Swift-Hohenberg stripes on a ring (the normal form of a Turing instability), sibling runs forked at t0
+     source:     Turing 1952; Swift and Hohenberg 1977; Cross and Hohenberg 1993 (pattern selection, phase diffusion) (context, not fetched)
+     Q:          the owner's conjecture in the domain's terms: the form is a choice made through time, so the settled past shared by two siblings fixes their final pattern; does it fix the type (the wavenumber) or the token (the phase)?
+     ingredient: A7 (fed by the settled past only) with D5 (the fork as the boundary of the shared past)
+     null:       no shared past (independent runs from independent seeds)
+     domain:     linear theory: the most unstable wavenumber is k = 1, whatever the history
+     numbers:    fork t0=0: type peak k = 0.9925 / 0.9922 (siblings disagree on the peak bin in 57 of 100 pairs); token: pixel correlation 0.0124, mean cos(dphi) of the k = 1 mode 0.0326, var(dphi) 3.2003 | fork t0=50: type peak k = 0.9909 / 0.9903 (siblings disagree on the peak bin in 4 of 100 pairs); token: pixel correlation 0.8986, mean cos(dphi) of the k = 1 mode 0.8220, var(dphi) 0.4658 | fork t0=100: type peak k = 0.9931 / 0.9925 (siblings disagree on the peak bin in 8 of 100 pairs); token: pixel correlation 0.9168, mean cos(dphi) of the k = 1 mode 0.8413, var(dphi) 0.4421 | fork t0=150: type peak k = 0.9928 / 0.9922 (siblings disagree on the peak bin in 7 of 100 pairs); token: pixel correlation 0.9434, mean cos(dphi) of the k = 1 mode 0.9338, var(dphi) 0.1572 | fork t0=190: type peak k = 0.9947 / 0.9944 (siblings disagree on the peak bin in 1 of 100 pairs); token: pixel correlation 0.9732, mean cos(dphi) of the k = 1 mode 0.9319, var(dphi) 0.1782 | uniform-phase reference (no shared past): var(dphi) = pi^2/3 = 3.2899 | decisive (type): peak k with 150 of 200 time units shared 0.9928, with none shared 0.9925, linear theory 1.0000; token (pixel correlation) strictly increasing in t0: True
+     T-G:        type with shared past 0.9928 vs without 0.9925: the settled past does no work on the type
+     T-N:        linear theory k = 1.0000: the domain has the type
+     T-C:        the token (pixel correlation) increases with the shared past: True (the domain's phase diffusion, Cross and Hohenberg section IV, named and not fitted)
+     OUTCOME:    REDUNDANT-IG
+     reading:    the type is the law's (the same in every run, shared past or not: the ingredient is idle), the token is the settled past's and is the domain's phase diffusion; 'forms are choices made through time' holds for which stripe pattern, not for that it is stripes of this wavelength
+     weakness:   one model at one r and one noise level; the token numbers are observations against a named theorem, not a fit to its closed form
+     elegance:   two runs that shared their first 150 seconds end with the same stripes in the same places; two that shared nothing end with the same stripes in different places
+     child:      Zebras all get stripes about the same width (that is the rule), but which stripe is where is decided by what happened while the pattern was forming. The rule is not a choice; the placing is.
+
+[ 4] (SYNTHESIS) cell-view adjacent-swap sort with one defective cell (sorting as morphogenesis)
+     source:     Zhang, Goldstein and Levin 2025, Adaptive Behavior, doi 10.1177/10597123241269740 (abstract only; the sort here is inspired by, not a reproduction of, theirs); Knuth vol. 3 section 5.1.1 (inversions) (context, not fetched)
+     Q:          the surplus S = C - C* of a sorting trajectory in the array's own unit (one adjacent swap; the chord is the inversion count) is exactly twice the number of moves away from the sorted order (the 'delayed gratification' moves)
+     ingredient: A1' own unit = one swap, D3 chord = least swaps (Kendall distance), D4 surplus
+     null:       the chord as the Euclidean displacement of the cells
+     domain:     an adjacent swap changes the inversion count by exactly +-1, so swaps - inversions = 2 x (inversion-increasing swaps)
+     numbers:    defect p=0: swaps C = 427, inversions C* = 427, S = 0; away-moves 0, 2 x away = 0; Euclidean chord 109.8271, S_null = 317.1729 | defect p=0.1: swaps C = 429, inversions C* = 427, S = 2; away-moves 1, 2 x away = 2; Euclidean chord 109.8271, S_null = 319.1729 | defect p=0.3: swaps C = 437, inversions C* = 427, S = 10; away-moves 5, 2 x away = 10; Euclidean chord 109.8271, S_null = 327.1729 | decisive (p = 0.3): S 10, S_null 327.1729, S_domain 10, identity holds at every p: True
+     T-G:        S 10 vs S_null 327.1729: the own chord does work
+     T-N:        S_domain 10: exact
+     T-C:        S = 2 x away at every p: True
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    CRR's surplus is the inversion-count identity: every move away from the goal costs two swaps; the domain has it as an exact identity and CRR adds the name
+     weakness:   the defective cell here is a random wrong-way swapper, not the frozen cell of the cited paper; the identity is independent of that choice
+     elegance:   a step away from the goal costs exactly two: the step itself and the step to undo it
+     child:      If you are walking to school and take one step backwards, you now need two extra steps. The 'extra' in CRR is always two times the steps back.
+
+[ 5] (SYNTHESIS) natural induction: a frustrated spin system with viscoelastic (Hebbian-with-relaxation) couplings
+     source:     According to PubMed: Buckley, Lewens, Levin, Millidge, Tschantz and Watson, 'Natural Induction: Spontaneous Adaptive Organisation without Natural Selection', Entropy 2024, doi 10.3390/e26090765 (abstract only); Watson and Szathmary 2015, doi 10.1016/j.tree.2015.11.009 (context, not fetched)
+     Q:          the plastic coupling of natural induction is A6/P3 (a Fréchet mean of settled configurations under geometric age weights, i.e. an exponential moving average of s s^T), and the minima reached improve over epochs
+     ingredient: A6 regeneration with P3 age weights (bounded strength, no accumulated count)
+     null:       an accumulated count Jp = alpha x sum of s s^T (what A6 forbids)
+     domain:     the paper's own rule: connections relax toward the current state, which is the same exponential moving average
+     numbers:    none: J0-energy of the reached minimum, mean of epochs 1-20 -111.7449, epochs 61-80 -112.8114; distinct minima among epochs 61-80 17.0 (10 seeds, N = 40) | ema: J0-energy of the reached minimum, mean of epochs 1-20 -116.3242, epochs 61-80 -116.9075; distinct minima among epochs 61-80 1.0 (10 seeds, N = 40) | sum: J0-energy of the reached minimum, mean of epochs 1-20 -116.9001, epochs 61-80 -116.9075; distinct minima among epochs 61-80 1.0 (10 seeds, N = 40) | decisive: late energy under ema -116.9075, under sum -116.9075, under the paper's rule -116.9075 (same computation); improves early->late under ema: True
+     T-G:        ema -116.9075 vs sum -116.9075
+     T-N:        the paper's relaxation rule is the ema, so the domain value is the CRR value by construction
+     T-C:        minima improve under ema: True
+     OUTCOME:    REDUNDANT-IG
+     reading:    A6 read as an exponential moving average is the viscoelastic relaxation of natural induction, and the effect (lower J0-energy than without plasticity) is the paper's; the re-weighting A6 insists on and the accumulation it forbids reach the same energy here because both canalise the system onto one minimum (distinct late minima printed), so the ingredient does no work
+     weakness:   one small system, one alpha and beta; whether the accumulated count reaches the same energies is a property of this N and horizon (printed), not a theorem
+     elegance:   a spring that slowly takes the shape it is held in is a memory that never adds up, only blends
+     child:      A pillow remembers your head by slowly taking its shape, not by counting how many nights you slept on it. Watson's idea and CRR's idea are the same pillow.
+
+[ 6] (SYNTHESIS) one poisoned occasion among 99 settled ones (a consolidation step of a continually trained model)
+     source:     Huber 1964 and Hampel 1974 (the influence function, gross-error sensitivity) (context, not fetched); 2026 arXiv work on continual safety alignment (2512.10150, 2604.17215, 2604.17691, 2602.07892) seen as abstracts only
+     Q:          A6's 'bounded strength' bounds the influence of any one occasion on the regenerated seed: the shift stays bounded as the occasion's magnitude M grows
+     ingredient: A6 regeneration as a Fréchet mean with P3 age weights, bounded strength
+     null:       the accumulated mean (uniform weights, what A6 forbids)
+     domain:     the median's influence function is bounded (gross-error sensitivity finite)
+     numbers:    M=10: shift of the seed under A6/P3 (lambda 0.9) 1.0104 (= (1-lambda) M = 1.0000), under the accumulated mean 0.1015 (= M/n), under the median 0.0072 | M=1000: shift of the seed under A6/P3 (lambda 0.9) 100.0130 (= (1-lambda) M = 100.0000), under the accumulated mean 10.0015 (= M/n), under the median 0.0072 | M=1e+06: shift of the seed under A6/P3 (lambda 0.9) 100002.6666 (= (1-lambda) M = 100000.0000), under the accumulated mean 10000.0015 (= M/n), under the median 0.0072 | decisive at M = 1e6: shift under A6/P3 100002.6666, under the mean 10000.0015, under the median 0.0072; shift(1e6)/shift(1e3) = 999.8965; bounded: False
+     T-G:        A6/P3 shift 100002.6666 vs accumulated mean 10000.0015: the weights do work (and make it worse: the newest occasion carries weight 1 - lambda, not 1/n)
+     T-N:        the median moves 0.0072: the domain's bounded-influence estimator is not the CRR value
+     T-C:        A6's influence bounded in M: False
+     OUTCOME:    WRONG
+     reading:    A6 bounds the weight of an occasion, not its influence; under a Fisher Fréchet mean one poisoned step moves the seed by (1 - lambda) M without limit, ten times more than a plain average here; a safety consolidation needs a bounded influence function, which is robust statistics' object and not CRR's
+     weakness:   the Gaussian family with fixed variance makes the Fréchet mean linear; a family with heavy tails would bound the influence by the family, not by A6
+     elegance:   a memory that weights the newest thing most is the memory easiest to poison with one new thing
+     child:      If your opinion of a restaurant is mostly the last visit, one terrible visit ruins it completely. CRR's memory rule is that kind of memory, and safety needs the other kind, where one bad day cannot outvote the rest.
+
+[ 7] (SYNTHESIS) a linear safety head fine-tuned away from its task (the convex learner S-H; the wear learner S-H2 as control)
+     source:     theory/SCOPE.md section 4.1 (the endpoint lemma); the surrogate battery; 2026 arXiv work on safety anchors and orthogonal gradient projection (abstracts only)
+     Q:          a monitor for the erosion of a linear safety head should watch the Fisher endpoint displacement on the OLD (safety) probe set, E_old, rather than on the new task's probe set or the path length
+     ingredient: D6/H-T1 vocabulary (path C, endpoint E) on the old probe set (A1: Fisher distance between predictives)
+     null:       the endpoint on the new task's probe set (E_new)
+     domain:     the endpoint lemma: on a convex head forgetting is a function of the endpoint alone, so the sufficient statistic has R^2 -> 1
+     numbers:    S-H (a convex head), n = 60, held-out R^2 of forgetting: C_new 0.0927 C_old 0.0826 E_new 0.9781 E_old 0.9967 | S-H2 (a head with wear, positive control), n = 60, held-out R^2 of forgetting: C_new 0.4353 C_old 0.4529 E_new 0.1724 E_old 0.2221 | decisive (S-H): R^2(E_old) 0.9967, R^2(E_new) 0.9781, lemma 1.0000; best path R^2 0.0927
+     T-G:        E_old 0.9967 vs E_new 0.9781: which probe set matters
+     T-N:        lemma value 1.0000: the endpoint on the old probe is the sufficient statistic
+     T-C:        E_old beats the best path predictor on the convex head: True
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    for a convex safety head the safety community's anchor and projection constraints (endpoint constraints) are the right object and H-T1's path adds nothing (R^2 below 0.1); the path would matter only on a head with wear, which S-H2 shows by construction (R^2 printed) and no real head has been shown to have
+     weakness:   linear head, squared loss; a nonconvex head is exactly where the lemma does not apply, and the ledger's ARC-T1b found the old-probe endpoint winning there too
+     elegance:   to know how much safety a model has lost, measure how far it has moved on the safety questions, not how far it has travelled
+     child:      If you want to know whether a student forgot last year's lesson, ask them last year's questions; do not add up how much they wandered while learning this year's.
+
+[ 8] (SYNTHESIS) Hopfield network with 3 stored patterns: the spurious mixture state as an 'ingressed' form
+     source:     Amit, Gutfreund and Sompolinsky 1985 (mixture states sign(sum xi)); Hopfield 1982; Levin 2025 'Ingressing Minds' (preprint, abstract only) (context, not fetched)
+     Q:          a form that was never stored and that the dynamics nevertheless settles into (the mixture) is the A6 regeneration of the stored forms: the Fréchet mean of the settled patterns in the network's own (Hamming) metric
+     ingredient: A6 regeneration as a Fréchet mean of settled occasions (P2 equal weights)
+     null:       the same Fréchet mean under P3 age weights (lambda 0.5: the newest pattern outweighs the rest)
+     domain:     AGS 1985: the symmetric mixture is sign(xi_1 + xi_2 + xi_3), a fixed point of the dynamics
+     numbers:    N = 100, P = 3; 400 random starts settle: other 53, stored pattern or its negative 327, the 3-mixture or its negative 20 | overlap of the A6 (P2) Fréchet mean with the AGS mixture 1.0000; under P3 age weights 0.3600; the mixture is a fixed point: True
+     T-G:        P2 mean overlap 1.0000 vs P3 mean overlap 0.3600: which weights matters
+     T-N:        AGS mixture overlap 1.0000: the domain has the form
+     T-C:        fixed point of the dynamics: True
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the 'ingressed' form is the majority of the stored forms, which the domain wrote down in 1985; A6 gives it a process reading (regenerated from the settled) against the platonic one (pre-existing in the landscape), and the two readings share every number; under age weights A6 returns the newest pattern, not the mixture
+     weakness:   three patterns and one lambda; with more patterns the P2 and P3 means diverge further, and CRR does not say which weights a network's past has
+     elegance:   a shape nobody stored, that the network still finds, is the vote of the shapes it did store
+     child:      If three friends each drew a face, and you drew the face most of them agreed on at each spot, you would draw a fourth face nobody drew. The network 'finds' that face. CRR says it is made from the three; Plato says it was waiting there. The numbers cannot tell them apart.
+
+[ 9] (SYNTHESIS) the owner's finitude thesis: 'to be finite is to be able to have an experience at all'
+     source:     the owner (prompt-log entry 66); Clarke and Barron 1990 (the information of a record grows as log of its resolution) (context, not fetched)
+     Q:          none formed: 'finite' in CRR is a resolvable step (A1') and a resolution rho = extent/unit; 'experience' has no clause
+     ingredient: A1'/D1 the own unit and rho
+     null:       none
+     domain:     none cited
+     numbers:    noise sd 0: unit 5.0620e-15, rho 3.9510e+14; half-turn cuts found 80 (40 cycles) | noise sd 0.001: unit 6.9359e-04, rho 2.8908e+03; half-turn cuts found 80 (40 cycles) | noise sd 0.1: unit 9.4357e-02, rho 2.6618e+01; half-turn cuts found 80 (40 cycles) | noise sd 1: unit 1.0997e+00, rho 6.6623e+00; half-turn cuts found 312 (40 cycles) | white noise alone: half-turn cuts found 523 (no cycle in the record)
+     T-G:        not run (no proposition)
+     T-N:        not run
+     T-C:        not run
+     OUTCOME:    UNSTATED
+     reading:    CRR has a mathematics of finitude and no mathematics of experience: the unit of a noiseless carrier is the machine's round-off (5.06e-15, rho 3.95e+14: finitude supplied by the machine where the signal supplies none, as ontology/06 says of the cut), the unit tracks the noise where there is noise, and a carrier of pure noise has cuts everywhere (523 half-turns in 1600 samples with no cycle); the thesis can be made a proposition only by a clause CRR does not have
+     weakness:   an UNSTATED row is a silence, not a result
+     elegance:   a thing with no smallest step has nothing to count with, and a thing that is all steps has nothing to count
+     child:      If a ruler had no marks you could not measure with it; if it were all marks you could not either. CRR knows what a ruler is. It has no word for the person holding it.
+
+TALLY: 0 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 4 REDUNDANT-DOMAIN / 1 WRONG / 1 INTERNAL / 1 UNSTATED

@@ -39,6 +39,9 @@ Each is an INTERNAL row's question; each needs one sentence in CRR.md and then a
 6. P3's normalisation: finite-history MaxEnt or the infinite-horizon closed form (batch 17 row 3).
 7. What a partial reset is, and which boundary jumps are arc (batch 18 row 3, batch 15 row 3):
    proposed, `segment_end="exclusive"` as the default, with the jump the cut.
+8. Whether a system's law is part of its settled past (file 07 row 2, added 2026-09-22): on a deterministic
+   machine the clock of the next event is open under one reading (0.0478 bits after three steps) and fixed
+   under the other (0 bits), so A8 has no value until this is decided.
 
 > CRR has seven places where it says two things at once. Pick one in each, write it down, then test.
 
