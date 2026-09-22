@@ -741,3 +741,7 @@ Let’s run comprehensive sweeps on the omega=1 equanimity rule on existing math
 I hear there is a threshold either side of 1, but 1 is also bayes optimum (check that in existing mathematics) then check the kalman filter tuned versus fixed parameter rule, please.
 
 Run full comprehensive tests on continual learning benchmarks / SOTA methods. Thanks
+
+## 70. 2026-09-22T02:23:11Z
+
+Thank you. Please now give a summary of the current status of the continual learning test
