@@ -729,3 +729,7 @@ We are exploring metaphysics and physics in tandem. This is a question to see wh
 Be robust and allow exploration and state wherever a change is required for the crr equations as written along the way.
 
 Add this to the ontological folder as Exploratory
+
+## 68. 2026-09-22T00:46:44Z
+
+Scratchpad only. I used to have the chord from p0 to p1 on the Bernoulli manifold as the line through the circle. Did that not come through in the crr mathematics as currently stated? The line goes through the circle. It’s complicated and I don’t remember the exact rules for this but I wonder if it changes anything else in the repo or if it’s already been considered (circle and line, feminine and masculine, so to speak!)
