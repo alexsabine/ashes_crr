@@ -1,0 +1,7 @@
+cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  ../../runs/bayes1/frozen/CRR.md
+b4a9222052718eb16cc72af3ad8ade3022a80995baede420c9e8bd7745f71b2a  ../../runs/bayes1/frozen/bayes1_score.py
+d506f4a235cdb38f87285ac15953ca3ebf4a8547c38422a3b3bb10622e0a771d  ../../runs/bayes1/frozen/core.py
+cb8ec8a5aa1e28ec9b5c2a3bfb2e87768019443cbe815ba407e525425b95dfd9  ./PREREG.md
+f242b028be54459c732be7f93e9ae8acceea8338d1340d77c8c84528db536fe4  ./gate_BAYES.txt
+e4b965a581afc421195be92a24540a95b0e32428d7a5f695c99737460f2b262a  ./smoke.txt
+1f9b8b878f589f0643386c0d82aa5323524190b183d03adedf9946df972ec77e  ./smokefull.txt
