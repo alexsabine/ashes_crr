@@ -200,7 +200,8 @@ docs/notes/                notes to the auditor; quote the ledger or nothing (R8
 ontology/                  CRR's commitments against philosophy, contemplative traditions and metaphysics; the cut finding;
                            a fair review of all findings; next steps (notes, not evidence; every number from a pinned
                            output; checks/*.py + .txt pinned and CI-checked: cut_on_a_machine, turing_safety_ingression,
-                           genesis_from_emptiness (exploratory, no verdict))
+                           genesis_from_emptiness (exploratory, no verdict)); 09_free_energy_principle.md reads synthesis
+                           batches 27-28 (the FEP: the clock, the Dirac boundary, equanimity, precision)
 Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Markdown source, figures drawn from pinned
                            records by build/make_figures.py with figures.txt pinned and CI-checked, build/build_pdf.py); a
                            note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods

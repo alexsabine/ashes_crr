@@ -1,0 +1,84 @@
+Synthesis batch 27: the free-energy principle and CRR's clock (prompt-log entries 77-78)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (fep) natural-gradient relaxation of a Gaussian belief toward a jumping target under switching precision
+     source:     H-L5 (arc since the last cut regular) against the FEP's own clock, the free-energy drop; Da Costa et al. 2021, Crooks 2007 (names only)
+     Q:          between target jumps, the Fisher arc of the belief is more regular than the clock AND than the free-energy drop, and the domain's theorem for a complete monotone relaxation (arc = the jump's Fisher length |J|/s, precision-free) already gives it
+     ingredient: H-L5: CV(arc between cuts) as the regular quantity; the cut = the target jump (A3, the jump is the cut, not content)
+     null:       the chord (information geometry's): CV of the Fisher distance start-to-end of each interval
+     domain:     the relaxation theorem: dF/dt = -speed^2 and arc = integral of speed; a complete relaxation has arc = |J|/s exactly, so CV(arc) = CV(|J|) (Cauchy-Schwarz: arc^2 <= clock x dF)
+     numbers:    60 intervals, pi in {0.5, 2, 8}, T ~ U(4, 12), |J| ~ 3 + N(0,1): CV(arc) 0.3188, CV(chord) 0.3188, CV(clock) 0.2944, CV(dF) 1.1931, CV(|J|/s) 0.3181; arc^2 <= clock x dF on every interval: True
+     T-G:        arc vs chord: rel 6.40e-13 -> agree (the arc IS the chord on a monotone relaxation)
+     T-N:        arc vs the jump length: rel 2.15e-03 -> the domain theorem gives the arc
+     T-C:        CV(arc) < min(CV(clock), CV(dF)): False
+     OUTCOME:    REDUNDANT-IG
+     reading:    the arc between jumps equals the jump's own Fisher length because the relaxation is monotone and complete; its regularity is the regularity of the stimulus, precision-free by construction (dF carries the precision, the arc does not); H-L5 fails here for the domain's own reason, not CRR's
+     weakness:   a Gaussian belief with fixed variance is the simplest FEP node; the precision switches only the speed, never the geometry; the bound arc^2 <= clock x dF is Cauchy-Schwarz, cited as the domain's
+     elegance:   Descending a bowl, the path length you travel is the depth of the bowl no matter how fast you fall: the arc forgets the precision and remembers only the jump.
+     child:      If you slide down a slide, how far you slide depends on how long the slide is, not on how fast you go. So measuring the slide length tells you about the slide, not about your speed.
+
+[ 2] (fep) Kalman filter (the linear-Gaussian FEP) with hidden switching process noise; events = innovation-gated resets
+     source:     H-L5 against the domain's own clock (accumulated surprise, the evidence); Mehra 1970 (innovation gating), Costa et al. 2015 (the Gaussian Fisher-Rao distance), names only
+     Q:          between gated resets the Fisher arc of the posterior path is more regular than the number of steps and than the surprise accumulated
+     ingredient: H-L5 with A3: the reset is the cut, excluded from content; arc = sum of Fisher-Rao steps between consecutive posteriors (mean and variance)
+     null:       the chord: the Fisher-Rao distance between the posterior at the reset and the posterior at the next reset
+     domain:     the domain's own clock: the accumulated negative log predictive density between resets (surprise = the FEP's quantity)
+     numbers:    218 resets in 20000 steps (gate 3 sigma, process variance switching 0.05 <-> 0.5 at rate 0.002): CV(arc) 1.6133, CV(chord) 0.4782, CV(clock) 1.8002, CV(surprise) 1.6202
+     T-G:        arc vs chord: rel 7.04e-01 -> differ
+     T-N:        arc vs surprise: rel 4.30e-03 -> agree
+     T-C:        CV(arc) < min(CV(clock), CV(surprise)): True
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the most regular quantity between resets is chord (CV 0.4782); the arc and the surprise are the same clock within tolerance (both accumulate the noise-driven wiggle of the posterior step by step); the chord is more regular than the arc: what is steady between resets is the displacement, not the travel
+     weakness:   the filter's model precision is fixed while the world's switches, so the surprise is that of a misspecified model; the gate threshold (3 sigma) and the minimum spacing (5 steps) are named constants with no sweep here
+     elegance:   A filter that resets when surprised makes its own boundaries; the question is only which quantity between two surprises keeps a steady size.
+     child:      Imagine you flinch every time something startles you. Between two flinches, is the time the same each time, or the amount your mind moved, or how surprised you were? Here we count all three.
+
+[ 3] (fep) discrete active-inference agent (two contexts, two actions, hit rate 0.8) with policy precision sweeping 2..16; events = policy switches
+     source:     H-L5 in the agent's own belief geometry (the simplex's Fisher-Rao angle); Parr, Pezzulo and Friston 2022 (policy precision gamma), names only
+     Q:          between policy switches the Fisher arc of the belief over contexts is the steadiest quantity: more regular than the number of trials, than the surprise accumulated, AND than the chord (H-L5's content is the travel, not the displacement)
+     ingredient: H-L5 with the categorical Fisher-Rao arc (2 arccos sum sqrt(q q')); the switch is the cut
+     null:       the chord: the Fisher-Rao angle between the belief at one switch and at the next
+     domain:     the agent's own clock: accumulated surprise -log p(o_t | o_<t) between switches
+     numbers:    2276 policy switches in 12000 trials (context switch rate 0.02, gamma 2..16): CV(arc) 1.9247, CV(chord) 1.1941, CV(clock) 2.1346, CV(surprise) 2.0013; sensitivity gamma 1..8 (3600 switches): CV(arc) 1.5942, CV(chord) 1.2261, CV(clock) 1.7600, CV(surprise) 1.6720 -> check False
+     T-G:        arc vs chord: rel 3.80e-01 -> differ
+     T-N:        arc vs surprise: rel 3.83e-02 -> differ
+     T-C:        CV(arc) < min(CV(clock), CV(surprise)): True; and CV(arc) < CV(chord): False -> False
+     OUTCOME:    WRONG
+     reading:    the most regular quantity between switches is chord (CV 1.1941); the arc beats the trial count and the surprise; the chord passes the same test and is MORE regular than the arc: what is steady between decisions is the belief displacement, which is the domain's own decision rule (a policy switch is the belief crossing the decision boundary, so the displacement between crossings is set by the boundary); the arc inherits it; verdict stable across the two precision ranges
+     weakness:   expected free energy reduced to risk (no ambiguity term); the precision schedule is a fixed sinusoid; a two-state belief has a one-dimensional geometry where the arc and the chord differ only by back-and-forth travel; every CV here is above 1 (heavy-tailed intervals), so 'more regular' orders three irregular quantities
+     elegance:   A decision is a cut the agent makes itself; whether its beliefs travel a fixed distance between decisions is a question the agent can be asked without asking it anything.
+     child:      Every time the robot changes its mind about which button to press, we ask: did its guess wander the same distance as last time, did the same number of tries pass, or was it equally surprised? Three clocks, one robot.
+
+[ 4] (fep) predictive-coding node with clock-scheduled (negative control) and arc-scheduled (positive control) stimulus switches
+     source:     R4 in the domain: the FEP analogues of S-G (clock-regular by construction) and S-G2 (arc-regular by construction); Rao and Ballard 1999, name only
+     Q:          the instrument sees H-L5 in this domain: it fails where the stimulus is clocked and passes where the stimulus is paced by belief travel, and the pass is not the chord's
+     ingredient: H-L5 with A3 (the stimulus switch is the cut) on the belief's Fisher arc in its posterior unit
+     null:       the chord of each interval
+     domain:     the free-energy drop per interval (the domain's clock)
+     numbers:    negative (clock-scheduled): CV(arc) 0.2943, CV(chord) 0.2943, CV(clock) 0.0413, CV(dF) 0.5577; positive (arc-scheduled): CV(arc) 0.2387, CV(chord) 0.2387, CV(clock) 2.2132, CV(dF) 0.5455
+     T-G:        positive control, arc vs chord: rel 3.60e-11 -> agree (the pass is the chord as much as the arc)
+     T-N:        positive control, arc vs dF: rel 5.62e-01 -> differ
+     T-C:        negative control fails True and positive control passes True: True
+     OUTCOME:    REDUNDANT-IG
+     reading:    the controls behave as constructed: clocked stimuli defeat the arc, arc-paced stimuli pass; on monotone relaxations the arc and the chord coincide, so the positive control is a chord result
+     weakness:   both controls are constructed; the positive control makes the world pace itself by the belief's arc, which no FEP system is known to do; the row establishes what the instrument can see, not that anything in the domain does it
+     elegance:   A test is only as honest as its two controls: one world that must fool the clock and one that must satisfy it, built before any real world is looked at.
+     child:      Before checking whether a stopwatch is right, you time something you know is regular and something you know is not. If it gets both right, then you can trust it on the thing you don't know.
+
+[ 5] (fep) predictive-coding node whose sensory precision (attention) switches at random times; events = the precision shifts
+     source:     H-L5 with the FEP's own event kind (a change of precision, Friston 2010; Feldman and Friston 2010 'attention as precision', names only)
+     Q:          between shifts of attention the Fisher arc of the belief is more regular than the dwell time and than the free-energy dissipated
+     ingredient: H-L5 with A3: the precision shift is the cut
+     null:       the chord per dwell
+     domain:     the free-energy dissipated per dwell (the domain's clock)
+     numbers:    60 dwells, pi_s in {0.5, 2, 8}, dwell ~ U(5, 15): CV(arc) 0.3699, CV(chord) 0.7970, CV(clock) 0.3079, CV(dF) 0.9490; CV of the mean Fisher speed per dwell 0.1671
+     T-G:        arc vs chord: rel 5.36e-01 -> differ
+     T-N:        arc vs dF: rel 6.10e-01 -> differ
+     T-C:        CV(arc) < min(CV(clock), CV(dF)): False
+     OUTCOME:    WRONG
+     reading:    within a dwell the belief jitters at a speed set by the precision (CV of the mean speed 0.1671), so the arc per dwell is dwell time x a precision-dependent speed and inherits both variabilities; the arc is LESS regular than the clock: H-L5 fails on attention-shift events, and the reason is printed above
+     weakness:   attention shifts are imposed, not chosen by the node; a node that chose its own shifts (an agent) would be row 3's question
+     elegance:   Noise-driven travel is time times speed; when the speed changes with the precision, the travel remembers both, and no clock made of it can be steadier than the clock it contains.
+     child:      If you wiggle in your seat faster when you are nervous, then how much you wiggled during a lesson depends on how long the lesson was AND how nervous you were. Counting wiggles is a worse clock than the wall clock.
+
+TALLY: 0 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 2 WRONG / 0 INTERNAL / 0 UNSTATED

@@ -42,6 +42,7 @@ Each is an INTERNAL row's question; each needs one sentence in CRR.md and then a
 8. Whether a system's law is part of its settled past (file 07 row 2, added 2026-09-22): on a deterministic
    machine the clock of the next event is open under one reading (0.0478 bits after three steps) and fixed
    under the other (0 bits), so A8 has no value until this is decided.
+9. The FEP reading (file 09, added 2026-09-22): whether A3's cut is the datum's instant or the belief's occasion (batch 28 row 1: the mass lands at once, the change spreads after); whether the registered EMA estimator's oscillation above Ω = 1 (batch 28 row 2) is an estimator defect or the rule's; whether the A1′ unit's two known factors as a precision (batch 28 row 3) belong in the clause; a gate for tense on an active-inference agent (file 09 §3). The third ADDS candidate (batch 28 row 4, a bounded mean against accumulated counts) joins the expert protocol.
 
 > CRR has seven places where it says two things at once. Pick one in each, write it down, then test.
 
