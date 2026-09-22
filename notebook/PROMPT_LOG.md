@@ -865,3 +865,7 @@ Are we allowed to do anything else today, please?
 ## 89 — 2026-09-22T22:15:53Z
 
 I would like to run more continous learning checks somehow
+
+## 90 — 2026-09-22T22:44:15Z
+
+Scratchpad. So am I right in thinking that the Omega=1 rule has helped to reveal the bound required for continuous learning in KL terms?
