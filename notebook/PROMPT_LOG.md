@@ -795,3 +795,11 @@ What about distributed AI alignment principles?
 Crr is compatible across a wide range of systems we have tested it on so far. 
 
 Now we have realised the bayes optimal point, do you think we could run some FEP checks to see whether CRR’s clock holds there?
+
+## 78 — 2026-09-22T06:21:49Z
+
+Consider the Dirac delta as a boundary in time, distributing unit mass. Consider the role of omega=1 as equanimity and offset as grasping or thrashing.
+
+Run tests on FEP. Consider other current FEP aspects that CRR might be applicable to resolving in terms of its ontological commitments.
+
+Consider precision as a measurable variable.
