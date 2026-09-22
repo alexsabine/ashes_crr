@@ -1,0 +1,85 @@
+EXPLORATORY genesis check 2026-09-22 (prompt-log entry 67): from emptiness with CRR v3.1 as stated; every 'CHANGE REQUIRED' is printed where a computation returned nothing, raised, or stayed fixed
+
+[0] Emptiness: a carrier with nothing to distinguish (A1 needs a statistical manifold; a single distribution is a point, dimension 0)
+     arc length of any path on a 0-dimensional carrier: 0 (D2: nothing travels)
+     A1' unit on a carrier that never changes: unit_sigma raises 'degenerate residual: record rejected (no floor is applied)' (no unit, no rho)
+     A3 on a flat record: phase advances 0.0000 rad over 400 samples; cuts after the start index 0 (the start itself is returned as index 0) (O3: no rotor, no cut)
+     CRR has no equation of motion (CRR.md section 0), so nothing leaves this state
+     CHANGE REQUIRED [A0]: a first distinguishable state and a first motion must be posited; CRR v3.1 has no clause that produces either (the owner concedes the first)
+
+[1] The first distinction: this / not-this. The least statistical manifold with two distinguishable states is the Bernoulli family p in (0, 1) (A1)
+     Fisher-Rao length of the whole manifold, integral of sqrt(1/(p(1-p))) dp from 0 to 1 = 3.1415926536 (pi = 3.1415926536, quad error 6.2e-10)
+     the arc-length coordinate u(p) = 2 arcsin sqrt(p): u(0) = 0.0000, u(1/2) = 1.5708, u(1) = 3.1416: THE LINE (a geodesic segment of length pi) is the first form
+     Hellinger embedding psi = (sqrt p, sqrt(1-p)): |psi| = 1 at every p (max deviation 1.1e-16): normalisation p + (1-p) = 1 IS cos^2 + sin^2 = 1: THE CIRCLE is the normalisation of the first distinction read in amplitude coordinates
+     the Fisher-Rao distance is twice the angle on that circle: d_FR(0, 1) = 3.141593 = 2 x 1.570796; the manifold is a quarter of a circle of radius 2 (length pi)
+     two chords between the same two pure states: CRR's chord (D3, the geodesic on the manifold) = 3.141593 = pi, an arc of the circle; the straight line through the embedding = 1.414214 = sqrt 2 (radius 1) or 2.828427 = 2 sqrt 2 (radius 2). CRR's 'line' is the circle's arc; the straight line is not a CRR quantity
+
+[2] Motion: CRR names one speed only, Fisher speed 1 (the Omega = 1 reading of H-EQ). Posit the least motion: a geodesic at unit Fisher speed. In the arc-length coordinate the geodesic equation is u'' = 0, so u(t) = t; the manifold ends at u = 0 and u = pi, and the least continuation is reflection
+     CHANGE REQUIRED [A2]: a law of motion (posited here: unit Fisher speed along the geodesic, reflected at the ends of the manifold); CRR v3.1 says it has no equations of motion
+     reflected unit-speed geodesic: u(t) is a triangle wave between 0 and pi; p(t) = sin^2(u/2): max |p(t) - (1 - cos t)/2| = 2.6e-15: THE SINUSOID appears; the reflected segment is a rotor of circumference 2 pi (v = t mod 2 pi, p = sin^2(v/2)): A3's rotor exists on the first distinction
+     CHANGE REQUIRED [A3a]: the rotor must be derived, not assumed ('where the system is cyclic'); here it is the reflected geodesic (equivalently the signed amplitude: the circle double-covers the segment)
+     the instrument on the sampled sinusoid (40 samples per turn, 20 turns): 40 half-turn cuts; p at the first six cuts = [0. 1. 0. 1. 0. 1.]; the cut fires at the pure states 0 and 1 alternately: THE CUT IS NEGATION (antipode of p is 1 - p) on the first distinction
+     occasion 1: C = 3.141593, C* = 3.141593, S = 0.000000 (pi = 3.141593); the first occasions are monotone traversals of the whole line, S = 0 (D4)
+     occasion 2: C = 3.141593, C* = 3.141593, S = 0.000000 (pi = 3.141593); the first occasions are monotone traversals of the whole line, S = 0 (D4)
+     occasion 3: C = 3.141593, C* = 3.141593, S = 0.000000 (pi = 3.141593); the first occasions are monotone traversals of the whole line, S = 0 (D4)
+
+[3] The unit (A1') and the count (D1)
+     trace reading: the occasion statistic (amplitude of each turn) is 1 on every turn; unit_sigma raises 'degenerate residual: record rejected (no floor is applied)': a perfect first distinction has no unit
+     CHANGE REQUIRED [A1'a]: on a carrier without variability A1' gives no unit; either the unit is named (one turn = one step; the point-process reading) or a source of variability is posited
+     point-process reading (A1'): one cut = one event = one step; natural time is the cut count: 1, 2, 3, ... THE INTEGERS appear as the count of half-turns
+     the empirical distinction: after n outcomes with k = n/2 successes, one more success moves the empirical point by d_FR(k/n, (k+1)/(n+1)); the resolution rho = pi / that step (D1):
+       n =    2: step 0.339837, rho = 9.2444, rho / n = 4.6222
+       n =    4: step 0.201358, rho = 15.6020, rho / n = 3.9005
+       n =    8: step 0.111341, rho = 28.2160, rho / n = 3.5270
+       n =   16: step 0.058858, rho = 53.3762, rho / n = 3.3360
+       n =   64: step 0.015385, rho = 204.1955, rho / n = 3.1906
+       n =  256: step 0.003891, rho = 807.3873, rho / n = 3.1539
+     the count is the only thing in this universe that grows; the resolution of the empirical point grows linearly with it (rho / n -> pi: one more event moves the point by 1/n of the line)
+
+[4] Regeneration (A6): the next occasion is seeded from the settled past as the Fisher-Rao Fréchet mean of occasion contents Phi_m under MaxEnt weights
+     CHANGE REQUIRED [A6a]: A6 uses 'occasion contents Phi_m', which D5 does not define (D5 gives (C_m, C*_m, S_m)); two readings are run: (a) the state at the cut, (b) the occasion's own path mean
+     CHANGE REQUIRED [A6b]: A6's 'fixed strength kappa' appears in the prose and not in the formula; it is not used below because nothing says how
+     reading (a), contents = the two cut states p = 1 and p = 0 (equal weights): grid argmin of sum d_FR^2 = p = 0.500000; closed form u = pi/2, p = sin^2(pi/4) = 0.500000: the first regeneration is the equiprobable state 1/2
+     reading (b), contents = each occasion's path mean = 1/2: the seed is 1/2 at once
+     1/2 is the fixed point of the cut's negation p -> 1 - p: |1/2 - (1 - 1/2)| = 0.0; an occasion seeded there travels a half-turn and returns: C = pi, C* = d_FR(1/2, 1/2) = 0.0000, S = 3.141593 = pi, the largest surplus the line allows
+     the recurrence under reading (a): seed = Fréchet mean of all cut states under P3 age weights q^age; the occasion runs a half-turn from the seed to its antipode; the new cut state is appended:
+       q = 0.00: seeds p = [0. 1. 0. 1. 0. 1.] ...; S per occasion = [0. 0. 0. 0. 0. 0.] ...; S at occasion 40 = 0.000000; |seed - 1/2| < 0.01 first at occasion never (40 run)
+       q = 0.25: seeds p = [0.0955 0.7369 0.3764 0.5625 0.4687 0.5157] ...; S per occasion = [1.2566 2.1542 2.6421 2.8911 3.0163 3.0789] ...; S at occasion 40 = 3.141593; |seed - 1/2| < 0.01 first at occasion 7
+       q = 0.50: seeds p = [0.25   0.5374 0.4975 0.5001 0.5    0.5   ] ...; S per occasion = [2.0944 2.992  3.1316 3.1413 3.1416 3.1416] ...; S at occasion 40 = 3.141593; |seed - 1/2| < 0.01 first at occasion 3
+       q = 1.00: seeds p = [0.5 0.5 0.5 0.5 0.5 0.5] ...; S per occasion = [3.1416 3.1416 3.1416 3.1416 3.1416 3.1416] ...; S at occasion 40 = 3.141593; |seed - 1/2| < 0.01 first at occasion 1
+     computed: the first universe keeps cutting between its pure states (S stays 0) for q in [0.0]; for every other q it settles on 1/2 and every later occasion is pure surplus (S = pi)
+     CHANGE REQUIRED [A6c]: as stated, A6 with any memory of more than the last occasion (q > 0) drives the first universe to the state the cut cannot distinguish from its antipode; persistence needs either no memory (q = 0) or a content that carries orientation, not position
+     P2 surplus weights pi_m ~ exp(beta S_m) (CRR does not fix beta), uniform age, same recurrence:
+       beta = -4: seeds p = [0.5 0.5 0.5 0.5 0.5] ...; S at occasion 40 = 3.141593
+       beta = +0: seeds p = [0.5 0.5 0.5 0.5 0.5] ...; S at occasion 40 = 3.141593
+       beta = +4: seeds p = [0.5 0.5 0.5 0.5 0.5] ...; S at occasion 40 = 3.141593
+     computed: with equal weights on the two pure states the seed is 1/2 whatever beta does afterwards (the first two occasions both have S = 0, so beta cannot tell them apart); the sign of beta is not enough to keep the universe alive
+
+[5] Can a second distinction arise? A6's Fréchet mean of points on the manifold lies on the manifold; nothing in A1-A8 adds a dimension
+     Fréchet mean of 50 weighted points: on the segment (u = 1.6380 in [0, pi]), its amplitude vector has norm 1 to 0.0e+00; component outside the two-outcome span: 0 (there is no third axis to have one)
+     CHANGE REQUIRED [A9]: a rule that creates a distinction (a new outcome, a new axis) is absent; without it the universe stays one-dimensional for ever (Spencer-Brown's 'draw a distinction' is the classical statement of what is missing, named as context)
+     if a second distinction is posited (three outcomes), the carrier is the octant of the sphere of radius 2:
+       d_FR between the pure states: 3.141593, 3.141593, 3.141593: an equilateral triangle of side pi on the sphere; every pure state is at the antipode of every other
+     CHANGE REQUIRED [A3b]: on two or more distinctions A3's rotor needs a chosen great circle (which plane the half-turn lives in); v3.1 gives none (O3 in the non-cyclic case only)
+
+[6] Forms that appeared, and from which line
+     the line (a geodesic segment of length pi)                   <- A1 + the first distinction: the Bernoulli manifold in its arc-length coordinate
+     the circle (normalisation as cos^2 + sin^2 = 1)              <- A1: the Fisher-Rao metric's Hellinger embedding; a theorem, not a CRR clause
+     pi (the length of the first distinction)                     <- A1: the integral of sqrt of the Fisher information
+     sqrt 2 (the straight chord between the pure states)          <- the embedding, not CRR: D3's chord is the arc pi
+     the sinusoid p(t) = (1 - cos t)/2                            <- posited unit Fisher speed + reflection (A2, a change)
+     the integers (natural time)                                  <- A1' point-process reading: one cut = one step
+     negation as the cut (p -> 1 - p)                             <- A3 on the reflected rotor
+     1/2 (the equiprobable state)                                 <- A6: the Fréchet mean of the two pure states; also the fixed point of the cut
+     did not appear: a second dimension (A9), a law of motion (A2), the real continuum (presupposed by A1: the manifold imports the reals), the golden ratio (P4 needs a Kalman model with q and r, which nothing here supplies)
+
+CHANGES REQUIRED to CRR v3.1 as written (9):
+     [A0] a first distinguishable state and a first motion must be posited; CRR v3.1 has no clause that produces either (the owner concedes the first)
+     [A2] a law of motion (posited here: unit Fisher speed along the geodesic, reflected at the ends of the manifold); CRR v3.1 says it has no equations of motion
+     [A3a] the rotor must be derived, not assumed ('where the system is cyclic'); here it is the reflected geodesic (equivalently the signed amplitude: the circle double-covers the segment)
+     [A1'a] on a carrier without variability A1' gives no unit; either the unit is named (one turn = one step; the point-process reading) or a source of variability is posited
+     [A6a] A6 uses 'occasion contents Phi_m', which D5 does not define (D5 gives (C_m, C*_m, S_m)); two readings are run: (a) the state at the cut, (b) the occasion's own path mean
+     [A6b] A6's 'fixed strength kappa' appears in the prose and not in the formula; it is not used below because nothing says how
+     [A6c] as stated, A6 with any memory of more than the last occasion (q > 0) drives the first universe to the state the cut cannot distinguish from its antipode; persistence needs either no memory (q = 0) or a content that carries orientation, not position
+     [A9] a rule that creates a distinction (a new outcome, a new axis) is absent; without it the universe stays one-dimensional for ever (Spencer-Brown's 'draw a distinction' is the classical statement of what is missing, named as context)
+     [A3b] on two or more distinctions A3's rotor needs a chosen great circle (which plane the half-turn lives in); v3.1 gives none (O3 in the non-cyclic case only)
