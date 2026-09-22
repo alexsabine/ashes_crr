@@ -781,3 +781,11 @@ Utilise the knowledge from the previous paper in the continuous learning repo an
 ## 75 — 2026-09-22T06:03:25Z
 
 Thank you. Please can now use the scratchpad to reflect on how we can run further crr tests to achieve absolute bayes optimum in a domain where continuous learning is currently bottlenecked?
+
+## 76 — 2026-09-22T06:11:05Z
+
+Okay. We can save that test to run tomorrow.
+
+What other domains could be high value targets for crr predictions, in terms of applied use cases and products?
+
+What about distributed AI alignment principles?
