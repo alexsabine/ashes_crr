@@ -75,6 +75,10 @@ and its `score` on `218_house_8L` (non-finite path lengths); no row scored; the 
 corrections named in its prereg (split-feature rule, admissibility gate, bool cast, non-finite runs dropped and counted)
 on six unseen carriers (three BNG sets, three Feynman sets).
 
+3e. **FED Phase A (2026-09-22, synthetic): CLOSED.** The heterogeneous-node federated test of H-EQ sketched for
+decentralised alignment does not pass its own gate: one global weight is within a step of every node's oracle, and on a
+poisoned node the clip holds with a fixed weight too (`docs/notes/2026-09-22_fed_phaseA.md`). No prereg follows.
+
 ## 2. Retrodiction across more systems: what is worth adding
 
 The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9

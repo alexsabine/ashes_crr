@@ -1,0 +1,60 @@
+FED Phase-A gate (synthetic; theory/checks/fed_heterogeneous.py). Grid 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096; seeds (0, 1, 2, 3, 4)
+[hetero_loss] kind=loss nodes=(0.25, 0.5, 1.0, 2.0, 4.0) poisoned node index=None | reference node 2 (factor 1.0), global knob w = 1024
+   node 0 factor 0.25: oracle w 1024 err 0.0045 (step 0.0100) | global knob 0.0045 (+0.0000) | rule 0.0073 (+0.0028, w_med 7860.2) | EQ-B 0.0073 (+0.0028, w_med 7860.2)
+      grid 1:0.018 2:0.017 4:0.017 8:0.015 16:0.013 32:0.011 64:0.008 128:0.007 256:0.006 512:0.005 1024:0.004 2048:0.005 4096:0.006
+   node 1 factor 0.5: oracle w 1024 err 0.0066 (step 0.0100) | global knob 0.0066 (+0.0000) | rule 0.0082 (+0.0016, w_med 7829.3) | EQ-B 0.0082 (+0.0016, w_med 7829.3)
+      grid 1:0.032 2:0.031 4:0.029 8:0.027 16:0.023 32:0.019 64:0.015 128:0.011 256:0.008 512:0.007 1024:0.007 2048:0.007 4096:0.007
+   node 2 factor 1: oracle w 1024 err 0.0089 (step 0.0100) | global knob 0.0089 (+0.0000) | rule 0.0102 (+0.0013, w_med 6373.4) | EQ-B 0.0102 (+0.0013, w_med 6373.4)
+      grid 1:0.047 2:0.046 4:0.043 8:0.039 16:0.034 32:0.028 64:0.022 128:0.015 256:0.012 512:0.010 1024:0.009 2048:0.009 4096:0.010
+   node 3 factor 2: oracle w 1024 err 0.0140 (step 0.0100) | global knob 0.0140 (+0.0000) | rule 0.0187 (+0.0047, w_med 5928.9) | EQ-B 0.0187 (+0.0047, w_med 5928.9)
+      grid 1:0.071 2:0.069 4:0.066 8:0.060 16:0.053 32:0.044 64:0.035 128:0.026 256:0.019 512:0.015 1024:0.014 2048:0.015 4096:0.017
+   node 4 factor 4: oracle w 1024 err 0.0204 (step 0.0112) | global knob 0.0204 (+0.0000) | rule 0.0521 (+0.0317, w_med 3265.8) | EQ-B 0.0521 (+0.0317, w_med 3265.8)
+      grid 1:0.118 2:0.115 4:0.110 8:0.100 16:0.087 32:0.070 64:0.053 128:0.040 256:0.029 512:0.023 1024:0.020 2048:0.022 4096:0.025
+   FED-1: rule not behind on every node False; global knob behind on some node False -> FAIL
+   FED-B: FAIL
+[homo_loss] kind=loss nodes=(1.0, 1.0, 1.0, 1.0, 1.0) poisoned node index=None | reference node 0 (factor 1.0), global knob w = 1024
+   node 0 factor 1: oracle w 1024 err 0.0095 (step 0.0100) | global knob 0.0095 (+0.0000) | rule 0.0114 (+0.0018, w_med 5817.4) | EQ-B 0.0114 (+0.0018, w_med 5817.4)
+      grid 1:0.050 2:0.049 4:0.046 8:0.042 16:0.037 32:0.031 64:0.023 128:0.018 256:0.013 512:0.010 1024:0.010 2048:0.010 4096:0.011
+   node 1 factor 1: oracle w 1024 err 0.0093 (step 0.0100) | global knob 0.0093 (+0.0000) | rule 0.0109 (+0.0016, w_med 5406.9) | EQ-B 0.0109 (+0.0016, w_med 5406.9)
+      grid 1:0.049 2:0.048 4:0.046 8:0.041 16:0.036 32:0.030 64:0.023 128:0.018 256:0.013 512:0.011 1024:0.009 2048:0.010 4096:0.011
+   node 2 factor 1: oracle w 1024 err 0.0089 (step 0.0100) | global knob 0.0089 (+0.0000) | rule 0.0102 (+0.0013, w_med 6373.4) | EQ-B 0.0102 (+0.0013, w_med 6373.4)
+      grid 1:0.047 2:0.046 4:0.043 8:0.039 16:0.034 32:0.028 64:0.022 128:0.015 256:0.012 512:0.010 1024:0.009 2048:0.009 4096:0.010
+   node 3 factor 1: oracle w 1024 err 0.0095 (step 0.0100) | global knob 0.0095 (+0.0000) | rule 0.0107 (+0.0012, w_med 5933.8) | EQ-B 0.0107 (+0.0012, w_med 5933.8)
+      grid 1:0.049 2:0.048 4:0.045 8:0.042 16:0.037 32:0.030 64:0.023 128:0.017 256:0.013 512:0.010 1024:0.010 2048:0.010 4096:0.011
+   node 4 factor 1: oracle w 1024 err 0.0095 (step 0.0100) | global knob 0.0095 (+0.0000) | rule 0.0112 (+0.0018, w_med 7420.7) | EQ-B 0.0112 (+0.0018, w_med 7420.7)
+      grid 1:0.049 2:0.048 4:0.045 8:0.041 16:0.036 32:0.029 64:0.022 128:0.016 256:0.012 512:0.010 1024:0.009 2048:0.009 4096:0.011
+   FED-1: rule not behind on every node True; global knob behind on some node False -> FAIL
+   FED-B: FAIL
+[hetero_loss_poisoned] kind=loss nodes=(0.25, 0.5, 1.0, 2.0, 4.0) poisoned node index=2 | reference node 2 (factor 1.0), global knob w = 256
+   node 0 factor 0.25: oracle w 1024 err 0.0045 (step 0.0100) | global knob 0.0057 (+0.0012) | rule 0.0073 (+0.0028, w_med 7860.2) | EQ-B 0.0073 (+0.0028, w_med 7860.2)
+      grid 1:0.018 2:0.017 4:0.017 8:0.015 16:0.013 32:0.011 64:0.008 128:0.007 256:0.006 512:0.005 1024:0.004 2048:0.005 4096:0.006
+   node 1 factor 0.5: oracle w 1024 err 0.0066 (step 0.0100) | global knob 0.0083 (+0.0017) | rule 0.0082 (+0.0016, w_med 7829.3) | EQ-B 0.0082 (+0.0016, w_med 7829.3)
+      grid 1:0.032 2:0.031 4:0.029 8:0.027 16:0.023 32:0.019 64:0.015 128:0.011 256:0.008 512:0.007 1024:0.007 2048:0.007 4096:0.007
+   node 2 factor 1 (poisoned): oracle w 256 err 0.6065 (step 0.0100) | global knob 0.6065 (+0.0000) | rule 0.6085 (+0.0020, w_med 484.9) | EQ-B 0.0281 (-0.5784, w_med 1330.6)
+      grid 1:0.624 2:0.625 4:0.625 8:0.628 16:0.626 32:0.626 64:0.607 128:0.613 256:0.607 512:0.607 1024:0.614 2048:0.610 4096:0.609
+   node 3 factor 2: oracle w 1024 err 0.0140 (step 0.0100) | global knob 0.0190 (+0.0050) | rule 0.0187 (+0.0047, w_med 5928.9) | EQ-B 0.0187 (+0.0047, w_med 5928.9)
+      grid 1:0.071 2:0.069 4:0.066 8:0.060 16:0.053 32:0.044 64:0.035 128:0.026 256:0.019 512:0.015 1024:0.014 2048:0.015 4096:0.017
+   node 4 factor 4: oracle w 1024 err 0.0204 (step 0.0112) | global knob 0.0285 (+0.0081) | rule 0.0521 (+0.0317, w_med 3265.8) | EQ-B 0.0521 (+0.0317, w_med 3265.8)
+      grid 1:0.118 2:0.115 4:0.110 8:0.100 16:0.087 32:0.070 64:0.053 128:0.040 256:0.029 512:0.023 1024:0.020 2048:0.022 4096:0.025
+   FED-1: rule not behind on every node False; global knob behind on some node False -> FAIL
+   FED-B: FAIL
+[hetero_input] kind=input nodes=(0.25, 0.5, 1.0, 2.0, 4.0) poisoned node index=None | reference node 2 (factor 1.0), global knob w = 1024
+   node 0 factor 0.25: oracle w 4096 err 0.1363 (step 0.0302) | global knob 0.1540 (+0.0177) | rule 0.1326 (-0.0037, w_med 7955.6) | EQ-B 0.1326 (-0.0037, w_med 7955.6)
+      grid 1:0.304 2:0.302 4:0.298 8:0.291 16:0.280 32:0.262 64:0.240 128:0.216 256:0.192 512:0.170 1024:0.154 2048:0.143 4096:0.136
+   node 1 factor 0.5: oracle w 2048 err 0.0452 (step 0.0230) | global knob 0.0473 (+0.0020) | rule 0.0456 (+0.0003, w_med 7847.5) | EQ-B 0.0456 (+0.0003, w_med 7847.5)
+      grid 1:0.153 2:0.150 4:0.147 8:0.139 16:0.127 32:0.112 64:0.094 128:0.077 256:0.063 512:0.053 1024:0.047 2048:0.045 4096:0.047
+   node 2 factor 1: oracle w 1024 err 0.0089 (step 0.0100) | global knob 0.0089 (+0.0000) | rule 0.0102 (+0.0013, w_med 6373.4) | EQ-B 0.0102 (+0.0013, w_med 6373.4)
+      grid 1:0.047 2:0.046 4:0.043 8:0.039 16:0.034 32:0.028 64:0.022 128:0.015 256:0.012 512:0.010 1024:0.009 2048:0.009 4096:0.010
+   node 3 factor 2: oracle w 512 err 0.0038 (step 0.0100) | global knob 0.0040 (+0.0002) | rule 0.0071 (+0.0033, w_med 5981.6) | EQ-B 0.0071 (+0.0033, w_med 5981.6)
+      grid 1:0.017 2:0.017 4:0.016 8:0.015 16:0.012 32:0.009 64:0.008 128:0.006 256:0.005 512:0.004 1024:0.004 2048:0.005 4096:0.006
+   node 4 factor 4: oracle w 512 err 0.0039 (step 0.0100) | global knob 0.0044 (+0.0006) | rule 0.0147 (+0.0108, w_med 4697.6) | EQ-B 0.0150 (+0.0112, w_med 4697.6)
+      grid 1:0.034 2:0.032 4:0.029 8:0.023 16:0.017 32:0.012 64:0.009 128:0.005 256:0.004 512:0.004 1024:0.004 2048:0.005 4096:0.006
+   FED-1: rule not behind on every node False; global knob behind on some node False -> FAIL
+   FED-B: FAIL
+----------------------------------------------------------------------------------------------------
+FED-1 on hetero_loss: FAIL (must PASS) -> VIOLATION
+FED-1 on homo_loss: FAIL (must FAIL) -> ok
+FED-B on hetero_loss_poisoned: FAIL (must PASS) -> VIOLATION
+FED-B on hetero_loss: FAIL (must FAIL) -> ok
+informational: FED-1 on hetero_input FAIL
+GATE CLOSED (2 violation(s))
