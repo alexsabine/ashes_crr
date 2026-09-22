@@ -1,0 +1,14 @@
+delta(Now) and the edge (2026-09-22, prompt-log entry 83): two computed facts, verdict words from the numbers
+[1] A3's delta(Now) is a delta in the phase: one cut per half-turn, whatever the speed
+     constant speed            : 15 interior cuts over 15.00 half-turns -> mass per half-turn 1.0000; time density at the cuts = phase speed, range [1.000, 1.000]; CV of the cut spacing in time 0.0028
+     speed varying 4x          : 46 interior cuts over 46.03 half-turns -> mass per half-turn 0.9993; time density at the cuts = phase speed, range [1.006, 3.998]; CV of the cut spacing in time 0.4930
+     speed with random bursts  : 27 interior cuts over 27.00 half-turns -> mass per half-turn 1.0000; time density at the cuts = phase speed, range [1.000, 4.000]; CV of the cut spacing in time 0.4783
+     computed: mass per half-turn within 2 % of 1 on every profile: True; the cut spacing in TIME varies with the speed (that spacing is not the delta's mass, it is where the mass lands)
+     the Kalman belief path of batch 28 row 1: analytic-phase advance over 4000 steps 6.95 turns, i.e. no rotor the carrier owns (a random walk's analytic phase is not a cycle of the system);
+     computed: A3's delta needs a cyclic carrier (v3.1 A3: 'where the system is cyclic'); the likelihood delta of row 28-1 is the FEP's object, not A3's, and row 28-1 tested the FEP's delta
+
+[2] 'One Omega before rupture': not in v3.1; what the pinned mathematics has instead
+     the fixed weight's stability edge on the two-task quadratic: lambda* = 1.2575 (lr (h_max + lambda f_max) = 2)
+     total loss by Omega (registered estimator, noise 0.5, 4000 steps, 5 seeds): 0.25:68.513 0.35:67.307 0.5:65.262 0.71:61.265 1.0:3.479 1.41:11.146 2.0:11.010 2.83:56.787 4.0:101.379
+     computed: the first Omega above 1 whose total exceeds twice the Omega = 1 total (or diverges) is 1.41; the first that diverges is None; the degradation begins a factor 1.41 above 1 (one grid step) and no Omega on the grid diverges: a degradation, not a rupture; and at Omega = 1 the update on the Pareto curve has norm |1 - Omega| |g_p| = 0 (the knife edge, omega_sweeps.txt [2]), so Omega = 1 is AT the edge of stalemate, not one step before a rupture
+     the strong form C * Omega = 1 (rupture when the accumulated arc reaches 1/Omega) belongs to the issue-#21 text and the external spec, which removed it (spec XI.1; verify_spec_math [XI.1]: it coincides with the half-turn cut only when the half-turn is one Fisher unit); v3.1 has no criticality clause (SPEC_RECONCILIATION section 3) and Omega belongs to regeneration (H-EQ), not to the cut

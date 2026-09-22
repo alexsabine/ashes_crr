@@ -41,7 +41,8 @@ load-bearing cells); Ω a plateau over the whole nine-point grid; the lr × batc
 capacity × epochs array 2/4; the Bayes (Laplace) weight is the tuned λ on 2/6 (`reports/eq3.md`). Study EQ4 (`prereg/eq4/`, 2026-09-22, hashed before data;
 **data step on or after 2026-09-23 under R3**) tests the bounded rule EQ-B (present gradient clipped at κ × the largest
 kept recent length, then the ratio; `theory/checks/omega_reprocessed.py`) on six unseen PMLB carriers with a poisoned
-regime; no row yet.
+regime; no row yet. The epistemic status of the whole record is stated once in
+`docs/notes/2026-09-22_epistemic_status.md` (read it before quoting any row).
 Two earlier results (below) motivated H-L5
 and H-T1; they were produced under a pipeline the audit rejected and are
 context, not evidence. Both are *comparative* claims: a quantity CRR names
