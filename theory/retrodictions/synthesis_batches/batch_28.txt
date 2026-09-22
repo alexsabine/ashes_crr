@@ -1,0 +1,84 @@
+Synthesis batch 28: the free-energy principle and CRR's ontological commitments (prompt-log entry 78)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (fep) Kalman filter receiving delta-precision observations at random times (the boundary in time) among ordinary ones
+     source:     A3/D5 (the jump is the cut, not content; the occasion is the interval between cuts) against the infinite-precision observation of a Bayesian filter (the Dirac likelihood, gain -> 1); Costa et al. 2015 for the Gaussian Fisher-Rao length, names only
+     Q:          a Dirac-precision datum is a cut: as its precision grows the belief's Fisher arc concentrates at the instants of the deltas (the boundary carries the change and distributes the datum's unit mass into the belief at once), and the occasions between them empty
+     ingredient: A3 exclusive segmentation: the arc at a delta is the cut's, not the occasion's; D5 occasions between deltas
+     null:       the inclusive reading (a delta step is content like any other): the content share is 1 by definition
+     domain:     none cited
+     numbers:    precision pi_delta (1.0, 10.0, 100.0, 10000.0): share of the total Fisher arc at the deltas [0.0177, 0.0542, 0.1077, 0.1922]; mean gain at the deltas [0.2, 0.7066, 0.9577, 0.9995]; share of the arc in the 20 steps after each delta [0.3153, 0.3035, 0.3131, 0.3495]; mean jump length [0.3682, 1.1725, 2.5866, 5.8341] vs the variance-collapse closed form of Costa et al. 2015 [0.1578, 0.8695, 2.2604, 5.4816] (the Kalman gain -> 1 is the domain's unit-mass statement); deltas in 20000 steps 378
+     T-G:        cut share at pi = 1e4 (0.1922) vs the inclusive content share (1): rel 8.08e-01 -> differ
+     T-N:        no domain theorem for the share; the jump length at pi = 1e4 measured 5.8341 vs the variance-collapse closed form 5.4816 (rel 6.04e-02)
+     T-C:        share monotone in the precision True and above 1/2 at pi = 1e4 (0.1922): False
+     OUTCOME:    WRONG
+     reading:    the arc does NOT concentrate at the deltas: the gain at the deltas reaches 0.9995 (the datum's unit mass lands at the instant, the domain's own statement), but the Fisher arc lives in the twenty steps after each cut (the collapsed variance re-expanding) (0.3495 of the arc there against 0.1922 at the cuts); the delta collapses the belief's variance and the ordinary observations re-inflate it, and in the Fisher geometry that re-inflation is travel; the boundary in time distributes the datum's mass at once and spreads the belief's change over the occasion that follows
+     weakness:   the delta is approximated by a finite precision 1e4; the ordinary observations keep a relaxation arc alive between deltas, so the share never reaches 1; a filter with no ordinary observations would put every unit of arc at the cuts by construction
+     elegance:   A perfectly sharp fact does not add to a belief, it replaces it: the whole distance travelled is at the instant, and the instant has no width.
+     child:      If someone tells you the exact answer, you do not slowly change your mind, you change it all at once. On a graph of your beliefs, all the movement happens at that one moment, and the moments in between are flat.
+
+[ 2] (fep) one-dimensional prior-datum node under the equanimity rule: the resting point as an effective gain, against the Bayes gain
+     source:     H-EQ (Omega = 1) read as equanimity, the offset as grasping (the prior wins) or thrashing (the datum wins); FEP's aberrant precision (over-precise priors, under-precise priors), Friston 2010, names only; omega_sweeps.txt [2] the one-dimensional knife edge
+     Q:          Omega is a precision dial: Omega < 1 rests at the datum (thrashing, an under-precise prior), Omega > 1 rests at the prior (grasping, an over-precise prior), and Omega = 1 rests wherever the estimator's lag leaves it: equanimity is not the Bayes compromise but the absence of any preferred resting point
+     ingredient: H-EQ with the registered EMA estimator (smooth 0.9, cap 1e4), Omega over the study grid; the exact-norm rule printed beside it
+     null:       the fixed weight w = 1 (sum the two pulls): rests at the precision-weighted mean, the Bayes point at equal precision (0.5)
+     domain:     the Bayes (Kalman) gain K = pi_o / (pi_o + pi_p)
+     numbers:    equal precision (K_Bayes 0.5000), Omega grid (0.5, 0.71, 1.0, 1.41, 2.0), start at the prior: K_eff on the EMA rule [1.0, 0.9969, -0.0108, 0.7107, -0.0212] (sd over the last half [0.0, 0.0062, 0.0649, 0.3594, 0.1128]; regimes ['datum', 'datum', 'prior', 'oscillating', 'oscillating']), exact-norm rule [1.0, 1.0, 0.02, 0.0209, 0.0204] (regimes ['datum', 'datum', 'prior', 'prior', 'prior']); start at the midpoint, EMA rule: [1.0, 1.0, 0.5, 0.7325, 0.5699]; precision ratio 4 (K_Bayes 0.8000): K_eff on the EMA rule [1.0, -0.0328, 0.2204, 0.0534, 0.5017]
+     T-G:        K_eff at Omega = 1 (-0.0108) vs the fixed-weight resting point (0.5000): rel 1.02e+00 -> differ
+     T-N:        K_eff at Omega = 1 vs the Bayes gain (0.5000): rel 1.02e+00 -> differ
+     T-C:        the dial (Omega < 1 datum, Omega > 1 prior, still) on the exact rule True, on the registered EMA rule False; Omega = 1 rests where it starts True: False
+     OUTCOME:    WRONG
+     reading:    exact norms: below 1 the belief goes to the datum (thrashing after the evidence) and above 1 it goes to the prior (grasping); the registered EMA estimator: NOT a dial: with the lag, Omega above 1 oscillates (regimes ['datum', 'datum', 'prior', 'oscillating', 'oscillating']), so the offset above 1 is thrashing around the prior, not grasping it; Omega = 1 rests wherever it starts (the knife edge); at Omega = 1 the EMA rule rests at K_eff -0.0108, not the Bayes point (0.5000) and not the fixed-weight point (0.5000): where it rests is set by the estimator lag, which is what the one-dimensional knife edge predicts; with the precision ratio 4 the Bayes gain is 0.8000 and the rule at Omega = 1 rests at 0.2204: the rule does not see the precision
+     weakness:   a static datum; on a stream of data the datum moves and the resting point becomes a trajectory (omega_sweeps.txt [2] (iv)); 'grasping' and 'thrashing' are the owner's words for the two sides of the knife edge, not FEP terms; the sd column shows whether Omega > 1 oscillates around the prior
+     elegance:   Equal pull is not a compromise but a stalemate: the belief stops wherever it happens to be when the two pulls first match, and only Bayes knows where it should have stopped.
+     child:      Two children pull a rope with exactly equal strength: the knot does not move, wherever it is. That is equanimity here. It is not the fair middle; the fair middle is where the stronger evidence says, and that needs a different rule.
+
+[ 3] (fep) the innovation record of a Kalman filter with 5 % outliers: precision measured as CRR's unit against the domain's innovation variance
+     source:     A1'/D1 (the resolvable step: robust scale of the detrended residual across occasions) read as a precision estimator; Mehra 1970 (innovation-based noise identification), Feldman and Friston 2010 (precision as attention), names only
+     Q:          precision is measurable from the record: 1/sigma^2 with sigma the A1' unit of the innovation sequence recovers the model's innovation precision under outliers, where the sample variance (the FEP's expected squared prediction error) does not
+     ingredient: A1' unit_sigma (Savitzky-Golay detrend, window 9, MAD scale) on the innovations
+     null:       the sample variance of the innovations (the expected squared prediction error, which is how a predictive-coding node estimates precision)
+     domain:     the innovation variance of the same filter on the uncontaminated record (the model's own precision 1/S; the Riccati steady state printed beside it)
+     numbers:    observation variance r in (0.0625, 0.25, 1.0, 4.0, 16.0), 5 % outliers at 10x: unit^2 / S [1.0642, 1.1101, 1.1694, 1.1927, 1.2036], variance / S [4.0947, 5.0651, 5.5676, 5.806, 5.9214]; unit^2 / S on the clean record [0.7401, 0.7227, 0.7366, 0.7536, 0.7486]; S (Riccati, measured clean) [(0.1487, 0.1449), (0.3896, 0.3825), (1.25, 1.2425), (4.4729, 4.4804), (16.9198, 17.0061)]; means 1.1480 (unit) and 5.2910 (variance)
+     T-G:        unit^2/S vs variance/S: rel 7.83e-01 -> differ
+     T-N:        unit^2/S vs 1: rel 1.29e-01 -> the unit differs from the model precision by more than 1 %
+     T-C:        unit^2 within 10 % of S at every r: False
+     OUTCOME:    WRONG
+     reading:    the unit over-reads the clean precision by 15 % on average: the outliers kick the non-robust filter and the innovations after a kick are genuinely larger, which the robust unit correctly reports as the record it was given; the sample variance reads 5.291 x the clean innovation variance (the outliers are in it); on the clean record the unit reads 0.7403 x, which is the registered detrender's leverage on white noise (1 - the centre Savitzky-Golay weight = 0.7446; rel 5.73e-03, accounted for): A1's unit on a white record is the residual scale, not the noise scale; precision as a measurable is the robust residual scale of the record, which is what CRR names as the unit of change, and it measures the filter's actual precision, not the model's nominal one
+     weakness:   the MAD-based unit is a standard robust scale (Hampel 1974, name only); CRR names it, robust statistics owns it; the 10 % tolerance is this row's, not a registered threshold; the two departures (over-reading under contamination, under-reading on white noise by the detrender's leverage) are both instrument facts to state in any prereg that reads the unit as a precision
+     elegance:   The size of the smallest believable change and the precision of the senses are one number seen from two sides.
+     child:      How wobbly your measurements usually are tells you how much to trust the next one. If a few measurements are wildly off, use the typical wobble, not the average, or the wild ones will fool you.
+
+[ 4] (fep) a switching Bernoulli contingency tracked by accumulated Dirichlet counts, by a bounded mean (A6), and by the exact HMM filter
+     source:     A6 regeneration ('never an accumulated count'; a bounded Frechet mean) against the Dirichlet-count learning of active inference (Parr, Pezzulo and Friston 2022, name only) and against the Bayes-optimal filter for the switching process
+     Q:          on a non-stationary contingency the bounded mean tracks the truth better than accumulated counts, and the exact filter (which knows the switching rate) is the ceiling it approaches
+     ingredient: A6: a bounded exponential mean with a named rate (0.05 registered; 0.01 and 0.2 printed)
+     null:       Dirichlet counts accumulated without forgetting (the concentration parameters grow without bound)
+     domain:     the exact two-state HMM filter with known levels and switch rate (mean absolute error of its posterior-mean contingency)
+     numbers:    20000 trials, switch rate 0.005, levels (0.8, 0.2): MAE accumulated counts 0.2912, bounded mean (rate 0.05) 0.0886, sweep {0.01: 0.1569, 0.05: 0.0886, 0.2: 0.1166}, exact filter 0.0333
+     T-G:        bounded mean vs accumulated counts: rel 6.96e-01 -> differ
+     T-N:        bounded mean vs the exact filter: rel 6.25e-01 -> the filter is not matched
+     T-C:        MAE(bounded) < MAE(accumulated): True
+     OUTCOME:    ADDS
+     reading:    the bounded mean beats accumulation by +0.2025 in MAE and sits +0.0554 above the exact filter; the rate is a knob A6 does not fix (best in the sweep: 0.05); active inference already forgets counts by a decay in practice, and the Bayes-optimal forgetting is the filter's, so A6 names the practice and the domain owns the optimum
+     weakness:   the exact filter knows the levels and the switch rate; a filter that must learn them is the fair comparison and is not run here; the bounded mean's rate is chosen from a three-point sweep on this same stream (in-sample)
+     elegance:   A memory that only ever adds cannot notice that the world has changed; a memory that fades can, and how fast it should fade is exactly how fast the world changes.
+     child:      If you keep a running total of every time a coin came up heads since you were born, you will never notice when someone swaps the coin. If you mostly remember the last few flips, you will.
+
+[ 5] (fep) the epistemic value (expected information gain) of an action in the two-context agent against half the expected squared Fisher chord of the belief update
+     source:     D3/D4 (chord, surplus: information geometry's, not CRR's) against the epistemic term of expected free energy (Parr, Pezzulo and Friston 2022, name only)
+     Q:          the epistemic term is the expected squared Fisher chord of the belief update over two: CRR's vocabulary names it, information geometry owns it (KL = d^2/2 + O(d^4))
+     ingredient: the Fisher-Rao chord on the simplex (D3), squared and halved, expected over outcomes
+     null:       the expected KL from prior to posterior (the epistemic term itself)
+     domain:     the same expansion, KL = d^2/2 to leading order: the domain's own identity
+     numbers:    4000 prior beliefs q0 ~ U(0.02, 0.98), hit rate 0.8: mean epistemic value 0.135544, mean half squared chord 0.142846; relative gap median 0.0517, max 0.0742
+     T-G:        chord form vs KL form: rel 5.11e-02 -> differ
+     T-N:        the identity KL = d^2/2 + O(d^4) is information geometry's
+     T-C:        no CRR-proper ingredient: no check (the row records the correspondence)
+     OUTCOME:    PROPOSES
+     reading:    the epistemic value and the half squared chord agree to 5.11e-02 on average and within 0.074 at worst (the update of a 0.8-hit-rate observation is a small Fisher step); the epistemic drive of active inference is a chord quantity, and CRR's surplus S = C - C* (travel minus chord) would be the part of the belief's path that buys no information: a proposition for a later row, not this one
+     weakness:   no CRR-proper ingredient enters (the class's own rule: REDUNDANT-IG by construction); the row is here because the owner asked which FEP aspects CRR's vocabulary reaches, and this one it reaches without adding to it
+     elegance:   Curiosity, measured as the information you expect to gain, is the square of how far you expect your beliefs to move.
+     child:      How much you expect to learn from looking is the same as how far you expect your opinion to jump, squared and halved. Two ways of saying one thing.
+
+TALLY: 1 ADDS / 1 PROPOSES / 0 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 3 WRONG / 0 INTERNAL / 0 UNSTATED

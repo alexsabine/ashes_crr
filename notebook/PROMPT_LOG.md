@@ -777,3 +777,29 @@ You may also process crr further as required if necessary, as you go
 Now process the crr mathematics again based on what you have learned. Then run more tests with these enhancements. 
 
 Utilise the knowledge from the previous paper in the continuous learning repo and the same approach to test but with the new approach you have developed.
+
+## 75 — 2026-09-22T06:03:25Z
+
+Thank you. Please can now use the scratchpad to reflect on how we can run further crr tests to achieve absolute bayes optimum in a domain where continuous learning is currently bottlenecked?
+
+## 76 — 2026-09-22T06:11:05Z
+
+Okay. We can save that test to run tomorrow.
+
+What other domains could be high value targets for crr predictions, in terms of applied use cases and products?
+
+What about distributed AI alignment principles?
+
+## 77 — 2026-09-22T06:16:22Z
+
+Crr is compatible across a wide range of systems we have tested it on so far. 
+
+Now we have realised the bayes optimal point, do you think we could run some FEP checks to see whether CRR’s clock holds there?
+
+## 78 — 2026-09-22T06:21:49Z
+
+Consider the Dirac delta as a boundary in time, distributing unit mass. Consider the role of omega=1 as equanimity and offset as grasping or thrashing.
+
+Run tests on FEP. Consider other current FEP aspects that CRR might be applicable to resolving in terms of its ontological commitments.
+
+Consider precision as a measurable variable.

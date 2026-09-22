@@ -703,4 +703,78 @@ of the world, only that it can be carried in plain words.
 - elegance: A ruler cannot report a tick finer than the finest tick that exists: when the wobble you measure is far below the smallest step the world has, throw the wobble away and count steps. A rule with no knobs.
 - for a fifth grader: If a floor is made of tiles, the tile is the smallest step there is: you cannot stand halfway inside one. If your ruler says the floor wobbles by a thousandth of a tile, it is measuring its own scratches, not the floor, so you throw that away and count tiles instead.
 
-Entries: 92.
+## theory/retrodictions/synthesis_batches/batch_27.txt
+
+### [1] natural-gradient relaxation of a Gaussian belief toward a jumping target under switching precision
+
+- source row: H-L5 (arc since the last cut regular) against the FEP's own clock, the free-energy drop; Da Costa et al. 2021, Crooks 2007 (names only)
+- outcome: REDUNDANT-IG
+- elegance: Descending a bowl, the path length you travel is the depth of the bowl no matter how fast you fall: the arc forgets the precision and remembers only the jump.
+- for a fifth grader: If you slide down a slide, how far you slide depends on how long the slide is, not on how fast you go. So measuring the slide length tells you about the slide, not about your speed.
+
+### [2] Kalman filter (the linear-Gaussian FEP) with hidden switching process noise; events = innovation-gated resets
+
+- source row: H-L5 against the domain's own clock (accumulated surprise, the evidence); Mehra 1970 (innovation gating), Costa et al. 2015 (the Gaussian Fisher-Rao distance), names only
+- outcome: REDUNDANT-DOMAIN
+- elegance: A filter that resets when surprised makes its own boundaries; the question is only which quantity between two surprises keeps a steady size.
+- for a fifth grader: Imagine you flinch every time something startles you. Between two flinches, is the time the same each time, or the amount your mind moved, or how surprised you were? Here we count all three.
+
+### [3] discrete active-inference agent (two contexts, two actions, hit rate 0.8) with policy precision sweeping 2..16; events = policy switches
+
+- source row: H-L5 in the agent's own belief geometry (the simplex's Fisher-Rao angle); Parr, Pezzulo and Friston 2022 (policy precision gamma), names only
+- outcome: WRONG
+- elegance: A decision is a cut the agent makes itself; whether its beliefs travel a fixed distance between decisions is a question the agent can be asked without asking it anything.
+- for a fifth grader: Every time the robot changes its mind about which button to press, we ask: did its guess wander the same distance as last time, did the same number of tries pass, or was it equally surprised? Three clocks, one robot.
+
+### [4] predictive-coding node with clock-scheduled (negative control) and arc-scheduled (positive control) stimulus switches
+
+- source row: R4 in the domain: the FEP analogues of S-G (clock-regular by construction) and S-G2 (arc-regular by construction); Rao and Ballard 1999, name only
+- outcome: REDUNDANT-IG
+- elegance: A test is only as honest as its two controls: one world that must fool the clock and one that must satisfy it, built before any real world is looked at.
+- for a fifth grader: Before checking whether a stopwatch is right, you time something you know is regular and something you know is not. If it gets both right, then you can trust it on the thing you don't know.
+
+### [5] predictive-coding node whose sensory precision (attention) switches at random times; events = the precision shifts
+
+- source row: H-L5 with the FEP's own event kind (a change of precision, Friston 2010; Feldman and Friston 2010 'attention as precision', names only)
+- outcome: WRONG
+- elegance: Noise-driven travel is time times speed; when the speed changes with the precision, the travel remembers both, and no clock made of it can be steadier than the clock it contains.
+- for a fifth grader: If you wiggle in your seat faster when you are nervous, then how much you wiggled during a lesson depends on how long the lesson was AND how nervous you were. Counting wiggles is a worse clock than the wall clock.
+
+## theory/retrodictions/synthesis_batches/batch_28.txt
+
+### [1] Kalman filter receiving delta-precision observations at random times (the boundary in time) among ordinary ones
+
+- source row: A3/D5 (the jump is the cut, not content; the occasion is the interval between cuts) against the infinite-precision observation of a Bayesian filter (the Dirac likelihood, gain -> 1); Costa et al. 2015 for the Gaussian Fisher-Rao length, names only
+- outcome: WRONG
+- elegance: A perfectly sharp fact does not add to a belief, it replaces it: the whole distance travelled is at the instant, and the instant has no width.
+- for a fifth grader: If someone tells you the exact answer, you do not slowly change your mind, you change it all at once. On a graph of your beliefs, all the movement happens at that one moment, and the moments in between are flat.
+
+### [2] one-dimensional prior-datum node under the equanimity rule: the resting point as an effective gain, against the Bayes gain
+
+- source row: H-EQ (Omega = 1) read as equanimity, the offset as grasping (the prior wins) or thrashing (the datum wins); FEP's aberrant precision (over-precise priors, under-precise priors), Friston 2010, names only; omega_sweeps.txt [2] the one-dimensional knife edge
+- outcome: WRONG
+- elegance: Equal pull is not a compromise but a stalemate: the belief stops wherever it happens to be when the two pulls first match, and only Bayes knows where it should have stopped.
+- for a fifth grader: Two children pull a rope with exactly equal strength: the knot does not move, wherever it is. That is equanimity here. It is not the fair middle; the fair middle is where the stronger evidence says, and that needs a different rule.
+
+### [3] the innovation record of a Kalman filter with 5 % outliers: precision measured as CRR's unit against the domain's innovation variance
+
+- source row: A1'/D1 (the resolvable step: robust scale of the detrended residual across occasions) read as a precision estimator; Mehra 1970 (innovation-based noise identification), Feldman and Friston 2010 (precision as attention), names only
+- outcome: WRONG
+- elegance: The size of the smallest believable change and the precision of the senses are one number seen from two sides.
+- for a fifth grader: How wobbly your measurements usually are tells you how much to trust the next one. If a few measurements are wildly off, use the typical wobble, not the average, or the wild ones will fool you.
+
+### [4] a switching Bernoulli contingency tracked by accumulated Dirichlet counts, by a bounded mean (A6), and by the exact HMM filter
+
+- source row: A6 regeneration ('never an accumulated count'; a bounded Frechet mean) against the Dirichlet-count learning of active inference (Parr, Pezzulo and Friston 2022, name only) and against the Bayes-optimal filter for the switching process
+- outcome: ADDS
+- elegance: A memory that only ever adds cannot notice that the world has changed; a memory that fades can, and how fast it should fade is exactly how fast the world changes.
+- for a fifth grader: If you keep a running total of every time a coin came up heads since you were born, you will never notice when someone swaps the coin. If you mostly remember the last few flips, you will.
+
+### [5] the epistemic value (expected information gain) of an action in the two-context agent against half the expected squared Fisher chord of the belief update
+
+- source row: D3/D4 (chord, surplus: information geometry's, not CRR's) against the epistemic term of expected free energy (Parr, Pezzulo and Friston 2022, name only)
+- outcome: PROPOSES
+- elegance: Curiosity, measured as the information you expect to gain, is the square of how far you expect your beliefs to move.
+- for a fifth grader: How much you expect to learn from looking is the same as how far you expect your opinion to jump, squared and halved. Two ways of saying one thing.
+
+Entries: 102.
