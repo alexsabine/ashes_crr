@@ -821,3 +821,7 @@ Consider the ontological, metaphysical and contemplative (where structural) comp
 Consider whether FEP fully accounts for when a model must end. Consider whether fep commits to only the past having content and the implications of this.
 
 Consider both crr and fep’s general reading and understanding of these things
+
+## 80 — 2026-09-22T07:03:40Z
+
+Which of the two frameworks are more pedagogically digestible to a public audience?
