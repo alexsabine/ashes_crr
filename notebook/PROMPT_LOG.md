@@ -729,3 +729,15 @@ We are exploring metaphysics and physics in tandem. This is a question to see wh
 Be robust and allow exploration and state wherever a change is required for the crr equations as written along the way.
 
 Add this to the ontological folder as Exploratory
+
+## 68. 2026-09-22T00:46:44Z
+
+Scratchpad only. I used to have the chord from p0 to p1 on the Bernoulli manifold as the line through the circle. Did that not come through in the crr mathematics as currently stated? The line goes through the circle. It’s complicated and I don’t remember the exact rules for this but I wonder if it changes anything else in the repo or if it’s already been considered (circle and line, feminine and masculine, so to speak!)
+
+## 69. 2026-09-22T00:59:34Z
+
+Let’s run comprehensive sweeps on the omega=1 equanimity rule on existing mathematical then run robust full sweeps on continual learning systems.
+
+I hear there is a threshold either side of 1, but 1 is also bayes optimum (check that in existing mathematics) then check the kalman filter tuned versus fixed parameter rule, please.
+
+Run full comprehensive tests on continual learning benchmarks / SOTA methods. Thanks

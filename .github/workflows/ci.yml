@@ -35,6 +35,7 @@ jobs:
           uv run python theory/checks/verify_math.py
           uv run python theory/checks/verify_scope_math.py
           uv run python theory/checks/verify_spec_math.py
+          uv run python theory/checks/omega_sweeps.py > /tmp/om.txt && cmp /tmp/om.txt theory/checks/omega_sweeps.txt
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
           uv run python theory/retrodictions/sharp_claims.py > /tmp/sharp.txt && cmp /tmp/sharp.txt theory/retrodictions/sharp_claims.txt
           uv run python theory/retrodictions/bio_retrodictions.py > /tmp/bio.txt && cmp /tmp/bio.txt theory/retrodictions/bio_retrodictions.txt
