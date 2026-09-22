@@ -325,6 +325,10 @@ gate and commit the new output.
 Gated and CLOSED (2026-09-17): SAL — the occasion-weight law π ∝ e^{λS} as
 salience-weighted replay (`prereg/sal/PHASE_A.md`, ledger SAL-A): no positive control
 exists; a different operationalisation is a new study with its own gate.
+Gated and CLOSED (2026-09-22): FED — H-EQ on heterogeneous nodes personalising from one shared anchor
+(`theory/checks/fed_heterogeneous.py`, note `docs/notes/2026-09-22_fed_phaseA.md`): the per-node best weight moves with
+the node's loss scale, but one global weight is never a step behind, so the rule has nothing to win; on a poisoned node
+the clip holds as well with a fixed weight. A harder surrogate is a new design, declared before it runs.
 
 Still to gate before use:
 - EQ: add `gate_EQ` (design in `theory/SCOPE.md` §4.3: a convex replay
