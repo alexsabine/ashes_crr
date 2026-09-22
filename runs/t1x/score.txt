@@ -1,0 +1,20 @@
+================================================================================================================
+T1x scoring — held-out R^2 of log forgetting on log predictor with log lr as a covariate; thresholds from prereg/t1x/PREREG.md
+================================================================================================================
+
+[1193_BNG_lowbwt] n = 5000 of 31104 rows, d = 9; base task-1 test MSE 0.8459, task-2 5.1444; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:6.49x  lr0.005:6.87x  lr0.01:6.90x  lr0.02:39.81x -> decidable
+   forgetting: median 1.5651, range [-0.0110, 400.9784]; negative (task 1 improved) in 6/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 54.3839, S < 0 in 0/108 runs (round-off only, P1); S/C* median 51.137
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:0.024  C_old:0.026  E_new:-1.556  E_old:0.776  ewc:0.139  -> best path 0.026, best endpoint 0.776, path − endpoint -0.750 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:-0.482  C_old:-0.474  E_new:+0.624  E_old:+0.997  ewc:-0.094 -> C_old >= 0.6: False; E_new < C_old − 0.2: False -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = +0.232 -> high-S runs do not fall off the endpoint curve (threshold 0.3, report only)
+
+[218_house_8L] n = 5000 of 22784 rows, d = 8; base task-1 test MSE 0.5772, task-2 95.0061; runs 54 kept, 54 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:228496808.98x  lr0.005:14739476.06x  lr0.01:1658126067.32x  lr0.02:19279586794.42x -> decidable
+   forgetting: median 40926089479561.4609, range [50.5753, 943762625884036775138265726451712.0000]; negative (task 1 improved) in 0/54 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median nan, S < 0 in 0/54 runs (round-off only, P1); S/C* median nan
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:nan  C_old:nan  E_new:0.044  E_old:1.000  ewc:0.987  -> best path nan, best endpoint 1.000, path − endpoint +nan -> INCONCLUSIVE
+ ** On entry to DLASCL parameter number  4 had an illegal value
+ ** On entry to DLASCL parameter number  4 had an illegal value

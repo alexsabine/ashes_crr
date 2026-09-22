@@ -1,0 +1,31 @@
+/home/user/ashes_crr/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:2767: RuntimeWarning: overflow encountered in dot
+  sqnorm = x.dot(x)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:107: RuntimeWarning: overflow encountered in matmul
+  dW2 = Hr.T @ r[:, None]; db2 = np.array([r.sum()]); dH = (r[:, None] @ self.W2.T) * (Hp > 0)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:107: RuntimeWarning: invalid value encountered in multiply
+  dW2 = Hr.T @ r[:, None]; db2 = np.array([r.sum()]); dH = (r[:, None] @ self.W2.T) * (Hp > 0)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:63: RuntimeWarning: overflow encountered in square
+  return float(np.mean((np.asarray(mu_old) - np.asarray(mu_new)) ** 2) / (2.0 * var))
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:103: RuntimeWarning: overflow encountered in matmul
+  return (np.maximum(0, X @ self.W1 + self.b1) @ self.W2 + self.b2)[:, 0]
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:106: RuntimeWarning: overflow encountered in matmul
+  Hp = X @ self.W1 + self.b1; Hr = np.maximum(0, Hp); pred = (Hr @ self.W2 + self.b2)[:, 0]; r = (pred - y) / len(y)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:107: RuntimeWarning: invalid value encountered in matmul
+  dW2 = Hr.T @ r[:, None]; db2 = np.array([r.sum()]); dH = (r[:, None] @ self.W2.T) * (Hp > 0)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:106: RuntimeWarning: invalid value encountered in matmul
+  Hp = X @ self.W1 + self.b1; Hr = np.maximum(0, Hp); pred = (Hr @ self.W2 + self.b2)[:, 0]; r = (pred - y) / len(y)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:63: RuntimeWarning: invalid value encountered in subtract
+  return float(np.mean((np.asarray(mu_old) - np.asarray(mu_new)) ** 2) / (2.0 * var))
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:108: RuntimeWarning: invalid value encountered in matmul
+  return np.concatenate([(X.T @ dH).ravel(), dH.sum(0), dW2.ravel(), db2])
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:106: RuntimeWarning: invalid value encountered in add
+  Hp = X @ self.W1 + self.b1; Hr = np.maximum(0, Hp); pred = (Hr @ self.W2 + self.b2)[:, 0]; r = (pred - y) / len(y)
+/home/user/ashes_crr/.venv/lib/python3.14/site-packages/numpy/_core/_methods.py:132: RuntimeWarning: overflow encountered in reduce
+  ret = umr_sum(arr, axis, dtype, out, keepdims, where=where)
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:108: RuntimeWarning: overflow encountered in matmul
+  return np.concatenate([(X.T @ dH).ravel(), dH.sum(0), dW2.ravel(), db2])
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:103: RuntimeWarning: invalid value encountered in matmul
+  return (np.maximum(0, X @ self.W1 + self.b1) @ self.W2 + self.b2)[:, 0]
+/home/user/ashes_crr/runs/t1x/frozen/t1x_score.py:103: RuntimeWarning: invalid value encountered in add
+  return (np.maximum(0, X @ self.W1 + self.b1) @ self.W2 + self.b2)[:, 0]
+218_house_8L exit 0

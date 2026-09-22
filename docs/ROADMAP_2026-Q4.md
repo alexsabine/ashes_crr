@@ -65,6 +65,16 @@ in posterior-sd units; a calibration axis c ∈ {1/16, 1, 16} on the past curvat
 predicts B1 PASS (the rule is not Bayes) and B2/B3 FAIL (a Bayes with the curvature wrong by 16× is closer to the posterior
 than the rule; the invariance does not survive mini-batch noise). EQ-B is not in it (R3); a later day.
 
+3d. **T1x (2026-09-22, `prereg/t1x/`, hashed before data; model (d), a numpy MLP on six unseen PMLB regression streams;
+models (a)–(c) of CLAUDE.md §5 still to run):** the held-out test of H-T1 with the learning rate controlled, the old-probe
+endpoint and the EWC distance as baselines, nine schedules × four lr × three seeds, held-out R². The surrogate S-H2 (path
+dependent by construction) passes the gate and the synthetic MLP smoke reads FAIL (E_old at R² 0.999).
+**Outcome: VOID** (ledger T1X-VOID; `reports/t1x.md`): the frozen scorer crashed on `215_2dplanes` (binary split feature)
+and its `score` on `218_house_8L` (non-finite path lengths); no row scored; the six carriers SEEN.
+**T1x2 (`prereg/t1x2/`, hashed 2026-09-22; data on or after 2026-09-23 under R3):** the same design with the four
+corrections named in its prereg (split-feature rule, admissibility gate, bool cast, non-finite runs dropped and counted)
+on six unseen carriers (three BNG sets, three Feynman sets).
+
 ## 2. Retrodiction across more systems: what is worth adding
 
 The batteries cover 32 + 40 systems, 15 re-derived external claims, 19 biological, 12 E-I, 9

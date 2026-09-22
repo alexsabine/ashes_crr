@@ -1,8 +1,8 @@
-"""Study T1x — path length against endpoint displacement as a predictor of forgetting, with the learning rate controlled
-(CLAUDE.md section 5; owner request prompt-log entries 86-87; prereg/t1x/PREREG.md). Model (d): a numpy MLP (d-64-1, ReLU,
+"""Study T1x2 (the working copy after T1x was voided, AGENT_LOG 69) — path length against endpoint displacement as a predictor of forgetting, with the learning rate controlled
+(CLAUDE.md section 5; owner request prompt-log entries 86-87; prereg/t1x2/PREREG.md). Model (d): a numpy MLP (d-64-1, ReLU,
 squared loss) on unseen PMLB regression streams; models (a)-(c) of CLAUDE.md section 5 are not available in this environment.
 
-Per carrier: task 1 = rows with feature 0 below its median, task 2 = the rest (covariate drift); 80/20 train/test per task
+Per carrier: the split feature is the first column with >= 20 distinct values (a carrier with none is excluded and counted); task 1 = rows at or below its median, task 2 = the rest (covariate drift); a carrier whose base task-2 test MSE exceeds 20 x task-1's is excluded and counted; 80/20 train/test per task
 (seed 12345); features and targets standardised on task 1's training rows. One base model theta_0 per carrier (task 1, 30
 epochs, lr 0.01, batch 10, seed 0). Each RUN fine-tunes theta_0 on task 2 for 20 epochs under (schedule, lr, seed):
     schedules: const | sawtooth (lr x triangle, period T/4) | cosine_restarts (period T/4) | noise1.0, noise3.0 (Gaussian
@@ -14,10 +14,10 @@ Per run: forgetting F = task-1 test MSE after minus before; predictors on fixed 
 task-2 test rows = the NEW probe), predictive means snapshotted every SNAP steps: C = sum sqrt(2 KL_gauss) (path), E = KL
 (base -> final) (endpoint), on each probe; S = C - C* on the old probe; the EWC Fisher-weighted endpoint distance
 (theta_T - theta_0)' diag(F_1) (theta_T - theta_0) with F_1 the diagonal empirical Fisher of task 1 at theta_0.
-Rows T1x-0..2, S, sensitivity (PREREG.md). Every verdict word computed (R15).
-    uv run python studies/t1x/t1x_score.py smoke                  # synthetic carrier, every branch
-    uv run python studies/t1x/t1x_score.py all <dataset> [--out F]
-    uv run python studies/t1x/t1x_score.py score <results.jsonl ...>
+Runs with any non-finite predictor or forgetting are dropped from the fits and counted. Rows T1x-0..2, S, sensitivity (PREREG.md). Every verdict word computed (R15).
+    uv run python studies/t1x2/t1x2_score.py smoke                  # synthetic carrier, every branch
+    uv run python studies/t1x2/t1x2_score.py all <dataset> [--out F]
+    uv run python studies/t1x2/t1x2_score.py score <results.jsonl ...>
 """
 from __future__ import annotations
 
@@ -49,7 +49,7 @@ SEEDS = (0, 1, 2)
 PROBE_MAX = 500; VAR = 1.0
 LOG_FLOOR = 1e-6
 MARGIN = 0.05; SPAN_MIN = 3.0; RHO_MIN = 0.6; RHO_GAP = 0.2
-DATASETS = ("218_house_8L", "344_mv", "564_fried", "215_2dplanes", "1193_BNG_lowbwt", "294_satellite_image")
+DATASETS = ("1199_BNG_echoMonths", "1201_BNG_breastTumor", "1203_BNG_pwLinear", "feynman_I_9_18", "feynman_II_36_38", "feynman_test_1")
 
 
 def sha256(p: Path) -> str:
@@ -79,8 +79,18 @@ def load_pmlb_regression(name):
     return X, y, dict(file=str(p.relative_to(ROOT)), sha256=sha256(p), n=int(len(y)), n_file=n_file, d=int(X.shape[1]), rows_dropped_nan=nan)
 
 
-def make_tasks(X, y):
-    med = np.median(X[:, 0]); t1 = X[:, 0] <= med; t2 = ~t1
+MIN_DISTINCT = 20; ADMISS_FACTOR = 20.0                                # split feature: first column with >= MIN_DISTINCT distinct values; carrier admissible iff base task-2 test MSE <= ADMISS_FACTOR x task-1's
+
+
+def split_feature(X):
+    """the first column with at least MIN_DISTINCT distinct values; None if no column qualifies (the carrier is excluded and counted)"""
+    for j in range(X.shape[1]):
+        if len(np.unique(X[:, j])) >= MIN_DISTINCT: return j
+    return None
+
+
+def make_tasks(X, y, j=0):
+    med = np.median(X[:, j]); t1 = X[:, j] <= med; t2 = ~t1
     rng = np.random.default_rng(SPLIT_SEED); tasks = []
     for mask in (t1, t2):
         idx = np.where(mask)[0]; perm = rng.permutation(len(idx)); n_te = int(round(TEST_FRAC * len(idx)))
@@ -157,7 +167,7 @@ def run(schedule, lr, seed, tasks, base, fisher, snap=SNAP):
             if s + BS >= len(perm) and ep == epochs - 1 and step % snap != 0:
                 snaps_old.append(net.predict(old_probe[0])); snaps_new.append(net.predict(new_probe[0]))
     thetaT = net.flat(); new_loss = mse(net, X2te, y2te); base_new = mse(base, X2te, y2te)
-    finite = bool(np.all(np.isfinite(thetaT))) and np.isfinite(new_loss) and new_loss <= DIVERGED_FACTOR * base_new
+    finite = bool(np.all(np.isfinite(thetaT)) and np.isfinite(new_loss) and new_loss <= DIVERGED_FACTOR * base_new)
     out = dict(schedule=schedule, lr=float(lr), seed=int(seed), epochs=int(epochs), f_before=f_before, f_after=mse(net, X1te, y1te), forgetting=mse(net, X1te, y1te) - f_before,
                new_loss=new_loss, ewc_dist=float(np.sum(fisher * (thetaT - theta0) ** 2)), n_steps=int(step), finite=finite)
     for tag, snaps in (("old", snaps_old), ("new", snaps_new)):
@@ -170,12 +180,14 @@ def run(schedule, lr, seed, tasks, base, fisher, snap=SNAP):
     json.dumps(out); return out
 
 
-def run_all(name, tasks, meta, out):
+def run_all(name, tasks, meta, out, split_col=0):
     d = tasks[0][0].shape[1]; base = train_base(tasks, d); fisher = base.per_sample_sq_grad(tasks[0][0], tasks[0][1])
-    hdr = dict(dataset=name, **meta, n_task1_train=int(len(tasks[0][1])), n_task1_test=int(len(tasks[0][3])), n_task2_train=int(len(tasks[1][1])), n_task2_test=int(len(tasks[1][3])),
+    m1, m2 = mse(base, tasks[0][2], tasks[0][3]), mse(base, tasks[1][2], tasks[1][3]); admissible = bool(np.isfinite(m2) and m2 <= ADMISS_FACTOR * m1)
+    hdr = dict(dataset=name, **meta, split_feature=int(split_col), min_distinct=MIN_DISTINCT, admiss_factor=ADMISS_FACTOR, admissible=admissible, n_task1_train=int(len(tasks[0][1])), n_task1_test=int(len(tasks[0][3])), n_task2_train=int(len(tasks[1][1])), n_task2_test=int(len(tasks[1][3])),
                hid=HID, base_epochs=BASE_EPOCHS, base_lr=BASE_LR, ft_epochs=FT_EPOCHS, epochs_of=EPOCHS_OF, diverged_factor=DIVERGED_FACTOR, bs=BS, snap=SNAP, lr_grid=list(LR_GRID), schedules=list(SCHEDULES), seeds=list(SEEDS),
                base_task1_test_mse=mse(base, tasks[0][2], tasks[0][3]), base_task2_test_mse=mse(base, tasks[1][2], tasks[1][3]), uv_lock_sha256=sha256(ROOT / "uv.lock"))
     print(json.dumps(hdr), file=out, flush=True)
+    if not admissible: return                                          # excluded carrier: header only, counted by score()
     for schedule in SCHEDULES:
         for lr in LR_GRID:
             for seed in SEEDS:
@@ -209,12 +221,15 @@ def score(paths):
                 o = json.loads(line)
                 if "schedule" in o: rows.append(o)
                 elif "dataset" in o: hdrs[o["dataset"]] = o
-    ds = sorted(set(r["dataset"] for r in rows))
-    print("=" * 112); print("T1x scoring — held-out R^2 of log forgetting on log predictor with log lr as a covariate; thresholds from prereg/t1x/PREREG.md"); print("=" * 112)
+    excluded = sorted(d for d, h in hdrs.items() if (not h.get("admissible", True)) or h.get("split_feature") is None)
+    ds = sorted(set(r["dataset"] for r in rows) - set(excluded))
+    print("=" * 112); print("T1x2 scoring — held-out R^2 of log forgetting on log predictor with log lr as a covariate; thresholds from prereg/t1x2/PREREG.md"); print("=" * 112)
     R = {}
     for name in ds:
-        rs = sorted([r for r in rows if r["dataset"] == name and r["finite"]], key=lambda r: (SCHEDULES.index(r["schedule"]), r["lr"], r["seed"]))
-        h = hdrs.get(name, {}); n_nonfinite = sum(1 for r in rows if r["dataset"] == name and not r["finite"])
+        keys = [f"C_old_{k}" for k in SNAP_INTERVALS] + [f"C_new_{k}" for k in SNAP_INTERVALS] + ["E_old", "E_new", "ewc_dist", "forgetting", "new_loss"]
+        ok = lambda r: r["finite"] and all(np.isfinite(r[k]) for k in keys)
+        rs = sorted([r for r in rows if r["dataset"] == name and ok(r)], key=lambda r: (SCHEDULES.index(r["schedule"]), r["lr"], r["seed"]))
+        h = hdrs.get(name, {}); n_nonfinite = sum(1 for r in rows if r["dataset"] == name and not ok(r))
         print(f"\n[{name}] n = {h.get('n')} of {h.get('n_file')} rows, d = {h.get('d')}; base task-1 test MSE {h.get('base_task1_test_mse'):.4f}, task-2 {h.get('base_task2_test_mse'):.4f}; runs {len(rs)} kept, {n_nonfinite} diverged or non-finite (dropped, counted)")
         # T1x-0: within each lr the path spans >= 3x across schedules and seeds (old probe, SNAP interval)
         spans = {}
@@ -249,37 +264,56 @@ def score(paths):
         print(f"   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = {rho_S:+.3f} -> high-S runs {'do' if rho_S > 0.3 else 'do not'} fall off the endpoint curve (threshold 0.3, report only)")
         R[name] = dict(ok0=ok0, v1=v1, gap=gap, r2=r2, flips=flips, v2=v2, rho=rho, rho_S=rho_S)
     n = len(ds); print("\n" + "-" * 112)
+    print(f"excluded carriers (no split feature with >= {MIN_DISTINCT} distinct values, or base task-2 test MSE above {ADMISS_FACTOR:g} x task-1's): {excluded or 'none'}; scored carriers {n}")
     dec = [d for d in ds if R[d]["ok0"]]
     print(f"T1x-0 precondition: decidable on {len(dec)}/{n} carriers" + ("" if len(dec) == n else f" (not decidable: {[d for d in ds if not R[d]['ok0']]})"))
     passes = [d for d in dec if R[d]["v1"] == "PASS"]; fails = [d for d in dec if R[d]["v1"] == "FAIL"]
     print("T1x-1 path vs endpoint (held-out, lr controlled): " + ", ".join(f"{d}:{R[d]['gap']:+.3f} {R[d]['v1']}" for d in ds)
           + f" -> PASS on {len(passes)}/{len(dec)}, FAIL on {len(fails)}/{len(dec)} -> {'PASS' if len(passes) == len(dec) and dec else ('FAIL' if fails else 'INCONCLUSIVE')}")
     print("T1x-2 fixed-lr arm: " + ", ".join(f"{d}:{'PASS' if R[d]['v2'] else 'FAIL'} (rho C_old {R[d]['rho']['C_old']:+.3f}, E_new {R[d]['rho']['E_new']:+.3f}, E_old {R[d]['rho']['E_old']:+.3f})" for d in ds) + f" -> PASS on {sum(R[d]['v2'] for d in ds)}/{n}")
-    print("T1x-3 surrogate control: prereg/t1x/gate_T1.txt (S-H must FAIL, S-H2 must PASS; the gate reads its own verdict)")
+    print("T1x-3 surrogate control: prereg/t1x2/gate_T1.txt (S-H must FAIL, S-H2 must PASS; the gate reads its own verdict)")
     tot_flips = sum(R[d]["flips"] for d in ds)
     print(f"T1x-S sensitivity: T1x-1 flips in {tot_flips} of {9 * n} cells -> {'FRAGILE' if tot_flips > 1 else 'not fragile'}")
     print("T1x-D S diagnostic: " + ", ".join(f"{d}:{R[d]['rho_S']:+.3f}" for d in ds) + " (report only)")
     print(f"summary: T1x-1 {'PASS' if len(passes) == len(dec) and dec else ('FAIL' if fails else 'INCONCLUSIVE')} on {len(dec)} decidable carriers; T1x-2 PASS on {sum(R[d]['v2'] for d in ds)}/{n}; fragile {tot_flips > 1}")
 
 
-def synthetic(n=2400, d=6, seed=0):
+def synthetic(n=2400, d=6, seed=0, kind="plain"):
     rng = np.random.default_rng(seed); X = rng.standard_normal((n, d)); X[:, 0] = np.linspace(-2, 2, n) + 0.05 * rng.standard_normal(n)
-    y = np.sin(2 * X[:, 0]) + 0.5 * X[:, 1] * X[:, 2] + 0.3 * rng.standard_normal(n); return X, y
+    y = np.sin(2 * X[:, 0]) + 0.5 * X[:, 1] * X[:, 2] + 0.3 * rng.standard_normal(n)
+    if kind == "binary":                                               # feature 0 binary (the 215_2dplanes case): the split must move to the next column
+        X = np.column_stack([np.sign(X[:, 1]), X])
+    if kind == "extreme":                                              # task 2 far out of distribution (the 218_house_8L case): the carrier must be excluded
+        y = y + 200.0 * (X[:, 0] > 0) * X[:, 0] ** 3
+    return X, y
+
+
+def _prepare(X, y):
+    j = split_feature(X)
+    return (None, None) if j is None else (make_tasks(X, y, j), j)
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "smoke":
-        X, y = synthetic(); tasks = make_tasks(X, y); base = train_base(tasks, X.shape[1]); fisher = base.per_sample_sq_grad(tasks[0][0], tasks[0][1])
+        X, y = synthetic(); tasks, j = _prepare(X, y); base = train_base(tasks, X.shape[1]); fisher = base.per_sample_sq_grad(tasks[0][0], tasks[0][1])
         for sch in SCHEDULES: print(json.dumps(run(sch, 0.01, 0, tasks, base, fisher)))
+        Xb, yb = synthetic(kind="binary"); print(json.dumps(dict(binary_feature_carrier_split_feature=split_feature(Xb))))
+        print(json.dumps(dict(all_binary_carrier_split_feature=split_feature(np.sign(Xb)))))
     elif cmd == "smokefull":
-        outp = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else "/tmp/t1x_smokefull.jsonl"
-        X, y = synthetic(); tasks = make_tasks(X, y)
-        with open(outp, "w") as out: run_all("synthetic", tasks, dict(file="synthetic", sha256="none", n=len(y), n_file=len(y), d=X.shape[1], rows_dropped_nan=0), out)
+        outp = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else "/tmp/t1x2_smokefull.jsonl"
+        with open(outp, "w") as out:
+            for kind in ("plain", "binary", "extreme"):
+                X, y = synthetic(kind=kind); tasks, j = _prepare(X, y)
+                meta = dict(file=f"synthetic_{kind}", sha256="none", n=len(y), n_file=len(y), d=X.shape[1], rows_dropped_nan=0)
+                if tasks is None: print(json.dumps(dict(dataset=f"synthetic_{kind}", **meta, split_feature=None, admissible=False)), file=out, flush=True)
+                else: run_all(f"synthetic_{kind}", tasks, meta, out, split_col=j)
         score([outp])
     elif cmd == "all":
-        name = sys.argv[2]; outp = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else f"runs/t1x/results_{name}.jsonl"
-        X, y, meta = load_pmlb_regression(name); tasks = make_tasks(X, y)
-        with open(outp, "w") as out: run_all(name, tasks, meta, out)
+        name = sys.argv[2]; outp = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else f"runs/t1x2/results_{name}.jsonl"
+        X, y, meta = load_pmlb_regression(name); tasks, j = _prepare(X, y)
+        with open(outp, "w") as out:
+            if tasks is None: print(json.dumps(dict(dataset=name, **meta, split_feature=None, admissible=False)), file=out, flush=True)
+            else: run_all(name, tasks, meta, out, split_col=j)
     elif cmd == "score": score(sys.argv[2:])
     else: raise SystemExit(__doc__)

@@ -36,6 +36,12 @@ file in the same commit as any data download.
 | PMLB `225_puma8NH` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
 | PMLB `537_houses` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
 | PMLB `201_pol` (GitHub mirror, master; regression) | sha256 in data/manifests/bayes1.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T15:52:56Z (study BAYES-1, after prereg commit 49072aa pushed 2026-09-22T15:52:37Z) |
+| PMLB `218_house_8L` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
+| PMLB `344_mv` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
+| PMLB `564_fried` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
+| PMLB `215_2dplanes` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
+| PMLB `1193_BNG_lowbwt` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
+| PMLB `294_satellite_image` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
