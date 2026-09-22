@@ -359,6 +359,29 @@ Every failure in §7 is one of four kinds, and each is a failure for a stated re
 - A claimed value of Ω did not appear (EQX-2, EQ2-6, EQ3-6). These are failures of the framework's theory value: the mathematics of §4.2 and §4.5 says there is no value to find.
 - A pipeline defect (EQ2R) or a reduction to a constant (EQX-1). The first produced no evidence; the second showed the rule to be a renaming of the baseline in the replay setting.
 
+### 7.6 The mathematics reprocessed and the bounded rule EQ-B (2026-09-22; study EQ4 pre-registered, data on a later day)
+
+Owner request (prompt-log entry 74): process the mathematics again with what §5.1 taught, then test the enhancement with the EQ3 approach. `theory/checks/omega_reprocessed.py` (pinned output Appendix B.7) makes each lesson of §5.1 a computation on the quadratic of §4 with its label printed from the numbers; `docs/notes/2026-09-22_h_eq_reprocessed.md` is the reading. What it found: the rule is invariant to the scale of the past term exactly (trajectories at F and 16F identical to machine precision when the term's noise scales with it) and blind to its shape (endpoint moved by 0.0412 when the diagonal of F is reversed); the step bound holds on the smoothed gradients (maximum ratio 1.9778 over every step and seed) and not on the raw ones (above 2 on 0.89 % of steps); a constraint-like past term with a set-valued minimum does **not** move the derived weight (0.5409 against 0.5516), so the quadratic gives no mechanism for excluding DER++ and LwF and the narrowing of H-EQ to losses on the past stays an empirical scope; the Fisher-norm ratio of H-EQ as written stops at a different point on the same Pareto curve (nearest λ 0.4763 against 0.4926); and under Adam every arm, the fixed weight included, is within 2 % of the Adam-tuned weight at both scales, so the scale claim of §5.1 is an SGD property. The one failure the rule has that a fixed weight does not is the amplification of the past step by an extreme present batch: in a sweep of poisoned batches the rule's total exceeds twice its clean value at (×100, 5 steps) and diverges at (×1000, 5), where the tuned fixed weight also diverges.
+
+The enhancement that follows, **EQ-B**, clips the present gradient before the ratio is taken:
+
+$$\tilde g_p = g_p \cdot \min\left(1, \frac{\kappa\, m_N}{\|g_p\|}\right), \qquad w = \Omega \frac{\|\widehat{\tilde g}_p\|}{\|\hat g_q\|}, \qquad \theta \leftarrow \theta - \eta\,(\tilde g_p + w\, g_q),$$
+
+with m_N the largest **kept** length among the last N = 50 present batches, κ = 2, no clip until ten lengths are known, and the history restarting at each task boundary. The reference is the window maximum, not the median: the first version used κ × the running median and clipped the informative batches on the softmax surrogate, because the median present-gradient length collapses toward zero as a task is learned (AGENT_LOG 63; the median version's development run is kept in `runs/eq4_dev/v1_median/`). On the quadratic EQ-B equals the rule on the clean stream (3.4789 against 3.4789) and survives the whole poison sweep. Two new gates (`prereg/eq4/gate_EQB.txt`, `gate_EQBM.txt`, both OPEN) add a poisoned softmax row to the battery: EQ-B is not behind the tuned weight there (error 0.6287 against 0.7289) and is ahead of the registered rule (0.8101) by 22 % relative on 5/5 seeds, while on the clean rows the two rules agree to three decimals. On the six seen EQ3 carriers (`runs/eq4_dev/summary.txt`, exploratory, no verdict) the clean EQ-B accuracy equals the rule's on every carrier (clip fraction at most 0.001) and under the poisoned regime EQ-B is ahead of the rule on 6/6 carriers, by 2.64 to 20.75 points, and ahead of the fixed weight with the same clip on 5/6.
+
+| clean, six seen carriers | rule Ω = 1 | EQ-B Ω = 1 | poisoned (×1000, 5 batches per task) | rule Ω = 1 | fixed + clip, tuned | EQ-B Ω = 1 |
+|---|---|---|---|---|---|---|
+| fars | 9.24 | 9.24 | | 8.82 | 9.88 | 11.46 |
+| krkopt | 5.69 | 5.75 | | 4.69 | 9.28 | 11.36 |
+| led24 | 23.79 | 23.82 | | 15.49 | 21.60 | 24.26 |
+| led7 | 22.44 | 22.66 | | 16.69 | 25.16 | 23.44 |
+| mfeat_factors | 58.35 | 58.35 | | 19.75 | 31.55 | 39.75 |
+| mfeat_morphological | 37.90 | 37.90 | | 17.90 | 28.75 | 38.65 |
+
+Study **EQ4** (`prereg/eq4/PREREG.md`, hashed and pushed 2026-09-22, anchor: push timestamp only) tests EQ-B on six unseen PMLB carriers (satimage, segmentation, yeast, wine_quality_white, sleep, page_blocks) with the EQ3 design, the registered rule beside it on every arm, a poisoned regime whose R7 baseline is the fixed weight with the same clip, and a class-selection rule that answers the fars defect of §7.4. EQ-B was defined after seeing EQ3's carriers, so under R3 the data are fetched on or after 2026-09-23 and no row exists yet. The mathematics also leaves five proposals for the theory's v3.2 list, printed as [7] of the check: the scope is empirical, the bound is the mechanism, the present pull must be bounded for the bound to mean anything, the metric is a stopping point, and the optimiser is a registered parameter.
+
+> The remember-pull rule had one weak spot that a plain fixed knob does not have: when one learning step is enormous, the rule makes the remember-pull enormous too. The fix caps each learning step at twice the biggest recent step before the rule looks at it. On clean data the cap almost never triggers, so nothing changes; on data with a few poisoned steps the capped rule keeps working where the plain rule falls behind. On six datasets the repository has already used, that is exactly what happened. Whether it happens on six new datasets is the next test, and its rules were sealed today so that nobody can adjust them after seeing the answer.
+
 ## 8. Standing of the results
 
 | study | data | outcome | ledger |
@@ -390,7 +413,7 @@ The design this repository could not run is the one its own specification asks f
 - According to PubMed: Liu S, Wang L, Yan R, Huo J, Li W, Gao Y. A continual learning framework with long-term and multiple short-term memory networks. Neural Networks 2026;200:108774. [doi 10.1016/j.neunet.2026.108774](https://doi.org/10.1016/j.neunet.2026.108774).
 - According to PubMed: Tzanis E, Klontzas ME. ReclAIm: A Multiagent Framework for Monitoring and Correcting Performance Decline in Medical Imaging AI. Radiology: Artificial Intelligence 2026;8(4):e250923. [doi 10.1148/ryai.250923](https://doi.org/10.1148/ryai.250923).
 - According to PubMed: Zhai Z et al. Rethinking softmax in incremental learning. Neural Networks 2025;193:108017. [doi 10.1016/j.neunet.2025.108017](https://doi.org/10.1016/j.neunet.2025.108017).
-- Repository documents: `theory/CRR.md` (H-EQ, P4); `docs/notes/2026-09-22_omega_sweeps.md`; `reports/eqx.md`, `reports/eq2.md`, `reports/eq3.md`; `prereg/eq2/PREREG.md`, `prereg/eq2r/PREREG.md`, `prereg/eq3/PREREG.md`; `ledger/LEDGER.md`; `notebook/AGENT_LOG.md` entries 25, 40, 58, 59, 60, 62; `Continuous_Learning/CROSS_VERIFICATION.md`.
+- Repository documents: `theory/CRR.md` (H-EQ, P4); `docs/notes/2026-09-22_omega_sweeps.md`; `reports/eqx.md`, `reports/eq2.md`, `reports/eq3.md`; `prereg/eq2/PREREG.md`, `prereg/eq2r/PREREG.md`, `prereg/eq3/PREREG.md`; `ledger/LEDGER.md`; `notebook/AGENT_LOG.md` entries 25, 40, 58, 59, 60, 62, 63; `Continuous_Learning/CROSS_VERIFICATION.md`; `docs/notes/2026-09-22_h_eq_reprocessed.md`; `prereg/eq4/PREREG.md`.
 
 # Appendix A. The code sets
 
@@ -437,6 +460,16 @@ Every script below is reproduced verbatim from the repository at the commit of t
 ```include:theory/checks/omega_vs_methods.py
 ```
 
+## A.8 The frozen EQ4 scorer (EQ-B, the poisoned regime, the class-selection rule)
+
+```include:runs/eq4/frozen/eq4_score.py
+```
+
+## A.9 The reprocessed mathematics check
+
+```include:theory/checks/omega_reprocessed.py
+```
+
 # Appendix B. The pinned outputs
 
 ## B.1 EQ3 scoring (`runs/eq3/score.txt`)
@@ -467,4 +500,22 @@ Every script below is reproduced verbatim from the repository at the commit of t
 ## B.6 The cross-verification battery (`theory/checks/omega_vs_methods.txt`)
 
 ```include:theory/checks/omega_vs_methods.txt
+```
+
+## B.7 The reprocessed mathematics (`theory/checks/omega_reprocessed.txt`)
+
+```include:theory/checks/omega_reprocessed.txt
+```
+
+## B.8 The EQ-B gates (`prereg/eq4/gate_EQB.txt`, `prereg/eq4/gate_EQBM.txt`)
+
+```include:prereg/eq4/gate_EQB.txt
+```
+
+```include:prereg/eq4/gate_EQBM.txt
+```
+
+## B.9 The exploratory development run on the seen EQ3 carriers (`runs/eq4_dev/summary.txt`)
+
+```include:runs/eq4_dev/summary.txt
 ```

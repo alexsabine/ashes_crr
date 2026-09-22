@@ -771,3 +771,9 @@ Thank you
 Excellent. Should we reference some 2026 papers as well? We need to cross verify against existing catastrophic forgetting solutions thoroughly please. Take your time with each paper and cross referencing against this omega=1 rule.
 
 You may also process crr further as required if necessary, as you go
+
+## 74 — 2026-09-22T04:59:33Z
+
+Now process the crr mathematics again based on what you have learned. Then run more tests with these enhancements. 
+
+Utilise the knowledge from the previous paper in the continuous learning repo and the same approach to test but with the new approach you have developed.

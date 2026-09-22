@@ -29,6 +29,7 @@ uv run python theory/checks/verify_scope_math.py
 uv run python theory/checks/verify_spec_math.py
 uv run python theory/checks/omega_sweeps.py | cmp - theory/checks/omega_sweeps.txt && echo 'omega sweeps (Bayes, quadratic, Kalman) byte-identical to the committed output'
 uv run python theory/checks/omega_vs_methods.py | cmp - theory/checks/omega_vs_methods.txt && echo 'omega vs methods (cross-verification battery) byte-identical to the committed output'
+uv run python theory/checks/omega_reprocessed.py 2>/dev/null | cmp - theory/checks/omega_reprocessed.txt && echo 'H-EQ reprocessed (scale/shape, bound, constraint, poison, metric, Adam) byte-identical to the committed output'
 uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'
 uv run python theory/retrodictions/sharp_claims.py | cmp - theory/retrodictions/sharp_claims.txt && echo 'external SHARP claims re-derivation byte-identical to the committed output'
 uv run python theory/retrodictions/bio_retrodictions.py | cmp - theory/retrodictions/bio_retrodictions.txt && echo 'biological battery byte-identical to the committed output'
@@ -49,6 +50,8 @@ uv run python ontology/checks/turing_safety_ingression.py | cmp - ontology/check
 uv run python ontology/checks/genesis_from_emptiness.py | cmp - ontology/checks/genesis_from_emptiness.txt && echo 'ontology exploratory check (genesis from emptiness) byte-identical to the committed output'
 uv run python runs/eq3/frozen/eq3_score.py smoke | cmp - prereg/eq3/smoke.txt && echo 'EQ3 frozen scorer smoke byte-identical to the committed output'
 uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null | cmp - prereg/eq3/smokefull.txt && echo 'EQ3 frozen scorer end-to-end smoke byte-identical to the committed output'
+uv run python runs/eq4/frozen/eq4_score.py smoke | cmp - prereg/eq4/smoke.txt && echo 'EQ4 frozen scorer smoke byte-identical to the committed output'
+uv run python runs/eq4/frozen/eq4_score.py smokefull --out /tmp/eq4_smokefull.jsonl 2>/dev/null | cmp - prereg/eq4/smokefull.txt && echo 'EQ4 frozen scorer end-to-end smoke byte-identical to the committed output'
 uv run python Continuous_Learning/build/make_figures.py 2>/dev/null | cmp - Continuous_Learning/figures/figures.txt && echo 'Continuous Learning figure numbers byte-identical to the committed output'
 uv run python Continuous_Learning/build/build_pdf.py > /dev/null 2>&1 && echo 'Continuous Learning PDF rebuilds'
 uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt) && echo 'second retrodiction battery (PR #24): all 40 verdicts reproduced (the Rossler row drifts at the third decimal across Python patch versions, as the chaotic gate rows do)'
@@ -60,6 +63,8 @@ uv run python -m crr.surrogates.gate CUT
 uv run python -m crr.surrogates.gate T1
 uv run python -m crr.surrogates.gate EQ
 uv run python -m crr.surrogates.gate EQ2
+uv run python -m crr.surrogates.gate EQB
+uv run python -m crr.surrogates.gate EQBM
 echo
 
 echo "== all checks done =="

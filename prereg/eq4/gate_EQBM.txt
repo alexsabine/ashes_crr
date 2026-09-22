@@ -1,0 +1,17 @@
+gate for EQBM
+  must FAIL on ['S-R convex replay, constant label scale (adaptivity idle)', 'S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4)']
+  must PASS on ['S-Y softmax MLP, online EWC, scale 4, poisoned batches (x1000, 5 per task)']
+
+  S-R convex replay, constant label scale (adaptivity idle) FAIL  rule(Ω=1)=1.4416 EQB(Ω=1)=1.4416 | rel.gain of EQB +0.000 (seeds>0: 0/5) | per seed +0.000 +0.000 +0.000 +0.000 +0.000
+  S-V convex replay, 16x label-scale swings (adaptivity load-bearing) FAIL  rule(Ω=1)=1.1992 EQB(Ω=1)=1.1992 | rel.gain of EQB +0.000 (seeds>0: 0/5) | per seed +0.000 +0.000 +0.000 +0.000 +0.000
+  S-W EWC-Laplace convex replay, 16x curvature-scale mismatch FAIL  rule(Ω=1)=0.0654 EQB(Ω=1)=0.0654 | rel.gain of EQB +0.000 (seeds>0: 0/5) | per seed +0.000 +0.000 +0.000 +0.000 +0.000
+  S-X constraint learner, tuned weight a small fraction of present norm FAIL  rule(Ω=1)=0.9420 EQB(Ω=1)=0.9420 | rel.gain of EQB +0.000 (seeds>0: 0/5) | per seed +0.000 +0.000 +0.000 +0.000 +0.000
+  S-Y softmax MLP, online EWC, 16x Fisher-scale mismatch (input scale 4) FAIL  rule(Ω=1)=0.1740 EQB(Ω=1)=0.1745 | rel.gain of EQB -0.002 (seeds>0: 0/5) | per seed +0.000 +0.000 -0.009 -0.002 +0.000
+  S-Y softmax MLP, online EWC, unit input scale (informational) FAIL  rule(Ω=1)=0.0544 EQB(Ω=1)=0.0544 | rel.gain of EQB +0.000 (seeds>0: 0/5) | per seed +0.000 +0.000 +0.000 +0.000 +0.000
+  S-Y softmax MLP, online EWC, scale 4, cap=100 (informational) FAIL  rule(Ω=1)=0.2814 EQB(Ω=1)=0.2755 | rel.gain of EQB +0.011 (seeds>0: 2/5) | per seed +0.000 +0.002 +0.000 +0.055 +0.000
+  S-Y softmax MLP, online EWC, scale 4, smooth=0.8 (informational) FAIL  rule(Ω=1)=0.1484 EQB(Ω=1)=0.1482 | rel.gain of EQB +0.002 (seeds>0: 1/5) | per seed +0.000 +0.000 +0.009 +0.000 +0.000
+  S-Y softmax MLP, online EWC, scale 4, smooth=0.98 (informational) FAIL  rule(Ω=1)=0.2470 EQB(Ω=1)=0.1968 | rel.gain of EQB +0.118 (seeds>0: 1/5) | per seed +0.727 +0.000 +0.000 -0.001 -0.136
+  S-Y/LwF softmax MLP, distillation constraint (input scale 4) FAIL  rule(Ω=1)=0.7305 EQB(Ω=1)=0.7305 | rel.gain of EQB +0.000 (seeds>0: 0/5) | per seed +0.000 +0.000 +0.000 +0.000 +0.000
+  S-Y softmax MLP, online EWC, scale 4, poisoned batches (x1000, 5 per task) PASS  rule(Ω=1)=0.8101 EQB(Ω=1)=0.6287 | rel.gain of EQB +0.223 (seeds>0: 5/5) | per seed +0.288 +0.029 +0.463 +0.124 +0.212
+
+GATE OPEN
