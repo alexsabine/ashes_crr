@@ -777,3 +777,7 @@ You may also process crr further as required if necessary, as you go
 Now process the crr mathematics again based on what you have learned. Then run more tests with these enhancements. 
 
 Utilise the knowledge from the previous paper in the continuous learning repo and the same approach to test but with the new approach you have developed.
+
+## 75 — 2026-09-22T06:03:25Z
+
+Thank you. Please can now use the scratchpad to reflect on how we can run further crr tests to achieve absolute bayes optimum in a domain where continuous learning is currently bottlenecked?
