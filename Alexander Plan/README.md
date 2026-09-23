@@ -15,7 +15,7 @@ information, not legal advice.
 | `build/make_figures.py`, `build/build_pdf.py` | the figure script (the AI_Safety palette) and the PDF builder (a copy of AI_Safety's) |
 
 Sources: `docs/citations/alexander_plan_2026-09-23.md`. These are search summaries, not fetched pages; check each figure
-against its source before using it outside this repository. Decisions: AGENT_LOG entries 77–79.
+against its source before using it outside this repository. Decisions: AGENT_LOG entries 77–80. §10 is the commercial assessment for a frontier lab (prompt-log entry 102).
 
 Rebuild:
 
