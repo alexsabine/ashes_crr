@@ -881,3 +881,17 @@ This might suggest why Bayesian models are required at all. So the system can re
 ## 93 — 2026-09-23T00:02:35Z
 
 Let’s run more tests please on this thinking. All of this should go in the ontology folder please. The system must represent itself somehow. What happens, phenomenologically when it does so with equanimity? Explore
+
+## 94 — 2026-09-23T00:31:38Z
+
+Thank you. Now look at the work of Ororbia and Friston in mortal computation, von Noyman architecture and self modelling in FEP and CRR terms.
+
+Think about the implications of both in the context of neuromorphic substrates and agi out there in the world. 
+
+Develop thinking in terms of contemplative traditions and possible implications from an existential AI safety viewpoint for CRR, FEP and Active Inference as well as other forms of predictive world modelling.
+
+Keep the equanimity rule in mind and reflect on egoic representations through time and ‘raising an AGI’ safely as a corporealised agentic system out there in the world.
+
+Thank you. Be thorough and run whatever tests you need to.
+
+All of this goes in the Ontology folder.
