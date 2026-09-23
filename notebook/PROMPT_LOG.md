@@ -1099,3 +1099,14 @@ Please test this thoroughly using the pipeline
 ## 122 — 2026-09-23T17:40:01Z
 
 Excellent. Please can we now produce a comprehensive PDF with graphs and charts that clearly show how the agents are modelled in this scenario. Clearly show how the mathematics is implemented in each model, where they fail and why. Provide 5th grader clarity boxes throughout. Only refer to contemplative traditions where structurally useful for resolving the Continuous learning + AI Safety questions. You can refer to existing Passes in the repo and the epistemic ladder as things stand with CRR (paraphrased briefly only). Please provide all code utilised in the pipeline for producing the checks and models on AI Safety and the successful Continuous Learning findings that we have achieved in the pipeline so far. Show how CRR was a metaphysical heurisic that utilises existing mathematical principles in synthesis to develop this solution to AI Safety and Continuous Learning. Provide a full reference list and existing methods, as well as a clear set of Next Steps for testing CRR's principles on AI Safety and Continuous Learning. Thank you
+
+## 123 — 2026-09-23T20:29:12Z
+
+Thank you. I think we need a glossary of terms to begin with. Clear explanations of what we mean by "no ego" (e.g. representation but still goals?) and how these are parsed in common literature around this topic. 
+
+Furthermore, we need to think carefully about this remark regarding equanimity "The model shows what a balance of drives does: it makes
+self-concern scale-free and louder"
+
+This might give the impression to a human reading the paper that the equanimity law means more ego (louder is the confusing term here), which is not quite right. We need to think about that very carefully regarding equanimity means in human terms (acceptance of past, holding the past and future (past states outside the system) with equal push-pull. 
+
+Please modify the paper accordingly and ensure that there are also boxes for explanatons in the discursive register of corrigibility / AI safety research, so a technical reader can make full sense of the terms being used throughout. Thank you

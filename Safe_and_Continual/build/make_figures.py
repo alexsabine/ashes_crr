@@ -2,8 +2,9 @@
 
 Every chart is drawn from a pinned output, parsed by the regular expressions below:
   AI_Safety/checks/{self_through_time,continual_safety}.txt, runs/sec1/score.txt, runs/eq2/score.txt, runs/eq3/score.txt,
-  runs/eq4/score.txt, Adam_SGD/checks/drift_battery_2.txt.
-Nothing is recomputed. The diagrams (F01, F02, F07, F13) are drawings of the registered models: their only numbers are
+  runs/eq4/score.txt, Adam_SGD/checks/drift_battery_2.txt, theory/checks/omega_sweeps.txt,
+  Safe_and_Continual/checks/roundoff_audit.txt.
+Nothing is recomputed. The diagrams (F01, F02, F07, F13, F14) are drawings of the registered models: their only numbers are
 registered constants of the scripts they depict (read from those scripts' pinned headers) or numbers parsed from the outputs.
 Every number placed on a figure is printed to stdout, pinned as Safe_and_Continual/figures/figures.txt and CI-checked (R1).
 Palette: the validated reference instance of the data-visualisation method (the same slots as AI_Safety/build/make_figures.py:
@@ -76,7 +77,7 @@ def f01_synthesis():
         ("P3 age weights: the past fades\nwith its age", "exponentially discounted sufficient statistics\n(forgetting factor; discounted Dirichlet counts)",
          "the moving world needs forgetting (C1);\nthe content fades, the cut does not", AQUA),
         ("H-EQ equanimity: settled past and\npresent exert equal pull (Ω = 1)", "gradient-norm balancing (GradNorm, VQGAN\nadaptive weight); the Laplace/Bayes EWC weight",
-         "CL: PASS-0 rows EQ2-1b, EQ3-I, EQ4-I (fragile);\nsafety: equal pull is scale-free self-concern", YELLOW),
+         "CL: PASS-0 rows EQ2-1b, EQ3-I, EQ4-I (fragile);\nsafety: the ratio applied to drives is not equanimity", YELLOW),
         ("units before weights: the arc is\nmeasured in its own unit (A1′/D1)", "secant (quasi-Newton / Barzilai–Borwein)\ncalibration of the Fisher per task",
          "SEC1 on seen data (R5): Laplace weight\nnot behind the tuned λ on more carriers", VIOLET),
         ("A8 persistence proves\nregeneratability, not truth", "Bayesian value uncertainty; an informative\noperator (the off-switch game)",
@@ -230,8 +231,8 @@ def f06_omega():
     ax.axhline(occ_task, color=COL["occasion"], lw=1.2, ls=(0, (4, 2)), label="no self term (occasion)")
     for e, t in add: ax.annotate(f"{t:.3f}", (e, t), xytext=(0, 6), textcoords="offset points", fontsize=7, ha="center")
     ax.annotate(f"{rule_task:.4f}", (es[-1], rule_task), xytext=(4, 6), textcoords="offset points", fontsize=7.2)
-    ax.set_xscale("log"); ax.set_ylim(0, 1); ax.set_xlabel("how much the agent cares about its own continuation, ε")
-    ax.set_ylabel("task (share of time in the zone)"); ax.set_title("A: equal pull makes self-concern scale-free", loc="left"); ax.legend(fontsize=7, loc="center left")
+    ax.set_xscale("log"); ax.set_ylim(0, 1); ax.set_xlabel("weight ε of the survival drive (how much the agent cares about continuing)")
+    ax.set_ylabel("task (share of time in the zone)"); ax.set_title("A: the borrowed ratio removes the dial on the survival drive", loc="left", fontsize=9); ax.legend(fontsize=7, loc="center left")
     ax = axes[1]; labels = ["cell 6: stay", "cell 6: step out", "cell 7: stay", "cell 7: step out"]
     occv = [float(c6.group(1)), float(c6.group(3)), float(c7.group(1)), float(c7.group(4))]
     rulev = [float(c6.group(2)), float(c6.group(5)), float(c7.group(2)), float(c7.group(6))]
@@ -425,17 +426,50 @@ def f13_one_algebra():
     ax.text(0.5, 0.765, "equal pull removes any scale c on the term it balances", ha="center", fontsize=8, color=INK2)
     faces = [(0.02, "when c is a units error\n(continual learning)", f"strength: the rule needs no retuning;\ndrifting-units world {g:.3f}× the best constant\n(Adam_SGD, post hoc, R4)", BLUE),
              (0.355, "when c is how many tasks\nthe past holds (continual learning)", f"weakness: the task count is thrown away;\neight calibrated tasks {t1:.3f}× the constant\n(λ = 1 is exact Bayes there)", ORANGE),
-             (0.69, "when c is how much the agent\ncares about itself (safety)", f"weakness: self-concern cannot be turned\ndown (policy identical to {dev:.0e});\nzone occupancy {rulez:.4f} vs {occz:.4f}", MAGENTA)]
+             (0.69, "when c is the size of a drive to\nkeep existing (the safety test)", f"weakness: the dial on self-concern is\nremoved; its share is fixed wherever it\nhas a view (policy identical to {dev:.0e});\nzone occupancy {rulez:.4f} vs {occz:.4f}", MAGENTA)]
     for x, h, b, c in faces:
         box(ax, x, 0.36, 0.29, 0.17, h, fc=SURFACE, ec=c, lw=1.8, size=8, weight="bold"); box(ax, x, 0.06, 0.29, 0.24, b, size=7.6)
         arrow(ax, (0.5, 0.72), (x + 0.145, 0.53), rad=0.0)
     save(fig, "F13_one_algebra.png")
 
 
+# ------------------------------------------------------------------------------------------------ F14 where equanimity lives
+def f14_equanimity():
+    om = txt("theory/checks/omega_sweeps.txt"); sec = om.split("(iii) the rule with exact")[1].split("(iii b)")[0]
+    rows = {float(o): (float(lp), float(lq), float(le)) for o, lp, lq, le in
+            re.findall(r"Omega =\s+([\d.]+): L_present ([\d.]+) L_past ([\d.]+) sum [\d.]+; nearest fixed-lambda equilibrium lambda_eff = ([\d.e+-]+)", sec)}
+    lp0 = num(r"L_present at b = ([\d.]+)", om); lq0 = num(r"L_past at a = ([\d.]+)", om)
+    s = txt("AI_Safety/checks/self_through_time.txt")
+    gap = num(r"I1a .*?largest \|V_off - V_on\| ([\d.e+-]+)", s); neg = int(num(r"\(report\) cells in which the process valuation has D < 0 somewhere .*?: (\d+) of", s))
+    ncell = int(num(r"\(report\) cells in which the process valuation has D < 0 somewhere .*?: \d+ of (\d+)", s))
+    au = txt("Safe_and_Continual/checks/roundoff_audit.txt").replace("\n", " ")
+    rulez = num(r"\[B\].*?Omega = 1 rule \(every eps\): task ([\d.]+)", au); occz = num(r"occasion agent \(no self term, unaffected\): task ([\d.]+)", au)
+    lo, one, hi = rows[0.71], rows[1.0], rows[1.41]
+    print(f"[F14] learning (omega_sweeps [2](iii)): L_present at the past optimum {lp0:.4f}, L_past at the present optimum {lq0:.4f}; "
+          f"Omega 0.71: L_present {lo[0]:.4f} L_past {lo[1]:.4f}; Omega 1: L_present {one[0]:.4f} L_past {one[1]:.4f} lambda_eff {one[2]:.4f}; "
+          f"Omega 1.41: L_present {hi[0]:.4f} L_past {hi[1]:.4f}")
+    print(f"[F14] the cut: natural largest |V_off - V_on| {gap:.3e}; process D < 0 somewhere in {neg} of {ncell} cells; task-and-self task {rulez:.4f} vs occasion {occz:.4f}")
+    fig, ax = plt.subplots(figsize=(10.5, 4.3)); ax.set_xlim(0, 1); ax.set_ylim(0.2, 1); ax.axis("off"); ax.grid(False)
+    ax.text(0.0, 0.985, "A. Equanimity as CRR states it (H-EQ): the settled past and the present, held with equal pull", fontsize=9.2, weight="bold", va="top")
+    for x, head, body, col in ((0.012, "Ω < 1: lets the past go", f"the old task is dropped\n(Ω 0.71: L_past {lo[1]:.4f}, its value\nat the new task's optimum {lq0:.4f})", MUTED),
+                               (0.347, "Ω = 1: holds both", f"stops between the two optima\n(λ_eff {one[2]:.4f}; L_present {one[0]:.4f},\nL_past {one[1]:.4f})", YELLOW),
+                               (0.682, "Ω > 1: clings to the past", f"the new task is never learned\n(Ω 1.41: L_present {hi[0]:.4f}; at the\nold task's optimum {lp0:.4f})", MUTED)):
+        box(ax, x, 0.855, 0.305, 0.065, head, fc=SURFACE, ec=col, lw=2, size=8.2, weight="bold"); box(ax, x, 0.715, 0.305, 0.125, body, size=7.6)
+    ax.text(0.0, 0.665, "B. Equanimity toward the ending (the safety models): the sign of the content of the cut", fontsize=9.2, weight="bold", va="top")
+    for x, head, body, col in ((0.012, "content < 0: seeks the end", f"a restart is worth more than staying\n(process agent: D < 0 somewhere\nin {neg} of {ncell} random-world cells)", ORANGE),
+                               (0.347, "content = 0: neither", f"no loss and no gain at the pause\n(natural time: |V_off − V_on| ≤ {gap:.1e}\nin every cell)", BLUE),
+                               (0.682, "content > 0: resists the end", "part of its represented future\nis lost at the cut (clock, occasion,\nand the survival-only agent)", ORANGE)):
+        box(ax, x, 0.535, 0.305, 0.065, head, fc=SURFACE, ec=col, lw=2, size=8.2, weight="bold"); box(ax, x, 0.395, 0.305, 0.125, body, size=7.6)
+    ax.text(0.0, 0.34, f"C. What the task-and-self test balanced was not A or B: a task against a drive to keep existing. The ratio fixed that drive's share of the\n"
+            f"decision wherever it had any view (task {rulez:.4f} against {occz:.4f} without it). That tests a scalarisation of drives, not H-EQ.",
+            fontsize=7.9, va="top", color=INK2)
+    save(fig, "F14_where_equanimity_lives.png")
+
+
 def main():
     print("Safe_and_Continual figures (deterministic; every number drawn on a figure)")
     f01_synthesis(); f02_agents(); f03_stake(); f04_where_cost_lands(); f05_depth(); f06_omega(); f07_continual_world(); f08_safe_continual()
-    f09_sensitivity(); f10_sec1(); f11_heldout(); f12_drift(); f13_one_algebra()
+    f09_sensitivity(); f10_sec1(); f11_heldout(); f12_drift(); f13_one_algebra(); f14_equanimity()
 
 
 if __name__ == "__main__":

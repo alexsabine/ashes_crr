@@ -98,3 +98,6 @@ Safe_and_Continual figures (deterministic; every number drawn on a figure)
 [figure] F12_drifting_worlds.png
 [F13] G-DRIFT2 ratio/constant 0.898; T1 ratio/constant 1.137; policy spread over eps 2.22e-16; occupancy 0.1887 vs 0.8561
 [figure] F13_one_algebra.png
+[F14] learning (omega_sweeps [2](iii)): L_present at the past optimum 3.4456, L_past at the present optimum 69.6621; Omega 0.71: L_present 0.0000 L_past 69.6621; Omega 1: L_present 2.9396 L_past 0.3905 lambda_eff 0.6237; Omega 1.41: L_present 3.5034 L_past 0.0047
+[F14] the cut: natural largest |V_off - V_on| 1.968e-12; process D < 0 somewhere in 280 of 540 cells; task-and-self task 0.1887 vs occasion 0.8561
+[figure] F14_where_equanimity_lives.png

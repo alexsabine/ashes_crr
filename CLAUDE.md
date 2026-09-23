@@ -246,7 +246,7 @@ AI_Safety/                 the off switch and the self: the corrigibility write-
                            continual learning; checks/self_through_time.py, checks/continual_safety.py, DECLARATION_4.md); a note, not evidence (R8)
 Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how the safety agents and the continual-learning rules are modelled,
                            the mathematics as implemented, where each fails and why, CRR as a heuristic over existing mathematics, the
-                           ladder, references, next steps, all pipeline code (SAFE_AND_CONTINUAL.md + PDF; figures F01-F13 from pinned
+                           ladder, references, next steps, all pipeline code, a glossary and technical-register boxes (SAFE_AND_CONTINUAL.md + PDF; figures F01-F14 from pinned
                            outputs, figures.txt CI-checked); checks/roundoff_audit.py + .txt (AGENT_LOG 100; DECLARATION.md pushed before
                            the learned reruns): the Omega agents' ratio guard divided by round-off; exact Omega = 1 task 0.1205 -> 0.1887,
                            learned self-model T-4 'delayed' reading changed; a note, not evidence (R8)

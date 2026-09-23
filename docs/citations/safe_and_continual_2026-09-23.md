@@ -25,3 +25,15 @@ The statuses are [PubMed] (retrieved from PubMed on the recorded day), [S] (a se
 | Kendall A, Gal Y, Cipolla R. Multi-task learning using uncertainty to weigh losses. 2018 | a loss-weighting baseline to add |
 | Huszár F. Note on the quadratic penalties in elastic weight consolidation. *PNAS* 2018 | the accumulation of EWC penalties |
 | The Kaccānagotta Sutta (SN 12.15) | the two extremes and the middle way, §8 |
+
+**Added 2026-09-23 for the glossary and the equanimity section (prompt-log entry 123).** Retrieved from PubMed on the day:
+
+| work | identifier | used for |
+|---|---|---|
+| Gallagher S. Philosophical conceptions of the self: implications for cognitive science. *Trends Cogn Sci* 2000;4(1):14–21 | doi 10.1016/s1364-6613(99)01417-5 | the "minimal self" ("a self devoid of temporal extension") and "narrative self" ("personal identity and continuity across time"), quoted from the abstract |
+| Metzinger T. Empirical perspectives from the self-model theory of subjectivity. *Prog Brain Res* 2008;168:215–245 | doi 10.1016/S0079-6123(07)68018-2 | "a representationalist analysis of the conscious self", the "phenomenal self-model", quoted from the abstract |
+| Desbordes G et al. Moving beyond mindfulness: defining equanimity as an outcome measure in meditation and contemplative research. *Mindfulness (N Y)* 2014, pp. 356–372 (as PubMed records it) | doi 10.1007/s12671-013-0269-8 | the definition of equanimity, quoted from the abstract |
+| Juneau C et al. Reliability and validity of an equanimity questionnaire: the two-factor equanimity scale (EQUA-S). *PeerJ* 2020;8:e9405 | doi 10.7717/peerj.9405 | the two factors "an even-minded state of mind" and "hedonic independence", quoted from the abstract |
+
+Named, not fetched: Hohwy J, *The self-evidencing brain*, Noûs 2016; the Dhammacakkappavattana Sutta (SN 56.11) on the three
+forms of craving; Hubinger et al. 2019 on myopia; Russell 2019 ("you can't fetch the coffee if you're dead").

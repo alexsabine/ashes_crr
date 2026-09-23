@@ -273,6 +273,12 @@ does not solve safety. As a rule for weighting pulls it made the agent more self
 in every test here was changing *what the cut is* for the agent, not *how its drives are balanced*. That was also the
 finding of `AI_SAFETY.md` §5.6.
 
+**Note, 2026-09-23 (prompt-log entry 123; AGENT_LOG 101).** "More self-regarding" above describes one test: H-EQ's ratio
+borrowed to weigh a task against a survival drive. That test is not H-EQ, which CRR states for a learner's settled past
+and present, and it is not equanimity in the human sense. It removes the dial on the survival drive rather than making
+the agent more self-concerned in general. Equanimity toward the cut corresponds instead to zero content, the natural-time
+agent. See `Safe_and_Continual/SAFE_AND_CONTINUAL.md` §3.7.1 and the glossary.
+
 > In plain words. The "balanced" robot gives its own survival exactly as much say as its job, every time it is near danger,
 > even if it barely cares about itself. You cannot turn that caring down: the rule turns it back up to match the job. So it
 > dithers at the edge of where the work is and gets little done.

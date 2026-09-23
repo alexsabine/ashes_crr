@@ -25,7 +25,7 @@ MD = DOC_DIR / "SAFE_AND_CONTINUAL.md"
 OUT = DOC_DIR / "Safe_and_Continual.pdf"
 MATH_DIR = DOC_DIR / "build" / "math"
 FONT_DIR = Path(matplotlib.get_data_path()) / "fonts" / "ttf"
-INK = (11, 11, 11); INK2 = (82, 81, 78); BOX = (234, 242, 252); CODEBG = (246, 246, 244); RULE = (200, 199, 193)
+INK = (11, 11, 11); INK2 = (82, 81, 78); BOX = (234, 242, 252); TECH = (244, 240, 230); CODEBG = (246, 246, 244); RULE = (200, 199, 193)
 
 
 class Doc(FPDF):
@@ -119,13 +119,13 @@ def plain(text: str) -> str:
     return re.sub(r"`([^`]+)`", r"\1", re.sub(r"\*\*?([^*]+?)\*\*?", r"\1", text))
 
 
-def callout(pdf: Doc, text: str):
+def callout(pdf: Doc, text: str, label: str = "In plain words. ", fill=BOX):
     text = plain(text); pdf.set_font("DV", "", 9.2); x = pdf.l_margin; w = pdf.usable - 6
-    lines = pdf.multi_cell(w, 4.6, "In plain words. " + text, dry_run=True, output="LINES")
+    lines = pdf.multi_cell(w, 4.6, label + text, dry_run=True, output="LINES")
     hgt = 4.6 * len(lines) + 4
     if pdf.get_y() + hgt > pdf.h - pdf.b_margin: pdf.add_page()
-    start = pdf.get_y(); pdf.set_fill_color(*BOX); pdf.rect(x, start, pdf.usable, hgt, style="F")
-    pdf.set_xy(x + 3, start + 2); pdf.set_font("DV", "B", 9.2); pdf.write(4.6, "In plain words. "); pdf.set_font("DV", "", 9.2)
+    start = pdf.get_y(); pdf.set_fill_color(*fill); pdf.rect(x, start, pdf.usable, hgt, style="F")
+    pdf.set_xy(x + 3, start + 2); pdf.set_font("DV", "B", 9.2); pdf.write(4.6, label); pdf.set_font("DV", "", 9.2)
     pdf.write(4.6, text); pdf.set_y(start + hgt + 2)
 
 
@@ -215,6 +215,10 @@ def build():
         if line.startswith("# "): heading(pdf, 1, line[2:].strip()); i += 1; continue
         if line.startswith("!["):
             m = re.match(r"!\[(.*)\]\((.*)\)", line.strip()); figure(pdf, DOC_DIR / m.group(2), m.group(1)); i += 1; continue
+        if line.startswith(">> "):
+            buf = []
+            while i < n and src[i].startswith(">> "): buf.append(src[i][3:]); i += 1
+            callout(pdf, " ".join(buf), "For the technical reader. ", TECH); continue
         if line.startswith("> "):
             buf = []
             while i < n and src[i].startswith("> "): buf.append(src[i][2:]); i += 1
@@ -231,7 +235,7 @@ def build():
                 i += 1
             table(pdf, rows); continue
         buf = []
-        while i < n and src[i].strip() and not re.match(r"^(#|\||- |> |!\[|```|\$\$|\d+\. )", src[i]): buf.append(src[i].strip()); i += 1
+        while i < n and src[i].strip() and not re.match(r"^(#|\||- |> |>> |!\[|```|\$\$|\d+\. )", src[i]): buf.append(src[i].strip()); i += 1
         paragraph(pdf, " ".join(buf))
     pdf.output(str(OUT))
     print(f"wrote {OUT.relative_to(ROOT)}: {pdf.page_no()} pages, {OUT.stat().st_size} bytes")
