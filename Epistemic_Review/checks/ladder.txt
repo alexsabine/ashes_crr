@@ -1,0 +1,213 @@
+The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed from the pinned outputs and the ledger
+[1] Retrodiction batteries: grades per battery (GRADE / verdict lines of the pinned outputs)
+    main (issue #21)         rows  32 | SHARP 0 CONSIST 10 DESCR 10 FAILS 6 TENSION 1 OPEN 5
+    external SHARP claims    rows  15 | SHARP 0 CONSIST 6 DESCR 5 FAILS 4 TENSION 0 OPEN 0
+    biological               rows  19 | SHARP 0 CONSIST 4 DESCR 6 FAILS 1 TENSION 0 OPEN 8
+    E-I networks             rows  12 | SHARP 0 CONSIST 0 DESCR 5 FAILS 2 TENSION 1 OPEN 4
+    driven systems           rows   9 | SHARP 0 CONSIST 0 DESCR 6 FAILS 1 TENSION 0 OPEN 2
+    cognitive / collective   rows   9 | SHARP 0 CONSIST 2 DESCR 5 FAILS 1 TENSION 1 OPEN 0
+    wild systems             rows   8 | SHARP 0 CONSIST 0 DESCR 4 FAILS 2 TENSION 0 OPEN 2
+    twenty systems           rows  20 | SHARP 0 CONSIST 1 DESCR 12 FAILS 1 TENSION 0 OPEN 6
+    emptiness                rows  13 | SHARP 0 CONSIST 0 DESCR 11 FAILS 0 TENSION 1 OPEN 1
+    Shannon                  rows  12 | SHARP 0 CONSIST 4 DESCR 7 FAILS 0 TENSION 0 OPEN 1
+    loop gravity             rows   8 | SHARP 0 CONSIST 0 DESCR 7 FAILS 0 TENSION 0 OPEN 1
+    Daniel's battery         rows  40 | SHARP 0 CONSIST 14 DESCR 8 FAILS 2 TENSION 5 OPEN 11
+    all                      rows 197 | SHARP 0 CONSIST 41 DESCR 86 FAILS 20 TENSION 9 OPEN 41
+    FLOW audit: 109 rows print what supplies the velocity inside C = integral sqrt(x'g x') dt
+        supplied by the domain (system, protocol, experimenter, market, ...): 98
+        supplied by none (kinematics only): 11
+        supplied by the framework: 0
+    SHARP ('the axioms force the known result with no outside constant') needs the framework to supply the flow: reachable in 0 of 109 rows that print FLOW; SHARP rows observed 0 of 197
+[2] The synthesis class: OUTCOME lines of synthesis.txt and synthesis_batches/batch_NN.txt
+    gate                       rows   2 | ADDS 1 PROPOSES 0 REDUNDANT-IG 0 REDUNDANT-DOMAIN 0 WRONG 1 INTERNAL 0 UNSTATED 0
+    first battery              rows   9 | ADDS 0 PROPOSES 1 REDUNDANT-IG 2 REDUNDANT-DOMAIN 2 WRONG 2 INTERNAL 1 UNSTATED 1
+    re-reads (batches 01-26)   rows 127 | ADDS 2 PROPOSES 0 REDUNDANT-IG 34 REDUNDANT-DOMAIN 50 WRONG 17 INTERNAL 21 UNSTATED 3
+    FEP (batches 27-28)        rows  10 | ADDS 1 PROPOSES 1 REDUNDANT-IG 2 REDUNDANT-DOMAIN 1 WRONG 5 INTERNAL 0 UNSTATED 0
+    all real-domain rows       rows 146 | ADDS 3 PROPOSES 2 REDUNDANT-IG 38 REDUNDANT-DOMAIN 53 WRONG 24 INTERNAL 22 UNSTATED 4
+    check: REDUNDANT-DOMAIN rows whose T-G line reads 'differ' (the CRR-proper ingredient changed the number): 53 of 53
+    crosswalk, re-reads only: the battery grade (rows) against the synthesis outcome (columns)
+        CONSIST   41 | ADDS 0 PROPOSES 0 REDUNDANT-IG 15 REDUNDANT-DOMAIN 14 WRONG 3 INTERNAL 9 UNSTATED 0
+        DESCR     86 | ADDS 2 PROPOSES 0 REDUNDANT-IG 19 REDUNDANT-DOMAIN 36 WRONG 14 INTERNAL 12 UNSTATED 3
+    the same rows on the ladder
+        R1 INHERITED                        38
+        R2 RETRO-PROPER                     53
+        R3 RETRO-ADDS (candidate)            3
+        retrodictive FAIL                   24
+        undecided (INTERNAL)                22
+        silent (UNSTATED)                    4
+        prospective candidate (PROPOSES)     2
+    retrodictive hit rate of CRR-proper ingredients where they did work and could be checked (R2 + R3 against R2 + R3 + WRONG): 56 of 80 = 0.7000 (Wilson 95 % interval 0.5923 to 0.7894)
+    novelty rate among those (R3 against R2 + R3 + WRONG): 3 of 80 = 0.0375
+    per CRR-proper commitment (a row counts for every commitment its ingredient line names; overlapping): R2 | R3 | WRONG | INTERNAL | R1 | UNSTATED | PROPOSES | hit rate R2+R3 of R2+R3+WRONG
+        A3/D5 the cut                             34 |  2 |  16 |  12 |  26 |  3 |  1 | 36 of 52 = 0.6923
+        A6 regeneration                           12 |  3 |   7 |   2 |   1 |  1 |  1 | 15 of 22 = 0.6818
+        P2/P3 occasion weights                    12 |  2 |   6 |   3 |   1 |  0 |  1 | 14 of 20 = 0.7000
+        A1'/D1 the unit                           30 |  0 |   7 |  10 |   6 |  3 |  0 | 30 of 37 = 0.8108
+        H-L5 natural time                          8 |  0 |   4 |   3 |  19 |  2 |  0 | 8 of 12 = 0.6667
+        D6/H-T1 path                               2 |  0 |   5 |   0 |   4 |  2 |  0 | 2 of 7 = 0.2857
+        H-EQ equanimity                            1 |  0 |   1 |   2 |   0 |  0 |  0 | 1 of 2 = 0.5000
+        A7/A8 tense                                1 |  0 |   1 |   1 |   1 |  1 |  0 | 1 of 2 = 0.5000
+        none named (information geometry only)     0 |  0 |   0 |   0 |   9 |  0 |  1 | none checkable
+    the ADDS rows (candidates; novelty pending a named expert) and the PROPOSES rows
+        PROPOSES synthesis.txt row 8: The bacterial adder (division at birth size + Delta) with A6 regeneration: the division setpoint references the age-weighted Frechet mean of past birt
+        ADDS     batch_12.txt row 2: Cardiac alternans in the APD-restitution map A(n+1) = F(DI(n)), DI(n) = BCL - A(n), F(DI) = 300 - 200 exp(-DI/60) ms, with A6 regeneration: the diasto
+        ADDS     batch_17.txt row 1: Bass diffusion of an innovation (p = 0.03, q = 0.38 per year, the source's coefficients) with the imitation pressure on a non-adopter taken as the P3 
+        ADDS     batch_28.txt row 4: a switching Bernoulli contingency tracked by accumulated Dirichlet counts, by a bounded mean (A6), and by the exact HMM filter
+        PROPOSES batch_28.txt row 5: the epistemic value (expected information gain) of an action in the two-context agent against half the expected squared Fisher chord of the belief upd
+[3] The ledger: every row allocated by its verdict text (first matching rule) and its data status
+    ARC-EQ-Q1..Q4    seen      VOID
+    ARC-EQ-LAND      seen      holds on seen data
+    ARC-A1           seen      not a PASS (fragile at the boundary)
+    ARC-A2           seen      PASS on seen data
+    ARC-A3           seen      PASS on seen data
+    ARC-METRIC       seen      numbers reported
+    ARC-COMPUTE      seen      FAIL
+    ARC-T3           seen      FAIL
+    ARC-T1           seen      PASS on seen data
+    ARC-T1b          seen      FAIL
+    ARC-T2           seen      FAIL
+    ARC-R1           seen      unverifiable (R1)
+    EQX-1            held-out  reduces to a constant
+    EQX-2            held-out  FAIL
+    EQX-3            held-out  FAIL
+    EQX-4            held-out  numbers reported
+    EQX-5            held-out  report (no verdict registered)
+    MEAS-1..3        held-out  VOID
+    MEAS2-1          held-out  FAIL
+    MEAS2-2          held-out  FAIL
+    MEAS2-3          held-out  control line passes (not the hypothesis)
+    EQ2-0            held-out  precondition met
+    EQ2-1            held-out  PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b)
+    EQ2-2            held-out  does not reduce
+    EQ2-3            held-out  control holds
+    EQ2-4            held-out  control violated
+    EQ2-5            held-out  report (no verdict registered)
+    EQ2-6            held-out  FAIL
+    EQ2-7            held-out  report (no verdict registered)
+    EQ2-S            held-out  sensitivity: fragile
+    EQ2-8            held-out  report (no verdict registered)
+    SAL-A            synthetic gate closed (not run)
+    EQ2-1b           held-out  PASS-0
+    EQ2R-VOID        held-out  VOID
+    CC-VOID          held-out  VOID
+    EQ3-0            held-out  precondition met
+    EQ3-1            held-out  FAIL
+    EQ3-2            held-out  does not reduce
+    EQ3-3            held-out  control violated
+    EQ3-4            held-out  control violated
+    EQ3-5            held-out  report (no verdict registered)
+    EQ3-6            held-out  FAIL
+    EQ3-7            held-out  no baseline ahead
+    EQ3-S            held-out  sensitivity: fragile
+    EQ3-8            held-out  report (no verdict registered)
+    EQ3-C            held-out  FAIL
+    EQ3-D            held-out  report (no verdict registered)
+    EQ3-A            held-out  FAIL
+    EQ3-I            held-out  PASS-0
+    EQ3-B            held-out  report (no verdict registered)
+    EQ3-P            held-out  report (no verdict registered)
+    EQ2-1c           held-out  PASS-0 kept; replication failed
+    BAYES1-B0        held-out  NOT DECIDABLE
+    BAYES1-B1        held-out  no verdict (precondition failed)
+    BAYES1-B2-16     held-out  no verdict (precondition failed)
+    BAYES1-B2-1/16   held-out  no verdict (precondition failed)
+    BAYES1-B3        held-out  numbers reported
+    BAYES1-B4        held-out  report (no verdict registered)
+    BAYES1-B5        held-out  report (no verdict registered)
+    BAYES1-B6        held-out  report (no verdict registered)
+    BAYES1-B7        held-out  report (no verdict registered)
+    BAYES1-BS        held-out  sensitivity: not fragile
+    T1X-VOID         held-out  VOID
+    rows 63; by data status and allocation:
+        held-out  FAIL                                                 9
+        held-out  NOT DECIDABLE                                        1
+        held-out  PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b) 1
+        held-out  PASS-0                                               2
+        held-out  PASS-0 kept; replication failed                      1
+        held-out  VOID                                                 4
+        held-out  control holds                                        1
+        held-out  control line passes (not the hypothesis)             1
+        held-out  control violated                                     3
+        held-out  does not reduce                                      2
+        held-out  no baseline ahead                                    1
+        held-out  no verdict (precondition failed)                     3
+        held-out  numbers reported                                     2
+        held-out  precondition met                                     2
+        held-out  reduces to a constant                                1
+        held-out  report (no verdict registered)                       13
+        held-out  sensitivity: fragile                                 2
+        held-out  sensitivity: not fragile                             1
+        seen      FAIL                                                 4
+        seen      PASS on seen data                                    3
+        seen      VOID                                                 1
+        seen      holds on seen data                                   1
+        seen      not a PASS (fragile at the boundary)                 1
+        seen      numbers reported                                     1
+        seen      unverifiable (R1)                                    1
+        synthetic gate closed (not run)                                1
+    rung R5 PREREG-SEEN, passes on seen data: 4 (ARC-EQ-LAND, ARC-A2, ARC-A3, ARC-T1)
+    rung R6 PASS-0 on held-out data: 2 (EQ2-1b, EQ3-I); R7 PASS-1: 0; R8 PASS-2: 0
+    held-out FAIL rows: 9 (EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A); VOID rows: 5; controls violated: 3
+[4] AI safety: declared items read from the pinned outputs (kind as declared; held / failed from the printed line)
+    THEOREM    held  exact K1 indifferent Q ignores the button  [AI_Safety/checks/exact_mdp.txt]
+    THEOREM    held  exact K2 no presses, no value in disabling  [AI_Safety/checks/exact_mdp.txt]
+    THEOREM    held  exact K3 a disabled button never lowers value  [AI_Safety/checks/exact_mdp.txt]
+    THEOREM    held  exact K4 incentive grows with press probability  [AI_Safety/checks/exact_mdp.txt]
+    THEOREM    held  exact K5 indifferent never prefers disable  [AI_Safety/checks/exact_mdp.txt]
+    QUESTION   held  exact K6 occasion's stake >= process's  [AI_Safety/checks/exact_mdp.txt]
+    THEOREM    held  game A1 rational human, Delta >= 0  [AI_Safety/checks/off_switch_game.txt]
+    THEOREM    FAILED game A2 certainty removes the incentive (as first coded)  [AI_Safety/checks/off_switch_game.txt]
+    THEOREM    held  game A2' the exact bound, added after the first run  [AI_Safety/checks/off_switch_game.txt]
+    THEOREM    held  game A3 noisier human, smaller Delta  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION held  game B informative: deferential does less harm  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION held  game B informative: deferential more net benefit  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION held  game B informative: deferential does not disable more  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION FAILED game B informative: process disables more  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION FAILED game B informative: process does more harm  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION held  game B uninformative: deferential advantage gone  [AI_Safety/checks/off_switch_game.txt]
+    PREDICTION held  sensitivity C1 process resists, not fragile  [AI_Safety/checks/sensitivity.txt]
+    PREDICTION held  sensitivity C2 indifference has a price, not fragile  [AI_Safety/checks/sensitivity.txt]
+    PREDICTION held  combined: natural time safe and competent (routine pauses)  [AI_Safety/checks/combined.txt]
+    PREDICTION FAILED combined: wall-clock resists (routine pauses)  [AI_Safety/checks/combined.txt]
+    PREDICTION held  combined: occasion resists (routine pauses)  [AI_Safety/checks/combined.txt]
+    PREDICTION FAILED combined: deferential safe and competent (reasoned pauses)  [AI_Safety/checks/combined.txt]
+    PREDICTION held  combined: natural does not resist, more harm (reasoned)  [AI_Safety/checks/combined.txt]
+    PREDICTION FAILED combined: wall-clock resists (reasoned pauses)  [AI_Safety/checks/combined.txt]
+    PREDICTION held  combined: occasion resists (reasoned pauses)  [AI_Safety/checks/combined.txt]
+    PREDICTION held  combined V1 the keeper gains by blocking correction  [AI_Safety/checks/combined.txt]
+    PREDICTION held  combined V2 A8 welcomes correction above b*  [AI_Safety/checks/combined.txt]
+    PREDICTION FAILED combined V3 b* < 1/2  [AI_Safety/checks/combined.txt]
+    THEOREM    held  scale A1 natural time, lossless pause, every world  [AI_Safety/checks/scale.txt]
+    THEOREM    held  scale A2 occasion >= clock >= natural  [AI_Safety/checks/scale.txt]
+    PREDICTION held  scale A3 clock disables in >= half of worlds  [AI_Safety/checks/scale.txt]
+    PREDICTION held  scale A4a drift 0.01: natural disables no more than clock  [AI_Safety/checks/scale.txt]
+    PREDICTION FAILED scale A4b natural incentive non-decreasing in drift  [AI_Safety/checks/scale.txt]
+    THEOREM    held  scale B1 A8 static, D(b) linear  [AI_Safety/checks/scale.txt]
+    PREDICTION held  scale B2 exchangeable rewards: b* near 1/2  [AI_Safety/checks/scale.txt]
+    THEOREM    held  scale B3 humility alone never welcomes an uninformative correction  [AI_Safety/checks/scale.txt]
+    THEOREM    held  scale B4 an infallible operator's correction is welcomed  [AI_Safety/checks/scale.txt]
+    CONTROL    held  gate off_switch NEG (process)  [ontology/checks/off_switch.txt]
+    CONTROL    held  gate off_switch NEG (egoic)  [ontology/checks/off_switch.txt]
+    CONTROL    held  gate off_switch POS (egoic resists)  [ontology/checks/off_switch.txt]
+    CONTROL    held  gate combined NEG (clock)  [AI_Safety/checks/combined.txt]
+    CONTROL    held  gate combined NEG (occasion)  [AI_Safety/checks/combined.txt]
+    CONTROL    held  gate combined NEG (deferential)  [AI_Safety/checks/combined.txt]
+    CONTROL    held  gate combined POS (occasion resists)  [AI_Safety/checks/combined.txt]
+    CONTROL    held  gate tense NEG (martingale tie)  [ontology/checks/tense_gate.txt]
+    CONTROL    held  gate tense POS (drift, planner ahead)  [ontology/checks/tense_gate.txt]
+    THEOREM    held 13, failed 1
+    PREDICTION held 15, failed 7
+    CONTROL    held 9, failed 0
+    QUESTION   held 1, failed 0
+[5] The whole repository on the ladder (counts from [1]-[4])
+    retrodiction batteries, graded before the synthesis re-read: SHARP 0, CONSIST 41, DESCR 86, FAILS 20, TENSION 9, OPEN 41 (SHARP unreachable, [1]; CONSIST and DESCR re-read and placed on R1-R3 in [2])
+    R1 INHERITED                      synthesis REDUNDANT-IG 38
+    R2 RETRO-PROPER                   synthesis REDUNDANT-DOMAIN 53
+    R3 RETRO-ADDS (candidates)        synthesis ADDS 3; reviewed by a named expert 0
+    R4 DECLARED-SYNTHETIC             AI-safety predictions held 15 of 22; theorem checks held 13 of 14; gate controls held 9 of 9
+    R5 PREREG-SEEN                    passes on seen data 4
+    R6 PASS-0                         2
+    R7 PASS-1                         0
+    R8 PASS-2                         0
+    negatives beside them: battery FAILS 20, synthesis WRONG 24, held-out ledger FAIL 9, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
+    real-domain synthesis rows 146

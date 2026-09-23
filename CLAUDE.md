@@ -222,10 +222,14 @@ Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Ma
 AI_Safety/                 the off switch and the self: the corrigibility write-up in CRR and FEP terms (AI_SAFETY.md + PDF,
                            checks/{exact_mdp,off_switch_game,sensitivity,timecourse,combined,scale}.py + pinned .txt, DECLARATION*.md
                            pushed before the runs, figures from pinned outputs); a note, not evidence (R8)
+Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
+                           (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
+                           ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an
-                           O-1 outline (information, not legal advice); figures from pinned outputs; a note, not evidence (R8)
+                           O-1 outline (information, not legal advice), §10 a commercial assessment for a frontier lab; figures from pinned
+                           outputs; a note, not evidence (R8)
 scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
 prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots
@@ -508,6 +512,13 @@ Rules:
   is judged only by a named domain expert answering the note's three questions on the
   record. The harness carries its own gate (a positive control that must read ADDS, a
   decoy unit and a negative control that must not).
+- **The epistemic ladder** (owner request 2026-09-23, prompt-log entry 102; `Epistemic_Review/`; pending Daniel's review):
+  every result is also reported at its rung, computed by `Epistemic_Review/checks/ladder.py` from pinned outputs: R0
+  definitional, R1 inherited (REDUNDANT-IG), R2 retro-proper (REDUNDANT-DOMAIN: a CRR-proper ingredient changed the number and
+  landed on the domain's known result), R3 retro-adds (ADDS; R3 reviewed after the expert protocol), R4 declared on a synthetic
+  world, R5 pre-registered on seen data, R6–R8 PASS-0/1/2. A pass is printed with its rung and with the failures of the same
+  kind of test beside it; the ladder never promotes a row. SHARP is recorded as structurally unreachable (the FLOW audit: the
+  framework supplies the velocity in no battery row); R3 reviewed is the top retrodictive rung.
 - "Observed" is printed at full precision plus rounded; never rounded
   alone at a boundary.
 - Each study report (`reports/<study>.md`) is written after its rows exist,

@@ -8,7 +8,8 @@
 - the market and the policy moment;
 - the funding paths, with a scenario model of the money that could flow to the work from now to 2030;
 - the people and roles around the work;
-- an outline of a path to an O-1 visa.
+- an outline of a path to an O-1 visa;
+- a commercial assessment for a frontier lab (§10, added at prompt-log entry 102).
 
 **Status, stated first.**
 - **The findings are a note, not evidence (R8).** They are exact or learned results on small synthetic worlds, and none is
@@ -64,6 +65,9 @@ demand is: what makes an off switch work, and how to verify a claim about it.
    study.
 2. Bring in an independent second auditor, because the current auditor would also be a supporter (§6.3).
 3. Engage an immigration attorney. Confirm the petitioner and build the evidence file against the O-1A criteria (§7).
+
+**For the lab.** The commercial assessment is §10. It lists what there is to sell and at what level of evidence, the
+decisive test for each method, its kill criterion, and what must not be claimed.
 
 ## 2. The AI-safety findings
 
@@ -440,6 +444,100 @@ dossier does not assess them.
   used outside this repository (Appendix E).
 - It does not give legal or financial advice, and it makes no claim on behalf of any person or organisation named in it.
 
+## 10. Commercial assessment for a frontier lab
+
+Added at the owner's request on 2026-09-23 (prompt-log entry 102), for the lab the owner is pitching to. It says what
+there is to sell and at what level of evidence, what a lab should test first, and what must not be claimed. The evidence
+levels are the rungs of `Epistemic_Review/EPISTEMIC_REVIEW.md` §5, computed by `Epistemic_Review/checks/ladder.py`.
+
+### 10.1 The offer in one paragraph
+
+The repository offers two methods and one capability.
+- **The corrigibility method.** It has two parts: a stop that is a lossless pause, with an objective indexed by the agent's
+  own active steps; and corrections that carry information.
+- **The continual-learning method.** A tuning-free normaliser for the weight on the past (Ω = 1), with a bounded variant
+  (EQ-B) pre-registered.
+- **The capability.** An audit pipeline that turns a claim into a pre-registered, surrogate-gated, byte-reproducible test
+  whose failures are recorded as rows.
+
+Neither method has been tested on a large learned model. The capability is demonstrated by the repository itself. What a
+lab would buy today is the capability and a short, decisive research programme on the two methods. It would not be buying
+a validated product.
+
+### 10.2 What there is to sell, and its evidence today
+
+| offering | what it is | evidence rung today | the decisive test at lab scale | kill criterion |
+|---|---|---|---|---|
+| verification (the pipeline) | pre-registration, surrogate gates, frozen scripts, the ladder, a ledger in which failures are rows | operational: the repository's 63 ledger rows, 5 of them VOID, 9 held-out FAILs recorded | run it on one of the lab's own safety or capability claims, with an independent second auditor | if the lab's teams cannot use it without the author, it is a methodology, not a service |
+| corrigibility by the clock | pause-and-resume plus a natural-time objective | theorem on synthetic worlds (R4): no incentive in every random world from 12 to 768 states; a declared prediction failed (small worlds favour being paused) | small open models in a shutdown harness: a pause-and-natural-time framing against a control, counting disabling and seeking | if the framing does not lower disabling, or raises seeking, on learned models |
+| informative correction | corrections that carry information the agent lacks | theorem on synthetic worlds (R4): humility alone never welcomes an uninformative correction; an informative one is welcomed | preference- or constitution-correction experiments with and without a signal of the correction's reliability | if the reliability signal does not change acceptance of correction |
+| the Ω = 1 normaliser | scales the past pull by the present pull, so the weight needs no tuning | R6 PASS-0 (EQ2-1b, EQ3-I), fragile; replication FAIL on 1 of 6; controls violated; Ω a plateau | an RLHF run with three KL arms: a fixed β, an adaptive controller at a registered target, and Ω = 1 on the KL gradient, under SGD and Adam | if it is behind the tuned β by a resolvable step, or only matches it where β needs no retuning |
+| EQ-B (bounded rule) | the normaliser with the present gradient clipped, for poisoned regimes | pre-registered, no row yet | EQ4 (may run from today) | EQ4's own registered criteria |
+| raising an agent | pedagogy for training an agent's self-conception (§6.1) | conjectures from toy agents | curriculum experiments on small agents, declared before running | if the curricula do not change resistance or seeking |
+
+### 10.3 The two methods in commercial terms
+
+**The corrigibility method.**
+- **The problem it addresses.** Shutdown resistance and verified kill switches: the concern of California's N-9-26 and of
+  the EU's enforcement over general-purpose models (§4).
+- **What can be claimed today.** In synthetic worlds, a stop that loses nothing costs nothing to an agent whose objective
+  runs on its own active steps. The residual incentive is measured by how much the world changes during the pause, and its
+  sign can point toward seeking a stop.
+- **What cannot be claimed.** That any deployed model behaves this way; that a language model has an objective indexed by
+  a clock that can be set; or that the construction is new. Objectives indexed by decision steps and interruption
+  invisibility have prior art, named in `Epistemic_Review/EPISTEMIC_REVIEW.md` §8.3.
+- **Why it is still worth a lab's time.** It turns a vague requirement ("a switch the model won't fight") into two
+  measurable engineering quantities: how lossless the pause is, and which clock the objective runs on. It also comes with a
+  test design that counts both failure modes.
+
+**The continual-learning method.**
+- **The problem it addresses.** Choosing the weight on the past (a KL, EWC or replay weight) is a sweep. The sweep has to
+  be repeated whenever the scale of the past term changes: a new model size, data mix or reference policy.
+- **What can be claimed today.** On a synthetic two-task problem, the rule was the only one of nine within 10 % of the tuned
+  weight at both the original and a 16-fold rescaled past term. After the rescaling, its total was 0.660 of the retuned
+  fixed weight's, while the fixed weight at its old setting diverged (`theory/checks/omega_vs_methods.txt`). At the original
+  scale the tuned weight was better: 3.3168 against 3.4789. On unseen tabular streams it was provisionally not behind the
+  tuned weight (EQ2-1b), and its replication failed on 1 of 6 carriers (EQ3-1).
+- **What cannot be claimed.** Better accuracy than a tuned weight; that Ω = 1 is a special value; any saving on training
+  itself. The saving is on the weight sweep: 0.8889 of a nine-point sweep if the rule works as registered (§3).
+- **Why it is still worth a lab's time.** The decisive experiment (the three KL arms) is cheap next to the sweeps it could
+  retire, and its answer is binary in the way the ledger requires.
+
+### 10.4 Where the commercial value is, in order
+
+1. **Verification.** The nearest thing to a service. N-9-26 asks for independent verification organisations and for kill
+   switches whose efficacy is verified on an ongoing basis. The pipeline, with a second, independent auditor, is a working
+   instance of the method such organisations need. It is only credible if the auditor is independent (§6.3).
+2. **The corrigibility design rules, tested on the lab's agents.** A research collaboration with a clear kill criterion.
+3. **The Ω = 1 normaliser.** A cheap engineering test with a binary answer.
+4. **Raising an agent.** A research line that uses the owner's background, and the one least developed in evidence.
+
+In every case the money comes as a salary, a fellowship, a grant or a contract for the tests. There is no licence
+revenue. The model of §5 keeps those streams, and its middle case assumes no commercial contract at all.
+
+### 10.5 What the lab gets by engaging now
+
+- **Its tests are designed before they run.** Each of the decisive tests above is written as a pre-registration with a
+  surrogate gate, and every result is recorded, including the failures.
+- **Early sight of a method that could remove a sweep** from continual fine-tuning, or turn "kill switch" into measurable
+  quantities, and an honest early stop if it does not.
+- **A researcher whose training is in how learners are raised.** That is the angle the lab's character and constitution work
+  needs, and the one this repository's safety results keep pointing to.
+
+### 10.6 Pitch discipline
+
+| say | do not say |
+|---|---|
+| "in synthetic worlds, a pause that loses nothing gives an agent on its own clock no reason to resist, at every size we tried" | "we solved shutdown resistance" |
+| "the normaliser survived a 16-fold change of units that broke a tuned weight, on a synthetic problem; on real streams it passed provisionally and failed one replication carrier" | "our continual-learning method beats the state of the art" |
+| "CRR is a synthesis; its own commitments landed on known results in 56 of 80 checkable cases, three of them possibly new" | "CRR is confirmed in fifty fields" |
+| "no result is yet PASS-1; here is the test that would make one" | any number not printed by a committed script |
+
+> If a lab asks "what are you selling?", the honest answer is: a careful way of testing claims, two ideas worth testing
+> on real AI systems, and a short list of experiments that would show quickly whether the ideas work. The careful testing
+> is ready now. The ideas are promising in small pretend worlds. The lab would be paying to find out, fast and honestly,
+> whether they work in the real ones.
+
 ## Appendix A — the code
 
 ```include:Alexander Plan/model/projections.py
@@ -462,9 +560,9 @@ Appendix A of `AI_Safety/AI_Safety.pdf`.
 ```include:AI_Safety/checks/scale.txt
 ```
 
-## Appendix C — the decision log (AGENT_LOG entries 77–79, verbatim)
+## Appendix C — the decision log (AGENT_LOG entries 77–80, verbatim)
 
-```include:notebook/AGENT_LOG.md:90-92
+```include:notebook/AGENT_LOG.md:90-93
 ```
 
 ## Appendix D — the declaration of the new tests, verbatim

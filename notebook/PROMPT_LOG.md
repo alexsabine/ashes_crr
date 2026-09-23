@@ -943,3 +943,25 @@ Of course, this is all conditional on whether the fix holds in larger complex sy
 ## 101 — 2026-09-23T03:08:20Z
 
 Thank you. Please run new tests and then produce a full dossier of the AI safety findings, the current market and estimated paths to funding this project. Also consider my role with the active inference institute, Friston adjacent, Daniel's role and affiliation with a frontier AI lab in Northern California. Outline a path toward me, Alexander Sabine, securing an O1 visa based on this research pathway, as supported by the frontier AI lab in Crescent City, which is also the home of the Active z inference institute. My professional background is in child development and I was a grade 9 lecturer at the university of Portsmouth until December 2025. I have extensive experience in approaches to education, all ages of pedagogy and am a generalist systems philosopher and thinker. There are adjacent pathways to the large frontier AI labs via the networks I am embedded in. Michael Levin has agreed to sign my O1 visa application. It could be that Adam Safron, Shinzen Young, Peter Hershock, Daniel Friedman and perhaps Emmet Shear (whom I haven't met) could also sign my visa application. The frontier research lab in crescent city is founded by Adam Goldstein. Please provide a full comprehensive estimate of how my research could be fundable in the future, how it could be of value and how a financial projections could work in terms of the commercial interests from large AI companies etc. Couple in the findings from the continual learning benchmark findings and the potential compound value of these mathematical formalisms if successfully implemented on GPU and LLM architectures. Include an array of graphs and charts (same quality as before), and run any other mathematics required to make fair estimates of upper, middle and lower bounds in the financial trajectory of this work from now until 2030 with different possible scenarios considered. Thank you. Please do this as a PDF with 5th grader explanations throughout and place it in a folder called Alexander Plan.
+
+## 102 — 2026-09-23T03:42:08Z
+
+Thank you. 🙏 
+
+However, I’d like you to review the repo again to determine what a Pass really means here, including closer examination of the continuous learning findings and AI safety findings.
+
+For example, The consistent, descriptive and redundant labels need to be clearly allocated with a fair epistemic definition of what a pre-registered prediction means here. 
+
+A pass on this pipeline should be clearly labelled for what it is. We also need to clearly show the Adds dimension and provide a summary of the CRR and FEP findings overall, with careful consideration of temporality, representational modelling and processual thinking about time, noting the AI safety findings regarding the Clock, which you reported earlier.
+
+If pre registered predictions are retrodictively successful in a test then they should be reported with honesty as passing at that level of epistemic rigour. Crr is not claiming to be new mathematics, but a synthesis of existing mathematical principles with clear and falsifiable metaphysical commitments.
+
+Please conduct a full review of the repo’s epistemic gates from a philosophical perspective and provide a 5th grader explanations throughout for what constitutes a retrodictive prediction for CRR.
+
+For example, noting that a Sharp Pass was always impossible because I was not even allowed to use flow from within that domain.
+
+This needs to be carefully considered and incorporated into the metrics.
+
+Furthermore, the Alexander Plan is beautiful, but the frontier research lab whom I am pitching to will also need a clear assessment of the commercial possibilities for this AI safety and Continual Learning method clearly stated.
+
+Thank you
