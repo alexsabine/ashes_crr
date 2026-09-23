@@ -18,3 +18,5 @@ script.
 | `checks/drift_battery.txt` | Declaration 2's output as it fell: GATE CLOSED (no headroom in the must-win world; grid edges) |
 | `DECLARATION_3.md` | the redesigned gate, POST HOC: a headroom precondition, grids widened both ways with edge flags; everything else unchanged |
 | `checks/drift_battery_2.py` | the redesigned battery; pinned output `checks/drift_battery_2.txt` |
+| `checks/drift_battery_2.txt` | Declaration 3's output (post hoc): GATE OPEN narrowly; the ratio rule wins in the wandering-units world under SGD, momentum and coupled Adam but FRAGILE in Omega; loses on the eight-task sequences |
+| `DECLARATION_4.md`, `checks/mechanism.py` | the mechanism check: is the win an equal-noise coincidence? pinned output `checks/mechanism.txt` |

@@ -50,7 +50,9 @@ class World:
 
 
 def simulate(world, arm, knobs, seeds, opt="sgd", lr=cm.LR, lr_q=None, smooth=cm.om.SMOOTH, noise=cm.NOISE,
-             noise_q=None, final=False):
+             noise_q=None, final=False, log_w=False):
+    """log_w: also return the median over the second half of the run of the effective weight w c_t (TWO worlds), per knob
+    and seed; the default return is unchanged."""
     knobs = np.asarray(knobs, float); L = len(knobs); S = len(seeds); d = len(world.h)
     steps = world.steps if world.kind == "TWO" else (world.K - 1) * world.T
     noise_q = noise if noise_q is None else noise_q
@@ -64,7 +66,7 @@ def simulate(world, arm, knobs, seeds, opt="sgd", lr=cm.LR, lr_q=None, smooth=cm
         th = np.broadcast_to(world.as_[0], (L, S, d)).copy()                # task 0 already learned
         anchor = th.copy(); P = np.zeros((S, d))
     ema_p = ema_q = None; m = np.zeros_like(th); v = np.zeros_like(th); vel = np.zeros_like(th)
-    dead = np.zeros((L, S), bool); acc = np.zeros((L, S)); n_eval = 0
+    dead = np.zeros((L, S), bool); acc = np.zeros((L, S)); n_eval = 0; wlog = []
     for t in range(steps):
         xp = noise * draws[t, :, 0, :]; xq = noise_q * draws[t, :, 1, :]      # (S,d)
         if world.kind == "TWO":
@@ -92,6 +94,8 @@ def simulate(world, arm, knobs, seeds, opt="sgd", lr=cm.LR, lr_q=None, smooth=cm
             ema_q = g_q if (ema_q is None or smooth == 0) else smooth * ema_q + (1 - smooth) * g_q
             den = np.linalg.norm(ema_q, axis=-1) * (lr_q if opt == "adamd" else 1.0)
             w = np.minimum(knobs[:, None] * np.linalg.norm(ema_p, axis=-1) / np.maximum(den, FLOOR), CAP)
+        if log_w and world.kind == "TWO" and t >= steps // 2:
+            wlog.append(np.asarray(w) * cpath[t][None, :])
         wv = w[..., None]
         if opt == "sgd":
             th = th - lr * (g_p + wv * g_q)
@@ -113,7 +117,10 @@ def simulate(world, arm, knobs, seeds, opt="sgd", lr=cm.LR, lr_q=None, smooth=cm
         if (t + 1) % EVAL_EVERY == 0:
             acc += _objective(world, th, t, cpath); n_eval += 1
     out = _objective(world, th, steps - 1, cpath) if final else acc / n_eval
-    return np.where(dead, np.nan, out)                                      # (L,S)
+    out = np.where(dead, np.nan, out)                                       # (L,S)
+    if log_w:
+        return out, (np.median(np.stack(wlog), axis=0) if wlog else None)
+    return out
 
 
 def _objective(world, th, t, cpath):
