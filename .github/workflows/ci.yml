@@ -62,6 +62,7 @@ jobs:
           uv run python Continuous_Learning/checks/adam_checks_2.py 2>/dev/null > /tmp/cl_adam2.txt && cmp /tmp/cl_adam2.txt Continuous_Learning/checks/adam_checks_2.txt
           uv run python Continuous_Learning/checks/adam_checks_3.py 2>/dev/null > /tmp/cl_adam3.txt && cmp /tmp/cl_adam3.txt Continuous_Learning/checks/adam_checks_3.txt
           uv run python Continuous_Learning/build/build_adam_pdf.py > /dev/null 2>&1
+          uv run python Continuous_Learning/build/build_frontier_pdf.py > /dev/null 2>&1
           uv run python Rupture_Detection/checks/rupture_checks.py 2>/dev/null > /tmp/rd.txt && cmp /tmp/rd.txt Rupture_Detection/checks/rupture_checks.txt
           uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt

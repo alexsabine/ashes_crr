@@ -227,6 +227,9 @@ Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Ma
 Continuous_Learning/ADAM_AND_PRIOR_ART.md  the Ω rule under Adam, beside its prior art, and against a finely tuned constant
                            (checks/adam_checks{,_2,_3}.py + pinned .txt, DECLARATION_ADAM{,_2,_3}.md pushed before each run; PDF by
                            build/build_adam_pdf.py); a note, not evidence (R8)
+Continuous_Learning/FRONTIER_BOTTLENECKS.md  exploratory survey of the frontier continual-learning bottlenecks and where CRR
+                           might apply (prompt-log entry 105; sources docs/citations/frontier_cl_2026-09-23.md; PDF by
+                           build/build_frontier_pdf.py); a note, not evidence (R8)
 Rupture_Detection/         the cut delta(Now) as a rupture detector (prompt-log entry 104): DECLARATION.md pushed before the run,
                            checks/rupture_checks.py + pinned .txt (Phase-A battery on chaotic carriers with a must-fail / must-win
                            gate), RUPTURE_DETECTION.md + PDF: the result and the applied use case for the owner's EPO application
