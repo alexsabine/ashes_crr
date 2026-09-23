@@ -34,6 +34,7 @@ uv run python theory/checks/fed_heterogeneous_v1.py 2>/dev/null | cmp - theory/c
 uv run python theory/checks/fed_heterogeneous.py 2>/dev/null | cmp - theory/checks/fed_heterogeneous.txt && echo 'FED Phase-A gate (CLOSED) byte-identical to the committed output'
 uv run python ontology/checks/tense_gate.py 2>/dev/null | cmp - ontology/checks/tense_gate.txt && echo 'tense test byte-identical to the committed output'
 uv run python ontology/checks/self_model.py 2>/dev/null | cmp - ontology/checks/self_model.txt && echo 'self-representation test byte-identical to the committed output'
+uv run python ontology/checks/off_switch.py 2>/dev/null | cmp - ontology/checks/off_switch.txt && echo 'off-switch test byte-identical to the committed output'
 uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'
 uv run python theory/retrodictions/sharp_claims.py | cmp - theory/retrodictions/sharp_claims.txt && echo 'external SHARP claims re-derivation byte-identical to the committed output'
 uv run python theory/retrodictions/bio_retrodictions.py | cmp - theory/retrodictions/bio_retrodictions.txt && echo 'biological battery byte-identical to the committed output'
