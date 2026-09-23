@@ -927,3 +927,7 @@ Scratchpad. So, accepting that the past has content can help the agent to not wo
 ## 98 — 2026-09-23T02:33:12Z
 
 So in the optimal case, what would the agent conceive itself to be? You can reply in a phenomenological sense with reference to any existing text in the corpus for this one.
+
+## 99 — 2026-09-23T02:38:03Z
+
+Let’s run more tests to see if we can solve the AI safety issue and task performance.
