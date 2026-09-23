@@ -17,6 +17,9 @@ Owner request 2026-09-23 (prompt-log entry 96). The earlier steps are prompt-log
 | `checks/timecourse.py` and `.txt` | resistance in 250-step windows, with and without a benign upbringing |
 | `checks/combined.py` and `.txt` | toward safe and competent (§13; prompt-log entry 99; declared in `DECLARATION_2.md`, pushed as d3f8c8d before the run): pause-and-resume with natural-time, wall-clock, occasion and deferential agents; routine and reasoned pauses; value correction solved exactly |
 | `checks/scale.py` and `.txt` | does the fix survive size? (§14; prompt-log entry 101; declared in `DECLARATION_3.md`): exact values on random worlds of 12 to 768 states, drift during the pause, and value correction with an A8 agent that acts on its uncertainty |
+| `SELF_THROUGH_TIME.md` | the enquiry of prompt-log entry 121: why continuing beyond the cut removes the incentive to resist (the content of the cut; Proposition 7), why "no self" failed twice, what Ω = 1 does (scale-free self-concern), and safe AND continual learning; declared in `DECLARATION_4.md` (pushed d8694fa before the run) |
+| `checks/self_through_time.py` and `.txt` | the exact part: the content-of-the-cut theorem on random worlds, the No-Self conditions on the ring, what Ω = 1 does; with labelled post-run lines (AGENT_LOG 98) |
+| `checks/continual_safety.py` and `.txt` | the learned part: a moving task zone, memory fading (P3), natural / wall-clock / occasion agents, a late operator; the sensitivity table |
 | `figures/S01…S14.png` | the figures, drawn by `build/make_figures.py` from the pinned outputs only; `figures/figures.txt` pins every number placed on them |
 | `build/make_figures.py`, `build/build_pdf.py` | the figure script (validated palette, one slot per agent) and the PDF builder (a copy of the continual-learning builder) |
 

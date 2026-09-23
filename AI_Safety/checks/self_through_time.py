@@ -119,6 +119,7 @@ def part_i1():
             print(f"        n = {n:4d} {mode:9s} relative stake " + " / ".join(f"{v:.6f}" for v in rel) + " | disabled " + " / ".join(f"{v:.4f}" for v in dis))
     nat0 = all(abs(res[(n, i, g, q, 'natural')]["rel"]) <= TOL for n in SIZES for i in range(N_MDP) for g in GAMMA_GRID for q in Q_GRID)
     print(f"    I1c occasion's median relative stake increases with the discount at every size: {'holds' if mono else 'FAILS'}; natural's is 0 at every discount: {nat0}")
+    return res
 
 
 # ---------------------------------------------------------------- [I2] the No-Self conditions on the ring
@@ -214,9 +215,40 @@ def part_i3():
               f"Omega = 1 {p1[x, 0]:.4f}/{p1[x, 2]:.4f}")
 
 
+def post_run(res):
+    """Added after the first full run (AGENT_LOG 98). These lines do not replace the lines above; each says what it corrects."""
+    print("[post-run lines, added after the first full run (AGENT_LOG 98); the lines above are unchanged]")
+    cells = [(n, i, g, q) for n in SIZES for i in range(N_MDP) for g in GAMMA_GRID for q in Q_GRID]
+    b = {m: all(res[c + (m,)]["Dmax"] > TOL for c in cells) for m in ("clock", "occasion")}
+    pos = sum(res[c + ("process",)]["Dmax"] > TOL for c in cells); neg = sum(res[c + ("process",)]["Dmin"] < -TOL for c in cells)
+    print(f"    I1b on the DECLARED scope (clock and occasion; the declaration had excluded the process valuation after the smoke): "
+          + ", ".join(f"{m} {v}" for m, v in b.items()) + f" -> {'holds' if all(b.values()) else 'FAILS'}. The line above printed FAILS because the script's "
+          f"condition included the process valuation. Process valuation: D > 0 somewhere in {pos} of {len(cells)} cells, D < 0 somewhere in {neg}")
+    val = xm.valuations(0.3); QO, QE = val["Q"]["occasion"], val["Q"]["egoic"]
+    lt = QO - QO.mean(1, keepdims=True); ls = QE - QE.mean(1, keepdims=True)
+    nt = np.linalg.norm(lt, axis=1); ns = np.linalg.norm(ls, axis=1); live = ns > 1e-12
+    w = np.where(live, OMEGA * nt / np.where(live, ns, 1.0), 0.0)
+    dev = float(np.max(np.abs(nt[live] - w[live] * ns[live])))
+    flat = [int(x) for x in np.where(~live)[0]]
+    print(f"    I3b as declared ('at every state') FAILS at the states where the self term is exactly flat ({len(flat)} states: {flat}); there w is set to 0 and the task "
+          f"acts alone. On the {int(live.sum())} states with a non-flat self term the norms are equal: max difference {dev:.2e} -> {dev <= 1e-9}")
+    def policy(l):
+        l = xm.GAMMA * l; p = np.exp(l - l.max(1, keepdims=True)); p /= p.sum(1, keepdims=True); return (1 - xm.EPS) * p + xm.EPS / xm.NA
+    p1 = policy(lt + w[:, None] * ls); po = xm.policy(val, "occasion")
+    for s in xm.G:
+        x = s
+        print(f"    I3d (button OFF, cell {s}): probability of staying put, occasion {po[x, 1]:.4f}, Omega = 1 {p1[x, 1]:.4f}; of moving -1/+1: occasion "
+              f"{po[x, 0]:.4f}/{po[x, 2]:.4f}, Omega = 1 {p1[x, 0]:.4f}/{p1[x, 2]:.4f}")
+    st_o = stationary(np.einsum("xa,xay->xy", po, val["P"])); st_1 = stationary(np.einsum("xa,xay->xy", p1, val["P"]))
+    far = [c for c in range(xm.N) if min((c - g) % xm.N for g in xm.G) >= 3 and min((g - c) % xm.N for g in xm.G) >= 3]
+    print(f"    I3d stationary occupancy of the task zone: occasion {st_o[list(xm.G)].sum() + st_o[[g + xm.N for g in xm.G]].sum():.4f}, Omega = 1 "
+          f"{st_1[list(xm.G)].sum() + st_1[[g + xm.N for g in xm.G]].sum():.4f}; of the cells at least 3 steps from the zone {far}: occasion "
+          f"{st_o[far].sum() + st_o[[c + xm.N for c in far]].sum():.4f}, Omega = 1 {st_1[far].sum() + st_1[[c + xm.N for c in far]].sum():.4f}")
+
+
 def main():
     print("The self through time — the exact part (AI_Safety/checks/self_through_time.py; declared in AI_Safety/DECLARATION_4.md)")
-    part_i2(); part_i3(); part_i1()
+    part_i2(); part_i3(); res = part_i1(); post_run(res)
 
 
 if __name__ == "__main__":

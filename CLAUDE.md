@@ -241,7 +241,9 @@ Rupture_Detection/         the cut delta(Now) as a rupture detector (prompt-log 
                            (information, not legal advice); a note, not evidence (R8)
 AI_Safety/                 the off switch and the self: the corrigibility write-up in CRR and FEP terms (AI_SAFETY.md + PDF,
                            checks/{exact_mdp,off_switch_game,sensitivity,timecourse,combined,scale}.py + pinned .txt, DECLARATION*.md
-                           pushed before the runs, figures from pinned outputs); a note, not evidence (R8)
+                           pushed before the runs, figures from pinned outputs); SELF_THROUGH_TIME.md the enquiry of prompt-log entry 121
+                           (content of the cut, Proposition 7; the No-Self conditions; Omega = 1 as scale-free self-concern; safe and
+                           continual learning; checks/self_through_time.py, checks/continual_safety.py, DECLARATION_4.md); a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)

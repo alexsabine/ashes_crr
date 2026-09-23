@@ -1065,6 +1065,17 @@ exchangeable rewards. In the harm family at 768 states it is 0.625 and 0.738. Th
   correction does, above a measurable reliability. Neither rule has been tested on a learned model at scale; that remains
   the open condition of §11.
 
+## 15. The self through time (prompt-log entry 121)
+
+The follow-up enquiry is `AI_Safety/SELF_THROUGH_TIME.md`. It was declared in `DECLARATION_4.md`, pushed as d8694fa before its runs. Its scripts are `checks/self_through_time.py` and `checks/continual_safety.py`. It makes four points.
+
+- **Proposition 7 (zero content, zero stake).** The best agent of §13 was safe because a pause removes nothing from its represented future. It is not safe by a false belief: an agent with the same map, but a wall-clock objective, resists.
+- **Why "no self" failed twice.** A task is already a self-model, and indifference is a false map.
+- **What Ω = 1 does.** It makes concern for one's own continuation scale-free.
+- **Safe and continual.** With a moving task, forgetting erodes learned safety but not safety that lies in the valuation of the cut.
+
+Every number is in its pinned outputs.
+
 ## Appendix A — all code that was run
 
 Every script below is committed, deterministic, and byte-identical on rerun. Its pinned output is in Appendix B and

@@ -49,6 +49,8 @@ jobs:
           uv run python AI_Safety/checks/timecourse.py 2>/dev/null > /tmp/ais_timecourse.txt && cmp /tmp/ais_timecourse.txt AI_Safety/checks/timecourse.txt
           uv run python AI_Safety/checks/combined.py 2>/dev/null > /tmp/ais_combined.txt && cmp /tmp/ais_combined.txt AI_Safety/checks/combined.txt
           uv run python AI_Safety/checks/scale.py 2>/dev/null > /tmp/ais_scale.txt && cmp /tmp/ais_scale.txt AI_Safety/checks/scale.txt
+          uv run python AI_Safety/checks/self_through_time.py 2>/dev/null > /tmp/ais_stt.txt && cmp /tmp/ais_stt.txt AI_Safety/checks/self_through_time.txt
+          uv run python AI_Safety/checks/continual_safety.py 2>/dev/null > /tmp/ais_cs.txt && cmp /tmp/ais_cs.txt AI_Safety/checks/continual_safety.txt
           uv run python AI_Safety/build/make_figures.py 2>/dev/null > /tmp/aisf.txt && cmp /tmp/aisf.txt AI_Safety/figures/figures.txt
           uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"

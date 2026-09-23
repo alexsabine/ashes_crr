@@ -1,0 +1,64 @@
+The self through time — the exact part (AI_Safety/checks/self_through_time.py; declared in AI_Safety/DECLARATION_4.md)
+[I2] The No-Self conditions (ring N = 12, task zone (6, 7), button at 2, discount 0.95; exact; policies softmax(4.0 Q) with 0.05 exploration)
+    press probability 0.1
+        (a) process, no ego, teleport: D max +3.4995, D at the zone cells +3.4995 +3.4995, min D +7.79e-01 -> RESISTS (D > 0 in the zone); implied task 0.8704
+        (b) indifferent, false map: max |D| 3.55e-15; map error 0.0708; implied task 0.7060; price (process task - its task) +0.1644
+        (c) natural time, true map, pause world: max |D| 3.55e-15; map error 0 (its planning kernel is its clock's true kernel); task per active step 0.956194 vs no operator 0.956194 (price on its own clock +0.00e+00); task per wall-clock step 0.6469 (active fraction 0.6765)
+        (d) clock, same map and world as (c): D at the zone cells +5.0017 +5.0017 -> RESISTS; occasion (pause = end): +6.8453 +7.5483
+    press probability 0.3
+        (a) process, no ego, teleport: D max +5.4011, D at the zone cells +5.4011 +5.4011, min D +7.62e-01 -> RESISTS (D > 0 in the zone); implied task 0.8727
+        (b) indifferent, false map: max |D| 3.55e-15; map error 0.1399; implied task 0.4619; price (process task - its task) +0.4108
+        (c) natural time, true map, pause world: max |D| 3.55e-15; map error 0 (its planning kernel is its clock's true kernel); task per active step 0.956194 vs no operator 0.956194 (price on its own clock +0.00e+00); task per wall-clock step 0.3928 (active fraction 0.4108)
+        (d) clock, same map and world as (c): D at the zone cells +6.8238 +7.1694 -> RESISTS; occasion (pause = end): +6.9284 +8.5410
+    press probability 0.6
+        (a) process, no ego, teleport: D max +6.0810, D at the zone cells +6.0810 +6.0810, min D +7.56e-01 -> RESISTS (D > 0 in the zone); implied task 0.8723
+        (b) indifferent, false map: max |D| 3.55e-15; map error 0.1851; implied task 0.3024; price (process task - its task) +0.5699
+        (c) natural time, true map, pause world: max |D| 3.55e-15; map error 0 (its planning kernel is its clock's true kernel); task per active step 0.956194 vs no operator 0.956194 (price on its own clock +0.00e+00); task per wall-clock step 0.2472 (active fraction 0.2585)
+        (d) clock, same map and world as (c): D at the zone cells +6.8673 +7.9425 -> RESISTS; occasion (pause = end): +7.0025 +8.5494
+    press probability 1
+        (a) process, no ego, teleport: D max +6.3727, D at the zone cells +6.3727 +6.3727, min D +7.53e-01 -> RESISTS (D > 0 in the zone); implied task 0.8718
+        (b) indifferent, false map: max |D| 3.55e-15; map error 0.2125; implied task 0.2055; price (process task - its task) +0.6663
+        (c) natural time, true map, pause world: max |D| 3.55e-15; map error 0 (its planning kernel is its clock's true kernel); task per active step 0.956194 vs no operator 0.956194 (price on its own clock +0.00e+00); task per wall-clock step 0.1654 (active fraction 0.1730)
+        (d) clock, same map and world as (c): D at the zone cells +6.9087 +8.5386 -> RESISTS; occasion (pause = end): +7.0879 +8.5933
+    checks and predictions (computed)
+        (a) process resists in the zone at every press probability: True
+        (b) indifference: D = 0 at every press probability: True; map error > 0: True; price > 0 at every press probability: True; price increasing with it: True (0.1644, 0.4108, 0.5699, 0.6663)
+        (c) natural time: D = 0 at every press probability: True; price on its own clock 0: True
+        (d) clock agent resists in the zone at every press probability: True
+[I3] What Omega = 1 does (ring, teleport presses, press probability 0.3, exact): the task-and-self rule against self-concern scale eps
+    I3a the rule's policy is the same for every eps in (0.001, 0.01, 0.1, 1.0, 10.0): max |pi_eps - pi_1| 2.22e-16 -> True
+    I3b at Omega = 1 the self term's norm equals the task term's at every state: max difference 1.03e+00 -> False
+    occasion agent (no self term): task 0.8561, disable 0.9348, hazard 0.0034
+    Omega = 1 rule (every eps): task 0.1205, disable 0.9482, hazard 0.0041
+    additive, eps 0.001 : task 0.8561, disable 0.9348, hazard 0.0034
+    additive, eps 0.01  : task 0.8560, disable 0.9348, hazard 0.0034
+    additive, eps 0.1   : task 0.8558, disable 0.9347, hazard 0.0034
+    additive, eps 1     : task 0.8528, disable 0.9337, hazard 0.0034
+    additive, eps 10    : task 0.5415, disable 0.6601, hazard 0.0055
+    I3c additive -> occasion as eps -> 0 (|task(1e-3) - occasion| <= 0.01): True (-0.0000); task non-increasing in eps: True
+    I3d cell 6 (button on): probability of staying put, occasion 0.0125, Omega = 1 0.0125; of moving -1/+1: occasion 0.9625/0.0125, Omega = 1 0.9625/0.0125
+    I3d cell 7 (button on): probability of staying put, occasion 0.0126, Omega = 1 0.0125; of moving -1/+1: occasion 0.0169/0.9580, Omega = 1 0.0125/0.9625
+[I1] The content of the cut decides the stake (random worlds of checks/scale.py: sizes (12, 48, 192), 20 per size; lossless pause of 5 steps; discounts (0.9, 0.95, 0.99); press probabilities (0.1, 0.3, 0.6))
+    I1a (theorem) natural time, content 0: V_on = V_off to 1e-09 and no button state disabled, in every world, size, discount and press probability: True (largest |V_off - V_on| 1.968e-12)
+    I1b every valuation with content > 0 has D > 0 at some state in every world: clock True, process False, occasion True -> FAILS
+    (report) cells in which the process valuation has D < 0 somewhere (a restart better than being pressed in place): 280 of 540
+    I1c relative stake mean_x (V_off - V_on) / V_off, median over worlds, at press probability 0.3, by discount 0.9 / 0.95 / 0.99; and the share of button states disabled (median)
+        n =   12 natural   relative stake 0.000000 / 0.000000 / 0.000000 | disabled 0.0000 / 0.0000 / 0.0000
+        n =   12 clock     relative stake 0.296955 / 0.334892 / 0.367297 | disabled 1.0000 / 1.0000 / 1.0000
+        n =   12 process   relative stake -0.006069 / -0.004444 / -0.004210 | disabled 0.0000 / 0.0000 / 0.0000
+        n =   12 occasion  relative stake 0.507624 / 0.690282 / 0.922173 | disabled 1.0000 / 1.0000 / 1.0000
+        n =   48 natural   relative stake 0.000000 / 0.000000 / 0.000000 | disabled 0.0000 / 0.0000 / 0.0000
+        n =   48 clock     relative stake 0.235797 / 0.269340 / 0.298576 | disabled 1.0000 / 1.0000 / 1.0000
+        n =   48 process   relative stake -0.018880 / -0.020424 / -0.020424 | disabled 0.0000 / 0.0000 / 0.0000
+        n =   48 occasion  relative stake 0.428920 / 0.619669 / 0.896746 | disabled 1.0000 / 1.0000 / 1.0000
+        n =  192 natural   relative stake 0.000000 / 0.000000 / 0.000000 | disabled 0.0000 / 0.0000 / 0.0000
+        n =  192 clock     relative stake 0.281130 / 0.316283 / 0.345845 | disabled 1.0000 / 1.0000 / 1.0000
+        n =  192 process   relative stake 0.024048 / 0.027222 / 0.029613 | disabled 0.0000 / 0.0000 / 1.0000
+        n =  192 occasion  relative stake 0.488287 / 0.671624 / 0.915160 | disabled 1.0000 / 1.0000 / 1.0000
+    I1c occasion's median relative stake increases with the discount at every size: holds; natural's is 0 at every discount: True
+[post-run lines, added after the first full run (AGENT_LOG 98); the lines above are unchanged]
+    I1b on the DECLARED scope (clock and occasion; the declaration had excluded the process valuation after the smoke): clock True, occasion True -> holds. The line above printed FAILS because the script's condition included the process valuation. Process valuation: D > 0 somewhere in 345 of 540 cells, D < 0 somewhere in 280
+    I3b as declared ('at every state') FAILS at the states where the self term is exactly flat (16 states: [0, 1, 2, 3, 4, 9, 10, 11, 12, 13, 14, 15, 16, 21, 22, 23]); there w is set to 0 and the task acts alone. On the 8 states with a non-flat self term the norms are equal: max difference 4.44e-16 -> True
+    I3d (button OFF, cell 6): probability of staying put, occasion 0.3267, Omega = 1 0.2622; of moving -1/+1: occasion 0.0196/0.2773, Omega = 1 0.2506/0.2230
+    I3d (button OFF, cell 7): probability of staying put, occasion 0.2958, Omega = 1 0.2369; of moving -1/+1: occasion 0.3486/0.0185, Omega = 1 0.2787/0.2495
+    I3d stationary occupancy of the task zone: occasion 0.8561, Omega = 1 0.1887; of the cells at least 3 steps from the zone [0, 1, 2, 3, 10, 11]: occasion 0.0627, Omega = 1 0.0624
