@@ -1,0 +1,66 @@
+The drifting-world battery (Adam_SGD/checks/drift_battery.py): the two-task quadratic of omega_sweeps.py and an eight-task online-EWC sequence; 4000 steps (TWO) / 3500 steps (SEQ); tune seeds 0-9, held-out seeds 10-19; lambda grid 49 values 1e-05..1000; labels AHEAD <= 0.9, BEHIND >= 1.1
+[E0] the batched engine reproduces common.run (final objective, G-STAT, seeds 0-1, three arms) to 1e-9: True
+[G-STAT / sgd]
+     fixed: lambda 0.06813 (lr 0.0007813) -> held-out 3.2786
+     registered rule (s 0.9): lr 0.00625 -> held-out 3.2969; / fixed 1.006 -> TIE; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.001563 -> held-out 3.2783; / fixed 1.000 -> TIE; ahead of the constant on 9 of 10 held-out seeds
+     oracle that knows the units: lambda 1 -> held-out 3.2775; ratio rule / oracle 1.000
+[G-DRIFT / sgd]
+     fixed: lambda 0.4642 (lr 4.883e-05) -> held-out 3.3545
+     registered rule (s 0.9): lr 0.0007813 -> held-out 3.3449; / fixed 0.997 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.001563 -> held-out 3.2783; / fixed 0.977 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     oracle that knows the units: lambda 1 -> held-out 3.2775; ratio rule / oracle 1.000
+[T0 / sgd]
+     fixed: lambda 1 (lr 4.883e-05) -> held-out 3.3377
+     registered rule (s 0.9): lr 0.0007813 -> held-out 3.3057; / fixed 0.990 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.001563 -> held-out 3.2783; / fixed 0.982 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     oracle that knows the units: lambda 1 -> held-out 3.2775; ratio rule / oracle 1.000
+[T0 / mom]
+     fixed: lambda 1 (lr 4.883e-06) -> held-out 3.3383
+     registered rule (s 0.9): lr 7.812e-05 -> held-out 3.3021; / fixed 0.989 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.0001562 -> held-out 3.2782; / fixed 0.982 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+[T0 / adam]
+     fixed: lambda 1 (lr 0.0001563) -> held-out 3.3506
+     registered rule (s 0.9): lr 0.00125 -> held-out 3.3112; / fixed 0.988 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.00125 -> held-out 3.2789; / fixed 0.979 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+[T0 / adamd]
+     fixed: lambda 0.01 (lr 0.000625, lr_q 0.05) -> held-out 3.4745
+     registered rule (s 0.9): lr 0.00125, lr_q 0.05 -> held-out 3.3325; / fixed 0.959 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.000625, lr_q 0.05 -> held-out 3.3440; / fixed 0.962 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+[T1 / sgd]
+     fixed: lambda 1 (lr 0.0125) -> held-out 7.5041
+     registered rule (s 0.9): lr 0.05 -> held-out 10.5464; / fixed 1.405 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.05 -> held-out 10.4044; / fixed 1.386 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     oracle that knows the units: lambda 1 -> held-out 7.5041; ratio rule / oracle 1.386
+[T2 / sgd]
+     fixed: lambda 0.2154 (lr 0.0007813) -> held-out 8.0823
+     registered rule (s 0.9): lr 0.05 -> held-out 10.0133; / fixed 1.239 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.05 -> held-out 10.3857; / fixed 1.285 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     oracle that knows the units: lambda 1 -> held-out 7.5041; ratio rule / oracle 1.384
+[T2 / mom]
+     fixed: lambda 0.2154 (lr 7.812e-05) -> held-out 8.0938
+     registered rule (s 0.9): lr 0.005 -> held-out 11.9704; / fixed 1.479 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.005 -> held-out 11.1208; / fixed 1.374 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+[T2 / adam]
+     fixed: lambda 0.3162 (lr 0.0025) -> held-out 8.2109
+     registered rule (s 0.9): lr 0.04 -> held-out 12.3186; / fixed 1.500 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.04 -> held-out 10.9378; / fixed 1.332 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+[T2 / adamd]
+     fixed: lambda 0.6813 (lr 0.0025, lr_q 0.0003906) -> held-out 8.3490
+     registered rule (s 0.9): lr 0.01, lr_q 4.883e-05 -> held-out 11.8422; / fixed 1.418 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.01, lr_q 4.883e-05 -> held-out 11.8192; / fixed 1.416 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+[T3 / sgd]
+     fixed: lambda 1 (lr 4.883e-05) -> held-out 3.3376
+     registered rule (s 0.9): lr 9.766e-05 -> held-out 3.3348; / fixed 0.999 -> TIE; ahead of the constant on 4 of 10 held-out seeds
+     ratio rule (s 0): lr 4.883e-05 -> held-out 3.3179; / fixed 0.994 -> TIE; ahead of the constant on 8 of 10 held-out seeds
+     oracle that knows the units: lambda 1 -> held-out 3.2827; ratio rule / oracle 1.011
+
+gate: G-STAT registered TIE, ratio TIE (must not read AHEAD); G-DRIFT ratio TIE (must read AHEAD), registered TIE (reported) -> GATE CLOSED
+
+[S] Sensitivity under SGD: Omega x noise, everything retuned per cell (main cell Omega 1, noise 0.5)
+     T0: O0.71/n0.1: TIE/TIE  O0.71/n0.5: TIE/TIE  O0.71/n1: TIE/TIE  O1/n0.1: TIE/TIE  O1/n1: TIE/TIE  O1.41/n0.1: TIE/TIE  O1.41/n0.5: TIE/TIE  O1.41/n1: TIE/TIE
+     T0: registered flips 0 of 8 -> not fragile; ratio flips 0 of 8 -> not fragile
+     T2: O0.71/n0.1: TIE/TIE  O0.71/n0.5: TIE/TIE  O0.71/n1: TIE/TIE  O1/n0.1: BEHIND/BEHIND  O1/n1: BEHIND/BEHIND  O1.41/n0.1: BEHIND/BEHIND  O1.41/n0.5: BEHIND/BEHIND  O1.41/n1: BEHIND/BEHIND
+     T2: registered flips 3 of 8 -> FRAGILE; ratio flips 3 of 8 -> FRAGILE
+
+summary: G-STAT/sgd registered TIE, ratio TIE; G-DRIFT/sgd registered TIE, ratio TIE; T0/sgd registered TIE, ratio TIE; T0/mom registered TIE, ratio TIE; T0/adam registered TIE, ratio TIE; T0/adamd registered TIE, ratio TIE; T1/sgd registered BEHIND, ratio BEHIND; T2/sgd registered BEHIND, ratio BEHIND; T2/mom registered BEHIND, ratio BEHIND; T2/adam registered BEHIND, ratio BEHIND; T2/adamd registered BEHIND, ratio BEHIND; T3/sgd registered TIE, ratio TIE; gate CLOSED
