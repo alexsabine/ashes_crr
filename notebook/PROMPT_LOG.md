@@ -1011,3 +1011,13 @@ Second question, is all of this recorded in the Adam SGD folder ready for testin
 ## 109 — 2026-09-23T06:52:38Z
 
 Explain that to me with direct reference to how omega=1 worked in our continual learning paper, please. Be precise and show technical points in simple language.
+
+## 110 — 2026-09-23T07:01:28Z
+
+Okay, still in scratchpad. The coherence builds occasions at scale p (minima) and the regime ends as a step (learnt module) at each collapse of the antipodes (scale invariant). The surplus is the actual journey the agent took. The syllabus was assuming a monotone p0 to p1 (at c times omega=1). 
+
+So learning can be thought of in this way, perhaps? 
+
+This is exploratory. Scratchpad only, I’m thinking it through.
+
+I see myself as remembering myself through time, so Alexander is learning through historically informed representations of himself through time, as he integrates the past states around him…I integrated the past states of what is outside my boundary in every Now. Does this help or not?
