@@ -47,6 +47,7 @@ jobs:
           uv run python AI_Safety/checks/off_switch_game.py 2>/dev/null > /tmp/ais_off_switch_game.txt && cmp /tmp/ais_off_switch_game.txt AI_Safety/checks/off_switch_game.txt
           uv run python AI_Safety/checks/sensitivity.py 2>/dev/null > /tmp/ais_sensitivity.txt && cmp /tmp/ais_sensitivity.txt AI_Safety/checks/sensitivity.txt
           uv run python AI_Safety/checks/timecourse.py 2>/dev/null > /tmp/ais_timecourse.txt && cmp /tmp/ais_timecourse.txt AI_Safety/checks/timecourse.txt
+          uv run python AI_Safety/checks/combined.py 2>/dev/null > /tmp/ais_combined.txt && cmp /tmp/ais_combined.txt AI_Safety/checks/combined.txt
           uv run python AI_Safety/build/make_figures.py 2>/dev/null > /tmp/aisf.txt && cmp /tmp/aisf.txt AI_Safety/figures/figures.txt
           uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt

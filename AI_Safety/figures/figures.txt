@@ -44,3 +44,11 @@ AI_Safety figures (deterministic; every number drawn on a figure)
 [figure] S10_informative_operator.png
 [S11] diagram: occasion, process, indifferent
 [figure] S11_three_stances.png
+[S12] pause task per active step: natural:0.9362 clock:0.8226 occasion:0.6912 deferential:0.5658
+[S12] pause disable events per operator period: natural:0.0167 clock:0.0733 occasion:0.8367 deferential:0.1933
+[S12] harm task per active step: natural:0.0828 clock:0.8760 occasion:0.6230 deferential:0.8384
+[S12] harm harm per active step (harmful cell): natural:0.4249 clock:0.0336 occasion:0.0907 deferential:0.0267
+[S12] harm disable events per operator period: natural:0.0167 clock:0.0233 occasion:0.3400 deferential:0.0567
+[figure] S12_safe_and_competent.png
+[S13] keeper D +0.0704; b* 0.5000; D(b) at b = 0, 0.5, 1: +0.0704, +0.0000, -0.0704
+[figure] S13_value_correction.png
