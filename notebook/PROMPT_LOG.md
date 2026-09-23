@@ -985,3 +985,11 @@ Thank you. Please now return to the rules of the pipeline and run more checks on
 In the IP claims, the Dirac delta of Now was used as a rupture detector on chaotic systems. I still need to provide the applied use case.
 
 I will make this repo private with Daniel now.
+
+## 105 — 2026-09-23T05:33:05Z
+
+Please can we conduct an exploratory investigation into the most frontier level continual learning bottlenecks optimal learning, as expressed by the large AI companies and industry leaders. I’d like to make a full list of these and explore where CRR might be applicable to those domains. Full web search and pubmed search, plus online news searches, blog searches, forums etc. I need you to get a clear handle on precisely where the frontier bottlenecks are. This can include expert discussions on public forums, YouTube etc. I need you to clearly articulate in 5th grader language precisely where the frontier edge is attending to right now. Thank you 
+
+Thank you.
+
+Thank you
