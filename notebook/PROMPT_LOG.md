@@ -1007,3 +1007,7 @@ Yes please. Make a new folder for Adam/SGD and ensure our synthetic data checks 
 Great. Scratchpad. Explain your idea of letting omega grow to me as an educator and human being please. Simple terms.
 
 Second question, is all of this recorded in the Adam SGD folder ready for testing in real data tomorrow?
+
+## 109 — 2026-09-23T06:52:38Z
+
+Explain that to me with direct reference to how omega=1 worked in our continual learning paper, please. Be precise and show technical points in simple language.
