@@ -1053,3 +1053,7 @@ Can we run more AI safety checks on a continual learner using CRR principles to 
 ## 115 — 2026-09-23T14:40:48Z
 
 So is it fair to say that crr is a falsifiable metaphysical heuristic that is proving helpful to determine optimal settings for AI safety and continuous learning?
+
+## 116 — 2026-09-23T14:45:38Z
+
+Please run predictive tests on the omega=1 principle on a variety of physical and biological systems.
