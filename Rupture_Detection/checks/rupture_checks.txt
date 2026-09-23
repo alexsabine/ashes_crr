@@ -1,0 +1,85 @@
+delta(Now) as a rupture detector: Phase-A battery (Rupture_Detection/checks/rupture_checks.py); synthetic carriers, no data
+constants: SPP 50, N_PER 250, train 0.3, change at 0.6, noise 0.01, speed jitter 0.3 (ECG 0.1), amplitude jitter 0.2, OU tau 3.0 periods, N_NULL 40, N_CHG 40, FA quantile 0.95, k main 0.5, grid (0.25, 0.5, 1.0), AHEAD <= 0.8, BEHIND >= 1.25
+
+[NC1] sine + 2nd harmonic, constant speed (must not read AHEAD)
+     [R0] delta cuts per true half-turn 0.9998; peak cuts per delta cut 1.0000; mean occasion length 25 samples
+          size primary k 0.25: delta med 9.000 det 38/40 early 1; clock med 1.000 det 36/40 early 4; peak med 8.780 det 35/40 early 5; ews med 2.000 det 39/40 early 1 | best baseline clock, delta/best 9.000 -> BEHIND
+     MAIN size primary k 0.5 : delta med 100.000 det 5/40 early 1; clock med 1.000 det 36/40 early 4; peak med 8.140 det 35/40 early 5; ews med 1.000 det 38/40 early 2 | best baseline clock, delta/best 100.000 -> BEHIND
+          size primary k 1   : delta med 100.000 det 5/40 early 1; clock med 1.000 det 36/40 early 4; peak med 7.780 det 35/40 early 5; ews med 1.000 det 28/40 early 12 | best baseline clock, delta/best 100.000 -> BEHIND
+          size secondary k 0.25: delta med 1.000 det 37/40 early 3; clock med 100.000 det 3/40 early 37; peak med 3.130 det 35/40 early 5; ews med 1.000 det 36/40 early 4 | best baseline ews, delta/best 1.000 -> TIE
+          size secondary k 0.5 : delta med 1.000 det 40/40 early 0; clock med 100.000 det 3/40 early 37; peak med 3.120 det 35/40 early 5; ews med 100.000 det 6/40 early 34 | best baseline peak, delta/best 0.321 -> AHEAD
+          size secondary k 1   : delta med 1.000 det 40/40 early 0; clock med 100.000 det 3/40 early 37; peak med 2.780 det 35/40 early 5; ews med 100.000 det 0/40 early 40 | best baseline peak, delta/best 0.360 -> AHEAD
+     label BEHIND; flips in 3 of 5 other cells -> FRAGILE
+
+[NC2] NC1 with amplitude jitter, constant speed (must not read AHEAD)
+     [R0] delta cuts per true half-turn 0.9998; peak cuts per delta cut 0.9980; mean occasion length 25 samples
+          size primary k 0.25: delta med 100.000 det 5/40 early 0; clock med 100.000 det 4/40 early 0; peak med 100.000 det 2/40 early 0; ews med 97.000 det 23/40 early 0 | best baseline ews, delta/best 1.031 -> TIE
+     MAIN size primary k 0.5 : delta med 100.000 det 3/40 early 0; clock med 100.000 det 1/40 early 1; peak med 100.000 det 2/40 early 0; ews med 85.000 det 38/40 early 0 | best baseline ews, delta/best 1.176 -> TIE
+          size primary k 1   : delta med 100.000 det 1/40 early 1; clock med 100.000 det 1/40 early 1; peak med 100.000 det 0/40 early 0; ews med 100.000 det 18/40 early 1 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.25: delta med 100.000 det 9/40 early 0; clock med 100.000 det 11/40 early 0; peak med 100.000 det 6/40 early 0; ews med 33.000 det 40/40 early 0 | best baseline ews, delta/best 3.030 -> BEHIND
+          size secondary k 0.5 : delta med 100.000 det 9/40 early 0; clock med 100.000 det 8/40 early 1; peak med 100.000 det 7/40 early 0; ews med 24.000 det 40/40 early 0 | best baseline ews, delta/best 4.167 -> BEHIND
+          size secondary k 1   : delta med 100.000 det 3/40 early 1; clock med 100.000 det 8/40 early 1; peak med 100.000 det 4/40 early 0; ews med 14.000 det 39/40 early 1 | best baseline ews, delta/best 7.143 -> BEHIND
+     label TIE; flips in 3 of 5 other cells -> FRAGILE
+
+[PC1] NC1 with speed jitter (must read AHEAD)
+     [R0] delta cuts per true half-turn 0.9998; peak cuts per delta cut 0.9981; mean occasion length 27 samples
+          size primary k 0.25: delta med 25.280 det 36/40 early 1; clock med 104.167 det 2/40 early 0; peak med 9.738 det 38/40 early 2; ews med 104.167 det 2/40 early 0 | best baseline peak, delta/best 2.596 -> BEHIND
+     MAIN size primary k 0.5 : delta med 100.000 det 8/40 early 1; clock med 104.167 det 2/40 early 0; peak med 6.917 det 38/40 early 2; ews med 104.167 det 2/40 early 1 | best baseline peak, delta/best 14.458 -> BEHIND
+          size primary k 1   : delta med 104.167 det 2/40 early 0; clock med 104.167 det 0/40 early 1; peak med 5.772 det 38/40 early 2; ews med 104.167 det 1/40 early 1 | best baseline peak, delta/best 18.048 -> BEHIND
+          size secondary k 0.25: delta med 3.047 det 40/40 early 0; clock med 104.167 det 5/40 early 0; peak med 3.652 det 38/40 early 2; ews med 93.171 det 23/40 early 0 | best baseline peak, delta/best 0.834 -> TIE
+          size secondary k 0.5 : delta med 2.581 det 39/40 early 1; clock med 104.167 det 5/40 early 0; peak med 2.597 det 38/40 early 2; ews med 100.000 det 11/40 early 1 | best baseline peak, delta/best 0.994 -> TIE
+          size secondary k 1   : delta med 18.078 det 33/40 early 0; clock med 104.167 det 2/40 early 1; peak med 2.056 det 38/40 early 2; ews med 104.167 det 1/40 early 1 | best baseline peak, delta/best 8.794 -> BEHIND
+     label BEHIND; flips in 2 of 5 other cells -> FRAGILE
+
+[T1] Rossler x, natural speed, c 5.7 -> 5.4 (secondary 5.0)
+     [R0] delta cuts per true half-turn 1.0000; peak cuts per delta cut 0.9961; mean occasion length 24 samples
+          size primary k 0.25: delta med 82.802 det 21/40 early 0; clock med 104.167 det 13/40 early 2; peak med 104.167 det 18/40 early 2; ews med 104.167 det 4/40 early 4 | best baseline clock, delta/best 0.795 -> AHEAD
+     MAIN size primary k 0.5 : delta med 104.167 det 0/40 early 0; clock med 104.167 det 6/40 early 2; peak med 104.167 det 5/40 early 2; ews med 104.167 det 3/40 early 5 | best baseline clock, delta/best 1.000 -> TIE
+          size primary k 1   : delta med 104.167 det 0/40 early 0; clock med 104.167 det 0/40 early 0; peak med 104.167 det 5/40 early 1; ews med 104.167 det 1/40 early 7 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.25: delta med 104.167 det 0/40 early 0; clock med 104.167 det 16/40 early 2; peak med 104.167 det 6/40 early 2; ews med 104.167 det 2/40 early 4 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.5 : delta med 104.167 det 0/40 early 0; clock med 104.167 det 14/40 early 2; peak med 104.167 det 7/40 early 2; ews med 104.167 det 1/40 early 5 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 1   : delta med 104.167 det 0/40 early 0; clock med 104.167 det 1/40 early 0; peak med 104.167 det 8/40 early 1; ews med 104.167 det 0/40 early 7 | best baseline clock, delta/best 1.000 -> TIE
+     label TIE; flips in 1 of 5 other cells -> not fragile
+
+[T2] Rossler x with speed jitter, same change
+     [R0] delta cuts per true half-turn 1.0001; peak cuts per delta cut 0.9982; mean occasion length 23 samples
+          size primary k 0.25: delta med 60.629 det 26/40 early 2; clock med 108.696 det 1/40 early 0; peak med 108.696 det 5/40 early 2; ews med 108.696 det 5/40 early 0 | best baseline clock, delta/best 0.558 -> AHEAD
+     MAIN size primary k 0.5 : delta med 108.696 det 3/40 early 5; clock med 108.696 det 1/40 early 0; peak med 108.696 det 5/40 early 2; ews med 108.696 det 4/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+          size primary k 1   : delta med 108.696 det 3/40 early 3; clock med 108.696 det 0/40 early 1; peak med 108.696 det 5/40 early 2; ews med 108.696 det 1/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.25: delta med 108.696 det 0/40 early 1; clock med 108.696 det 1/40 early 0; peak med 108.696 det 7/40 early 2; ews med 108.696 det 1/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.5 : delta med 108.696 det 1/40 early 1; clock med 108.696 det 1/40 early 0; peak med 108.696 det 7/40 early 2; ews med 108.696 det 0/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 1   : delta med 108.696 det 0/40 early 0; clock med 108.696 det 0/40 early 1; peak med 108.696 det 8/40 early 2; ews med 108.696 det 0/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+     label TIE; flips in 1 of 5 other cells -> not fragile
+
+[T3] Lorenz z, natural speed, rho 28 -> 30 (secondary 33)
+     [R0] delta cuts per true half-turn 0.9918; peak cuts per delta cut 0.9920; mean occasion length 25 samples
+          size primary k 0.25: delta med 100.000 det 4/40 early 0; clock med 100.000 det 9/40 early 0; peak med 100.000 det 8/40 early 1; ews med 100.000 det 1/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+     MAIN size primary k 0.5 : delta med 100.000 det 6/40 early 0; clock med 100.000 det 3/40 early 1; peak med 100.000 det 8/40 early 1; ews med 100.000 det 1/40 early 0 | best baseline clock, delta/best 1.000 -> TIE
+          size primary k 1   : delta med 100.000 det 5/40 early 0; clock med 100.000 det 4/40 early 2; peak med 100.000 det 9/40 early 1; ews med 100.000 det 0/40 early 1 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.25: delta med 16.110 det 33/40 early 7; clock med 81.375 det 28/40 early 0; peak med 100.000 det 7/40 early 1; ews med 100.000 det 2/40 early 0 | best baseline clock, delta/best 0.198 -> AHEAD
+          size secondary k 0.5 : delta med 12.040 det 31/40 early 9; clock med 100.000 det 12/40 early 1; peak med 100.000 det 7/40 early 1; ews med 100.000 det 1/40 early 0 | best baseline clock, delta/best 0.120 -> AHEAD
+          size secondary k 1   : delta med 57.980 det 24/40 early 6; clock med 100.000 det 5/40 early 2; peak med 100.000 det 7/40 early 1; ews med 100.000 det 0/40 early 1 | best baseline clock, delta/best 0.580 -> AHEAD
+     label TIE; flips in 3 of 5 other cells -> FRAGILE
+
+[T4] Lorenz z with speed jitter, same change
+     [R0] delta cuts per true half-turn 0.9963; peak cuts per delta cut 0.9852; mean occasion length 24 samples
+          size primary k 0.25: delta med 100.000 det 13/40 early 7; clock med 104.167 det 3/40 early 0; peak med 104.167 det 2/40 early 3; ews med 104.167 det 3/40 early 2 | best baseline clock, delta/best 0.960 -> TIE
+     MAIN size primary k 0.5 : delta med 104.167 det 2/40 early 4; clock med 104.167 det 2/40 early 0; peak med 104.167 det 2/40 early 3; ews med 104.167 det 2/40 early 2 | best baseline clock, delta/best 1.000 -> TIE
+          size primary k 1   : delta med 104.167 det 3/40 early 3; clock med 104.167 det 1/40 early 0; peak med 104.167 det 2/40 early 3; ews med 104.167 det 1/40 early 1 | best baseline clock, delta/best 1.000 -> TIE
+          size secondary k 0.25: delta med 11.773 det 32/40 early 8; clock med 104.167 det 9/40 early 0; peak med 104.167 det 2/40 early 3; ews med 95.555 det 20/40 early 2 | best baseline ews, delta/best 0.123 -> AHEAD
+          size secondary k 0.5 : delta med 9.688 det 36/40 early 4; clock med 104.167 det 13/40 early 0; peak med 104.167 det 2/40 early 3; ews med 104.167 det 11/40 early 2 | best baseline clock, delta/best 0.093 -> AHEAD
+          size secondary k 1   : delta med 79.793 det 23/40 early 3; clock med 104.167 det 4/40 early 0; peak med 104.167 det 2/40 early 3; ews med 104.167 det 4/40 early 1 | best baseline clock, delta/best 0.766 -> AHEAD
+     label TIE; flips in 3 of 5 other cells -> FRAGILE
+
+[T5] ECG-like beat with heart-rate variability, T wave 0.30 -> 0.36 (secondary 0.45)
+     [R0] delta cuts per true half-turn 1.9997; peak cuts per delta cut 0.5000; mean occasion length 13 samples
+          size primary k 0.25: delta med 208.333 det 2/40 early 0; clock med 208.333 det 1/40 early 0; peak med 1.402 det 35/40 early 5; ews med 208.333 det 2/40 early 3 | best baseline peak, delta/best 148.571 -> BEHIND
+     MAIN size primary k 0.5 : delta med 208.333 det 3/40 early 1; clock med 208.333 det 1/40 early 0; peak med 1.095 det 37/40 early 3; ews med 208.333 det 1/40 early 1 | best baseline peak, delta/best 190.297 -> BEHIND
+          size primary k 1   : delta med 208.333 det 2/40 early 4; clock med 208.333 det 0/40 early 2; peak med 1.212 det 36/40 early 4; ews med 208.333 det 0/40 early 0 | best baseline peak, delta/best 171.958 -> BEHIND
+          size secondary k 0.25: delta med 208.333 det 1/40 early 0; clock med 208.333 det 3/40 early 0; peak med 1.479 det 35/40 early 5; ews med 184.519 det 23/40 early 3 | best baseline peak, delta/best 140.845 -> BEHIND
+          size secondary k 0.5 : delta med 208.333 det 2/40 early 0; clock med 208.333 det 5/40 early 0; peak med 1.095 det 36/40 early 4; ews med 208.333 det 0/40 early 1 | best baseline peak, delta/best 190.297 -> BEHIND
+          size secondary k 1   : delta med 208.333 det 2/40 early 3; clock med 208.333 det 0/40 early 2; peak med 1.212 det 35/40 early 5; ews med 208.333 det 0/40 early 0 | best baseline peak, delta/best 171.958 -> BEHIND
+     label BEHIND; flips in 0 of 5 other cells -> not fragile
+
+gate: NC1 BEHIND, NC2 TIE (must not read AHEAD); PC1 BEHIND (must read AHEAD) -> GATE CLOSED
+summary: NC1 BEHIND (fragile), NC2 TIE (fragile), PC1 BEHIND (fragile), T1 TIE, T2 TIE, T3 TIE (fragile), T4 TIE (fragile), T5 BEHIND; gate CLOSED

@@ -774,6 +774,11 @@ the evidence now argues against. Read them as a ceiling on a scenario the eviden
 so accuracy cannot be the technical effect. The applied use case the owner asked for is examined separately, for the cut
 δ(Now) as a rupture detector, in `Rupture_Detection/RUPTURE_DETECTION.md`.
 
+**The rupture detector (the last row of the §11.4 table).** Its declared Phase-A battery closed its gate. On the positive
+control, the cut-based detector was 14.458 times slower than the conventional peak detector. No chaotic carrier read AHEAD
+in the main cell, and on an ECG-like beat the peak detector was 190.297 times faster. So the repository offers no evidence
+of a technical effect for that use, and a heart-monitoring use case should not rest on it (`Rupture_Detection/`).
+
 ## Appendix A — the code
 
 ```include:Alexander Plan/model/projections.py
