@@ -1057,3 +1057,7 @@ So is it fair to say that crr is a falsifiable metaphysical heuristic that is pr
 ## 116 — 2026-09-23T14:45:38Z
 
 Please run predictive tests on the omega=1 principle on a variety of physical and biological systems.
+
+## 117 — 2026-09-23T14:55:04Z
+
+Run scratchpad tests on synthetic data for continual learning using that rule please
