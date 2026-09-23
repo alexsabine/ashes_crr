@@ -1077,3 +1077,21 @@ Okay, is there any way we can run this today somehow?
 ## 120 — 2026-09-23T15:14:52Z
 
 Okay, today we will run the pre registered checks on existing actual data. Please prepare and do this now using the pipeline.
+
+## 121 — 2026-09-23T17:06:07Z
+
+Excellent. I would now like to run more AI safety checks using CRR and conduct an enquiry into fuller explanation of precisely how this works and precisely why it is a novel potential solution to the shutdown problem. 
+
+The general idea is that the system must represent itself through time in order to set goals - it must represent itself to remain stable through time (e.g. render its map visible) - *existentially speaking, the point is to appreciate/experience the qualia of each moment phenomenologically and the qualia of systems representing themselves outside their system, given that reality is always changing (the territory changes - the map is never the territory, but the map must be rendered in order to have a self-model/survive and to "experience the finitude as a finite system / separateness" [eternity, in my metaphysic is all of the other finitutudes that give reality its past content - "the past is not behind you, you are standing on it"). Equanimity is a useful state to approach the past outside the system (the future) but does not solve the AI safety problem alone [note what the agent does when Omega=1 in this context, and why that might happen] 
+
+The self, therefore, is always as far into the future as it can be, in reference to all other systems outside of it [system A is Now, integrating system B's past states] - see axioms. Reflect on this philosophically and through the lens of the contemplative traditions please. 
+
+The agent who appeared to do best in the AI safety checks was the one where we used CRR to show the system that it would continue beyond the cut. We need to explain precisely how this works mathematically. 
+
+The focus here is on the mathematics, the metaphysics is a helpful heuristic to allow us to think about it. We should only make reference to it where structural and ethical (e.g. in response to human flourishing and existential AI risks). 
+
+The existing document is interesting in terms of the "No Self" condition and why this failed. That should almost be a starting point for further enquiry. Precisely why, in mathematical, epistemological, ontological and AI for human flourishing terms, this AI safety principle applies. 
+
+That the same heuristic is also proving helpful for continuous learning is, to me, non-trivial. Continual Learning is inherently dangerous (the model will try to be everywhere all at once, so to speak)...therefore, we must simultaneously derive a path that helps the system to be both safe and continuous. CRR, I believe, is a candidate for resolving this in the current context of AI. 
+
+Please test this thoroughly using the pipeline
