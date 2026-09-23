@@ -44,6 +44,7 @@ uv run python AI_Safety/checks/scale.py 2>/dev/null | cmp - AI_Safety/checks/sca
 uv run python AI_Safety/build/make_figures.py 2>/dev/null | cmp - AI_Safety/figures/figures.txt && echo 'AI safety figure numbers byte-identical to the committed output'
 uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1 && echo 'AI safety PDF rebuilds'
 uv run python "Alexander Plan/model/projections.py" 2>/dev/null | cmp - "Alexander Plan/model/projections.txt" && echo 'Alexander Plan projections byte-identical to the committed output'
+uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null | cmp - "Alexander Plan/model/cl_patent.txt" && echo 'Alexander Plan continual-learning and patent model byte-identical to the committed output'
 uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null | cmp - "Alexander Plan/figures/figures.txt" && echo 'Alexander Plan figure numbers byte-identical to the committed output'
 uv run python "Alexander Plan/build/build_pdf.py" > /dev/null 2>&1 && echo 'Alexander Plan PDF rebuilds'
 uv run python Epistemic_Review/checks/ladder.py 2>/dev/null | cmp - Epistemic_Review/checks/ladder.txt && echo 'epistemic ladder byte-identical to the committed output'

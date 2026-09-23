@@ -10,17 +10,19 @@ information, not legal advice.
 |---|---|
 | `Alexander_Plan.pdf` | the dossier, built from the Markdown source by `build/build_pdf.py`; byte-identical on rebuild |
 | `ALEXANDER_PLAN.md` | the source, readable on GitHub; its appendices embed the model, its outputs, the decision-log entries, the declaration and the sources |
+| `model/cl_patent.py` and `.txt` | §11: the continual-learning record re-read (strict and pipeline-adjusted), its value at GPU/LLM scale under a tree that prices the Adam caution, the EPO application as a chain of named assumptions, and the patent calendar |
 | `model/projections.py` and `.txt` | the scenario model: technical milestones anchored on the repository's record (Laplace), money figures from search summaries or named assumptions, 20000 seeded draws, lower/middle/upper = 10th/50th/90th percentiles, a sensitivity table |
-| `figures/A01…A09.png` | the figures, drawn by `build/make_figures.py` from pinned outputs only (A08 and A09 are drawings of a plan and of a first reading, and say so); `figures/figures.txt` pins every number placed on them |
+| `figures/A01…A13.png` | the figures, drawn by `build/make_figures.py` from pinned outputs only (A08 and A09 are drawings of a plan and of a first reading, and say so); `figures/figures.txt` pins every number placed on them |
 | `build/make_figures.py`, `build/build_pdf.py` | the figure script (the AI_Safety palette) and the PDF builder (a copy of AI_Safety's) |
 
 Sources: `docs/citations/alexander_plan_2026-09-23.md`. These are search summaries, not fetched pages; check each figure
-against its source before using it outside this repository. Decisions: AGENT_LOG entries 77–80. §10 is the commercial assessment for a frontier lab (prompt-log entry 102).
+against its source before using it outside this repository. Decisions: AGENT_LOG entries 77–81. §10 is the commercial assessment for a frontier lab (prompt-log entry 102).
 
 Rebuild:
 
 ```
 uv run python "Alexander Plan/model/projections.py" > "Alexander Plan/model/projections.txt"
+uv run python "Alexander Plan/model/cl_patent.py" > "Alexander Plan/model/cl_patent.txt"
 uv run python "Alexander Plan/build/make_figures.py" > "Alexander Plan/figures/figures.txt"
 uv run python "Alexander Plan/build/build_pdf.py"
 ```
