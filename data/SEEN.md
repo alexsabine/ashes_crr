@@ -42,7 +42,13 @@ file in the same commit as any data download.
 | PMLB `215_2dplanes` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
 | PMLB `1193_BNG_lowbwt` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
 | PMLB `294_satellite_image` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x.sha256 | all rows (subsampled to 5000 at random, seed 777, where above) | 2026-09-22T16:23:30Z (study T1x, after prereg commit ce825dd 2026-09-22T16:23:24+00:00) |
+| PMLB `satimage` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) — the same 6435 x 36 Landsat records were opened on 2026-09-22T16:23:30Z as `294_satellite_image` in study T1x (after the EQ4 hash, before this data step; AGENT_LOG 82) |
+| PMLB `segmentation` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
+| PMLB `yeast` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
+| PMLB `wine_quality_white` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
+| PMLB `sleep` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
+| PMLB `page_blocks` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
-PMLB `satimage`, `usps` (not mirrored), other PMLB classification sets (no unseen 10-class set with >= 900 rows remains on the mirror except poker and kddcup).
+PMLB `usps` (not mirrored), other PMLB classification sets (no unseen 10-class set with >= 900 rows remains on the mirror except poker and kddcup).

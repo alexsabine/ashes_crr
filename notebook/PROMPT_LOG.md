@@ -977,3 +977,11 @@ I think the Alexander Plan is fair and modest but I’d like you to be thorough 
 I also took out a patent pending with the EPO in August 2025 for crr as a physical systems processor. The epo officer has agreed the claims in principle but I need an applied use case.
 
 Please incorporate this into the estimations. Thank you
+
+## 104 — 2026-09-23T04:44:10Z
+
+Thank you. Please now return to the rules of the pipeline and run more checks on the Adam finding and continuous learning generally. Search online as necessary for prior art and please keep running pipeline level testing. Place the new findings in the Continual Learning folder. Focus on providing evidence based on the checks we can run here and fully explain why they work compared to existing approaches and how they differ.
+
+In the IP claims, the Dirac delta of Now was used as a rupture detector on chaotic systems. I still need to provide the applied use case.
+
+I will make this repo private with Daniel now.
