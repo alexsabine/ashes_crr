@@ -1,0 +1,160 @@
+================================================================================================================
+SEC1 scoring — SEEN carriers (confirmatory only, R11); per-seed values in brackets (seeds 0-4); thresholds from prereg/sec1/PREREG.md
+================================================================================================================
+
+[mfeat_factors]  K = 10 of 10 classes (requested 10); class counts [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]; n = 2000 of 2000 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 4.5371
+   EWC raw-Fisher lambda grid: 0.1:41.95  0.3:41.95  1:42.00  3:42.25  10:43.30  30:45.35  100:49.30  106.007:49.45  150:50.95  212.766:52.45  300:54.45  423:43.80  600:44.55  849:34.55  1000:34.65  3000:23.50  10000:11.95
+   EWC calibrated-Fisher lambda grid: 0.01:49.30  0.03:53.75  0.1:58.15  0.106007:58.35  0.15:58.80  0.212766:59.40  0.3:60.10  0.423:60.75  0.6:49.75  0.849:0.00  1:5.90  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 300: 54.4500 [46.75 55.25 58.75 52.50 59.00]; tuned lambda (calibrated) = 0.423: 60.7500 [61.75 62.25 58.25 56.75 64.75]
+   Bayes raw (w 1/2): 41.9500 [36.50 45.50 46.25 35.75 45.75]   Bayes raw − tuned: -12.5000
+   Bayes SEC (w 1/2): 49.4000 [61.75 62.50 0.00 57.25 65.50]   Bayes SEC − tuned: -5.0500; Bayes SEC − Bayes raw: +7.4500
+   Bayes s1 (one factor, task 1's): 0.0000 [0.00 0.00 0.00 0.00 0.00]   Bayes s1 − tuned: -54.4500; Bayes SEC − Bayes s1: +49.4000
+   rule Ω=1: 58.3500 [58.75 60.25 57.75 54.25 60.75]   rule − tuned: +3.9000; Bayes SEC − rule: -8.9500
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 4430, min 1, max 2.827e+05; fallbacks 3 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-54.45  0.05/0.1:-54.45  0.05/0.2:-54.45  0.1/0.05:-4.95  0.1/0.2:-5.10  0.2/0.05:+6.15  0.2/0.1:+6.30  0.2/0.2:+6.40
+
+[mfeat_morphological]  K = 10 of 10 classes (requested 10); class counts [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]; n = 2000 of 2000 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 4.8719
+   EWC raw-Fisher lambda grid: 0.1:25.20  0.3:26.00  0.353357:26.25  0.5:26.60  0.70922:26.95  1:27.65  1.41:28.75  2:33.25  2.83:34.20  3:26.20  10:23.10  30:7.85  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:26.60  0.03:28.00  0.1:31.30  0.3:35.60  0.353357:36.35  0.5:36.90  0.70922:37.30  1:36.60  1.41:21.40  2:0.00  2.83:0.00  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 2.83: 34.2000 [37.00 40.75 29.75 27.50 36.00]; tuned lambda (calibrated) = 0.70922: 37.3000 [38.50 40.25 37.25 33.25 37.25]
+   Bayes raw (w 1/2): 26.6000 [26.00 30.50 24.75 24.00 27.75]   Bayes raw − tuned: -7.6000
+   Bayes SEC (w 1/2): 36.9000 [38.25 38.50 37.25 33.75 36.75]   Bayes SEC − tuned: +2.7000; Bayes SEC − Bayes raw: +10.3000
+   Bayes s1 (one factor, task 1's): 0.0000 [0.00 0.00 0.00 0.00 0.00]   Bayes s1 − tuned: -34.2000; Bayes SEC − Bayes s1: +36.9000
+   rule Ω=1: 37.9000 [43.25 29.25 41.00 35.50 40.50]   rule − tuned: +3.7000; Bayes SEC − rule: -1.0000
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 36.19, min 0.8567, max 2.7e+04; fallbacks 0 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:+3.25  0.05/0.1:+3.30  0.05/0.2:+3.40  0.1/0.05:+2.70  0.1/0.2:+2.90  0.2/0.05:+1.95  0.2/0.1:+2.10  0.2/0.2:+2.30
+
+[led7]  K = 10 of 10 classes (requested 10); class counts [341, 336, 335, 333, 327, 325, 319, 310, 304, 270]; n = 3200 of 3200 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.0000
+   EWC raw-Fisher lambda grid: 0.1:18.25  0.3:18.38  1:22.22  1.06007:22.22  1.5:23.47  2.12766:23.62  3:23.66  4.23:22.75  6:16.47  8.49:16.81  10:16.97  30:16.97  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:18.22  0.03:20.75  0.1:22.66  0.3:23.19  0.353357:23.66  0.5:23.78  0.70922:23.69  1:23.84  1.41:22.75  2:7.53  2.83:0.00  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 3: 23.6562 [25.00 23.28 22.97 23.59 23.44]; tuned lambda (calibrated) = 1: 23.8438 [26.09 19.22 25.16 24.38 24.38]
+   Bayes raw (w 1/2): 19.6250 [24.22 17.19 22.50 16.88 17.34]   Bayes raw − tuned: -4.0312
+   Bayes SEC (w 1/2): 23.7188 [25.94 19.22 24.84 24.69 23.91]   Bayes SEC − tuned: +0.0625; Bayes SEC − Bayes raw: +4.0938
+   Bayes s1 (one factor, task 1's): 18.1562 [0.00 19.22 26.09 24.22 21.25]   Bayes s1 − tuned: -5.5000; Bayes SEC − Bayes s1: +5.5625
+   rule Ω=1: 22.4375 [26.56 24.53 18.75 25.00 17.34]   rule − tuned: -1.2188; Bayes SEC − rule: +1.2812
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 24.94, min 1.243, max 224.3; fallbacks 0 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.03  0.05/0.1:-0.03  0.05/0.2:-0.03  0.1/0.05:+0.06  0.1/0.2:+0.12  0.2/0.05:+1.03  0.2/0.1:-0.12  0.2/0.2:+0.00
+
+[led24]  K = 10 of 10 classes (requested 10); class counts [337, 335, 329, 327, 327, 320, 319, 308, 302, 296]; n = 3200 of 3200 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.8170
+   EWC raw-Fisher lambda grid: 0.1:17.87  0.3:18.53  1:19.28  1.06007:19.28  1.5:19.47  2.12766:19.47  3:19.62  4.23:19.81  6:19.69  8.49:20.19  10:19.28  30:18.34  100:14.27  300:1.85  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:18.15  0.03:19.47  0.1:21.63  0.3:23.16  0.353357:23.13  0.5:23.22  0.70922:23.29  1:23.44  1.41:23.57  2:23.54  2.83:13.90  3:8.70  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 8.49: 20.1878 [20.97 17.37 22.54 21.13 18.94]; tuned lambda (calibrated) = 1.41: 23.5681 [24.41 19.09 26.13 24.10 24.10]
+   Bayes raw (w 1/2): 18.9045 [19.56 17.06 20.66 19.87 17.37]   Bayes raw − tuned: -1.2833
+   Bayes SEC (w 1/2): 23.2551 [23.94 19.25 26.13 23.79 23.16]   Bayes SEC − tuned: +3.0673; Bayes SEC − Bayes raw: +4.3505
+   Bayes s1 (one factor, task 1's): 16.2128 [18.31 0.00 18.78 22.54 21.44]   Bayes s1 − tuned: -3.9750; Bayes SEC − Bayes s1: +7.0423
+   rule Ω=1: 23.7872 [24.73 19.25 26.60 24.41 23.94]   rule − tuned: +3.5994; Bayes SEC − rule: -0.5321
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 57.54, min 0.8774, max 385.7; fallbacks 0 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:+3.10  0.05/0.1:+3.10  0.05/0.2:+3.10  0.1/0.05:+3.04  0.1/0.2:+3.00  0.2/0.05:+3.13  0.2/0.1:+3.13  0.2/0.2:+3.19
+
+[krkopt]  K = 10 of 18 classes (requested 10); class counts [876, 807, 692, 549, 538, 417, 382, 330, 276, 131]; n = 4998 of 28056 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.0000
+   EWC raw-Fisher lambda grid: 0.1:5.49  0.3:5.95  0.353357:6.07  0.5:6.25  0.70922:6.29  1:6.25  1.41:6.23  2:6.19  2.83:6.07  3:6.05  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:5.31  0.03:5.49  0.1:5.77  0.106007:5.83  0.15:5.89  0.212766:5.89  0.3:5.95  0.423:6.01  0.6:5.99  0.849:5.81  1:5.73  3:5.29  10:1.40  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 0.70922: 6.2926 [6.51 5.61 5.51 6.71 7.11]; tuned lambda (calibrated) = 0.423: 6.0120 [6.71 5.71 5.81 5.51 6.31]
+   Bayes raw (w 1/2): 6.2124 [6.41 5.61 5.51 6.51 7.01]   Bayes raw − tuned: -0.0802
+   Bayes SEC (w 1/2): 5.7515 [6.41 5.71 5.71 4.61 6.31]   Bayes SEC − tuned: -0.5411; Bayes SEC − Bayes raw: -0.4609
+   Bayes s1 (one factor, task 1's): 6.2525 [6.41 5.61 5.71 6.51 7.01]   Bayes s1 − tuned: -0.0401; Bayes SEC − Bayes s1: -0.5010
+   rule Ω=1: 5.6914 [7.41 5.81 5.71 3.41 6.11]   rule − tuned: -0.6012; Bayes SEC − rule: +0.0601
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 1.269, min 0.1806, max 7.873; fallbacks 0 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.74  0.05/0.1:-0.72  0.05/0.2:-0.74  0.1/0.05:-0.50  0.1/0.2:-0.56  0.2/0.05:-0.28  0.2/0.1:-0.28  0.2/0.2:-0.30
+
+[fars]  K = 6 of 8 classes (requested 8); class counts [2092, 994, 749, 690, 431, 45]; n = 5001 of 100968 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.9428
+   EWC raw-Fisher lambda grid: 0.1:9.66  0.3:9.26  1:9.24  3:9.22  10:9.82  10.6007:10.36  15:11.30  21.2766:12.74  30:12.32  42.3:8.60  60:10.08  84.9:3.14  100:3.58  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.003534:9.90  0.005:9.90  0.007092:9.90  0.01:9.96  0.0141:9.96  0.02:9.96  0.0283:9.96  0.03:9.96  0.1:9.78  0.3:9.56  1:9.42  3:9.28  10:1.86  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 21.2766: 12.7400 [13.00 14.20 12.10 15.00 9.40]; tuned lambda (calibrated) = 0.01: 9.9600 [10.20 9.30 9.90 10.80 9.60]
+   Bayes raw (w 1/2): 9.2200 [9.10 9.20 9.20 9.20 9.40]   Bayes raw − tuned: -3.5200
+   Bayes SEC (w 1/2): 9.3400 [9.20 9.20 9.50 9.40 9.40]   Bayes SEC − tuned: -3.4000; Bayes SEC − Bayes raw: +0.1200
+   Bayes s1 (one factor, task 1's): 10.4800 [13.00 9.20 11.60 9.30 9.30]   Bayes s1 − tuned: -2.2600; Bayes SEC − Bayes s1: -1.1400
+   rule Ω=1: 9.2400 [9.10 9.20 9.10 9.30 9.50]   rule − tuned: -3.5000; Bayes SEC − rule: +0.1000
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 7.289, min 0.5134, max 118.5; fallbacks 0 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-3.48  0.05/0.1:-3.48  0.05/0.2:-3.48  0.1/0.05:-3.32  0.1/0.2:-3.32  0.2/0.05:-3.18  0.2/0.1:-3.18  0.2/0.2:-3.20
+
+[satimage]  K = 6 of 6 classes (requested 6); class counts [1191, 1172, 1055, 549, 546, 486]; n = 4999 of 6435 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.6183
+   EWC raw-Fisher lambda grid: 0.1:22.64  0.3:22.64  1:22.72  1.06007:22.72  1.5:22.76  2.12766:22.80  3:22.84  4.23:22.72  6:22.78  8.49:22.60  10:22.68  30:22.30  100:22.16  300:19.62  1000:15.50  3000:4.22  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:25.31  0.03:28.01  0.035336:28.37  0.05:28.91  0.070922:29.35  0.1:29.57  0.141:29.39  0.2:29.45  0.283:29.01  0.3:28.95  1:28.07  3:27.85  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 3: 22.8428 [20.62 23.52 21.42 25.13 23.52]; tuned lambda (calibrated) = 0.1: 29.5696 [20.82 28.23 31.73 32.63 34.43]
+   Bayes raw (w 1/2): 22.6627 [20.62 23.52 21.42 23.92 23.82]   Bayes raw − tuned: -0.1802
+   Bayes SEC (w 1/2): 28.4084 [21.72 28.43 28.93 26.13 36.84]   Bayes SEC − tuned: +5.5656; Bayes SEC − Bayes raw: +5.7457
+   Bayes s1 (one factor, task 1's): 10.9710 [21.92 0.30 10.51 22.12 0.00]   Bayes s1 − tuned: -11.8719; Bayes SEC − Bayes s1: +17.4374
+   rule Ω=1: 27.6677 [23.62 25.73 26.13 24.02 38.84]   rule − tuned: +4.8248; Bayes SEC − rule: +0.7407
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 97.55, min 23.94, max 1763; fallbacks 0 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:+5.53  0.05/0.1:+5.51  0.05/0.2:+5.49  0.1/0.05:+5.65  0.1/0.2:+5.55  0.2/0.05:+5.63  0.2/0.1:+5.49  0.2/0.2:+5.43
+
+[segmentation]  K = 6 of 7 classes (requested 6); class counts [330, 330, 330, 330, 330, 330]; n = 1980 of 2310 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.8625
+   EWC raw-Fisher lambda grid: 0.1:68.54  0.3:68.74  1:69.34  3:70.05  10:71.52  30:72.37  100:72.93  106.007:72.93  150:72.73  212.766:73.08  300:73.23  423:69.24  600:61.31  849:22.53  1000:12.07  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:69.44  0.03:70.40  0.1:71.77  0.3:72.53  0.353357:72.37  0.5:72.63  0.70922:72.73  1:73.33  1.41:73.13  2:66.92  2.83:65.05  3:58.13  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 300: 73.2323 [70.96 74.49 74.75 75.00 70.96]; tuned lambda (calibrated) = 1: 73.3333 [70.71 76.01 74.75 74.49 70.71]
+   Bayes raw (w 1/2): 68.8384 [66.67 69.70 70.45 70.96 66.41]   Bayes raw − tuned: -4.3939
+   Bayes SEC (w 1/2): 72.6263 [68.94 75.00 74.49 74.75 69.95]   Bayes SEC − tuned: -0.6061; Bayes SEC − Bayes raw: +3.7879
+   Bayes s1 (one factor, task 1's): 72.6263 [69.70 74.24 74.49 75.00 69.70]   Bayes s1 − tuned: -0.6061; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 70.9596 [73.23 67.68 73.23 70.45 70.20]   rule − tuned: -2.2727; Bayes SEC − rule: +1.6667
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 258.1, min 109.2, max 8344; fallbacks 0 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.56  0.05/0.1:-0.51  0.05/0.2:-0.56  0.1/0.05:-0.61  0.1/0.2:-0.61  0.2/0.05:-0.76  0.2/0.1:-0.76  0.2/0.2:-0.71
+
+[yeast]  K = 6 of 9 classes (requested 6); class counts [463, 429, 244, 163, 51, 44]; n = 1394 of 1479 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 6.0415
+   EWC raw-Fisher lambda grid: 0.1:12.93  0.3:14.43  1:16.93  1.06007:16.71  1.5:18.50  2.12766:18.64  3:20.00  4.23:21.64  6:22.50  8.49:26.14  10:13.79  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:12.79  0.03:14.21  0.1:17.14  0.3:19.64  0.353357:19.21  0.5:19.64  0.70922:21.43  1:21.86  1.41:22.57  2:16.86  2.83:15.07  3:17.64  10:6.71  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 8.49: 26.1429 [37.14 24.64 25.36 18.57 25.00]; tuned lambda (calibrated) = 1.41: 22.5714 [23.57 23.57 23.93 17.50 24.29]
+   Bayes raw (w 1/2): 18.3571 [18.57 17.14 18.21 15.00 22.86]   Bayes raw − tuned: -7.7857
+   Bayes SEC (w 1/2): 14.7143 [27.14 7.86 13.57 18.57 6.43]   Bayes SEC − tuned: -11.4286; Bayes SEC − Bayes raw: -3.6429
+   Bayes s1 (one factor, task 1's): 20.5000 [23.93 23.93 20.00 14.29 20.36]   Bayes s1 − tuned: -5.6429; Bayes SEC − Bayes s1: -5.7857
+   rule Ω=1: 19.3571 [15.71 25.71 22.50 13.57 19.29]   rule − tuned: -6.7857; Bayes SEC − rule: -4.6429
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 2.073, min 0.0009618, max 48.92; fallbacks 1 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-9.43  0.05/0.1:-11.64  0.05/0.2:-8.71  0.1/0.05:-13.43  0.1/0.2:-12.07  0.2/0.05:-4.50  0.2/0.1:-3.86  0.2/0.2:-4.14
+
+[wine_quality_white]  K = 4 of 7 classes (requested 4); class counts [2198, 1457, 880, 175]; n = 4710 of 4898 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 6.7386
+   EWC raw-Fisher lambda grid: 0.1:18.20  0.3:18.22  1:18.20  3:18.17  3.53357:18.17  5:18.17  7.0922:18.39  10:23.01  14.1:24.90  20:14.31  28.3:14.39  30:13.57  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:18.20  0.03:18.20  0.1:18.20  0.3:18.20  1:18.20  1.06007:18.20  1.5:18.20  2.12766:18.22  3:18.22  4.23:18.22  6:18.20  8.49:18.17  10:18.17  30:18.20  100:12.85  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 14.1: 24.9045 [34.39 31.63 18.68 18.68 21.13]; tuned lambda (calibrated) = 2.12766: 18.2166 [18.58 16.77 18.68 18.68 18.37]
+   Bayes raw (w 1/2): 18.1741 [18.58 16.56 18.68 18.68 18.37]   Bayes raw − tuned: -6.7304
+   Bayes SEC (w 1/2): 18.1953 [18.58 16.67 18.68 18.68 18.37]   Bayes SEC − tuned: -6.7091; Bayes SEC − Bayes raw: +0.0212
+   Bayes s1 (one factor, task 1's): 18.1953 [18.58 16.67 18.68 18.68 18.37]   Bayes s1 − tuned: -6.7091; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 18.1741 [18.58 16.45 18.68 18.68 18.47]   rule − tuned: -6.7304; Bayes SEC − rule: +0.0212
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 0.8691, min 0.1258, max 2.308; fallbacks 0 of 10
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-6.69  0.05/0.1:-6.69  0.05/0.2:-6.69  0.1/0.05:-6.71  0.1/0.2:-6.71  0.2/0.05:-6.71  0.2/0.1:-6.71  0.2/0.2:-6.71
+
+[sleep]  K = 4 of 5 classes (requested 4); class counts [2720, 1103, 618, 559]; n = 5000 of 105908 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.1153
+   EWC raw-Fisher lambda grid: 0.1:22.62  0.3:22.70  1:22.96  3:23.02  10:22.88  10.6007:22.86  15:22.84  21.2766:22.84  30:23.34  42.3:22.50  60:17.80  84.9:20.20  100:23.26  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:22.62  0.03:22.62  0.1:22.64  0.3:22.76  0.353357:22.78  0.5:22.84  0.70922:22.94  1:23.00  1.41:23.08  2:23.04  2.83:23.00  3:22.98  10:22.90  30:22.78  100:18.38  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 30: 23.3367 [22.78 23.28 22.88 22.28 25.47]; tuned lambda (calibrated) = 1.41: 23.0769 [22.88 23.98 23.28 22.58 22.68]
+   Bayes raw (w 1/2): 23.0769 [22.88 23.98 23.28 22.48 22.78]   Bayes raw − tuned: -0.2597
+   Bayes SEC (w 1/2): 23.0569 [22.88 23.88 23.28 22.58 22.68]   Bayes SEC − tuned: -0.2797; Bayes SEC − Bayes raw: -0.0200
+   Bayes s1 (one factor, task 1's): 23.0569 [22.88 23.88 23.28 22.58 22.68]   Bayes s1 − tuned: -0.2797; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 22.8372 [22.78 23.38 22.98 22.28 22.78]   rule − tuned: -0.4995; Bayes SEC − rule: +0.2198
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 3.444, min 0.5231, max 10.17; fallbacks 0 of 10
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.30  0.05/0.1:-0.34  0.05/0.2:-0.34  0.1/0.05:-0.26  0.1/0.2:-0.30  0.2/0.05:-0.26  0.2/0.1:-0.28  0.2/0.2:-0.30
+
+[page_blocks]  K = 4 of 5 classes (requested 4); class counts [4511, 302, 106, 81]; n = 5000 of 5473 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 10.8986
+   EWC raw-Fisher lambda grid: 0.1:16.94  0.3:17.44  1:18.70  3:22.94  10:32.03  10.6007:32.61  15:36.34  21.2766:40.00  30:42.40  42.3:34.97  60:29.43  84.9:35.22  100:30.73  300:17.30  1000:10.47  3000:6.51  10000:4.94
+   EWC calibrated-Fisher lambda grid: 0.01:16.84  0.03:17.28  0.1:18.68  0.3:21.74  1:31.77  1.06007:32.45  1.5:36.16  2.12766:39.64  3:42.70  4.23:45.07  6:47.15  8.49:48.77  10:40.36  30:6.25  100:5.63  300:6.31  1000:4.06  3000:3.42  10000:2.32
+   tuned lambda (raw) = 30: 42.4024 [25.33 52.65 54.55 43.94 35.54]; tuned lambda (calibrated) = 8.49: 48.7688 [38.54 58.26 55.16 55.56 36.34]
+   Bayes raw (w 1/2): 34.7548 [19.42 38.74 50.55 35.14 29.93]   Bayes raw − tuned: -7.6476
+   Bayes SEC (w 1/2): 42.9429 [41.14 58.96 23.02 57.06 34.53]   Bayes SEC − tuned: +0.5405; Bayes SEC − Bayes raw: +8.1882
+   Bayes s1 (one factor, task 1's): 42.9429 [41.14 58.96 23.02 57.06 34.53]   Bayes s1 − tuned: +0.5405; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 34.5746 [24.32 49.05 32.23 54.25 13.01]   rule − tuned: -7.8278; Bayes SEC − rule: +8.3684
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 23.84, min 1, max 68.26; fallbacks 1 of 10
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-17.24  0.05/0.1:-16.48  0.05/0.2:-7.13  0.1/0.05:-4.28  0.1/0.2:-2.86  0.2/0.05:+6.73  0.2/0.1:+6.49  0.2/0.2:+6.53
+
+----------------------------------------------------------------------------------------------------------------
+carriers scored 12; excluded by the class-selection rule: none
+SEC1-0 precondition: carriers where raw Bayes trails the tuned lambda by a step (miscalibrated): ['mfeat_factors', 'mfeat_morphological', 'led7', 'fars', 'segmentation', 'yeast'] (6; need >= 3) -> DECIDABLE
+SEC1-1 the calibrated Laplace weight closes at least half of the raw Laplace gap on the miscalibrated carriers: mfeat_factors: gap 12.5000, gain +7.4500 (closes), mfeat_morphological: gap 7.6000, gain +10.3000 (closes), led7: gap 4.0312, gain +4.0938 (closes), fars: gap 3.5200, gain +0.1200 (does not), segmentation: gap 4.3939, gain +3.7879 (closes), yeast: gap 7.7857, gain -3.6429 (does not); 4/6 (needs >= 4) -> PASS
+SEC1-2 no harm where raw Bayes is already within a step of the tuned lambda: Bayes SEC − Bayes raw led24:+4.3505 (step 1.82), krkopt:-0.4609 (step 1.00), satimage:+5.7457 (step 1.62), wine_quality_white:+0.0212 (step 6.74), sleep:-0.0200 (step 1.12), page_blocks:+8.1882 (step 10.90); not behind on 6/6 -> PASS
+SEC1-3 tuning-free: Bayes SEC − tuned lambda mfeat_factors:-5.0500 (step 4.54), mfeat_morphological:+2.7000 (step 4.87), led7:+0.0625 (step 1.00), led24:+3.0673 (step 1.82), krkopt:-0.5411 (step 1.00), fars:-3.4000 (step 1.94), satimage:+5.5656 (step 1.62), segmentation:-0.6061 (step 1.86), yeast:-11.4286 (step 6.04), wine_quality_white:-6.7091 (step 6.74), sleep:-0.2797 (step 1.12), page_blocks:+0.5405 (step 10.90); not behind on 9/12 (needs >= 9) -> PASS; for comparison raw Bayes not behind on 6/12, the rule Ω=1 on 8/12
+SEC1-4 span collapse: tuned lambda raw {'mfeat_factors': 300.0, 'mfeat_morphological': 2.83, 'led7': 3.0, 'led24': 8.49, 'krkopt': 0.70922, 'fars': 21.276596, 'satimage': 3.0, 'segmentation': 300.0, 'yeast': 8.49, 'wine_quality_white': 14.1, 'sleep': 30.0, 'page_blocks': 30.0} span 423.00x; calibrated {'mfeat_factors': 0.423, 'mfeat_morphological': 0.70922, 'led7': 1.0, 'led24': 1.41, 'krkopt': 0.423, 'fars': 0.01, 'satimage': 0.1, 'segmentation': 1.0, 'yeast': 1.41, 'wine_quality_white': 2.12766, 'sleep': 1.41, 'page_blocks': 8.49} span 849.00x; calibrated span <= raw span / 10: False -> FAIL
+SEC1-G one global factor (R7, report): Bayes SEC − Bayes s1 mfeat_factors:+49.4000 (step 4.54), mfeat_morphological:+36.9000 (step 4.87), led7:+5.5625 (step 1.00), led24:+7.0423 (step 1.82), krkopt:-0.5010 (step 1.00), fars:-1.1400 (step 1.94), satimage:+17.4374 (step 1.62), segmentation:+0.0000 (step 1.86), yeast:-5.7857 (step 6.04), wine_quality_white:+0.0000 (step 6.74), sleep:+0.0000 (step 1.12), page_blocks:+0.0000 (step 10.90); per-task calibration ahead of one factor by a step on 5/12, behind by a step on 0/12
+SEC1-R the registered rule (R7, report): rule − tuned mfeat_factors:+3.9000, mfeat_morphological:+3.7000, led7:-1.2188, led24:+3.5994, krkopt:-0.6012, fars:-3.5000, satimage:+4.8248, segmentation:-2.2727, yeast:-6.7857, wine_quality_white:-6.7304, sleep:-0.4995, page_blocks:-7.8278; Bayes SEC − rule mfeat_factors:-8.9500, mfeat_morphological:-1.0000, led7:+1.2812, led24:-0.5321, krkopt:+0.0601, fars:+0.1000, satimage:+0.7407, segmentation:+1.6667, yeast:-4.6429, wine_quality_white:+0.0212, sleep:+0.2198, page_blocks:+8.3684
+SEC1-S sensitivity: SEC1-3 'not behind' flips in 8 of 96 window cells -> FRAGILE
+SEC1-E calibration factors (report): mfeat_factors: median s 4.43e+03 (fallbacks 3); mfeat_morphological: median s 36.2 (fallbacks 0); led7: median s 24.9 (fallbacks 0); led24: median s 57.5 (fallbacks 0); krkopt: median s 1.27 (fallbacks 0); fars: median s 7.29 (fallbacks 0); satimage: median s 97.6 (fallbacks 0); segmentation: median s 258 (fallbacks 0); yeast: median s 2.07 (fallbacks 1); wine_quality_white: median s 0.869 (fallbacks 0); sleep: median s 3.44 (fallbacks 0); page_blocks: median s 23.8 (fallbacks 1)
+summary: SEC1-0 DECIDABLE (6 miscalibrated); SEC1-1 PASS; SEC1-2 PASS; SEC1-3 PASS (9/12); SEC1-4 FAIL; fragile: True

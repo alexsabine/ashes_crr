@@ -139,7 +139,17 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     T1X2-S           held-out  sensitivity: not fragile
     T1X2-D           held-out  report (no verdict registered)
     T1X2-X           held-out  report (no verdict registered)
-    rows 84; by data status and allocation:
+    SEC1-0           seen      precondition met
+    SEC1-1           seen      PASS on seen data
+    SEC1-2           seen      PASS on seen data
+    SEC1-3           seen      PASS on seen data
+    SEC1-4           seen      FAIL
+    SEC1-S           seen      sensitivity: fragile
+    SEC1-G           seen      report (no verdict registered)
+    SEC1-R           seen      report (no verdict registered)
+    SEC1-E           seen      report (no verdict registered)
+    SEC1-X           seen      control holds
+    rows 94; by data status and allocation:
         held-out  FAIL                                                 14
         held-out  NOT DECIDABLE                                        1
         held-out  PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b) 1
@@ -160,15 +170,19 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         held-out  report (no verdict registered)                       19
         held-out  sensitivity: fragile                                 3
         held-out  sensitivity: not fragile                             2
-        seen      FAIL                                                 4
-        seen      PASS on seen data                                    3
+        seen      FAIL                                                 5
+        seen      PASS on seen data                                    6
         seen      VOID                                                 1
+        seen      control holds                                        1
         seen      holds on seen data                                   1
         seen      not a PASS (fragile at the boundary)                 1
         seen      numbers reported                                     1
+        seen      precondition met                                     1
+        seen      report (no verdict registered)                       3
+        seen      sensitivity: fragile                                 1
         seen      unverifiable (R1)                                    1
         synthetic gate closed (not run)                                1
-    rung R5 PREREG-SEEN, passes on seen data: 4 (ARC-EQ-LAND, ARC-A2, ARC-A3, ARC-T1)
+    rung R5 PREREG-SEEN, passes on seen data: 7 (ARC-EQ-LAND, ARC-A2, ARC-A3, ARC-T1, SEC1-1, SEC1-2, SEC1-3)
     rung R6 PASS-0 on held-out data: 3 (EQ2-1b, EQ3-I, EQ4-I); R7 PASS-1: 0; R8 PASS-2: 0
     held-out FAIL rows: 14 (EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A, EQ4-1, EQ4-1r, EQ4-3, T1X2-1, T1X2-2); VOID rows: 5; controls violated: 4
 [4] AI safety: declared items read from the pinned outputs (kind as declared; held / failed from the printed line)
@@ -228,7 +242,7 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     R2 RETRO-PROPER                   synthesis REDUNDANT-DOMAIN 53
     R3 RETRO-ADDS (candidates)        synthesis ADDS 3; reviewed by a named expert 0
     R4 DECLARED-SYNTHETIC             AI-safety predictions held 15 of 22; theorem checks held 13 of 14; gate controls held 9 of 9
-    R5 PREREG-SEEN                    passes on seen data 4
+    R5 PREREG-SEEN                    passes on seen data 7
     R6 PASS-0                         3
     R7 PASS-1                         0
     R8 PASS-2                         0

@@ -54,6 +54,7 @@ file in the same commit as any data download.
 | PMLB `feynman_I_9_18` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
 | PMLB `feynman_II_36_38` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
 | PMLB `feynman_test_1` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
+| PMLB `mfeat_factors`, `mfeat_morphological`, `led7`, `led24`, `krkopt`, `fars`, `satimage`, `segmentation`, `yeast`, `wine_quality_white`, `sleep`, `page_blocks` (already SEEN above; reopened, no new records) | sha256 in data/manifests/sec1.sha256 (verified against the EQ3 and EQ4 manifests) | as EQ4's class-selection rule and 5000-row cap | 2026-09-23T15:18:27Z (study SEC1, confirmatory on seen data; prereg commit 0f67f2d 2026-09-23T15:18:10Z) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;

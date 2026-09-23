@@ -1,0 +1,2 @@
+SEC1-X: 390 runs compared against runs/eq4/results_*.jsonl; mismatches 0
+SEC1-X REPRODUCED exactly

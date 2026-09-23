@@ -1,0 +1,87 @@
+carrier              mode        runs non-finite  fallback tasks
+fars                 bayes          5          0        0 of 15
+fars                 bayes_s1       5          0        1 of 15
+fars                 bayes_sec     45          0        0 of 135
+fars                 eq             5          0        0 of 15
+fars                 fixed         85         30       78 of 255
+fars                 fixed_sec     95         34       67 of 285
+krkopt               bayes          5          0        0 of 25
+krkopt               bayes_s1       5          0        0 of 25
+krkopt               bayes_sec     45          0        0 of 225
+krkopt               eq             5          0        0 of 25
+krkopt               fixed         85         35      135 of 425
+krkopt               fixed_sec     95         34      134 of 475
+led24                bayes          5          0        0 of 25
+led24                bayes_s1       5          1        3 of 25
+led24                bayes_sec     45          0        0 of 225
+led24                eq             5          0        0 of 25
+led24                fixed         85         20       80 of 425
+led24                fixed_sec     95         40      154 of 475
+led7                 bayes          5          0        0 of 25
+led7                 bayes_s1       5          1        2 of 25
+led7                 bayes_sec     45          0        0 of 225
+led7                 eq             5          0        0 of 25
+led7                 fixed         85         29      103 of 425
+led7                 fixed_sec     95         48      187 of 475
+mfeat_factors        bayes          5          0        0 of 25
+mfeat_factors        bayes_s1       5          5       14 of 25
+mfeat_factors        bayes_sec     45         18       60 of 225
+mfeat_factors        eq             5          0        0 of 25
+mfeat_factors        fixed         85         13       39 of 425
+mfeat_factors        fixed_sec     95         50      195 of 475
+mfeat_morphological  bayes          5          0        0 of 25
+mfeat_morphological  bayes_s1       5          5       15 of 25
+mfeat_morphological  bayes_sec     45          0        0 of 225
+mfeat_morphological  eq             5          0        0 of 25
+mfeat_morphological  fixed         85         32       96 of 425
+mfeat_morphological  fixed_sec     95         52      204 of 475
+page_blocks          bayes          5          0        0 of 10
+page_blocks          bayes_s1       5          0        1 of 10
+page_blocks          bayes_sec     45          0       11 of 90
+page_blocks          eq             5          0        1 of 10
+page_blocks          fixed         85          0       12 of 170
+page_blocks          fixed_sec     95          0       19 of 190
+satimage             bayes          5          0        0 of 15
+satimage             bayes_s1       5          1        2 of 15
+satimage             bayes_sec     45          0        0 of 135
+satimage             eq             5          0        1 of 15
+satimage             fixed         85          9       17 of 255
+satimage             fixed_sec     95         35       70 of 285
+segmentation         bayes          5          0        0 of 15
+segmentation         bayes_s1       5          0        0 of 15
+segmentation         bayes_sec     45          0        0 of 135
+segmentation         eq             5          0        0 of 15
+segmentation         fixed         85         16       36 of 255
+segmentation         fixed_sec     95         35       73 of 285
+sleep                bayes          5          0        0 of 10
+sleep                bayes_s1       5          0        0 of 10
+sleep                bayes_sec     45          0        0 of 90
+sleep                eq             5          0        0 of 10
+sleep                fixed         85         23       32 of 170
+sleep                fixed_sec     95         21       25 of 190
+wine_quality_white   bayes          5          0        0 of 10
+wine_quality_white   bayes_s1       5          0        0 of 10
+wine_quality_white   bayes_sec     45          0        0 of 90
+wine_quality_white   eq             5          0        0 of 10
+wine_quality_white   fixed         85         31       43 of 170
+wine_quality_white   fixed_sec     95         23       26 of 190
+yeast                bayes          5          0        0 of 15
+yeast                bayes_s1       5          0        0 of 15
+yeast                bayes_sec     45          0       12 of 135
+yeast                eq             5          0        0 of 15
+yeast                fixed         85         32       62 of 255
+yeast                fixed_sec     95         34       71 of 285
+total runs 2880, non-finite 707 (kept, scored 0, as pre-registered); calibration fallbacks 2081 of 10320 task-ends
+carriers excluded by the class-selection rule (K < 4): none
+fars: classes in file 8 (row counts, ranked) [42116, 20007, 15072, 13890, 8674, 901, 299, 9]; requested K 8, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 100968/5001; class counts used [2092, 994, 749, 690, 431, 45]; sha256 aa9ed26f7111c3998e867d30986075f26f0fb0a35bf70645fa482713e2cf5c71
+krkopt: classes in file 18 (row counts, ranked) [4553, 4194, 3597, 2854, 2796, 2166, 1985, 1712, 1433, 683, 592, 471, 390, 246, 198, 81, 78, 27]; requested K 10, used K 10; rows dropped for NaN 0; rows in file/after selection and subsample 28056/4998; class counts used [876, 807, 692, 549, 538, 417, 382, 330, 276, 131]; sha256 0d05767a4c118752a25c4632aeea3b71ffa1bfe122b6a2401f85d20541be19a4
+led24: classes in file 10 (row counts, ranked) [337, 335, 329, 327, 327, 320, 319, 308, 302, 296]; requested K 10, used K 10; rows dropped for NaN 0; rows in file/after selection and subsample 3200/3200; class counts used [337, 335, 329, 327, 327, 320, 319, 308, 302, 296]; sha256 cc1015b08f7b19dbf2c32637d62d9da821ff6bd48a0778f7bf7e71e043a5c26c
+led7: classes in file 10 (row counts, ranked) [341, 336, 335, 333, 327, 325, 319, 310, 304, 270]; requested K 10, used K 10; rows dropped for NaN 0; rows in file/after selection and subsample 3200/3200; class counts used [341, 336, 335, 333, 327, 325, 319, 310, 304, 270]; sha256 8e9abc79391ccf0362c55bc2c21f90e65166fefafb9cb7f46c3b5cd975d12b5c
+mfeat_factors: classes in file 10 (row counts, ranked) [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]; requested K 10, used K 10; rows dropped for NaN 0; rows in file/after selection and subsample 2000/2000; class counts used [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]; sha256 f5c6631a9716b8c50951dbf0eb66c2f00d299c115fee72a0c23aff5a7f59fd57
+mfeat_morphological: classes in file 10 (row counts, ranked) [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]; requested K 10, used K 10; rows dropped for NaN 0; rows in file/after selection and subsample 2000/2000; class counts used [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]; sha256 5c3ca211459f89e2a6c9e6c48c2557c347baead70ab8dd855e910815a3c46b90
+page_blocks: classes in file 5 (row counts, ranked) [4913, 329, 115, 88, 28]; requested K 4, used K 4; rows dropped for NaN 0; rows in file/after selection and subsample 5473/5000; class counts used [4511, 302, 106, 81]; sha256 ebd2c0505b95df7c3fbcd132fe97d35cf85dc6be9b939f26cb0962f8134a5198
+satimage: classes in file 6 (row counts, ranked) [1533, 1508, 1358, 707, 703, 626]; requested K 6, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 6435/4999; class counts used [1191, 1172, 1055, 549, 546, 486]; sha256 1ee8cf9693351db7afe68f6fc32942845caae3e1030c688efa6c5d0b24229f46
+segmentation: classes in file 7 (row counts, ranked) [330, 330, 330, 330, 330, 330, 330]; requested K 6, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 2310/1980; class counts used [330, 330, 330, 330, 330, 330]; sha256 980ba4342d2fe489793cc3431678318f8d1467fe6bf6a687eb18bfc2267a049f
+sleep: classes in file 5 (row counts, ranked) [52698, 21359, 11967, 10832, 9052]; requested K 4, used K 4; rows dropped for NaN 0; rows in file/after selection and subsample 105908/5000; class counts used [2720, 1103, 618, 559]; sha256 da326113ba8074a5931eb92db0c9acbe8a0ffff62aa916b11a761bdef11231ce
+wine_quality_white: classes in file 7 (row counts, ranked) [2198, 1457, 880, 175, 163, 20, 5]; requested K 4, used K 4; rows dropped for NaN 0; rows in file/after selection and subsample 4898/4710; class counts used [2198, 1457, 880, 175]; sha256 0d39f17afc3a1712bd6c460aa941aed7835b3feb142538adfdd31ddc2451d60d
+yeast: classes in file 9 (row counts, ranked) [463, 429, 244, 163, 51, 44, 35, 30, 20]; requested K 6, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 1479/1394; class counts used [463, 429, 244, 163, 51, 44]; sha256 705c335a0d7edb3edf247ea313f2ae334086ce3e6bf4e1b64a8b306befd1c816

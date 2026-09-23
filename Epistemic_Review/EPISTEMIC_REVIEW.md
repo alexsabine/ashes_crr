@@ -437,3 +437,14 @@ existing label, row or verdict changes.
 
 ```include:notebook/AGENT_LOG.md:93-93
 ```
+
+## Addendum, 2026-09-23 (study SEC1, prompt-log entry 120)
+
+The table in §5 was written before study SEC1 and is kept as written. SEC1 pre-registered the Laplace weight on a
+secant-calibrated Fisher and scored it on the twelve **seen** carriers of EQ3 and EQ4, so its rows sit on rung R5. The
+pinned ladder (`checks/ladder.txt`) now reads **7 passes on seen data**: the earlier 4, plus SEC1-1, SEC1-2 and SEC1-3.
+- SEC1-3 passed exactly at its threshold and is FRAGILE (SEC1-S).
+- SEC1-4 failed.
+- None of them is PASS-0.
+
+The rows are in `ledger/LEDGER.md` and the report is `reports/sec1.md`.
