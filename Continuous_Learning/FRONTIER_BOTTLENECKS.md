@@ -489,3 +489,16 @@ standard deep neural networks."
    own gate (the cut).
 5. **Before any external use, check the [S] quotes against the primary pages from an unrestricted connection.** This
    applies to all the Dwarkesh transcripts, the Google and Thinking Machines posts, and the Pachocki and Vinyals episodes.
+
+## Addendum, 2026-09-23 (prompt-log entry 107)
+
+The H-EQ entries above (2.9 and the scorecard) quote "a finely tuned constant beats it wherever the scales differ". The
+assumption audit in `Adam_SGD/` shows that verdict holds only when the scale is read as true importance, at a fixed learning
+rate. Two further results:
+- **Units errors.** Under a units error, which is the realistic case of a miscalibrated Fisher, the unsmoothed rule ties a
+  constant retuned at every scale, without retuning.
+- **Drifting units.** In synthetic worlds whose units drift, it beats every fixed constant, under SGD, momentum and coupled
+  Adam. This result is post hoc and fragile. It still loses when many tasks accumulate.
+
+For bottleneck 2.9 the fit therefore moves from "small" to "a narrow, synthetic-only niche: drifting units in a two-term
+balance" (`Adam_SGD/ADAM_SGD.md`).

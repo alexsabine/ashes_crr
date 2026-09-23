@@ -20,3 +20,5 @@ script.
 | `checks/drift_battery_2.py` | the redesigned battery; pinned output `checks/drift_battery_2.txt` |
 | `checks/drift_battery_2.txt` | Declaration 3's output (post hoc): GATE OPEN narrowly; the ratio rule wins in the wandering-units world under SGD, momentum and coupled Adam but FRAGILE in Omega; loses on the eight-task sequences |
 | `DECLARATION_4.md`, `checks/mechanism.py` | the mechanism check: is the win an equal-noise coincidence? pinned output `checks/mechanism.txt` |
+| `checks/mechanism.txt` | Declaration 4's output: the rule's weight moves with the noise ratio (M1 fails as declared: less than 1/r), and it reads AHEAD only at equal noise (M2 holds) |
+| `ADAM_SGD.md`, `Adam_SGD.pdf` | the write-up, with plain-words boxes; `build/build_pdf.py` builds the PDF |

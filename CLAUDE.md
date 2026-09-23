@@ -53,7 +53,7 @@ replacement T1x2 (`prereg/t1x2/`, hashed before data; four corrections named; **
 has rows `T1X2-*` (data step 2026-09-23): **T1X2-1 FAIL on 5/5** carriers, not fragile (the old-probe endpoint predicts
 forgetting, the path does not beat it; `reports/t1x2.md`). The synthetic Adam and prior-art checks of 2026-09-23
 (`Continuous_Learning/ADAM_AND_PRIOR_ART.md`) find the Ω rule unnecessary under Adam, equal to the VQGAN adaptive weight
-without its smoothing, and behind a finely tuned constant wherever the scales differ. The epistemic status of the whole record is stated once in
+without its smoothing, and behind a finely tuned constant wherever the scales differ; the re-check of 2026-09-23 (`Adam_SGD/ADAM_SGD.md`) found that verdict conditional (true-importance reading, fixed learning rate): under a units error the unsmoothed rule ties a retuned constant, and in drifting-units worlds it beats every fixed constant (post hoc, fragile in Omega), while it loses on accumulating task sequences. The epistemic status of the whole record is stated once in
 `docs/notes/2026-09-22_epistemic_status.md` (read it before quoting any row).
 Two earlier results (below) motivated H-L5
 and H-T1; they were produced under a pipeline the audit rejected and are
@@ -230,6 +230,11 @@ Continuous_Learning/ADAM_AND_PRIOR_ART.md  the Ω rule under Adam, beside its pr
 Continuous_Learning/FRONTIER_BOTTLENECKS.md  exploratory survey of the frontier continual-learning bottlenecks and where CRR
                            might apply (prompt-log entry 105; sources docs/citations/frontier_cl_2026-09-23.md; PDF by
                            build/build_frontier_pdf.py); a note, not evidence (R8)
+Adam_SGD/                  the equanimity rule under SGD, momentum and Adam (prompt-log entry 107): an assumption audit of the
+                           fixed-weight comparisons (checks/assumptions.py), a drifting-world battery on a batched engine
+                           (checks/drift_battery.py, gate closed on no headroom; drift_battery_2.py, a POST-HOC redesign, gate open
+                           narrowly), a noise-ratio mechanism check (checks/mechanism.py); DECLARATION_1-4.md pushed before each run;
+                           ADAM_SGD.md + PDF; a note, not evidence (R8)
 Rupture_Detection/         the cut delta(Now) as a rupture detector (prompt-log entry 104): DECLARATION.md pushed before the run,
                            checks/rupture_checks.py + pinned .txt (Phase-A battery on chaotic carriers with a must-fail / must-win
                            gate), RUPTURE_DETECTION.md + PDF: the result and the applied use case for the owner's EPO application
