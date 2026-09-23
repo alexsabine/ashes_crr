@@ -1,0 +1,42 @@
+carrier              regime method   mode        runs non-finite
+page_blocks          std    derpp    fixed         35         14
+satimage             poison ewc      fixed         55         51
+satimage             poison ewc      fixedclip     85          8
+satimage             std    derpp    fixed         35         10
+satimage             std    ewc      fixed        305         45
+satimage             std    ewc      reduction      5          4
+satimage             std    mas      fixed         35         15
+satimage             std    si       fixed         35         19
+segmentation         poison ewc      fixed         55         37
+segmentation         poison ewc      fixedclip     85         11
+segmentation         std    derpp    fixed         35         12
+segmentation         std    ewc      fixed         85         16
+segmentation         std    mas      fixed         35         10
+segmentation         std    si       fixed         35         18
+sleep                poison ewc      fixed         55         21
+sleep                poison ewc      fixedclip     85         21
+sleep                std    derpp    fixed         35         10
+sleep                std    ewc      fixed         85         23
+sleep                std    ewc      reduction      5          1
+sleep                std    mas      fixed         35          5
+sleep                std    si       fixed         35         28
+wine_quality_white   poison ewc      fixed         55         27
+wine_quality_white   poison ewc      fixedclip     85         30
+wine_quality_white   std    derpp    fixed         35         11
+wine_quality_white   std    ewc      fixed         85         31
+wine_quality_white   std    mas      fixed         35          5
+wine_quality_white   std    si       fixed         35         34
+yeast                poison ewc      fixed         55         31
+yeast                poison ewc      fixedclip     85         32
+yeast                std    derpp    fixed         35         14
+yeast                std    ewc      fixed         85         32
+yeast                std    mas      fixed         35         14
+yeast                std    si       fixed         35         24
+total runs 4050, non-finite 664 (kept, scored 0, as pre-registered)
+carriers excluded by the class-selection rule (K < 4 after the floor of 40 rows): none
+page_blocks: classes in file 5 (row counts, ranked) [4913, 329, 115, 88, 28]; requested K 4, used K 4; rows dropped for NaN 0; rows in file/after selection and subsample 5473/5000; class counts used [4511, 302, 106, 81]
+satimage: classes in file 6 (row counts, ranked) [1533, 1508, 1358, 707, 703, 626]; requested K 6, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 6435/4999; class counts used [1191, 1172, 1055, 549, 546, 486]
+segmentation: classes in file 7 (row counts, ranked) [330, 330, 330, 330, 330, 330, 330]; requested K 6, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 2310/1980; class counts used [330, 330, 330, 330, 330, 330]
+sleep: classes in file 5 (row counts, ranked) [52698, 21359, 11967, 10832, 9052]; requested K 4, used K 4; rows dropped for NaN 0; rows in file/after selection and subsample 105908/5000; class counts used [2720, 1103, 618, 559]
+wine_quality_white: classes in file 7 (row counts, ranked) [2198, 1457, 880, 175, 163, 20, 5]; requested K 4, used K 4; rows dropped for NaN 0; rows in file/after selection and subsample 4898/4710; class counts used [2198, 1457, 880, 175]
+yeast: classes in file 9 (row counts, ranked) [463, 429, 244, 163, 51, 44, 35, 30, 20]; requested K 6, used K 6; rows dropped for NaN 0; rows in file/after selection and subsample 1479/1394; class counts used [463, 429, 244, 163, 51, 44]; classes under 50 rows: [(5, 44)]

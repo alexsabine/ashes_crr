@@ -1,0 +1,18 @@
+Adam checks, follow-up (Continuous_Learning/checks/adam_checks_2.py): the two-task quadratic as adam_checks.py; SGD lr 0.05, 4000 steps, 5 seeds; smoothing grid (0.0, 0.5, 0.9, 0.98); past scale c in [0.0625, 1.0, 16.0, 256.0]
+[B1] Smoothing ablation under SGD: total per scale (ratio to the SGD-tuned fixed weight)
+     rule, smoothing 0   : c = 0.0625: 1.9233 (0.997); c = 1: 3.4186 (1.031); c = 16: 7.7432 (0.526); c = 256: 78.3521 (0.847)
+     rule, smoothing 0.5 : c = 0.0625: 1.9360 (1.004); c = 1: 3.4519 (1.041); c = 16: 8.1555 (0.554); c = 256: 85.5681 (0.926)
+     rule, smoothing 0.9 : c = 0.0625: 1.9613 (1.017); c = 1: 3.4789 (1.049); c = 16: 9.7260 (0.660); c = 256: 114.1721 (1.235)
+     rule, smoothing 0.98: c = 0.0625: 2.3774 (1.232); c = 1: 20.6635 (6.230); c = 16: 287.7802 (19.537); c = 256: 5586.2511 (60.421)
+     VQGAN-style          : c = 0.0625: 1.9233 (0.997); c = 1: 3.4186 (1.031); c = 16: 7.7434 (0.526); c = 256: 78.3522 (0.847)
+     SGD-tuned fixed      : c = 0.0625: lambda 1 total 1.9290; c = 1: lambda 1 total 3.3168; c = 16: lambda 0.03 total 14.7298; c = 256: lambda 0.003 total 92.4552
+     B1 holds (the rule at smoothing 0 within 10 % of the VQGAN-style ratio at c = 16 and c = 256: the gap in [A7] is the smoothing): True
+     computed: the best smoothing per scale c = 0.0625: 0, c = 1: 0, c = 16: 0, c = 256: 0
+[B2] What the smoothing buys at c = 16: the rule at smoothing 0.9 against smoothing 0, per noise level
+     noise 0.1: smoothing 0.9 73.5962; smoothing 0 7.1299; lower: smoothing 0 (0.9 / 0 = 10.322)
+     noise 0.5: smoothing 0.9 9.7260; smoothing 0 7.7432; lower: smoothing 0 (0.9 / 0 = 1.256)
+     noise 1: smoothing 0.9 12.5881; smoothing 0 9.5821; lower: smoothing 0 (0.9 / 0 = 1.314)
+[B3] The derived weight (median over the last 1000 steps, seed 0) beside the tuned lambda and the edge
+     c = 16: edge 0.0786; SGD-tuned lambda 0.03; median w smoothing 0 0.0480 (above the tuned lambda); smoothing 0.9 0.0446 (above the tuned lambda)
+     c = 256: edge 0.0049; SGD-tuned lambda 0.003; median w smoothing 0 0.0030 (above the tuned lambda); smoothing 0.9 0.0027 (at or below the tuned lambda)
+summary: B1 holds

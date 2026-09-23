@@ -390,10 +390,17 @@ Study **EQ4** (`prereg/eq4/PREREG.md`, hashed and pushed 2026-09-22, anchor: pus
 | EQ2 (2026-09-17) | 3 unseen PMLB streams, online EWC | ahead of the tuned λ on 3/3 (+3.30, +2.10, +2.78); 6/27 sensitivity cells flip; DER++ control violated; Ω a plateau | EQ2-1b, PASS-0 fragile |
 | EQ2R (2026-09-21) | 3 unseen PMLB streams | frozen scorer crashed at the first DER++ arm; nothing scored | EQ2R-VOID |
 | EQ3 (2026-09-22) | 6 unseen PMLB streams, online EWC | not behind on 5/6, behind on 1/6; both controls violated; Ω a plateau over the whole grid; lr × batch 5/5; capacity × epochs 2/4 | EQ3-0..P FAIL; EQ2-1c |
+| EQ4 (2026-09-23) | 6 unseen PMLB streams, online EWC, clean and poisoned | the bounded rule EQ-B not behind on 4/6; under poison a fixed weight with the same clip does as well; ER-sum control violated; fragile (16 of 96 cells) | EQ4-1 FAIL, EQ4-3 FAIL, EQ4-4 INERT |
 
 Under the repository's levels no result is above PASS-0. EQ2-1b is provisional with a failed replication recorded beside it (ledger EQ2-1c). Nothing may be quoted as a finding. The claim that survives, stated in its narrowest form: for a Fisher-curvature penalty on tabular class-incremental streams with a 256-unit network, setting the penalty weight each step to the ratio of the present and past gradient norms gives a tuning-free weight that sits at or beyond the fixed weight's stability edge, is never behind an in-sample-tuned weight on eight of nine carriers, is invariant to learning rate and batch size on the one carrier tested, and equals the Laplace weight where that weight is calibrated. It does nothing for replay, it is not a value of Ω, and it does not make constraints safer.
 
 > After four tests the scoreboard reads: one loss (replay), one provisional win that could not be repeated cleanly, one void, and one mixed result with five wins and one loss. Under our own rules nothing counts as "proven". What is left is a small, real, useful trick for one family of methods, with a known reason why it works and a known list of where it does not.
+
+**Addendum, 2026-09-23 (prompt-log entry 104).** The paragraph above was written before EQ4 and the declared Adam and prior-art checks, and is kept as written. Since then:
+- EQ4 found the bounded rule not behind the tuned λ on 4 of 6 unseen carriers, so the "eight of nine" above is now eight of nine before EQ4 and four of six in EQ4 (`reports/eq4.md`).
+- A fine tuning grid shows that a well-tuned constant beats the rule wherever the past term's scale differs (`checks/adam_checks_3.txt`). The "tuning-free weight" survives only as that: a weight found without a search, below the stability edge, under SGD-family optimisers.
+- Under Adam the rule has nothing to do. Without its smoothing it is the VQGAN adaptive weight of 2020.
+- The full account is `ADAM_AND_PRIOR_ART.md`.
 
 ## 9. Implications if the results hold on GPU image benchmarks and at LLM scale
 

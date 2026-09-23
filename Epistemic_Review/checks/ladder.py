@@ -163,8 +163,8 @@ LEDGER_RULES = (
     (r"failed replication", "PASS-0 kept; replication failed"), (r"^FRAGILE at boundary", "not a PASS (fragile at the boundary)"),
     (r"^(FRAGILE|fragile)", "sensitivity: fragile"), (r"^not fragile", "sensitivity: not fragile"),
     (r"^REDUCES", "reduces to a constant"), (r"^(DOES NOT REDUCE|does not reduce)", "does not reduce"),
-    (r"^VIOLATED", "control violated"), (r"^holds", "control holds"), (r"^no published baseline", "no baseline ahead"),
-    (r"^FAIL", "FAIL"), (r"^as claimed \(seen\)", "holds on seen data"), (r"^[−\-+0-9.,: =c/]+", "numbers reported"))
+    (r"^VIOLATED", "control violated"), (r"^IDLE", "bound idle (diagnostic)"), (r"^INERT", "mechanism inert (positive control not load-bearing)"), (r"^PASS \(PASS-0", "PASS-0"), (r"^holds", "control holds"), (r"^no published baseline", "no baseline ahead"),
+    (r"^FAIL", "FAIL"), (r"^(immaterial|metric matters)", "numbers reported"), (r"^as claimed \(seen\)", "holds on seen data"), (r"^[−\-+0-9.,: =c/]+", "numbers reported"))
 
 
 def ledger():
@@ -173,7 +173,7 @@ def ledger():
     for line in (ROOT / "ledger" / "LEDGER.md").read_text().splitlines():
         if not re.match(r"^\| [A-Z]", line): continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        rid, data, verdict = cells[0], cells[2], cells[7].replace("**", "").strip()
+        rid, data, verdict = cells[0], cells[2], cells[-3].replace("**", "").strip()   # the verdict is third from the end: cells may hold "|" (absolute values)
         fam = rid.split("-")[0]
         if "(Y)" in data: seen = "held-out"
         elif "(N)" in data: seen = "seen"

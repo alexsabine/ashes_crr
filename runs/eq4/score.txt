@@ -1,0 +1,188 @@
+================================================================================================================
+EQ4 scoring — per-seed values in brackets (seeds 0-4); thresholds from prereg/eq4/PREREG.md
+================================================================================================================
+
+[page_blocks]  K = 4 of 5 classes (requested 4; floor 40); class counts [4511, 302, 106, 81]; n = 5000 of 5473 rows
+   resolvable step = max(1.0, 2*SE) = 10.8986  (tuned-lambda SE 5.4493)
+   EWC fixed-lambda grid: 0.1:16.94  0.3:17.44  1:18.70  3:22.94  10:32.03  10.6007:32.61  15:36.34  21.2766:40.00  30:42.40  42.3:34.97  60:29.43  84.9:35.22  100:30.73  300:17.30  1000:10.47  3000:6.51  10000:4.94
+   EWC tuned lambda = 30: 42.4024 [25.33 52.65 54.55 43.94 35.54]
+   EWC rule Ω=0.25: 30.1101 [32.33 41.24 23.22 36.24 17.52]   Ω − tuned: -12.2923  | EQ-B Ω=0.25: 31.4915 [31.73 41.94 43.64 22.52 17.62]   EQ-B − tuned: -10.9109
+   EWC rule Ω=0.35: 36.4965 [35.64 53.35 29.03 42.44 22.02]   Ω − tuned: -5.9059  | EQ-B Ω=0.35: 36.2162 [35.34 54.05 26.13 43.54 22.02]   EQ-B − tuned: -6.1862
+   EWC rule Ω=0.5 : 40.2402 [32.83 54.05 39.04 54.35 20.92]   Ω − tuned: -2.1622  | EQ-B Ω=0.5 : 41.5215 [32.83 54.45 44.34 54.95 21.02]   EQ-B − tuned: -0.8809
+   EWC rule Ω=0.71: 37.5776 [24.92 51.75 38.04 55.96 17.22]   Ω − tuned: -4.8248  | EQ-B Ω=0.71: 40.5806 [25.13 51.75 52.15 56.56 17.32]   EQ-B − tuned: -1.8218
+   EWC rule Ω=1.0 : 34.5746 [24.32 49.05 32.23 54.25 13.01]   Ω − tuned: -7.8278  | EQ-B Ω=1.0 : 39.2192 [24.52 50.35 53.15 55.06 13.01]   EQ-B − tuned: -3.1832
+   EWC rule Ω=1.41: 30.7307 [10.31 44.74 31.63 54.85 12.11]   Ω − tuned: -11.6717  | EQ-B Ω=1.41: 33.7738 [10.91 39.94 50.35 55.56 12.11]   EQ-B − tuned: -8.6286
+   EWC rule Ω=2.0 : 33.5736 [29.23 48.25 28.63 54.85 6.91]   Ω − tuned: -8.8288  | EQ-B Ω=2.0 : 37.5976 [29.33 50.35 46.15 55.26 6.91]   EQ-B − tuned: -4.8048
+   EWC rule Ω=2.83: 26.3864 [12.11 41.14 22.02 48.45 8.21]   Ω − tuned: -16.0160  | EQ-B Ω=2.83: 27.7678 [13.61 25.03 42.34 49.65 8.21]   EQ-B − tuned: -14.6346
+   EWC rule Ω=4.0 : 27.3473 [31.63 48.65 14.01 35.14 7.31]   Ω − tuned: -15.0551  | EQ-B Ω=4.0 : 28.8088 [31.73 51.25 20.42 33.13 7.51]   EQ-B − tuned: -13.5936
+   EQ-B clip fraction at Ω=1 (clean): 0.0025 [0.002 0.003 0.002 0.003 0.002]
+   EWC reduction arm (fixed w = median derived 191.797 of EQ-B): 32.2322 [39.64 59.26 6.41 54.95 0.90]   EQ-B(Ω=1) − reduction: +6.9870
+   EWC Bayes arm (Laplace weight 0.5): 34.7548 [19.42 38.74 50.55 35.14 29.93]   Bayes − tuned: -7.6476; EQ-B(Ω=1) − Bayes: +4.4645
+   sensitivity (EQ-B Ω=1 − tuned): cap10/sm0.8:-10.93  cap10/sm0.9:-10.81  cap10/sm0.98:-10.81  cap100/sm0.8:+4.16  cap100/sm0.9:-0.48  cap100/sm0.98:+0.62  cap10000/sm0.8:-1.22  cap10000/sm0.98:-11.43  k1.5/N20:-2.80  k1.5/N50:-3.06  k1.5/N200:-7.31  k2/N20:-3.18  k2/N200:-7.55  k4/N20:-8.19  k4/N50:-7.83  k4/N200:-7.83
+   EWC baseline agem    : 20.8609 [10.21 25.63 25.63 33.53 9.31]   EQ-B(Ω=1) − baseline: +18.3584
+   EWC baseline gradnorm: 31.0711 [16.22 39.84 39.34 45.25 14.71]   EQ-B(Ω=1) − baseline: +8.1481
+   EWC baseline mega    : 16.8969 [9.61 17.82 23.32 24.02 9.71]   EQ-B(Ω=1) − baseline: +22.3223
+   ER-sum grid: 0.5:88.27  1:91.31  2:93.11  4:93.79; rule Ω=1: 92.9930 [93.99 92.69 92.19 95.60 90.49]; EQ-B Ω=1: 93.1131 [93.79 93.49 92.09 95.50 90.69]  EQ-B − best fixed: -0.6807; reduction arm: 91.3714 [93.29 92.39 86.69 93.19 91.29]  EQ-B − reduction: +1.7417
+   derpp tuned w=0.01: 89.0090 [89.39 89.99 85.29 91.69 88.69]; rule Ω=1: 89.9299 [93.19 88.49 88.39 91.69 87.89] (+0.9209); EQ-B Ω=1: 90.1301 [93.29 88.39 88.49 91.69 88.79] (+1.1211); finite-grid span 0.6206 -> inert (report only: outside the narrowed H-EQ)
+   lwf   tuned w=3: 91.5916 [91.99 92.49 91.99 92.29 89.19]; rule Ω=1: 91.1912 [90.99 92.09 92.49 90.29 90.09] (-0.4004); EQ-B Ω=1: 91.0911 [91.49 92.09 92.49 90.29 89.09] (-0.5005); finite-grid span 53.8939 -> load-bearing (report only: outside the narrowed H-EQ)
+   si    tuned w=0.01: 42.4024 [29.23 37.94 49.65 48.05 47.15]; EQ-B Ω=1: 24.4244 [13.11 17.72 36.84 41.04 13.41]  EQ-B − tuned: -17.9780
+   mas   tuned w=0.3: 86.4264 [89.49 75.58 88.69 91.39 86.99]; EQ-B Ω=1: 86.2062 [90.29 78.88 89.99 82.18 89.69]  EQ-B − tuned: -0.2202
+   POISON (x1000 for up to 5 batches per task from task 2): step = 11.2879; fixed tuned lambda=30: 18.4985 [27.23 6.21 52.45 3.40 3.20]; fixed+clip tuned lambda=42.3: 34.7147 [31.13 40.14 50.95 34.83 16.52]; rule Ω=1: 14.1141 [26.73 4.80 32.13 3.50 3.40] (finite 5/5; max w 1e+04 median over seeds); EQ-B Ω=1: 34.3544 [27.53 38.14 49.35 53.05 3.70]
+          EQ-B − fixed+clip tuned: -0.3604; rule − EQ-B: -20.2402; fixed(no clip) tuned − fixed+clip tuned: -16.2162
+
+[satimage]  K = 6 of 6 classes (requested 6; floor 40); class counts [1191, 1172, 1055, 549, 546, 486]; n = 4999 of 6435 rows
+   resolvable step = max(1.0, 2*SE) = 1.6183  (tuned-lambda SE 0.8091)
+   EWC fixed-lambda grid: 0.1:22.64  0.3:22.64  1:22.72  1.06007:22.72  1.5:22.76  2.12766:22.80  3:22.84  4.23:22.72  6:22.78  8.49:22.60  10:22.68  30:22.30  100:22.16  300:19.62  1000:15.50  3000:4.22  10000:0.00
+   EWC tuned lambda = 3: 22.8428 [20.62 23.52 21.42 25.13 23.52]
+   EWC rule Ω=0.25: 26.1061 [21.32 24.62 25.43 24.52 34.63]   Ω − tuned: +3.2633  | EQ-B Ω=0.25: 25.9259 [20.62 24.72 26.13 24.82 33.33]   EQ-B − tuned: +3.0831
+   EWC rule Ω=0.35: 25.8058 [20.82 24.12 25.13 24.22 34.73]   Ω − tuned: +2.9630  | EQ-B Ω=0.35: 25.6056 [20.82 23.92 24.62 24.62 34.03]   EQ-B − tuned: +2.7628
+   EWC rule Ω=0.5 : 26.3063 [22.72 24.02 26.83 23.82 34.13]   Ω − tuned: +3.4635  | EQ-B Ω=0.5 : 26.6466 [22.92 24.02 27.03 24.42 34.83]   EQ-B − tuned: +3.8038
+   EWC rule Ω=0.71: 28.4685 [25.43 25.93 28.93 23.32 38.74]   Ω − tuned: +5.6256  | EQ-B Ω=0.71: 26.9269 [23.12 25.93 29.33 24.22 32.03]   EQ-B − tuned: +4.0841
+   EWC rule Ω=1.0 : 27.6677 [23.62 25.73 26.13 24.02 38.84]   Ω − tuned: +4.8248  | EQ-B Ω=1.0 : 26.9269 [23.82 25.73 27.23 26.03 31.83]   EQ-B − tuned: +4.0841
+   EWC rule Ω=1.41: 26.3463 [25.03 25.63 25.93 23.02 32.13]   Ω − tuned: +3.5035  | EQ-B Ω=1.41: 26.7067 [23.32 25.43 28.03 25.63 31.13]   EQ-B − tuned: +3.8639
+   EWC rule Ω=2.0 : 25.7057 [23.32 24.02 25.83 23.12 32.23]   Ω − tuned: +2.8629  | EQ-B Ω=2.0 : 25.9259 [23.82 24.12 26.03 23.52 32.13]   EQ-B − tuned: +3.0831
+   EWC rule Ω=2.83: 26.0060 [23.62 24.72 26.73 22.52 32.43]   Ω − tuned: +3.1632  | EQ-B Ω=2.83: 27.7277 [25.23 24.82 33.43 23.42 31.73]   EQ-B − tuned: +4.8849
+   EWC rule Ω=4.0 : 25.9860 [24.22 23.92 27.23 22.62 31.93]   Ω − tuned: +3.1431  | EQ-B Ω=4.0 : 26.4464 [23.02 23.92 30.63 23.42 31.23]   EQ-B − tuned: +3.6036
+   EQ-B clip fraction at Ω=1 (clean): 0.0035 [0.002 0.004 0.003 0.003 0.005]
+   EWC reduction arm (fixed w = median derived 4425.81 of EQ-B): 1.2212 [6.11 0.00 0.00 0.00 0.00]   EQ-B(Ω=1) − reduction: +25.7057
+   EWC Bayes arm (Laplace weight 0.5): 22.6627 [20.62 23.52 21.42 23.92 23.82]   Bayes − tuned: -0.1802; EQ-B(Ω=1) − Bayes: +4.2643
+   sensitivity (EQ-B Ω=1 − tuned): cap10/sm0.8:-0.54  cap10/sm0.9:-0.54  cap10/sm0.98:-0.54  cap100/sm0.8:-0.76  cap100/sm0.9:-0.76  cap100/sm0.98:-0.78  cap10000/sm0.8:+3.60  cap10000/sm0.98:+2.62  k1.5/N20:+2.66  k1.5/N50:+3.26  k1.5/N200:+5.11  k2/N20:+3.26  k2/N200:+4.78  k4/N20:+3.38  k4/N50:+5.11  k4/N200:+4.82
+   EWC baseline agem    : 23.9039 [20.62 23.22 24.62 22.52 28.53]   EQ-B(Ω=1) − baseline: +3.0230
+   EWC baseline gradnorm: 50.8909 [51.25 48.55 53.05 51.25 50.35]   EQ-B(Ω=1) − baseline: -23.9640
+   EWC baseline mega    : 22.6026 [20.62 23.52 21.32 23.72 23.82]   EQ-B(Ω=1) − baseline: +4.3243
+   ER-sum grid: 0.5:79.42  1:82.96  2:84.80  4:85.31; rule Ω=1: 81.7217 [78.68 82.38 81.38 84.88 81.28]; EQ-B Ω=1: 81.8819 [78.68 82.28 82.08 85.29 81.08]  EQ-B − best fixed: -3.4234; reduction arm: 83.5435 [78.88 84.68 84.18 86.19 83.78]  EQ-B − reduction: -1.6617
+   derpp tuned w=1: 84.6046 [84.58 84.18 85.39 86.09 82.78]; rule Ω=1: 83.7437 [79.98 84.88 85.29 86.09 82.48] (-0.8609); EQ-B Ω=1: 83.7237 [79.98 84.68 85.29 86.09 82.58] (-0.8809); finite-grid span 4.5445 -> load-bearing (report only: outside the narrowed H-EQ)
+   lwf   tuned w=1: 52.2523 [49.55 49.85 50.75 54.35 56.76]; rule Ω=1: 47.3674 [47.25 47.15 47.55 47.25 47.65] (-4.8849); EQ-B Ω=1: 47.2472 [47.25 47.15 47.25 47.15 47.45] (-5.0050); finite-grid span 26.8869 -> load-bearing (report only: outside the narrowed H-EQ)
+   si    tuned w=0.03: 35.3353 [32.83 34.63 39.04 36.44 33.73]; EQ-B Ω=1: 36.8569 [35.04 34.63 35.74 39.54 39.34]  EQ-B − tuned: +1.5215
+   mas   tuned w=0.3: 68.9690 [63.16 54.85 80.58 75.08 71.17]; EQ-B Ω=1: 62.3423 [62.66 57.16 60.36 64.46 67.07]  EQ-B − tuned: -6.6266
+   POISON (x1000 for up to 5 batches per task from task 2): step = 1.9507; fixed tuned lambda=0.1: 4.1041 [20.52 0.00 0.00 0.00 0.00]; fixed+clip tuned lambda=141: 22.0020 [20.52 21.32 20.42 25.73 22.02]; rule Ω=1: 20.4605 [20.52 20.42 20.42 20.52 20.42] (finite 5/5; max w 1e+04 median over seeds); EQ-B Ω=1: 21.8418 [20.52 20.62 20.52 24.02 23.52]
+          EQ-B − fixed+clip tuned: -0.1602; rule − EQ-B: -1.3814; fixed(no clip) tuned − fixed+clip tuned: -17.8979
+
+[segmentation]  K = 6 of 7 classes (requested 6; floor 40); class counts [330, 330, 330, 330, 330, 330]; n = 1980 of 2310 rows
+   resolvable step = max(1.0, 2*SE) = 1.8625  (tuned-lambda SE 0.9313)
+   EWC fixed-lambda grid: 0.1:68.54  0.3:68.74  1:69.34  3:70.05  10:71.52  30:72.37  100:72.93  106.007:72.93  150:72.73  212.766:73.08  300:73.23  423:69.24  600:61.31  849:22.53  1000:12.07  3000:0.00  10000:0.00
+   EWC tuned lambda = 300: 73.2323 [70.96 74.49 74.75 75.00 70.96]
+   EWC rule Ω=0.25: 69.7475 [68.43 72.98 71.21 70.45 65.66]   Ω − tuned: -3.4848  | EQ-B Ω=0.25: 69.7475 [68.43 72.98 71.21 70.45 65.66]   EQ-B − tuned: -3.4848
+   EWC rule Ω=0.35: 70.8081 [68.69 73.23 71.97 72.98 67.17]   Ω − tuned: -2.4242  | EQ-B Ω=0.35: 70.7576 [68.69 73.23 71.97 72.98 66.92]   EQ-B − tuned: -2.4747
+   EWC rule Ω=0.5 : 71.4141 [68.69 73.74 73.99 73.23 67.42]   Ω − tuned: -1.8182  | EQ-B Ω=0.5 : 71.4141 [68.69 73.74 73.99 73.23 67.42]   EQ-B − tuned: -1.8182
+   EWC rule Ω=0.71: 71.9697 [68.94 73.23 75.00 72.73 69.95]   Ω − tuned: -1.2626  | EQ-B Ω=0.71: 71.9697 [68.94 73.23 75.00 72.73 69.95]   EQ-B − tuned: -1.2626
+   EWC rule Ω=1.0 : 70.9596 [73.23 67.68 73.23 70.45 70.20]   Ω − tuned: -2.2727  | EQ-B Ω=1.0 : 70.9596 [73.23 67.68 73.23 70.45 70.20]   EQ-B − tuned: -2.2727
+   EWC rule Ω=1.41: 72.9798 [73.23 72.47 75.51 73.74 69.95]   Ω − tuned: -0.2525  | EQ-B Ω=1.41: 72.9798 [73.23 72.47 75.51 73.74 69.95]   EQ-B − tuned: -0.2525
+   EWC rule Ω=2.0 : 70.3535 [72.98 67.68 75.00 68.43 67.68]   Ω − tuned: -2.8788  | EQ-B Ω=2.0 : 70.9091 [72.98 67.68 74.75 68.43 70.71]   EQ-B − tuned: -2.3232
+   EWC rule Ω=2.83: 72.9293 [72.73 73.99 75.76 73.23 68.94]   Ω − tuned: -0.3030  | EQ-B Ω=2.83: 72.7778 [72.73 73.99 75.76 73.23 68.18]   EQ-B − tuned: -0.4545
+   EWC rule Ω=4.0 : 73.4848 [72.22 74.49 75.25 74.75 70.71]   Ω − tuned: +0.2525  | EQ-B Ω=4.0 : 73.1818 [72.22 74.49 74.75 74.75 69.70]   EQ-B − tuned: -0.0505
+   EQ-B clip fraction at Ω=1 (clean): 0.0008 [0.000 0.002 0.002 0.000 0.000]
+   EWC reduction arm (fixed w = median derived 56.2157 of EQ-B): 72.4242 [69.95 73.99 73.99 74.49 69.70]   EQ-B(Ω=1) − reduction: -1.4646
+   EWC Bayes arm (Laplace weight 0.5): 68.8384 [66.67 69.70 70.45 70.96 66.41]   Bayes − tuned: -4.3939; EQ-B(Ω=1) − Bayes: +2.1212
+   sensitivity (EQ-B Ω=1 − tuned): cap10/sm0.8:-1.72  cap10/sm0.9:-1.72  cap10/sm0.98:-1.72  cap100/sm0.8:-0.35  cap100/sm0.9:-0.40  cap100/sm0.98:-0.30  cap10000/sm0.8:-0.91  cap10000/sm0.98:+0.51  k1.5/N20:-1.92  k1.5/N50:-2.12  k1.5/N200:-2.27  k2/N20:-1.97  k2/N200:-2.27  k4/N20:-2.27  k4/N50:-2.27  k4/N200:-2.27
+   EWC baseline agem    : 69.7475 [67.17 71.72 70.71 70.96 68.18]   EQ-B(Ω=1) − baseline: +1.2121
+   EWC baseline gradnorm: 56.6162 [48.74 51.26 52.27 59.60 71.21]   EQ-B(Ω=1) − baseline: +14.3434
+   EWC baseline mega    : 68.6364 [66.16 69.44 70.45 70.71 66.41]   EQ-B(Ω=1) − baseline: +2.3232
+   ER-sum grid: 0.5:96.31  1:97.47  2:98.28  4:98.48; rule Ω=1: 97.4242 [97.73 97.22 98.23 95.71 98.23]; EQ-B Ω=1: 97.4242 [97.73 97.22 98.23 95.71 98.23]  EQ-B − best fixed: -1.0606; reduction arm: 97.6768 [97.73 98.23 98.74 96.72 96.97]  EQ-B − reduction: -0.2525
+   derpp tuned w=0.3: 97.7778 [97.98 98.23 98.48 96.21 97.98]; rule Ω=1: 97.0707 [96.97 97.22 96.97 96.72 97.47] (-0.7071); EQ-B Ω=1: 97.0707 [96.97 97.22 96.97 96.72 97.47] (-0.7071); finite-grid span 1.0606 -> inert (report only: outside the narrowed H-EQ)
+   lwf   tuned w=0.1: 86.2121 [90.66 85.10 87.37 84.85 83.08]; rule Ω=1: 38.1313 [30.30 66.67 33.08 27.78 32.83] (-48.0808); EQ-B Ω=1: 38.1313 [30.30 66.67 33.08 27.78 32.83] (-48.0808); finite-grid span 69.5455 -> load-bearing (report only: outside the narrowed H-EQ)
+   si    tuned w=0.03: 76.2121 [76.52 75.25 79.80 76.26 73.23]; EQ-B Ω=1: 82.8788 [83.08 81.82 84.09 83.08 82.32]  EQ-B − tuned: +6.6667
+   mas   tuned w=0.3: 94.5455 [95.96 93.43 94.70 95.20 93.43]; EQ-B Ω=1: 92.5758 [94.44 92.93 91.16 94.70 89.65]  EQ-B − tuned: -1.9697
+   POISON (x1000 for up to 5 batches per task from task 2): step = 4.2616; fixed tuned lambda=0.1: 32.7778 [33.08 33.08 32.32 33.33 32.07]; fixed+clip tuned lambda=141: 65.1515 [67.42 68.69 56.82 66.92 65.91]; rule Ω=1: 33.4848 [35.35 33.33 32.58 33.33 32.83] (finite 5/5; max w 1e+04 median over seeds); EQ-B Ω=1: 64.7475 [67.17 64.39 60.61 66.41 65.15]
+          EQ-B − fixed+clip tuned: -0.4040; rule − EQ-B: -31.2626; fixed(no clip) tuned − fixed+clip tuned: -32.3737
+
+[sleep]  K = 4 of 5 classes (requested 4; floor 40); class counts [2720, 1103, 618, 559]; n = 5000 of 105908 rows
+   resolvable step = max(1.0, 2*SE) = 1.1153  (tuned-lambda SE 0.5577)
+   EWC fixed-lambda grid: 0.1:22.62  0.3:22.70  1:22.96  3:23.02  10:22.88  10.6007:22.86  15:22.84  21.2766:22.84  30:23.34  42.3:22.50  60:17.80  84.9:20.20  100:23.26  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC tuned lambda = 30: 23.3367 [22.78 23.28 22.88 22.28 25.47]
+   EWC rule Ω=0.25: 22.9970 [22.68 23.68 23.48 22.48 22.68]   Ω − tuned: -0.3397  | EQ-B Ω=0.25: 22.9970 [22.68 23.68 23.48 22.48 22.68]   EQ-B − tuned: -0.3397
+   EWC rule Ω=0.35: 23.0569 [22.78 23.78 23.48 22.38 22.88]   Ω − tuned: -0.2797  | EQ-B Ω=0.35: 23.0569 [22.78 23.78 23.48 22.38 22.88]   EQ-B − tuned: -0.2797
+   EWC rule Ω=0.5 : 22.7972 [22.68 23.28 22.98 22.28 22.78]   Ω − tuned: -0.5395  | EQ-B Ω=0.5 : 22.7972 [22.68 23.28 22.98 22.28 22.78]   EQ-B − tuned: -0.5395
+   EWC rule Ω=0.71: 22.8771 [22.68 23.28 23.18 22.38 22.88]   Ω − tuned: -0.4595  | EQ-B Ω=0.71: 22.8771 [22.68 23.28 23.18 22.38 22.88]   EQ-B − tuned: -0.4595
+   EWC rule Ω=1.0 : 22.8372 [22.78 23.38 22.98 22.28 22.78]   Ω − tuned: -0.4995  | EQ-B Ω=1.0 : 22.8372 [22.78 23.38 22.98 22.28 22.78]   EQ-B − tuned: -0.4995
+   EWC rule Ω=1.41: 22.9171 [22.78 23.18 23.38 22.28 22.98]   Ω − tuned: -0.4196  | EQ-B Ω=1.41: 22.8971 [22.78 23.18 23.38 22.28 22.88]   EQ-B − tuned: -0.4396
+   EWC rule Ω=2.0 : 22.8971 [22.68 23.28 23.38 22.28 22.88]   Ω − tuned: -0.4396  | EQ-B Ω=2.0 : 22.9171 [22.68 23.28 23.38 22.28 22.98]   EQ-B − tuned: -0.4196
+   EWC rule Ω=2.83: 22.9171 [22.68 23.18 23.38 22.48 22.88]   Ω − tuned: -0.4196  | EQ-B Ω=2.83: 22.9371 [22.68 23.18 23.38 22.48 22.98]   EQ-B − tuned: -0.3996
+   EWC rule Ω=4.0 : 22.9171 [22.68 23.18 23.38 22.48 22.88]   Ω − tuned: -0.4196  | EQ-B Ω=4.0 : 22.9171 [22.68 23.18 23.38 22.48 22.88]   EQ-B − tuned: -0.4196
+   EQ-B clip fraction at Ω=1 (clean): 0.0002 [0.000 0.000 0.000 0.000 0.001]
+   EWC reduction arm (fixed w = median derived 57.47 of EQ-B): 19.4006 [28.47 23.28 22.98 22.28 0.00]   EQ-B(Ω=1) − reduction: +3.4366
+   EWC Bayes arm (Laplace weight 0.5): 23.0769 [22.88 23.98 23.28 22.48 22.78]   Bayes − tuned: -0.2597; EQ-B(Ω=1) − Bayes: -0.2398
+   sensitivity (EQ-B Ω=1 − tuned): cap10/sm0.8:-0.46  cap10/sm0.9:-0.46  cap10/sm0.98:-0.46  cap100/sm0.8:-0.56  cap100/sm0.9:-0.30  cap100/sm0.98:-0.34  cap10000/sm0.8:-0.54  cap10000/sm0.98:-0.44  k1.5/N20:-0.44  k1.5/N50:-0.44  k1.5/N200:-0.50  k2/N20:-0.48  k2/N200:-0.50  k4/N20:-0.50  k4/N50:-0.50  k4/N200:-0.50
+   EWC baseline agem    : 22.6573 [22.68 22.88 22.88 22.28 22.58]   EQ-B(Ω=1) − baseline: +0.1798
+   EWC baseline gradnorm: 51.0290 [48.95 54.65 58.74 48.45 44.36]   EQ-B(Ω=1) − baseline: -28.1918
+   EWC baseline mega    : 22.8172 [22.58 23.48 23.18 22.28 22.58]   EQ-B(Ω=1) − baseline: +0.0200
+   ER-sum grid: 0.5:59.20  1:61.58  2:62.54  4:62.22; rule Ω=1: 64.2957 [51.45 68.33 62.74 75.52 63.44]; EQ-B Ω=1: 65.1149 [55.44 68.33 62.74 75.52 63.54]  EQ-B − best fixed: +2.5774; reduction arm: 61.9580 [52.05 59.74 63.54 74.33 60.14]  EQ-B − reduction: +3.1568
+   derpp tuned w=1: 70.6494 [69.53 57.24 73.73 75.62 77.12]; rule Ω=1: 65.7542 [57.84 62.14 62.54 74.33 71.93] (-4.8951); EQ-B Ω=1: 65.9341 [58.84 62.14 62.54 74.33 71.83] (-4.7153); finite-grid span 10.1299 -> load-bearing (report only: outside the narrowed H-EQ)
+   lwf   tuned w=3: 68.1918 [69.73 67.43 69.13 67.63 67.03]; rule Ω=1: 68.4715 [69.23 69.53 70.33 65.53 67.73] (+0.2797); EQ-B Ω=1: 68.2717 [69.23 68.83 70.33 65.53 67.43] (+0.0799); finite-grid span 47.0929 -> load-bearing (report only: outside the narrowed H-EQ)
+   si    tuned w=0.01: 23.0769 [22.88 23.78 22.78 30.87 15.08]; EQ-B Ω=1: 23.2368 [23.18 24.58 22.68 23.18 22.58]  EQ-B − tuned: +0.1598
+   mas   tuned w=0.3: 70.5295 [66.23 64.74 75.12 76.62 69.93]; EQ-B Ω=1: 68.1918 [74.53 61.24 54.05 75.12 76.02]  EQ-B − tuned: -2.3377
+   POISON (x1000 for up to 5 batches per task from task 2): step = 11.0775; fixed tuned lambda=100: 23.4366 [34.97 18.48 32.87 30.87 0.00]; fixed+clip tuned lambda=100: 27.9720 [44.96 14.49 35.16 26.77 18.48]; rule Ω=1: 22.3576 [22.28 22.38 22.38 22.08 22.68] (finite 5/5; max w 1e+04 median over seeds); EQ-B Ω=1: 22.9371 [22.08 23.18 23.18 22.58 23.68]
+          EQ-B − fixed+clip tuned: -5.0350; rule − EQ-B: -0.5794; fixed(no clip) tuned − fixed+clip tuned: -4.5355
+
+[wine_quality_white]  K = 4 of 7 classes (requested 4; floor 40); class counts [2198, 1457, 880, 175]; n = 4710 of 4898 rows
+   resolvable step = max(1.0, 2*SE) = 6.7386  (tuned-lambda SE 3.3693)
+   EWC fixed-lambda grid: 0.1:18.20  0.3:18.22  1:18.20  3:18.17  3.53357:18.17  5:18.17  7.0922:18.39  10:23.01  14.1:24.90  20:14.31  28.3:14.39  30:13.57  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC tuned lambda = 14.1: 24.9045 [34.39 31.63 18.68 18.68 21.13]
+   EWC rule Ω=0.25: 18.2166 [18.58 16.67 18.68 18.68 18.47]   Ω − tuned: -6.6879  | EQ-B Ω=0.25: 18.2166 [18.58 16.67 18.68 18.68 18.47]   EQ-B − tuned: -6.6879
+   EWC rule Ω=0.35: 18.2378 [18.58 16.77 18.68 18.68 18.47]   Ω − tuned: -6.6667  | EQ-B Ω=0.35: 18.2378 [18.58 16.77 18.68 18.68 18.47]   EQ-B − tuned: -6.6667
+   EWC rule Ω=0.5 : 18.1953 [18.58 16.56 18.68 18.68 18.47]   Ω − tuned: -6.7091  | EQ-B Ω=0.5 : 18.1953 [18.58 16.56 18.68 18.68 18.47]   EQ-B − tuned: -6.7091
+   EWC rule Ω=0.71: 18.1953 [18.58 16.56 18.68 18.68 18.47]   Ω − tuned: -6.7091  | EQ-B Ω=0.71: 18.1953 [18.58 16.56 18.68 18.68 18.47]   EQ-B − tuned: -6.7091
+   EWC rule Ω=1.0 : 18.1741 [18.58 16.45 18.68 18.68 18.47]   Ω − tuned: -6.7304  | EQ-B Ω=1.0 : 18.1741 [18.58 16.45 18.68 18.68 18.47]   EQ-B − tuned: -6.7304
+   EWC rule Ω=1.41: 18.2166 [18.58 16.56 18.68 18.68 18.58]   Ω − tuned: -6.6879  | EQ-B Ω=1.41: 18.2166 [18.58 16.56 18.68 18.68 18.58]   EQ-B − tuned: -6.6879
+   EWC rule Ω=2.0 : 18.2378 [18.58 16.67 18.68 18.68 18.58]   Ω − tuned: -6.6667  | EQ-B Ω=2.0 : 18.2378 [18.58 16.67 18.68 18.68 18.58]   EQ-B − tuned: -6.6667
+   EWC rule Ω=2.83: 18.2378 [18.58 16.56 18.68 18.68 18.68]   Ω − tuned: -6.6667  | EQ-B Ω=2.83: 18.2378 [18.58 16.56 18.68 18.68 18.68]   EQ-B − tuned: -6.6667
+   EWC rule Ω=4.0 : 18.2166 [18.58 16.56 18.68 18.68 18.58]   Ω − tuned: -6.6879  | EQ-B Ω=4.0 : 18.2166 [18.58 16.56 18.68 18.68 18.58]   EQ-B − tuned: -6.6879
+   EQ-B clip fraction at Ω=1 (clean): 0.0002 [0.000 0.000 0.001 0.000 0.000]
+   EWC reduction arm (fixed w = median derived 10.6078 of EQ-B): 21.2102 [17.30 33.01 18.68 18.68 18.37]   EQ-B(Ω=1) − reduction: -3.0361
+   EWC Bayes arm (Laplace weight 0.5): 18.1741 [18.58 16.56 18.68 18.68 18.37]   Bayes − tuned: -6.7304; EQ-B(Ω=1) − Bayes: +0.0000
+   sensitivity (EQ-B Ω=1 − tuned): cap10/sm0.8:-6.73  cap10/sm0.9:-6.73  cap10/sm0.98:-6.71  cap100/sm0.8:-6.73  cap100/sm0.9:-6.73  cap100/sm0.98:-6.69  cap10000/sm0.8:-6.71  cap10000/sm0.98:-6.65  k1.5/N20:-6.71  k1.5/N50:-6.73  k1.5/N200:-6.73  k2/N20:-6.71  k2/N200:-6.73  k4/N20:-6.73  k4/N50:-6.73  k4/N200:-6.73
+   EWC baseline agem    : 18.2166 [18.58 16.77 18.68 18.68 18.37]   EQ-B(Ω=1) − baseline: -0.0425
+   EWC baseline gradnorm: 26.1996 [21.34 20.59 32.80 30.25 26.01]   EQ-B(Ω=1) − baseline: -8.0255
+   EWC baseline mega    : 18.2166 [18.58 16.77 18.68 18.68 18.37]   EQ-B(Ω=1) − baseline: -0.0425
+   ER-sum grid: 0.5:42.00  1:47.07  2:49.45  4:52.00; rule Ω=1: 46.4544 [42.04 49.04 44.69 50.21 46.28]; EQ-B Ω=1: 46.4331 [42.04 49.04 44.59 50.21 46.28]  EQ-B − best fixed: -5.5626; reduction arm: 47.1338 [43.95 47.45 45.75 51.17 47.35]  EQ-B − reduction: -0.7006
+   derpp tuned w=0.3: 49.3843 [45.33 51.80 51.38 51.59 46.82]; rule Ω=1: 50.7643 [49.26 52.65 53.40 51.59 46.92] (+1.3800); EQ-B Ω=1: 50.7431 [49.47 52.65 52.97 51.70 46.92] (+1.3588); finite-grid span 5.7325 -> inert (report only: outside the narrowed H-EQ)
+   lwf   tuned w=10: 51.7410 [50.42 47.24 51.06 53.72 56.26]; rule Ω=1: 51.0616 [48.73 46.71 51.59 53.29 54.99] (-0.6794); EQ-B Ω=1: 51.1040 [48.73 46.71 51.80 53.29 54.99] (-0.6369); finite-grid span 33.9915 -> load-bearing (report only: outside the narrowed H-EQ)
+   si    tuned w=0.01: 6.6454 [0.00 0.00 33.23 0.00 0.00]; EQ-B Ω=1: 17.7707 [18.58 18.58 18.68 17.73 15.29]  EQ-B − tuned: +11.1253
+   mas   tuned w=1: 49.8938 [47.13 45.75 55.73 55.63 45.22]; EQ-B Ω=1: 49.2781 [46.92 46.18 53.72 55.31 44.27]  EQ-B − tuned: -0.6157
+   POISON (x1000 for up to 5 batches per task from task 2): step = 7.0062; fixed tuned lambda=10: 23.8217 [32.91 36.09 15.39 16.35 18.37]; fixed+clip tuned lambda=21.2766: 28.0467 [30.89 34.39 20.38 19.00 35.56]; rule Ω=1: 17.6645 [18.26 18.37 15.07 17.83 18.79] (finite 5/5; max w 1e+04 median over seeds); EQ-B Ω=1: 17.4947 [17.83 14.65 17.52 19.00 18.47]
+          EQ-B − fixed+clip tuned: -10.5520; rule − EQ-B: +0.1699; fixed(no clip) tuned − fixed+clip tuned: -4.2251
+
+[yeast]  K = 6 of 9 classes (requested 6; floor 40); class counts [463, 429, 244, 163, 51, 44]; n = 1394 of 1479 rows
+   resolvable step = max(1.0, 2*SE) = 6.0415  (tuned-lambda SE 3.0208)
+   EWC fixed-lambda grid: 0.1:12.93  0.3:14.43  1:16.93  1.06007:16.71  1.5:18.50  2.12766:18.64  3:20.00  4.23:21.64  6:22.50  8.49:26.14  10:13.79  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC tuned lambda = 8.49: 26.1429 [37.14 24.64 25.36 18.57 25.00]
+   EWC rule Ω=0.25: 19.5714 [21.07 22.50 19.64 16.79 17.86]   Ω − tuned: -6.5714  | EQ-B Ω=0.25: 19.5714 [21.07 22.50 19.64 16.79 17.86]   EQ-B − tuned: -6.5714
+   EWC rule Ω=0.35: 22.4286 [23.93 23.57 24.64 17.50 22.50]   Ω − tuned: -3.7143  | EQ-B Ω=0.35: 22.4286 [23.93 23.57 24.64 17.50 22.50]   EQ-B − tuned: -3.7143
+   EWC rule Ω=0.5 : 22.4286 [22.86 22.86 22.14 21.43 22.86]   Ω − tuned: -3.7143  | EQ-B Ω=0.5 : 22.4286 [22.86 22.86 22.14 21.43 22.86]   EQ-B − tuned: -3.7143
+   EWC rule Ω=0.71: 20.7857 [20.00 24.29 25.00 18.21 16.43]   Ω − tuned: -5.3571  | EQ-B Ω=0.71: 20.7857 [20.00 24.29 25.00 18.21 16.43]   EQ-B − tuned: -5.3571
+   EWC rule Ω=1.0 : 19.3571 [15.71 25.71 22.50 13.57 19.29]   Ω − tuned: -6.7857  | EQ-B Ω=1.0 : 19.3571 [15.71 25.71 22.50 13.57 19.29]   EQ-B − tuned: -6.7857
+   EWC rule Ω=1.41: 20.8571 [17.14 27.50 16.07 19.29 24.29]   Ω − tuned: -5.2857  | EQ-B Ω=1.41: 20.8571 [17.14 27.50 16.07 19.29 24.29]   EQ-B − tuned: -5.2857
+   EWC rule Ω=2.0 : 21.7857 [20.36 27.50 26.07 16.07 18.93]   Ω − tuned: -4.3571  | EQ-B Ω=2.0 : 21.7857 [20.36 27.50 26.07 16.07 18.93]   EQ-B − tuned: -4.3571
+   EWC rule Ω=2.83: 24.3571 [26.43 24.29 28.57 21.79 20.71]   Ω − tuned: -1.7857  | EQ-B Ω=2.83: 24.3571 [26.43 24.29 28.57 21.79 20.71]   EQ-B − tuned: -1.7857
+   EWC rule Ω=4.0 : 24.4286 [26.43 27.86 22.86 20.71 24.29]   Ω − tuned: -1.7143  | EQ-B Ω=4.0 : 24.4286 [26.43 27.86 22.86 20.71 24.29]   EQ-B − tuned: -1.7143
+   EQ-B clip fraction at Ω=1 (clean): 0.0000 [0.000 0.000 0.000 0.000 0.000]
+   EWC reduction arm (fixed w = median derived 8.64813 of EQ-B): 21.4286 [13.21 24.64 25.36 18.57 25.36]   EQ-B(Ω=1) − reduction: -2.0714
+   EWC Bayes arm (Laplace weight 0.5): 18.3571 [18.57 17.14 18.21 15.00 22.86]   Bayes − tuned: -7.7857; EQ-B(Ω=1) − Bayes: +1.0000
+   sensitivity (EQ-B Ω=1 − tuned): cap10/sm0.8:-3.14  cap10/sm0.9:-3.29  cap10/sm0.98:-2.93  cap100/sm0.8:-5.07  cap100/sm0.9:-8.86  cap100/sm0.98:-3.21  cap10000/sm0.8:-6.07  cap10000/sm0.98:+1.71  k1.5/N20:-6.14  k1.5/N50:-6.43  k1.5/N200:-6.79  k2/N20:-6.14  k2/N200:-6.79  k4/N20:-6.79  k4/N50:-6.79  k4/N200:-6.79
+   EWC baseline agem    : 14.3571 [12.86 18.21 10.71 12.50 17.50]   EQ-B(Ω=1) − baseline: +5.0000
+   EWC baseline gradnorm: 37.2143 [35.00 42.86 36.79 32.86 38.57]   EQ-B(Ω=1) − baseline: -17.8571
+   EWC baseline mega    : 14.8571 [15.00 14.29 13.57 12.14 19.29]   EQ-B(Ω=1) − baseline: +4.5000
+   ER-sum grid: 0.5:49.00  1:49.43  2:51.86  4:52.86; rule Ω=1: 51.6429 [54.29 50.71 53.21 48.57 51.43]; EQ-B Ω=1: 51.7857 [54.29 50.71 53.21 49.29 51.43]  EQ-B − best fixed: -1.0714; reduction arm: 50.7143 [50.71 47.86 52.14 51.07 51.79]  EQ-B − reduction: +1.0714
+   derpp tuned w=0.03: 49.0714 [54.64 43.93 46.07 48.21 52.50]; rule Ω=1: 51.8571 [50.36 46.07 51.07 57.50 54.29] (+2.7857); EQ-B Ω=1: 51.8571 [50.36 46.07 51.07 57.50 54.29] (+2.7857); finite-grid span 1.2857 -> inert (report only: outside the narrowed H-EQ)
+   lwf   tuned w=3: 36.5000 [37.14 32.86 40.71 42.50 29.29]; rule Ω=1: 33.8571 [30.71 34.64 33.57 32.86 37.50] (-2.6429); EQ-B Ω=1: 33.8571 [30.71 34.64 33.57 32.86 37.50] (-2.6429); finite-grid span 25.1429 -> load-bearing (report only: outside the narrowed H-EQ)
+   si    tuned w=0.01: 17.5714 [15.00 18.93 17.50 12.86 23.57]; EQ-B Ω=1: 19.2857 [17.50 19.64 21.79 13.57 23.93]  EQ-B − tuned: +1.7143
+   mas   tuned w=0.3: 46.2857 [47.86 54.29 41.79 44.29 43.21]; EQ-B Ω=1: 49.1429 [46.07 53.21 45.00 55.36 46.07]  EQ-B − tuned: +2.8571
+   POISON (x1000 for up to 5 batches per task from task 2): step = 1.0000; fixed tuned lambda=0.3: 6.0714 [13.93 3.93 5.00 3.57 3.93]; fixed+clip tuned lambda=3: 5.2857 [5.71 5.71 5.00 5.00 5.00]; rule Ω=1: 6.1429 [13.21 3.57 6.07 3.57 4.29] (finite 5/5; max w 1e+04 median over seeds); EQ-B Ω=1: 4.5714 [3.57 5.71 5.00 4.64 3.93]
+          EQ-B − fixed+clip tuned: -0.7143; rule − EQ-B: +1.5714; fixed(no clip) tuned − fixed+clip tuned: +0.7857
+
+----------------------------------------------------------------------------------------------------------------
+EQ4-0 precondition: tuned lambda per carrier {'page_blocks': 30.0, 'satimage': 3.0, 'segmentation': 300.0, 'sleep': 30.0, 'wine_quality_white': 14.1, 'yeast': 8.49}, span 100.00x -> DECIDABLE
+EQ4-1 H-EQ-B (clean): EQ-B(Ω=1) − tuned per carrier page_blocks:-3.1832 (step 10.90; seeds not behind 4/5), satimage:+4.0841 (step 1.62; seeds not behind 5/5), segmentation:-2.2727 (step 1.86; seeds not behind 3/5), sleep:-0.4995 (step 1.12; seeds not behind 4/5), wine_quality_white:-6.7304 (step 6.74; seeds not behind 3/5), yeast:-6.7857 (step 6.04; seeds not behind 4/5); best single lambda=10 loses page_blocks:10.3704, satimage:0.1602, segmentation:1.7172, sleep:0.4595, wine_quality_white:1.8896, yeast:12.3571; not behind on 4/6 -> FAIL
+EQ4-1r registered rule (EQ3-1 on fresh carriers): Ω=1 − tuned page_blocks:-7.8278, satimage:+4.8248, segmentation:-2.2727, sleep:-0.4995, wine_quality_white:-6.7304, yeast:-6.7857; not behind on 4/6 -> FAIL
+EQ4-2 bound idle on clean streams: EQ-B(Ω=1) − rule(Ω=1) page_blocks:+4.6446, satimage:-0.7407, segmentation:+0.0000, sleep:+0.0000, wine_quality_white:+0.0000, yeast:+0.0000; within a step on 6/6 -> IDLE
+EQ4-3 poisoned: EQ-B(Ω=1) − tuned fixed+clip page_blocks:-0.3604 (step 11.29), satimage:-0.1602 (step 1.95), segmentation:-0.4040 (step 4.26), sleep:-5.0350 (step 11.08), wine_quality_white:-10.5520 (step 7.01), yeast:-0.7143 (step 1.00); not behind on 5/6 -> FAIL
+EQ4-4 poisoned mechanism (positive control of the enhancement): rule(Ω=1) − EQ-B(Ω=1) page_blocks:-20.2402 (rule finite 5/5), satimage:-1.3814 (rule finite 5/5), segmentation:-31.2626 (rule finite 5/5), sleep:-0.5794 (rule finite 5/5), wine_quality_white:+0.1699 (rule finite 5/5), yeast:+1.5714 (rule finite 5/5); rule behind EQ-B by a step on 2/6 (needs >= 3) -> INERT: the poison does not separate the two rules on these carriers
+EQ4-5 control ER-sum: EQ-B − best fixed page_blocks:-0.6807, satimage:-3.4234, segmentation:-1.0606, sleep:+2.5774, wine_quality_white:-5.5626, yeast:-1.0714; EQ-B − reduction page_blocks:+1.7417, satimage:-1.6617, segmentation:-0.2525, sleep:+3.1568, wine_quality_white:-0.7006, yeast:+1.0714 -> VIOLATED
+EQ4-6 reduction: EQ-B − fixed@median per carrier page_blocks:+6.9870, satimage:+25.7057, segmentation:-1.4646, sleep:+3.4366, wine_quality_white:-3.0361, yeast:-2.0714 -> DOES NOT REDUCE: normalised-gradient method
+EQ4-7 published baselines vs EQ-B(Ω=1): page_blocks/agem:-18.3584, page_blocks/gradnorm:-8.1481, page_blocks/mega:-22.3223, satimage/agem:-3.0230, satimage/gradnorm:+23.9640, satimage/mega:-4.3243, segmentation/agem:-1.2121, segmentation/gradnorm:-14.3434, segmentation/mega:-2.3232, sleep/agem:-0.1798, sleep/gradnorm:+28.1918, sleep/mega:-0.0200, wine_quality_white/agem:+0.0425, wine_quality_white/gradnorm:+8.0255, wine_quality_white/mega:+0.0425, yeast/agem:-5.0000, yeast/gradnorm:+17.8571, yeast/mega:-4.5000 -> no published baseline is ahead of EQ-B by a step on every carrier
+EQ4-S sensitivity: EQ4-1 'not behind' flips in 16 of 96 cells -> FRAGILE
+EQ4-P plateau width of EQ-B on the nine-point grid: page_blocks: 7 of 9 within a step of the best (0.25..2, contiguous); satimage: 6 of 9 within a step of the best (0.5..4, not contiguous); segmentation: 5 of 9 within a step of the best (0.5..4, not contiguous); sleep: 9 of 9 within a step of the best (0.25..4, contiguous); wine_quality_white: 9 of 9 within a step of the best (0.25..4, contiguous); yeast: 9 of 9 within a step of the best (0.25..4, contiguous); median width 8 (report only)
+EQ4-B Bayes arm (Laplace weight 1/2): Bayes − tuned page_blocks:-7.6476, satimage:-0.1802, segmentation:-4.3939, sleep:-0.2597, wine_quality_white:-6.7304, yeast:-7.7857; EQ-B(Ω=1) − Bayes page_blocks:+4.4645, satimage:+4.2643, segmentation:+2.1212, sleep:-0.2398, wine_quality_white:+0.0000, yeast:+1.0000; Bayes not behind tuned on 4/6 (report only)
+EQ4-D DER++/LwF (outside the narrowed H-EQ; report only): EQ-B(Ω=1) − tuned page_blocks/derpp:+1.1211 (inert), page_blocks/lwf:-0.5005, satimage/derpp:-0.8809, satimage/lwf:-5.0050, segmentation/derpp:-0.7071 (inert), segmentation/lwf:-48.0808, sleep/derpp:-4.7153, sleep/lwf:+0.0799, wine_quality_white/derpp:+1.3588 (inert), wine_quality_white/lwf:-0.6369, yeast/derpp:+2.7857 (inert), yeast/lwf:-2.6429; SI/MAS: page_blocks/si:-17.9780, page_blocks/mas:-0.2202, satimage/si:+1.5215, satimage/mas:-6.6266, segmentation/si:+6.6667, segmentation/mas:-1.9697, sleep/si:+0.1598, sleep/mas:-2.3377, wine_quality_white/si:+11.1253, wine_quality_white/mas:-0.6157, yeast/si:+1.7143, yeast/mas:+2.8571
+EQ4-I lr x batch invariance on satimage: lr0.05/bs10: tuned 3 -> 22.84, EQ-B 26.93, diff +4.08 (step 1.62) nb; lr0.0125/bs10: tuned 300 -> 33.79, EQ-B 38.66, diff +4.86 (step 2.36) nb; lr0.2/bs10: tuned 100 -> 22.00, EQ-B 22.02, diff +0.02 (step 1.40) nb; lr0.05/bs5: tuned 0.3 -> 22.04, EQ-B 23.12, diff +1.08 (step 1.42) nb; lr0.05/bs20: tuned 300 -> 27.21, EQ-B 31.29, diff +4.08 (step 3.21) nb -> not behind in 5/5 cells -> PASS
+summary: EQ4-1 FAIL (EQ-B not behind on 4/6); EQ4-1r FAIL (rule not behind on 4/6); bound idle: True; poisoned EQ4-3 FAIL; mechanism EQ4-4 INERT; fragile: True; ER-sum control violated

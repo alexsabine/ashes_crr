@@ -1,0 +1,11 @@
+1199_BNG_echoMonths: rerun byte-identical True
+1201_BNG_breastTumor: rerun byte-identical True
+/home/user/ashes_crr/.venv/lib/python3.14/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/user/ashes_crr/.venv/lib/python3.14/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+1203_BNG_pwLinear: rerun byte-identical True
+feynman_I_9_18: rerun byte-identical True
+feynman_II_36_38: rerun byte-identical True
+feynman_test_1: rerun byte-identical True
+all byte-identical

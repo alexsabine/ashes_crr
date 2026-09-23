@@ -1,0 +1,6 @@
+yeast exit 0
+segmentation exit 0
+wine_quality_white exit 0
+sleep exit 0
+page_blocks exit 0
+satimage exit 0

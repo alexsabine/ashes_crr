@@ -1,0 +1,58 @@
+================================================================================================================
+T1x2 scoring — held-out R^2 of log forgetting on log predictor with log lr as a covariate; thresholds from prereg/t1x2/PREREG.md
+================================================================================================================
+
+[1199_BNG_echoMonths] n = 5000 of 17496 rows, d = 9; base task-1 test MSE 0.6159, task-2 0.6978; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:8.41x  lr0.005:7.94x  lr0.01:7.33x  lr0.02:7.52x -> decidable
+   forgetting: median 0.0525, range [-0.0284, 1.2038]; negative (task 1 improved) in 12/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 60.6838, S < 0 in 0/108 runs (round-off only, P1); S/C* median 222.195
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:0.030  C_old:0.022  E_new:0.085  E_old:0.693  ewc:0.452  -> best path 0.030, best endpoint 0.693, path − endpoint -0.663 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:+0.429  C_old:+0.349  E_new:-0.025  E_old:+0.915  ewc:+0.589 -> C_old >= 0.6: False; E_new < C_old − 0.2: True -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = -0.029 -> high-S runs do not fall off the endpoint curve (threshold 0.3, report only)
+
+[1201_BNG_breastTumor] n = 5000 of 116640 rows, d = 9; base task-1 test MSE 0.9420, task-2 1.0346; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:7.94x  lr0.005:7.96x  lr0.01:7.69x  lr0.02:7.23x -> decidable
+   forgetting: median 0.0296, range [-0.0120, 5.9462]; negative (task 1 improved) in 15/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 77.2453, S < 0 in 0/108 runs (round-off only, P1); S/C* median 274.812
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:0.352  C_old:0.334  E_new:0.404  E_old:0.505  ewc:0.490  -> best path 0.352, best endpoint 0.505, path − endpoint -0.153 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:+0.658  C_old:+0.582  E_new:+0.496  E_old:+0.983  ewc:+0.954 -> C_old >= 0.6: False; E_new < C_old − 0.2: False -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = -0.522 -> high-S runs do not fall off the endpoint curve (threshold 0.3, report only)
+
+[feynman_II_36_38] n = 5000 of 100000 rows, d = 8; base task-1 test MSE 0.0434, task-2 0.4938; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:6.68x  lr0.005:6.80x  lr0.01:6.58x  lr0.02:5.04x -> decidable
+   forgetting: median 0.1896, range [-0.0107, 557.5345]; negative (task 1 improved) in 4/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 32.6459, S < 0 in 0/108 runs (round-off only, P1); S/C* median 86.158
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:-0.004  C_old:-0.004  E_new:0.217  E_old:0.624  ewc:0.355  -> best path -0.004, best endpoint 0.624, path − endpoint -0.628 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:+0.051  C_old:+0.003  E_new:+0.154  E_old:+0.948  ewc:-0.118 -> C_old >= 0.6: False; E_new < C_old − 0.2: False -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = +0.485 -> high-S runs do fall off the endpoint curve (threshold 0.3, report only)
+
+[feynman_I_9_18] n = 5000 of 100000 rows, d = 9; base task-1 test MSE 0.0263, task-2 0.1089; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:6.79x  lr0.005:6.79x  lr0.01:6.15x  lr0.02:7.67x -> decidable
+   forgetting: median 0.0409, range [-0.0014, 326.9964]; negative (task 1 improved) in 3/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 19.2132, S < 0 in 0/108 runs (round-off only, P1); S/C* median 97.831
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:-0.001  C_old:0.001  E_new:0.433  E_old:0.686  ewc:0.390  -> best path 0.001, best endpoint 0.686, path − endpoint -0.685 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:+0.071  C_old:+0.118  E_new:+0.370  E_old:+0.946  ewc:+0.280 -> C_old >= 0.6: False; E_new < C_old − 0.2: False -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = +0.659 -> high-S runs do fall off the endpoint curve (threshold 0.3, report only)
+
+[feynman_test_1] n = 5000 of 100000 rows, d = 7; base task-1 test MSE 0.7271, task-2 1.2245; runs 108 kept, 0 diverged or non-finite (dropped, counted)
+   T1x-0 path span across schedules within each lr (C_old max/min): lr0.0025:7.83x  lr0.005:7.84x  lr0.01:7.36x  lr0.02:9.74x -> decidable
+   forgetting: median 3.2836, range [-0.5970, 549.6686]; negative (task 1 improved) in 12/108 runs (floored at 1e-06 on the log scale)
+   S = C − C* on the old probe: median 149.6236, S < 0 in 0/108 runs (round-off only, P1); S/C* median 71.936
+   T1x-1 held-out R^2 (lr controlled, split 'alternate'): C_new:0.061  C_old:0.073  E_new:0.756  E_old:0.815  ewc:0.184  -> best path 0.073, best endpoint 0.815, path − endpoint -0.743 -> FAIL
+   sensitivity (split x snapshot interval): alternate/5:FAIL  alternate/10:FAIL  alternate/20:FAIL  by_seed/5:FAIL  by_seed/10:FAIL  by_seed/20:FAIL  alternate_b/5:FAIL  alternate_b/10:FAIL  alternate_b/20:FAIL -> flips 0/9
+   T1x-2 fixed lr 0.01 (27 runs), Spearman with forgetting: C_new:+0.060  C_old:+0.112  E_new:+0.611  E_old:+0.970  ewc:+0.150 -> C_old >= 0.6: False; E_new < C_old − 0.2: False -> FAIL
+   S diagnostic (report): Spearman(S_old, |residual of the E_old fit|) = +0.132 -> high-S runs do not fall off the endpoint curve (threshold 0.3, report only)
+
+----------------------------------------------------------------------------------------------------------------
+excluded carriers (no split feature with >= 20 distinct values, or base task-2 test MSE above 20 x task-1's): ['1203_BNG_pwLinear']; scored carriers 5
+T1x-0 precondition: decidable on 5/5 carriers
+T1x-1 path vs endpoint (held-out, lr controlled): 1199_BNG_echoMonths:-0.663 FAIL, 1201_BNG_breastTumor:-0.153 FAIL, feynman_II_36_38:-0.628 FAIL, feynman_I_9_18:-0.685 FAIL, feynman_test_1:-0.743 FAIL -> PASS on 0/5, FAIL on 5/5 -> FAIL
+T1x-2 fixed-lr arm: 1199_BNG_echoMonths:FAIL (rho C_old +0.349, E_new -0.025, E_old +0.915), 1201_BNG_breastTumor:FAIL (rho C_old +0.582, E_new +0.496, E_old +0.983), feynman_II_36_38:FAIL (rho C_old +0.003, E_new +0.154, E_old +0.948), feynman_I_9_18:FAIL (rho C_old +0.118, E_new +0.370, E_old +0.946), feynman_test_1:FAIL (rho C_old +0.112, E_new +0.611, E_old +0.970) -> PASS on 0/5
+T1x-3 surrogate control: prereg/t1x2/gate_T1.txt (S-H must FAIL, S-H2 must PASS; the gate reads its own verdict)
+T1x-S sensitivity: T1x-1 flips in 0 of 45 cells -> not fragile
+T1x-D S diagnostic: 1199_BNG_echoMonths:-0.029, 1201_BNG_breastTumor:-0.522, feynman_II_36_38:+0.485, feynman_I_9_18:+0.659, feynman_test_1:+0.132 (report only)
+summary: T1x-1 FAIL on 5 decidable carriers; T1x-2 PASS on 0/5; fragile False
