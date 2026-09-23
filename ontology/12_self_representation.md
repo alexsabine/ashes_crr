@@ -94,6 +94,18 @@ against a step of 0.0111. The margin is just over one step.
 - **The ratio reduces to the constant.** Ω = 1 ties the fixed equal-weight mixture on every world. That repeats what H-EQ
   did on EQX, now on policies instead of gradients.
 
+**Correction, 2026-09-23 (AGENT_LOG 100; `Safe_and_Continual/checks/roundoff_audit.txt` [D]).** The table and bullets above
+are the first run, and they are kept as written.
+- **The defect.** The omega agents guard the ratio with `|self| > 0`, and the self term's computed norm is often round-off:
+  22710 of 150000 omega-agent steps in 'delayed'.
+- **What changes with a tolerance of 1e-12.**
+  - The drift and switch rows are unchanged.
+  - The delayed row's Ω arms read Ω 1 0.8226, Ω 2 0.8396, Ω 4 0.8396; the other columns are unchanged.
+  - On delayed, Ω = 1 is then **within a step of the best**, not behind it.
+  - The first bullet above therefore holds for switch only.
+- **What is unchanged.** Ω = 4 (tied with Ω = 2 on delayed to four decimals) is still the best on the three structured worlds, and the tie
+  with fixed w = 1 is unchanged everywhere.
+
 ## 3. The phenomenological proxies
 
 These are functional correlates, reported as the script prints them. They are not experience. Pull share is 0.2, 0.5 and

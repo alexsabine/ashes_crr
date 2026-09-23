@@ -53,6 +53,9 @@ jobs:
           uv run python AI_Safety/checks/continual_safety.py 2>/dev/null > /tmp/ais_cs.txt && cmp /tmp/ais_cs.txt AI_Safety/checks/continual_safety.txt
           uv run python AI_Safety/build/make_figures.py 2>/dev/null > /tmp/aisf.txt && cmp /tmp/aisf.txt AI_Safety/figures/figures.txt
           uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1
+          uv run python Safe_and_Continual/checks/roundoff_audit.py 2>/dev/null > /tmp/sac_audit.txt && cmp /tmp/sac_audit.txt Safe_and_Continual/checks/roundoff_audit.txt
+          uv run python Safe_and_Continual/build/make_figures.py 2>/dev/null > /tmp/sac_figs.txt && cmp /tmp/sac_figs.txt Safe_and_Continual/figures/figures.txt
+          uv run python Safe_and_Continual/build/build_pdf.py > /dev/null 2>&1
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"
           uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null > /tmp/ap_clp.txt && cmp /tmp/ap_clp.txt "Alexander Plan/model/cl_patent.txt"
           uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null > /tmp/ap_figs.txt && cmp /tmp/ap_figs.txt "Alexander Plan/figures/figures.txt"

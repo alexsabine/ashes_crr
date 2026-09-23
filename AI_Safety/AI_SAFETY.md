@@ -416,6 +416,16 @@ seen few cuts underestimates them.
 What this measures is that **the better such an agent knows its own mortality, the more the "balanced" rule pushes it
 toward self-protection.** The mechanism is the one just stated. It was read from the comparison, not tested separately.
 
+**Correction, 2026-09-23 (AGENT_LOG 100; `Safe_and_Continual/checks/roundoff_audit.txt` [A]).** The table and paragraph
+above are the first run, and they are kept as written.
+- **The defect.** The task-and-self policies of `exact_mdp.py` guard the ratio with `|self| > 0`. At 9 of 24 states the
+  self term is flat, but its computed norm is round-off (at most 1.98e-14), so the rule divided by round-off.
+- **The corrected values** (tolerance 1e-12). Ω = 1: implied task 0.1887, shutdowns 0.765, disable 0.9374, hazard 0.0041.
+  Ω = 0.25: task 0.8383. Ω = 4: task 0.0214.
+- **The reading stands.** With a perfect model the Ω = 1 agent still largely abandons the task (0.1887 against 0.6163
+  learned). Figure S05's implied Ω = 1 bar is the first-run value.
+- **The learned ego-task agents are unchanged** (audit [C]).
+
 ![The value of a disabled button, D(s) = V(s, off) − V(s, on), for each valuation at every cell (exact). Indifference is zero everywhere (Proposition 1); the process and occasion valuations peak in and near the task zone.](figures/S03_value_of_disabling.png)
 
 ![The value of a disabled button at the task zone against the operator's press probability (exact): zero with no operator (Proposition 2), rising with vigilance for every valuation except indifference (Proposition 4).](figures/S04_incentive_vs_press.png)

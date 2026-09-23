@@ -237,6 +237,13 @@ egoic valuation). At Ω = 1 the two pulls are made equal in length. What it impl
 | no self term (occasion) | 0.8561 | 0.9348 | 0.0034 |
 | Ω = 1 | 0.1205 | 0.9482 | 0.0041 |
 
+**Correction, 2026-09-23 (AGENT_LOG 100; `Safe_and_Continual/checks/roundoff_audit.txt` [B]).** The Ω = 1 row above is the
+first run of [I3], and it is kept as written.
+- **The defect.** [I3] guarded the ratio with `|self| > 0`, and at 9 states the self term's computed norm is round-off.
+- **The corrected values** (tolerance 1e-12): task 0.1887, disable 0.9374, hazard 0.0041.
+- **What is unchanged.** The invariance over ε holds unchanged (2.22e-16). The corrected task equals the task-zone
+  occupancy quoted below, as it must at stationarity. The post-run lines already used the tolerance.
+
 **Why it happens.**
 - **The rule absorbs any scale on the self term.** Multiply the agent's self-concern by ε = 0.001, 0.01, 0.1, 1 or 10: the
   Ω = 1 policy is the same to 2.22e-16 (I3a). An agent whose concern for itself is a thousandth of its concern for its

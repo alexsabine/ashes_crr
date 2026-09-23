@@ -20,6 +20,7 @@ Owner request 2026-09-23 (prompt-log entry 96). The earlier steps are prompt-log
 | `SELF_THROUGH_TIME.md` | the enquiry of prompt-log entry 121: why continuing beyond the cut removes the incentive to resist (the content of the cut; Proposition 7), why "no self" failed twice, what Ω = 1 does (scale-free self-concern), and safe AND continual learning; declared in `DECLARATION_4.md` (pushed d8694fa before the run) |
 | `checks/self_through_time.py` and `.txt` | the exact part: the content-of-the-cut theorem on random worlds, the No-Self conditions on the ring, what Ω = 1 does; with labelled post-run lines (AGENT_LOG 98) |
 | `checks/continual_safety.py` and `.txt` | the learned part: a moving task zone, memory fading (P3), natural / wall-clock / occasion agents, a late operator; the sensitivity table |
+| correction (2026-09-23) | the equal-pull (Ω) agents' ratio guard divided by round-off at flat states; audited in `Safe_and_Continual/checks/roundoff_audit.txt` (AGENT_LOG 100); dated correction notes in `AI_SAFETY.md` §5.3 and `SELF_THROUGH_TIME.md` §3; the scripts and outputs here are unedited |
 | `figures/S01…S14.png` | the figures, drawn by `build/make_figures.py` from the pinned outputs only; `figures/figures.txt` pins every number placed on them |
 | `build/make_figures.py`, `build/build_pdf.py` | the figure script (validated palette, one slot per agent) and the PDF builder (a copy of the continual-learning builder) |
 
