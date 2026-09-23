@@ -1001,3 +1001,9 @@ So AI safety is our current best approach? I don’t really want to give up on t
 ## 107 — 2026-09-23T05:58:24Z
 
 Yes please. Make a new folder for Adam/SGD and ensure our synthetic data checks build on lessons learned so far. Double check any prior assumptions regarding the value of a fixed parameter before proceeding. Think carefully
+
+## 108 — 2026-09-23T06:45:13Z
+
+Great. Scratchpad. Explain your idea of letting omega grow to me as an educator and human being please. Simple terms.
+
+Second question, is all of this recorded in the Adam SGD folder ready for testing in real data tomorrow?
