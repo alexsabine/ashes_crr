@@ -85,3 +85,5 @@ and until then the honest sentence is the one in file 04 §3.
 > there. We now know exactly what "there" is.
 
 10. The tense test (file 11, added 2026-09-22): run on four synthetic worlds; the valence-free regenerator loses to the planner where structure can be exploited. Next: a regenerator that carries a forecast learned from its settled past (admitted by A8 v3.1), which separates the forward model from the preferences; a new design, declared before it runs.
+
+11. Self-representation (file 12, 2026-09-23): three next designs, each declared before it runs: the self-model against the planner with equal exploration; a world where the preferred outcome and persisting come apart; a world with recurring switches, the one place a peak at Ω = 1 would be a genuine prediction.

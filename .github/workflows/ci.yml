@@ -41,6 +41,7 @@ jobs:
           uv run python theory/checks/fed_heterogeneous_v1.py 2>/dev/null > /tmp/fed1.txt && cmp /tmp/fed1.txt theory/checks/fed_heterogeneous_v1.txt
           uv run python theory/checks/fed_heterogeneous.py 2>/dev/null > /tmp/fed2.txt && cmp /tmp/fed2.txt theory/checks/fed_heterogeneous.txt
           uv run python ontology/checks/tense_gate.py 2>/dev/null > /tmp/tense.txt && cmp /tmp/tense.txt ontology/checks/tense_gate.txt
+          uv run python ontology/checks/self_model.py 2>/dev/null > /tmp/selfm.txt && cmp /tmp/selfm.txt ontology/checks/self_model.txt
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
           uv run python theory/retrodictions/sharp_claims.py > /tmp/sharp.txt && cmp /tmp/sharp.txt theory/retrodictions/sharp_claims.txt
           uv run python theory/retrodictions/bio_retrodictions.py > /tmp/bio.txt && cmp /tmp/bio.txt theory/retrodictions/bio_retrodictions.txt

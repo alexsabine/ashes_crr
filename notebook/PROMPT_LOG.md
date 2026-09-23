@@ -873,3 +873,11 @@ Scratchpad. So am I right in thinking that the Omega=1 rule has helped to reveal
 ## 91 — 2026-09-22T22:48:50Z
 
 Can we run the test where you said that the future must have content because the cut was on a machine? You said you had a test to see whether only the past has content? Can we run that? A metaphysical falsifiable test?
+
+## 92 — 2026-09-22T23:57:08Z
+
+This might suggest why Bayesian models are required at all. So the system can represent itself as a model…thus make goals into the ‘future’ from a state of self representation through time…
+
+## 93 — 2026-09-23T00:02:35Z
+
+Let’s run more tests please on this thinking. All of this should go in the ontology folder please. The system must represent itself somehow. What happens, phenomenologically when it does so with equanimity? Explore
