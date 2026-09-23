@@ -447,4 +447,9 @@ pinned ladder (`checks/ladder.txt`) now reads **7 passes on seen data**: the ear
 - SEC1-4 failed.
 - None of them is PASS-0.
 
+**Addendum, 2026-09-23 (study SCL1, prompt-log entry 124).** SCL1 scored the equanimity rule under an operator's pause on
+the same twelve seen carriers (`reports/scl1.md`). The ladder now reads **9 passes on seen data**: SCL1-2 and SCL1-3 are
+added, both low bars. SCL1's central rows (SCL1-1, SCL1-1b) check a construction and are allocated as "control holds",
+not as passes.
+
 The rows are in `ledger/LEDGER.md` and the report is `reports/sec1.md`.

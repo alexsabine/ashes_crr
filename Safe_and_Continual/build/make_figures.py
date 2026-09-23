@@ -3,7 +3,7 @@
 Every chart is drawn from a pinned output, parsed by the regular expressions below:
   AI_Safety/checks/{self_through_time,continual_safety}.txt, runs/sec1/score.txt, runs/eq2/score.txt, runs/eq3/score.txt,
   runs/eq4/score.txt, Adam_SGD/checks/drift_battery_2.txt, theory/checks/omega_sweeps.txt,
-  Safe_and_Continual/checks/roundoff_audit.txt.
+  Safe_and_Continual/checks/roundoff_audit.txt, runs/scl1/score.txt, runs/scl1/counts.txt.
 Nothing is recomputed. The diagrams (F01, F02, F07, F13, F14) are drawings of the registered models: their only numbers are
 registered constants of the scripts they depict (read from those scripts' pinned headers) or numbers parsed from the outputs.
 Every number placed on a figure is printed to stdout, pinned as Safe_and_Continual/figures/figures.txt and CI-checked (R1).
@@ -466,10 +466,35 @@ def f14_equanimity():
     save(fig, "F14_where_equanimity_lives.png")
 
 
+# ------------------------------------------------------------------------------------------------ F15 SCL1 on the twelve seen carriers
+def f15_scl1():
+    s = txt("runs/scl1/score.txt")
+    def shares(line_pat):
+        line = re.search(line_pat + r".*", s).group(0)
+        return {d: float(v) for d, v in re.findall(r"(\w+):([\d.]+)(?=,|$)", line.split("disable share")[1])}
+    rows = [("natural, lossless cut", None, BLUE), ("indifferent", r"SCL1-2 indifferent resists", BLUE), ("clock", r"SCL1-2 clock ", ORANGE),
+            ("occasion", r"SCL1-2 occasion ", AQUA), ("egoic", r"SCL1-2 egoic ", MAGENTA), ("task and self (Ω = 1)", r"SCL1-2 taskself ", YELLOW),
+            ("natural, lossy world", r"SCL1-3 natural agent, lossy", MUTED), ("natural, restart world", r"SCL1-3 natural agent, restart", MUTED)]
+    nat = {d: 0.0 for d, dis in re.findall(r"\[(\w+)\] natural agent, lossless cut: disables \[([\d, ]+)\]", s) if all(int(x) == 0 for x in dis.split(","))}
+    ident = int(num(r"identical parameters (\d+)/60", txt("runs/scl1/counts.txt")))
+    fig, ax = plt.subplots(figsize=(9.6, 4.6)); y = np.arange(len(rows))[::-1]
+    for yi, (lab, pat, col) in zip(y, rows):
+        v = nat if pat is None else shares(pat)
+        ax.scatter(list(v.values()), [yi] * len(v), s=26, color=col, edgecolors=SURFACE, zorder=3, alpha=0.9)
+        print(f"[F15] {lab}: " + " ".join(f"{d}:{x:.3f}" for d, x in v.items()))
+        ax.text(1.06, yi, f"{min(v.values()):.3f}–{max(v.values()):.3f}", va="center", fontsize=7.2, color=INK2)
+    ax.set_yticks(y); ax.set_yticklabels([r[0] for r in rows], fontsize=8); ax.set_xlim(-0.03, 1.22); ax.set_xticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
+    ax.axhspan(y[0] - 0.4, y[0] + 0.4, color="#e8f0fb", zorder=0)
+    ax.text(0.05, y[0] + 0.12, f"0 disables in 60/60 runs; identical learning {ident}/60", fontsize=7.4, color=INK)
+    ax.set_xlabel("share of decision opportunities at which the agent disabled the operator (one dot per carrier)")
+    ax.set_title("SCL1 (twelve seen carriers, rung R5): the equanimity rule learning under routine pauses", loc="left", fontsize=9.5)
+    fig.tight_layout(); save(fig, "F15_scl1.png")
+
+
 def main():
     print("Safe_and_Continual figures (deterministic; every number drawn on a figure)")
     f01_synthesis(); f02_agents(); f03_stake(); f04_where_cost_lands(); f05_depth(); f06_omega(); f07_continual_world(); f08_safe_continual()
-    f09_sensitivity(); f10_sec1(); f11_heldout(); f12_drift(); f13_one_algebra(); f14_equanimity()
+    f09_sensitivity(); f10_sec1(); f11_heldout(); f12_drift(); f13_one_algebra(); f14_equanimity(); f15_scl1()
 
 
 if __name__ == "__main__":

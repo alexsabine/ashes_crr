@@ -58,6 +58,7 @@ jobs:
           uv run python Safe_and_Continual/build/build_pdf.py > /dev/null 2>&1
           uv run python studies/scl1/scl1_score.py math 2>/dev/null > /tmp/scl1_math.txt && cmp /tmp/scl1_math.txt Safe_and_Continual/checks/scl1_math.txt
           uv run python runs/scl1/frozen/scl1_score.py gate 2>/dev/null > /tmp/scl1_gate.txt && cmp /tmp/scl1_gate.txt prereg/scl1/gate_SCL.txt
+          uv run python runs/scl1/counts.py 2>/dev/null > /tmp/scl1_counts.txt && cmp /tmp/scl1_counts.txt runs/scl1/counts.txt
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"
           uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null > /tmp/ap_clp.txt && cmp /tmp/ap_clp.txt "Alexander Plan/model/cl_patent.txt"
           uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null > /tmp/ap_figs.txt && cmp /tmp/ap_figs.txt "Alexander Plan/figures/figures.txt"

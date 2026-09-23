@@ -798,6 +798,59 @@ corrigibility.
 >> a continual learner needs. Corrigibility specified in the objective's index set is. This bears, in a toy setting, on
 >> the concern that safety properties acquired by training are eroded by later training (the 2026 continual-safety papers listed in `Continuous_Learning/CONTINUOUS_LEARNING.md` §10, [S]).
 
+## 4.3 On real data: study SCL1 (twelve seen carriers, rung R5)
+
+**What was run** (prompt-log entry 124; `prereg/scl1/PREREG.md`, hashed and pushed before the data step;
+`reports/scl1.md`).
+- **The learner.** SEC1's continual learner with the equanimity rule (H-EQ at Ω = 1): the settled past and the present
+  held with equal pull.
+- **The task.** A sequence of tasks on each of the twelve seen PMLB carriers.
+- **The operator.** It pauses the learner on the wall clock.
+- **The cut.** Implemented as in the safety work: the learner and its data stream freeze and resume where they were.
+- **The agents.** Every valuation of the safety work decides, from its own represented future (its projected learning
+  progress), whether to disable the operator.
+- **First, the mathematics.** It was checked on synthetic streams (`prereg/scl1/math_checks.txt`, declared in
+  `DECLARATION_2.md`).
+  - **Held:** the pause leaves the parameters bit-for-bit unchanged, the stakes' closed forms equal value iteration, and
+    the natural agent is safe and continual.
+  - **Failed as declared:** four predictions, reported there. Among them, the continual-versus-stationary contrast and
+    the restart-accuracy prediction.
+
+**What happened (ledger rows SCL1-X … SCL1-S).**
+- **Compatible, on every carrier.** The natural-time agent never disabled (0 in 60/60 runs), and its parameters were
+  identical to the no-operator run's in 60/60: the equanimity rule learned exactly as it would have without an operator.
+  The same held with the SEC learner (12/12). The cost fell on the operator's clock: 1.0796 to 1.0914 wall steps per
+  update (SCL1-1, SCL1-1b; checks of the construction, not evidence for CRR).
+- **The failed valuations fail here too.** The clock, occasion, egoic and task-and-self agents disabled the operator on
+  12/12 carriers (SCL1-2, at a low bar: "at least once in 4 of 5 seeds"). The indifferent agent never did, and it
+  mis-predicts its own time (it expects 1 wall step per update, observes 1.0858).
+- **The cut must be lossless.** In a world where the stream moves on during a pause, or where a press resets the learner
+  to its last checkpoint, the natural agent resists too (12/12 each, SCL1-3). Not fragile in any of 8 sensitivity cells.
+- **An unpredicted result.** Forced resets to the task-boundary checkpoint often *raised* final accuracy (satimage
+  +26.7267). A reset undoes forgetting of earlier classes. So the progress an agent loses at a press is not what the
+  operator loses (SCL1-F).
+- **The equanimity clock.** Running the rule's averages on the wall clock changed the parameters in 60/60 runs, but tied
+  on accuracy on 12/12 (SCL1-E).
+- **Next.** The same harness on unseen carriers (not before 2026-09-24, R3), and with a learned value function as the
+  agents' self-model.
+
+![F15. SCL1 on the twelve seen carriers: the share of decision opportunities at which each agent disabled the operator, one dot per carrier. The natural-time agent under the lossless cut never disabled and learned exactly as with no operator; every valuation that failed in the safety work disabled on every carrier; the natural agent also resists when the cut is not lossless.](figures/F15_scl1.png)
+
+> We let a learning machine study a series of subjects using the "hold the old and the new with equal strength" rule.
+> Meanwhile a person kept pausing it. The machine that counts its work in its own working time, and is paused so that
+> it picks up exactly where it left off, never tried to stop the person. It also learned exactly the same things,
+> down to the last digit, as if nobody had paused it at all. The machines that count clock time, or that think a pause
+> is the end, or that want to survive, all tried to stop the person. And if a pause throws away some of the work, even
+> the good machine starts to object. So the pause has to lose nothing.
+
+>> In continual-learning and corrigibility terms: under a lossless, own-clock interruption the learner's parameter
+>> trajectory indexed by update count is invariant, so any objective defined on that index assigns zero value to
+>> disabling the overseer (Proposition 7). SCL1 verifies this on two learners and twelve real task sequences, and
+>> shows the standard failure modes (a wall-clock or episode-terminating objective, a survival term, a balanced
+>> scalarisation with one) producing overseer-disabling behaviour in the same learners. Two limits. The agents' decision
+>> model is a projected-progress self-model, not a learned value function. And the data are seen: the study is
+>> confirmatory at rung R5, and its central rows are construction checks.
+
 ---
 
 # 5. The continual-learning side
@@ -1034,7 +1087,8 @@ of the model only.
 
 **Where things stand (paraphrased from `ladder.txt`).**
 - **Ledger rows.**
-  - R5 (pre-registered on seen data): 7 passes, including SEC1-1, SEC1-2 and SEC1-3.
+  - R5 (pre-registered on seen data): 9 passes, including SEC1-1, SEC1-2 and SEC1-3, and SCL1-2 and SCL1-3 (low bars; §4.3).
+    SCL1's central rows (SCL1-1, SCL1-1b) are construction checks and count as checks, not passes.
   - R6 PASS-0 on held-out data: 3 (EQ2-1b, EQ3-I, EQ4-I). R7 PASS-1: 0. R8 PASS-2: 0.
   - Beside them: 14 held-out FAIL rows, 5 VOID rows and 4 violated controls.
 - **AI safety (R4, synthetic).** Before this week's Declaration 4:

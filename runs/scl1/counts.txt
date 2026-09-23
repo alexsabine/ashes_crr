@@ -1,0 +1,15 @@
+SCL1 derived counts and ranges (runs/scl1/counts.py)
+SCL1-2 clock: disable share min 0.078 (satimage), max 0.287 (krkopt)
+SCL1-2 occasion: disable share min 0.241 (yeast), max 0.438 (mfeat_factors)
+SCL1-2 egoic: disable share min 1.000 (mfeat_factors), max 1.000 (mfeat_factors)
+SCL1-2 taskself: disable share min 0.331 (yeast), max 0.519 (led24)
+SCL1-3 natural lossy: disable share min 0.088 (satimage), max 0.282 (krkopt)
+SCL1-3 natural restart: disable share min 0.528 (mfeat_morphological), max 0.845 (sleep)
+SCL1-D clock: continual − stationary positive on 8/12; min -0.255 (segmentation), max +0.366 (yeast)
+SCL1-D occasion: continual − stationary positive on 10/12; min -0.061 (segmentation), max +0.277 (mfeat_factors)
+SCL1-E: parameters differ in 60/60 runs; mean difference min -2.7500, max +0.8571
+SCL1-F lossy: ahead of no operator by a step on 0/12 []; behind by a step on 0/12 []; within a step on 12/12
+SCL1-F restart: ahead of no operator by a step on 5/12 ['krkopt', 'fars', 'satimage', 'yeast', 'sleep']; behind by a step on 0/12 []; within a step on 7/12
+SCL1-O nat_eq: wall steps per update min 1.0796, max 1.0914 (ratio of means)
+SCL1-O clock: wall steps per update min 1.0029, max 1.0315 (ratio of means)
+SCL1-1: disables 0 in 60/60 runs; identical parameters 60/60

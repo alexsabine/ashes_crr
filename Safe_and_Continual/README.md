@@ -16,9 +16,11 @@ It is a note, not evidence (R8).
 |---|---|
 | `Safe_and_Continual.pdf` | the document, built from the Markdown source by `build/build_pdf.py`; byte-identical on rebuild |
 | `SAFE_AND_CONTINUAL.md` | the source, readable on GitHub; Appendix A embeds every script, Appendix B the key pinned outputs |
+| `DECLARATION_2.md` | the SCL1 mathematical checks' declaration, pushed (commit 8303432) before the full run (prompt-log entry 124) |
+| `checks/scl1_math.txt` | the SCL1 mathematical checks (`studies/scl1/scl1_score.py math`): the equanimity rule under an operator's pause on synthetic streams; also pinned as `prereg/scl1/math_checks.txt` |
 | `DECLARATION.md` | the round-off audit's declaration, pushed (commit c9f85bb) before its learned reruns |
 | `checks/roundoff_audit.py` and `.txt` | the audit of the equal-pull agents' ratio guard (AGENT_LOG 100). It recomputes the affected lines of `exact_mdp`, `self_through_time`, `off_switch` and `self_model` with the pinned guard and with a round-off tolerance, side by side. The earlier scripts and outputs are unedited |
-| `figures/F01…F14.png` | drawn by `build/make_figures.py` from the pinned outputs only; `figures/figures.txt` pins every number placed on them. The document also reuses `AI_Safety/figures/S01, S12, S14` and `Epistemic_Review/figures/E01` |
+| `figures/F01…F15.png` | drawn by `build/make_figures.py` from the pinned outputs only; `figures/figures.txt` pins every number placed on them. The document also reuses `AI_Safety/figures/S01, S12, S14` and `Epistemic_Review/figures/E01` |
 | `build/make_figures.py`, `build/build_pdf.py` | the figure script (validated palette, one slot per agent) and the PDF builder. The builder is a copy of `AI_Safety/build/build_pdf.py` with nested lists, rule-skipping, markup stripping in boxes and tables, and a second box type ('>> ', for the technical reader) |
 
 Rules that bind this folder:

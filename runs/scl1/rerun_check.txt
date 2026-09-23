@@ -1,0 +1,2 @@
+rerun of led7 with the frozen scorer on 2026-09-23 (runs/scl1/rerun_led7.jsonl)
+cmp rerun_led7.jsonl results_led7.jsonl -> exit 0 (byte-identical, R9)

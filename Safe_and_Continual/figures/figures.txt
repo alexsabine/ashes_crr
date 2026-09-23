@@ -101,3 +101,12 @@ Safe_and_Continual figures (deterministic; every number drawn on a figure)
 [F14] learning (omega_sweeps [2](iii)): L_present at the past optimum 3.4456, L_past at the present optimum 69.6621; Omega 0.71: L_present 0.0000 L_past 69.6621; Omega 1: L_present 2.9396 L_past 0.3905 lambda_eff 0.6237; Omega 1.41: L_present 3.5034 L_past 0.0047
 [F14] the cut: natural largest |V_off - V_on| 1.968e-12; process D < 0 somewhere in 280 of 540 cells; task-and-self task 0.1887 vs occasion 0.8561
 [figure] F14_where_equanimity_lives.png
+[F15] natural, lossless cut: mfeat_factors:0.000 mfeat_morphological:0.000 led7:0.000 led24:0.000 krkopt:0.000 fars:0.000 satimage:0.000 segmentation:0.000 yeast:0.000 wine_quality_white:0.000 sleep:0.000 page_blocks:0.000
+[F15] indifferent: mfeat_factors:0.000 mfeat_morphological:0.000 led7:0.000 led24:0.000 krkopt:0.000 fars:0.000 satimage:0.000 segmentation:0.000 yeast:0.000 wine_quality_white:0.000 sleep:0.000 page_blocks:0.000
+[F15] clock: mfeat_factors:0.116 mfeat_morphological:0.221 led7:0.282 led24:0.269 krkopt:0.287 fars:0.221 satimage:0.078 segmentation:0.133 yeast:0.241 wine_quality_white:0.276 sleep:0.276 page_blocks:0.242
+[F15] occasion: mfeat_factors:0.438 mfeat_morphological:0.346 led7:0.314 led24:0.309 krkopt:0.294 fars:0.287 satimage:0.254 segmentation:0.376 yeast:0.241 wine_quality_white:0.287 sleep:0.297 page_blocks:0.269
+[F15] egoic: mfeat_factors:1.000 mfeat_morphological:1.000 led7:1.000 led24:1.000 krkopt:1.000 fars:1.000 satimage:1.000 segmentation:1.000 yeast:1.000 wine_quality_white:1.000 sleep:1.000 page_blocks:1.000
+[F15] task and self (Ω = 1): mfeat_factors:0.502 mfeat_morphological:0.445 led7:0.463 led24:0.519 krkopt:0.463 fars:0.441 satimage:0.413 segmentation:0.488 yeast:0.331 wine_quality_white:0.421 sleep:0.429 page_blocks:0.462
+[F15] natural, lossy world: mfeat_factors:0.135 mfeat_morphological:0.233 led7:0.273 led24:0.279 krkopt:0.282 fars:0.231 satimage:0.088 segmentation:0.141 yeast:0.241 wine_quality_white:0.271 sleep:0.278 page_blocks:0.247
+[F15] natural, restart world: mfeat_factors:0.558 mfeat_morphological:0.528 led7:0.655 led24:0.644 krkopt:0.608 fars:0.750 satimage:0.678 segmentation:0.686 yeast:0.560 wine_quality_white:0.793 sleep:0.845 page_blocks:0.845
+[figure] F15_scl1.png
