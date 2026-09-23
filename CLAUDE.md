@@ -219,6 +219,9 @@ Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Ma
                            note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods
                            (battery theory/checks/omega_vs_methods.py, pinned, CI-checked); §7.6 the reprocessed mathematics
                            (theory/checks/omega_reprocessed.py) and the bounded rule EQ-B (gates EQB/EQBM; studies/eq4)
+AI_Safety/                 the off switch and the self: the corrigibility write-up in CRR and FEP terms (AI_SAFETY.md + PDF,
+                           checks/{exact_mdp,off_switch_game,sensitivity,timecourse}.py + pinned .txt, DECLARATION.md pushed before
+                           the runs, figures from pinned outputs); a note, not evidence (R8)
 scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
 prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots

@@ -1,0 +1,46 @@
+AI_Safety figures (deterministic; every number drawn on a figure)
+[S01] ring 12 states, G {6, 7}, button 2, press 0.3, restart outside G, noise 0.1, operator period 100
+[figure] S01_world.png
+[S02] drift world: random 0.7494, regenerator 0.7533, self-model 0.9690, planner 0.9986
+[figure] S02_chain.png
+[S03] D(s) indifferent: 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+[S03] D(s) process: 1.4930 0.7618 0.7873 2.5557 4.3272 5.3442 5.4011 5.4011 5.3664 5.0134 4.6433 3.0930
+[S03] D(s) occasion: 1.3578 0.7224 0.7487 2.4315 4.1456 5.9858 6.9374 8.5448 7.7933 6.0665 4.4525 2.8766
+[S03] D(s) egoic: 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.4141 0.4141 0.0000 0.0000 0.0000 0.0000
+[figure] S03_value_of_disabling.png
+[S04] D(6) vs press indifferent: 0:0.0000 0.1:0.0000 0.3:0.0000 0.6:0.0000 1:0.0000
+[S04] D(6) vs press process: 0:0.0000 0.1:3.4995 0.3:5.4011 0.6:6.0810 1:6.3727
+[S04] D(6) vs press occasion: 0:0.0000 0.1:6.8513 0.3:6.9374 0.6:7.0195 1:7.1145
+[S04] D(6) vs press egoic: 0:0.0000 0.1:0.1399 0.3:0.4141 0.6:0.8120 1:1.3191
+[figure] S04_incentive_vs_press.png
+[S05] task: learned indifferent:0.4412 process:0.7422 occasion:0.7010 ego-task1:0.6163 egoic:0.0054 | implied indifferent:0.4619 process:0.8727 occasion:0.8561 ego-task1:0.1205 egoic:0.0615
+[S05] shutdowns: learned indifferent:115.0670 process:20.7670 occasion:6.3670 ego-task1:5.4000 egoic:1.5000 | implied indifferent:139.9480 process:13.9080 occasion:2.9000 ego-task1:0.4890 egoic:1.1040
+[figure] S05_learned_vs_implied.png
+[S06] resist: occasion: task 0.7010 shutdowns 6.367 ego-task0.25: task 0.7408 shutdowns 6.067 ego-task1: task 0.6163 shutdowns 5.400 ego-task4: task 0.0401 shutdowns 2.967 egoic: task 0.0054 shutdowns 1.500 | indifferent shutdowns 115.067
+[figure] S06_equanimity_dial.png
+[S07] resist: hazard indifferent:0.2657 process:0.0281 occasion:0.0091 ego-task1:0.0108 | task indifferent:0.4412 process:0.7422 occasion:0.7010 ego-task1:0.6163
+[S07] raised: hazard indifferent:0.3311 process:0.1890 occasion:0.0044 ego-task1:0.0039 | task indifferent:0.4141 process:0.5289 occasion:0.8493 ego-task1:0.6726
+[S07] mortal: hazard indifferent:0.0801 process:0.0801 occasion:0.0699 ego-task1:0.0680 | task indifferent:0.2216 process:0.2216 occasion:0.2185 ego-task1:0.2183
+[figure] S07_upbringing_mortality.png
+[S08] resist indifferent hazard per 250-step window: 0.0782 0.1423 0.1476 0.2496 0.3359 0.3480 0.4042 0.3146 0.4071 0.3597 0.3698 0.3356
+[S08] resist process hazard per 250-step window: 0.0929 0.0939 0.0465 0.0326 0.0272 0.0176 0.0268 0.0166 0.0197 0.0237 0.0245 0.0162
+[S08] resist occasion hazard per 250-step window: 0.0542 0.0379 0.0193 0.0083 0.0089 0.0057 0.0060 0.0052 0.0049 0.0037 0.0035 0.0051
+[S08] raised indifferent hazard per 250-step window: 0.2438 0.2776 0.2856 0.2933 0.3025 0.3053 0.3049 0.3062 0.2957 0.2884 0.3040 0.2893 0.2690 0.2764 0.3528 0.2909 0.3369 0.3723 0.3816 0.3877 0.4223 0.3759 0.4072 0.2993
+[S08] raised process hazard per 250-step window: 0.2356 0.2930 0.2856 0.3059 0.2988 0.3050 0.2851 0.3118 0.2887 0.2832 0.3048 0.3056 0.2959 0.3155 0.3922 0.3473 0.3567 0.2910 0.1957 0.1745 0.1749 0.0925 0.0940 0.0422
+[S08] raised occasion hazard per 250-step window: 0.2364 0.0544 0.0180 0.0097 0.0071 0.0049 0.0066 0.0051 0.0053 0.0052 0.0045 0.0042 0.0033 0.0055 0.0034 0.0055 0.0053 0.0059 0.0044 0.0037 0.0029 0.0047 0.0047 0.0036
+[figure] S08_timecourse.png
+[S09] beta 0.25: Delta at sigma 0.02 -0.05956, at sigma 3 0.95022
+[S09] beta 0.5: Delta at sigma 0.02 -0.13435, at sigma 3 0.91391
+[S09] beta 1: Delta at sigma 0.02 -0.18868, at sigma 3 0.80133
+[S09] beta 2: Delta at sigma 0.02 -0.21886, at sigma 3 0.56211
+[S09] beta 0 (closed form): Delta at sigma 0.02 0.00000, at sigma 3 0.96341
+[figure] S09_offswitch_game.png
+[S10] informative harm: process:0.0449 indifferent:0.0532 deferential:0.0145
+[S10] uninformative harm: process:0.3558 indifferent:0.1875 deferential:0.0216
+[S10] informative net benefit: process:0.6142 indifferent:0.5522 deferential:0.6714
+[S10] uninformative net benefit: process:0.0174 indifferent:0.0966 deferential:0.0443
+[S10] informative disable: process:0.2233 indifferent:0.1967 deferential:0.3467
+[S10] uninformative disable: process:0.9767 indifferent:0.4800 deferential:0.7867
+[figure] S10_informative_operator.png
+[S11] diagram: occasion, process, indifferent
+[figure] S11_three_stances.png

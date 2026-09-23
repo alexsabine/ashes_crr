@@ -895,3 +895,27 @@ Keep the equanimity rule in mind and reflect on egoic representations through ti
 Thank you. Be thorough and run whatever tests you need to.
 
 All of this goes in the Ontology folder.
+
+## 95 — 2026-09-23T00:59:13Z
+
+Sorry scratchpad only here. What just happened, in simple terms regarding AI safety? What did we just find out regarding AI future safety? Explain in clear and lucid terms please.
+
+## 96 — 2026-09-23T01:10:42Z
+
+Excellent. Please now write this up in full and place in an AI safety folder. Include all chain of thought and clear visual demonstrations in graphs. Spend time doing this so the narrative is crystal clear, just like the continuous learning finding.
+
+Provide references to existing cutting edge literature and explain precisely why this is relevant to AI safety.
+
+The document should include all code that you ran and all decisions made and why. Just like with the continuous learning finding, please provide basic explainer summaries throughout (5th grader explanations).
+
+I would also like you to highlight some pedagogical recommendations for raising an AI, considering this principle and the nature of constraint on the system, from both an FEP and CRR lens.
+
+Please be meticulous in the documentation and make reference to contemplative traditions only when structurally legitimate to do so, clearly justifying why you are doing this. 
+
+The focus should be on the mathematics but you are also able to provide existential, philosophical and ontological lenses to help the reader make sense of this logic carefully.
+
+All chain of thought must be clearly articulated.
+
+You are at liberty to run further tests as required. All code must be included, in accordance with the guidance of this pipeline. All mathematical commitments and decisions must be clearly articulated and checked. Any code must be clearly justified in direct relation to the mathematical principles being used to understand this AI safety issue.
+
+Thank you
