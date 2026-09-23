@@ -277,3 +277,5 @@ The toy is a twelve-state ring. Everything here is a hypothesis for real systems
 4. **A better seek world,** in which seeking shutdown is clearly worth it, declared before it runs.
 
 Each is a new design, declared before it runs.
+
+**Continued in `AI_Safety/`** (prompt-log entry 96): the full write-up, with the exact solution, deference, the sensitivity table and the time course.

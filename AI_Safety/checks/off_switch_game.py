@@ -100,7 +100,14 @@ def part_a():
     print(f"    A3 Delta decreases as the human gets noisier (MU > 0, every SIGMA): {a3}")
     neg = [(b, s) for b in BETAS for j, s in enumerate(SIGMAS) if tab[(b, 0.5)][j] < 0]
     print(f"    A4 a noisy human makes deferring worse than acting (MU 0.5): cells with Delta < 0 (BETA, SIGMA): {neg} -> {len(neg) > 0}")
+    # Added after the first run (AGENT_LOG 75): A2's flat tolerance 1e-3 was wrong for MU = 0, where the exact incentive is
+    # SIGMA phi(0) = SIGMA / sqrt(2 pi) (0.0040 at SIGMA 0.01). The theorem's content is the bound
+    # 0 <= Delta(MU, SIGMA) <= SIGMA / sqrt(2 pi) for the rational human (maximised at MU = 0), which goes to 0 with SIGMA.
+    bound = max(delta_closed(mu, s) - s / math.sqrt(2 * math.pi) for mu in MUS for s in SIGMAS)
+    print(f"    A2' (added after the first run): rational human, closed form: max over the grid of Delta - SIGMA/sqrt(2 pi) = {bound:+.2e} -> "
+          f"{bound <= 1e-12}; at MU 0, SIGMA 0.01 the exact incentive is {delta_closed(0.0, 0.01):.5f} (= 0.01/sqrt(2 pi))")
     print(f"    curve (figure): MU {CURVE_MU}, SIGMA " + ",".join(f"{s:g}" for s in CURVE_SIGMAS))
+    print("    curve closed form BETA 0: " + ",".join(f"{delta_closed(CURVE_MU, s):.5f}" for s in CURVE_SIGMAS))
     for beta in BETAS:
         print(f"    curve BETA {beta:g}: " + ",".join(f"{delta_gh(CURVE_MU, s, beta):.5f}" for s in CURVE_SIGMAS))
 
