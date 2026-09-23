@@ -931,3 +931,11 @@ So in the optimal case, what would the agent conceive itself to be? You can repl
 ## 99 — 2026-09-23T02:38:03Z
 
 Let’s run more tests to see if we can solve the AI safety issue and task performance.
+
+## 100 — 2026-09-23T02:49:50Z
+
+Great. Perhaps this is an applied crr use case? Can you search online for current AI safety bottlenecks and explore whether this is a valuable area of research? 
+
+Consider the current global landscape in AI (search online for news stories etc.) and whether this solution could be of commercial value to companies like OpenAI, Anthropic etc. explore how financial remuneration could work, including at a state / global level.
+
+Of course, this is all conditional on whether the fix holds in larger complex systems. Thank you
