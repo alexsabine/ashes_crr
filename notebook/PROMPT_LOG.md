@@ -1049,3 +1049,7 @@ Excellent.
 Scratchpad. Is it helpful to use the crr as a single mathematical framework to address both AI safety and continuous learning in simultaneity?
 
 Can we run more AI safety checks on a continual learner using CRR principles to see if there is novelty in this approach?
+
+## 115 — 2026-09-23T14:40:48Z
+
+So is it fair to say that crr is a falsifiable metaphysical heuristic that is proving helpful to determine optimal settings for AI safety and continuous learning?
