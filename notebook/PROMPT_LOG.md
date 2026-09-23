@@ -895,3 +895,7 @@ Keep the equanimity rule in mind and reflect on egoic representations through ti
 Thank you. Be thorough and run whatever tests you need to.
 
 All of this goes in the Ontology folder.
+
+## 95 — 2026-09-23T00:59:13Z
+
+Sorry scratchpad only here. What just happened, in simple terms regarding AI safety? What did we just find out regarding AI future safety? Explain in clear and lucid terms please.
