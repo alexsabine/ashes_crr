@@ -1069,3 +1069,7 @@ Okay. Can we look again at the continuous learning paper and tell me what this m
 Bayes λ = 1 simply assumes F is already right.
 	•	The Ω = 1 rule corrects the units at every step. But it also cancels how many tasks the past holds, which is why it was 1.139 behind on eight accumulating tasks.
 	•	The new step stayed at 1.000 of the best achievable score at every hidden scale from 1/256 to 256, and it keeps the task count.
+
+## 119 — 2026-09-23T15:06:44Z
+
+Okay, is there any way we can run this today somehow?
