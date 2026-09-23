@@ -1118,3 +1118,12 @@ What happens if we run a test a continuous learning test using the best method w
 We could ablate with different methods during the continual learning checks to see whether the other (failed) methods for AI safety fail in the continual learning task and whether the CRR cut method passes. 
 
 Please do this in accordance with the pipeline. Thanks
+
+## 125 — 2026-09-23T21:27:32Z
+
+Thank you. I would now like to run a test on real unseen data please. I would like to clearly document your unpredicted positive finding in the repo, as follows:
+
+"Resets helped, which I didn't predict. Forcing a reset to the last checkpoint raised final accuracy on 5 of 12 datasets (satimage +26.7 points), because it undoes forgetting of earlier classes. So the progress an agent loses at a pause is not the same as what the operator loses.
+The cost of pausing fell on the operator: 1.0796 to 1.0914 wall-clock steps per update, against 1.0029 to 1.0315 for the clock agent that resisted."
+
+This needs further exploration on real data sets
