@@ -59,3 +59,4 @@ file in the same commit as any data download.
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
 PMLB `usps` (not mirrored), other PMLB classification sets (no unseen 10-class set with >= 900 rows remains on the mirror except poker and kddcup).
+| PMLB `mfeat_factors`, `mfeat_morphological`, `led7`, `led24`, `krkopt`, `fars`, `satimage`, `segmentation`, `yeast`, `wine_quality_white`, `sleep`, `page_blocks` (already SEEN above; reopened, no new records) | sha256 in data/manifests/scl1.sha256 (verified against data/manifests/sec1.sha256, runs/scl1/data_check.txt) | as EQ4's class-selection rule and 5000-row cap | 2026-09-23T21:15:14Z (study SCL1, confirmatory on seen data; prereg hash commit 17366b9 2026-09-23T21:15:04Z) |

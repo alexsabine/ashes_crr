@@ -45,6 +45,8 @@ uv run python AI_Safety/checks/self_through_time.py 2>/dev/null | cmp - AI_Safet
 uv run python AI_Safety/checks/continual_safety.py 2>/dev/null | cmp - AI_Safety/checks/continual_safety.txt && echo 'AI safety safe-and-continual byte-identical to the committed output'
 uv run python Safe_and_Continual/checks/roundoff_audit.py 2>/dev/null | cmp - Safe_and_Continual/checks/roundoff_audit.txt && echo 'Safe_and_Continual round-off audit byte-identical to the committed output'
 uv run python Safe_and_Continual/build/make_figures.py 2>/dev/null | cmp - Safe_and_Continual/figures/figures.txt && echo 'Safe_and_Continual figure numbers byte-identical to the committed output'
+uv run python studies/scl1/scl1_score.py math 2>/dev/null | cmp - Safe_and_Continual/checks/scl1_math.txt && echo 'SCL1 mathematical checks byte-identical to the committed output'
+uv run python runs/scl1/frozen/scl1_score.py gate 2>/dev/null | cmp - prereg/scl1/gate_SCL.txt && echo 'SCL1 gate byte-identical to the committed output'
 uv run python AI_Safety/build/make_figures.py 2>/dev/null | cmp - AI_Safety/figures/figures.txt && echo 'AI safety figure numbers byte-identical to the committed output'
 uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1 && echo 'AI safety PDF rebuilds'
 uv run python "Alexander Plan/model/projections.py" 2>/dev/null | cmp - "Alexander Plan/model/projections.txt" && echo 'Alexander Plan projections byte-identical to the committed output'
