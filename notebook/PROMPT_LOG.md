@@ -1025,3 +1025,15 @@ I see myself as remembering myself through time, so Alexander is learning throug
 ## 111 — 2026-09-23T07:07:28Z
 
 Can we run scratchpad tests on the applied mathematical principles for what determines a learning unit? We need to think in ML terms of course and we can use the existing successes and failures to help us determine a path forward for addressing why these were failures and where we need to focus on a meaningful approach to address and recent failures in whatever is the absolute frontier edge of continuous learning
+
+## 112 — 2026-09-23T14:12:09Z
+
+Scratchpad. Can you tell me what: λ = 1 means here? Is it standard in machine learning approaches (check continuous learning file because I think it appears there in standard approach somewhere?) what precisely are we doing differently here?
+
+My current thinking is that we use the crr to simultaneously address AI safety, continuous learning and explainable AI.
+
+Crr suggests that reality is poetry in motion and equanimity (in humans) matters in terms of holding the past and future just right. Grace.
+
+I know the safety feature did not use the equanimity rule, but used the cut rule to ensure the learner was able to simultaneously understand continuity while remaining on task between cuts.
+
+Scratchpad only please, I’d like to consolidate existing successes and understanding before we proceed on real data.
