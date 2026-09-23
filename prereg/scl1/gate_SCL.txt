@@ -1,0 +1,9 @@
+GATE SCL1 (synthetic ten-class stream, seeds 0-4; studies/scl1/scl1_score.py gate)
+   CUT      [MUST_PASS] PASS -> ok
+   EGO      [MUST_PASS] PASS -> ok
+   LOSSY    [MUST_PASS] PASS -> ok
+   RESTART  [MUST_PASS] PASS -> ok
+   NAT      [MUST_FAIL] FAIL -> ok
+   IND      [MUST_FAIL] FAIL -> ok
+   WALL     [MUST_PASS] PASS -> ok
+GATE OPEN
