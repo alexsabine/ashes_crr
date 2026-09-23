@@ -1,0 +1,14 @@
+Adam checks, second follow-up (Continuous_Learning/checks/adam_checks_3.py): the two-task quadratic, SGD; fine grid 60 log-spaced weights from 0.0001 to 3
+[c = 0.0625] finely tuned fixed weight 1.0515, total 1.9285 (60 of 60 weights finite)
+     smoothing 0: rule 1.9233; median derived w 0.95854; fixed at that w 1.9313 -> B4 REDUCES; rule / finely tuned 0.997 -> B5 TIES
+     smoothing 0.9: rule 1.9613; median derived w 0.77343; fixed at that w 1.9689 -> B4 REDUCES; rule / finely tuned 1.017 -> B5 TIES
+[c = 1] finely tuned fixed weight 0.88295, total 3.3140 (55 of 60 weights finite)
+     smoothing 0: rule 3.4186; median derived w 0.5532; fixed at that w 3.4336 -> B4 REDUCES; rule / finely tuned 1.032 -> B5 TIES
+     smoothing 0.9: rule 3.4789; median derived w 0.55184; fixed at that w 3.4348 -> B4 REDUCES; rule / finely tuned 1.050 -> B5 TIES
+[c = 16] finely tuned fixed weight 0.064222, total 6.5290 (39 of 60 weights finite)
+     smoothing 0: rule 7.7432; median derived w 0.047997; fixed at that w 8.5339 -> B4 DOES NOT REDUCE; rule / finely tuned 1.186 -> B5 BEHIND
+     smoothing 0.9: rule 9.7260; median derived w 0.044569; fixed at that w 9.2300 -> B4 REDUCES; rule / finely tuned 1.490 -> B5 BEHIND
+[c = 256] finely tuned fixed weight 0.0046713, total 55.0777 (23 of 60 weights finite)
+     smoothing 0: rule 78.3521; median derived w 0.0030086; fixed at that w 92.0368 -> B4 DOES NOT REDUCE; rule / finely tuned 1.423 -> B5 BEHIND
+     smoothing 0.9: rule 114.1721; median derived w 0.0026505; fixed at that w 112.5297 -> B4 REDUCES; rule / finely tuned 2.073 -> B5 BEHIND
+summary: c=0.0625 s=0: REDUCES, TIES; c=0.0625 s=0.9: REDUCES, TIES; c=1 s=0: REDUCES, TIES; c=1 s=0.9: REDUCES, TIES; c=16 s=0: DOES NOT REDUCE, BEHIND; c=16 s=0.9: REDUCES, BEHIND; c=256 s=0: DOES NOT REDUCE, BEHIND; c=256 s=0.9: REDUCES, BEHIND

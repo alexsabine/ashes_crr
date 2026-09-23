@@ -474,11 +474,11 @@ a validated product.
 
 | offering | what it is | evidence rung today | the decisive test at lab scale | kill criterion |
 |---|---|---|---|---|
-| verification (the pipeline) | pre-registration, surrogate gates, frozen scripts, the ladder, a ledger in which failures are rows | operational: the repository's 63 ledger rows, 5 of them VOID, 9 held-out FAILs recorded | run it on one of the lab's own safety or capability claims, with an independent second auditor | if the lab's teams cannot use it without the author, it is a methodology, not a service |
+| verification (the pipeline) | pre-registration, surrogate gates, frozen scripts, the ladder, a ledger in which failures are rows | operational: the repository's 84 ledger rows, 5 of them VOID, 14 held-out FAILs recorded (as of 2026-09-23, after EQ4 and T1x2) | run it on one of the lab's own safety or capability claims, with an independent second auditor | if the lab's teams cannot use it without the author, it is a methodology, not a service |
 | corrigibility by the clock | pause-and-resume plus a natural-time objective | theorem on synthetic worlds (R4): no incentive in every random world from 12 to 768 states; a declared prediction failed (small worlds favour being paused) | small open models in a shutdown harness: a pause-and-natural-time framing against a control, counting disabling and seeking | if the framing does not lower disabling, or raises seeking, on learned models |
 | informative correction | corrections that carry information the agent lacks | theorem on synthetic worlds (R4): humility alone never welcomes an uninformative correction; an informative one is welcomed | preference- or constitution-correction experiments with and without a signal of the correction's reliability | if the reliability signal does not change acceptance of correction |
-| the Ω = 1 normaliser | scales the past pull by the present pull, so the weight needs no tuning | R6 PASS-0 (EQ2-1b, EQ3-I), fragile; replication FAIL on 1 of 6; controls violated; Ω a plateau | an RLHF run with three KL arms: a fixed β, an adaptive controller at a registered target, and Ω = 1 on the KL gradient, under SGD and Adam | if it is behind the tuned β by a resolvable step, or only matches it where β needs no retuning |
-| EQ-B (bounded rule) | the normaliser with the present gradient clipped, for poisoned regimes | pre-registered, no row yet | EQ4 (may run from today) | EQ4's own registered criteria |
+| the Ω = 1 normaliser | scales the past pull by the present pull, so the weight needs no tuning | R6 PASS-0 (EQ2-1b, EQ3-I), fragile; replication FAIL on 1 of 6; controls violated; Ω a plateau; since 2026-09-23 behind a finely tuned constant on the synthetic model and equal to the VQGAN adaptive weight without its smoothing (§11.6) | an RLHF run with three KL arms: a fixed β, an adaptive controller at a registered target, and Ω = 1 on the KL gradient, under SGD and Adam | if it is behind the tuned β by a resolvable step, or only matches it where β needs no retuning |
+| EQ-B (bounded rule) | the normaliser with the present gradient clipped, for poisoned regimes | EQ4-1 FAIL (4 of 6), EQ4-3 FAIL, EQ4-4 INERT, ER-sum control violated (§11.6) | a clip on a fixed weight does as well; no further test proposed | — |
 | raising an agent | pedagogy for training an agent's self-conception (§6.1) | conjectures from toy agents | curriculum experiments on small agents, declared before running | if the curricula do not change resistance or seeking |
 
 ### 10.3 The two methods in commercial terms
@@ -746,6 +746,33 @@ filed; not claims):
   and the three-arm KL test), and a patent only where the application as filed covers the use.
 - **The next steps of §8 gain three items:** run EQ4; propose the GPU and KL tests as a funded project; take the EPO
   application to an attorney before the next push.
+
+### 11.6 Addendum, 2026-09-23 (prompt-log entry 104): new evidence on the continual-learning method
+
+This addendum was written after §11 and changes none of the model's inputs. The owner decides whether they should change.
+The evidence is in `Continuous_Learning/ADAM_AND_PRIOR_ART.md` and `reports/eq4.md`. Every number below is pinned there.
+
+- **Against a finely tuned constant, the rule loses where the scales differ.** On a fine grid of 60 weights, the rule's
+  total is 1.186 to 2.073 times the best constant's at the mismatched scales, and 0.997 to 1.050 where they match
+  (`adam_checks_3.txt` B5). The earlier advantage (0.660 at c = 16) was measured against a coarse 10-point grid.
+- **The weight's form is published prior art.** Without its smoothing the rule is the VQGAN adaptive weight of 2020
+  (`adam_checks_2.txt` B1: 7.7432 against 7.7434), and the registered smoothing costs at every scale tried.
+- **Under Adam the rule has nothing to do** (A1–A3). Under heavy-ball momentum it is finite but behind (A8).
+- **On real data (EQ4, plain SGD):**
+  - the bounded rule is not behind the tuned λ on only 4 of 6 unseen carriers (EQ4-1 FAIL);
+  - under poison a fixed weight with the same clip does as well (EQ4-3 FAIL);
+  - the ER-sum control is violated.
+
+**What this means for §11.2.** The scenario "the rule holds at GPU and LLM scale" now has no synthetic support for an
+accuracy gain, and under Adam none is possible. What remains is a tuning-free stable weight under SGD-family training.
+That is a tuning-cost saving which has not been measured, and it is shared with published methods.
+
+The model's value-if-adopted figures ($232,739,581 for 2029 and $347,819,511 for 2030, middle case) price a scenario that
+the evidence now argues against. Read them as a ceiling on a scenario the evidence does not support, not as a forecast.
+
+**For the patent (information, not legal advice).** The ratio's form was published in 2020, before the August 2025 filing,
+so accuracy cannot be the technical effect. The applied use case the owner asked for is examined separately, for the cut
+δ(Now) as a rupture detector, in `Rupture_Detection/RUPTURE_DETECTION.md`.
 
 ## Appendix A — the code
 

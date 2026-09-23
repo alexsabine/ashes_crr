@@ -1,0 +1,1 @@
+{"dataset": "1203_BNG_pwLinear", "file": "data/raw/pmlb/1203_BNG_pwLinear.tsv.gz", "sha256": "d43ac1fbd282bf61b80107e45d2e27af6fb5464fc9338634a98482fbbf98ec04", "n": 5000, "n_file": 177147, "d": 10, "rows_dropped_nan": 0, "split_feature": null, "admissible": false}

@@ -48,6 +48,13 @@ learning rate controlled) on six unseen regression streams is VOID: the frozen s
 step on another, so no row was scored and the carriers are now seen (`reports/t1x.md`, ledger row T1X-VOID). The corrected
 study T1x2 is pre-registered and hashed (`prereg/t1x2/`) with its data step held to a later day under R3.
 
+2026-09-23 (prompt-log entry 104): T1x2 ran and **FAILS on 5 of 5 carriers**, not fragile: the old-probe endpoint predicts
+forgetting and the path does not beat it (`reports/t1x2.md`). EQ4 ran: the bounded rule EQ-B **FAILS EQ4-1** (not behind
+the tuned λ on 4 of 6), under poison a fixed weight with the same clip does as well, and the ER-sum control is violated
+(`reports/eq4.md`). Declared synthetic checks place the Ω rule beside its prior art: under Adam it has nothing to do, without
+its smoothing it is the VQGAN adaptive weight (2020), and a finely tuned constant beats it wherever the scales differ
+(`Continuous_Learning/ADAM_AND_PRIOR_ART.md`). The cut δ(Now) as a rupture detector is tested in `Rupture_Detection/`.
+
 ### Epistemic status (2026-09-22)
 
 Stated once in `docs/notes/2026-09-22_epistemic_status.md` (technical and fifth-grader versions). In short: two

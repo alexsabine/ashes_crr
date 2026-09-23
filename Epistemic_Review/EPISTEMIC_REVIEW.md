@@ -37,8 +37,9 @@ the continual-learning and AI-safety findings. Section 10 is the proposed change
   velocity, the domain supplies it in 98, none is needed in 11, and CRR supplies it in 0. A grade that demands the theory
   force a known number "with no outside constant" cannot be reached by a framework whose integrand is always the domain's
   own flow. Scoring zero on it said nothing about CRR (§4).
-- **The prospective record is small and provisional.** There are 2 pre-registered passes on held-out data, both PASS-0
-  (EQ2-1b, EQ3-I), beside 9 held-out FAILs. There are 4 pre-registered passes on data already seen, which are
+- **The prospective record is small and provisional.** There are 3 pre-registered passes on held-out data, all PASS-0
+  (EQ2-1b, EQ3-I, EQ4-I; the last two are invariance rows), beside 14 held-out FAILs (updated on 2026-09-23 after the EQ4 and
+  T1x2 data steps, prompt-log entry 104). There are 4 pre-registered passes on data already seen, which are
   retrodictions by data status. There is no PASS-1 and no PASS-2.
 - **The AI-safety record is strongest where it is mathematics.** 13 of 14 theorem checks held; the one failure was a
   tolerance bug, repaired and labelled. 15 of 22 declared predictions held and 7 failed. All 9 gate controls held.
@@ -163,7 +164,7 @@ stand the failures of the same kind of test. They are never folded together.
 | R3 RETRO-ADDS | as R2, and the domain's cited theorem does not give the value; the check in the domain's mathematics holds | yes | a candidate addition, until an expert rules | 3 |
 | R4 DECLARED-SYNTHETIC | a prediction declared before a run on a synthetic world | yes (7 failed) | a claim about that world | 15 |
 | R5 PREREG-SEEN | pre-registered, scored on data already seen | yes (4 seen-data FAILs) | the method, fixed in advance, fits known data | 4 |
-| R6 PASS-0 | pre-registered, held-out, R2–R9 as written | yes (9 held-out FAILs) | provisional: not yet a result | 2 |
+| R6 PASS-0 | pre-registered, held-out, R2–R9 as written | yes (14 held-out FAILs) | provisional: not yet a result | 3 |
 | R7 PASS-1 | PASS-0, not fragile, no control violated, no reduction to a constant, strong anchor | yes | a result | 0 |
 | R8 PASS-2 | PASS-1 replicated | yes | a finding: the only rung quoted outside the ledger | 0 |
 
@@ -250,7 +251,8 @@ The reading:
   they could be checked. They also carry most of the failures and the undecided cases: A3 is unfixed on projective
   carriers, and A6 is wrong wherever a domain accumulates.
 - **Path against endpoint (H-T1)** is the weakest commitment: 2 of 7. That matches the ledger (ARC-T1b) and the
-  continual-learning cross-verification: forgetting follows the endpoint.
+  continual-learning cross-verification: forgetting follows the endpoint. The held-out study T1x2 has since failed on 5 of
+  5 carriers, not fragile (T1X2-1, `reports/t1x2.md`).
 - **H-EQ and tense** have too few checkable rows to read.
 
 ## 7. The ADDS dimension
@@ -349,12 +351,16 @@ resist being stopped, unless the stop is nothing on its own clock.
 | the replication (EQ3-1) | held-out FAIL | fails on 1 of 6 carriers (fars behind by 3.7400); both controls violated |
 | learning-rate × batch invariance (EQ3-I) | R6 PASS-0 | not behind in 5 of 5 cells; an invariance row, not a win |
 | the value Ω = 1 itself (EQ2-6, EQ3-6) | held-out FAIL | a plateau, no peak at 1 |
+| the bounded rule EQ-B (EQ4-1, EQ4-1r, EQ4-3) | held-out FAIL | not behind the tuned λ on 4 of 6 unseen carriers; under poison a fixed weight with the same clip does as well; ER-sum control violated; fragile (`reports/eq4.md`) |
+| lr × batch invariance of EQ-B (EQ4-I) | R6 PASS-0 | 5 of 5 cells, on one carrier whose records reached T1x after the hash |
 | unit invariance on a synthetic two-task problem (`theory/checks/omega_vs_methods.txt`) | synthetic, not declared | the only one of nine rules within 10 % of the tuned weight at both scales; after a 16-fold change of the past term's scale its total is 0.660 of the retuned fixed weight's, while the fixed weight at its old setting diverges |
 
 **What a pass means here.** A tuning-free normaliser for a penalty weight that is provisionally not behind the tuned
 weight, and that survives a change of units the tuned weight does not. It is not a better optimum, and the constant Ω = 1
-is not special. The next rung needs a PASS-1: not fragile, no violated control, strong anchor. EQ4 (the bounded rule EQ-B)
-is pre-registered and may run from today.
+is not special. The next rung needs a PASS-1: not fragile, no violated control, strong anchor. EQ4 has since run and
+failed (rows above). A declared synthetic check run the same day (`Continuous_Learning/checks/adam_checks_3.txt`) found that
+the 0.660 in the last row was measured against a 10-point tuning grid: against a finely tuned constant the rule's total is
+1.186 to 2.073 times the constant's at the mismatched scales (`Continuous_Learning/ADAM_AND_PRIOR_ART.md`).
 
 ### 9.2 AI safety
 

@@ -41,14 +41,19 @@ load-bearing cells); Ω a plateau over the whole nine-point grid; the lr × batc
 capacity × epochs array 2/4; the Bayes (Laplace) weight is the tuned λ on 2/6 (`reports/eq3.md`). Study EQ4 (`prereg/eq4/`, 2026-09-22, hashed before data;
 **data step on or after 2026-09-23 under R3**) tests the bounded rule EQ-B (present gradient clipped at κ × the largest
 kept recent length, then the ratio; `theory/checks/omega_reprocessed.py`) on six unseen PMLB carriers with a poisoned
-regime; no row yet. Study BAYES-1 (`prereg/bayes1/`, 2026-09-22, hashed before data; rows `BAYES1-*`): the registered rule
+regime; rows `EQ4-*` (data step 2026-09-23): **EQ4-1 FAIL** (EQ-B not behind the tuned λ on 4/6), EQ4-3 FAIL and
+EQ4-4 INERT (under poison a fixed weight with the same clip does as well), ER-sum control violated, fragile; EQ4-I PASS-0
+on satimage alone (`reports/eq4.md`; satimage's records reached T1x after the hash, AGENT_LOG 82). Study BAYES-1 (`prereg/bayes1/`, 2026-09-22, hashed before data; rows `BAYES1-*`): the registered rule
 against the exact sequential Bayes posterior on six unseen PMLB regression streams; **B0 NOT DECIDABLE** (the Bayes arm's
 optimiser error 0.18–0.89 sd against a 0.1 tolerance), B1–B3 reported without verdict (the rule 5–18 sd from the posterior,
 miscalibrated Bayes closer, no invariance under mini-batch noise; `reports/bayes1.md`). Study T1x (`prereg/t1x/`, 2026-09-22,
 six unseen PMLB regression carriers, model (d) a numpy MLP) is **VOID** (row `T1X-VOID`): its frozen scorer crashed on a binary
 split feature and its `score` on a non-finite path length; no row scored, the carriers now SEEN (`reports/t1x.md`). Its
 replacement T1x2 (`prereg/t1x2/`, hashed before data; four corrections named; **data step on or after 2026-09-23 under R3**)
-has no row yet. The epistemic status of the whole record is stated once in
+has rows `T1X2-*` (data step 2026-09-23): **T1X2-1 FAIL on 5/5** carriers, not fragile (the old-probe endpoint predicts
+forgetting, the path does not beat it; `reports/t1x2.md`). The synthetic Adam and prior-art checks of 2026-09-23
+(`Continuous_Learning/ADAM_AND_PRIOR_ART.md`) find the Ω rule unnecessary under Adam, equal to the VQGAN adaptive weight
+without its smoothing, and behind a finely tuned constant wherever the scales differ. The epistemic status of the whole record is stated once in
 `docs/notes/2026-09-22_epistemic_status.md` (read it before quoting any row).
 Two earlier results (below) motivated H-L5
 and H-T1; they were produced under a pipeline the audit rejected and are
@@ -219,6 +224,13 @@ Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Ma
                            note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods
                            (battery theory/checks/omega_vs_methods.py, pinned, CI-checked); §7.6 the reprocessed mathematics
                            (theory/checks/omega_reprocessed.py) and the bounded rule EQ-B (gates EQB/EQBM; studies/eq4)
+Continuous_Learning/ADAM_AND_PRIOR_ART.md  the Ω rule under Adam, beside its prior art, and against a finely tuned constant
+                           (checks/adam_checks{,_2,_3}.py + pinned .txt, DECLARATION_ADAM{,_2,_3}.md pushed before each run; PDF by
+                           build/build_adam_pdf.py); a note, not evidence (R8)
+Rupture_Detection/         the cut delta(Now) as a rupture detector (prompt-log entry 104): DECLARATION.md pushed before the run,
+                           checks/rupture_checks.py + pinned .txt (Phase-A battery on chaotic carriers with a must-fail / must-win
+                           gate), RUPTURE_DETECTION.md + PDF: the result and the applied use case for the owner's EPO application
+                           (information, not legal advice); a note, not evidence (R8)
 AI_Safety/                 the off switch and the self: the corrigibility write-up in CRR and FEP terms (AI_SAFETY.md + PDF,
                            checks/{exact_mdp,off_switch_game,sensitivity,timecourse,combined,scale}.py + pinned .txt, DECLARATION*.md
                            pushed before the runs, figures from pinned outputs); a note, not evidence (R8)

@@ -111,32 +111,55 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     BAYES1-B1        held-out  no verdict (precondition failed)
     BAYES1-B2-16     held-out  no verdict (precondition failed)
     BAYES1-B2-1/16   held-out  no verdict (precondition failed)
-    BAYES1-B3        held-out  numbers reported
+    BAYES1-B3        held-out  no verdict (precondition failed)
     BAYES1-B4        held-out  report (no verdict registered)
     BAYES1-B5        held-out  report (no verdict registered)
     BAYES1-B6        held-out  report (no verdict registered)
     BAYES1-B7        held-out  report (no verdict registered)
     BAYES1-BS        held-out  sensitivity: not fragile
     T1X-VOID         held-out  VOID
-    rows 63; by data status and allocation:
-        held-out  FAIL                                                 9
+    EQ4-0            held-out  precondition met
+    EQ4-1            held-out  FAIL
+    EQ4-1r           held-out  FAIL
+    EQ4-2            held-out  bound idle (diagnostic)
+    EQ4-3            held-out  FAIL
+    EQ4-4            held-out  mechanism inert (positive control not load-bearing)
+    EQ4-5            held-out  control violated
+    EQ4-6            held-out  does not reduce
+    EQ4-7            held-out  report (no verdict registered)
+    EQ4-S            held-out  sensitivity: fragile
+    EQ4-P            held-out  report (no verdict registered)
+    EQ4-B            held-out  report (no verdict registered)
+    EQ4-D            held-out  report (no verdict registered)
+    EQ4-I            held-out  PASS-0
+    T1X2-0           held-out  precondition met
+    T1X2-1           held-out  FAIL
+    T1X2-2           held-out  FAIL
+    T1X2-3           held-out  control holds
+    T1X2-S           held-out  sensitivity: not fragile
+    T1X2-D           held-out  report (no verdict registered)
+    T1X2-X           held-out  report (no verdict registered)
+    rows 84; by data status and allocation:
+        held-out  FAIL                                                 14
         held-out  NOT DECIDABLE                                        1
         held-out  PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b) 1
-        held-out  PASS-0                                               2
+        held-out  PASS-0                                               3
         held-out  PASS-0 kept; replication failed                      1
         held-out  VOID                                                 4
-        held-out  control holds                                        1
+        held-out  bound idle (diagnostic)                              1
+        held-out  control holds                                        2
         held-out  control line passes (not the hypothesis)             1
-        held-out  control violated                                     3
-        held-out  does not reduce                                      2
+        held-out  control violated                                     4
+        held-out  does not reduce                                      3
+        held-out  mechanism inert (positive control not load-bearing)  1
         held-out  no baseline ahead                                    1
-        held-out  no verdict (precondition failed)                     3
-        held-out  numbers reported                                     2
-        held-out  precondition met                                     2
+        held-out  no verdict (precondition failed)                     4
+        held-out  numbers reported                                     1
+        held-out  precondition met                                     4
         held-out  reduces to a constant                                1
-        held-out  report (no verdict registered)                       13
-        held-out  sensitivity: fragile                                 2
-        held-out  sensitivity: not fragile                             1
+        held-out  report (no verdict registered)                       19
+        held-out  sensitivity: fragile                                 3
+        held-out  sensitivity: not fragile                             2
         seen      FAIL                                                 4
         seen      PASS on seen data                                    3
         seen      VOID                                                 1
@@ -146,8 +169,8 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         seen      unverifiable (R1)                                    1
         synthetic gate closed (not run)                                1
     rung R5 PREREG-SEEN, passes on seen data: 4 (ARC-EQ-LAND, ARC-A2, ARC-A3, ARC-T1)
-    rung R6 PASS-0 on held-out data: 2 (EQ2-1b, EQ3-I); R7 PASS-1: 0; R8 PASS-2: 0
-    held-out FAIL rows: 9 (EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A); VOID rows: 5; controls violated: 3
+    rung R6 PASS-0 on held-out data: 3 (EQ2-1b, EQ3-I, EQ4-I); R7 PASS-1: 0; R8 PASS-2: 0
+    held-out FAIL rows: 14 (EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A, EQ4-1, EQ4-1r, EQ4-3, T1X2-1, T1X2-2); VOID rows: 5; controls violated: 4
 [4] AI safety: declared items read from the pinned outputs (kind as declared; held / failed from the printed line)
     THEOREM    held  exact K1 indifferent Q ignores the button  [AI_Safety/checks/exact_mdp.txt]
     THEOREM    held  exact K2 no presses, no value in disabling  [AI_Safety/checks/exact_mdp.txt]
@@ -206,8 +229,8 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     R3 RETRO-ADDS (candidates)        synthesis ADDS 3; reviewed by a named expert 0
     R4 DECLARED-SYNTHETIC             AI-safety predictions held 15 of 22; theorem checks held 13 of 14; gate controls held 9 of 9
     R5 PREREG-SEEN                    passes on seen data 4
-    R6 PASS-0                         2
+    R6 PASS-0                         3
     R7 PASS-1                         0
     R8 PASS-2                         0
-    negatives beside them: battery FAILS 20, synthesis WRONG 24, held-out ledger FAIL 9, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
+    negatives beside them: battery FAILS 20, synthesis WRONG 24, held-out ledger FAIL 14, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
     real-domain synthesis rows 146

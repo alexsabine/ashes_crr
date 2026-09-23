@@ -48,6 +48,12 @@ file in the same commit as any data download.
 | PMLB `wine_quality_white` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
 | PMLB `sleep` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
 | PMLB `page_blocks` (GitHub mirror, master; classification) | sha256 in data/manifests/eq4.sha256 | all rows (class-selection rule and row cap of prereg/eq4) | 2026-09-23T04:45:13Z (study EQ4, prereg hash commit a55be4d 2026-09-22T05:39:00Z) |
+| PMLB `1199_BNG_echoMonths` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
+| PMLB `1201_BNG_breastTumor` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
+| PMLB `1203_BNG_pwLinear` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) — opened to apply the pre-registered admissibility rule 1 (no split feature with >= 20 distinct values: excluded, not scored) |
+| PMLB `feynman_I_9_18` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
+| PMLB `feynman_II_36_38` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
+| PMLB `feynman_test_1` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
 
 Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
 experiments; Split-CIFAR-100; Split-TinyImageNet; any LM domain stream;
