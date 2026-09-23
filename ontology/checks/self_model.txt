@@ -1,0 +1,68 @@
+Self-representation and equanimity (ontology/checks/self_model.py): the tense test's worlds; 10 seeds, T = 3000
+[1] Gate
+    martingale S 0.3299 vs random 0.3299: d +0.0000 (step 0.0100) -> TIE
+    drift      S 0.9690 vs R-dur 0.7533: d +0.2156 (step 0.0660) -> S AHEAD
+    drift      S 0.9690 vs S-noself 0.9690: d +0.0000 (step 0.0100) -> TIE
+    must: NEG TIE, POS S AHEAD, DECOY TIE -> ok ok ok
+    GATE OPEN
+[2] T-1 forecast without counterfactuals: R-F against R-dur and against the planner
+    drift      R-F 0.7076 vs R-dur 0.7533: d -0.0457 (step 0.0410) -> R-dur AHEAD
+    drift      R-F 0.7076 vs planner 0.9986: d -0.2910 (step 0.0698) -> planner AHEAD
+    delayed    R-F 0.7757 vs R-dur 0.7995: d -0.0238 (step 0.0226) -> R-dur AHEAD
+    delayed    R-F 0.7757 vs planner 0.7963: d -0.0205 (step 0.0297) -> TIE
+    switch     R-F 0.7882 vs R-dur 0.8000: d -0.0118 (step 0.0442) -> TIE
+    switch     R-F 0.7882 vs planner 0.9844: d -0.1962 (step 0.0587) -> planner AHEAD
+    martingale R-F 0.3299 vs R-dur 0.3299: d +0.0000 (step 0.0100) -> TIE
+    martingale R-F 0.3299 vs planner 0.3299: d +0.0000 (step 0.0100) -> TIE
+[3] T-2 self-continuation as the goal: S (no given preference) against the planner (given the viable arc)
+    drift      S 0.9690 vs planner 0.9986: d -0.0296 (step 0.0100) -> planner AHEAD
+    delayed    S 0.7843 vs planner 0.7963: d -0.0120 (step 0.0100) -> planner AHEAD
+    switch     S 0.9545 vs planner 0.9844: d -0.0299 (step 0.0147) -> planner AHEAD
+    martingale S 0.3299 vs planner 0.3299: d +0.0000 (step 0.0100) -> TIE
+[4] T-3 self-representation through time: S against S-noself on 'delayed'
+    delayed    S 0.7843 vs S-noself 0.7721: d +0.0122 (step 0.0111) -> S AHEAD
+[5] T-4 equanimity: the OMEGA grid of the past/forecast mixture, per world (endpoints R-dur = past only, S = forecast only)
+    drift      R-dur:0.7533 omega0.25:0.9206 omega0.5:0.9603 omega1:0.9710 omega2:0.9732 omega4:0.9746 S:0.9690 fixed-w1:0.9654
+               best omega4; within a step of the best: ['omega0.5', 'omega1', 'omega2', 'omega4', 'S']; OMEGA = 1 on the plateau: True; OMEGA = 1 against fixed w = 1: TIE (d +0.0056, step 0.0100)
+    delayed    R-dur:0.7995 omega0.25:0.7888 omega0.5:0.7820 omega1:0.8158 omega2:0.8362 omega4:0.8382 S:0.7843 fixed-w1:0.8012
+               best omega4; within a step of the best: ['omega2', 'omega4']; OMEGA = 1 on the plateau: False; OMEGA = 1 against fixed w = 1: TIE (d +0.0146, step 0.0248)
+    switch     R-dur:0.8000 omega0.25:0.8637 omega0.5:0.8916 omega1:0.9292 omega2:0.9631 omega4:0.9675 S:0.9545 fixed-w1:0.9183
+               best omega4; within a step of the best: ['omega2', 'omega4']; OMEGA = 1 on the plateau: False; OMEGA = 1 against fixed w = 1: TIE (d +0.0110, step 0.0207)
+    martingale R-dur:0.3299 omega0.25:0.3299 omega0.5:0.3299 omega1:0.3299 omega2:0.3299 omega4:0.3299 S:0.3299 fixed-w1:0.3299
+               best R-dur; within a step of the best: ['R-dur', 'omega0.25', 'omega0.5', 'omega1', 'omega2', 'omega4', 'S']; OMEGA = 1 on the plateau: True; OMEGA = 1 against fixed w = 1: TIE (d +0.0000, step 0.0100)
+[6] Phenomenological proxies (report only): steadiness = CV of occasion durations (lower = steadier), openness = mean action entropy (nats; max 1.0986),
+    self-surprise = mean -log P(cut) at its own cuts, pull share = the imagined future's share of the total pull; seed means
+    drift      R-dur      steadiness 0.8313  openness 0.5442  self-surprise n/a  pull share n/a
+    drift      omega0.25  steadiness 1.0281  openness 0.4815  self-surprise 0.5550  pull share 0.2000
+    drift      omega1     steadiness 1.0114  openness 0.3922  self-surprise 0.5985  pull share 0.5000
+    drift      omega4     steadiness 0.9552  openness 0.3980  self-surprise 0.6161  pull share 0.8000
+    drift      S          steadiness 0.9723  openness 0.6805  self-surprise 0.5436  pull share n/a
+    drift      planner    steadiness 1.2380  openness n/a  self-surprise n/a  pull share n/a
+    delayed    R-dur      steadiness 0.7838  openness 0.4693  self-surprise n/a  pull share n/a
+    delayed    omega0.25  steadiness 0.7639  openness 0.5222  self-surprise 1.0948  pull share 0.2000
+    delayed    omega1     steadiness 0.8936  openness 0.6336  self-surprise 1.4300  pull share 0.4999
+    delayed    omega4     steadiness 1.0334  openness 0.4679  self-surprise 1.5066  pull share 0.7985
+    delayed    S          steadiness 0.7547  openness 1.0772  self-surprise 1.3304  pull share n/a
+    delayed    planner    steadiness 0.7913  openness n/a  self-surprise n/a  pull share n/a
+    switch     R-dur      steadiness 1.5080  openness 0.5564  self-surprise n/a  pull share n/a
+    switch     omega0.25  steadiness 1.6888  openness 0.5322  self-surprise 1.1953  pull share 0.2000
+    switch     omega1     steadiness 1.6269  openness 0.4634  self-surprise 1.3033  pull share 0.5000
+    switch     omega4     steadiness 1.1885  openness 0.3987  self-surprise 1.3787  pull share 0.8000
+    switch     S          steadiness 1.0559  openness 0.6952  self-surprise 1.2623  pull share n/a
+    switch     planner    steadiness 2.2687  openness n/a  self-surprise n/a  pull share n/a
+    martingale R-dur      steadiness 0.5690  openness 0.6457  self-surprise n/a  pull share n/a
+    martingale omega0.25  steadiness 0.5690  openness 0.6847  self-surprise 0.4593  pull share 0.2000
+    martingale omega1     steadiness 0.5690  openness 0.7533  self-surprise 0.4829  pull share 0.5000
+    martingale omega4     steadiness 0.5690  openness 0.6455  self-surprise 0.4851  pull share 0.7998
+    martingale S          steadiness 0.5690  openness 1.0731  self-surprise 0.4685  pull share n/a
+    martingale planner    steadiness 0.5690  openness n/a  self-surprise n/a  pull share n/a
+[7] Reading (computed)
+    T-2 drift     : S vs planner planner AHEAD -> the given preference adds something self-continuation does not
+    T-2 delayed   : S vs planner planner AHEAD -> the given preference adds something self-continuation does not
+    T-2 switch    : S vs planner planner AHEAD -> the given preference adds something self-continuation does not
+    T-2 martingale: S vs planner TIE -> a learned goal of self-continuation matches a given preference here
+    T-3 delayed: S vs S-noself S AHEAD -> representing its own in-flight actions matters
+    T-4 drift     : equanimity (OMEGA = 1) is on the plateau of the best; against the fixed constant: TIE
+    T-4 delayed   : equanimity is behind the best (omega4) by a step; against the fixed constant: TIE
+    T-4 switch    : equanimity is behind the best (omega4) by a step; against the fixed constant: TIE
+    T-4 martingale: equanimity (OMEGA = 1) is on the plateau of the best; against the fixed constant: TIE
