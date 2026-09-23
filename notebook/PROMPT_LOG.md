@@ -1021,3 +1021,7 @@ So learning can be thought of in this way, perhaps?
 This is exploratory. Scratchpad only, I’m thinking it through.
 
 I see myself as remembering myself through time, so Alexander is learning through historically informed representations of himself through time, as he integrates the past states around him…I integrated the past states of what is outside my boundary in every Now. Does this help or not?
+
+## 111 — 2026-09-23T07:07:28Z
+
+Can we run scratchpad tests on the applied mathematical principles for what determines a learning unit? We need to think in ML terms of course and we can use the existing successes and failures to help us determine a path forward for addressing why these were failures and where we need to focus on a meaningful approach to address and recent failures in whatever is the absolute frontier edge of continuous learning
