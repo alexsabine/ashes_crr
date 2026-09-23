@@ -163,3 +163,21 @@ uv run python Continuous_Learning/checks/adam_checks_2.py > Continuous_Learning/
 uv run python Continuous_Learning/checks/adam_checks_3.py > Continuous_Learning/checks/adam_checks_3.txt
 ```
 All three are deterministic and CI-checked (`scripts/check_all.sh`).
+
+## Addendum, 2026-09-23 (prompt-log entry 107): the assumptions behind this note, re-checked
+
+A declared audit and a drifting-world test (`Adam_SGD/ADAM_SGD.md`) found that the conclusion "a finely tuned constant beats
+the rule wherever the scales differ" holds only in a narrow setting: when the scale is read as the past term's true
+importance, at a fixed learning rate of 0.05, with the constant tuned on the seeds it was scored on.
+- **Under a pure units error, the rule is exactly invariant.** Unsmoothed, it ties a constant retuned at every scale
+  (`Adam_SGD/checks/assumptions.txt` AS3).
+- **With the learning rate tuned, the rule and λ = 1 tie** (AS5).
+- **In worlds whose units drift, the unsmoothed rule beats every fixed constant.** It does so on 10 of 10 held-out seeds
+  under SGD, momentum and coupled Adam. This result is post hoc and FRAGILE in Ω (`drift_battery_2.txt`).
+- **It loses on a sequence of eight accumulating tasks.**
+
+Two findings above still stand:
+- the registered smoothing costs everywhere;
+- the rule without smoothing is the VQGAN-style ratio.
+
+The pinned outputs of this note are unchanged.

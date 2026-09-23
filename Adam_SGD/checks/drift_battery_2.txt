@@ -1,0 +1,66 @@
+The drifting-world battery, redesigned (Adam_SGD/checks/drift_battery_2.py; POST-HOC after Declaration 2's closed gate): two-task worlds with make_model(mismatch=1); eight-task sequences as before; tune seeds 0-9, held-out 10-19; lambda 61 values 1e-06..10000; SGD lr 19 values 3.05e-06..0.8; headroom threshold 0.9
+[G-STAT2 / sgd]
+     fixed: lambda 0.06813 (lr 0.00625) -> held-out 1.9082
+     registered rule (s 0.9): lr 0.025 -> held-out 1.9769; / fixed 1.036 -> TIE; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.00625 -> held-out 1.9087; / fixed 1.000 -> TIE; ahead of the constant on 3 of 10 held-out seeds
+     oracle that knows the units: lambda 1 (lr 0.00625) -> held-out 1.9044; headroom oracle / fixed 0.998 -> UNDECIDABLE-FOR-WIN; ratio rule / oracle 1.002
+[G-DRIFT2 / sgd]
+     fixed: lambda 0.02154 (lr 0.0001953) -> held-out 2.1260
+     registered rule (s 0.9): lr 0.0125 -> held-out 2.1426; / fixed 1.008 -> TIE; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.00625 -> held-out 1.9087; / fixed 0.898 -> AHEAD; ahead of the constant on 10 of 10 held-out seeds
+     oracle that knows the units: lambda 1 (lr 0.00625) -> held-out 1.9044; headroom oracle / fixed 0.896 -> DECISIVE for a win; ratio rule / oracle 1.002
+[T0' / sgd]
+     fixed: lambda 0.4642 (lr 0.0003906) -> held-out 2.2144
+     registered rule (s 0.9): lr 0.00625 -> held-out 2.0279; / fixed 0.916 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.00625 -> held-out 1.9087; / fixed 0.862 -> AHEAD; ahead of the constant on 10 of 10 held-out seeds
+     oracle that knows the units: lambda 1 (lr 0.00625) -> held-out 1.9044; headroom oracle / fixed 0.860 -> DECISIVE for a win; ratio rule / oracle 1.002
+[T0' / mom]
+     fixed: lambda 0.4642 (lr 3.906e-05) -> held-out 2.2185
+     registered rule (s 0.9): lr 0.000625 -> held-out 2.0115; / fixed 0.907 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.000625 -> held-out 1.9077; / fixed 0.860 -> AHEAD; ahead of the constant on 10 of 10 held-out seeds
+[T0' / adam]
+     fixed: lambda 0.6813 (lr 0.00125) -> held-out 2.3061
+     registered rule (s 0.9): lr 0.01 -> held-out 2.0688; / fixed 0.897 -> AHEAD; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.01 -> held-out 1.9127; / fixed 0.829 -> AHEAD; ahead of the constant on 10 of 10 held-out seeds
+[T0' / adamd]
+     fixed: lambda 0.002154 (lr 0.000625, lr_q 0.1) -> held-out 2.3426
+     registered rule (s 0.9): lr 0.01, lr_q 1.221e-05 -> held-out 2.1456; / fixed 0.916 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+     ratio rule (s 0): lr 0.00125, lr_q 6.104e-06 -> held-out 2.1120; / fixed 0.902 -> TIE; ahead of the constant on 10 of 10 held-out seeds
+[T1 / sgd]
+     fixed: lambda 1 (lr 0.0125) -> held-out 7.5041
+     registered rule (s 0.9): lr 0.4 -> held-out 8.4281; / fixed 1.123 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.2 -> held-out 8.5345; / fixed 1.137 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     oracle that knows the units: lambda 1 (lr 0.0125) -> held-out 7.5041; headroom oracle / fixed 1.000 -> UNDECIDABLE-FOR-WIN; ratio rule / oracle 1.137
+[T2 / sgd]
+     fixed: lambda 0.2154 (lr 0.0007813) -> held-out 8.0823
+     registered rule (s 0.9): lr 0.2 -> held-out 8.9554; / fixed 1.108 -> BEHIND; ahead of the constant on 1 of 10 held-out seeds
+     ratio rule (s 0): lr 0.2 -> held-out 8.5339; / fixed 1.056 -> TIE; ahead of the constant on 1 of 10 held-out seeds
+     oracle that knows the units: lambda 1 (lr 0.0125) -> held-out 7.5041; headroom oracle / fixed 0.928 -> UNDECIDABLE-FOR-WIN; ratio rule / oracle 1.137
+[T2 / mom]
+     fixed: lambda 0.2154 (lr 7.812e-05) -> held-out 8.0938
+     registered rule (s 0.9): lr 0.08 EDGE(lr) -> held-out 9.6361; / fixed 1.191 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.08 EDGE(lr) -> held-out 8.7520; / fixed 1.081 -> TIE; ahead of the constant on 0 of 10 held-out seeds
+[T2 / adam]
+     fixed: lambda 0.3162 (lr 0.0025) -> held-out 8.2109
+     registered rule (s 0.9): lr 0.32 EDGE(lr) -> held-out 11.6036; / fixed 1.413 -> BEHIND; ahead of the constant on 0 of 10 held-out seeds
+     ratio rule (s 0): lr 0.32 EDGE(lr) -> held-out 8.7905; / fixed 1.071 -> TIE; ahead of the constant on 1 of 10 held-out seeds
+[T2 / adamd]
+     fixed: lambda 21.54 (lr 0.0025, lr_q 1.221e-05) -> held-out 8.3510
+     registered rule (s 0.9): lr 0.08, lr_q 3.052e-06 EDGE(lr,lr_q) -> held-out 9.2856; / fixed 1.112 -> BEHIND; ahead of the constant on 3 of 10 held-out seeds
+     ratio rule (s 0): lr 0.08, lr_q 3.052e-06 EDGE(lr,lr_q) -> held-out 9.1643; / fixed 1.097 -> TIE; ahead of the constant on 3 of 10 held-out seeds
+[T3' / sgd]
+     fixed: lambda 0.4642 (lr 0.0003906) -> held-out 2.2140
+     registered rule (s 0.9): lr 0.001563 -> held-out 2.2052; / fixed 0.996 -> TIE; ahead of the constant on 4 of 10 held-out seeds
+     ratio rule (s 0): lr 0.0007813 -> held-out 2.1397; / fixed 0.966 -> TIE; ahead of the constant on 6 of 10 held-out seeds
+     oracle that knows the units: lambda 1 (lr 0.001563) -> held-out 1.9522; headroom oracle / fixed 0.882 -> DECISIVE for a win; ratio rule / oracle 1.096
+
+gate: G-STAT2 registered TIE, ratio TIE (must not read AHEAD); G-DRIFT2 headroom 0.896, edges none, ratio AHEAD (must read AHEAD), registered TIE (reported) -> GATE OPEN
+
+[S] Sensitivity under SGD: Omega x noise, everything retuned per cell (main cell Omega 1, noise 0.5)
+     T0': O0.71/n0.1: TIE/TIE  O0.71/n0.5: TIE/TIE  O0.71/n1: TIE/TIE  O1/n0.1: TIE/AHEAD  O1/n1: AHEAD/AHEAD  O1.41/n0.1: BEHIND/BEHIND  O1.41/n0.5: BEHIND/TIE  O1.41/n1: BEHIND/TIE
+     T0': registered flips 4 of 8 -> FRAGILE; ratio flips 6 of 8 -> FRAGILE
+     T2: O0.71/n0.1: TIE/TIE  O0.71/n0.5: TIE/TIE  O0.71/n1: TIE/TIE  O1/n0.1: TIE/TIE  O1/n1: BEHIND/TIE  O1.41/n0.1: BEHIND/BEHIND  O1.41/n0.5: BEHIND/BEHIND  O1.41/n1: BEHIND/BEHIND
+     T2: registered flips 4 of 8 -> FRAGILE; ratio flips 3 of 8 -> FRAGILE
+
+edges: 6 chosen settings sit on a grid edge across all comparisons (listed above as EDGE)
+summary: G-STAT2/sgd registered TIE, ratio TIE; G-DRIFT2/sgd registered TIE, ratio AHEAD; T0'/sgd registered TIE, ratio AHEAD; T0'/mom registered TIE, ratio AHEAD; T0'/adam registered AHEAD, ratio AHEAD; T0'/adamd registered TIE, ratio TIE; T1/sgd registered BEHIND, ratio BEHIND; T2/sgd registered BEHIND, ratio TIE; T2/mom registered BEHIND, ratio TIE; T2/adam registered BEHIND, ratio TIE; T2/adamd registered BEHIND, ratio TIE; T3'/sgd registered TIE, ratio TIE; GATE OPEN

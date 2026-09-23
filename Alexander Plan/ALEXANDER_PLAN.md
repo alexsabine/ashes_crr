@@ -779,6 +779,19 @@ control, the cut-based detector was 14.458 times slower than the conventional pe
 in the main cell, and on an ECG-like beat the peak detector was 190.297 times faster. So the repository offers no evidence
 of a technical effect for that use, and a heart-monitoring use case should not rest on it (`Rupture_Detection/`).
 
+### 11.7 Addendum, 2026-09-23 (prompt-log entry 107): the fixed-weight comparison re-checked
+
+The §11.6 statement "against a finely tuned constant, the rule loses where the scales differ" holds only when the scale is
+read as true importance, at a fixed learning rate. A declared assumption audit and drifting-world test (`Adam_SGD/ADAM_SGD.md`)
+found three things:
+- **Units errors.** Under a units error the unsmoothed rule ties a constant retuned at every scale, without retuning.
+- **Drifting units.** In synthetic worlds whose units drift, it beats every fixed constant on 10 of 10 held-out seeds under
+  SGD, momentum and coupled Adam. This result is post hoc and fragile in Ω.
+- **Accumulating tasks.** It loses when many tasks accumulate.
+
+The model's inputs are unchanged. The niche is real but narrow, synthetic only, and needs a declared real-data test before
+it can carry money.
+
 ## Appendix A — the code
 
 ```include:Alexander Plan/model/projections.py

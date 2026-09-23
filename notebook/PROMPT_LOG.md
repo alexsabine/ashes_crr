@@ -993,3 +993,11 @@ Please can we conduct an exploratory investigation into the most frontier level 
 Thank you.
 
 Thank you
+
+## 106 — 2026-09-23T05:50:52Z
+
+So AI safety is our current best approach? I don’t really want to give up on the continuous learning equanimity idea just yet, to be honest!
+
+## 107 — 2026-09-23T05:58:24Z
+
+Yes please. Make a new folder for Adam/SGD and ensure our synthetic data checks build on lessons learned so far. Double check any prior assumptions regarding the value of a fixed parameter before proceeding. Think carefully
