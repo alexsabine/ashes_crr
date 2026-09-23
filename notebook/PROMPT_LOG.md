@@ -1041,3 +1041,11 @@ Scratchpad only please, I’d like to consolidate existing successes and underst
 ## 113 — 2026-09-23T14:19:43Z
 
 Excellent. Please now run another scratchpad test on what we have learned from the passes so far and the most promising approach to addressing both AI safety and continuous learning. I want to make sure that we have maintained what has worked previously, with a clear explanation of why and how this is novel and explainable (so provide 5th grader philosophical and technical explanations).
+
+## 114 — 2026-09-23T14:33:51Z
+
+Excellent.
+
+Scratchpad. Is it helpful to use the crr as a single mathematical framework to address both AI safety and continuous learning in simultaneity?
+
+Can we run more AI safety checks on a continual learner using CRR principles to see if there is novelty in this approach?
