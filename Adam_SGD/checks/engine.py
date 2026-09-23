@@ -41,7 +41,7 @@ class World:
     For SEQ: K, T, u_draw(seed) -> array (K,) of units errors."""
     def __init__(self, kind, steps, **kw):
         self.kind = kind; self.steps = steps; self.__dict__.update(kw)
-        H, F, a, b = cm.om.make_model()
+        H, F, a, b = cm.om.make_model(mismatch=kw.get("mismatch", 16.0))     # mismatch 16 is omega_sweeps' default
         self.h = np.diag(H).copy(); self.f = np.diag(F).copy(); self.a = a.copy(); self.b = b.copy()
         if kind == "SEQ":
             rng = np.random.default_rng(self.task_seed); d = len(self.h)

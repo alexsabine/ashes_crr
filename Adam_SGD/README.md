@@ -15,3 +15,6 @@ script.
 | `DECLARATION_2.md` | the drifting-world battery: a gate (a stationary world where the rule must not win, a drifting-units world where it must) and four realistic worlds (wandering units, a calibrated eight-task sequence, a miscalibrated one, a low-signal past gradient) under SGD, momentum and Adam coupled and decoupled |
 | `checks/engine.py` | the batched engine (all weights and seeds at once, paired random draws; reproduces `common.run`) |
 | `checks/drift_battery.py` | the battery; pinned output `checks/drift_battery.txt` |
+| `checks/drift_battery.txt` | Declaration 2's output as it fell: GATE CLOSED (no headroom in the must-win world; grid edges) |
+| `DECLARATION_3.md` | the redesigned gate, POST HOC: a headroom precondition, grids widened both ways with edge flags; everything else unchanged |
+| `checks/drift_battery_2.py` | the redesigned battery; pinned output `checks/drift_battery_2.txt` |
