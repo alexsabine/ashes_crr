@@ -220,8 +220,12 @@ Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Ma
                            (battery theory/checks/omega_vs_methods.py, pinned, CI-checked); §7.6 the reprocessed mathematics
                            (theory/checks/omega_reprocessed.py) and the bounded rule EQ-B (gates EQB/EQBM; studies/eq4)
 AI_Safety/                 the off switch and the self: the corrigibility write-up in CRR and FEP terms (AI_SAFETY.md + PDF,
-                           checks/{exact_mdp,off_switch_game,sensitivity,timecourse}.py + pinned .txt, DECLARATION.md pushed before
-                           the runs, figures from pinned outputs); a note, not evidence (R8)
+                           checks/{exact_mdp,off_switch_game,sensitivity,timecourse,combined,scale}.py + pinned .txt, DECLARATION*.md
+                           pushed before the runs, figures from pinned outputs); a note, not evidence (R8)
+Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
+                           the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
+                           record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an
+                           O-1 outline (information, not legal advice); figures from pinned outputs; a note, not evidence (R8)
 scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
 prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)
 prereg/<study>/            PREREG.md, scoring script, surrogate results, HASH.txt, *.ots

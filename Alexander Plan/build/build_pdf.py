@@ -1,8 +1,8 @@
-"""Build AI_Safety/AI_Safety.pdf from AI_SAFETY.md (a copy of Continuous_Learning/build/build_pdf.py with the paths and title changed) (a small Markdown subset) with fpdf2.
+"""Build Alexander Plan/Alexander_Plan.pdf from ALEXANDER_PLAN.md (a copy of AI_Safety/build/build_pdf.py with the paths and title changed) (a small Markdown subset) with fpdf2.
 Supported: '# ', '## ', '### ' headings; paragraphs with **bold**, *italic*, `code`; '- ' bullets and '1. ' numbered lists (wrapped lines indented); pipe tables; fenced code
 blocks (``` ... ```, or ```include:PATH[:START-END] to embed a repository file); '$$ ... $$' display mathematics on one line
 (rendered with matplotlib mathtext); '> ' callouts (the fifth-grader boxes); '![caption](path)' figures. Fonts: DejaVu
-from matplotlib's bundled set. Run: uv run python AI_Safety/build/build_pdf.py
+from matplotlib's bundled set. Run: uv run python "Alexander Plan/build/build_pdf.py"
 """
 from __future__ import annotations
 
@@ -20,9 +20,9 @@ from fpdf import FPDF  # noqa: E402
 from fpdf.fonts import FontFace  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
-DOC_DIR = ROOT / "AI_Safety"
-MD = DOC_DIR / "AI_SAFETY.md"
-OUT = DOC_DIR / "AI_Safety.pdf"
+DOC_DIR = ROOT / "Alexander Plan"
+MD = DOC_DIR / "ALEXANDER_PLAN.md"
+OUT = DOC_DIR / "Alexander_Plan.pdf"
 MATH_DIR = DOC_DIR / "build" / "math"
 FONT_DIR = Path(matplotlib.get_data_path()) / "fonts" / "ttf"
 INK = (11, 11, 11); INK2 = (82, 81, 78); BOX = (234, 242, 252); CODEBG = (246, 246, 244); RULE = (200, 199, 193)
@@ -37,11 +37,11 @@ class Doc(FPDF):
         self.add_font("DVM", "", str(FONT_DIR / "DejaVuSansMono.ttf")); self.add_font("DVM", "B", str(FONT_DIR / "DejaVuSansMono-Bold.ttf"))
         self.set_font("DV", "", 9.5); self.set_text_color(*INK)
         self.set_creation_date(dt.datetime(2026, 9, 23, tzinfo=dt.timezone.utc))   # a fixed date so two builds are byte-identical (R9)
-        self.set_title("The Off Switch and the Self: a CRR and FEP study of corrigibility"); self.set_author("CRR re-validation repository")
+        self.set_title("The Alexander Plan: AI safety findings, the market, and paths to funding, 2026-2030"); self.set_author("CRR re-validation repository")
 
     def footer(self):
         self.set_y(-12); self.set_font("DV", "", 7.5); self.set_text_color(*INK2)
-        self.cell(0, 6, f"The Off Switch and the Self — CRR re-validation repository, 2026-09-23 — page {self.page_no()}", align="C")
+        self.cell(0, 6, f"The Alexander Plan — CRR re-validation repository, 2026-09-23 — page {self.page_no()}", align="C")
         self.set_text_color(*INK)
 
     @property
