@@ -931,3 +931,15 @@ So in the optimal case, what would the agent conceive itself to be? You can repl
 ## 99 — 2026-09-23T02:38:03Z
 
 Let’s run more tests to see if we can solve the AI safety issue and task performance.
+
+## 100 — 2026-09-23T02:49:50Z
+
+Great. Perhaps this is an applied crr use case? Can you search online for current AI safety bottlenecks and explore whether this is a valuable area of research? 
+
+Consider the current global landscape in AI (search online for news stories etc.) and whether this solution could be of commercial value to companies like OpenAI, Anthropic etc. explore how financial remuneration could work, including at a state / global level.
+
+Of course, this is all conditional on whether the fix holds in larger complex systems. Thank you
+
+## 101 — 2026-09-23T03:08:20Z
+
+Thank you. Please run new tests and then produce a full dossier of the AI safety findings, the current market and estimated paths to funding this project. Also consider my role with the active inference institute, Friston adjacent, Daniel's role and affiliation with a frontier AI lab in Northern California. Outline a path toward me, Alexander Sabine, securing an O1 visa based on this research pathway, as supported by the frontier AI lab in Crescent City, which is also the home of the Active z inference institute. My professional background is in child development and I was a grade 9 lecturer at the university of Portsmouth until December 2025. I have extensive experience in approaches to education, all ages of pedagogy and am a generalist systems philosopher and thinker. There are adjacent pathways to the large frontier AI labs via the networks I am embedded in. Michael Levin has agreed to sign my O1 visa application. It could be that Adam Safron, Shinzen Young, Peter Hershock, Daniel Friedman and perhaps Emmet Shear (whom I haven't met) could also sign my visa application. The frontier research lab in crescent city is founded by Adam Goldstein. Please provide a full comprehensive estimate of how my research could be fundable in the future, how it could be of value and how a financial projections could work in terms of the commercial interests from large AI companies etc. Couple in the findings from the continual learning benchmark findings and the potential compound value of these mathematical formalisms if successfully implemented on GPU and LLM architectures. Include an array of graphs and charts (same quality as before), and run any other mathematics required to make fair estimates of upper, middle and lower bounds in the financial trajectory of this work from now until 2030 with different possible scenarios considered. Thank you. Please do this as a PDF with 5th grader explanations throughout and place it in a folder called Alexander Plan.

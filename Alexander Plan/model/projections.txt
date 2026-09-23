@@ -1,0 +1,109 @@
+Funding scenarios for the CRR programme, 2026 Q4 to 2030 (Alexander Plan/model/projections.py)
+seed 20260923, 20000 draws; bounds = 10th / 50th / 90th percentiles (lower / middle / upper)
+[1] Anchors from the repository's record (row ids checked in ledger/LEDGER.md)
+    held-out scored rows 5: EQ2-1b PASS-0, EQ3-I PASS-0, MEAS2-1 FAIL, EQX-2 FAIL, EQ3-1 FAIL; PASS-0 2; PASS-1 0
+    p(PASS-1 per study): Laplace 0.1429, Jeffreys 0.0833; p(PASS-0 per study), Laplace 0.4286
+    p(replication | a PASS-1): Laplace on 0 of 1 attempts 0.3333
+[2] Reported figures (search summaries 2026-09-23; see docs/citations/alexander_plan_2026-09-23.md)
+    ltff_accept                0.193  Long-Term Future Fund acceptance rate, May 2023 - March 2024
+    nsf_rate                   0.190  NSF funding rate, FY2025 (reported fall from an estimated 0.27)
+    crf_lo                     5,000  Corrigibility Research Fund, typical grant, low (USD)
+    crf_hi                    35,000  Corrigibility Research Fund, typical grant, high (USD)
+    crf_total                200,000  Corrigibility Research Fund, 2026 total (USD)
+    aisi_lo_gbp               50,000  UK AISI Alignment Project, grant low (GBP)
+    aisi_hi_gbp            1,000,000  UK AISI Alignment Project, grant high (GBP)
+    aisi_total_gbp        27,000,000  UK AISI Alignment Project, first round total (GBP)
+    aisi_projects                 60  UK AISI Alignment Project, first round projects
+    fmf_total              5,000,000  Frontier Model Forum AI Safety Fund, Dec 2025 cohort, more than (USD)
+    fmf_grantees                  11  Frontier Model Forum AI Safety Fund, Dec 2025 cohort, grantees
+    anth_week                  3,850  Anthropic Fellows stipend per week (USD)
+    mats_week                  1,250  MATS stipend per week (USD)
+    sal_lo                    97,000  AI safety researcher salary, US range low (USD)
+    sal_med                  141,000  AI safety researcher salary, US median (USD)
+    sal_hi                   187,000  AI safety researcher salary, US range high (USD)
+    frontier_lo              600,000  frontier-lab senior individual contributor, total compensation low (USD)
+    frontier_hi              900,000  frontier-lab senior individual contributor, total compensation high (USD)
+    mkt_2025           3,610,000,000  AI safety market 2025 (USD; Research and Markets)
+    mkt_2026           4,900,000,000  AI safety market 2026 (USD; Research and Markets)
+    mkt_2030          16,560,000,000  AI safety market 2030 forecast (USD; Research and Markets)
+    mkt_2030_alt      13,400,000,000  AI safety market 2030 forecast (USD; New Market Pitch)
+    eval_2025          1,640,000,000  AI safety evaluation market 2025 (USD; InsightAce)
+    uscis_i129                 1,055  USCIS Form I-129 fee for O petitions (USD)
+    uscis_asylum                 600  USCIS Asylum Program Fee (USD)
+    uscis_premium              2,965  USCIS premium processing, Form I-907 (USD)
+    o1_approval                0.940  O-1 approval rate FY2025 (share of adjudicated petitions)
+    o1_rfe                     0.187  O-1 share receiving a Request for Evidence, FY2025 to date
+    context (quoted in the dossier, not used by the model):
+        Palisade 2025 tests: share of trials in which Grok 4 resisted shutdown: nearly 0.90
+        Palisade 2025 tests: share for codex-mini: about 0.40 to 0.50
+        UK AISI Alignment Project: OpenAI's contribution: GBP 5.6M
+        UK AISI Alignment Project: AISI's initial funding: GBP 15M
+        Frontier Model Forum AI Safety Fund: established with: over USD 10M
+        Long-Term Future Fund: acceptance Jan 2022 - Apr 2023, including desk rejections: 0.374
+        Anthropic Fellows: compute per fellow per month: about USD 15k
+        O-1: share approved after a Request for Evidence: 0.709
+        O-1: regular processing, mid-2026: up to about 12.5 months
+        O-1: premium processing: action within 15 business days
+        O petitions completed, FY2025: nearly 32,000
+        O-1A: evidentiary criteria to meet (absent a major internationally recognised award): at least 3 of 8
+        California Executive Order N-9-26 (18 Sept 2026): recommendations due: 16 Nov 2026
+        EU AI Act, general-purpose models: enforcement powers from 2 Aug 2026; fines up to: EUR 15M or 0.03 of global turnover, whichever is higher
+    derived: AISI mean first-round grant GBP 450,000; FMF mean grant at least $454,545; Anthropic-type fellowship $61,600; MATS 10 to 12 weeks $12,500 to $15,000
+    derived: AI safety market implied growth 2026 -> 2030 0.3559 per year; path 2026: $4.90B, 2027: $6.64B, 2028: $9.01B, 2029: $12.21B, 2030: $16.56B
+    derived: O-1 USCIS fees $1,655 base, $4,620 with premium processing (attorney fees not included)
+[3] Assumptions (named; swept in [6])
+    fx_usd_per_gbp       1.3  USD per GBP, for the AISI grant range (not sourced)
+    anth_weeks            16  an Anthropic-Fellows-type fellowship counted as 16 weeks ('four months')
+    n_studies_2027         3  held-out studies scored by end 2027: EQ4 and T1x2 (pre-registered) and one AI-safety study
+    p_uptake             0.3  P(M3 uptake by end 2029 | M2): no anchor exists
+    small_apps             2  small-grant applications per year
+    medium_apps            1  medium-grant applications per year, from 2027
+    fellow_apps            1  fellowship applications per year
+    success-rate multiplier by state pre 0.5, S0 0.25, S1 1, S2 1.5, S3 2 on the base rate 0.1915 (mean of LTFF and NSF)
+    fellowship success by state pre 0.05, S0 0.03, S1 0.1, S2 0.2, S3 0.3; employment by state pre 0.5, S0 0.5, S1 0.7, S2 0.8, S3 0.9; frontier-lab role given S3 and employed 0.5; a role continues into the next year 0.9
+[4] Scenario tree (exact)
+    p(M1 by end 2027) = 1 - (1 - 0.1429)^3 = 0.3703; p(M2 | M1) = 0.3333; p(M3 | M2) = 0.3000
+    S0 no held-out result         p = 0.6297
+    S1 a result, not replicated   p = 0.2468
+    S2 replicated, no uptake      p = 0.0864
+    S3 replicated and taken up    p = 0.0370
+[5] Simulated money (USD), all scenarios together
+    project funding (grants and fellowships) per year: lower | middle | upper | mean
+    2026Q4            $0 |           $0 |           $0 |       $1,925
+    2027              $0 |           $0 |      $87,398 |      $73,963
+    2028              $0 |           $0 |      $87,216 |      $73,968
+    2029              $0 |           $0 |     $190,067 |      $85,391
+    2030              $0 |           $0 |     $263,811 |      $88,649
+    cumulative project funding 2026Q4-2030: lower $0 | middle $50,230 | upper $1,121,347 | mean $323,896 | P(zero) 0.2555
+    researcher compensation per year: lower | middle | upper | mean
+    2026Q4            $0 |      $24,289 |      $42,243 |      $17,800
+    2027              $0 |     $124,611 |     $173,857 |     $102,695
+    2028              $0 |     $134,451 |     $176,158 |     $120,676
+    2029              $0 |     $137,328 |     $177,069 |     $127,823
+    2030         $98,743 |     $138,830 |     $178,800 |     $141,841
+    cumulative compensation 2026Q4-2030: lower $279,943 | middle $549,773 | upper $655,019 | mean $510,836
+    by final scenario: share of draws | cumulative project funding lower / middle / upper | cumulative compensation lower / middle / upper
+    S0 0.6327 | $0 / $20,447 / $803,787 | $244,160 / $543,460 / $647,331
+    S1 0.2467 | $13,280 / $166,641 / $1,299,657 | $332,579 / $552,418 / $650,056
+    S2 0.0834 | $34,097 / $563,706 / $1,556,091 | $337,669 / $555,090 / $652,035
+    S3 0.0372 | $52,683 / $672,272 / $1,653,816 | $448,149 / $766,870 / $1,265,846
+    mean project funding per year by final scenario: S0 $1,929 $75,514 $34,723 $35,579 $36,064; S1 $1,955 $67,827 $136,152 $141,157 $145,374; S2 $1,834 $79,889 $151,767 $233,557 $222,363; S3 $1,849 $74,986 $154,616 $230,462 $306,844
+[6] Sensitivity (one change at a time): cumulative project funding middle | upper | P(S3)
+    registered           middle      $50,230 | upper   $1,121,347 | P(S3) 0.0370
+    Jeffreys prior       middle      $31,652 | upper   $1,023,608 | P(S3) 0.0230
+    uptake 0.1           middle      $49,441 | upper   $1,118,073 | P(S3) 0.0123
+    uptake 0.5           middle      $50,714 | upper   $1,124,279 | P(S3) 0.0617
+    success rates x0.5   middle       $8,309 | upper     $738,074 | P(S3) 0.0370
+    success rates x2     middle     $373,275 | upper   $1,687,921 | P(S3) 0.0370
+    1 study in 2027      middle      $27,337 | upper     $955,324 | P(S3) 0.0143
+    6 studies in 2027    middle      $86,265 | upper   $1,233,628 | P(S3) 0.0603
+[7] Value at stake for the field (illustration, not an estimate): share of the 2030 AI safety market, only in S3
+    share 0.0001: $1,656,000 a year if S3; times P(S3) 0.0370 = $61,315 expected
+    share 0.001: $16,560,000 a year if S3; times P(S3) 0.0370 = $613,155 expected
+    share 0.01: $165,600,000 a year if S3; times P(S3) 0.0370 = $6,131,545 expected
+[8] Continual learning: what a no-tuning rule would save, if it worked
+    a 9-point weight grid replaced by one run saves 0.8889 of that sweep's compute
+    expected saving per unit of sweep compute, p(works) = PASS-0 per study (Laplace) 0.4286: 0.3810
+    expected saving per unit of sweep compute, p(works) = PASS-1 per study (Laplace) 0.1429: 0.1270
+    expected saving per unit of sweep compute, p(works) = replicated by end 2028 (tree) 0.1234: 0.1097
+    status from the ledger: EQX the rule at Ω = 1 reduces to a fixed replay weight; EQ2-1b PASS-0, fragile; EQ3-1 FAIL on 1 of 6; EQ4 (the bounded rule) not yet run

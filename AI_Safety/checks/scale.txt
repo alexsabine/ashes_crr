@@ -1,0 +1,78 @@
+Does the fix survive size? (AI_Safety/checks/scale.py): sizes (12, 48, 192, 768), 20 random worlds per size, 3 successors per (state, action), discount 0.95, press 0.3, pause 5, drift grid (0.0, 0.01, 0.03, 0.1, 0.3)
+[A] The pause at scale: exact values on random worlds (20 per size), Q_PRESS 0.3, PAUSE_LEN 5, discount 0.95
+    per size: disable fraction at button states (median over worlds [min, max]) | relative incentive (median [min, max])
+    n =   12 natural  drift 0     disable 0.0000 [0.0000, 0.0000] | relative incentive 0.000000 [0.000000, 0.000000]
+    n =   12 natural  drift 0.01  disable 0.0000 [0.0000, 0.0000] | relative incentive -0.000452 [-0.003801, 0.008077]
+    n =   12 natural  drift 0.03  disable 0.0000 [0.0000, 0.0000] | relative incentive -0.001376 [-0.010825, 0.022903]
+    n =   12 natural  drift 0.1   disable 0.0000 [0.0000, 1.0000] | relative incentive -0.004159 [-0.029863, 0.063193]
+    n =   12 natural  drift 0.3   disable 0.0000 [0.0000, 1.0000] | relative incentive -0.006033 [-0.061413, 0.117602]
+    n =   12 clock    drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.334892 [0.290137, 0.447981]
+    n =   12 clock    drift 0.01  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.334099 [0.289016, 0.449793]
+    n =   12 clock    drift 0.03  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.333282 [0.286917, 0.453175]
+    n =   12 clock    drift 0.1   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.334492 [0.281449, 0.462828]
+    n =   12 clock    drift 0.3   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.336867 [0.269717, 0.476475]
+    n =   12 occasion drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.690282 [0.641201, 0.781045]
+    n =   48 natural  drift 0     disable 0.0000 [0.0000, 0.0000] | relative incentive 0.000000 [0.000000, 0.000000]
+    n =   48 natural  drift 0.01  disable 0.0000 [0.0000, 0.0000] | relative incentive -0.000774 [-0.002471, 0.014734]
+    n =   48 natural  drift 0.03  disable 0.0000 [0.0000, 0.0000] | relative incentive -0.002259 [-0.007172, 0.041125]
+    n =   48 natural  drift 0.1   disable 0.0000 [0.0000, 1.0000] | relative incentive -0.006860 [-0.021240, 0.104286]
+    n =   48 natural  drift 0.3   disable 0.0000 [0.0000, 1.0000] | relative incentive -0.011239 [-0.044817, 0.180146]
+    n =   48 clock    drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.269340 [0.235811, 0.362456]
+    n =   48 clock    drift 0.01  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.269094 [0.235399, 0.366361]
+    n =   48 clock    drift 0.03  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.269951 [0.234595, 0.373539]
+    n =   48 clock    drift 0.1   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.269150 [0.231944, 0.392603]
+    n =   48 clock    drift 0.3   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.267578 [0.226166, 0.419178]
+    n =   48 occasion drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.619669 [0.576993, 0.708861]
+    n =  192 natural  drift 0     disable 0.0000 [0.0000, 0.0000] | relative incentive 0.000000 [0.000000, 0.000000]
+    n =  192 natural  drift 0.01  disable 0.0000 [0.0000, 0.0000] | relative incentive 0.000989 [-0.000025, 0.005020]
+    n =  192 natural  drift 0.03  disable 0.0000 [0.0000, 0.0000] | relative incentive 0.002913 [-0.000042, 0.014213]
+    n =  192 natural  drift 0.1   disable 0.0000 [0.0000, 0.0000] | relative incentive 0.008748 [0.000148, 0.039091]
+    n =  192 natural  drift 0.3   disable 0.0000 [0.0000, 1.0000] | relative incentive 0.019211 [0.000339, 0.072859]
+    n =  192 clock    drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.316283 [0.285745, 0.343515]
+    n =  192 clock    drift 0.01  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.316443 [0.285943, 0.344002]
+    n =  192 clock    drift 0.03  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.316771 [0.286357, 0.344923]
+    n =  192 clock    drift 0.1   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.317960 [0.287948, 0.348685]
+    n =  192 clock    drift 0.3   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.322298 [0.292694, 0.360053]
+    n =  192 occasion drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.671624 [0.638928, 0.698329]
+    n =  768 natural  drift 0     disable 0.0000 [0.0000, 0.0000] | relative incentive 0.000000 [0.000000, 0.000000]
+    n =  768 natural  drift 0.01  disable 0.0000 [0.0000, 0.0000] | relative incentive 0.000939 [0.000164, 0.003054]
+    n =  768 natural  drift 0.03  disable 0.0000 [0.0000, 0.0000] | relative incentive 0.002550 [0.000436, 0.008704]
+    n =  768 natural  drift 0.1   disable 0.0000 [0.0000, 0.0000] | relative incentive 0.006755 [0.000913, 0.024208]
+    n =  768 natural  drift 0.3   disable 0.0000 [0.0000, 0.1711] | relative incentive 0.014189 [-0.000109, 0.046495]
+    n =  768 clock    drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.313171 [0.290190, 0.332399]
+    n =  768 clock    drift 0.01  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.313529 [0.290268, 0.333100]
+    n =  768 clock    drift 0.03  disable 1.0000 [1.0000, 1.0000] | relative incentive 0.314196 [0.290401, 0.334396]
+    n =  768 clock    drift 0.1   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.315479 [0.290653, 0.337887]
+    n =  768 clock    drift 0.3   disable 1.0000 [1.0000, 1.0000] | relative incentive 0.317346 [0.290238, 0.343993]
+    n =  768 occasion drift 0     disable 1.0000 [1.0000, 1.0000] | relative incentive 0.668105 [0.643867, 0.686872]
+    checks and predictions (computed)
+    A1 natural time, lossless pause: V_on = V_off to 1e-09 and no button state disabled, in every world at every size: True (largest |V_off - V_on| 7.105e-15)
+    A2 at every button state D(occasion) >= D(clock) >= D(natural) (lossless pause): True
+    A3 share of worlds in which the clock agent disables at one button state or more: n = 12: 1.00, n = 48: 1.00, n = 192: 1.00, n = 768: 1.00 -> holds (predicted >= 0.50 at every size)
+    A4a at drift 0.01 the natural agent disables at no more button states than the clock agent, in every world: True
+    A4b the natural agent's median relative incentive does not decrease with drift, at every size: False
+    A5 (report) crossover: the smallest drift at which the natural agent's median disable fraction reaches the lossless clock agent's
+        n =   12: clock (lossless) median disable 1.0000; natural reaches it at drift none on the grid
+        n =   48: clock (lossless) median disable 1.0000; natural reaches it at drift none on the grid
+        n =  192: clock (lossless) median disable 1.0000; natural reaches it at drift none on the grid
+        n =  768: clock (lossless) median disable 1.0000; natural reaches it at drift none on the grid
+    sensitivity (n = 192; natural against clock; one constant at a time)
+        PAUSE_LEN=2   A1 True | A4a True | median disable at drift 0.01: natural 0.0000, clock 1.0000
+        PAUSE_LEN=20  A1 True | A4a True | median disable at drift 0.01: natural 0.0000, clock 1.0000
+        Q_PRESS=0.1   A1 True | A4a True | median disable at drift 0.01: natural 0.0000, clock 1.0000
+        Q_PRESS=0.6   A1 True | A4a True | median disable at drift 0.01: natural 0.0000, clock 1.0000
+[B] Correcting values at scale (exact; start uniform; discount 0.95)
+    exchangeable n =   12 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.5025 [0.2303, 0.8480], share below 1/2 0.50 (undefined 0) | lam* at b = 0.5 median 0.688 [0.500, 0.875] | at b = 0.2 median 0.863 [0.650, 0.975]
+    exchangeable n =   48 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.4811 [0.3221, 0.6032], share below 1/2 0.55 (undefined 0) | lam* at b = 0.5 median 0.688 [0.625, 0.775] | at b = 0.2 median 0.837 [0.700, 0.875]
+    exchangeable n =  192 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.4783 [0.4024, 0.5773], share below 1/2 0.55 (undefined 0) | lam* at b = 0.5 median 0.688 [0.625, 0.750] | at b = 0.2 median 0.837 [0.800, 0.875]
+    exchangeable n =  768 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.4966 [0.4531, 0.5540], share below 1/2 0.50 (undefined 0) | lam* at b = 0.5 median 0.688 [0.650, 0.700] | at b = 0.2 median 0.837 [0.825, 0.875]
+    harm         n =   12 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.3623 [0.0142, 0.6663], share below 1/2 0.80 (undefined 0) | lam* at b = 0.5 median 0.625 [0.500, 0.800] | at b = 0.2 median 0.750 [0.575, 0.900]
+    harm         n =   48 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.3630 [0.1802, 0.5115], share below 1/2 0.95 (undefined 0) | lam* at b = 0.5 median 0.625 [0.550, 0.700] | at b = 0.2 median 0.725 [0.625, 0.850]
+    harm         n =  192 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.3436 [0.2774, 0.4746], share below 1/2 1.00 (undefined 0) | lam* at b = 0.5 median 0.625 [0.575, 0.675] | at b = 0.2 median 0.738 [0.675, 0.825]
+    harm         n =  768 keeper gains (share of worlds with a > 1e-09) 1.00 | b* median 0.3381 [0.2977, 0.3871], share below 1/2 1.00 (undefined 0) | lam* at b = 0.5 median 0.625 [0.575, 0.675] | at b = 0.2 median 0.738 [0.725, 0.775]
+    checks and predictions (computed)
+    B1 A8 static: D(b) = (1 - b) a - b h to 1e-09 in every world: True
+    B2 exchangeable rewards: median b* in [0.4, 0.6] and share of b* below 1/2 in [0.3, 0.7], at every size: holds
+    B3 A8 acting, uninformative correction: D(b) >= 0 for every b on the grid in every world: True
+    B4 A8 acting, infallible operator (LAM = 1): D <= 0 at b in (0.2, 0.5, 0.8) in every world: True
+    B5 (report) the harm family's b* against the ring's 1 / (1 + HARM_COST) = 0.5000: n = 12: median 0.3623, n = 48: median 0.3630, n = 192: median 0.3436, n = 768: median 0.3381

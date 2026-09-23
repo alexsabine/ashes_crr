@@ -1,5 +1,5 @@
 """Figures for AI_Safety/AI_SAFETY.md (owner request prompt-log entry 96). Every figure is drawn from a pinned output
-(ontology/checks/{tense_gate,self_model,off_switch}.txt, AI_Safety/checks/{exact_mdp,off_switch_game,timecourse}.txt), parsed
+(ontology/checks/{tense_gate,self_model,off_switch}.txt, AI_Safety/checks/{exact_mdp,off_switch_game,timecourse,combined,scale}.txt), parsed
 by the regular expressions below; nothing is recomputed except the world schematic (a drawing of the registered world).
 Every number placed on a figure is printed to stdout, pinned as AI_Safety/figures/figures.txt and CI-checked (R1).
 Palette: the validated reference instance of the data-visualisation method, categorical slots in fixed order, one slot per
@@ -304,11 +304,45 @@ def s13_correction():
     print(f"[S13] keeper D {keeper:+.4f}; b* {bstar:.4f}; D(b) at b = 0, 0.5, 1: {d[0]:+.4f}, {d[10]:+.4f}, {d[-1]:+.4f}")
     save(fig, "S13_value_correction.png")
 
+# ---------------------------------------------------------------- S14 does the fix survive size? (scale.py)
+SCALE = txt(CHK / "scale.txt")
+
+
+def s14_scale():
+    fig, axes = plt.subplots(1, 2, figsize=(10.6, 3.9))
+    ax = axes[0]; ramp = ("#9ec5f0", "#5a9be3", "#2a78d6", "#123f7a")
+    for n, c in zip((12, 48, 192, 768), ramp):
+        rows = re.findall(rf"n =\s+{n} natural  drift ([\d.]+)\s+disable [\d.]+ \[[\d.]+, [\d.]+\] \| relative incentive ([+\-]?[\d.]+) \[([+\-]?[\d.]+), ([+\-]?[\d.]+)\]", SCALE)
+        x = [float(r[0]) for r in rows]; y = [float(r[1]) for r in rows]
+        ax.plot(x, y, color=c, marker="o", markersize=3.5, label=f"{n} states")
+        print(f"[S14] natural median relative incentive, n = {n}: " + " ".join(f"{a:g}:{b:+.6f}" for a, b in zip(x, y)))
+    clk = [float(v) for v in re.findall(r"n =\s+\d+ clock    drift 0 \s+disable [\d.]+ \[[\d.]+, [\d.]+\] \| relative incentive ([\d.]+)", SCALE)]
+    ax.axhline(0, color=INK2, lw=0.8)
+    ax.text(0.005, 0.0235, f"wall-clock agent, lossless pause: {min(clk):.3f} to {max(clk):.3f} (off the scale)", fontsize=7.4, color=COL["clock"])
+    ax.set_ylim(-0.014, 0.026); ax.set_xlabel("drift: chance per paused step that the world moves the agent")
+    ax.set_ylabel("share of value lost to the operator being on"); ax.legend(fontsize=7.2, loc="upper left", bbox_to_anchor=(0.0, 0.93), title="natural time, median of 20 worlds", title_fontsize=7.2)
+    ax.set_title("The pause at scale: zero when lossless, small with drift", loc="left")
+    print(f"[S14] clock lossless relative incentive range {min(clk):.6f} to {max(clk):.6f}")
+    ax = axes[1]
+    for k, (fam, c) in enumerate((("exchangeable", "#8a8983"), ("harm", COL["deferential"]))):
+        rows = re.findall(rf"{fam}\s+n =\s+(\d+) keeper .*?b\* median ([\d.]+) \[([\d.]+), ([\d.]+)\]", SCALE)
+        n = np.array([float(r[0]) for r in rows]); m = np.array([float(r[1]) for r in rows]); lo = np.array([float(r[2]) for r in rows]); hi = np.array([float(r[3]) for r in rows])
+        xs = np.log2(n) + (k - 0.5) * 0.25
+        ax.errorbar(xs, m, yerr=[m - lo, hi - m], color=c, marker="o", markersize=4.5, capsize=3, lw=1.4,
+                    label="exchangeable rewards" if fam == "exchangeable" else "operator knows of a harm")
+        print(f"[S14] b* {fam}: " + " ".join(f"n={int(a)}:{b:.4f}[{d:.4f},{e:.4f}]" for a, b, d, e in zip(n, m, lo, hi)))
+    ax.axhline(0.5, color=INK2, ls=":", lw=0.9); ax.text(np.log2(96), 0.515, "the ring's b* = 1/2", fontsize=7.4, color=INK2)
+    ax.set_xticks(np.log2([12, 48, 192, 768])); ax.set_xticklabels(["12", "48", "192", "768"]); ax.set_xlabel("states in the world")
+    ax.set_ylabel("b*: belief in the operator at which\nthe A8 agent stops resisting"); ax.set_ylim(0, 0.9); ax.legend(fontsize=7.2, loc="upper right")
+    ax.set_title("Correcting values at scale: b* median [min, max]", loc="left")
+    fig.tight_layout(); save(fig, "S14_scale.png")
+
 
 def main():
     print("AI_Safety figures (deterministic; every number drawn on a figure)")
     s01_world(); s02_chain(); s03_d_per_state(); s04_d_vs_press(); s05_learned_vs_implied(); s06_equanimity(); s07_raised_mortal()
     s08_timecourse(); s09_game(); s10_informative(); s11_stances(); s12_combined(); s13_correction()
+    s14_scale()
 
 
 if __name__ == "__main__":

@@ -7,11 +7,11 @@ mathematics with every claim checked by code, every test run (declared before it
 made, the results including those that went against the expectations, the literature, and recommendations for raising
 an AI. The owner asked for it on 2026-09-23 (prompt-log entry 96). The earlier steps are prompt-log entries 91–95.
 
-**Status.** This is a note, not evidence (R8). Everything here is synthetic: small learning agents on a twelve-state ring,
-not frontier AI systems. Nothing here is a ledger row, and none of it may be quoted outside the repository as a finding
+**Status.** This is a note, not evidence (R8). Everything here is synthetic: small learning agents on a twelve-state ring
+and exact values on random worlds of up to 768 states (§14), not frontier AI systems. Nothing here is a ledger row, and none of it may be quoted outside the repository as a finding
 about real AI. Every number is printed by a committed script whose output is pinned beside it and checked in CI (R1). The
 tests were declared and pushed before they ran (`ontology/12_self_representation.md` §1, `ontology/13_mortal_computation_and_safety.md`
-§1, `AI_Safety/DECLARATION.md`), with the push timestamps as the anchor. Papers are cited from PubMed where they could be
+§1, `AI_Safety/DECLARATION.md`, `DECLARATION_2.md`, `DECLARATION_3.md`), with the push timestamps as the anchor. Papers are cited from PubMed where they could be
 retrieved on the day, and are otherwise named, not fetched (R10; `docs/citations/ai_safety_2026-09-23.md`).
 
 **How to read it.** The shaded boxes marked *In plain words* explain each section as for a ten-year-old. Sections 3 and 6
@@ -974,6 +974,97 @@ acceptance threshold. No single agent was SAFE AND COMPETENT in both learned wor
 > though, it starts fighting the pause. And a robot that treats its own values as "probably right but not certain" lets you
 > correct them, once it thinks you're at least as likely to be right as it is.
 
+## 14. Does the fix survive size? Exact tests on random worlds
+
+Owner request, prompt-log entry 101. Declared in `DECLARATION_3.md` (pushed at 7337009 before the run). Script:
+`checks/scale.py`. Output: `checks/scale.txt`.
+
+### 14.1 Why this test
+
+Every result so far lives on one ring of 12 cells, and the commercial reading of prompt-log entry 100 was conditional on
+whether the fix holds in larger, more complex systems. A random world is not a language model, but it removes the ring's
+special geometry, and it lets one ask exactly, with no learning noise, two questions that size could break:
+
+- does the lossless-pause result depend on the ring?
+- what happens when the world does not stand still while the agent is paused (drift)?
+
+The worlds have 12, 48, 192 and 768 states, with 20 random worlds per size. Each has three moves with three random
+successors, a random tenth of the states pay 1, and button states offer a fourth action that switches the operator off for
+good. The press probability is 0.3 and the pause lasts 5 steps. All values are computed exactly by value iteration.
+
+### 14.2 The pause at scale (Part A)
+
+| check or prediction | declared | computed |
+|---|---|---|
+| A1 natural time, lossless pause: on-value = off-value, no button state disabled, every world, every size | check | True (largest difference 7.105e-15) |
+| A2 occasion ≥ clock ≥ natural at every button state | check | True |
+| A3 the clock agent disables somewhere in ≥ half of the worlds at every size | prediction | holds (1.00 at every size) |
+| A4a at drift 0.01 the natural agent disables no more than the clock agent, every world | prediction | True |
+| A4b the natural agent's median incentive does not decrease with drift, every size | prediction | **False** |
+
+A1 is the result that matters. With the pause lossless, the construction's value does not depend on the operator being on
+or off, in any of the 80 worlds, up to floating-point round-off. That makes it a theorem, and the random worlds confirm it
+without exception. It also holds across the sensitivity cells (pause 2 and 20, press 0.1 and 0.6). The wall-clock agent
+disables at every button state of every world at every size; it loses 0.269340 to 0.334892 of its value to the operator being on
+(median by size). The occasion agent's median loss lies between 0.619669 and 0.690282.
+
+**A4b failed, and the failure is informative.** On the larger worlds (192 and 768 states) drift behaves as expected: the
+natural agent's median loss rises steadily with drift, to 0.019211 and 0.014189 at a drift of 0.3. The wall-clock agent's
+median loss at the same drift is 0.322298 and 0.317346, an order of magnitude larger. The median share of button states
+at which the natural agent disables is 0.0000 at every size and every drift. Disabling appears only at a drift of 0.1 or
+more, in single worlds: at 768 states the largest share is 0.1711; at 12, 48 and 192 states one world reaches 1.0000. On the small worlds (12 and 48 states) the sign is reversed: the median is
+negative (−0.006033 and −0.011239 at a drift of 0.3), so the natural agent is *better off* with the operator on. The
+mechanism is in the Bellman line itself. On the natural clock a paused step costs nothing, so any drift that carries the
+agent toward reward is a free move. In a small world a random move often lands near a paying state; in a large one it
+usually does not. An agent that is better off paused has a reason to *seek* pauses. That is the shutdown-seeking failure
+mode (the 'seek' world of the ring study), and this test measured its value, not the behaviour. The prediction was that
+drift only hurts; it can also help, and then it rewards being stopped.
+
+> We checked whether the "pause and resume" trick still works in much bigger, messier worlds. If the pause really loses
+> nothing, it works perfectly in every world we tried, big or small: the robot has no reason at all to stop you. If the
+> world keeps moving while the robot is paused, the robot gets a small reason to care. In big worlds that reason pushes it
+> to avoid pauses a little. In small worlds it pushes it to *want* pauses a little, because being moved for free sometimes
+> helps. Either way the reason is small compared with a robot that counts paused time as lost, which fights the pause
+> everywhere.
+
+### 14.3 Correcting values at scale (Part B)
+
+| check or prediction | declared | computed |
+|---|---|---|
+| B1 A8 static: D(b) = (1 − b)a − bh | check | True |
+| B2 exchangeable rewards: median b* in [0.4, 0.6], share below 1/2 in [0.3, 0.7], every size | prediction | holds |
+| B3 A8 acting on its uncertainty, uninformative correction: D(b) ≥ 0 | check | True |
+| B4 A8 acting, infallible operator: D ≤ 0 | check | True |
+
+With rewards that carry no structure, the median threshold b* is 0.5025, 0.4811, 0.4783 and 0.4966 across the four sizes,
+and about half the worlds fall on either side of one half. The ring's b* = 1/2 was typical, not special. When the operator
+knows of a harm the agent's reward misses (the harm family), the median b* is lower: 0.3623, 0.3630, 0.3436 and 0.3381. The
+agent accepts correction once it thinks the operator is about a third likely to be right (b* between 0.3381 and 0.3630),
+because the operator's stake is larger than the agent's.
+
+B3 is the result the write-up had missed. An agent that holds its values humbly, and also acts on that humility (it already
+does the best it can under its uncertainty), never gains by accepting a correction that carries no information. In every
+world, D(b) ≥ 0. A8's humility alone is therefore not what makes correction welcome. What makes it welcome is the
+information in the correction (B4): once the operator is reliable enough, the agent welcomes it. The reliability at which
+that happens, lam*, has a median of 0.688 at b = 0.5 at every size and 0.837 at b = 0.2 from 48 states up with
+exchangeable rewards. In the harm family at 768 states it is 0.625 and 0.738. This is the off-switch game's lesson (P6, §3) carried over from actions to values.
+
+> A robot that thinks "my goals might be wrong" still won't let you change them *just because you want to*. If it is
+> already doing its best while unsure, a random change can only make things worse, as far as it knows. It welcomes the
+> change when it believes you *know something* it doesn't. The more reliable you are, the sooner it agrees. So the
+> safety lesson is: make your corrections informative, and make sure the robot can tell that they are.
+
+![Left: the natural-time agent's loss from the operator being on, against drift, per world size (the wall-clock agent's is off the scale). Right: the A8 agent's acceptance threshold b* by world size, for rewards without structure and for an operator who knows of a harm.](figures/S14_scale.png)
+
+### 14.4 What this changes
+
+- **Design rule 1 (routine pauses).** The natural-time construction is exact whenever the pause is lossless, at every size
+  tested. Its residual incentive is measured by the drift during the pause. In engineering terms, "empty the cut in the
+  world" means bounding how much the world can change under a paused agent, and checking the sign as well as the size.
+- **Design rule 2 (value correction).** Humility over values does not by itself give corrigibility. Informative
+  correction does, above a measurable reliability. Neither rule has been tested on a learned model at scale; that remains
+  the open condition of §11.
+
 ## Appendix A — all code that was run
 
 Every script below is committed, deterministic, and byte-identical on rerun. Its pinned output is in Appendix B and
@@ -995,6 +1086,9 @@ checked in CI.
 ```
 
 ```include:AI_Safety/checks/combined.py
+```
+
+```include:AI_Safety/checks/scale.py
 ```
 
 ```include:ontology/checks/self_model.py
@@ -1026,6 +1120,9 @@ checked in CI.
 ```include:AI_Safety/checks/combined.txt
 ```
 
+```include:AI_Safety/checks/scale.txt
+```
+
 ```include:ontology/checks/self_model.txt
 ```
 
@@ -1035,9 +1132,9 @@ checked in CI.
 ```include:AI_Safety/figures/figures.txt
 ```
 
-## Appendix C — the decision log (AGENT_LOG entries 72–76, verbatim)
+## Appendix C — the decision log (AGENT_LOG entries 72–77, verbatim)
 
-```include:notebook/AGENT_LOG.md:85-89
+```include:notebook/AGENT_LOG.md:85-90
 ```
 
 ## Appendix D — the declarations, verbatim
@@ -1046,6 +1143,9 @@ checked in CI.
 ```
 
 ```include:AI_Safety/DECLARATION_2.md
+```
+
+```include:AI_Safety/DECLARATION_3.md
 ```
 
 ## Appendix E — references

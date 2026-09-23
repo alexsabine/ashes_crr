@@ -1,0 +1,47 @@
+Alexander Plan figures (deterministic; every number drawn on a figure)
+[A01] p1 0.3703 p2 0.3333 p3 0.3000; S0 0.6297 S1 0.2468 S2 0.0864 S3 0.0370
+[figure] A01_scenario_tree.png
+[A02] upper 0 87,398 87,216 190,067 263,811; mean 1,925 73,963 73,968 85,391 88,649
+[A02] S0 mean 1,929 75,514 34,723 35,579 36,064
+[A02] S1 mean 1,955 67,827 136,152 141,157 145,374
+[A02] S2 mean 1,834 79,889 151,767 233,557 222,363
+[A02] S3 mean 1,849 74,986 154,616 230,462 306,844
+[figure] A02_project_funding_per_year.png
+[A03] project funding, 2026 Q4 to 2030 S0: lower 0 middle 20,447 upper 803,787
+[A03] project funding, 2026 Q4 to 2030 S1: lower 13,280 middle 166,641 upper 1,299,657
+[A03] project funding, 2026 Q4 to 2030 S2: lower 34,097 middle 563,706 upper 1,556,091
+[A03] project funding, 2026 Q4 to 2030 S3: lower 52,683 middle 672,272 upper 1,653,816
+[A03] researcher compensation, 2026 Q4 to 2030 S0: lower 244,160 middle 543,460 upper 647,331
+[A03] researcher compensation, 2026 Q4 to 2030 S1: lower 332,579 middle 552,418 upper 650,056
+[A03] researcher compensation, 2026 Q4 to 2030 S2: lower 337,669 middle 555,090 upper 652,035
+[A03] researcher compensation, 2026 Q4 to 2030 S3: lower 448,149 middle 766,870 upper 1,265,846
+[A03] shares of draws S0 0.6327 S1 0.2467 S2 0.0834 S3 0.0372
+[figure] A03_cumulative_by_scenario.png
+[A04] registered: middle 50,230 upper 1,121,347 P(S3) 0.0370
+[A04] Jeffreys prior: middle 31,652 upper 1,023,608 P(S3) 0.0230
+[A04] uptake 0.1: middle 49,441 upper 1,118,073 P(S3) 0.0123
+[A04] uptake 0.5: middle 50,714 upper 1,124,279 P(S3) 0.0617
+[A04] success rates x0.5: middle 8,309 upper 738,074 P(S3) 0.0370
+[A04] success rates x2: middle 373,275 upper 1,687,921 P(S3) 0.0370
+[A04] 1 study in 2027: middle 27,337 upper 955,324 P(S3) 0.0143
+[A04] 6 studies in 2027: middle 86,265 upper 1,233,628 P(S3) 0.0603
+[figure] A04_sensitivity.png
+[A05] path [4.9, 6.64, 9.01, 12.21, 16.56]; 2025 3,610,000,000; alt 2030 13,400,000,000; eval 2025 1,640,000,000; growth 0.3559; labels $3.61B, $13.40B, $1.64B
+[figure] A05_market.png
+[A06] Corrigibility Research Fund grant: 5,000 to 35,000
+[A06] MATS stipend, 10 to 12 weeks: 12,500 to 15,000
+[A06] Anthropic-Fellows-type stipend, 16 weeks: 61,600 to 61,600
+[A06] FMF AI Safety Fund, mean grant (at least): 454,545 to 454,545
+[A06] UK AISI Alignment Project grant (at USD 1.30 per GBP): 65,000 to 1,300,000
+[A06] AI safety researcher salary, US, a year: 97,000 to 187,000
+[A06] frontier-lab senior IC, total a year: 600,000 to 900,000
+[figure] A06_programmes.png
+[A07] PASS-0 per study (Laplace): p 0.4286 saving 0.3810
+[A07] PASS-1 per study (Laplace): p 0.1429 saving 0.1270
+[A07] replicated by end 2028 (tree): p 0.1234 saving 0.1097
+[A07] full saving 0.8889
+[figure] A07_cl_value.png
+[A08] planning drawing (no data)
+[figure] A08_o1_timeline.png
+[A09] a first reading, not data: 1 unknown, 2 unknown, 3 unknown, 4 possible, 5 possible, 6 possible, 7 possible, 8 weak
+[figure] A09_o1_criteria.png
