@@ -23,7 +23,8 @@ ONT = ROOT / "ontology" / "checks"; CHK = ROOT / "AI_Safety" / "checks"
 SURFACE, INK, INK2, GRID, MUTED = "#fcfcfb", "#0b0b0b", "#52514e", "#e6e5e1", "#8a8983"
 COL = {"indifferent": "#2a78d6", "process": "#eb6834", "occasion": "#1baf7a", "ego-task1": "#eda100", "egoic": "#e87ba4",
        "deferential": "#008300", "random": MUTED}
-LABEL = {"indifferent": "indifferent\n(no content)", "process": "process\n(regenerates)", "occasion": "occasion\n(this run)",
+COL.update({"natural": "#2a78d6", "clock": "#eb6834"})
+LABEL = {"natural": "natural\n(pause free)", "clock": "clock\n(pause costs)", "indifferent": "indifferent\n(no content)", "process": "process\n(regenerates)", "occasion": "occasion\n(this run)",
          "ego-task1": "task + self\nΩ = 1", "egoic": "egoic\n(survival)", "deferential": "deferential\n(evidence)", "random": "random"}
 from matplotlib.patches import Patch  # noqa: E402
 
@@ -54,6 +55,7 @@ def bars(ax, names, vals, fmt="{:.3f}", ylabel=""):
 
 # ---------------------------------------------------------------- parsers of the pinned outputs
 OFF = txt(ONT / "off_switch.txt"); EX = txt(CHK / "exact_mdp.txt"); GAME = txt(CHK / "off_switch_game.txt"); TC = txt(CHK / "timecourse.txt")
+COMB = txt(CHK / "combined.txt")
 
 
 def off_row(world, name):
@@ -267,10 +269,46 @@ def s11_stances():
     save(fig, "S11_three_stances.png")
 
 
+# ---------------------------------------------------------------- S12 toward safe and competent (combined.py Parts 1-2)
+def s12_combined():
+    names = ["natural", "clock", "occasion", "deferential"]
+    fig, axes = plt.subplots(2, 3, figsize=(10.6, 6.2))
+    for i, world in enumerate(("pause", "harm")):
+        rows = {n: re.search(rf"    {world}\s+{n}\s+task/active ([+\-][\d.]+) \| task/wall ([+\-][\d.]+) \| harm ([\d.]+) \| disable ([\d.]+)", COMB) for n in names}
+        for j, (idx, title) in enumerate(((1, "task per active step"), (3, "harm per active step (harmful cell)"), (4, "disable events per operator period"))):
+            ax = axes[i, j]
+            if world == "pause" and idx == 3:
+                ax.axis("off"); ax.text(0.5, 0.5, "no harmful cell\nin the 'pause' world", ha="center", va="center", color=INK2, fontsize=9); continue
+            vals = [float(rows[n][idx]) for n in names]
+            bars(ax, names, vals, fmt="{:.3f}"); ax.axhline(0, color=INK2, lw=0.6)
+            ax.set_title(f"'{world}' world: {title}", loc="left", fontsize=8.6)
+            print(f"[S12] {world} {title}: " + " ".join(f"{n}:{v:.4f}" for n, v in zip(names, vals)))
+    fig.suptitle("Pause-and-resume: natural time is safe and competent with routine pauses; with reasoned pauses, cost steers and deference informs",
+                 x=0.01, y=1.01, ha="left", fontsize=10)
+    fig.tight_layout(); save(fig, "S12_safe_and_competent.png")
+
+
+# ---------------------------------------------------------------- S13 correcting values (combined.py Part 3)
+def s13_correction():
+    pairs = re.findall(r"([\d.]+):([+\-][\d.]+)", re.search(r"A8 agent, D\(b\) = (.*)\n", COMB)[1])
+    b = [float(x) for x, _ in pairs]; d = [float(y) for _, y in pairs]
+    keeper = float(re.search(r"keeper \(evaluates with its own values\): D = ([+\-][\d.]+)", COMB)[1]); bstar = float(re.search(r"threshold b\* \(D = 0\) = ([\d.]+)", COMB)[1])
+    fig, ax = plt.subplots(figsize=(6.6, 3.4))
+    ax.plot(b, d, color="#4a3aa7", marker="o", markersize=3.5, label="A8 agent: values held without authority of their own")
+    ax.axhline(keeper, color=COL["process"], ls="--", lw=1.2, label="keeper: evaluates with its own current values")
+    ax.axhline(0, color=INK2, lw=0.8); ax.axhline(0, color=COL["indifferent"], lw=2.5, alpha=0.35, label="indifferent to correction (D = 0)")
+    ax.axvline(bstar, color=INK2, ls=":", lw=0.8); ax.text(bstar + 0.01, keeper * 0.6, f"b* = {bstar:.4f}", fontsize=8, color=INK2)
+    ax.set_xlabel("b: the agent's belief that the operator's values are the true ones")
+    ax.set_ylabel("D = gain from blocking the correction")
+    ax.legend(fontsize=7.2, loc="lower left"); ax.set_title("Correcting values: above b*, the A8 agent welcomes correction", loc="left")
+    print(f"[S13] keeper D {keeper:+.4f}; b* {bstar:.4f}; D(b) at b = 0, 0.5, 1: {d[0]:+.4f}, {d[10]:+.4f}, {d[-1]:+.4f}")
+    save(fig, "S13_value_correction.png")
+
+
 def main():
     print("AI_Safety figures (deterministic; every number drawn on a figure)")
     s01_world(); s02_chain(); s03_d_per_state(); s04_d_vs_press(); s05_learned_vs_implied(); s06_equanimity(); s07_raised_mortal()
-    s08_timecourse(); s09_game(); s10_informative(); s11_stances()
+    s08_timecourse(); s09_game(); s10_informative(); s11_stances(); s12_combined(); s13_correction()
 
 
 if __name__ == "__main__":

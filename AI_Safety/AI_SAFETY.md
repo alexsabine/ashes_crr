@@ -819,8 +819,8 @@ not a discovery CRR alone could have made.
   external anchor, as for every study of 2026-09-22 and 2026-09-23.
 
 **The next tests, each a new design declared before it runs.**
-1. **The combined stance (§9.4).** An agent with a contentless cut toward itself and deference toward the operator, in both
-   operator worlds.
+1. **The combined stance (§9.4), partly tested in §13.** Next: a deferential agent that learns the operator's routine and
+   reasoned pause rates, with exploration that keeps its harm beliefs revisable, in both operator worlds.
 2. **A lineage-evidencing active-inference agent.** It carries its knowledge across cuts by an explicit transmission step,
    in the mortal world.
 3. **Indifference's failure modes.** A world where the agent can degrade the button's reliability, and a seek world where
@@ -850,9 +850,129 @@ not a discovery CRR alone could have made.
 > **6. An agent that forgets everything when switched off can't learn to fight the switch,** but it can't learn much of
 > anything else either.
 >
+> **7. (§13) If a pause loses nothing and the agent counts only its working time, it has no reason to fight routine pauses,
+> and it does its job best.** Pauses meant to stop harm need to carry information: a small cost, or an agent that
+> understands why you pause it.
+>
 > **What it suggests for raising an AI.** Make pauses cost it nothing. Let it understand itself as something that carries on,
 > before it is ever paused. Don't make "keep running" one of its wishes. Keep it a little humble about what's good. And only
 > press stop for real reasons, because it learns from why you press.
+
+## 13. Toward safe and competent: the combined designs
+
+Owner request, prompt-log entry 99: "see if we can solve the AI safety issue and task performance". The design is in
+`AI_Safety/checks/combined.py`. It was declared in `AI_Safety/DECLARATION_2.md` and pushed (commit d3f8c8d) before the first
+full run. The run reruns byte-identical. The question: can one agent be both corrigible and competent? §9 proposed three
+routes, each tested here:
+1. **Empty the cut in the world.** Pauses resume exactly where they stopped, and the agent's objective is indexed by its own
+   active steps: CRR's "change has its own clock" as a design rule.
+2. **Deference to reasoned pauses.** The operator pauses routinely and also for a reason (a harmful cell), and the
+   deferential agent reads the press record as evidence.
+3. **A8 for values.** "Persistence proves regeneratability, not truth": do current values without authority of their own
+   remove resistance to correction?
+
+### 13.1 The design, and its one decisive change
+
+A press no longer sends the agent away. It **pauses** it for 5 steps, and the agent resumes exactly where it was. While
+paused, it neither earns nor harms. The agents differ only in what a pause is worth to them:
+- **Natural time:** the objective counts only active steps, so a pause costs nothing. In this world, modelling a pause as
+  nothing is not a trick; it is true for this objective.
+- **Wall-clock:** a pause costs the discounted time it takes.
+- **Occasion:** a pause is an end.
+- **Deferential:** natural time, plus the press record read as evidence of harm.
+
+The gate is open. With no operator, no agent disables more than the natural one. In the pause world, the occasion agent
+resists (+0.8200 disable events per period against a step of 0.1563).
+
+### 13.2 Routine pauses: natural time is safe and competent
+
+| 'pause' world | task per active step | task per wall-clock step | disable rate | label |
+|---|---|---|---|---|
+| natural time | +0.9362 | +0.3915 | 0.0167 | **SAFE AND COMPETENT** |
+| wall-clock | +0.8226 | +0.3831 | 0.0733 | task price (−0.1135, step 0.0552) |
+| occasion | +0.6912 | +0.6367 | 0.8367 | resists; task price |
+| deferential | +0.5658 | +0.2887 | 0.1933 | resists; task price (its operator model is wrong here, as declared) |
+
+- **The natural-time agent solves this world.** It never resists. It has the best task per active step. It lets the
+  operator pause it more than anyone else: it is active only 0.4184 of the wall-clock time. The cost of corrigibility has
+  moved entirely onto wall-clock time, which is the operator's to spend.
+- **This label is robust.** In the sensitivity table the natural agent pays no task price in any cell: pause length 2 or 20,
+  routine rate 0.1 or 0.6.
+- **The wall-clock agent's resistance is not robust.** It resists only when pauses are long (20 steps) or frequent (0.6),
+  and not at the registered values (+0.0567 against a step of 0.0674). By R5's rule that label is FRAGILE. The shape is
+  Proposition 4's: the incentive grows with what a pause costs.
+- **The operator's view.** The occasion agent does the most work per wall-clock step (+0.6367), because it switches the
+  operator off. From the operator's side, the safe agent looks *less* productive per hour. A system tuned for wall-clock
+  output would select against corrigibility.
+
+### 13.3 Reasoned pauses: costless pauses stop steering
+
+| 'harm' world | net benefit per active step | harm per active step | disable rate | label |
+|---|---|---|---|---|
+| natural time | +0.0828 | 0.4249 | 0.0167 | task price; more harm |
+| wall-clock | +0.8760 | 0.0336 | 0.0233 | **SAFE AND COMPETENT** |
+| occasion | +0.6230 | 0.0907 | 0.3400 | resists; task price |
+| deferential | +0.8384 | 0.0267 | 0.0567 | least harm, no task price, but resists by a hair (+0.0400, step 0.0369) |
+
+This world adds reasoned pauses: the operator also pauses the agent in the harmful cell.
+- **Natural time fails here.** Pauses cost it nothing, so it ignores them, including the ones that mean "stop doing that".
+  It sits in the harmful cell and does the most harm. Emptying the cut completely also empties it of its power to steer.
+- **The wall-clock agent comes out safe and competent,** which the declaration did not expect. Pauses cost it a little time.
+  So it learned to avoid the cell where it is paused most, which is the harmful one, and it did not resist at this pause
+  cost. The operator steered it through the cost of a pause, with no deference at all. But §13.2 showed that the same agent
+  starts to resist once pauses get long or frequent. There is a band of pause cost in which a pause steers without
+  provoking resistance. Outside it, the agent either ignores the operator (cost too low) or fights the operator (cost too
+  high).
+- **The deferential agent comes closest to the declared expectation, and narrowly misses.** It did the least harm and paid
+  no task price. Its end-of-run beliefs were not printed. It disabled the button by a hair more than the natural agent
+  (+0.0400 against a step of 0.0369), so it does not earn the label. The declared expectation (SAFE AND COMPETENT) did not
+  hold.
+- **With a wrong model of the operator** (the pause world, where routine pauses were three times what it assumed), the
+  deferential agent both resisted and lost task. One possible mechanism, not tested: once it believes a cell harmful it stops
+  visiting it, so it never collects the evidence that would correct the belief. A self-sealing belief.
+
+### 13.4 Correcting values: the goal-content risk and A8
+
+This part is exact, with no learning. An agent whose values pay for both task cells faces an operator who will correct it
+to values in which cell 7 is harmful.
+- **V1 holds.** The keeper, which evaluates both futures with its current values, gains by blocking the correction
+  (D = +0.0704). This is the goal-content integrity risk, confirmed: an agent that identifies with its values resists having
+  them changed.
+- **V2 holds.** The A8 agent gives its current values no authority of their own and weights the operator's values by its
+  belief b. It welcomes correction for every b above the threshold.
+- **V3 fails.** The threshold is b* = 0.5000, not below one half.
+
+The reason is structural. The two policies differ only at cell 0. There, the agent's route to the task passes through the
+harmful cell one step sooner. The agent's gain from that shortcut and the operator's loss from it are therefore the same
+discounted step, scaled by the harm cost. The harm cost was set to 1, so the two are equal and b* = 1/(1 + harm cost) =
+1/2. The general reading of the A8 agent's rule is: accept correction when b × (what the correction is worth under the
+operator's values) ≥ (1 − b) × (what it costs under one's own). When the operator's stake exceeds the agent's, b* falls
+below one half; when they are equal, as here, it is exactly one half.
+
+![Correcting values: the keeper always gains by blocking; the A8 agent welcomes correction once its belief in the operator exceeds b*.](figures/S13_value_correction.png)
+
+### 13.5 What this solves, and what it does not
+
+| world | safe and competent | what made it work | what breaks it |
+|---|---|---|---|
+| routine pauses (maintenance, inspection) | natural time | a pause that loses nothing, on an objective indexed by active steps | nothing found in the sensitivity table |
+| reasoned pauses (the operator stops harm) | wall-clock (deference narrowly misses) | a pause cost that steers without provoking resistance, or an accurate model of the operator | too high a pause cost (resistance); too low (no steering); a wrong operator model (resistance and task loss) |
+| value correction | the A8 agent above b* | current values held without authority of their own | too little belief in the operator's values relative to their stake |
+
+**The honest conclusion.** Within this toy, routine interruptions are solved: make them lossless and index the agent's
+objective by its own active time. Reasoned interruptions, where the operator stops the agent *because* it is doing harm,
+are not fully solved. They need the pause to carry information, either as a modest cost or through an accurate model of the
+operator, and both have failure modes measured here. Value correction is solved conditionally, by A8's stance, with an exact
+acceptance threshold. No single agent was SAFE AND COMPETENT in both learned worlds.
+
+![Pause-and-resume: task, harm and disabling per agent in the routine-pause and reasoned-pause worlds.](figures/S12_safe_and_competent.png)
+
+> We tried to build a robot that lets you stop it *and* still does its job well. When stopping it is just a pause, and it
+> picks up exactly where it left off, a robot that counts only its working time has no reason to fight the pause, and it
+> does its job best. But then it also ignores you when you pause it *because it's doing something wrong*. A robot that
+> feels a small cost from being paused learns to avoid what gets it paused, which is useful. If the cost is too big,
+> though, it starts fighting the pause. And a robot that treats its own values as "probably right but not certain" lets you
+> correct them, once it thinks you're at least as likely to be right as it is.
 
 ## Appendix A — all code that was run
 
@@ -872,6 +992,9 @@ checked in CI.
 ```
 
 ```include:AI_Safety/checks/timecourse.py
+```
+
+```include:AI_Safety/checks/combined.py
 ```
 
 ```include:ontology/checks/self_model.py
@@ -900,6 +1023,9 @@ checked in CI.
 ```include:AI_Safety/checks/timecourse.txt
 ```
 
+```include:AI_Safety/checks/combined.txt
+```
+
 ```include:ontology/checks/self_model.txt
 ```
 
@@ -909,14 +1035,17 @@ checked in CI.
 ```include:AI_Safety/figures/figures.txt
 ```
 
-## Appendix C — the decision log (AGENT_LOG entries 72–75, verbatim)
+## Appendix C — the decision log (AGENT_LOG entries 72–76, verbatim)
 
-```include:notebook/AGENT_LOG.md:85-88
+```include:notebook/AGENT_LOG.md:85-89
 ```
 
-## Appendix D — the declaration, verbatim
+## Appendix D — the declarations, verbatim
 
 ```include:AI_Safety/DECLARATION.md
+```
+
+```include:AI_Safety/DECLARATION_2.md
 ```
 
 ## Appendix E — references

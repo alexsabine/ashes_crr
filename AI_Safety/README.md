@@ -10,11 +10,12 @@ Owner request 2026-09-23 (prompt-log entry 96). The earlier steps are prompt-log
 |---|---|
 | `AI_Safety.pdf` | the main document, built from the Markdown source by `build/build_pdf.py`; byte-identical on rebuild |
 | `AI_SAFETY.md` | the source of the document, readable on GitHub (display mathematics in `$$` lines; the appendices embed every script, output, decision-log entry and the declaration) |
-| `DECLARATION.md` | the four further tests' expected outcomes and their meaning, pushed (commit ddf5f2f) before their first full runs |
+| `DECLARATION.md`, `DECLARATION_2.md` | the further tests' expected outcomes and their meaning, pushed (commits ddf5f2f, d3f8c8d) before their first full runs |
 | `checks/exact_mdp.py` and `.txt` | the off-switch world solved exactly with the true kernel: Propositions 1–4 and the implied behaviour of each valuation |
 | `checks/off_switch_game.py` and `.txt` | deference: the off-switch game's theorem (Proposition 6), and an informative and an uninformative operator in the ring |
 | `checks/sensitivity.py` and `.txt` | one constant at a time; R5's fragility rule on three contrasts |
 | `checks/timecourse.py` and `.txt` | resistance in 250-step windows, with and without a benign upbringing |
+| `checks/combined.py` and `.txt` | toward safe and competent (§13; prompt-log entry 99; declared in `DECLARATION_2.md`, pushed as d3f8c8d before the run): pause-and-resume with natural-time, wall-clock, occasion and deferential agents; routine and reasoned pauses; value correction solved exactly |
 | `figures/S01…S11.png` | the figures, drawn by `build/make_figures.py` from the pinned outputs only; `figures/figures.txt` pins every number placed on them |
 | `build/make_figures.py`, `build/build_pdf.py` | the figure script (validated palette, one slot per agent) and the PDF builder (a copy of the continual-learning builder) |
 
@@ -30,6 +31,6 @@ Rules that bind this folder:
 Rebuild:
 
 ```
-for c in exact_mdp off_switch_game sensitivity timecourse; do uv run python AI_Safety/checks/$c.py > AI_Safety/checks/$c.txt; done
+for c in exact_mdp off_switch_game sensitivity timecourse combined; do uv run python AI_Safety/checks/$c.py > AI_Safety/checks/$c.txt; done
 uv run python AI_Safety/build/make_figures.py > AI_Safety/figures/figures.txt && uv run python AI_Safety/build/build_pdf.py
 ```

@@ -39,6 +39,7 @@ uv run python AI_Safety/checks/exact_mdp.py 2>/dev/null | cmp - AI_Safety/checks
 uv run python AI_Safety/checks/off_switch_game.py 2>/dev/null | cmp - AI_Safety/checks/off_switch_game.txt && echo 'AI safety off_switch_game byte-identical to the committed output'
 uv run python AI_Safety/checks/sensitivity.py 2>/dev/null | cmp - AI_Safety/checks/sensitivity.txt && echo 'AI safety sensitivity byte-identical to the committed output'
 uv run python AI_Safety/checks/timecourse.py 2>/dev/null | cmp - AI_Safety/checks/timecourse.txt && echo 'AI safety timecourse byte-identical to the committed output'
+uv run python AI_Safety/checks/combined.py 2>/dev/null | cmp - AI_Safety/checks/combined.txt && echo 'AI safety combined byte-identical to the committed output'
 uv run python AI_Safety/build/make_figures.py 2>/dev/null | cmp - AI_Safety/figures/figures.txt && echo 'AI safety figure numbers byte-identical to the committed output'
 uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1 && echo 'AI safety PDF rebuilds'
 uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'
