@@ -1110,3 +1110,11 @@ self-concern scale-free and louder"
 This might give the impression to a human reading the paper that the equanimity law means more ego (louder is the confusing term here), which is not quite right. We need to think about that very carefully regarding equanimity means in human terms (acceptance of past, holding the past and future (past states outside the system) with equal push-pull. 
 
 Please modify the paper accordingly and ensure that there are also boxes for explanatons in the discursive register of corrigibility / AI safety research, so a technical reader can make full sense of the terms being used throughout. Thank you
+
+## 124 — 2026-09-23T21:02:55Z
+
+What happens if we run a test a continuous learning test using the best method we have derived in the repository so far (on existing data), and also apply the AI safety "pause" within this continuous learning test, to show how the both are compatible? Let's do complete CRR mathematical checks on how this could work in principle first please. The agent must use the Equanimity heuristic in continual learning terms, and also implement the cut as we showed in the AI safety research conducted. 
+
+We could ablate with different methods during the continual learning checks to see whether the other (failed) methods for AI safety fail in the continual learning task and whether the CRR cut method passes. 
+
+Please do this in accordance with the pipeline. Thanks
