@@ -1,0 +1,28 @@
+================================================================================================================
+SEC1 scoring — SEEN carriers (confirmatory only, R11); per-seed values in brackets (seeds 0-4); thresholds from prereg/sec1/PREREG.md
+================================================================================================================
+
+[mfeat_factors]  K = 10 of 10 classes (requested 10); class counts [180, 144, 154, 127, 161, 134, 157, 170, 141, 132]; n = 1500 of 1500 rows
+   resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 2.8221
+   EWC raw-Fisher lambda grid: 0.1:24.88  0.3:24.95  1:25.42  3:26.49  10:30.50  30:37.19  35.3357:38.60  50:40.13  70.922:41.27  100:42.14  141:34.05  200:34.25  283:16.59  300:16.59  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:27.22  0.03:30.97  0.1:37.46  0.3:40.60  0.353357:41.00  0.5:41.40  0.70922:41.61  1:41.34  1.41:37.12  2:0.00  2.83:0.00  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 100: 42.1405 [39.13 41.14 41.81 47.49 41.14]; tuned lambda (calibrated) = 0.70922: 41.6054 [41.14 41.81 42.81 42.47 39.80]
+   Bayes raw (w 1/2): 25.2174 [24.75 25.42 25.08 25.08 25.75]   Bayes raw − tuned: -16.9231
+   Bayes SEC (w 1/2): 41.1371 [41.14 41.81 41.81 42.14 38.80]   Bayes SEC − tuned: -1.0033; Bayes SEC − Bayes raw: +15.9197
+   Bayes s1 (one factor, task 1's): 33.8462 [40.47 41.81 41.81 45.15 0.00]   Bayes s1 − tuned: -8.2943; Bayes SEC − Bayes s1: +7.2910
+   rule Ω=1: 42.2742 [39.13 42.47 40.80 46.82 42.14]   rule − tuned: +0.1338; Bayes SEC − rule: -1.1371
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 311.4, min 73.61, max 477.9; fallbacks 0 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-1.20  0.05/0.1:-1.20  0.05/0.2:-1.14  0.1/0.05:-1.00  0.1/0.2:-1.00  0.2/0.05:-1.74  0.2/0.1:-1.74  0.2/0.2:-1.67
+
+----------------------------------------------------------------------------------------------------------------
+carriers scored 1; excluded by the class-selection rule: none
+SEC1-0 precondition: carriers where raw Bayes trails the tuned lambda by a step (miscalibrated): ['mfeat_factors'] (1; need >= 3) -> NOT DECIDABLE
+SEC1-1 the calibrated Laplace weight closes at least half of the raw Laplace gap on the miscalibrated carriers: mfeat_factors: gap 16.9231, gain +15.9197 (closes); 1/1 (needs >= 1) -> NOT DECIDABLE
+SEC1-2 no harm where raw Bayes is already within a step of the tuned lambda: Bayes SEC − Bayes raw ; not behind on 0/0 -> PASS
+SEC1-3 tuning-free: Bayes SEC − tuned lambda mfeat_factors:-1.0033 (step 2.82); not behind on 1/1 (needs >= 9) -> FAIL; for comparison raw Bayes not behind on 0/1, the rule Ω=1 on 1/1
+SEC1-4 span collapse: tuned lambda raw {'mfeat_factors': 100.0} span 1.00x; calibrated {'mfeat_factors': 0.70922} span 1.00x; calibrated span <= raw span / 10: False -> FAIL
+SEC1-G one global factor (R7, report): Bayes SEC − Bayes s1 mfeat_factors:+7.2910 (step 2.82); per-task calibration ahead of one factor by a step on 1/1, behind by a step on 0/1
+SEC1-R the registered rule (R7, report): rule − tuned mfeat_factors:+0.1338; Bayes SEC − rule mfeat_factors:-1.1371
+SEC1-S sensitivity: SEC1-3 'not behind' flips in 0 of 8 window cells -> not fragile
+SEC1-E calibration factors (report): mfeat_factors: median s 311 (fallbacks 0)
+summary: SEC1-0 NOT DECIDABLE (1 miscalibrated); SEC1-1 NOT DECIDABLE; SEC1-2 PASS; SEC1-3 FAIL (1/1); SEC1-4 FAIL; fragile: False

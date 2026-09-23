@@ -1,0 +1,6 @@
+GATE SEC1 (synthetic ten-class stream, 5 tasks, seeds 0-4): raw Laplace undistorted 25.2174, calibrated undistorted 41.1371; step 1.0000
+   unit x[1/16,16] per task   [MUST_PASS] raw 25.7525 (moved +0.5351); calibrated 41.1371 (moved +0.0000); invariance PASS (not load-bearing: UNDECIDABLE row); SEC1-1 criterion not met
+   global x1/16               [MUST_PASS] raw 24.8829 (moved -0.3344); calibrated 41.1371 (moved +0.0000); invariance PASS (not load-bearing: UNDECIDABLE row); SEC1-1 criterion met
+   global x16                 [MUST_PASS] raw 29.9666 (moved +4.7492); calibrated 41.1371 (moved +0.0000); invariance PASS; SEC1-1 criterion not met
+   shape exp(N(0,1.5))        [MUST_FAIL] raw 25.6187 (moved +0.4013); calibrated 0.0000 (moved -41.1371); invariance FAIL (not load-bearing: UNDECIDABLE row); SEC1-1 criterion not met
+GATE CLOSED

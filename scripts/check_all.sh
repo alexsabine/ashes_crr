@@ -85,6 +85,8 @@ uv run python runs/eq3/frozen/eq3_score.py smoke | cmp - prereg/eq3/smoke.txt &&
 uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null | cmp - prereg/eq3/smokefull.txt && echo 'EQ3 frozen scorer end-to-end smoke byte-identical to the committed output'
 uv run python runs/eq4/frozen/eq4_score.py smoke | cmp - prereg/eq4/smoke.txt && echo 'EQ4 frozen scorer smoke byte-identical to the committed output'
 uv run python runs/eq4/frozen/eq4_score.py smokefull --out /tmp/eq4_smokefull.jsonl 2>/dev/null | cmp - prereg/eq4/smokefull.txt && echo 'EQ4 frozen scorer end-to-end smoke byte-identical to the committed output'
+uv run python runs/sec1/frozen/sec1_score.py smoke | cmp - prereg/sec1/smoke.txt && echo 'SEC1 frozen scorer smoke byte-identical to the committed output'
+uv run python runs/sec1/frozen/sec1_score.py gate | cmp - prereg/sec1/gate_SEC.txt && echo 'SEC1 gate byte-identical to the committed output'
 uv run python runs/bayes1/frozen/bayes1_score.py gate 2>/dev/null | cmp - prereg/bayes1/gate_BAYES.txt && echo 'BAYES-1 frozen gate byte-identical to the committed output'
 uv run python runs/bayes1/frozen/bayes1_score.py smoke 2>/dev/null | cmp - prereg/bayes1/smoke.txt && echo 'BAYES-1 frozen scorer smoke byte-identical to the committed output'
 uv run python runs/bayes1/frozen/bayes1_score.py smokefull --out /tmp/bayes1_smokefull.jsonl 2>/dev/null | cmp - prereg/bayes1/smokefull.txt && echo 'BAYES-1 frozen scorer end-to-end smoke byte-identical to the committed output'

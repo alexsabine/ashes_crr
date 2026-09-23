@@ -1073,3 +1073,7 @@ Bayes λ = 1 simply assumes F is already right.
 ## 119 — 2026-09-23T15:06:44Z
 
 Okay, is there any way we can run this today somehow?
+
+## 120 — 2026-09-23T15:14:52Z
+
+Okay, today we will run the pre registered checks on existing actual data. Please prepare and do this now using the pipeline.

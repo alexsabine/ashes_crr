@@ -93,6 +93,8 @@ jobs:
           uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null > /tmp/s3f.txt && cmp /tmp/s3f.txt prereg/eq3/smokefull.txt
           uv run python runs/eq4/frozen/eq4_score.py smoke > /tmp/s4.txt && cmp /tmp/s4.txt prereg/eq4/smoke.txt
           uv run python runs/eq4/frozen/eq4_score.py smokefull --out /tmp/eq4_smokefull.jsonl 2>/dev/null > /tmp/s4f.txt && cmp /tmp/s4f.txt prereg/eq4/smokefull.txt
+          uv run python runs/sec1/frozen/sec1_score.py smoke > /tmp/sec1s.txt && cmp /tmp/sec1s.txt prereg/sec1/smoke.txt
+          uv run python runs/sec1/frozen/sec1_score.py gate > /tmp/sec1g.txt && cmp /tmp/sec1g.txt prereg/sec1/gate_SEC.txt
           uv run python runs/bayes1/frozen/bayes1_score.py gate 2>/dev/null > /tmp/b1g.txt && cmp /tmp/b1g.txt prereg/bayes1/gate_BAYES.txt
           uv run python runs/bayes1/frozen/bayes1_score.py smoke 2>/dev/null > /tmp/b1s.txt && cmp /tmp/b1s.txt prereg/bayes1/smoke.txt
           uv run python runs/bayes1/frozen/bayes1_score.py smokefull --out /tmp/bayes1_smokefull.jsonl 2>/dev/null > /tmp/b1sf.txt && cmp /tmp/b1sf.txt prereg/bayes1/smokefull.txt
