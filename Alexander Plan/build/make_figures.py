@@ -214,9 +214,94 @@ def a09_criteria():
     save(fig, "A09_o1_criteria.png")
 
 
+# ---------------------------------------------------------------- A10-A13 continual learning and the EPO application (cl_patent.txt)
+CLP = (DOC / "model" / "cl_patent.txt").read_text()
+
+
+def a10_cl_evidence():
+    rows = re.findall(r"^\s+(EQ[23]) (\w+)\s+rule - tuned ([+\-][\d.]+) \(step ([\d.]+); seeds not behind (\d)/(\d)\) -> (not behind|BEHIND)", CLP, re.M)
+    fig, ax = plt.subplots(figsize=(8.2, 3.9)); y = np.arange(len(rows))[::-1]
+    for yi, (st, c, d, stp, a, b, lab) in zip(y, rows):
+        d, stp = float(d), float(stp); col = "#eb6834" if lab == "BEHIND" else "#2a78d6"
+        ax.barh(yi, d, color=col, height=0.6); ax.plot([-stp, -stp], [yi - 0.35, yi + 0.35], color=INK2, lw=1)
+        ax.text(d + (0.15 if d >= 0 else -0.15), yi, f"{d:+.2f} ({a}/{b} seeds)", va="center", ha="left" if d >= 0 else "right", fontsize=7.2)
+        print(f"[A10] {st} {c}: {d:+.4f} step {stp:.2f} seeds {a}/{b} {lab}")
+    ax.axvline(0, color=INK2, lw=0.8); ax.set_yticks(y); ax.set_yticklabels([f"{r[0]} {r[1]}" for r in rows], fontsize=7.8)
+    ax.set_xlim(-8, 7); ax.set_xlabel("rule at Ω = 1 minus the in-sample-tuned weight (accuracy points); tick = minus one resolvable step")
+    fy = y[[r[1] for r in rows].index("fars")]
+    ax.text(-7.9, fy - 0.42, "fars: the pre-registered subsample left a class empty;\nevery EWC-family arm sat at chance", fontsize=6.8, color="#b3461c", va="top")
+    s1 = re.search(r"strict \(as registered\): not behind on (\d+) of (\d+)", CLP); s2 = re.search(r"not behind on (\d+) of (\d+) informative", CLP)
+    ax.set_title(f"The EWC arm on nine unseen carriers: not behind on {s1[1]} of {s1[2]} (strict), {s2[1]} of {s2[2]} informative", loc="left", fontsize=9.4)
+    ax.grid(axis="y", visible=False); save(fig, "A10_cl_evidence.png")
+
+
+def a11_cl_value():
+    g = lambda lab: re.search(rf"{lab}\s*lower (\$[\d,]+) \| middle (\$[\d,]+) \| upper (\$[\d,]+)", CLP)
+    rows = [("2029, if adopted", g(r"2029, if adopted:")), ("2030, if adopted", g(r"2030, if adopted:")),
+            ("2029-2030, if adopted", g(r"2029-2030 cumulative, adopted futures only:"))]
+    mean_all = usd(re.search(r"2029-2030 cumulative, all futures: .*?mean (\$[\d,]+)", CLP)[1]); p_ad = float(re.search(r"share of futures with any value ([\d.]+)", CLP)[1])
+    fig, ax = plt.subplots(figsize=(8.2, 3.2)); y = np.arange(len(rows))[::-1]
+    for yi, (name, m) in zip(y, rows):
+        lo, md, hi = usd(m[1]), usd(m[2]), usd(m[3])
+        ax.plot([lo, hi], [yi, yi], color="#2a78d6", lw=6, alpha=0.45, solid_capstyle="butt"); ax.plot(md, yi, "o", color="#2a78d6", markersize=8, mec=INK, mew=0.6)
+        ax.text(hi * 1.15, yi, f"{k(lo)} / {k(md)} / {k(hi)}".replace("$", r"\$"), va="center", fontsize=7.4)
+        print(f"[A11] {name}: {lo:,.0f} / {md:,.0f} / {hi:,.0f}")
+    ax.axvline(mean_all, color="#eb6834", ls="--", lw=1.2)
+    ax.set_ylim(y[-1] - 0.5, y[0] + 0.9)
+    ax.text(mean_all * 1.08, y[0] + 0.55, f"probability-weighted mean over all futures (2029-2030): {k(mean_all)}; simulated share adopted {p_ad:.4f}".replace("$", r"\$"),
+            fontsize=7.2, color="#b3461c")
+    ax.set_xscale("log"); ax.set_xlim(8e6, 4e10); ax.set_yticks(y); ax.set_yticklabels([r[0] for r in rows], fontsize=8)
+    ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: k(v)))
+    ax.set_xlabel("saved sweep compute in the field (lower / middle / upper), log scale"); ax.grid(axis="y", visible=False)
+    ax.set_title("If the rule transferred and were adopted: large; weighted by the chance it does: modest", loc="left", fontsize=9.4)
+    print(f"[A11] mean all futures {mean_all:,.0f}; P(adopted) {p_ad:.4f}")
+    save(fig, "A11_cl_value.png")
+
+
+def a12_cl_sensitivity():
+    rows = re.findall(r"^\s{4}(\S.*?)\s{2,}\s*(\$[\d,]+) \|\s+(\$[\d,]+) \| ([\d.]+)$", CLP.split("[4] Sensitivity")[1].split("[5]")[0], re.M)
+    fig, ax = plt.subplots(figsize=(8.2, 3.4)); y = np.arange(len(rows))[::-1]
+    for yi, (name, v, o, p) in zip(y, rows):
+        v = usd(v); c = INK if name == "registered" else "#2a78d6"
+        ax.plot(v, yi, "o", color=c, markersize=7); ax.text(v * 1.12, yi, f"{k(v)}  (P adopted {float(p):.4f})".replace("$", r"\$"), va="center", fontsize=7.2)
+        print(f"[A12] {name}: {v:,.0f}; patent {usd(o):,.0f}; P {float(p):.4f}")
+    ax.set_xscale("log"); ax.set_xlim(2e6, 4e8); ax.set_yticks(y); ax.set_yticklabels([r[0] for r in rows], fontsize=7.6)
+    ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: k(v)))
+    ax.set_xlabel("probability-weighted value created 2029-2030 (mean), log scale"); ax.grid(axis="y", visible=False)
+    ax.set_title("What moves the continual-learning value: whether it survives Adam, and how much labs sweep", loc="left", fontsize=9.4)
+    save(fig, "A12_cl_sensitivity.png")
+
+
+def a13_patent():
+    m = re.search(r"P\(a granted patent covers the used implementation\) = ([\d.]+) x ([\d.]+) x ([\d.]+) = ([\d.]+)", CLP)
+    fig, axes = plt.subplots(1, 2, figsize=(10.2, 3.0), gridspec_kw=dict(width_ratios=[1.15, 1]))
+    ax = axes[0]; ax.axis("off"); ax.set_xlim(0, 10); ax.set_ylim(0, 3)
+    steps = [("an applied use case\nin the application\nas filed", m[1]), ("grant", m[2]), ("claims cover what\na lab actually uses", m[3])]
+    for i, (t, p) in enumerate(steps):
+        x = 0.3 + i * 3.2
+        ax.add_patch(FancyBboxPatch((x, 1.0), 2.6, 1.3, boxstyle="round,pad=0.02,rounding_size=0.1", fc=SURFACE, ec="#2a78d6", lw=1.4))
+        ax.text(x + 1.3, 1.65, t, ha="center", va="center", fontsize=7.4); ax.text(x + 1.3, 0.7, f"p = {p}", ha="center", fontsize=8, color="#2a78d6")
+        if i < 2: ax.annotate("", (x + 3.15, 1.65), (x + 2.65, 1.65), arrowprops=dict(arrowstyle="-|>", color=INK2))
+    ax.text(0.3, 0.1, f"product: {m[4]} (assumptions, swept in the model)", fontsize=8, color="#b3461c")
+    ax.set_title("The patent path, as the model prices it", loc="left", fontsize=9.4)
+    ax = axes[1]
+    ev = [("EPO filing\n(owner)", 2025 + 7 / 12, 0.45), ("priority year\nends", 2026 + 7 / 12, 1.05), ("repository\npublic", 2026 + 8.5 / 12, -0.75),
+          ("GPU study\n(assumed 2027)", 2027.3, 0.45), ("US grace\nends", 2027 + 8.5 / 12, 1.05)]
+    ax.set_xlim(2025.3, 2028.1); ax.set_ylim(-1.3, 1.6); ax.axhline(0, color=INK2, lw=1); ax.set_yticks([]); ax.grid(False)
+    for t, x, yy in ev:
+        ax.plot([x, x], [0, yy - 0.08 if yy > 0 else yy + 0.08], color=INK2, lw=0.8); ax.plot(x, 0, "o", color="#eb6834" if "public" in t else "#2a78d6", markersize=6)
+        ax.text(x, yy, t, ha="center", va="bottom" if yy > 0 else "top", fontsize=7)
+    ax.set_xticks([2025.5, 2026, 2026.5, 2027, 2027.5, 2028]); ax.set_xticklabels(["mid 2025", "2026", "mid 2026", "2027", "mid 2027", "2028"], fontsize=7)
+    ax.set_title("The calendar (information, not legal advice)", loc="left", fontsize=9.4)
+    for sp in ("left",): ax.spines[sp].set_visible(False)
+    print(f"[A13] patent chain {m[1]} x {m[2]} x {m[3]} = {m[4]}; calendar drawn from cl_patent.txt [5]")
+    fig.tight_layout(); save(fig, "A13_patent.png")
+
+
 def main():
     print("Alexander Plan figures (deterministic; every number drawn on a figure)")
     a01_tree(); a02_yearly(); a03_cumulative(); a04_sensitivity(); a05_market(); a06_programmes(); a07_cl(); a08_timeline(); a09_criteria()
+    a10_cl_evidence(); a11_cl_value(); a12_cl_sensitivity(); a13_patent()
 
 
 if __name__ == "__main__":

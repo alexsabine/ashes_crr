@@ -52,6 +52,7 @@ jobs:
           uv run python AI_Safety/build/make_figures.py 2>/dev/null > /tmp/aisf.txt && cmp /tmp/aisf.txt AI_Safety/figures/figures.txt
           uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"
+          uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null > /tmp/ap_clp.txt && cmp /tmp/ap_clp.txt "Alexander Plan/model/cl_patent.txt"
           uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null > /tmp/ap_figs.txt && cmp /tmp/ap_figs.txt "Alexander Plan/figures/figures.txt"
           uv run python "Alexander Plan/build/build_pdf.py" > /dev/null 2>&1
           uv run python Epistemic_Review/checks/ladder.py 2>/dev/null > /tmp/er_ladder.txt && cmp /tmp/er_ladder.txt Epistemic_Review/checks/ladder.txt

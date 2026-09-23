@@ -965,3 +965,15 @@ This needs to be carefully considered and incorporated into the metrics.
 Furthermore, the Alexander Plan is beautiful, but the frontier research lab whom I am pitching to will also need a clear assessment of the commercial possibilities for this AI safety and Continual Learning method clearly stated.
 
 Thank you
+
+## 103 — 2026-09-23T04:28:03Z
+
+Thank you! However, we also ran the continual learning benchmark checks which have not been financially considered in this plan if they hold out on gpu and llm architectures. The document is in continuous learning, and you already provided a financial estimation for this in terms of the equanimity finding for optimal learning (check results again) and what this could mean for other domains.
+
+You have mentioned the successes but check the document in continuous learning and the pipeline we used for checking what constitutes a pass here (read the continual learning document thoroughly for what we discarded as fails because of the pipeline).
+
+I think the Alexander Plan is fair and modest but I’d like you to be thorough with what we have here and give careful consideration to the financial estimates.
+
+I also took out a patent pending with the EPO in August 2025 for crr as a physical systems processor. The epo officer has agreed the claims in principle but I need an applied use case.
+
+Please incorporate this into the estimations. Thank you

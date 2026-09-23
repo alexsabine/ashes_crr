@@ -9,7 +9,8 @@
 - the funding paths, with a scenario model of the money that could flow to the work from now to 2030;
 - the people and roles around the work;
 - an outline of a path to an O-1 visa;
-- a commercial assessment for a frontier lab (§10, added at prompt-log entry 102).
+- a commercial assessment for a frontier lab (§10, added at prompt-log entry 102);
+- the continual-learning method and the owner's EPO application in money terms (§11, added at prompt-log entry 103).
 
 **Status, stated first.**
 - **The findings are a note, not evidence (R8).** They are exact or learned results on small synthetic worlds, and none is
@@ -65,6 +66,11 @@ demand is: what makes an off switch work, and how to verify a claim about it.
    study.
 2. Bring in an independent second auditor, because the current auditor would also be a supporter (§6.3).
 3. Engage an immigration attorney. Confirm the petitioner and build the evidence file against the O-1A criteria (§7).
+
+**The continual-learning method and the patent (§11).** If it held at scale, the rule would be worth hundreds of millions
+of dollars a year to the field. In expectation today it is worth about $21,289,825 over 2029–2030, most of which the labs
+would keep. The EPO application's best use is an applied use case already in the application as filed. This repository has
+been public since 2026-09-15, which bars new European filings on what it discloses.
 
 **For the lab.** The commercial assessment is §10. It lists what there is to sell and at what level of evidence, the
 decisive test for each method, its kill criterion, and what must not be claimed.
@@ -538,9 +544,215 @@ revenue. The model of §5 keeps those streams, and its middle case assumes no co
 > is ready now. The ideas are promising in small pretend worlds. The lab would be paying to find out, fast and honestly,
 > whether they work in the real ones.
 
+## 11. The continual-learning method and the EPO application, in money terms
+
+Added at the owner's request on 2026-09-23 (prompt-log entry 103). The owner asked for three things:
+- to price the continual-learning benchmark results if they hold on GPU and LLM architectures;
+- to re-read `Continuous_Learning/CONTINUOUS_LEARNING.md` for what the pipeline recorded as failures;
+- to bring in the owner's European patent application.
+
+The numbers come from a second model, `model/cl_patent.py`, whose output is pinned as `model/cl_patent.txt` (Appendix B).
+It is separate from the model of §5, so nothing quoted earlier changes.
+
+### 11.1 What the continual-learning record actually shows
+
+The EWC arm of the rule was tested on nine unseen carriers in two pre-registered studies. In EQ2 and EQ3 together, the rule
+at Ω = 1 was not behind the in-sample-tuned weight on 8 of 9 carriers. It was ahead on every one of those 8, by +0.6886 to
++4.0625 points.
+
+The one carrier it was behind, fars, is a defect of the pipeline, not a verdict on the rule. The pre-registered subsample
+left fars with class counts [0, 2086, 746, 15, 991, 688, 430, 45]: one class empty, so the first task had one class. On that
+carrier every arm of the EWC family sat at chance. Set that carrier aside as uninformative and the rule was not behind on
+8 of 8 informative carriers. That reading is **not** a ledger verdict. Under R6 the FAIL stands, and the class floor that
+would test it is written into EQ4.
+
+The failures the pipeline recorded fall into four kinds; one row, EQX-2, sits in two of them (CONTINUOUS_LEARNING.md §7.5;
+`cl_patent.txt` [1]):
+
+| kind | rows | what it means for money |
+|---|---|---|
+| a pre-registered "every carrier / every cell" criterion missed on one unit | 4: EQX-2, EQ3-1, EQ3-C, EQ3-A | mostly the strictness of the test; but EQ3-A is real: at a narrow network (width 64) the rule fell behind |
+| a pre-registered control did not hold | 3: EQ2-4, EQ3-3, EQ3-4 | the *explanation* was wrong (the rule was predicted to be harmful on constraint-type past terms and often was not); the measurement was not |
+| the theory value Ω = 1 did not appear | 3: EQX-2, EQ2-6, EQ3-6 | commercially this is the good news: Ω is a plateau (9 of 9 grid points within a step on four carriers), so the dial needs no tuning either |
+| a pipeline defect, or a reduction to a constant | 2: EQ2R-VOID, EQX-1 | the void cost data, not evidence; the reduction is real: on replay the rule is a constant and worth nothing |
+
+**One correction to the earlier framing.** The owner described the result as "the equanimity finding for optimal
+learning". The mathematics says otherwise (CONTINUOUS_LEARNING.md §4.3):
+- Ω = 1 is not a Bayes optimum. At exact gradients it stops wherever it first meets the Pareto curve.
+- What the rule has is a bounded step. It can run the penalty past the point where a fixed weight diverges, and it needs
+  no sweep.
+- Its value is therefore *tuning-free and non-divergent*, not *optimal*, and that is what the estimate prices.
+
+![The EWC arm on the nine unseen carriers: not behind on 8 of 9 as registered; the one miss is the carrier the pipeline's subsample broke.](figures/A10_cl_evidence.png)
+
+**The properties that carry value, each from its pinned output:**
+- **Compute.** On seen data, the rule needed 7.200e+04 sample passes against the tuned weight's 1.224e+06 over 17
+  configurations. That is a ratio of 0.0588: a saving of 0.9412 of that sweep.
+- **Invariance.** Across learning rate and batch size the rule was not behind in 5 of 5 cells (EQ3-I, PASS-0), while the
+  tuned weight moved from 300 to 3000.
+- **Scale.** On a synthetic problem under SGD, a 16-fold change in the past term's scale left the rule at 0.660 of the
+  re-tuned weight's total loss. The fixed weight at its old setting diverged.
+- **The Adam caution, the most important line for LLMs.** Under Adam, the fixed weight is scale-robust too. The rule's
+  scale advantage is an SGD property. Most large models are trained with Adam-family optimisers.
+- **Poisoned data.** The bounded rule EQ-B was ahead of the plain rule under poisoned batches on 6 of 6 carriers (by 2.64
+  to 20.75 points). These were seen carriers, the run was exploratory, and it has no verdict. EQ4 is the held-out test.
+
+> On nine new datasets the rule did as well as or better than a carefully hand-tuned setting eight times. The ninth time,
+> our own sampling mistake had broken the dataset, and every method failed on it. So the rule works on this kind of
+> problem, it saves the search for the right setting, and it never blows up. The catch is that big AI models are usually
+> trained with a different kind of optimiser, and in our own maths check that optimiser already gives the hand-tuned
+> setting most of the same protection.
+
+### 11.2 What it would be worth if it held at GPU and LLM scale
+
+**The model.** The value created is the compute a lab saves by not sweeping one weight. It is computed as:
+- the experiment compute of the adopting labs, drawn between $4,500,000,000 (OpenAI's 2024 experiments, as reported) and
+  $71,428,571,429 (two labs at a reported $50B each in 2026, times the 2024 R&D share: an assumption);
+- times the share of that compute spent sweeping penalty, KL or anchor weights, an assumption drawn between 0.001 and 0.02;
+- times the share of a sweep saved, between 0.8235 (a lab still runs 3 confirming configurations) and 0.9412 (the pinned
+  ratio);
+- grown up to 2.2000 a year (the reported training-cost projection).
+
+**The technical tree.**
+- P(a GPU study reaches PASS-1) = 0.2500, by Laplace's rule on the rule's own record of 0 PASS-1 in 2 held-out studies.
+- P(the advantage survives Adam-trained LLMs, given a GPU pass) = 0.20. This is an assumption, set low because of the
+  Adam caution.
+- P(labs adopt, given an LLM pass) = 0.30, an assumption.
+- Together: P(adopted by 2029) = 0.0150.
+
+**The results.**
+
+| quantity | lower | middle | upper |
+|---|---|---|---|
+| value in the field, 2029, if adopted | $38,285,915 | $232,739,581 | $1,413,980,686 |
+| value in the field, 2030, if adopted | $48,481,151 | $347,819,511 | $2,484,196,052 |
+| value in the field, 2029–2030, if adopted | $95,290,461 | $580,702,405 | $4,341,466,855 |
+
+Weighted by the chance of getting there, the mean over all simulated futures for 2029–2030 is $21,289,825. In 0.0143 of
+the futures the rule is adopted at all.
+
+![If the rule transferred and were adopted, the saved compute is large; weighted by the chance that it does, it is modest.](figures/A11_cl_value.png)
+
+**What moves it.** Whether the advantage survives Adam, and how much of their compute labs spend sweeping these weights:
+
+| change | mean value created 2029–2030 | P(adopted) |
+|---|---|---|
+| registered | $21,289,825 | 0.0150 |
+| GPU pass at the PASS-0 level (1 of 2) | $44,956,948 | 0.0300 |
+| LLM transfer 0.05 (Adam removes the advantage) | $4,030,742 | 0.0037 |
+| LLM transfer 0.5 | $56,277,153 | 0.0375 |
+| sweep share 0.0005 to 0.005 | $6,632,646 | 0.0150 |
+| sweep share 0.005 to 0.05 | $66,326,465 | 0.0150 |
+
+![What moves the continual-learning value.](figures/A12_cl_sensitivity.png)
+
+**How this compares with the estimate in chat of 2026-09-22.** That estimate is recorded in CONTINUOUS_LEARNING.md §9 as a
+chat figure, not a repository number: "a few million to a few tens of millions of dollars a year of saved compute under
+adoption". The committed model differs in two directions:
+- **Higher if adopted.** Its conditional-on-adoption values are higher, because 2026 lab compute is reported at about $50B
+  a lab.
+- **Lower once weighted.** Its probability-weighted value is lower than any "under adoption" figure, because the tree now
+  prices the Adam caution and the record's 0 PASS-1.
+
+The fair single sentence is: **worth hundreds of millions of dollars a year to the field if it works at scale, and
+$21,289,825 over 2029–2030 in expectation today**.
+
+> If this trick worked inside the training of the biggest AI models, it could save those companies a lot of computer time,
+> hundreds of millions of dollars a year. But there is a good chance it won't work there, because those models use a
+> different kind of learning step. When you multiply "how much it could be worth" by "how likely it is", you get about twenty
+> million dollars over two years. That is real money for the field, but most of it would be saved by the companies, not paid to us.
+
+### 11.3 What it could mean for other domains
+
+| domain | the same shape? | evidence in this repository | status |
+|---|---|---|---|
+| RLHF: the KL penalty to a reference policy | yes (β is the weight on the past) | none; the fair test is named: three KL arms (fixed β, an adaptive controller, Ω = 1 on the KL gradient) under SGD and Adam | untested |
+| continual pretraining with an anchor (L2-SP, EWC) | yes | none at scale; the Adam caution applies | untested |
+| safety preservation under fine-tuning (anchor constraints) | yes | the rule amplifies an extreme batch, so it is not a safety mechanism by itself; EQ-B addresses that | exploratory |
+| on-device and edge learning with SGD | yes, and SGD is where the property lives | nearest to the tested instrument | untested; the most natural market |
+| poisoned or adversarial data streams | yes | EQ-B ahead on 6 of 6 seen carriers | exploratory; EQ4 pending |
+| federated personalisation | partly | gated and CLOSED: one global weight is never a step behind | no value found |
+| replay-based continual learning | no (units already match) | EQX: reduces to a constant | no value |
+| adaptive filtering (Kalman) | a fixed gain | Ω = 1 gives a gain that is optimal at one speed only | no value |
+
+### 11.4 The EPO application and the applied use case
+
+**What the owner reports** (owner's statement):
+- a European patent application filed in August 2025, for CRR as a physical systems processor;
+- an examiner who has agreed the claims in principle, and has asked for an applied use case.
+
+**What the EPO looks for** (information, not legal advice; sources in Appendix E). Under the Guidelines for Examination,
+G-II 3.3, a mathematical method contributes technical character when it is applied to a specific field of technology or
+adapted to a specific technical implementation. "Controlling a technical system" in general is not enough. The Guidelines'
+own AI examples include a neural network in a heart-monitoring apparatus that identifies irregular heartbeats, and the
+classification of images, audio or speech from low-level features. Where a technical effect is established, computational
+efficiency counts toward inventive step.
+
+**Three facts that constrain any use case, stated plainly:**
+1. **The pending application can only be amended within its content as filed** (Art. 123(2) EPC). A use case must already
+   be disclosed in the August 2025 text, or be directly and unambiguously derivable from it. The repository's results can
+   support a technical effect the application already encompasses: the Enlarged Board's decision G 2/21 allows post-filing
+   evidence for such an effect (named, not fetched). They cannot add a new one.
+2. **This repository is public, and has been since 2026-09-15.** In Europe there is no general grace period, so everything
+   first published here is prior art against any *new* European filing. That includes the Ω rule and EQ-B, the
+   pause-and-resume construction, the alternans and Bass results, and the bounded-memory estimator. In the US, a one-year
+   grace period covers the inventor's own disclosures, so a US filing on matter first published on 2026-09-15 would have to
+   be made no later than 2027-09-15.
+3. **The Paris Convention priority year for filings elsewhere that claim the August 2025 date ended in August 2026.**
+
+**Candidate applied use cases, mapped to the evidence** (for the owner's attorney to check against the application as
+filed; not claims):
+
+| use case | the CRR ingredient | the evidence here | fit with G-II 3.3 |
+|---|---|---|---|
+| cardiac rhythm monitoring or pacing with a bounded memory of settled beats | A6 (regeneration) with P3 weights | ADDS candidate: the alternans threshold moves from 1.0000 to 2.3333 at q = 0.4 (synthesis batch 12, row 2) | close to the Guidelines' own heart-monitoring example; Art. 53(c) excludes diagnostic methods practised on the body, not devices |
+| an interruptible controller for an autonomous machine (robot, vehicle): a pause that loses nothing and an objective on the machine's own active steps | H-L5 (natural time), A3 (the cut has no content) | theorem on synthetic worlds from 12 to 768 states (`AI_Safety/checks/scale.txt`) | control of a specific physical system, if claimed specifically |
+| drift-robust estimation for sensor streams (bounded mean in place of accumulated counts) | A6 | ADDS candidate: better than accumulation by +0.2025 in mean absolute error (synthesis batch 28, row 4) | signal processing of physical measurements |
+| training controller for neural networks on accelerators: a step-bounded penalty weight that removes a sweep | H-EQ (Ω), EQ-B | PASS-0 on tabular data; compute ratio 0.0588 on seen data; the Adam caution | ML training in general is weak; stronger if tied to a specific technical application or hardware implementation |
+| event segmentation of sensor signals at intrinsic-phase half-turns | A3 | mixed: H-L5 failed on measles; A3 undecided on projective carriers | a specific signal-processing use would be needed |
+
+**How the model prices the patent.**
+- The model multiplies three probabilities, all assumptions: an applied use case exists within the application as filed
+  (0.50); grant given that use case (0.70, reflecting the owner's report); and the granted claims cover what a lab actually
+  uses (0.10). The product is 0.0350.
+- On the continual-learning path alone, a patent holder's mean capture over 2029–2030 is $1,130. Only 0.0004 of the
+  simulated futures produce any income. In those futures it is $373,639 / $1,499,953 / $5,484,681 (lower / middle / upper).
+- The cost side is at least EUR 5,250 in EPO renewal fees through year 7, before attorney, validation and national fees.
+- **The honest conclusion.** As a way to capture the continual-learning value, the patent is a long shot. That is mainly
+  because the method was developed and published here after the filing date. Its better use is as the vehicle for an
+  applied use case the application already discloses, with the repository's results as supporting evidence. It is also a
+  credential that strengthens the O-1 file (original contributions) and the pitch to the lab.
+
+![The patent path as the model prices it, and the calendar that bears on it.](figures/A13_patent.png)
+
+**What to do, in order** (information, not legal advice):
+1. **Engage a European patent attorney now.** Take the application as filed, the examiner's communication, and this table.
+2. **Ask the attorney before the next push** whether to pause publishing new methods in this public repository until any
+   separate filings are decided. Every push is a publication.
+3. **Decide by 2027-09-15** whether to file in the US on the matter first published here.
+
+> The patent is like a claim ticket filed in August 2025. You can't add new things to the ticket now; you can only point to
+> what was already written on it, and show proof that it works. Everything we've written in this project since then is
+> public, and in Europe what's public can't be patented later, even by the person who wrote it. So the patent is most
+> useful as a way to protect a use that the original ticket already describes, like a heart-monitoring device or a machine
+> that can be safely paused. A lawyer who knows European patents needs to look at it soon.
+
+### 11.5 What §11 changes in the plan
+
+- **The earlier totals do not change.** The project funding and researcher compensation of §5 stand as computed.
+- **The continual-learning method adds value to the field, mostly not to its author.** Its expected value to the field is
+  about $21 million over 2029–2030 in this model. Most of it would be saved by the labs.
+- **The author's route to that value** is a role or grant to run the decisive tests (the GPU study with SGD and Adam arms,
+  and the three-arm KL test), and a patent only where the application as filed covers the use.
+- **The next steps of §8 gain three items:** run EQ4; propose the GPU and KL tests as a funded project; take the EPO
+  application to an attorney before the next push.
+
 ## Appendix A — the code
 
 ```include:Alexander Plan/model/projections.py
+```
+
+```include:Alexander Plan/model/cl_patent.py
 ```
 
 ```include:Alexander Plan/build/make_figures.py
@@ -554,15 +766,18 @@ Appendix A of `AI_Safety/AI_Safety.pdf`.
 ```include:Alexander Plan/model/projections.txt
 ```
 
+```include:Alexander Plan/model/cl_patent.txt
+```
+
 ```include:Alexander Plan/figures/figures.txt
 ```
 
 ```include:AI_Safety/checks/scale.txt
 ```
 
-## Appendix C — the decision log (AGENT_LOG entries 77–80, verbatim)
+## Appendix C — the decision log (AGENT_LOG entries 77–81, verbatim)
 
-```include:notebook/AGENT_LOG.md:90-93
+```include:notebook/AGENT_LOG.md:90-94
 ```
 
 ## Appendix D — the declaration of the new tests, verbatim

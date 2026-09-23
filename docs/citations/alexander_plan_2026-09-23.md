@@ -73,3 +73,23 @@ that a given person's petition is approved.
 The owner describes a frontier research lab in Crescent City founded by Adam Goldstein. The searches did not establish
 which legal entity that is, or its location. The dossier therefore does not name it, and the owner is to confirm the
 petitioner's legal identity with an immigration attorney.
+
+## Added for §11 (prompt-log entry 103): compute spend, the patent rules
+
+| figure | as reported | URLs named by the summary |
+|---|---|---|
+| OpenAI compute split, 2024 | about $7B of cloud compute, of which about $5B R&D; about $4.5B on research, experiments and unreleased models; about $0.5B (roughly 10 %) on final training runs of released models | https://epoch.ai/data-insights/openai-compute-spend ; https://epoch.ai/gradient-updates/r-and-d-vs-training-compute |
+| lab compute, 2026 | OpenAI about $50B on compute in 2026 and Anthropic about $50B (sources differ); OpenAI training costs projected from about $25B (2026) to $121B (2028) | https://www.vamsitalkstech.com/opinion/openai-anthropic-and-the-121-billion-question-can-ais-biggest-labs-outgrow-their-compute-bills/ ; https://www.cnbc.com/2026/06/26/openai-anthropic-new-ai-spending-reality-as-users-shift-to-efficiency.html |
+| hyperscaler capital expenditure, 2026 | $660B to $690B committed by five providers | https://futurumgroup.com/insights/ai-capex-2026-the-690b-infrastructure-sprint/ |
+| RL post-training share | DeepSeek-R1's RL stage about 5 % of its overall compute; single RL ablation runs of 10,000 to 100,000 GPU hours | https://epoch.ai/gradient-updates/the-promise-of-reasoning-models ; https://charlottexia.substack.com/p/scaling-rl-2025-roundup-and-2026 |
+| EPO Guidelines G-II 3.3 | a mathematical method contributes technical character by application to a field of technology and/or adaptation to a specific technical implementation; a generic purpose such as "controlling a technical system" is not enough; AI examples include a neural network in a heart-monitoring apparatus identifying irregular heartbeats, and classification of digital images, video, audio or speech from low-level features | https://xepc.eu/node/g_ii_3_3 ; https://legalblogs.wolterskluwer.com/patent-blog/epo-guidelines-on-patentability-of-artificial-intelligence-and-machine-learning/ |
+| EPC Articles 54, 55, 123(2) | no general grace period for inventor disclosures (Art. 54); Art. 55 excepts only disclosures within six months due to evident abuse or a recognised exhibition; no amendment may add subject matter beyond the application as filed (Art. 123(2)) | https://en.wikipedia.org/wiki/Novelty_under_the_European_Patent_Convention ; https://xepc.eu/node/clr_i_c_2_5 ; https://en.wikipedia.org/wiki/Amendments_under_the_European_Patent_Convention |
+| 35 U.S.C. 102(b)(1)(A) | a one-year US grace period for the inventor's own disclosures | https://www.uspto.gov/web/offices/pac/mpep/s2153.html |
+| EPO fees | most official fees up about 5 % from 1 April 2026; one application accrues about €5,250 in EPO renewal fees through year 7 at 2026 rates | https://www.fr.com/insights/thought-leadership/blogs/european-patent-officeto-increase-fees-on-april-1-2026/ ; https://patalytica.com/blog/european-patent-renewal-fees-complete-guide |
+| EPO Patent Commercialisation Scoreboard | up to two thirds of inventions covered by SMEs' European patents commercially exploited; European universities and public research organisations bring more than a third of their inventions to market | https://lesi.org/les-nouvelles-article/market-success-and-challenges-facing-european-smes-results-from-epos-patent-commercialization-scoreboard/ ; https://www.4ipcouncil.com/research/patent-commercialisation-scoreboard-european-universities |
+
+Named, not fetched: the Paris Convention's twelve-month priority period (Article 4C); Article 63 EPC (a twenty-year term from
+filing); Article 53(c) EPC (methods of diagnosis practised on the human body excluded; devices are not); the Enlarged Board of
+Appeal's decision G 2/21 (2023) on post-published evidence for a technical effect the application as filed encompasses.
+Repository fact, from the GitHub API on 2026-09-23: `alexsabine/ashes_crr` was created 2026-09-15T04:06:50Z with visibility
+public.

@@ -228,7 +228,8 @@ Epistemic_Review/          what a PASS means here (prompt-log entry 102): the ep
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an
-                           O-1 outline (information, not legal advice), §10 a commercial assessment for a frontier lab; figures from pinned
+                           O-1 outline (information, not legal advice), §10 a commercial assessment for a frontier lab, §11 the
+                           continual-learning method and the EPO application in money terms (model/cl_patent.py + pinned .txt); figures from pinned
                            outputs; a note, not evidence (R8)
 scripts/check_all.sh       thin orchestrator: provenance header + env + tests + checks + gates
 prereg/PREREG_TEMPLATE.md  the pre-registration template (fields R4/R6/R9 require)

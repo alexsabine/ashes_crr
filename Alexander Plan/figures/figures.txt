@@ -45,3 +45,29 @@ Alexander Plan figures (deterministic; every number drawn on a figure)
 [figure] A08_o1_timeline.png
 [A09] a first reading, not data: 1 unknown, 2 unknown, 3 unknown, 4 possible, 5 possible, 6 possible, 7 possible, 8 weak
 [figure] A09_o1_criteria.png
+[A10] EQ2 mfeat_fourier: +3.3000 step 1.00 seeds 5/5 not behind
+[A10] EQ2 mfeat_pixel: +2.1000 step 3.51 seeds 5/5 not behind
+[A10] EQ2 texture: +2.7800 step 3.61 seeds 5/5 not behind
+[A10] EQ3 fars: -3.7400 step 3.35 seeds 3/5 BEHIND
+[A10] EQ3 krkopt: +0.9790 step 8.92 seeds 4/5 not behind
+[A10] EQ3 led24: +0.6886 step 4.36 seeds 5/5 not behind
+[A10] EQ3 led7: +4.0625 step 3.20 seeds 5/5 not behind
+[A10] EQ3 mfeat_factors: +3.9000 step 4.54 seeds 5/5 not behind
+[A10] EQ3 mfeat_morphological: +3.7000 step 4.87 seeds 4/5 not behind
+[figure] A10_cl_evidence.png
+[A11] 2029, if adopted: 38,285,915 / 232,739,581 / 1,413,980,686
+[A11] 2030, if adopted: 48,481,151 / 347,819,511 / 2,484,196,052
+[A11] 2029-2030, if adopted: 95,290,461 / 580,702,405 / 4,341,466,855
+[A11] mean all futures 21,289,825; P(adopted) 0.0143
+[figure] A11_cl_value.png
+[A12] registered: 21,289,825; patent 1,130; P 0.0150
+[A12] GPU pass at the PASS-0 level (1 of 2): 44,956,948; patent 6,209; P 0.0300
+[A12] LLM transfer 0.05 (Adam removes the advantage): 4,030,742; patent 14; P 0.0037
+[A12] LLM transfer 0.5: 56,277,153; patent 23,945; P 0.0375
+[A12] sweep share 0.0005 to 0.005: 6,632,646; patent 436; P 0.0150
+[A12] sweep share 0.005 to 0.05: 66,326,465; patent 4,356; P 0.0150
+[A12] patent covers 0.02: 21,289,825; patent 75; P 0.0150
+[A12] patent covers 0.3: 21,289,825; patent 27,698; P 0.0150
+[figure] A12_cl_sensitivity.png
+[A13] patent chain 0.50 x 0.70 x 0.10 = 0.0350; calendar drawn from cl_patent.txt [5]
+[figure] A13_patent.png

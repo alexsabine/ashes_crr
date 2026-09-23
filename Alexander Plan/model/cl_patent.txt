@@ -1,0 +1,87 @@
+The continual-learning method and the EPO application in money terms (Alexander Plan/model/cl_patent.py)
+seed 20260923, 20000 draws; lower / middle / upper = 10th / 50th / 90th percentiles
+[1] The continual-learning record, re-read (EWC arm, the two held-out studies)
+    EQ2 mfeat_fourier        rule - tuned +3.3000 (step 1.00; seeds not behind 5/5) -> not behind
+    EQ2 mfeat_pixel          rule - tuned +2.1000 (step 3.51; seeds not behind 5/5) -> not behind
+    EQ2 texture              rule - tuned +2.7800 (step 3.61; seeds not behind 5/5) -> not behind
+    EQ3 fars                 rule - tuned -3.7400 (step 3.35; seeds not behind 3/5) -> BEHIND
+    EQ3 krkopt               rule - tuned +0.9790 (step 8.92; seeds not behind 4/5) -> not behind
+    EQ3 led24                rule - tuned +0.6886 (step 4.36; seeds not behind 5/5) -> not behind
+    EQ3 led7                 rule - tuned +4.0625 (step 3.20; seeds not behind 5/5) -> not behind
+    EQ3 mfeat_factors        rule - tuned +3.9000 (step 4.54; seeds not behind 5/5) -> not behind
+    EQ3 mfeat_morphological  rule - tuned +3.7000 (step 4.87; seeds not behind 4/5) -> not behind
+    fars class counts after the pre-registered subsample: [0, 2086, 746, 15, 991, 688, 430, 45] -> 1 empty class; the first task had one class and every EWC-family arm sat at chance there (CONTINUOUS_LEARNING.md §7.4)
+    strict (as registered): not behind on 8 of 9 carriers; study verdicts EQ2-1 PASS (PASS-0, fragile), EQ3-1 FAIL
+    pipeline-adjusted (fars set aside as uninformative; NOT a ledger verdict): not behind on 8 of 8 informative carriers
+    per-carrier Laplace: strict 0.8182, adjusted 0.9000; per-study PASS-1 (0 of 2) 0.2500, PASS-0-level (1 of 2) 0.5000
+    what the pipeline recorded as failures, by kind (CONTINUOUS_LEARNING.md §7.5; ids checked in the ledger):
+        4  a pre-registered 'every carrier / every cell' criterion missed on one unit: EQX-2, EQ3-1, EQ3-C, EQ3-A
+        3  a pre-registered control did not hold (the mechanism statement, not the measurement): EQ2-4, EQ3-3, EQ3-4
+        3  the theory value Omega = 1 did not appear (a plateau instead): EQX-2, EQ2-6, EQ3-6
+        2  a pipeline defect or a reduction to a constant: EQ2R-VOID, EQX-1
+[2] The properties that carry commercial value (pinned outputs)
+    tuning-inclusive compute (seen data, dry run): rule 7.200e+04 sample passes against the tuned weight's 1.224e+06 over 17 configurations, ratio 0.0588 -> saving 0.9412 of that sweep
+    learning-rate x batch invariance (EQ3-I, PASS-0): lr0.05/bs10 +3.90 (4.54); lr0.0125/bs10 +3.00 (2.68); lr0.2/bs10 +1.35 (2.42); lr0.05/bs5 +0.85 (4.63); lr0.05/bs20 +0.45 (3.26); all nb; tuned λ move
+    scale robustness under SGD (synthetic): the rule's total 3.4789 (1.049 of the tuned weight) at F; 9.7260 (0.660 of the re-tuned weight) at 16F; scale-robust methods ['omega']
+    the Adam caution (synthetic): the fixed weight is scale-robust under Adam too: the rule has no scale advantage under Adam in this model, its property is an SGD property
+    Omega plateau (EQ3-P): 9/9 / 9/9 / 9/9 / 7/9 (0.5..4) / 9/9 / 7/9 (0.5..4), all contiguous; median width 9 grid points within a step of the best, per carrier
+    bounded rule EQ-B (registered kappa 2) under poisoned batches (seen data, exploratory, no verdict): rule - EQ-B on 6 carriers -2.64, -6.67, -8.76, -6.75, -20.00, -20.75 -> EQ-B ahead on 6 of 6; study EQ4 (held-out) not yet run
+[3a] Inputs
+    reported openai_compute_2024           7,000,000,000  OpenAI cloud compute spend, 2024 (Epoch AI)
+    reported openai_rnd_2024               5,000,000,000  of which R&D compute, 2024 (Epoch AI)
+    reported openai_experiments_2024       4,500,000,000  of which research, experiments and unreleased models, 2024 (Epoch AI)
+    reported openai_final_runs_2024          500,000,000  of which final training runs of released models, about, 2024 (Epoch AI)
+    reported lab_compute_2026             50,000,000,000  compute spend per frontier lab, 2026, OpenAI and Anthropic each, about (press summaries; sources differ)
+    reported openai_training_2026         25,000,000,000  OpenAI training cost projection, 2026 (press summary)
+    reported openai_training_2028        121,000,000,000  OpenAI training cost projection, 2028 (press summary)
+    reported epo_renewals_to_y7_eur                5,250  EPO renewal fees for one application through year 7, 2026 rates (EUR)
+    context  RL post-training share of DeepSeek-R1's compute: about 0.05 (Epoch AI summary)
+    context  a single RL ablation run: 10,000 to 100,000 GPU hours (search summary)
+    context  hyperscaler capital expenditure, 2026: USD 660B to 690B (Futurum summary)
+    context  EPO official fees: most up about 0.05 from 1 April 2026
+    context  European SME patents commercially exploited: up to two thirds (EPO Patent Commercialisation Scoreboard)
+    context  European universities' and public research organisations' inventions brought to market: more than a third (EPO scoreboard)
+    context  EPO Guidelines G-II 3.3: a mathematical method contributes technical character by application to a specific field of technology and/or adaptation to a specific technical implementation; 'controlling a technical system' in general is not enough
+    context  EPC Article 54 / 55: no general grace period: the applicant's own earlier publication is prior art (Art. 55: six-month exceptions for evident abuse and recognised exhibitions only)
+    context  EPC Article 123(2): an application may not be amended to contain subject matter extending beyond the content as filed
+    context  35 U.S.C. 102(b)(1)(A): a US one-year grace period for the inventor's own disclosures
+    ASSUMED  p_llm_given_gpu         0.2  P(the rule's advantage survives AdamW-trained LLM regimes | a GPU PASS-1): the repository's own check says the scale advantage is an SGD property
+    ASSUMED  p_adopt_given_llm       0.3  P(labs adopt | an LLM-scale pass)
+    ASSUMED  s_reg_lo              0.001  share of experiment compute spent sweeping penalty / KL / anchor weights, low
+    ASSUMED  s_reg_hi               0.02  share of experiment compute spent sweeping penalty / KL / anchor weights, high
+    ASSUMED  confirm_configs           3  configurations a lab would still run to confirm the rule (of the instrument's 17)
+    ASSUMED  rnd_share_2026       0.7143  R&D share of 2026 lab compute, taken from the 2024 OpenAI split
+    ASSUMED  n_labs_hi                 2  frontier labs in the high end of the spend range
+    ASSUMED  p_use_case_ok           0.5  P(an applied use case exists in the EPO application as filed and satisfies Art. 123(2))
+    ASSUMED  p_grant_given_use       0.7  P(grant | such a use case; owner's statement: claims agreed in principle)
+    ASSUMED  p_cover                 0.1  P(granted claims cover an implementation a lab actually uses)
+    ASSUMED  roy_lo                0.005  share of the value created a patent holder captures, low
+    ASSUMED  roy_hi                 0.05  share of the value created a patent holder captures, high
+    derived: experiment compute of adopting labs in 2026, log-uniform from $4,500,000,000 to $71,428,571,429; yearly growth up to 2.2000; share of a sweep saved 0.8235 to 0.9412
+    derived: P(GPU PASS-1) = Laplace on the rule's held-out studies, 0 PASS-1 of 2 = 0.2500
+    derived: P(adopted by 2029) = 0.2500 x 0.20 x 0.30 = 0.0150; P(a granted patent covers the used implementation) = 0.50 x 0.70 x 0.10 = 0.0350
+[3b] Value the rule would create in the field (saved sweep compute), USD
+    2029, if adopted:            lower $38,285,915 | middle $232,739,581 | upper $1,413,980,686 | mean $562,378,273
+    2030, if adopted:            lower $48,481,151 | middle $347,819,511 | upper $2,484,196,052 | mean $983,559,426
+    2029-2030 cumulative, all futures: lower $0 | middle $0 | upper $0 | mean $21,289,825 | share of futures with any value 0.0143
+    2029-2030 cumulative, adopted futures only: lower $95,290,461 | middle $580,702,405 | upper $4,341,466,855
+[3c] What a patent holder could capture, USD (2029-2030)
+    all futures: lower $0 | middle $0 | upper $0 | mean $1,130 | share of futures with any income 0.0004
+    futures with income only: lower $373,639 | middle $1,499,953 | upper $5,484,681
+    cost side: EPO renewal fees through year 7 for one application EUR 5,250 (attorney, validation and national fees not included)
+[4] Sensitivity (one change at a time): mean value created 2029-2030 | mean patent-holder capture | P(adopted)
+    registered                                          $21,289,825 |       $1,130 | 0.0150
+    GPU pass at the PASS-0 level (1 of 2)               $44,956,948 |       $6,209 | 0.0300
+    LLM transfer 0.05 (Adam removes the advantage)       $4,030,742 |          $14 | 0.0037
+    LLM transfer 0.5                                    $56,277,153 |      $23,945 | 0.0375
+    sweep share 0.0005 to 0.005                          $6,632,646 |         $436 | 0.0150
+    sweep share 0.005 to 0.05                           $66,326,465 |       $4,356 | 0.0150
+    patent covers 0.02                                  $21,289,825 |          $75 | 0.0150
+    patent covers 0.3                                   $21,289,825 |      $27,698 | 0.0150
+[5] The patent calendar that bears on an applied use case (dates; information, not legal advice)
+    EPO application filed August 2025 (owner's statement; day not given, the 1st used for arithmetic): 2025-08
+    Paris Convention priority year for filings elsewhere claiming it: ended 2026-08
+    repository public since 2026-09-15 (GitHub API: created_at 2026-09-15T04:06:50Z, visibility public)
+    EPO: anything first published in the repository is prior art for any NEW European filing (no grace period); the pending application can only be amended within its content as filed (Art. 123(2))
+    US: a filing on repository-disclosed matter would have to be made within one year of its first disclosure, i.e. no later than 2027-09-15 for matter first published on 2026-09-15
+    a European patent's term runs 20 years from filing: to 2045-08
