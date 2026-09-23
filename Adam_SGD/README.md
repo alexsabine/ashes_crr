@@ -12,3 +12,6 @@ script.
 | `DECLARATION_1.md` | the assumption audit: which objective, which noise, selection bias, the step size as a fixed parameter; the lessons that bind the next battery |
 | `checks/common.py` | shared trajectory code (the two-task quadratic of `theory/checks/omega_sweeps.py`, with the scale's reading and the noise made explicit) |
 | `checks/assumptions.py` | the audit (AS1–AS6); pinned output `checks/assumptions.txt` |
+| `DECLARATION_2.md` | the drifting-world battery: a gate (a stationary world where the rule must not win, a drifting-units world where it must) and four realistic worlds (wandering units, a calibrated eight-task sequence, a miscalibrated one, a low-signal past gradient) under SGD, momentum and Adam coupled and decoupled |
+| `checks/engine.py` | the batched engine (all weights and seeds at once, paired random draws; reproduces `common.run`) |
+| `checks/drift_battery.py` | the battery; pinned output `checks/drift_battery.txt` |
