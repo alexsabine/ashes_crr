@@ -1337,3 +1337,7 @@ Scratchpad. What is the significance of the six bullet points above? In plain te
 ## 166 — 2026-09-24T22:27:53Z
 
 This reminds me of a conversation I had recently where someone said that the safer we try to make these systems, the smarter they become and therefore the less potentially safe. Is this relevant to the findings that we have so far?
+
+## 167 — 2026-09-24T22:32:21Z
+
+Excellent. Scratchpad. Where did we get to with CRR 2.0?
