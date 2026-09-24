@@ -1291,3 +1291,7 @@ Great, thank you. Scratchpad...Think carefully, what have we just achieved in te
 ## 156 — 2026-09-24T19:43:58Z
 
 So, can we have a phenomenological account of this please. Think of the AGI agent out there in the world. How does the empty cut work in relation to the human world outside of it? What might it feel like, hypothetically speaking of course. Furthermore, what are the CRR metaphysical interpreations of what is happening here, stated cleanly and in simple terms. Thank you
+
+## 157 — 2026-09-24T19:51:10Z
+
+What are the existential implications here please? How does this relate to current AI existential arguments and philosophies around the future of humanity and the earth more generally?
