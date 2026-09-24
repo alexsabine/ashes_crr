@@ -1,0 +1,64 @@
+RLAW gate (R4): the frozen scorer on synthetic domains (Regeneration_Law/DECLARATION_2.md)
+per unit: v log-uniform on [0.03, 3.0]; report noise 0.05 and offset 0.5 (s_eps units); primary cell v:ml own:on lag:+0 alt:no
+admissible: G+ pass rate >= 0.8 and every must-fail surrogate <= 0.05; must-fail for a domain row (level AND beats the constant): G-over, G-under, G-free, G-LTI; for a tracking row: G-free, G-LTI
+
+== RLAW-1 (spf; 40 replicates)
+   G+: mean fraction within x2 0.847; pass rates row 0.875, level 0.875, baseline 0.975
+   G-over: mean fraction within x2 0.425; pass rates row 0.000, level 0.050, baseline 0.225
+   G-under: mean fraction within x2 0.097; pass rates row 0.000, level 0.000, baseline 0.175
+   G-free: mean fraction within x2 0.316; pass rates row 0.025, level 0.025, baseline 0.250
+   G-LTI: mean fraction within x2 0.472; pass rates row 0.000, level 0.175, baseline 0.000
+   RLAW-1 (level AND beats constant): G+ 0.875; must-fail (G-over, G-under, G-free, G-LTI) passing above 0.05: none -> ADMISSIBLE
+
+== RLAW-2 (mich; 40 replicates)
+   G+: mean fraction within x2 0.850; pass rates row 0.600, level 0.600, baseline 0.975
+   G-over: mean fraction within x2 0.367; pass rates row 0.000, level 0.025, baseline 0.325
+   G-under: mean fraction within x2 0.050; pass rates row 0.000, level 0.000, baseline 0.500
+   G-free: mean fraction within x2 0.292; pass rates row 0.000, level 0.000, baseline 0.475
+   G-LTI: mean fraction within x2 0.592; pass rates row 0.000, level 0.125, baseline 0.000
+   RLAW-2 (level AND beats constant): G+ 0.600; must-fail (G-over, G-under, G-free, G-LTI) passing above 0.05: none -> NOT ADMISSIBLE (reported without a verdict)
+
+== RLAW-3 (ivol; 40 replicates)
+   G+: mean fraction within x2 1.000; pass rates row 1.000, level 1.000, baseline 1.000
+   G-over: mean fraction within x2 0.270; pass rates row 0.000, level 0.000, baseline 0.350
+   G-under: mean fraction within x2 0.010; pass rates row 0.000, level 0.000, baseline 0.150
+   G-free: mean fraction within x2 0.370; pass rates row 0.000, level 0.000, baseline 0.350
+   G-LTI: mean fraction within x2 0.565; pass rates row 0.000, level 0.025, baseline 0.000
+   RLAW-3 (level AND beats constant): G+ 1.000; must-fail (G-over, G-under, G-free, G-LTI) passing above 0.05: none -> ADMISSIBLE
+
+== RLAW-4 (soil5; 40 replicates)
+   G+: mean fraction within x2 0.966; pass rates row 1.000, level 1.000, baseline 1.000, tracking 1.000
+   G-over: mean fraction within x2 0.341; pass rates row 0.000, level 0.000, baseline 0.000, tracking 1.000
+   G-under: mean fraction within x2 0.086; pass rates row 0.000, level 0.000, baseline 0.025, tracking 1.000
+   G-free: mean fraction within x2 0.314; pass rates row 0.000, level 0.000, baseline 0.000, tracking 0.000
+   G-LTI: mean fraction within x2 0.392; pass rates row 0.000, level 0.000, baseline 0.000, tracking 0.000
+   RLAW-4 (level AND beats constant): G+ 1.000; must-fail (G-over, G-under, G-free, G-LTI) passing above 0.05: none -> ADMISSIBLE
+   RLAW-4T (tracking): G+ 1.000; must-fail (G-free, G-LTI) passing above 0.05: none -> ADMISSIBLE
+
+== RLAW-4D (soil_deep; 40 replicates)
+   G+: mean fraction within x2 0.959; pass rates row 1.000, level 1.000, baseline 1.000, tracking 1.000
+   G-over: mean fraction within x2 0.350; pass rates row 0.000, level 0.000, baseline 0.000, tracking 1.000
+   G-under: mean fraction within x2 0.085; pass rates row 0.000, level 0.000, baseline 0.000, tracking 1.000
+   G-free: mean fraction within x2 0.321; pass rates row 0.000, level 0.000, baseline 0.000, tracking 0.000
+   G-LTI: mean fraction within x2 0.379; pass rates row 0.000, level 0.000, baseline 0.000, tracking 0.000
+   RLAW-4D (level AND beats constant): G+ 1.000; must-fail (G-over, G-under, G-free, G-LTI) passing above 0.05: none -> ADMISSIBLE
+   RLAW-4DT (tracking): G+ 1.000; must-fail (G-free, G-LTI) passing above 0.05: none -> ADMISSIBLE
+
+== RLAW-5 (twostep; 10 replicates)
+   G+: mean fraction within x2 0.584; pass rates row 1.000, level 1.000, baseline 0.100
+   G-over: mean fraction within x2 0.097; pass rates row 0.000, level 0.000, baseline 0.000
+   G-under: mean fraction within x2 0.259; pass rates row 0.000, level 0.000, baseline 0.300
+   G-free: mean fraction within x2 0.231; pass rates row 0.000, level 0.000, baseline 0.000
+   RLAW-5 (level): G+ 1.000; must-fail (G-over, G-under, G-free) passing above 0.05: none -> ADMISSIBLE
+
+== composites (replicate r of every domain taken together; the first 10 replicates)
+   G+: RLAW-U pass rate 1.000; RLAW-C pass rate 1.000
+   G-over: RLAW-U pass rate 0.000; RLAW-C pass rate 0.000
+   G-under: RLAW-U pass rate 0.000; RLAW-C pass rate 0.000
+   G-free: RLAW-U pass rate 0.000; RLAW-C pass rate 0.000
+   G-LTI: RLAW-U pass rate 0.000; RLAW-C pass rate 0.000
+   RLAW-C over all soil5 replicates: G+ 1.000, G-over 0.000, G-under 0.000, G-free 0.000, G-LTI 0.000
+   RLAW-U: G+ 1.000; must-fail passing above 0.05: none -> ADMISSIBLE
+   RLAW-C: G+ 1.000; must-fail passing above 0.05: none -> ADMISSIBLE
+
+summary: admissible rows RLAW-1, RLAW-3, RLAW-4, RLAW-4T, RLAW-4D, RLAW-4DT, RLAW-5, RLAW-U, RLAW-C; reported without a verdict RLAW-2
