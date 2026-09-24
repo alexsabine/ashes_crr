@@ -1355,3 +1355,7 @@ Is there value to being able to run the pause construction on an LLM system such
 Question for scratchpad. When Claude or any AI spills out the text in cot and the main text etc, I notice the user can’t change the speed it pours out, or pause it.
 
 Equally for python etc, I don’t see a pause button when a script is running. Is that a known thing? Tell me more about it.
+
+## 171 — 2026-09-24T23:14:48Z
+
+If the AI runs on natural crr time, and the clock time is the human world, but the human world runs on crr time, what’s going on there? Consider metaphysically and in terms of temporal boxes, space-time and AI safety etc. thanks
