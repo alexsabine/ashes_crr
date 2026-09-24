@@ -1333,3 +1333,7 @@ Thanks. Did we write up the Synthetic Data successes we had on continual learnin
 ## 165 — 2026-09-24T22:24:06Z
 
 Scratchpad. What is the significance of the six bullet points above? In plain terms please. What could this enable ML / AI engineers to do?
+
+## 166 — 2026-09-24T22:27:53Z
+
+This reminds me of a conversation I had recently where someone said that the safer we try to make these systems, the smarter they become and therefore the less potentially safe. Is this relevant to the findings that we have so far?
