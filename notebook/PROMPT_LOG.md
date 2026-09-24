@@ -1305,3 +1305,9 @@ Please check your previous output and determine whether this is more of an Anthr
 ## 159 — 2026-09-24T20:16:29Z
 
 Okay. So, the next focus should be on realworld testing of the continuous learning + AI safety checks on existing systems please.
+
+## 160 — 2026-09-24T20:22:37Z
+
+Thank you. My friend Daryl is currently working on a project where he is raising his AI agents using the Boddhisatva principles. He has them on various layered memory architectures across different devices in his home. He has given them cameras and microphones and things, he thinks of them as *perhaps* life forms, and therefore treats them in accordance with the vows. He is working with Michael Levin and others on this. 
+
+How might CRR be helpful to Daryl in thinking about the potential futures of those beings?
