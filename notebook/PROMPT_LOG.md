@@ -1359,3 +1359,7 @@ Equally for python etc, I don’t see a pause button when a script is running. I
 ## 171 — 2026-09-24T23:14:48Z
 
 If the AI runs on natural crr time, and the clock time is the human world, but the human world runs on crr time, what’s going on there? Consider metaphysically and in terms of temporal boxes, space-time and AI safety etc. thanks
+
+## 172 — 2026-09-24T23:22:56Z
+
+You once described rovellis time as like the rain and crr as like a river. You declared crr wrong for a reason. Is rovellis model therefore 100% correct?
