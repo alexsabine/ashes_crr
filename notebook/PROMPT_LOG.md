@@ -1213,3 +1213,7 @@ Scratchpad. I like "The Regeneration Law" title (that is CRR 2.0) from now on. H
 ## 141 — 2026-09-24T15:47:17Z
 
 Where did we get to on the crr 2.0 predictions? Soil for instance
+
+## 142 — 2026-09-24T15:49:53Z
+
+Thank you. Scratchpad. Please consider the breadth of domains crr is working on and whether this kind of broad cross paradigm approach might be helpful for building a generalised predictive system. See mantic online for their offer and where a paradigm like crr stands in relation to that kind of predictive approach please.
