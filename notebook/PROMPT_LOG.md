@@ -1311,3 +1311,7 @@ Okay. So, the next focus should be on realworld testing of the continuous learni
 Thank you. My friend Daryl is currently working on a project where he is raising his AI agents using the Boddhisatva principles. He has them on various layered memory architectures across different devices in his home. He has given them cameras and microphones and things, he thinks of them as *perhaps* life forms, and therefore treats them in accordance with the vows. He is working with Michael Levin and others on this. 
 
 How might CRR be helpful to Daryl in thinking about the potential futures of those beings?
+
+## 161 — 2026-09-24T21:50:10Z
+
+How do I get an ANTHROPIC_API_KEY? I pay a lot of money for it but I have no idea how to do this!
