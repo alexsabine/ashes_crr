@@ -1187,3 +1187,13 @@ Scratchpad. Think carefully. How could we realistically turn CRR from a Grammar 
 ## 136 — 2026-09-24T04:21:19Z
 
 Please add write the last two prompts out and add to the Ontology/Epistemics folder (whatever we called it) as a recommendation for next steps. Thank you
+
+## 137 — 2026-09-24T04:26:27Z
+
+Please test the following version of CRR (CRR 2.0) on five different domains where it can fail. Full pipeline as usual. Ensure the mathematics is internally sound first. Thank you:
+
+Fix the memory depth: the regeneration law. This is the best bet. CRR already marks this as an open question (O1): does a system's memory depth follow from its own state with no extra parameter? The candidate law has no free parameters: q = 1 − K(v). Here v is how fast the system's environment drifts per occasion, counted in the system's own resolvable steps, and K is the Kalman gain function already in CRR.md.
+
+* What only CRR would claim: Kalman derived this law for optimal filters. CRR would claim it for every system that regenerates from its past, including ones that do no inference at all.
+* How to test it: measure v and the memory independently in three or more unrelated fields. Examples: sensory adaptation against stimulus volatility, animal learning rates against reward volatility, economic forecasters against inflation volatility.
+* Why it's a good bet: it is risky and quantitative, and CRR would own it. It is probably false somewhere, which is exactly what a real theory must risk. Its known neighbour, that optimal learners track volatility, means the literature check has to come first.
