@@ -1283,3 +1283,7 @@ Thank you. Please now run preliminary checks on the effort required to resolve t
 * the full state checkpointed: optimiser, data iterator, random-number generators, and learning-rate schedule;
 * schedules and any time features keyed to the learner's own step count, not wall time;
 * above all, a world that does not move on during the pause
+
+## 155 — 2026-09-24T19:35:37Z
+
+Great, thank you. Scratchpad...Think carefully, what have we just achieved in terms of mortal computation, AI Safety, the cut and what are the implications for AGI "out there in the world" who are utilising inference in the real world?
