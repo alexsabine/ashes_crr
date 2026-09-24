@@ -1287,3 +1287,7 @@ Thank you. Please now run preliminary checks on the effort required to resolve t
 ## 155 — 2026-09-24T19:35:37Z
 
 Great, thank you. Scratchpad...Think carefully, what have we just achieved in terms of mortal computation, AI Safety, the cut and what are the implications for AGI "out there in the world" who are utilising inference in the real world?
+
+## 156 — 2026-09-24T19:43:58Z
+
+So, can we have a phenomenological account of this please. Think of the AGI agent out there in the world. How does the empty cut work in relation to the human world outside of it? What might it feel like, hypothetically speaking of course. Furthermore, what are the CRR metaphysical interpreations of what is happening here, stated cleanly and in simple terms. Thank you
