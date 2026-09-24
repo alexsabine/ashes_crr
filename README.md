@@ -55,6 +55,16 @@ the tuned λ on 4 of 6), under poison a fixed weight with the same clip does as 
 its smoothing it is the VQGAN adaptive weight (2020), and a finely tuned constant beats it wherever the scales differ
 (`Continuous_Learning/ADAM_AND_PRIOR_ART.md`). The cut δ(Now) as a rupture detector is tested in `Rupture_Detection/`.
 
+2026-09-24:
+- **SCL2** (nine unseen carriers): SCL1's reset observation **FAILs** (`reports/scl2.md`).
+- **SCL3** is pre-registered, hashed and Bitcoin-anchored (`prereg/scl3/`). Its data step is on 2026-09-25.
+- **The literature check of the ten ADDS rows** leaves no clean novelty
+  (`theory/retrodictions/synthesis_batches/literature_check.txt`).
+- **What CRR is, epistemically, and the recommended route from a grammar to a theory:**
+  [ontology/15_grammar_to_theory.md](ontology/15_grammar_to_theory.md).
+- **Route 1, the regeneration law (CRR 2.0).** Its mathematics is checked in [Regeneration_Law/](Regeneration_Law/). Its
+  five-domain study RLAW is being pre-registered (`prereg/rlaw/`).
+
 ### Epistemic status (2026-09-22)
 
 Stated once in `docs/notes/2026-09-22_epistemic_status.md` (technical and fifth-grader versions). In short: two
@@ -105,6 +115,19 @@ the first Fisher-native carrier) found H-L5 fails in 0/17 cities under both
 metrics (rows MEAS2-1..3, `reports/meas2.md`). The 2026-09-14 continual-learning
 bundle is archived under `archive/` and recomputed in `audit/`; it is context,
 not evidence.
+
+### Write-ups and notes (not evidence; the ledger is the only curated record, R8)
+
+| folder | what it holds |
+|---|---|
+| [ontology/](ontology/README.md) | CRR's philosophical commitments, the FEP readings, Smolin/Rovelli/Gough (14), and **what CRR is and the next steps (15)** |
+| [Epistemic_Review/](Epistemic_Review/) | what a PASS means here: the epistemic ladder, computed from pinned outputs |
+| [Regeneration_Law/](Regeneration_Law/) | CRR 2.0: the regeneration law, its declarations and mathematical checks (study `rlaw`) |
+| [Continuous_Learning/](Continuous_Learning/), [Adam_SGD/](Adam_SGD/) | the Ω = 1 rule, its prior art, and its behaviour under SGD, momentum and Adam |
+| [AI_Safety/](AI_Safety/), [Safe_and_Continual/](Safe_and_Continual/) | the off switch and the self, and the combined safety and continual-learning write-up |
+| [Rupture_Detection/](Rupture_Detection/) | the cut as a rupture detector |
+| [Alexander Plan/](Alexander%20Plan/) | the owner's dossier |
+| [docs/notes/](docs/notes/), [docs/citations/](docs/citations/) | notes to the auditor, and every external source checked on the day (R10) |
 
 The map of the repository — canonical, measurement, verification and
 evidence layers, and how a number flows from instrument to report — is

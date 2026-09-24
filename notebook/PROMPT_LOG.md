@@ -1197,3 +1197,7 @@ Fix the memory depth: the regeneration law. This is the best bet. CRR already ma
 * What only CRR would claim: Kalman derived this law for optimal filters. CRR would claim it for every system that regenerates from its past, including ones that do no inference at all.
 * How to test it: measure v and the memory independently in three or more unrelated fields. Examples: sensory adaptation against stimulus volatility, animal learning rates against reward volatility, economic forecasters against inflation volatility.
 * Why it's a good bet: it is risky and quantitative, and CRR would own it. It is probably false somewhere, which is exactly what a real theory must risk. Its known neighbour, that optimal learners track volatility, means the literature check has to come first.
+
+## 138 — 2026-09-24T05:18:50Z
+
+Please can you check where my previous request to put the ontological/epistemological next steps got to? Is everything pulled into the main directory so everything is organised neatly in the repo? All new findings etc.?

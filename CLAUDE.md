@@ -219,6 +219,8 @@ ontology/                  CRR's commitments against philosophy, contemplative t
                            the tense test (checks/tense_gate.py: a valence-free A6 regenerator against an active-inference planner)
                            ; 12_self_representation.md the self-model and equanimity test (checks/self_model.py)
                            ; 13_mortal_computation_and_safety.md mortal computation, the off switch and raising an agent (checks/off_switch.py)
+                           ; 14_smolin_rovelli_gough.md Smolin, Rovelli and Gough through CRR (synthesis batches 29-30)
+                           ; 15_grammar_to_theory.md what CRR is epistemically and the recommended next steps (routes from grammar to theory)
 Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Markdown source, figures drawn from pinned
                            records by build/make_figures.py with figures.txt pinned and CI-checked, build/build_pdf.py); a
                            note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods
@@ -251,6 +253,9 @@ Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how th
                            the learned reruns): the Omega agents' ratio guard divided by round-off; exact Omega = 1 task 0.1205 -> 0.1887,
                            learned self-model T-4 'delayed' reading changed; §4.3 + F15 the real-data run SCL1 (DECLARATION_2.md,
                            checks/scl1_math.txt; study studies/scl1, prereg/scl1, runs/scl1, reports/scl1.md); a note, not evidence (R8)
+Regeneration_Law/          CRR 2.0, the regeneration law alpha* = K(v_own) (prompt-log entry 137; route 1 of ontology/15):
+                           DECLARATION_1-2.md pushed before checks/math_checks.py and checks/operational_checks.py (pinned, CI-checked);
+                           the study is studies/rlaw, prereg/rlaw, runs/rlaw; literature and data checks in docs/citations/rlaw_*; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)
