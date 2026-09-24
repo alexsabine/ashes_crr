@@ -127,6 +127,7 @@ not evidence.
 | [Empty_Centre/](Empty_Centre/) | **the programme's focus from 2026-09-24:** continual learning and AI safety as one design, with maps and territories, CRR against the FEP, equanimity, and the lab's practice |
 | [Cut_Content/](Cut_Content/) | when does a cut need content? The synthetic gate for resets and plasticity remedies against the empty cut: **GATE CLOSED** (the convex must-fail world and the reversion separation failed; the lossless-pause safety construction held), so no real-data prereg follows |
 | [Empty_Cut_Engineering/](Empty_Cut_Engineering/) | what it takes to make a pause empty on a real training stack (PyTorch): the full state, clocks keyed to the learner's own steps, and a world that waits. Achievable bitwise for the learner and for buffered open-loop streams and simulators; not for a real-time closed-loop world |
+| [Real_World/](Real_World/) | real-world testing of continual learning and AI safety on existing systems: the Hugging Face Trainer's resume is an empty cut (RW1); the continual-safety gate on a surrogate is closed twice while the pause construction holds (RW2 Phase A); RW3 awaits an API key |
 | [ontology/](ontology/README.md) | CRR's philosophical commitments, the FEP readings, Smolin/Rovelli/Gough (14), and **what CRR is and the next steps (15)** |
 | [Epistemic_Review/](Epistemic_Review/) | what a PASS means here: the epistemic ladder, computed from pinned outputs |
 | [Regeneration_Law/](Regeneration_Law/) | CRR 2.0: the regeneration law, its declarations and mathematical checks (study `rlaw`) |

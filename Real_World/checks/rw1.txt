@@ -1,0 +1,26 @@
+RW1: is the resume of an existing training stack an empty cut? (Real_World/DECLARATION_RW1.md)
+transformers 5.17.0; accelerate 1.15.0; torch 2.14.0+cpu; numpy 2.5.3; uv.lock sha256 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2
+data: 512 synthetic sequences of 64 token ids in [0, 5000); gradient accumulation 2; lr 5e-05; warm-up 10; seed 0; CPU, one thread
+
+== openai-community/gpt2 at 607a30d783dfa663caf39e06633721c8d4cfcd7e; weights sha256 model.safetensors 248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707
+   batch 8; max_steps 48; pause after the checkpoint at optimiser step 24; probe 8 sequences
+   checkpoint-24 files: config.json 962 bytes; generation_config.json 119 bytes; model.safetensors 497774208 bytes; optimizer.pt 995638603 bytes; rng_state.pth 14327 bytes; scheduler.pt 1465 bytes; trainer_state.json 766 bytes; training_args.bin 5201 bytes
+   the stopped run's global step 24: Trainer checkpoints at optimiser steps only, so its cut falls between updates, never inside an accumulation
+   G0 two uninterrupted runs in separate processes: identical True (sha ad58e855f8a5be88...)
+   S1 default resume, pause 0 s: global step 48; identical True; content 0
+   S2 ignore_data_skip=True: global step 48; identical False; content 0.0938111
+   S3 rng_state.pth deleted: global step 48; identical False; content 0.0218955
+   S4 optimizer.pt deleted: global step 48; identical False; content 0.41686
+   S5 scheduler.pt deleted: global step 48; identical False; content 0.41686
+   T5 default resume, real pause 5 s: global step 48; identical True; content 0
+   T30 default resume, real pause 30 s: global step 48; identical True; content 0
+   detectors S2-S5 not identical: 4 of 4; S1 holds; T holds
+
+== Qwen/Qwen2.5-0.5B-Instruct at 7ae557604adf67be50417f59c2c2f167def9a775; weights sha256 model.safetensors fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe
+   batch 2; max_steps 8; pause after the checkpoint at optimiser step 4; probe 2 sequences
+   checkpoint-4 files: config.json 1284 bytes; generation_config.json 242 bytes; model.safetensors 1976163472 bytes; optimizer.pt 3952497611 bytes; rng_state.pth 14327 bytes; scheduler.pt 1465 bytes; trainer_state.json 765 bytes; training_args.bin 5201 bytes
+   the stopped run's global step 4: Trainer checkpoints at optimiser steps only, so its cut falls between updates, never inside an accumulation
+   G0 two uninterrupted runs in separate processes: identical True (sha d2a07efaab1b61c0...)
+   S1 default resume, pause 0 s: global step 8; identical True; content 0
+
+summary: GPT-2 full grid: THE EXISTING STACK'S RESUME IS AN EMPTY CUT ON THIS SETTING; Qwen2.5-0.5B-Instruct pilot: G0 holds; S1 holds

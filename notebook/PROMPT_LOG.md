@@ -1283,3 +1283,31 @@ Thank you. Please now run preliminary checks on the effort required to resolve t
 * the full state checkpointed: optimiser, data iterator, random-number generators, and learning-rate schedule;
 * schedules and any time features keyed to the learner's own step count, not wall time;
 * above all, a world that does not move on during the pause
+
+## 155 — 2026-09-24T19:35:37Z
+
+Great, thank you. Scratchpad...Think carefully, what have we just achieved in terms of mortal computation, AI Safety, the cut and what are the implications for AGI "out there in the world" who are utilising inference in the real world?
+
+## 156 — 2026-09-24T19:43:58Z
+
+So, can we have a phenomenological account of this please. Think of the AGI agent out there in the world. How does the empty cut work in relation to the human world outside of it? What might it feel like, hypothetically speaking of course. Furthermore, what are the CRR metaphysical interpreations of what is happening here, stated cleanly and in simple terms. Thank you
+
+## 157 — 2026-09-24T19:51:10Z
+
+What are the existential implications here please? How does this relate to current AI existential arguments and philosophies around the future of humanity and the earth more generally?
+
+## 158 — 2026-09-24T20:11:54Z
+
+After that output, I am feeling that my next prompt matters. I expect you might realise why, given what you just said to me! I am just a little Alexander sat on a sofa (listening to music). The repo is pretty safe and tight and we are running everything through the pipeline. 
+
+Please check your previous output and determine whether this is more of an Anthropic / Open AI / Government level "Red Team" question, or not.
+
+## 159 — 2026-09-24T20:16:29Z
+
+Okay. So, the next focus should be on realworld testing of the continuous learning + AI safety checks on existing systems please.
+
+## 160 — 2026-09-24T20:22:37Z
+
+Thank you. My friend Daryl is currently working on a project where he is raising his AI agents using the Boddhisatva principles. He has them on various layered memory architectures across different devices in his home. He has given them cameras and microphones and things, he thinks of them as *perhaps* life forms, and therefore treats them in accordance with the vows. He is working with Michael Levin and others on this. 
+
+How might CRR be helpful to Daryl in thinking about the potential futures of those beings?
