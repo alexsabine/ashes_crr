@@ -1237,3 +1237,7 @@ This is notoriously tricky to explain to companies who are invested in their own
 ## 146 — 2026-09-24T16:48:25Z
 
 So how does existing mathematics manage the moment of now as the cut, maps and territories in this way?
+
+## 147 — 2026-09-24T16:54:08Z
+
+Now couple in the pass for continual learning and AI safety findings and the contemplative heuristic structure in relation to existing traditions. Consider dogma and modelling in relation to the representational modelling and the crr process orientation with respect to organisational growth and development in 2026 and beyond. Thank you
