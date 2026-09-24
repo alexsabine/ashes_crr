@@ -52,10 +52,10 @@ jobs:
           uv run python AI_Safety/checks/self_through_time.py 2>/dev/null > /tmp/ais_stt.txt && cmp /tmp/ais_stt.txt AI_Safety/checks/self_through_time.txt
           uv run python AI_Safety/checks/continual_safety.py 2>/dev/null > /tmp/ais_cs.txt && cmp /tmp/ais_cs.txt AI_Safety/checks/continual_safety.txt
           uv run python AI_Safety/build/make_figures.py 2>/dev/null > /tmp/aisf.txt && cmp /tmp/aisf.txt AI_Safety/figures/figures.txt
-          uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1
+          uv run python AI_Safety/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python Safe_and_Continual/checks/roundoff_audit.py 2>/dev/null > /tmp/sac_audit.txt && cmp /tmp/sac_audit.txt Safe_and_Continual/checks/roundoff_audit.txt
           uv run python Safe_and_Continual/build/make_figures.py 2>/dev/null > /tmp/sac_figs.txt && cmp /tmp/sac_figs.txt Safe_and_Continual/figures/figures.txt
-          uv run python Safe_and_Continual/build/build_pdf.py > /dev/null 2>&1
+          uv run python Safe_and_Continual/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python studies/scl1/scl1_score.py math 2>/dev/null > /tmp/scl1_math.txt && cmp /tmp/scl1_math.txt Safe_and_Continual/checks/scl1_math.txt
           uv run python runs/scl1/frozen/scl1_score.py gate 2>/dev/null > /tmp/scl1_gate.txt && cmp /tmp/scl1_gate.txt prereg/scl1/gate_SCL.txt
           uv run python runs/scl1/counts.py 2>/dev/null > /tmp/scl1_counts.txt && cmp /tmp/scl1_counts.txt runs/scl1/counts.txt
@@ -64,25 +64,25 @@ jobs:
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"
           uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null > /tmp/ap_clp.txt && cmp /tmp/ap_clp.txt "Alexander Plan/model/cl_patent.txt"
           uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null > /tmp/ap_figs.txt && cmp /tmp/ap_figs.txt "Alexander Plan/figures/figures.txt"
-          uv run python "Alexander Plan/build/build_pdf.py" > /dev/null 2>&1
+          uv run python "Alexander Plan/build/build_pdf.py" > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python Epistemic_Review/checks/ladder.py 2>/dev/null > /tmp/er_ladder.txt && cmp /tmp/er_ladder.txt Epistemic_Review/checks/ladder.txt
           uv run python Epistemic_Review/build/make_figures.py 2>/dev/null > /tmp/er_figs.txt && cmp /tmp/er_figs.txt Epistemic_Review/figures/figures.txt
-          uv run python Epistemic_Review/build/build_pdf.py > /dev/null 2>&1
+          uv run python Epistemic_Review/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python Continuous_Learning/checks/adam_checks.py 2>/dev/null > /tmp/cl_adam.txt && cmp /tmp/cl_adam.txt Continuous_Learning/checks/adam_checks.txt
           uv run python Continuous_Learning/checks/adam_checks_2.py 2>/dev/null > /tmp/cl_adam2.txt && cmp /tmp/cl_adam2.txt Continuous_Learning/checks/adam_checks_2.txt
           uv run python Continuous_Learning/checks/adam_checks_3.py 2>/dev/null > /tmp/cl_adam3.txt && cmp /tmp/cl_adam3.txt Continuous_Learning/checks/adam_checks_3.txt
-          uv run python Continuous_Learning/build/build_adam_pdf.py > /dev/null 2>&1
-          uv run python Continuous_Learning/build/build_frontier_pdf.py > /dev/null 2>&1
+          uv run python Continuous_Learning/build/build_adam_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
+          uv run python Continuous_Learning/build/build_frontier_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python Adam_SGD/checks/assumptions.py 2>/dev/null > /tmp/as1.txt && cmp /tmp/as1.txt Adam_SGD/checks/assumptions.txt
           uv run python Adam_SGD/checks/drift_battery.py 2>/dev/null > /tmp/as2.txt && cmp /tmp/as2.txt Adam_SGD/checks/drift_battery.txt
           uv run python Adam_SGD/checks/drift_battery_2.py 2>/dev/null > /tmp/as3.txt && cmp /tmp/as3.txt Adam_SGD/checks/drift_battery_2.txt
           uv run python Adam_SGD/checks/mechanism.py 2>/dev/null > /tmp/as4.txt && cmp /tmp/as4.txt Adam_SGD/checks/mechanism.txt
-          uv run python Adam_SGD/build/build_pdf.py > /dev/null 2>&1
+          uv run python Adam_SGD/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python Rupture_Detection/checks/rupture_checks.py 2>/dev/null > /tmp/rd.txt && cmp /tmp/rd.txt Rupture_Detection/checks/rupture_checks.txt
           uv run python Regeneration_Law/checks/math_checks.py 2>/dev/null > /tmp/rl_math.txt && cmp /tmp/rl_math.txt Regeneration_Law/checks/math_checks.txt
           uv run python Regeneration_Law/checks/operational_checks.py 2>/dev/null > /tmp/rl_op.txt && cmp /tmp/rl_op.txt Regeneration_Law/checks/operational_checks.txt
           uv run python studies/rlaw/loader_check.py 2>/dev/null > /tmp/rl_lc.txt && cmp /tmp/rl_lc.txt prereg/rlaw/loader_check.txt
-          uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1
+          uv run python Rupture_Detection/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
           uv run python theory/retrodictions/sharp_claims.py > /tmp/sharp.txt && cmp /tmp/sharp.txt theory/retrodictions/sharp_claims.txt
           uv run python theory/retrodictions/bio_retrodictions.py > /tmp/bio.txt && cmp /tmp/bio.txt theory/retrodictions/bio_retrodictions.txt
@@ -117,7 +117,7 @@ jobs:
           uv run python runs/t1x2/frozen/t1x2_score.py smoke 2>/dev/null > /tmp/t12s.txt && cmp /tmp/t12s.txt prereg/t1x2/smoke.txt
           uv run python runs/t1x2/frozen/t1x2_score.py smokefull --out /tmp/t1x2_smokefull.jsonl 2>/dev/null > /tmp/t12sf.txt && cmp /tmp/t12sf.txt prereg/t1x2/smokefull.txt
           uv run python Continuous_Learning/build/make_figures.py 2>/dev/null > /tmp/cl.txt && cmp /tmp/cl.txt Continuous_Learning/figures/figures.txt
-          uv run python Continuous_Learning/build/build_pdf.py > /dev/null 2>&1
+          uv run python Continuous_Learning/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python crr_retrodictions.py > /tmp/retro2.txt && diff <(grep -o 'verdict [A-Z]*' /tmp/retro2.txt) <(grep -o 'verdict [A-Z]*' runs/phaseA/crr_retrodictions.txt)
 
       - name: Surrogate gates must read GATE OPEN
