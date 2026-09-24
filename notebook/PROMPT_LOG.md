@@ -1329,3 +1329,7 @@ Can we check the continuous learning paper please. Read it carefully again and t
 ## 164 — 2026-09-24T22:21:21Z
 
 Thanks. Did we write up the Synthetic Data successes we had on continual learning+AI Safety in tandem?
+
+## 165 — 2026-09-24T22:24:06Z
+
+Scratchpad. What is the significance of the six bullet points above? In plain terms please. What could this enable ML / AI engineers to do?
