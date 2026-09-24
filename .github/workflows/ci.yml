@@ -35,7 +35,9 @@ jobs:
           uv run python theory/checks/verify_math.py
           uv run python theory/checks/verify_scope_math.py
           uv run python theory/checks/verify_spec_math.py
-          uv run python theory/checks/omega_sweeps.py > /tmp/om.txt && cmp /tmp/om.txt theory/checks/omega_sweeps.txt
+          # omega_sweeps runs the knife-edge dynamics of the Omega rule with exact gradients (Omega > 1 slides away), where
+          # CPU round-off differs across machines: CI compares words (every label) exactly and numbers within tolerance (R9)
+          uv run python theory/checks/omega_sweeps.py > /tmp/om.txt && uv run python scripts/cmp_tol.py /tmp/om.txt theory/checks/omega_sweeps.txt
           uv run python theory/checks/omega_vs_methods.py > /tmp/ovm.txt && cmp /tmp/ovm.txt theory/checks/omega_vs_methods.txt
           uv run python theory/checks/omega_reprocessed.py 2>/dev/null > /tmp/orp.txt && cmp /tmp/orp.txt theory/checks/omega_reprocessed.txt
           uv run python theory/checks/fed_heterogeneous_v1.py 2>/dev/null > /tmp/fed1.txt && cmp /tmp/fed1.txt theory/checks/fed_heterogeneous_v1.txt
