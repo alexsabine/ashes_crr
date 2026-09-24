@@ -1345,3 +1345,7 @@ Excellent. Scratchpad. Where did we get to with CRR 2.0?
 ## 168 — 2026-09-24T22:36:09Z
 
 Thanks, and the LLM checks we did earlier, on GPT 2, how strict were the accuracy requirements? We set a 50% threshold, do we know why this was not passed? Scratchpad only please
+
+## 169 — 2026-09-24T22:39:46Z
+
+Is there value to being able to run the pause construction on an LLM system such as Qwen? Please explain either way, Scratchpad
