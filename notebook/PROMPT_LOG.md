@@ -1217,3 +1217,7 @@ Where did we get to on the crr 2.0 predictions? Soil for instance
 ## 142 — 2026-09-24T15:49:53Z
 
 Thank you. Scratchpad. Please consider the breadth of domains crr is working on and whether this kind of broad cross paradigm approach might be helpful for building a generalised predictive system. See mantic online for their offer and where a paradigm like crr stands in relation to that kind of predictive approach please.
+
+## 143 — 2026-09-24T15:55:36Z
+
+Scratchpad. My thinking is that crr is valuable in terms of understanding maps, territories and therefore modelling through time. Once a map is rendered the territory changes. Metaphysically speaking there is only one true map, which is the cut, which is empty (see AI safety and continual learning tests where this approach worked in synthesis)
