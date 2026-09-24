@@ -1149,3 +1149,7 @@ the environment's network to OpenML/UCI; or SCL2's 9 sets (now seen).
 ## 128 — 2026-09-24T01:51:52Z
 
 Okay, you should have much more access to data now
+
+## 129 — 2026-09-24T02:05:58Z
+
+Scratchpad. Please can we check the consistent, descriptive, redundant domains where CRR worked and where they did not. Analyse the types of system CRR is able to make pre-registered retrodictive predictions in and ones where it is not, please. What is the category where CRR is working and where it is not, and why. Also please give example CRR interpretations of what those retrodictive successes are as seen through a CRR paradigmatic lens. Thank you
