@@ -1263,3 +1263,11 @@ Time should be taken to fully explain the difference between CRR and FEP in resp
 The "Falsifiable Metaphysics" angle of CRR (see Ontological folder) should be a side-quest with relation to explaining what CRR "is" in epistemological / ontological terms, based on the findings from the pipeline. Although this should not become the focus of the work, structural analogies with contemplative metaphysics can be inclued, especially where it might help to explain the Continual Learning and AI Safety coupled principles, especially in the context of 2026 and increased complexity. The equanimity principle here could make sense to both humans and machine systems regarding what it means to hold a representation with equanimity. 
 
 The points around the ever-present Now relate directly to the maps/territories discussions and might help to provide further justification for why a trustworthy frontier research lab might also conduct meditation and somatic practices, as well as the fact that it provides a safe 'nest from which to explore possibility space with humility and grace'.
+
+## 151 — 2026-09-24T18:07:45Z
+
+Thank you. On the Continual Learning and AI Safety benchmark combined front, the CRR principles were used to explore the equanimity principle in effective continuous learning and we found that applying the empty cut (the true map) also helped here (surprisingly). We should run more continual learning checks on this method. I understand some are already in the pipeline?
+
+## 152 — 2026-09-24T18:12:59Z
+
+Yes please run the literature checks and run the pipeline on synthetic data now to prepare for a real-data full pipleine test. Re-read the AI Safety and Continuous Learning papers, and all we have learned subsequently so that the test on full data is run in accordance with the pipeline. Thank you

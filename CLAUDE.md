@@ -264,6 +264,9 @@ Empty_Centre/              the programme's focus from 2026-09-24 (prompt-log ent
                            (zero stake at the cut), maps and territories, CRR against the FEP, equanimity for people and machines, the Now
                            and contemplative practice (evidence graded in docs/citations/contemplative_practice_2026-09-24.md);
                            THE_EMPTY_CENTRE.md + PDF; a note, not evidence (R8)
+Cut_Content/               when does a cut need content? (prompt-log entries 151-152): DECLARATION.md (+ Amendment 1) pushed before
+                           checks/cut_phaseA.py (pinned .txt, ~30 min, rerun by hand); GATE CLOSED (A3 and A4 fail, A7 holds; AGENT_LOG 122),
+                           so no real-data CUT1 prereg (R12); CUT_CONTENT.md; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)
