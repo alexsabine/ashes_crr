@@ -1247,3 +1247,7 @@ Now couple in the pass for continual learning and AI safety findings and the con
 What would it look like phenomenologically for a frontier research lab conducting science in 2026 who were aware of these principles and the equanimity principle as they conduct frontier grade predictive research on a variety of different systems? Please provide a sketch of what such an organisation might be like to work for and how their profit margins work and function in relation to increasing global complexity in the age of AI / AGI.
 
 What is CRRs potential role in this?
+
+## 149 — 2026-09-24T17:17:50Z
+
+Interesting. Can we do an online search for the cutting edge frontier AI safety problems and review where CRR might be applicable to helping to resolve these problems? Incorporate a search for studies where Continual Learning, AI Safety and Corrigibility are synthesised with a single mathematical heuristic. Thank you
