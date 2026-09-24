@@ -270,6 +270,10 @@ Cut_Content/               when does a cut need content? (prompt-log entries 151
 Empty_Cut_Engineering/     what it takes to make a pause empty on a real stack (prompt-log entry 154): DECLARATION.md pushed before
                            checks/stack.py, c1_c2.py, c3_worlds.py (PyTorch 2.14 CPU, `uv run --group realsys`; pinned .txt); the process from
                            A3 + Proposition 7 (state closure, own-clock keying, the world); G0-G7 hold; EMPTY_CUT_ENGINEERING.md; a note, not evidence (R8)
+Real_World/                real-world testing of continual learning + AI safety on existing systems (prompt-log entry 159): REAL_WORLD.md status;
+                           RW1 (DECLARATION_RW1.md, checks/rw1*.py + pinned .txt: HF Trainer resume is an empty cut on GPT-2 and a Qwen pilot; RW1.md);
+                           RW2 Phase A (DECLARATION_RW2_PHASE_A{,_2}.md, checks/rw2_phaseA{,_2}.py + .txt: GATE CLOSED twice, pause construction holds;
+                           AGENT_LOG 125-126); RW3 needs an API key; `uv run --group realsys`; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)

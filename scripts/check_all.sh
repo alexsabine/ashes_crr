@@ -76,6 +76,9 @@ uv run python Maps_and_Territories/checks/performativity.py 2>/dev/null | cmp - 
 uv run python Maps_and_Territories/checks/performativity_2.py 2>/dev/null | cmp - Maps_and_Territories/checks/performativity_2.txt && echo 'maps and territories P5 post hoc byte-identical to the committed output'
 uv run --group realsys python Empty_Cut_Engineering/checks/c3_worlds.py 2>/dev/null | cmp - Empty_Cut_Engineering/checks/c3_worlds.txt && echo 'empty-cut engineering C3 (worlds) byte-identical to the committed output'
 # Empty_Cut_Engineering/checks/c1_c2.txt (about 5 minutes, 35 processes) is not re-run here; rerun by hand: uv run --group realsys python Empty_Cut_Engineering/checks/c1_c2.py | cmp - Empty_Cut_Engineering/checks/c1_c2.txt
+uv run --group realsys python Real_World/checks/rw2_phaseA.py 2>/dev/null | cmp - Real_World/checks/rw2_phaseA.txt && echo 'RW2 Phase A round 1 byte-identical to the committed output'
+uv run --group realsys python Real_World/checks/rw2_phaseA_2.py 2>/dev/null | cmp - Real_World/checks/rw2_phaseA_2.txt && echo 'RW2 Phase A round 2 (post hoc) byte-identical to the committed output'
+# Real_World/checks/rw1.txt (about 35 minutes, downloads GPT-2 and Qwen2.5-0.5B-Instruct) is not re-run here; rerun by hand: uv run --group realsys python Real_World/checks/rw1.py | cmp - Real_World/checks/rw1.txt
 # Cut_Content/checks/cut_phaseA.txt (about 30 minutes) is not re-run here; rerun by hand: uv run python Cut_Content/checks/cut_phaseA.py | cmp - Cut_Content/checks/cut_phaseA.txt
 # prereg/rlaw/gate_RLAW.txt (about 40 minutes) is not re-run here; rerun by hand: uv run python runs/rlaw/frozen/gate_rlaw.py | cmp - prereg/rlaw/gate_RLAW.txt
 uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1 && echo 'Rupture Detection PDF rebuilds'
