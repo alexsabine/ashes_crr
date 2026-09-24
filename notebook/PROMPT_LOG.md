@@ -1251,3 +1251,15 @@ What is CRRs potential role in this?
 ## 149 — 2026-09-24T17:17:50Z
 
 Interesting. Can we do an online search for the cutting edge frontier AI safety problems and review where CRR might be applicable to helping to resolve these problems? Incorporate a search for studies where Continual Learning, AI Safety and Corrigibility are synthesised with a single mathematical heuristic. Thank you
+
+## 150 — 2026-09-24T17:44:47Z
+
+I see. It sounds like this is where our future focus should be placed. On Continual Learning + AI Safety integrated into the system cohesively, with a clear and explainable reason for why the system is designed in this way. 
+
+The Maps and Territories explanations with reference to existing research and how to manage complexity in the age of AI/AGI is also helpful to incorporate for a laboratory who is interested in principles of 'alignment' and holding an empty centre. 
+
+Time should be taken to fully explain the difference between CRR and FEP in respect to this, as has started to be articulated in the AI Safety document we put together, specifically referring to representational, processual and temporal modelling, and the nature of the Cut. 
+
+The "Falsifiable Metaphysics" angle of CRR (see Ontological folder) should be a side-quest with relation to explaining what CRR "is" in epistemological / ontological terms, based on the findings from the pipeline. Although this should not become the focus of the work, structural analogies with contemplative metaphysics can be inclued, especially where it might help to explain the Continual Learning and AI Safety coupled principles, especially in the context of 2026 and increased complexity. The equanimity principle here could make sense to both humans and machine systems regarding what it means to hold a representation with equanimity. 
+
+The points around the ever-present Now relate directly to the maps/territories discussions and might help to provide further justification for why a trustworthy frontier research lab might also conduct meditation and somatic practices, as well as the fact that it provides a safe 'nest from which to explore possibility space with humility and grace'.
