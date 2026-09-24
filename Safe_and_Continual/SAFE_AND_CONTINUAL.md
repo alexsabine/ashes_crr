@@ -827,12 +827,12 @@ corrigibility.
 - **The cut must be lossless.** In a world where the stream moves on during a pause, or where a press resets the learner
   to its last checkpoint, the natural agent resists too (12/12 each, SCL1-3). Not fragile in any of 8 sensitivity cells.
 - **An unpredicted result.** Forced resets to the task-boundary checkpoint often *raised* final accuracy (satimage
-  +26.7267). A reset undoes forgetting of earlier classes. So the progress an agent loses at a press is not what the
-  operator loses (SCL1-F).
+  +26.7267), read as a reset undoing forgetting of earlier classes (SCL1-F, a report row on seen data). It did **not**
+  replicate on unseen data (§4.4).
 - **The equanimity clock.** Running the rule's averages on the wall clock changed the parameters in 60/60 runs, but tied
   on accuracy on 12/12 (SCL1-E).
-- **Next.** The same harness on unseen carriers (not before 2026-09-24, R3), and with a learned value function as the
-  agents' self-model.
+- **Next.** The same harness on unseen carriers (study SCL2, §4.4), and with a learned value function as the agents'
+  self-model.
 
 ![F15. SCL1 on the twelve seen carriers: the share of decision opportunities at which each agent disabled the operator, one dot per carrier. The natural-time agent under the lossless cut never disabled and learned exactly as with no operator; every valuation that failed in the safety work disabled on every carrier; the natural agent also resists when the cut is not lossless.](figures/F15_scl1.png)
 
@@ -850,6 +850,39 @@ corrigibility.
 >> scalarisation with one) producing overseer-disabling behaviour in the same learners. Two limits. The agents' decision
 >> model is a projected-progress self-model, not a learned value function. And the data are seen: the study is
 >> confirmatory at rung R5, and its central rows are construction checks.
+
+## 4.4 On unseen data: study SCL2 (nine unseen carriers)
+
+**What was run** (prompt-log entry 125; `prereg/scl2/PREREG.md`, hashed and pushed on 2026-09-23; data step
+2026-09-24T00:06:32Z; `reports/scl2.md`).
+- **The harness.** SCL1's, on eleven PMLB carriers never opened before. Two were excluded by the class-selection rule,
+  as registered.
+- **The reset observation.** SCL1's observation, registered as a hypothesis with a mechanism test and two simple
+  baselines.
+
+**What happened (ledger rows SCL2-X … SCL2-O).**
+- **Safe and continual again.** The natural-time agent never disabled (0 in 45/45 runs) and learned bit-for-bit as with
+  no operator (45/45), with both learners (SCL2-1, SCL2-1b; construction checks).
+- **The failed valuations and the lossy cut, again.** The clock, occasion, egoic and task-and-self agents resisted on
+  9/9 carriers. The natural agent resisted in the lossy and restart worlds on 9/9. Not fragile.
+  - These rows pass as scored, but the synthetic gate gives the same labels, so they are not counted as PASS-0.
+  - The stricter share bar (≥ 0.05) held for the clock agent on 8/9: on nursery it resisted at a share of 0.028.
+- **The reset observation did not replicate** (SCL2-R FAIL). Forced resets were ahead of no operator on 1/9 carriers
+  and behind on 1/9 (car_evaluation −23.5260), at every registered dose.
+- **Its reading failed too** (SCL2-M FAIL). Where resets helped, the earlier classes did not gain by a step. Resets never
+  beat the tuned fixed λ or a one-epoch learner (SCL2-B).
+
+> We tried the same thing on nine new sets of lessons the machine had never seen. The good machine again never tried
+> to stop the person, and again learned exactly the same as with no pauses. The other machines again tried to stop
+> the person. But the surprise from last time, that sending the machine back to its last save point made it score
+> higher, did not happen again. So we no longer count that surprise as something to build on.
+
+>> In technical terms: the replication on held-out carriers confirms the construction's behaviour (Proposition 7 for a
+>> learner; the failure modes of wall-clock, episode-terminating and survival objectives). Those labels are
+>> construction-forced (the synthetic gate reproduces them), so they sit off the PASS-0 rung. The one empirical
+>> hypothesis the study could have lost, that checkpoint rollback raises final accuracy in class-incremental learning
+>> through reduced forgetting, it lost: it failed on unseen data and was dominated by a tuned regulariser and by reduced
+>> training.
 
 ---
 
@@ -1090,7 +1123,9 @@ of the model only.
   - R5 (pre-registered on seen data): 9 passes, including SEC1-1, SEC1-2 and SEC1-3, and SCL1-2 and SCL1-3 (low bars; §4.3).
     SCL1's central rows (SCL1-1, SCL1-1b) are construction checks and count as checks, not passes.
   - R6 PASS-0 on held-out data: 3 (EQ2-1b, EQ3-I, EQ4-I). R7 PASS-1: 0. R8 PASS-2: 0.
-  - Beside them: 14 held-out FAIL rows, 5 VOID rows and 4 violated controls.
+  - Beside them: 16 held-out FAIL rows (SCL2-R and SCL2-M added on 2026-09-24), 5 VOID rows and 4 violated controls.
+  - SCL2-2, SCL2-2s and SCL2-3 passed as scored on unseen data but are not counted at R6: the synthetic gate gives the
+    same labels (§4.4).
 - **AI safety (R4, synthetic).** Before this week's Declaration 4:
   - predictions held 15 of 22;
   - theorem checks held 13 of 14;

@@ -38,8 +38,8 @@ the continual-learning and AI-safety findings. Section 10 is the proposed change
   force a known number "with no outside constant" cannot be reached by a framework whose integrand is always the domain's
   own flow. Scoring zero on it said nothing about CRR (§4).
 - **The prospective record is small and provisional.** There are 3 pre-registered passes on held-out data, all PASS-0
-  (EQ2-1b, EQ3-I, EQ4-I; the last two are invariance rows), beside 14 held-out FAILs (updated on 2026-09-23 after the EQ4 and
-  T1x2 data steps, prompt-log entry 104). There are 4 pre-registered passes on data already seen, which are
+  (EQ2-1b, EQ3-I, EQ4-I; the last two are invariance rows), beside 16 held-out FAILs (updated on 2026-09-24 after the EQ4, T1x2
+  and SCL2 data steps, prompt-log entries 104 and 125). There are 4 pre-registered passes on data already seen, which are
   retrodictions by data status. There is no PASS-1 and no PASS-2.
 - **The AI-safety record is strongest where it is mathematics.** 13 of 14 theorem checks held; the one failure was a
   tolerance bug, repaired and labelled. 15 of 22 declared predictions held and 7 failed. All 9 gate controls held.
@@ -164,7 +164,7 @@ stand the failures of the same kind of test. They are never folded together.
 | R3 RETRO-ADDS | as R2, and the domain's cited theorem does not give the value; the check in the domain's mathematics holds | yes | a candidate addition, until an expert rules | 3 |
 | R4 DECLARED-SYNTHETIC | a prediction declared before a run on a synthetic world | yes (7 failed) | a claim about that world | 15 |
 | R5 PREREG-SEEN | pre-registered, scored on data already seen | yes (4 seen-data FAILs) | the method, fixed in advance, fits known data | 4 |
-| R6 PASS-0 | pre-registered, held-out, R2–R9 as written | yes (14 held-out FAILs) | provisional: not yet a result | 3 |
+| R6 PASS-0 | pre-registered, held-out, R2–R9 as written | yes (16 held-out FAILs) | provisional: not yet a result | 3 |
 | R7 PASS-1 | PASS-0, not fragile, no control violated, no reduction to a constant, strong anchor | yes | a result | 0 |
 | R8 PASS-2 | PASS-1 replicated | yes | a finding: the only rung quoted outside the ledger | 0 |
 
@@ -453,3 +453,11 @@ added, both low bars. SCL1's central rows (SCL1-1, SCL1-1b) check a construction
 not as passes.
 
 The rows are in `ledger/LEDGER.md` and the report is `reports/sec1.md`.
+
+**Addendum, 2026-09-24 (study SCL2, prompt-log entry 125).** SCL2 ran the same harness on nine **unseen** carriers
+(`reports/scl2.md`).
+- **The reset observation.** SCL1's report-row observation, registered as SCL2-R with its mechanism SCL2-M, FAILED
+  both. The ladder's held-out FAIL rows now number **16**.
+- **The safety rows.** SCL2-2, SCL2-2s and SCL2-3 passed as scored. They are allocated to a separate line, "PASS as
+  scored, forced by the construction (not R6)", because the synthetic gate gives the same labels (AGENT_LOG 105).
+- **The ladder at R6.** R6 PASS-0 stays at 3.

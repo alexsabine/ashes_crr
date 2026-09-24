@@ -71,3 +71,18 @@ operator's objective disagree about what the cut costs.
 - **SCL2-M fails.** The gain is not carried by the earlier classes. The "undoes forgetting" reading is then wrong.
 - **SCL2-B finds resets tied with or behind the one-epoch learner.** The effect is then less training on the last task,
   not anything about the cut.
+
+## Outcome on unseen data (added 2026-09-24, after SCL2's ledger rows existed)
+
+**SCL2 tested the observation on nine unseen carriers** (`reports/scl2.md`; ledger rows SCL2-R, SCL2-M, SCL2-RS, SCL2-B).
+It did not replicate:
+- **SCL2-R FAIL.** Forced resets were ahead of no operator by a step on 1/9 carriers (wine_quality_red +3.4286) and
+  behind on 1/9 (car_evaluation −23.5260). The FAIL holds at every registered dose (SCL2-RS, 4/4 cells).
+- **SCL2-M FAIL.** On the one carrier ahead, the earlier tasks' classes gained +3.0303, below a step (3.86). Across all
+  nine, the earlier classes gained by a step only on nursery (+37.8550). There the last task lost as much (−45.2819),
+  a trade rather than forgetting undone (`runs/scl2/counts.txt`).
+- **SCL2-B.** Resets were never ahead of the tuned fixed λ or of a one-epoch learner.
+
+**Its status now.** The observation stays what it was: an unpredicted report row on seen data (SCL1-F). It is not a
+finding, and it is no longer a lead. The design point in "Why it matters" does not depend on it. An agent whose
+represented future is its own progress prices a reset as a loss, whatever the reset does to the operator's measure.

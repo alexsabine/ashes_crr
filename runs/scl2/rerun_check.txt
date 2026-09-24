@@ -1,0 +1,2 @@
+rerun of vehicle with the frozen scorer on 2026-09-24 (runs/scl2/rerun_vehicle.jsonl)
+cmp rerun_vehicle.jsonl results_vehicle.jsonl -> exit 0 (byte-identical, R9)

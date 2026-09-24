@@ -158,6 +158,7 @@ LEDGER_RULES = (
     (r"^VOID", "VOID"), (r"^NOT DECIDABLE", "NOT DECIDABLE"), (r"^(DECIDABLE|decidable)", "precondition met"),
     (r"^reported without verdict", "no verdict (precondition failed)"), (r"^report", "report (no verdict registered)"),
     (r"^GATE CLOSED", "gate closed (not run)"), (r"^UNVERIFIABLE", "unverifiable (R1)"), (r"^PASS-0", "PASS-0"),
+    (r"^PASS as scored \(held-out.*not counted as PASS-0", "PASS as scored, forced by the construction (not R6)"),
     (r"^PASS on a control line", "control line passes (not the hypothesis)"), (r"^PASS.*\(seen", "PASS on seen data"),
     (r"^PASS, FRAGILE", "PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b)"),
     (r"failed replication", "PASS-0 kept; replication failed"), (r"^FRAGILE at boundary", "not a PASS (fragile at the boundary)"),
