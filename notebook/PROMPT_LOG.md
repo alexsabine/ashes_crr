@@ -1209,3 +1209,23 @@ Yes please. I would like you to merge everything into the folder now. I don't wa
 ## 140 — 2026-09-24T05:28:52Z
 
 Scratchpad. I like "The Regeneration Law" title (that is CRR 2.0) from now on. How is it doing generally with those admissable rows? Forecasters, option markets and soil? What does a pass mean there?
+
+## 141 — 2026-09-24T15:47:17Z
+
+Where did we get to on the crr 2.0 predictions? Soil for instance
+
+## 142 — 2026-09-24T15:49:53Z
+
+Thank you. Scratchpad. Please consider the breadth of domains crr is working on and whether this kind of broad cross paradigm approach might be helpful for building a generalised predictive system. See mantic online for their offer and where a paradigm like crr stands in relation to that kind of predictive approach please.
+
+## 143 — 2026-09-24T15:55:36Z
+
+Scratchpad. My thinking is that crr is valuable in terms of understanding maps, territories and therefore modelling through time. Once a map is rendered the territory changes. Metaphysically speaking there is only one true map, which is the cut, which is empty (see AI safety and continual learning tests where this approach worked in synthesis)
+
+## 144 — 2026-09-24T16:00:46Z
+
+I was thinking the same thing regarding goodhart and soros (bank of England etc.)
+
+Can we run tests on this please so I can clearly articulate to Daniel and others precisely what I mean by this and why CRR could be helpful in this respect, especially in relation to companies like Mantis who are using generalised predictive techniques.
+
+Thank you.
