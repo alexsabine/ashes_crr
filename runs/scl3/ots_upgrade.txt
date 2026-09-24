@@ -1,0 +1,16 @@
+ots upgrade prereg/scl3/HASH.txt.ots, 2026-09-24T04:08:53Z:
+Success! Timestamp complete (Bitcoin attestation received from bob.btc.calendar.opentimestamps.org; catallaxy pending)
+ots verify: no local Bitcoin node in this container, so the block header could not be checked here; anyone can verify with 'ots verify prereg/scl3/HASH.txt.ots' against a Bitcoin node or a block explorer
+ots info (Bitcoin attestations):
+    sha256
+    verify BitcoinBlockHeaderAttestation(968341)
+    # Bitcoin block merkle root e91edbd1fb5013cd210c6a0c40466cb08ce7f3c0b4ee98aae3a712dcf1118cab
+--
+    sha256
+    verify BitcoinBlockHeaderAttestation(968343)
+    # Bitcoin block merkle root edf1e432bafb1fc6180d868ac820cf4bc742114bd1165b503919d8bf5469a9d1
+
+independent check against a public block explorer (blockstream.info API), 2026-09-24T04:09:15Z:
+block 968341 (0000000000000000000216a41ac0cb5934de4d643ab9053fcd6deb25db42c62e): explorer merkle root e91edbd1fb5013cd210c6a0c40466cb08ce7f3c0b4ee98aae3a712dcf1118cab, proof's e91edbd1fb5013cd210c6a0c40466cb08ce7f3c0b4ee98aae3a712dcf1118cab -> MATCH; block time 2026-09-24T02:41:48Z
+block 968343 (000000000000000000006a31d35e906ca6bd8ea5a8dcb2145191fb8de1ca11c3): explorer merkle root edf1e432bafb1fc6180d868ac820cf4bc742114bd1165b503919d8bf5469a9d1, proof's edf1e432bafb1fc6180d868ac820cf4bc742114bd1165b503919d8bf5469a9d1 -> MATCH; block time 2026-09-24T02:51:06Z
+reading: HASH.txt (sha256 d9d8e853...) existed no later than the block time above, before any SCL3 data (data step not before 2026-09-25 00:00 UTC)
