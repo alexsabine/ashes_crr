@@ -1179,3 +1179,7 @@ Please proceed
 Scratchpad. I would like to run an epistemic check in scratchpad. We just had all those "Adds" recitifed by known results. I am still left wondering about what CRR is. I am struck by how one metaphysical formalism is working on (albeit retrodictively) on so many different domains. 
 
 What is this in epistemic words? What words could we give to CRR (if I pursue this research direction, what could the book be called, for instance, given its philosophical commitments?)
+
+## 135 — 2026-09-24T04:17:21Z
+
+Scratchpad. Think carefully. How could we realistically turn CRR from a Grammar into a Theory? Given all that has been learned so far?
