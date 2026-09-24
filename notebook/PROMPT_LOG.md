@@ -1325,3 +1325,7 @@ I would like to examine the findings so far regarding the empty cut rule (the "t
 ## 163 — 2026-09-24T22:14:46Z
 
 Can we check the continuous learning paper please. Read it carefully again and take into consideration what constitutes a PASS by our criteria and whether there are other avenues to explore here
+
+## 164 — 2026-09-24T22:21:21Z
+
+Thanks. Did we write up the Synthetic Data successes we had on continual learning+AI Safety in tandem?
