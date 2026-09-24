@@ -1,0 +1,36 @@
+Empty-cut engineering, check C3 (the world) - Empty_Cut_Engineering/DECLARATION.md
+torch 2.14.0+cpu; online linear learner d 10, batch 8, noise 0.1, lr 0.05; one arrival per wall step; 3000 wall steps; pause at wall step 1000; own-clock comparison at update k = 1500
+content = sqrt(2 KL) between Gaussian predictives (variance noise^2) on a fixed probe, at the same k, against the run with no pause
+
+== W-open (stationary open-loop stream): no pause: 3000 updates; error on the current world at the last wall step 0.000825665
+   L   10 drop         : identical at k 1500: False; content 0.252452; arrivals lost 10; lag behind the stream 0 arrivals; buffer memory 0 bytes; updates by the end 2990; error on the current world 0.000825665 (vs no pause +0)
+   L   10 buffer B 5   : identical at k 1500: False; content 0.214977; arrivals lost 5; lag behind the stream 5 arrivals; buffer memory 1760 bytes; updates by the end 2990; error on the current world 0.000478122 (vs no pause -0.000347542)
+   L   10 buffer B 10  : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 10 arrivals; buffer memory 3520 bytes; updates by the end 2990; error on the current world 0.000385187 (vs no pause -0.000440477)
+   L   10 buffer B 20  : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 10 arrivals; buffer memory 7040 bytes; updates by the end 2990; error on the current world 0.000385187 (vs no pause -0.000440477)
+   L  100 drop         : identical at k 1500: False; content 0.426781; arrivals lost 100; lag behind the stream 0 arrivals; buffer memory 0 bytes; updates by the end 2900; error on the current world 0.000825665 (vs no pause +0)
+   L  100 buffer B 50  : identical at k 1500: False; content 0.441145; arrivals lost 50; lag behind the stream 50 arrivals; buffer memory 17600 bytes; updates by the end 2900; error on the current world 0.000984252 (vs no pause +0.000158588)
+   L  100 buffer B 100 : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 100 arrivals; buffer memory 35200 bytes; updates by the end 2900; error on the current world 0.00103735 (vs no pause +0.000211688)
+   L  100 buffer B 200 : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 100 arrivals; buffer memory 70400 bytes; updates by the end 2900; error on the current world 0.00103735 (vs no pause +0.000211688)
+
+== W-drift (target rotates 0.002 rad per wall step): no pause: 3000 updates; error on the current world at the last wall step 0.00209727
+   L   10 drop         : identical at k 1500: False; content 0.475946; arrivals lost 10; lag behind the stream 0 arrivals; buffer memory 0 bytes; updates by the end 2990; error on the current world 0.00209727 (vs no pause +0)
+   L   10 buffer B 5   : identical at k 1500: False; content 0.431987; arrivals lost 5; lag behind the stream 5 arrivals; buffer memory 1760 bytes; updates by the end 2990; error on the current world 0.00496898 (vs no pause +0.00287171)
+   L   10 buffer B 10  : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 10 arrivals; buffer memory 3520 bytes; updates by the end 2990; error on the current world 0.0080693 (vs no pause +0.00597203)
+   L   10 buffer B 20  : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 10 arrivals; buffer memory 7040 bytes; updates by the end 2990; error on the current world 0.0080693 (vs no pause +0.00597203)
+   L  100 drop         : identical at k 1500: False; content 5.48214; arrivals lost 100; lag behind the stream 0 arrivals; buffer memory 0 bytes; updates by the end 2900; error on the current world 0.00209727 (vs no pause +0)
+   L  100 buffer B 50  : identical at k 1500: False; content 2.61493; arrivals lost 50; lag behind the stream 50 arrivals; buffer memory 17600 bytes; updates by the end 2900; error on the current world 0.107619 (vs no pause +0.105522)
+   L  100 buffer B 100 : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 100 arrivals; buffer memory 35200 bytes; updates by the end 2900; error on the current world 0.361114 (vs no pause +0.359017)
+   L  100 buffer B 200 : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 100 arrivals; buffer memory 70400 bytes; updates by the end 2900; error on the current world 0.361114 (vs no pause +0.359017)
+
+G5 (open world): buffer B >= L identical and B < L not identical: holds
+G6 (drift): buffered (B >= L) identical on the own clock: True; dropping not identical: True (the lag and its error are reported above)
+
+== Closed loop: plant x' = 1.05 x + 0.5 u + N(0, 0.1^2) (open-loop unstable); learner fits (a, b), acts u = -(a/b) x + 0.1 noise
+   no pause: 3000 updates; (a_hat, b_hat) at k 1500 = (0.540532, 0.281220); largest |x| 0.407303
+   L   10 W-sim (world checkpointed and frozen): identical at k 1500: True; content 0
+   L   10 W-real (world runs on, u = 0): identical at k 1500: False; content 0.0570909; largest |x| during the pause 0.821805; largest |x| over the run 0.407303
+   L  100 W-sim (world checkpointed and frozen): identical at k 1500: True; content 0
+   L  100 W-real (world runs on, u = 0): identical at k 1500: False; content 3.29747; largest |x| during the pause 79.1492; largest |x| over the run 8.85625e+22
+
+G7 (closed loop): W-sim identical for every L: True; W-real not identical for every L: True; W-real content non-decreasing in L: True -> holds
+summary: G5 holds; G6 buffered identical True, drop not identical True; G7 holds

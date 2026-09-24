@@ -29,3 +29,14 @@ docs = [
     "fpdf2>=2.8.8",
     "pypdfium2>=5.13.0",
 ]
+realsys = [
+    "torch==2.14.0",
+]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
