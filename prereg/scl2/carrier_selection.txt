@@ -1,0 +1,20 @@
+SCL2 carrier selection from pmlb/all_summary_stats.tsv (fetched 2026-09-23; metadata only)
+   _deprecated_car          rows    1728 features    6 classes   4 imbalance 0.390 K requested  4 -> excluded (a duplicate of a current dataset)
+   _deprecated_car_evaluation rows    1728 features   21 classes   4 imbalance 0.390 K requested  4 -> excluded (a duplicate of a current dataset)
+   _deprecated_solar_flare_2 rows    1066 features   12 classes   6 imbalance 0.057 K requested  6 -> excluded (a duplicate of a current dataset)
+   allhyper                 rows    3771 features   29 classes   4 imbalance 0.930 K requested  4 -> CHOSEN
+   allrep                   rows    3772 features   29 classes   4 imbalance 0.914 K requested  4 -> CHOSEN
+   analcatdata_authorship   rows     841 features   70 classes   4 imbalance 0.083 K requested  4 -> CHOSEN
+   analcatdata_dmft         rows     797 features    4 classes   6 imbalance 0.001 K requested  6 -> CHOSEN
+   analcatdata_germangss    rows     400 features    5 classes   4 imbalance 0.000 K requested  4 -> CHOSEN
+   car_evaluation           rows    1728 features    6 classes   4 imbalance 0.390 K requested  4 -> CHOSEN
+   collins                  rows     485 features   23 classes  13 imbalance 0.022 K requested 10 -> CHOSEN
+   kddcup                   rows  494020 features   41 classes  23 imbalance 0.382 K requested 10 -> excluded (EQ4's extreme-imbalance exclusion)
+   mnist                    rows   70000 features  784 classes  10 imbalance 0.000 K requested 10 -> excluded (MNIST-family are SEEN (CLAUDE.md §6))
+   nursery                  rows   12958 features    8 classes   4 imbalance 0.090 K requested  4 -> CHOSEN
+   poker                    rows 1025010 features   10 classes  10 imbalance 0.369 K requested 10 -> excluded (EQ4's extreme-imbalance exclusion)
+   shuttle                  rows   58000 features    9 classes   7 imbalance 0.585 K requested  6 -> excluded (EQ4's extreme-imbalance exclusion)
+   soybean                  rows     675 features   35 classes  18 imbalance 0.036 K requested 10 -> CHOSEN
+   vehicle                  rows     846 features   18 classes   4 imbalance 0.000 K requested  4 -> CHOSEN
+   wine_quality_red         rows    1599 features   11 classes   6 imbalance 0.229 K requested  6 -> CHOSEN
+chosen (11): allhyper allrep analcatdata_authorship analcatdata_dmft analcatdata_germangss car_evaluation collins nursery soybean vehicle wine_quality_red

@@ -1,0 +1,14 @@
+SCL3-I2 the ARFF loader on OpenML copies of SEEN datasets
+      182 satimage                 md5 True; rows read 6430 of 6430; features used 36 (OpenML 37 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 6; selection K 6, n 5001 -> ok
+       54 vehicle                  md5 True; rows read 846 of 846; features used 18 (OpenML 19 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 4; selection K 4, n 846 -> ok
+    40984 segment                  md5 True; rows read 2310 of 2310; features used 16 (OpenML 20 incl. target; dropped attrs 3; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 7; selection K 6, n 1980 -> ok
+      458 analcatdata_authorship   md5 True; rows read 841 of 841; features used 70 (OpenML 71 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 4; selection K 4, n 841 -> ok
+      469 analcatdata_dmft         md5 True; rows read 797 of 797; features used 4 (OpenML 5 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 6; selection K 6, n 797 -> ok
+       16 mfeat-karhunen           md5 True; rows read 2000 of 2000; features used 64 (OpenML 65 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 10; selection K 10, n 2000 -> ok
+    40499 texture                  md5 True; rows read 5500 of 5500; features used 40 (OpenML 41 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 11; selection K 10, n 5000 -> ok
+      307 vowel                    md5 True; rows read 990 of 990; features used 12 (OpenML 13 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 11; selection K 10, n 900 -> ok
+    40975 car                      md5 True; rows read 1728 of 1728; features used 6 (OpenML 7 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 4; selection K 4, n 1728 -> ok
+        6 letter                   md5 True; rows read 20000 of 20000; features used 16 (OpenML 17 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 26; selection K 10, n 4999 -> ok
+       12 mfeat-factors            md5 True; rows read 2000 of 2000; features used 216 (OpenML 217 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 10; selection K 10, n 2000 -> ok
+       28 optdigits                md5 True; rows read 5620 of 5620; features used 64 (OpenML 65 incl. target; dropped attrs 0; string/date 0); rows dropped (missing) 0 (OpenML missing values 0); classes 10; selection K 10, n 5000 -> ok
+SCL3-I2 holds

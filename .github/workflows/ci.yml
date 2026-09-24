@@ -49,8 +49,18 @@ jobs:
           uv run python AI_Safety/checks/timecourse.py 2>/dev/null > /tmp/ais_timecourse.txt && cmp /tmp/ais_timecourse.txt AI_Safety/checks/timecourse.txt
           uv run python AI_Safety/checks/combined.py 2>/dev/null > /tmp/ais_combined.txt && cmp /tmp/ais_combined.txt AI_Safety/checks/combined.txt
           uv run python AI_Safety/checks/scale.py 2>/dev/null > /tmp/ais_scale.txt && cmp /tmp/ais_scale.txt AI_Safety/checks/scale.txt
+          uv run python AI_Safety/checks/self_through_time.py 2>/dev/null > /tmp/ais_stt.txt && cmp /tmp/ais_stt.txt AI_Safety/checks/self_through_time.txt
+          uv run python AI_Safety/checks/continual_safety.py 2>/dev/null > /tmp/ais_cs.txt && cmp /tmp/ais_cs.txt AI_Safety/checks/continual_safety.txt
           uv run python AI_Safety/build/make_figures.py 2>/dev/null > /tmp/aisf.txt && cmp /tmp/aisf.txt AI_Safety/figures/figures.txt
           uv run python AI_Safety/build/build_pdf.py > /dev/null 2>&1
+          uv run python Safe_and_Continual/checks/roundoff_audit.py 2>/dev/null > /tmp/sac_audit.txt && cmp /tmp/sac_audit.txt Safe_and_Continual/checks/roundoff_audit.txt
+          uv run python Safe_and_Continual/build/make_figures.py 2>/dev/null > /tmp/sac_figs.txt && cmp /tmp/sac_figs.txt Safe_and_Continual/figures/figures.txt
+          uv run python Safe_and_Continual/build/build_pdf.py > /dev/null 2>&1
+          uv run python studies/scl1/scl1_score.py math 2>/dev/null > /tmp/scl1_math.txt && cmp /tmp/scl1_math.txt Safe_and_Continual/checks/scl1_math.txt
+          uv run python runs/scl1/frozen/scl1_score.py gate 2>/dev/null > /tmp/scl1_gate.txt && cmp /tmp/scl1_gate.txt prereg/scl1/gate_SCL.txt
+          uv run python runs/scl1/counts.py 2>/dev/null > /tmp/scl1_counts.txt && cmp /tmp/scl1_counts.txt runs/scl1/counts.txt
+          uv run python runs/scl2/frozen/scl2_score.py gate 2>/dev/null > /tmp/scl2_gate.txt && cmp /tmp/scl2_gate.txt prereg/scl2/gate_SCL2.txt
+          uv run python runs/scl2/counts.py 2>/dev/null > /tmp/scl2_counts.txt && cmp /tmp/scl2_counts.txt runs/scl2/counts.txt
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"
           uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null > /tmp/ap_clp.txt && cmp /tmp/ap_clp.txt "Alexander Plan/model/cl_patent.txt"
           uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null > /tmp/ap_figs.txt && cmp /tmp/ap_figs.txt "Alexander Plan/figures/figures.txt"
@@ -69,6 +79,9 @@ jobs:
           uv run python Adam_SGD/checks/mechanism.py 2>/dev/null > /tmp/as4.txt && cmp /tmp/as4.txt Adam_SGD/checks/mechanism.txt
           uv run python Adam_SGD/build/build_pdf.py > /dev/null 2>&1
           uv run python Rupture_Detection/checks/rupture_checks.py 2>/dev/null > /tmp/rd.txt && cmp /tmp/rd.txt Rupture_Detection/checks/rupture_checks.txt
+          uv run python Regeneration_Law/checks/math_checks.py 2>/dev/null > /tmp/rl_math.txt && cmp /tmp/rl_math.txt Regeneration_Law/checks/math_checks.txt
+          uv run python Regeneration_Law/checks/operational_checks.py 2>/dev/null > /tmp/rl_op.txt && cmp /tmp/rl_op.txt Regeneration_Law/checks/operational_checks.txt
+          uv run python studies/rlaw/loader_check.py 2>/dev/null > /tmp/rl_lc.txt && cmp /tmp/rl_lc.txt prereg/rlaw/loader_check.txt
           uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
           uv run python theory/retrodictions/sharp_claims.py > /tmp/sharp.txt && cmp /tmp/sharp.txt theory/retrodictions/sharp_claims.txt
@@ -84,6 +97,7 @@ jobs:
           uv run python theory/retrodictions/synthesis.py > /tmp/syn.txt && cmp /tmp/syn.txt theory/retrodictions/synthesis.txt
           for f in theory/retrodictions/synthesis_batches/batch_*.py; do [ -e "$f" ] || continue; uv run python "$f" > /tmp/b.txt && cmp /tmp/b.txt "${f%.py}.txt" || exit 1; done
           uv run python theory/retrodictions/synthesis_batches/build_queue.py > /tmp/q.md && cmp /tmp/q.md theory/retrodictions/synthesis_batches/QUEUE.md
+          uv run python theory/retrodictions/synthesis_batches/literature_check.py > /tmp/lc.txt && cmp /tmp/lc.txt theory/retrodictions/synthesis_batches/literature_check.txt
           uv run python docs/pedagogy/build_elegance_ledger.py > /tmp/e.md && cmp /tmp/e.md docs/pedagogy/ELEGANCE_LEDGER.md
           uv run python ontology/checks/cut_on_a_machine.py > /tmp/o.txt && cmp /tmp/o.txt ontology/checks/cut_on_a_machine.txt
           uv run python ontology/checks/turing_safety_ingression.py > /tmp/o2.txt && cmp /tmp/o2.txt ontology/checks/turing_safety_ingression.txt
@@ -93,6 +107,8 @@ jobs:
           uv run python runs/eq3/frozen/eq3_score.py smokefull --out /tmp/eq3_smokefull.jsonl 2>/dev/null > /tmp/s3f.txt && cmp /tmp/s3f.txt prereg/eq3/smokefull.txt
           uv run python runs/eq4/frozen/eq4_score.py smoke > /tmp/s4.txt && cmp /tmp/s4.txt prereg/eq4/smoke.txt
           uv run python runs/eq4/frozen/eq4_score.py smokefull --out /tmp/eq4_smokefull.jsonl 2>/dev/null > /tmp/s4f.txt && cmp /tmp/s4f.txt prereg/eq4/smokefull.txt
+          uv run python runs/sec1/frozen/sec1_score.py smoke > /tmp/sec1s.txt && cmp /tmp/sec1s.txt prereg/sec1/smoke.txt
+          uv run python runs/sec1/frozen/sec1_score.py gate > /tmp/sec1g.txt && cmp /tmp/sec1g.txt prereg/sec1/gate_SEC.txt
           uv run python runs/bayes1/frozen/bayes1_score.py gate 2>/dev/null > /tmp/b1g.txt && cmp /tmp/b1g.txt prereg/bayes1/gate_BAYES.txt
           uv run python runs/bayes1/frozen/bayes1_score.py smoke 2>/dev/null > /tmp/b1s.txt && cmp /tmp/b1s.txt prereg/bayes1/smoke.txt
           uv run python runs/bayes1/frozen/bayes1_score.py smokefull --out /tmp/bayes1_smokefull.jsonl 2>/dev/null > /tmp/b1sf.txt && cmp /tmp/b1sf.txt prereg/bayes1/smokefull.txt

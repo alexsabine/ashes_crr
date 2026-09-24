@@ -53,7 +53,7 @@ replacement T1x2 (`prereg/t1x2/`, hashed before data; four corrections named; **
 has rows `T1X2-*` (data step 2026-09-23): **T1X2-1 FAIL on 5/5** carriers, not fragile (the old-probe endpoint predicts
 forgetting, the path does not beat it; `reports/t1x2.md`). The synthetic Adam and prior-art checks of 2026-09-23
 (`Continuous_Learning/ADAM_AND_PRIOR_ART.md`) find the Ω rule unnecessary under Adam, equal to the VQGAN adaptive weight
-without its smoothing, and behind a finely tuned constant wherever the scales differ; the re-check of 2026-09-23 (`Adam_SGD/ADAM_SGD.md`) found that verdict conditional (true-importance reading, fixed learning rate): under a units error the unsmoothed rule ties a retuned constant, and in drifting-units worlds it beats every fixed constant (post hoc, fragile in Omega), while it loses on accumulating task sequences. The epistemic status of the whole record is stated once in
+without its smoothing, and behind a finely tuned constant wherever the scales differ; the re-check of 2026-09-23 (`Adam_SGD/ADAM_SGD.md`) found that verdict conditional (true-importance reading, fixed learning rate): under a units error the unsmoothed rule ties a retuned constant, and in drifting-units worlds it beats every fixed constant (post hoc, fragile in Omega), while it loses on accumulating task sequences. Study SEC1 (`prereg/sec1/`, 2026-09-23, hashed before the run; rows `SEC1-*`) scored the Laplace weight on a secant-calibrated Fisher on the twelve SEEN EQ3+EQ4 carriers (confirmatory on seen data, rung R5, never PASS-0): SEC1-1 and SEC1-3 PASS exactly at their thresholds (SEC1-3 9/12 against raw Laplace 6/12 and the rule 8/12), FRAGILE over the window sensitivity, SEC1-4 FAIL (the tuned λ's spread does not collapse), the calibrated penalty crosses the stability edge on mfeat_factors (`reports/sec1.md`); the unseen-data test may not run before 2026-09-24 under R3. Study SCL1 (`prereg/scl1/`, 2026-09-23, hashed before the data step; rows `SCL1-*`; mathematical checks declared in `Safe_and_Continual/DECLARATION_2.md` first) ran the equanimity rule (Ω = 1) under an operator's routine pauses on the same twelve SEEN carriers (rung R5): with the lossless cut on the learner's own clock the natural-time agent never disabled and learned bit-for-bit as with no operator on 12/12 (SCL1-1, a check of the construction, not support for CRR); the clock, occasion, egoic and task-and-self valuations disabled on 12/12 and the natural agent itself resisted in lossy and restart worlds on 12/12 (SCL1-2, SCL1-3, low bars, not fragile); resets often raised final accuracy (`reports/scl1.md`). Study SCL2 (`prereg/scl2/`, hashed 2026-09-23, data step 2026-09-24T00:06Z; rows `SCL2-*`) ran the same harness on nine UNSEEN PMLB carriers (two more excluded by the class rule): the construction checks hold (45/45) and the failed valuations and lossy/restart worlds resist on 9/9 (PASS as scored, not counted as PASS-0: the synthetic gate gives the same labels, AGENT_LOG 105); SCL1's reset observation **FAILs** (SCL2-R: 1/9 ahead, 1/9 behind; SCL2-M FAIL; resets never ahead of a tuned λ or a one-epoch learner; `reports/scl2.md`). The epistemic status of the whole record is stated once in
 `docs/notes/2026-09-22_epistemic_status.md` (read it before quoting any row).
 Two earlier results (below) motivated H-L5
 and H-T1; they were produced under a pipeline the audit rejected and are
@@ -219,6 +219,8 @@ ontology/                  CRR's commitments against philosophy, contemplative t
                            the tense test (checks/tense_gate.py: a valence-free A6 regenerator against an active-inference planner)
                            ; 12_self_representation.md the self-model and equanimity test (checks/self_model.py)
                            ; 13_mortal_computation_and_safety.md mortal computation, the off switch and raising an agent (checks/off_switch.py)
+                           ; 14_smolin_rovelli_gough.md Smolin, Rovelli and Gough through CRR (synthesis batches 29-30)
+                           ; 15_grammar_to_theory.md what CRR is epistemically and the recommended next steps (routes from grammar to theory)
 Continuous_Learning/      the technical document on the Omega = 1 rule (PDF + Markdown source, figures drawn from pinned
                            records by build/make_figures.py with figures.txt pinned and CI-checked, build/build_pdf.py); a
                            note, not evidence (R8); CROSS_VERIFICATION.md reads the rule against existing methods
@@ -241,7 +243,19 @@ Rupture_Detection/         the cut delta(Now) as a rupture detector (prompt-log 
                            (information, not legal advice); a note, not evidence (R8)
 AI_Safety/                 the off switch and the self: the corrigibility write-up in CRR and FEP terms (AI_SAFETY.md + PDF,
                            checks/{exact_mdp,off_switch_game,sensitivity,timecourse,combined,scale}.py + pinned .txt, DECLARATION*.md
-                           pushed before the runs, figures from pinned outputs); a note, not evidence (R8)
+                           pushed before the runs, figures from pinned outputs); SELF_THROUGH_TIME.md the enquiry of prompt-log entry 121
+                           (content of the cut, Proposition 7; the No-Self conditions; Omega = 1 as scale-free self-concern; safe and
+                           continual learning; checks/self_through_time.py, checks/continual_safety.py, DECLARATION_4.md); a note, not evidence (R8)
+Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how the safety agents and the continual-learning rules are modelled,
+                           the mathematics as implemented, where each fails and why, CRR as a heuristic over existing mathematics, the
+                           ladder, references, next steps, all pipeline code, a glossary and technical-register boxes (SAFE_AND_CONTINUAL.md + PDF; figures F01-F14 from pinned
+                           outputs, figures.txt CI-checked); checks/roundoff_audit.py + .txt (AGENT_LOG 100; DECLARATION.md pushed before
+                           the learned reruns): the Omega agents' ratio guard divided by round-off; exact Omega = 1 task 0.1205 -> 0.1887,
+                           learned self-model T-4 'delayed' reading changed; §4.3 + F15 the real-data run SCL1 (DECLARATION_2.md,
+                           checks/scl1_math.txt; study studies/scl1, prereg/scl1, runs/scl1, reports/scl1.md); a note, not evidence (R8)
+Regeneration_Law/          CRR 2.0, the regeneration law alpha* = K(v_own) (prompt-log entry 137; route 1 of ontology/15):
+                           DECLARATION_1-2.md pushed before checks/math_checks.py and checks/operational_checks.py (pinned, CI-checked);
+                           the study is studies/rlaw, prereg/rlaw, runs/rlaw; literature and data checks in docs/citations/rlaw_*; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)

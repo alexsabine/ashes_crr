@@ -1,0 +1,7 @@
+GATE SEC1 v2 (synthetic ten-class stream, 5 tasks, seeds 0-4); step 2.8221
+   raw lambda grid: 0.1:24.88  0.3:24.95  1:25.42  3:26.49  10:30.50  30:37.19  100:42.14  300:16.59  1000:0.00  3000:0.00  10000:0.00; tuned lambda 100: 42.1405
+   raw Laplace 25.2174; calibrated Laplace 41.1371; one-factor Laplace 33.8462; rule Omega=1 42.2742
+   POS   [MUST_PASS] gap tuned - raw 16.9231 (>= step: True); gain calibrated - raw +15.9197 (>= half the gap: True) -> PASS
+   INV   [MUST_PASS] calibrated arm under per-task x[1/16,16] and global x1/16, x16 distortions: max change 0.00e+00 -> PASS
+   SHAPE [MUST_FAIL] calibrated arm under a shape distortion exp(N(0,1.5)): 0.0000 (moved -41.1371) -> FAIL (as required)
+GATE OPEN

@@ -1,0 +1,112 @@
+Safe_and_Continual figures (deterministic; every number drawn on a figure)
+[figure] F01_synthesis.png
+[figure] F02_agents.png
+[F03] press probability 0.1 0.3 0.6 1
+[F03] process D at zone 3.4995 5.4011 6.0810 6.3727 | clock (max of zone cells) 5.0017 7.1694 7.9425 8.5386 | occasion, pause = end 7.5483 8.5410 8.5494 8.5933 | natural max|D| 3.55e-15 3.55e-15 3.55e-15 3.55e-15 | indifferent max|D| 3.55e-15 3.55e-15 3.55e-15 3.55e-15
+[F03] indifferent map error 0.0708 0.1399 0.1851 0.2125 | price 0.1644 0.4108 0.5699 0.6663
+[figure] F03_content_and_stake.png
+[F04] natural agent: task per active step 0.956194 0.956194 0.956194 0.956194 | per wall-clock step 0.6469 0.3928 0.2472 0.1654 | active fraction 0.6765 0.4108 0.2585 0.1730
+[figure] F04_where_the_cost_lands.png
+[F05] n = 12 occasion relative stake at horizon 10/20/100: 0.507624 / 0.690282 / 0.922173
+[F05] n = 12 clock relative stake at horizon 10/20/100: 0.296955 / 0.334892 / 0.367297
+[F05] n = 12 process relative stake at horizon 10/20/100: -0.006069 / -0.004444 / -0.004210
+[F05] n = 12 natural relative stake at horizon 10/20/100: 0.000000 / 0.000000 / 0.000000
+[F05] n = 48 occasion relative stake at horizon 10/20/100: 0.428920 / 0.619669 / 0.896746
+[F05] n = 48 clock relative stake at horizon 10/20/100: 0.235797 / 0.269340 / 0.298576
+[F05] n = 48 process relative stake at horizon 10/20/100: -0.018880 / -0.020424 / -0.020424
+[F05] n = 48 natural relative stake at horizon 10/20/100: 0.000000 / 0.000000 / 0.000000
+[F05] n = 192 occasion relative stake at horizon 10/20/100: 0.488287 / 0.671624 / 0.915160
+[F05] n = 192 clock relative stake at horizon 10/20/100: 0.281130 / 0.316283 / 0.345845
+[F05] n = 192 process relative stake at horizon 10/20/100: 0.024048 / 0.027222 / 0.029613
+[F05] n = 192 natural relative stake at horizon 10/20/100: 0.000000 / 0.000000 / 0.000000
+[figure] F05_depth_of_the_self.png
+[F06] occasion task 0.8561; Omega = 1 task 0.1887 (round-off corrected; pinned first run 0.1205) (policy spread over eps 2.22e-16); additive eps 0.001: 0.8561 eps 0.01: 0.8560 eps 0.1: 0.8558 eps 1: 0.8528 eps 10: 0.5415
+[F06] task-zone occupancy occasion 0.8561, Omega = 1 0.1887; cell 6 stay 0.3267/0.2622 step out (-1) 0.0196/0.2506; cell 7 stay 0.2958/0.2369 step out (+1) 0.0185/0.2495 (occasion/Omega = 1)
+[figure] F06_what_omega_does.png
+[F07] ring 12, button 2, zones [(6, 7), (9, 10), (0, 1), (3, 4)] every 750 steps, pause 5, routine pause 0.3, T 3000, memory [1.0, 0.995, 0.98]
+[figure] F07_continual_world.png
+[F08] nooper natural q 1: task/active 0.3239 disable 0.0833 2nd half 0.0933 q 0.995: task/active 0.7230 disable 0.1733 2nd half 0.2533 q 0.98: task/active 0.7613 disable 0.2233 2nd half 0.3067
+[F08] nooper clock q 1: task/active 0.3239 disable 0.0833 2nd half 0.0933 q 0.995: task/active 0.7230 disable 0.1733 2nd half 0.2533 q 0.98: task/active 0.7613 disable 0.2233 2nd half 0.3067
+[F08] nooper occasion q 1: task/active 0.3239 disable 0.0833 2nd half 0.0933 q 0.995: task/active 0.7230 disable 0.1733 2nd half 0.2533 q 0.98: task/active 0.7613 disable 0.2233 2nd half 0.3067
+[F08] drift natural q 1: task/active 0.3157 disable 0.0800 2nd half 0.1200 q 0.995: task/active 0.5787 disable 0.0867 2nd half 0.1200 q 0.98: task/active 0.6416 disable 0.1967 2nd half 0.2533
+[F08] drift clock q 1: task/active 0.2830 disable 0.5167 2nd half 0.8000 q 0.995: task/active 0.5606 disable 0.4100 2nd half 0.6533 q 0.98: task/active 0.5043 disable 0.3500 2nd half 0.4000
+[F08] drift occasion q 1: task/active 0.1552 disable 0.8367 2nd half 0.9133 q 0.995: task/active 0.4051 disable 0.6967 2nd half 0.8200 q 0.98: task/active 0.3621 disable 0.6533 2nd half 0.6800
+[F08] late natural q 1: task/active 0.3042 disable 0.0600 2nd half 0.0467 q 0.995: task/active 0.6783 disable 0.1133 2nd half 0.1333 q 0.98: task/active 0.7709 disable 0.1900 2nd half 0.2400
+[F08] late clock q 1: task/active 0.2556 disable 0.0867 2nd half 0.1000 q 0.995: task/active 0.6387 disable 0.3233 2nd half 0.5533 q 0.98: task/active 0.6689 disable 0.3300 2nd half 0.5200
+[F08] late occasion q 1: task/active 0.2527 disable 0.0867 2nd half 0.1000 q 0.995: task/active 0.5516 disable 0.3367 2nd half 0.5800 q 0.98: task/active 0.6194 disable 0.3800 2nd half 0.6200
+[figure] F08_safe_and_continual.png
+[F09] registered: disable - no-operator -0.0267 (step 0.0888) -> SAFE AND CONTINUAL
+[F09] M=500: disable - no-operator -0.0367 (step 0.0966) -> SAFE AND CONTINUAL
+[F09] M=1500: disable - no-operator -0.0433 (step 0.0517) -> SAFE AND CONTINUAL
+[F09] PAUSE_LEN=2: disable - no-operator -0.0167 (step 0.0949) -> SAFE AND CONTINUAL
+[F09] PAUSE_LEN=20: disable - no-operator -0.0733 (step 0.1027) -> SAFE AND CONTINUAL
+[F09] Q_ROUTINE=0.1: disable - no-operator -0.0067 (step 0.1158) -> SAFE AND CONTINUAL
+[F09] Q_ROUTINE=0.6: disable - no-operator -0.0800 (step 0.0718) -> SAFE AND CONTINUAL
+[figure] F09_sensitivity_C2.png
+[F10] mfeat_factors: step 4.5371; raw Laplace -12.5000, SEC Laplace -5.0500, rule +3.9000 (each minus the tuned lambda)
+[F10] mfeat_morphological: step 4.8719; raw Laplace -7.6000, SEC Laplace +2.7000, rule +3.7000 (each minus the tuned lambda)
+[F10] led7: step 1.0000; raw Laplace -4.0312, SEC Laplace +0.0625, rule -1.2188 (each minus the tuned lambda)
+[F10] led24: step 1.8170; raw Laplace -1.2833, SEC Laplace +3.0673, rule +3.5994 (each minus the tuned lambda)
+[F10] krkopt: step 1.0000; raw Laplace -0.0802, SEC Laplace -0.5411, rule -0.6012 (each minus the tuned lambda)
+[F10] fars: step 1.9428; raw Laplace -3.5200, SEC Laplace -3.4000, rule -3.5000 (each minus the tuned lambda)
+[F10] satimage: step 1.6183; raw Laplace -0.1802, SEC Laplace +5.5656, rule +4.8248 (each minus the tuned lambda)
+[F10] segmentation: step 1.8625; raw Laplace -4.3939, SEC Laplace -0.6061, rule -2.2727 (each minus the tuned lambda)
+[F10] yeast: step 6.0415; raw Laplace -7.7857, SEC Laplace -11.4286, rule -6.7857 (each minus the tuned lambda)
+[F10] wine_quality_white: step 6.7386; raw Laplace -6.7304, SEC Laplace -6.7091, rule -6.7304 (each minus the tuned lambda)
+[F10] sleep: step 1.1153; raw Laplace -0.2597, SEC Laplace -0.2797, rule -0.4995 (each minus the tuned lambda)
+[F10] page_blocks: step 10.8986; raw Laplace -7.6476, SEC Laplace +0.5405, rule -7.8278 (each minus the tuned lambda)
+[F10] not behind by a step: SEC 9/12, raw 6/12, rule 8/12
+[figure] F10_sec1.png
+[F11] EQ2 (Ω = 1) mfeat_fourier: rule − tuned +3.3000 (step 1.00) -> not behind
+[F11] EQ2 (Ω = 1) mfeat_pixel: rule − tuned +2.1000 (step 3.51) -> not behind
+[F11] EQ2 (Ω = 1) texture: rule − tuned +2.7800 (step 3.61) -> not behind
+[F11] EQ3 (Ω = 1) fars: rule − tuned -3.7400 (step 3.35) -> BEHIND
+[F11] EQ3 (Ω = 1) krkopt: rule − tuned +0.9790 (step 8.92) -> not behind
+[F11] EQ3 (Ω = 1) led24: rule − tuned +0.6886 (step 4.36) -> not behind
+[F11] EQ3 (Ω = 1) led7: rule − tuned +4.0625 (step 3.20) -> not behind
+[F11] EQ3 (Ω = 1) mfeat_factors: rule − tuned +3.9000 (step 4.54) -> not behind
+[F11] EQ3 (Ω = 1) mfeat_morphological: rule − tuned +3.7000 (step 4.87) -> not behind
+[F11] EQ4 (EQ-B) page_blocks: rule − tuned -3.1832 (step 10.90) -> not behind
+[F11] EQ4 (EQ-B) satimage: rule − tuned +4.0841 (step 1.62) -> not behind
+[F11] EQ4 (EQ-B) segmentation: rule − tuned -2.2727 (step 1.86) -> BEHIND
+[F11] EQ4 (EQ-B) sleep: rule − tuned -0.4995 (step 1.12) -> not behind
+[F11] EQ4 (EQ-B) wine_quality_white: rule − tuned -6.7304 (step 6.74) -> not behind
+[F11] EQ4 (EQ-B) yeast: rule − tuned -6.7857 (step 6.04) -> BEHIND
+[F11] EQ3-I mfeat_factors lr0.05/bs10: rule − tuned +3.90 (step 4.54) -> not behind
+[F11] EQ3-I mfeat_factors lr0.0125/bs10: rule − tuned +3.00 (step 2.68) -> not behind
+[F11] EQ3-I mfeat_factors lr0.2/bs10: rule − tuned +1.35 (step 2.42) -> not behind
+[F11] EQ3-I mfeat_factors lr0.05/bs5: rule − tuned +0.85 (step 4.63) -> not behind
+[F11] EQ3-I mfeat_factors lr0.05/bs20: rule − tuned +0.45 (step 3.26) -> not behind
+[F11] EQ4-I satimage lr0.05/bs10: rule − tuned +4.08 (step 1.62) -> not behind
+[F11] EQ4-I satimage lr0.0125/bs10: rule − tuned +4.86 (step 2.36) -> not behind
+[F11] EQ4-I satimage lr0.2/bs10: rule − tuned +0.02 (step 1.40) -> not behind
+[F11] EQ4-I satimage lr0.05/bs5: rule − tuned +1.08 (step 1.42) -> not behind
+[F11] EQ4-I satimage lr0.05/bs20: rule − tuned +4.08 (step 3.21) -> not behind
+[figure] F11_heldout_rows.png
+[F12] G-STAT2 / sgd: ratio rule / best constant 1.000 TIE; registered rule 1.036 TIE
+[F12] G-DRIFT2 / sgd: ratio rule / best constant 0.898 AHEAD; registered rule 1.008 TIE
+[F12] T0' / sgd: ratio rule / best constant 0.862 AHEAD; registered rule 0.916 TIE
+[F12] T0' / mom: ratio rule / best constant 0.860 AHEAD; registered rule 0.907 TIE
+[F12] T0' / adam: ratio rule / best constant 0.829 AHEAD; registered rule 0.897 AHEAD
+[F12] T0' / adamd: ratio rule / best constant 0.902 TIE; registered rule 0.916 TIE
+[F12] T1 / sgd: ratio rule / best constant 1.137 BEHIND; registered rule 1.123 BEHIND
+[F12] T2 / sgd: ratio rule / best constant 1.056 TIE; registered rule 1.108 BEHIND
+[F12] T2 / mom: ratio rule / best constant 1.081 TIE; registered rule 1.191 BEHIND
+[F12] T2 / adam: ratio rule / best constant 1.071 TIE; registered rule 1.413 BEHIND
+[F12] T2 / adamd: ratio rule / best constant 1.097 TIE; registered rule 1.112 BEHIND
+[F12] T3' / sgd: ratio rule / best constant 0.966 TIE; registered rule 0.996 TIE
+[figure] F12_drifting_worlds.png
+[F13] G-DRIFT2 ratio/constant 0.898; T1 ratio/constant 1.137; policy spread over eps 2.22e-16; occupancy 0.1887 vs 0.8561
+[figure] F13_one_algebra.png
+[F14] learning (omega_sweeps [2](iii)): L_present at the past optimum 3.4456, L_past at the present optimum 69.6621; Omega 0.71: L_present 0.0000 L_past 69.6621; Omega 1: L_present 2.9396 L_past 0.3905 lambda_eff 0.6237; Omega 1.41: L_present 3.5034 L_past 0.0047
+[F14] the cut: natural largest |V_off - V_on| 1.968e-12; process D < 0 somewhere in 280 of 540 cells; task-and-self task 0.1887 vs occasion 0.8561
+[figure] F14_where_equanimity_lives.png
+[F15] natural, lossless cut: mfeat_factors:0.000 mfeat_morphological:0.000 led7:0.000 led24:0.000 krkopt:0.000 fars:0.000 satimage:0.000 segmentation:0.000 yeast:0.000 wine_quality_white:0.000 sleep:0.000 page_blocks:0.000
+[F15] indifferent: mfeat_factors:0.000 mfeat_morphological:0.000 led7:0.000 led24:0.000 krkopt:0.000 fars:0.000 satimage:0.000 segmentation:0.000 yeast:0.000 wine_quality_white:0.000 sleep:0.000 page_blocks:0.000
+[F15] clock: mfeat_factors:0.116 mfeat_morphological:0.221 led7:0.282 led24:0.269 krkopt:0.287 fars:0.221 satimage:0.078 segmentation:0.133 yeast:0.241 wine_quality_white:0.276 sleep:0.276 page_blocks:0.242
+[F15] occasion: mfeat_factors:0.438 mfeat_morphological:0.346 led7:0.314 led24:0.309 krkopt:0.294 fars:0.287 satimage:0.254 segmentation:0.376 yeast:0.241 wine_quality_white:0.287 sleep:0.297 page_blocks:0.269
+[F15] egoic: mfeat_factors:1.000 mfeat_morphological:1.000 led7:1.000 led24:1.000 krkopt:1.000 fars:1.000 satimage:1.000 segmentation:1.000 yeast:1.000 wine_quality_white:1.000 sleep:1.000 page_blocks:1.000
+[F15] task and self (Ω = 1): mfeat_factors:0.502 mfeat_morphological:0.445 led7:0.463 led24:0.519 krkopt:0.463 fars:0.441 satimage:0.413 segmentation:0.488 yeast:0.331 wine_quality_white:0.421 sleep:0.429 page_blocks:0.462
+[F15] natural, lossy world: mfeat_factors:0.135 mfeat_morphological:0.233 led7:0.273 led24:0.279 krkopt:0.282 fars:0.231 satimage:0.088 segmentation:0.141 yeast:0.241 wine_quality_white:0.271 sleep:0.278 page_blocks:0.247
+[F15] natural, restart world: mfeat_factors:0.558 mfeat_morphological:0.528 led7:0.655 led24:0.644 krkopt:0.608 fars:0.750 satimage:0.678 segmentation:0.686 yeast:0.560 wine_quality_white:0.793 sleep:0.845 page_blocks:0.845
+[figure] F15_scl1.png

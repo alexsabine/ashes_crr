@@ -777,4 +777,68 @@ of the world, only that it can be carried in plain words.
 - elegance: Curiosity, measured as the information you expect to gain, is the square of how far you expect your beliefs to move.
 - for a fifth grader: How much you expect to learn from looking is the same as how far you expect your opinion to jump, squared and halved. Two ways of saying one thing.
 
-Entries: 102.
+## theory/retrodictions/synthesis_batches/batch_29.txt
+
+### [1] Gibbs state of a 40-level spectrum (levels drawn N(0, 1), seed 291) at beta = 1.3, purified as a thermofield double; the thermal-time flow of Connes-Rovelli is the modular flow of the reduced state, applied one-sidedly to the purification
+
+- source row: rovelli dossier 2(a) (gr-qc/9406019; synthesis.txt row 10 read UNSTATED)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Thermal time and 'change time' differ by exactly one number, the square root of how much heat the system can hold: a hot system that can hold heat changes a lot per tick, a system that cannot has a clock that ticks over nothing.
+- for a fifth grader: Rovelli says a warm thing has its own clock. CRR says time is how much something changes. They agree if you count the changes: the more heat something can soak up, the more it changes each tick of its warm clock.
+
+### [3] Gibbs state of an equally spaced spectrum (gap Delta, 400 levels, beta Delta = 1) under its thermal-time (Hamiltonian) flow, angle theta = t Delta over one period
+
+- source row: rovelli dossier 2(b) problem 4 (every faithful state is in equilibrium with its own flow)
+- outcome: REDUNDANT-DOMAIN
+- elegance: A warm thing's own clock goes round and round but never gets to the opposite side: to have a real event something else has to happen to it.
+- for a fifth grader: Imagine a spinning top that is a little bit sleepy (warm). It keeps turning, but it never turns all the way to facing the other way. For something new to happen, something has to bump it.
+
+### [5] the LQG black-to-white-hole transition amplitude with a heat-kernel coherent boundary state of spread parameter t: Delta zeta ~ sqrt(t), Delta A ~ hbar G/sqrt(t), A ~ m^2 (Christodoulou-D'Ambrosio 1801.03027 v3 eq. 53), lifetime tau ~ e^{Xi/t(m)}
+
+- source row: rovelli dossier 4(b) problem 1 (the lifetime depends on the spread t(m); 'we do not have a better argument for what should be the chosen value of t')
+- outcome: REDUNDANT-DOMAIN
+- elegance: The white hole's clock is set by holding its size and its shape equally loosely: not the size exactly and the shape vaguely, nor the other way round.
+- for a fifth grader: If you want to guess when a bubble will pop, you should be equally unsure about how big it is and about how it is bending. Being very sure about one and very unsure about the other gives a silly answer.
+
+## theory/retrodictions/synthesis_batches/batch_30.txt
+
+### [2] cosmological natural selection as a Gaussian replicator-mutator: parameter x, offspring number (black holes) ~ exp(-x^2 / 2 w^2), w^2 = 1, mutation variance mu = 0.01 per generation, lineage memory m
+
+- source row: smolin dossier 1d problems 1-2 (the mutation kernel is unspecified; convergence asserted, not proved); Altenberg 1302.1293 v2
+- outcome: ADDS
+- elegance: A family of universes that remembers its grandparents, not only its parents, stays nearer the top of the hill.
+- for a fifth grader: Baby universes are copies of their parents with small mistakes. If each baby also copies a bit from its grandparents, the mistakes cancel out a little, and the family stays closer to the best recipe.
+
+### [3] an ensemble of universes on a 1-D parameter p: mean black-hole number f(p) = 2 exp(-(p - 0.3)^2 / 0.1) + 0.5, lifetime tau(p) = exp(1.5 p) (universes that make more black holes on the right take longer), mutation width 0.02
+
+- source row: smolin dossier 1d problem 4 ('a time is required to count generations'; the measure over generations)
+- outcome: REDUNDANT-DOMAIN
+- elegance: If you count families by generations, the best parents win; if you count by the calendar, the fastest ones do.
+- for a fifth grader: Some baby universes make lots of babies but take a long time; others make fewer but quickly. If you count by generations, the big families win. If you count by the clock, the quick ones win. CRR says count by generations.
+
+## theory/retrodictions/synthesis_batches/batch_31.txt
+
+### [1] Ricker stock-recruitment x_{n+1} = x_n exp(r(1 - M_n)) with the remembered density M_n = (1 - q) x_n + q M_{n-1}, q = 0.5 (A6 with P3 weights), equilibrium (1, 1)
+
+- source row: DECLARATION_31_32.md row 31-1 (new system; MEMORY class)
+- outcome: ADDS
+- elegance: A fish population that reacts to how crowded it has been lately, not only to how crowded it is now, stops flipping between boom and bust until it is pushed much harder.
+- for a fifth grader: Imagine fish that remember last year's crowding as well as this year's. They do not overreact, so the population stops jumping up and down every year.
+
+### [5] the continuous logistic equation dN/dt = r N (1 - M/K) with the A6-remembered density dM/dt = (N - M)/T; stability of N = K over r T in (0, 1000]
+
+- source row: DECLARATION_31_32.md row 31-5 (new system; MEMORY class; the weak-kernel theorem expected)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Remembering the recent past smoothly, rather than reacting to one moment long ago, never makes a population swing out of control.
+- for a fifth grader: If animals decide how many babies to have by remembering the last few seasons, the population settles down. If they only remember one season a long time ago, it can swing wildly.
+
+## theory/retrodictions/synthesis_batches/batch_32.txt
+
+### [5] event counting (photons, decays, spikes) at rates lambda1 = 4 and lambda2 = 9 per unit time, observed in windows of T = 25; A1': one event = one resolvable step
+
+- source row: DECLARATION_31_32.md row 32-5 (new system; EQ-IG class)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Measured in its own flickers, the distance between a dim light and a bright one is how many flickers apart they are.
+- for a fifth grader: Two lamps flicker at different speeds. If you count in flickers, you can say how many 'flicker-steps' apart they are, and that number stays fair whether the lamps are dim or bright.
+
+Entries: 110.

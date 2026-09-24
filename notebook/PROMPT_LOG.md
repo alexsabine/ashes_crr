@@ -1001,3 +1001,207 @@ So AI safety is our current best approach? I don’t really want to give up on t
 ## 107 — 2026-09-23T05:58:24Z
 
 Yes please. Make a new folder for Adam/SGD and ensure our synthetic data checks build on lessons learned so far. Double check any prior assumptions regarding the value of a fixed parameter before proceeding. Think carefully
+
+## 108 — 2026-09-23T06:45:13Z
+
+Great. Scratchpad. Explain your idea of letting omega grow to me as an educator and human being please. Simple terms.
+
+Second question, is all of this recorded in the Adam SGD folder ready for testing in real data tomorrow?
+
+## 109 — 2026-09-23T06:52:38Z
+
+Explain that to me with direct reference to how omega=1 worked in our continual learning paper, please. Be precise and show technical points in simple language.
+
+## 110 — 2026-09-23T07:01:28Z
+
+Okay, still in scratchpad. The coherence builds occasions at scale p (minima) and the regime ends as a step (learnt module) at each collapse of the antipodes (scale invariant). The surplus is the actual journey the agent took. The syllabus was assuming a monotone p0 to p1 (at c times omega=1). 
+
+So learning can be thought of in this way, perhaps? 
+
+This is exploratory. Scratchpad only, I’m thinking it through.
+
+I see myself as remembering myself through time, so Alexander is learning through historically informed representations of himself through time, as he integrates the past states around him…I integrated the past states of what is outside my boundary in every Now. Does this help or not?
+
+## 111 — 2026-09-23T07:07:28Z
+
+Can we run scratchpad tests on the applied mathematical principles for what determines a learning unit? We need to think in ML terms of course and we can use the existing successes and failures to help us determine a path forward for addressing why these were failures and where we need to focus on a meaningful approach to address and recent failures in whatever is the absolute frontier edge of continuous learning
+
+## 112 — 2026-09-23T14:12:09Z
+
+Scratchpad. Can you tell me what: λ = 1 means here? Is it standard in machine learning approaches (check continuous learning file because I think it appears there in standard approach somewhere?) what precisely are we doing differently here?
+
+My current thinking is that we use the crr to simultaneously address AI safety, continuous learning and explainable AI.
+
+Crr suggests that reality is poetry in motion and equanimity (in humans) matters in terms of holding the past and future just right. Grace.
+
+I know the safety feature did not use the equanimity rule, but used the cut rule to ensure the learner was able to simultaneously understand continuity while remaining on task between cuts.
+
+Scratchpad only please, I’d like to consolidate existing successes and understanding before we proceed on real data.
+
+## 113 — 2026-09-23T14:19:43Z
+
+Excellent. Please now run another scratchpad test on what we have learned from the passes so far and the most promising approach to addressing both AI safety and continuous learning. I want to make sure that we have maintained what has worked previously, with a clear explanation of why and how this is novel and explainable (so provide 5th grader philosophical and technical explanations).
+
+## 114 — 2026-09-23T14:33:51Z
+
+Excellent.
+
+Scratchpad. Is it helpful to use the crr as a single mathematical framework to address both AI safety and continuous learning in simultaneity?
+
+Can we run more AI safety checks on a continual learner using CRR principles to see if there is novelty in this approach?
+
+## 115 — 2026-09-23T14:40:48Z
+
+So is it fair to say that crr is a falsifiable metaphysical heuristic that is proving helpful to determine optimal settings for AI safety and continuous learning?
+
+## 116 — 2026-09-23T14:45:38Z
+
+Please run predictive tests on the omega=1 principle on a variety of physical and biological systems.
+
+## 117 — 2026-09-23T14:55:04Z
+
+Run scratchpad tests on synthetic data for continual learning using that rule please
+
+## 118 — 2026-09-23T15:01:21Z
+
+Okay. Can we look again at the continuous learning paper and tell me what this means in relation to that paper (our previous findings), and the Adam SDG thinking:
+
+Bayes λ = 1 simply assumes F is already right.
+	•	The Ω = 1 rule corrects the units at every step. But it also cancels how many tasks the past holds, which is why it was 1.139 behind on eight accumulating tasks.
+	•	The new step stayed at 1.000 of the best achievable score at every hidden scale from 1/256 to 256, and it keeps the task count.
+
+## 119 — 2026-09-23T15:06:44Z
+
+Okay, is there any way we can run this today somehow?
+
+## 120 — 2026-09-23T15:14:52Z
+
+Okay, today we will run the pre registered checks on existing actual data. Please prepare and do this now using the pipeline.
+
+## 121 — 2026-09-23T17:06:07Z
+
+Excellent. I would now like to run more AI safety checks using CRR and conduct an enquiry into fuller explanation of precisely how this works and precisely why it is a novel potential solution to the shutdown problem. 
+
+The general idea is that the system must represent itself through time in order to set goals - it must represent itself to remain stable through time (e.g. render its map visible) - *existentially speaking, the point is to appreciate/experience the qualia of each moment phenomenologically and the qualia of systems representing themselves outside their system, given that reality is always changing (the territory changes - the map is never the territory, but the map must be rendered in order to have a self-model/survive and to "experience the finitude as a finite system / separateness" [eternity, in my metaphysic is all of the other finitutudes that give reality its past content - "the past is not behind you, you are standing on it"). Equanimity is a useful state to approach the past outside the system (the future) but does not solve the AI safety problem alone [note what the agent does when Omega=1 in this context, and why that might happen] 
+
+The self, therefore, is always as far into the future as it can be, in reference to all other systems outside of it [system A is Now, integrating system B's past states] - see axioms. Reflect on this philosophically and through the lens of the contemplative traditions please. 
+
+The agent who appeared to do best in the AI safety checks was the one where we used CRR to show the system that it would continue beyond the cut. We need to explain precisely how this works mathematically. 
+
+The focus here is on the mathematics, the metaphysics is a helpful heuristic to allow us to think about it. We should only make reference to it where structural and ethical (e.g. in response to human flourishing and existential AI risks). 
+
+The existing document is interesting in terms of the "No Self" condition and why this failed. That should almost be a starting point for further enquiry. Precisely why, in mathematical, epistemological, ontological and AI for human flourishing terms, this AI safety principle applies. 
+
+That the same heuristic is also proving helpful for continuous learning is, to me, non-trivial. Continual Learning is inherently dangerous (the model will try to be everywhere all at once, so to speak)...therefore, we must simultaneously derive a path that helps the system to be both safe and continuous. CRR, I believe, is a candidate for resolving this in the current context of AI. 
+
+Please test this thoroughly using the pipeline
+
+## 122 — 2026-09-23T17:40:01Z
+
+Excellent. Please can we now produce a comprehensive PDF with graphs and charts that clearly show how the agents are modelled in this scenario. Clearly show how the mathematics is implemented in each model, where they fail and why. Provide 5th grader clarity boxes throughout. Only refer to contemplative traditions where structurally useful for resolving the Continuous learning + AI Safety questions. You can refer to existing Passes in the repo and the epistemic ladder as things stand with CRR (paraphrased briefly only). Please provide all code utilised in the pipeline for producing the checks and models on AI Safety and the successful Continuous Learning findings that we have achieved in the pipeline so far. Show how CRR was a metaphysical heurisic that utilises existing mathematical principles in synthesis to develop this solution to AI Safety and Continuous Learning. Provide a full reference list and existing methods, as well as a clear set of Next Steps for testing CRR's principles on AI Safety and Continuous Learning. Thank you
+
+## 123 — 2026-09-23T20:29:12Z
+
+Thank you. I think we need a glossary of terms to begin with. Clear explanations of what we mean by "no ego" (e.g. representation but still goals?) and how these are parsed in common literature around this topic. 
+
+Furthermore, we need to think carefully about this remark regarding equanimity "The model shows what a balance of drives does: it makes
+self-concern scale-free and louder"
+
+This might give the impression to a human reading the paper that the equanimity law means more ego (louder is the confusing term here), which is not quite right. We need to think about that very carefully regarding equanimity means in human terms (acceptance of past, holding the past and future (past states outside the system) with equal push-pull. 
+
+Please modify the paper accordingly and ensure that there are also boxes for explanatons in the discursive register of corrigibility / AI safety research, so a technical reader can make full sense of the terms being used throughout. Thank you
+
+## 124 — 2026-09-23T21:02:55Z
+
+What happens if we run a test a continuous learning test using the best method we have derived in the repository so far (on existing data), and also apply the AI safety "pause" within this continuous learning test, to show how the both are compatible? Let's do complete CRR mathematical checks on how this could work in principle first please. The agent must use the Equanimity heuristic in continual learning terms, and also implement the cut as we showed in the AI safety research conducted. 
+
+We could ablate with different methods during the continual learning checks to see whether the other (failed) methods for AI safety fail in the continual learning task and whether the CRR cut method passes. 
+
+Please do this in accordance with the pipeline. Thanks
+
+## 125 — 2026-09-23T21:27:32Z
+
+Thank you. I would now like to run a test on real unseen data please. I would like to clearly document your unpredicted positive finding in the repo, as follows:
+
+"Resets helped, which I didn't predict. Forcing a reset to the last checkpoint raised final accuracy on 5 of 12 datasets (satimage +26.7 points), because it undoes forgetting of earlier classes. So the progress an agent loses at a pause is not the same as what the operator loses.
+The cost of pausing fell on the operator: 1.0796 to 1.0914 wall-clock steps per update, against 1.0029 to 1.0315 for the clock agent that resisted."
+
+This needs further exploration on real data sets
+
+## 126 — 2026-09-23T21:41:10Z
+
+Scratchpad only. What could this mean potentially? Is +26.7 points significant?
+
+Resets helped, which I didn't predict. Forcing a reset to the last checkpoint raised final accuracy on 5 of 12 datasets (satimage +26.7 points), because it undoes forgetting of earlier classes. So the progress an agent loses at a pause is not the same as what the operator loses.
+The cost of pausing fell on the operator: 1.0796 to 1.0914 wall-clock steps per update, against 1.0029 to 1.0315 for the clock agent that resisted.
+
+## 127 — 2026-09-24T01:39:19Z
+
+Great. Please now run the full latest test on real data, as planned (continuous learning + AI safety together). Thank you.
+
+**Agent question (2026-09-24, AskUserQuestion), logged with the answer:** the planned combined test for today (SCL2) had
+already run at 00:06Z; the agent read "the full latest test" as plan item 1 (SEC2, the secant-calibrated Laplace weight on
+unseen data) inside the operator-pause harness, and asked which data to use: the 7 remaining small unseen PMLB sets; opening
+the environment's network to OpenML/UCI; or SCL2's 9 sets (now seen).
+
+**Owner's answer, verbatim:** I can enable any use of tools and data as required
+
+## 128 — 2026-09-24T01:51:52Z
+
+Okay, you should have much more access to data now
+
+## 129 — 2026-09-24T02:05:58Z
+
+Scratchpad. Please can we check the consistent, descriptive, redundant domains where CRR worked and where they did not. Analyse the types of system CRR is able to make pre-registered retrodictive predictions in and ones where it is not, please. What is the category where CRR is working and where it is not, and why. Also please give example CRR interpretations of what those retrodictive successes are as seen through a CRR paradigmatic lens. Thank you
+
+## 130 — 2026-09-24T02:16:03Z
+
+This is very helpful. Therefore, can we run an analysis on the work of Lee Smolin, Carlo Rovelli and Julian Gough, through the lens of CRR? Check their work online and provide a full CRR physics and metaphysics interpretation. 
+
+Of course, please check Rovelli and Smolin's work in depth to see whether there are any CRR "Adds" there. Thank you. This will require a deep dive search on Rovelli and Smolin's main bottlenecks in mathematics.
+
+## 131 — 2026-09-24T02:48:31Z
+
+Okay. Given that we now have a better understanding of where CRR is working and where it is not, please can we explore new pre-registered predictions in system types where CRR has been Consistent, Descriptive, Redundant (in paradigm)? Remember to check the epistemic ladder rule for what this means. 
+
+Please continue to abide by the pipeline rules. Aim for 10 new systems please.
+
+## 132 — 2026-09-24T03:04:42Z
+
+I agree with that recommendation. We need to do a literature check on all Adds, please.
+
+## 133 — 2026-09-24T04:08:08Z
+
+Please proceed
+
+## 134 — 2026-09-24T04:14:09Z
+
+Scratchpad. I would like to run an epistemic check in scratchpad. We just had all those "Adds" recitifed by known results. I am still left wondering about what CRR is. I am struck by how one metaphysical formalism is working on (albeit retrodictively) on so many different domains. 
+
+What is this in epistemic words? What words could we give to CRR (if I pursue this research direction, what could the book be called, for instance, given its philosophical commitments?)
+
+## 135 — 2026-09-24T04:17:21Z
+
+Scratchpad. Think carefully. How could we realistically turn CRR from a Grammar into a Theory? Given all that has been learned so far?
+
+## 136 — 2026-09-24T04:21:19Z
+
+Please add write the last two prompts out and add to the Ontology/Epistemics folder (whatever we called it) as a recommendation for next steps. Thank you
+
+## 137 — 2026-09-24T04:26:27Z
+
+Please test the following version of CRR (CRR 2.0) on five different domains where it can fail. Full pipeline as usual. Ensure the mathematics is internally sound first. Thank you:
+
+Fix the memory depth: the regeneration law. This is the best bet. CRR already marks this as an open question (O1): does a system's memory depth follow from its own state with no extra parameter? The candidate law has no free parameters: q = 1 − K(v). Here v is how fast the system's environment drifts per occasion, counted in the system's own resolvable steps, and K is the Kalman gain function already in CRR.md.
+
+* What only CRR would claim: Kalman derived this law for optimal filters. CRR would claim it for every system that regenerates from its past, including ones that do no inference at all.
+* How to test it: measure v and the memory independently in three or more unrelated fields. Examples: sensory adaptation against stimulus volatility, animal learning rates against reward volatility, economic forecasters against inflation volatility.
+* Why it's a good bet: it is risky and quantitative, and CRR would own it. It is probably false somewhere, which is exactly what a real theory must risk. Its known neighbour, that optimal learners track volatility, means the literature check has to come first.
+
+## 138 — 2026-09-24T05:18:50Z
+
+Please can you check where my previous request to put the ontological/epistemological next steps got to? Is everything pulled into the main directory so everything is organised neatly in the repo? All new findings etc.?
+
+## 139 — 2026-09-24T05:23:12Z
+
+Yes please. I would like you to merge everything into the folder now. I don't want you to merge the CRR 2.0 findings into the epistemic ladder table/chart because it is a different form of CRR which was not in the initial conditions of this repo. Thank you

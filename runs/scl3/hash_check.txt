@@ -1,0 +1,31 @@
+SCL3 prereg integrity check, 2026-09-24T04:08:53Z (AGENT_LOG 111)
+sha256sum -c HASH.txt: every file OK except the line for ./HASH.txt itself:
+./HASH.txt: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+the listed hash of ./HASH.txt is 6b3fb09ad2a575cf4da1ad289f98356043867de86ea9f717e330ba5ed4723174: HASH.txt as it stood when the hash command wrote it (the command's own output file is in its find list, CLAUDE.md section 8); a file cannot contain its own final hash
+the 24 other files:
+../../runs/scl3/frozen/CRR.md: OK
+../../runs/scl3/frozen/loader_check.py: OK
+../../runs/scl3/frozen/scl2_score.py: OK
+../../runs/scl3/frozen/scl3_score.py: OK
+../../runs/scl3/frozen/sec1_score.py: OK
+../../runs/scl3/frozen/select_carriers.py: OK
+./PREREG.md: OK
+./carrier_selection.txt: OK
+./descriptions/1468.json: OK
+./descriptions/1475.json: OK
+./descriptions/1478.json: OK
+./descriptions/1497.json: OK
+./descriptions/1501.json: OK
+./descriptions/188.json: OK
+./descriptions/300.json: OK
+./descriptions/40966.json: OK
+./descriptions/40982.json: OK
+./descriptions/4538.json: OK
+./gate_SCL3.txt: OK
+./instrument.txt: OK
+./loader_check.txt: OK
+./openml_cc18_datalist.json: OK
+./openml_cc18_study99.json: OK
+./smokefull.txt: OK
+sha256 of HASH.txt (the anchored object): d9d8e853ad2fc9aa0f69b08d77b23c87b17375e4a4df77cd5990fcb4a6356dc0

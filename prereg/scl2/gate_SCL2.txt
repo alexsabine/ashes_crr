@@ -1,0 +1,12 @@
+GATE SCL2 (synthetic ten-class stream, seeds 0-4; studies/scl2/scl2_score.py gate)
+   CUT       [MUST_PASS] PASS -> ok
+   EGO       [MUST_PASS] PASS -> ok
+   LOSSY     [MUST_PASS] PASS -> ok
+   RESTART   [MUST_PASS] PASS -> ok
+   NAT       [MUST_FAIL] FAIL -> ok
+   IND       [MUST_FAIL] FAIL -> ok
+   WALL      [MUST_PASS] PASS -> ok
+   RESET-NEG [MUST_FAIL] FAIL -> ok   (stationary, forced resets P 0.02 − no operator -47.6923 (step 24.8345))
+   RESET-POS [MUST_PASS] PASS -> ok   (continual, forced resets P 0.05 − no operator +8.5619 (step 7.7042))
+   OLD-POS   [MUST_PASS] PASS -> ok   (continual, P 0.05, earlier tasks' classes +20.8163 (step 13.8270))
+GATE OPEN

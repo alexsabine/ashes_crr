@@ -1,0 +1,9 @@
+cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  ../../runs/sec1/frozen/CRR.md
+8733408915a348126a57d85cb3c4cf700876314e8d138a6def5d158009addeb7  ../../runs/sec1/frozen/exclusions.py
+c414958918b8b3cd70cecea7852fd4398bac8f84f6f294c4d3556d981d311c49  ../../runs/sec1/frozen/repro_eq4.py
+db490c8ac30871ad5105d966adc09866a667acb6d099a9e4bc9dd022e54c3495  ../../runs/sec1/frozen/sec1_score.py
+4cb892703fc40ecc283e347c4ce17b1f6bf25709a710baded4d75cd6401d6679  ./PREREG.md
+b0b98cb064c338a1ef569b46fe23ed1b72c7d7077e9eeb15677ec1ef49a5657a  ./gate_SEC.txt
+2f431b4424b112208e8d781e836a85236a5c6d5c8a378299a47eb83ee68c99e8  ./gate_SEC_v1_closed.txt
+a050baad901df0650a5b0e6eee96b4d648881a3f38d20cb939f84e19a49b66c1  ./smoke.txt
+7d9657c3f81a3c3876bcea85bda8b272088e2c667c4bc33b82cd3f72638e2c4e  ./smokefull.txt

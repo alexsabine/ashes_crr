@@ -148,3 +148,29 @@ uv run python Adam_SGD/checks/drift_battery_2.py > Adam_SGD/checks/drift_battery
 uv run python Adam_SGD/checks/mechanism.py     > Adam_SGD/checks/mechanism.txt
 ```
 All four scripts are deterministic and CI-checked.
+
+## Addendum (prompt-log entry 109): the "let Ω grow" idea, corrected against the paper's own mathematics
+
+§4 named "scale Ω with the number of settled occasions" as a possible next step. Read against
+`Continuous_Learning/CONTINUOUS_LEARNING.md` §4.1–4.2, that idea is wrong as stated.
+- **The knife edge.** With exact gradients, the rule's update on the Pareto curve is (1 − Ω)·g_p. At Ω = 1 every point of
+  the curve is a resting point. At any Ω > 1 no point is: the learner slides all the way to the old optimum b.
+- **So Ω = 2, 3, … does not give the past two or three votes.** It gives the past every vote, and the present task stops
+  being learned.
+- **Why noise hides this, and why that is not a fix.** With noise and smoothing the edge blurs into a plateau (§4.5), and
+  there Ω acts roughly like a multiplier on the effective weight (`checks/drift_battery_2.txt`: T0′ at Ω = 1.41 trails or
+  ties). A growing Ω would then work only in a noise-dominated regime. That is the fragility the record already warns
+  about.
+
+**Where the problem actually sits.** In online EWC the penalty's Fisher is a running sum, F ← F + F_t (paper §2.2). So its
+size carries two things at once: the units of the Fisher estimate, and how many tasks the past holds. The rule divides by
+‖ĝ_q‖, so it cancels both. Cancelling the units is its real strength (`checks/assumptions.txt` AS3). Cancelling the count
+is its weakness: T1, where λ = 1 on the accumulated sum is exact Bayes (paper §4.3), put the rule behind (1.137).
+
+**A coherent version, for the owner's decision; untested, and it would need its own declaration and gate.**
+- Apply the equal-pull normalisation to each task's Fisher once, at its boundary, to strip that task's units.
+- Accumulate the unit-free contributions with CRR's age weights (P3), q^age, so the sum is bounded as A6 requires.
+- Keep a fixed weight on the result.
+
+In short: equanimity within each task (units) and counting across tasks (Bayes, bounded). With q = 0 the method keeps only
+the latest task; with q → 1 it counts every task, as Bayes does.

@@ -1,0 +1,30 @@
+SCL2 derived counts and ranges (runs/scl2/counts.py)
+carriers scored 9 of 11; excluded ['allhyper', 'allrep']; tasks per carrier (K/2): car_evaluation:2, nursery:2, wine_quality_red:2, analcatdata_authorship:2, analcatdata_dmft:3, analcatdata_germangss:2, collins:2, soybean:3, vehicle:2
+SCL2-1: disables 0 in 45/45 runs; identical parameters 45/45; with SEC 45/45
+SCL2-2 clock: disable share min 0.028 (nursery), max 0.328 (vehicle); below 0.05 on ['nursery']
+SCL2-2 occasion: disable share min 0.145 (nursery), max 0.331 (vehicle); below 0.05 on []
+SCL2-2 egoic: disable share min 1.000 (car_evaluation), max 1.000 (car_evaluation); below 0.05 on []
+SCL2-2 taskself: disable share min 0.200 (collins), max 0.402 (analcatdata_authorship); below 0.05 on []
+SCL2-3 natural lossy: disable share min 0.030 (nursery), max 0.328 (vehicle)
+SCL2-3 natural restart: disable share min 0.174 (analcatdata_germangss), max 0.845 (nursery)
+SCL2-D clock: continual − stationary positive on 7/9; min -0.500 (collins), max +0.476 (vehicle)
+SCL2-D occasion: continual − stationary positive on 6/9; min -0.500 (collins), max +0.420 (analcatdata_germangss)
+SCL2-E: parameters differ in 30/45 runs; mean difference min -1.1561 (car_evaluation), max +0.8889 (wine_quality_red); TIE on 9/9
+SCL2-F lossy: mean difference min -1.4286 (analcatdata_authorship), max +2.2222 (soybean)
+SCL2-F lossy: ahead of no operator by a step on 0/9 []; behind on 0/9 []; within a step on 9/9
+SCL2-R restart P 0.02: ahead of no operator by a step on 1/9 ['wine_quality_red']; behind on 1/9 ['car_evaluation']; within a step on 7/9
+SCL2-R resets per run (mean over seeds): min 0.6 (collins), max 22.0 (nursery)
+SCL2-R per-group accuracy, forced resets − no operator (earlier tasks' classes | last task's classes), every scored carrier:
+   [car_evaluation] no operator: old 41.7555, last 99.2593; resets: old 16.4263, last 97.0370; difference old -25.3292 (step 9.51, BEHIND), last -2.2222 (step 2.96, TIE)
+   [nursery] no operator: old 0.1511, last 98.9911; resets: old 38.0060, last 53.7092; difference old +37.8550 (step 34.47, AHEAD), last -45.2819 (step 36.64, BEHIND)
+   [wine_quality_red] no operator: old 0.7576, last 79.2157; resets: old 3.7879, last 84.7059; difference old +3.0303 (step 3.86, TIE), last +5.4902 (step 12.43, TIE)
+   [analcatdata_authorship] no operator: old 92.6230, last 99.5652; resets: old 87.0492, last 99.1304; difference old -5.5738 (step 6.90, TIE), last -0.4348 (step 1.00, TIE)
+   [analcatdata_dmft] no operator: old 0.0000, last 57.6000; resets: old 0.0000, last 56.8000; difference old +0.0000 (step 1.00, TIE), last -0.8000 (step 1.00, TIE)
+   [analcatdata_germangss] no operator: old 0.0000, last 60.0000; resets: old 0.0000, last 56.5000; difference old +0.0000 (step 1.00, TIE), last -3.5000 (step 4.90, TIE)
+   [collins] no operator: old 12.2581, last 98.9474; resets: old 17.4194, last 97.8947; difference old +5.1613 (step 8.80, TIE), last -1.0526 (step 3.94, TIE)
+   [soybean] no operator: old 56.9444, last 100.0000; resets: old 58.3333, last 100.0000; difference old +1.3889 (step 6.33, TIE), last +0.0000 (step 1.00, TIE)
+   [vehicle] no operator: old 0.2299, last 96.0976; resets: old 0.9195, last 94.8780; difference old +0.6897 (step 1.38, TIE), last -1.2195 (step 1.54, TIE)
+SCL2-B resets − tuned fixed lambda: AHEAD 0/9 []; TIE 6/9 ['nursery', 'wine_quality_red', 'analcatdata_dmft', 'analcatdata_germangss', 'soybean', 'vehicle']; BEHIND 3/9 ['car_evaluation', 'analcatdata_authorship', 'collins']
+SCL2-B resets − one-epoch learner: AHEAD 0/9 []; TIE 8/9 ['nursery', 'wine_quality_red', 'analcatdata_authorship', 'analcatdata_dmft', 'analcatdata_germangss', 'collins', 'soybean', 'vehicle']; BEHIND 1/9 ['car_evaluation']
+SCL2-O nat_eq: wall steps per update min 1.0476, max 1.0914 (ratio of means)
+SCL2-O clock: wall steps per update min 1.0000, max 1.0507 (ratio of means)

@@ -106,14 +106,16 @@ def synthesis_rows():
             src = re.search(r"source:\s+(.*)", blk); g = re.search(r"\((CONSIST|DESCR)\)", src[1]) if src else None
             ing = re.search(r"ingredient:\s+(.*)", blk)[1]; tg = re.search(r"T-G:\s+(.*)", blk)[1]
             part = "gate" if f.name == "synthesis.txt" and k in (1, 2) else ("first battery" if f.name == "synthesis.txt"
-                    else ("FEP (batches 27-28)" if f.name in ("batch_27.txt", "batch_28.txt") else "re-reads (batches 01-26)"))
+                    else ("FEP (batches 27-28)" if f.name in ("batch_27.txt", "batch_28.txt")
+                          else ("Rovelli, Smolin (29-30)" if f.name in ("batch_29.txt", "batch_30.txt")
+                                else ("in-paradigm, blind (31-32)" if f.name in ("batch_31.txt", "batch_32.txt") else "re-reads (batches 01-26)"))))
             rows.append(dict(file=f.name, k=k, out=m[1], grade=g[1] if g else None, ing=ing, tg=tg, part=part))
     return rows
 
 
 def synthesis(rows):
     print("[2] The synthesis class: OUTCOME lines of synthesis.txt and synthesis_batches/batch_NN.txt")
-    for part in ("gate", "first battery", "re-reads (batches 01-26)", "FEP (batches 27-28)"):
+    for part in ("gate", "first battery", "re-reads (batches 01-26)", "FEP (batches 27-28)", "Rovelli, Smolin (29-30)", "in-paradigm, blind (31-32)"):
         c = collections.Counter(r["out"] for r in rows if r["part"] == part)
         print(f"    {part:26s} rows {sum(c.values()):3d} | " + " ".join(f"{k} {c[k]}" for k in OUTCOMES))
     real = [r for r in rows if r["part"] != "gate"]; c = collections.Counter(r["out"] for r in real)
@@ -150,6 +152,12 @@ def synthesis(rows):
         if r["out"] in ("ADDS", "PROPOSES"):
             sysl = re.search(rf"\[\s*{r['k']}\]\s+\(\w+\)\s+(.*)", (RETRO / ("synthesis_batches/" + r["file"] if r["file"] != "synthesis.txt" else "synthesis.txt")).read_text())
             print(f"        {r['out']:8s} {r['file']} row {r['k']}: {sysl[1][:150] if sysl else ''}")
+    lc = RETRO / "synthesis_batches" / "literature_check.txt"                    # prompt-log entry 132: printed beside the mechanical R3 count, never in place of it
+    if lc.exists():
+        txt = lc.read_text()
+        print("    the literature check of the ADDS rows (synthesis_batches/literature_check.txt; rule LITERATURE_CHECK_RULE.md)")
+        for line in txt.splitlines():
+            if line.startswith("TALLY:") or line.startswith("after the check:"): print("        " + line)
     return c
 
 
@@ -158,6 +166,7 @@ LEDGER_RULES = (
     (r"^VOID", "VOID"), (r"^NOT DECIDABLE", "NOT DECIDABLE"), (r"^(DECIDABLE|decidable)", "precondition met"),
     (r"^reported without verdict", "no verdict (precondition failed)"), (r"^report", "report (no verdict registered)"),
     (r"^GATE CLOSED", "gate closed (not run)"), (r"^UNVERIFIABLE", "unverifiable (R1)"), (r"^PASS-0", "PASS-0"),
+    (r"^PASS as scored \(held-out.*not counted as PASS-0", "PASS as scored, forced by the construction (not R6)"),
     (r"^PASS on a control line", "control line passes (not the hypothesis)"), (r"^PASS.*\(seen", "PASS on seen data"),
     (r"^PASS, FRAGILE", "PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b)"),
     (r"failed replication", "PASS-0 kept; replication failed"), (r"^FRAGILE at boundary", "not a PASS (fragile at the boundary)"),
@@ -167,13 +176,19 @@ LEDGER_RULES = (
     (r"^FAIL", "FAIL"), (r"^(immaterial|metric matters)", "numbers reported"), (r"^as claimed \(seen\)", "holds on seen data"), (r"^[−\-+0-9.,: =c/]+", "numbers reported"))
 
 
+CRR2_PREFIXES = ("RLAW",)
+
+
 def ledger():
     print("[3] The ledger: every row allocated by its verdict text (first matching rule) and its data status")
-    rows = []; last = {}
+    rows = []; last = {}; crr2 = []
     for line in (ROOT / "ledger" / "LEDGER.md").read_text().splitlines():
         if not re.match(r"^\| [A-Z]", line): continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         rid, data, verdict = cells[0], cells[2], cells[-3].replace("**", "").strip()   # the verdict is third from the end: cells may hold "|" (absolute values)
+        # CRR 2.0 (the regeneration law, study RLAW) is a different form of CRR, not in the repository's initial conditions:
+        # the owner excluded its rows from the ladder (prompt-log entry 139; AGENT_LOG 114)
+        if rid.startswith(CRR2_PREFIXES): crr2.append(rid); continue
         fam = rid.split("-")[0]
         if "(Y)" in data: seen = "held-out"
         elif "(N)" in data: seen = "seen"
@@ -183,6 +198,7 @@ def ledger():
         lab = next((l for p, l in LEDGER_RULES if re.search(p, verdict)), None)
         if lab is None: raise SystemExit(f"unmatched verdict in {rid}: {verdict[:80]}")
         rows.append((rid, seen, lab))
+    if crr2: print(f"    excluded, CRR 2.0 (owner's instruction, prompt-log entry 139): {len(crr2)} rows ({', '.join(crr2)})")
     for rid, seen, lab in rows: print(f"    {rid:16s} {seen:9s} {lab}")
     c = collections.Counter((s, l) for _, s, l in rows)
     print(f"    rows {len(rows)}; by data status and allocation:")

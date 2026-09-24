@@ -1,0 +1,7 @@
+SPF: 8 units (UNEMP, HOUSING, TBILL, TBOND, CPI, CORECPI, PCE, COREPCE); CPI rows 181, NaN forecasts 1 (one #N/A planted), first x finite True
+Michigan: 3 units of [185, 185, 185] months (555 planted), delta 1.0
+implied vol: 5 units, rows [6687, 6687, 6687, 6687, 6687], NaN x [1, 1, 1, 1, 1] (the first return only: a missing price day is dropped and the next return spans two days; a missing index day is dropped)
+USCRN: 5 cm units 2, deep units 8; air read back (0.1 degC rounding) True; missing day read as NaN True; deep units of the 5/10-only station all-NaN soil20.. True
+Kool: 2 subjects kept (C3 with 149 rows dropped); trials after practice 125; missed 1; state2 values [0, 1]; choice2 values [0, 1]; ps shape (125, 4)
+soil 5 cm synthetic unit (air: drift sd 0.6, noise sd 2, v = 0.3; soil alpha = K(0.3) = 0.2584 by construction; reports rounded to 0.1): alpha_hat 0.2583, v_hat 0.2459
+summary: loader check PASSES

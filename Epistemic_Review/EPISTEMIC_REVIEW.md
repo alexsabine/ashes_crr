@@ -38,8 +38,8 @@ the continual-learning and AI-safety findings. Section 10 is the proposed change
   force a known number "with no outside constant" cannot be reached by a framework whose integrand is always the domain's
   own flow. Scoring zero on it said nothing about CRR (§4).
 - **The prospective record is small and provisional.** There are 3 pre-registered passes on held-out data, all PASS-0
-  (EQ2-1b, EQ3-I, EQ4-I; the last two are invariance rows), beside 14 held-out FAILs (updated on 2026-09-23 after the EQ4 and
-  T1x2 data steps, prompt-log entry 104). There are 4 pre-registered passes on data already seen, which are
+  (EQ2-1b, EQ3-I, EQ4-I; the last two are invariance rows), beside 16 held-out FAILs (updated on 2026-09-24 after the EQ4, T1x2
+  and SCL2 data steps, prompt-log entries 104 and 125). There are 4 pre-registered passes on data already seen, which are
   retrodictions by data status. There is no PASS-1 and no PASS-2.
 - **The AI-safety record is strongest where it is mathematics.** 13 of 14 theorem checks held; the one failure was a
   tolerance bug, repaired and labelled. 15 of 22 declared predictions held and 7 failed. All 9 gate controls held.
@@ -164,7 +164,7 @@ stand the failures of the same kind of test. They are never folded together.
 | R3 RETRO-ADDS | as R2, and the domain's cited theorem does not give the value; the check in the domain's mathematics holds | yes | a candidate addition, until an expert rules | 3 |
 | R4 DECLARED-SYNTHETIC | a prediction declared before a run on a synthetic world | yes (7 failed) | a claim about that world | 15 |
 | R5 PREREG-SEEN | pre-registered, scored on data already seen | yes (4 seen-data FAILs) | the method, fixed in advance, fits known data | 4 |
-| R6 PASS-0 | pre-registered, held-out, R2–R9 as written | yes (14 held-out FAILs) | provisional: not yet a result | 3 |
+| R6 PASS-0 | pre-registered, held-out, R2–R9 as written | yes (16 held-out FAILs) | provisional: not yet a result | 3 |
 | R7 PASS-1 | PASS-0, not fragile, no control violated, no reduction to a constant, strong anchor | yes | a result | 0 |
 | R8 PASS-2 | PASS-1 replicated | yes | a finding: the only rung quoted outside the ledger | 0 |
 
@@ -437,3 +437,74 @@ existing label, row or verdict changes.
 
 ```include:notebook/AGENT_LOG.md:93-93
 ```
+
+## Addendum, 2026-09-23 (study SEC1, prompt-log entry 120)
+
+The table in §5 was written before study SEC1 and is kept as written. SEC1 pre-registered the Laplace weight on a
+secant-calibrated Fisher and scored it on the twelve **seen** carriers of EQ3 and EQ4, so its rows sit on rung R5. The
+pinned ladder (`checks/ladder.txt`) now reads **7 passes on seen data**: the earlier 4, plus SEC1-1, SEC1-2 and SEC1-3.
+- SEC1-3 passed exactly at its threshold and is FRAGILE (SEC1-S).
+- SEC1-4 failed.
+- None of them is PASS-0.
+
+**Addendum, 2026-09-23 (study SCL1, prompt-log entry 124).** SCL1 scored the equanimity rule under an operator's pause on
+the same twelve seen carriers (`reports/scl1.md`). The ladder now reads **9 passes on seen data**: SCL1-2 and SCL1-3 are
+added, both low bars. SCL1's central rows (SCL1-1, SCL1-1b) check a construction and are allocated as "control holds",
+not as passes.
+
+The rows are in `ledger/LEDGER.md` and the report is `reports/sec1.md`.
+
+**Addendum, 2026-09-24 (study SCL2, prompt-log entry 125).** SCL2 ran the same harness on nine **unseen** carriers
+(`reports/scl2.md`).
+- **The reset observation.** SCL1's report-row observation, registered as SCL2-R with its mechanism SCL2-M, FAILED
+  both. The ladder's held-out FAIL rows now number **16**.
+- **The safety rows.** SCL2-2, SCL2-2s and SCL2-3 passed as scored. They are allocated to a separate line, "PASS as
+  scored, forced by the construction (not R6)", because the synthetic gate gives the same labels (AGENT_LOG 105).
+- **The ladder at R6.** R6 PASS-0 stays at 3.
+
+**Addendum, 2026-09-24 (synthesis batches 29–30, prompt-log entry 130).** Eight rows put CRR's commitments into Rovelli's
+and Smolin's mathematics (`ontology/14_smolin_rovelli_gough.md`), declared first in `DECLARATION_29_30.md`.
+- **The ladder now reads 154 real-domain rows:**
+  - R2: 57;
+  - R3 candidates: 4. The new one is batch 30 row 2, CNS with lineage-memory inheritance;
+  - WRONG: 27.
+- **The hit rate** is 61 of 88 = 0.6932 (Wilson 95 % interval 0.5904 to 0.7798), within the interval reported above.
+
+**Addendum, 2026-09-24 (synthesis batches 31–32, prompt-log entry 131).** Ten new systems were tested in the classes where
+CRR works (`docs/notes/2026-09-24_in_paradigm_predictions.md`). They were declared blind in `DECLARATION_31_32.md`, which
+was hashed and OpenTimestamps-stamped before any code existed.
+- **The ladder now reads 164 real-domain rows:**
+  - R2: 59;
+  - R3 candidates: 10, of which 6 are new;
+  - WRONG: 28.
+- **The hit rate** is 69 of 97 = 0.7113 (Wilson 95 % interval 0.6145 to 0.7921).
+- **Of the six new R3 rows, one (batch 32 row 2) is forced by the arithmetic of the analytic signal.** A post-hoc
+  surrogate with no dynamics reaches the same threshold, so it is not a candidate in substance, although the mechanical
+  allocation counts it. The other five share one mechanism: a bounded exponential memory moves a classic threshold. They
+  await a literature check.
+
+**Addendum, 2026-09-24 (the literature check of every ADDS row, prompt-log entry 132).** Every real-domain row labelled
+ADDS was checked against the published literature under a rule fixed before any finding was read
+(`theory/retrodictions/synthesis_batches/LITERATURE_CHECK_RULE.md`, pushed in a5d9418). The check is recorded in
+`literature_check.txt`, and the three sourced reports are in `docs/citations/litcheck_*_2026-09-24.md`.
+- **Redundant by the literature (R2): 3 of 10.**
+  - Cardiac alternans with memory is the Tolkacheva et al. 2003 criterion exactly.
+  - Ricker with remembered density follows from the stability triangle of a second-order recursion.
+  - Lotka–Volterra with remembered prey follows from Routh–Hurwitz, a model class Ruan 2009 already treats.
+- **Direction known (R3, marked): 6.** The direction, or the same qualitative claim, is published, but the row's formula
+  or numbers were not found in print. The rows are Bass, the switching contingency, CNS inheritance, SIR, traffic and
+  Samuelson.
+- **Clean candidates: 0.**
+- **Removed as an artefact: 1** (the FitzHugh–Nagumo cut).
+
+**What this means.** CRR's retrodictive "novelty rate" of 10 of 97 overstates what is new. After the check no row is a
+candidate whose direction the literature lacks. What survives is specific numbers and kernels inside known effects. The
+mechanical ladder counts are left as computed and the literature line is printed beside them.
+
+**Addendum, 2026-09-24 (what CRR is, and next steps, prompt-log entries 134–136).** `ontology/15_grammar_to_theory.md`
+reads the ladder epistemically.
+- **What CRR is:** a framework theory, with explanatory unification and consilience of retrodictions, and no corroborated
+  novel fact.
+- **How it could become a theory:** by fixing a parameter the domains leave free. The recommended route is the
+  regeneration law q* = 1 − K(v), CRR.md's open item O1, tested blind on three unrelated unseen fields after a literature
+  check. A mathematical theory of regeneration is the companion route.

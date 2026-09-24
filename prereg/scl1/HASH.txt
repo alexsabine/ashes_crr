@@ -1,0 +1,7 @@
+cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  ../../runs/scl1/frozen/CRR.md
+88366c8016264d22d9452f7c3f044fdfbe66aea22e86b68fd40eb0a270d3c0ac  ../../runs/scl1/frozen/scl1_score.py
+db490c8ac30871ad5105d966adc09866a667acb6d099a9e4bc9dd022e54c3495  ../../runs/scl1/frozen/sec1_score.py
+64d62f4e866ed726bfdbdfd6408b4b2f808dc349d2e0d2f1f81d70839177ff44  ./PREREG.md
+0a2f43a201eeb9f6ddd05349de51354cba0fa1d85d67106ee4c33bd9d1119371  ./gate_SCL.txt
+f77dc39b8fb5ba9f3e369066c5f8bd1357f64be649511e89294c8359b5c555ff  ./math_checks.txt
+06fcda4f2113a84af927b000c74a90f31865f9a40e88d6be37ead0cb388ce1ea  ./smokefull.txt
