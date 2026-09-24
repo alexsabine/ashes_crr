@@ -1165,3 +1165,7 @@ Of course, please check Rovelli and Smolin's work in depth to see whether there 
 Okay. Given that we now have a better understanding of where CRR is working and where it is not, please can we explore new pre-registered predictions in system types where CRR has been Consistent, Descriptive, Redundant (in paradigm)? Remember to check the epistemic ladder rule for what this means. 
 
 Please continue to abide by the pipeline rules. Aim for 10 new systems please.
+
+## 132 — 2026-09-24T03:04:42Z
+
+I agree with that recommendation. We need to do a literature check on all Adds, please.
