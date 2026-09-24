@@ -245,7 +245,8 @@ AI_Safety/                 the off switch and the self: the corrigibility write-
                            checks/{exact_mdp,off_switch_game,sensitivity,timecourse,combined,scale}.py + pinned .txt, DECLARATION*.md
                            pushed before the runs, figures from pinned outputs); SELF_THROUGH_TIME.md the enquiry of prompt-log entry 121
                            (content of the cut, Proposition 7; the No-Self conditions; Omega = 1 as scale-free self-concern; safe and
-                           continual learning; checks/self_through_time.py, checks/continual_safety.py, DECLARATION_4.md); a note, not evidence (R8)
+                           continual learning; checks/self_through_time.py, checks/continual_safety.py, DECLARATION_4.md); FRONTIER_REVIEW.md + PDF
+                           the 2026 frontier safety problems against the record and the prior art (prompt-log entry 149); a note, not evidence (R8)
 Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how the safety agents and the continual-learning rules are modelled,
                            the mathematics as implemented, where each fails and why, CRR as a heuristic over existing mathematics, the
                            ladder, references, next steps, all pipeline code, a glossary and technical-register boxes (SAFE_AND_CONTINUAL.md + PDF; figures F01-F14 from pinned

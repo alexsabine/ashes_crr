@@ -87,6 +87,7 @@ jobs:
           uv run python Maps_and_Territories/checks/performativity.py 2>/dev/null > /tmp/mt1.txt && uv run python scripts/cmp_tol.py /tmp/mt1.txt Maps_and_Territories/checks/performativity.txt
           uv run python Maps_and_Territories/checks/performativity_2.py 2>/dev/null > /tmp/mt2.txt && uv run python scripts/cmp_tol.py /tmp/mt2.txt Maps_and_Territories/checks/performativity_2.txt
           uv run --group docs python Maps_and_Territories/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
+          uv run --group docs python AI_Safety/build/build_review_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run --group docs python Rupture_Detection/build/build_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python theory/retrodictions/crr_retrodictions.py > /tmp/retro.txt && cmp /tmp/retro.txt theory/retrodictions/crr_retrodictions.txt
           uv run python theory/retrodictions/sharp_claims.py > /tmp/sharp.txt && cmp /tmp/sharp.txt theory/retrodictions/sharp_claims.txt
