@@ -1,0 +1,5 @@
+date: 2026-09-24T06:39:16Z
+command: uv run python -u runs/rlaw/frozen/gate_rlaw.py > gate_rerun.txt (run after the hash, from the frozen copy)
+sha256 of the rerun: 922fda311996280b38635c34617ac68d4f3af0b2a41f1f684d1891dd2f921817
+sha256 of prereg/rlaw/gate_RLAW.txt: 922fda311996280b38635c34617ac68d4f3af0b2a41f1f684d1891dd2f921817
+cmp: byte-identical (R9)
