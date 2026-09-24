@@ -1341,3 +1341,7 @@ This reminds me of a conversation I had recently where someone said that the saf
 ## 167 — 2026-09-24T22:32:21Z
 
 Excellent. Scratchpad. Where did we get to with CRR 2.0?
+
+## 168 — 2026-09-24T22:36:09Z
+
+Thanks, and the LLM checks we did earlier, on GPT 2, how strict were the accuracy requirements? We set a 50% threshold, do we know why this was not passed? Scratchpad only please
