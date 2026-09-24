@@ -1349,3 +1349,9 @@ Thanks, and the LLM checks we did earlier, on GPT 2, how strict were the accurac
 ## 169 — 2026-09-24T22:39:46Z
 
 Is there value to being able to run the pause construction on an LLM system such as Qwen? Please explain either way, Scratchpad
+
+## 170 — 2026-09-24T23:09:48Z
+
+Question for scratchpad. When Claude or any AI spills out the text in cot and the main text etc, I notice the user can’t change the speed it pours out, or pause it.
+
+Equally for python etc, I don’t see a pause button when a script is running. Is that a known thing? Tell me more about it.
