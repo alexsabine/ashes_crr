@@ -1,0 +1,3 @@
+machine-dependent timings (seconds), not compared byte-for-byte
+save (first phase, step-step): 0.0100
+load (c1_full): 0.0338

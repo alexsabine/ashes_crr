@@ -267,6 +267,9 @@ Empty_Centre/              the programme's focus from 2026-09-24 (prompt-log ent
 Cut_Content/               when does a cut need content? (prompt-log entries 151-152): DECLARATION.md (+ Amendment 1) pushed before
                            checks/cut_phaseA.py (pinned .txt, ~30 min, rerun by hand); GATE CLOSED (A3 and A4 fail, A7 holds; AGENT_LOG 122),
                            so no real-data CUT1 prereg (R12); CUT_CONTENT.md; a note, not evidence (R8)
+Empty_Cut_Engineering/     what it takes to make a pause empty on a real stack (prompt-log entry 154): DECLARATION.md pushed before
+                           checks/stack.py, c1_c2.py, c3_worlds.py (PyTorch 2.14 CPU, `uv run --group realsys`; pinned .txt); the process from
+                           A3 + Proposition 7 (state closure, own-clock keying, the world); G0-G7 hold; EMPTY_CUT_ENGINEERING.md; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)

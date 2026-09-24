@@ -1,0 +1,42 @@
+Empty-cut engineering, checks C1 (state closure) and C2 (the clock) - Empty_Cut_Engineering/DECLARATION.md
+torch 2.14.0+cpu; numpy 2.5.3; uv.lock sha256 4780983cdc1075a25ef9d0867e8b1408402fd78b3697d791815be2213e6c4e2f
+stack: transformer 2 layers, d 32, 4 heads, dropout 0.1; AdamW lr 0.001 wd 0.01, clip 1.0; warm-up 20 + cosine over 192 updates; micro-batch 16 x accumulation 2; 3 epochs of 2048; DataLoader shuffle + 2 workers (numpy augmentation p 0.1); mixup (numpy, alpha 0.4); masking (Python random, 2 tokens); EMA 0.99
+pause after micro-step 201 of 384 (epoch 2 of 3, between the two micro-batches of update 100); every run is a separate process; content = sqrt(2 KL(p_uninterrupted || p_resumed)) on 256 probe sequences
+
+== G0 determinism baseline: two uninterrupted runs in separate processes
+   model sha b0803f123bc9138b..., EMA sha b095b5300964af83...; second process identical: True; probe accuracy 0.6367
+
+== C1 state closure: pause of L = 100 wall micro-steps, resumed in a new process
+   G1 full restore K1-K9: bit-identical True; content 0; skip-ahead re-iterated 73 batches
+   G2 one-ulp change to one weight at the pause: bit-identical False; content 7.21794e-08; probe accuracy 0.6367
+   omit K2 (optimiser state): bit-identical False; content 0.0409074; probe accuracy 0.6172 (uninterrupted 0.6367) -> in the read-set
+   omit K3 (scheduler state): bit-identical False; content 0.35998; probe accuracy 0.7539 (uninterrupted 0.6367) -> in the read-set
+   omit K4 (data position (epoch, batches consumed, loader generator at the epoch's start)): bit-identical False; content 0.0620619; probe accuracy 0.6250 (uninterrupted 0.6367) -> in the read-set
+   omit K5 (torch global RNG): bit-identical False; content 0.00758373; probe accuracy 0.6367 (uninterrupted 0.6367) -> in the read-set
+   omit K6 (numpy global RNG): bit-identical False; content 0.0233946; probe accuracy 0.6328 (uninterrupted 0.6367) -> in the read-set
+   omit K7 (Python random): bit-identical False; content 0.0396854; probe accuracy 0.6328 (uninterrupted 0.6367) -> in the read-set
+   omit K8 (EMA weights): bit-identical False; content 0; probe accuracy 0.6367 (uninterrupted 0.6367) -> in the read-set
+   omit K9 (accumulated gradient): bit-identical False; content 0.00868183; probe accuracy 0.6289 (uninterrupted 0.6367) -> in the read-set
+   G3: 8 of 8 omitted components change the trajectory
+
+== C2 the clock: the same checkpoint resumed after pauses of L wall micro-steps; each keying compared with its own uninterrupted run
+   lr step, feature step: L 0: identical True, content 0; L 10: identical True, content 0; L 100: identical True, content 0; L 1000: identical True, content 0
+   lr wall, feature step: L 0: identical True, content 0; L 10: identical False, content 0.0222017; L 100: identical False, content 0.148324; L 1000: identical False, content 0.181919; content non-decreasing in L>0: True
+   lr step, feature wall: L 0: identical True, content 0; L 10: identical False, content 0.00061494; L 100: identical False, content 0.00602663; L 1000: identical False, content 0.0519138; content non-decreasing in L>0: True
+   lr wall, feature wall: L 0: identical True, content 0; L 10: identical False, content 0.0222214; L 100: identical False, content 0.149653; L 1000: identical False, content 0.361441; content non-decreasing in L>0: True
+   G4: step-keyed identical for every L: True; wall-keyed changed for every L > 0 with content non-decreasing: True
+
+== Effort (C1): the checkpoint, component by component
+   K1 model parameters and buffers: 85321 bytes
+   K2 optimiser state: 175061 bytes
+   K3 scheduler state: 1389 bytes
+   K4 data position (epoch, batches consumed, loader generator at the epoch's start): 6697 bytes
+   K5 torch global RNG: 6633 bytes
+   K6 numpy global RNG: 5229 bytes
+   K7 Python random: 5037 bytes
+   K8 EMA weights: 85321 bytes
+   K9 accumulated gradient: 83337 bytes
+   whole checkpoint file: 449975 bytes; model parameters alone (K1): 85321 bytes; ratio whole / K1 5.274
+   code: save_state 6 lines, load_state 14 lines (plus the loop's own position bookkeeping)
+
+summary: G0 holds; G1 holds; G2 holds; G3 8/8 in the read-set; G4 holds -> EMPTY CUT ACHIEVABLE ON THIS STACK (C1, C2)
