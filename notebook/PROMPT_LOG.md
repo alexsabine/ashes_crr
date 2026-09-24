@@ -1159,3 +1159,9 @@ Scratchpad. Please can we check the consistent, descriptive, redundant domains w
 This is very helpful. Therefore, can we run an analysis on the work of Lee Smolin, Carlo Rovelli and Julian Gough, through the lens of CRR? Check their work online and provide a full CRR physics and metaphysics interpretation. 
 
 Of course, please check Rovelli and Smolin's work in depth to see whether there are any CRR "Adds" there. Thank you. This will require a deep dive search on Rovelli and Smolin's main bottlenecks in mathematics.
+
+## 131 — 2026-09-24T02:48:31Z
+
+Okay. Given that we now have a better understanding of where CRR is working and where it is not, please can we explore new pre-registered predictions in system types where CRR has been Consistent, Descriptive, Redundant (in paradigm)? Remember to check the epistemic ladder rule for what this means. 
+
+Please continue to abide by the pipeline rules. Aim for 10 new systems please.
