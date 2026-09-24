@@ -4,20 +4,20 @@ Epistemic_Review figures (deterministic; every number drawn on a figure)
 [E01] R6 PASS-0: pre-registered, held-out: 3; beside it 16 held-out FAIL
 [E01] R5 pre-registered, scored on seen data: 9
 [E01] R4 declared before a synthetic run (predictions): 15; beside it 7 failed
-[E01] R3 retro-adds: proper ingredient, domain lacks it: 3
-[E01] R2 retro-proper: proper ingredient, known result: 53; beside it 24 WRONG
+[E01] R3 retro-adds: proper ingredient, domain lacks it: 4
+[E01] R2 retro-proper: proper ingredient, known result: 57; beside it 27 WRONG
 [E01] R1 inherited: information geometry's: 38
 [figure] E01_ladder.png
 [E02] CONSIST: REDUNDANT-DOMAIN 14 ADDS 0 REDUNDANT-IG 15 WRONG 3 INTERNAL 9 UNSTATED 0 PROPOSES 0
 [E02] DESCR: REDUNDANT-DOMAIN 36 ADDS 2 REDUNDANT-IG 19 WRONG 14 INTERNAL 12 UNSTATED 3 PROPOSES 0
 [figure] E02_crosswalk.png
-[E03] A3/D5 the cut: R2 34 R3 2 WRONG 16 INTERNAL 12; 36 of 52 = 0.6923
-[E03] A6 regeneration: R2 12 R3 3 WRONG 7 INTERNAL 2; 15 of 22 = 0.6818
-[E03] P2/P3 occasion weights: R2 12 R3 2 WRONG 6 INTERNAL 3; 14 of 20 = 0.7000
+[E03] A3/D5 the cut: R2 36 R3 2 WRONG 17 INTERNAL 12; 38 of 55 = 0.6909
+[E03] A6 regeneration: R2 12 R3 4 WRONG 8 INTERNAL 2; 16 of 24 = 0.6667
+[E03] P2/P3 occasion weights: R2 12 R3 3 WRONG 7 INTERNAL 3; 15 of 22 = 0.6818
 [E03] A1'/D1 the unit: R2 30 R3 0 WRONG 7 INTERNAL 10; 30 of 37 = 0.8108
-[E03] H-L5 natural time: R2 8 R3 0 WRONG 4 INTERNAL 3; 8 of 12 = 0.6667
+[E03] H-L5 natural time: R2 10 R3 0 WRONG 5 INTERNAL 3; 10 of 15 = 0.6667
 [E03] D6/H-T1 path: R2 2 R3 0 WRONG 5 INTERNAL 0; 2 of 7 = 0.2857
-[E03] H-EQ equanimity: R2 1 R3 0 WRONG 1 INTERNAL 2; 1 of 2 = 0.5000
+[E03] H-EQ equanimity: R2 2 R3 0 WRONG 2 INTERNAL 2; 2 of 4 = 0.5000
 [E03] A7/A8 tense: R2 1 R3 0 WRONG 1 INTERNAL 1; 1 of 2 = 0.5000
 [figure] E03_commitments.png
 [E04] the domain: 98 of 109

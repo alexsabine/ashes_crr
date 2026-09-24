@@ -461,3 +461,11 @@ The rows are in `ledger/LEDGER.md` and the report is `reports/sec1.md`.
 - **The safety rows.** SCL2-2, SCL2-2s and SCL2-3 passed as scored. They are allocated to a separate line, "PASS as
   scored, forced by the construction (not R6)", because the synthetic gate gives the same labels (AGENT_LOG 105).
 - **The ladder at R6.** R6 PASS-0 stays at 3.
+
+**Addendum, 2026-09-24 (synthesis batches 29–30, prompt-log entry 130).** Eight rows put CRR's commitments into Rovelli's
+and Smolin's mathematics (`ontology/14_smolin_rovelli_gough.md`), declared first in `DECLARATION_29_30.md`.
+- **The ladder now reads 154 real-domain rows:**
+  - R2: 57;
+  - R3 candidates: 4. The new one is batch 30 row 2, CNS with lineage-memory inheritance;
+  - WRONG: 27.
+- **The hit rate** is 61 of 88 = 0.6932 (Wilson 95 % interval 0.5904 to 0.7798), within the interval reported above.

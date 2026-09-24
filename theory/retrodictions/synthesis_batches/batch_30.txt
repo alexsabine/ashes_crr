@@ -1,0 +1,50 @@
+Synthesis batch 30: Smolin (prompt-log entry 130; DECLARATION_29_30.md)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (prec) a binary measurement with Born probability p = 0.3 repeated 10000 times on identically prepared systems, in 200 independent worlds; the first 5 outcomes and 5 % of the rest are free (drawn from Born), the others follow precedent; statistics over the last 5000 draws
+     source:     smolin dossier 3 (1205.3707 v1, Postulate 6; the lock-in problem: 'all future measurements would repeat the first random choice')
+     Q:          precedence with A6's bounded memory (the precedent is the age-weighted record, weights q^k, q = 0.9, never an accumulated count) forgets the first accidents and so reproduces Born statistics: the across-world spread of the long-run frequency is binomial and successive outcomes are independent
+     ingredient: A6 (regeneration from the settled occasions by a bounded, age-weighted mean) with P3's geometric weights
+     null:       precedence as Smolin states it: a uniform draw from all past outcomes (a Polya urn with 5 % immigration)
+     domain:     quantum mechanics: outcomes on independently prepared systems are i.i.d. Bernoulli(p); the spread of a 5000-draw frequency is sqrt(p(1-p)/5000), the lag-1 correlation is 0
+     numbers:    across-world spread of the frequency: A6 0.0869, Polya 0.1870, binomial 0.0065; mean frequency A6 0.3041, Polya 0.3046 (Born 0.3); mean lag-1 correlation A6 +0.4990, Polya -0.0009
+     T-G:        spread 0.0869 vs null 0.1870: differ
+     T-N:        the binomial law gives 0.0065: differ
+     T-C:        spread within 3x binomial and lag-1 below 0.01: fails
+     OUTCOME:    WRONG
+     reading:    bounded memory treats Smolin's lock-in (the spread across worlds falls from 0.1870 to 0.0869, because an early accident is forgotten) but breaks what quantum mechanics requires: with a finite memory the precedent is a small, self-feeding sample, so successive outcomes are correlated (lag-1 +0.4990) and the frequency wanders (13.4x the binomial spread); precedence as stated keeps independence (lag-1 -0.0009) but locks in; neither recovers Born statistics from precedent alone, which is the dossier's open problem, and A6's 'never an accumulated count' is on the wrong side of it for quantum outcomes
+     weakness:   one free-draw share (5 %) and one memory (q = 0.9); the lag-1 correlation falls as q -> 1, which is the accumulated count A6 forbids; Smolin's small-n regime is unspecified, so the free-draw rule is this row's choice
+
+[ 2] (cns) cosmological natural selection as a Gaussian replicator-mutator: parameter x, offspring number (black holes) ~ exp(-x^2 / 2 w^2), w^2 = 1, mutation variance mu = 0.01 per generation, lineage memory m
+     source:     smolin dossier 1d problems 1-2 (the mutation kernel is unspecified; convergence asserted, not proved); Altenberg 1302.1293 v2
+     Q:          with A6 inheritance (a universe's seed is the bounded age-weighted mean of its lineage, q = 0.5: seed = (1-q) x_parent + q m_lineage) the equilibrium ensemble sits closer to the fitness peak: its parameter variance and mutation load are lower than under parent-only inheritance
+     ingredient: A6 (regeneration from the settled past by a bounded Frechet mean; on this 1-D Gaussian carrier the weighted mean) with P3's geometric age weights
+     null:       parent-only inheritance, q = 0 (Smolin's Hypothesis II as usually read)
+     domain:     none cited
+     numbers:    equilibrium variance before selection: A6 (q = 0.5) 0.05639, parent-only 0.10512 (the domain's closed form for parent-only 0.10512); mutation load (mean log-fitness deficit): A6 0.02743, parent-only 0.04998; generations to halve a unit displacement from the peak: A6 14, parent-only 7
+     T-G:        load 0.02743 vs null 0.04998: differ
+     T-N:        no closed form for the A6 kernel found; the domain's formula reproduces the null (parent-only) exactly
+     T-C:        the exact Gaussian recursion gives a lower load under A6: holds
+     OUTCOME:    ADDS
+     reading:    CRR supplies the inheritance law CNS leaves open and it has a checkable consequence: lineage memory lowers the equilibrium load (0.02743 against 0.04998), so universes sit closer to a local maximum of black-hole production, which sharpens Smolin's master prediction M; the price is a slower climb (14 generations to halve a displacement against 7); Altenberg's reduction principle already says selection favours more faithful inheritance, so the direction is the domain's and only the specific kernel (A6 with P3) is new
+     weakness:   the transgenerational and maternal-inheritance literature (Kirkpatrick and Lande 1989; Day and Bonduriansky 2011) may already contain this kernel and its load; not fetched; a Gaussian landscape near one peak; the black-hole fitness and the bounce's inheritance are Smolin's unproved hypotheses I and II
+     elegance:   A family of universes that remembers its grandparents, not only its parents, stays nearer the top of the hill.
+     child:      Baby universes are copies of their parents with small mistakes. If each baby also copies a bit from its grandparents, the mistakes cancel out a little, and the family stays closer to the best recipe.
+
+[ 3] (cns) an ensemble of universes on a 1-D parameter p: mean black-hole number f(p) = 2 exp(-(p - 0.3)^2 / 0.1) + 0.5, lifetime tau(p) = exp(1.5 p) (universes that make more black holes on the right take longer), mutation width 0.02
+     source:     smolin dossier 1d problem 4 ('a time is required to count generations'; the measure over generations)
+     Q:          counted in natural time (generations: one occasion per universe, D5; H-L5's 'change has its own clock'), the ensemble concentrates at the maximum of f, which is Smolin's fitness; counted in clock time it concentrates at the Malthusian optimum and the prediction moves
+     ingredient: D5 (occasions: one universe = one occasion) with H-L5's natural time (count occasions, not clock time)
+     null:       the clock-time ensemble (continuous-time branching: the leading eigenvector of K f/tau - 1/tau)
+     domain:     the generation-indexed branching process (Galton-Watson, multitype): under small mutation its type distribution concentrates at argmax f
+     numbers:    ensemble mode: in generations 0.3000, in clock time 0.2500; argmax f 0.3000; argmax of the Malthusian rate (f - 1)/tau 0.2450
+     T-G:        mode 0.3000 vs null 0.2500: differ
+     T-N:        the generation theorem gives 0.3000: agree (the domain has Q)
+     T-C:        not needed (the domain has Q)
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    CNS's prediction depends on the clock that counts the ensemble: in generations the typical universe sits at the peak of black-hole number (0.3000), in clock time it moves to 0.2500 whenever fitter universes are slower; CRR's natural time picks the generation count, which is what Smolin's fitness assumes but his measure problem leaves open; the number is branching-process theory's
+     weakness:   a toy landscape with an assumed lifetime trade-off; whether there is a clock time across universes at all is itself open (each universe has its own)
+     elegance:   If you count families by generations, the best parents win; if you count by the calendar, the fastest ones do.
+     child:      Some baby universes make lots of babies but take a long time; others make fewer but quickly. If you count by generations, the big families win. If you count by the clock, the quick ones win. CRR says count by generations.
+
+TALLY: 1 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

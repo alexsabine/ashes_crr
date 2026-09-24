@@ -106,14 +106,15 @@ def synthesis_rows():
             src = re.search(r"source:\s+(.*)", blk); g = re.search(r"\((CONSIST|DESCR)\)", src[1]) if src else None
             ing = re.search(r"ingredient:\s+(.*)", blk)[1]; tg = re.search(r"T-G:\s+(.*)", blk)[1]
             part = "gate" if f.name == "synthesis.txt" and k in (1, 2) else ("first battery" if f.name == "synthesis.txt"
-                    else ("FEP (batches 27-28)" if f.name in ("batch_27.txt", "batch_28.txt") else "re-reads (batches 01-26)"))
+                    else ("FEP (batches 27-28)" if f.name in ("batch_27.txt", "batch_28.txt")
+                          else ("Rovelli, Smolin (29-30)" if f.name in ("batch_29.txt", "batch_30.txt") else "re-reads (batches 01-26)")))
             rows.append(dict(file=f.name, k=k, out=m[1], grade=g[1] if g else None, ing=ing, tg=tg, part=part))
     return rows
 
 
 def synthesis(rows):
     print("[2] The synthesis class: OUTCOME lines of synthesis.txt and synthesis_batches/batch_NN.txt")
-    for part in ("gate", "first battery", "re-reads (batches 01-26)", "FEP (batches 27-28)"):
+    for part in ("gate", "first battery", "re-reads (batches 01-26)", "FEP (batches 27-28)", "Rovelli, Smolin (29-30)"):
         c = collections.Counter(r["out"] for r in rows if r["part"] == part)
         print(f"    {part:26s} rows {sum(c.values()):3d} | " + " ".join(f"{k} {c[k]}" for k in OUTCOMES))
     real = [r for r in rows if r["part"] != "gate"]; c = collections.Counter(r["out"] for r in real)
