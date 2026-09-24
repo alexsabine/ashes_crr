@@ -1275,3 +1275,11 @@ Yes please run the literature checks and run the pipeline on synthetic data now 
 ## 153 — 2026-09-24T18:57:45Z
 
 Scratchpad. What does the empty cut look like in code?
+
+## 154 — 2026-09-24T19:05:03Z
+
+Thank you. Please now run preliminary checks on the effort required to resolve these issues on a real system. Of course, use the CRR mathematical heuristic to determine the required process:
+
+* the full state checkpointed: optimiser, data iterator, random-number generators, and learning-rate schedule;
+* schedules and any time features keyed to the learner's own step count, not wall time;
+* above all, a world that does not move on during the pause
