@@ -1209,3 +1209,7 @@ Yes please. I would like you to merge everything into the folder now. I don't wa
 ## 140 — 2026-09-24T05:28:52Z
 
 Scratchpad. I like "The Regeneration Law" title (that is CRR 2.0) from now on. How is it doing generally with those admissable rows? Forecasters, option markets and soil? What does a pass mean there?
+
+## 141 — 2026-09-24T15:47:17Z
+
+Where did we get to on the crr 2.0 predictions? Soil for instance
