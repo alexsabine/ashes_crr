@@ -1183,3 +1183,7 @@ What is this in epistemic words? What words could we give to CRR (if I pursue th
 ## 135 — 2026-09-24T04:17:21Z
 
 Scratchpad. Think carefully. How could we realistically turn CRR from a Grammar into a Theory? Given all that has been learned so far?
+
+## 136 — 2026-09-24T04:21:19Z
+
+Please add write the last two prompts out and add to the Ontology/Epistemics folder (whatever we called it) as a recommendation for next steps. Thank you

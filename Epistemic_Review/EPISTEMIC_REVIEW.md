@@ -500,3 +500,11 @@ ADDS was checked against the published literature under a rule fixed before any 
 **What this means.** CRR's retrodictive "novelty rate" of 10 of 97 overstates what is new. After the check no row is a
 candidate whose direction the literature lacks. What survives is specific numbers and kernels inside known effects. The
 mechanical ladder counts are left as computed and the literature line is printed beside them.
+
+**Addendum, 2026-09-24 (what CRR is, and next steps, prompt-log entries 134–136).** `ontology/15_grammar_to_theory.md`
+reads the ladder epistemically.
+- **What CRR is:** a framework theory, with explanatory unification and consilience of retrodictions, and no corroborated
+  novel fact.
+- **How it could become a theory:** by fixing a parameter the domains leave free. The recommended route is the
+  regeneration law q* = 1 − K(v), CRR.md's open item O1, tested blind on three unrelated unseen fields after a literature
+  check. A mathematical theory of regeneration is the companion route.
