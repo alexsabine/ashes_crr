@@ -260,6 +260,10 @@ Regeneration_Law/          CRR 2.0, the regeneration law alpha* = K(v_own) (prom
 Maps_and_Territories/      maps that change their territory (prompt-log entries 143-144): Goodhart, Soros and the Bank of England, and AI
                            forecasters; DECLARATION.md + DECLARATION_2.md (post hoc) pushed before checks/performativity{,_2}.py (pinned,
                            CI-checked); P1-P4 hold (known results), P5 GATE CLOSED twice; MAPS_AND_TERRITORIES.md + PDF; a note, not evidence (R8)
+Empty_Centre/              the programme's focus from 2026-09-24 (prompt-log entry 150): continual learning and AI safety as one design
+                           (zero stake at the cut), maps and territories, CRR against the FEP, equanimity for people and machines, the Now
+                           and contemplative practice (evidence graded in docs/citations/contemplative_practice_2026-09-24.md);
+                           THE_EMPTY_CENTRE.md + PDF; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)

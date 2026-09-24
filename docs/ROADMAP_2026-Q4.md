@@ -154,3 +154,17 @@ rows, never medians; every control violated is the first line of the report; eve
 report exists in `runs/`; every prompt and every decision in the notebook; nothing on GitHub
 that quotes anything but the ledger. Daniel's audit re-runs all of it, and the repository should
 make that a single command (`scripts/check_all.sh`).
+
+## Focus from 2026-09-24 (owner, prompt-log entry 150)
+
+**The focus.** Continual learning and AI safety integrated in one system, with an explainable reason for the design:
+zero stake at the cut. The design and its reasons are in `Empty_Centre/THE_EMPTY_CENTRE.md`.
+
+**In order:**
+1. SCL3 (data step 2026-09-25).
+2. A positioning note for Proposition 7 against its prior art (`AI_Safety/FRONTIER_REVIEW.md` §2).
+3. A declared test on language-model agents, adapting the DReST/POST protocol.
+4. A declared study of shutdownability and safety retention under continual learning.
+
+**Not the focus.** The Regeneration Law runs in parallel, out of the epistemic ladder. Falsifiable metaphysics is a
+side-quest.
