@@ -1229,3 +1229,25 @@ I was thinking the same thing regarding goodhart and soros (bank of England etc.
 Can we run tests on this please so I can clearly articulate to Daniel and others precisely what I mean by this and why CRR could be helpful in this respect, especially in relation to companies like Mantis who are using generalised predictive techniques.
 
 Thank you.
+
+## 145 — 2026-09-24T16:33:31Z
+
+This is notoriously tricky to explain to companies who are invested in their own future success. What does it mean in real terms for a company such as mantis, what does this finding suggest in enabling the company to profit? Or is it more of an ethical point regarding emergence? Why would the Bank of England adopt this strategy in relation to soros rendering the map visible globally? What are the implications for effective future economies? Does this help any one company who is invested in forecasting and predictions and if so, precisely how does this translate into standard organisational management theory?
+
+## 146 — 2026-09-24T16:48:25Z
+
+So how does existing mathematics manage the moment of now as the cut, maps and territories in this way?
+
+## 147 — 2026-09-24T16:54:08Z
+
+Now couple in the pass for continual learning and AI safety findings and the contemplative heuristic structure in relation to existing traditions. Consider dogma and modelling in relation to the representational modelling and the crr process orientation with respect to organisational growth and development in 2026 and beyond. Thank you
+
+## 148 — 2026-09-24T16:58:57Z
+
+What would it look like phenomenologically for a frontier research lab conducting science in 2026 who were aware of these principles and the equanimity principle as they conduct frontier grade predictive research on a variety of different systems? Please provide a sketch of what such an organisation might be like to work for and how their profit margins work and function in relation to increasing global complexity in the age of AI / AGI.
+
+What is CRRs potential role in this?
+
+## 149 — 2026-09-24T17:17:50Z
+
+Interesting. Can we do an online search for the cutting edge frontier AI safety problems and review where CRR might be applicable to helping to resolve these problems? Incorporate a search for studies where Continual Learning, AI Safety and Corrigibility are synthesised with a single mathematical heuristic. Thank you

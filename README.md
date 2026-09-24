@@ -128,7 +128,7 @@ not evidence.
 | [Epistemic_Review/](Epistemic_Review/) | what a PASS means here: the epistemic ladder, computed from pinned outputs |
 | [Regeneration_Law/](Regeneration_Law/) | CRR 2.0: the regeneration law, its declarations and mathematical checks (study `rlaw`) |
 | [Continuous_Learning/](Continuous_Learning/), [Adam_SGD/](Adam_SGD/) | the Ω = 1 rule, its prior art, and its behaviour under SGD, momentum and Adam |
-| [AI_Safety/](AI_Safety/), [Safe_and_Continual/](Safe_and_Continual/) | the off switch and the self, and the combined safety and continual-learning write-up |
+| [AI_Safety/](AI_Safety/), [Safe_and_Continual/](Safe_and_Continual/) | the off switch and the self, the combined safety and continual-learning write-up, and a review of the 2026 frontier safety problems (`AI_Safety/FRONTIER_REVIEW.md`) |
 | [Rupture_Detection/](Rupture_Detection/) | the cut as a rupture detector |
 | [Maps_and_Territories/](Maps_and_Territories/) | maps that change their territory: Goodhart, Soros, the Bank of England and AI forecasters; the empty cut, tested |
 | [Alexander Plan/](Alexander%20Plan/) | the owner's dossier |
