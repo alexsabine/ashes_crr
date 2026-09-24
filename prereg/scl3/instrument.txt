@@ -1,0 +1,2 @@
+SCL3-I select_classes against sec1_score.load_pmlb on SEEN satimage (K requested 6): X (4999, 36) identical True; y identical True; meta fields ['class_counts', 'class_counts_file', 'class_floor', 'classes_in_file', 'classes_requested', 'classes_used', 'd', 'excluded', 'n', 'n_file'] identical True -> holds
+SCL3-I ARFF reader self-test (dense, quoted, missing, string, sparse): X [[1.5, 0.0], [2.0, 1.0], [3.0, 1.0]], y [0, 1, 1], dropped 1, used ['a', 'b c'] -> holds
