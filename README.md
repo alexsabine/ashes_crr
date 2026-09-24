@@ -124,6 +124,7 @@ not evidence.
 
 | folder | what it holds |
 |---|---|
+| [Empty_Centre/](Empty_Centre/) | **the programme's focus from 2026-09-24:** continual learning and AI safety as one design, with maps and territories, CRR against the FEP, equanimity, and the lab's practice |
 | [ontology/](ontology/README.md) | CRR's philosophical commitments, the FEP readings, Smolin/Rovelli/Gough (14), and **what CRR is and the next steps (15)** |
 | [Epistemic_Review/](Epistemic_Review/) | what a PASS means here: the epistemic ladder, computed from pinned outputs |
 | [Regeneration_Law/](Regeneration_Law/) | CRR 2.0: the regeneration law, its declarations and mathematical checks (study `rlaw`) |
