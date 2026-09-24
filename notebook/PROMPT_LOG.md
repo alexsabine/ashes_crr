@@ -1221,3 +1221,11 @@ Thank you. Scratchpad. Please consider the breadth of domains crr is working on 
 ## 143 — 2026-09-24T15:55:36Z
 
 Scratchpad. My thinking is that crr is valuable in terms of understanding maps, territories and therefore modelling through time. Once a map is rendered the territory changes. Metaphysically speaking there is only one true map, which is the cut, which is empty (see AI safety and continual learning tests where this approach worked in synthesis)
+
+## 144 — 2026-09-24T16:00:46Z
+
+I was thinking the same thing regarding goodhart and soros (bank of England etc.)
+
+Can we run tests on this please so I can clearly articulate to Daniel and others precisely what I mean by this and why CRR could be helpful in this respect, especially in relation to companies like Mantis who are using generalised predictive techniques.
+
+Thank you.
