@@ -1,0 +1,78 @@
+Synthesis batch 31: MEMORY in five classic threshold models (prompt-log entry 131; DECLARATION_31_32.md)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (mem) Ricker stock-recruitment x_{n+1} = x_n exp(r(1 - M_n)) with the remembered density M_n = (1 - q) x_n + q M_{n-1}, q = 0.5 (A6 with P3 weights), equilibrium (1, 1)
+     source:     DECLARATION_31_32.md row 31-1 (new system; MEMORY class)
+     Q:          the equilibrium first loses stability at r_c > 2.02: remembering density stabilises the Ricker map, as memory raised the cardiac-alternans threshold (batch 12 row 2)
+     ingredient: A6 (the next occasion is seeded from the settled past at bounded strength) with P3's geometric age weights
+     null:       q = 0: the Ricker map, first loss of stability at r = 2
+     domain:     Ricker's flip at r = 2 (the null's value); no theorem cited for the memory variant
+     numbers:    r_c(q = 0.5) = 6.000 (flip (eigenvalue -1)); r_c(q = 0) = 2.000 (flip (eigenvalue -1)); surrogate Beverton-Holt at q = 0: loss of stability on (1, 20]: none (globally stable, as the domain says)
+     T-G:        r_c 6.000 vs null 2.000: differ
+     T-N:        no theorem cited for the memory variant (Ricker's r = 2 is the null's)
+     T-C:        r_c(0.5) > 2.02: holds
+     OUTCOME:    ADDS
+     reading:    memory moves the Ricker map's first instability from r = 2.000 to r = 6.000 (flip (eigenvalue -1)); a complex pair cannot cross because the Jacobian's determinant is q < 1, so the only exit is the flip, pushed out by averaging, the same mechanism as the alternans row: A6 damps the period-2 alternation of a one-dimensional map; whether fisheries' 'memory' models (lagged or averaged stock indices in harvest rules) already carry this threshold was not checked
+     weakness:   the remembered density enters the recruitment exponent only (one modelling choice of where A6 acts); the same flip-threshold algebra appeared in batch 12 row 2, so this row is not independent of it: it is the same lemma on a second map
+     elegance:   A fish population that reacts to how crowded it has been lately, not only to how crowded it is now, stops flipping between boom and bust until it is pushed much harder.
+     child:      Imagine fish that remember last year's crowding as well as this year's. They do not overreact, so the population stops jumping up and down every year.
+
+[ 2] (mem) SIR epidemic (beta0 = 0.3/day, gamma = 0.1/day, R0 = 3, I0 = 1e-4) with behavioural distancing beta = beta0/(1 + k P), k = 50, P the A6-remembered prevalence dP/dt = (I - P)/T_m, T_m = 10 days; RK4 dt 0.01 over 400 days
+     source:     DECLARATION_31_32.md row 31-2 (new system; MEMORY class)
+     Q:          with remembered prevalence the epidemic's peak prevalence exceeds the instantaneous-response peak by more than 1 %: a lagged response overshoots
+     ingredient: A6 with P3's exponential kernel (mean age T_m) as the prevalence the population responds to
+     null:       instantaneous response, P = I (the standard behavioural SIR)
+     domain:     none for the memory variant
+     numbers:    peak prevalence: remembered 0.041501, instantaneous 0.031357, ratio 1.3235; surrogate k = 0 (no response): 0.30049589 against 0.30049589, relative difference 0.00e+00 (memory cannot matter, as required)
+     T-G:        peak 0.041501 vs null 0.031357: differ
+     T-N:        no theorem cited for the memory variant
+     T-C:        peak ratio above 1.01: holds
+     OUTCOME:    ADDS
+     reading:    a population that distances on remembered prevalence reacts late, so the peak is higher than with instantaneous distancing (ratio 1.3235); behavioural epidemiology with memory kernels (information-dependent contact rates) is an existing literature that may already contain this comparison (not fetched)
+     weakness:   one parameter set; the direction may reverse at other k or T_m; the memory kernel is exponential (P3) by construction
+
+[ 3] (mem) optimal-velocity car following dv_n/dt = a (V(h~_n) - v_n), a = 1, with the A6-remembered headway dh~_n/dt = (h_n - h~_n)/T_m, T_m = 0.5; linear string stability of the uniform flow
+     source:     DECLARATION_31_32.md row 31-3 (new system; MEMORY class)
+     Q:          the string-stability threshold on V'(h*) falls below Bando's a/2 = 0.5 by more than 1 %: a driver who responds to remembered headway destabilises the platoon
+     ingredient: A6 with P3's exponential kernel (mean age T_m) as the headway the driver responds to
+     null:       T_m = 0: Bando's model, threshold V' = a/2
+     domain:     Bando et al. 1995 (a/2) for the null; none for the memory variant
+     numbers:    threshold V'_c: remembered headway 0.3335, instantaneous 0.5005 (surrogate: within one scan step of 0.5: yes)
+     T-G:        V'_c 0.3335 vs null 0.5005: differ
+     T-N:        no theorem cited for the memory variant
+     T-C:        V'_c < 0.495: holds
+     OUTCOME:    ADDS
+     reading:    remembering headway lowers the platoon's stability threshold from 0.5005 to 0.3335; the traffic literature treats reaction delay (a pure delay) and finds it destabilising; an exponentially weighted perceived headway is a distributed delay, and whether its threshold is already in that literature (e.g. models with memory of past headways) was not checked
+     weakness:   linear stability only; one T_m; the remembered quantity is the headway, not the relative velocity (one modelling choice)
+
+[ 4] (mem) Samuelson's multiplier-accelerator Y_t = C_t + I_t + G, I_t = v (C_t - C_{t-1}), with permanent-income consumption C_t = c P_{t-1}, P_t = (1 - q) Y_t + q P_{t-1}, c = 0.8, q = 0.5
+     source:     DECLARATION_31_32.md row 31-4 (new system; MEMORY class)
+     Q:          the critical accelerator v_c exceeds Samuelson's 1/c = 1.25 by more than 1 %: permanent income stabilises the cycle
+     ingredient: A6 with P3's geometric weights as the income consumption responds to (Friedman's permanent income is this kernel)
+     null:       q = 0: Samuelson's model, stability iff c v < 1
+     domain:     Samuelson 1939 (v_c = 1/c) for the null; none for the memory variant
+     numbers:    v_c: permanent income 2.500, Samuelson 1.250 (surrogate: within one scan step of 1.25: yes)
+     T-G:        v_c 2.500 vs null 1.250: differ
+     T-N:        no theorem cited for the memory variant
+     T-C:        v_c > 1.2625: holds
+     OUTCOME:    ADDS
+     reading:    with consumption on permanent income the multiplier-accelerator stays stable up to v = 2.500 against Samuelson's 1.250; the stabilising role of permanent income in accelerator models is plausibly in the macroeconomics literature (not fetched), so the label is a candidate and the direction may be the domain's
+     weakness:   the determinant of the recursion is (1 - q) c v, so the threshold follows in closed form, 1/((1 - q) c) when the loss is complex; a textbook exercise may already state it
+
+[ 5] (mem) the continuous logistic equation dN/dt = r N (1 - M/K) with the A6-remembered density dM/dt = (N - M)/T; stability of N = K over r T in (0, 1000]
+     source:     DECLARATION_31_32.md row 31-5 (new system; MEMORY class; the weak-kernel theorem expected)
+     Q:          the equilibrium never loses stability: no Hopf bifurcation for r T in (0, 1000] (encoded 1000.0 when none is found)
+     ingredient: A6 with P3's exponential kernel (mean age T) as the density the growth responds to
+     null:       Hutchinson's discrete delay tau = T: Hopf at r tau = pi/2
+     domain:     the weak (exponential) distributed-delay kernel is always stable (MacDonald 1978; Cushing 1977): encoded 1000.0
+     numbers:    loss of stability with remembered density: none on the scan; Hutchinson's delay: at r tau = 1.5800 (pi/2 = 1.5708; surrogate within 1 %)
+     T-G:        1000.0000 vs null 1.5800: differ
+     T-N:        the weak-kernel theorem gives 1000.0: agree (the domain has Q)
+     T-C:        no eigenvalue with non-negative real part on the scan: holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A6 in continuous time is the weak distributed-delay kernel, and the domain proved long ago that it never destabilises the logistic equilibrium, where the discrete delay does at r tau = pi/2: regeneration from the settled past at bounded strength is a stabilising memory, and population ecology already names it
+     weakness:   the Jacobian has trace -1/T and determinant r/T, so stability for all r T is immediate; the scan confirms what the algebra says
+     elegance:   Remembering the recent past smoothly, rather than reacting to one moment long ago, never makes a population swing out of control.
+     child:      If animals decide how many babies to have by remembering the last few seasons, the population settles down. If they only remember one season a long time ago, it can swing wildly.
+
+TALLY: 4 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED

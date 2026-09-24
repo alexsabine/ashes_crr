@@ -816,4 +816,29 @@ of the world, only that it can be carried in plain words.
 - elegance: If you count families by generations, the best parents win; if you count by the calendar, the fastest ones do.
 - for a fifth grader: Some baby universes make lots of babies but take a long time; others make fewer but quickly. If you count by generations, the big families win. If you count by the clock, the quick ones win. CRR says count by generations.
 
-Entries: 107.
+## theory/retrodictions/synthesis_batches/batch_31.txt
+
+### [1] Ricker stock-recruitment x_{n+1} = x_n exp(r(1 - M_n)) with the remembered density M_n = (1 - q) x_n + q M_{n-1}, q = 0.5 (A6 with P3 weights), equilibrium (1, 1)
+
+- source row: DECLARATION_31_32.md row 31-1 (new system; MEMORY class)
+- outcome: ADDS
+- elegance: A fish population that reacts to how crowded it has been lately, not only to how crowded it is now, stops flipping between boom and bust until it is pushed much harder.
+- for a fifth grader: Imagine fish that remember last year's crowding as well as this year's. They do not overreact, so the population stops jumping up and down every year.
+
+### [5] the continuous logistic equation dN/dt = r N (1 - M/K) with the A6-remembered density dM/dt = (N - M)/T; stability of N = K over r T in (0, 1000]
+
+- source row: DECLARATION_31_32.md row 31-5 (new system; MEMORY class; the weak-kernel theorem expected)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Remembering the recent past smoothly, rather than reacting to one moment long ago, never makes a population swing out of control.
+- for a fifth grader: If animals decide how many babies to have by remembering the last few seasons, the population settles down. If they only remember one season a long time ago, it can swing wildly.
+
+## theory/retrodictions/synthesis_batches/batch_32.txt
+
+### [5] event counting (photons, decays, spikes) at rates lambda1 = 4 and lambda2 = 9 per unit time, observed in windows of T = 25; A1': one event = one resolvable step
+
+- source row: DECLARATION_31_32.md row 32-5 (new system; EQ-IG class)
+- outcome: REDUNDANT-DOMAIN
+- elegance: Measured in its own flickers, the distance between a dim light and a bright one is how many flickers apart they are.
+- for a fifth grader: Two lamps flicker at different speeds. If you count in flickers, you can say how many 'flicker-steps' apart they are, and that number stays fair whether the lamps are dim or bright.
+
+Entries: 110.

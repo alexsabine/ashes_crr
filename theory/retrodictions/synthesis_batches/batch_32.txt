@@ -1,0 +1,76 @@
+Synthesis batch 32: CYCLE, EVENT, MEMORY on a rotor, EQ-IG (prompt-log entry 131; DECLARATION_31_32.md)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (event) the Brusselator dx/dt = A - (B + 1) x + x^2 y, dy/dt = B x - x^2 y, A = 1, B(t) = 3 + 0.3 sin(2 pi t/500), RK4 dt 0.002 over t in [0, 5000] (first 500 discarded); own events: upward crossings of x = 1
+     source:     DECLARATION_31_32.md row 32-1 (new system; EVENT/CYCLE class)
+     Q:          under a slow drift of B the cycles are in H-L5's arc-regular class on the Poisson (concentration) carrier: CV(Fisher arc per cycle) < CV(period) and < CV(peak-to-trough amplitude of x)
+     ingredient: H-L5 (the class claim: arc against clock between own events) with D5 (occasion = one cycle between Poincare crossings), arc on the Poisson carrier g = diag(1/x, 1/y)
+     null:       the arc with the identity metric (H-L5's control ii)
+     domain:     none cited
+     numbers:    627 cycles; CV of the Fisher arc 0.1261, of the identity arc 0.1594, of the period 0.0424, of the amplitude 0.1709; class index CV(clock)/CV(Fisher arc) 0.3362
+     T-G:        CV(Fisher arc) 0.1261 vs null CV(identity arc) 0.1594: differ
+     T-N:        no theorem cited
+     T-C:        CV(Fisher arc) below CV(period) and below CV(amplitude): fails
+     OUTCOME:    WRONG
+     reading:    the Brusselator under a slow drift of B is clock-regular on the Poisson carrier (index 0.3362), and the Fisher arc is more regular than the amplitude control; the Poisson metric changes the regularity against the identity arc (0.1261 against 0.1594)
+     weakness:   one drift (amplitude 10 %, period 500, about 70 cycles per drift period); deterministic; a gate row for this system (a must-fail drift) is not in the standing gate
+
+[ 2] (cycle) FitzHugh-Nagumo dv/dt = v - v^3/3 - w + I(t), dw/dt = 0.08 (v + 0.7 - 0.8 w), I(t) = 0.5 + 0.1 sin(2 pi t/2000), RK4 dt 0.01 over t in [0, 20000]; own events: the recovery (downward crossing of v = 0)
+     source:     DECLARATION_31_32.md row 32-2 (new system; CYCLE class; H-CUT, gate runs/phaseA/gate_CUT.txt OPEN)
+     Q:          on at least 2/3 of recovery events the event is nearer an antipodal cut (A3 on the analytic-signal phase of v, started at the first upstroke) than to the nearest waveform extremum
+     ingredient: A3 (the cut at the antipode of the intrinsic phase) through H-CUT (own events against antipode and extremum)
+     null:       chance, 0.5
+     domain:     none cited
+     numbers:    502 recovery events; nearer the antipodal cut on 502 (1.0000); median distance to the cut 66.0 samples, to the extremum 239.0 samples; surrogate van der Pol (mu = 5, cuts started at a maximum): median |distance to cut - distance to extremum| 1.0 samples (coincide: nothing to test, as required); POST HOC surrogate with no dynamics (S-E, downward zero crossings): nearer the cut on 0.6667 (reaches the declared 2/3: the statistic passes without dynamics)
+     T-G:        fraction 1.0000 vs null 0.5000: differ
+     T-N:        no theorem cited
+     T-C:        fraction at least 2/3: holds
+     OUTCOME:    ADDS
+     reading:    the FitzHugh-Nagumo recovery event sits nearer the antipodal cut on 1.0000 of cycles (median distances 66.0 against 239.0 samples), so H-CUT holds at the declared 2/3; but the post hoc surrogate with no dynamics reaches 0.6667: the analytic signal writes x = A cos(phi) exactly, so zero crossings of the (detrended) signal sit a half-turn apart by construction, and an event defined as a zero crossing lands on the antipodal cut by the arithmetic of the estimator, not by the system; by R4 this operationalisation of H-CUT is not about CRR and the ADDS label is not a candidate in substance
+     weakness:   the recovery event is a threshold crossing chosen by the author; the analytic-signal phase of a relaxation waveform is non-uniform, so where the antipode lands depends on the phase estimator (a Poincare-section phase is the named alternative and is not run)
+
+[ 3] (mem) Lotka-Volterra dx/dt = x (1 - 0.5 y), dy/dt = y (0.25 M - 0.5), with predators responding to the A6-remembered prey dM/dt = (x - M)/T_m, T_m = 1; linear stability of the equilibrium (2, 2, 2)
+     source:     DECLARATION_31_32.md row 32-3 (new system; MEMORY on a rotor)
+     Q:          the neutral centre becomes an unstable spiral: the leading eigenvalue's real part exceeds 0.01 |imaginary part|
+     ingredient: A6 with P3's exponential kernel as the prey density the predators respond to
+     null:       T_m -> 0: the classical centre, real part 0
+     domain:     none cited
+     numbers:    leading eigenvalue at T_m = 1: +0.14858 +0.60281i; surrogate T_m = 1e-6: real part +2.50e-07 (centre recovered, as required)
+     T-G:        real part +0.14858 vs null +0.00000: differ
+     T-N:        no theorem cited
+     T-C:        real part above 0.01 |Im|: holds
+     OUTCOME:    ADDS
+     reading:    remembered prey destabilises the predator-prey centre (leading eigenvalue +0.14858 +0.60281i): the lag between prey and the predators' response feeds the cycle; delayed Lotka-Volterra models are a known literature in which delays destabilise, so the direction is likely the domain's
+     weakness:   linear stability only; the harness's T-G compares a real part against 0, so 'differ' uses the eigenvalue's own scale (1 % of |Im|) rather than the relative rule
+
+[ 4] (event) seasonally forced SIR with births and deaths (fractions): beta(t) = 1250 (1 + 0.25 cos 2 pi t)/yr, gamma = 365/14 per yr, mu = 0.02/yr; RK4 dt 1e-4 yr over 200 yr, first 100 discarded; own events: upward crossings of I through its mean
+     source:     DECLARATION_31_32.md row 32-4 (new system; EVENT class; the ledger's MEAS2 rows found measles clock-regular in 17/17 cities)
+     Q:          H-L5 fails: the model is clock-regular, class index CV(clock)/CV(Fisher arc) < 1, in agreement with MEAS2-1 and MEAS2-2
+     ingredient: H-L5 (the class claim) with D5 (occasion = inter-epidemic interval) on the Poisson carrier of (S, I)
+     null:       the class index with the identity-metric arc
+     domain:     phase-locking to the annual forcing: the index when the clock's CV is that of the intervals rounded to whole years
+     numbers:    99 epidemics; intervals (yr) 1.000, 1.000, 1.000, 1.000, 1.000, 1.000 ...; CV of the period 0.0000, of the Fisher arc 0.0000, of the identity arc 0.0000, of the whole-year intervals 0.0000; class index 0.0000
+     T-G:        index 0.0000 vs null 0.0000: agree
+     T-N:        phase-locking gives 0.0000: agree (the domain has Q)
+     T-C:        not decidable: neither the clock nor the arc varies (CVs 0.0e+00 and 1.5e-12), so the index is 0/0
+     OUTCOME:    REDUNDANT-IG
+     reading:    the declared tuple does not sit in the biennial regime: every interval is one year and neither the clock nor the arc varies (CVs 0.0e+00 and 1.5e-12), so the model is the gate's pure-sine case, H-L5 has nothing to test, and the harness's REDUNDANT-IG reads 'the ingredient did no work'; the row neither agrees nor disagrees with the ledger's measles result, and a biennial tuple would be a new declaration
+     weakness:   the parameter tuple was declared to be measles-like without a prior run; if the printed intervals are not biennial the row describes whatever regime the tuple produced; deterministic (no demographic noise)
+
+[ 5] (eqig) event counting (photons, decays, spikes) at rates lambda1 = 4 and lambda2 = 9 per unit time, observed in windows of T = 25; A1': one event = one resolvable step
+     source:     DECLARATION_31_32.md row 32-5 (new system; EQ-IG class)
+     Q:          the number of resolvable steps between the two rates is 2 sqrt(T)(sqrt(lambda2) - sqrt(lambda1)) = 10: the Poisson family's Fisher arc in its own unit
+     ingredient: A1' (the unit is the system's own resolvable step; for a point process, events) with D1's count of steps
+     null:       the clock-noise count (lambda2 - lambda1) T / sqrt(lambda1 T): the Gaussian unit at lambda1
+     domain:     Anscombe's variance-stabilising square-root transform: the difference of 2 sqrt(N) in units of its standard deviation (about 1), from 200000 simulated windows per rate (seed 325)
+     numbers:    CRR 10.0000; null 12.5000; simulated difference of 2 sqrt(N) 10.0037 (standard deviations 1.0020, 0.9996)
+     T-G:        10.0000 vs null 12.5000: differ
+     T-N:        the square-root transform gives 10.0037: agree (the domain has Q)
+     T-C:        not needed (the domain has Q)
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    counting in the system's own unit gives the variance-stabilised distance statisticians use for counts: the square-root transform makes the Poisson noise one unit wide everywhere, so the arc between two rates is how many noise-widths apart they are; the Gaussian unit taken at one end overstates it
+     weakness:   a textbook identity (the Poisson family's Fisher metric is 1/lambda per unit time); the row is in the paradigm by design and was declared as expected REDUNDANT-DOMAIN
+     elegance:   Measured in its own flickers, the distance between a dim light and a bright one is how many flickers apart they are.
+     child:      Two lamps flicker at different speeds. If you count in flickers, you can say how many 'flicker-steps' apart they are, and that number stays fair whether the lamps are dim or bright.
+
+TALLY: 2 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

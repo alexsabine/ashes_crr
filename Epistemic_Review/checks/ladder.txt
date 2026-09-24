@@ -24,27 +24,28 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     re-reads (batches 01-26)   rows 127 | ADDS 2 PROPOSES 0 REDUNDANT-IG 34 REDUNDANT-DOMAIN 50 WRONG 17 INTERNAL 21 UNSTATED 3
     FEP (batches 27-28)        rows  10 | ADDS 1 PROPOSES 1 REDUNDANT-IG 2 REDUNDANT-DOMAIN 1 WRONG 5 INTERNAL 0 UNSTATED 0
     Rovelli, Smolin (29-30)    rows   8 | ADDS 1 PROPOSES 0 REDUNDANT-IG 0 REDUNDANT-DOMAIN 4 WRONG 3 INTERNAL 0 UNSTATED 0
-    all real-domain rows       rows 154 | ADDS 4 PROPOSES 2 REDUNDANT-IG 38 REDUNDANT-DOMAIN 57 WRONG 27 INTERNAL 22 UNSTATED 4
-    check: REDUNDANT-DOMAIN rows whose T-G line reads 'differ' (the CRR-proper ingredient changed the number): 57 of 57
+    in-paradigm, blind (31-32) rows  10 | ADDS 6 PROPOSES 0 REDUNDANT-IG 1 REDUNDANT-DOMAIN 2 WRONG 1 INTERNAL 0 UNSTATED 0
+    all real-domain rows       rows 164 | ADDS 10 PROPOSES 2 REDUNDANT-IG 39 REDUNDANT-DOMAIN 59 WRONG 28 INTERNAL 22 UNSTATED 4
+    check: REDUNDANT-DOMAIN rows whose T-G line reads 'differ' (the CRR-proper ingredient changed the number): 59 of 59
     crosswalk, re-reads only: the battery grade (rows) against the synthesis outcome (columns)
         CONSIST   41 | ADDS 0 PROPOSES 0 REDUNDANT-IG 15 REDUNDANT-DOMAIN 14 WRONG 3 INTERNAL 9 UNSTATED 0
         DESCR     86 | ADDS 2 PROPOSES 0 REDUNDANT-IG 19 REDUNDANT-DOMAIN 36 WRONG 14 INTERNAL 12 UNSTATED 3
     the same rows on the ladder
-        R1 INHERITED                        38
-        R2 RETRO-PROPER                     57
-        R3 RETRO-ADDS (candidate)            4
-        retrodictive FAIL                   27
+        R1 INHERITED                        39
+        R2 RETRO-PROPER                     59
+        R3 RETRO-ADDS (candidate)           10
+        retrodictive FAIL                   28
         undecided (INTERNAL)                22
         silent (UNSTATED)                    4
         prospective candidate (PROPOSES)     2
-    retrodictive hit rate of CRR-proper ingredients where they did work and could be checked (R2 + R3 against R2 + R3 + WRONG): 61 of 88 = 0.6932 (Wilson 95 % interval 0.5904 to 0.7798)
-    novelty rate among those (R3 against R2 + R3 + WRONG): 4 of 88 = 0.0455
+    retrodictive hit rate of CRR-proper ingredients where they did work and could be checked (R2 + R3 against R2 + R3 + WRONG): 69 of 97 = 0.7113 (Wilson 95 % interval 0.6145 to 0.7921)
+    novelty rate among those (R3 against R2 + R3 + WRONG): 10 of 97 = 0.1031
     per CRR-proper commitment (a row counts for every commitment its ingredient line names; overlapping): R2 | R3 | WRONG | INTERNAL | R1 | UNSTATED | PROPOSES | hit rate R2+R3 of R2+R3+WRONG
-        A3/D5 the cut                             36 |  2 |  17 |  12 |  26 |  3 |  1 | 38 of 55 = 0.6909
-        A6 regeneration                           12 |  4 |   8 |   2 |   1 |  1 |  1 | 16 of 24 = 0.6667
-        P2/P3 occasion weights                    12 |  3 |   7 |   3 |   1 |  0 |  1 | 15 of 22 = 0.6818
-        A1'/D1 the unit                           30 |  0 |   7 |  10 |   6 |  3 |  0 | 30 of 37 = 0.8108
-        H-L5 natural time                         10 |  0 |   5 |   3 |  19 |  2 |  0 | 10 of 15 = 0.6667
+        A3/D5 the cut                             36 |  3 |  18 |  12 |  27 |  3 |  1 | 39 of 57 = 0.6842
+        A6 regeneration                           13 |  9 |   8 |   2 |   1 |  1 |  1 | 22 of 30 = 0.7333
+        P2/P3 occasion weights                    13 |  8 |   7 |   3 |   1 |  0 |  1 | 21 of 28 = 0.7500
+        A1'/D1 the unit                           31 |  0 |   7 |  10 |   6 |  3 |  0 | 31 of 38 = 0.8158
+        H-L5 natural time                         10 |  0 |   6 |   3 |  20 |  2 |  0 | 10 of 16 = 0.6250
         D6/H-T1 path                               2 |  0 |   5 |   0 |   4 |  2 |  0 | 2 of 7 = 0.2857
         H-EQ equanimity                            2 |  0 |   2 |   2 |   0 |  0 |  0 | 2 of 4 = 0.5000
         A7/A8 tense                                1 |  0 |   1 |   1 |   1 |  1 |  0 | 1 of 2 = 0.5000
@@ -56,6 +57,12 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         ADDS     batch_28.txt row 4: a switching Bernoulli contingency tracked by accumulated Dirichlet counts, by a bounded mean (A6), and by the exact HMM filter
         PROPOSES batch_28.txt row 5: the epistemic value (expected information gain) of an action in the two-context agent against half the expected squared Fisher chord of the belief upd
         ADDS     batch_30.txt row 2: cosmological natural selection as a Gaussian replicator-mutator: parameter x, offspring number (black holes) ~ exp(-x^2 / 2 w^2), w^2 = 1, mutation va
+        ADDS     batch_31.txt row 1: Ricker stock-recruitment x_{n+1} = x_n exp(r(1 - M_n)) with the remembered density M_n = (1 - q) x_n + q M_{n-1}, q = 0.5 (A6 with P3 weights), equili
+        ADDS     batch_31.txt row 2: SIR epidemic (beta0 = 0.3/day, gamma = 0.1/day, R0 = 3, I0 = 1e-4) with behavioural distancing beta = beta0/(1 + k P), k = 50, P the A6-remembered pre
+        ADDS     batch_31.txt row 3: optimal-velocity car following dv_n/dt = a (V(h~_n) - v_n), a = 1, with the A6-remembered headway dh~_n/dt = (h_n - h~_n)/T_m, T_m = 0.5; linear strin
+        ADDS     batch_31.txt row 4: Samuelson's multiplier-accelerator Y_t = C_t + I_t + G, I_t = v (C_t - C_{t-1}), with permanent-income consumption C_t = c P_{t-1}, P_t = (1 - q) Y_t 
+        ADDS     batch_32.txt row 2: FitzHugh-Nagumo dv/dt = v - v^3/3 - w + I(t), dw/dt = 0.08 (v + 0.7 - 0.8 w), I(t) = 0.5 + 0.1 sin(2 pi t/2000), RK4 dt 0.01 over t in [0, 20000]; own
+        ADDS     batch_32.txt row 3: Lotka-Volterra dx/dt = x (1 - 0.5 y), dy/dt = y (0.25 M - 0.5), with predators responding to the A6-remembered prey dM/dt = (x - M)/T_m, T_m = 1; line
 [3] The ledger: every row allocated by its verdict text (first matching rule) and its data status
     ARC-EQ-Q1..Q4    seen      VOID
     ARC-EQ-LAND      seen      holds on seen data
@@ -267,13 +274,13 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     QUESTION   held 1, failed 0
 [5] The whole repository on the ladder (counts from [1]-[4])
     retrodiction batteries, graded before the synthesis re-read: SHARP 0, CONSIST 41, DESCR 86, FAILS 20, TENSION 9, OPEN 41 (SHARP unreachable, [1]; CONSIST and DESCR re-read and placed on R1-R3 in [2])
-    R1 INHERITED                      synthesis REDUNDANT-IG 38
-    R2 RETRO-PROPER                   synthesis REDUNDANT-DOMAIN 57
-    R3 RETRO-ADDS (candidates)        synthesis ADDS 4; reviewed by a named expert 0
+    R1 INHERITED                      synthesis REDUNDANT-IG 39
+    R2 RETRO-PROPER                   synthesis REDUNDANT-DOMAIN 59
+    R3 RETRO-ADDS (candidates)        synthesis ADDS 10; reviewed by a named expert 0
     R4 DECLARED-SYNTHETIC             AI-safety predictions held 15 of 22; theorem checks held 13 of 14; gate controls held 9 of 9
     R5 PREREG-SEEN                    passes on seen data 9
     R6 PASS-0                         3
     R7 PASS-1                         0
     R8 PASS-2                         0
-    negatives beside them: battery FAILS 20, synthesis WRONG 27, held-out ledger FAIL 16, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
-    real-domain synthesis rows 154
+    negatives beside them: battery FAILS 20, synthesis WRONG 28, held-out ledger FAIL 16, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
+    real-domain synthesis rows 164

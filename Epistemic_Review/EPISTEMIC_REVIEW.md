@@ -469,3 +469,16 @@ and Smolin's mathematics (`ontology/14_smolin_rovelli_gough.md`), declared first
   - R3 candidates: 4. The new one is batch 30 row 2, CNS with lineage-memory inheritance;
   - WRONG: 27.
 - **The hit rate** is 61 of 88 = 0.6932 (Wilson 95 % interval 0.5904 to 0.7798), within the interval reported above.
+
+**Addendum, 2026-09-24 (synthesis batches 31–32, prompt-log entry 131).** Ten new systems were tested in the classes where
+CRR works (`docs/notes/2026-09-24_in_paradigm_predictions.md`). They were declared blind in `DECLARATION_31_32.md`, which
+was hashed and OpenTimestamps-stamped before any code existed.
+- **The ladder now reads 164 real-domain rows:**
+  - R2: 59;
+  - R3 candidates: 10, of which 6 are new;
+  - WRONG: 28.
+- **The hit rate** is 69 of 97 = 0.7113 (Wilson 95 % interval 0.6145 to 0.7921).
+- **Of the six new R3 rows, one (batch 32 row 2) is forced by the arithmetic of the analytic signal.** A post-hoc
+  surrogate with no dynamics reaches the same threshold, so it is not a candidate in substance, although the mechanical
+  allocation counts it. The other five share one mechanism: a bounded exponential memory moves a classic threshold. They
+  await a literature check.
