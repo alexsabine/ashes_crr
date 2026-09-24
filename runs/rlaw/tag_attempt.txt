@@ -1,0 +1,9 @@
+date: 2026-09-24T05:50:50Z
+hash commit: be82a3f (pushed 2026-09-24T05:50:35Z; origin/claude/relaxed-hypatia-m8ikp5 == HEAD verified)
+local tag: prereg-rlaw-2026-09-24 -> tag object; signature: error: gpg.ssh.allowedSignersFile needs to be configured and exist for ssh signature verification
+tag push: git push origin prereg-rlaw-2026-09-24 ->
+    error: RPC failed; HTTP 403 curl 22 The requested URL returned error: 403
+    send-pack: unexpected disconnect while reading sideband packet
+    fatal: the remote end hung up unexpectedly
+    Everything up-to-date
+fallback (PREREG.md, Anchoring): the push time of the hash commit is the git-side witness; OpenTimestamps proof prereg/rlaw/HASH.txt.ots, to be upgraded after Bitcoin confirmation

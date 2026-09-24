@@ -62,8 +62,10 @@ its smoothing it is the VQGAN adaptive weight (2020), and a finely tuned constan
   (`theory/retrodictions/synthesis_batches/literature_check.txt`).
 - **What CRR is, epistemically, and the recommended route from a grammar to a theory:**
   [ontology/15_grammar_to_theory.md](ontology/15_grammar_to_theory.md).
-- **Route 1, the regeneration law (CRR 2.0).** Its mathematics is checked in [Regeneration_Law/](Regeneration_Law/). Its
-  five-domain study RLAW is being pre-registered (`prereg/rlaw/`).
+- **Route 1, The Regeneration Law (CRR 2.0).**
+  - Its mathematics is checked in [Regeneration_Law/](Regeneration_Law/).
+  - Its five-domain study RLAW is pre-registered, hashed (sha256 dc8a7101) and OpenTimestamps-stamped (`prereg/rlaw/`).
+  - The data step is on 2026-09-25.
   - CRR 2.0 is a different form of CRR from the one this repository started with.
   - By the owner's instruction, its rows are kept out of the epistemic ladder.
 
