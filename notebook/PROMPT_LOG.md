@@ -1205,3 +1205,7 @@ Please can you check where my previous request to put the ontological/epistemolo
 ## 139 — 2026-09-24T05:23:12Z
 
 Yes please. I would like you to merge everything into the folder now. I don't want you to merge the CRR 2.0 findings into the epistemic ladder table/chart because it is a different form of CRR which was not in the initial conditions of this repo. Thank you
+
+## 140 — 2026-09-24T05:28:52Z
+
+Scratchpad. I like "The Regeneration Law" title (that is CRR 2.0) from now on. How is it doing generally with those admissable rows? Forecasters, option markets and soil? What does a pass mean there?
