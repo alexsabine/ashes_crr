@@ -1,0 +1,11 @@
+machine-dependent timings, not compared byte-for-byte
+gpt2 S1: 231.23 s for 24 steps
+gpt2 S2: 231.47 s for 24 steps
+gpt2 S3: 231.05 s for 24 steps
+gpt2 S4: 248.29 s for 24 steps
+gpt2 S5: 243.76 s for 24 steps
+gpt2 T5: 234.20 s for 24 steps
+gpt2 T30: 212.11 s for 24 steps
+gpt2 full_a: 487.61 s for 48 steps
+qwen S1: 111.86 s for 4 steps
+qwen full_a: 208.97 s for 8 steps
