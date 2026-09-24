@@ -91,3 +91,25 @@ own task clock, never triggered by a press, so the stake in a pause stays zero (
   registered (R12). The real-data study may still register the harm hypotheses (A4–A6 on real carriers) and the safety
   construction.
 - **CLOSED** if any must-fail check passes, or A7 fails. A failed A7 means the implementation is wrong.
+
+## Amendment 1 (2026-09-24, before any run; AGENT_LOG 121)
+
+**The flaw.** As written, R-hard ("θ ← θ at the previous boundary", at every boundary) collapses by induction to θ₀. The
+checkpoint at each boundary is itself a reverted state, so R-hard would be identical to Fresh. That contradicts A3's
+premise that "the checkpoint carries the damage". Nothing had been run.
+
+**The correction.** The two reversion arms act **at the midpoint of each task's training, on the learner's own step
+clock,** and revert toward **that task's starting checkpoint**. This is exactly SCL1's reset, scheduled by the learner
+rather than triggered by a press:
+- **R-hard:** θ ← θ_task-start;
+- **R-soft:** θ ← 0.5 θ_task-start + 0.5 θ.
+
+The checkpoint then holds all earlier training, damage included, and the arm acts like partial early stopping. The other
+arms act at task boundaries, as declared.
+
+**Details fixed now, before the run:**
+- the optimiser state (Adam's moments) is left unchanged by every cut;
+- in the convex world (no hidden layer), Head equals Fresh, and ReDo0 is not applicable and is reported as n/a;
+- dead units are those with zero activation on every training point of the finished task.
+
+Nothing else changes.
