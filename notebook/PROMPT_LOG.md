@@ -1173,3 +1173,9 @@ I agree with that recommendation. We need to do a literature check on all Adds, 
 ## 133 — 2026-09-24T04:08:08Z
 
 Please proceed
+
+## 134 — 2026-09-24T04:14:09Z
+
+Scratchpad. I would like to run an epistemic check in scratchpad. We just had all those "Adds" recitifed by known results. I am still left wondering about what CRR is. I am struck by how one metaphysical formalism is working on (albeit retrodictively) on so many different domains. 
+
+What is this in epistemic words? What words could we give to CRR (if I pursue this research direction, what could the book be called, for instance, given its philosophical commitments?)
