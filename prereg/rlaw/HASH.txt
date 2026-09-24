@@ -1,0 +1,16 @@
+cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  ../../runs/rlaw/frozen/CRR.md
+c92d5fe6e398c57887c4ab77b544d5d30f8b74e4f7d39fdcf8ad341f61b10cf0  ../../runs/rlaw/frozen/fetch_rlaw.py
+7a3e2b7e66d593f2f90c93a671c1d44e71aa733d013671b260473434cfa03444  ../../runs/rlaw/frozen/gate_rlaw.py
+8c606cf357d217909fa1297b9c26c62794a33e5b824ece4fd5b5730d54578eba  ../../runs/rlaw/frozen/loader_check.py
+771e62c5ac926f8874630365a48fcf913527a7dac0131c151259e7e2dc1da3af  ../../runs/rlaw/frozen/rlaw_lib.py
+f49fd1c348265cf3ae9c9e3afefac534c4de3de410702be2be7ee870eac0dbdf  ../../runs/rlaw/frozen/rlaw_load.py
+a73195a0e20e44fc42247b7be9aaea2f532ed940f83bd4d7ec7ba95e1d1277bd  ../../runs/rlaw/frozen/rlaw_score.py
+430bfac37fb0985f4da443c59b941c8f7d4e7d792976bb510098cef594916574  ./DECLARATION_1.md
+261bab7b576b5a9f1eacfc32c9a61b50ab6dcd21f12b6e718af9f9fb7ab85851  ./DECLARATION_2.md
+5489eabacdf0114ba6e68201dd087e072bb7d974f3c840b1ed61136d6f889cf5  ./PREREG.md
+922fda311996280b38635c34617ac68d4f3af0b2a41f1f684d1891dd2f921817  ./gate_RLAW.txt
+9c5a58f6f9efaa30661853c211c067f524cee614d80cfc452ef5b759d04511e4  ./loader_check.txt
+4da3d04a8515c8ce82a61c6cf3b07ebc1ff5f4bb6e96f67cfe38ba6d88fe8d09  ./math_checks.txt
+d37424e24e4d01f4f12af9169a0aa20642feef0e3d14540dbad24d5cc58c0629  ./operational_checks.txt
+40d6e8fd7ba2108b7395fe637b3cbb8ce5e4bd2814959db8d02d64f4fb6e08fa  ./rlaw_data_availability_2026-09-24.md
+fa09069f76bd954d8f89906163d50dee435b4dd707a9a66f0021ecf11b897a49  ./rlaw_literature_2026-09-24.md

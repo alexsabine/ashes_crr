@@ -1,0 +1,16 @@
+Regeneration law (CRR 2.0): mathematical checks (Regeneration_Law/DECLARATION_1.md)
+M1 steady-state Kalman gain: Riccati residual 0, cross-multiplied identity residual 0, max numeric difference 3.3e-15 -> holds
+M2 K(1) = 0.618033988749895, 1/phi = 0.618033988749895 -> holds
+M3 Muth: the EWMA weight minimising the stationary error equals K(v): v 0.05: argmin 0.0488, K 0.0488; v 0.2: argmin 0.1810, K 0.1810; v 1.0: argmin 0.6180, K 0.6180; v 3.0: argmin 0.9083, K 0.9083 -> holds
+M4 the own unit (reporting quantum delta): delta/s_eps 0.0: v_own 0.3000, alpha* 0.2584 (instrument unit 0.2584); delta/s_eps 0.5: v_own 0.2969, alpha* 0.2561 (instrument unit 0.2584); delta/s_eps 1.0: v_own 0.2882, alpha* 0.2497 (instrument unit 0.2584); delta/s_eps 2.0: v_own 0.2598, alpha* 0.2282 (instrument unit 0.2584) -> the own unit lowers alpha* whenever delta > 0 (load-bearing where delta is comparable to s_eps)
+M5 limits: K(1e-9) = 1.000e-09 (q -> 1, the accumulated count A6 forbids: the law and A6 conflict only at v = 0), K(1e9) = 0.000000000 (no memory); q < 1 for every v > 0: holds
+M6 P3: mean age of the weights at K = 0.3: 2.3333333333, (1 - K)/K = 2.3333333333 -> holds
+M7 equal pull (H-EQ, Omega = 1) needs K = 1/2: at v = 0.707107 (1/sqrt 2 = 0.707107); pull ratio datum:past = K/(1-K) is 1 only there (e.g. v = 0.1: 0.1051; v = 3: 9.9083) -> the law is not H-EQ; O1's 'at Omega = 1' cannot be kept
+M8 scope: AR(1) environment (phi 0.7, s_eta 1.0, s_eps 1.0): optimal steady gain 0.5604; local-level fit v_hat 0.8726 -> K(v_hat) 0.5713; relative difference 0.020 (the random-walk approximation is part of the law's operationalisation)
+M9 estimator recovery (v_true 0.3, alpha_true = K(0.3), system report noise 0.05 s_eps; 50 seeds each):
+   n 170: alpha_hat mean 0.2599 (true 0.2584, bias +0.006, sd 0.0040); v_hat (moments) median 0.3649 (true 0.3), zero-drift estimates 13/50; v_hat (ML, 10 seeds) median 0.3225; K(v_hat) median 0.3044
+   n 200: alpha_hat mean 0.2611 (true 0.2584, bias +0.011, sd 0.0039); v_hat (moments) median 0.2912 (true 0.3), zero-drift estimates 12/50; v_hat (ML, 10 seeds) median 0.2865; K(v_hat) median 0.2519
+   n 500: alpha_hat mean 0.2596 (true 0.2584, bias +0.005, sd 0.0023); v_hat (moments) median 0.3207 (true 0.3), zero-drift estimates 11/50; v_hat (ML, 10 seeds) median 0.2913; K(v_hat) median 0.2734
+   n 2500: alpha_hat mean 0.2598 (true 0.2584, bias +0.006, sd 0.0012); v_hat (moments) median 0.3024 (true 0.3), zero-drift estimates 2/50; K(v_hat) median 0.2601
+M10 unit invariance under rescaling by 7.3: v_hat and alpha_hat unchanged -> holds
+summary: identities M1, M2, M3, M6, M10 all hold
