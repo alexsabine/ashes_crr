@@ -72,6 +72,8 @@ uv run python Rupture_Detection/checks/rupture_checks.py 2>/dev/null | cmp - Rup
 uv run python Regeneration_Law/checks/math_checks.py 2>/dev/null | cmp - Regeneration_Law/checks/math_checks.txt && echo 'regeneration law mathematical checks (Declaration 1) byte-identical to the committed output'
 uv run python Regeneration_Law/checks/operational_checks.py 2>/dev/null | cmp - Regeneration_Law/checks/operational_checks.txt && echo 'regeneration law operational checks (Declaration 2) byte-identical to the committed output'
 uv run python studies/rlaw/loader_check.py 2>/dev/null | cmp - prereg/rlaw/loader_check.txt && echo 'RLAW loader check byte-identical to the committed output'
+uv run python Maps_and_Territories/checks/performativity.py 2>/dev/null | cmp - Maps_and_Territories/checks/performativity.txt && echo 'maps and territories P1-P5 byte-identical to the committed output'
+uv run python Maps_and_Territories/checks/performativity_2.py 2>/dev/null | cmp - Maps_and_Territories/checks/performativity_2.txt && echo 'maps and territories P5 post hoc byte-identical to the committed output'
 # prereg/rlaw/gate_RLAW.txt (about 40 minutes) is not re-run here; rerun by hand: uv run python runs/rlaw/frozen/gate_rlaw.py | cmp - prereg/rlaw/gate_RLAW.txt
 uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1 && echo 'Rupture Detection PDF rebuilds'
 uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'

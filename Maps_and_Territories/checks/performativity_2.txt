@@ -1,0 +1,11 @@
+P5 re-tested, POST HOC (Declaration 2): fresh seeds 20-39; A's bias against the erasure-corrected fixed point; all else as Declaration 1
+   G+: tuned gains A alpha 0.005, B alpha 0.2, C (alpha, beta) (0.05, 0.01)
+      RMSE of f - mu_t, median over seeds: A 2.5454, B 0.4172, C 0.2688; C <= 0.9 B on 20/20 seeds
+      per seed C/B: 0.617 0.629 0.604 0.618 0.655 0.651 0.624 0.598 0.654 0.615 0.606 0.808 0.687 0.727 0.610 0.846 0.696 0.646 0.578 0.601
+      A's bias: pooled mean(f - mu) / mean(target mu), target (1-e)gamma/(1-(1-e)gamma) = 0.8182: 1.2393
+   G-: tuned gains A alpha 0.005, B alpha 0.2, C (alpha, beta) (0.005, 0.03)
+      RMSE of f - mu_t, median over seeds: A diverged (> 1e6: the self-fulfilling spiral), B 0.4217, C 1.7279; C <= 0.9 B on 0/20 seeds
+      per seed C/B: 2.193 2.463 5.772 2.002 4.188 6.464 4.263 3.198 5.469 4.652 3.350 6.683 2.808 4.113 4.762 3.492 3.191 7.183 3.720 5.057
+      A's bias: pooled mean(f - mu) / mean(target mu), target (1-e)gamma/(1-(1-e)gamma) = 0.8182: diverged (> 1e6: the self-fulfilling spiral)
+   gate: G+ C ahead on >= 18/20: holds (20/20); G+ A's bias within 10 % of the corrected target: FAILS (ratio 1.2393); G- C NOT ahead on >= 18/20: holds (20/20)
+summary: P5 (post hoc) GATE CLOSED

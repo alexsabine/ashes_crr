@@ -256,6 +256,9 @@ Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how th
 Regeneration_Law/          CRR 2.0, the regeneration law alpha* = K(v_own) (prompt-log entry 137; route 1 of ontology/15):
                            DECLARATION_1-2.md pushed before checks/math_checks.py and checks/operational_checks.py (pinned, CI-checked);
                            the study is studies/rlaw, prereg/rlaw, runs/rlaw; literature and data checks in docs/citations/rlaw_*; a note, not evidence (R8)
+Maps_and_Territories/      maps that change their territory (prompt-log entries 143-144): Goodhart, Soros and the Bank of England, and AI
+                           forecasters; DECLARATION.md + DECLARATION_2.md (post hoc) pushed before checks/performativity{,_2}.py (pinned,
+                           CI-checked); P1-P4 hold (known results), P5 GATE CLOSED twice; MAPS_AND_TERRITORIES.md + PDF; a note, not evidence (R8)
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)

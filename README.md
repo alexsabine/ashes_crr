@@ -130,6 +130,7 @@ not evidence.
 | [Continuous_Learning/](Continuous_Learning/), [Adam_SGD/](Adam_SGD/) | the Ω = 1 rule, its prior art, and its behaviour under SGD, momentum and Adam |
 | [AI_Safety/](AI_Safety/), [Safe_and_Continual/](Safe_and_Continual/) | the off switch and the self, and the combined safety and continual-learning write-up |
 | [Rupture_Detection/](Rupture_Detection/) | the cut as a rupture detector |
+| [Maps_and_Territories/](Maps_and_Territories/) | maps that change their territory: Goodhart, Soros, the Bank of England and AI forecasters; the empty cut, tested |
 | [Alexander Plan/](Alexander%20Plan/) | the owner's dossier |
 | [docs/notes/](docs/notes/), [docs/citations/](docs/citations/) | notes to the auditor, and every external source checked on the day (R10) |
 
