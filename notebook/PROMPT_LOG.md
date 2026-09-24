@@ -1229,3 +1229,7 @@ I was thinking the same thing regarding goodhart and soros (bank of England etc.
 Can we run tests on this please so I can clearly articulate to Daniel and others precisely what I mean by this and why CRR could be helpful in this respect, especially in relation to companies like Mantis who are using generalised predictive techniques.
 
 Thank you.
+
+## 145 — 2026-09-24T16:33:31Z
+
+This is notoriously tricky to explain to companies who are invested in their own future success. What does it mean in real terms for a company such as mantis, what does this finding suggest in enabling the company to profit? Or is it more of an ethical point regarding emergence? Why would the Bank of England adopt this strategy in relation to soros rendering the map visible globally? What are the implications for effective future economies? Does this help any one company who is invested in forecasting and predictions and if so, precisely how does this translate into standard organisational management theory?
