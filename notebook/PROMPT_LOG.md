@@ -1267,3 +1267,7 @@ The points around the ever-present Now relate directly to the maps/territories d
 ## 151 — 2026-09-24T18:07:45Z
 
 Thank you. On the Continual Learning and AI Safety benchmark combined front, the CRR principles were used to explore the equanimity principle in effective continuous learning and we found that applying the empty cut (the true map) also helped here (surprisingly). We should run more continual learning checks on this method. I understand some are already in the pipeline?
+
+## 152 — 2026-09-24T18:12:59Z
+
+Yes please run the literature checks and run the pipeline on synthetic data now to prepare for a real-data full pipleine test. Re-read the AI Safety and Continuous Learning papers, and all we have learned subsequently so that the test on full data is run in accordance with the pipeline. Thank you
