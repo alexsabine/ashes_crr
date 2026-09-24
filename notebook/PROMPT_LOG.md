@@ -1241,3 +1241,9 @@ So how does existing mathematics manage the moment of now as the cut, maps and t
 ## 147 — 2026-09-24T16:54:08Z
 
 Now couple in the pass for continual learning and AI safety findings and the contemplative heuristic structure in relation to existing traditions. Consider dogma and modelling in relation to the representational modelling and the crr process orientation with respect to organisational growth and development in 2026 and beyond. Thank you
+
+## 148 — 2026-09-24T16:58:57Z
+
+What would it look like phenomenologically for a frontier research lab conducting science in 2026 who were aware of these principles and the equanimity principle as they conduct frontier grade predictive research on a variety of different systems? Please provide a sketch of what such an organisation might be like to work for and how their profit margins work and function in relation to increasing global complexity in the age of AI / AGI.
+
+What is CRRs potential role in this?
