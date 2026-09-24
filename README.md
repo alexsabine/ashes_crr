@@ -64,6 +64,8 @@ its smoothing it is the VQGAN adaptive weight (2020), and a finely tuned constan
   [ontology/15_grammar_to_theory.md](ontology/15_grammar_to_theory.md).
 - **Route 1, the regeneration law (CRR 2.0).** Its mathematics is checked in [Regeneration_Law/](Regeneration_Law/). Its
   five-domain study RLAW is being pre-registered (`prereg/rlaw/`).
+  - CRR 2.0 is a different form of CRR from the one this repository started with.
+  - By the owner's instruction, its rows are kept out of the epistemic ladder.
 
 ### Epistemic status (2026-09-22)
 

@@ -8,6 +8,14 @@
   - SCL2's data step had already opened a dataset that day.
   - The fetch timestamps go into `data/manifests/rlaw.sha256`.
 - **Author:** the agent, under CLAUDE.md §1.
+- **Status of this file: DRAFT, not yet hashed.**
+  - The gate (`gate_RLAW.txt`) is still running, and the admissibility list below is filled from it.
+  - The file is merged to `main` at the owner's request (prompt-log entry 139) before the hash.
+  - The hash, the OpenTimestamps proof and the tag follow in a later commit. Only the hashed version binds.
+- **Outside the epistemic ladder.** CRR 2.0 is a different form of CRR, not in this repository's initial conditions.
+  - By the owner's instruction (prompt-log entry 139), its RLAW rows go to the ledger and to `reports/rlaw.md`, but not
+    into the epistemic ladder, its tables or its figures.
+  - `Epistemic_Review/checks/ladder.py` skips rows whose id starts with RLAW.
 
 ## The law under test
 

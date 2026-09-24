@@ -176,13 +176,19 @@ LEDGER_RULES = (
     (r"^FAIL", "FAIL"), (r"^(immaterial|metric matters)", "numbers reported"), (r"^as claimed \(seen\)", "holds on seen data"), (r"^[−\-+0-9.,: =c/]+", "numbers reported"))
 
 
+CRR2_PREFIXES = ("RLAW",)
+
+
 def ledger():
     print("[3] The ledger: every row allocated by its verdict text (first matching rule) and its data status")
-    rows = []; last = {}
+    rows = []; last = {}; crr2 = []
     for line in (ROOT / "ledger" / "LEDGER.md").read_text().splitlines():
         if not re.match(r"^\| [A-Z]", line): continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         rid, data, verdict = cells[0], cells[2], cells[-3].replace("**", "").strip()   # the verdict is third from the end: cells may hold "|" (absolute values)
+        # CRR 2.0 (the regeneration law, study RLAW) is a different form of CRR, not in the repository's initial conditions:
+        # the owner excluded its rows from the ladder (prompt-log entry 139; AGENT_LOG 114)
+        if rid.startswith(CRR2_PREFIXES): crr2.append(rid); continue
         fam = rid.split("-")[0]
         if "(Y)" in data: seen = "held-out"
         elif "(N)" in data: seen = "seen"
@@ -192,6 +198,7 @@ def ledger():
         lab = next((l for p, l in LEDGER_RULES if re.search(p, verdict)), None)
         if lab is None: raise SystemExit(f"unmatched verdict in {rid}: {verdict[:80]}")
         rows.append((rid, seen, lab))
+    if crr2: print(f"    excluded, CRR 2.0 (owner's instruction, prompt-log entry 139): {len(crr2)} rows ({', '.join(crr2)})")
     for rid, seen, lab in rows: print(f"    {rid:16s} {seen:9s} {lab}")
     c = collections.Counter((s, l) for _, s, l in rows)
     print(f"    rows {len(rows)}; by data status and allocation:")
