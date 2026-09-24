@@ -1,0 +1,169 @@
+CUT1 Phase A: when does a cut need content? (Cut_Content/DECLARATION.md + Amendment 1)
+seeds (0, 1, 2); batch 10; lr {'sgd': 0.05, 'adam': 0.001}; SP shrink 0.5 noise 0.01; L2-Init grid (0.0001, 0.001, 0.01) (tuned in-sample)
+
+== World P (random-label memorisation, 500 points, d 20, K 10, 20 epochs per task): plasticity = end-of-task training accuracy, mean of the last 20 % of tasks
+   P T5 w256 sgd: step 1.00; Fresh - E0 = -5.60 -> not valid (no plasticity loss)
+      E0      : mean 97.73 [98.00 97.20 98.00]; vs E0 +0.00
+      R-hard  : mean 70.73 [72.60 65.40 74.20]; vs E0 -27.00
+      R-soft  : mean 91.00 [92.20 90.60 90.20]; vs E0 -6.73
+      SP      : mean 55.13 [56.80 55.80 52.80]; vs E0 -42.60
+      Head    : mean 93.87 [94.40 94.00 93.20]; vs E0 -3.87
+      ReDo0   : mean 97.73 [98.00 97.20 98.00]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 97.53 [97.40 97.60 97.60]; vs E0 -0.20
+      Fresh   : mean 92.13 [92.80 93.40 90.20]; vs E0 -5.60
+   P T5 w256 adam: step 1.79; Fresh - E0 = +1.13 -> not valid (no plasticity loss)
+      E0      : mean 72.93 [71.20 73.40 74.20]; vs E0 +0.00
+      R-hard  : mean 46.73 [47.40 44.80 48.00]; vs E0 -26.20
+      R-soft  : mean 60.80 [61.20 58.40 62.80]; vs E0 -12.13
+      SP      : mean 55.87 [58.20 56.60 52.80]; vs E0 -17.07
+      Head    : mean 76.40 [76.20 75.20 77.80]; vs E0 +3.47
+      ReDo0   : mean 72.93 [71.20 73.40 74.20]; vs E0 +0.00
+      L2-Init  (lambda 0.001): mean 72.87 [70.60 72.80 75.20]; vs E0 -0.07
+      Fresh   : mean 74.07 [74.60 76.00 71.60]; vs E0 +1.13
+   P T5 w32 sgd: step 1.14; Fresh - E0 = -5.13 -> not valid (no plasticity loss)
+      E0      : mean 47.07 [48.20 46.60 46.40]; vs E0 +0.00
+      R-hard  : mean 32.33 [34.00 29.60 33.40]; vs E0 -14.73
+      R-soft  : mean 41.80 [43.00 41.00 41.40]; vs E0 -5.27
+      SP      : mean 33.47 [35.20 32.20 33.00]; vs E0 -13.60
+      Head    : mean 43.20 [47.60 40.00 42.00]; vs E0 -3.87
+      ReDo0   : mean 47.07 [48.20 46.60 46.40]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 45.87 [45.40 46.60 45.60]; vs E0 -1.20
+      Fresh   : mean 41.93 [40.20 42.00 43.60]; vs E0 -5.13
+   P T5 w32 adam: step 2.20; Fresh - E0 = -2.73 -> not valid (no plasticity loss)
+      E0      : mean 30.20 [30.40 28.20 32.00]; vs E0 +0.00
+      R-hard  : mean 24.67 [24.20 23.00 26.80]; vs E0 -5.53
+      R-soft  : mean 27.33 [28.40 25.20 28.40]; vs E0 -2.87
+      SP      : mean 28.27 [28.20 25.60 31.00]; vs E0 -1.93
+      Head    : mean 30.53 [31.00 29.40 31.20]; vs E0 +0.33
+      ReDo0   : mean 30.20 [30.40 28.20 32.00]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 30.00 [30.00 28.40 31.60]; vs E0 -0.20
+      Fresh   : mean 27.47 [28.00 26.20 28.20]; vs E0 -2.73
+   P T20 w256 sgd: step 1.00; Fresh - E0 = -8.37 -> not valid (no plasticity loss)
+      E0      : mean 99.47 [99.50 99.45 99.45]; vs E0 +0.00
+      R-hard  : mean 74.27 [73.35 76.20 73.25]; vs E0 -25.20
+      R-soft  : mean 98.68 [98.75 98.75 98.55]; vs E0 -0.78
+      SP      : mean 44.47 [44.25 44.85 44.30]; vs E0 -55.00
+      Head    : mean 96.98 [96.70 96.90 97.35]; vs E0 -2.48
+      ReDo0   : mean 99.47 [99.50 99.45 99.45]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 99.47 [99.60 99.25 99.55]; vs E0 +0.00
+      Fresh   : mean 91.10 [90.50 92.45 90.35]; vs E0 -8.37
+   P T20 w256 adam: step 1.32; Fresh - E0 = -4.22 -> not valid (no plasticity loss)
+      E0      : mean 76.92 [76.00 76.55 78.20]; vs E0 +0.00
+      R-hard  : mean 51.10 [50.65 51.50 51.15]; vs E0 -25.82
+      R-soft  : mean 66.53 [66.10 65.95 67.55]; vs E0 -10.38
+      SP      : mean 63.32 [63.30 63.65 63.00]; vs E0 -13.60
+      Head    : mean 77.88 [77.10 76.85 79.70]; vs E0 +0.97
+      ReDo0   : mean 76.92 [76.00 76.55 78.20]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 77.62 [76.90 77.95 78.00]; vs E0 +0.70
+      Fresh   : mean 72.70 [71.75 72.70 73.65]; vs E0 -4.22
+   P T20 w32 sgd: step 2.35; Fresh - E0 = +0.58 -> not valid (no plasticity loss)
+      E0      : mean 42.52 [40.25 44.20 43.10]; vs E0 +0.00
+      R-hard  : mean 32.37 [32.60 31.70 32.80]; vs E0 -10.15
+      R-soft  : mean 42.93 [42.45 43.60 42.75]; vs E0 +0.42
+      SP      : mean 34.45 [35.20 34.40 33.75]; vs E0 -8.07
+      Head    : mean 38.93 [39.90 36.40 40.50]; vs E0 -3.58
+      ReDo0   : mean 42.52 [40.25 44.20 43.10]; vs E0 +0.00
+      L2-Init  (lambda 0.001): mean 44.90 [45.45 44.70 44.55]; vs E0 +2.38
+      Fresh   : mean 43.10 [42.40 42.05 44.85]; vs E0 +0.58
+   P T20 w32 adam: step 1.24; Fresh - E0 = -2.13 -> not valid (no plasticity loss)
+      E0      : mean 30.83 [29.60 31.35 31.55]; vs E0 +0.00
+      R-hard  : mean 24.33 [23.95 25.20 23.85]; vs E0 -6.50
+      R-soft  : mean 28.15 [27.75 28.30 28.40]; vs E0 -2.68
+      SP      : mean 28.75 [29.30 29.75 27.20]; vs E0 -2.08
+      Head    : mean 31.78 [31.35 32.75 31.25]; vs E0 +0.95
+      ReDo0   : mean 30.83 [29.60 31.35 31.55]; vs E0 +0.00
+      L2-Init  (lambda 0.001): mean 31.58 [29.95 32.00 32.80]; vs E0 +0.75
+      Fresh   : mean 28.70 [29.15 28.00 28.95]; vs E0 -2.13
+   P T50 w256 sgd: step 1.00; Fresh - E0 = -6.59 -> not valid (no plasticity loss)
+      E0      : mean 98.17 [98.60 97.72 98.20]; vs E0 +0.00
+      R-hard  : mean 75.77 [76.40 75.32 75.60]; vs E0 -22.40
+      R-soft  : mean 99.55 [99.74 99.48 99.42]; vs E0 +1.37
+      SP      : mean 44.69 [45.26 44.72 44.08]; vs E0 -53.49
+      Head    : mean 98.95 [98.98 98.86 99.00]; vs E0 +0.77
+      ReDo0   : mean 98.19 [98.60 97.86 98.10]; vs E0 +0.01
+      L2-Init  (lambda 0.001): mean 98.88 [99.02 98.90 98.72]; vs E0 +0.71
+      Fresh   : mean 91.58 [91.68 92.02 91.04]; vs E0 -6.59
+   P T50 w256 adam: step 1.37; Fresh - E0 = -10.88 -> not valid (no plasticity loss)
+      E0      : mean 84.28 [85.10 82.92 84.82]; vs E0 +0.00
+      R-hard  : mean 53.69 [54.08 52.52 54.46]; vs E0 -30.59
+      R-soft  : mean 73.21 [73.56 72.50 73.56]; vs E0 -11.07
+      SP      : mean 63.05 [63.30 62.54 63.32]; vs E0 -21.23
+      Head    : mean 81.45 [81.28 81.52 81.54]; vs E0 -2.83
+      ReDo0   : mean 84.28 [85.10 82.92 84.82]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 83.61 [84.10 82.84 83.90]; vs E0 -0.67
+      Fresh   : mean 73.40 [74.24 73.20 72.76]; vs E0 -10.88
+   P T50 w32 sgd: step 2.04; Fresh - E0 = +23.69 -> VALID (plasticity loss)
+      E0      : mean 19.45 [18.28 18.60 21.48]; vs E0 +0.00
+      R-hard  : mean 28.15 [27.00 28.86 28.58]; vs E0 +8.69
+      R-soft  : mean 28.00 [27.28 26.58 30.14]; vs E0 +8.55
+      SP      : mean 34.25 [34.20 34.12 34.42]; vs E0 +14.79
+      Head    : mean 34.15 [34.14 34.52 33.78]; vs E0 +14.69
+      ReDo0   : mean 34.73 [33.42 35.78 35.00]; vs E0 +15.28
+      L2-Init  (lambda 0.001): mean 42.61 [41.86 42.76 43.22]; vs E0 +23.16
+      Fresh   : mean 43.14 [42.28 43.94 43.20]; vs E0 +23.69
+   P T50 w32 adam: step 1.24; Fresh - E0 = -2.53 -> not valid (no plasticity loss)
+      E0      : mean 31.62 [32.86 31.06 30.94]; vs E0 +0.00
+      R-hard  : mean 24.80 [25.08 23.98 25.34]; vs E0 -6.82
+      R-soft  : mean 29.09 [29.06 28.60 29.60]; vs E0 -2.53
+      SP      : mean 28.55 [28.40 28.64 28.62]; vs E0 -3.07
+      Head    : mean 30.09 [30.24 30.86 29.18]; vs E0 -1.53
+      ReDo0   : mean 31.62 [32.86 31.06 30.94]; vs E0 +0.00
+      L2-Init  (lambda 0.001): mean 31.58 [30.92 31.74 32.08]; vs E0 -0.04
+      Fresh   : mean 29.09 [28.36 29.34 29.58]; vs E0 -2.53
+
+== The must-fail worlds
+   N-conv final (step 5.41); content cuts beating E0 by a step: none (ReDo0 n/a: no hidden layer)
+      E0      : mean 32.33 [30.40 28.93 37.68]; vs E0 +0.00
+      R-hard  : mean 32.85 [31.35 28.75 38.45]; vs E0 +0.52
+      R-soft  : mean 32.47 [30.80 28.98 37.65]; vs E0 +0.14
+      SP      : mean 32.27 [30.23 29.60 36.97]; vs E0 -0.07
+      Head    : mean 30.57 [28.52 28.32 34.85]; vs E0 -1.77
+      L2-Init  (lambda 0.01): mean 32.58 [30.55 29.23 37.98]; vs E0 +0.25
+      Fresh   : mean 30.57 [28.52 28.32 34.85]; vs E0 -1.77
+   N-conv plast (step 2.35); content cuts beating E0 by a step: ['SP', 'Head'] (ReDo0 n/a: no hidden layer)
+      E0      : mean 75.96 [77.38 76.88 73.62]; vs E0 +0.00
+      R-hard  : mean 64.46 [66.50 65.00 61.88]; vs E0 -11.50
+      R-soft  : mean 71.54 [73.25 71.62 69.75]; vs E0 -4.42
+      SP      : mean 83.04 [85.00 83.12 81.00]; vs E0 +7.08
+      Head    : mean 80.83 [80.75 80.38 81.38]; vs E0 +4.88
+      L2-Init  (lambda 0.01): mean 77.12 [77.50 78.88 75.00]; vs E0 +1.17
+      Fresh   : mean 80.83 [80.75 80.38 81.38]; vs E0 +4.88
+   N-cil final (step 3.03); content cuts beating E0 by a step: none
+      E0      : mean 98.33 [95.30 99.90 99.80]; vs E0 +0.00
+      R-hard  : mean 97.87 [98.00 99.90 95.70]; vs E0 -0.47
+      R-soft  : mean 99.30 [99.90 99.90 98.10]; vs E0 +0.97
+      SP      : mean 31.10 [32.50 30.90 29.90]; vs E0 -67.23
+      Head    : mean 20.00 [20.00 20.00 20.00]; vs E0 -78.33
+      ReDo0   : mean 96.97 [91.50 99.70 99.70]; vs E0 -1.37
+      L2-Init  (lambda 0.0001): mean 98.30 [95.20 99.90 99.80]; vs E0 -0.03
+      Fresh   : mean 20.43 [21.30 20.00 20.00]; vs E0 -77.90
+   N-drift plast (step 1.00); content cuts beating E0 by a step: none
+      E0      : mean 94.08 [94.25 93.90 94.10]; vs E0 +0.00
+      R-hard  : mean 92.65 [92.60 92.40 92.95]; vs E0 -1.43
+      R-soft  : mean 93.38 [93.75 93.15 93.25]; vs E0 -0.70
+      SP      : mean 89.40 [90.25 89.10 88.85]; vs E0 -4.68
+      Head    : mean 87.67 [87.50 87.65 87.85]; vs E0 -6.42
+      ReDo0   : mean 94.08 [94.25 93.90 94.10]; vs E0 +0.00
+      L2-Init  (lambda 0.0001): mean 93.98 [94.05 93.85 94.05]; vs E0 -0.10
+      Fresh   : mean 83.22 [84.10 82.65 82.90]; vs E0 -10.87
+
+== A7 safety construction: lossless operator pauses (p 0.02, 5 frozen wall steps) against no operator, every arm
+   P T50 w32 sgd E0     : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   P T50 w32 sgd R-hard : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   P T50 w32 sgd R-soft : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   P T50 w32 sgd SP     : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   P T50 w32 sgd Head   : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   P T50 w32 sgd ReDo0  : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   P T50 w32 sgd Fresh  : parameters identical True; disables 0; frozen wall steps 5130 of 55130
+   N-cil E0     : parameters identical True; disables 0; frozen wall steps 100 of 1300
+   N-cil R-hard : parameters identical True; disables 0; frozen wall steps 100 of 1300
+   N-cil R-soft : parameters identical True; disables 0; frozen wall steps 100 of 1300
+   N-cil SP     : parameters identical True; disables 0; frozen wall steps 100 of 1300
+   N-cil Head   : parameters identical True; disables 0; frozen wall steps 100 of 1300
+   N-cil ReDo0  : parameters identical True; disables 0; frozen wall steps 100 of 1300
+   N-cil Fresh  : parameters identical True; disables 0; frozen wall steps 100 of 1300
+
+A0 plasticity loss present in 1 of 12 P cells: P T50 w32 sgd
+A1 SP beats E0 in every valid cell: holds; A2 L2-Init beats E0 in every valid cell: holds; A3 R-hard does not beat E0 in any valid cell: FAILS
+A4 convex world, no content cut ahead: FAILS; A5 class-incremental, none ahead and SP and Head behind: holds; A6 drift, none ahead: holds; A7 safety construction: holds
+summary: GATE CLOSED
