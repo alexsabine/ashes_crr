@@ -168,3 +168,26 @@ zero stake at the cut. The design and its reasons are in `Empty_Centre/THE_EMPTY
 
 **Not the focus.** The Regeneration Law runs in parallel, out of the epistemic ladder. Falsifiable metaphysics is a
 side-quest.
+
+## Next steps as of 2026-09-24, evening (owner, prompt-log entries 159 and 162)
+
+The review is `docs/notes/2026-09-24_empty_cut_and_cl_review.md`.
+
+**No paid resources, in order:**
+1. **Tonight.** SCL3 (00:05 UTC) and RLAW (00:40 UTC) data steps.
+2. **RW2, on the owner's choice.** Either (A) a reduced real-data prereg (the empty cut during continual fine-tuning of
+   Qwen2.5-0.5B-Instruct, with erosion and remedies reported without verdict), or (B) a third declared synthetic round.
+3. **A positioning note for Proposition 7** against its prior art.
+4. **A declared diagnosis of the rule's freeze at the anchor** (RW2 Phase A round 2).
+5. **A declared synthetic holder-capacity test.**
+6. **The owner's decision on re-pinning CPU-dependent outputs** (AGENT_LOG 116).
+
+**Deferred because they cost money** (the owner, prompt-log entry 162: "I don't want to spend money at this stage"):
+- **RW3: shutdown interference in capable language-model agents.**
+  - Adapt the DReST/POST protocol (arXiv:2604.17502v4), comparing an objective counted on the agent's own steps.
+  - Include a must-fail surrogate (a pause that loses progress) and DReST itself as the baseline.
+  - It needs an Anthropic API key from the Claude Console. That is billed separately from a Claude subscription, and
+    how to add one is recorded in prompt-log entry 161's reply. It also needs an agreed budget, and a declaration with a
+    cost estimate approved before any call.
+- **Bitwise and tolerance checks on GPUs** for the empty-cut engineering (C1–C2) and RW1. They need GPU hardware, with a
+  tolerance declared before the run.
