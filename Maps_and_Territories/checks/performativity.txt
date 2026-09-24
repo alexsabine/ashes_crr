@@ -1,0 +1,59 @@
+Maps that change their territory: checks P1-P5 (Maps_and_Territories/DECLARATION.md)
+P1 the map-territory trade-off in World L: Y = mu + gamma f + eps (f = 0 is the empty map)
+   (a) influence gamma f = 0 only at f = [0] (for gamma != 0): the empty map -> holds
+   (b) the error when read is smallest at f* = -mu/(gamma - 1) (curvature 2*(gamma - 1)**2 > 0 for gamma != 1); its influence is gamma mu/(1 - gamma) -> holds
+   (c) the counterfactual map f = mu, when read, is wrong by (gamma mu)^2 in squared error (residual 0): wrong by exactly its influence -> holds
+   grid (mu = 1, sigma = 1): gamma | empty map: influence, error when read | counterfactual map: influence, error when read | self-consistent map: f*, influence, error when read
+       -1.5: 0.000, 2.0000 | -1.500, 3.2500 | 0.400, -0.600, 1.0000
+       -0.5: 0.000, 2.0000 | -0.500, 1.2500 | 0.667, -0.333, 1.0000
+        0.5: 0.000, 2.0000 | 0.500, 1.2500 | 2.000, 1.000, 1.0000
+        0.9: 0.000, 2.0000 | 0.900, 1.8100 | 10.000, 9.000, 1.0000
+       0.99: 0.000, 2.0000 | 0.990, 1.9801 | 100.000, 99.000, 1.0000
+   P1 holds: no map is both influence-free and right when read unless mu = 0 or gamma = 0; the influence of the right-when-read map, gamma/(1 - gamma), grows without bound as gamma -> 1
+P2 learning from a territory one has changed: f <- f + alpha (y - f), y = mu + gamma f + eps (all forecasts read), mu 1, sigma 1, 5000 steps, 20 seeds
+   gamma -3.0: alpha 0.05: r +0.800 analytic converge, simulated converge; alpha 0.3: r -0.200 analytic oscillate, simulated oscillate; alpha 0.8: r -2.200 analytic diverge, simulated diverge
+   gamma -1.0: alpha 0.05: r +0.900 analytic converge, simulated converge; alpha 0.3: r +0.400 analytic converge, simulated converge; alpha 0.8: r -0.600 analytic oscillate, simulated oscillate
+   gamma +0.0: alpha 0.05: r +0.950 analytic converge, simulated converge; alpha 0.3: r +0.700 analytic converge, simulated converge; alpha 0.8: r +0.200 analytic converge, simulated converge
+   gamma +0.5: alpha 0.05: r +0.975 analytic converge, simulated converge; alpha 0.3: r +0.850 analytic converge, simulated converge; alpha 0.8: r +0.600 analytic converge, simulated converge
+   gamma +1.2: alpha 0.05: r +1.010 analytic diverge, simulated diverge; alpha 0.3: r +1.060 analytic diverge, simulated diverge; alpha 0.8: r +1.160 analytic diverge, simulated diverge
+   the analytic rule classifies 15/15 cells as the simulation does -> holds
+   the Regeneration Law beside it: in P2's world mu is constant, so v = 0 and K(v) = 0 (the no-feedback optimum never destabilises it); in a drifting world with v > 0 the no-feedback optimum K(v) destabilises the loop exactly when gamma < 1 - 2/K(v):
+      v 0.3: K(v) 0.2584; unstable for gamma < -6.741
+      v 1.0: K(v) 0.6180; unstable for gamma < -2.236
+      v 3.0: K(v) 0.9083; unstable for gamma < -1.202
+P3 the map chooses the territory (currency peg): p(f) = 0.1 + 0.88 Phi((f - 0.45)/0.1) when the forecast f is read; unread, speculators see theta = 0.3 only
+   fixed point f = p(f) = 0.100206: slope p'(f) 0.0077 -> stable; Brier when read p(1 - p) = 0.090165
+   fixed point f = p(f) = 0.412996: slope p'(f) 3.2784 -> unstable; Brier when read p(1 - p) = 0.242430
+   fixed point f = p(f) = 0.980000: slope p'(f) 0.0000 -> stable; Brier when read p(1 - p) = 0.019600
+   repeated retraining from f0 0.05: ends at 0.100206
+   repeated retraining from f0 0.25: ends at 0.100206
+   repeated retraining from f0 0.45: ends at 0.980000
+   repeated retraining from f0 0.5: ends at 0.980000
+   repeated retraining from f0 0.7: ends at 0.980000
+   repeated retraining from f0 0.95: ends at 0.980000
+   the accuracy-maximising read forecast (argmin expected Brier, grid 1e-4): f = 0.9800, devaluation probability it produces 0.980000, expected Brier 0.019600
+   the counterfactual forecast f = p(theta) = 0.158790; read, it produces 0.101580; retraining from it ends at 0.100206
+   (a) three fixed points, calm and crisis stable: holds; (b) the starting belief picks the equilibrium: holds; (c) the accuracy-maximising forecaster ends at the crisis: holds; (d) the counterfactual forecast leads to the calm: holds
+P4 Goodhart: X = G + 0.5 eta + s Z (Z = |N(0,1)| gaming capacity, independent of G), 200 000 agents
+   stake s 0.0: corr(X, G) 0.8946; mean G of the top 10 % on X 1.5715
+   stake s 0.25: corr(X, G) 0.8867; mean G of the top 10 % on X 1.5555
+   stake s 0.5: corr(X, G) 0.8639; mean G of the top 10 % on X 1.5056
+   stake s 1.0: corr(X, G) 0.7877; mean G of the top 10 % on X 1.3196
+   stake s 2.0: corr(X, G) 0.6086; mean G of the top 10 % on X 0.9000
+   both fall monotonically in the stake: holds; at s = 0 the correlation is the ungamed 1/sqrt(1.25) = 0.8944: holds
+P5 learning without a stake in a drifting world: mu_t random walk (sd 0.05), erasure 0.1, sigma 1.0, mu_0 2.0; 20 seeds x 20000 steps (burn-in 2000); gains tuned on each world's own seeds (grid alpha [0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.4], beta [0.001, 0.003, 0.01, 0.03])
+   G+: tuned gains A alpha 0.005, B alpha 0.1, C (alpha, beta) (0.05, 0.01)
+      RMSE of f - mu_t, median over seeds: A 3.0933, B 0.4282, C 0.2777; C <= 0.9 B on 19/20 seeds
+      per seed C/B: 0.570 0.656 0.654 0.730 0.758 0.668 0.582 0.633 0.694 0.648 0.728 0.679 0.645 0.652 0.776 0.797 0.920 0.659 0.593 0.629
+      A's bias: pooled mean(f - mu) / mean(gamma mu/(1 - gamma)) = 0.8508; regression slope of (f - mu) on mu, median 0.7561 (declared target gamma/(1 - gamma) = 1.0000; with erasure the fixed point is (1-e)gamma/(1-(1-e)gamma) = 0.8182)
+   G-: tuned gains A alpha 0.005, B alpha 0.2, C (alpha, beta) (0.005, 0.03)
+      RMSE of f - mu_t, median over seeds: A diverged (> 1e6: the self-fulfilling spiral), B 0.4174, C 1.6960; C <= 0.9 B on 0/20 seeds
+      per seed C/B: 4.262 2.893 2.993 7.226 1.918 7.163 2.954 3.895 4.406 4.153 3.041 2.198 7.654 3.227 4.355 4.220 4.143 6.014 3.841 3.011
+      A's bias: pooled mean(f - mu) / mean(gamma mu/(1 - gamma)) = diverged (> 1e6: the self-fulfilling spiral); regression slope of (f - mu) on mu, median diverged (> 1e6: the self-fulfilling spiral) (declared target gamma/(1 - gamma) = 1.0000; with erasure the fixed point is (1-e)gamma/(1-(1-e)gamma) = 0.8182)
+   G0: tuned gains A alpha 0.05, B alpha 0.2, C (alpha, beta) (0.05, 0.001)
+      RMSE of f - mu_t, median over seeds: A 0.2251, B 0.4267, C 0.2382; C <= 0.9 B on 20/20 seeds
+      per seed C/B: 0.532 0.528 0.573 0.577 0.579 0.570 0.519 0.611 0.520 0.789 0.688 0.562 0.588 0.568 0.595 0.553 0.617 0.650 0.758 0.538
+      A's bias with no reflexivity: pooled mean(f - mu) -0.0028; slope median -0.0028
+   gate as declared: G+ C ahead on >= 18/20: holds (19/20); G+ A's bias within 10 % of gamma mu/(1 - gamma): FAILS (ratio 0.8508); G- C NOT ahead on >= 18/20: holds (not ahead on 20/20)
+   P5 GATE CLOSED
+summary: P1 holds; P2 holds; P3 holds; P4 holds; P5 GATE CLOSED
