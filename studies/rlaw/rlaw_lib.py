@@ -59,6 +59,17 @@ def ml_v(Y, logv_lo=LOGV_LO, logv_hi=LOGV_HI, logv_n=LOGV_N):
     return dict(v=v, sigma_eps2=s_eps2, sigma_eta2=v * v * s_eps2, edge=edge)
 
 
+def mom_v(y):
+    """Method of moments on first differences (Declaration 1, M9): var(dy) = s_eta^2 + 2 s_eps^2, cov(dy_t, dy_t-1) = -s_eps^2.
+    NaNs are dropped first. Returns (v, s_eta2, s_eps2); a non-positive drift variance gives v = 0, a non-positive noise
+    variance gives v = inf."""
+    y = np.asarray(y, float); y = y[~np.isnan(y)]; d = np.diff(y); d = d - d.mean()
+    g0 = float(np.mean(d * d)); g1 = float(np.mean(d[1:] * d[:-1])); s_eps2 = max(-g1, 0.0); s_eta2 = g0 - 2 * s_eps2
+    if s_eta2 <= 0: return 0.0, 0.0, s_eps2
+    if s_eps2 <= 0: return float("inf"), s_eta2, 0.0
+    return math.sqrt(s_eta2 / s_eps2), s_eta2, s_eps2
+
+
 def v_own(sigma_eta2, sigma_eps2, delta):
     return np.sqrt(np.asarray(sigma_eta2, float) / (np.asarray(sigma_eps2, float) + delta * delta / 12.0))
 
@@ -79,11 +90,11 @@ ALPHA_GRID = np.exp(np.linspace(math.log(0.005), math.log(1.0), 200))
 BETA_BOUNDS = (0.0, 50.0)
 
 
-def q2_diffs(state2, choice2, win, valid, alphas=ALPHA_GRID):
+def q2_diffs(state2, choice2, win, valid, alphas=ALPHA_GRID, q0=0.0):
     """For each alpha on the grid: the chosen-minus-unchosen Q difference before each valid second-stage choice.
-    state2 in {0, 1}, choice2 in {0, 1}, win in {0, 1}; valid masks missed trials. Q starts at 0 (Kool 2016's code).
+    state2 in {0, 1}, choice2 in {0, 1}, win in {0, 1}; valid masks missed trials. Q starts at q0 (0 in Kool 2016's code).
     Returns D (A, T_valid)."""
-    A = alphas.size; Q = np.zeros((A, 2, 2)); out = []
+    A = alphas.size; Q = np.full((A, 2, 2), float(q0)); out = []
     for t in range(len(state2)):
         if not valid[t]: continue
         s, c, r = int(state2[t]), int(choice2[t]), float(win[t])
@@ -92,9 +103,9 @@ def q2_diffs(state2, choice2, win, valid, alphas=ALPHA_GRID):
     return np.array(out).T if out else np.zeros((A, 0))
 
 
-def fit_q2(state2, choice2, win, valid, alphas=ALPHA_GRID, beta_bounds=BETA_BOUNDS):
+def fit_q2(state2, choice2, win, valid, alphas=ALPHA_GRID, beta_bounds=BETA_BOUNDS, q0=0.0):
     """Per-subject ML over (alpha, beta). Returns (alpha_hat, beta_hat, nll, at_alpha_edge)."""
-    D = q2_diffs(state2, choice2, win, valid, alphas); best = (math.inf, None, None)
+    D = q2_diffs(state2, choice2, win, valid, alphas, q0); best = (math.inf, None, None)
     for a in range(alphas.size):
         d = D[a]
         f = lambda b: float(np.sum(np.logaddexp(0.0, -b * d)))
@@ -118,3 +129,32 @@ def arm_env(ps, state2, choice2, valid):
         last[k] = t
     g = float(np.mean(gaps)) if gaps else float("nan"); se = float(math.sqrt(np.mean(pq)))
     return dict(sd_drift=sd, mean_gap=g, sigma_eps=se, v=sd * math.sqrt(g) / se)
+
+
+# ---------------------------------------------------------------- the two-step arm's optimal constant rate (M13 rule)
+TABLE_GAPS = (1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0)
+
+
+def optimal_rate(gbar, sd=0.025, lo=0.25, hi=0.75, seeds=200, visits=2000, burn=200, seed0=1300):
+    """The constant delta-rule rate minimising the mean squared one-step error of a reward probability that follows a
+    Gaussian random walk (sd per trial, reflecting at lo and hi) observed as a Bernoulli outcome on visits separated by
+    geometric gaps of mean gbar (Declaration 2, M13). Grid 0.002 to 0.600, step 0.002."""
+    al = np.arange(0.002, 0.602, 0.002); rng = np.random.default_rng(seed0 + int(round(gbar * 100)))
+    p = rng.uniform(lo, hi, size=seeds); m = np.full((seeds, al.size), 0.5); se = np.zeros(al.size)
+    for k in range(visits):
+        steps = rng.geometric(1.0 / gbar, size=seeds) if gbar > 1 else np.ones(seeds, int)
+        for j in range(int(steps.max())):
+            mv = steps > j; p = np.where(mv, p + sd * rng.normal(size=seeds), p)
+            p = np.where(p > hi, 2 * hi - p, p); p = np.where(p < lo, 2 * lo - p, p)
+        r = (rng.uniform(size=seeds) < p).astype(float)
+        if k >= burn: se += np.mean((p[:, None] - m) ** 2, axis=0)
+        m = m + al[None, :] * (r[:, None] - m)
+    return float(al[np.argmin(se)])
+
+
+def rate_table(gaps=TABLE_GAPS):
+    return np.array(gaps, float), np.array([optimal_rate(g) for g in gaps])
+
+
+def table_rate(gbar, table):
+    g, r = table; return float(np.interp(math.log(min(max(gbar, g[0]), g[-1])), np.log(g), r))

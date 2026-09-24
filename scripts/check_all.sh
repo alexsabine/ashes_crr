@@ -69,6 +69,10 @@ uv run python Adam_SGD/checks/drift_battery_2.py 2>/dev/null | cmp - Adam_SGD/ch
 uv run python Adam_SGD/checks/mechanism.py 2>/dev/null | cmp - Adam_SGD/checks/mechanism.txt && echo 'Adam_SGD mechanism check (Declaration 4) byte-identical to the committed output'
 uv run python Adam_SGD/build/build_pdf.py > /dev/null 2>&1 && echo 'Adam_SGD PDF rebuilds'
 uv run python Rupture_Detection/checks/rupture_checks.py 2>/dev/null | cmp - Rupture_Detection/checks/rupture_checks.txt && echo 'rupture-detector battery byte-identical to the committed output'
+uv run python Regeneration_Law/checks/math_checks.py 2>/dev/null | cmp - Regeneration_Law/checks/math_checks.txt && echo 'regeneration law mathematical checks (Declaration 1) byte-identical to the committed output'
+uv run python Regeneration_Law/checks/operational_checks.py 2>/dev/null | cmp - Regeneration_Law/checks/operational_checks.txt && echo 'regeneration law operational checks (Declaration 2) byte-identical to the committed output'
+uv run python studies/rlaw/loader_check.py 2>/dev/null | cmp - prereg/rlaw/loader_check.txt && echo 'RLAW loader check byte-identical to the committed output'
+# prereg/rlaw/gate_RLAW.txt (about 40 minutes) is not re-run here; rerun by hand: uv run python runs/rlaw/frozen/gate_rlaw.py | cmp - prereg/rlaw/gate_RLAW.txt
 uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1 && echo 'Rupture Detection PDF rebuilds'
 uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'
 uv run python theory/retrodictions/sharp_claims.py | cmp - theory/retrodictions/sharp_claims.txt && echo 'external SHARP claims re-derivation byte-identical to the committed output'
