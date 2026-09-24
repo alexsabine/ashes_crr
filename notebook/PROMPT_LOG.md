@@ -1153,3 +1153,9 @@ Okay, you should have much more access to data now
 ## 129 — 2026-09-24T02:05:58Z
 
 Scratchpad. Please can we check the consistent, descriptive, redundant domains where CRR worked and where they did not. Analyse the types of system CRR is able to make pre-registered retrodictive predictions in and ones where it is not, please. What is the category where CRR is working and where it is not, and why. Also please give example CRR interpretations of what those retrodictive successes are as seen through a CRR paradigmatic lens. Thank you
+
+## 130 — 2026-09-24T02:16:03Z
+
+This is very helpful. Therefore, can we run an analysis on the work of Lee Smolin, Carlo Rovelli and Julian Gough, through the lens of CRR? Check their work online and provide a full CRR physics and metaphysics interpretation. 
+
+Of course, please check Rovelli and Smolin's work in depth to see whether there are any CRR "Adds" there. Thank you. This will require a deep dive search on Rovelli and Smolin's main bottlenecks in mathematics.
