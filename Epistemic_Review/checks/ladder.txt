@@ -63,6 +63,9 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         ADDS     batch_31.txt row 4: Samuelson's multiplier-accelerator Y_t = C_t + I_t + G, I_t = v (C_t - C_{t-1}), with permanent-income consumption C_t = c P_{t-1}, P_t = (1 - q) Y_t 
         ADDS     batch_32.txt row 2: FitzHugh-Nagumo dv/dt = v - v^3/3 - w + I(t), dw/dt = 0.08 (v + 0.7 - 0.8 w), I(t) = 0.5 + 0.1 sin(2 pi t/2000), RK4 dt 0.01 over t in [0, 20000]; own
         ADDS     batch_32.txt row 3: Lotka-Volterra dx/dt = x (1 - 0.5 y), dy/dt = y (0.25 M - 0.5), with predators responding to the A6-remembered prey dM/dt = (x - M)/T_m, T_m = 1; line
+    the literature check of the ADDS rows (synthesis_batches/literature_check.txt; rule LITERATURE_CHECK_RULE.md)
+        TALLY: 1 FOUND-EXACT / 2 FOUND-THEOREM / 6 PARTIAL / 0 NOT FOUND / 1 ARTEFACT
+        after the check: 3 of 10 ADDS rows are REDUNDANT-DOMAIN by the literature, 6 keep R3 with the direction known, 0 keep R3 as clean candidates, 1 removed
 [3] The ledger: every row allocated by its verdict text (first matching rule) and its data status
     ARC-EQ-Q1..Q4    seen      VOID
     ARC-EQ-LAND      seen      holds on seen data

@@ -1,0 +1,65 @@
+Literature check of every ADDS row (prompt-log entry 132; rule: LITERATURE_CHECK_RULE.md, pushed in a5d9418 before any finding)
+classes: FOUND-EXACT and FOUND-THEOREM -> R2; PARTIAL -> R3 marked 'direction known'; NOT FOUND -> R3 candidate; ARTEFACT -> removed
+
+[ 1] batch_12 row 2: cardiac alternans with memory
+     finding:    FOUND-EXACT
+     sources:    Tolkacheva, Schaeffer, Gauthier & Krassowska 2003, PRE 67:031904 (criterion |1 - (1 + 1/S_dyn) S12| >= 1, read in full text in arXiv:physics/0303099v1); the same linear structure is Nerlove's 1958 adaptive-expectations cobweb (batch 20 row 2, REDUNDANT-DOMAIN)
+     numbers:    threshold slope at q = 0.2, 0.4: row 1.5000, 2.3333; the published criterion 1.5000, 2.3333: agree
+     STATUS:     REDUNDANT-DOMAIN (literature) (R2)
+
+[ 2] batch_17 row 1: Bass diffusion with fading word of mouth
+     finding:    PARTIAL
+     sources:    Fibich 2016, PRE 94:032305 (arXiv:1605.03615) and 2017, SIAP (arXiv:1701.01669), both read in full: the identical Bass-SIR model (the infectious pool is the exponentially age-weighted adoptions, rate = kappa); published: diffusion slower, monotone in the rate
+     numbers:    the lower and earlier peak and the bent Bass plot were not found in print (they follow in one line from Fibich's equations)
+     STATUS:     ADDS, direction known (R3, marked)
+
+[ 3] batch_28 row 4: switching contingency: bounded mean against accumulated counts
+     finding:    PARTIAL
+     sources:    Yu & Cohen 2008, NeurIPS 21 (full text): the same three models (accumulated Beta counts, the exact Bayesian filter for a changing rate, an exponential filter that 'track[s] the true Bayesian P_t very well'); the same ranking in Behrens et al. 2007, Wilson, Nassar & Gold 2013, discounted bandits (Garivier & Moulines; Raj & Kalyani), active inference (Smith et al. 2022, eq. 34, a forgetting rate on Dirichlet counts)
+     numbers:    the ranking is published for the same models; the row's mean absolute errors are not (a qualitative Q with a published ranking reads PARTIAL under the rule as written: no published formula gives the row's numbers)
+     STATUS:     ADDS, direction known (R3, marked)
+
+[ 4] batch_30 row 2: CNS with lineage-memory inheritance
+     finding:    PARTIAL
+     sources:    Galton's ancestral law (Bulmer 1998, Heredity, doi:10.1046/j.1365-2540.1998.00418.x); cascading maternal effects (Kirkpatrick & Lande 1989, not read in full); Hoyle & Ezard 2012, J R Soc Interface (doi:10.1098/rsif.2012.0183; the same trade-off: effects that slow the response lower the variance and raise equilibrium fitness; not read in full); Altenberg 2013 (arXiv:1302.1293; faithful inheritance favoured)
+     numbers:    the direction is published; the variance, load and halving time as functions of q were not found; an exact equivalent in the two unread papers cannot be ruled out
+     STATUS:     ADDS, direction known (R3, marked)
+
+[ 5] batch_31 row 1: Ricker with remembered density
+     finding:    FOUND-THEOREM
+     sources:    the stability triangle of a second-order linear recursion (Royama; Box & Jenkins): the linearised map is z_{n+1} = (1 + q - r(1-q)) z_n - q z_{n-1}; no paper with this exact model was found (Levin & May 1976 is a pure lag, a different kernel)
+     numbers:    first loss of stability: row 6.000; the triangle's flip boundary 6.000: agree
+     STATUS:     REDUNDANT-DOMAIN (literature, by theorem) (R2)
+
+[ 6] batch_31 row 2: SIR with distancing on remembered prevalence
+     finding:    PARTIAL
+     sources:    Ochab, Manfredi, Puszynski & d'Onofrio 2023, Nonlinear Dynamics 111:887 (doi:10.1007/s11071-022-07317-6, full text): the same structure (beta0/(1 + k M), exponentially fading memory including 10 days, a memoryless comparison): 'the larger the delay in the behavioral response, the larger the expected magnitude at the first peak' (from stochastic runs at other R0); Buonomo & Della Marca 2020; Weitz et al. 2020 PNAS
+     numbers:    the direction is published for this model class (by simulation, not a theorem); the row's peaks (0.041501 against 0.031357) are not
+     STATUS:     ADDS, direction known (R3, marked)
+
+[ 7] batch_31 row 3: optimal-velocity traffic with remembered headway
+     finding:    PARTIAL
+     sources:    Chen, Liu, Ngoduy & Shi 2016, Nonlinear Dynamics 85:2705 (eq. 13) and Orosz, Wilson & Krauskopf 2004, PRE (eq. 19): the threshold for a DISCRETE reaction delay tau, V'_c = a/(2(1 + a tau)); driver memory by distributed delays on another car-following model in Sipahi, Atay & Niculescu 2007, SIAP 68:738
+     numbers:    threshold: row 0.3335; the published discrete-delay formula at tau = T_m 0.3333 (within 1 %); that an exponential kernel of the same mean gives the same long-wave threshold is the research report's derivation, not a cited theorem, so the class stays PARTIAL
+     STATUS:     ADDS, direction known (R3, marked)
+
+[ 8] batch_31 row 4: Samuelson multiplier-accelerator with permanent income
+     finding:    PARTIAL
+     sources:    Biederman 1993, J Macroeconomics 15:249 (doi:10.1016/0164-0704(93)90027-J; abstract only, via a search snippet): permanent-income consumption makes the model more stable 'provided current measured income influences permanent income', and 'may actually be destabilizing' when only past incomes feed it; Kaskarelis & Varelas 1996 in the same direction
+     numbers:    the direction is published; the closed form 1/((1-q)c) was not found in any text opened; the row's permanent income uses past incomes only (C_t = c P_{t-1}), the case Biederman flags, so the comparison with his result needs his full text
+     STATUS:     ADDS, direction known (R3, marked)
+
+[ 9] batch_32 row 2: FitzHugh-Nagumo recovery event against the antipodal cut
+     finding:    ARTEFACT
+     sources:    no literature needed: the post hoc surrogate with no dynamics reaches the declared threshold (AGENT_LOG 109); the analytic signal writes x = A cos(phi), so zero crossings sit a half-turn apart by construction
+     numbers:    removed from the candidates whatever the literature says
+     STATUS:     not a candidate (removed from R3)
+
+[10] batch_32 row 3: Lotka-Volterra with remembered prey
+     finding:    FOUND-THEOREM
+     sources:    Ruan 2009, Math Model Nat Phenom 4:140 (full text): this model class, 'the delay will destabilize the otherwise stable equilibrium'; Cushing 1976/1977, MacDonald 1976/1978, Farkas 1984 on the weak kernel; the row's case (no prey self-limitation) follows from Routh-Hurwitz: the characteristic cubic has no lambda term
+     numbers:    leading root: row +0.14858 +0.60281i; the characteristic cubic lambda^3 + lambda^2 + 0.5 = 0 gives +0.14858 +0.60281i; Routh-Hurwitz forbids stability: agree
+     STATUS:     REDUNDANT-DOMAIN (literature, by theorem) (R2)
+
+TALLY: 1 FOUND-EXACT / 2 FOUND-THEOREM / 6 PARTIAL / 0 NOT FOUND / 1 ARTEFACT
+after the check: 3 of 10 ADDS rows are REDUNDANT-DOMAIN by the literature, 6 keep R3 with the direction known, 0 keep R3 as clean candidates, 1 removed

@@ -84,6 +84,7 @@ uv run python theory/retrodictions/loop_gravity.py | cmp - theory/retrodictions/
 uv run python theory/retrodictions/synthesis.py | cmp - theory/retrodictions/synthesis.txt && echo 'synthesis battery byte-identical to the committed output'
 for f in theory/retrodictions/synthesis_batches/batch_*.py; do [ -e "$f" ] || continue; uv run python "$f" | cmp - "${f%.py}.txt" || exit 1; done && echo 'synthesis batches byte-identical to the committed outputs'
 uv run python theory/retrodictions/synthesis_batches/build_queue.py | cmp - theory/retrodictions/synthesis_batches/QUEUE.md && echo 'synthesis queue reproduces from the pinned batteries'
+uv run python theory/retrodictions/synthesis_batches/literature_check.py | cmp - theory/retrodictions/synthesis_batches/literature_check.txt && echo 'literature check of the ADDS rows byte-identical to the committed output'
 uv run python docs/pedagogy/build_elegance_ledger.py | cmp - docs/pedagogy/ELEGANCE_LEDGER.md && echo 'elegance ledger reproduces from the pinned synthesis outputs'
 uv run python ontology/checks/cut_on_a_machine.py | cmp - ontology/checks/cut_on_a_machine.txt && echo 'ontology check (the cut on a machine) byte-identical to the committed output'
 uv run python ontology/checks/turing_safety_ingression.py | cmp - ontology/checks/turing_safety_ingression.txt && echo 'ontology battery (Turing systems, AI safety, ingression) byte-identical to the committed output'

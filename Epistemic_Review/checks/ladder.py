@@ -152,6 +152,12 @@ def synthesis(rows):
         if r["out"] in ("ADDS", "PROPOSES"):
             sysl = re.search(rf"\[\s*{r['k']}\]\s+\(\w+\)\s+(.*)", (RETRO / ("synthesis_batches/" + r["file"] if r["file"] != "synthesis.txt" else "synthesis.txt")).read_text())
             print(f"        {r['out']:8s} {r['file']} row {r['k']}: {sysl[1][:150] if sysl else ''}")
+    lc = RETRO / "synthesis_batches" / "literature_check.txt"                    # prompt-log entry 132: printed beside the mechanical R3 count, never in place of it
+    if lc.exists():
+        txt = lc.read_text()
+        print("    the literature check of the ADDS rows (synthesis_batches/literature_check.txt; rule LITERATURE_CHECK_RULE.md)")
+        for line in txt.splitlines():
+            if line.startswith("TALLY:") or line.startswith("after the check:"): print("        " + line)
     return c
 
 

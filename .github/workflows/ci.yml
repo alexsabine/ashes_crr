@@ -94,6 +94,7 @@ jobs:
           uv run python theory/retrodictions/synthesis.py > /tmp/syn.txt && cmp /tmp/syn.txt theory/retrodictions/synthesis.txt
           for f in theory/retrodictions/synthesis_batches/batch_*.py; do [ -e "$f" ] || continue; uv run python "$f" > /tmp/b.txt && cmp /tmp/b.txt "${f%.py}.txt" || exit 1; done
           uv run python theory/retrodictions/synthesis_batches/build_queue.py > /tmp/q.md && cmp /tmp/q.md theory/retrodictions/synthesis_batches/QUEUE.md
+          uv run python theory/retrodictions/synthesis_batches/literature_check.py > /tmp/lc.txt && cmp /tmp/lc.txt theory/retrodictions/synthesis_batches/literature_check.txt
           uv run python docs/pedagogy/build_elegance_ledger.py > /tmp/e.md && cmp /tmp/e.md docs/pedagogy/ELEGANCE_LEDGER.md
           uv run python ontology/checks/cut_on_a_machine.py > /tmp/o.txt && cmp /tmp/o.txt ontology/checks/cut_on_a_machine.txt
           uv run python ontology/checks/turing_safety_ingression.py > /tmp/o2.txt && cmp /tmp/o2.txt ontology/checks/turing_safety_ingression.txt

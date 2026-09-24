@@ -482,3 +482,21 @@ was hashed and OpenTimestamps-stamped before any code existed.
   surrogate with no dynamics reaches the same threshold, so it is not a candidate in substance, although the mechanical
   allocation counts it. The other five share one mechanism: a bounded exponential memory moves a classic threshold. They
   await a literature check.
+
+**Addendum, 2026-09-24 (the literature check of every ADDS row, prompt-log entry 132).** Every real-domain row labelled
+ADDS was checked against the published literature under a rule fixed before any finding was read
+(`theory/retrodictions/synthesis_batches/LITERATURE_CHECK_RULE.md`, pushed in a5d9418). The check is recorded in
+`literature_check.txt`, and the three sourced reports are in `docs/citations/litcheck_*_2026-09-24.md`.
+- **Redundant by the literature (R2): 3 of 10.**
+  - Cardiac alternans with memory is the Tolkacheva et al. 2003 criterion exactly.
+  - Ricker with remembered density follows from the stability triangle of a second-order recursion.
+  - Lotka–Volterra with remembered prey follows from Routh–Hurwitz, a model class Ruan 2009 already treats.
+- **Direction known (R3, marked): 6.** The direction, or the same qualitative claim, is published, but the row's formula
+  or numbers were not found in print. The rows are Bass, the switching contingency, CNS inheritance, SIR, traffic and
+  Samuelson.
+- **Clean candidates: 0.**
+- **Removed as an artefact: 1** (the FitzHugh–Nagumo cut).
+
+**What this means.** CRR's retrodictive "novelty rate" of 10 of 97 overstates what is new. After the check no row is a
+candidate whose direction the literature lacks. What survives is specific numbers and kernels inside known effects. The
+mechanical ladder counts are left as computed and the literature line is printed beside them.

@@ -105,3 +105,20 @@ comparative claim on the real carrier.
 **The recommended next step.** Commission the literature check for rows 31-1 to 31-4 and 32-3; the dossier method used
 for prompt-log entry 130 would do. Then write one real-data pre-registration, for 31-3 on NGSIM, with its gate. Under R3
 the data step would fall on a later day than the rule's definition.
+
+## Outcome of the literature check (added 2026-09-24, prompt-log entry 132)
+
+The literature check of every ADDS row (`theory/retrodictions/synthesis_batches/literature_check.txt`, under a rule
+pushed before any finding) settles this note's candidates:
+- **31-1 Ricker:** REDUNDANT-DOMAIN by theorem, from the stability triangle of a second-order recursion.
+- **32-3 Lotka–Volterra:** REDUNDANT-DOMAIN by theorem (Routh–Hurwitz; Ruan 2009 treats the model class).
+- **31-2 SIR, 31-3 traffic, 31-4 Samuelson:** the direction is known.
+  - SIR: Ochab et al. 2023 state it for the same model class.
+  - Traffic: the published discrete-delay threshold, a/(2(1 + aτ)), gives the row's 1/3.
+  - Samuelson: Biederman 1993 has the direction and flags the past-income case the row uses.
+- **32-2 FitzHugh–Nagumo:** removed as an artefact.
+
+**None of this note's rows is now a clean candidate.** The recommendation to pre-register 31-3 on real traffic data
+changes accordingly. Its comparative claim would test a known effect, the reaction-delay destabilisation, with a
+particular kernel. That is a legitimate real-data test of CRR's A6 kernel against a pure delay, but it is not a test of
+something only CRR says.
