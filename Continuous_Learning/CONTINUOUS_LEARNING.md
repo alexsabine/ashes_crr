@@ -410,6 +410,50 @@ Under the repository's levels no result is above PASS-0. EQ2-1b is provisional w
 
 The reading of §7.4 therefore survives one confirmatory test on the data that motivated it, and nothing more. The rows are SEC1-0 … SEC1-X in `ledger/LEDGER.md`; the report is `reports/sec1.md`.
 
+**Addendum, 2026-09-24 (prompt-log entry 163): the record re-read against the PASS levels, and the avenues left.**
+
+**What happened after this document.**
+- **SCL1 and SCL2.** The rule at Ω = 1 was the learner inside the operator-pause harness. Under the lossless cut it learned bit-for-bit as with no operator (SCL1-1 on 12/12 seen carriers, SCL2-1 on 45/45 runs on unseen carriers). That is a check of the construction, not of the rule.
+- **SEC1-3** printed the registered rule not behind the tuned λ on 8/12 seen carriers.
+- **RW2 Phase A, round 2** (post hoc, R4, `Real_World/checks/rw2_phaseA_2.txt`). On a past term that starts at zero, an L2 pull toward the aligned weights, the rule held refusal at 100.0 but its task accuracy stayed at chance: 24.9 under SGD and 25.3 under AdamW. Early in the stream the smoothed past gradient is the small distance from the anchor, so the derived weight sits at its cap and the learner freezes (AGENT_LOG 126).
+
+**The PASS levels, applied** (`CLAUDE.md` §7). A PASS-0 needs R2–R9 as written. A PASS-1 adds at most one flip in the sensitivity table, no pre-registered control violated, no reduction to a constant, and strong anchoring (OpenTimestamps or two people). A PASS-2 is a PASS-1 replicated under a fresh prereg on a later day, or by a second person on a second machine.
+
+| candidate | furthest level | what blocks the next level |
+|---|---|---|
+| EQ2-1b (rule not behind the tuned λ, EWC) | PASS-0 | sensitivity 6/27 flips; control EQ2-4 violated; anchor weak; the replication EQ3-1 failed on 1/6 |
+| EQ3-I (lr × batch invariance) | PASS-0 | an invariance row on one carrier; anchor weak |
+| EQ4-I | PASS-0 at most | one carrier, whose records reached T1x after the hash |
+| SEC1-1, SEC1-3 (the calibrated Laplace weight; not a CRR rule) | PASS on seen data (R5), never PASS-0 | seen data; fragile. The unseen test is SCL3 |
+
+Every H-EQ row above is blocked from PASS-1 by at least two conditions at once: fragility together with a violated control or a reduction.
+
+**The one live route to PASS-1.**
+- SCL3 (`prereg/scl3/`, data step 2026-09-25) is the first continual-learning study whose OpenTimestamps proof is complete.
+- Its prereg states that SCL3-1 or SCL3-3 is PASS-1 only if SCL3-S flips in at most one cell, the anchor is complete, and no control is violated.
+- A PASS-1 there would be a result for the calibrated Laplace method, not for H-EQ.
+- A PASS-2 would then need either a fresh prereg on further unseen carriers on a later day, or a second person re-running the frozen SCL3 scripts on a second machine. The second route is the cheapest, but it needs a person.
+
+**A correction to §9.**
+- §9 names three places at LLM scale where the rule could replace a weight sweep: the KL penalty to a reference policy, an L2-SP or EWC anchor to the base model, and safety-preservation anchors.
+- In all three the past term starts at zero, because the model begins at the anchor.
+- RW2 Phase A shows what the rule does there: it divides by a vanishing length and freezes the learner. As written, the rule is ill-posed for anchors that start at the reference.
+- §9's implication holds only for past terms that are large from the start, such as an accumulated Fisher penalty after a finished task.
+
+**Avenues that the record allows, none yet declared.** Each is a new hypothesis, needing a declaration, a gate (R4) and a fresh prereg (R3). None may reuse a threshold chosen after seeing its data (§10 of `CLAUDE.md`).
+- **1. The bounded Laplace weight.** SEC crossed the stability edge on mfeat_factors (SEC1: it "inherits no step bound"), while the rule's one robust property is the step bound (§4.4). The candidate is the calibrated Laplace weight with the past step capped at Ω times the present step: the calibration sets the weight, and the bound only guards the edge. R7 baselines: SEC alone, the tuned λ, and plain gradient clipping.
+- **2. Equanimity within a task, counting across tasks** (`Adam_SGD/ADAM_SGD.md`, addendum). Normalise each task's Fisher once, at its boundary, which removes that task's units. Accumulate the unit-free contributions with CRR's age weights q^age (P3), bounded as A6 requires. Keep a fixed weight on the result. It is the only avenue built from CRR-proper ingredients (P3, A6), so it could say something about CRR. With q → 1 it is Bayes-like counting; with q = 0 it keeps only the latest task.
+- **3. The unsmoothed rule where the units drift.** On synthetic worlds whose units drift, the unsmoothed rule beat every fixed constant (post hoc, fragile; `Adam_SGD/`). It is identical to the VQGAN adaptive weight (Esser, Rombach and Ommer 2020; `ADAM_AND_PRIOR_ART.md` B1), so a win would be applied value, not CRR novelty. A real-data test needs carriers whose feature or loss scale drifts during the stream, chosen by a rule before any data is opened.
+- **4. The diagnosis of the freeze** at anchors that start at zero. This is a note, not a hypothesis. It would define where the rule is well-posed (a lower bound on the past gradient's length relative to the present's), before any use near a reference model.
+- **5. The benchmark this document could not run:** Split-CIFAR-100 and TinyImageNet with Mammoth on a GPU. It is deferred because it costs money (`docs/ROADMAP_2026-Q4.md`).
+
+**Closed avenues, as the record shows.**
+- Ω = 1 as a theory value: a plateau (EQX-2, EQ2-6, EQ3-6).
+- The rule on replay: it reduces to a constant (EQX-1).
+- Harm on constraint-type past terms: the control was violated twice (EQ2-4, EQ3-4).
+- A growing Ω: it slides to the old optimum (§4.2; the `Adam_SGD` addendum).
+- Resets as a continual-learning remedy: SCL2-R FAIL, and the CUT1 gate CLOSED.
+
 ## 9. Implications if the results hold on GPU image benchmarks and at LLM scale
 
 The design this repository could not run is the one its own specification asks for: Split-CIFAR-100 and Split-TinyImageNet with reference implementations from the Mammoth framework, which need a GPU, PyTorch and dataset access the execution environment lacks. If that run reproduced the pattern of §7.4 (not behind the tuned λ, invariant to learning rate and batch size, fragile to the cap), the rule would be a hyperparameter-elimination trick for regularisation-type continual learning. Three places in large-language-model training have exactly the shape of objective the rule applies to: a reinforcement-learning-from-human-feedback step with a Kullback–Leibler penalty to a reference policy (where the reference is the past, β the weight, and an adaptive KL controller already exists, Ziegler et al. 2019, named); continual pretraining with an L2-SP or EWC anchor to the base model; and safety preservation under fine-tuning with anchor or projection constraints (2026 preprints seen in abstract only; `docs/citations/ontology_2026-09-21.md`, `docs/citations/continual_learning_2026-09-22.md`; §5.1). In each the value would be saved sweeps and a step that cannot diverge, not better final models; and the rule's unbounded response to a single extreme batch (`ontology/07_turing_safety_ingression.md`, row 6) means it is not itself a safety mechanism. The chat estimates given to the owner on 2026-09-22 (prompt-log entry 71) put the expected value of the technique in the open at a few million to a few tens of millions of dollars a year of saved compute under adoption, and the expected value to a patent holder at a few million dollars, with the prior art of gradient normalisation, GradNorm and the adaptive KL controller as the main risk; those are estimates in chat, not repository numbers, and they enter no ledger.

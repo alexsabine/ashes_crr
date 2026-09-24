@@ -1321,3 +1321,7 @@ How do I get an ANTHROPIC_API_KEY? I pay a lot of money for it but I have no ide
 I don't want to spend money at this stage but we can add that to a next steps file somewhere in the repo. 
 
 I would like to examine the findings so far regarding the empty cut rule (the "true map cut") and continuous learning findings so far where we have been successful. I would then like to review the next steps please
+
+## 163 — 2026-09-24T22:14:46Z
+
+Can we check the continuous learning paper please. Read it carefully again and take into consideration what constitutes a PASS by our criteria and whether there are other avenues to explore here
