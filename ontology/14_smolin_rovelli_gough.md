@@ -389,3 +389,10 @@ a new prereg).
 > also remember its grandparents. That keeps the family closer to the best recipe, and that might be new. Gough says the
 > universe grows like an egg, and that life helps it make more babies. That is a lovely story, but it does not yet have
 > the kind of maths we can check.
+
+**Addendum, 2026-09-24 (the literature check, prompt-log entry 132).** Row 30-2, CNS with lineage-memory inheritance, is
+**PARTIAL** after the literature check (`theory/retrodictions/synthesis_batches/literature_check.txt`). Its direction is
+already published: Galton's ancestral law (Bulmer 1998), cascading maternal effects (Kirkpatrick & Lande 1989), and
+Hoyle & Ezard 2012 on inheritance that slows the response while lowering variance and raising equilibrium fitness. The
+variance, load and halving time as functions of q were not found. It stays R3, marked "direction known", and is no
+longer the clean candidate §0 calls it.
