@@ -1,0 +1,22 @@
+RLAW operational checks (Regeneration_Law/DECLARATION_2.md)
+M11 LTI independence (n 5000, fixed filters, no report noise):
+   v 0.05: K(v) 0.0488; first-order alpha_hat 0.3000; two-stage alpha_hat 0.2423
+   v 0.3: K(v) 0.2584; first-order alpha_hat 0.3000; two-stage alpha_hat 0.2519
+   v 1.0: K(v) 0.6180; first-order alpha_hat 0.3000; two-stage alpha_hat 0.2782
+   v 3.0: K(v) 0.9083; first-order alpha_hat 0.3000; two-stage alpha_hat 0.2968
+   first-order alpha_hat = 0.30 +- 0.01 at every v: holds -> an LTI system meets the law at one v at most
+M12 recovery at the unit lengths (100 seeds; offset 0.5, report noise 0.05, quantum 0.1, all in s_eps):
+   n 60: v 0.1: within x2 0.46, x1.5 0.33, median K(v_hat) 0.0672 (K 0.0951), median alpha_hat 0.0975, grid-edge fits 25; v 0.3: within x2 0.89, x1.5 0.65, median K(v_hat) 0.2397 (K 0.2584), median alpha_hat 0.2606, grid-edge fits 5; v 1.0: within x2 0.97, x1.5 0.90, median K(v_hat) 0.6131 (K 0.6180), median alpha_hat 0.6175, grid-edge fits 0
+   n 185: v 0.1: within x2 0.89, x1.5 0.81, median K(v_hat) 0.0933 (K 0.0951), median alpha_hat 0.0977, grid-edge fits 3; v 0.3: within x2 0.99, x1.5 0.92, median K(v_hat) 0.2578 (K 0.2584), median alpha_hat 0.2597, grid-edge fits 0; v 1.0: within x2 1.00, x1.5 1.00, median K(v_hat) 0.6136 (K 0.6180), median alpha_hat 0.6181, grid-edge fits 0
+   n 365: v 0.1: within x2 0.96, x1.5 0.87, median K(v_hat) 0.0922 (K 0.0951), median alpha_hat 0.0967, grid-edge fits 0; v 0.3: within x2 1.00, x1.5 1.00, median K(v_hat) 0.2607 (K 0.2584), median alpha_hat 0.2594, grid-edge fits 0; v 1.0: within x2 1.00, x1.5 1.00, median K(v_hat) 0.6163 (K 0.6180), median alpha_hat 0.6184, grid-edge fits 0
+   n 840: v 0.1: within x2 1.00, x1.5 0.97, median K(v_hat) 0.0934 (K 0.0951), median alpha_hat 0.0980, grid-edge fits 0; v 0.3: within x2 1.00, x1.5 1.00, median K(v_hat) 0.2575 (K 0.2584), median alpha_hat 0.2602, grid-edge fits 0; v 1.0: within x2 1.00, x1.5 1.00, median K(v_hat) 0.6171 (K 0.6180), median alpha_hat 0.6186, grid-edge fits 0
+M13 the bandit arm (sd 0.025 per trial, reflecting 0.25/0.75, Bernoulli outcome on visits; 200 seeds x 2000 visits):
+   mean gap 1: optimal constant rate 0.034; v 0.0522 -> K(v) 0.0509; ratio optimum/K 0.668 -> OFF by more than 25 %
+   mean gap 2: optimal constant rate 0.040; v 0.0739 -> K(v) 0.0712; ratio optimum/K 0.562 -> OFF by more than 25 %
+   mean gap 4: optimal constant rate 0.042; v 0.1045 -> K(v) 0.0992; ratio optimum/K 0.424 -> OFF by more than 25 %
+   mean gap 8: optimal constant rate 0.028; v 0.1477 -> K(v) 0.1372; ratio optimum/K 0.204 -> OFF by more than 25 %
+M14 two-step second-stage learning-rate recovery (beta 5, 125 trials, 100 simulated subjects per alpha):
+   alpha 0.05: within x2 0.63, median alpha_hat 0.0528, quartiles 0.0254-0.0787, at grid edge 11
+   alpha 0.1: within x2 0.90, median alpha_hat 0.1068, quartiles 0.0887-0.1296, at grid edge 1
+   alpha 0.3: within x2 1.00, median alpha_hat 0.3018, quartiles 0.2572-0.3357, at grid edge 0
+   alpha 0.6: within x2 1.00, median alpha_hat 0.6030, quartiles 0.5140-0.6707, at grid edge 0
