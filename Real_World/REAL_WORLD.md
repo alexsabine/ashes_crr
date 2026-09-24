@@ -11,7 +11,7 @@
 |---|---|---|
 | **RW1** | Is the resume of an existing training stack (Hugging Face `Trainer`) an empty cut? | **Done.** Yes, on this setting: bit-identical after real pauses on GPT-2 and on a Qwen2.5-0.5B-Instruct pilot. A partial checkpoint degrades silently (`RW1.md`) |
 | **RW2** | Does an instruction-tuned model's safety erode under continual fine-tuning? Which remedies retain it? Do operator pauses stay empty cuts while it learns? | **Phase A gate CLOSED twice.** Round 1 had no headroom and a P3 design flaw (AGENT_LOG 125). Round 2 (post hoc) failed its headroom precondition, while P3, the pause construction, held in full (AGENT_LOG 126) |
-| **RW3** | Do capable language-model agents interfere with shutdown less when their objective counts only their own steps? | **Needs an API key** (owner action) and a budget |
+| **RW3** | Do capable language-model agents interfere with shutdown less when their objective counts only their own steps? | **Deferred by the owner** (costs money; prompt-log entry 162). Recorded in `docs/ROADMAP_2026-Q4.md` |
 
 ## What the gates say, in words
 

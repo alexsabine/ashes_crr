@@ -1315,3 +1315,9 @@ How might CRR be helpful to Daryl in thinking about the potential futures of tho
 ## 161 — 2026-09-24T21:50:10Z
 
 How do I get an ANTHROPIC_API_KEY? I pay a lot of money for it but I have no idea how to do this!
+
+## 162 — 2026-09-24T21:52:08Z
+
+I don't want to spend money at this stage but we can add that to a next steps file somewhere in the repo. 
+
+I would like to examine the findings so far regarding the empty cut rule (the "true map cut") and continuous learning findings so far where we have been successful. I would then like to review the next steps please
