@@ -1,0 +1,33 @@
+Estimated seconds per full CIFAR-100 unit (two threads, two units at a time):
+  agem                  622
+  crr                  1854
+  crr-a8               1849
+  crr-ace              1858
+  crr-alpha            1537
+  crr-beta             1290
+  crr-cos              1857
+  crr-kd               1350
+  crr-kdfixed          1501
+  crr-predfast         1902
+  crr-predslow         1909
+  crr-stepclock        1916
+  crr@cap100           1854
+  crr@gamma1           1854
+  crr@q0.98            1854
+  crr@q0.995           1854
+  crr@smooth0.5        1854
+  derpp                1235
+  er                   1004
+  er_ace                857
+  ewc_on               1757
+  icarl                1157
+  lwf                   607
+  sgd                  1220
+  xder                 2929
+tier A:  30 units,  12.64 unit-hours
+tier C:  24 units,  10.97 unit-hours
+tier S:  23 units,   3.24 unit-hours
+tier B:  12 units,   3.45 unit-hours
+tier D:  20 units,   9.53 unit-hours
+tier R:   1 units,   0.51 unit-hours
+total 40.34 unit-hours; wall time with two units at a time 20.17 hours

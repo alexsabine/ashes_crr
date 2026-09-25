@@ -162,11 +162,22 @@ def main():
 
     orig_eval = dataset.evaluate
 
+    alt = {'fast': ([], []), 'slow': ([], [])}
+
     def rec_eval(m, d, last=False, return_loss=False):
         r = orig_eval(m, d, last=last, return_loss=return_loss)
         if not last and not return_loss:
             rec_class.append([float(x) for x in r[0]])
             rec_task.append([float(x) for x in r[1]])
+            # CRR-SCL only: the same trained learner also read by the fast head and by the slow head (evaluation only;
+            # it consumes no random number and changes no state, so training is unchanged)
+            if hasattr(m, 'crr_state') and getattr(m, 'ema_net', None) is not None and m.args.crr_pred == 'ncm':
+                for rule in ('fast', 'slow'):
+                    m.args.crr_pred = rule
+                    r2 = orig_eval(m, d)
+                    m.args.crr_pred = 'ncm'
+                    alt[rule][0].append([float(x) for x in r2[0]])
+                    alt[rule][1].append([float(x) for x in r2[1]])
         return r
     dataset.evaluate = rec_eval
     # total stream batches: every task has the same number of training samples in Split-CIFAR-100
@@ -181,6 +192,9 @@ def main():
            'stream_batches': st['calls'], 'skipped_world': st['skipped'], 'cut_at_end': st['cut_end'],
            'acc_class_matrix': rec_class, 'acc_task_matrix': rec_task,
            'final_class_il': float(np.mean(rec_class[-1])), 'final_task_il': float(np.mean(rec_task[-1])),
+           'alt_pred': {k: {'acc_class_matrix': v[0], 'acc_task_matrix': v[1],
+                            'final_class_il': float(np.mean(v[0][-1])) if v[0] else None,
+                            'final_task_il': float(np.mean(v[1][-1])) if v[1] else None} for k, v in alt.items()},
            'param_sha256': hashlib.sha256(params.numpy().tobytes()).hexdigest(),
            'eq_w_samples': [None if w != w else w for w in eq_w], 'seconds': round(time.time() - t0, 1),
            'torch': torch.__version__, 'threads': threads}

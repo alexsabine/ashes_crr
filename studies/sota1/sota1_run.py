@@ -46,8 +46,8 @@ ARMS = {
     'crr-kd': ['--model', 'crr_scl', '--crr_kd', 'off'],
     'crr-kdfixed': ['--model', 'crr_scl', '--crr_kd', 'fixed'],
     'crr-stepclock': ['--model', 'crr_scl', '--crr_clock', 'step'],
-    'crr-predfast': ['--model', 'crr_scl', '--crr_pred', 'fast'],
-    'crr-predslow': ['--model', 'crr_scl', '--crr_pred', 'slow'],
+    # the prediction-rule ablations (fast head, slow head) are read inside every `crr` unit (alt_pred): the training is
+    # identical, so a separate unit would repeat it (Phase A: identical parameter hashes)
     # sensitivity cells (named constants swept)
     'crr@q0.98': ['--model', 'crr_scl', '--crr_ema_q', '0.98'],
     'crr@q0.995': ['--model', 'crr_scl', '--crr_ema_q', '0.995'],

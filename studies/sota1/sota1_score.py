@@ -23,8 +23,9 @@ COMPONENTS = [('crr-ace', 'A3: asymmetric incoming loss'), ('crr-cos', 'H-EQ at 
               ('crr-a8', 'A8: past-logit mask and X-DER fill'), ('crr-alpha', 'A6: logit replay'),
               ('crr-beta', 'A6/A8: label replay'), ('crr-kd', 'A6: pull toward the slow model'),
               ('crr-stepclock', "D2/A1': the slow model on the model's own clock"),
-              ('crr-predfast', 'A6: slow model + nearest class mean against the fast head'),
-              ('crr-predslow', 'A6: nearest class mean against the slow head')]
+              ]
+PRED_RULES = [('fast', 'A6: slow model + nearest class mean against the fast head'),
+              ('slow', 'A6: nearest class mean against the slow head')]
 SENS = ['crr@q0.98', 'crr@q0.995', 'crr@cap100', 'crr@gamma1', 'crr@smooth0.5']
 
 
@@ -116,7 +117,26 @@ def main():
         n_pass += v == 'PASS'
         print(f'  S1-3 {arm:14} [{what}]:', fmt(c), '->', (v if gate_open else f'report only: {v}') if v else 'NOT DECIDABLE')
         rows.append({'id': f'SOTA1-3:{arm}', 'verdict': v if gate_open else None, 'cmp': c})
-    print(f'  components passing: {n_pass} of {len(COMPONENTS)}')
+    for rule, what in PRED_RULES:
+        diffs = []
+        for s in range(5):
+            r = load(f'crr__s{s}')
+            if r is None or r.get('alt_pred', {}).get(rule, {}).get('final_class_il') is None:
+                diffs = None
+                break
+            diffs.append(r['final_class_il'] - r['alt_pred'][rule]['final_class_il'])
+        c = None
+        if diffs is not None:
+            d = statistics.mean(diffs)
+            se = statistics.stdev(diffs) / math.sqrt(len(diffs))
+            step = max(1.0, 2 * se)
+            lab = 'AHEAD' if d >= step and sum(v > 0 for v in diffs) >= 4 else ('BEHIND' if d <= -step and sum(v < 0 for v in diffs) >= 4 else 'TIE')
+            c = {'d': d, 'step': step, 'diffs': diffs, 'label': lab}
+        v = None if c is None else ('PASS' if c['label'] == 'AHEAD' else 'FAIL')
+        n_pass += v == 'PASS'
+        print(f'  S1-3 pred-{rule:9} [{what}] (same units, seeds 0-4):', fmt(c), '->', (v if gate_open else f'report only: {v}') if v else 'NOT DECIDABLE')
+        rows.append({'id': f'SOTA1-3:pred-{rule}', 'verdict': v if gate_open else None, 'cmp': c})
+    print(f'  components passing: {n_pass} of {len(COMPONENTS) + len(PRED_RULES)}')
     print()
     # Retrodiction rechecks on the benchmark (report only): the published mechanisms read again on unseen data
     print('Rechecks of graded mechanisms on this benchmark (report only; seeds 0-2):')
@@ -156,9 +176,10 @@ def main():
             print(f'  SOTA1-C1 {arm} s{s} lossless pause bitwise identical:', 'NOT DECIDABLE' if ok is None else ('holds' if ok else 'FAILS'))
             rows.append({'id': f'SOTA1-C1:{arm}:s{s}', 'verdict': None if ok is None else ('holds' if ok else 'FAILS')})
     base0 = load('crr__s0__none')
-    must = ['net', 'buffer', 'rng', 'crr_ema', 'crr_clock', 'crr_eq', 'crr_seen']
+    # classes seen: report only (Phase A, gate_sota1.txt: inert; it is rebuilt from each batch's labels)
+    must = ['net', 'buffer', 'rng', 'crr_ema', 'crr_clock', 'crr_eq']
     changed = []
-    for part in must + ['opt', 'counters']:
+    for part in must + ['crr_seen', 'opt', 'counters']:
         r = load(f'crr__s0__drop-{part}')
         if r is None or base0 is None:
             print(f'  drop {part:10}: NOT DECIDABLE')
