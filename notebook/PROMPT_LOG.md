@@ -1471,3 +1471,7 @@ Scratchpad. Please explain the surprises and crr successes so far in simple term
 ## 193 — 2026-09-25T15:05:05Z
 
 Scratch pad. What does 8 to 16 points mean?
+
+## 194 — 2026-09-25T15:06:55Z
+
+Scratchpad. Does anything in crr mean we can save compute / energy?
