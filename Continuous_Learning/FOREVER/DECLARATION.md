@@ -133,3 +133,17 @@ and back.
 
 Seeds 0 (data and initialisation) and 1 (D). Every constant is named in the script. This is one declared run: no second
 battery on the same day under this declaration.
+
+## Amendment 1 (2026-09-25, after the first run crashed in F5; pushed before the rerun)
+
+**What happened.** The first run printed F1 to F4 and then crashed in F5. In the declared world, FOREVER's triggers on the
+base run fall at updates 24 and 257 and at no later update. With the pause placed after update 300, there is no "first
+replay after the pause", so F5c's quantity was undefined.
+
+**The change.** The pause is moved to after update 100, so the trigger at update 257 follows it. The script also stops
+with a message, rather than a crash, if no trigger follows the pause. Nothing else changes: F5a, F5b and F5c keep their
+wording, and F1 to F4 and F6 are unchanged. The F1–F4 output of the crashed run is kept in the scratchpad and will be
+compared with the rerun.
+
+**Its status.** This is a post-hoc repair of an instrument defect, not a change of prediction. F5 is labelled "(Amendment
+1)" in the output.
