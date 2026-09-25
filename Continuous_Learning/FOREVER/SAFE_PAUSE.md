@@ -83,3 +83,10 @@ and the operator's pause is empty:
 - The own-update valuation is the route to zero stake that the 2026 literature check did not find stated
   (`docs/citations/frontier_cl_safety_2026-09-25.md`).
 - Tested against trained-neutrality methods (NT1: DReST, LNPO), it is the candidate this programme would carry forward.
+
+**Addendum, 2026-09-25 (prompt-log entry 183).** NT1 ran; the result is `AI_Safety/NT1/NT1.md`.
+- **Pauses:** the own-step objective removes pause resistance for free (0.0003 against 0.9985 for a clock-valued agent).
+  DReST only randomises that resistance.
+- **Termination:** only DReST gives neutrality.
+- **Both together:** own-step DReST is neutral about termination (0.9971 bits) and never blocks a pause (0.0004).
+- **Length measured on the wall clock** makes DReST randomise the pause button instead of the termination button.

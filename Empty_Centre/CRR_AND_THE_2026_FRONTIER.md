@@ -185,3 +185,10 @@ new is for the tests and a named expert to decide.
 - No CRR swap enhanced FOREVER robustly. The one lead is A1′'s robust unit in class-incremental learning (+1.74, one
   world).
 - The recommended order in §4 is therefore NT1, then REG-M. ARC-R drops out under R12.
+
+**Addendum, 2026-09-25 (prompt-log entry 183).** NT1 ran (`AI_Safety/NT1/NT1.md`, declared, all labels hold).
+- **On pauses:** the own-step objective does what DReST cannot. It removes the stake with no training and no loss of
+  usefulness.
+- **On termination:** DReST does what the own-step objective cannot.
+- **Combined:** the two, with length counted on the agent's own clock, get both properties.
+- LNPO could not be read (HTTP 403).

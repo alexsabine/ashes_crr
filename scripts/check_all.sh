@@ -68,6 +68,7 @@ uv run python Continuous_Learning/checks/results_vs_literature.py 2>/dev/null | 
 uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python comparative_calibration.py 2>/dev/null | cmp - comparative_calibration.txt) && echo 'FOREVER x CRR headroom calibration byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null | cmp - pause_checks.txt) && echo 'FOREVER safe-pause checks Q0-Q5 byte-identical to the committed output'
+# AI_Safety/NT1/checks/nt1.txt (about 1.5 minutes on 4 cores) is not re-run here; rerun by hand: (cd AI_Safety/NT1/checks && uv run python nt1.py | cmp - nt1.txt)
 # Continuous_Learning/FOREVER/checks/comparative.txt (about 2 minutes on 4 cores) is not re-run here; rerun by hand: (cd Continuous_Learning/FOREVER/checks && uv run python comparative.py | cmp - comparative.txt)
 uv run python Continuous_Learning/build/build_adam_pdf.py > /dev/null 2>&1 && echo 'Adam and prior-art PDF rebuilds'
 uv run python Continuous_Learning/build/build_frontier_pdf.py > /dev/null 2>&1 && echo 'Frontier bottlenecks PDF rebuilds'
