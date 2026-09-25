@@ -1,0 +1,4 @@
+SCL3 R9 rerun check, 2026-09-25T00:20:33Z
+uv run python runs/scl3/frozen/scl3_score.py all 1497 --out runs/scl3/rerun_1497.jsonl
+cmp runs/scl3/rerun_1497.jsonl runs/scl3/results_1497.jsonl -> exit 0 (byte-identical)
+sha256 c0b83add8d60db7e6b681e7cd396df32d5fa671317aed4cfea50040585447e40
