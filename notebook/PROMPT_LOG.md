@@ -1407,3 +1407,7 @@ Run a comparative test please. This is an investigation request so please run mu
 ## 182 — 2026-09-25T03:17:43Z
 
 What if we apply the cut safety feature to the continual learning paradigm here? This would give Forever-like paradigms a key safety feature.
+
+## 183 — 2026-09-25T03:24:01Z
+
+Run comparisons please
