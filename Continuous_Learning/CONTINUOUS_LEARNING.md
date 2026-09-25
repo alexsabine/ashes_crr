@@ -488,6 +488,30 @@ Every H-EQ row above is blocked from PASS-1 by at least two conditions at once: 
 - §5's statement that "at Ω = 1 its equilibrium set is the entire Pareto front" stands. It is the MGDA family's property,
   not a property distinctive to this rule.
 
+**Addendum, 2026-09-25 (prompt-log entry 177): the results beside the published class-incremental benchmarks.**
+
+**The sources.** Numbers from `checks/results_vs_literature.txt` (pinned, CI-checked, reading only the pinned run
+records). References in `docs/citations/classil_benchmarks_2026-09-25.md`. The reading is
+`docs/notes/2026-09-25_results_vs_published.md`.
+
+**The published regime.** On split MNIST (class-incremental, 5 two-class tasks) the regularisers sit at the last-task floor
+of about 20 %, and replay reaches about 91 %.
+
+**Our results reproduce that ordering.**
+- **Replay against the rule.** ER is ahead of the rule on 15 of 15 carriers with a replay arm, by a median of 39.70
+  points.
+- **LwF against EWC.** LwF is ahead of the tuned EWC λ on 14 of 15.
+- **The rule against the floor.** The rule is within 5 points of its last-task floor on 13 of 37 carrier-scorings.
+
+**Every pass is inside the regularisation family.**
+
+**Inert carriers.** On 13 of 37 carrier-scorings the tuned λ is within one step of λ = 0.1, so "not behind the tuned λ" is
+automatic there. That covers three of EQ3-1's five, EQ4-I's one carrier, three of SCL3-3's nine and three of SCL3-2's
+four. No verdict is changed.
+
+**Not yet compared.** The rule's closest published equivalents, MEGA-II and the normalised two-term sum, were never run
+as arms.
+
 ## 9. Implications if the results hold on GPU image benchmarks and at LLM scale
 
 The design this repository could not run is the one its own specification asks for: Split-CIFAR-100 and Split-TinyImageNet with reference implementations from the Mammoth framework, which need a GPU, PyTorch and dataset access the execution environment lacks. If that run reproduced the pattern of §7.4 (not behind the tuned λ, invariant to learning rate and batch size, fragile to the cap), the rule would be a hyperparameter-elimination trick for regularisation-type continual learning. Three places in large-language-model training have exactly the shape of objective the rule applies to: a reinforcement-learning-from-human-feedback step with a Kullback–Leibler penalty to a reference policy (where the reference is the past, β the weight, and an adaptive KL controller already exists, Ziegler et al. 2019, named); continual pretraining with an L2-SP or EWC anchor to the base model; and safety preservation under fine-tuning with anchor or projection constraints (2026 preprints seen in abstract only; `docs/citations/ontology_2026-09-21.md`, `docs/citations/continual_learning_2026-09-22.md`; §5.1). In each the value would be saved sweeps and a step that cannot diverge, not better final models; and the rule's unbounded response to a single extreme batch (`ontology/07_turing_safety_ingression.md`, row 6) means it is not itself a safety mechanism. The chat estimates given to the owner on 2026-09-22 (prompt-log entry 71) put the expected value of the technique in the open at a few million to a few tens of millions of dollars a year of saved compute under adoption, and the expected value to a patent holder at a few million dollars, with the prior art of gradient normalisation, GradNorm and the adaptive KL controller as the main risk; those are estimates in chat, not repository numbers, and they enter no ledger.

@@ -1381,3 +1381,9 @@ What are the current bottlenecks here? Apply advanced mathematical thinking from
 ## 176 — 2026-09-25T01:46:29Z
 
 Yes run another frontier literature check please. Focus on plasticity bottlenecks, AI safety and continuous learning. Explore the omega=1 equanimity in relation to the Pareto findings as you search.
+
+## 177 — 2026-09-25T02:12:10Z
+
+Interesting! So the equanimity rule is already published and our crr results from the existing passes don’t do anything differently to these existing methods? 
+
+Double check our results findings, accuracy, loss etc. we need to carefully check our existing results against the results in published findings please
