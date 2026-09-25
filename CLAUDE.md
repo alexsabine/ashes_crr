@@ -231,7 +231,8 @@ Continuous_Learning/ADAM_AND_PRIOR_ART.md  the Ω rule under Adam, beside its pr
                            build/build_adam_pdf.py); a note, not evidence (R8)
 Continuous_Learning/FOREVER/  CRR run through FOREVER's mathematics (prompt-log entry 180): DECLARATION.md (+ Amendment 1) pushed before
                            checks/forever_checks.py (pinned, CI-checked); FOREVER's tau is D2's arc with a Euclidean metric, reset at the cut;
-                           F1-F6 (11 labels hold, 5 fail); FOREVER_AND_CRR.md; a note, not evidence (R8)
+                           F1-F6 (11 labels hold, 5 fail); FOREVER_AND_CRR.md; COMPARATIVE.md (prompt-log entry 181; DECLARATION_2.md + Amendment 1,
+                           checks/comparative.py + .txt, ~2 min, rerun by hand; calibration pinned): 13 arms x 7 worlds, clock gate CLOSED; a note, not evidence (R8)
 Continuous_Learning/FRONTIER_BOTTLENECKS.md  exploratory survey of the frontier continual-learning bottlenecks and where CRR
                            might apply (prompt-log entry 105; sources docs/citations/frontier_cl_2026-09-23.md; PDF by
                            build/build_frontier_pdf.py); a note, not evidence (R8)

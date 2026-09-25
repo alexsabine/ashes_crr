@@ -1,0 +1,160 @@
+Comparative investigation: CRR against FOREVER on synthetic continual-learning worlds (Continuous_Learning/FOREVER/DECLARATION_2.md)
+constants: days (1, 2, 4, 7, 15, 30), S 24, EMA lambda 0.05, clip [0.5, 3.0], gamma 1.0; replay event 5 steps; buffer 10/task; 300 steps/task; batch 10; lr 0.05; q 0.5; Omega 1.0, EMA 0.9, cap 10000; seeds 0-9
+beta_base tuned for FOREVER on W1, tuning seeds 100-104: 0.0001: 77.56, 0.0003: 77.56, 0.001: 77.56, 0.003: 77.62, 0.01: 77.66, 0.03: 77.86, 0.1: 78.84, 0.3: 80.20, 1: 81.82, 3: 74.60 -> 1
+
+== W1 base  (lora, K 4, 5 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 69.16 (4.41) | -28.32 | 0 | -9.81, 2.24, BEHIND
+   B1 ER-mix | 73.84 (3.78) | -18.70 | 1200 | -5.13, 1.40, BEHIND
+   B2 FIR | 78.15 (4.13) | -11.50 | 140 | -0.82, 1.00, TIE
+   B3 STC | 79.12 (4.09) | -4.69 | 140 | +0.15, 1.00, TIE
+   F FOREVER | 78.97 (4.34) | -2.27 | 140 | reference
+   C1 Fisher arc | 78.87 (4.39) | -1.89 | 140 | -0.10, 1.00, TIE
+   C2 + A1' unit | 79.09 (4.14) | -2.60 | 140 | +0.12, 1.00, TIE
+   C3 Fisher chord | 77.10 (5.15) | 1.27 | 140 | -1.87, 1.00, BEHIND
+   C4 H-EQ weight | 78.27 (3.90) | -3.40 | 140 | -0.70, 1.00, TIE
+   C5 A6 anchor | 78.43 (4.58) | -2.54 | 140 | -0.54, 1.00, TIE
+   C6 P3 sampling | 78.87 (4.11) | -2.52 | 140 | -0.10, 1.00, TIE
+   C7 P2 sampling | 78.92 (4.34) | -2.41 | 140 | -0.05, 1.00, TIE
+   CRR-full | 77.46 (4.19) | -4.41 | 140 | -1.51, 1.01, BEHIND
+
+== W2 null movement  (lora, K 4, 5 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 69.08 (4.62) | -28.27 | 0 | -9.85, 2.25, BEHIND
+   B1 ER-mix | 73.79 (3.77) | -18.71 | 1200 | -5.14, 1.41, BEHIND
+   B2 FIR | 78.74 (4.03) | -9.61 | 140 | -0.19, 1.00, TIE
+   B3 STC | 79.16 (4.20) | -2.31 | 140 | +0.23, 1.00, TIE
+   F FOREVER | 78.93 (4.21) | -1.21 | 140 | reference
+   C1 Fisher arc | 78.22 (4.40) | 0.16 | 140 | -0.71, 1.00, TIE
+   C2 + A1' unit | 78.70 (4.20) | -0.28 | 140 | -0.23, 1.00, TIE
+   C3 Fisher chord | 75.85 (5.06) | 2.35 | 140 | -3.08, 1.00, BEHIND
+   C4 H-EQ weight | 78.90 (3.81) | -4.89 | 140 | -0.03, 1.00, TIE
+   C5 A6 anchor | 78.13 (4.43) | -1.91 | 140 | -0.80, 1.00, TIE
+   C6 P3 sampling | 78.91 (4.03) | -1.59 | 140 | -0.02, 1.00, TIE
+   C7 P2 sampling | 79.01 (4.23) | -1.25 | 140 | +0.08, 1.00, TIE
+   CRR-full | 78.16 (3.92) | -4.54 | 140 | -0.77, 1.03, TIE
+
+== W3 parametrisation  (lora, K 4, 5 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 70.99 (3.81) | -24.96 | 0 | -7.03, 1.53, BEHIND
+   B1 ER-mix | 74.12 (4.01) | -17.60 | 1200 | -3.90, 1.38, BEHIND
+   B2 FIR | 78.80 (4.01) | -8.18 | 140 | +0.78, 1.00, TIE
+   B3 STC | 78.58 (4.22) | -2.27 | 140 | +0.56, 1.00, TIE
+   F FOREVER | 78.02 (4.33) | -0.24 | 140 | reference
+   C1 Fisher arc | 77.73 (4.42) | -0.36 | 140 | -0.29, 1.00, TIE
+   C2 + A1' unit | 78.14 (4.27) | -0.70 | 140 | +0.12, 1.00, TIE
+   C3 Fisher chord | 75.12 (5.01) | 2.27 | 140 | -2.90, 1.00, BEHIND
+   C4 H-EQ weight | 78.53 (4.25) | -3.05 | 140 | +0.51, 1.00, TIE
+   C5 A6 anchor | 76.52 (4.73) | -1.39 | 140 | -1.50, 1.00, BEHIND
+   C6 P3 sampling | 78.39 (4.01) | -0.12 | 140 | +0.37, 1.00, TIE
+   C7 P2 sampling | 78.23 (4.24) | -0.01 | 140 | +0.21, 1.00, TIE
+   CRR-full | 77.34 (4.22) | -3.66 | 140 | -0.68, 1.00, TIE
+
+== W4 learning rates  (lora, K 4, 5 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 72.71 (4.56) | -21.96 | 0 | -6.39, 1.54, BEHIND
+   B1 ER-mix | 75.52 (4.81) | -14.34 | 1200 | -3.58, 1.15, BEHIND
+   B2 FIR | 78.20 (4.18) | -6.85 | 140 | -0.90, 1.00, TIE
+   B3 STC | 78.81 (4.10) | -1.86 | 140 | -0.29, 1.00, TIE
+   F FOREVER | 79.10 (3.94) | -0.55 | 140 | reference
+   C1 Fisher arc | 78.95 (3.91) | -0.25 | 140 | -0.15, 1.00, TIE
+   C2 + A1' unit | 79.15 (3.94) | -0.75 | 140 | +0.05, 1.00, TIE
+   C3 Fisher chord | 78.48 (4.03) | 1.29 | 140 | -0.62, 1.00, TIE
+   C4 H-EQ weight | 78.83 (3.81) | -1.36 | 140 | -0.27, 1.00, TIE
+   C5 A6 anchor | 78.70 (4.22) | -0.73 | 140 | -0.40, 1.00, TIE
+   C6 P3 sampling | 78.57 (4.27) | -1.09 | 140 | -0.53, 1.00, TIE
+   C7 P2 sampling | 78.76 (4.07) | -0.99 | 140 | -0.34, 1.00, TIE
+   CRR-full | 78.54 (4.17) | -2.13 | 140 | -0.56, 1.00, TIE
+
+== W5 convex  (linear, K 4, 5 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 69.74 (4.72) | -27.70 | 0 | -10.04, 2.17, BEHIND
+   B1 ER-mix | 74.12 (3.95) | -18.56 | 1200 | -5.66, 1.17, BEHIND
+   B2 FIR | 79.05 (3.98) | -10.76 | 140 | -0.73, 1.00, TIE
+   B3 STC | 79.71 (3.89) | -4.96 | 140 | -0.07, 1.00, TIE
+   F FOREVER | 79.78 (4.01) | -1.88 | 140 | reference
+   C1 Fisher arc | 79.61 (4.16) | -1.52 | 140 | -0.17, 1.00, TIE
+   C2 + A1' unit | 79.75 (4.13) | -1.88 | 140 | -0.03, 1.00, TIE
+   C3 Fisher chord | 77.88 (4.86) | 1.34 | 140 | -1.90, 1.00, BEHIND
+   C4 H-EQ weight | 79.31 (3.55) | -5.54 | 140 | -0.47, 1.00, TIE
+   C5 A6 anchor | 79.05 (4.43) | -2.62 | 140 | -0.73, 1.00, TIE
+   C6 P3 sampling | 79.52 (3.81) | -2.29 | 140 | -0.26, 1.00, TIE
+   C7 P2 sampling | 79.67 (4.15) | -1.93 | 140 | -0.11, 1.00, TIE
+   CRR-full | 79.18 (3.37) | -5.49 | 140 | -0.60, 1.00, TIE
+
+== W6 class-incremental  (mlp, K 10, 5 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 18.17 (1.24) | -89.80 | 0 | -21.08, 2.17, BEHIND
+   B1 ER-mix | 37.05 (2.59) | -63.60 | 1200 | -2.20, 1.61, BEHIND
+   B2 FIR | 49.50 (4.22) | -19.23 | 140 | +10.25, 1.52, AHEAD
+   B3 STC | 42.08 (4.01) | 20.71 | 140 | +2.83, 1.00, AHEAD
+   F FOREVER | 39.25 (3.17) | 23.10 | 140 | reference
+   C1 Fisher arc | 39.38 (3.20) | 23.19 | 140 | +0.13, 1.00, TIE
+   C2 + A1' unit | 40.99 (3.57) | 22.12 | 140 | +1.74, 1.00, AHEAD
+   C3 Fisher chord | 35.71 (3.99) | 21.66 | 140 | -3.54, 1.03, BEHIND
+   C4 H-EQ weight | 27.30 (3.33) | 11.40 | 140 | -11.95, 3.00, BEHIND
+   C5 A6 anchor | 35.84 (3.14) | 18.76 | 140 | -3.41, 1.05, BEHIND
+   C6 P3 sampling | 39.42 (3.77) | 23.04 | 140 | +0.17, 1.00, TIE
+   C7 P2 sampling | 38.82 (3.19) | 22.57 | 140 | -0.43, 1.00, TIE
+   CRR-full | 25.67 (2.99) | 9.47 | 140 | -13.58, 2.45, BEHIND
+
+== W7 long  (lora, K 4, 15 tasks)
+   arm | OP mean (sd) | BWT mean | replay batches/run | vs F: mean diff, step, label
+   B0 fine-tune | 65.64 (6.29) | -27.91 | 0 | -9.09, 2.42, BEHIND
+   B1 ER-mix | 72.79 (4.68) | -15.35 | 4200 | -1.93, 1.00, BEHIND
+   B2 FIR | 73.17 (4.84) | -14.79 | 490 | -1.56, 1.00, BEHIND
+   B3 STC | 74.64 (4.36) | -7.16 | 490 | -0.08, 1.00, TIE
+   F FOREVER | 74.72 (4.50) | -4.81 | 490 | reference
+   C1 Fisher arc | 74.55 (4.44) | -4.64 | 490 | -0.17, 1.00, TIE
+   C2 + A1' unit | 74.78 (4.37) | -5.07 | 490 | +0.05, 1.00, TIE
+   C3 Fisher chord | 73.82 (4.95) | -0.91 | 490 | -0.90, 1.00, TIE
+   C4 H-EQ weight | 74.06 (4.85) | -1.06 | 490 | -0.66, 1.04, TIE
+   C5 A6 anchor | 75.26 (4.32) | -4.71 | 490 | +0.54, 1.00, TIE
+   C6 P3 sampling | 72.99 (5.54) | -7.07 | 490 | -1.73, 1.16, BEHIND
+   C7 P2 sampling | 74.83 (4.26) | -4.75 | 490 | +0.11, 1.00, TIE
+   CRR-full | 75.37 (4.30) | -1.34 | 490 | +0.65, 1.00, TIE
+
+== headroom H0 (Amendment 1): fine-tune mean BWT <= -10 and FOREVER mean OP <= 95
+   W1 base: fine-tune BWT -28.32, FOREVER OP 78.97 -> holds
+   W2 null movement: fine-tune BWT -28.27, FOREVER OP 78.93 -> holds
+   W3 parametrisation: fine-tune BWT -24.96, FOREVER OP 78.02 -> holds
+   W4 learning rates: fine-tune BWT -21.96, FOREVER OP 79.10 -> holds
+   W5 convex: fine-tune BWT -27.70, FOREVER OP 79.78 -> holds
+   W6 class-incremental: fine-tune BWT -89.80, FOREVER OP 39.25 -> holds
+   W7 long: fine-tune BWT -27.91, FOREVER OP 74.72 -> holds
+   worlds excluded: 0 of 7
+
+== sensitivity: C1 against F at S = 12 and 48 (primary S = 24)
+   W2 null movement, S 12: +0.12, step 1.00, TIE
+   W2 null movement, S 48: -0.48, step 1.00, TIE
+   W5 convex, S 12: +0.09, step 1.00, TIE
+   W5 convex, S 48: -0.13, step 1.00, TIE
+   flips 0 of 4 -> not fragile
+
+== gate for the clock claims: no clock arm AHEAD in W5 (must fail): True; C1 AHEAD in W2 (must pass): False -> GATE CLOSED
+
+== predictions
+   P1 C1 AHEAD of F in W2: FAILS
+   P2 C1, C2, C3 TIE with F in W5: FAILS
+   P3 C1 TIE or AHEAD in W3: HOLDS
+   P4 B3 (step clock) BEHIND F in W4: FAILS
+   P5 C4 TIE in W1: HOLDS
+   P6 C5 TIE in W1-W6 and not BEHIND in W7: FAILS
+   P7 C6 BEHIND in at least one of W1, W6, W7: HOLDS
+   P8 C7 TIE everywhere: HOLDS
+   P9 B1 AHEAD in at least 5 of 7 (of the worlds passing H0, scaled: >= 5/7 of them): FAILS
+   P10 CRR-full not BEHIND in at least 4 of 7 (scaled: >= 4/7 of the worlds passing H0): HOLDS
+
+== label counts per arm across the 7 worlds passing H0 (AHEAD / TIE / BEHIND against F)
+   B0 fine-tune: 0 / 0 / 7  (BEHIND, BEHIND, BEHIND, BEHIND, BEHIND, BEHIND, BEHIND)
+   B1 ER-mix: 0 / 0 / 7  (BEHIND, BEHIND, BEHIND, BEHIND, BEHIND, BEHIND, BEHIND)
+   B2 FIR: 1 / 5 / 1  (TIE, TIE, TIE, TIE, TIE, AHEAD, BEHIND)
+   B3 STC: 1 / 6 / 0  (TIE, TIE, TIE, TIE, TIE, AHEAD, TIE)
+   C1 Fisher arc: 0 / 7 / 0  (TIE, TIE, TIE, TIE, TIE, TIE, TIE)
+   C2 + A1' unit: 1 / 6 / 0  (TIE, TIE, TIE, TIE, TIE, AHEAD, TIE)
+   C3 Fisher chord: 0 / 2 / 5  (BEHIND, BEHIND, BEHIND, TIE, BEHIND, BEHIND, TIE)
+   C4 H-EQ weight: 0 / 6 / 1  (TIE, TIE, TIE, TIE, TIE, BEHIND, TIE)
+   C5 A6 anchor: 0 / 5 / 2  (TIE, TIE, BEHIND, TIE, TIE, BEHIND, TIE)
+   C6 P3 sampling: 0 / 6 / 1  (TIE, TIE, TIE, TIE, TIE, TIE, BEHIND)
+   C7 P2 sampling: 0 / 7 / 0  (TIE, TIE, TIE, TIE, TIE, TIE, TIE)
+   CRR-full: 0 / 5 / 2  (BEHIND, TIE, TIE, TIE, TIE, BEHIND, TIE)

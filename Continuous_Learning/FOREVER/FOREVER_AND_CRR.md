@@ -93,3 +93,8 @@ The first supports "change has its own clock" as a design principle for replay. 
   fire spuriously, and FOREVER's does.
 
 If the Fisher arc ties FOREVER on real data, CRR's metric adds nothing to FOREVER's clock, and the ledger will say so.
+
+**Addendum, 2026-09-25 (prompt-log entry 181).** The comparative battery (`COMPARATIVE.md`, Declaration 2) ran the gate
+that ARC-R would have needed, and the gate is **CLOSED**.
+- The Fisher-arc clock ties FOREVER in 7 of 7 worlds, including the null-movement world built to carry the effect.
+- Under R12, no clock claim goes to a prereg, and ARC-R as described above is not licensed.
