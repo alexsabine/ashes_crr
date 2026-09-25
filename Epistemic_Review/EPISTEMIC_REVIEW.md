@@ -508,3 +508,14 @@ reads the ladder epistemically.
 - **How it could become a theory:** by fixing a parameter the domains leave free. The recommended route is the
   regeneration law q* = 1 − K(v), CRR.md's open item O1, tested blind on three unrelated unseen fields after a literature
   check. A mathematical theory of regeneration is the companion route.
+
+**Addendum, 2026-09-25 (study SCL3, prompt-log entries 127–128).** SCL3 scored the calibrated Laplace weight (SEC, not a
+CRR rule) on ten **unseen** OpenML-CC18 carriers inside the operator-pause harness (`reports/scl3.md`). Its prereg hash
+is anchored in Bitcoin blocks 968341 and 968343, the first complete anchor for a continual-learning study.
+- **The ladder at R6.** SCL3-1, SCL3-2, SCL3-3 and SCL3-4 passed as registered, on held-out data. R6 PASS-0 now reads
+  **7**: EQ2-1b, EQ3-I, EQ4-I and the four SCL3 rows.
+- **Why not R7.** SCL3-S flips in 6 of 80 window cells (FRAGILE), against the limit of one. R7 PASS-1 stays at 0.
+- **The construction.** SCL3-C is allocated to "control holds", as SCL1-1 and SCL2-1 were.
+- **What it means.** The four new R6 rows are passes for a textbook method with a units calibration. They are not
+  passes for CRR's rule, which was the R7 comparison arm (not behind the tuned λ on 7/10). The first pass on the ladder's
+  top rungs would need a non-fragile replication of SCL3 on later unseen carriers.
