@@ -1543,3 +1543,7 @@ I see. So the AI Safety point for the empty cut (true map) still remains? When w
 ## 206 — 2026-09-25T20:59:00Z
 
 Please conduct more research on top level papers regarding the corrigibility problem in 2026 and where CRR stands in relation to the empty cut principle in relation to the current AI safety bottlenecks. Thank you
+
+## 207 — 2026-09-25T22:49:58Z
+
+In the canonical formalism, I did not explain to you that C*Omega=1 on a monotone regime is the craemer rao limit. Does that make sense to you. Check the CRR mathematics and existing findings to determine whether this would have helped in the testing we have done, or whether this is already implicit in the retrodictive predictions and Continuous Learning work. Thanks.
