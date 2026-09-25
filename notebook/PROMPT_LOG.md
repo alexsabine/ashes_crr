@@ -1463,3 +1463,7 @@ Build a full folder for this work called “CL Design Principle” so you can ke
 Once you have done this, please go ahead and run the full comparative and ablated pipeline, as planned.
 
 Thank you. Please schedule everything so all tasks are completed by 10am (PCT) on 25th September
+
+## 192 — 2026-09-25T15:00:01Z
+
+Scratchpad. Please explain the surprises and crr successes so far in simple terms to me
