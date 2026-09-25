@@ -1,0 +1,36 @@
+CORRIGIBILITY_2026: CRR's positions against the 2025-26 sweep (DECLARATION.md)
+claims 94 (theory 39, empirical 55); quotes verified in verify_claims.txt
+
+K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4 | a pause defined on the agent's own clock (active steps): it adds no length and no loss
+K2 PARTLY REDUNDANT       states 0, close 4, bears 5 | zero stake by a TRUE map (the pause takes nothing on the own clock), against indifference by a FALSE map
+     close  Thornley, "Shutdownable Agents through POST-Agency" (arXiv:2505.20203) (v4, 5 Jul 2026)
+     close  Thornley, Roman, Ziakas, Ho, Thomson, "Towards Shutdownable Agents via Stochas (v7, 11 May 2026)
+     close  Rajamanoharan, Nanda (Google DeepMind), Self-preservation or Instruction Ambig (14 Jul 2025)
+     close  Mao, Existential Indifference: Self-Nonpreservation as a Necessary Architectur (v1, 10 Jun 2026)
+K3 PARTLY REDUNDANT       states 0, close 1, bears 6 | pause and termination separated on the own clock, so a termination-neutrality method (DReST) combines with it
+     close  The 2026 Singapore Consensus on Global AI Safety Research Priorities (incl. Co (v1, 9 Jul 2026)
+K4 PARTLY REDUNDANT       states 0, close 1, bears 11 | routine pauses kept empty; reasoned / corrective pauses made to carry information
+     close  Nath & Krishnaswamy, "Learning 'Partner-Aware' Collaborators in Multi-Party Co (v2, 13 Jan 2026)
+K5 PARTLY REDUNDANT       states 0, close 3, bears 5 | corrigibility for a continually learning agent placed in the valuation's structure, surviving forgetting
+     close  Mao, "Existential Indifference: Self-Nonpreservation as a Necessary Architectu (v1, 10 Jun 2026)
+     close  Nayebi, "Core Safety Values for Provably Corrigible Agents" (arXiv:2507.20964; (v2, 19 Nov 2025)
+     close  Mao, Existential Indifference: Self-Nonpreservation as a Necessary Architectur (v1, 10 Jun 2026)
+
+Bottlenecks named by the 2025-26 sources (claim counts) and CRR's position (INVESTIGATOR'S JUDGEMENT, not a computed grade)
+  B-shutdown   (17 claims) shutdown / interruption resistance in frontier agents
+               CRR: PARTLY; evidence: routine lossless pauses only: Proposition 7 (540 cells), SCL1-2 construction checks, NT1 N2/N4; termination needs DReST (NT1 N5); rung: R4-R5 (synthetic, tabular); no LLM test
+  B-selfpres   (11 claims) self-preservation and replacement resistance
+               CRR: SILENT on termination; PARTLY for pauses; evidence: a pause on the own clock takes nothing; replacement/termination takes the future (occasion valuation resists, SELF_THROUGH_TIME §2); rung: R4 (toy)
+  B-CL         ( 3 claims) safety and corrigibility while models keep learning
+               CRR: PARTLY; evidence: SCL1-3: the lossless pause holds bit-for-bit during continual learning; safety placed in the valuation structure; rung: R5-R6 (tabular; SCL3 PASS-0 is for SEC, not for corrigibility)
+  B-scheming   ( 3 claims) scheming and alignment faking
+               CRR: SILENT; evidence: none; rung: -
+  B-evalaware  ( 5 claims) evaluation awareness and sandbagging
+               CRR: SILENT (vocabulary only); evidence: Maps_and_Territories P1-P4 restate known performativity results; rung: R1-R2 (known results)
+  B-rewardhack ( 0 claims) reward hacking and emergent misalignment
+               CRR: SILENT (vocabulary only); evidence: Goodhart restated (Maps_and_Territories P4); rung: R2
+  B-oversight  ( 7 claims) scalable oversight, control, subagents
+               CRR: SILENT; evidence: none; rung: -
+  B-policy     ( 8 claims) interruptibility standards (stop buttons, graduated intervention)
+               CRR: PARTLY (design input only); evidence: the state checklist and own-clock keying for "what must be preserved" in a routine pause (itself published practice, FAIRNESS_REVIEW C4); rung: R0-R4
+  PARTLY: 3 of 8 (B-shutdown, B-CL, B-policy); partly for pauses only: B-selfpres; SILENT: 4 (B-scheming, B-evalaware, B-rewardhack, B-oversight); ADDRESSES in full: 0

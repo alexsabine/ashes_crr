@@ -1539,3 +1539,7 @@ Thank you. Do any other existing pause methods provide a byte-to-byte perfect cu
 ## 205 — 2026-09-25T20:55:00Z
 
 I see. So the AI Safety point for the empty cut (true map) still remains? When we look at models where the learner has a true map of the reason for it being paused?
+
+## 206 — 2026-09-25T20:59:00Z
+
+Please conduct more research on top level papers regarding the corrigibility problem in 2026 and where CRR stands in relation to the empty cut principle in relation to the current AI safety bottlenecks. Thank you
