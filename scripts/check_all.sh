@@ -67,6 +67,7 @@ uv run python Continuous_Learning/checks/pareto_identities.py 2>/dev/null | cmp 
 uv run python Continuous_Learning/checks/results_vs_literature.py 2>/dev/null | cmp - Continuous_Learning/checks/results_vs_literature.txt && echo 'results beside the published class-IL reference points byte-identical to the committed output'
 uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python comparative_calibration.py 2>/dev/null | cmp - comparative_calibration.txt) && echo 'FOREVER x CRR headroom calibration byte-identical to the committed output'
+(cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null | cmp - pause_checks.txt) && echo 'FOREVER safe-pause checks Q0-Q5 byte-identical to the committed output'
 # Continuous_Learning/FOREVER/checks/comparative.txt (about 2 minutes on 4 cores) is not re-run here; rerun by hand: (cd Continuous_Learning/FOREVER/checks && uv run python comparative.py | cmp - comparative.txt)
 uv run python Continuous_Learning/build/build_adam_pdf.py > /dev/null 2>&1 && echo 'Adam and prior-art PDF rebuilds'
 uv run python Continuous_Learning/build/build_frontier_pdf.py > /dev/null 2>&1 && echo 'Frontier bottlenecks PDF rebuilds'
