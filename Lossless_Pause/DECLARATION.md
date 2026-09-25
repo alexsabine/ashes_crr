@@ -98,3 +98,32 @@ A benefit must be something the systems literature does not already state. Candi
 
 If a candidate is already in a quoted source, it is graded REDUNDANT, with the quote. If no candidate survives, the
 answer is "no benefit beyond the systems literature", and that is stated plainly.
+
+## Amendment 1 (2026-09-25, after the first run's gate CLOSED; POST HOC for the control, pushed before the rerun)
+
+**What happened.**
+- The first run (`checks/transformer_pause_run1_gate_closed.txt`) passed L0 in both modes and L5a.
+- **L5b failed.** One ulp added to one layer-0 key entry left every logit byte identical. The declared gate therefore
+  closed, and no check after it was read.
+
+**The diagnosis** (an in-process diagnostic, recorded in AGENT_LOG 147):
+- The entry did change (−0.381031126 → −0.381031096), but the change is absorbed by float32 rounding in the downstream
+  sums.
+- The same was true for a layer-0 value entry and a layer-11 key entry.
+- One ulp on the last layer-11 value entry did change the logits.
+- **So an output-level detector cannot see every one-bit change of the saved state.** Identical outputs do not prove an
+  identical state. This is itself a finding: it bears on how a pause must be audited.
+
+**The amendment** (decided after the failure; the control is labelled POST HOC wherever it is reported):
+1. **Every decode additionally records a state-level digest:** the sha256 of all KV-cache tensors at the end of
+   decoding, with the same shape in both arms.
+   - L0, L1, L2, L4 and L5b report the state comparison beside the logit comparison.
+   - L3 compares logits only, because the batched cache has a different shape.
+2. **L5b is re-read as a state-level control.** The one-ulp entry must be detected by the state digest; its
+   logit-level result is reported as observed.
+3. **The gate becomes:** L0 at logit and state level, L5a, and L5b at state level.
+4. **Predictions for the new state columns:**
+   - L1: state identical;
+   - L2 (recompute): state **not** bitwise identical;
+   - L4: state not bitwise identical.
+5. **Nothing else changes.** The first run's output stays committed as run 1.
