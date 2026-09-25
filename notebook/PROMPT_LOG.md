@@ -1411,3 +1411,7 @@ What if we apply the cut safety feature to the continual learning paradigm here?
 ## 183 — 2026-09-25T03:24:01Z
 
 Run comparisons please
+
+## 184 — 2026-09-25T03:42:52Z
+
+In simple terms can you explain how the forever paper constructs temporality, compared to the CRR’s metaphysical axioms/commitments
