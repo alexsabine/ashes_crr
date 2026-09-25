@@ -1433,3 +1433,7 @@ Explain this in simple metaphysical and philosophical crr terms please. Thanks
 ## 187 — 2026-09-25T04:18:32Z
 
 Okay, so given the number of retrodictive predictions and taking into account the epistemic approach of the pipeline, what kind of mathematical object is CRR?
+
+## 188 — 2026-09-25T04:23:04Z
+
+Check the ontological folder please for how it was described there in relation to other mathematical objects. Show a fair comparison table with other scientific objects from the history of science, philosophy and metaphysics. Thank you
