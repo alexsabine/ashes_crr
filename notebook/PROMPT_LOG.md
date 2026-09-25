@@ -1391,3 +1391,7 @@ Double check our results findings, accuracy, loss etc. we need to carefully chec
 ## 178 — 2026-09-25T02:22:39Z
 
 So how do our actual continues learning scores compare with the current sota methods? Please give a short simple 5th grader response
+
+## 179 — 2026-09-25T02:24:59Z
+
+I’d like to know how we can apply our crr principles to the latest approaches and bottlenecks please. Thank you for conducting thorough literature reviews. We need to focus on 2026 papers and known bottlenecks, where crr can apply in terms of continuous learning and AI safety in synthesis
