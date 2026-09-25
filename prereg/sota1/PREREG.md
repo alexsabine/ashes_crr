@@ -55,7 +55,7 @@ OpenTimestamps, committed and tagged (R2). Nothing below may change after the ta
 | tier | arms | seeds |
 |---|---|---|
 | A | `crr` (CRR-SCL); `er`, `er_ace`, `derpp` (α 0.3, β 0.5), `xder` (α 0.3, β 0.8, Mammoth defaults otherwise); `sgd` | 0–4 |
-| C | the ten leave-one-out ablations of CRR-SCL:<br>• `crr-ace`, `crr-cos`, `crr-a8`, `crr-alpha`, `crr-beta`;<br>• `crr-kd`, `crr-kdfixed` (MKD's λ = 5.5 in place of H-EQ);<br>• `crr-stepclock`, `crr-predfast`, `crr-predslow` | 0–2 |
+| C | the eight leave-one-out ablations of CRR-SCL:<br>• `crr-ace`, `crr-cos`, `crr-a8`, `crr-alpha`, `crr-beta`;<br>• `crr-kd`, `crr-kdfixed` (MKD's λ = 5.5 in place of H-EQ);<br>• `crr-stepclock`<br>The two prediction-rule ablations (the fast head, the slow head) are read inside every `crr` unit (`alt_pred`). The training is identical, and the harness change was verified to leave it bitwise unchanged. | 0–2 |
 | S | construction: `crr` and `derpp`, no pause against a lossless pause (3 tasks; pauses after updates 250, 700, 1200); `crr` seed 0 with each part dropped, the world moving (20 batches expire per pause) and a wall-clock valuation (30 updates lost per pause) | 0–2 / 0 |
 | B | context baselines: `agem`, `lwf`, `ewc_on` (e_lambda 10, gamma 1: Mammoth's seq-cifar10 configuration), `icarl` | 0–2 |
 | D | sensitivity (R5): `crr` with q = 0.98, q = 0.995, H-EQ cap 100, γ = 1.0, H-EQ smoothing 0.5; and `crr`, `er`, `er_ace`, `derpp`, `xder` at learning rate 0.05 | 0–1 |
@@ -93,10 +93,10 @@ OpenTimestamps, committed and tagged (R2). Nothing below may change after the ta
 | **SOTA1-1a** | CRR-SCL is AHEAD of the best of {ER, ER-ACE, DER++, X-DER}, the best being the highest mean over seeds 0–4 | AHEAD over seeds 0–4 | design comparison (not a CRR hypothesis; see R4 below) |
 | **SOTA1-1b** | CRR-SCL is not BEHIND that best baseline | not BEHIND | design comparison |
 | **SOTA1-2** | equanimity as a weight: CRR-SCL (H-EQ, Ω = 1) is AHEAD of `crr-kdfixed` (MKD's published λ) | PASS if AHEAD; TIE reads **REDUCES** (Ω = 1 equivalent to the constant, CLAUDE.md §6); BEHIND reads FAIL | CRR-proper (H-EQ) |
-| **SOTA1-3:<arm>** (×9) | CRR's reading of each integrated component: the full learner is AHEAD of the ablation that removes it (A3, H-EQ at the head, A8, A6 logits, A6/A8 labels, A6 pull, D2 own clock, A6 nearest class mean ×2) | AHEAD over seeds 0–2 | CRR-proper (each reading) |
+| **SOTA1-3:<arm>** (×9) | CRR's reading of each integrated component: the full learner is AHEAD of the ablation that removes it. Seven are arms (A3, H-EQ at the head, A8, A6 logits, A6/A8 labels, A6 pull, D2 own clock). Two are prediction rules read on the same units: nearest class mean against the fast head, and against the slow head | AHEAD over seeds 0–2 (arms); seeds 0–4 (prediction rules, paired within each unit) | CRR-proper (each reading) |
 | **SOTA1-S** | sensitivity of SOTA1-1: the label recomputed in 6 cells (seeds 0–1) | FRAGILE if it flips in more than one cell | R5 |
 | **SOTA1-C1** (×6) | a lossless pause leaves the run bitwise identical (`crr` and `derpp`, seeds 0–2) | holds / FAILS | construction (Proposition 7, E1–E3), not evidence |
-| **SOTA1-C2** | dropping any of net, buffer, random streams, slow model, own clock, H-EQ state or classes seen changes the run | holds / FAILS | construction |
+| **SOTA1-C2** | dropping any of net, buffer, random streams, slow model, own clock or H-EQ state changes the run. Classes seen, the optimiser state and the counters are reported only: Phase A found them inert (`gate_sota1.txt`, C-S2) | holds / FAILS | construction |
 | **SOTA1-C3** | the world moving during the pause changes the run (must fail for the construction) | holds / FAILS | construction, a must-fail control |
 | **SOTA1-C4** | the stake of a wall-clock valuation | report | construction |
 | **R9** | the rerun of `crr` seed 0 is bitwise identical | holds / FAILS (reported with the tolerance if not) | R9 |
