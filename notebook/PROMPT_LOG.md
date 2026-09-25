@@ -1535,3 +1535,7 @@ I cannot spend money on these tests at this stage. Did you check all the latest 
 ## 204 — 2026-09-25T20:50:00Z
 
 Thank you. Do any other existing pause methods provide a byte-to-byte perfect cut? Please look at the findings carefully
+
+## 205 — 2026-09-25T20:55:00Z
+
+I see. So the AI Safety point for the empty cut (true map) still remains? When we look at models where the learner has a true map of the reason for it being paused?
