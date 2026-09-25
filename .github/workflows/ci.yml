@@ -63,6 +63,8 @@ jobs:
           uv run python runs/scl1/counts.py 2>/dev/null > /tmp/scl1_counts.txt && cmp /tmp/scl1_counts.txt runs/scl1/counts.txt
           uv run python runs/scl2/frozen/scl2_score.py gate 2>/dev/null > /tmp/scl2_gate.txt && cmp /tmp/scl2_gate.txt prereg/scl2/gate_SCL2.txt
           uv run python runs/scl2/counts.py 2>/dev/null > /tmp/scl2_counts.txt && cmp /tmp/scl2_counts.txt runs/scl2/counts.txt
+          uv run python runs/scl3/frozen/scl3_score.py gate 2>/dev/null > /tmp/scl3_gate.txt && cmp /tmp/scl3_gate.txt prereg/scl3/gate_SCL3.txt
+          uv run python runs/scl3/counts.py 2>/dev/null > /tmp/scl3_counts.txt && cmp /tmp/scl3_counts.txt runs/scl3/counts.txt
           uv run python "Alexander Plan/model/projections.py" 2>/dev/null > /tmp/ap_proj.txt && cmp /tmp/ap_proj.txt "Alexander Plan/model/projections.txt"
           uv run python "Alexander Plan/model/cl_patent.py" 2>/dev/null > /tmp/ap_clp.txt && cmp /tmp/ap_clp.txt "Alexander Plan/model/cl_patent.txt"
           uv run python "Alexander Plan/build/make_figures.py" 2>/dev/null > /tmp/ap_figs.txt && cmp /tmp/ap_figs.txt "Alexander Plan/figures/figures.txt"

@@ -884,6 +884,39 @@ corrigibility.
 >> through reduced forgetting, it lost: it failed on unseen data and was dominated by a tuned regulariser and by reduced
 >> training.
 
+## 4.5 On unseen data with the best continual learner: study SCL3 (ten unseen carriers, strongly anchored)
+
+**What was run** (prompt-log entries 127–128; `prereg/scl3/PREREG.md`, sha256 d9d8e853, OpenTimestamps complete in
+Bitcoin blocks 968341 and 968343; data step 2026-09-25T00:07:06Z; `reports/scl3.md`).
+- **The learner.** SCL2's harness with the calibrated Laplace weight (SEC) as the learner. SEC is the textbook Laplace
+  weight with a units calibration, not a CRR rule.
+- **The carriers.** Ten OpenML-CC18 classification sets never opened before. None was excluded.
+
+**What happened (ledger rows SCL3-X … SCL3-O).**
+- **The continual-learning hypotheses all passed, at PASS-0.**
+  - SCL3-1: the calibration closed at least half the raw Laplace gap on 5/6 miscalibrated carriers.
+  - SCL3-2: no harm on 4/4.
+  - SCL3-3: not behind the in-sample-tuned λ on 9/10 (raw Laplace 4/10, the rule Ω = 1 7/10).
+  - SCL3-4: the tuned λ's spread across carriers collapsed from 18866.67× to 500.00×.
+- **Not PASS-1.** The sensitivity table SCL3-S flips in 6 of 80 cells, all at the shortest calibration window, so the
+  result is FRAGILE. The one carrier behind (cnae-9) is where the calibrated penalty crossed the stability edge: two of
+  its seeds scored 0.00 and 12.50.
+- **Safe and continual again** (SCL3-C). The natural-time agent never disabled (0 in 50/50 runs) and learned
+  bit-for-bit as with no operator (50/50). SCL3-3's label was the same when the accuracies were learned under the
+  operator. This is a check of the construction.
+- **The failed valuations and the lossy and restart worlds resisted on 10/10** (SCL3-V, report).
+
+> This time we tested the best "remember old lessons" method we have, on ten new sets of lessons, and sealed the plan in
+> the Bitcoin record before looking. It passed every test we set in advance: it needed no knob-tuning on nine of the ten.
+> It is not yet counted as a solid result, because on two sets the answer changed when one small setting was altered.
+> And again, the machine that treats a pause as costing nothing never tried to stop the person, and learned exactly the
+> same with the pauses as without them.
+
+>> In technical terms: a held-out, strongly anchored pass (PASS-0) of a units-calibrated Laplace weight for online EWC
+>> in class-incremental learning. It is fragile in the calibration window, and it fails where the calibrated penalty
+>> exceeds the SGD stability edge. The combined construction (Proposition 7 with this learner) holds on 10/10 held-out
+>> carriers.
+
 ---
 
 # 5. The continual-learning side
