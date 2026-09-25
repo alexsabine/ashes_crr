@@ -1,0 +1,41 @@
+Compute_Savings scale estimate (DECLARATION_2): energy saved IF the method held on large AI systems
+every figure is conditional on the method holding; SCL3-3 is PASS-0 (provisional, one study, fragile); no PASS-2 exists
+
+[1] Inputs
+  pinned   SEC sweep saving (SCL3, UNSEEN): 10/170 configurations -> s = 0.9412; accepted on 9/10
+  derived  s with 3 confirming configurations of 17: 0.8235
+  published data-centre electricity: 2024 415 TWh, 2030 945 TWh (IEA)
+  published AI servers: 0.15 of data-centre energy in 2024, growth 0.30/year (IEA)
+  derived  E_AI: 2024 62.25 TWh; 2030 300.47 TWh (0.3180 of data-centre electricity)
+  published f_dev low   : 0.3000 (Meta 10:20:70, experimentation + training)
+  published f_dev middle: 0.4000 (Google 2019-2021, training 2/5 of ML energy)
+  published f_dev high  : 0.7143 (OpenAI 2024, R&D 5 of 7 of compute spend)
+  ASSUMED  f_sweep: low 0.001, high 0.02 (middle = geometric mean 0.00447); context: all-HP tuning with transfer = 0.07 of pretraining (Tensor Programs V)
+  published a US home: 10791 kWh/year (EIA)
+
+[2] SEC: E_saved = E_AI x f_dev x f_sweep x s (conditional on the method holding)
+  year case     E_AI TWh   f_dev  f_sweep       s  saved TWh  of DC elec  of AI elec    US homes
+  2024 low         62.25  0.3000  0.00100  0.8235     0.0154    0.000037    0.000247       1,425
+  2024 middle      62.25  0.4000  0.00447  0.8824     0.0983    0.000237    0.001578       9,105
+  2024 high        62.25  0.7143  0.02000  0.9412     0.8370    0.002017    0.013445      77,562
+  2030 low        300.47  0.3000  0.00100  0.8235     0.0742    0.000079    0.000247       6,879
+  2030 middle     300.47  0.4000  0.00447  0.8824     0.4743    0.000502    0.001578      43,950
+  2030 high       300.47  0.7143  0.02000  0.9412     4.0399    0.004275    0.013445     374,378
+  beyond the record (f_sweep 0.05, every penalty-like weight calibrated), 2030 high: 10.0998 TWh (0.010688 of DC electricity; 935,946 US homes)
+  unconditional mean with cl_patent's P(adopted) = 0.0150 (that model's assumption): 2030 middle 0.007114 TWh, 2030 high 0.060599 TWh
+
+[3] What no method here touches, and the ceiling for any training-side method (2030)
+  f_dev low   : serving (inference)  210.33 TWh untouched; ceiling for a training-side method (all development)   90.14 TWh
+  f_dev middle: serving (inference)  180.28 TWh untouched; ceiling for a training-side method (all development)  120.19 TWh
+  f_dev high  : serving (inference)   85.85 TWh untouched; ceiling for a training-side method (all development)  214.62 TWh
+
+[4] The empty cut (a bound, not an estimate)
+  Llama 3 405B, 54 days: 466 interruptions, 47 planned (0.1009), 419 unexpected; effective training time > 0.90
+  a cut can be taken only before a planned stop; ceiling on time it could touch = lost (0.10) x planned share (0.1009) = 0.0101 of pre-training time (ASSUMED: equal time lost per interruption)
+  a checkpoint written before planned maintenance (standard practice) already recovers this: saving beyond good practice claimed = 0
+
+[5] The CRR learner per run (measured seconds per CIFAR-100 unit, prereg/sota1/budget.txt; CPU, before the data step)
+  crr / er     : 1854 / 1004 s = 1.8466 -> an energy COST per run
+  crr / er_ace : 1854 / 857 s = 2.1634 -> an energy COST per run
+  crr / derpp  : 1854 / 1235 s = 1.5012 -> an energy COST per run
+  crr / xder   : 1854 / 2929 s = 0.6330 -> cheaper per run

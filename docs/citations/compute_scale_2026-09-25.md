@@ -1,0 +1,18 @@
+# Sources for Compute_Savings/DECLARATION_2 (fetched 2026-09-25, R10)
+
+Every figure below was read on 2026-09-25. Quotes are verbatim from the fetched text.
+
+| figure | quote | source (version, status on the day) |
+|---|---|---|
+| data-centre electricity 2024 | "Data centres consumed 415 TWh in 2024, roughly 1.5% of the world's total electricity consumption" | IEA, *Energy and AI* (April 2025), as reported by Scientific American, 10 April 2025, https://www.scientificamerican.com/article/ai-will-drive-doubling-of-data-center-energy-demand-by-2030/ . The IEA's own pages (iea.org/reports/energy-and-ai, /energy-demand-from-ai, the press release) returned HTTP 403 to the session proxy |
+| data-centre electricity 2030 | "Data centres will use 945 terawatt-hours (TWh) in 2030" | the same article |
+| AI servers' share, 2024 | "Servers for AI accounted for 24% of server electricity demand and 15% of total data centre energy demand in 2024" | the same article |
+| AI servers' growth | "electricity consumption from servers used for AI workloads, predominantly inference, is projected to grow by 30% annually as adoption increases" | IEA, as reported by Brookings (article dated 10 April 2026), https://www.brookings.edu/articles/global-energy-demands-within-the-ai-regulatory-landscape/ |
+| Meta: development against serving | "we observe a rough power capacity breakdown of 10:20:70 for AI infrastructures devoted to the three key phases — Experimentation, Training, and Inference" | Wu et al., *Sustainable AI: Environmental Implications, Challenges and Opportunities*, arXiv 2111.00364 v2 (9 Jan 2022), Fig. 3 caption |
+| Google: training against inference | "Across all three years, about ⅗ of ML energy use is for inference and ⅖ for training. These measurements include all ML energy usage: research, development, testing, and production." | Patterson et al., *The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink*, arXiv 2204.05149 v1 (11 Apr 2022) |
+| Google: ML's share of all energy | "overall ML energy use (across research, development, and production) held steady at <15% of Google's total energy use for the past three years" | the same, abstract |
+| OpenAI compute split, 2024 | about $7B of compute, about $5B of it R&D; about $4.5B on experiments and about $0.5B on final training runs | Epoch AI, already quoted in `docs/citations/alexander_plan_2026-09-23.md` |
+| tuning cost with transfer | "by transferring from 40M parameters, we outperform published numbers of the 6.7B GPT-3 model, with tuning cost only 7% of total pretraining cost" | Yang et al., *Tensor Programs V*, arXiv 2203.03466 v2 (28 Mar 2022), abstract |
+| tuning can dominate in research | Table 1: an NLP pipeline, training one model 39 lbs CO2e; "w/ tuning & experimentation 78,468". Also: "123 small hyperparameter grid searches were performed, resulting in 4789 jobs in total" | Strubell et al., *Energy and Policy Considerations for Deep Learning in NLP*, arXiv 1906.02243 v1 |
+| Llama 3 interruptions | "During a 54-day snapshot period of pre-training, we experienced a total of 466 job interruptions. Of these, 47 were planned interruptions … The remaining 419 were unexpected interruptions"; "we achieved higher than 90% effective training time" | Llama Team, *The Llama 3 Herd of Models*, arXiv 2407.21783 v3 (the current version on the day), §3.3.4 |
+| a US home | "In 2022, the average annual amount of electricity sold to (purchased by) a U.S. residential electric-utility customer was 10,791 kilowatthours (kWh)" | US EIA FAQ id 97, last updated 8 Jan 2024, https://www.eia.gov/tools/faqs/faq.php?id=97&t=3 |
