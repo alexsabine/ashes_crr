@@ -3,3 +3,6 @@ __pycache__/
 .pytest_cache/
 *.npz
 runs/data
+studies/sota1/env/.venv/
+studies/sota1/vendor/mammoth/data/
+studies/sota1/vendor/mammoth/checkpoints/
