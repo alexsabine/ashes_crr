@@ -1,0 +1,63 @@
+Compute_Savings: tuning compute saved by a tuning-free weight, from pinned run records (DECLARATION.md)
+compute is proportional to configurations run: every arm makes the same gradient and Fisher passes per run
+
+==============================================================================================================
+SCL3 (UNSEEN OpenML-CC18 carriers; SCL3-3 is PASS-0): 10 carriers
+==============================================================================================================
+C1 the sweep and C2/C3 not behind the tuned lambda (mean over seeds 0-4; step = max(1, 2 SE of the tuned arm))
+  carrier                  G   saved     tuned  step  SEC-tuned  raw-tuned  rule-tuned   default  dflt-tuned
+  cnae-9                  17  0.9412      1410  1.73   -21.9792   -18.4375     -2.0833       100    -13.7500
+  first-order-theorem-proving  17  0.9412       1.5  1.05    -0.0200    -0.0601     -0.1201       300    -11.8318
+  har                     17  0.9412     28300  4.82    -1.1389    -5.2148     -2.4775       100     -4.9950
+  wall-robot-navigation   17  0.9412       100  6.62    -2.6226    -2.6026     -3.5035       200    -15.1952
+  semeion                 17  0.9412      1500  1.59    +3.7618    -9.9060     -0.6897       100     -7.1473
+  eucalyptus              17  0.9412       1.5  3.53    +0.5505    -0.9174     -3.6697       300    -17.9817
+  isolet                  17  0.9412     20000  3.47    -0.1667    -9.3667     -0.9667       100     -8.8667
+  MiceProtein             17  0.9412    709.22  1.00    +4.5455   -16.7273     -1.4545       100    -12.9091
+  steel-plates-fault      17  0.9412         6  1.19    -0.2122    -2.1751     +0.2122       300    -33.4748
+  GesturePhaseSegmentationProcessed  17  0.9412      14.1  1.04    -0.1001    -0.1201     -0.0601       300    -26.3063
+  not behind the tuned lambda: SEC 9/10, raw Bayes 4/10, the rule 7/10, transferred default 0/10
+  C3 saving attributable to SEC (SEC not behind, default behind): 9/10 ['first-order-theorem-proving', 'har', 'wall-robot-navigation', 'semeion', 'eucalyptus', 'isolet', 'MiceProtein', 'steel-plates-fault', 'GesturePhaseSegmentationProcessed']
+     SEC and the default both not behind (the saving is a default's there): 0/10 []
+
+C4 policies: one configuration accepted without tuning, against the full sweep (compute = configurations x 5 seeds)
+  SEC                 : compute 10 configs against 170 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 9/10; accuracy lost where behind: cnae-9 -21.98
+  raw Bayes           : compute 10 configs against 170 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 4/10; accuracy lost where behind: cnae-9 -18.44, har -5.21, semeion -9.91, isolet -9.37, MiceProtein -16.73, steel-plates-fault -2.18
+  the rule Omega=1    : compute 10 configs against 170 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 7/10; accuracy lost where behind: cnae-9 -2.08, eucalyptus -3.67, MiceProtein -1.45
+  transferred default : compute 10 configs against 170 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 0/10; accuracy lost where behind: cnae-9 -13.75, first-order-theorem-proving -11.83, har -5.00, wall-robot-navigation -15.20, semeion -7.15, eucalyptus -17.98, isolet -8.87, MiceProtein -12.91, steel-plates-fault -33.47, GesturePhaseSegmentationProcessed -26.31
+
+C2 check against the pinned SCL3-3 counts (SEC 9/10, raw Bayes 4/10, the rule 7/10): reproduced
+C5 energy: with equal passes per run, SEC used without tuning spends 10/170 = 0.0588 of the tuning sweep's compute and energy on these carriers, a saving of 0.9412; it is accepted without losing a step on 9/10; the saving attributable to SEC rather than to a transferred default holds on 9/10
+   this is a share of hyperparameter-sweep compute, not of training compute; no kWh figure (no per-run energy recorded)
+
+==============================================================================================================
+SEC1 (SEEN carriers of EQ3/EQ4; confirmatory, rung R5; context only): 12 carriers
+==============================================================================================================
+C1 the sweep and C2/C3 not behind the tuned lambda (mean over seeds 0-4; step = max(1, 2 SE of the tuned arm))
+  carrier                  G   saved     tuned  step  SEC-tuned  raw-tuned  rule-tuned   default  dflt-tuned
+  fars                    17  0.9412   21.2766  1.94    -3.4000    -3.5200     -3.5000        15     -1.4400
+  krkopt                  17  0.9412   0.70922  1.00    -0.5411    -0.0802     -0.6012        30     -6.2926
+  led24                   17  0.9412      8.49  1.82    +3.0673    -1.2833     +3.5994        10     -0.9077
+  led7                    17  0.9412         3  1.00    +0.0625    -4.0312     -1.2188        10     -6.6875
+  mfeat_factors           17  0.9412       300  4.54    -5.0500   -12.5000     +3.9000        10    -11.1500
+  mfeat_morphological     17  0.9412      2.83  4.87    +2.7000    -7.6000     +3.7000        10    -11.1000
+  page_blocks             17  0.9412        30 10.90    +0.5405    -7.6476     -7.8278   10.6007     -9.7898
+  satimage                17  0.9412         3  1.62    +5.5656    -0.1802     +4.8248        10     -0.1602
+  segmentation            17  0.9412       300  1.86    -0.6061    -4.3939     -2.2727        10     -1.7172
+  sleep                   17  0.9412        30  1.12    -0.2797    -0.2597     -0.4995   10.6007     -0.4795
+  wine_quality_white      17  0.9412      14.1  6.74    -6.7091    -6.7304     -6.7304      14.1     +0.0000
+  yeast                   17  0.9412      8.49  6.04   -11.4286    -7.7857     -6.7857        10    -12.3571
+  not behind the tuned lambda: SEC 9/12, raw Bayes 6/12, the rule 8/12, transferred default 7/12
+  C3 saving attributable to SEC (SEC not behind, default behind): 3/12 ['krkopt', 'led7', 'mfeat_morphological']
+     SEC and the default both not behind (the saving is a default's there): 6/12 ['led24', 'page_blocks', 'satimage', 'segmentation', 'sleep', 'wine_quality_white']
+
+C4 policies: one configuration accepted without tuning, against the full sweep (compute = configurations x 5 seeds)
+  SEC                 : compute 12 configs against 204 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 9/12; accuracy lost where behind: fars -3.40, mfeat_factors -5.05, yeast -11.43
+  raw Bayes           : compute 12 configs against 204 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 6/12; accuracy lost where behind: fars -3.52, led7 -4.03, mfeat_factors -12.50, mfeat_morphological -7.60, segmentation -4.39, yeast -7.79
+  the rule Omega=1    : compute 12 configs against 204 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 8/12; accuracy lost where behind: fars -3.50, led7 -1.22, segmentation -2.27, yeast -6.79
+  transferred default : compute 12 configs against 204 (0.0588 of the sweep; saving 0.9412); accepted without losing a step on 7/12; accuracy lost where behind: krkopt -6.29, led7 -6.69, mfeat_factors -11.15, mfeat_morphological -11.10, yeast -12.36
+
+C6 the empty cut: rework avoided (standard checkpointing arithmetic; the CRR content is the state checklist)
+  T = 10 tasks, checkpoint only at task boundaries,  1 interruption(s) per run at uniformly random updates: expected rework 0.05 of a run; with a lossless mid-task cut: 0
+  T = 10 tasks, checkpoint only at task boundaries,  5 interruption(s) per run at uniformly random updates: expected rework 0.25 of a run; with a lossless mid-task cut: 0
+  T = 10 tasks, checkpoint only at task boundaries, 20 interruption(s) per run at uniformly random updates: expected rework 1.00 of a run; with a lossless mid-task cut: 0

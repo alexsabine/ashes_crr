@@ -65,6 +65,7 @@ uv run python Continuous_Learning/checks/adam_checks_2.py 2>/dev/null | cmp - Co
 uv run python Continuous_Learning/checks/adam_checks_3.py 2>/dev/null | cmp - Continuous_Learning/checks/adam_checks_3.txt && echo 'Adam follow-up B4-B5 byte-identical to the committed output'
 uv run python Continuous_Learning/checks/pareto_identities.py 2>/dev/null | cmp - Continuous_Learning/checks/pareto_identities.txt && echo 'Pareto identities (Omega = 1 vs MGDA, IMTL-G) byte-identical to the committed output'
 uv run python Continuous_Learning/checks/results_vs_literature.py 2>/dev/null | cmp - Continuous_Learning/checks/results_vs_literature.txt && echo 'results beside the published class-IL reference points byte-identical to the committed output'
+uv run python Compute_Savings/checks/compute_savings.py | cmp - Compute_Savings/checks/compute_savings.txt && echo 'compute-savings calculation byte-identical to the committed output'
 uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python comparative_calibration.py 2>/dev/null | cmp - comparative_calibration.txt) && echo 'FOREVER x CRR headroom calibration byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null | cmp - pause_checks.txt) && echo 'FOREVER safe-pause checks Q0-Q5 byte-identical to the committed output'
