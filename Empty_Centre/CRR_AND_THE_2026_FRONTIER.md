@@ -178,3 +178,10 @@ new is for the tests and a named expert to decide.
 - **The recommended order of work,** if the owner wants to test CRR rather than a standard method: NT1 (the one
   construction unstated in the literature), then ARC-R (a direct CRR metric claim against a published 2026 baseline), then
   REG-M (the first data test of A6). Each is declared and gated before it runs, and all three can run on this CPU.
+
+**Addendum, 2026-09-25 (prompt-log entries 180–181).** ARC-R's synthetic gate ran in
+`Continuous_Learning/FOREVER/COMPARATIVE.md` and is **CLOSED**.
+- The Fisher-arc clock ties FOREVER's Euclidean clock in 7 of 7 worlds at a fixed replay budget.
+- No CRR swap enhanced FOREVER robustly. The one lead is A1′'s robust unit in class-incremental learning (+1.74, one
+  world).
+- The recommended order in §4 is therefore NT1, then REG-M. ARC-R drops out under R12.
