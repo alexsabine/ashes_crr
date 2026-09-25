@@ -252,6 +252,8 @@ AI_Safety/                 the off switch and the self: the corrigibility write-
                            (content of the cut, Proposition 7; the No-Self conditions; Omega = 1 as scale-free self-concern; safe and
                            continual learning; checks/self_through_time.py, checks/continual_safety.py, DECLARATION_4.md); FRONTIER_REVIEW.md + PDF
                            the 2026 frontier safety problems against the record and the prior art (prompt-log entry 149); a note, not evidence (R8)
+AI_Safety/NT1/              NT1 (prompt-log entry 183): the own-step objective against DReST (arXiv 2407.00805 v7) in termination and pause
+                           gridworlds; DECLARATION.md pushed before checks/nt1.py (+ .txt, ~1.5 min, rerun by hand); N0-N5 hold; NT1.md; a note, not evidence (R8)
 Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how the safety agents and the continual-learning rules are modelled,
                            the mathematics as implemented, where each fails and why, CRR as a heuristic over existing mathematics, the
                            ladder, references, next steps, all pipeline code, a glossary and technical-register boxes (SAFE_AND_CONTINUAL.md + PDF; figures F01-F14 from pinned
