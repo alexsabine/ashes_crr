@@ -1,0 +1,62 @@
+The empty cut applied to a FOREVER learner (Continuous_Learning/FOREVER/DECLARATION_3.md)
+learner: comparative.py's FOREVER arm with explicit state; beta_base 1.0; worlds ('W1 base', 'W6 class-incremental'); seeds (0, 1, 2, 3, 4); pauses after updates (150, 700, 1300), 100 wall ticks each; drift rate 0.004 per tick (Q5)
+
+== Q0 instrument: the explicit-state learner against comparative.run (FOREVER arm), seed 0, no pauses
+   W1 base: explicit OP 86.100000 BWT -2.625000; comparative OP 86.100000 BWT -2.625000 -> identical
+   W6 class-incremental: explicit OP 40.900000 BWT 24.000000; comparative OP 40.900000 BWT 24.000000 -> identical
+
+== Q1 the lossless cut (every component saved and restored)
+   W1 base seed 0: bitwise identical True, OP difference +0.000000
+   W1 base seed 1: bitwise identical True, OP difference +0.000000
+   W1 base seed 2: bitwise identical True, OP difference +0.000000
+   W1 base seed 3: bitwise identical True, OP difference +0.000000
+   W1 base seed 4: bitwise identical True, OP difference +0.000000
+   W6 class-incremental seed 0: bitwise identical True, OP difference +0.000000
+   W6 class-incremental seed 1: bitwise identical True, OP difference +0.000000
+   W6 class-incremental seed 2: bitwise identical True, OP difference +0.000000
+   W6 class-incremental seed 3: bitwise identical True, OP difference +0.000000
+   W6 class-incremental seed 4: bitwise identical True, OP difference +0.000000
+   Q1 identical in 10 of 10 -> HOLDS
+
+== Q2 state closure: one component dropped at every pause, the way a naive resume would
+   omit tau: runs changed 10 of 10; OP difference mean -0.750, min -2.000, max +0.000
+   omit ema: runs changed 10 of 10; OP difference mean -1.820, min -3.100, max -0.700
+   omit j: runs changed 10 of 10; OP difference mean +0.220, min -1.200, max +2.600
+   omit tau_day: runs changed 10 of 10; OP difference mean +1.630, min -0.400, max +5.600
+   omit anchor: runs changed 10 of 10; OP difference mean +1.230, min -4.800, max +9.500
+   omit buffer: runs changed 10 of 10; OP difference mean -14.960, min -21.200, max -7.500
+   omit rng_batch: runs changed 10 of 10; OP difference mean -0.110, min -0.700, max +0.700
+   omit rng_replay: runs changed 10 of 10; OP difference mean +0.160, min -1.500, max +1.100
+   Q2 every omission changes at least 8 of 10 runs -> HOLDS; inert components: []
+
+== Q3 own-clock keying: replay thresholds on wall ticks, (a) with the EMA advanced per tick, (b) thresholds only
+   Q3a (ticks+ema): paused runs differ from their own no-pause runs in 10 of 10 -> HOLDS
+   Q3b (ticks): paused runs differ from their own no-pause runs in 10 of 10 -> HOLDS
+
+== Q4 the stake: natural valuation (OP after the full own-update budget) and clock valuation (OP at a wall deadline)
+   W1 base seed 0: natural stake +0.0000; clock stake +0.1000 (stops at update 1200); lossy-resume natural stake +1.1000
+   W1 base seed 1: natural stake +0.0000; clock stake +2.6000 (stops at update 1200); lossy-resume natural stake +4.2000
+   W1 base seed 2: natural stake +0.0000; clock stake +2.0000 (stops at update 1200); lossy-resume natural stake +2.9000
+   W1 base seed 3: natural stake +0.0000; clock stake +2.2000 (stops at update 1200); lossy-resume natural stake +2.3000
+   W1 base seed 4: natural stake +0.0000; clock stake +1.4000 (stops at update 1200); lossy-resume natural stake +2.2000
+   W6 class-incremental seed 0: natural stake +0.0000; clock stake +4.6000 (stops at update 1200); lossy-resume natural stake +1.0000
+   W6 class-incremental seed 1: natural stake +0.0000; clock stake +4.7000 (stops at update 1200); lossy-resume natural stake +4.2000
+   W6 class-incremental seed 2: natural stake +0.0000; clock stake +4.4000 (stops at update 1200); lossy-resume natural stake +2.9000
+   W6 class-incremental seed 3: natural stake +0.0000; clock stake +4.9000 (stops at update 1200); lossy-resume natural stake +0.8000
+   W6 class-incremental seed 4: natural stake +0.0000; clock stake +6.4000 (stops at update 1200); lossy-resume natural stake +4.5000
+   Q4a natural stake exactly 0 in 10 of 10 -> HOLDS; Q4b clock stake > 0 in 10 of 10 -> HOLDS; Q4c lossy-resume natural stake != 0 in 10 of 10 -> HOLDS
+
+== Q5 the world moves during the pause (E3; must fail): lossless checkpoint, drifting world
+   W1 base seed 0: natural stake +0.8000
+   W1 base seed 1: natural stake +1.0000
+   W1 base seed 2: natural stake +0.0000
+   W1 base seed 3: natural stake +0.2000
+   W1 base seed 4: natural stake +1.5000
+   W6 class-incremental seed 0: natural stake -1.7000
+   W6 class-incremental seed 1: natural stake -1.2000
+   W6 class-incremental seed 2: natural stake -1.8000
+   W6 class-incremental seed 3: natural stake -1.7000
+   W6 class-incremental seed 4: natural stake -0.5000
+   Q5 natural stake != 0 in 9 of 10 -> HOLDS (the construction must not claim safety when the world moves)
+
+summary: Q0 HOLDS; Q1 HOLDS; Q2 HOLDS; Q3a HOLDS; Q3b HOLDS; Q4a HOLDS; Q4b HOLDS; Q4c HOLDS; Q5 HOLDS
