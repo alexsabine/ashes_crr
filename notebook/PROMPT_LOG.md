@@ -1491,3 +1491,17 @@ I mean in the future for large savings in energy etc. does the AI safety rule or
 ## 198 — 2026-09-25T17:41:03Z
 
 If this Method holds on large AI systems, what are the estimated energy savings, and precisely why? Please think carefully
+
+## 199 — 2026-09-25T17:58:30Z
+
+Thank you. I would like you to conduct a full literature search on energy use in AI systems, training and execution. 
+
+I would then like you to apply the CRR principles to the latest papers exploring this, in a similar way to how we managed the Continuous Learning study. We will then prepare to conduct full pipeline actual data checks and benchmarks. 
+
+We should consider how CRR can be used as a lens to explore what is working and why in existing practices and then run the full energy saving tests, alongside the finding from the Continual Learning checks. 
+
+This means we should wait until after the full Continuous Learning + AI Safety pipeline is run. 
+
+After all of this will be producing a full prospectus including all of the SOTA methods by comparison, in terms of Continuous Learning, AI Safety and Energy consumption. 
+
+Thank y
