@@ -1429,3 +1429,7 @@ If also like to know more about how the forever system manages safety compared t
 So on the repo we applied crr as a falsifiable metaphysics to an array of systems and continuous learning (then found 2026 paper using a similar principle) and the empty cut / now as true map is what is holding out as the main applied use case?
 
 Explain this in simple metaphysical and philosophical crr terms please. Thanks
+
+## 187 — 2026-09-25T04:18:32Z
+
+Okay, so given the number of retrodictive predictions and taking into account the epistemic approach of the pipeline, what kind of mathematical object is CRR?
