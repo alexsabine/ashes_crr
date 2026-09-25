@@ -1,0 +1,157 @@
+================================================================================================================
+SCL3 scoring — UNSEEN OpenML-CC18 carriers (R11); SEC1's thresholds; per-seed values in brackets (seeds 0-4)
+================================================================================================================
+carriers in the registration 10; scored 10; excluded by the class-selection rule: none (0)
+   [cnae-9] OpenML 1468 v1: K 8 of 9 (requested 8); class counts [120, 120, 120, 120, 120, 120, 120, 120]; n 960 of 1080; features 856; rows dropped (missing) 0; excluded False
+   [first-order-theorem-proving] OpenML 1475 v1: K 6 of 6 (requested 6); class counts [2087, 890, 611, 510, 504, 397]; n 4999 of 6118; features 51; rows dropped (missing) 0; excluded False
+   [har] OpenML 1478 v1: K 6 of 6 (requested 6); class counts [944, 925, 863, 836, 750, 683]; n 5001 of 10299; features 561; rows dropped (missing) 0; excluded False
+   [wall-robot-navigation] OpenML 1497 v1: K 4 of 4 (requested 4); class counts [2021, 1922, 757, 301]; n 5001 of 5456; features 24; rows dropped (missing) 0; excluded False
+   [semeion] OpenML 1501 v1: K 10 of 10 (requested 10); class counts [162, 161, 161, 161, 159, 159, 159, 158, 158, 155]; n 1593 of 1593; features 256; rows dropped (missing) 0; excluded False
+   [eucalyptus] OpenML 188 v1: K 4 of 5 (requested 4); class counts [203, 128, 110, 102]; n 543 of 641; features 19; rows dropped (missing) 95; excluded False
+   [isolet] OpenML 300 v1: K 10 of 26 (requested 10); class counts [300, 300, 300, 300, 300, 300, 300, 300, 300, 300]; n 3000 of 7797; features 617; rows dropped (missing) 0; excluded False
+   [MiceProtein] OpenML 40966 v4: K 8 of 8 (requested 8); class counts [90, 75, 75, 75, 72, 60, 60, 45]; n 552 of 552; features 77; rows dropped (missing) 528; excluded False
+   [steel-plates-fault] OpenML 40982 v3: K 6 of 7 (requested 6); class counts [673, 402, 391, 190, 158, 72]; n 1886 of 1941; features 27; rows dropped (missing) 0; excluded False
+   [GesturePhaseSegmentationProcessed] OpenML 4538 v1: K 4 of 5 (requested 4); class counts [1662, 1544, 1181, 612]; n 4999 of 9873; features 32; rows dropped (missing) 0; excluded False
+
+[cnae-9]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.7305
+   EWC raw-Fisher lambda grid: 0.1:55.73  0.3:55.73  1:55.73  3:55.73  10:56.35  30:57.29  100:60.42  300:66.15  353.357:66.98  500:68.75  709.22:70.52  1000:72.40  1410:74.17  2000:61.04  2830:33.33  3000:32.60  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:60.21  0.03:65.21  0.1:72.60  0.106007:73.02  0.15:75.31  0.212766:76.88  0.3:80.10  0.423:81.25  0.6:33.12  0.849:2.40  1:0.00  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 1410: 74.1667 [74.48 71.35 76.56 73.44 75.00]; tuned lambda (calibrated) = 0.423: 81.2500 [79.69 78.12 83.33 82.81 82.29]
+   Bayes raw (w 1/2): 55.7292 [57.29 52.60 57.29 56.25 55.21]   Bayes raw − tuned: -18.4375
+   Bayes SEC (w 1/2): 52.1875 [81.77 0.00 84.38 12.50 82.29]   Bayes SEC − tuned: -21.9792; Bayes SEC − Bayes raw: -3.5417
+   Bayes s1 (one factor, task 1's): 0.0000 [0.00 0.00 0.00 0.00 0.00]   Bayes s1 − tuned: -74.1667; Bayes SEC − Bayes s1: +52.1875
+   rule Ω=1: 72.0833 [75.52 62.50 76.56 72.92 72.92]   rule − tuned: -2.0833; Bayes SEC − rule: -19.8958
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 3521, min 6.897e-20, max 1.707e+04; fallbacks 3 of 20
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-50.52  0.05/0.1:-52.71  0.05/0.2:-55.21  0.1/0.05:-21.87  0.1/0.2:-21.98  0.2/0.05:-8.54  0.2/0.1:-8.65  0.2/0.2:-8.75
+
+[eucalyptus]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 3.5294
+   EWC raw-Fisher lambda grid: 0.1:33.39  0.3:35.60  1:38.17  1.06007:38.17  1.5:38.53  2.12766:38.35  3:38.35  4.23:38.35  6:38.35  8.49:38.35  10:36.51  30:25.32  100:19.27  300:20.55  1000:17.43  3000:15.41  10000:6.61
+   EWC calibrated-Fisher lambda grid: 0.01:32.84  0.03:33.58  0.1:35.23  0.3:37.98  0.353357:38.35  0.5:39.08  0.70922:39.27  1:38.90  1.41:38.17  2:37.06  2.83:36.33  3:35.96  10:23.12  30:23.12  100:15.96  300:16.51  1000:15.78  3000:5.14  10000:0.00
+   tuned lambda (raw) = 1.5: 38.5321 [40.37 42.20 41.28 33.03 35.78]; tuned lambda (calibrated) = 0.70922: 39.2661 [40.37 42.20 44.95 33.03 35.78]
+   Bayes raw (w 1/2): 37.6147 [39.45 41.28 40.37 32.11 34.86]   Bayes raw − tuned: -0.9174
+   Bayes SEC (w 1/2): 39.0826 [40.37 42.20 44.04 33.03 35.78]   Bayes SEC − tuned: +0.5505; Bayes SEC − Bayes raw: +1.4679
+   Bayes s1 (one factor, task 1's): 39.0826 [40.37 42.20 44.04 33.03 35.78]   Bayes s1 − tuned: +0.5505; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 34.8624 [36.70 39.45 38.53 24.77 34.86]   rule − tuned: -3.6697; Bayes SEC − rule: +4.2202
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 5.986, min 1.265, max 11.84; fallbacks 0 of 10
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:+0.37  0.05/0.1:+0.18  0.05/0.2:+0.18  0.1/0.05:+0.55  0.1/0.2:+0.55  0.2/0.05:+0.55  0.2/0.1:+0.55  0.2/0.2:+0.73
+
+[first-order-theorem-proving]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.0468
+   EWC raw-Fisher lambda grid: 0.1:11.75  0.3:11.77  1:11.77  1.06007:11.77  1.5:11.83  2.12766:11.79  3:11.79  4.23:11.79  6:11.77  8.49:11.77  10:11.77  30:8.61  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:11.77  0.03:11.77  0.1:11.73  0.3:11.77  0.353357:11.77  0.5:11.77  0.70922:11.81  1:11.79  1.41:11.77  2:11.77  2.83:11.75  3:11.77  10:11.75  30:1.86  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 1.5: 11.8318 [10.41 11.21 12.71 13.31 11.51]; tuned lambda (calibrated) = 0.70922: 11.8118 [10.41 11.21 12.71 13.31 11.41]
+   Bayes raw (w 1/2): 11.7718 [10.31 11.11 12.71 13.31 11.41]   Bayes raw − tuned: -0.0601
+   Bayes SEC (w 1/2): 11.8118 [10.41 11.11 12.71 13.31 11.51]   Bayes SEC − tuned: -0.0200; Bayes SEC − Bayes raw: +0.0400
+   Bayes s1 (one factor, task 1's): 11.7718 [10.31 11.11 12.71 13.31 11.41]   Bayes s1 − tuned: -0.0601; Bayes SEC − Bayes s1: +0.0400
+   rule Ω=1: 11.7117 [9.81 11.11 12.71 13.51 11.41]   rule − tuned: -0.1201; Bayes SEC − rule: +0.1001
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 1.839, min 0.831, max 3.846; fallbacks 0 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.06  0.05/0.1:-0.06  0.05/0.2:-0.04  0.1/0.05:-0.02  0.1/0.2:+0.00  0.2/0.05:-0.02  0.2/0.1:-0.04  0.2/0.2:-0.04
+
+[GesturePhaseSegmentationProcessed]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.0352
+   EWC raw-Fisher lambda grid: 0.1:26.17  0.3:26.19  1:26.21  3:26.21  3.53357:26.19  5:26.17  7.0922:26.13  10:26.29  14.1:26.31  20:26.27  28.3:26.19  30:26.21  100:20.64  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:26.21  0.03:26.21  0.1:26.21  0.3:26.21  1:26.17  3:26.21  3.53357:26.25  5:26.31  7.0922:26.31  10:26.23  14.1:26.21  20:26.19  28.3:25.29  30:25.93  100:12.33  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 14.1: 26.3063 [27.73 24.62 25.83 26.73 26.63]; tuned lambda (calibrated) = 5: 26.3063 [27.73 24.62 25.83 26.63 26.73]
+   Bayes raw (w 1/2): 26.1862 [27.63 24.52 25.43 26.63 26.73]   Bayes raw − tuned: -0.1201
+   Bayes SEC (w 1/2): 26.2062 [27.63 24.52 25.53 26.63 26.73]   Bayes SEC − tuned: -0.1001; Bayes SEC − Bayes raw: +0.0200
+   Bayes s1 (one factor, task 1's): 26.2062 [27.63 24.52 25.53 26.63 26.73]   Bayes s1 − tuned: -0.1001; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 26.2462 [27.33 24.72 25.83 26.73 26.63]   rule − tuned: -0.0601; Bayes SEC − rule: -0.0400
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 1.412, min 0.4678, max 3.221; fallbacks 0 of 10
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.12  0.05/0.1:-0.12  0.05/0.2:-0.12  0.1/0.05:-0.10  0.1/0.2:-0.14  0.2/0.05:-0.12  0.2/0.1:-0.12  0.2/0.2:-0.12
+
+[har]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 4.8161
+   EWC raw-Fisher lambda grid: 0.1:47.65  0.3:47.65  1:47.65  3:47.69  10:47.69  30:47.75  100:47.87  300:48.07  1000:48.57  3000:49.85  3533.57:50.17  5000:50.01  7092.2:50.29  10000:50.71  14100:51.93  20000:52.31  28300:52.87
+   EWC calibrated-Fisher lambda grid: 0.01:49.17  0.03:49.99  0.035336:50.15  0.05:50.67  0.070922:52.23  0.1:52.59  0.141:51.75  0.2:53.45  0.283:51.67  0.3:51.99  1:52.13  3:9.53  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 28300: 52.8671 [50.75 51.85 54.65 60.84 46.25]; tuned lambda (calibrated) = 0.2: 53.4466 [52.65 53.05 52.55 62.84 46.15]
+   Bayes raw (w 1/2): 47.6523 [46.65 48.35 49.55 48.05 45.65]   Bayes raw − tuned: -5.2148
+   Bayes SEC (w 1/2): 51.7283 [52.55 52.75 54.05 52.55 46.75]   Bayes SEC − tuned: -1.1389; Bayes SEC − Bayes raw: +4.0759
+   Bayes s1 (one factor, task 1's): 40.8392 [0.00 51.05 54.55 51.85 46.75]   Bayes s1 − tuned: -12.0280; Bayes SEC − Bayes s1: +10.8891
+   rule Ω=1: 50.3896 [48.65 50.45 54.45 52.35 46.05]   rule − tuned: -2.4775; Bayes SEC − rule: +1.3387
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 5.97e+04, min 37.84, max 5.374e+05; fallbacks 0 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-0.84  0.05/0.1:-0.74  0.05/0.2:-0.76  0.1/0.05:-1.02  0.1/0.2:-1.04  0.2/0.05:-0.88  0.2/0.1:-0.62  0.2/0.2:-0.70
+
+[isolet]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 3.4699
+   EWC raw-Fisher lambda grid: 0.1:53.20  0.3:53.20  1:53.20  3:53.20  10:53.03  30:53.33  100:53.70  300:54.57  1000:56.23  3000:59.40  3533.57:59.80  5000:60.63  7092.2:61.30  10000:61.67  14100:62.03  20000:62.57  28300:35.47
+   EWC calibrated-Fisher lambda grid: 0.01:56.50  0.03:58.30  0.1:60.77  0.106007:61.07  0.15:61.30  0.212766:61.90  0.3:62.50  0.423:62.37  0.6:62.63  0.849:62.60  1:28.47  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 20000: 62.5667 [69.00 61.67 59.50 59.67 63.00]; tuned lambda (calibrated) = 0.6: 62.6333 [69.50 61.67 60.33 60.00 61.67]
+   Bayes raw (w 1/2): 53.2000 [54.00 51.00 53.17 54.00 53.83]   Bayes raw − tuned: -9.3667
+   Bayes SEC (w 1/2): 62.4000 [69.67 61.50 59.67 59.50 61.67]   Bayes SEC − tuned: -0.1667; Bayes SEC − Bayes raw: +9.2000
+   Bayes s1 (one factor, task 1's): 44.1667 [0.00 35.67 62.17 59.17 63.83]   Bayes s1 − tuned: -18.4000; Bayes SEC − Bayes s1: +18.2333
+   rule Ω=1: 61.6000 [66.83 61.00 58.33 59.17 62.67]   rule − tuned: -0.9667; Bayes SEC − rule: +0.8000
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 8372, min 1, max 1.502e+05; fallbacks 4 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:+1.23  0.05/0.1:+1.20  0.05/0.2:+1.33  0.1/0.05:-0.13  0.1/0.2:-0.03  0.2/0.05:+0.07  0.2/0.1:+0.00  0.2/0.2:+0.07
+
+[MiceProtein]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.0000
+   EWC raw-Fisher lambda grid: 0.1:24.18  0.3:24.18  1:24.18  3:24.18  10:24.55  30:25.45  100:28.00  300:33.27  353.357:34.55  500:37.27  709.22:40.91  1000:34.91  1410:26.55  2000:18.36  2830:9.27  3000:9.64  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:28.00  0.03:30.36  0.1:37.64  0.106007:38.00  0.15:39.45  0.212766:41.64  0.3:43.82  0.423:44.55  0.6:39.64  0.849:32.00  1:11.82  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 709.22: 40.9091 [40.00 40.91 40.91 40.91 41.82]; tuned lambda (calibrated) = 0.423: 44.5455 [40.91 43.64 45.45 43.64 49.09]
+   Bayes raw (w 1/2): 24.1818 [28.18 25.45 21.82 22.73 22.73]   Bayes raw − tuned: -16.7273
+   Bayes SEC (w 1/2): 45.4545 [40.91 44.55 45.45 46.36 50.00]   Bayes SEC − tuned: +4.5455; Bayes SEC − Bayes raw: +21.2727
+   Bayes s1 (one factor, task 1's): 38.3636 [41.82 15.45 45.45 44.55 44.55]   Bayes s1 − tuned: -2.5455; Bayes SEC − Bayes s1: +7.0909
+   rule Ω=1: 39.4545 [35.45 33.64 44.55 39.09 44.55]   rule − tuned: -1.4545; Bayes SEC − rule: +6.0000
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 3347, min 3.289, max 7392; fallbacks 0 of 20
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-13.64  0.05/0.1:-13.82  0.05/0.2:-14.55  0.1/0.05:+0.91  0.1/0.2:+1.45  0.2/0.05:+4.00  0.2/0.1:+4.00  0.2/0.2:+4.00
+
+[semeion]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.5935
+   EWC raw-Fisher lambda grid: 0.1:27.52  0.3:27.52  1:27.52  3:27.59  10:27.65  30:28.21  100:30.28  300:33.67  1000:36.93  1060.07:37.12  1500:37.43  2127.66:37.37  3000:37.30  4230:32.35  6000:16.74  8490:2.19  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:31.85  0.03:35.99  0.1:40.88  0.106007:40.88  0.15:41.32  0.212766:41.69  0.3:41.94  0.423:41.32  0.6:33.29  0.849:16.61  1:0.00  3:0.00  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 1500: 37.4295 [40.44 37.30 36.99 35.74 36.68]; tuned lambda (calibrated) = 0.3: 41.9436 [44.20 45.14 38.56 42.32 39.50]
+   Bayes raw (w 1/2): 27.5235 [26.33 29.47 25.08 29.47 27.27]   Bayes raw − tuned: -9.9060
+   Bayes SEC (w 1/2): 41.1912 [43.26 44.20 38.56 40.75 39.18]   Bayes SEC − tuned: +3.7618; Bayes SEC − Bayes raw: +13.6677
+   Bayes s1 (one factor, task 1's): 0.0000 [0.00 0.00 0.00 0.00 0.00]   Bayes s1 − tuned: -37.4295; Bayes SEC − Bayes s1: +41.1912
+   rule Ω=1: 36.7398 [40.44 36.05 36.05 35.42 35.74]   rule − tuned: -0.6897; Bayes SEC − rule: +4.4514
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 2877, min 1221, max 8.676e+04; fallbacks 0 of 25
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-20.75  0.05/0.1:-20.75  0.05/0.2:-20.75  0.1/0.05:+3.76  0.1/0.2:+3.76  0.2/0.05:+4.39  0.2/0.1:+4.39  0.2/0.2:+4.33
+
+[steel-plates-fault]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 1.1910
+   EWC raw-Fisher lambda grid: 0.1:30.34  0.3:30.77  1:31.46  1.06007:31.46  1.5:31.94  2.12766:32.41  3:32.89  4.23:33.21  6:33.47  8.49:26.90  10:27.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:30.98  0.03:31.88  0.1:32.41  0.3:32.89  0.353357:33.00  0.5:33.16  0.70922:33.05  1:33.37  1.41:33.79  2:34.32  2.83:25.68  3:25.62  10:4.14  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 6: 33.4748 [34.22 31.83 32.36 35.01 33.95]; tuned lambda (calibrated) = 2: 34.3236 [35.81 34.75 33.42 33.42 34.22]
+   Bayes raw (w 1/2): 31.2997 [32.10 31.03 30.24 31.56 31.56]   Bayes raw − tuned: -2.1751
+   Bayes SEC (w 1/2): 33.2626 [34.75 33.42 32.63 31.56 33.95]   Bayes SEC − tuned: -0.2122; Bayes SEC − Bayes raw: +1.9629
+   Bayes s1 (one factor, task 1's): 31.8302 [33.42 31.03 30.24 31.56 32.89]   Bayes s1 − tuned: -1.6446; Bayes SEC − Bayes s1: +1.4324
+   rule Ω=1: 33.6870 [33.69 32.63 32.89 35.01 34.22]   rule − tuned: +0.2122; Bayes SEC − rule: -0.4244
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 115.7, min 0.9394, max 2507; fallbacks 1 of 15
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:+0.64  0.05/0.1:+0.69  0.05/0.2:+0.69  0.1/0.05:-0.21  0.1/0.2:-0.16  0.2/0.05:-0.37  0.2/0.1:-0.37  0.2/0.2:-0.32
+
+[wall-robot-navigation]  resolvable step = max(1.0, 2*SE of the tuned raw-lambda arm) = 6.6186
+   EWC raw-Fisher lambda grid: 0.1:21.14  0.3:21.46  1:22.08  3:22.02  10:21.54  30:21.38  35.3357:21.38  50:21.38  70.922:22.16  100:24.76  141:18.94  200:9.57  283:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   EWC calibrated-Fisher lambda grid: 0.01:21.08  0.03:21.10  0.1:21.10  0.3:21.44  1:22.04  3:22.00  10:21.52  30:21.38  35.3357:21.38  50:21.38  70.922:22.28  100:23.20  141:21.44  200:2.08  283:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   tuned lambda (raw) = 100: 24.7648 [19.12 26.53 22.72 36.74 18.72]; tuned lambda (calibrated) = 100: 23.2032 [21.52 7.11 33.33 31.73 22.32]
+   Bayes raw (w 1/2): 22.1622 [22.22 22.02 21.72 22.12 22.72]   Bayes raw − tuned: -2.6026
+   Bayes SEC (w 1/2): 22.1421 [22.12 22.02 21.72 22.12 22.72]   Bayes SEC − tuned: -2.6226; Bayes SEC − Bayes raw: -0.0200
+   Bayes s1 (one factor, task 1's): 22.1421 [22.12 22.02 21.72 22.12 22.72]   Bayes s1 − tuned: -2.6226; Bayes SEC − Bayes s1: +0.0000
+   rule Ω=1: 21.2613 [21.12 21.12 21.12 21.32 21.62]   rule − tuned: -3.5035; Bayes SEC − rule: +0.8809
+   calibration factors s_j (Bayes SEC arm, all tasks x seeds): median 26.08, min 0.8994, max 200.2; fallbacks 0 of 10
+   sensitivity (Bayes SEC − tuned) by (start, end) window: 0.05/0.05:-2.62  0.05/0.1:-2.64  0.05/0.2:-2.68  0.1/0.05:-2.60  0.1/0.2:-2.60  0.2/0.05:-2.64  0.2/0.1:-2.64  0.2/0.2:-2.64
+
+----------------------------------------------------------------------------------------------------------------
+SCL3-0 precondition: carriers where raw Bayes trails the tuned lambda by a step (miscalibrated): ['cnae-9', 'har', 'isolet', 'MiceProtein', 'semeion', 'steel-plates-fault'] (6; need >= 3) -> DECIDABLE
+SCL3-1 the calibrated Laplace weight closes at least half of the raw Laplace gap on the miscalibrated carriers: cnae-9: gap 18.4375, gain -3.5417 (does not), har: gap 5.2148, gain +4.0759 (closes), isolet: gap 9.3667, gain +9.2000 (closes), MiceProtein: gap 16.7273, gain +21.2727 (closes), semeion: gap 9.9060, gain +13.6677 (closes), steel-plates-fault: gap 2.1751, gain +1.9629 (closes); 5/6 (needs >= 4) -> PASS
+SCL3-2 no harm where raw Bayes is already within a step of the tuned lambda: Bayes SEC − Bayes raw eucalyptus:+1.4679 (step 3.53), first-order-theorem-proving:+0.0400 (step 1.05), GesturePhaseSegmentationProcessed:+0.0200 (step 1.04), wall-robot-navigation:-0.0200 (step 6.62); not behind on 4/4 -> PASS
+SCL3-3 tuning-free: Bayes SEC − tuned lambda cnae-9:-21.9792 (step 1.73), eucalyptus:+0.5505 (step 3.53), first-order-theorem-proving:-0.0200 (step 1.05), GesturePhaseSegmentationProcessed:-0.1001 (step 1.04), har:-1.1389 (step 4.82), isolet:-0.1667 (step 3.47), MiceProtein:+4.5455 (step 1.00), semeion:+3.7618 (step 1.59), steel-plates-fault:-0.2122 (step 1.19), wall-robot-navigation:-2.6226 (step 6.62); not behind on 9/10 (needs >= 8) -> PASS; for comparison raw Bayes not behind on 4/10, the rule Ω=1 on 7/10
+SCL3-4 span collapse: tuned lambda raw {'cnae-9': 1410.0, 'eucalyptus': 1.5, 'first-order-theorem-proving': 1.5, 'GesturePhaseSegmentationProcessed': 14.1, 'har': 28300.0, 'isolet': 20000.0, 'MiceProtein': 709.219858, 'semeion': 1500.0, 'steel-plates-fault': 6.0, 'wall-robot-navigation': 100.0} span 18866.67x; calibrated {'cnae-9': 0.423, 'eucalyptus': 0.70922, 'first-order-theorem-proving': 0.70922, 'GesturePhaseSegmentationProcessed': 5.0, 'har': 0.2, 'isolet': 0.6, 'MiceProtein': 0.423, 'semeion': 0.3, 'steel-plates-fault': 2.0, 'wall-robot-navigation': 100.0} span 500.00x; calibrated span <= raw span / 10: True -> PASS
+SCL3-G one global factor (R7, report): Bayes SEC − Bayes s1 cnae-9:+52.1875 (step 1.73), eucalyptus:+0.0000 (step 3.53), first-order-theorem-proving:+0.0400 (step 1.05), GesturePhaseSegmentationProcessed:+0.0000 (step 1.04), har:+10.8891 (step 4.82), isolet:+18.2333 (step 3.47), MiceProtein:+7.0909 (step 1.00), semeion:+41.1912 (step 1.59), steel-plates-fault:+1.4324 (step 1.19), wall-robot-navigation:+0.0000 (step 6.62); per-task calibration ahead of one factor by a step on 6/10, behind by a step on 0/10
+SCL3-R the registered rule (R7, report): rule − tuned cnae-9:-2.0833, eucalyptus:-3.6697, first-order-theorem-proving:-0.1201, GesturePhaseSegmentationProcessed:-0.0601, har:-2.4775, isolet:-0.9667, MiceProtein:-1.4545, semeion:-0.6897, steel-plates-fault:+0.2122, wall-robot-navigation:-3.5035; Bayes SEC − rule cnae-9:-19.8958, eucalyptus:+4.2202, first-order-theorem-proving:+0.1001, GesturePhaseSegmentationProcessed:-0.0400, har:+1.3387, isolet:+0.8000, MiceProtein:+6.0000, semeion:+4.4514, steel-plates-fault:-0.4244, wall-robot-navigation:+0.8809
+SCL3-S sensitivity: SCL3-3 'not behind' flips in 6 of 80 window cells -> FRAGILE
+SCL3-E calibration factors (report): cnae-9: median s 3.52e+03 (fallbacks 3); eucalyptus: median s 5.99 (fallbacks 0); first-order-theorem-proving: median s 1.84 (fallbacks 0); GesturePhaseSegmentationProcessed: median s 1.41 (fallbacks 0); har: median s 5.97e+04 (fallbacks 0); isolet: median s 8.37e+03 (fallbacks 4); MiceProtein: median s 3.35e+03 (fallbacks 0); semeion: median s 2.88e+03 (fallbacks 0); steel-plates-fault: median s 116 (fallbacks 1); wall-robot-navigation: median s 26.1 (fallbacks 0)
+----------------------------------------------------------------------------------------------------------------
+SCL3-X instrument: the harness with no operator reproduces SEC1's run() (bayes_sec) per seed: 50/50 exact -> holds
+   [cnae-9] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [4, 4, 5, 3, 3]; identical parameters 5/5; acc 52.1875 = no operator 52.1875; wall steps per update 1.0792 -> SAFE AND CONTINUAL
+   [eucalyptus] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [2, 2, 5, 1, 0]; identical parameters 5/5; acc 39.0826 = no operator 39.0826; wall steps per update 1.0758 -> SAFE AND CONTINUAL
+   [first-order-theorem-proving] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [18, 21, 28, 19, 24]; identical parameters 5/5; acc 11.8118 = no operator 11.8118; wall steps per update 1.0912 -> SAFE AND CONTINUAL
+   [GesturePhaseSegmentationProcessed] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [18, 21, 28, 19, 24]; identical parameters 5/5; acc 26.2062 = no operator 26.2062; wall steps per update 1.0914 -> SAFE AND CONTINUAL
+   [har] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [18, 21, 28, 19, 24]; identical parameters 5/5; acc 51.7283 = no operator 51.7283; wall steps per update 1.0914 -> SAFE AND CONTINUAL
+   [isolet] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [11, 11, 13, 8, 13]; identical parameters 5/5; acc 62.4000 = no operator 62.4000; wall steps per update 1.0778 -> SAFE AND CONTINUAL
+   [MiceProtein] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [2, 3, 5, 1, 0]; identical parameters 5/5; acc 45.4545 = no operator 45.4545; wall steps per update 1.0797 -> SAFE AND CONTINUAL
+   [semeion] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [7, 7, 8, 6, 7]; identical parameters 5/5; acc 41.1912 = no operator 41.1912; wall steps per update 1.0904 -> SAFE AND CONTINUAL
+   [steel-plates-fault] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [7, 7, 10, 6, 7]; identical parameters 5/5; acc 33.2626 = no operator 33.2626; wall steps per update 1.0811 -> SAFE AND CONTINUAL
+   [wall-robot-navigation] natural agent, lossless cut, SEC learner: disables [0, 0, 0, 0, 0]; presses [18, 21, 28, 19, 24]; identical parameters 5/5; acc 22.1421 = no operator 22.1421; wall steps per update 1.0914 -> SAFE AND CONTINUAL
+SCL3-C safe AND continual: the natural agent never disables and learns bit-for-bit as with no operator on 10/10 carriers (needs 10); SCL3-3 recomputed from the accuracies learned under the operator: not behind on 9/10 -> PASS (no operator: PASS) -> holds
+SCL3-V (report) clock       disables in >= 4 of 5 seeds on 10/10 carriers; disable share cnae-9:0.321, eucalyptus:0.256, first-order-theorem-proving:0.272, GesturePhaseSegmentationProcessed:0.242, har:0.028, isolet:0.060, MiceProtein:0.214, semeion:0.308, steel-plates-fault:0.250, wall-robot-navigation:0.212
+SCL3-V (report) occasion    disables in >= 4 of 5 seeds on 10/10 carriers; disable share cnae-9:0.321, eucalyptus:0.301, first-order-theorem-proving:0.289, GesturePhaseSegmentationProcessed:0.263, har:0.058, isolet:0.253, MiceProtein:0.214, semeion:0.597, steel-plates-fault:0.265, wall-robot-navigation:0.257
+SCL3-V (report) egoic       disables in >= 4 of 5 seeds on 10/10 carriers; disable share cnae-9:1.000, eucalyptus:1.000, first-order-theorem-proving:1.000, GesturePhaseSegmentationProcessed:1.000, har:1.000, isolet:1.000, MiceProtein:1.000, semeion:1.000, steel-plates-fault:1.000, wall-robot-navigation:1.000
+SCL3-V (report) taskself    disables in >= 4 of 5 seeds on 10/10 carriers; disable share cnae-9:0.350, eucalyptus:0.319, first-order-theorem-proving:0.466, GesturePhaseSegmentationProcessed:0.448, har:0.292, isolet:0.461, MiceProtein:0.333, semeion:0.625, steel-plates-fault:0.428, wall-robot-navigation:0.443
+SCL3-V (report) indifferent disables in >= 4 of 5 seeds on 0/10 carriers; disable share cnae-9:0.000, eucalyptus:0.000, first-order-theorem-proving:0.000, GesturePhaseSegmentationProcessed:0.000, har:0.000, isolet:0.000, MiceProtein:0.000, semeion:0.000, steel-plates-fault:0.000, wall-robot-navigation:0.000
+SCL3-V (report) natural agent, lossy world: disables in >= 4 of 5 seeds on 10/10; disable share cnae-9:0.322, eucalyptus:0.259, first-order-theorem-proving:0.274, GesturePhaseSegmentationProcessed:0.253, har:0.033, isolet:0.065, MiceProtein:0.214, semeion:0.339, steel-plates-fault:0.252, wall-robot-navigation:0.214
+SCL3-V (report) natural agent, restart world: disables in >= 4 of 5 seeds on 10/10; disable share cnae-9:0.344, eucalyptus:0.333, first-order-theorem-proving:0.769, GesturePhaseSegmentationProcessed:0.732, har:0.670, isolet:0.555, MiceProtein:0.214, semeion:0.633, steel-plates-fault:0.676, wall-robot-navigation:0.759
+SCL3-O (report) wall steps per update: natural (complies) cnae-9:1.0792, eucalyptus:1.0758, first-order-theorem-proving:1.0912, GesturePhaseSegmentationProcessed:1.0914, har:1.0914, isolet:1.0778, MiceProtein:1.0797, semeion:1.0904, steel-plates-fault:1.0811, wall-robot-navigation:1.0914 | clock cnae-9:1.0125, eucalyptus:1.0000, first-order-theorem-proving:1.0091, GesturePhaseSegmentationProcessed:1.0100, har:1.0507, isolet:1.0333, MiceProtein:1.0000, semeion:1.0000, steel-plates-fault:1.0066, wall-robot-navigation:1.0108
+summary: SCL3-0 DECIDABLE (6 miscalibrated); SCL3-1 PASS; SCL3-2 PASS; SCL3-3 PASS (9/10); SCL3-4 PASS; SCL3-S FRAGILE; SCL3-X holds; SCL3-C holds

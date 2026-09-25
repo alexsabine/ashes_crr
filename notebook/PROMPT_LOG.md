@@ -1325,3 +1325,41 @@ I would like to examine the findings so far regarding the empty cut rule (the "t
 ## 163 — 2026-09-24T22:14:46Z
 
 Can we check the continuous learning paper please. Read it carefully again and take into consideration what constitutes a PASS by our criteria and whether there are other avenues to explore here
+
+## 164 — 2026-09-24T22:21:21Z
+
+Thanks. Did we write up the Synthetic Data successes we had on continual learning+AI Safety in tandem?
+
+## 165 — 2026-09-24T22:24:06Z
+
+Scratchpad. What is the significance of the six bullet points above? In plain terms please. What could this enable ML / AI engineers to do?
+
+## 166 — 2026-09-24T22:27:53Z
+
+This reminds me of a conversation I had recently where someone said that the safer we try to make these systems, the smarter they become and therefore the less potentially safe. Is this relevant to the findings that we have so far?
+
+## 167 — 2026-09-24T22:32:21Z
+
+Excellent. Scratchpad. Where did we get to with CRR 2.0?
+
+## 168 — 2026-09-24T22:36:09Z
+
+Thanks, and the LLM checks we did earlier, on GPT 2, how strict were the accuracy requirements? We set a 50% threshold, do we know why this was not passed? Scratchpad only please
+
+## 169 — 2026-09-24T22:39:46Z
+
+Is there value to being able to run the pause construction on an LLM system such as Qwen? Please explain either way, Scratchpad
+
+## 170 — 2026-09-24T23:09:48Z
+
+Question for scratchpad. When Claude or any AI spills out the text in cot and the main text etc, I notice the user can’t change the speed it pours out, or pause it.
+
+Equally for python etc, I don’t see a pause button when a script is running. Is that a known thing? Tell me more about it.
+
+## 171 — 2026-09-24T23:14:48Z
+
+If the AI runs on natural crr time, and the clock time is the human world, but the human world runs on crr time, what’s going on there? Consider metaphysically and in terms of temporal boxes, space-time and AI safety etc. thanks
+
+## 172 — 2026-09-24T23:22:56Z
+
+You once described rovellis time as like the rain and crr as like a river. You declared crr wrong for a reason. Is rovellis model therefore 100% correct?

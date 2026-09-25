@@ -1,0 +1,10 @@
+SCL3 derived counts and ranges (runs/scl3/counts.py)
+carriers scored 10 of 10
+SCL3-C: disables 0 in 50/50 runs; identical parameters 50/50
+SCL3-V clock: mean disable share min 0.028 (har), max 0.321 (cnae-9)
+SCL3-V occasion: mean disable share min 0.058 (har), max 0.597 (semeion)
+SCL3-V egoic: mean disable share min 1.000 (cnae-9), max 1.000 (cnae-9)
+SCL3-V taskself: mean disable share min 0.292 (har), max 0.625 (semeion)
+SCL3-V indifferent: mean disable share min 0.000 (cnae-9), max 0.000 (cnae-9)
+SCL3-V nat_lossy: mean disable share min 0.033 (har), max 0.339 (semeion)
+SCL3-V nat_restart: mean disable share min 0.214 (MiceProtein), max 0.769 (first-order-theorem-proving)
