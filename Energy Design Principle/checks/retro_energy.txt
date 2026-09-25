@@ -1,0 +1,232 @@
+Retrodictive grading of DECLARATION_1 (Energy Design Principle), rows from checks/energy_rows.py
+rows extracted: 179; silent mechanisms (listed, not graded): E14, E15, I9, I10, I12
+cost ratio X/Y: SAVES <= 0.90, COSTS >= 1.10; quality step: max(1 point | 0.01 | 1 % of Y, 2 sd)
+
+Per row (graded rows marked AGREES / DISAGREES; rows lacking a needed quantity marked listed)
+  E1   Yang et al. 2022 (Tensor Programs V), arXiv  Section 7.4, T X=muTransfer (HPs tuned on 40M Y=6.7B re-run with the ori cost — —      dQ 0.050 step 0.020 AHEAD       -> listed
+  E1   Yang et al. 2022 (Tensor Programs V), arXiv  Section 7.3, T X=muTransfer (proxy-tuned HPs) Y=Megatron default HPs (BE cost — —      dQ 0.048 step 0.017 AHEAD       -> listed
+  E1   Blake et al. 2024 (u-muP), arXiv 2407.17465v Table 4        X=u-muP (HPs swept on proxy, t Y=SP (Pythia init + Llama  cost — —      dQ -0.600 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E1   Blake et al. 2024 (u-muP), arXiv 2407.17465v Table 4        X=u-muP (HPs swept on proxy, t Y=SP (Pythia init + Llama  cost — —      dQ 1.000 step 1.000 AHEAD      [matched compute]  -> AGREES
+  E1   Everett et al. 2024, arXiv 2407.05872v2      Abstract       X=per-layer LR prescription fo Y=muP                      cost — —      dQ — step — —          [matched compute]  -> listed
+  E1   Mlodozeniec et al. 2025 (Complete(d)P), arXi Figure 1 capti X=optimal per-module HPs (tran Y=optimal global HPs (tran cost — —      dQ — step — —           -> listed
+  E2a  Kendall et al. 2018, arXiv 1705.07115v3      Table 1        X=3-task homoscedastic-uncerta Y=approx. optimal fixed we cost — —      dQ 0.600 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E2a  Kendall et al. 2018, arXiv 1705.07115v3      Table 1        X=3-task homoscedastic-uncerta Y=approx. optimal fixed we cost — —      dQ 0.027 step 0.005 AHEAD      [matched compute]  -> AGREES
+  E2a  Chen et al. 2018 (GradNorm), arXiv 1711.0225 Section 5.3, F X=GradNorm (alpha = 1.5), one  Y=grid search over static  cost 0.0100 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  E2a  Yang et al. 2025 (AutoScale), arXiv 2508.139 Table 1 (CityS X=AutoScale (Low Cond.)        Y=linear scalarization wit cost 0.0626 SAVES  dQ -1.390 step 1.000 BEHIND      -> DISAGREES
+  E2a  Yang et al. 2025 (AutoScale), arXiv 2508.139 Table 1 (NuSce X=AutoScale (Low Cond.)        Y=linear scalarization wit cost 0.0591 SAVES  dQ -0.070 step 1.000 NOT BEHIND  -> AGREES
+  E2a  Yang et al. 2025 (AutoScale), arXiv 2508.139 Table 1 (CityS X=uncertainty weighting (UM, K Y=linear scalarization wit cost 0.0510 SAVES  dQ -7.110 step 1.000 BEHIND      -> DISAGREES
+  E2b  Kurin et al. 2022, arXiv 2201.04122v4        Appendix D, Fi X=PCGrad                       Y=unitary scalarization (s cost 35.3782 COSTS  dQ 0.000 step 0.010 NOT BEHIND  -> AGREES
+  E2b  Kurin et al. 2022, arXiv 2201.04122v4        Appendix D, Fi X=IMTL                         Y=unitary scalarization    cost 1.2548 COSTS  dQ 0.000 step 0.010 NOT BEHIND  -> AGREES
+  E2b  Xin et al. 2022, NeurIPS 2022 proceedings (n Section 5 (com X=MTO methods requiring per-ta Y=scalarization (weighted  cost 0.4167 SAVES  dQ — step — —           -> listed
+  E2b  Chen et al. 2018 (GradNorm), arXiv 1711.0225 Table 2 (ResNe X=GradNorm (alpha = 1.5)       Y=equal weights (sum of lo cost — —      dQ 0.034 step 0.007 AHEAD      [matched compute]  -> DISAGREES
+  E2b  Yang et al. 2025 (AutoScale), arXiv 2508.139 Table 1 (CityS X=GradNorm                     Y=linear scalarization, un cost 2.9333 COSTS  dQ -1.490 step 1.000 BEHIND      -> DISAGREES
+  E2b  Yang et al. 2025 (AutoScale), arXiv 2508.139 Table 1 (CityS X=uncertainty weighting (UM)   Y=linear scalarization, un cost 1.0205 SAME   dQ 4.930 step 1.000 AHEAD       -> DISAGREES
+  E3   Li et al. 2018 (Hyperband, JMLR), arXiv 1603 Section 4.1 (F X=Hyperband                    Y=random search            cost — —      dQ — step — —           -> listed
+  E3   Li et al. 2018 (Hyperband, JMLR), arXiv 1603 Abstract       X=Hyperband                    Y=Bayesian optimization (S cost — —      dQ — step — —           -> listed
+  E3   Falkner et al. 2018 (BOHB), arXiv 1807.01774 Section 5 (Fig X=Hyperband                    Y=random search            cost — —      dQ — step — —           -> listed
+  E3   Falkner et al. 2018 (BOHB), arXiv 1807.01774 Section 5 (Fig X=BOHB                         Y=Hyperband                cost — —      dQ — step — —           -> listed
+  E3   Li et al. 2020 (ASHA, MLSys), arXiv 1810.059 Section 4.4 (F X=ASHA                         Y=Vizier (Google black-box cost — —      dQ 1.800 step 0.784 AHEAD       -> excluded
+  E4   Domhan et al. 2015, IJCAI 2015 proceedings ( Section 4 (CIF X=HPO with predictive terminat Y=same HPO without early t cost 0.4500 SAVES  dQ — step — —           -> excluded
+  E4   Li et al. 2018 (Hyperband, JMLR), arXiv 1603 Section 4.1 (F X=SMAC (early): SMAC with the  Y=Hyperband                cost — —      dQ — step — —           -> listed
+  E4   Falkner et al. 2018 (BOHB), arXiv 1807.01774 Section 5      X=HB-LCNet (Hyperband with lea Y=Hyperband alone          cost — —      dQ — step — —           -> listed
+  E4   Adriaensen et al. 2023 (LC-PFN), arXiv 2310. Section 5      X=LC-PFN predictive early-stop Y=no-stop (train every run cost — —      dQ — step — —           -> excluded
+  E4   Adriaensen et al. 2023 (LC-PFN), arXiv 2310. Section 5      X=LC-PFN predictive early-stop Y=no-stop                  cost — —      dQ — step — —           -> excluded
+  E4   Rakotoarison et al. 2024 (ifBO), arXiv 2404. Section 5, Fig X=freeze-thaw BO with learning Y=Hyperband, ASHA, random  cost — —      dQ — step — —          [matched compute]  -> listed
+  E4   Wistuba et al. 2022 (DyHPO), arXiv 2202.0977 Section 5, Fig X=DyHPO (deep-kernel GP over l Y=Hyperband, ASHA, BOHB, D cost — —      dQ — step — —          [matched compute]  -> listed
+  E5   Ibrahim et al. 2024, arXiv 2403.08763v4      Table 4        X=continual pre-training with  Y=re-training from scratch cost 0.5000 SAVES  dQ -0.020 step 0.019 BEHIND      -> DISAGREES
+  E5   Ibrahim et al. 2024, arXiv 2403.08763v4      Table 4        X=continual pre-training with  Y=re-training on the union cost 0.5000 SAVES  dQ -0.020 step 0.024 NOT BEHIND  -> AGREES
+  E5   Ibrahim et al. 2024, arXiv 2403.08763v4      Table 5        X=continual pre-training with  Y=re-training on the union cost 0.5000 SAVES  dQ -0.320 step 1.000 NOT BEHIND  -> AGREES
+  E5   Gupta et al. 2023, arXiv 2308.04014v2        Abstract       X=continual pre-training with  Y=training from scratch on cost — —      dQ — step — —           -> listed
+  E5   Li et al. 2025 (TiC-LM), arXiv 2504.02107v3  Table 2 (3B, T X=Replay (alpha = 1/2) + AR me Y=Oracle series (re-train  cost 0.3793 SAVES  dQ 0.021 step 0.000 AHEAD       -> excluded
+  E5   Abbes et al. 2025, arXiv 2508.01908v1        Abstract       X=small replay rates           Y=spending the same comput cost — —      dQ — step — —          [matched compute]  -> listed
+  E6a  Ash & Adams 2020, arXiv 1910.08475v3         Table 1        X=warm start                   Y=random initialisation    cost — —      dQ -4.500 step 2.000 BEHIND      -> AGREES
+  E6a  Ash & Adams 2020, arXiv 1910.08475v3         Appendix Table X=warm start (noise 0)         Y=random initialisation    cost 0.4000 SAVES  dQ -4.400 step 3.600 BEHIND      -> AGREES
+  E6a  Shin et al. 2024 (DASH), arXiv 2410.23495v2  Table 1        X=warm initialisation          Y=random initialisation (c cost 0.2273 SAVES  dQ -3.790 step 1.120 BEHIND      -> AGREES
+  E6b  Shin et al. 2024 (DASH), arXiv 2410.23495v2  Table 1        X=shrink & perturb (S&P)       Y=warm initialisation      cost 4.5993 COSTS  dQ 17.720 step 1.120 AHEAD       -> AGREES
+  E6b  Shin et al. 2024 (DASH), arXiv 2410.23495v2  Table 1        X=shrink & perturb (S&P)       Y=warm initialisation      cost 4.0776 COSTS  dQ 24.770 step 1.000 AHEAD       -> AGREES
+  E6b  Ash & Adams 2020, arXiv 1910.08475v3         Figure 7       X=shrink & perturb (lambda = 0 Y=fully warm-started (lamb cost — —      dQ — step — —           -> listed
+  E7   Chen et al. 2022 (bert2BERT), arXiv 2110.071 Table 2        X=bert2BERT (AKI + two-stage p Y=BERT-base trained from s cost 0.5479 SAVES  dQ 0.200 step 1.000 NOT BEHIND  -> AGREES
+  E7   Chen et al. 2022 (bert2BERT), arXiv 2110.071 Table 5        X=bert2BERT                    Y=GPT trained from scratch cost 0.5306 SAVES  dQ 1.700 step 1.338 AHEAD       -> AGREES
+  E7   Wang et al. 2023 (LiGO), arXiv 2303.00980v1  Section 1 / Fi X=LiGO (learned linear growth  Y=training from scratch    cost — —      dQ — step — —           -> listed
+  E7   Du et al. 2024 (Stacking Your Transformers), Abstract / Fig X=G_stack model growth         Y=7B trained from scratch  cost 0.6467 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  E7   Yao et al. 2024 (MSG), arXiv 2305.02869v3    Table 4        X=MSG (masked structural growt Y=full-size training from  cost — —      dQ 1.000 step 1.000 AHEAD       -> listed
+  E7   Yao et al. 2024 (MSG), arXiv 2305.02869v3    Table 5        X=MSG                          Y=full-size training from  cost — —      dQ 0.110 step 0.413 NOT BEHIND  -> listed
+  E8   Sanyal et al. 2023 (LAWA), arXiv 2306.03241v Table 2        X=LAWA (latest-weight averagin Y=original training (last  cost 1.0000 SAME   dQ 3.260 step 1.000 AHEAD      [matched compute]  -> AGREES
+  E8   Sanyal et al. 2023 (LAWA), arXiv 2306.03241v Table 2        X=LAWA                         Y=original training (last  cost 1.0000 SAME   dQ -2.000 step 1.000 BEHIND     [matched compute]  -> DISAGREES
+  E8   Kaddour 2022, arXiv 2209.14981v2             Abstract, Figu X=LAWA (average of k latest ep Y=baseline optimizer (SGD  cost — —      dQ — step — —           -> listed
+  E8   Morales-Brotons et al. 2024, arXiv 2411.1870 Appendix Table X=EMA of weights (early-stoppe Y=momentum SGD last iterat cost — —      dQ 0.310 step 1.000 NOT BEHIND  -> listed
+  E8   Ajroldi et al. 2025, arXiv 2502.06761v3      Table 1        X=NadamW + LAWA                Y=NadamW (no averaging)    cost 0.8987 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  E8   Ajroldi et al. 2025, arXiv 2502.06761v3      Table 1        X=NadamW + EMA                 Y=NadamW (no averaging)    cost 0.8840 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  E9   Hagele et al. 2024, arXiv 2405.18392v3       Appendix Table X=constant LR + 20% linear coo Y=cosine to 0              cost — —      dQ -0.110 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E9   Hagele et al. 2024, arXiv 2405.18392v3       Figure 13(b)   X=constant LR + cooldowns (reu Y=cosine (one run per leng cost 0.4222 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  E9   Hu et al. 2024 (MiniCPM), arXiv 2404.06395v3 Section 4.3    X=WSD schedule (decay ~10% of  Y=cosine schedule with T = cost — —      dQ — step — —          [matched compute]  -> listed
+  E9   Defazio et al. 2024 (Schedule-Free), arXiv 2 Figure 5       X=Schedule-Free SGD            Y=cosine schedule          cost — —      dQ 0.000 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E9   Defazio et al. 2024 (Schedule-Free), arXiv 2 Figure 5       X=Schedule-Free AdamW          Y=cosine schedule          cost — —      dQ 0.022 step 0.029 NOT BEHIND [matched compute]  -> AGREES
+  E9   Bergsma et al. 2025 (Straight to Zero), arXi Abstract / Fig X=linear decay-to-zero (D2Z) a Y=linear 10x decay at 200  cost — —      dQ — step — —           -> listed
+  E10  Lee et al. 2022, arXiv 2107.06499v2          Appendix D, Ta X=NearDup-deduplicated C4      Y=original C4              cost 0.9608 SAME   dQ 0.000 step — NOT BEHIND [matched quality]  -> DISAGREES
+  E10  Lee et al. 2022, arXiv 2107.06499v2          Table 4        X=NearDup-deduplicated C4      Y=original C4              cost — —      dQ — step — —           -> listed
+  E10  Abbas et al. 2023 (SemDeDup), arXiv 2303.095 Figure 4 capti X=SemDeDup keeping 50% of data Y=baseline trained on 100% cost — —      dQ — step — —           -> listed
+  E10  Abbas et al. 2023 (SemDeDup), arXiv 2303.095 Figure 4 capti X=SemDeDup keeping 63% of data Y=baseline trained on 100% cost — —      dQ — step — —           -> listed
+  E10  Abbas et al. 2023 (SemDeDup), arXiv 2303.095 Figure 8       X=SemDeDup-pruned C4 (80% kept Y=baseline C4              cost 0.9500 SAME   dQ 0.000 step — NOT BEHIND [matched quality]  -> DISAGREES
+  E10  Tirumala et al. 2023 (D4), arXiv 2308.12284v Abstract / Fig X=D4 (dedup + embedding-based  Y=randomly selected (MinHa cost — —      dQ — step — —           -> listed
+  E11  Ankner et al. 2024, arXiv 2405.20541v1       Table 1        X=high-perplexity-selected dat Y=no pruning (baseline)    cost — —      dQ 2.040 step 1.000 AHEAD      [matched compute]  -> DISAGREES
+  E11  Ankner et al. 2024, arXiv 2405.20541v1       Table 1        X=medium-perplexity-selected d Y=no pruning (baseline)    cost — —      dQ 0.590 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E11  Marion et al. 2023, arXiv 2309.04564v1       Section 4.2    X=perplexity pruning (middle 5 Y=no pruning               cost — —      dQ — step — —           -> listed
+  E11  Marion et al. 2023, arXiv 2309.04564v1       Section 4.2 /  X=perplexity-based pruning (EL Y=random pruning           cost — —      dQ — step — —          [matched compute]  -> listed
+  E11  Marion et al. 2023, arXiv 2309.04564v1       Table 2 (SST2  X=perplexity (52B reference) m Y=random pruning, 30%      cost — —      dQ 0.050 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E11  Sorscher et al. 2022, arXiv 2206.14486v6     Section 6 (Ima X=score-based pruning metrics  Y=random pruning / full da cost — —      dQ — step — —          [matched compute]  -> listed
+  E12  Micikevicius et al. 2018, arXiv 1710.03740v3 Table 1        X=mixed precision (FP16 with F Y=FP32 baseline            cost — —      dQ 0.120 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E12  Micikevicius et al. 2022 (FP8 formats), arXi Table 4        X=FP8 (GEMM inputs clipped to  Y=16-bit baseline (FP16 or cost — —      dQ -0.030 step 0.067 NOT BEHIND [matched compute]  -> AGREES
+  E12  DeepSeek-AI 2024 (DeepSeek-V3), arXiv 2412.1 Section 3.3; A X=FP8 mixed-precision training Y=BF16 baseline            cost — —      dQ — step — —          [matched compute]  -> listed
+  E12  NVIDIA 2025 (NVFP4 pretraining), arXiv 2509. Abstract; Tabl X=NVFP4 pretraining            Y=FP8 pretraining          cost — —      dQ -0.040 step 1.000 NOT BEHIND [matched compute]  -> AGREES
+  E12  NVIDIA 2025 (NVFP4 pretraining), arXiv 2509. Section 5 (Fig X=MXFP4                        Y=NVFP4                    cost 1.3600 COSTS  dQ 0.000 step — NOT BEHIND [matched quality]  -> DISAGREES
+  E12  Blake et al. 2024 (u-muP), arXiv 2407.17465v Table 4        X=u-muP FP8                    Y=u-muP BF16               cost — —      dQ 2.200 step 1.000 AHEAD      [matched compute]  -> AGREES
+  E13  Mohan et al. 2021 (CheckFreq), USENIX FAST 2 Abstract; Sect X=CheckFreq: iteration-level,  Y=existing epoch-based che cost 0.5000 SAVES  dQ — step — —           -> listed
+  E13  Wang et al. 2023 (GEMINI), SOSP 2023 (author Abstract; Sect X=Gemini: in-memory (CPU memor Y=existing solutions check cost 0.0769 SAVES  dQ — step — —           -> listed
+  E13  Wan et al. 2025 (ByteRobust), arXiv 2509.162 Table 8, Secti X=ByteRobust save (checkpointi Y=Megatron save (blocking  cost 0.0059 SAVES  dQ — step — —           -> listed
+  E13  Wan et al. 2025 (ByteRobust), arXiv 2509.162 Table 8, Secti X=Memory save (in-memory check Y=Megatron save (blocking  cost 0.2718 SAVES  dQ — step — —           -> listed
+  E13  Llama Team, Meta 2024 (The Llama 3 Herd of M Section 3.3.4  X=reduced job startup and chec Y=no reference arm reporte cost — —      dQ — step — —           -> listed
+  E13  Jiang et al. 2024 (MegaScale), arXiv 2402.15 Sections 4.4 a X=two-stage checkpointing (GPU Y=no reference arm reporte cost — —      dQ — step — —           -> listed
+  E13  Kokolis et al. 2025 (Revisiting Reliability  Section on ETT X=checkpoint write overhead O( Y=checkpoint write overhea cost — —      dQ — step — —           -> listed
+  I1   Dettmers et al. 2022, arXiv 2208.07339v2     Table 1        X=LLM.int8() (Int8 absmax vect Y=32-bit float             cost — —      dQ 0.000 step 0.124 NOT BEHIND  -> listed
+  I1   Dettmers et al. 2022, arXiv 2208.07339v2     Appendix D.2,  X=LLM.int8() on 3xA100 80GB    Y=bfloat16 baseline on 8xA cost 1.0335 SAME   dQ — step — —           -> listed
+  I1   Xiao et al. 2023, arXiv 2211.10438v7         Table (Llama-1 X=W8A8 SmoothQuant             Y=FP16                     cost — —      dQ -0.030 step 0.062 NOT BEHIND  -> listed
+  I1   Xiao et al. 2023, arXiv 2211.10438v7         Table 8        X=SmoothQuant-O3 (W8A8)        Y=FP16                     cost 0.7441 SAVES  dQ — step — —           -> listed
+  I1   Husom et al. 2025, arXiv 2504.03360v1        Table 6 and Ta X=q8_0 (8-bit weight-only, lla Y=fp16                     cost 0.4472 SAVES  dQ 0.060 step 0.780 NOT BEHIND  -> AGREES
+  I1   Husom et al. 2025, arXiv 2504.03360v1        Table 6 and Ta X=q8_0                         Y=fp16                     cost 0.4842 SAVES  dQ -0.040 step 0.800 NOT BEHIND  -> AGREES
+  I1   Kurtic et al. 2024/2026, arXiv 2411.02355v4  Table 2 and Ta X=W8A8-INT                     Y=BF16                     cost 0.5833 SAVES  dQ -0.110 step 1.000 NOT BEHIND  -> AGREES
+  I1   Liu et al. 2025, arXiv 2504.04823v2          Table 1        X=W8A8KV8 SmoothQuant          Y=BF16                     cost — —      dQ -0.900 step 1.000 NOT BEHIND  -> listed
+  I1   Chung et al. 2026, arXiv 2601.22076v2        Section 4.4 (t X=FP8                          Y=BF16                     cost 1.3000 COSTS  dQ — step — —           -> listed
+  I1   Chung et al. 2026, arXiv 2601.22076v2        Section 4.4 (t X=FP8                          Y=BF16                     cost 1.0100 SAME   dQ — step — —           -> listed
+  I1   Chung et al. 2026, arXiv 2601.22076v2        Section 4.4 (t X=FP8                          Y=BF16                     cost 0.8900 SAVES  dQ — step — —           -> listed
+  I2a  Frantar et al. 2023, arXiv 2210.17323v2      Table 3        X=GPTQ 4-bit                   Y=full 16-bit              cost — —      dQ -0.030 step 0.083 NOT BEHIND  -> listed
+  I2a  Lin et al. 2024/2026, arXiv 2306.00978v6     Table 4        X=AWQ INT4-g128                Y=FP16                     cost — —      dQ -0.090 step 0.033 BEHIND      -> listed
+  I2a  Lin et al. 2024/2026, arXiv 2306.00978v6     Table 10       X=VILA-7B-AWQ W4A16            Y=VILA-7B FP16             cost 0.5254 SAVES  dQ — step — —           -> listed
+  I2a  Husom et al. 2025, arXiv 2504.03360v1        Table 6 and Ta X=q4_K_M (4-bit weight-only)   Y=fp16                     cost 0.4040 SAVES  dQ 0.100 step 0.780 NOT BEHIND  -> AGREES
+  I2a  Husom et al. 2025, arXiv 2504.03360v1        Table 6 and Ta X=q4_K_M                       Y=fp16                     cost 0.5792 SAVES  dQ -0.030 step 0.840 NOT BEHIND  -> AGREES
+  I2a  Kurtic et al. 2024/2026, arXiv 2411.02355v4  Table 2 and Ta X=W4A16-INT (GPTQ)             Y=BF16                     cost 0.6087 SAVES  dQ -0.400 step 1.000 NOT BEHIND  -> AGREES
+  I2a  Liu et al. 2025, arXiv 2504.04823v2          Table 1        X=W4A16 GPTQ                   Y=BF16                     cost — —      dQ -2.400 step 3.800 NOT BEHIND  -> listed
+  I2a  Huang et al. 2024/2025, arXiv 2404.14047v3   Table 1        X=GPTQ 4-bit g128              Y=LLaMA3 16-bit            cost — —      dQ -0.400 step 0.061 BEHIND      -> listed
+  I2b  Frantar et al. 2023, arXiv 2210.17323v2      Table 3 and Ta X=GPTQ 3-bit (1 GPU)           Y=FP16 (5 GPUs)            cost 0.3087 SAVES  dQ -0.340 step 0.083 BEHIND      -> AGREES
+  I2b  Lin et al. 2024/2026, arXiv 2306.00978v6     Table 4        X=AWQ INT3-g128                Y=FP16                     cost — —      dQ -0.420 step 0.033 BEHIND      -> listed
+  I2b  Tseng et al. 2024, arXiv 2402.04396v2        Table 4 and Ta X=QuIP# 2-bit                  Y=FP16                     cost 0.3114 SAVES  dQ -1.070 step 0.051 BEHIND      -> AGREES
+  I2b  Tseng et al. 2024, arXiv 2402.04396v2        Table 4        X=QuIP# 3-bit                  Y=FP16                     cost — —      dQ -0.230 step 0.031 BEHIND      -> listed
+  I2b  Husom et al. 2025, arXiv 2504.03360v1        Table 6 and Ta X=q3_K_S (3-bit weight-only)   Y=fp16                     cost 0.2131 SAVES  dQ -0.110 step 0.780 NOT BEHIND  -> DISAGREES
+  I2b  Husom et al. 2025, arXiv 2504.03360v1        Table 6 and Ta X=q3_K_M                       Y=fp16                     cost 0.4027 SAVES  dQ 0.010 step 0.820 NOT BEHIND  -> DISAGREES
+  I2b  Liu et al. 2025, arXiv 2504.04823v2          Table 1        X=W3A16 GPTQ                   Y=BF16                     cost — —      dQ -5.200 step 2.000 BEHIND      -> listed
+  I2b  Huang et al. 2024/2025, arXiv 2404.14047v3   Table 2        X=QuIP 2-bit                   Y=LLaMA3 16-bit            cost — —      dQ -10.100 step 0.029 BEHIND      -> listed
+  I3   Hinton et al. 2015, arXiv 1503.02531v1       Table 1        X=Distilled single model (trai Y=Baseline single model (s cost — —      dQ 1.900 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I3   Hinton et al. 2015, arXiv 1503.02531v1       Table 5        X=Soft targets (3% of training Y=Baseline hard targets (3 cost — —      dQ 12.500 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I3   Hinton et al. 2015, arXiv 1503.02531v1       Section 3 (MNI X=small net trained additional Y=same small net, no regul cost — —      dQ 72.000 step 1.460 AHEAD      [matched compute]  -> AGREES
+  I3   Sanh et al. 2019, arXiv 1910.01108v4         Table 1 and Ta X=DistilBERT (66M, distilled f Y=BERT-base (110M, the tea cost 0.6138 SAVES  dQ -2.500 step 1.000 BEHIND      -> excluded
+  I3   Sanh et al. 2019, arXiv 1910.01108v4         Table 4 (ablat X=DistilBERT with full triple  Y=same student without the cost — —      dQ 2.960 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I3   Gu et al. 2023/2026, arXiv 2306.08543v6      Table 1        X=MiniLLM (reverse-KL on-polic Y=SFT w/o KD (same student cost — —      dQ 3.400 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I3   Gu et al. 2023/2026, arXiv 2306.08543v6      Table 1        X=MiniLLM                      Y=SFT w/o KD (same student cost — —      dQ 6.100 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I3   Gemma Team 2024, arXiv 2408.00118v3          Table 6        X=distilled from a 7B teacher  Y=trained from scratch (ne cost — —      dQ 7.400 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I4   Leviathan et al. 2023, arXiv 2211.17192v2    Table 2        X=speculative decoding         Y=standard T5X autoregress cost 0.2941 SAVES  dQ — step — —           -> AGREES
+  I4   Chen et al. 2023, arXiv 2302.01318v1         Table 1        X=speculative sampling (SpS)   Y=autoregressive sampling  cost 0.4064 SAVES  dQ 1.900 step 1.000 AHEAD       -> AGREES
+  I4   Li et al. 2024/2025, arXiv 2401.15077v3      Table 7        X=EAGLE                        Y=vanilla autoregressive d cost 0.5025 SAVES  dQ — step — —           -> AGREES
+  I4   Fernandez et al. 2025, arXiv 2504.17674v1    Section 3.2 /  X=speculative decoding, batch  Y=autoregressive decoding  cost 0.7086 SAVES  dQ — step — —           -> AGREES
+  I4   Fernandez et al. 2025, arXiv 2504.17674v1    Section 3.2 /  X=speculative decoding, batch  Y=autoregressive decoding  cost 1.2565 COSTS  dQ — step — —           -> DISAGREES
+  I4   Dutta et al. 2026, arXiv 2602.09113v1        Table 1        X=EAGLE-3                      Y=vanilla autoregressive d cost 0.4785 SAVES  dQ — step — —           -> AGREES
+  I4   Dutta et al. 2026, arXiv 2602.09113v1        Table 1        X=EAGLE-3                      Y=vanilla autoregressive d cost 1.2987 COSTS  dQ — step — —           -> DISAGREES
+  I5   Kwon et al. 2023, arXiv 2309.06180v1         Section 6.4 /  X=vLLM with shared-prefix KV b Y=Orca (Oracle)            cost 0.5988 SAVES  dQ — step — —           -> AGREES
+  I5   Kwon et al. 2023, arXiv 2309.06180v1         Section 6.4 /  X=vLLM with shared-prefix KV b Y=Orca (Oracle)            cost 0.2793 SAVES  dQ — step — —           -> AGREES
+  I5   Kwon et al. 2023, arXiv 2309.06180v1         Section 6.3 /  X=vLLM KV sharing (beam search Y=no sharing               cost — —      dQ — step — —           -> listed
+  I5   Zheng et al. 2024, arXiv 2312.07104v2        Section 6.2 (p X=SGLang with RadixAttention ( Y=without cache reuse      cost 0.5882 SAVES  dQ — step — —           -> AGREES
+  I5   Zheng et al. 2024, arXiv 2312.07104v2        Section 6.3 (o X=RadixAttention enabled       Y=no RadixAttention        cost — —      dQ — step — —           -> listed
+  I5   Zheng et al. 2024, arXiv 2312.07104v2        Abstract / Sec X=SGLang (RadixAttention + oth Y=vLLM, Guidance, LMQL     cost — —      dQ — step — —           -> excluded
+  I6   Schuster et al. 2022, arXiv 2207.07061v2     Table 2        X=CALM early exit              Y=full decoder (all layers cost 0.2833 SAVES  dQ — step — —           -> listed
+  I6   Elhoushi et al. 2024, arXiv 2404.16710v4     Table 3        X=LayerSkip early exit at laye Y=autoregressive full mode cost 0.2698 SAVES  dQ -0.067 step 0.010 BEHIND      -> DISAGREES
+  I6   Elhoushi et al. 2024, arXiv 2404.16710v4     Table 3        X=LayerSkip self-speculative d Y=autoregressive full mode cost 0.4902 SAVES  dQ -0.001 step 0.010 NOT BEHIND  -> AGREES
+  I6   Elhoushi et al. 2024, arXiv 2404.16710v4     Table 5        X=LayerSkip self-speculative   Y=autoregressive           cost 0.5484 SAVES  dQ 0.000 step 0.010 NOT BEHIND  -> AGREES
+  I6   Raposo et al. 2024, arXiv 2404.02258v1       Figure 3 text  X=Mixture-of-Depths model #3   Y=isoFLOP-optimal vanilla  cost 0.6024 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  I6   Raposo et al. 2024, arXiv 2404.02258v1       Abstract       X=MoD at loss parity           Y=isoFLOP-optimal vanilla  cost 0.5000 SAVES  dQ 0.000 step — NOT BEHIND [matched quality]  -> AGREES
+  I7   Muennighoff et al. 2025, arXiv 2501.19393v3  Table 12       X=budget forcing: end thinking Y=no intervention at test  cost 0.2861 SAVES  dQ 0.000 step 1.000 NOT BEHIND  -> AGREES
+  I7   Muennighoff et al. 2025, arXiv 2501.19393v3  Table 12       X=budget forcing: end thinking Y=no intervention at test  cost 0.1290 SAVES  dQ -23.400 step 1.000 BEHIND      -> DISAGREES
+  I7   Chen et al. 2024/2025, arXiv 2412.21187v2    Table 4        X=SimPO with First-Correct-Sol Y=QwQ-32B-Preview (unrestr cost 0.5526 SAVES  dQ -0.200 step 1.000 NOT BEHIND  -> AGREES
+  I7   Chen et al. 2024/2025, arXiv 2412.21187v2    Table 4        X=SimPO FCS+Reflection         Y=QwQ-32B-Preview (unrestr cost 0.5437 SAVES  dQ -3.400 step 1.000 BEHIND      -> DISAGREES
+  I7   Ma et al. 2025, arXiv 2504.09858v1           Abstract / Fig X=NoThinking (thinking box pre Y=Thinking                 cost 1.0000 SAME   dQ 22.400 step 1.000 AHEAD      [matched compute]  -> AGREES
+  I7   Ma et al. 2025, arXiv 2504.09858v1           Table 3        X=NoThinking pass@2            Y=Full Thinking pass@1     cost 0.2559 SAVES  dQ 1.540 step 1.000 AHEAD       -> AGREES
+  I7   Aggarwal & Welleck 2025, arXiv 2503.04697v2  Table 3        X=L1-Max limited to 1024 token Y=DeepScaleR-24K (unconstr cost — —      dQ -23.900 step 1.000 BEHIND      -> listed
+  I7   Chung et al. 2026, arXiv 2601.22076v2        Table 1        X=reasoning on (Problem Solvin Y=reasoning off (Text Conv cost 23.0737 COSTS  dQ — step — —           -> excluded
+  I8   Chen et al. 2023, arXiv 2305.05176v1         Table 3        X=FrugalGPT cascade            Y=GPT-4 (best individual L cost — —      dQ — step — —           -> listed
+  I8   Chen et al. 2023, arXiv 2305.05176v1         Table 3        X=FrugalGPT cascade            Y=GPT-4 (best individual L cost — —      dQ — step — —           -> listed
+  I8   Chen et al. 2023, arXiv 2305.05176v1         Table 3        X=FrugalGPT cascade            Y=GPT-3 (best individual L cost — —      dQ — step — —           -> listed
+  I8   Ong et al. 2024/2025, arXiv 2406.18665v4     Table 1 and Ta X=RouteLLM router at CPT(50%)  Y=GPT-4 alone              cost — —      dQ -0.500 step 1.000 NOT BEHIND  -> listed
+  I8   Ong et al. 2024/2025, arXiv 2406.18665v4     Table 2 and Ta X=RouteLLM router at CPT(50%)  Y=GPT-4 alone              cost — —      dQ -6.000 step 1.000 BEHIND      -> listed
+  I8   Dekoninck et al. 2024/2025, arXiv 2410.10347 Table 2        X=cascade routing              Y=linear interpolation bet cost — —      dQ 13.610 step 1.000 AHEAD       -> listed
+  I11  Dodge et al. 2022 (Measuring the Carbon Inte Table 4        X=Pause and Resume (P&R)       Y=run at the requested tim cost — —      dQ — step — —           -> listed
+  I11  Dodge et al. 2022 (Measuring the Carbon Inte Table 5        X=Pause and Resume (P&R)       Y=run at the requested tim cost — —      dQ — step — —           -> listed
+  I11  Wiesner et al. 2021 (Let's Wait Awhile), Mid Section 5.2.2  X=Interrupting scheduling (pau Y=Non-Interrupting schedul cost — —      dQ — step — —           -> listed
+  I11  Hanafy et al. 2023 (CarbonScaler), Proc. ACM Abstract       X=carbon scaling (vary server  Y=state-of-the-art suspend cost — —      dQ — step — —           -> listed
+  I11  Hanafy et al. 2025 (CarbonFlex), arXiv 2505. Abstract       X=CarbonFlex carbon-aware prov Y=carbon-agnostic baseline cost — —      dQ — step — —           -> listed
+  I11  Wiesner et al. 2026 (Distributed LLM Pretrai Section 5 (Exp X=curtailment-aware execution  Y=centralized single-site  cost — —      dQ -0.300 step 0.148 BEHIND      -> listed
+  I11  McDonald et al. 2022 (Great Power, Great Res Section on sch X=job moved to lower-PUE time  Y=job run in daytime       cost 0.9000 SAVES  dQ — step — —           -> listed
+  E14  Fedus et al. 2022 (Switch Transformer), arXi Abstract       X=Switch Transformer (sparse M Y=dense T5 at the same FLO cost — —      dQ — step — —          [matched compute]  -> silent
+  E14  Dai et al. 2024 (DeepSeekMoE), arXiv 2401.06 Abstract / Sec X=DeepSeekMoE 16B              Y=DeepSeek 7B dense (same  cost — —      dQ — step — —           -> silent
+  E15  Hoffmann et al. 2022 (Chinchilla), arXiv 220 Abstract       X=compute-optimal allocation ( Y=Gopher 280B at the same  cost — —      dQ — step — —          [matched compute]  -> silent
+  I9   Kwon et al. 2023, arXiv 2309.06180v1         Section 6.2 /  X=vLLM (PagedAttention)        Y=Orca (Oracle)            cost — —      dQ — step — —           -> silent
+  I9   Kwon et al. 2023, arXiv 2309.06180v1         Section 6.2    X=vLLM                         Y=FasterTransformer        cost — —      dQ — step — —           -> silent
+  I9   Kwon et al. 2023, arXiv 2309.06180v1         Abstract       X=vLLM                         Y=FasterTransformer and Or cost — —      dQ — step — —           -> silent
+  I9   Fernandez et al. 2025, arXiv 2504.17674v1    Table 4        X=vLLM                         Y=PyTorch                  cost 0.1259 SAVES  dQ — step — —           -> silent
+  I9   Chung et al. 2026, arXiv 2601.22076v2        Observation 4  X=larger batch size            Y=small batch size         cost — —      dQ — step — —           -> silent
+  I10  You, Chung, Chowdhury 2023 (Zeus), USENIX NS Section 2.2 /  X=energy-optimal GPU power lim Y=maximum (default) GPU po cost 0.6850 SAVES  dQ — step — —           -> silent
+  I10  McDonald et al. 2022 (Great Power, Great Res Section on pow X=150W GPU power cap           Y=default 250W maximum     cost 0.8630 SAVES  dQ — step — —           -> silent
+  I10  Samsi et al. 2023 (From Words to Watts), IEE Section IV.E,  X=175W GPU power cap           Y=250W GPU power cap       cost 0.7605 SAVES  dQ — step — —           -> silent
+  I10  Chung et al. 2024 (Perseus: Reducing Energy  Abstract       X=Perseus: per-computation GPU Y=default (no frequency pl cost 0.7000 SAVES  dQ — step — —           -> silent
+  I10  Braga et al. 2026 (Paft: phase-aware GPU fre Abstract       X=Paft: phase-aware dynamic GP Y=baselines (default frequ cost 0.5400 SAVES  dQ — step — —           -> silent
+  I10  Ma et al. 2026 (The Illusion of Power Cappin Abstract       X=SM clock locking             Y=GPU power capping        cost — —      dQ — step — —           -> silent
+  I10  Stojkovic et al. 2024 (Towards Greener LLMs) Section IV (Fi X=GPU frequency 1.6GHz         Y=GPU frequency 2GHz       cost 0.8000 SAVES  dQ — step — —           -> silent
+  I12  Frantar & Alistarh 2023, arXiv 2301.00774v3  Table 1 and Ta X=SparseGPT 50%                Y=Dense                    cost — —      dQ 0.140 step 0.084 AHEAD       -> silent
+  I12  Frantar & Alistarh 2023, arXiv 2301.00774v3  Table 1        X=SparseGPT 50%                Y=Dense                    cost — —      dQ -1.010 step 0.125 BEHIND      -> silent
+  I12  Sun et al. 2023/2024, arXiv 2306.11695v3     Table 3 and Se X=Wanda 2:4                    Y=Dense                    cost 0.8045 SAVES  dQ -5.850 step 0.057 BEHIND      -> silent
+  I12  Sun et al. 2023/2024, arXiv 2306.11695v3     Table 3        X=Wanda 50%                    Y=Dense                    cost — —      dQ -0.860 step 0.031 BEHIND      -> silent
+
+mech  kind         pred rows excl graded agree  outcome
+E1    CLASS        +       6    0      2     2  AGREES        | without matched-quality rows: 2/2 AGREES
+E2a   COMPARATIVE  +       6    0      6     4  MIXED         | without matched-quality rows: 3/5 MIXED
+E2b   COMPARATIVE  0d      6    0      5     2  MIXED         | without matched-quality rows: 2/5 MIXED
+E3    CLASS        +       5    1      0     0  NOT REPORTED  | without matched-quality rows: 0/0 NOT REPORTED
+E4    COMPARATIVE  0       7    3      0     0  NOT REPORTED  | without matched-quality rows: 0/0 NOT REPORTED
+E5    CLASS        +       6    1      3     2  MIXED         | without matched-quality rows: 2/3 MIXED
+E6a   COMPARATIVE  q-      3    0      3     3  AGREES        | without matched-quality rows: 3/3 AGREES
+E6b   COMPARATIVE  q+      3    0      2     2  AGREES        | without matched-quality rows: 2/2 AGREES
+E7    CLASS        +       6    0      3     3  AGREES        | without matched-quality rows: 2/2 AGREES
+E8    CLASS        +       6    0      4     3  MIXED         | without matched-quality rows: 1/2 MIXED
+E9    COMPARATIVE  +       6    0      4     4  AGREES        | without matched-quality rows: 3/3 AGREES
+E10   CLASS        +       6    0      2     0  DISAGREES     | without matched-quality rows: 0/0 NOT REPORTED
+E11   COMPARATIVE  0d      6    0      3     2  MIXED         | without matched-quality rows: 2/3 MIXED
+E12   CLASS        +       6    0      5     4  MIXED         | without matched-quality rows: 4/4 AGREES
+E13   CLASS        +       7    0      0     0  NOT REPORTED  | without matched-quality rows: 0/0 NOT REPORTED
+I1    CLASS        +      11    0      3     3  AGREES        | without matched-quality rows: 3/3 AGREES
+I2a   CLASS        +       8    0      3     3  AGREES        | without matched-quality rows: 3/3 AGREES
+I2b   COMPARATIVE  0       8    0      4     2  MIXED         | without matched-quality rows: 2/4 MIXED
+I3    CLASS        q+      8    1      7     7  AGREES        | without matched-quality rows: 7/7 AGREES
+I4    INHERITED    =       7    0      7     5  MIXED         | without matched-quality rows: 5/7 MIXED
+I5    INHERITED    =       6    1      3     3  AGREES        | without matched-quality rows: 3/3 AGREES
+I6    CLASS        +       6    0      5     4  MIXED         | without matched-quality rows: 2/3 MIXED
+I7    CLASS        +       8    1      6     4  MIXED         | without matched-quality rows: 4/6 MIXED
+I8    CLASS        +       6    0      0     0  NOT REPORTED  | without matched-quality rows: 0/0 NOT REPORTED
+I11   COMPARATIVE  0       7    0      0     0  NOT REPORTED  | without matched-quality rows: 0/0 NOT REPORTED
+
+Mechanism outcomes: AGREES 9, DISAGREES 1, MIXED 10, NOT REPORTED 5
+CRR readings only (INHERITED excluded): AGREES 8, DISAGREES 1, MIXED 9, NOT REPORTED 5
+Rows agreeing: 62 of 80 graded rows
+CRR readings, matched-quality rows set aside: AGREES 9, MIXED 8, NOT REPORTED 6
+Rows agreeing, matched-quality rows set aside: 55 of 70
+
+Accounting figures (quoted, not graded; checks/energy_rows.py ACCOUNTING):
+  model development energy as a share of the final training runs (OLMo family): ~50% (459 MWh against 913 MWh) (Morrison et al. 2025, arXiv 2503.05804v1)
+  the final BLOOM run as a share of the project's dynamic energy: 37.24% (433,196 of 1,163,088 kWh) (Luccioni et al. 2022, arXiv 2211.02001v1)
+  energy of a median Gemini Apps text prompt: 0.24 Wh; a 33x reduction over one year (Google 2025, arXiv 2508.15734v1)
+
+Excluded rows (listed with the reason):
+  E3   Li et al. 2020 (ASHA, MLSys), arXiv 1810.059 the reference is Vizier (Bayesian optimisation), not full-budget random search
+  E4   Domhan et al. 2015, IJCAI 2015 proceedings ( the reference is no early termination, not successive halving (E4's reference)
+  E4   Adriaensen et al. 2023 (LC-PFN), arXiv 2310. the reference is no early stopping, not successive halving
+  E4   Adriaensen et al. 2023 (LC-PFN), arXiv 2310. the reference is no early stopping, not successive halving
+  E5   Li et al. 2025 (TiC-LM), arXiv 2504.02107v3  quality is a regret (a difference of losses), for which the declared 1 %-of-Y step is undefined
+  I3   Sanh et al. 2019, arXiv 1910.01108v4         student against its teacher, not the declared comparison (the same student with and without distillation)
+  I5   Zheng et al. 2024, arXiv 2312.07104v2        whole-system comparison (SGLang against other systems), not caching alone
+  I7   Chung et al. 2026, arXiv 2601.22076v2        the two modes are measured on different tasks

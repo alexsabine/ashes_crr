@@ -23,6 +23,13 @@ named beside it. Findings are logged as they arrive in [FINDINGS.md](FINDINGS.md
 6. **The prospectus.** One document comparing CRR's methods with the state of the art on continual learning, AI safety and
    energy. It quotes the ledger or nothing (R8).
 
+## Where it stands
+
+- **Steps 1–3 are done.** The declaration, three dossiers (179 rows, 3 accounting figures, 326 of 326 quotes verbatim) and
+  the grading are complete. [RETRODICTION.md](RETRODICTION.md) is the reading: what works, what CRR got wrong, and the
+  ENERGY1 candidates.
+- **ENERGY1 waits for SOTA1.**
+
 ## Schedule (UTC)
 
 | when | what |

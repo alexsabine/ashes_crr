@@ -22,7 +22,7 @@ def norm(s):
 def main():
     root = sys.argv[1]
     cache, found, total, missing = {}, 0, 0, []
-    for i, r in enumerate(R.ROWS):
+    for i, r in enumerate(R.ROWS + R.ACCOUNTING):
         p = os.path.join(root, r['raw_file'])
         if p not in cache:
             cache[p] = norm(open(p, encoding='utf-8', errors='replace').read()) if os.path.exists(p) else None
@@ -31,8 +31,8 @@ def main():
             ok = cache[p] is not None and norm(q) in cache[p]
             found += ok
             if not ok:
-                missing.append((i, r['mech'], r['source'][:40], q[:60]))
-    print(f'quotes found verbatim: {found} of {total} (rows {len(R.ROWS)})')
+                missing.append((i, r.get('mech', 'ACC'), r['source'][:40], q[:60]))
+    print(f'quotes found verbatim: {found} of {total} (rows {len(R.ROWS)}, accounting figures {len(R.ACCOUNTING)})')
     for m in missing:
         print('  NOT FOUND', m)
 
