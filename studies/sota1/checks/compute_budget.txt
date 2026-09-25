@@ -1,0 +1,4 @@
+machine: x86_64, os.cpu_count() = 4, torch 2.14.0+cpu, threads 4
+CIFAR-100 online, ER / ER-ACE / CRR arms (10 stream + 10 replay): params 1109240, 0.0798 s/step, 5000 steps per pass, 6.7 min of training per run (evaluation not included)
+CIFAR-100 online, DER++ (10 stream + 2 x 10 replay): params 1109240, 0.1095 s/step, 5000 steps per pass, 9.1 min of training per run (evaluation not included)
+TinyImageNet online, ER / CRR arms (10 stream + 10 replay): params 1125340, 0.2222 s/step, 10000 steps per pass, 37.0 min of training per run (evaluation not included)

@@ -191,3 +191,16 @@ The review is `docs/notes/2026-09-24_empty_cut_and_cl_review.md`.
     cost estimate approved before any call.
 - **Bitwise and tolerance checks on GPUs** for the empty-cut engineering (C1–C2) and RW1. They need GPU hardware, with a
   tolerance declared before the run.
+
+## SOTA1, planned 2026-09-25 (owner, prompt-log entry 190)
+
+The full CRR learner on a real image benchmark, with the empty cut and equanimity. The plan is
+`docs/notes/2026-09-25_sota1_plan.md`.
+- **The learner:** replay, plus an equanimity-weighted anchor (or SEC, labelled as not a CRR rule), plus the own-clock
+  schedule and A1′'s unit, all inside the operator harness.
+- **The benchmark:** online Split-CIFAR-100 (UNSEEN), run on CPU for free. Mammoth's reference baselines are pinned at
+  commit e75a491.
+- **The replication:** Split-TinyImageNet under a fresh prereg, only if a row reaches PASS-1.
+- **The order:** citation check, then engineering without data, then declaration and gate, then prereg, hash and
+  OpenTimestamps, then the data step on a later day.
+- **Deferred because it costs money:** the language-model and offline multi-epoch settings.
