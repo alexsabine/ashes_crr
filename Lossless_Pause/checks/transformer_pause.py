@@ -1,7 +1,8 @@
 """The lossless pause inside a Transformer, on CPU: token-boundary pause with the KV cache, recompute preemption, batch
 composition, thread count, lossy controls, the state at the cut, and a training pause.
 
-Declared in `Lossless_Pause/DECLARATION.md` (pushed at d933519 before this script existed). No dataset: pretrained
+Declared in `Lossless_Pause/DECLARATION.md` (pushed at d933519 before this script existed; Amendment 1 at eac338f adds
+state-level digests after run 1's gate closed). No dataset: pretrained
 checkpoints at pinned commits and synthetic token ids. Run: uv run --group realsys python Lossless_Pause/checks/transformer_pause.py
 Each "new process" is a child started by this script; it loads only what the pause saved. Timings go to
 transformer_pause_timing.txt (machine-dependent, not compared).
@@ -98,6 +99,12 @@ def child(task):
                 out['t_save'] = time.perf_counter() - t0
                 out['state_bytes'] = os.path.getsize(task['state'])
             arr = torch.stack(logits_all).contiguous()
+            h = hashlib.sha256()
+            for l in cache.layers:
+                h.update(l.keys.contiguous().numpy().tobytes())
+                h.update(l.values.contiguous().numpy().tobytes())
+            out['state_hash'] = h.hexdigest()
+            out['state_len'] = int(cache.layers[0].keys.shape[2])
             torch.save({'logits': arr, 'tokens': toks}, task['out'])
         elif task['kind'] == 'batch':
             rows = [prompt] + others
@@ -202,16 +209,19 @@ def main():
 
     def decode(model, mode, threads=1, tag=''):
         o = path(f'{model}_{mode}_full_t{threads}{tag}.pt')
-        timing.append((f'{model} {mode} full decode (threads {threads}){tag}', run_child(
-            {'kind': 'decode', 'model': model, 'mode': mode, 'threads': threads, 'out': o})['t_wall']))
-        return load(o)
+        meta = run_child({'kind': 'decode', 'model': model, 'mode': mode, 'threads': threads, 'out': o})
+        timing.append((f'{model} {mode} full decode (threads {threads}){tag}', meta['t_wall']))
+        r = load(o)
+        r['state'] = (meta['state_hash'], meta['state_len'])
+        return r
 
     def paused(model, mode, **kw):
         st, o1, o2 = path(f'{model}_{mode}_state.pt'), path(f'{model}_{mode}_p1.pt'), path(f'{model}_{mode}_p2_' + hashlib.md5(json.dumps(kw, sort_keys=True).encode()).hexdigest()[:8] + '.pt')
         m1 = run_child({'kind': 'part1', 'model': model, 'mode': mode, 'state': st, 'out': o1})
         m2 = run_child(dict({'kind': 'part2', 'model': model, 'mode': mode, 'state': st, 'out': o2}, **kw))
         a, b = load(o1), load(o2)
-        return {'logits': torch.cat([a['logits'], b['logits']]), 'tokens': b['tokens']}, m1, m2
+        return {'logits': torch.cat([a['logits'], b['logits']]), 'tokens': b['tokens'],
+                'state': (m2['state_hash'], m2['state_len'])}, m1, m2
 
     lines = []
     P = lines.append
@@ -227,8 +237,10 @@ def main():
         b = decode('gpt2', mode, tag=' B')
         base[mode] = a
         s, mad, tk = compare(a['logits'], b['logits'], a['tokens'], b['tokens'])
-        res[('L0', mode)] = s and tk
-        P(f'  L0 gpt2 {mode:6}: two new processes: logits bytes identical {s}, max|diff| {mad:.3e}, tokens identical {tk}')
+        ss = a['state'] == b['state']
+        res[('L0', mode)] = s and tk and ss
+        P(f'  L0 gpt2 {mode:6}: two new processes: logits bytes identical {s}, max|diff| {mad:.3e}, tokens identical {tk}, '
+          f'state (KV cache, {a["state"][1]} positions) identical {ss}')
     full_s = base['sample']
     b5a, _, _ = paused('gpt2', 'sample', rng_carry=False)
     tk_same = b5a['tokens'] == full_s['tokens']
@@ -236,10 +248,12 @@ def main():
     P(f'  L5a control, sampler RNG not carried: tokens identical {tk_same} -> detector sees it: {not tk_same}')
     b5b, _, _ = paused('gpt2', 'greedy', perturb=True)
     s, mad, tk = compare(base['greedy']['logits'], b5b['logits'], base['greedy']['tokens'], b5b['tokens'])
-    res['L5b'] = not s
-    P(f'  L5b control, one KV entry moved by one ulp: logits bytes identical {s} (max|diff| {mad:.3e}) -> detected: {not s}')
+    ss = base['greedy']['state'] == b5b['state']
+    res['L5b'] = not ss
+    P(f'  L5b control (Amendment 1, POST HOC), one KV entry moved by one ulp: state identical {ss} -> detected at state level: '
+      f'{not ss}; logits bytes identical {s} (max|diff| {mad:.3e}) -> detected at logit level: {not s}')
     gate = res[('L0', 'greedy')] and res[('L0', 'sample')] and res['L5a'] and res['L5b']
-    lines.insert(3, f"GATE (L0 both modes, L5a, L5b): {'OPEN' if gate else 'CLOSED'}")
+    lines.insert(3, f"GATE (Amendment 1: L0 logits + state both modes, L5a, L5b at state level): {'OPEN' if gate else 'CLOSED'}")
     if not gate:
         P('gate closed: stop (R12)')
         print('\n'.join(lines))
@@ -253,15 +267,18 @@ def main():
             refs[(model, mode)] = ref
             b1, m1, m2 = paused(model, mode)
             s, mad, tk = compare(ref['logits'], b1['logits'], ref['tokens'], b1['tokens'])
-            P(f'  L1 {model:4} {mode:6} pause with KV cache: logits bytes identical {s}, max|diff| {mad:.3e}, tokens identical {tk} '
-              f"[identical] -> {'held' if s and tk else 'NOT HELD'}; state saved {m1['state_bytes']} bytes")
+            ss = ref['state'] == b1['state']
+            P(f'  L1 {model:4} {mode:6} pause with KV cache: logits bytes identical {s}, max|diff| {mad:.3e}, tokens identical {tk}, '
+              f"state identical {ss} [identical] -> {'held' if s and tk and ss else 'NOT HELD'}; state saved {m1['state_bytes']} bytes")
             timing.append((f'{model} {mode} save state', m1['t_save']))
             timing.append((f'{model} {mode} resume from KV (first step)', m2['t_resume']))
             b2, _, m2r = paused(model, mode, recompute=True)
             s2, mad2, tk2 = compare(ref['logits'], b2['logits'], ref['tokens'], b2['tokens'])
+            ss2 = ref['state'] == b2['state']
             pred = (tk2 if mode == 'greedy' else True) and not s2
             P(f'  L2 {model:4} {mode:6} pause by recompute: logits bytes identical {s2}, max|diff| {mad2:.3e}, tokens identical {tk2} '
-              f"[tokens identical under greedy; logits not bitwise] -> {'held' if pred else 'NOT HELD'}")
+              f"[tokens identical under greedy; logits not bitwise] -> {'held' if pred else 'NOT HELD'}; "
+              f"state identical {ss2} [not bitwise] -> {'held' if not ss2 else 'NOT HELD'}")
             timing.append((f'{model} {mode} resume by recompute (prefill {PROMPT_LEN + PAUSE_AT} tokens)', m2r['t_resume']))
         ob = path(f'{model}_batch.pt')
         run_child({'kind': 'batch', 'model': model, 'out': ob})
@@ -273,8 +290,9 @@ def main():
     for mode in ('greedy', 'sample'):
         c4 = decode('gpt2', mode, threads=4)
         s4, mad4, tk4 = compare(base[mode]['logits'], c4['logits'], base[mode]['tokens'], c4['tokens'])
+        ss4 = base[mode]['state'] == c4['state']
         P(f'  L4 gpt2 {mode:6} 4 threads vs 1: logits bytes identical {s4}, max|diff| {mad4:.3e}, tokens identical {tk4} '
-          f"[not bitwise] -> {'held' if not s4 else 'NOT HELD'}")
+          f"[not bitwise] -> {'held' if not s4 else 'NOT HELD'}; state identical {ss4} [not bitwise] -> {'held' if not ss4 else 'NOT HELD'}")
     # L6 arithmetic
     P('')
     P('L6 state at the token-boundary cut (arithmetic from the configs; float32 = 4 bytes, bf16 = 2)')
