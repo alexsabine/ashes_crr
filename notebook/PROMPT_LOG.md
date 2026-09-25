@@ -1387,3 +1387,7 @@ Yes run another frontier literature check please. Focus on plasticity bottleneck
 Interesting! So the equanimity rule is already published and our crr results from the existing passes don’t do anything differently to these existing methods? 
 
 Double check our results findings, accuracy, loss etc. we need to carefully check our existing results against the results in published findings please
+
+## 178 — 2026-09-25T02:22:39Z
+
+So how do our actual continues learning scores compare with the current sota methods? Please give a short simple 5th grader response
