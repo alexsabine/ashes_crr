@@ -75,6 +75,7 @@ jobs:
           uv run python Continuous_Learning/checks/adam_checks.py 2>/dev/null > /tmp/cl_adam.txt && cmp /tmp/cl_adam.txt Continuous_Learning/checks/adam_checks.txt
           uv run python Continuous_Learning/checks/adam_checks_2.py 2>/dev/null > /tmp/cl_adam2.txt && cmp /tmp/cl_adam2.txt Continuous_Learning/checks/adam_checks_2.txt
           uv run python Continuous_Learning/checks/adam_checks_3.py 2>/dev/null > /tmp/cl_adam3.txt && cmp /tmp/cl_adam3.txt Continuous_Learning/checks/adam_checks_3.txt
+          uv run python Continuous_Learning/checks/pareto_identities.py 2>/dev/null > /tmp/cl_pareto.txt && uv run python scripts/cmp_tol.py /tmp/cl_pareto.txt Continuous_Learning/checks/pareto_identities.txt
           uv run --group docs python Continuous_Learning/build/build_adam_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run --group docs python Continuous_Learning/build/build_frontier_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
           uv run python Adam_SGD/checks/assumptions.py 2>/dev/null > /tmp/as1.txt && cmp /tmp/as1.txt Adam_SGD/checks/assumptions.txt
