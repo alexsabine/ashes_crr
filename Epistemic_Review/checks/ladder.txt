@@ -67,6 +67,7 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         TALLY: 1 FOUND-EXACT / 2 FOUND-THEOREM / 6 PARTIAL / 0 NOT FOUND / 1 ARTEFACT
         after the check: 3 of 10 ADDS rows are REDUNDANT-DOMAIN by the literature, 6 keep R3 with the direction known, 0 keep R3 as clean candidates, 1 removed
 [3] The ledger: every row allocated by its verdict text (first matching rule) and its data status
+    excluded, CRR 2.0 (owner's instruction, prompt-log entry 139): 10 rows (RLAW-1, RLAW-2, RLAW-3, RLAW-4, RLAW-4T, RLAW-4D, RLAW-4DT, RLAW-5, RLAW-U, RLAW-C)
     ARC-EQ-Q1..Q4    seen      VOID
     ARC-EQ-LAND      seen      holds on seen data
     ARC-A1           seen      not a PASS (fragile at the boundary)

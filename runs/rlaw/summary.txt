@@ -1,0 +1,9 @@
+RLAW per-unit distributions, primary cell (v:ml own:on lag:+0 alt:no)
+RLAW-1 (spf): units 8 (excluded 0); alpha_hat <= 0: 2; v at grid edge: 3; log(alpha_hat/alpha*) min -2.881 q25 -2.747 median -2.261 q75 -2.025 max -0.377; alpha_hat below alpha* 6, above 0; within x2 1; median alpha_hat 0.0583, median alpha* 0.7478
+RLAW-2 (mich): units 3 (excluded 0); alpha_hat <= 0: 0; v at grid edge: 3; log(alpha_hat/alpha*) min -4.311 q25 -3.612 median -2.913 q75 -2.518 max -2.123; alpha_hat below alpha* 3, above 0; within x2 0; median alpha_hat 0.0385, median alpha* 0.7090
+RLAW-3 (ivol): units 5 (excluded 0); alpha_hat <= 0: 1; v at grid edge: 0; log(alpha_hat/alpha*) min -2.314 q25 -1.899 median -1.688 q75 -1.320 max -0.435; alpha_hat below alpha* 4, above 0; within x2 1; median alpha_hat 0.0246, median alpha* 0.1129
+RLAW-4 (soil5): units 112 (excluded 47); alpha_hat <= 0: 0; v at grid edge: 64; log(alpha_hat/alpha*) min -3.512 q25 -1.973 median -1.580 q75 -1.242 max -0.701; alpha_hat below alpha* 112, above 0; within x2 0; median alpha_hat 0.1901, median alpha* 0.9997
+RLAW-4D (soil_deep): units 369 (excluded 267); alpha_hat <= 0: 0; v at grid edge: 366; log(alpha_hat/alpha*) min -6.966 q25 -1.657 median -0.891 q75 -0.535 max 0.010; alpha_hat below alpha* 358, above 11; within x2 140; median alpha_hat 0.3978, median alpha* 0.9982
+RLAW-5 (twostep): units 197 (excluded 9); alpha_hat <= 0: 0; alpha at grid edge: 36; log(alpha_hat/alpha*) min -2.128 q25 1.386 median 2.238 q75 2.797 max 3.170; alpha_hat below alpha* 21, above 176; within x2 6; median alpha_hat 0.3938, median alpha* 0.0420
+RLAW-U: {'passes': 0, 'of': 5, 'verdict': 'FAIL'}
+RLAW-C: {'row': 'FAIL', 'tracking': 'FAIL', 'verdict': 'FAIL'}
