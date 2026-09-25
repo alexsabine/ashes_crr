@@ -1,0 +1,55 @@
+clock_cut: own-clock (arc) cut against step-clock budgets, confidence and stability (DECLARATION_2 Part A)
+K=4, T_max=256, items 4000 calibration + 4000 test per world and seed, seeds [0, 1, 2, 3, 4]; S3 registered w=4, a_min=1.0472
+label: BETTER = (SAVES and not BEHIND) or (not COSTS and AHEAD); step = max(1.0 pt, 2 x paired SE); across seeds: the label in >= 4 of 5, else MIXED
+
+GATE (read first; nothing after it is a result if it closes)
+  G1   W1 S2  vs S1b: BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.5078 +0.35/1.00; BETTER 0.5068 +0.30/1.00; BETTER 0.5467 +0.40/1.00; BETTER 0.5205 +0.23/1.00; BETTER 0.5184 +0.12/1.00]  -> holds
+  G1   W2 S2  vs S1b: BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.2883 -0.88/1.00; BETTER 0.3622 +0.70/1.00; BETTER 0.3829 +0.62/1.00; BETTER 0.3508 +0.35/1.00; BETTER 0.3302 +0.23/1.00]  -> holds
+  G2   W0 S2  vs S1b: TIE       [per seed: label cost-ratio dQ/step: TIE 1.0000 +0.00/1.00; TIE 1.0000 +0.00/1.00; TIE 1.0000 +0.00/1.00; TIE 1.0000 +0.00/1.00; TIE 1.0000 +0.00/1.00]  -> holds
+  G2   W0 S3  vs S1b: WORSE     [per seed: label cost-ratio dQ/step: WORSE 1.1250 +0.00/1.00; WORSE 1.1250 +0.00/1.00; WORSE 1.1250 +0.00/1.00; WORSE 1.1250 +0.00/1.00; WORSE 1.1250 +0.00/1.00]  -> holds
+  G2   W0 S4  vs S1b: WORSE     [per seed: label cost-ratio dQ/step: WORSE 1.8285 +0.00/1.00; WORSE 1.8255 +0.00/1.00; WORSE 1.8344 +0.00/1.00; WORSE 1.8239 +0.00/1.00; WORSE 1.8229 +0.00/1.00]  -> holds
+  GATE OPEN
+
+Predictions and reports
+  G3   W2 S1a vs S0 : TRADE-OFF [per seed: label cost-ratio dQ/step: TRADE-OFF 0.0625 -15.18/1.15; TRADE-OFF 0.0625 -17.60/1.22; TRADE-OFF 0.0625 -16.82/1.19; TRADE-OFF 0.0625 -16.60/1.19; TRADE-OFF 0.0625 -16.80/1.19]  -> holds
+  F1   W1 S3  vs S1b: BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.5641 -0.05/1.00; BETTER 0.5646 -0.20/1.00; BETTER 0.6122 +0.28/1.00; BETTER 0.5784 +0.25/1.00; BETTER 0.5772 -0.23/1.00]  -> holds
+  F1   W2 S3  vs S1b: BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.3669 +0.23/1.00; BETTER 0.3926 +0.47/1.00; BETTER 0.3675 -0.23/1.00; BETTER 0.3851 +0.53/1.00; BETTER 0.3655 +0.38/1.00]  -> holds
+  F1   W3 S3  vs S1b: TIE       [per seed: label cost-ratio dQ/step: TIE 0.9929 -0.80/1.11; TIE 1.0049 -0.12/1.10; TIE 1.0097 -0.38/1.07; TIE 0.9995 -0.50/1.07; WORSE 0.9992 -1.15/1.07]  -> DOES NOT HOLD
+       F1 (content beats the clock): does not hold in every world -> REDUNDANT-DOMAIN (Wald's sequential test) whatever the outcome
+  C1   W1 S3  vs S2 : WORSE     [per seed: label cost-ratio dQ/step: WORSE 1.1109 -0.40/1.00; WORSE 1.1140 -0.50/1.00; WORSE 1.1198 -0.12/1.00; WORSE 1.1113 +0.03/1.00; WORSE 1.1135 -0.35/1.00]  -> holds
+  C2   W2 S3  vs S2 : MIXED     [per seed: label cost-ratio dQ/step: TRADE-OFF 1.2725 +1.10/1.00; TIE 1.0838 -0.23/1.00; TIE 0.9598 -0.85/1.00; TIE 1.0977 +0.17/1.00; WORSE 1.1068 +0.15/1.00]
+  C2   W3 S3  vs S2 : MIXED     [per seed: label cost-ratio dQ/step: BETTER 0.7961 -0.85/1.54; TRADE-OFF 0.7673 -1.73/1.57; TRADE-OFF 0.7994 -1.95/1.55; BETTER 0.7966 -1.15/1.54; TRADE-OFF 0.7783 -1.57/1.56]
+  C3   W2 S3  vs S4 : BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.6378 +0.53/1.00; BETTER 0.6520 +0.28/1.00; BETTER 0.5878 -0.03/1.00; BETTER 0.6600 +0.90/1.00; BETTER 0.6467 +1.00/1.00]
+  C3   W3 S3  vs S4 : WORSE     [per seed: label cost-ratio dQ/step: WORSE 1.1436 +0.03/1.17; WORSE 1.1417 -0.53/1.20; WORSE 1.1558 -0.25/1.18; WORSE 1.1483 -0.12/1.14; WORSE 1.1463 -0.40/1.17]
+  O1   W3 S2  vs S0 : BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.0244 +1.68/2.34; BETTER 0.0256 +2.10/2.29; BETTER 0.0247 +1.18/2.30; BETTER 0.0245 +2.40/2.29; BETTER 0.0251 +2.38/2.31]
+  O1   W3 S3  vs S0 : BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.0194 +0.82/2.25; BETTER 0.0196 +0.38/2.23; BETTER 0.0197 -0.78/2.21; BETTER 0.0195 +1.25/2.22; BETTER 0.0195 +0.80/2.23]
+  O1   W3 S4  vs S0 : BETTER    [per seed: label cost-ratio dQ/step: BETTER 0.0170 +0.80/2.29; BETTER 0.0172 +0.90/2.25; BETTER 0.0171 -0.53/2.25; BETTER 0.0170 +1.38/2.26; BETTER 0.0170 +1.20/2.25]
+  C2 forecast was TIE: W2 MIXED, W3 MIXED; PROSPECTIVE CANDIDATE (S3 BETTER than S2 in W3, not in W1): no
+
+Tuned parameters and test accuracy / mean steps, seed 0
+  W0: S0[None] 100.00% / 256.00, S1a[16] 24.12% / 16.00, S1b[32] 100.00% / 32.00, S2[0.5] 100.00% / 32.00, S3[0.0001] 100.00% / 36.00, S4[32] 100.00% / 58.51
+  W1: S0[None] 100.00% / 256.00, S1a[16] 76.05% / 16.00, S1b[98] 98.90% / 98.00, S2[0.99] 99.25% / 49.77, S3[0.04175] 98.85% / 55.29, S4[57] 99.08% / 75.36
+  W2: S0[None] 99.48% / 256.00, S1a[16] 84.30% / 16.00, S1b[136] 98.88% / 136.00, S2[0.98] 98.00% / 39.21, S3[0.03039] 99.10% / 49.90, S4[64] 98.58% / 78.23
+  W3: S0[None] 65.42% / 256.00, S1a[16] 76.95% / 16.00, S1b[5] 67.05% / 5.00, S2[0.6] 67.10% / 6.24, S3[1] 66.25% / 4.96, S4[3] 66.22% / 4.34
+
+Sensitivity of the S3 labels (W2, W3): w x a_min; registered cell marked *
+  W2 w=2 a_min=0.0000 : S3 vs S1b BETTER, S3 vs S2 WORSE, S3 vs S4 BETTER
+  W2 w=2 a_min=0.5236 : S3 vs S1b BETTER, S3 vs S2 WORSE, S3 vs S4 BETTER
+  W2 w=2 a_min=1.0472 : S3 vs S1b BETTER, S3 vs S2 WORSE, S3 vs S4 BETTER
+  W2 w=4 a_min=0.0000 : S3 vs S1b BETTER, S3 vs S2 MIXED, S3 vs S4 BETTER
+  W2 w=4 a_min=0.5236 : S3 vs S1b BETTER, S3 vs S2 MIXED, S3 vs S4 BETTER
+  W2 w=4 a_min=1.0472*: S3 vs S1b BETTER, S3 vs S2 MIXED, S3 vs S4 BETTER
+  W2 w=8 a_min=0.0000 : S3 vs S1b BETTER, S3 vs S2 WORSE, S3 vs S4 BETTER
+  W2 w=8 a_min=0.5236 : S3 vs S1b BETTER, S3 vs S2 WORSE, S3 vs S4 BETTER
+  W2 w=8 a_min=1.0472 : S3 vs S1b BETTER, S3 vs S2 WORSE, S3 vs S4 BETTER
+  W3 w=2 a_min=0.0000 : S3 vs S1b MIXED, S3 vs S2 MIXED, S3 vs S4 MIXED
+  W3 w=2 a_min=0.5236 : S3 vs S1b TIE, S3 vs S2 BETTER, S3 vs S4 WORSE
+  W3 w=2 a_min=1.0472 : S3 vs S1b MIXED, S3 vs S2 MIXED, S3 vs S4 TIE
+  W3 w=4 a_min=0.0000 : S3 vs S1b TIE, S3 vs S2 MIXED, S3 vs S4 TIE
+  W3 w=4 a_min=0.5236 : S3 vs S1b TIE, S3 vs S2 MIXED, S3 vs S4 TIE
+  W3 w=4 a_min=1.0472*: S3 vs S1b TIE, S3 vs S2 MIXED, S3 vs S4 WORSE
+  W3 w=8 a_min=0.0000 : S3 vs S1b TRADE-OFF, S3 vs S2 TRADE-OFF, S3 vs S4 TRADE-OFF
+  W3 w=8 a_min=0.5236 : S3 vs S1b TRADE-OFF, S3 vs S2 TRADE-OFF, S3 vs S4 TRADE-OFF
+  W3 w=8 a_min=1.0472 : S3 vs S1b TRADE-OFF, S3 vs S2 TRADE-OFF, S3 vs S4 TRADE-OFF
+  cells flipping from the registered label: W2 S3 vs S1b: 0, W2 S3 vs S2: 6, W2 S3 vs S4: 0, W3 S3 vs S1b: 5, W3 S3 vs S2: 4, W3 S3 vs S4: 7
+  FRAGILE (> 1 flip): W2 S3 vs S2, W3 S3 vs S1b, W3 S3 vs S2, W3 S3 vs S4

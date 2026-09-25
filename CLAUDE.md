@@ -294,7 +294,9 @@ CL Design Principle/        a CRR safe continual learner built from what works i
                            FINDINGS.md (append-only log); the study is studies/sota1 (vendored Mammoth e75a491, Python 3.12 env), prereg/sota1, runs/sota1
 Energy Design Principle/    CRR as a lens on AI energy saving in training and execution (prompt-log entry 199): DECLARATION_1.md (CRR predictions
                            for 30 mechanisms, pushed before the sources), dossiers docs/citations/energy_*_2026-09-25.md, checks/energy_rows.py +
-                           retro_energy.py/.txt (CI-checked), RETRODICTION.md, FINDINGS.md; ENERGY1 (tests) after SOTA1, then the prospectus; a note, not evidence (R8)
+                           retro_energy.py/.txt (CI-checked), RETRODICTION.md, FINDINGS.md; DECLARATION_2.md (prompt-log entry 200) + checks/clock_cut.py
+                           (+ .txt, ~2.5 min, rerun by hand: the own-clock cut reduces to Wald) + checks/consolidated_estimate.py (+ .txt, CI-checked),
+                           CONSOLIDATED.md (scenario, attribution, fair forecasts P1-P8); ENERGY1 (tests) after SOTA1, then the prospectus; a note, not evidence (R8)
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
                            checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
                            (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)
