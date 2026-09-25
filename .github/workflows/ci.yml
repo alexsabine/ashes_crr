@@ -84,6 +84,7 @@ jobs:
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt
           uv run python Lossless_Pause/checks/grade_sweep.py > /tmp/gs.txt && cmp /tmp/gs.txt Lossless_Pause/checks/grade_sweep.txt
           uv run python Lossless_Pause/checks/coverage.py > /tmp/cov.txt && cmp /tmp/cov.txt Lossless_Pause/checks/coverage.txt
+          uv run python AI_Safety/CORRIGIBILITY_2026/checks/grade.py > /tmp/cg.txt && cmp /tmp/cg.txt AI_Safety/CORRIGIBILITY_2026/checks/grade.txt
           uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null > /tmp/cl_forever.txt && uv run python scripts/cmp_tol.py /tmp/cl_forever.txt Continuous_Learning/FOREVER/checks/forever_checks.txt
           (cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null > /tmp/cl_pause.txt) && cmp /tmp/cl_pause.txt Continuous_Learning/FOREVER/checks/pause_checks.txt
           uv run --group docs python Continuous_Learning/build/build_adam_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }
