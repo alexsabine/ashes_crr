@@ -1423,3 +1423,9 @@ So how does crr manage safety differently to other methods?
 Also can you make a folder in the repo called Researcher Adjacent and add the Thornley and FOREVER group details in there please. Recommendation to make contact.
 
 If also like to know more about how the forever system manages safety compared to the value of the empty cut (true map) method
+
+## 186 — 2026-09-25T03:59:31Z
+
+So on the repo we applied crr as a falsifiable metaphysics to an array of systems and continuous learning (then found 2026 paper using a similar principle) and the empty cut / now as true map is what is holding out as the main applied use case?
+
+Explain this in simple metaphysical and philosophical crr terms please. Thanks
