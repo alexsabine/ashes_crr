@@ -1517,3 +1517,13 @@ Obviously we will need to run full pipeline checks on this later (already planne
 ## 201 — 2026-09-25T19:39:00Z
 
 Thanks, what do you mean by carbon emission saving, why does that work? Explain in full and consider alternative explanations.
+
+## 202 — 2026-09-25T19:46:00Z
+
+I understand. We need to build more precision on this exact point here. The lossless pause + AI Safety plus the current best CRR continual learner, with AI Safety and pause. 
+
+We need to carefully examine the existing papers on lossless pausing / stopping and what this would literally mean in terms of GPU runs. 
+
+We should also check whether GPU / Transformer architecture itself can use the empty cut rule, and whether this provides any benefit or not. Thank you. 
+
+Please think carefully and abide by all strict pipeline rules when checking literature, fact checking, byte-by-byte comparisons and alternative possibilities.
