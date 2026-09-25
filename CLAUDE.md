@@ -288,6 +288,10 @@ Epistemic_Review/          what a PASS means here (prompt-log entry 102): the ep
 Researcher Adjacent/        research groups adjacent to this work, with a recommendation on contact (prompt-log entry 185):
                            README.md (order of contact; R8: a first message quotes no number), THORNLEY_GROUP.md (POST, DReST; NT1),
                            FOREVER_GROUP.md (FOREVER; the safe-pause checklist); details from the papers as fetched; no contact made; a note, not evidence (R8)
+CL Design Principle/        a CRR safe continual learner built from what works in SOTA methods (prompt-log entry 191): DECLARATION_1.md
+                           (CRR predictions for 18 SOTA mechanisms, pushed before the sources), checks/ablation_rows.py + retro_sota.py/.txt
+                           (retrodictive grading), DESIGN.md, DECLARATION_2.md + checks/gate_sota1.py (Phase A gate, synthetic battery),
+                           FINDINGS.md (append-only log); the study is studies/sota1 (vendored Mammoth e75a491, Python 3.12 env), prereg/sota1, runs/sota1
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

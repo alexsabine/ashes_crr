@@ -1,0 +1,76 @@
+Retrodictive grading of DECLARATION_1 (CL Design Principle), rows from checks/ablation_rows.py
+rows extracted: 401; silent mechanisms (not graded): M15, M16
+step = max(1.0, 2 x larger reported std of the pair); effect = with - without (sign flipped where lower is better)
+
+mech  pred graded  out helps  none hurts agree median eff  outcome
+------------------------------------------------------------------
+M1    +        15    7    15     0     0    15       8.80  AGREES (15/15 rows agree)
+M2    +         1    4     0     1     0     0       0.37  DISAGREES (0/1 rows agree)
+M3    0        65    0    19    31    15    31       0.20  MIXED (31/65 rows agree)
+M4    +         2    0     2     0     0     2      13.91  AGREES (2/2 rows agree)
+M5    0         2    0     2     0     0     0       1.70  DISAGREES (0/2 rows agree)
+M6a   +         2    0     2     0     0     2       4.93  AGREES (2/2 rows agree)
+M6b   0         6    0     5     1     0     1       2.49  MIXED (1/6 rows agree)
+M7    +        42    0    20    17     5    20       1.80  MIXED (20/42 rows agree)
+M8    +        28    0    23     3     2    23      11.60  MIXED (23/28 rows agree)
+M9    +        77    0    43    25     9    43       2.83  MIXED (43/77 rows agree)
+M10   +        20    0    19     1     0    19       9.21  MIXED (19/20 rows agree)
+M11   +        46    6    39     5     2    39       9.82  MIXED (39/46 rows agree)
+M11b  0         4    0     1     3     0     3       0.77  MIXED (3/4 rows agree)
+M12   0        22    0    15     6     1     6       5.46  MIXED (6/22 rows agree)
+M13   +        25    4    21     2     2    21       5.40  MIXED (21/25 rows agree)
+M14   nb       14    1    11     1     2    12       2.75  MIXED (12/14 rows agree)
+M17   +         6    0     1     5     0     1       3.15  MIXED (1/6 rows agree)
+M18   +         2    0     2     0     0     2       1.15  AGREES (2/2 rows agree)
+
+Online / offline split (class-incremental rows only):
+  M1    online  rows   9  agree   9  median effect    8.80
+  M1    offline rows   6  agree   6  median effect    8.25
+  M2    offline rows   1  agree   0  median effect    0.37
+  M3    online  rows  65  agree  31  median effect    0.20
+  M4    offline rows   2  agree   2  median effect   13.91
+  M5    offline rows   2  agree   0  median effect    1.70
+  M6a   offline rows   2  agree   2  median effect    4.93
+  M6b   offline rows   6  agree   1  median effect    2.49
+  M7    online  rows  40  agree  18  median effect    1.58
+  M7    offline rows   2  agree   2  median effect   13.89
+  M8    online  rows   6  agree   3  median effect    3.90
+  M8    offline rows  19  agree  19  median effect   18.30
+  M9    online  rows  42  agree  26  median effect    5.25
+  M9    offline rows  35  agree  17  median effect    1.30
+  M10   online  rows   9  agree   8  median effect    9.90
+  M10   offline rows  11  agree  11  median effect    7.50
+  M11   online  rows  42  agree  39  median effect   10.26
+  M12   online  rows   3  agree   2  median effect    0.00
+  M12   offline rows  10  agree   2  median effect    5.50
+  M13   online  rows  18  agree  18  median effect    8.25
+  M13   offline rows   7  agree   3  median effect    0.49
+  M14   online  rows  12  agree  12  median effect    3.70
+  M14   offline rows   2  agree   0  median effect  -15.02
+
+Mechanism outcomes: AGREES 4, DISAGREES 2, MIXED 12
+Rows agreeing: 240 of 379 graded rows
+
+Out-of-scope rows (task-IL, GCIL and other settings for M1-M16), listed and not graded:
+  M1    CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Uni 16.4 vs 12.67
+  M1    CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Uni 28.21 vs 12.67
+  M1    CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Uni 31.98 vs 12.67
+  M1    CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Lon 19.27 vs 22.88
+  M1    CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Lon 20.3 vs 22.88
+  M1    CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Lon 34.13 vs 22.88
+  M1    ER (tiny episodic memories), Chaudhry et task-IL online, 1 sample per class                 53.1 vs 40.6
+  M2    ER (tiny episodic memories), Chaudhry et task-IL online, 1 sample(s) per class              56.2 vs 53.1
+  M2    ER (tiny episodic memories), Chaudhry et task-IL online, 3 sample(s) per class              60.9 vs 59.7
+  M2    ER (tiny episodic memories), Chaudhry et task-IL online, 5 sample(s) per class              62.6 vs 65.5
+  M2    ER (tiny episodic memories), Chaudhry et task-IL online, 13 sample(s) per class             64.3 vs 68.5
+  M11   CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Uni 25.06 vs 16.4
+  M11   CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Uni 36.34 vs 28.21
+  M11   CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Uni 39.69 vs 31.98
+  M11   CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Lon 28.54 vs 19.27
+  M11   CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Lon 28.63 vs 20.3
+  M11   CLS-ER, Arani et al. 2022, arXiv 2201.12 GCIL-CIFAR-100 (general CL, recurring classes, Lon 39.52 vs 34.13
+  M13   ER (tiny episodic memories), Chaudhry et task-IL online, 1 sample(s) per class              53.1 vs 54.9
+  M13   ER (tiny episodic memories), Chaudhry et task-IL online, 3 sample(s) per class              59.7 vs 56.9
+  M13   ER (tiny episodic memories), Chaudhry et task-IL online, 5 sample(s) per class              65.5 vs 59.9
+  M13   ER (tiny episodic memories), Chaudhry et task-IL online, 13 sample(s) per class             68.5 vs 63.1
+  M14   GDumb, Prabhu et al. 2020, ECCV 2020 (EC task-IL online, k=1105 (formulation D, A-GEM proto 60.3 vs 68.5

@@ -1,0 +1,29 @@
+[project]
+name = "sota1-env"
+version = "0.1.0"
+description = "Pinned environment for SOTA1 (vendored Mammoth at e75a491 on Python 3.12, CPU torch)"
+requires-python = "==3.12.*"
+dependencies = [
+    "torch==2.14.0",
+    "torchvision==0.29.0",
+    "numpy",
+    "scipy",
+    "pyyaml",
+    "tqdm",
+    "pillow",
+    "kornia",
+    "six",
+    "requests",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

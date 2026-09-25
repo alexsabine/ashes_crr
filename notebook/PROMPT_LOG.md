@@ -1445,3 +1445,21 @@ Please could you pull up the latest MD file or similar which outlines the true m
 ## 190 — 2026-09-25T05:27:48Z
 
 I just thought…the AI safety cut worked on FOREVER, but we didn’t think to apply the equanimity principle for testing. We should plan a full crr with safety and equanimity principle (or whatever we learned by exploring that further) to an ultimate CRR Sota real data benchmark test
+
+## 191 — 2026-09-25T05:47:10Z
+
+We now need to do what any sensible design principle investigator would do. We should look at the existing SOTA methods for how they work (through a crr heuristic lens) and build a CRR safe continuous learner by integrating features from the SOTA methods into the CRR approach. 
+
+This is a technical design request. Use the CRR as a theoretical framework to determine what works in the SOTA methods and integrate them into a CRR safe continuous learner. This can include the existing findings we have made so far in the repo, as well as a full check of the mathematical principles used in SOTA methods, but all through a CRR lens so we can determine what should work.
+
+This is the only way we would stand a chance of beating the SOTA methods.
+
+You could think of it like a full pre registered predictive check on the mathematics of the SOTA method to see what passes the retrodictive pipeline, what fails and then look at why.
+
+Then integrate the what fails elements from the existing SOTA methods as appropriate.
+
+Build a full folder for this work called “CL Design Principle” so you can keep a list of your findings along the way.
+
+Once you have done this, please go ahead and run the full comparative and ablated pipeline, as planned.
+
+Thank you. Please schedule everything so all tasks are completed by 10am (PCT) on 25th September
