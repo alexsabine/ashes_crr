@@ -1395,3 +1395,7 @@ So how do our actual continues learning scores compare with the current sota met
 ## 179 — 2026-09-25T02:24:59Z
 
 I’d like to know how we can apply our crr principles to the latest approaches and bottlenecks please. Thank you for conducting thorough literature reviews. We need to focus on 2026 papers and known bottlenecks, where crr can apply in terms of continuous learning and AI safety in synthesis
+
+## 180 — 2026-09-25T02:48:01Z
+
+Great. Treat crr as falsifiable metaphysics and run the mathematical principles through the forever paper mathematics please
