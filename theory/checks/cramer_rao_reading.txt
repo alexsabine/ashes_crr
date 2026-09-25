@@ -1,0 +1,46 @@
+Cramer-Rao reading of C*Omega = 1 (docs/notes/2026-09-25_cramer_rao_declaration.md)
+[CR1] the unit: Gaussian location N(theta, s^2), n data, sigma = 1/sqrt(n I) = s/sqrt(n)
+     n = 1: arc 1.500000000000 Cramer-Rao steps; |delta| sqrt(n I) = 1.500000000000; difference 0.0e+00
+     n = 2: arc 2.121320343560 Cramer-Rao steps; |delta| sqrt(n I) = 2.121320343560; difference 0.0e+00
+     n = 4: arc 3.000000000000 Cramer-Rao steps; |delta| sqrt(n I) = 3.000000000000; difference 0.0e+00
+     count at n = 2 over n = 1: 1.414213562373 (sqrt 2 = 1.414213562373; Fisher additivity)
+     HOLDS: on a monotone path the arc in the Cramer-Rao unit is the number of standard errors travelled
+[CR2] a varying information: Bernoulli family, I(p) = 1/(p(1-p))
+     monotone 0.1 -> 0.9,    10 steps: sum of local Cramer-Rao steps 1.8471677971; Fisher-Rao length 1.8545904360; error 7.42e-03
+     monotone 0.1 -> 0.9,   100 steps: sum of local Cramer-Rao steps 1.8545114820; Fisher-Rao length 1.8545904360; error 7.90e-05
+     monotone 0.1 -> 0.9,  1000 steps: sum of local Cramer-Rao steps 1.8545896459; Fisher-Rao length 1.8545904360; error 7.90e-07
+     monotone 0.1 -> 0.9, 10000 steps: sum of local Cramer-Rao steps 1.8545904281; Fisher-Rao length 1.8545904360; error 7.90e-09
+     non-monotone 0.1 -> 0.9 -> 0.5: arc 2.781886 steps; chord (Fisher-Rao distance 0.1 to 0.5) 0.927295; surplus 1.854590
+     HOLDS: the arc counts local resolvable steps exactly in the limit; it equals the distance from the start (C = C*) only on the monotone segment (P1)
+[CR3] what one step means: two equal-variance Gaussians at Fisher distance d
+     d =  0.5: KL = d^2/2 = 0.1250 nats; equal-prior Bayes error Phi(-d/2) = 0.4013
+     d =  1.0: KL = d^2/2 = 0.5000 nats; equal-prior Bayes error Phi(-d/2) = 0.3085
+     d =  2.0: KL = d^2/2 = 2.0000 nats; equal-prior Bayes error Phi(-d/2) = 0.1587
+     d = 4.54: KL = d^2/2 = 10.3058 nats; equal-prior Bayes error Phi(-d/2) = 0.0116
+     HOLDS: one Cramer-Rao step is a change barely resolvable from the data the unit was defined on (error 0.3085 against 0.5 for a coin); a detection threshold, not a bound on travel
+[CR4] the removed rule "cut when the arc since the last cut reaches 1/Omega" on one antipodal half-turn
+     noise-free rho  1.0, Omega 0.5: 0 cuts per half-turn; rho Omega = 0.50; the single cut falls on the antipode: False
+     noise-free rho  1.0, Omega 1.0: 1 cuts per half-turn; rho Omega = 1.00; the single cut falls on the antipode: True
+     noise-free rho  1.0, Omega 2.0: 2 cuts per half-turn; rho Omega = 2.00; the single cut falls on the antipode: False
+     noise-free rho  2.0, Omega 0.5: 1 cuts per half-turn; rho Omega = 1.00; the single cut falls on the antipode: True
+     noise-free rho  2.0, Omega 1.0: 2 cuts per half-turn; rho Omega = 2.00; the single cut falls on the antipode: False
+     noise-free rho  2.0, Omega 2.0: 3 cuts per half-turn; rho Omega = 4.00; the single cut falls on the antipode: False
+     noise-free rho 4.54, Omega 0.5: 2 cuts per half-turn; rho Omega = 2.27; the single cut falls on the antipode: False
+     noise-free rho 4.54, Omega 1.0: 4 cuts per half-turn; rho Omega = 4.54; the single cut falls on the antipode: False
+     noise-free rho 4.54, Omega 2.0: 9 cuts per half-turn; rho Omega = 9.08; the single cut falls on the antipode: False
+     noise sd 0.02, rho  1.0, Omega 0.5: C 4.3202, C* 0.9842, S 3.3360; 2 cuts; Omega C = 2.16
+     noise sd 0.02, rho  1.0, Omega 1.0: C 4.3202, C* 0.9842, S 3.3360; 4 cuts; Omega C = 4.32
+     noise sd 0.02, rho  1.0, Omega 2.0: C 4.3202, C* 0.9842, S 3.3360; 8 cuts; Omega C = 8.64
+     noise sd 0.02, rho 4.54, Omega 0.5: C 6.1724, C* 4.5639, S 1.6085; 3 cuts; Omega C = 3.09
+     noise sd 0.02, rho 4.54, Omega 1.0: C 6.1724, C* 4.5639, S 1.6085; 6 cuts; Omega C = 6.17
+     noise sd 0.02, rho 4.54, Omega 2.0: C 6.1724, C* 4.5639, S 1.6085; 11 cuts; Omega C = 12.34
+     HOLDS: the rule is a Cramer-Rao step counter; monotone, it fires floor(rho Omega) times and lands on the antipode only where rho Omega = 1; with noise it fires about Omega C = Omega (C* + S) times
+[CR5] the Laplace weight: Gaussian linear model, known noise, task A then task B, flat prior
+     true Fisher, lambda = 1: distance from the sequential-Bayes mode 0.00e+00 Cramer-Rao units (A+B)
+     Fisher scaled by c =  0.1: best lambda 10.0000 (1/c = 10.0000); lambda = 1 misses the mode by 10.3668 Cramer-Rao units
+     Fisher scaled by c =  1.0: best lambda 1.0000 (1/c = 1.0000); lambda = 1 misses the mode by 0.0000 Cramer-Rao units
+     Fisher scaled by c = 10.0: best lambda 0.1000 (1/c = 0.1000); lambda = 1 misses the mode by 5.3654 Cramer-Rao units
+     HOLDS: the penalty in Cramer-Rao units with weight 1 is exact Bayes; with a mis-scaled Fisher the right weight is 1/c, so weight 1 is right only when the unit is right (what SEC calibrates)
+[CR6] the H-EQ rule at Omega = 1 on the same model: w = |g_B| / |g_past|, past term the true-Fisher penalty
+     after 20000 steps: cos(g_B, g_past) = -1.000000 (-1 on the Pareto set); |g_B| / |g_past| = 16.575862; distance from the Bayes mode 6.1688 Cramer-Rao units: OFF THE MODE
+     HOLDS: the rule stops on the Pareto set where the two gradients are opposed, not at the Bayes point; the Cramer-Rao reading gives its Omega = 1 no meaning

@@ -42,6 +42,7 @@ jobs:
           uv run python theory/checks/omega_reprocessed.py 2>/dev/null > /tmp/orp.txt && cmp /tmp/orp.txt theory/checks/omega_reprocessed.txt
           uv run python theory/checks/fed_heterogeneous_v1.py 2>/dev/null > /tmp/fed1.txt && cmp /tmp/fed1.txt theory/checks/fed_heterogeneous_v1.txt
           uv run python theory/checks/fed_heterogeneous.py 2>/dev/null > /tmp/fed2.txt && cmp /tmp/fed2.txt theory/checks/fed_heterogeneous.txt
+          uv run python theory/checks/cramer_rao_reading.py > /tmp/crr.txt && uv run python scripts/cmp_tol.py /tmp/crr.txt theory/checks/cramer_rao_reading.txt
           uv run python ontology/checks/tense_gate.py 2>/dev/null > /tmp/tense.txt && cmp /tmp/tense.txt ontology/checks/tense_gate.txt
           uv run python ontology/checks/self_model.py 2>/dev/null > /tmp/selfm.txt && cmp /tmp/selfm.txt ontology/checks/self_model.txt
           uv run python ontology/checks/off_switch.py 2>/dev/null > /tmp/offsw.txt && cmp /tmp/offsw.txt ontology/checks/off_switch.txt

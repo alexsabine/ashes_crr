@@ -32,6 +32,7 @@ uv run python theory/checks/omega_vs_methods.py | cmp - theory/checks/omega_vs_m
 uv run python theory/checks/omega_reprocessed.py 2>/dev/null | cmp - theory/checks/omega_reprocessed.txt && echo 'H-EQ reprocessed (scale/shape, bound, constraint, poison, metric, Adam) byte-identical to the committed output'
 uv run python theory/checks/fed_heterogeneous_v1.py 2>/dev/null | cmp - theory/checks/fed_heterogeneous_v1.txt && echo 'FED Phase-A first run byte-identical to the committed output'
 uv run python theory/checks/fed_heterogeneous.py 2>/dev/null | cmp - theory/checks/fed_heterogeneous.txt && echo 'FED Phase-A gate (CLOSED) byte-identical to the committed output'
+uv run python theory/checks/cramer_rao_reading.py > /tmp/crr.txt && uv run python scripts/cmp_tol.py /tmp/crr.txt theory/checks/cramer_rao_reading.txt && echo 'Cramer-Rao reading of C*Omega = 1 matches the committed output (tolerance)'
 uv run python ontology/checks/tense_gate.py 2>/dev/null | cmp - ontology/checks/tense_gate.txt && echo 'tense test byte-identical to the committed output'
 uv run python ontology/checks/self_model.py 2>/dev/null | cmp - ontology/checks/self_model.txt && echo 'self-representation test byte-identical to the committed output'
 uv run python ontology/checks/off_switch.py 2>/dev/null | cmp - ontology/checks/off_switch.txt && echo 'off-switch test byte-identical to the committed output'
