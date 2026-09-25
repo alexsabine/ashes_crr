@@ -1467,3 +1467,7 @@ Thank you. Please schedule everything so all tasks are completed by 10am (PCT) o
 ## 192 — 2026-09-25T15:00:01Z
 
 Scratchpad. Please explain the surprises and crr successes so far in simple terms to me
+
+## 193 — 2026-09-25T15:05:05Z
+
+Scratch pad. What does 8 to 16 points mean?
