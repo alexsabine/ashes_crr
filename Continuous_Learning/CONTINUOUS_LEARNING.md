@@ -15,6 +15,11 @@ Technical specification and record, CRR re-validation repository, 2026-09-22. Ow
 | What did the tests find? | Replay (EQX): reduces to a constant. Online EWC (EQ2, three carriers): ahead of the tuned λ on 3/3, fragile. EQ2R: void. Online EWC (EQ3, six carriers): ahead on 5/6, behind on 1/6; both pre-registered controls violated; Ω a plateau over the whole grid. | §7 |
 | Status under the repository's levels | EQ2-1b PASS-0 (provisional) with a failed replication recorded; nothing may be quoted as a finding. | §8 |
 
+**Read the dated addenda at the end of §8 before quoting this table.** They record four things:
+- a finely tuned constant beats the rule, and under Adam the rule is unnecessary (2026-09-23);
+- the rule freezes the learner on anchors that start at zero (2026-09-24);
+- the Pareto result of §4.2 is published for the MGDA family, and the rule at Ω = 1 is the two-task normalised-gradient direction (2026-09-25).
+
 ## 1. Introduction
 
 A learning system trained on a sequence of tasks tends to lose what it learned first as it learns what comes later. The loss is called catastrophic forgetting, and the family of methods that fight it by adding a penalty on movement away from the parameters that served the earlier tasks is called regularisation-based continual learning. Elastic weight consolidation is the reference method of that family: according to PubMed, Kirkpatrick and colleagues (Proceedings of the National Academy of Sciences 2017, [doi 10.1073/pnas.1611835114](https://doi.org/10.1073/pnas.1611835114)) "remember old tasks by selectively slowing down learning on the weights important for those tasks", the importance being an estimate of the Fisher information. Every method in the family carries a weight λ on the penalty, and λ must be tuned, per dataset, by sweeping it.
@@ -453,6 +458,35 @@ Every H-EQ row above is blocked from PASS-1 by at least two conditions at once: 
 - Harm on constraint-type past terms: the control was violated twice (EQ2-4, EQ3-4).
 - A growing Ω: it slides to the old optimum (§4.2; the `Adam_SGD` addendum).
 - Resets as a continual-learning remedy: SCL2-R FAIL, and the CUT1 gate CLOSED.
+
+**Addendum, 2026-09-25 (prompt-log entry 176): §4 read against the Pareto literature.**
+
+**The sources.** Dossiers fetched on the day: `docs/citations/pareto_equanimity_2026-09-25.md`,
+`frontier_plasticity_2026-09-25.md` and `frontier_cl_safety_2026-09-25.md`. The reading is
+`docs/notes/2026-09-25_frontier_literature_check.md`. The identities are pinned in `checks/pareto_identities.txt`.
+
+**What the identities show.**
+- **The direction.** For two terms, the rule at Ω = 1 points along ‖g_p‖(u_p + u_q), the bisector of the unit gradients.
+  That is MGDA on normalised gradients, and IMTL-G for two tasks. The largest deviation over 1000 random pairs is 5.164e-15.
+- **The stopping set.** All of them are stationary on the whole Pareto curve.
+- **The step length.** Only the rule keeps the present gradient's length as its step.
+
+**What the literature adds.**
+- **§4.1 and §4.2 are known results.** The continuum of equilibria of §4.2 is published for the MGDA family (Désidéri;
+  CAGrad). The one-dimensional knife edge of §4.1 is DiBS's Example 2, NeurIPS 2025.
+- **The direction is published.** Nash-MTL states that its two-task solution is equal-weight summation of normalised
+  gradients. MEGA-II takes the bisector in continual learning with a step of exactly ‖∇ℓ_t‖.
+- **Equal weighting has one published principle.** It is the symmetry axiom of Nash bargaining, and it does not choose a
+  point on the front.
+- **The principles that do choose a point are not CRR's.** They are distance to each optimum (DiBS), Σ log ℓ (FAMO),
+  maximum likelihood (Kendall et al.) and sample counts (PMF-CL). The last of these is §4.3's Bayes weight.
+
+**Consequences.**
+- The rule at Ω = 1 is best described as normalised-gradient summation with the present step as its scale.
+- As a principle for choosing a trade-off, it fails the published symmetric must-fail surrogate by construction: its
+  endpoint is its start.
+- §5's statement that "at Ω = 1 its equilibrium set is the entire Pareto front" stands. It is the MGDA family's property,
+  not a property distinctive to this rule.
 
 ## 9. Implications if the results hold on GPU image benchmarks and at LLM scale
 

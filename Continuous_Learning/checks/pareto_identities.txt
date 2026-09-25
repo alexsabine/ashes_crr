@@ -1,0 +1,18 @@
+Pareto identities: the Omega = 1 rule against MGDA and IMTL-G (two objectives); standard algebra, no verdict
+[1] rule(Omega=1) = |g_p|(u_p + u_q): max relative deviation over 1000 random pairs (dims 2-11, scales 1e-3..1e3) 5.164e-15
+[2] equal projections on u_p and u_q (IMTL-G condition): max |r.u_p - r.u_q|/|r| 1.004e-15
+[3] MGDA on unit gradients has the rule's direction: max (1 - cos) 4.441e-16; IMTL-G (two tasks) max (1 - |cos|) 4.441e-16
+    MGDA on raw gradients vs the rule: cos min 0.7072, median 0.8464 (not the same direction in general)
+[4] on the Pareto curve theta(lam) = (H + lam F)^-1 (H a + lam F b):
+    lam | |rule O=1|/|g_p| | |rule O=0.9|/|g_p| | |rule O=1.1|/|g_p| | |MGDA raw| / |g_p| | |MGDA unit| | |IMTL-G|/|g_p|
+    0.01 | 3.277e-16 | 0.100000 | 0.100000 | 1.208e-14 | 1.630e-16 | 9.083e-16
+    0.1 | 1.440e-16 | 0.100000 | 0.100000 | 2.948e-16 | 2.776e-17 | 2.948e-16
+    1 | 0.000e+00 | 0.100000 | 0.100000 | 0.000e+00 | 0.000e+00 | 0.000e+00
+    10 | 0.000e+00 | 0.100000 | 0.100000 | 1.085e-17 | 5.551e-17 | 1.085e-17
+    100 | 1.076e-16 | 0.100000 | 0.100000 | 1.241e-18 | 9.714e-17 | 1.206e-18
+[5] step length when the past term is rescaled by c (present fixed): the rule keeps |g_p| as its scale
+    c 0.0625: |rule| 1.087246; |MGDA raw| 0.058763 (weight on present 0.033007); |IMTL-G| 0.066301 (weight on present 0.060981)
+    c 1: |rule| 1.087246; |MGDA raw| 0.554000 (weight on present 0.512968); |IMTL-G| 0.554036 (weight on present 0.509578)
+    c 16: |rule| 1.087246; |MGDA raw| 0.907065 (weight on present 0.969551); |IMTL-G| 1.025558 (weight on present 0.943262)
+    c 256: |rule| 1.087246; |MGDA raw| 0.932641 (weight on present 0.998199); |IMTL-G| 1.083173 (weight on present 0.996255)
+reading (computed above, not a verdict): at Omega = 1 the rule is the bisector of the unit gradients, which is MGDA on normalised gradients and, for two tasks, the IMTL-G equal-projection direction; all three are stationary at every Pareto point.
