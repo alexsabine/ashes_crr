@@ -263,7 +263,8 @@ Maps_and_Territories/      maps that change their territory (prompt-log entries 
 Empty_Centre/              the programme's focus from 2026-09-24 (prompt-log entry 150): continual learning and AI safety as one design
                            (zero stake at the cut), maps and territories, CRR against the FEP, equanimity for people and machines, the Now
                            and contemplative practice (evidence graded in docs/citations/contemplative_practice_2026-09-24.md);
-                           THE_EMPTY_CENTRE.md + PDF; a note, not evidence (R8)
+                           THE_EMPTY_CENTRE.md + PDF; CRR_AND_THE_2026_FRONTIER.md (prompt-log entry 179): each CRR principle against the 2026
+                           CL and safety bottlenecks, with prior art, the record and three candidate tests (NT1, ARC-R, REG-M); a note, not evidence (R8)
 Cut_Content/               when does a cut need content? (prompt-log entries 151-152): DECLARATION.md (+ Amendment 1) pushed before
                            checks/cut_phaseA.py (pinned .txt, ~30 min, rerun by hand); GATE CLOSED (A3 and A4 fail, A7 holds; AGENT_LOG 122),
                            so no real-data CUT1 prereg (R12); CUT_CONTENT.md; a note, not evidence (R8)
