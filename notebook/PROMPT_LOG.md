@@ -1441,3 +1441,7 @@ Check the ontological folder please for how it was described there in relation t
 ## 189 — 2026-09-25T04:49:03Z
 
 Please could you pull up the latest MD file or similar which outlines the true map / cut approach for AI safety?
+
+## 190 — 2026-09-25T05:27:48Z
+
+I just thought…the AI safety cut worked on FOREVER, but we didn’t think to apply the equanimity principle for testing. We should plan a full crr with safety and equanimity principle (or whatever we learned by exploring that further) to an ultimate CRR Sota real data benchmark test
