@@ -1363,3 +1363,7 @@ If the AI runs on natural crr time, and the clock time is the human world, but t
 ## 172 — 2026-09-24T23:22:56Z
 
 You once described rovellis time as like the rain and crr as like a river. You declared crr wrong for a reason. Is rovellis model therefore 100% correct?
+
+## 173 — 2026-09-25T01:13:05Z
+
+With qwen why are we not running a crr heuristically derived continuous learning check alongside the AI safety cut?
