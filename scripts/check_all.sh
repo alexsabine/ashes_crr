@@ -69,6 +69,7 @@ uv run python Compute_Savings/checks/compute_savings.py | cmp - Compute_Savings/
 uv run python Compute_Savings/checks/scale_estimate.py | cmp - Compute_Savings/checks/scale_estimate.txt && echo 'compute-savings scale estimate byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/retro_energy.py" | cmp - "Energy Design Principle/checks/retro_energy.txt" && echo 'energy retrodiction byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/consolidated_estimate.py" | cmp - "Energy Design Principle/checks/consolidated_estimate.txt" && echo 'energy consolidated estimate byte-identical to the committed output'
+uv run python Lossless_Pause/checks/grade_claims.py | cmp - Lossless_Pause/checks/grade_claims.txt && echo 'lossless-pause literature grading byte-identical to the committed output'
 uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python comparative_calibration.py 2>/dev/null | cmp - comparative_calibration.txt) && echo 'FOREVER x CRR headroom calibration byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null | cmp - pause_checks.txt) && echo 'FOREVER safe-pause checks Q0-Q5 byte-identical to the committed output'

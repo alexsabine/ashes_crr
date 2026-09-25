@@ -1,0 +1,21 @@
+machine-dependent wall times (seconds); committed, not compared
+gpt2 greedy full decode (threads 1) A: 8.9265
+gpt2 greedy full decode (threads 1) B: 9.5503
+gpt2 sample full decode (threads 1) A: 9.3228
+gpt2 sample full decode (threads 1) B: 8.8628
+gpt2 greedy save state: 0.0090
+gpt2 greedy resume from KV (first step): 0.1158
+gpt2 greedy resume by recompute (prefill 40 tokens): 0.2728
+gpt2 sample save state: 0.0080
+gpt2 sample resume from KV (first step): 0.0904
+gpt2 sample resume by recompute (prefill 40 tokens): 0.2984
+qwen greedy full decode (threads 1): 88.9188
+qwen greedy save state: 0.0116
+qwen greedy resume from KV (first step): 0.2543
+qwen greedy resume by recompute (prefill 40 tokens): 1.1542
+qwen sample full decode (threads 1): 17.5972
+qwen sample save state: 0.0117
+qwen sample resume from KV (first step): 0.2320
+qwen sample resume by recompute (prefill 40 tokens): 1.1220
+gpt2 greedy full decode (threads 4): 7.9409
+gpt2 sample full decode (threads 4): 7.8496

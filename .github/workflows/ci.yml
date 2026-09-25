@@ -81,6 +81,7 @@ jobs:
           uv run python Compute_Savings/checks/scale_estimate.py > /tmp/se.txt && cmp /tmp/se.txt Compute_Savings/checks/scale_estimate.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
+          uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt
           uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null > /tmp/cl_forever.txt && uv run python scripts/cmp_tol.py /tmp/cl_forever.txt Continuous_Learning/FOREVER/checks/forever_checks.txt
           (cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null > /tmp/cl_pause.txt) && cmp /tmp/cl_pause.txt Continuous_Learning/FOREVER/checks/pause_checks.txt
           uv run --group docs python Continuous_Learning/build/build_adam_pdf.py > /tmp/pdf.log 2>&1 || { tail -40 /tmp/pdf.log; exit 1; }

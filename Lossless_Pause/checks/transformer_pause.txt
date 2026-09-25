@@ -1,0 +1,36 @@
+Lossless pause inside a Transformer, CPU (Lossless_Pause/DECLARATION.md): bytewise comparisons, new processes
+torch 2.14.0+cpu; GPT-2 @ 607a30d, Qwen2.5-0.5B-Instruct @ 7ae5576; float32; prompt 24 synthetic ids (seed 20260925); 32 new tokens; pause after token 16; deterministic algorithms on; 1 thread unless stated
+
+GATE (Amendment 1: L0 logits + state both modes, L5a, L5b at state level): OPEN
+  L0 gpt2 greedy: two new processes: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state (KV cache, 55 positions) identical True
+  L0 gpt2 sample: two new processes: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state (KV cache, 55 positions) identical True
+  L5a control, sampler RNG not carried: tokens identical False -> detector sees it: True
+  L5b control (Amendment 1, POST HOC), one KV entry moved by one ulp: state identical False -> detected at state level: True; logits bytes identical True (max|diff| 0.000e+00) -> detected at logit level: False
+
+Checks (registered prediction in brackets; held / NOT HELD computed from the bytes)
+  L1 gpt2 greedy pause with KV cache: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state identical True [identical] -> held; state saved 2888590 bytes
+  L2 gpt2 greedy pause by recompute: logits bytes identical False, max|diff| 8.011e-05, tokens identical True [tokens identical under greedy; logits not bitwise] -> held; state identical False [not bitwise] -> held
+  L1 gpt2 sample pause with KV cache: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state identical True [identical] -> held; state saved 2888590 bytes
+  L2 gpt2 sample pause by recompute: logits bytes identical False, max|diff| 1.755e-04, tokens identical True [tokens identical under greedy; logits not bitwise] -> held; state identical False [not bitwise] -> held
+  L3 gpt2 greedy alone vs in a batch of 4 (left-padded): logits bytes identical False, max|diff| 6.866e-05, tokens identical True [not bitwise] -> held
+  L1 qwen greedy pause with KV cache: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state identical True [identical] -> held; state saved 978486 bytes
+  L2 qwen greedy pause by recompute: logits bytes identical False, max|diff| 1.907e-05, tokens identical True [tokens identical under greedy; logits not bitwise] -> held; state identical False [not bitwise] -> held
+  L1 qwen sample pause with KV cache: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state identical True [identical] -> held; state saved 978486 bytes
+  L2 qwen sample pause by recompute: logits bytes identical False, max|diff| 4.339e-05, tokens identical True [tokens identical under greedy; logits not bitwise] -> held; state identical False [not bitwise] -> held
+  L3 qwen greedy alone vs in a batch of 4 (left-padded): logits bytes identical False, max|diff| 1.556e-05, tokens identical True [not bitwise] -> held
+  L4 gpt2 greedy 4 threads vs 1: logits bytes identical False, max|diff| 7.248e-05, tokens identical True [not bitwise] -> held; state identical False [not bitwise] -> held
+  L4 gpt2 sample 4 threads vs 1: logits bytes identical False, max|diff| 8.392e-05, tokens identical True [not bitwise] -> held; state identical False [not bitwise] -> held
+
+L6 state at the token-boundary cut (arithmetic from the configs; float32 = 4 bytes, bf16 = 2)
+  gpt2: layers 12, KV heads 12, head dim 64: KV values per token 18432 (73728 B fp32, 36864 B bf16); parameters 124439808 (497759232 B fp32)
+        1024 tokens: KV 75497472 B fp32 = 0.1517 x the parameter count
+        8192 tokens: KV 603979776 B fp32 = 1.2134 x the parameter count
+       32768 tokens: KV 2415919104 B fp32 = 4.8536 x the parameter count
+  qwen: layers 24, KV heads 2, head dim 64: KV values per token 6144 (24576 B fp32, 12288 B bf16); parameters 494032768 (1976131072 B fp32)
+        1024 tokens: KV 25165824 B fp32 = 0.0127 x the parameter count
+        8192 tokens: KV 201326592 B fp32 = 0.1019 x the parameter count
+       32768 tokens: KV 805306368 B fp32 = 0.4075 x the parameter count
+
+L7 training pause (random-init GPT-2 architecture, 2 layers, width 128, AdamW, dropout 0.1, 20 steps, pause at 10)
+  L7a same threads: parameter bytes identical True (sha256 6eaf4b58347801f8 vs 6eaf4b58347801f8), max|diff| 0.000e+00 [identical] -> held
+  L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e), max|diff| 3.822e-06 [not bitwise] -> held

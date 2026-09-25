@@ -1,0 +1,9 @@
+Lossless pause inside a Transformer, CPU (Lossless_Pause/DECLARATION.md): bytewise comparisons, new processes
+torch 2.14.0+cpu; GPT-2 @ 607a30d, Qwen2.5-0.5B-Instruct @ 7ae5576; float32; prompt 24 synthetic ids (seed 20260925); 32 new tokens; pause after token 16; deterministic algorithms on; 1 thread unless stated
+
+GATE (L0 both modes, L5a, L5b): CLOSED
+  L0 gpt2 greedy: two new processes: logits bytes identical True, max|diff| 0.000e+00, tokens identical True
+  L0 gpt2 sample: two new processes: logits bytes identical True, max|diff| 0.000e+00, tokens identical True
+  L5a control, sampler RNG not carried: tokens identical False -> detector sees it: True
+  L5b control, one KV entry moved by one ulp: logits bytes identical True (max|diff| 0.000e+00) -> detected: False
+gate closed: stop (R12)
