@@ -285,6 +285,9 @@ Real_World/                real-world testing of continual learning + AI safety 
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)
+Researcher Adjacent/        research groups adjacent to this work, with a recommendation on contact (prompt-log entry 185):
+                           README.md (order of contact; R8: a first message quotes no number), THORNLEY_GROUP.md (POST, DReST; NT1),
+                           FOREVER_GROUP.md (FOREVER; the safe-pause checklist); details from the papers as fetched; no contact made; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

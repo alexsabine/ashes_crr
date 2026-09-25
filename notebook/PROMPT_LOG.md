@@ -1415,3 +1415,11 @@ Run comparisons please
 ## 184 — 2026-09-25T03:42:52Z
 
 In simple terms can you explain how the forever paper constructs temporality, compared to the CRR’s metaphysical axioms/commitments
+
+## 185 — 2026-09-25T03:49:35Z
+
+So how does crr manage safety differently to other methods?
+
+Also can you make a folder in the repo called Researcher Adjacent and add the Thornley and FOREVER group details in there please. Recommendation to make contact.
+
+If also like to know more about how the forever system manages safety compared to the value of the empty cut (true map) method
