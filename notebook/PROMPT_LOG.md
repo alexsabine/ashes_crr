@@ -1531,3 +1531,7 @@ Please think carefully and abide by all strict pipeline rules when checking lite
 ## 203 — 2026-09-25T20:24:00Z
 
 I cannot spend money on these tests at this stage. Did you check all the latest papers on transformer architecture, pausing, energy use, carbon emissions etc. and the methods that are already use and what CRR offers, if anything at all? We need to be fair in accordance with the pipeline.
+
+## 204 — 2026-09-25T20:50:00Z
+
+Thank you. Do any other existing pause methods provide a byte-to-byte perfect cut? Please look at the findings carefully
