@@ -106,12 +106,44 @@ using the context arms.
 
 ## R4: what a surrogate does to each prediction (`gate_sota1.txt`)
 
-(Completed from the gate output before the hash; see the section *Gate result* below.)
+**The surrogate** is the near-ceiling synthetic world W0, where there is nothing to win. Every number below is in
+`gate_sota1.txt`.
+
+| prediction | on the surrogate W0 | consequence |
+|---|---|---|
+| SOTA1-1a (AHEAD of the best baseline) | CRR-SCL against ER: −1.14, BEHIND | fails on the surrogate; retained |
+| SOTA1-1b (not BEHIND) | the same, BEHIND | fails on the surrogate; retained |
+| SOTA1-2 (H-EQ against MKD's λ) | −0.10, TIE | fails on the surrogate; retained |
+| SOTA1-3, seven arm components | ace −0.18, cos −0.12, a8 −0.16, alpha −0.92, beta +0.20, kd −0.18, stepclock −0.12: all TIE | each fails on the surrogate; retained |
+| SOTA1-3, nearest class mean against the fast head / the slow head | +38.80 / +41.92, AHEAD | **passes on the surrogate: not about CRR. Reported without a verdict** (DECLARATION_2 Amendment 1) |
 
 ## Gate result
 
-(Filled in before the hash.)
+**GATE OPEN** (`gate_sota1.txt`).
+- **G0.** ER is AHEAD of SGD in W+ by +54.99.
+- **G1.** In W0 none of ER-ACE (−0.14), DER++ (−0.06) or CRR-SCL (−1.14) is AHEAD of ER.
+
+**The synthetic battery is a preview that selected nothing** (DECLARATION_2).
+- **G2.** CRR-SCL is AHEAD of ER (+8.49), ER-ACE (+11.31) and DER++ (+16.25) in W+.
+- **G3.** Component readings held for logit replay, label replay, the own clock and nearest class mean. They failed for the
+  cosine head, the A8 fill, the pull toward the slow model and the asymmetric loss. MKD's constant was AHEAD of Ω = 1
+  (−4.11 for CRR-SCL).
+
+**Construction.**
+- **C-S1 holds:** a lossless pause is bitwise identical.
+- **C-S2 failed** on "classes seen" (inert), hence the C2 parts above.
+- **C-S3 holds:** the world moving costs +2.13.
+
+**The learner's heads collapse.** CRR-SCL's fast and slow heads collapse in class-incremental prediction in both worlds.
+Nearest class mean carries the learner.
 
 ## Compute budget
 
-(Printed by `budget.py` from the gate's unit timings before the hash; see `budget.txt`.)
+`budget.txt`, from the measured gate timings and the one-task timings in `timing/`:
+- 110 units;
+- 40.34 unit-hours;
+- about 20.17 hours of wall time at two units at a time.
+
+**Run order:** tier A (the headline comparison), then C, S, B, D and R.
+
+**If the container is lost,** the runner resumes from the unit records already written. No unit is rerun with a change.
