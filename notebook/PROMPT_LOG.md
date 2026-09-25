@@ -1475,3 +1475,7 @@ Scratch pad. What does 8 to 16 points mean?
 ## 194 — 2026-09-25T15:06:55Z
 
 Scratchpad. Does anything in crr mean we can save compute / energy?
+
+## 195 — 2026-09-25T15:11:43Z
+
+Scratchpad. In the past we estimated that crr might save 30-40% compute somehow. Where did that come from? It was something to do with fixed instead of tuned parameters
