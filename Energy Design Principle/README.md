@@ -28,6 +28,10 @@ named beside it. Findings are logged as they arrive in [FINDINGS.md](FINDINGS.md
 - **Steps 1–3 are done.** The declaration, three dossiers (179 rows, 3 accounting figures, 326 of 326 quotes verbatim) and
   the grading are complete. [RETRODICTION.md](RETRODICTION.md) is the reading: what works, what CRR got wrong, and the
   ENERGY1 candidates.
+- **The own-clock cut was checked on a synthetic world** (DECLARATION_2). It reduces to Wald's sequential test and does not
+  beat the confidence rule.
+- **[CONSOLIDATED.md](CONSOLIDATED.md)** gives the consolidated scenario: what is technical potential and what is
+  attributable, the epistemic reading, and fair forecasts P1–P8 to be scored later.
 - **ENERGY1 waits for SOTA1.**
 
 ## Schedule (UTC)

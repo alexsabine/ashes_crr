@@ -1,0 +1,38 @@
+Consolidated estimate (DECLARATION_2 Parts B-C): CRR-informed continual learning + AI safety + compute, 2030
+A SCENARIO conditional on the methods holding at scale; not a forecast of net energy (no overlap or rebound)
+
+[1] Inputs
+  pinned   E_AI(2030) 300.47 TWh; data centres 945 TWh; f_dev low/middle/high 0.3000/0.4000/0.7143 (scale_estimate.txt)
+  pinned   T1 SEC term 2030: low 0.0742, middle 0.4743, high 4.0399 TWh (scale_estimate.txt)
+  sourced  f_final: 0.1000 (Epoch: final runs 500,000,000 of R&D 5,000,000,000) to 0.6655 (Morrison: 913 of 1,372 MWh)
+  quoted   s_cl = 1 - 0.5000 (continual pre-training, Ibrahim et al., 3 rows); s_stop = 1 - 0.5526 to 1 - 0.2861 (not-behind I7 rows); s_wsd = 1 - 0.4222 (Hagele et al.)
+  quoted   carbon (not energy) of curtailment-aware pause/resume training: 1.38 kgCO2 against 11.4 to 27.1 kgCO2 for single-region runs (Wiesner et al. 2026); T4 counts it as energy moved, not saved
+  ASSUMED  f_refresh (0.1, 0.5), f_reason (0.1, 0.5), f_scaling (0.01, 0.1)
+  clock_cut.txt: gate OPEN; arc cut BETTER than confidence in W3 but not W1 (a PROSPECTIVE CANDIDATE): no
+
+[2] Terms, 2030, TWh (low = min and high = max over the band ends; middle = middle f_dev, arithmetic mean of sourced bands, geometric mean of assumed bands)
+  term                                                            low    middle      high  attributable to
+  T1  SEC on penalty-weight sweeps                            0.0742    0.4743    4.0399  the CRR programme (SEC; the ledger: not a CRR rule)
+  T2  continual updating instead of periodic retraining       0.4507    5.1429   35.7058  none (continual pre-training is published)
+  T3  content-based stopping of reasoning                     3.8403   23.4063   75.0755  none (the arc cut did not beat the confidence cut; Wald)
+  T4  the safe pause (empty cut)                              0.0000    0.0000    0.0000  none (energy moved, not saved)
+  T5  horizon-free schedules for multi-horizon sweeps         0.5209    2.1961   12.4015  none (WSD is published)
+
+[3] Totals, 2030 (conditional on holding; an upper bound on the sum of terms, no overlap or rebound)
+  technical potential of the mechanisms the lens endorses    low    4.8861  middle   31.2195  high  127.2226 TWh
+                                                             share of data-centre electricity: 0.005170 / 0.033037 / 0.134627; of AI-server electricity: 0.016261 / 0.103902 / 0.423412; US homes: 452,793 / 2,893,107 / 11,789,699
+  attributable to CRR or its programme                       low    0.0742  middle    0.4743  high    4.0399 TWh
+                                                             share of data-centre electricity: 0.000079 / 0.000502 / 0.004275; of AI-server electricity: 0.000247 / 0.001579 / 0.013445; US homes: 6,876 / 43,953 / 374,377
+  attributable share of the technical potential: 0.0152 / 0.0152 / 0.0318
+  probability-weighted attributable (x cl_patent's P(adopted) 0.0150, that model's assumption): middle 0.007114, high 0.060598 TWh
+
+[4] Fair forecasts, recorded before ENERGY1 and SOTA1 (the investigator's probabilities; to be scored later)
+  P1: P = 0.45  SEC vs the tuned sweep on SOTA1's learner: accepted without losing a step, saving >= 80 % of the sweep
+  P2: P = 0.10  a continual learner reaches >= 95 % of retrain-from-scratch accuracy at <= 0.5 of its compute (online Split-CIFAR-100)
+  P3: P = 0.60  a horizon-free schedule is not behind cosine in the stream
+  P4: P = 0.30  shrink-and-perturb at task boundaries saves >= 10 % of work to a target
+  P5: P = 0.10  the arc cut is BETTER than the confidence cut on real data
+  P6: P = 0.95  the empty cut changes energy by 0 and leaves the run bitwise identical
+  P7: P = 0.35  SOTA1-1a: CRR-SCL is AHEAD of the best baseline
+  P8: P = 0.15  SEC's saving survives at LLM scale under AdamW
+  expected number of the eight events that occur: 3.00
