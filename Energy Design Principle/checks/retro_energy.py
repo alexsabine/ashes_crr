@@ -5,7 +5,8 @@ Declared in `Energy Design Principle/DECLARATION_1.md` (pushed at db871f6 before
 verbatim quote. Labels are computed here (R15). Run: python3 "Energy Design Principle/checks/retro_energy.py"
 
 The declaration's rule, as implemented:
-- cost ratio r = C_X / C_Y (a cost where higher is better, e.g. throughput or goodput, is inverted): SAVES r <= 0.90,
+- cost ratio r = C_X / C_Y (a cost where higher is better, e.g. throughput or goodput, is inverted; a printed reduction of
+  p % gives r = 1 - p/100; a printed k-fold speed-up or saving gives r = 1/k): SAVES r <= 0.90,
   COSTS r >= 1.10, SAME otherwise;
 - quality step: 0-100 scale max(1.0, 2 sd); 0-1 scale max(0.01, 2 sd); lower-is-better max(1 % of Y, 2 sd);
   AHEAD / BEHIND by at least a step, NOT BEHIND otherwise;
@@ -30,20 +31,38 @@ SILENT = ['E14', 'E15', 'I9', 'I10', 'I12']
 ORDER = list(PRED)
 
 
-def cost_label(r):
+def cost_ratio(r):
+    if r.get('cost_reduction_pct') is not None:  # "X reduces the cost by p %" (a negative p is an increase)
+        return 1 - float(r['cost_reduction_pct']) / 100
+    if r.get('cost_factor') is not None:  # "X is k x faster / k x cheaper" than Y
+        return 1 / float(r['cost_factor'])
     if r.get('x_cost') is None or r.get('y_cost') is None:
-        return None, None
+        return None
     x, y = float(r['x_cost']), float(r['y_cost'])
-    ratio = (y / x) if r.get('cost_higher_is_better') else (x / y)
+    return (y / x) if r.get('cost_higher_is_better') else (x / y)
+
+
+def cost_label(r):
+    ratio = cost_ratio(r)
+    if ratio is None:
+        return None, None
     return ratio, ('SAVES' if ratio <= 0.90 else 'COSTS' if ratio >= 1.10 else 'SAME')
 
 
 def quality_label(r):
+    sds = [s for s in (r.get('x_quality_sd'), r.get('y_quality_sd')) if s is not None]
+    sd2 = 2 * max(sds) if sds else 0.0
+    if r.get('quality_delta') is not None:  # only X - Y is printed (in the metric's own units); Y given when printed
+        if r['higher_is_better']:
+            d = float(r['quality_delta'])
+            step = max(1.0 if r['scale'] == 100 else 0.01, sd2)
+        else:
+            d = -float(r['quality_delta'])
+            step = max(0.01 * abs(float(r['y_quality'])), sd2)
+        return d, step, ('AHEAD' if d >= step else 'BEHIND' if d <= -step else 'NOT BEHIND')
     if r.get('x_quality') is None or r.get('y_quality') is None:
         return None, None, None
     x, y = float(r['x_quality']), float(r['y_quality'])
-    sds = [s for s in (r.get('x_quality_sd'), r.get('y_quality_sd')) if s is not None]
-    sd2 = 2 * max(sds) if sds else 0.0
     if r['higher_is_better']:
         step = max(1.0 if r['scale'] == 100 else 0.01, sd2)
         d = x - y
