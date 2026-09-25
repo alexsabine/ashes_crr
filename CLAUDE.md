@@ -293,7 +293,8 @@ CL Design Principle/        a CRR safe continual learner built from what works i
                            (retrodictive grading), DESIGN.md, DECLARATION_2.md + checks/gate_sota1.py (Phase A gate, synthetic battery),
                            FINDINGS.md (append-only log); the study is studies/sota1 (vendored Mammoth e75a491, Python 3.12 env), prereg/sota1, runs/sota1
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
-                           checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); COMPUTE_SAVINGS.md; a note, not evidence (R8)
+                           checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
+                           (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

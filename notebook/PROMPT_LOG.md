@@ -1487,3 +1487,7 @@ Crr helped to arrive at the SEC tuning. It must have done because it happened in
 ## 197 — 2026-09-25T15:23:10Z
 
 I mean in the future for large savings in energy etc. does the AI safety rule or SEC or CRR findings help to save compute? Think about it as if I was telling a member of the public about what these methods could enable in the future of energy/compute savings
+
+## 198 — 2026-09-25T17:41:03Z
+
+If this Method holds on large AI systems, what are the estimated energy savings, and precisely why? Please think carefully
