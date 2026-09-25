@@ -299,7 +299,9 @@ Energy Design Principle/    CRR as a lens on AI energy saving in training and ex
                            CONSOLIDATED.md (scenario, attribution, fair forecasts P1-P8); ENERGY1 (tests) after SOTA1, then the prospectus; a note, not evidence (R8)
 Lossless_Pause/             the lossless pause on GPU runs and inside the Transformer (prompt-log entry 202): DECLARATION.md (+ Amendment 1) pushed
                            before the sources and checks/transformer_pause.py (+ .txt, run 1 gate-closed kept, ~10 min, rerun by hand; `uv run --group realsys`);
-                           D1-D8 graded from docs/citations/lossless_pause_*_2026-09-25.md (checks/claims.py, grade_claims.py/.txt CI-checked); LOSSLESS_PAUSE.md; a note, not evidence (R8)
+                           D1-D8 graded from docs/citations/lossless_pause_*_2026-09-25.md (checks/claims.py, grade_claims.py/.txt CI-checked); LOSSLESS_PAUSE.md;
+                           DECLARATION_2.md (prompt-log entry 203) + systematic sweep docs/citations/sweep_*_2026-09-25.md, checks/{coverage,grade_sweep}.py/.txt
+                           (CI-checked): C4, C5 REDUNDANT, C1-C3 PARTLY REDUNDANT; FAIRNESS_REVIEW.md; a note, not evidence (R8)
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
                            checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
                            (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)

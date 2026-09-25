@@ -1,0 +1,40 @@
+Systematic sweep of 2026-09-25 (DECLARATION_2): CRR's candidate offers against prior art
+claims 86 (prior_art 29, transformer_state 30, energy_carbon 27); quotes verified in verify_sweep_claims.txt
+
+C1 PARTLY REDUNDANT       states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the outputs)
+     close  Srivastava, Arora, Boneh, 'Optimistic Verifiable Training by Controlli (arXiv 2403.09603v3 (25 N)
+     close  Arun et al., 'Verde: Verification via Refereed Delegation for Machine  (arXiv 2502.19405v1 (26 F)
+     close  Bit-Flip Vulnerability of Shared KV-Cache Blocks in LLM Serving System (v2, Sun, 7 Jun 2026 11:3)
+     close  Deterministic LLM Inference Across GPU Kernels: Power-of-Two INT8 Quan (v1, Tue, 25 Aug 2026 03:)
+C2 PARTLY REDUNDANT       states 0, close 5, bears 2 | zero-stake pause (no incentive to resist a lossless pause, valuation on own steps)
+     close  Orseau, Armstrong, 'Safely Interruptible Agents', UAI 2016 (UAI 2016 paper PDF (MIRI)
+     close  Orseau, Armstrong, 'Safely Interruptible Agents', UAI 2016 (UAI 2016 paper PDF (MIRI)
+     close  Hadfield-Menell, Dragan, Abbeel, Russell, 'The Off-Switch Game', IJCAI (arXiv 1611.08219v3 (16 J)
+     close  Soares, Fallenstein, Yudkowsky, Armstrong, 'Corrigibility', AAAI 2015  (AAAI-15 workshop paper P)
+     close  Carey, Everitt, 'Human Control: Definitions and Algorithms', UAI 2023, (arXiv 2305.19861v1 (31 M)
+C3 PARTLY REDUNDANT       states 0, close 4, bears 2 | SEC: a tuning-free calibrated penalty weight replacing a sweep
+     close  Defazio, Mishchenko, 'Learning-Rate-Free Learning by D-Adaptation', IC (arXiv 2301.07733v5 (7 Ju)
+     close  Mishchenko, Defazio, 'Prodigy: An Expeditiously Adaptive Parameter-Fre (arXiv 2306.06101v4 (19 M)
+     close  Defazio, Yang, Mehta, Mishchenko, Khaled, Cutkosky, 'The Road Less Sch (arXiv 2405.15682v4 (29 O)
+     close  Karpukhin, Savchenko, 'When Losses Align: Gradient-Based Composite Los (arXiv 2605.07756v1 (8 Ma)
+C4 REDUNDANT              states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+     states Mitra, 'When Is Availability-Aware Training Worth It? A Benchmark and  (arXiv 2609.22087v1 (22 J)
+     close  Mitra, 'When Is Availability-Aware Training Worth It? A Benchmark and  (arXiv 2609.22087v1 (22 J)
+     close  From LLM Inference to Agentic Workloads: Characterization and Implicat (v1, Sat, 15 Aug 2026 09:)
+     close  Chronicle: Cut-Point Replay for Regression Testing of LLM Agents (arXi (v1, Thu, 17 Sep 2026 16:)
+C5 REDUNDANT              states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled)
+     states Popescu, Sáez de Ocáriz Borde, Liò, 'Adaptive Depth in Looped Transfor (arXiv 2607.20519v1 (8 Ju)
+     close  Movahedi et al., 'Fixed-Point Reasoners: Stable and Adaptive Deep Loop (arXiv 2606.18206v1 (16 J)
+     close  Kallel, Tölle, Hendawy, D'Eramo, 'Do Not Imitate, Reinforce: Iterative (arXiv 2604.22110v1 (23 A)
+     close  Amin, Afroz, Nikolopoulos 2026, CAI-DLLM: Convergence Aware Inference  (arXiv 2608.22646v1 (2026)
+
+Topic claims (reported beside the earlier dossiers; they replace nothing):
+  E-carbon 5, E-embodied 2, E-measure 7, E-reasoning 5, E-rebound 4, T-agentpause 4, T-coldstart 2, T-determinism 6, T-kvpersist 7, T-ssmstate 1
+  development share of a model project's energy: Olmo 3 (Morrison et al. 2026) 80.9% of GPU energy (82.2% of GPU hours); OLMo 2 (Morrison et al. 2025, used in the scenario) 0.3345 of development + final-run energy
+  reasoning: 30x more inference energy on average (AI Energy Score v2); 17x more post-training energy (Olmo 3 Think vs Instruct)
+  inference share: "more than 90%" of power (industry reports, as cited by TokenPowerBench; secondhand) against the scenario's 1 - f_dev of 0.60 middle
+  rebound: stated by Luccioni, Strubell & Crawford 2025 and found empirically for training by Morand et al. 2026 (quotes in the dossier)
+
+SEC counterfactual sensitivity (C3 PARTLY REDUNDANT; not dominated: no quoted method sets a CL penalty weight)
+  against a 17-configuration sweep SEC saves 0.9412 of the sweep; against an online weighting method at 1.30 runs (2605.07756, pretraining losses) it saves 0.0176 of the sweep-equivalent
+  T1 middle 0.4743 TWh assumes the sweep as the counterfactual; if such a method transferred to CL penalty weights (not shown), T1 middle would scale by 0.0200 to 0.0095 TWh (0.8824 = the middle s, scale_estimate.txt)
