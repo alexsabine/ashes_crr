@@ -1483,3 +1483,7 @@ Scratchpad. In the past we estimated that crr might save 30-40% compute somehow.
 ## 196 — 2026-09-25T15:18:05Z
 
 Crr helped to arrive at the SEC tuning. It must have done because it happened in this repo. Can you run a calculation to see whether the SEC success or recent successes could potentially result in less compute / energy?
+
+## 197 — 2026-09-25T15:23:10Z
+
+I mean in the future for large savings in energy etc. does the AI safety rule or SEC or CRR findings help to save compute? Think about it as if I was telling a member of the public about what these methods could enable in the future of energy/compute savings
