@@ -2,7 +2,7 @@
 
 Raw texts were saved by the literature agents in the session scratchpad (not committed: third-party full texts).
 Normalisation: html-unescape, removal of U+FFFE / U+00AD and of '-\n' joins, whitespace collapsed.
-Run: python3 Lossless_Pause/checks/verify_claims.py <raw-root>
+Run: python3 Lossless_Pause/checks/verify_claims.py <raw-root> [module: claims | sweep_claims]
 """
 import html
 import os
@@ -10,7 +10,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import claims as C  # noqa: E402
+import importlib  # noqa: E402
 
 
 def norm(s):
@@ -21,6 +21,7 @@ def norm(s):
 
 def main():
     root = sys.argv[1]
+    C = importlib.import_module(sys.argv[2] if len(sys.argv) > 2 else 'claims')
     cache, found, total, miss = {}, 0, 0, []
     for c in C.CLAIMS:
         p = os.path.join(root, c['raw_file'])

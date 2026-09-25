@@ -195,3 +195,13 @@ corruption.
 - **Next, if a GPU becomes available (it costs money, so this is the owner's decision):**
   - run L1, L2, L3 and L7 on one GPU with deterministic kernels on and off;
   - measure hold against release power for a pause.
+
+## Correction (2026-09-25, after the systematic sweep of `DECLARATION_2.md`; see `FAIRNESS_REVIEW.md`)
+
+**B1 in §5 is PARTLY REDUNDANT, not "a candidate at most".**
+- SHA-256 and Merkle hashes of weights and optimiser state are used to verify training runs (Srivastava et al.; Verde).
+- A SHA-256 digest of stored KV-cache blocks, compared on reuse, is published as a defence against bit flips whose
+  outputs look legitimate.
+- Applying the same idea to pause and resume is a small step.
+
+**The state checklist of §4 and §5 (full state, keyed to active time) is also published practice** (Mitra 2026).

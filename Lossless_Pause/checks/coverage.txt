@@ -1,0 +1,11 @@
+Coverage audit of the dossiers fetched 2026-09-23 to 2026-09-25 (distinct arXiv ids; year from the id prefix)
+  energy (prompt 199)                    files  3  arXiv ids  111  of which 2024-2026   58  2026   6  by year {2015: 1, 2016: 1, 2017: 3, 2018: 2, 2019: 3, 2021: 6, 2022: 17, 2023: 20, 2024: 30, 2025: 22, 2026: 6}
+  compute scale (prompt 198)             files  1  arXiv ids    5  of which 2024-2026    1  2026   0  by year {2019: 1, 2021: 1, 2022: 2, 2024: 1}
+  lossless pause (prompt 202)            files  3  arXiv ids   38  of which 2024-2026   26  2026  12  by year {2021: 2, 2022: 2, 2023: 8, 2024: 9, 2025: 5, 2026: 12}
+  continual-learning SOTA (prompt 191)   files  3  arXiv ids   37  of which 2024-2026    1  2026   0  by year {2016: 3, 2017: 4, 2018: 2, 2019: 7, 2020: 5, 2021: 4, 2022: 2, 2023: 9, 2024: 1}
+  CL frontier (prompts 105, 179, 190)    files  3  arXiv ids  120  of which 2024-2026  107  2026  65  by year {2017: 1, 2019: 1, 2020: 1, 2022: 1, 2023: 9, 2024: 17, 2025: 25, 2026: 65}
+  plasticity and FOREVER                 files  3  arXiv ids   88  of which 2024-2026   38  2026  10  by year {2016: 2, 2017: 10, 2018: 5, 2019: 6, 2020: 2, 2021: 3, 2022: 6, 2023: 16, 2024: 14, 2025: 14, 2026: 10}
+  safety and pause (earlier days)        files  7  arXiv ids  223  of which 2024-2026  178  2026  87  by year {2016: 4, 2017: 8, 2018: 2, 2019: 6, 2020: 5, 2021: 1, 2022: 4, 2023: 15, 2024: 36, 2025: 55, 2026: 87}
+  empty-cut engineering (prompt 154)     files  1  arXiv ids   15  of which 2024-2026    5  2026   2  by year {2019: 3, 2020: 2, 2021: 2, 2022: 1, 2023: 2, 2024: 2, 2025: 1, 2026: 2}
+  systematic sweep (prompt 203)          files  3  arXiv ids  371  of which 2024-2026  317  2026 261  by year {2010: 1, 2013: 3, 2014: 1, 2015: 2, 2016: 3, 2017: 6, 2018: 1, 2019: 4, 2020: 5, 2021: 13, 2022: 7, 2023: 8, 2024: 16, 2025: 40, 2026: 261}
+  all groups: 884 distinct arXiv ids
