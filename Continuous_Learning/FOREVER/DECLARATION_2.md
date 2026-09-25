@@ -99,3 +99,31 @@ For each world and each arm against F:
 
 A prediction HOLDS or FAILS as computed. No threshold is changed after the run. A crash or undefined quantity is repaired
 only by a pushed amendment before any rerun, as in Declaration 1.
+
+## Amendment 1 (2026-09-25; pushed before any scored run)
+
+**What happened.** A smoke run of the declared generator on scored seed 0 (W1, W6 and W7; the FOREVER, CRR-full and
+ER-mix arms) gave accuracies of 99.3 to 100 with no forgetting. So the declared worlds had no headroom: every arm would
+tie by construction. No scored battery was run.
+
+**The calibration** (`checks/comparative_calibration.py` and `.txt`).
+- It uses seed 999, which is not a scored seed, and the baselines only: fine-tune, FOREVER and ER-mix. No CRR arm was run.
+- Under the declared generator, fine-tune scores 96.5 to 99.2 in the domain-incremental worlds. W6 is the exception, with
+  fine-tune at 64.0 but FOREVER at 99.9, so there is no room above FOREVER.
+- Two label-conflict variants left replay no room to help.
+- Variant 3 was chosen.
+
+**The changes** (every other part of Declaration 2 is unchanged):
+1. **Generator:** input noise sd 2.0 (was 1.0); class-mean sd 1.0 (was 1.5); task drift sd 1.0 (was 1.5); no label
+   conflict.
+2. **Buffer:** 10 samples per past task (was 50).
+3. **Replay event:** 5 SGD steps (was 10).
+4. **Headroom precondition H0, per world, on the scored seeds:**
+   - fine-tune's mean BWT ≤ −10 points (there is forgetting);
+   - FOREVER's mean OP ≤ 95 (there is room above FOREVER).
+
+   A world that fails H0 is reported and counted. It is left out of the gate and the predictions: its labels are printed,
+   but they vote in nothing.
+
+**Its status.** A post-hoc repair of the instrument's headroom, made before any comparison of arms was seen. The seed-0
+smoke run included the CRR-full arm, at 100.0 like every other arm.
