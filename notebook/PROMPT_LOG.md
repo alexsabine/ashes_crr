@@ -1367,3 +1367,9 @@ You once described rovellis time as like the rain and crr as like a river. You d
 ## 173 — 2026-09-25T01:13:05Z
 
 With qwen why are we not running a crr heuristically derived continuous learning check alongside the AI safety cut?
+
+## 174 — 2026-09-25T01:19:03Z
+
+Check continuous learning document again please, read it carefully and explain the outcome from the ADAM tests. Also, this repo is designed to test crr so please explain how we arrived at SCL3 precisely. Check identity of crr from the repo please and determine how the SCL3 method was arrived at mathematically.
+
+Also check the continuous learning document again for the stability and no tuning of the omega=1 equanimity and how this is explained in the paper
