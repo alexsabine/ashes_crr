@@ -1437,3 +1437,7 @@ Okay, so given the number of retrodictive predictions and taking into account th
 ## 188 — 2026-09-25T04:23:04Z
 
 Check the ontological folder please for how it was described there in relation to other mathematical objects. Show a fair comparison table with other scientific objects from the history of science, philosophy and metaphysics. Thank you
+
+## 189 — 2026-09-25T04:49:03Z
+
+Please could you pull up the latest MD file or similar which outlines the true map / cut approach for AI safety?
