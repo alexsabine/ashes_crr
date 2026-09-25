@@ -1,0 +1,2 @@
+/home/user/ashes_crr/runs/rlaw/frozen/rlaw_lib.py:23: RuntimeWarning: invalid value encountered in subtract
+  v = np.asarray(v, float); return (v / 2.0) * (np.sqrt(v * v + 4.0) - v)

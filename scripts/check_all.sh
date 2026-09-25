@@ -74,6 +74,7 @@ uv run python Rupture_Detection/checks/rupture_checks.py 2>/dev/null | cmp - Rup
 uv run python Regeneration_Law/checks/math_checks.py 2>/dev/null | cmp - Regeneration_Law/checks/math_checks.txt && echo 'regeneration law mathematical checks (Declaration 1) byte-identical to the committed output'
 uv run python Regeneration_Law/checks/operational_checks.py 2>/dev/null | cmp - Regeneration_Law/checks/operational_checks.txt && echo 'regeneration law operational checks (Declaration 2) byte-identical to the committed output'
 uv run python studies/rlaw/loader_check.py 2>/dev/null | cmp - prereg/rlaw/loader_check.txt && echo 'RLAW loader check byte-identical to the committed output'
+uv run python runs/rlaw/summary.py 2>/dev/null | cmp - runs/rlaw/summary.txt && echo 'RLAW per-unit summary byte-identical to the committed output'
 uv run python Maps_and_Territories/checks/performativity.py 2>/dev/null | cmp - Maps_and_Territories/checks/performativity.txt && echo 'maps and territories P1-P5 byte-identical to the committed output'
 uv run python Maps_and_Territories/checks/performativity_2.py 2>/dev/null | cmp - Maps_and_Territories/checks/performativity_2.txt && echo 'maps and territories P5 post hoc byte-identical to the committed output'
 uv run --group realsys python Empty_Cut_Engineering/checks/c3_worlds.py 2>/dev/null | cmp - Empty_Cut_Engineering/checks/c3_worlds.txt && echo 'empty-cut engineering C3 (worlds) byte-identical to the committed output'
@@ -82,6 +83,7 @@ uv run --group realsys python Real_World/checks/rw2_phaseA.py 2>/dev/null | cmp 
 uv run --group realsys python Real_World/checks/rw2_phaseA_2.py 2>/dev/null | cmp - Real_World/checks/rw2_phaseA_2.txt && echo 'RW2 Phase A round 2 (post hoc) byte-identical to the committed output'
 # Real_World/checks/rw1.txt (about 35 minutes, downloads GPT-2 and Qwen2.5-0.5B-Instruct) is not re-run here; rerun by hand: uv run --group realsys python Real_World/checks/rw1.py | cmp - Real_World/checks/rw1.txt
 # Cut_Content/checks/cut_phaseA.txt (about 30 minutes) is not re-run here; rerun by hand: uv run python Cut_Content/checks/cut_phaseA.py | cmp - Cut_Content/checks/cut_phaseA.txt
+# runs/rlaw/score.txt (about 6 minutes) and runs/rlaw/diag_kinf.txt need the raw data (gitignored); rerun by hand after data/fetch_rlaw.py: uv run python runs/rlaw/frozen/rlaw_score.py | cmp - runs/rlaw/score.txt
 # prereg/rlaw/gate_RLAW.txt (about 40 minutes) is not re-run here; rerun by hand: uv run python runs/rlaw/frozen/gate_rlaw.py | cmp - prereg/rlaw/gate_RLAW.txt
 uv run python Rupture_Detection/build/build_pdf.py > /dev/null 2>&1 && echo 'Rupture Detection PDF rebuilds'
 uv run python theory/retrodictions/crr_retrodictions.py | cmp - theory/retrodictions/crr_retrodictions.txt && echo 'retrodiction battery byte-identical to the committed output'

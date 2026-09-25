@@ -1,0 +1,1168 @@
+RLAW scorer: the regeneration law alpha* = K(v_own) on five domains (prereg/rlaw/PREREG.md)
+two-step optimal constant rate by mean visit gap (M13 rule): 1: 0.034, 1.5: 0.038, 2: 0.040, 2.5: 0.042, 3: 0.042, 4: 0.042, 5: 0.042, 6: 0.036, 8: 0.030, 10: 0.020, 12: 0.002
+
+== RLAW-1 (spf), primary cell v:ml own:on lag:+0 alt:no
+   unit | n | alpha_hat | alpha* = K(v_own) | K(v) (Muth, instrument unit) | v_hat | v_own | log(alpha_hat/alpha*) | within x2
+   UNEMP | 222 | -0.2594 | 0.9139 | 0.9151 | 3.1410 | 3.1141 | nan | no
+   HOUSING | 223 | 0.0561 | 0.9993 | 0.9999 | 100.0000 | 37.5588 | -2.881 | no
+   TBILL | 180 | -0.1633 | 0.9973 | 0.9999 | 100.0000 | 19.2588 | nan | no
+   TBOND | 138 | 0.6820 | 0.9939 | 0.9999 | 100.0000 | 12.6957 | -0.377 | yes
+   CPI | 178 | 0.0293 | 0.3544 | 0.3544 | 0.4411 | 0.4410 | -2.492 | no
+   CORECPI | 76 | 0.0606 | 0.4582 | 0.4584 | 0.6229 | 0.6225 | -2.023 | no
+   PCE | 78 | 0.0320 | 0.5440 | 0.5441 | 0.8057 | 0.8055 | -2.833 | no
+   COREPCE | 78 | 0.0763 | 0.5816 | 0.5821 | 0.9004 | 0.8992 | -2.031 | no
+   level: 1/8 units within x2 (threshold 6; excluded 0) -> FAIL
+   baseline (leave-one-unit-out constant): law median |log err| 2.662248 (2.662) vs constant 0.681647 (0.682); constant within x2 4/8 -> law beats constant: FAIL
+   row RLAW-1: level FAIL AND law beats constant FAIL -> FAIL
+   sensitivity (16 cells; for twostep the factors read: v -> alpha grid 200/400 (ml/mom), own -> Q0 0/0.5 (on/off), lag -> beta bound 50/20, alt -> exclusion >10% missed):
+      v:ml own:on lag:+0 alt:no: 1/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+0 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:no: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:no: 1/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:no: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:no: 1/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:no: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:no: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:no: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:yes: 0/8 within x2; row FAIL; level FAIL; baseline FAIL
+   flips against the primary: row 0 -> not fragile; level 0 -> not fragile; baseline 0 -> not fragile
+
+== RLAW-2 (mich), primary cell v:ml own:on lag:+0 alt:no
+   unit | n | alpha_hat | alpha* = K(v_own) | K(v) (Muth, instrument unit) | v_hat | v_own | log(alpha_hat/alpha*) | within x2
+   third1 | 184 | 0.0385 | 0.7090 | 0.9999 | 100.0000 | 1.3141 | -2.913 | no
+   third2 | 184 | 0.0820 | 0.6851 | 0.9999 | 100.0000 | 1.2208 | -2.123 | no
+   third3 | 184 | 0.0104 | 0.7724 | 0.9999 | 100.0000 | 1.6193 | -4.311 | no
+   level: 0/3 units within x2 (threshold 3; excluded 0) -> FAIL
+   baseline (leave-one-unit-out constant): law median |log err| 2.912899 (2.913) vs constant 1.210117 (1.210); constant within x2 1/3 -> law beats constant: FAIL
+   row RLAW-2: level FAIL AND law beats constant FAIL -> FAIL
+   sensitivity (16 cells; for twostep the factors read: v -> alpha grid 200/400 (ml/mom), own -> Q0 0/0.5 (on/off), lag -> beta bound 50/20, alt -> exclusion >10% missed):
+      v:ml own:on lag:+0 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+0 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:no: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:yes: 0/3 within x2; row FAIL; level FAIL; baseline FAIL
+   flips against the primary: row 0 -> not fragile; level 0 -> not fragile; baseline 0 -> not fragile
+
+== RLAW-3 (ivol), primary cell v:ml own:on lag:+0 alt:no
+   unit | n | alpha_hat | alpha* = K(v_own) | K(v) (Muth, instrument unit) | v_hat | v_own | log(alpha_hat/alpha*) | within x2
+   VIX | 2510 | 0.0536 | 0.2692 | 0.2692 | 0.3149 | 0.3149 | -1.615 | no
+   VXN | 6442 | 0.0188 | 0.1092 | 0.1092 | 0.1157 | 0.1157 | -1.761 | no
+   OVX | 4800 | -0.0298 | 0.1129 | 0.1129 | 0.1199 | 0.1199 | nan | no
+   EVZ | 4313 | 0.0243 | 0.0376 | 0.0376 | 0.0383 | 0.0383 | -0.435 | yes
+   VXD | 2510 | 0.0249 | 0.2522 | 0.2522 | 0.2916 | 0.2916 | -2.314 | no
+   level: 1/5 units within x2 (threshold 5; excluded 0) -> FAIL
+   baseline (leave-one-unit-out constant): law median |log err| 1.761222 (1.761) vs constant 0.284503 (0.285); constant within x2 3/5 -> law beats constant: FAIL
+   row RLAW-3: level FAIL AND law beats constant FAIL -> FAIL
+   sensitivity (16 cells; for twostep the factors read: v -> alpha grid 200/400 (ml/mom), own -> Q0 0/0.5 (on/off), lag -> beta bound 50/20, alt -> exclusion >10% missed):
+      v:ml own:on lag:+0 alt:no: 1/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+0 alt:yes: 1/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:no: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:yes: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:no: 1/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:yes: 1/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:no: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:yes: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:no: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:yes: 1/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:no: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:yes: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:no: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:yes: 1/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:no: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:yes: 0/5 within x2; row FAIL; level FAIL; baseline FAIL
+   flips against the primary: row 0 -> not fragile; level 0 -> not fragile; baseline 0 -> not fragile
+
+== RLAW-4 (soil5), primary cell v:ml own:on lag:+0 alt:no
+   unit | n | alpha_hat | alpha* = K(v_own) | K(v) (Muth, instrument unit) | v_hat | v_own | log(alpha_hat/alpha*) | within x2
+   AK_Aleknagik_1_NNE@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   AK_Bethel_87_WNW@5cm | EXCLUDED: rows 0, input values 309 (< 300)
+   AK_Cordova_14_ESE@5cm | EXCLUDED: rows 0, input values 118 (< 300)
+   AK_Deadhorse_3_S@5cm | EXCLUDED: rows 0, input values 48 (< 300)
+   AK_Denali_27_N@5cm | EXCLUDED: rows 0, input values 286 (< 300)
+   AK_Fairbanks_11_NE@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AK_Galena_44_SW@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   AK_Glennallen_64_N@5cm | EXCLUDED: rows 0, input values 288 (< 300)
+   AK_Gustavus_2_NE@5cm | EXCLUDED: rows 0, input values 356 (< 300)
+   AK_Huslia_27_E@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   AK_Kenai_29_ENE@5cm | 357 | 0.0310 | 0.9742 | 0.9742 | 6.0711 | 6.0599 | -3.447 | no
+   AK_King_Salmon_42_SE@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AK_Metlakatla_6_S@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AK_Port_Alsworth_1_SW@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AK_Red_Dog_Mine_3_SSW@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   AK_Ruby_44_ESE@5cm | EXCLUDED: rows 0, input values 284 (< 300)
+   AK_Sand_Point_1_ENE@5cm | EXCLUDED: rows 0, input values 363 (< 300)
+   AK_Selawik_28_E@5cm | EXCLUDED: rows 0, input values 361 (< 300)
+   AK_Sitka_1_NE@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AK_St._Paul_4_NE@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AK_Tok_70_SE@5cm | EXCLUDED: rows 0, input values 324 (< 300)
+   AK_Toolik_Lake_5_ENE@5cm | EXCLUDED: rows 0, input values 358 (< 300)
+   AK_Utqiagvik_formerly_Barrow_4_ENE@5cm | EXCLUDED: rows 0, input values 357 (< 300)
+   AK_Yakutat_3_SSE@5cm | EXCLUDED: rows 0, input values 346 (< 300)
+   AL_Brewton_3_NNE@5cm | EXCLUDED: rows 243, input values 364 (< 300)
+   AL_Clanton_2_NE@5cm | 364 | 0.2619 | 0.9998 | 0.9999 | 100.0000 | 70.3418 | -1.340 | no
+   AL_Courtland_2_WSW@5cm | EXCLUDED: rows 247, input values 365 (< 300)
+   AL_Cullman_3_ENE@5cm | EXCLUDED: rows 245, input values 348 (< 300)
+   AL_Fairhope_3_NE@5cm | EXCLUDED: rows 172, input values 258 (< 300)
+   AL_Gadsden_19_N@5cm | EXCLUDED: rows 132, input values 364 (< 300)
+   AL_Gainesville_2_NE@5cm | 364 | 0.2930 | 0.9998 | 0.9999 | 100.0000 | 72.9555 | -1.228 | no
+   AL_Greensboro_2_WNW@5cm | 362 | 0.2819 | 0.9998 | 0.9999 | 100.0000 | 72.9946 | -1.266 | no
+   AL_Highland_Home_2_S@5cm | EXCLUDED: rows 204, input values 324 (< 300)
+   AL_Muscle_Shoals_2_N@5cm | 364 | 0.3580 | 0.8868 | 0.8869 | 2.6372 | 2.6363 | -0.907 | no
+   AL_Northport_2_S@5cm | 338 | 0.2158 | 0.9998 | 0.9999 | 100.0000 | 72.1343 | -1.533 | no
+   AL_Russellville_4_SSE@5cm | 364 | 0.3793 | 0.9062 | 0.9063 | 2.9605 | 2.9594 | -0.871 | no
+   AL_Scottsboro_2_NE@5cm | EXCLUDED: rows 75, input values 291 (< 300)
+   AL_Selma_13_WNW@5cm | 364 | 0.2982 | 0.9998 | 0.9999 | 100.0000 | 72.6659 | -1.210 | no
+   AL_Selma_6_SSE@5cm | 347 | 0.4525 | 0.9998 | 0.9999 | 100.0000 | 71.1919 | -0.793 | no
+   AL_Talladega_10_NNE@5cm | 362 | 0.2109 | 0.9998 | 0.9999 | 100.0000 | 70.5603 | -1.556 | no
+   AL_Thomasville_2_S@5cm | 362 | 0.3235 | 0.9998 | 0.9999 | 100.0000 | 72.5153 | -1.128 | no
+   AL_Troy_2_W@5cm | EXCLUDED: rows 1, input values 356 (< 300)
+   AL_Valley_Head_1_SSW@5cm | 351 | 0.3600 | 0.9998 | 0.9999 | 100.0000 | 72.1110 | -1.022 | no
+   AR_Batesville_8_WNW@5cm | 362 | 0.1238 | 0.8745 | 0.8746 | 2.4695 | 2.4688 | -1.955 | no
+   AZ_Elgin_5_S@5cm | 362 | 0.3003 | 0.9997 | 0.9999 | 100.0000 | 58.4816 | -1.203 | no
+   AZ_Tucson_11_W@5cm | 362 | 0.3538 | 0.9997 | 0.9999 | 100.0000 | 60.9208 | -1.039 | no
+   AZ_Williams_35_NNW@5cm | 362 | 0.2874 | 0.9997 | 0.9999 | 100.0000 | 57.5154 | -1.247 | no
+   AZ_Yuma_27_ENE@5cm | 362 | 0.3062 | 0.9996 | 0.9999 | 100.0000 | 52.4531 | -1.183 | no
+   CA_Bodega_6_WSW@5cm | 364 | 0.1902 | 0.7297 | 0.7302 | 1.4057 | 1.4036 | -1.345 | no
+   CA_Fallbrook_5_NE@5cm | 362 | 0.1391 | 0.9997 | 0.9999 | 100.0000 | 57.5390 | -1.972 | no
+   CA_Merced_23_WSW@5cm | 364 | 0.1568 | 0.9996 | 0.9999 | 100.0000 | 51.3751 | -1.852 | no
+   CA_Redding_12_WNW@5cm | 362 | 0.1821 | 0.9997 | 0.9999 | 100.0000 | 59.7090 | -1.703 | no
+   CA_Santa_Barbara_11_W@5cm | 362 | 0.0981 | 0.6805 | 0.6809 | 1.2053 | 1.2040 | -1.937 | no
+   CA_Stovepipe_Wells_1_SW@5cm | 362 | 0.2805 | 0.9997 | 0.9999 | 100.0000 | 56.3607 | -1.271 | no
+   CA_Yosemite_Village_12_W@5cm | 364 | 0.1444 | 0.9998 | 0.9999 | 100.0000 | 66.9035 | -1.935 | no
+   CO_Boulder_14_W@5cm | 362 | 0.1168 | 0.8670 | 0.8670 | 2.3777 | 2.3771 | -2.004 | no
+   CO_Cortez_8_SE@5cm | EXCLUDED: rows 173, input values 364 (< 300)
+   CO_Dinosaur_2_E@5cm | 362 | 0.2335 | 0.9998 | 0.9999 | 100.0000 | 69.9113 | -1.454 | no
+   CO_La_Junta_17_WSW@5cm | 362 | 0.1318 | 0.8021 | 0.8021 | 1.8030 | 1.8027 | -1.806 | no
+   CO_Montrose_11_ENE@5cm | 351 | 0.1393 | 0.9998 | 0.9999 | 100.0000 | 69.0503 | -1.971 | no
+   CO_Nunn_7_NNE@5cm | 362 | 0.1935 | 0.8337 | 0.8337 | 2.0447 | 2.0444 | -1.461 | no
+   FL_Everglades_City_5_NE@5cm | 362 | 0.2708 | 0.9996 | 0.9999 | 100.0000 | 50.5740 | -1.306 | no
+   FL_Sebring_23_SSE@5cm | EXCLUDED: rows 238, input values 364 (< 300)
+   FL_Titusville_7_E@5cm | EXCLUDED: rows 227, input values 364 (< 300)
+   GA_Brunswick_23_S@5cm | 357 | 0.2902 | 0.6812 | 0.6812 | 1.2065 | 1.2063 | -0.853 | no
+   GA_Newton_11_SW@5cm | 364 | 0.2981 | 0.9998 | 0.9999 | 100.0000 | 68.0530 | -1.210 | no
+   GA_Newton_8_W@5cm | 364 | 0.2282 | 0.9998 | 0.9999 | 100.0000 | 68.8652 | -1.477 | no
+   GA_Watkinsville_5_SSE@5cm | 347 | 0.3034 | 0.9998 | 0.9999 | 100.0000 | 67.0540 | -1.193 | no
+   HI_Hilo_5_S@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   HI_Mauna_Loa_5_NNE@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   IA_Des_Moines_17_E@5cm | EXCLUDED: rows 132, input values 363 (< 300)
+   ID_Arco_17_SW@5cm | 362 | 0.1407 | 0.9998 | 0.9999 | 100.0000 | 68.1115 | -1.961 | no
+   ID_Murphy_10_W@5cm | 362 | 0.2143 | 0.9998 | 0.9999 | 100.0000 | 69.4311 | -1.540 | no
+   IL_Champaign_9_SW@5cm | EXCLUDED: rows 22, input values 364 (< 300)
+   IL_Shabbona_5_NNE@5cm | 364 | 0.0826 | 0.9528 | 0.9529 | 4.3894 | 4.3865 | -2.446 | no
+   IN_Bedford_5_WNW@5cm | EXCLUDED: rows 141, input values 142 (< 300)
+   KS_Manhattan_6_SSW@5cm | 361 | 0.1350 | 0.9998 | 0.9999 | 100.0000 | 80.2052 | -2.002 | no
+   KS_Oakley_19_SSW@5cm | 362 | 0.1475 | 0.9998 | 0.9999 | 100.0000 | 79.7478 | -1.914 | no
+   KY_Bowling_Green_21_NNE@5cm | 364 | 0.1194 | 0.9107 | 0.9107 | 3.0484 | 3.0474 | -2.032 | no
+   KY_Versailles_3_NNW@5cm | 363 | 0.1800 | 0.8889 | 0.8889 | 2.6670 | 2.6663 | -1.597 | no
+   LA_Lafayette_13_SE@5cm | 364 | 0.1961 | 0.9998 | 0.9999 | 100.0000 | 73.2855 | -1.629 | no
+   LA_Monroe_26_N@5cm | 364 | 0.2642 | 0.9783 | 0.9784 | 6.6579 | 6.6451 | -1.309 | no
+   MA_Blue_Hill_0_W@5cm | 364 | 0.3278 | 0.8112 | 0.8112 | 1.8670 | 1.8667 | -0.906 | no
+   ME_Limestone_4_NNW@5cm | 364 | 0.0502 | 0.9998 | 0.9999 | 100.0000 | 77.7099 | -2.991 | no
+   ME_Old_Town_2_W@5cm | 364 | 0.0840 | 0.8761 | 0.8762 | 2.4901 | 2.4895 | -2.345 | no
+   MI_Chatham_1_SE@5cm | 362 | 0.0530 | 0.9998 | 0.9999 | 100.0000 | 77.0635 | -2.938 | no
+   MI_Gaylord_9_SSW@5cm | 362 | 0.1207 | 0.9998 | 0.9999 | 100.0000 | 76.4749 | -2.114 | no
+   MN_Goodridge_12_NNW@5cm | 348 | 0.0298 | 0.9999 | 0.9999 | 100.0000 | 81.8036 | -3.512 | no
+   MN_Sandstone_6_W@5cm | 362 | 0.0462 | 0.9998 | 0.9999 | 100.0000 | 80.2536 | -3.075 | no
+   MO_Chillicothe_22_ENE@5cm | EXCLUDED: rows 19, input values 360 (< 300)
+   MO_Joplin_24_N@5cm | 361 | 0.1371 | 0.9814 | 0.9815 | 7.2106 | 7.1986 | -1.968 | no
+   MO_Salem_10_W@5cm | 362 | 0.1358 | 0.9018 | 0.9019 | 2.8787 | 2.8778 | -1.893 | no
+   MS_Holly_Springs_4_N@5cm | 364 | 0.2715 | 0.8565 | 0.8566 | 2.2615 | 2.2610 | -1.149 | no
+   MS_Newton_5_ENE@5cm | 364 | 0.2799 | 0.8732 | 0.8733 | 2.4534 | 2.4526 | -1.138 | no
+   MT_Dillon_18_WSW@5cm | 364 | 0.1423 | 0.9998 | 0.9999 | 100.0000 | 73.0651 | -1.949 | no
+   MT_Lewistown_42_WSW@5cm | 362 | 0.1231 | 0.9999 | 0.9999 | 100.0000 | 82.1448 | -2.095 | no
+   MT_St._Mary_1_SSW@5cm | 364 | 0.0723 | 0.9999 | 0.9999 | 100.0000 | 81.6493 | -2.626 | no
+   MT_Wolf_Point_29_ENE@5cm | 364 | 0.1901 | 0.9999 | 0.9999 | 100.0000 | 84.4507 | -1.660 | no
+   MT_Wolf_Point_34_NE@5cm | EXCLUDED: rows 204, input values 364 (< 300)
+   NC_Asheville_13_S@5cm | 359 | 0.2626 | 0.9855 | 0.9856 | 8.2117 | 8.1830 | -1.323 | no
+   NC_Asheville_8_SSW@5cm | 362 | 0.2310 | 0.9998 | 0.9999 | 100.0000 | 69.9220 | -1.465 | no
+   NC_Durham_11_W@5cm | 364 | 0.2336 | 0.7777 | 0.7778 | 1.6498 | 1.6495 | -1.203 | no
+   ND_Jamestown_38_WSW@5cm | 318 | 0.0527 | 0.9999 | 0.9999 | 100.0000 | 82.9329 | -2.943 | no
+   ND_Medora_7_E@5cm | 364 | 0.0814 | 0.9907 | 0.9907 | 10.2679 | 10.2470 | -2.499 | no
+   ND_Northgate_5_ESE@5cm | 364 | 0.0540 | 0.9756 | 0.9757 | 6.2552 | 6.2501 | -2.894 | no
+   NE_Harrison_20_SSE@5cm | 364 | 0.3262 | 0.9266 | 0.9266 | 3.4215 | 3.4204 | -1.044 | no
+   NE_Lincoln_11_SW@5cm | 364 | 0.1625 | 0.9998 | 0.9999 | 100.0000 | 81.2556 | -1.817 | no
+   NE_Lincoln_8_ENE@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   NE_Whitman_5_ENE@5cm | 352 | 0.2112 | 0.9906 | 0.9907 | 10.2579 | 10.2344 | -1.546 | no
+   NH_Durham_2_N@5cm | 364 | 0.1293 | 0.9322 | 0.9323 | 3.5830 | 3.5810 | -1.975 | no
+   NH_Durham_2_SSW@5cm | 364 | 0.1237 | 0.9342 | 0.9343 | 3.6443 | 3.6424 | -2.021 | no
+   NM_Las_Cruces_20_N@5cm | 361 | 0.3177 | 0.9998 | 0.9999 | 100.0000 | 64.8944 | -1.147 | no
+   NM_Los_Alamos_13_W@5cm | 362 | 0.1484 | 0.9998 | 0.9999 | 100.0000 | 66.7911 | -1.908 | no
+   NM_Socorro_20_N@5cm | 362 | 0.3729 | 0.9998 | 0.9999 | 100.0000 | 67.7595 | -0.986 | no
+   NV_Baker_5_W@5cm | 362 | 0.2952 | 0.9998 | 0.9999 | 100.0000 | 75.0854 | -1.220 | no
+   NV_Denio_52_WSW@5cm | 364 | 0.1420 | 0.9998 | 0.9999 | 100.0000 | 70.8028 | -1.952 | no
+   NV_Mercury_3_SSW@5cm | 344 | 0.2665 | 0.9997 | 0.9999 | 100.0000 | 57.9318 | -1.322 | no
+   NY_Ithaca_13_E@5cm | 364 | 0.1155 | 0.6953 | 0.6953 | 1.2598 | 1.2597 | -1.795 | no
+   NY_Millbrook_3_W@5cm | 358 | 0.2080 | 0.8329 | 0.8330 | 2.0382 | 2.0377 | -1.387 | no
+   OH_Wooster_3_SSE@5cm | 364 | 0.0965 | 0.9871 | 0.9872 | 8.7280 | 8.7067 | -2.325 | no
+   OK_Goodwell_2_E@5cm | 361 | 0.1560 | 0.7169 | 0.7169 | 1.3474 | 1.3473 | -1.525 | no
+   OK_Goodwell_2_SE@5cm | 356 | 0.1468 | 0.7356 | 0.7356 | 1.4306 | 1.4304 | -1.612 | no
+   OK_Stillwater_2_W@5cm | EXCLUDED: rows 17, input values 363 (< 300)
+   OK_Stillwater_5_WNW@5cm | 362 | 0.1200 | 0.8029 | 0.8030 | 1.8090 | 1.8087 | -1.901 | no
+   ON_Egbert_1_W@5cm | EXCLUDED: rows 0, input values 363 (< 300)
+   OR_Coos_Bay_8_SW@5cm | EXCLUDED: rows 186, input values 188 (< 300)
+   OR_Corvallis_10_SSW@5cm | 362 | 0.1750 | 0.9997 | 0.9999 | 100.0000 | 57.6917 | -1.742 | no
+   OR_John_Day_35_WNW@5cm | 362 | 0.0554 | 0.9998 | 0.9999 | 100.0000 | 69.0382 | -2.892 | no
+   OR_Riley_10_WSW@5cm | 362 | 0.2230 | 0.9998 | 0.9999 | 100.0000 | 68.1931 | -1.500 | no
+   PA_Avondale_2_N@5cm | 362 | 0.1616 | 0.9236 | 0.9237 | 3.3434 | 3.3414 | -1.743 | no
+   RI_Kingston_1_NW@5cm | 343 | 0.1997 | 0.7534 | 0.7534 | 1.5173 | 1.5171 | -1.328 | no
+   RI_Kingston_1_W@5cm | 364 | 0.1865 | 0.6808 | 0.6808 | 1.2050 | 1.2048 | -1.295 | no
+   SC_Blackville_3_W@5cm | 362 | 0.2324 | 0.9347 | 0.9348 | 3.6615 | 3.6587 | -1.392 | no
+   SC_McClellanville_7_NE@5cm | 362 | 0.3149 | 0.7536 | 0.7537 | 1.5185 | 1.5182 | -0.873 | no
+   SD_Aberdeen_35_WNW@5cm | 352 | 0.0559 | 0.9937 | 0.9938 | 12.6126 | 12.5651 | -2.879 | no
+   SD_Buffalo_13_ESE@5cm | 364 | 0.1140 | 0.9999 | 0.9999 | 100.0000 | 83.8634 | -2.172 | no
+   SD_Pierre_24_S@5cm | 364 | 0.1322 | 0.9999 | 0.9999 | 100.0000 | 83.5034 | -2.024 | no
+   SD_Sioux_Falls_14_NNE@5cm | 362 | 0.0905 | 0.9950 | 0.9950 | 14.1288 | 14.0596 | -2.398 | no
+   TN_Crossville_7_NW@5cm | 360 | 0.2418 | 0.9707 | 0.9708 | 5.6825 | 5.6759 | -1.390 | no
+   TX_Austin_33_NW@5cm | 359 | 0.3359 | 0.9998 | 0.9999 | 100.0000 | 73.0255 | -1.091 | no
+   TX_Bronte_11_NNE@5cm | 362 | 0.4140 | 0.9108 | 0.9108 | 3.0505 | 3.0492 | -0.789 | no
+   TX_Edinburg_17_NNE@5cm | 358 | 0.4960 | 0.9998 | 0.9999 | 100.0000 | 70.5370 | -0.701 | no
+   TX_Monahans_6_ENE@5cm | 337 | 0.3639 | 0.9998 | 0.9999 | 100.0000 | 72.6130 | -1.011 | no
+   TX_Muleshoe_19_S@5cm | 362 | 0.3295 | 0.9078 | 0.9079 | 2.9911 | 2.9899 | -1.014 | no
+   TX_Palestine_6_WNW@5cm | 364 | 0.2094 | 0.9998 | 0.9999 | 100.0000 | 72.0052 | -1.563 | no
+   TX_Panther_Junction_2_N@5cm | 362 | 0.4357 | 0.9998 | 0.9999 | 100.0000 | 74.6362 | -0.831 | no
+   TX_Port_Aransas_32_NNE@5cm | 357 | 0.2431 | 0.9729 | 0.9730 | 5.9186 | 5.9093 | -1.387 | no
+   UT_Brigham_City_28_WNW@5cm | 362 | 0.2433 | 0.9998 | 0.9999 | 100.0000 | 68.4712 | -1.413 | no
+   UT_Torrey_7_E@5cm | EXCLUDED: rows 0, input values 364 (< 300)
+   VA_Cape_Charles_5_ENE@5cm | EXCLUDED: rows 0, input values 365 (< 300)
+   VA_Charlottesville_2_SSE@5cm | 364 | 0.0340 | 0.8990 | 0.8991 | 2.8302 | 2.8292 | -3.275 | no
+   WA_Darrington_21_NNE@5cm | 362 | 0.2079 | 0.9254 | 0.9256 | 3.3944 | 3.3881 | -1.493 | no
+   WA_Quinault_4_NE@5cm | 362 | 0.2008 | 0.9996 | 0.9999 | 100.0000 | 50.4979 | -1.605 | no
+   WA_Spokane_17_SSW@5cm | 355 | 0.1629 | 0.9998 | 0.9999 | 100.0000 | 64.0648 | -1.815 | no
+   WI_Necedah_5_WNW@5cm | 330 | 0.1449 | 0.9998 | 0.9999 | 100.0000 | 79.3633 | -1.932 | no
+   WV_Elkins_21_ENE@5cm | 338 | 0.1011 | 0.9998 | 0.9999 | 100.0000 | 81.2386 | -2.292 | no
+   WY_Lander_11_SSE@5cm | 360 | 0.1445 | 0.9998 | 0.9999 | 100.0000 | 79.3291 | -1.935 | no
+   WY_Moose_1_NNE@5cm | 364 | 0.0584 | 0.9902 | 0.9903 | 10.0481 | 10.0106 | -2.831 | no
+   WY_Sundance_8_NNW@5cm | 364 | 0.0710 | 0.9999 | 0.9999 | 100.0000 | 86.0421 | -2.644 | no
+   level: 0/112 units within x2 (threshold 75; excluded 47) -> FAIL
+   baseline (leave-one-unit-out constant): law median |log err| 1.580228 (1.580) vs constant 0.391637 (0.392); constant within x2 91/112 -> law beats constant: FAIL
+   tracking: Spearman(alpha_hat, alpha*) -0.065398 (-0.065), bootstrap 95% CI -0.248 to 0.134 (PASS needs >= 0.3 and CI above 0) -> FAIL
+   row RLAW-4: level FAIL AND law beats constant FAIL -> FAIL
+   sensitivity (16 cells; for twostep the factors read: v -> alpha grid 200/400 (ml/mom), own -> Q0 0/0.5 (on/off), lag -> beta bound 50/20, alt -> exclusion >10% missed):
+      v:ml own:on lag:+0 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:on lag:+0 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:on lag:+1 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:on lag:+1 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+0 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+0 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+1 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+1 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:on lag:+0 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:on lag:+0 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:on lag:+1 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:on lag:+1 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+0 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+0 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+1 alt:no: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+1 alt:yes: 0/112 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+   flips against the primary: row 0 -> not fragile; level 0 -> not fragile; baseline 0 -> not fragile; tracking 0 -> not fragile
+
+== RLAW-4D (soil_deep), primary cell v:ml own:on lag:+0 alt:no
+   unit | n | alpha_hat | alpha* = K(v_own) | K(v) (Muth, instrument unit) | v_hat | v_own | log(alpha_hat/alpha*) | within x2
+   AK_Aleknagik_1_NNE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Aleknagik_1_NNE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Aleknagik_1_NNE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Aleknagik_1_NNE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Bethel_87_WNW@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Bethel_87_WNW@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Bethel_87_WNW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Bethel_87_WNW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Cordova_14_ESE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Cordova_14_ESE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Cordova_14_ESE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Cordova_14_ESE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Deadhorse_3_S@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Deadhorse_3_S@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Deadhorse_3_S@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Deadhorse_3_S@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Denali_27_N@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Denali_27_N@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Denali_27_N@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Denali_27_N@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Fairbanks_11_NE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Fairbanks_11_NE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Fairbanks_11_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Fairbanks_11_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Galena_44_SW@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Galena_44_SW@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Galena_44_SW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Galena_44_SW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Glennallen_64_N@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Glennallen_64_N@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Glennallen_64_N@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Glennallen_64_N@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Gustavus_2_NE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Gustavus_2_NE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Gustavus_2_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Gustavus_2_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Huslia_27_E@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Huslia_27_E@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Huslia_27_E@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Huslia_27_E@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Kenai_29_ENE@10cm | 357 | 0.3264 | 0.9968 | 0.9999 | 100.0000 | 17.5837 | -1.116 | no
+   AK_Kenai_29_ENE@20cm | 357 | 0.1233 | 0.9937 | 0.9999 | 100.0000 | 12.5158 | -2.087 | no
+   AK_Kenai_29_ENE@50cm | 357 | 0.0566 | 0.9829 | 0.9999 | 100.0000 | 7.5260 | -2.854 | no
+   AK_Kenai_29_ENE@100cm | 357 | 0.0737 | 0.9445 | 0.9999 | 100.0000 | 4.0102 | -2.551 | no
+   AK_King_Salmon_42_SE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_King_Salmon_42_SE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_King_Salmon_42_SE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_King_Salmon_42_SE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Metlakatla_6_S@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Metlakatla_6_S@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Metlakatla_6_S@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Metlakatla_6_S@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Port_Alsworth_1_SW@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Port_Alsworth_1_SW@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Port_Alsworth_1_SW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Port_Alsworth_1_SW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Red_Dog_Mine_3_SSW@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Red_Dog_Mine_3_SSW@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Red_Dog_Mine_3_SSW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Red_Dog_Mine_3_SSW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Ruby_44_ESE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Ruby_44_ESE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Ruby_44_ESE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Ruby_44_ESE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sand_Point_1_ENE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sand_Point_1_ENE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sand_Point_1_ENE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sand_Point_1_ENE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Selawik_28_E@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Selawik_28_E@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Selawik_28_E@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Selawik_28_E@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sitka_1_NE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sitka_1_NE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sitka_1_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Sitka_1_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_St._Paul_4_NE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_St._Paul_4_NE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_St._Paul_4_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_St._Paul_4_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Tok_70_SE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Tok_70_SE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Tok_70_SE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Tok_70_SE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Toolik_Lake_5_ENE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Toolik_Lake_5_ENE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Toolik_Lake_5_ENE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Toolik_Lake_5_ENE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Utqiagvik_formerly_Barrow_4_ENE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Utqiagvik_formerly_Barrow_4_ENE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Utqiagvik_formerly_Barrow_4_ENE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Utqiagvik_formerly_Barrow_4_ENE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Yakutat_3_SSE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Yakutat_3_SSE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Yakutat_3_SSE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AK_Yakutat_3_SSE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AL_Brewton_3_NNE@10cm | EXCLUDED: rows 243, input values 244 (< 300)
+   AL_Brewton_3_NNE@20cm | EXCLUDED: rows 243, input values 244 (< 300)
+   AL_Brewton_3_NNE@50cm | EXCLUDED: rows 243, input values 244 (< 300)
+   AL_Brewton_3_NNE@100cm | EXCLUDED: rows 243, input values 244 (< 300)
+   AL_Clanton_2_NE@10cm | 364 | 0.7942 | 0.9992 | 0.9999 | 100.0000 | 34.3144 | -0.230 | yes
+   AL_Clanton_2_NE@20cm | 364 | 0.5917 | 0.9989 | 0.9999 | 100.0000 | 30.5030 | -0.524 | yes
+   AL_Clanton_2_NE@50cm | 364 | 0.2343 | 0.9983 | 0.9999 | 100.0000 | 24.2410 | -1.449 | no
+   AL_Clanton_2_NE@100cm | 364 | 0.9988 | 0.9948 | 0.9999 | 100.0000 | 13.7408 | 0.004 | yes
+   AL_Courtland_2_WSW@10cm | EXCLUDED: rows 246, input values 255 (< 300)
+   AL_Courtland_2_WSW@20cm | EXCLUDED: rows 245, input values 251 (< 300)
+   AL_Courtland_2_WSW@50cm | EXCLUDED: rows 243, input values 252 (< 300)
+   AL_Courtland_2_WSW@100cm | EXCLUDED: rows 244, input values 250 (< 300)
+   AL_Cullman_3_ENE@10cm | EXCLUDED: rows 245, input values 248 (< 300)
+   AL_Cullman_3_ENE@20cm | EXCLUDED: rows 245, input values 248 (< 300)
+   AL_Cullman_3_ENE@50cm | EXCLUDED: rows 245, input values 248 (< 300)
+   AL_Cullman_3_ENE@100cm | EXCLUDED: rows 245, input values 248 (< 300)
+   AL_Fairhope_3_NE@10cm | EXCLUDED: rows 177, input values 178 (< 300)
+   AL_Fairhope_3_NE@20cm | 364 | 0.6090 | 0.9968 | 0.9999 | 100.0000 | 17.5158 | -0.493 | yes
+   AL_Fairhope_3_NE@50cm | 364 | 0.2442 | 0.9954 | 0.9999 | 100.0000 | 14.5975 | -1.405 | no
+   AL_Fairhope_3_NE@100cm | EXCLUDED: rows 152, input values 365 (< 300)
+   AL_Gadsden_19_N@10cm | EXCLUDED: rows 134, input values 136 (< 300)
+   AL_Gadsden_19_N@20cm | EXCLUDED: rows 136, input values 138 (< 300)
+   AL_Gadsden_19_N@50cm | EXCLUDED: rows 137, input values 138 (< 300)
+   AL_Gadsden_19_N@100cm | EXCLUDED: rows 138, input values 139 (< 300)
+   AL_Gainesville_2_NE@10cm | 364 | 0.7836 | 0.9994 | 0.9999 | 100.0000 | 40.4238 | -0.243 | yes
+   AL_Gainesville_2_NE@20cm | 364 | 0.5957 | 0.9992 | 0.9999 | 100.0000 | 35.4969 | -0.517 | yes
+   AL_Gainesville_2_NE@50cm | 364 | 0.2139 | 0.9987 | 0.9999 | 100.0000 | 28.0649 | -1.541 | no
+   AL_Gainesville_2_NE@100cm | 364 | 1.0004 | 0.9957 | 0.9999 | 100.0000 | 15.1142 | 0.005 | yes
+   AL_Greensboro_2_WNW@10cm | 362 | 0.7393 | 0.9993 | 0.9999 | 100.0000 | 37.9446 | -0.301 | yes
+   AL_Greensboro_2_WNW@20cm | 362 | 0.5446 | 0.9990 | 0.9999 | 100.0000 | 32.3859 | -0.607 | yes
+   AL_Greensboro_2_WNW@50cm | 362 | 0.1817 | 0.9983 | 0.9999 | 100.0000 | 24.3170 | -1.704 | no
+   AL_Greensboro_2_WNW@100cm | 362 | 0.9995 | 0.9928 | 0.9999 | 100.0000 | 11.7395 | 0.007 | yes
+   AL_Highland_Home_2_S@10cm | EXCLUDED: rows 223, input values 225 (< 300)
+   AL_Highland_Home_2_S@20cm | EXCLUDED: rows 223, input values 225 (< 300)
+   AL_Highland_Home_2_S@50cm | EXCLUDED: rows 223, input values 225 (< 300)
+   AL_Highland_Home_2_S@100cm | EXCLUDED: rows 223, input values 225 (< 300)
+   AL_Muscle_Shoals_2_N@10cm | 364 | 0.7411 | 0.9996 | 0.9999 | 100.0000 | 47.4029 | -0.299 | yes
+   AL_Muscle_Shoals_2_N@20cm | 364 | 0.5360 | 0.9994 | 0.9999 | 100.0000 | 40.0740 | -0.623 | yes
+   AL_Muscle_Shoals_2_N@50cm | 364 | 0.1655 | 0.9989 | 0.9999 | 100.0000 | 29.8067 | -1.797 | no
+   AL_Muscle_Shoals_2_N@100cm | 364 | 0.9997 | 0.9952 | 0.9999 | 100.0000 | 14.4354 | 0.004 | yes
+   AL_Northport_2_S@10cm | 359 | 0.7674 | 0.9990 | 0.9999 | 100.0000 | 31.1884 | -0.264 | yes
+   AL_Northport_2_S@20cm | 359 | 0.5670 | 0.9987 | 0.9999 | 100.0000 | 27.4553 | -0.566 | yes
+   AL_Northport_2_S@50cm | 359 | 0.1934 | 0.9979 | 0.9999 | 100.0000 | 21.6584 | -1.641 | no
+   AL_Northport_2_S@100cm | 359 | 0.9990 | 0.9925 | 0.9999 | 100.0000 | 11.4842 | 0.006 | yes
+   AL_Russellville_4_SSE@10cm | 364 | 0.6861 | 0.9996 | 0.9999 | 100.0000 | 50.2048 | -0.376 | yes
+   AL_Russellville_4_SSE@20cm | 364 | 0.5028 | 0.9994 | 0.9999 | 100.0000 | 41.3996 | -0.687 | yes
+   AL_Russellville_4_SSE@50cm | 364 | 0.1558 | 0.9989 | 0.9999 | 100.0000 | 30.6827 | -1.858 | no
+   AL_Russellville_4_SSE@100cm | 364 | 0.9989 | 0.9956 | 0.9999 | 100.0000 | 15.0744 | 0.003 | yes
+   AL_Scottsboro_2_NE@10cm | EXCLUDED: rows 75, input values 77 (< 300)
+   AL_Scottsboro_2_NE@20cm | EXCLUDED: rows 75, input values 77 (< 300)
+   AL_Scottsboro_2_NE@50cm | EXCLUDED: rows 75, input values 77 (< 300)
+   AL_Scottsboro_2_NE@100cm | EXCLUDED: rows 75, input values 77 (< 300)
+   AL_Selma_13_WNW@10cm | 364 | 0.4991 | 0.9993 | 0.9999 | 100.0000 | 38.1901 | -0.694 | no
+   AL_Selma_13_WNW@20cm | 364 | 0.2661 | 0.9986 | 0.9999 | 100.0000 | 26.8885 | -1.322 | no
+   AL_Selma_13_WNW@50cm | 364 | 0.3747 | 0.9964 | 0.9999 | 100.0000 | 16.7137 | -0.978 | no
+   AL_Selma_13_WNW@100cm | 364 | 0.1186 | 0.9930 | 0.9999 | 100.0000 | 11.8575 | -2.125 | no
+   AL_Selma_6_SSE@10cm | 362 | 0.8125 | 0.9997 | 0.9999 | 100.0000 | 53.8116 | -0.207 | yes
+   AL_Selma_6_SSE@20cm | 362 | 0.6345 | 0.9996 | 0.9999 | 100.0000 | 48.3088 | -0.454 | yes
+   AL_Selma_6_SSE@50cm | 362 | 0.2708 | 0.9993 | 0.9999 | 100.0000 | 38.9921 | -1.306 | no
+   AL_Selma_6_SSE@100cm | 362 | 1.0003 | 0.9979 | 0.9999 | 100.0000 | 21.8968 | 0.002 | yes
+   AL_Talladega_10_NNE@10cm | 362 | 0.6923 | 0.9989 | 0.9999 | 100.0000 | 30.1834 | -0.367 | yes
+   AL_Talladega_10_NNE@20cm | 362 | 0.5080 | 0.9985 | 0.9999 | 100.0000 | 25.4546 | -0.676 | yes
+   AL_Talladega_10_NNE@50cm | 362 | 0.1481 | 0.9974 | 0.9999 | 100.0000 | 19.4601 | -1.908 | no
+   AL_Talladega_10_NNE@100cm | 351 | 1.0000 | 0.9901 | 0.9999 | 100.0000 | 9.9727 | 0.010 | yes
+   AL_Thomasville_2_S@10cm | 362 | 0.7099 | 0.9994 | 0.9999 | 100.0000 | 40.3073 | -0.342 | yes
+   AL_Thomasville_2_S@20cm | 362 | 0.5705 | 0.9991 | 0.9999 | 100.0000 | 33.5050 | -0.560 | yes
+   AL_Thomasville_2_S@50cm | 362 | 0.2182 | 0.9985 | 0.9999 | 100.0000 | 25.4346 | -1.521 | no
+   AL_Thomasville_2_S@100cm | 362 | 1.0004 | 0.9943 | 0.9999 | 100.0000 | 13.1532 | 0.006 | yes
+   AL_Troy_2_W@10cm | EXCLUDED: rows 1, input values 3 (< 300)
+   AL_Troy_2_W@20cm | EXCLUDED: rows 1, input values 3 (< 300)
+   AL_Troy_2_W@50cm | EXCLUDED: rows 1, input values 3 (< 300)
+   AL_Troy_2_W@100cm | EXCLUDED: rows 1, input values 3 (< 300)
+   AL_Valley_Head_1_SSW@10cm | 351 | 0.7803 | 0.9995 | 0.9999 | 100.0000 | 45.0004 | -0.248 | yes
+   AL_Valley_Head_1_SSW@20cm | 351 | 0.5995 | 0.9994 | 0.9999 | 100.0000 | 39.5876 | -0.511 | yes
+   AL_Valley_Head_1_SSW@50cm | 351 | 0.2188 | 0.9990 | 0.9999 | 100.0000 | 31.2391 | -1.518 | no
+   AL_Valley_Head_1_SSW@100cm | 351 | 0.9994 | 0.9967 | 0.9999 | 100.0000 | 17.3461 | 0.003 | yes
+   AR_Batesville_8_WNW@10cm | 362 | 0.8619 | 0.9983 | 0.9999 | 100.0000 | 24.1759 | -0.147 | yes
+   AR_Batesville_8_WNW@20cm | 362 | 0.7680 | 0.9983 | 0.9999 | 100.0000 | 23.9936 | -0.262 | yes
+   AR_Batesville_8_WNW@50cm | 362 | 0.2996 | 0.9980 | 0.9999 | 100.0000 | 22.3446 | -1.203 | no
+   AR_Batesville_8_WNW@100cm | 362 | 0.3678 | 0.9955 | 0.9999 | 100.0000 | 14.8369 | -0.996 | no
+   AZ_Elgin_5_S@10cm | 362 | 0.6034 | 0.9996 | 0.9999 | 100.0000 | 48.6359 | -0.505 | yes
+   AZ_Elgin_5_S@20cm | 362 | 0.3745 | 0.9993 | 0.9999 | 100.0000 | 36.9485 | -0.981 | no
+   AZ_Elgin_5_S@50cm | EXCLUDED: rows 234, input values 364 (< 300)
+   AZ_Elgin_5_S@100cm | EXCLUDED: rows 235, input values 237 (< 300)
+   AZ_Tucson_11_W@10cm | 362 | 0.7955 | 0.9996 | 0.9999 | 100.0000 | 51.9037 | -0.228 | yes
+   AZ_Tucson_11_W@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AZ_Tucson_11_W@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AZ_Tucson_11_W@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AZ_Williams_35_NNW@10cm | 362 | 0.4629 | 0.9994 | 0.9999 | 100.0000 | 41.6529 | -0.770 | no
+   AZ_Williams_35_NNW@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AZ_Williams_35_NNW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AZ_Williams_35_NNW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AZ_Yuma_27_ENE@10cm | 362 | 0.3098 | 0.9995 | 0.9999 | 100.0000 | 46.4902 | -1.171 | no
+   AZ_Yuma_27_ENE@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   AZ_Yuma_27_ENE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   AZ_Yuma_27_ENE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CA_Bodega_6_WSW@10cm | 364 | 0.3646 | 0.9929 | 0.9999 | 100.0000 | 11.7851 | -1.002 | no
+   CA_Bodega_6_WSW@20cm | 364 | 0.1067 | 0.9791 | 0.9999 | 100.0000 | 6.7752 | -2.216 | no
+   CA_Bodega_6_WSW@50cm | 364 | 0.2757 | 0.9479 | 0.9999 | 100.0000 | 4.1525 | -1.235 | no
+   CA_Bodega_6_WSW@100cm | 364 | 0.0667 | 0.9186 | 0.9999 | 100.0000 | 3.2207 | -2.622 | no
+   CA_Fallbrook_5_NE@10cm | 362 | 0.5176 | 0.9994 | 0.9999 | 100.0000 | 40.9747 | -0.658 | yes
+   CA_Fallbrook_5_NE@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   CA_Fallbrook_5_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CA_Fallbrook_5_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CA_Merced_23_WSW@10cm | 364 | 0.2409 | 0.9983 | 0.9999 | 100.0000 | 24.0566 | -1.421 | no
+   CA_Merced_23_WSW@20cm | 364 | 0.1323 | 0.9963 | 0.9999 | 100.0000 | 16.3129 | -2.019 | no
+   CA_Merced_23_WSW@50cm | EXCLUDED: rows 219, input values 365 (< 300)
+   CA_Merced_23_WSW@100cm | EXCLUDED: rows 231, input values 234 (< 300)
+   CA_Redding_12_WNW@10cm | 362 | 0.4756 | 0.9995 | 0.9999 | 100.0000 | 44.6953 | -0.743 | no
+   CA_Redding_12_WNW@20cm | 362 | 0.5648 | 0.9990 | 0.9999 | 100.0000 | 32.2710 | -0.570 | yes
+   CA_Redding_12_WNW@50cm | 362 | 0.4708 | 0.9985 | 0.9999 | 100.0000 | 25.3837 | -0.752 | no
+   CA_Redding_12_WNW@100cm | 362 | 0.6475 | 0.9980 | 0.9999 | 100.0000 | 22.2244 | -0.433 | yes
+   CA_Santa_Barbara_11_W@10cm | 362 | 0.3943 | 0.8783 | 0.8791 | 2.5280 | 2.5172 | -0.801 | no
+   CA_Santa_Barbara_11_W@20cm | 362 | 0.3509 | 0.9973 | 0.9999 | 100.0000 | 19.3135 | -1.045 | no
+   CA_Santa_Barbara_11_W@50cm | 362 | 0.1959 | 0.9944 | 0.9999 | 100.0000 | 13.3034 | -1.624 | no
+   CA_Santa_Barbara_11_W@100cm | 362 | 0.2590 | 0.9775 | 0.9999 | 100.0000 | 6.5123 | -1.328 | no
+   CA_Stovepipe_Wells_1_SW@10cm | 362 | 0.9582 | 0.9994 | 0.9999 | 100.0000 | 39.9112 | -0.042 | yes
+   CA_Stovepipe_Wells_1_SW@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   CA_Stovepipe_Wells_1_SW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CA_Stovepipe_Wells_1_SW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CA_Yosemite_Village_12_W@10cm | 364 | 0.4681 | 0.9990 | 0.9999 | 100.0000 | 32.0022 | -0.758 | no
+   CA_Yosemite_Village_12_W@20cm | 364 | 0.0727 | 0.9995 | 0.9999 | 100.0000 | 43.4794 | -2.621 | no
+   CA_Yosemite_Village_12_W@50cm | 364 | 0.1236 | 0.9967 | 0.9999 | 100.0000 | 17.2378 | -2.087 | no
+   CA_Yosemite_Village_12_W@100cm | 364 | 0.0680 | 0.9889 | 0.9999 | 100.0000 | 9.3719 | -2.677 | no
+   CO_Boulder_14_W@10cm | 362 | 0.5689 | 0.9991 | 0.9999 | 100.0000 | 33.2269 | -0.563 | yes
+   CO_Boulder_14_W@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   CO_Boulder_14_W@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CO_Boulder_14_W@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   CO_Cortez_8_SE@10cm | EXCLUDED: rows 173, input values 174 (< 300)
+   CO_Cortez_8_SE@20cm | EXCLUDED: rows 173, input values 174 (< 300)
+   CO_Cortez_8_SE@50cm | EXCLUDED: rows 173, input values 174 (< 300)
+   CO_Cortez_8_SE@100cm | EXCLUDED: rows 173, input values 174 (< 300)
+   CO_Dinosaur_2_E@10cm | 354 | 0.6025 | 0.9995 | 0.9999 | 100.0000 | 44.0287 | -0.506 | yes
+   CO_Dinosaur_2_E@20cm | 357 | 0.2925 | 0.9992 | 0.9999 | 100.0000 | 35.6709 | -1.229 | no
+   CO_Dinosaur_2_E@50cm | 338 | 0.1369 | 0.9983 | 0.9999 | 100.0000 | 24.0517 | -1.987 | no
+   CO_Dinosaur_2_E@100cm | 346 | 0.0540 | 0.9939 | 0.9999 | 100.0000 | 12.7710 | -2.914 | no
+   CO_La_Junta_17_WSW@10cm | 362 | 0.5911 | 0.9989 | 0.9999 | 100.0000 | 29.6573 | -0.525 | yes
+   CO_La_Junta_17_WSW@20cm | 362 | 0.3843 | 0.9982 | 0.9999 | 100.0000 | 23.7991 | -0.955 | no
+   CO_La_Junta_17_WSW@50cm | 362 | 0.1518 | 0.9968 | 0.9999 | 100.0000 | 17.4913 | -1.882 | no
+   CO_La_Junta_17_WSW@100cm | 362 | 0.0481 | 0.9887 | 0.9999 | 100.0000 | 9.2802 | -3.023 | no
+   CO_Montrose_11_ENE@10cm | 351 | 0.5415 | 0.9993 | 0.9999 | 100.0000 | 36.8399 | -0.613 | yes
+   CO_Montrose_11_ENE@20cm | 351 | 0.3684 | 0.9987 | 0.9999 | 100.0000 | 27.3720 | -0.997 | no
+   CO_Montrose_11_ENE@50cm | 351 | 0.1180 | 0.9971 | 0.9999 | 100.0000 | 18.6424 | -2.134 | no
+   CO_Montrose_11_ENE@100cm | 351 | 0.0458 | 0.9893 | 0.9999 | 100.0000 | 9.5413 | -3.072 | no
+   CO_Nunn_7_NNE@10cm | 362 | 0.5475 | 0.9994 | 0.9999 | 100.0000 | 39.5382 | -0.602 | yes
+   CO_Nunn_7_NNE@20cm | 362 | 0.5448 | 0.9989 | 0.9999 | 100.0000 | 29.5990 | -0.606 | yes
+   CO_Nunn_7_NNE@50cm | 362 | 0.2552 | 0.9982 | 0.9999 | 100.0000 | 23.7552 | -1.364 | no
+   CO_Nunn_7_NNE@100cm | 362 | 0.0871 | 0.9951 | 0.9999 | 100.0000 | 14.2472 | -2.436 | no
+   FL_Everglades_City_5_NE@10cm | 362 | 0.7226 | 0.9990 | 0.9999 | 100.0000 | 31.0195 | -0.324 | yes
+   FL_Everglades_City_5_NE@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   FL_Everglades_City_5_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   FL_Everglades_City_5_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   FL_Sebring_23_SSE@10cm | EXCLUDED: rows 236, input values 253 (< 300)
+   FL_Sebring_23_SSE@20cm | EXCLUDED: rows 236, input values 252 (< 300)
+   FL_Sebring_23_SSE@50cm | EXCLUDED: rows 235, input values 252 (< 300)
+   FL_Sebring_23_SSE@100cm | EXCLUDED: rows 0, input values 252 (< 300)
+   FL_Titusville_7_E@10cm | EXCLUDED: rows 227, input values 228 (< 300)
+   FL_Titusville_7_E@20cm | EXCLUDED: rows 0, input values 248 (< 300)
+   FL_Titusville_7_E@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   FL_Titusville_7_E@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   GA_Brunswick_23_S@10cm | 357 | 0.4541 | 0.9993 | 0.9999 | 100.0000 | 37.0441 | -0.789 | no
+   GA_Brunswick_23_S@20cm | 357 | 0.7490 | 0.9985 | 0.9999 | 100.0000 | 26.1921 | -0.288 | yes
+   GA_Brunswick_23_S@50cm | 357 | 0.2192 | 0.9984 | 0.9999 | 100.0000 | 25.2566 | -1.516 | no
+   GA_Brunswick_23_S@100cm | 357 | 0.2022 | 0.9950 | 0.9999 | 100.0000 | 14.1226 | -1.594 | no
+   GA_Newton_11_SW@10cm | 364 | 0.5512 | 0.9993 | 0.9999 | 100.0000 | 36.7318 | -0.595 | yes
+   GA_Newton_11_SW@20cm | 364 | 0.6106 | 0.9988 | 0.9999 | 100.0000 | 28.8311 | -0.492 | yes
+   GA_Newton_11_SW@50cm | 364 | 0.3640 | 0.9982 | 0.9999 | 100.0000 | 23.5987 | -1.009 | no
+   GA_Newton_11_SW@100cm | 364 | 0.1213 | 0.9960 | 0.9999 | 100.0000 | 15.7543 | -2.105 | no
+   GA_Newton_8_W@10cm | 364 | 0.5959 | 0.9988 | 0.9999 | 100.0000 | 28.7660 | -0.517 | yes
+   GA_Newton_8_W@20cm | 364 | 0.4678 | 0.9980 | 0.9999 | 100.0000 | 22.3839 | -0.758 | no
+   GA_Newton_8_W@50cm | 364 | 0.4582 | 0.9964 | 0.9999 | 100.0000 | 16.6819 | -0.777 | no
+   GA_Newton_8_W@100cm | 364 | 0.4866 | 0.9940 | 0.9999 | 100.0000 | 12.8149 | -0.714 | no
+   GA_Watkinsville_5_SSE@10cm | 347 | 0.5963 | 0.9994 | 0.9999 | 100.0000 | 40.7612 | -0.516 | yes
+   GA_Watkinsville_5_SSE@20cm | 362 | 0.5451 | 0.9990 | 0.9999 | 100.0000 | 32.0765 | -0.606 | yes
+   GA_Watkinsville_5_SSE@50cm | 362 | 0.3469 | 0.9984 | 0.9999 | 100.0000 | 24.8939 | -1.057 | no
+   GA_Watkinsville_5_SSE@100cm | 362 | 0.2507 | 0.9966 | 0.9999 | 100.0000 | 17.1289 | -1.380 | no
+   HI_Hilo_5_S@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Hilo_5_S@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Hilo_5_S@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Hilo_5_S@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Mauna_Loa_5_NNE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Mauna_Loa_5_NNE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Mauna_Loa_5_NNE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   HI_Mauna_Loa_5_NNE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   IA_Des_Moines_17_E@10cm | EXCLUDED: rows 132, input values 134 (< 300)
+   IA_Des_Moines_17_E@20cm | EXCLUDED: rows 132, input values 134 (< 300)
+   IA_Des_Moines_17_E@50cm | EXCLUDED: rows 132, input values 134 (< 300)
+   IA_Des_Moines_17_E@100cm | EXCLUDED: rows 132, input values 134 (< 300)
+   ID_Arco_17_SW@10cm | 362 | 0.4597 | 0.9992 | 0.9999 | 100.0000 | 36.2670 | -0.776 | no
+   ID_Arco_17_SW@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   ID_Arco_17_SW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ID_Arco_17_SW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ID_Murphy_10_W@10cm | 362 | 0.4831 | 0.9993 | 0.9999 | 100.0000 | 36.6164 | -0.727 | no
+   ID_Murphy_10_W@20cm | 362 | 0.2228 | 0.9987 | 0.9999 | 100.0000 | 28.1706 | -1.500 | no
+   ID_Murphy_10_W@50cm | 362 | 0.1456 | 0.9967 | 0.9999 | 100.0000 | 17.4085 | -1.924 | no
+   ID_Murphy_10_W@100cm | 362 | 0.0883 | 0.9891 | 0.9999 | 100.0000 | 9.4570 | -2.416 | no
+   IL_Champaign_9_SW@10cm | EXCLUDED: rows 22, input values 23 (< 300)
+   IL_Champaign_9_SW@20cm | EXCLUDED: rows 22, input values 23 (< 300)
+   IL_Champaign_9_SW@50cm | EXCLUDED: rows 22, input values 23 (< 300)
+   IL_Champaign_9_SW@100cm | EXCLUDED: rows 22, input values 23 (< 300)
+   IL_Shabbona_5_NNE@10cm | 364 | 0.3978 | 0.9984 | 0.9999 | 100.0000 | 25.0791 | -0.920 | no
+   IL_Shabbona_5_NNE@20cm | 364 | 0.6716 | 0.9973 | 0.9999 | 100.0000 | 19.2369 | -0.395 | yes
+   IL_Shabbona_5_NNE@50cm | EXCLUDED: rows 0, input values 365 (< 300)
+   IL_Shabbona_5_NNE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   IN_Bedford_5_WNW@10cm | 364 | 0.8012 | 0.9990 | 0.9999 | 100.0000 | 31.7243 | -0.221 | yes
+   IN_Bedford_5_WNW@20cm | 364 | 0.5203 | 0.9988 | 0.9999 | 100.0000 | 28.7677 | -0.652 | yes
+   IN_Bedford_5_WNW@50cm | 364 | 0.3259 | 0.9980 | 0.9999 | 100.0000 | 22.2868 | -1.119 | no
+   IN_Bedford_5_WNW@100cm | 338 | 0.0809 | 0.9959 | 0.9999 | 100.0000 | 15.5731 | -2.510 | no
+   KS_Manhattan_6_SSW@10cm | 362 | 0.5980 | 0.9992 | 0.9999 | 100.0000 | 34.3859 | -0.513 | yes
+   KS_Manhattan_6_SSW@20cm | 362 | 0.3549 | 0.9986 | 0.9999 | 100.0000 | 27.1753 | -1.034 | no
+   KS_Manhattan_6_SSW@50cm | EXCLUDED: rows 175, input values 364 (< 300)
+   KS_Manhattan_6_SSW@100cm | EXCLUDED: rows 101, input values 214 (< 300)
+   KS_Oakley_19_SSW@10cm | 362 | 0.3068 | 0.9990 | 0.9999 | 100.0000 | 31.9148 | -1.180 | no
+   KS_Oakley_19_SSW@20cm | 362 | 0.4498 | 0.9974 | 0.9999 | 100.0000 | 19.4015 | -0.796 | no
+   KS_Oakley_19_SSW@50cm | 362 | 0.0895 | 0.9956 | 0.9999 | 100.0000 | 15.0382 | -2.409 | no
+   KS_Oakley_19_SSW@100cm | 362 | 0.5208 | 0.9817 | 0.9999 | 100.0000 | 7.2478 | -0.634 | yes
+   KY_Bowling_Green_21_NNE@10cm | 364 | 0.8795 | 0.9983 | 0.9999 | 100.0000 | 24.4755 | -0.127 | yes
+   KY_Bowling_Green_21_NNE@20cm | 364 | 0.4341 | 0.9989 | 0.9999 | 100.0000 | 29.6438 | -0.833 | no
+   KY_Bowling_Green_21_NNE@50cm | 364 | 0.2553 | 0.9979 | 0.9999 | 100.0000 | 21.5640 | -1.363 | no
+   KY_Bowling_Green_21_NNE@100cm | 364 | 0.1319 | 0.9948 | 0.9999 | 100.0000 | 13.8487 | -2.020 | no
+   KY_Versailles_3_NNW@10cm | 364 | 0.6544 | 0.9991 | 0.9999 | 100.0000 | 34.2697 | -0.423 | yes
+   KY_Versailles_3_NNW@20cm | 364 | 0.5016 | 0.9987 | 0.9999 | 100.0000 | 28.1727 | -0.689 | yes
+   KY_Versailles_3_NNW@50cm | 364 | 0.2610 | 0.9979 | 0.9999 | 100.0000 | 21.9191 | -1.341 | no
+   KY_Versailles_3_NNW@100cm | 364 | 0.1350 | 0.9947 | 0.9999 | 100.0000 | 13.6864 | -1.997 | no
+   LA_Lafayette_13_SE@10cm | 364 | 0.3952 | 0.9989 | 0.9999 | 100.0000 | 29.6835 | -0.927 | no
+   LA_Lafayette_13_SE@20cm | 364 | 0.5262 | 0.9971 | 0.9999 | 100.0000 | 18.5583 | -0.639 | yes
+   LA_Lafayette_13_SE@50cm | 364 | 0.2810 | 0.9950 | 0.9999 | 100.0000 | 14.1186 | -1.264 | no
+   LA_Lafayette_13_SE@100cm | 364 | 0.3208 | 0.9897 | 0.9999 | 100.0000 | 9.7493 | -1.127 | no
+   LA_Monroe_26_N@10cm | 364 | 0.4468 | 0.9992 | 0.9999 | 100.0000 | 35.5678 | -0.805 | no
+   LA_Monroe_26_N@20cm | 364 | 0.3974 | 0.9983 | 0.9999 | 100.0000 | 24.5721 | -0.921 | no
+   LA_Monroe_26_N@50cm | 364 | 0.2975 | 0.9966 | 0.9999 | 100.0000 | 17.1012 | -1.209 | no
+   LA_Monroe_26_N@100cm | 364 | 0.1287 | 0.9932 | 0.9999 | 100.0000 | 12.0783 | -2.044 | no
+   MA_Blue_Hill_0_W@10cm | 364 | 0.4594 | 0.9410 | 0.9413 | 3.8838 | 3.8735 | -0.717 | no
+   MA_Blue_Hill_0_W@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   MA_Blue_Hill_0_W@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   MA_Blue_Hill_0_W@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ME_Limestone_4_NNW@10cm | 364 | 0.6865 | 0.9983 | 0.9999 | 100.0000 | 24.0105 | -0.374 | yes
+   ME_Limestone_4_NNW@20cm | 364 | 0.4859 | 0.9977 | 0.9999 | 100.0000 | 20.8016 | -0.719 | no
+   ME_Limestone_4_NNW@50cm | 364 | 0.8027 | 0.9958 | 0.9999 | 100.0000 | 15.3516 | -0.215 | yes
+   ME_Limestone_4_NNW@100cm | 364 | 0.3185 | 0.9964 | 0.9999 | 100.0000 | 16.6296 | -1.141 | no
+   ME_Old_Town_2_W@10cm | 364 | 0.2786 | 0.9986 | 0.9999 | 100.0000 | 26.8797 | -1.277 | no
+   ME_Old_Town_2_W@20cm | 364 | 0.5751 | 0.9967 | 0.9999 | 100.0000 | 17.2247 | -0.550 | yes
+   ME_Old_Town_2_W@50cm | 364 | 0.1919 | 0.9949 | 0.9999 | 100.0000 | 13.8991 | -1.646 | no
+   ME_Old_Town_2_W@100cm | EXCLUDED: rows 157, input values 365 (< 300)
+   MI_Chatham_1_SE@10cm | 362 | 0.5640 | 0.9983 | 0.9999 | 100.0000 | 24.4805 | -0.571 | yes
+   MI_Chatham_1_SE@20cm | 362 | 0.9108 | 0.9974 | 0.9999 | 100.0000 | 19.4613 | -0.091 | yes
+   MI_Chatham_1_SE@50cm | 362 | 0.0889 | 0.9971 | 0.9999 | 100.0000 | 18.5717 | -2.417 | no
+   MI_Chatham_1_SE@100cm | 362 | 0.1489 | 0.9858 | 0.9999 | 100.0000 | 8.2626 | -1.890 | no
+   MI_Gaylord_9_SSW@10cm | 362 | 0.4528 | 0.9992 | 0.9999 | 100.0000 | 34.8267 | -0.791 | no
+   MI_Gaylord_9_SSW@20cm | 362 | 0.4840 | 0.9984 | 0.9999 | 100.0000 | 25.1006 | -0.724 | no
+   MI_Gaylord_9_SSW@50cm | 362 | 0.1734 | 0.9972 | 0.9999 | 100.0000 | 18.8799 | -1.749 | no
+   MI_Gaylord_9_SSW@100cm | 362 | 0.1560 | 0.9912 | 0.9999 | 100.0000 | 10.5392 | -1.849 | no
+   MN_Goodridge_12_NNW@10cm | 349 | 0.5156 | 0.9973 | 0.9999 | 100.0000 | 19.1210 | -0.660 | yes
+   MN_Goodridge_12_NNW@20cm | 347 | 0.2058 | 0.9956 | 0.9999 | 100.0000 | 15.0467 | -1.576 | no
+   MN_Goodridge_12_NNW@50cm | 348 | 0.2600 | 0.9910 | 0.9999 | 100.0000 | 10.4495 | -1.338 | no
+   MN_Goodridge_12_NNW@100cm | 347 | 0.0436 | 0.9844 | 0.9999 | 100.0000 | 7.8817 | -3.117 | no
+   MN_Sandstone_6_W@10cm | 362 | 0.9076 | 0.9980 | 0.9999 | 100.0000 | 22.1324 | -0.095 | yes
+   MN_Sandstone_6_W@20cm | 362 | 0.2757 | 0.9978 | 0.9999 | 100.0000 | 21.1315 | -1.286 | no
+   MN_Sandstone_6_W@50cm | 362 | 0.3525 | 0.9949 | 0.9999 | 100.0000 | 13.9037 | -1.038 | no
+   MN_Sandstone_6_W@100cm | 362 | 0.0849 | 0.9907 | 0.9999 | 100.0000 | 10.2806 | -2.457 | no
+   MO_Chillicothe_22_ENE@10cm | EXCLUDED: rows 19, input values 20 (< 300)
+   MO_Chillicothe_22_ENE@20cm | EXCLUDED: rows 19, input values 20 (< 300)
+   MO_Chillicothe_22_ENE@50cm | EXCLUDED: rows 19, input values 20 (< 300)
+   MO_Chillicothe_22_ENE@100cm | EXCLUDED: rows 19, input values 20 (< 300)
+   MO_Joplin_24_N@10cm | 361 | 1.0059 | 0.9990 | 0.9999 | 100.0000 | 31.0570 | 0.007 | yes
+   MO_Joplin_24_N@20cm | 361 | 0.4653 | 0.9990 | 0.9999 | 100.0000 | 31.7020 | -0.764 | no
+   MO_Joplin_24_N@50cm | 361 | 0.0944 | 0.9981 | 0.9999 | 100.0000 | 23.0229 | -2.358 | no
+   MO_Joplin_24_N@100cm | 361 | 0.0493 | 0.9884 | 0.9999 | 100.0000 | 9.1771 | -2.999 | no
+   MO_Salem_10_W@10cm | 362 | 0.8747 | 0.9988 | 0.9999 | 100.0000 | 28.9448 | -0.133 | yes
+   MO_Salem_10_W@20cm | 362 | 0.4704 | 0.9986 | 0.9999 | 100.0000 | 27.0981 | -0.753 | no
+   MO_Salem_10_W@50cm | 362 | 0.2609 | 0.9975 | 0.9999 | 100.0000 | 20.1046 | -1.341 | no
+   MO_Salem_10_W@100cm | 362 | 0.4770 | 0.9937 | 0.9999 | 100.0000 | 12.4942 | -0.734 | no
+   MS_Holly_Springs_4_N@10cm | 364 | 0.4384 | 0.9994 | 0.9999 | 100.0000 | 41.0088 | -0.824 | no
+   MS_Holly_Springs_4_N@20cm | 364 | 0.9171 | 0.9988 | 0.9999 | 100.0000 | 29.1227 | -0.085 | yes
+   MS_Holly_Springs_4_N@50cm | 364 | 0.1995 | 0.9991 | 0.9999 | 100.0000 | 32.8269 | -1.611 | no
+   MS_Holly_Springs_4_N@100cm | 364 | 0.1862 | 0.9963 | 0.9999 | 100.0000 | 16.3268 | -1.677 | no
+   MS_Newton_5_ENE@10cm | 364 | 0.8251 | 0.9992 | 0.9999 | 100.0000 | 35.9470 | -0.191 | yes
+   MS_Newton_5_ENE@20cm | 364 | 0.6816 | 0.9990 | 0.9999 | 100.0000 | 32.3748 | -0.382 | yes
+   MS_Newton_5_ENE@50cm | 364 | 0.3228 | 0.9987 | 0.9999 | 100.0000 | 27.1927 | -1.129 | no
+   MS_Newton_5_ENE@100cm | 364 | 0.2256 | 0.9967 | 0.9999 | 100.0000 | 17.3684 | -1.486 | no
+   MT_Dillon_18_WSW@10cm | 364 | 0.4733 | 0.9992 | 0.9999 | 100.0000 | 35.1753 | -0.747 | no
+   MT_Dillon_18_WSW@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   MT_Dillon_18_WSW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   MT_Dillon_18_WSW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   MT_Lewistown_42_WSW@10cm | 362 | 0.5409 | 0.9992 | 0.9999 | 100.0000 | 36.3255 | -0.614 | yes
+   MT_Lewistown_42_WSW@20cm | 362 | 0.3506 | 0.9986 | 0.9999 | 100.0000 | 27.1312 | -1.047 | no
+   MT_Lewistown_42_WSW@50cm | 362 | 0.1660 | 0.9970 | 0.9999 | 100.0000 | 18.1763 | -1.793 | no
+   MT_Lewistown_42_WSW@100cm | 362 | 0.2490 | 0.9902 | 0.9999 | 100.0000 | 9.9874 | -1.380 | no
+   MT_St._Mary_1_SSW@10cm | 364 | 0.6178 | 0.9988 | 0.9999 | 100.0000 | 28.7185 | -0.480 | yes
+   MT_St._Mary_1_SSW@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   MT_St._Mary_1_SSW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   MT_St._Mary_1_SSW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   MT_Wolf_Point_29_ENE@10cm | 364 | 0.7017 | 0.9996 | 0.9999 | 100.0000 | 50.1669 | -0.354 | yes
+   MT_Wolf_Point_29_ENE@20cm | 364 | 0.2985 | 0.9994 | 0.9999 | 100.0000 | 41.5889 | -1.208 | no
+   MT_Wolf_Point_29_ENE@50cm | 364 | 0.5224 | 0.9985 | 0.9999 | 100.0000 | 25.8881 | -0.648 | yes
+   MT_Wolf_Point_29_ENE@100cm | 364 | 0.3296 | 0.9978 | 0.9999 | 100.0000 | 21.3279 | -1.108 | no
+   MT_Wolf_Point_34_NE@10cm | EXCLUDED: rows 204, input values 206 (< 300)
+   MT_Wolf_Point_34_NE@20cm | EXCLUDED: rows 204, input values 206 (< 300)
+   MT_Wolf_Point_34_NE@50cm | EXCLUDED: rows 204, input values 206 (< 300)
+   MT_Wolf_Point_34_NE@100cm | EXCLUDED: rows 204, input values 206 (< 300)
+   NC_Asheville_13_S@10cm | 359 | 0.6890 | 0.9992 | 0.9999 | 100.0000 | 35.3885 | -0.372 | yes
+   NC_Asheville_13_S@20cm | 359 | 0.5649 | 0.9988 | 0.9999 | 100.0000 | 29.1616 | -0.570 | yes
+   NC_Asheville_13_S@50cm | 360 | 0.1758 | 0.9981 | 0.9999 | 100.0000 | 22.6285 | -1.736 | no
+   NC_Asheville_13_S@100cm | 360 | 0.0692 | 0.9925 | 0.9999 | 100.0000 | 11.4466 | -2.664 | no
+   NC_Asheville_8_SSW@10cm | 362 | 0.7043 | 0.9990 | 0.9999 | 100.0000 | 32.1428 | -0.350 | yes
+   NC_Asheville_8_SSW@20cm | 362 | 0.4152 | 0.9986 | 0.9999 | 100.0000 | 26.8220 | -0.878 | no
+   NC_Asheville_8_SSW@50cm | 362 | 0.1445 | 0.9969 | 0.9999 | 100.0000 | 17.9907 | -1.931 | no
+   NC_Asheville_8_SSW@100cm | 362 | 0.1097 | 0.9887 | 0.9999 | 100.0000 | 9.3091 | -2.199 | no
+   NC_Durham_11_W@10cm | 364 | 0.5909 | 0.9990 | 0.9999 | 100.0000 | 32.3055 | -0.525 | yes
+   NC_Durham_11_W@20cm | 364 | 0.7070 | 0.9982 | 0.9999 | 100.0000 | 23.8510 | -0.345 | yes
+   NC_Durham_11_W@50cm | 364 | 0.1794 | 0.9979 | 0.9999 | 100.0000 | 21.7438 | -1.716 | no
+   NC_Durham_11_W@100cm | 364 | 0.0883 | 0.9935 | 0.9999 | 100.0000 | 12.3337 | -2.421 | no
+   ND_Jamestown_38_WSW@10cm | 318 | 0.5839 | 0.9980 | 0.9999 | 100.0000 | 22.4048 | -0.536 | yes
+   ND_Jamestown_38_WSW@20cm | EXCLUDED: rows 0, input values 336 (< 300)
+   ND_Jamestown_38_WSW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ND_Jamestown_38_WSW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ND_Medora_7_E@10cm | 364 | 0.8601 | 0.9987 | 0.9999 | 100.0000 | 27.7786 | -0.149 | yes
+   ND_Medora_7_E@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   ND_Medora_7_E@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ND_Medora_7_E@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ND_Northgate_5_ESE@10cm | 364 | 0.6131 | 0.9987 | 0.9999 | 100.0000 | 27.3356 | -0.488 | yes
+   ND_Northgate_5_ESE@20cm | 364 | 0.4795 | 0.9980 | 0.9999 | 100.0000 | 22.5297 | -0.733 | no
+   ND_Northgate_5_ESE@50cm | 364 | 0.0713 | 0.9971 | 0.9999 | 100.0000 | 18.3869 | -2.638 | no
+   ND_Northgate_5_ESE@100cm | EXCLUDED: rows 5, input values 365 (< 300)
+   NE_Harrison_20_SSE@10cm | 364 | 0.7795 | 0.9997 | 0.9999 | 100.0000 | 54.0221 | -0.249 | yes
+   NE_Harrison_20_SSE@20cm | 364 | 0.5367 | 0.9996 | 0.9999 | 100.0000 | 49.4425 | -0.622 | yes
+   NE_Harrison_20_SSE@50cm | 364 | 0.0953 | 0.9993 | 0.9999 | 100.0000 | 38.2217 | -2.350 | no
+   NE_Harrison_20_SSE@100cm | 364 | 0.0421 | 0.9948 | 0.9999 | 100.0000 | 13.8582 | -3.161 | no
+   NE_Lincoln_11_SW@10cm | 364 | 0.4146 | 0.9993 | 0.9999 | 100.0000 | 38.7957 | -0.880 | no
+   NE_Lincoln_11_SW@20cm | 364 | 0.5730 | 0.9985 | 0.9999 | 100.0000 | 26.0506 | -0.555 | yes
+   NE_Lincoln_11_SW@50cm | 364 | 0.3532 | 0.9978 | 0.9999 | 100.0000 | 21.3319 | -1.038 | no
+   NE_Lincoln_11_SW@100cm | 364 | 0.1433 | 0.9957 | 0.9999 | 100.0000 | 15.2345 | -1.938 | no
+   NE_Lincoln_8_ENE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NE_Lincoln_8_ENE@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NE_Lincoln_8_ENE@50cm | 364 | 0.1577 | 0.9978 | 0.9999 | 100.0000 | 21.5182 | -1.845 | no
+   NE_Lincoln_8_ENE@100cm | EXCLUDED: rows 136, input values 365 (< 300)
+   NE_Whitman_5_ENE@10cm | 354 | 0.6331 | 0.9994 | 0.9999 | 100.0000 | 41.3417 | -0.457 | yes
+   NE_Whitman_5_ENE@20cm | 354 | 0.4356 | 0.9991 | 0.9999 | 100.0000 | 33.0759 | -0.830 | no
+   NE_Whitman_5_ENE@50cm | 354 | 0.1646 | 0.9983 | 0.9999 | 100.0000 | 24.1945 | -1.803 | no
+   NE_Whitman_5_ENE@100cm | 354 | 0.0502 | 0.9942 | 0.9999 | 100.0000 | 13.1036 | -2.986 | no
+   NH_Durham_2_N@10cm | 358 | 0.6018 | 0.9988 | 0.9999 | 100.0000 | 29.0018 | -0.507 | yes
+   NH_Durham_2_N@20cm | EXCLUDED: rows 0, input values 362 (< 300)
+   NH_Durham_2_N@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NH_Durham_2_N@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NH_Durham_2_SSW@10cm | 364 | 0.8781 | 0.9987 | 0.9999 | 100.0000 | 27.5449 | -0.129 | yes
+   NH_Durham_2_SSW@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   NH_Durham_2_SSW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NH_Durham_2_SSW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NM_Las_Cruces_20_N@10cm | 361 | 0.7358 | 0.9994 | 0.9999 | 100.0000 | 40.2603 | -0.306 | yes
+   NM_Las_Cruces_20_N@20cm | 361 | 0.3788 | 0.9992 | 0.9999 | 100.0000 | 35.3508 | -0.970 | no
+   NM_Las_Cruces_20_N@50cm | 361 | 0.1062 | 0.9983 | 0.9999 | 100.0000 | 24.3998 | -2.241 | no
+   NM_Las_Cruces_20_N@100cm | 361 | 0.0880 | 0.9913 | 0.9999 | 100.0000 | 10.6488 | -2.422 | no
+   NM_Los_Alamos_13_W@10cm | 362 | 0.4968 | 0.9987 | 0.9999 | 100.0000 | 28.0751 | -0.698 | no
+   NM_Los_Alamos_13_W@20cm | 362 | 0.3728 | 0.9976 | 0.9999 | 100.0000 | 20.1744 | -0.984 | no
+   NM_Los_Alamos_13_W@50cm | 362 | 0.5775 | 0.9943 | 0.9999 | 100.0000 | 13.1474 | -0.543 | yes
+   NM_Los_Alamos_13_W@100cm | 362 | 0.2566 | 0.9931 | 0.9999 | 100.0000 | 11.9279 | -1.353 | no
+   NM_Socorro_20_N@10cm | 362 | 0.6275 | 0.9678 | 0.9681 | 5.4159 | 5.3973 | -0.433 | yes
+   NM_Socorro_20_N@20cm | 362 | 0.5863 | 0.9994 | 0.9999 | 100.0000 | 42.3092 | -0.533 | yes
+   NM_Socorro_20_N@50cm | 362 | 0.2013 | 0.9991 | 0.9999 | 100.0000 | 32.8663 | -1.602 | no
+   NM_Socorro_20_N@100cm | 362 | 0.1901 | 0.9969 | 0.9999 | 100.0000 | 17.8802 | -1.657 | no
+   NV_Baker_5_W@10cm | 362 | 0.7060 | 0.9996 | 0.9999 | 100.0000 | 49.7173 | -0.348 | yes
+   NV_Baker_5_W@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   NV_Baker_5_W@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NV_Baker_5_W@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NV_Denio_52_WSW@10cm | 362 | 0.4818 | 0.9993 | 0.9999 | 100.0000 | 36.9298 | -0.730 | no
+   NV_Denio_52_WSW@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   NV_Denio_52_WSW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NV_Denio_52_WSW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   NV_Mercury_3_SSW@10cm | 346 | 0.5713 | 0.9995 | 0.9999 | 100.0000 | 45.4487 | -0.559 | yes
+   NV_Mercury_3_SSW@20cm | 352 | 0.5716 | 0.9992 | 0.9999 | 100.0000 | 35.5914 | -0.558 | yes
+   NV_Mercury_3_SSW@50cm | EXCLUDED: rows 238, input values 360 (< 300)
+   NV_Mercury_3_SSW@100cm | EXCLUDED: rows 241, input values 247 (< 300)
+   NY_Ithaca_13_E@10cm | 360 | 0.5980 | 0.9989 | 0.9999 | 100.0000 | 29.9056 | -0.513 | yes
+   NY_Ithaca_13_E@20cm | 362 | 0.6601 | 0.9981 | 0.9999 | 100.0000 | 23.0465 | -0.413 | yes
+   NY_Ithaca_13_E@50cm | 362 | 0.2304 | 0.9974 | 0.9999 | 100.0000 | 19.7054 | -1.465 | no
+   NY_Ithaca_13_E@100cm | 356 | 0.0790 | 0.9923 | 0.9999 | 100.0000 | 11.2837 | -2.530 | no
+   NY_Millbrook_3_W@10cm | 358 | 0.7528 | 0.9992 | 0.9999 | 100.0000 | 36.4105 | -0.283 | yes
+   NY_Millbrook_3_W@20cm | 356 | 0.5556 | 0.9989 | 0.9999 | 100.0000 | 30.7968 | -0.587 | yes
+   NY_Millbrook_3_W@50cm | 357 | 0.1904 | 0.9981 | 0.9999 | 100.0000 | 22.7448 | -1.657 | no
+   NY_Millbrook_3_W@100cm | 358 | 0.1308 | 0.9944 | 0.9999 | 100.0000 | 13.2604 | -2.028 | no
+   OH_Wooster_3_SSE@10cm | 364 | 0.1362 | 0.9981 | 0.9999 | 100.0000 | 22.9544 | -1.992 | no
+   OH_Wooster_3_SSE@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   OH_Wooster_3_SSE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   OH_Wooster_3_SSE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   OK_Goodwell_2_E@10cm | 362 | 0.7619 | 0.9988 | 0.9999 | 100.0000 | 28.9037 | -0.271 | yes
+   OK_Goodwell_2_E@20cm | 362 | 0.4254 | 0.9984 | 0.9999 | 100.0000 | 24.8951 | -0.853 | no
+   OK_Goodwell_2_E@50cm | 362 | 0.1225 | 0.9969 | 0.9999 | 100.0000 | 17.9208 | -2.096 | no
+   OK_Goodwell_2_E@100cm | 362 | 0.3044 | 0.9880 | 0.9999 | 100.0000 | 9.0344 | -1.178 | no
+   OK_Goodwell_2_SE@10cm | 356 | 0.4994 | 0.9989 | 0.9999 | 100.0000 | 29.6988 | -0.693 | no
+   OK_Goodwell_2_SE@20cm | 356 | 0.6884 | 0.9979 | 0.9999 | 100.0000 | 21.6208 | -0.371 | yes
+   OK_Goodwell_2_SE@50cm | 356 | 0.1686 | 0.9970 | 0.9999 | 100.0000 | 18.2739 | -1.777 | no
+   OK_Goodwell_2_SE@100cm | 356 | 0.0813 | 0.9905 | 0.9999 | 100.0000 | 10.1747 | -2.500 | no
+   OK_Stillwater_2_W@10cm | EXCLUDED: rows 17, input values 18 (< 300)
+   OK_Stillwater_2_W@20cm | EXCLUDED: rows 55, input values 60 (< 300)
+   OK_Stillwater_2_W@50cm | EXCLUDED: rows 57, input values 61 (< 300)
+   OK_Stillwater_2_W@100cm | EXCLUDED: rows 57, input values 63 (< 300)
+   OK_Stillwater_5_WNW@10cm | 362 | 0.7334 | 0.9983 | 0.9999 | 100.0000 | 24.3617 | -0.308 | yes
+   OK_Stillwater_5_WNW@20cm | 362 | 0.6108 | 0.9979 | 0.9999 | 100.0000 | 21.9887 | -0.491 | yes
+   OK_Stillwater_5_WNW@50cm | 362 | 0.1664 | 0.9967 | 0.9999 | 100.0000 | 17.4409 | -1.790 | no
+   OK_Stillwater_5_WNW@100cm | 362 | 0.5250 | 0.9893 | 0.9999 | 100.0000 | 9.5831 | -0.634 | yes
+   ON_Egbert_1_W@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ON_Egbert_1_W@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ON_Egbert_1_W@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   ON_Egbert_1_W@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   OR_Coos_Bay_8_SW@10cm | 362 | 0.2853 | 0.9980 | 0.9999 | 100.0000 | 22.2288 | -1.252 | no
+   OR_Coos_Bay_8_SW@20cm | 362 | 0.4429 | 0.9921 | 0.9999 | 100.0000 | 11.1717 | -0.806 | no
+   OR_Coos_Bay_8_SW@50cm | 362 | 0.1076 | 0.9855 | 0.9999 | 100.0000 | 8.1931 | -2.214 | no
+   OR_Coos_Bay_8_SW@100cm | 362 | 0.0548 | 0.9469 | 0.9999 | 100.0000 | 4.1085 | -2.849 | no
+   OR_Corvallis_10_SSW@10cm | 362 | 0.3107 | 0.9991 | 0.9999 | 100.0000 | 32.9962 | -1.168 | no
+   OR_Corvallis_10_SSW@20cm | 362 | 0.2971 | 0.9982 | 0.9999 | 100.0000 | 23.2195 | -1.212 | no
+   OR_Corvallis_10_SSW@50cm | 362 | 0.1394 | 0.9956 | 0.9999 | 100.0000 | 15.0817 | -1.966 | no
+   OR_Corvallis_10_SSW@100cm | 362 | 0.0370 | 0.9859 | 0.9999 | 100.0000 | 8.3167 | -3.284 | no
+   OR_John_Day_35_WNW@10cm | 362 | 0.2974 | 0.9913 | 0.9999 | 100.0000 | 10.6103 | -1.204 | no
+   OR_John_Day_35_WNW@20cm | 362 | 0.0009 | 0.9937 | 0.9999 | 100.0000 | 12.5212 | -6.966 | no
+   OR_John_Day_35_WNW@50cm | 362 | 0.5452 | 0.9985 | 0.9999 | 100.0000 | 26.0000 | -0.605 | yes
+   OR_John_Day_35_WNW@100cm | 362 | 0.6945 | 0.9978 | 0.9999 | 100.0000 | 21.0608 | -0.362 | yes
+   OR_Riley_10_WSW@10cm | 362 | 0.4113 | 0.9993 | 0.9999 | 100.0000 | 36.5013 | -0.888 | no
+   OR_Riley_10_WSW@20cm | 362 | 0.3123 | 0.9984 | 0.9999 | 100.0000 | 24.8077 | -1.162 | no
+   OR_Riley_10_WSW@50cm | 362 | 0.1035 | 0.9969 | 0.9999 | 100.0000 | 17.7795 | -2.265 | no
+   OR_Riley_10_WSW@100cm | 362 | 0.5461 | 0.9871 | 0.9999 | 100.0000 | 8.6996 | -0.592 | yes
+   PA_Avondale_2_N@10cm | 360 | 0.5039 | 0.9986 | 0.9999 | 100.0000 | 26.2450 | -0.684 | yes
+   PA_Avondale_2_N@20cm | 361 | 0.7175 | 0.9973 | 0.9999 | 100.0000 | 19.1669 | -0.329 | yes
+   PA_Avondale_2_N@50cm | 360 | 0.2281 | 0.9968 | 0.9999 | 100.0000 | 17.5329 | -1.475 | no
+   PA_Avondale_2_N@100cm | 360 | 0.1190 | 0.9906 | 0.9999 | 100.0000 | 10.1940 | -2.119 | no
+   RI_Kingston_1_NW@10cm | 364 | 0.7711 | 0.9989 | 0.9999 | 100.0000 | 29.7879 | -0.259 | yes
+   RI_Kingston_1_NW@20cm | 364 | 0.4785 | 0.9985 | 0.9999 | 100.0000 | 25.8810 | -0.736 | no
+   RI_Kingston_1_NW@50cm | 364 | 0.1839 | 0.9973 | 0.9999 | 100.0000 | 19.1437 | -1.690 | no
+   RI_Kingston_1_NW@100cm | 364 | 0.0731 | 0.9920 | 0.9999 | 100.0000 | 11.1068 | -2.608 | no
+   RI_Kingston_1_W@10cm | 364 | 0.8182 | 0.9990 | 0.9999 | 100.0000 | 31.4152 | -0.200 | yes
+   RI_Kingston_1_W@20cm | 364 | 0.5056 | 0.9988 | 0.9999 | 100.0000 | 28.5659 | -0.681 | yes
+   RI_Kingston_1_W@50cm | 364 | 0.1431 | 0.9976 | 0.9999 | 100.0000 | 20.5306 | -1.942 | no
+   RI_Kingston_1_W@100cm | 364 | 0.1057 | 0.9900 | 0.9999 | 100.0000 | 9.9055 | -2.237 | no
+   SC_Blackville_3_W@10cm | 362 | 0.6224 | 0.9990 | 0.9999 | 100.0000 | 30.9852 | -0.473 | yes
+   SC_Blackville_3_W@20cm | 362 | 0.5244 | 0.9984 | 0.9999 | 100.0000 | 24.6048 | -0.644 | yes
+   SC_Blackville_3_W@50cm | 362 | 0.5331 | 0.9976 | 0.9999 | 100.0000 | 20.5753 | -0.627 | yes
+   SC_Blackville_3_W@100cm | 362 | 0.1292 | 0.9964 | 0.9999 | 100.0000 | 16.4972 | -2.043 | no
+   SC_McClellanville_7_NE@10cm | EXCLUDED: rows 283, input values 364 (< 300)
+   SC_McClellanville_7_NE@20cm | EXCLUDED: rows 283, input values 285 (< 300)
+   SC_McClellanville_7_NE@50cm | 362 | 0.3721 | 0.9982 | 0.9999 | 100.0000 | 23.8007 | -0.987 | no
+   SC_McClellanville_7_NE@100cm | 362 | 0.1313 | 0.9964 | 0.9999 | 100.0000 | 16.6020 | -2.027 | no
+   SD_Aberdeen_35_WNW@10cm | 353 | 0.4414 | 0.9981 | 0.9999 | 100.0000 | 22.7681 | -0.816 | no
+   SD_Aberdeen_35_WNW@20cm | 353 | 0.2884 | 0.9967 | 0.9999 | 100.0000 | 17.2586 | -1.240 | no
+   SD_Aberdeen_35_WNW@50cm | 353 | 0.1437 | 0.9934 | 0.9999 | 100.0000 | 12.2363 | -1.933 | no
+   SD_Aberdeen_35_WNW@100cm | 353 | 0.0573 | 0.9842 | 0.9999 | 100.0000 | 7.8425 | -2.843 | no
+   SD_Buffalo_13_ESE@10cm | 364 | 0.7093 | 0.9991 | 0.9999 | 100.0000 | 32.5522 | -0.343 | yes
+   SD_Buffalo_13_ESE@20cm | 364 | 0.3418 | 0.9987 | 0.9999 | 100.0000 | 27.9562 | -1.072 | no
+   SD_Buffalo_13_ESE@50cm | 364 | 0.1482 | 0.9974 | 0.9999 | 100.0000 | 19.6011 | -1.906 | no
+   SD_Buffalo_13_ESE@100cm | 364 | 0.0505 | 0.9921 | 0.9999 | 100.0000 | 11.1704 | -2.979 | no
+   SD_Pierre_24_S@10cm | 364 | 0.5172 | 0.9991 | 0.9999 | 100.0000 | 33.4927 | -0.658 | yes
+   SD_Pierre_24_S@20cm | 364 | 0.3332 | 0.9985 | 0.9999 | 100.0000 | 26.1189 | -1.097 | no
+   SD_Pierre_24_S@50cm | 364 | 0.1283 | 0.9968 | 0.9999 | 100.0000 | 17.7258 | -2.050 | no
+   SD_Pierre_24_S@100cm | 364 | 0.2872 | 0.9890 | 0.9999 | 100.0000 | 9.4081 | -1.236 | no
+   SD_Sioux_Falls_14_NNE@10cm | 362 | 0.6432 | 0.9989 | 0.9999 | 100.0000 | 29.5643 | -0.440 | yes
+   SD_Sioux_Falls_14_NNE@20cm | 362 | 0.3125 | 0.9983 | 0.9999 | 100.0000 | 24.4671 | -1.161 | no
+   SD_Sioux_Falls_14_NNE@50cm | 362 | 0.3071 | 0.9960 | 0.9999 | 100.0000 | 15.7130 | -1.177 | no
+   SD_Sioux_Falls_14_NNE@100cm | 362 | 0.1017 | 0.9928 | 0.9999 | 100.0000 | 11.6908 | -2.279 | no
+   TN_Crossville_7_NW@10cm | EXCLUDED: rows 217, input values 363 (< 300)
+   TN_Crossville_7_NW@20cm | EXCLUDED: rows 235, input values 236 (< 300)
+   TN_Crossville_7_NW@50cm | EXCLUDED: rows 293, input values 363 (< 300)
+   TN_Crossville_7_NW@100cm | EXCLUDED: rows 200, input values 322 (< 300)
+   TX_Austin_33_NW@10cm | 359 | 0.5589 | 0.9996 | 0.9999 | 100.0000 | 48.6108 | -0.581 | yes
+   TX_Austin_33_NW@20cm | EXCLUDED: rows 0, input values 361 (< 300)
+   TX_Austin_33_NW@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   TX_Austin_33_NW@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   TX_Bronte_11_NNE@10cm | 362 | 0.5526 | 0.9998 | 0.9999 | 100.0000 | 63.2341 | -0.593 | yes
+   TX_Bronte_11_NNE@20cm | 362 | 0.3913 | 0.9996 | 0.9999 | 100.0000 | 47.2230 | -0.938 | no
+   TX_Bronte_11_NNE@50cm | 362 | 0.4128 | 0.9990 | 0.9999 | 100.0000 | 31.8563 | -0.884 | no
+   TX_Bronte_11_NNE@100cm | 362 | 0.6450 | 0.9980 | 0.9999 | 100.0000 | 22.3043 | -0.436 | yes
+   TX_Edinburg_17_NNE@10cm | 358 | 0.5854 | 0.9997 | 0.9999 | 100.0000 | 60.2836 | -0.535 | yes
+   TX_Edinburg_17_NNE@20cm | 358 | 0.3473 | 0.9995 | 0.9999 | 100.0000 | 44.3367 | -1.057 | no
+   TX_Edinburg_17_NNE@50cm | 358 | 0.3788 | 0.9988 | 0.9999 | 100.0000 | 28.5862 | -0.970 | no
+   TX_Edinburg_17_NNE@100cm | 358 | 0.2734 | 0.9972 | 0.9999 | 100.0000 | 18.9864 | -1.294 | no
+   TX_Monahans_6_ENE@10cm | 335 | 0.6803 | 0.9997 | 0.9999 | 100.0000 | 54.3757 | -0.385 | yes
+   TX_Monahans_6_ENE@20cm | 333 | 0.5123 | 0.9996 | 0.9999 | 100.0000 | 50.5713 | -0.669 | yes
+   TX_Monahans_6_ENE@50cm | 335 | 0.3123 | 0.9992 | 0.9999 | 100.0000 | 36.3633 | -1.163 | no
+   TX_Monahans_6_ENE@100cm | 336 | 0.2001 | 0.9981 | 0.9999 | 100.0000 | 23.1260 | -1.607 | no
+   TX_Muleshoe_19_S@10cm | 362 | 0.5254 | 0.9996 | 0.9999 | 100.0000 | 47.5150 | -0.643 | yes
+   TX_Muleshoe_19_S@20cm | 362 | 0.5570 | 0.9992 | 0.9999 | 100.0000 | 34.4472 | -0.584 | yes
+   TX_Muleshoe_19_S@50cm | 362 | 0.2041 | 0.9986 | 0.9999 | 100.0000 | 26.3010 | -1.588 | no
+   TX_Muleshoe_19_S@100cm | 362 | 0.0497 | 0.9958 | 0.9999 | 100.0000 | 15.3391 | -2.997 | no
+   TX_Palestine_6_WNW@10cm | 364 | 0.7193 | 0.9990 | 0.9999 | 100.0000 | 31.5146 | -0.328 | yes
+   TX_Palestine_6_WNW@20cm | 364 | 0.9640 | 0.9986 | 0.9999 | 100.0000 | 26.3681 | -0.035 | yes
+   TX_Palestine_6_WNW@50cm | 364 | 0.4622 | 0.9985 | 0.9999 | 100.0000 | 26.0502 | -0.770 | no
+   TX_Palestine_6_WNW@100cm | 364 | 0.2646 | 0.9971 | 0.9999 | 100.0000 | 18.6121 | -1.327 | no
+   TX_Panther_Junction_2_N@10cm | 362 | 0.4985 | 0.9997 | 0.9999 | 100.0000 | 57.8660 | -0.696 | no
+   TX_Panther_Junction_2_N@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   TX_Panther_Junction_2_N@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   TX_Panther_Junction_2_N@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   TX_Port_Aransas_32_NNE@10cm | 354 | 0.4887 | 0.9990 | 0.9999 | 100.0000 | 31.8604 | -0.715 | no
+   TX_Port_Aransas_32_NNE@20cm | 352 | 0.3776 | 0.9985 | 0.9999 | 100.0000 | 26.1131 | -0.972 | no
+   TX_Port_Aransas_32_NNE@50cm | 354 | 0.1771 | 0.9960 | 0.9999 | 100.0000 | 15.6867 | -1.727 | no
+   TX_Port_Aransas_32_NNE@100cm | 351 | 0.0791 | 0.9919 | 0.9999 | 100.0000 | 11.0085 | -2.528 | no
+   UT_Brigham_City_28_WNW@10cm | 362 | 0.4352 | 0.9992 | 0.9999 | 100.0000 | 36.0180 | -0.831 | no
+   UT_Brigham_City_28_WNW@20cm | 362 | 0.3664 | 0.9986 | 0.9999 | 100.0000 | 26.5803 | -1.003 | no
+   UT_Brigham_City_28_WNW@50cm | 362 | 0.1872 | 0.9972 | 0.9999 | 100.0000 | 18.9779 | -1.673 | no
+   UT_Brigham_City_28_WNW@100cm | 362 | 0.1076 | 0.9931 | 0.9999 | 100.0000 | 11.9323 | -2.223 | no
+   UT_Torrey_7_E@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   UT_Torrey_7_E@20cm | EXCLUDED: rows 0, input values 0 (< 300)
+   UT_Torrey_7_E@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   UT_Torrey_7_E@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   VA_Cape_Charles_5_ENE@10cm | EXCLUDED: rows 0, input values 0 (< 300)
+   VA_Cape_Charles_5_ENE@20cm | 353 | 0.4616 | 0.9993 | 0.9999 | 100.0000 | 36.6203 | -0.772 | no
+   VA_Cape_Charles_5_ENE@50cm | EXCLUDED: rows 32, input values 361 (< 300)
+   VA_Cape_Charles_5_ENE@100cm | EXCLUDED: rows 39, input values 39 (< 300)
+   VA_Charlottesville_2_SSE@10cm | 364 | 0.6439 | 0.9855 | 0.9999 | 100.0000 | 8.1711 | -0.426 | yes
+   VA_Charlottesville_2_SSE@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   VA_Charlottesville_2_SSE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   VA_Charlottesville_2_SSE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WA_Darrington_21_NNE@10cm | 362 | 0.6895 | 0.9978 | 0.9999 | 100.0000 | 21.5200 | -0.370 | yes
+   WA_Darrington_21_NNE@20cm | 362 | 0.1914 | 0.9968 | 0.9999 | 100.0000 | 17.5432 | -1.650 | no
+   WA_Darrington_21_NNE@50cm | 362 | 0.4430 | 0.9897 | 0.9999 | 100.0000 | 9.7457 | -0.804 | no
+   WA_Darrington_21_NNE@100cm | 362 | 0.3344 | 0.9852 | 0.9999 | 100.0000 | 8.0970 | -1.080 | no
+   WA_Quinault_4_NE@10cm | 362 | 0.7054 | 0.9977 | 0.9999 | 100.0000 | 20.7183 | -0.347 | yes
+   WA_Quinault_4_NE@20cm | EXCLUDED: rows 0, input values 364 (< 300)
+   WA_Quinault_4_NE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WA_Quinault_4_NE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WA_Spokane_17_SSW@10cm | 354 | 0.2848 | 0.9988 | 0.9999 | 100.0000 | 29.2598 | -1.255 | no
+   WA_Spokane_17_SSW@20cm | 352 | 0.4090 | 0.9971 | 0.9999 | 100.0000 | 18.4524 | -0.891 | no
+   WA_Spokane_17_SSW@50cm | 351 | 0.1471 | 0.9957 | 0.9999 | 100.0000 | 15.2617 | -1.912 | no
+   WA_Spokane_17_SSW@100cm | 351 | 0.5267 | 0.9896 | 0.9999 | 100.0000 | 9.6929 | -0.631 | yes
+   WI_Necedah_5_WNW@10cm | 340 | 0.5885 | 0.9993 | 0.9999 | 100.0000 | 36.5422 | -0.529 | yes
+   WI_Necedah_5_WNW@20cm | 362 | 0.5620 | 0.9988 | 0.9999 | 100.0000 | 28.5791 | -0.575 | yes
+   WI_Necedah_5_WNW@50cm | 362 | 0.2273 | 0.9981 | 0.9999 | 100.0000 | 23.0372 | -1.480 | no
+   WI_Necedah_5_WNW@100cm | 362 | 0.1142 | 0.9952 | 0.9999 | 100.0000 | 14.3149 | -2.165 | no
+   WV_Elkins_21_ENE@10cm | 338 | 0.7659 | 0.9987 | 0.9999 | 100.0000 | 27.7945 | -0.265 | yes
+   WV_Elkins_21_ENE@20cm | 338 | 0.1691 | 0.9983 | 0.9999 | 100.0000 | 24.3156 | -1.776 | no
+   WV_Elkins_21_ENE@50cm | 338 | 0.1815 | 0.9918 | 0.9999 | 100.0000 | 10.9229 | -1.698 | no
+   WV_Elkins_21_ENE@100cm | EXCLUDED: rows 176, input values 340 (< 300)
+   WY_Lander_11_SSE@10cm | 354 | 0.4200 | 0.9993 | 0.9999 | 100.0000 | 37.4805 | -0.867 | no
+   WY_Lander_11_SSE@20cm | EXCLUDED: rows 0, input values 360 (< 300)
+   WY_Lander_11_SSE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WY_Lander_11_SSE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WY_Moose_1_NNE@10cm | 364 | 0.5816 | 0.9993 | 0.9999 | 100.0000 | 38.7813 | -0.541 | yes
+   WY_Moose_1_NNE@20cm | EXCLUDED: rows 0, input values 365 (< 300)
+   WY_Moose_1_NNE@50cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WY_Moose_1_NNE@100cm | EXCLUDED: rows 0, input values 0 (< 300)
+   WY_Sundance_8_NNW@10cm | 364 | 0.8235 | 0.9988 | 0.9999 | 100.0000 | 29.3896 | -0.193 | yes
+   WY_Sundance_8_NNW@20cm | 364 | 0.3409 | 0.9987 | 0.9999 | 100.0000 | 28.0472 | -1.075 | no
+   WY_Sundance_8_NNW@50cm | 364 | 0.1199 | 0.9966 | 0.9999 | 100.0000 | 16.9869 | -2.118 | no
+   WY_Sundance_8_NNW@100cm | 364 | 0.0805 | 0.9845 | 0.9999 | 100.0000 | 7.9059 | -2.504 | no
+   level: 140/369 units within x2 (threshold 246; excluded 267) -> FAIL
+   baseline (leave-one-unit-out constant): law median |log err| 0.891195 (0.891) vs constant 0.481022 (0.481); constant within x2 241/369 -> law beats constant: FAIL
+   tracking: Spearman(alpha_hat, alpha*) 0.522909 (0.523), bootstrap 95% CI 0.439 to 0.600 (PASS needs >= 0.3 and CI above 0) -> PASS
+   row RLAW-4D: level FAIL AND law beats constant FAIL -> FAIL
+   sensitivity (16 cells; for twostep the factors read: v -> alpha grid 200/400 (ml/mom), own -> Q0 0/0.5 (on/off), lag -> beta bound 50/20, alt -> exclusion >10% missed):
+      v:ml own:on lag:+0 alt:no: 140/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:ml own:on lag:+0 alt:yes: 140/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:ml own:on lag:+1 alt:no: 46/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:ml own:on lag:+1 alt:yes: 46/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:ml own:off lag:+0 alt:no: 140/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+0 alt:yes: 140/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+1 alt:no: 46/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:ml own:off lag:+1 alt:yes: 46/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:on lag:+0 alt:no: 140/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:mom own:on lag:+0 alt:yes: 140/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:mom own:on lag:+1 alt:no: 46/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:mom own:on lag:+1 alt:yes: 46/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking PASS
+      v:mom own:off lag:+0 alt:no: 1/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+0 alt:yes: 1/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+1 alt:no: 0/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+      v:mom own:off lag:+1 alt:yes: 0/369 within x2; row FAIL; level FAIL; baseline FAIL; tracking FAIL
+   flips against the primary: row 0 -> not fragile; level 0 -> not fragile; baseline 0 -> not fragile; tracking 8 -> FRAGILE
+
+== RLAW-5 (twostep), primary cell v:ml own:on lag:+0 alt:no
+   unit | n | alpha_hat | alpha* = K(v_own) | K(v) (Muth, instrument unit) | v_hat | v_own | log(alpha_hat/alpha*) | within x2
+   subject_1 | 125 | 0.5567 | 0.0420 | 0.0911 | 0.0955 | 0.0955 | 2.584 | no
+   subject_2 | 124 | 0.0911 | 0.0420 | 0.0921 | 0.0966 | 0.0966 | 0.774 | no
+   subject_3 | 120 | 0.0797 | 0.0420 | 0.0986 | 0.1038 | 0.1038 | 0.641 | yes
+   subject_4 | 124 | 0.3734 | 0.0420 | 0.0864 | 0.0904 | 0.0904 | 2.185 | no
+   subject_5 | 123 | 0.8300 | 0.0420 | 0.0948 | 0.0996 | 0.0996 | 2.984 | no
+   subject_6 | 125 | 0.3099 | 0.0420 | 0.0925 | 0.0971 | 0.0971 | 1.999 | no
+   subject_7 | 125 | 0.1971 | 0.0420 | 0.0791 | 0.0824 | 0.0824 | 1.546 | no
+   subject_8 | 124 | 0.4873 | 0.0420 | 0.0974 | 0.1026 | 0.1026 | 2.451 | no
+   subject_9 | 125 | 0.2642 | 0.0420 | 0.1034 | 0.1092 | 0.1092 | 1.839 | no
+   subject_10 | 123 | 0.0644 | 0.0420 | 0.0915 | 0.0960 | 0.0960 | 0.428 | yes
+   subject_11 | 120 | 0.0050 | 0.0420 | 0.0925 | 0.0971 | 0.0971 | -2.128 | no
+   subject_12 | 124 | 0.7074 | 0.0420 | 0.0956 | 0.1005 | 0.1005 | 2.824 | no
+   subject_13 | 125 | 0.3540 | 0.0420 | 0.0892 | 0.0935 | 0.0935 | 2.132 | no
+   subject_14 | 123 | 0.3734 | 0.0420 | 0.1043 | 0.1102 | 0.1102 | 2.185 | no
+   subject_15 | 124 | 1.0000 | 0.0420 | 0.0929 | 0.0975 | 0.0975 | 3.170 | no
+   subject_16 | 122 | 1.0000 | 0.0420 | 0.0988 | 0.1041 | 0.1041 | 3.170 | no
+   subject_17 | 124 | 0.3540 | 0.0420 | 0.0975 | 0.1026 | 0.1026 | 2.132 | no
+   subject_18 | EXCLUDED: valid trials 64 of 125
+   subject_19 | 123 | 0.3269 | 0.0420 | 0.0909 | 0.0954 | 0.0954 | 2.052 | no
+   subject_20 | 125 | 0.6888 | 0.0420 | 0.0972 | 0.1023 | 0.1023 | 2.797 | no
+   subject_21 | 124 | 0.3183 | 0.0420 | 0.0988 | 0.1041 | 0.1041 | 2.025 | no
+   subject_22 | 122 | 0.4266 | 0.0420 | 0.0928 | 0.0975 | 0.0975 | 2.318 | no
+   subject_23 | 121 | 0.2572 | 0.0420 | 0.0992 | 0.1045 | 0.1045 | 1.812 | no
+   subject_24 | 122 | 0.9737 | 0.0420 | 0.0910 | 0.0954 | 0.0954 | 3.143 | no
+   subject_25 | EXCLUDED: valid trials 93 of 125
+   subject_26 | 125 | 0.3269 | 0.0420 | 0.0863 | 0.0903 | 0.0903 | 2.052 | no
+   subject_27 | 125 | 0.5871 | 0.0420 | 0.0891 | 0.0934 | 0.0934 | 2.638 | no
+   subject_28 | 123 | 0.1593 | 0.0420 | 0.0802 | 0.0836 | 0.0836 | 1.333 | no
+   subject_29 | 122 | 0.0050 | 0.0420 | 0.0935 | 0.0982 | 0.0982 | -2.128 | no
+   subject_30 | 124 | 0.8990 | 0.0420 | 0.0952 | 0.1001 | 0.1001 | 3.064 | no
+   subject_31 | 116 | 0.0050 | 0.0420 | 0.1028 | 0.1085 | 0.1085 | -2.128 | no
+   subject_32 | 125 | 0.5005 | 0.0420 | 0.0861 | 0.0901 | 0.0901 | 2.478 | no
+   subject_33 | 119 | 0.1869 | 0.0420 | 0.0945 | 0.0993 | 0.0993 | 1.493 | no
+   subject_34 | 125 | 0.8990 | 0.0420 | 0.0962 | 0.1012 | 0.1012 | 3.064 | no
+   subject_35 | 125 | 0.7662 | 0.0420 | 0.0993 | 0.1046 | 0.1046 | 2.904 | no
+   subject_36 | 125 | 0.6888 | 0.0420 | 0.0904 | 0.0948 | 0.0948 | 2.797 | no
+   subject_37 | 124 | 0.5005 | 0.0420 | 0.0886 | 0.0928 | 0.0928 | 2.478 | no
+   subject_38 | 124 | 0.3938 | 0.0420 | 0.1000 | 0.1055 | 0.1055 | 2.238 | no
+   subject_39 | 121 | 0.1680 | 0.0420 | 0.0932 | 0.0978 | 0.0978 | 1.386 | no
+   subject_40 | 123 | 0.3018 | 0.0420 | 0.0945 | 0.0993 | 0.0993 | 1.972 | no
+   subject_41 | 124 | 0.2786 | 0.0420 | 0.0965 | 0.1015 | 0.1015 | 1.892 | no
+   subject_42 | 125 | 0.0050 | 0.0420 | 0.0946 | 0.0994 | 0.0994 | -2.128 | no
+   subject_43 | 123 | 0.0050 | 0.0420 | 0.0978 | 0.1029 | 0.1029 | -2.128 | no
+   subject_44 | 122 | 1.0000 | 0.0420 | 0.0988 | 0.1041 | 0.1041 | 3.170 | no
+   subject_45 | 123 | 0.7265 | 0.0420 | 0.0906 | 0.0951 | 0.0951 | 2.851 | no
+   subject_46 | 121 | 0.6360 | 0.0420 | 0.0917 | 0.0962 | 0.0962 | 2.717 | no
+   subject_47 | 124 | 1.0000 | 0.0420 | 0.1002 | 0.1056 | 0.1056 | 3.170 | no
+   subject_48 | 123 | 0.2861 | 0.0420 | 0.0954 | 0.1003 | 0.1003 | 1.919 | no
+   subject_49 | 125 | 0.7461 | 0.0420 | 0.1007 | 0.1062 | 0.1062 | 2.877 | no
+   subject_50 | 119 | 0.2024 | 0.0420 | 0.0919 | 0.0964 | 0.0964 | 1.573 | no
+   subject_51 | 125 | 0.6360 | 0.0420 | 0.0976 | 0.1028 | 0.1028 | 2.717 | no
+   subject_52 | 119 | 0.0050 | 0.0420 | 0.0987 | 0.1040 | 0.1040 | -2.128 | no
+   subject_53 | 122 | 0.3183 | 0.0420 | 0.0983 | 0.1035 | 0.1035 | 2.025 | no
+   subject_54 | 123 | 0.1510 | 0.0420 | 0.0952 | 0.1001 | 0.1001 | 1.280 | no
+   subject_55 | 124 | 0.4499 | 0.0420 | 0.0925 | 0.0971 | 0.0971 | 2.371 | no
+   subject_56 | 123 | 0.6030 | 0.0420 | 0.0954 | 0.1003 | 0.1003 | 2.664 | no
+   subject_57 | 121 | 0.5140 | 0.0420 | 0.0970 | 0.1020 | 0.1020 | 2.504 | no
+   subject_58 | 125 | 0.7869 | 0.0420 | 0.0943 | 0.0991 | 0.0991 | 2.930 | no
+   subject_59 | 121 | 0.1820 | 0.0420 | 0.0965 | 0.1015 | 0.1015 | 1.466 | no
+   subject_60 | 124 | 0.5278 | 0.0420 | 0.0958 | 0.1008 | 0.1008 | 2.531 | no
+   subject_61 | 125 | 0.1287 | 0.0420 | 0.0963 | 0.1013 | 0.1013 | 1.120 | no
+   subject_62 | 122 | 0.8300 | 0.0420 | 0.0914 | 0.0959 | 0.0959 | 2.984 | no
+   subject_63 | 123 | 0.1725 | 0.0420 | 0.0913 | 0.0958 | 0.0958 | 1.413 | no
+   subject_64 | 123 | 0.6888 | 0.0420 | 0.0935 | 0.0982 | 0.0982 | 2.797 | no
+   subject_65 | 123 | 0.1636 | 0.0420 | 0.1024 | 0.1080 | 0.1080 | 1.360 | no
+   subject_66 | 122 | 0.6531 | 0.0420 | 0.0953 | 0.1002 | 0.1002 | 2.744 | no
+   subject_67 | 122 | 0.0050 | 0.0420 | 0.1008 | 0.1063 | 0.1063 | -2.128 | no
+   subject_68 | 122 | 0.0887 | 0.0420 | 0.0982 | 0.1034 | 0.1034 | 0.747 | no
+   subject_69 | 120 | 0.3636 | 0.0420 | 0.1010 | 0.1065 | 0.1065 | 2.158 | no
+   subject_70 | EXCLUDED: valid trials 75 of 125
+   subject_71 | 122 | 0.8300 | 0.0420 | 0.0984 | 0.1037 | 0.1037 | 2.984 | no
+   subject_72 | 125 | 0.1358 | 0.0420 | 0.0839 | 0.0876 | 0.0876 | 1.173 | no
+   subject_73 | 120 | 1.0000 | 0.0420 | 0.0982 | 0.1034 | 0.1034 | 3.170 | no
+   subject_74 | 125 | 0.6030 | 0.0420 | 0.0886 | 0.0928 | 0.0928 | 2.664 | no
+   subject_75 | 122 | 0.1287 | 0.0420 | 0.0925 | 0.0971 | 0.0971 | 1.120 | no
+   subject_76 | 124 | 0.4620 | 0.0420 | 0.0889 | 0.0932 | 0.0932 | 2.398 | no
+   subject_77 | 121 | 0.6193 | 0.0420 | 0.0946 | 0.0994 | 0.0994 | 2.691 | no
+   subject_78 | 125 | 0.4154 | 0.0420 | 0.0892 | 0.0934 | 0.0934 | 2.291 | no
+   subject_79 | 121 | 0.3734 | 0.0420 | 0.0929 | 0.0975 | 0.0975 | 2.185 | no
+   subject_80 | 125 | 0.9232 | 0.0420 | 0.0936 | 0.0983 | 0.0983 | 3.090 | no
+   subject_81 | 124 | 0.3183 | 0.0420 | 0.0965 | 0.1015 | 0.1015 | 2.025 | no
+   subject_82 | 122 | 0.2375 | 0.0420 | 0.0965 | 0.1015 | 0.1015 | 1.732 | no
+   subject_83 | 124 | 0.1636 | 0.0420 | 0.0855 | 0.0895 | 0.0895 | 1.360 | no
+   subject_84 | 121 | 0.1432 | 0.0420 | 0.1010 | 0.1066 | 0.1066 | 1.226 | no
+   subject_85 | 124 | 0.4044 | 0.0420 | 0.0928 | 0.0974 | 0.0974 | 2.265 | no
+   subject_86 | 125 | 0.3540 | 0.0420 | 0.0903 | 0.0947 | 0.0947 | 2.132 | no
+   subject_87 | 124 | 1.0000 | 0.0420 | 0.0906 | 0.0950 | 0.0950 | 3.170 | no
+   subject_88 | 124 | 0.6888 | 0.0420 | 0.1004 | 0.1058 | 0.1058 | 2.797 | no
+   subject_89 | 120 | 0.1869 | 0.0420 | 0.0931 | 0.0977 | 0.0977 | 1.493 | no
+   subject_90 | 123 | 0.3938 | 0.0420 | 0.0957 | 0.1006 | 0.1006 | 2.238 | no
+   subject_91 | 125 | 0.1157 | 0.0420 | 0.0942 | 0.0990 | 0.0990 | 1.013 | no
+   subject_92 | 124 | 0.2505 | 0.0420 | 0.0969 | 0.1020 | 0.1020 | 1.786 | no
+   subject_93 | 121 | 0.1680 | 0.0420 | 0.0936 | 0.0984 | 0.0984 | 1.386 | no
+   subject_94 | 123 | 0.5717 | 0.0420 | 0.0981 | 0.1033 | 0.1033 | 2.611 | no
+   subject_95 | 122 | 0.0399 | 0.0420 | 0.0961 | 0.1010 | 0.1010 | -0.052 | yes
+   subject_96 | 108 | 0.0050 | 0.0420 | 0.0985 | 0.1038 | 0.1038 | -2.128 | no
+   subject_97 | 122 | 1.0000 | 0.0420 | 0.0997 | 0.1050 | 0.1050 | 3.170 | no
+   subject_98 | 120 | 0.6531 | 0.0420 | 0.0949 | 0.0997 | 0.0997 | 2.744 | no
+   subject_99 | 121 | 1.0000 | 0.0420 | 0.1055 | 0.1115 | 0.1115 | 3.170 | no
+   subject_100 | 125 | 1.0000 | 0.0420 | 0.0963 | 0.1013 | 0.1013 | 3.170 | no
+   subject_101 | 122 | 0.1322 | 0.0420 | 0.0905 | 0.0948 | 0.0948 | 1.147 | no
+   subject_102 | 115 | 0.4266 | 0.0420 | 0.1006 | 0.1061 | 0.1061 | 2.318 | no
+   subject_103 | 125 | 0.1919 | 0.0420 | 0.0858 | 0.0898 | 0.0898 | 1.519 | no
+   subject_104 | 124 | 0.1772 | 0.0420 | 0.0893 | 0.0936 | 0.0936 | 1.439 | no
+   subject_105 | 114 | 1.0000 | 0.0420 | 0.0970 | 0.1020 | 0.1020 | 3.170 | no
+   subject_106 | 123 | 0.3636 | 0.0420 | 0.1012 | 0.1067 | 0.1067 | 2.158 | no
+   subject_107 | 124 | 0.6707 | 0.0420 | 0.0982 | 0.1034 | 0.1034 | 2.771 | no
+   subject_108 | 123 | 0.2861 | 0.0420 | 0.0928 | 0.0974 | 0.0974 | 1.919 | no
+   subject_109 | 124 | 0.0050 | 0.0420 | 0.0973 | 0.1024 | 0.1024 | -2.128 | no
+   subject_110 | 122 | 0.0456 | 0.0420 | 0.0888 | 0.0931 | 0.0931 | 0.082 | yes
+   subject_111 | 124 | 0.1820 | 0.0420 | 0.0964 | 0.1015 | 0.1015 | 1.466 | no
+   subject_112 | 123 | 0.1097 | 0.0420 | 0.0909 | 0.0954 | 0.0954 | 0.960 | no
+   subject_113 | 125 | 0.4266 | 0.0420 | 0.0926 | 0.0972 | 0.0972 | 2.318 | no
+   subject_114 | 124 | 0.6531 | 0.0420 | 0.0967 | 0.1018 | 0.1018 | 2.744 | no
+   subject_115 | 125 | 0.9232 | 0.0420 | 0.1021 | 0.1078 | 0.1078 | 3.090 | no
+   subject_116 | 125 | 0.3269 | 0.0420 | 0.0971 | 0.1022 | 0.1022 | 2.052 | no
+   subject_117 | 121 | 0.0050 | 0.0420 | 0.0950 | 0.0998 | 0.0998 | -2.128 | no
+   subject_118 | 123 | 0.9481 | 0.0420 | 0.0933 | 0.0979 | 0.0979 | 3.117 | no
+   subject_119 | 124 | 0.8082 | 0.0420 | 0.0972 | 0.1023 | 0.1023 | 2.957 | no
+   subject_120 | 122 | 0.6707 | 0.0420 | 0.0964 | 0.1014 | 0.1014 | 2.771 | no
+   subject_121 | EXCLUDED: valid trials 35 of 125
+   subject_122 | 125 | 0.5871 | 0.0420 | 0.0967 | 0.1017 | 0.1017 | 2.638 | no
+   subject_123 | EXCLUDED: valid trials 99 of 125
+   subject_124 | 124 | 0.5140 | 0.0420 | 0.0975 | 0.1026 | 0.1026 | 2.504 | no
+   subject_125 | 121 | 0.4745 | 0.0420 | 0.0920 | 0.0966 | 0.0966 | 2.425 | no
+   subject_126 | EXCLUDED: valid trials 25 of 125
+   subject_127 | 124 | 0.6360 | 0.0420 | 0.0937 | 0.0984 | 0.0984 | 2.717 | no
+   subject_128 | 125 | 0.4154 | 0.0420 | 0.0948 | 0.0997 | 0.0997 | 2.291 | no
+   subject_129 | 122 | 0.6888 | 0.0420 | 0.0926 | 0.0972 | 0.0972 | 2.797 | no
+   subject_130 | 123 | 0.2786 | 0.0420 | 0.0951 | 0.0999 | 0.0999 | 1.892 | no
+   subject_131 | 123 | 0.0050 | 0.0420 | 0.0958 | 0.1007 | 0.1007 | -2.128 | no
+   subject_132 | 121 | 0.9737 | 0.0420 | 0.0981 | 0.1033 | 0.1033 | 3.143 | no
+   subject_133 | 122 | 0.3540 | 0.0420 | 0.0950 | 0.0998 | 0.0998 | 2.132 | no
+   subject_134 | 125 | 0.5278 | 0.0420 | 0.0928 | 0.0975 | 0.0975 | 2.531 | no
+   subject_135 | 123 | 0.1471 | 0.0420 | 0.0927 | 0.0973 | 0.0973 | 1.253 | no
+   subject_136 | 125 | 0.1394 | 0.0420 | 0.0967 | 0.1017 | 0.1017 | 1.200 | no
+   subject_137 | 120 | 0.2312 | 0.0420 | 0.0980 | 0.1032 | 0.1032 | 1.706 | no
+   subject_138 | 125 | 0.4154 | 0.0420 | 0.0959 | 0.1008 | 0.1008 | 2.291 | no
+   subject_139 | 112 | 0.6531 | 0.0420 | 0.1031 | 0.1088 | 0.1088 | 2.744 | no
+   subject_140 | 125 | 0.8524 | 0.0420 | 0.0981 | 0.1033 | 0.1033 | 3.010 | no
+   subject_141 | 115 | 0.1772 | 0.0420 | 0.0959 | 0.1008 | 0.1008 | 1.439 | no
+   subject_142 | 123 | 0.1220 | 0.0420 | 0.1025 | 0.1082 | 0.1082 | 1.067 | no
+   subject_143 | 121 | 0.8754 | 0.0420 | 0.0846 | 0.0884 | 0.0884 | 3.037 | no
+   subject_144 | 125 | 1.0000 | 0.0420 | 0.0968 | 0.1019 | 0.1019 | 3.170 | no
+   subject_145 | 116 | 0.3018 | 0.0420 | 0.0894 | 0.0937 | 0.0937 | 1.972 | no
+   subject_146 | 117 | 0.0050 | 0.0420 | 0.1004 | 0.1059 | 0.1059 | -2.128 | no
+   subject_147 | 102 | 0.4044 | 0.0420 | 0.1023 | 0.1080 | 0.1080 | 2.265 | no
+   subject_148 | 125 | 0.7265 | 0.0420 | 0.0909 | 0.0953 | 0.0953 | 2.851 | no
+   subject_149 | 124 | 0.0050 | 0.0420 | 0.0932 | 0.0978 | 0.0978 | -2.128 | no
+   subject_150 | 106 | 0.5717 | 0.0420 | 0.0957 | 0.1006 | 0.1006 | 2.611 | no
+   subject_151 | 122 | 0.3734 | 0.0420 | 0.0845 | 0.0884 | 0.0884 | 2.185 | no
+   subject_152 | 122 | 0.1471 | 0.0420 | 0.0932 | 0.0979 | 0.0979 | 1.253 | no
+   subject_153 | 119 | 0.0050 | 0.0420 | 0.0993 | 0.1046 | 0.1046 | -2.128 | no
+   subject_154 | 121 | 0.5567 | 0.0420 | 0.0943 | 0.0991 | 0.0991 | 2.584 | no
+   subject_155 | 123 | 0.5005 | 0.0420 | 0.0980 | 0.1032 | 0.1032 | 2.478 | no
+   subject_156 | 124 | 0.5278 | 0.0420 | 0.0975 | 0.1026 | 0.1026 | 2.531 | no
+   subject_157 | 124 | 0.6360 | 0.0420 | 0.0930 | 0.0976 | 0.0976 | 2.717 | no
+   subject_158 | 125 | 0.0282 | 0.0420 | 0.0812 | 0.0847 | 0.0847 | -0.398 | yes
+   subject_159 | 124 | 0.6888 | 0.0420 | 0.0936 | 0.0983 | 0.0983 | 2.797 | no
+   subject_160 | EXCLUDED: valid trials 69 of 125
+   subject_161 | 123 | 1.0000 | 0.0420 | 0.0936 | 0.0984 | 0.0984 | 3.170 | no
+   subject_162 | 117 | 1.0000 | 0.0420 | 0.0950 | 0.0998 | 0.0998 | 3.170 | no
+   subject_163 | 106 | 0.1358 | 0.0420 | 0.0920 | 0.0965 | 0.0965 | 1.173 | no
+   subject_164 | 122 | 0.3447 | 0.0420 | 0.0988 | 0.1041 | 0.1041 | 2.105 | no
+   subject_165 | 120 | 0.0050 | 0.0420 | 0.0985 | 0.1037 | 0.1037 | -2.128 | no
+   subject_166 | 125 | 0.2375 | 0.0420 | 0.0946 | 0.0995 | 0.0995 | 1.732 | no
+   subject_167 | 122 | 0.3099 | 0.0420 | 0.0969 | 0.1019 | 0.1019 | 1.999 | no
+   subject_168 | 125 | 0.5717 | 0.0420 | 0.0970 | 0.1021 | 0.1021 | 2.611 | no
+   subject_169 | 124 | 0.1551 | 0.0420 | 0.0908 | 0.0952 | 0.0952 | 1.306 | no
+   subject_170 | 124 | 1.0000 | 0.0420 | 0.0963 | 0.1014 | 0.1014 | 3.170 | no
+   subject_171 | EXCLUDED: valid trials 93 of 125
+   subject_172 | 123 | 0.2135 | 0.0420 | 0.0967 | 0.1017 | 0.1017 | 1.626 | no
+   subject_173 | EXCLUDED: valid trials 83 of 125
+   subject_174 | 122 | 0.8300 | 0.0420 | 0.0943 | 0.0991 | 0.0991 | 2.984 | no
+   subject_175 | 124 | 0.5278 | 0.0420 | 0.0925 | 0.0970 | 0.0970 | 2.531 | no
+   subject_176 | 124 | 0.5140 | 0.0420 | 0.0933 | 0.0980 | 0.0980 | 2.504 | no
+   subject_177 | 125 | 1.0000 | 0.0420 | 0.0957 | 0.1006 | 0.1006 | 3.170 | no
+   subject_178 | 124 | 0.1322 | 0.0420 | 0.1003 | 0.1057 | 0.1057 | 1.147 | no
+   subject_179 | 123 | 0.0050 | 0.0420 | 0.0919 | 0.0964 | 0.0964 | -2.128 | no
+   subject_180 | 125 | 0.4381 | 0.0420 | 0.0863 | 0.0903 | 0.0903 | 2.345 | no
+   subject_181 | 124 | 0.4381 | 0.0420 | 0.0919 | 0.0964 | 0.0964 | 2.345 | no
+   subject_182 | 121 | 1.0000 | 0.0420 | 0.1026 | 0.1083 | 0.1083 | 3.170 | no
+   subject_183 | 123 | 0.0960 | 0.0420 | 0.0977 | 0.1029 | 0.1029 | 0.827 | no
+   subject_184 | 121 | 0.5005 | 0.0420 | 0.0893 | 0.0935 | 0.0935 | 2.478 | no
+   subject_185 | 123 | 0.2642 | 0.0420 | 0.0954 | 0.1003 | 0.1003 | 1.839 | no
+   subject_186 | 125 | 0.0050 | 0.0420 | 0.0913 | 0.0958 | 0.0958 | -2.128 | no
+   subject_187 | 124 | 0.7461 | 0.0420 | 0.0933 | 0.0980 | 0.0980 | 2.877 | no
+   subject_188 | 124 | 0.4873 | 0.0420 | 0.0966 | 0.1016 | 0.1016 | 2.451 | no
+   subject_189 | 122 | 0.8524 | 0.0420 | 0.0912 | 0.0956 | 0.0956 | 3.010 | no
+   subject_190 | 125 | 0.2786 | 0.0420 | 0.0988 | 0.1041 | 0.1041 | 1.892 | no
+   subject_191 | 124 | 0.1097 | 0.0420 | 0.0974 | 0.1025 | 0.1025 | 0.960 | no
+   subject_192 | 124 | 0.0050 | 0.0420 | 0.0854 | 0.0893 | 0.0893 | -2.128 | no
+   subject_193 | 124 | 0.6888 | 0.0420 | 0.0896 | 0.0939 | 0.0939 | 2.797 | no
+   subject_194 | 125 | 0.7662 | 0.0420 | 0.0994 | 0.1047 | 0.1047 | 2.904 | no
+   subject_195 | 124 | 0.1820 | 0.0420 | 0.0968 | 0.1018 | 0.1018 | 1.466 | no
+   subject_196 | 117 | 0.9481 | 0.0420 | 0.0956 | 0.1005 | 0.1005 | 3.117 | no
+   subject_197 | 120 | 0.8524 | 0.0420 | 0.0983 | 0.1035 | 0.1035 | 3.010 | no
+   subject_198 | 124 | 0.0911 | 0.0420 | 0.0948 | 0.0997 | 0.0997 | 0.774 | no
+   subject_199 | 122 | 0.7662 | 0.0420 | 0.0969 | 0.1020 | 0.1020 | 2.904 | no
+   subject_200 | 124 | 0.2786 | 0.0420 | 0.0888 | 0.0930 | 0.0930 | 1.892 | no
+   subject_201 | 119 | 0.2505 | 0.0420 | 0.0898 | 0.0942 | 0.0942 | 1.786 | no
+   subject_202 | 122 | 0.1725 | 0.0420 | 0.0997 | 0.1050 | 0.1050 | 1.413 | no
+   subject_203 | 121 | 1.0000 | 0.0420 | 0.1010 | 0.1066 | 0.1066 | 3.170 | no
+   subject_204 | 125 | 0.4873 | 0.0420 | 0.0935 | 0.0982 | 0.0982 | 2.451 | no
+   subject_205 | 124 | 0.0662 | 0.0420 | 0.0947 | 0.0995 | 0.0995 | 0.454 | yes
+   subject_206 | 117 | 0.0050 | 0.0420 | 0.0977 | 0.1028 | 0.1028 | -2.128 | no
+   level: 6/197 units within x2 (threshold 99; excluded 9) -> FAIL
+   baseline (leave-one-unit-out constant): law median |log err| 2.238221 (2.238) vs constant 0.691888 (0.692); constant within x2 102/197 -> law beats constant: FAIL
+   row RLAW-5: level FAIL AND law beats constant FAIL (not required in the two-step domain) -> FAIL
+   sensitivity (16 cells; for twostep the factors read: v -> alpha grid 200/400 (ml/mom), own -> Q0 0/0.5 (on/off), lag -> beta bound 50/20, alt -> exclusion >10% missed):
+      v:ml own:on lag:+0 alt:no: 6/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+0 alt:yes: 6/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:no: 6/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:on lag:+1 alt:yes: 6/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:no: 14/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+0 alt:yes: 13/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:no: 15/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:ml own:off lag:+1 alt:yes: 14/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:no: 6/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+0 alt:yes: 6/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:no: 6/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:on lag:+1 alt:yes: 6/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:no: 14/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+0 alt:yes: 13/192 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:no: 15/197 within x2; row FAIL; level FAIL; baseline FAIL
+      v:mom own:off lag:+1 alt:yes: 14/192 within x2; row FAIL; level FAIL; baseline FAIL
+   flips against the primary: row 0 -> not fragile; level 0 -> not fragile; baseline 0 -> not fragile
+
+== RLAW-U (universality): domain rows passed 0/5 (spf FAIL, mich FAIL, ivol FAIL, soil5 FAIL, twostep FAIL); PASS needs >= 4 -> FAIL
+== RLAW-C (the CRR-only content, a non-inferring system): soil 5 cm row FAIL, tracking FAIL -> FAIL

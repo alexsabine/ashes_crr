@@ -57,7 +57,8 @@ its smoothing it is the VQGAN adaptive weight (2020), and a finely tuned constan
 
 2026-09-24:
 - **SCL2** (nine unseen carriers): SCL1's reset observation **FAILs** (`reports/scl2.md`).
-- **SCL3** is pre-registered, hashed and Bitcoin-anchored (`prereg/scl3/`). Its data step is on 2026-09-25.
+- **SCL3** (the calibrated Laplace weight, not a CRR rule, on ten unseen carriers): PASS-0 on SCL3-1 to SCL3-4, not PASS-1
+  (the window sensitivity is FRAGILE); [reports/scl3.md](reports/scl3.md).
 - **The literature check of the ten ADDS rows** leaves no clean novelty
   (`theory/retrodictions/synthesis_batches/literature_check.txt`).
 - **What CRR is, epistemically, and the recommended route from a grammar to a theory:**
@@ -65,7 +66,8 @@ its smoothing it is the VQGAN adaptive weight (2020), and a finely tuned constan
 - **Route 1, The Regeneration Law (CRR 2.0).**
   - Its mathematics is checked in [Regeneration_Law/](Regeneration_Law/).
   - Its five-domain study RLAW is pre-registered, hashed (sha256 dc8a7101) and OpenTimestamps-stamped (`prereg/rlaw/`).
-  - The data step is on 2026-09-25.
+  - **RLAW FAILs in every admissible row, none fragile** (data step 2026-09-25; [reports/rlaw.md](reports/rlaw.md)): the law
+    holds in 0 of 5 domains, the CRR-only soil row fails as physics expected, and a plain constant beats the law everywhere.
   - CRR 2.0 is a different form of CRR from the one this repository started with.
   - By the owner's instruction, its rows are kept out of the epistemic ladder.
 

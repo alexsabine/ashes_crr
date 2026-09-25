@@ -1,0 +1,41 @@
+RLAW diagnostic: units with v = inf under the moments estimator, and the mom cells re-scored with K(inf) = 1
+RLAW-1 v:mom own:on lag:+0 alt:no: units 8, v=inf 3, alpha* non-finite 0; frozen within x2 1 -> K(inf)=1 1; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:on lag:+0 alt:yes: units 8, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:on lag:+1 alt:no: units 8, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:on lag:+1 alt:yes: units 8, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:off lag:+0 alt:no: units 8, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 1; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:off lag:+0 alt:yes: units 8, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:off lag:+1 alt:no: units 8, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-1 v:mom own:off lag:+1 alt:yes: units 8, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:on lag:+0 alt:no: units 3, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:on lag:+0 alt:yes: units 3, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:on lag:+1 alt:no: units 3, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:on lag:+1 alt:yes: units 3, v=inf 3, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:off lag:+0 alt:no: units 3, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:off lag:+0 alt:yes: units 3, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:off lag:+1 alt:no: units 3, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-2 v:mom own:off lag:+1 alt:yes: units 3, v=inf 3, alpha* non-finite 3; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:on lag:+0 alt:no: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:on lag:+0 alt:yes: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 1 -> K(inf)=1 1; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:on lag:+1 alt:no: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:on lag:+1 alt:yes: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:off lag:+0 alt:no: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:off lag:+0 alt:yes: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 1 -> K(inf)=1 1; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:off lag:+1 alt:no: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-3 v:mom own:off lag:+1 alt:yes: units 5, v=inf 0, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:on lag:+0 alt:no: units 112, v=inf 64, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:on lag:+0 alt:yes: units 112, v=inf 50, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:on lag:+1 alt:no: units 112, v=inf 67, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:on lag:+1 alt:yes: units 112, v=inf 54, alpha* non-finite 0; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:off lag:+0 alt:no: units 112, v=inf 64, alpha* non-finite 64; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:off lag:+0 alt:yes: units 112, v=inf 50, alpha* non-finite 50; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:off lag:+1 alt:no: units 112, v=inf 67, alpha* non-finite 67; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4 v:mom own:off lag:+1 alt:yes: units 112, v=inf 54, alpha* non-finite 54; frozen within x2 0 -> K(inf)=1 0; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4D v:mom own:on lag:+0 alt:no: units 369, v=inf 366, alpha* non-finite 0; frozen within x2 140 -> K(inf)=1 140; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking PASS->PASS; verdicts changed: none
+RLAW-4D v:mom own:on lag:+0 alt:yes: units 369, v=inf 366, alpha* non-finite 0; frozen within x2 140 -> K(inf)=1 140; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking PASS->PASS; verdicts changed: none
+RLAW-4D v:mom own:on lag:+1 alt:no: units 369, v=inf 366, alpha* non-finite 0; frozen within x2 46 -> K(inf)=1 46; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking PASS->PASS; verdicts changed: none
+RLAW-4D v:mom own:on lag:+1 alt:yes: units 369, v=inf 366, alpha* non-finite 0; frozen within x2 46 -> K(inf)=1 46; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking PASS->PASS; verdicts changed: none
+RLAW-4D v:mom own:off lag:+0 alt:no: units 369, v=inf 366, alpha* non-finite 366; frozen within x2 1 -> K(inf)=1 140; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4D v:mom own:off lag:+0 alt:yes: units 369, v=inf 366, alpha* non-finite 366; frozen within x2 1 -> K(inf)=1 140; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4D v:mom own:off lag:+1 alt:no: units 369, v=inf 366, alpha* non-finite 366; frozen within x2 0 -> K(inf)=1 46; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none
+RLAW-4D v:mom own:off lag:+1 alt:yes: units 369, v=inf 366, alpha* non-finite 366; frozen within x2 0 -> K(inf)=1 46; row FAIL->FAIL; level FAIL->FAIL; baseline FAIL->FAIL; tracking FAIL->FAIL; verdicts changed: none

@@ -1,0 +1,19 @@
+2026-09-25T00:40:34Z
+cd prereg/rlaw && sha256sum -c HASH.txt
+../../runs/rlaw/frozen/CRR.md: OK
+../../runs/rlaw/frozen/fetch_rlaw.py: OK
+../../runs/rlaw/frozen/gate_rlaw.py: OK
+../../runs/rlaw/frozen/loader_check.py: OK
+../../runs/rlaw/frozen/rlaw_lib.py: OK
+../../runs/rlaw/frozen/rlaw_load.py: OK
+../../runs/rlaw/frozen/rlaw_score.py: OK
+./DECLARATION_1.md: OK
+./DECLARATION_2.md: OK
+./PREREG.md: OK
+./gate_RLAW.txt: OK
+./loader_check.txt: OK
+./math_checks.txt: OK
+./operational_checks.txt: OK
+./rlaw_data_availability_2026-09-24.md: OK
+./rlaw_literature_2026-09-24.md: OK
+sha256sum HASH.txt: dc8a7101045ad1bdcef6cbfd51639735afd5a931e03ae3314d298dee946c5c10  HASH.txt
