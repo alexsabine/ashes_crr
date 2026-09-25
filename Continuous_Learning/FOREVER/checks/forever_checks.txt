@@ -1,0 +1,61 @@
+CRR's commitments run through FOREVER's mathematics (arXiv 2601.03938 v2); declared in Continuous_Learning/FOREVER/DECLARATION.md
+FOREVER constants: S 24, days (1, 2, 4, 7, 15, 30), EMA lambda 0.05, clip [0.5, 3.0]; classifier W = W0 + P Q, d 20, K 4, rank 4, lr 0.05, batch 10
+
+base run (task B, 600 updates): Euclidean triggers [24, 257, None, None, None, None]; Fisher triggers [24, None, None, None, None, None]
+
+== F1  A1' + D2 against a change of parametrisation (LoRA-style P -> P D, Q -> D^-1 Q)
+   D = [1.0333, 3.4867, 0.3728, 3.4692]
+   F1a predictions identical: max |dp| 6.661e-16 (<= 1e-12) -> HOLDS
+   F1b Fisher arc identical: max relative difference 9.554e-14 (<= 1e-9) -> HOLDS; Fisher triggers [24, None, None, None, None, None]
+   F1c FOREVER's Euclidean triggers after reparametrisation [24, 288, None, None, None, None] (before [24, 257, None, None, None, None]); triggers that moved: 1 -> HOLDS
+       Euclidean arc over the run: 4.989435 before, 10.113847 after; tau_day 2.002188 before, 4.347733 after
+   F1d every Delta x 7 (a change of units): triggers [24, 257, None, None, None, None], identical -> HOLDS
+
+== F2  D2's change against movement that changes nothing (8 dead features, noise sd 0.01 per step)
+   without noise: Euclidean [24, 208, None, None, None, None], Fisher [24, None, None, None, None, None]
+   with noise:    Euclidean [24, 65, 150, 278, None, None], Fisher [24, None, None, None, None, None]
+   F2a Fisher triggers identical -> HOLDS
+   F2b Euclidean triggers earlier in 3 of 6 -> HOLDS
+
+== F3  P3/P5: FOREVER's thresholds in steps when Delta decays (standard calculus; a consistency relation)
+   constant Delta: trigger steps [24, 48, 96, 168, 360, 720]; d * S = [24, 48, 96, 168, 360, 720]
+   F3b constant Delta reproduces the human schedule in steps -> HOLDS
+   Delta = 1/(t + 50): trigger steps [24, 60, 189, 718, 17177, 5876606]
+      declared formula c((1 + S/c)^d - 1): [24.0, 59.5, 189.9, 727.7, 17851.8, 6409410.4]
+   F3a within one step of the declared formula at every d: max error 532804.4 steps -> FAILS
+      (post hoc, not a declared check: the half-step-corrected formula (c + 1/2)((S + c + 1/2)/(c + 1/2))^d - (c + 1/2) gives [24.0, 59.4, 188.7, 717.5, 17178.7, 5878066.4], max error 1460.4 steps)
+   Delta = 1/sqrt(t + 50): trigger steps [24, 53, 124, 266, 849, 2744] (power-law growth of the intervals)
+
+== F4  H-EQ (Omega = 1) against FOREVER's weight (10), anchor penalty w c |theta - theta*|^2 with theta* = theta_0
+   fixed w at c = 1: best 1 (total 2.140476)
+   F4a rule weight at its cap on 0.02 of the first 50 steps (>= 0.5); FOREVER's weight inside [g_min, g_max] beta_base at every step: True -> FAILS
+      FOREVER gamma 0.5: beta_base tuned at c = 1: 3; totals c 1: 2.210193, c 16: DIVERGES, c 256: DIVERGES
+      FOREVER gamma 1: beta_base tuned at c = 1: 3; totals c 1: 2.210193, c 16: DIVERGES, c 256: DIVERGES
+      FOREVER gamma 2: beta_base tuned at c = 1: 3; totals c 1: 2.210193, c 16: DIVERGES, c 256: DIVERGES
+      the rule (Omega = 1): totals c 1: 3.218950, c 16: 3.308091, c 256: 4.734344; fixed w = 1 (tuned at c = 1) at c 16 / 256: 3.305829, DIVERGES
+   F4b FOREVER (beta_base held) diverges at c 16 or 256 for some gamma: True; the rule finite at every c: True -> HOLDS
+      gamma 0.5: last weight 1.5, beta_base max(g_min, 1 - gamma) = 1.5
+      gamma 1: last weight 1.5, beta_base max(g_min, 1 - gamma) = 1.5
+      gamma 2: last weight 1.5, beta_base max(g_min, 1 - gamma) = 1.5
+   F4c the weight tends to beta_base max(g_min, 1 - gamma) within 1 %: max relative error 0.000e+00 -> HOLDS
+   F4d at c = 1 the rule's total 3.218950 <= FOREVER's best 2.210193 -> FAILS
+
+== F5  A3 + E2 + Proposition 7 (Amendment 1): a pause of L wall ticks after update 100 (no update during it)
+   L 0 (report, post hoc, no label): unclipped r = mu/mu_0 at update 257: per-update EMA 3.536304e-02, per-tick EMA 3.536304e-02
+   L 0: tau triggers (updates) [24, 257, None, None, None, None]; wall-keyed triggers (updates) [24, 48, 96, 168, 360, None]; first replay after the pause at update 257: beta/beta_base per-update EMA 0.500000, per-tick EMA 0.500000
+   L 50 (report, post hoc, no label): unclipped r = mu/mu_0 at update 257: per-update EMA 3.536304e-02, per-tick EMA 3.532905e-02
+   L 50: tau triggers (updates) [24, 257, None, None, None, None]; wall-keyed triggers (updates) [24, 48, 96, 118, 310, None]; first replay after the pause at update 257: beta/beta_base per-update EMA 0.500000, per-tick EMA 0.500000
+   L 500 (report, post hoc, no label): unclipped r = mu/mu_0 at update 257: per-update EMA 3.536304e-02, per-tick EMA 3.532622e-02
+   L 500: tau triggers (updates) [24, 257, None, None, None, None]; wall-keyed triggers (updates) [24, 48, 96, 101, 101, 220]; first replay after the pause at update 257: beta/beta_base per-update EMA 0.500000, per-tick EMA 0.500000
+   F5a tau triggers identical for every L -> HOLDS; F5b wall-keyed triggers differ for L > 0 -> HOLDS; F5c per-update EMA identical and per-tick EMA different -> FAILS
+
+== F6  D3 + D4 (chord, surplus) against the arc: task B for 150 steps, then task A again for 150 steps
+   old-task (A) loss: start 0.008658, after task B 0.180147, end 0.007899
+   Euclid: arc 4.989531, chord at end 1.636559, surplus 3.352972; Fisher: arc 4.035926, chord at end 1.673135, surplus 2.362790
+   arc Euclid: 2 triggers at [24, 161]
+   arc Fisher: 1 triggers at [24]
+   chord Euclid: 1 triggers at [24]
+   chord Fisher: 1 triggers at [24]
+   F6a the arc clocks fire at least 2 more triggers than the chord clocks (both metrics) -> FAILS
+
+summary: F1a HOLDS; F1b HOLDS; F1c HOLDS; F1d HOLDS; F2a HOLDS; F2b HOLDS; F3b HOLDS; F3a FAILS; F4a FAILS; F4b HOLDS; F4c HOLDS; F4d FAILS; F5a HOLDS; F5b HOLDS; F5c FAILS; F6a FAILS

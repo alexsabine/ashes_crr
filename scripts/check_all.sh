@@ -65,6 +65,7 @@ uv run python Continuous_Learning/checks/adam_checks_2.py 2>/dev/null | cmp - Co
 uv run python Continuous_Learning/checks/adam_checks_3.py 2>/dev/null | cmp - Continuous_Learning/checks/adam_checks_3.txt && echo 'Adam follow-up B4-B5 byte-identical to the committed output'
 uv run python Continuous_Learning/checks/pareto_identities.py 2>/dev/null | cmp - Continuous_Learning/checks/pareto_identities.txt && echo 'Pareto identities (Omega = 1 vs MGDA, IMTL-G) byte-identical to the committed output'
 uv run python Continuous_Learning/checks/results_vs_literature.py 2>/dev/null | cmp - Continuous_Learning/checks/results_vs_literature.txt && echo 'results beside the published class-IL reference points byte-identical to the committed output'
+uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'
 uv run python Continuous_Learning/build/build_adam_pdf.py > /dev/null 2>&1 && echo 'Adam and prior-art PDF rebuilds'
 uv run python Continuous_Learning/build/build_frontier_pdf.py > /dev/null 2>&1 && echo 'Frontier bottlenecks PDF rebuilds'
 uv run python Adam_SGD/checks/assumptions.py 2>/dev/null | cmp - Adam_SGD/checks/assumptions.txt && echo 'Adam_SGD assumption audit byte-identical to the committed output'
