@@ -1,0 +1,94 @@
+SOTA1 Phase A: gate, synthetic comparative battery and construction checks (DECLARATION_2.md)
+metric: final class-incremental accuracy (mean over the 10 tasks after the last task), reduced ResNet-18, M = 500
+label: AHEAD/BEHIND if the mean paired difference is >= 1.0 point in size and has the same sign in every seed
+
+Unit results (final class-IL / task-IL, seconds):
+  W+  sgd            s0:    8.34 /   39.10  (489 s)  params 9faa8394276d
+  W+  sgd            s1:    7.68 /   32.82  (487 s)  params a3204c3bf882
+  W+  er             s0:   66.84 /   94.08  (403 s)  params bb72f156e8cf
+  W+  er             s1:   59.16 /   91.12  (401 s)  params a6d73e23630d
+  W+  er_ace         s0:   57.04 /   89.78  (343 s)  params f1941a19b86f
+  W+  er_ace         s1:   63.32 /   92.00  (342 s)  params 80647198002c
+  W+  derpp          s0:   61.76 /   96.46  (493 s)  params 83b18f08cba0
+  W+  derpp          s1:   48.72 /   92.26  (495 s)  params d1eaf06d2ea7
+  W+  crr            s0:   76.60 /   94.24  (743 s)  params 830920e96230
+  W+  crr            s1:   66.38 /   90.24  (740 s)  params 606f4f1ee444
+  W+  crr-ace        s0:   74.68 /   94.36  (741 s)  params d7a2cd384bc2
+  W+  crr-ace        s1:   66.52 /   91.36  (746 s)  params 581ad0a73026
+  W+  crr-cos        s0:   77.02 /   95.06  (746 s)  params 8560f685a4aa
+  W+  crr-cos        s1:   74.90 /   93.28  (740 s)  params bc28e93c766f
+  W+  crr-a8         s0:   78.88 /   95.44  (738 s)  params f02efddc62ab
+  W+  crr-a8         s1:   70.44 /   91.52  (741 s)  params 41f1e7252e74
+  W+  crr-alpha      s0:   74.02 /   93.78  (618 s)  params 7a900c57efb0
+  W+  crr-alpha      s1:   62.22 /   88.50  (612 s)  params bee407928d4b
+  W+  crr-beta       s0:   55.56 /   87.56  (518 s)  params 1c677924c3cf
+  W+  crr-beta       s1:   52.52 /   83.26  (514 s)  params f51d80ae847f
+  W+  crr-kd         s0:   77.84 /   95.24  (543 s)  params 1923d7194384
+  W+  crr-kd         s1:   76.00 /   94.58  (538 s)  params f3b431db2372
+  W+  crr-kdfixed    s0:   79.10 /   95.84  (600 s)  params 63f33bd9033c
+  W+  crr-kdfixed    s1:   72.10 /   93.42  (600 s)  params eb28cb7ea9a0
+  W+  crr-stepclock  s0:   75.14 /   93.94  (770 s)  params b8010047fce6
+  W+  crr-stepclock  s1:   65.32 /   90.18  (763 s)  params 676688bd9112
+  W+  crr-predfast   s0:   22.20 /   91.84  (766 s)  params 830920e96230
+  W+  crr-predfast   s1:   18.68 /   86.60  (756 s)  params 606f4f1ee444
+  W+  crr-predslow   s0:   23.00 /   95.28  (763 s)  params 830920e96230
+  W+  crr-predslow   s1:   19.18 /   90.18  (764 s)  params 606f4f1ee444
+  W0  sgd            s0:    9.98 /   49.72  (217 s)  params 4665ae10e401
+  W0  er             s0:   99.96 /  100.00  (312 s)  params 8df6a63c9cd0
+  W0  er_ace         s0:   99.82 /  100.00  (350 s)  params 7d59d76f38a3
+  W0  derpp          s0:   99.90 /  100.00  (510 s)  params 035ceb8940fa
+  W0  crr            s0:   98.82 /   99.00  (771 s)  params 62fac278e402
+  W+  crr            s0 [none]:   83.00 /   93.33  (201 s)  params 9df5d46a765e
+  W+  crr            s0 [lossless]:   83.00 /   93.33  (201 s)  params 9df5d46a765e
+  W+  crr            s0 [drop:net]:    4.13 /   13.07  (199 s)  params 16e6a6795570
+  W+  crr            s0 [drop:opt]:   83.00 /   93.33  (200 s)  params 9df5d46a765e
+  W+  crr            s0 [drop:buffer]:   30.07 /   36.73  (202 s)  params cb56fdbd387c
+  W+  crr            s0 [drop:rng]:   83.67 /   93.93  (201 s)  params f9147f61268e
+  W+  crr            s0 [drop:counters]:   83.00 /   93.33  (201 s)  params 9df5d46a765e
+  W+  crr            s0 [drop:crr_ema]:   80.20 /   92.80  (204 s)  params 097bb1cfe6d8
+  W+  crr            s0 [drop:crr_clock]:   83.13 /   92.93  (202 s)  params 3d003bf3d301
+  W+  crr            s0 [drop:crr_eq]:   83.07 /   93.40  (201 s)  params b261f57586b6
+  W+  crr            s0 [drop:crr_seen]:   83.00 /   93.33  (201 s)  params 9df5d46a765e
+  W+  crr            s0 [world:20]:   80.87 /   92.33  (186 s)  params 07e911463c48
+  W+  crr            s0 [wall:30]:   76.27 /   87.53  (166 s)  params c76f743c0d05
+
+G0 instrument (W+): ER against SGD must read AHEAD: +54.99 AHEAD
+G1 negative control (W0): er_ace against ER must not read AHEAD: -0.14 TIE
+G1 negative control (W0): derpp against ER must not read AHEAD: -0.06 TIE
+G1 negative control (W0): crr against ER must not read AHEAD: -1.14 BEHIND
+GATE: OPEN (G0 holds, G1 holds)
+
+G2 synthetic comparative (W+, seeds 0 and 1): CRR-SCL against each baseline (report)
+  crr vs sgd    : +63.48  per seed [68.26, 58.7]  AHEAD
+  crr vs er     : +8.49  per seed [9.76, 7.22]  AHEAD
+  crr vs er_ace : +11.31  per seed [19.56, 3.06]  AHEAD
+  crr vs derpp  : +16.25  per seed [14.84, 17.66]  AHEAD
+
+G3 synthetic ablations (W+, seeds 0 and 1): full CRR-SCL against each leave-one-out arm (report;
+   AHEAD means the removed component helped, as CRR predicts)
+  crr vs crr-ace       : +0.89  per seed [1.92, -0.14]  TIE
+  crr vs crr-cos       : -4.47  per seed [-0.42, -8.52]  BEHIND
+  crr vs crr-a8        : -3.17  per seed [-2.28, -4.06]  BEHIND
+  crr vs crr-alpha     : +3.37  per seed [2.58, 4.16]  AHEAD
+  crr vs crr-beta      : +17.45  per seed [21.04, 13.86]  AHEAD
+  crr vs crr-kd        : -5.43  per seed [-1.24, -9.62]  BEHIND
+  crr vs crr-kdfixed   : -4.11  per seed [-2.5, -5.72]  BEHIND
+  crr vs crr-stepclock : +1.26  per seed [1.46, 1.06]  AHEAD
+  crr vs crr-predfast  : +51.05  per seed [54.4, 47.7]  AHEAD
+  crr vs crr-predslow  : +50.40  per seed [53.6, 47.2]  AHEAD
+
+C-S construction checks (W+, seed 0, 3 tasks, pauses after updates 150, 350, 550)
+  C-S1 lossless pause bitwise identical to no pause: holds
+  drop net       : changes the run; final class-IL 4.13 (difference -78.87)
+  drop buffer    : changes the run; final class-IL 30.07 (difference -52.93)
+  drop rng       : changes the run; final class-IL 83.67 (difference +0.67)
+  drop crr_ema   : changes the run; final class-IL 80.20 (difference -2.80)
+  drop crr_clock : changes the run; final class-IL 83.13 (difference +0.13)
+  drop crr_eq    : changes the run; final class-IL 83.07 (difference +0.07)
+  drop crr_seen  : inert; final class-IL 83.00 (difference +0.00)
+  drop opt       : inert; final class-IL 83.00 (difference +0.00)  [report only]
+  drop counters  : inert; final class-IL 83.00 (difference +0.00)  [report only]
+  C-S2 every declared part changes the run when dropped: FAILS
+  C-S3 the world moves (20 batches expire per pause): stake +2.13; must be non-zero: holds
+  C-S4 valued at a wall-clock deadline (30 updates lost per pause): stake +6.73 (report)
+  C-S0 the own-step valuation: stake 0 exactly when C-S1 holds (Proposition 7)

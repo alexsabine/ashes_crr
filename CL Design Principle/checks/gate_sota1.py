@@ -38,6 +38,7 @@ ARMS = {
     'crr-stepclock': ['--model', 'crr_scl', '--crr_clock', 'step'],
     'crr-predfast': ['--model', 'crr_scl', '--crr_pred', 'fast'],
     'crr-predslow': ['--model', 'crr_scl', '--crr_pred', 'slow'],
+    'crr-altpred': ['--model', 'crr_scl'],  # Amendment 1: same as crr; the harness also reads the fast and slow heads
 }
 ABLATIONS = [a for a in ARMS if a.startswith('crr-')]
 UNITS = [('W+', a, s, None) for a in ARMS for s in (0, 1)]
@@ -45,6 +46,8 @@ UNITS += [('W0', a, 0, None) for a in ('sgd', 'er', 'er_ace', 'derpp', 'crr')]
 PAUSES = ['none', 'lossless'] + [f'drop:{p}' for p in ('net', 'opt', 'buffer', 'rng', 'counters', 'crr_ema',
                                                         'crr_clock', 'crr_eq', 'crr_seen')] + ['world:20', 'wall:30']
 UNITS += [('W+', 'crr', 0, p) for p in PAUSES]
+G4_ARMS = ['crr-ace', 'crr-cos', 'crr-a8', 'crr-alpha', 'crr-beta', 'crr-kd', 'crr-kdfixed', 'crr-stepclock']
+UNITS += [('W0', a, 0, None) for a in G4_ARMS + ['crr-altpred']]  # Amendment 1 (R4 for the CRR-proper hypotheses)
 MUST_CHANGE = ['net', 'buffer', 'rng', 'crr_ema', 'crr_clock', 'crr_eq', 'crr_seen']
 REPORT_ONLY = ['opt', 'counters']
 
@@ -172,6 +175,28 @@ def summary():
     if wl is not None:
         print(f"  C-S4 valued at a wall-clock deadline (30 updates lost per pause): stake {base['final_class_il'] - wl['final_class_il']:+.2f} (report)")
     print('  C-S0 the own-step valuation: stake 0 exactly when C-S1 holds (Proposition 7)')
+    print()
+    print('G4 (Amendment 1): R4 surrogate for the CRR-proper hypotheses, W0 (near ceiling), seed 0; none may read AHEAD')
+    c0 = load('W0', 'crr', 0)
+    bad = []
+    for a in G4_ARMS:
+        r = load('W0', a, 0)
+        if c0 is None or r is None:
+            print(f'  crr vs {a:14}: not decidable')
+            continue
+        d = c0['final_class_il'] - r['final_class_il']
+        l4 = 'AHEAD' if d >= 1.0 else ('BEHIND' if d <= -1.0 else 'TIE')
+        bad += [a] if l4 == 'AHEAD' else []
+        print(f'  crr vs {a:14}: {d:+.2f} {l4}')
+    alt = load('W0', 'crr-altpred', 0)
+    if alt is not None and alt.get('alt_pred'):
+        for rule in ('fast', 'slow'):
+            d = alt['final_class_il'] - alt['alt_pred'][rule]['final_class_il']
+            l4 = 'AHEAD' if d >= 1.0 else ('BEHIND' if d <= -1.0 else 'TIE')
+            bad += [f'pred-{rule}'] if l4 == 'AHEAD' else []
+            print(f'  ncm vs {rule:14}: {d:+.2f} {l4}')
+        print(f"  crr-altpred training identical to crr (W0 s0): {alt['param_sha256'] == c0['param_sha256'] if c0 else 'n/a'}")
+    print('G4 result:', 'every CRR-proper comparison fails on the surrogate' if not bad else f'AHEAD on the surrogate (report only in SOTA1): {bad}')
 
 
 def main():

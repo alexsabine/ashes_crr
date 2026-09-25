@@ -101,3 +101,23 @@ images per class.
 ## If a unit crashes
 
 A crash or an undefined quantity is repaired only by an amendment to this declaration, pushed before the rerun.
+
+## Amendment 1 (2026-09-25, pushed before its units ran): the R4 surrogate for the CRR-proper hypotheses
+
+**The gap.**
+- G1 tested only the baseline comparisons in the near-ceiling world W0.
+- R4 requires every hypothesis entering SOTA1 to fail on a surrogate. That includes S1-2 (the Ω = 1 weight) and S1-3 (each
+  component's leave-one-out prediction).
+- W+ is the positive world, not a surrogate on which they must fail.
+
+**Added units.**
+- In W0, seed 0: the eight leave-one-out arms `crr-ace`, `crr-cos`, `crr-a8`, `crr-alpha`, `crr-beta`, `crr-kd`,
+  `crr-kdfixed` and `crr-stepclock`.
+- `crr-altpred`: CRR-SCL rerun with the harness that also reads the fast and slow heads inside the run. Training is
+  unchanged: on W+, three tasks, the parameter SHA-256 equalled the gate unit's.
+
+**G4 (R4 for the CRR-proper hypotheses).**
+- In W0 there is nothing to win, so no component comparison may read AHEAD. This covers CRR-SCL against each ablation, and
+  NCM against each head.
+- With one seed, the label is AHEAD if the difference is ≥ 1.0 point.
+- A comparison that reads AHEAD in W0 is not about CRR. SOTA1 then reports it without a verdict.
