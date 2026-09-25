@@ -1527,3 +1527,7 @@ We need to carefully examine the existing papers on lossless pausing / stopping 
 We should also check whether GPU / Transformer architecture itself can use the empty cut rule, and whether this provides any benefit or not. Thank you. 
 
 Please think carefully and abide by all strict pipeline rules when checking literature, fact checking, byte-by-byte comparisons and alternative possibilities.
+
+## 203 — 2026-09-25T20:24:00Z
+
+I cannot spend money on these tests at this stage. Did you check all the latest papers on transformer architecture, pausing, energy use, carbon emissions etc. and the methods that are already use and what CRR offers, if anything at all? We need to be fair in accordance with the pipeline.
