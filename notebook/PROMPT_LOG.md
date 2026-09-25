@@ -1513,3 +1513,7 @@ okay run a synthetic check on that final finding you noticed and then evaluate w
 Think carefully in epistemic terms about this please. What could the energy savings of a CRR-informed continuous learning+AI Safety + compute economy result in, as an estimate, and precisely why. 
 
 Obviously we will need to run full pipeline checks on this later (already planned). Please make a fair prediction about this now and explore the epistemic nature of this claim (check ontology folder). Thank you
+
+## 201 — 2026-09-25T19:39:00Z
+
+Thanks, what do you mean by carbon emission saving, why does that work? Explain in full and consider alternative explanations.
