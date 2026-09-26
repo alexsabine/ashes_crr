@@ -96,3 +96,9 @@ done /home/user/ashes_crr/runs/sota1/units/crr@smooth0.5__s0.json
 done /home/user/ashes_crr/runs/sota1/units/crr@q0.98__s1.json
 done /home/user/ashes_crr/runs/sota1/units/crr@q0.995__s1.json
 done /home/user/ashes_crr/runs/sota1/units/crr@cap100__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr@gamma1__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr@smooth0.5__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__lr0.05.json
+done /home/user/ashes_crr/runs/sota1/units/er__s0__lr0.05.json
+done /home/user/ashes_crr/runs/sota1/units/er_ace__s0__lr0.05.json
+done /home/user/ashes_crr/runs/sota1/units/derpp__s0__lr0.05.json
