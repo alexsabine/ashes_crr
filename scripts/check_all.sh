@@ -76,6 +76,7 @@ uv run python Lossless_Pause/checks/coverage.py | cmp - Lossless_Pause/checks/co
 uv run python AI_Safety/CORRIGIBILITY_2026/checks/grade.py | cmp - AI_Safety/CORRIGIBILITY_2026/checks/grade.txt && echo 'corrigibility grading byte-identical to the committed output'
 uv run python AI_Safety/CORRIGIBILITY_2026/checks/grade_2.py | cmp - AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt && echo 'empty-internal-state grading byte-identical to the committed output'
 uv run python AI_Safety/STAKE1/checks/gate.py | cmp - AI_Safety/STAKE1/checks/gate.txt && uv run python AI_Safety/STAKE1/checks/gate_bound.py | cmp - AI_Safety/STAKE1/checks/gate_bound.txt && echo 'STAKE1 Phase A gate (CLOSED) byte-identical to the committed output'
+uv run python Empty_Centre/build/next_steps_figures.py | cmp - Empty_Centre/figures/figures_next_steps.txt && echo 'review and next-steps figure numbers byte-identical to the committed output'
 uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python comparative_calibration.py 2>/dev/null | cmp - comparative_calibration.txt) && echo 'FOREVER x CRR headroom calibration byte-identical to the committed output'
 (cd Continuous_Learning/FOREVER/checks && uv run python pause_checks.py 2>/dev/null | cmp - pause_checks.txt) && echo 'FOREVER safe-pause checks Q0-Q5 byte-identical to the committed output'
