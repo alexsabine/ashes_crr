@@ -15,3 +15,9 @@ done /home/user/ashes_crr/runs/sota1/units/crr__s2.json
 done /home/user/ashes_crr/runs/sota1/units/er__s2.json
 done /home/user/ashes_crr/runs/sota1/units/er_ace__s2.json
 done /home/user/ashes_crr/runs/sota1/units/derpp__s2.json
+done /home/user/ashes_crr/runs/sota1/units/xder__s2.json
+done /home/user/ashes_crr/runs/sota1/units/sgd__s2.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s3.json
+done /home/user/ashes_crr/runs/sota1/units/er__s3.json
+done /home/user/ashes_crr/runs/sota1/units/er_ace__s3.json
+done /home/user/ashes_crr/runs/sota1/units/derpp__s3.json
