@@ -71,3 +71,22 @@ done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-buffer.json
 done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-rng.json
 done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-counters.json
 done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-crr_ema.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-crr_clock.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-crr_eq.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__drop-crr_seen.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__world-20.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__wall-30.json
+done /home/user/ashes_crr/runs/sota1/units/agem__s0.json
+FAILED /home/user/ashes_crr/runs/sota1/units/lwf__s0.json (log kept)
+FAILED /home/user/ashes_crr/runs/sota1/units/ewc_on__s0.json (log kept)
+done /home/user/ashes_crr/runs/sota1/units/icarl__s0.json
+done /home/user/ashes_crr/runs/sota1/units/agem__s1.json
+FAILED /home/user/ashes_crr/runs/sota1/units/lwf__s1.json (log kept)
+FAILED /home/user/ashes_crr/runs/sota1/units/ewc_on__s1.json (log kept)
+done /home/user/ashes_crr/runs/sota1/units/icarl__s1.json
+done /home/user/ashes_crr/runs/sota1/units/agem__s2.json
+FAILED /home/user/ashes_crr/runs/sota1/units/lwf__s2.json (log kept)
+FAILED /home/user/ashes_crr/runs/sota1/units/ewc_on__s2.json (log kept)
+done /home/user/ashes_crr/runs/sota1/units/icarl__s2.json
+done /home/user/ashes_crr/runs/sota1/units/crr@q0.98__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr@q0.995__s0.json
