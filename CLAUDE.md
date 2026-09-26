@@ -259,6 +259,8 @@ AI_Safety/NT1/              NT1 (prompt-log entry 183): the own-step objective a
 AI_Safety/CORRIGIBILITY_2026/  the corrigibility problem in 2026 and where CRR's empty cut stands (prompt-log entry 206): DECLARATION.md pushed before a
                            systematic 2025-26 sweep (docs/citations/corrigibility_{theory,empirical}_2026-09-25.md); checks/claims.py, grade.py/.txt (CI-checked):
                            K1 (own-clock pause as a corrigibility construction) NOT FOUND, K2-K5 PARTLY REDUNDANT; CORRIGIBILITY_2026.md; a note, not evidence (R8)
+                           DECLARATION_2.md (prompt-log entry 210) + checks/claims_2.py, grade_2.py/.txt (CI-checked): the empty internal state (true map, no
+                           self-stake, equanimity) E1-E5 PARTLY REDUNDANT, E6 ADDRESSED; LLM routes tested here 0 of 5; EMPTY_INTERNAL_STATE.md
 Safe_and_Continual/        the comprehensive PDF of prompt-log entry 122: how the safety agents and the continual-learning rules are modelled,
                            the mathematics as implemented, where each fails and why, CRR as a heuristic over existing mathematics, the
                            ladder, references, next steps, all pipeline code, a glossary and technical-register boxes (SAFE_AND_CONTINUAL.md + PDF; figures F01-F14 from pinned
