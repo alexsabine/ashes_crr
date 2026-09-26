@@ -321,6 +321,10 @@ Life_Sciences/              CRR on cell division, the origin of life and DNA seq
                            G-CD3 OPEN (A3 antipode vs replication initiation separable from the initiation adder), OL-2 REDUNDANT-IG (memory leaves
                            Eigen's threshold), G-DS2 CLOSED (arc segmentation of squiggles), DS-3 holds; checks/grade_origin.py/.txt (CI-checked): OL-1
                            0 of 5 ingredients discriminate among 11 origin theories, DS-4 SILENT; LIFE1 (real lineages) not yet preregistered; LIFE_SCIENCES.md; a note, not evidence (R8)
+labs/                       from the edge of the retrodictive bank to deductive tests (prompt-log entry 220): README.md (the entry rule: H1 from a
+                           CRR ingredient against H0 the domain's best model, separated on a synthetic gate that can close; data classes D1/D2/D3/D-null),
+                           checks/bank.py + bank.txt (every SYNTHESIS row as pinned, CI-checked), CANDIDATES.md (first shortlist, judgement: L03 L5x first,
+                           L01+L02 in one prereg, L04-L06 need a sharper H1); one folder per lab, each declared first; a note, not evidence (R8)
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
                            checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
                            (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)
