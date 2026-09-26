@@ -1551,3 +1551,7 @@ In the canonical formalism, I did not explain to you that C*Omega=1 on a monoton
 ## 208 — 2026-09-26T17:56:00Z
 
 Thank you for being so thorough. Were there any interesting discoveries along the way, regarding how we could improve the CRR continuous learning approach based on these findings?
+
+## 209 — 2026-09-26T18:10:00Z
+
+Thank you. Scratchpad. What if we see the empty centre as the internal state of the learner as it processes the tasks. This could also be a safety feature, where the agent has full knowledge but without a stake in the outcome, so to speak. Its internal state is therefore private (empty) and it processes the data safely with full knowledge. Does that make sense?
