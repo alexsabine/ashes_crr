@@ -35,3 +35,11 @@ done /home/user/ashes_crr/runs/sota1/units/crr-a8__s0.json
 done /home/user/ashes_crr/runs/sota1/units/crr-alpha__s0.json
 done /home/user/ashes_crr/runs/sota1/units/crr-beta__s0.json
 done /home/user/ashes_crr/runs/sota1/units/crr-kd__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-kdfixed__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-stepclock__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-ace__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr-cos__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr-a8__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr-alpha__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr-beta__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr-kd__s1.json
