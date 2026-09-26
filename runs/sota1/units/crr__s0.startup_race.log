@@ -1,0 +1,14 @@
+/home/user/ashes_crr/studies/sota1/env/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/user/ashes_crr/runs/sota1/frozen/mammoth/sota1_harness.py", line 207, in <module>
+    main()
+  File "/home/user/ashes_crr/runs/sota1/frozen/mammoth/sota1_harness.py", line 130, in main
+    from utils.training import train
+  File "/home/user/ashes_crr/runs/sota1/frozen/mammoth/utils/training.py", line 126, in <module>
+    @can_save_and_exit
+     ^^^^^^^^^^^^^^^^^
+  File "/home/user/ashes_crr/runs/sota1/frozen/mammoth/utils/checkpoints.py", line 307, in can_save_and_exit
+    os.makedirs(os.path.dirname(ckpt_path))
+  File "<frozen os>", line 225, in makedirs
+FileExistsError: [Errno 17] File exists: './checkpoints/paused'

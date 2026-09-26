@@ -1,0 +1,6 @@
+85cd44d02ba6437773c5bbd22e183051d648de2e7d6b014e1ef29b855ba677a7  data/raw/cifar100/cifar-100-python.tar.gz  url=https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz md5=eb9058c3a382ffc7106e4002c42a8d85 fetched=2026-09-26T00:07:26Z
+dabc3a43659de73ba40f9f172a9c143698486f8ff5c8991357e5e11b0c66353d  data/raw/cifar100/cifar100.npz  derived by data/fetch_cifar100.py
+# x_train shape (50000, 32, 32, 3) dtype uint8
+# y_train shape (50000,) dtype int64
+# x_test shape (10000, 32, 32, 3) dtype uint8
+# y_test shape (10000,) dtype int64
