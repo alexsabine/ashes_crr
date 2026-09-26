@@ -32,7 +32,7 @@ import os
 import numpy as np
 from scipy.signal import find_peaks
 
-from crr.instrument.core import cv, intrinsic_phase, regularity
+from crr.instrument.core import intrinsic_phase, regularity
 from crr.synthesis.harness import make_row, outcome, print_rows, rel
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -181,7 +181,10 @@ def score_unit(logv, inits, divs, rng_seed=0):
             thr = prev_after[ti] + d_hat
             p_idx = int(np.nonzero(inits == ti)[0][0]) - 1
             start = idx[inits[p_idx]] + 1
-            hit = np.nonzero(u[start:] >= thr)[0]
+            # the rule's own trajectory: u with the halvings of later initiations undone (AGENT_LOG 162, fixed after run 1:
+            # searching the halved u slipped the prediction by a whole cycle whenever d_hat exceeded the realised add)
+            later = np.searchsorted(inits, tgrid[start:], side="right") - (p_idx + 1)
+            hit = np.nonzero(u[start:] * 2.0 ** later >= thr)[0]
             t_dom = tgrid[start + int(hit[0])] if len(hit) else np.inf
         else:
             t_dom = np.inf
@@ -356,9 +359,12 @@ def ol2():
         tc=f"the iterated thresholds match the characteristic equation within 0.1 % at every q: "
            f"{_w(check, 'holds', 'fails')}",
         out=out,
-        reading=(f"memory of the settled past changes how fast the master grows (factor {lam[0.9]:.4f} at q 0.9 against "
-                 f"{lam[0.0]:.4f} at q 0) and the stationary master fraction ({xs[0.9]:.4f} against {xs[0.0]:.4f}), "
-                 "but not whether the master survives: the threshold is where sigma Q crosses 1, whatever the weights"),
+        reading=(f"memory of the settled past {_w(rel(lam[0.9], lam[0.0]) > 1e-3, 'changes', 'leaves unchanged')} how fast "
+                 f"the master grows (factor {lam[0.9]:.4f} at q 0.9 against {lam[0.0]:.4f} at q 0), "
+                 f"{_w(rel(xs[0.9], xs[0.0]) > 1e-3, 'changes', 'leaves unchanged')} the stationary master fraction "
+                 f"({xs[0.9]:.4f} against {xs[0.0]:.4f}) and {_w(rel(crr, null) > 1e-2, 'moves', 'does not move')} the "
+                 "threshold, which is where sigma Q crosses 1 (AGENT_LOG 162: this reading was hard-coded in the first run, "
+                 "phase_a_run1.txt, and contradicted its own numbers on the stationary fraction; the words are now computed)"),
         weakness="a single-peak landscape without back mutation, the textbook case; q is free in CRR, so no q is predicted",
         child="Copying from older copies as well as new ones changes how fast the good copy spreads, but not the error "
               "rate at which it is lost.")

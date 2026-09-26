@@ -316,6 +316,11 @@ Lossless_Pause/             the lossless pause on GPU runs and inside the Transf
                            D1-D8 graded from docs/citations/lossless_pause_*_2026-09-25.md (checks/claims.py, grade_claims.py/.txt CI-checked); LOSSLESS_PAUSE.md;
                            DECLARATION_2.md (prompt-log entry 203) + systematic sweep docs/citations/sweep_*_2026-09-25.md, checks/{coverage,grade_sweep}.py/.txt
                            (CI-checked): C4, C5 REDUNDANT, C1-C3 PARTLY REDUNDANT; FAIRNESS_REVIEW.md; a note, not evidence (R8)
+Life_Sciences/              CRR on cell division, the origin of life and DNA sequencing (prompt-log entry 217): DECLARATION_1.md (13 predictions)
+                           pushed before sources and checks/phase_a.py (+ .txt, ~2 min, rerun by hand; run 1 kept): CD-1 holds (H-L5 empty on cell size),
+                           G-CD3 OPEN (A3 antipode vs replication initiation separable from the initiation adder), OL-2 REDUNDANT-IG (memory leaves
+                           Eigen's threshold), G-DS2 CLOSED (arc segmentation of squiggles), DS-3 holds; checks/grade_origin.py/.txt (CI-checked): OL-1
+                           0 of 5 ingredients discriminate among 11 origin theories, DS-4 SILENT; LIFE1 (real lineages) not yet preregistered; LIFE_SCIENCES.md; a note, not evidence (R8)
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
                            checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
                            (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)

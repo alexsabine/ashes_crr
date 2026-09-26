@@ -1,0 +1,52 @@
+OL-1: origin-of-life theories against CRR ingredients I1-I5 (Life_Sciences/DECLARATION_1.md)
+theories 11, claims 66, quotes 36; quotes verified in verify_origin.txt
+
+theory                                                 I1         I2         I3         I4         I5
+T1 RNA world                                       SILENT   CONTAINS     SILENT     SILENT     SILENT
+T2 Metabolism-first (iron-sulfur world / rever   CONTAINS     SILENT     SILENT     SILENT     SILENT
+T3 Autocatalytic sets (Kauffman; RAF, Hordijk    CONTAINS     SILENT     SILENT     SILENT     SILENT
+T4 Hypercycle and error threshold (Eigen; Eige   CONTAINS   CONTAINS     SILENT     SILENT     SILENT
+T5 Chemoton (Gánti)                              CONTAINS   CONTAINS     SILENT     SILENT     SILENT
+T6 Compartment-first / Lipid world (GARD; Szos   CONTAINS   CONTAINS     SILENT     SILENT     SILENT
+T7 Assembly theory (Cronin, Walker et al.)         SILENT     SILENT   CONTAINS   CONTAINS   CONTAINS
+T8 Dissipative adaptation (England)                SILENT     SILENT     SILENT     SILENT     SILENT
+T9 Free-energy principle applied to life (Fris     SILENT     SILENT     SILENT     SILENT     SILENT
+T10 Autopoiesis (Maturana & Varela)              CONTAINS     SILENT     SILENT     SILENT     SILENT
+T11 Dynamic kinetic stability (Pross)            CONTAINS   CONTAINS     SILENT     SILENT     SILENT
+
+I1 NON-DISCRIMINATING CONTAINS (REDUNDANT) 7, CONFLICTS 0, MIXED 0, SILENT 4 | A3 with O3: a cut needs a rotor, so the first cut needs the first self-sustaining cycle
+     contains: T2, T3, T4, T5, T6, T10, T11
+I2 NON-DISCRIMINATING CONTAINS (REDUNDANT) 5, CONFLICTS 0, MIXED 0, SILENT 6 | A6: the next occasion is seeded from the settled past at bounded strength (heredity without accumulation)
+     contains: T1, T4, T5, T6, T11
+I3 NON-DISCRIMINATING CONTAINS (REDUNDANT) 1, CONFLICTS 0, MIXED 0, SILENT 10 | H-L5: the system's own events, not clock time, set its clock
+     contains: T7
+I4 NON-DISCRIMINATING CONTAINS (REDUNDANT) 1, CONFLICTS 0, MIXED 0, SILENT 10 | D2 against D3: the travelled path against the shortest path (surplus S = C - C*)
+     contains: T7
+I5 NON-DISCRIMINATING CONTAINS (REDUNDANT) 1, CONFLICTS 0, MIXED 0, SILENT 10 | Proposition 7 / A8: the cut has no content; nothing is fed by a future
+     contains: T7
+OL-1: 0 of 5 ingredients discriminate between the theories (the investigator's expectation, 0 of 5: met)
+investigator's changes to the proposed readings: 3
+  T1 I5: CONTAINS -> SILENT (SILENT: a methodological disclaimer of directedness in a 2026 review, not a statement of the RNA-world hypothesis (the agent flagged it as weak))
+  T5 I3: CONTAINS -> SILENT (SILENT: size-triggered division is the chemoton mechanism; nothing is said of own events against clock time (the agent flagged it as a reading))
+  T9 I5: CONFLICTS -> SILENT (SILENT: content in internal states (posterior beliefs) is not content at the cut, and prediction built from past data is not being fed by a future; the proposed CONFLICTS reads a different claim)
+sensitivity, the agent's proposed readings: 1 of 5 discriminate: I1 non-discriminating (7 contains, 0 conflicts); I2 non-discriminating (5 contains, 0 conflicts); I3 non-discriminating (2 contains, 0 conflicts); I4 non-discriminating (1 contains, 0 conflicts); I5 DISCRIMINATES (2 contains, 1 conflicts)
+
+OL-1 signature predictions recorded (theory: the source's own test, as quoted; not graded)
+  T1 RNA world: 3 claim(s), 3 quote(s)
+  T2 Metabolism-first (iron-sulfur world / reverse Krebs): 3 claim(s), 5 quote(s)
+  T3 Autocatalytic sets (Kauffman; RAF, Hordijk & Steel): 3 claim(s), 3 quote(s)
+  T4 Hypercycle and error threshold (Eigen; Eigen & Schuster): 3 claim(s), 3 quote(s)
+  T5 Chemoton (Gánti): 2 claim(s), 2 quote(s)
+  T6 Compartment-first / Lipid world (GARD; Szostak protocells): 3 claim(s), 3 quote(s)
+  T7 Assembly theory (Cronin, Walker et al.): 2 claim(s), 3 quote(s)
+  T8 Dissipative adaptation (England): 3 claim(s), 4 quote(s)
+  T9 Free-energy principle applied to life (Friston 2013): 1 claim(s), 2 quote(s)
+  T10 Autopoiesis (Maturana & Varela): 3 claim(s), 3 quote(s)
+  T11 Dynamic kinetic stability (Pross): 2 claim(s), 3 quote(s)
+
+DS-4: germline mutation rate, spread across species per generation against per year (own event = generation)
+  per generation: 40-fold (pedigree-based per-generation rates, 68 species (Bergeron et al. 2023, PMC9995274.1))
+  per year: more than 120-fold (mu_yearly_modelled from a joint parental-age model (Bergeron et al. 2023); the text does not state how many species the 120-fold covers ('55 species with modelled per-generation rates'))
+  one footing (same species set and statistic): no -> DS-4 SILENT
+  report only, not a grade: were the footing accepted, the per-generation spread would be the narrower
+  the matched pair on one footing: Bergeron et al. 2023 Supplementary Table 9 (not downloaded; a test on it would be a prereg with a later-day data step)
