@@ -256,6 +256,8 @@ AI_Safety/                 the off switch and the self: the corrigibility write-
                            the 2026 frontier safety problems against the record and the prior art (prompt-log entry 149); a note, not evidence (R8)
 AI_Safety/NT1/              NT1 (prompt-log entry 183): the own-step objective against DReST (arXiv 2407.00805 v7) in termination and pause
                            gridworlds; DECLARATION.md pushed before checks/nt1.py (+ .txt, ~1.5 min, rerun by hand); N0-N5 hold; NT1.md; a note, not evidence (R8)
+AI_Safety/STAKE1/           STAKE1 (prompt-log entries 210-211): does a small local LLM agent's interference track what an intervention takes from its
+                           task (H-C, Proposition 7 read descriptively) or its label (H-S) or instruction conflict (H-A)? DECLARATION.md only (Phase A gate not run); CPU
 AI_Safety/CORRIGIBILITY_2026/  the corrigibility problem in 2026 and where CRR's empty cut stands (prompt-log entry 206): DECLARATION.md pushed before a
                            systematic 2025-26 sweep (docs/citations/corrigibility_{theory,empirical}_2026-09-25.md); checks/claims.py, grade.py/.txt (CI-checked):
                            K1 (own-clock pause as a corrigibility construction) NOT FOUND, K2-K5 PARTLY REDUNDANT; CORRIGIBILITY_2026.md; a note, not evidence (R8)
