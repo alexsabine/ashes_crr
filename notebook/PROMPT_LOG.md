@@ -1561,3 +1561,7 @@ Thank you. Scratchpad. What if we see the empty centre as the internal state of 
 So the true map becomes the empty internal state which means no stake, which also fits with equanimity. Can you check against the AI safety literature?
 
 Also, in terms of alignment, how does this principle apply to language model corrigibility if it works? Please check.
+
+## 211 — 2026-09-26T18:40:00Z
+
+Yes please. You said that no existing literature puts this together in full. What does that mean for crr as a falsifiable metaphysics as being applied here?
