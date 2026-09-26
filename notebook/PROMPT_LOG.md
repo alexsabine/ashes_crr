@@ -1581,3 +1581,11 @@ Stop the run please. It sounds like this needs a deeper level study that is not 
 ## 215 — 2026-09-26T22:05:00Z
 
 Okay. Can you explain in 5th grader and technical corrigibility terms what we are doing and why, with reference to the existing cutting edge literature and anthropics mission for Claude?
+
+## 216 — 2026-09-26T22:17:54Z
+
+Okay can we write up a next steps plan for continuous learning, AI safety and potential compute cost savings (no tuning)?
+
+Include the current successes and failures with a clear explanation of what worked and what didn’t. Incorporate a range of graphs and charts as well as extensive citation.
+
+Add this review and next steps plan to the relevant folder
