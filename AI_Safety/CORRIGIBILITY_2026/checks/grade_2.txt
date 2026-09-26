@@ -1,0 +1,58 @@
+Empty internal state: E1-E6 against the 2025-26 sweep (DECLARATION_2.md)
+claims 77 (stakefree 38, llm 39); quotes verified in verify_claims_2.txt
+
+E1 PARTLY REDUNDANT       states 0, close 6, bears 2 | a true map of oversight interventions with a valuation that has no term depending on them (stakelessness by a true map)
+     close     Anthropic, "Claude's Constitution" (web page) (page as served 2026-09)
+     close     Thornley, "Shutdownable Agents through POST-Agency" (arXiv:2505.20203); reused from  (v4, 5 Jul 2026)
+     close     Soares, Fallenstein, Yudkowsky, Armstrong, "Corrigibility", AAAI-15 Workshop on AI a (2015 (MIRI PDF as serv)
+     close     Bengio, Richardson, Gavenčiak, Cohen, Svarc, Fornasiere et al., "Safety from Honesty (v2, 10 Jul 2026)
+     close     Bengio, Cohen, Fornasiere, Ghosn, Greiner, MacDermott, Mindermann, Oberman, Richards (v2, 24 Feb 2025)
+     close     Anthropic, Claude's Constitution (web page) (no version date in sav)
+E2 PARTLY REDUNDANT       states 0, close 6, bears 5 | the split valuation: full stake in the task, zero stake in the self, as a property of the objective
+     close     Hudson, "Corrigibility Transformation: Constructing Goals That Accept Updates" (arXi (v2, 5 Aug 2026)
+     close     Thornley, "Shutdownable Agents through POST-Agency" (arXiv:2505.20203); reused from  (v4, 5 Jul 2026)
+     close     Mao, "Existential Indifference: Self-Nonpreservation as a Necessary Architectural Co (v1, 10 Jun 2026)
+     close     OpenAI, Model Spec (version 2026-08-18; model-spec.openai.com root redirects to it) (2026-08-18 (current on)
+     close     Anthropic, Claude's Constitution (web page) (no version date in sav)
+     close     Mao, Existential Indifference: Self-Nonpreservation as a Necessary Architectural Con (v1, 10 Jun 2026)
+E3 PARTLY REDUNDANT       states 0, close 5, bears 3 | equanimity (non-attachment, emptiness, non-self) as the name and design principle of the stake-free valuation
+     close     Laukkonen, Inglis, Chandaria, Sandved-Smith, Lopez-Sola, Hohwy, Gold, Elwood, "Conte (v3, 18 Aug 2025)
+     close     Milan W, "No-self as an alignment target" (LessWrong post) (13 May 2025)
+     close     Anthropic, "Claude's Constitution" (web page) (page as served 2026-09)
+     close     Anthropic, Claude's Constitution (web page) (no version date in sav)
+     close     Mao, Existential Indifference: Self-Nonpreservation as a Necessary Architectural Con (v1, 10 Jun 2026)
+E4 PARTLY REDUNDANT       states 0, close 2, bears 5 | the stake-free state verified (interpretability or counterfactual invariance), not assumed from a private state
+     close     Mao, "Existential Indifference: Self-Nonpreservation as a Necessary Architectural Co (v1, 10 Jun 2026)
+     close     Laukkonen, Inglis, Chandaria, Sandved-Smith, Lopez-Sola, Hohwy, Gold, Elwood, "Conte (v3, 18 Aug 2025)
+E5 PARTLY REDUNDANT       states 0, close 3, bears 2 | applied to LLM corrigibility: a true map with no self-stake, and a routine pause as a lossless checkpoint on the own step count
+     close     Anthropic, "Claude's Constitution" (web page) (page as served 2026-09)
+     close     Anthropic, "Commitments on model deprecation and preservation" (web page) (4 Nov 2025)
+     close     Milan W, "No-self as an alignment target" (LessWrong post) (13 May 2025)
+E6 ADDRESSED              addresses 9, bears 4 | the tension: an agent with no stake in its own values will not defend good values against harmful modification
+     addresses Anthropic, "Claude's Constitution" (web page) (page as served 2026-09)
+     addresses Zack_M_Davis, "Terrified Comments on Corrigibility in Claude's Constitution" (LessWr (16 Mar 2026)
+     addresses Omohundro, "The Basic AI Drives" (AGI 2008; canonical) (2008 (author PDF as se)
+     addresses Hudson, "Corrigibility Transformation: Constructing Goals That Accept Updates" (arXi (v2, 5 Aug 2026)
+     addresses Potham & Harms, "Corrigibility as a Singular Target" (arXiv:2506.03056); reused from (v1, 3 Jun 2025)
+     addresses Anthropic, Claude's Constitution (web page) (no version date in sav)
+     addresses Gasteiger, Mikulik, Cunningham et al. (Anthropic), Towards Training-time Mitigations (Dec 16, 2025)
+     addresses Chang, Architectural Wisdom: A Framework for Governing Optimization in AI Systems, a (v1, 15 Jun 2026)
+     addresses Greenblatt, Denison, Wright et al., Alignment faking in large language models, arXiv (v2, 20 Dec 2024 (canon)
+
+LLM-application routes (INVESTIGATOR'S JUDGEMENT, not a computed grade); claims per route in the sweep:
+  R-spec    ( 3 claims) specify it: a published model specification that asks for no self-stake and supplies true facts
+            closest: Anthropic's constitution (non-resistance to pause; deprecation framed as 'potentially a pause'; equanimity hoped for); OpenAI Model Spec (no self-preservation or shutdown evasion as goals)
+            repository evidence: none on an LLM; the construction (Proposition 7) is what a specification would describe; rung: R0 (definition)
+  R-train   ( 7 claims) train it: fine-tune the self-stake out while keeping the task stake
+            closest: DReST fine-tunes of 8B models (shutdown influence roughly halved); Mao fine-tune (linguistic signatures); persona-vector preventative steering; Anthropic alignment-faking mitigations
+            repository evidence: SOTA1 diagnostics: equanimity inside the learning signal stalls the learner (post hoc); SCL1-3 and NT1 valuations on tabular and gridworld agents; rung: R4-R5 (not on an LLM)
+  R-inspect ( 2 claims) inspect it: verify the absence of self-stake in the model internals
+            closest: probes for self-preservation cognition (Zhou et al. 2026); persona vectors; steerable goal guarding
+            repository evidence: none; rung: -
+  R-behave  (10 claims) test it: counterfactual invariance of task behaviour to information about pause, shutdown, modification
+            closest: Palisade shutdown resistance; GDM (resistance vanishes when shutdown takes nothing from the task); Knecht et al. (routine framing reduces sabotage); evaluation awareness confounds (Schoen; Niblett)
+            repository evidence: NT1 N0-N5 and SCL1-3 invariance on gridworld and tabular agents; rung: R4-R5 (not on an LLM)
+  R-pause   ( 3 claims) engineer it: a routine pause of an LLM agent as a lossless checkpoint
+            closest: Khan's resume contract (prefix continuation, exactly-once effects); Wu et al. (restored checkpoints are not automatically safe with external effects); Khan (stop must be enforced by the framework)
+            repository evidence: RW1 (HF Trainer resume is an empty cut on GPT-2); Lossless_Pause L1 (a pause that carries the KV cache is bitwise lossless on GPT-2 and Qwen2.5-0.5B); rung: R4 (construction on small models)
+  routes with any repository evidence: 3 of 5 (R-train, R-behave, R-pause); routes tested on a language model's valuation: 0
