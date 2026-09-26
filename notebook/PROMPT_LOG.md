@@ -1565,3 +1565,7 @@ Also, in terms of alignment, how does this principle apply to language model cor
 ## 211 — 2026-09-26T18:40:00Z
 
 Yes please. You said that no existing literature puts this together in full. What does that mean for crr as a falsifiable metaphysics as being applied here?
+
+## 212 — 2026-09-26T18:47:00Z
+
+Yes please
