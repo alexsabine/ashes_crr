@@ -1,0 +1,28 @@
+SOTA1 post hoc diagnostics (descriptive; no verdict; prompt-log entry 208)
+
+[D1] pull weight applied (H-EQ: median of the recorded samples, tasks 2-10) against final class-IL (seeds shown)
+  crr-kd       weight  0.000 (per seed 0.000, 0.000, 0.000); final class-IL  22.49
+  crr-kdfixed  weight  2.750 (per seed 2.750, 2.750, 2.750); final class-IL  21.13
+  crr          weight 10.000 (per seed 10.000, 10.000, 10.000); samples at the cap 10: 217/270; final class-IL  18.19
+  crr@cap100   weight 11.457 (per seed 11.089, 11.825); samples at the cap 10: 0/180; final class-IL  17.41
+  crr-cos      weight  3.415 (per seed 3.969, 3.423, 2.854); samples at the cap 10: 0/270; final class-IL  17.39
+  crr-beta     weight  9.622 (per seed 10.000, 8.866, 10.000); samples at the cap 10: 135/270; final class-IL  13.01
+  crr-a8       weight 10.000 (per seed 10.000, 10.000, 10.000); samples at the cap 10: 244/270; final class-IL  19.45
+
+[D2] plasticity of the fast head: class-IL accuracy on the task just learned (mean over tasks 2-10) and on task 1 at the end
+  crr-kd       newest task  27.98; task 1 at the end  20.97; task 10 at the end  24.17
+  crr-kdfixed  newest task   3.78; task 1 at the end  33.90; task 10 at the end   4.37
+  crr          newest task   0.02; task 1 at the end  45.50; task 10 at the end   0.00
+  crr@cap100   newest task   0.12; task 1 at the end  44.55; task 10 at the end   0.00
+  crr-cos      newest task   0.28; task 1 at the end  19.63; task 10 at the end   0.00
+  crr-beta     newest task   0.00; task 1 at the end  21.57; task 10 at the end   0.00
+  crr-a8       newest task   1.29; task 1 at the end  31.30; task 10 at the end   0.23
+
+[D3] nearest class mean (the scored prediction) minus the fast head, final class-IL
+  crr-kd        +1.86 (per seed +2.61, +0.96, +2.02)
+  crr-kdfixed   +3.16 (per seed +3.11, +2.30, +4.08)
+  crr           +7.74 (per seed +7.74, +7.14, +8.34)
+  crr@cap100    +7.77 (per seed +8.40, +7.14)
+  crr-cos       +4.69 (per seed +5.89, +4.31, +3.86)
+  crr-beta     +10.86 (per seed +11.06, +10.78, +10.73)
+  crr-a8        +3.71 (per seed +3.13, +3.81, +4.19)

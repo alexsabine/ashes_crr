@@ -1547,3 +1547,7 @@ Please conduct more research on top level papers regarding the corrigibility pro
 ## 207 — 2026-09-25T22:49:58Z
 
 In the canonical formalism, I did not explain to you that C*Omega=1 on a monotone regime is the craemer rao limit. Does that make sense to you. Check the CRR mathematics and existing findings to determine whether this would have helped in the testing we have done, or whether this is already implicit in the retrodictive predictions and Continuous Learning work. Thanks.
+
+## 208 — 2026-09-26T17:56:00Z
+
+Thank you for being so thorough. Were there any interesting discoveries along the way, regarding how we could improve the CRR continuous learning approach based on these findings?
