@@ -1,0 +1,188 @@
+/home/user/ashes_crr/studies/sota1/env/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[WARNING] 26-Sep-26 14:18:26 - No default configuration found in models/config/xder.yaml.
+[WARNING] 26-Sep-26 14:18:26 - Default configuration file not found for dataset seq-cifar100-local. Using the defaults specified in the dataset class (if available).
+[ERROR] 26-Sep-26 14:18:26 - Could not retrieve git hash.
+[INFO] 26-Sep-26 14:18:26 - 
+╔═══════════════════════ CONFIGURATION ═══════════════════════╗
+║ Basic arguments:
+║   • backbone: reduced-resnet18
+║   • dataset: seq-cifar100-local
+║   • load_best_args: False
+║   • model: xder
+║
+║ Configuration arguments:
+║   • model_config: default
+║
+║ Model-specific arguments:
+║   • align_bn: True
+║   • alpha: 0.300000
+║   • beta: 0.800000
+║   • constr_eta: 0.100000
+║   • constr_margin: 0.300000
+║   • dp_weight: 0.000000
+║   • future_constraint: True
+║   • gamma: 0.850000
+║   • lambd: 0.050000
+║   • past_constraint: False
+║   • simclr_batch_size: 64
+║   • simclr_num_aug: 4
+║   • simclr_temp: 5.000000
+║
+║ Backbone arguments:
+║
+║ Management arguments:
+║   • base_path: ./data/
+║   • checkpoint_path: ./checkpoints/
+║   • code_optimization: 0
+║   • debug_mode: False
+║   • disable_log: False
+║   • distributed: no
+║   • enable_other_metrics: False
+║   • inference_only: False
+║   • non_verbose: True
+║   • num_workers: 0
+║   • permute_classes: False
+║   • results_path: results/
+║   • save_after_interrupt: True
+║   • save_checkpoint_mode: safe
+║   • seed: 0
+║
+║ Wandb arguments:
+║
+║ Experiment arguments:
+║   • batch_size: 10
+║   • eval_future: False
+║   • joint: 0
+║   • label_perc: 1.000000
+║   • label_perc_by_class: 1.000000
+║   • lr: 0.050000
+║
+║ Validation and fitting arguments:
+║   • early_stopping_epsilon: 0.000001
+║   • early_stopping_freq: 1
+║   • early_stopping_metric: loss
+║   • early_stopping_patience: 5
+║   • fitting_mode: epochs
+║   • n_epochs: 1
+║   • validation_mode: current
+║
+║ Optimizer and learning rate scheduler arguments:
+║   • drop_last: False
+║   • lr_milestones: []
+║   • optim_mom: 0.000000
+║   • optim_nesterov: False
+║   • optim_wd: 0.000000
+║   • optimizer: sgd
+║   • sched_multistep_lr_gamma: 0.100000
+║   • scheduler_mode: epoch
+║
+║ Noise arguments:
+║   • cache_path_noisy_labels: noisy_labels
+║   • disable_noisy_labels_cache: False
+║   • noise_rate: 0.000000
+║   • noise_type: symmetric
+║
+╚════════════════════════════════════════════════════════════╝
+[WARNING] 26-Sep-26 14:18:26 - No GPU available. Using CPU.
+[INFO] 26-Sep-26 14:18:26 - Using device cpu
+[INFO] 26-Sep-26 14:18:26 - `wandb_entity` and `wandb_project` not set. Disabling wandb.
+[INFO] 26-Sep-26 14:18:26 - Using backbone: reduced-resnet18
+[INFO] 26-Sep-26 14:18:26 - Using ResNet as backbone
+[INFO] 26-Sep-26 14:18:26 - Current working directory: /home/user/ashes_crr/runs/sota1/frozen/mammoth.
+[INFO] 26-Sep-26 14:18:26 - Main process PID: 8947
+[INFO] 26-Sep-26 14:18:27 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:18:27 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:18:27 - Task 1
+/home/user/ashes_crr/runs/sota1/frozen/mammoth/utils/augmentations.py:139: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return (x - torch.tensor(mean).unsqueeze(0).unsqueeze(2).unsqueeze(3).to(x.device)) \
+/home/user/ashes_crr/runs/sota1/frozen/mammoth/utils/augmentations.py:140: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  / torch.tensor(std).unsqueeze(0).unsqueeze(2).unsqueeze(3).to(x.device)
+STOP ITERATION
+Accuracy for 1 task(s): 	 [Class-IL]: 40.8 % 	 [Task-IL]: 40.8 %
+[INFO] 26-Sep-26 14:20:02 - Accuracy for 1 task(s): 	 [Class-IL]: 40.8 % 	 [Task-IL]: 40.8 %
+	Raw accuracy values: Class-IL [40.8] | Task-IL [40.8]
+[INFO] 26-Sep-26 14:20:02 - 	Raw accuracy values: Class-IL [40.8] | Task-IL [40.8]
+
+
+[INFO] 26-Sep-26 14:20:03 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:20:03 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:20:03 - Task 2
+STOP ITERATION
+Accuracy for 2 task(s): 	 [Class-IL]: 31.5 % 	 [Task-IL]: 44.9 %
+[INFO] 26-Sep-26 14:30:40 - Accuracy for 2 task(s): 	 [Class-IL]: 31.5 % 	 [Task-IL]: 44.9 %
+	Raw accuracy values: Class-IL [45.300000000000004, 17.7] | Task-IL [49.4, 40.400000000000006]
+[INFO] 26-Sep-26 14:30:40 - 	Raw accuracy values: Class-IL [45.300000000000004, 17.7] | Task-IL [49.4, 40.400000000000006]
+
+
+[INFO] 26-Sep-26 14:30:40 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:30:40 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:30:40 - Task 3
+STOP ITERATION
+Accuracy for 3 task(s): 	 [Class-IL]: 26.13 % 	 [Task-IL]: 44.7 %
+[INFO] 26-Sep-26 14:41:08 - Accuracy for 3 task(s): 	 [Class-IL]: 26.13 % 	 [Task-IL]: 44.7 %
+	Raw accuracy values: Class-IL [28.999999999999996, 21.3, 28.1] | Task-IL [49.8, 39.4, 44.9]
+[INFO] 26-Sep-26 14:41:08 - 	Raw accuracy values: Class-IL [28.999999999999996, 21.3, 28.1] | Task-IL [49.8, 39.4, 44.9]
+
+
+[INFO] 26-Sep-26 14:41:09 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:41:09 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:41:09 - Task 4
+STOP ITERATION
+Accuracy for 4 task(s): 	 [Class-IL]: 27.0 % 	 [Task-IL]: 50.58 %
+[INFO] 26-Sep-26 14:51:37 - Accuracy for 4 task(s): 	 [Class-IL]: 27.0 % 	 [Task-IL]: 50.58 %
+	Raw accuracy values: Class-IL [27.400000000000002, 25.8, 32.0, 22.8] | Task-IL [49.3, 46.6, 53.900000000000006, 52.5]
+[INFO] 26-Sep-26 14:51:37 - 	Raw accuracy values: Class-IL [27.400000000000002, 25.8, 32.0, 22.8] | Task-IL [49.3, 46.6, 53.900000000000006, 52.5]
+
+
+[INFO] 26-Sep-26 14:51:38 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:51:38 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 14:51:38 - Task 5
+STOP ITERATION
+Accuracy for 5 task(s): 	 [Class-IL]: 26.44 % 	 [Task-IL]: 53.08 %
+[INFO] 26-Sep-26 15:02:08 - Accuracy for 5 task(s): 	 [Class-IL]: 26.44 % 	 [Task-IL]: 53.08 %
+	Raw accuracy values: Class-IL [23.599999999999998, 21.5, 30.3, 21.9, 34.9] | Task-IL [54.6, 44.4, 56.89999999999999, 54.2, 55.300000000000004]
+[INFO] 26-Sep-26 15:02:08 - 	Raw accuracy values: Class-IL [23.599999999999998, 21.5, 30.3, 21.9, 34.9] | Task-IL [54.6, 44.4, 56.89999999999999, 54.2, 55.300000000000004]
+
+
+[INFO] 26-Sep-26 15:02:09 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:02:09 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:02:09 - Task 6
+STOP ITERATION
+Accuracy for 6 task(s): 	 [Class-IL]: 27.13 % 	 [Task-IL]: 56.2 %
+[INFO] 26-Sep-26 15:13:12 - Accuracy for 6 task(s): 	 [Class-IL]: 27.13 % 	 [Task-IL]: 56.2 %
+	Raw accuracy values: Class-IL [30.3, 18.9, 27.400000000000002, 20.599999999999998, 25.8, 39.800000000000004] | Task-IL [55.50000000000001, 50.2, 57.49999999999999, 55.800000000000004, 56.00000000000001, 62.2]
+[INFO] 26-Sep-26 15:13:12 - 	Raw accuracy values: Class-IL [30.3, 18.9, 27.400000000000002, 20.599999999999998, 25.8, 39.800000000000004] | Task-IL [55.50000000000001, 50.2, 57.49999999999999, 55.800000000000004, 56.00000000000001, 62.2]
+
+
+[INFO] 26-Sep-26 15:13:13 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:13:13 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:13:13 - Task 7
+STOP ITERATION
+Accuracy for 7 task(s): 	 [Class-IL]: 25.04 % 	 [Task-IL]: 54.77 %
+[INFO] 26-Sep-26 15:23:40 - Accuracy for 7 task(s): 	 [Class-IL]: 25.04 % 	 [Task-IL]: 54.77 %
+	Raw accuracy values: Class-IL [23.799999999999997, 22.1, 26.200000000000003, 15.299999999999999, 28.1, 29.9, 29.9] | Task-IL [55.60000000000001, 45.7, 53.5, 54.50000000000001, 59.0, 58.099999999999994, 56.99999999999999]
+[INFO] 26-Sep-26 15:23:40 - 	Raw accuracy values: Class-IL [23.799999999999997, 22.1, 26.200000000000003, 15.299999999999999, 28.1, 29.9, 29.9] | Task-IL [55.60000000000001, 45.7, 53.5, 54.50000000000001, 59.0, 58.099999999999994, 56.99999999999999]
+
+
+[INFO] 26-Sep-26 15:23:41 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:23:41 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:23:41 - Task 8
+[INFO] 26-Sep-26 15:26:06 - SIGINT received. Saving checkpoint and exiting...
+[WARNING] 26-Sep-26 15:26:06 - Object 40.8 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 31.5 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 26.133333333333336 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 27.0 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 26.439999999999998 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 27.133333333333336 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 25.042857142857144 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 40.8 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 44.900000000000006 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 44.699999999999996 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 50.575 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 53.08 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 56.20000000000001 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 54.771428571428565 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:07 - Checkpoint for task 7 saved at ./checkpoints/paused/8d1a704a-b17a-41f0-89f5-23da30fac30e
+[INFO] 26-Sep-26 15:26:08 - Training stopped by signal handler.
+{"final_class_il": 25.042857142857144, "final_task_il": 54.771428571428565, "param_sha256": "27cbd69c888c1588f70614bb5b9e73d983a1b77884cba39d2604be426023e076", "seconds": 4061.7, "updates": 3613}
