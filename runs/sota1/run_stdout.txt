@@ -9,3 +9,9 @@ done /home/user/ashes_crr/runs/sota1/units/crr__s1.json
 done /home/user/ashes_crr/runs/sota1/units/er__s1.json
 done /home/user/ashes_crr/runs/sota1/units/er_ace__s1.json
 done /home/user/ashes_crr/runs/sota1/units/derpp__s1.json
+done /home/user/ashes_crr/runs/sota1/units/xder__s1.json
+done /home/user/ashes_crr/runs/sota1/units/sgd__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s2.json
+done /home/user/ashes_crr/runs/sota1/units/er__s2.json
+done /home/user/ashes_crr/runs/sota1/units/er_ace__s2.json
+done /home/user/ashes_crr/runs/sota1/units/derpp__s2.json
