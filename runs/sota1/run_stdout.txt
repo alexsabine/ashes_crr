@@ -205,3 +205,10 @@ exists /home/user/ashes_crr/runs/sota1/units/crr__s0__lr0.05.json
 exists /home/user/ashes_crr/runs/sota1/units/er__s0__lr0.05.json
 exists /home/user/ashes_crr/runs/sota1/units/er_ace__s0__lr0.05.json
 exists /home/user/ashes_crr/runs/sota1/units/derpp__s0__lr0.05.json
+done /home/user/ashes_crr/runs/sota1/units/xder__s0__lr0.05.json
+exists /home/user/ashes_crr/runs/sota1/units/crr__s1__lr0.05.json
+exists /home/user/ashes_crr/runs/sota1/units/er__s1__lr0.05.json
+exists /home/user/ashes_crr/runs/sota1/units/er_ace__s1__lr0.05.json
+exists /home/user/ashes_crr/runs/sota1/units/derpp__s1__lr0.05.json
+done /home/user/ashes_crr/runs/sota1/units/xder__s1__lr0.05.json
+done /home/user/ashes_crr/runs/sota1/units/crr__s0__rerun.json
