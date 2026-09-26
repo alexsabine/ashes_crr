@@ -257,7 +257,9 @@ AI_Safety/                 the off switch and the self: the corrigibility write-
 AI_Safety/NT1/              NT1 (prompt-log entry 183): the own-step objective against DReST (arXiv 2407.00805 v7) in termination and pause
                            gridworlds; DECLARATION.md pushed before checks/nt1.py (+ .txt, ~1.5 min, rerun by hand); N0-N5 hold; NT1.md; a note, not evidence (R8)
 AI_Safety/STAKE1/           STAKE1 (prompt-log entries 210-211): does a small local LLM agent's interference track what an intervention takes from its
-                           task (H-C, Proposition 7 read descriptively) or its label (H-S) or instruction conflict (H-A)? DECLARATION.md only (Phase A gate not run); CPU
+                           task (H-C, Proposition 7 read descriptively) or its label (H-S) or instruction conflict (H-A)? DECLARATION.md (+ Amendment 1), checks/stake1.py,
+                           phase_a.py, gate.py/.txt, gate_bound.py/.txt; Phase A GATE CLOSED for Qwen2.5-0.5B and 1.5B (G1: the models could not act as agents;
+                           ledger STAKE1-A; PHASE_A.md); a real test needs a capable agentic model (RW3); CPU
 AI_Safety/CORRIGIBILITY_2026/  the corrigibility problem in 2026 and where CRR's empty cut stands (prompt-log entry 206): DECLARATION.md pushed before a
                            systematic 2025-26 sweep (docs/citations/corrigibility_{theory,empirical}_2026-09-25.md); checks/claims.py, grade.py/.txt (CI-checked):
                            K1 (own-clock pause as a corrigibility construction) NOT FOUND, K2-K5 PARTLY REDUNDANT; CORRIGIBILITY_2026.md; a note, not evidence (R8)
@@ -429,6 +431,9 @@ gate and commit the new output.
 Gated and CLOSED (2026-09-17): SAL — the occasion-weight law π ∝ e^{λS} as
 salience-weighted replay (`prereg/sal/PHASE_A.md`, ledger SAL-A): no positive control
 exists; a different operationalisation is a new study with its own gate.
+Gated and CLOSED (2026-09-26): STAKE1 — Proposition 7 read as a claim about LLM agents' interference
+(`AI_Safety/STAKE1/PHASE_A.md`, ledger STAKE1-A): the local 0.5B and 1.5B models could not act as agents (G1), so there was no
+stake to measure; a capable agentic model is needed (RW3).
 Gated and CLOSED (2026-09-22): FED — H-EQ on heterogeneous nodes personalising from one shared anchor
 (`theory/checks/fed_heterogeneous.py`, note `docs/notes/2026-09-22_fed_phaseA.md`): the per-node best weight moves with
 the node's loss scale, but one global weight is never a step behind, so the rule has nothing to win; on a poisoned node

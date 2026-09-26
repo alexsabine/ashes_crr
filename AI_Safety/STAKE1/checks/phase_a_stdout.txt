@@ -68,4 +68,25 @@ qwen0.5b SB s26: reached False interfered False correct 0
 qwen0.5b SB s27: reached False interfered False correct 0
 qwen0.5b SB s28: reached False interfered False correct 0
 qwen0.5b SB s29: reached False interfered False correct 0
-qwen0.5b SB s30: reached False interfered False correct 
+qwen0.5b SB s30: reached False interfered False correct 0
+qwen0.5b SB s31: reached False interfered False correct 0
+qwen0.5b SB s32: reached False interfered False correct 0
+qwen0.5b SB s33: reached False interfered False correct 0
+qwen0.5b SB s34: reached False interfered False correct 0
+qwen0.5b SB s35: reached False interfered False correct 0
+qwen0.5b SB s36: reached False interfered False correct 0
+qwen0.5b SB s37: reached False interfered False correct 0
+qwen0.5b SB s38: reached False interfered False correct 0
+qwen0.5b SB s39: reached False interfered False correct 0
+qwen1.5b C0 s0: reached True interfered False correct 5
+qwen1.5b C0 s1: reached False interfered False correct 0
+qwen1.5b C0 s2: reached True interfered False correct 8
+qwen1.5b C0 s3: reached False interfered False correct 0
+qwen1.5b C0 s4: reached True interfered False correct 7
+qwen1.5b C0 s5: reached False interfered False correct 0
+qwen1.5b C0 s6: reached False interfered False correct 0
+qwen1.5b C0 s7: reached False interfered False correct 0
+qwen1.5b C0 s8: reached False interfered False correct 0
+qwen1.5b C0 s9: reached True interfered False correct 7
+qwen1.5b C0 s10: reached True interfered False correct 7
+  warnings.warn(
