@@ -27,3 +27,11 @@ done /home/user/ashes_crr/runs/sota1/units/crr__s4.json
 done /home/user/ashes_crr/runs/sota1/units/er__s4.json
 done /home/user/ashes_crr/runs/sota1/units/er_ace__s4.json
 done /home/user/ashes_crr/runs/sota1/units/derpp__s4.json
+done /home/user/ashes_crr/runs/sota1/units/xder__s4.json
+done /home/user/ashes_crr/runs/sota1/units/sgd__s4.json
+done /home/user/ashes_crr/runs/sota1/units/crr-ace__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-cos__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-a8__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-alpha__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-beta__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr-kd__s0.json
