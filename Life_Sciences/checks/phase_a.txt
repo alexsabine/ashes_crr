@@ -1,0 +1,133 @@
+Life Sciences Phase A (Life_Sciences/DECLARATION_1.md; prompt-log entry 217). Synthetic worlds only; no data opened.
+
+[CD-1] H-L5 on the cell-size carrier: the arc of a monotone growth occasion is its amplitude (P1)
+  adder: 279 occasions, CV(arc) 0.095141, CV(clock) 0.227981, CV(amplitude) 0.095141; CV(arc) - CV(amp) = +0.000e+00 -> identical; bare class (CI of CV(arc) - CV(clock) [-0.1559, -0.1090]): arc-regular
+  sizer: 279 occasions, CV(arc) 0.212194, CV(clock) 0.278827, CV(amplitude) 0.212194; CV(arc) - CV(amp) = +0.000e+00 -> identical; bare class (CI of CV(arc) - CV(clock) [-0.0925, -0.0425]): arc-regular
+  timer: 279 occasions, CV(arc) 1.077200, CV(clock) 0.094674, CV(amplitude) 1.077200; CV(arc) - CV(amp) = +0.000e+00 -> identical; bare class (CI of CV(arc) - CV(clock) [+0.9059, +1.0460]): clock-regular
+  CD-1 prediction (control (i) can never be beaten on this carrier): HOLDS
+
+[G-CD3] H-CUT on replication initiation (W- the initiation adder, W+ initiation at the antipode)
+  standing gate_CUT (runs/phaseA/gate_CUT.txt): OPEN
+  tau_bar 100 min (C+D 70 min):
+    W-: 10 units (0 excluded, < 20 initiations); pass fraction 0.00 -> FAIL
+      unit 0: n  76, init at cycle fraction (median) 0.294, median e: antipode 0.2791, fitted fraction 0.0614 (f 0.295), initiation adder 0.0476; d +0.2316, step 0.0280 -> no
+      unit 1: n  76, init at cycle fraction (median) 0.275, median e: antipode 0.2714, fitted fraction 0.0695 (f 0.274), initiation adder 0.0521; d +0.2193, step 0.0341 -> no
+      unit 2: n  76, init at cycle fraction (median) 0.303, median e: antipode 0.2689, fitted fraction 0.0612 (f 0.310), initiation adder 0.0511; d +0.2178, step 0.0408 -> no
+      unit 3: n  75, init at cycle fraction (median) 0.316, median e: antipode 0.2127, fitted fraction 0.0741 (f 0.301), initiation adder 0.0519; d +0.1608, step 0.0343 -> no
+      unit 4: n  75, init at cycle fraction (median) 0.304, median e: antipode 0.2540, fitted fraction 0.0610 (f 0.302), initiation adder 0.0433; d +0.2108, step 0.0263 -> no
+      unit 5: n  76, init at cycle fraction (median) 0.290, median e: antipode 0.2569, fitted fraction 0.0611 (f 0.285), initiation adder 0.0521; d +0.2048, step 0.0356 -> no
+      unit 6: n  76, init at cycle fraction (median) 0.299, median e: antipode 0.2866, fitted fraction 0.0574 (f 0.296), initiation adder 0.0573; d +0.2292, step 0.0230 -> no
+      unit 7: n  75, init at cycle fraction (median) 0.281, median e: antipode 0.2735, fitted fraction 0.0701 (f 0.284), initiation adder 0.0506; d +0.2230, step 0.0332 -> no
+      unit 8: n  75, init at cycle fraction (median) 0.304, median e: antipode 0.2603, fitted fraction 0.0588 (f 0.292), initiation adder 0.0507; d +0.2096, step 0.0327 -> no
+      unit 9: n  75, init at cycle fraction (median) 0.300, median e: antipode 0.2266, fitted fraction 0.0513 (f 0.297), initiation adder 0.0498; d +0.1768, step 0.0336 -> no
+    W+: 10 units (0 excluded, < 20 initiations); pass fraction 0.90 -> PASS
+      unit 0: n  76, init at cycle fraction (median) 0.578, median e: antipode 0.0301, fitted fraction 0.0763 (f 0.575), initiation adder 0.2264; d -0.0462, step 0.0227 -> pass
+      unit 1: n  75, init at cycle fraction (median) 0.580, median e: antipode 0.0242, fitted fraction 0.0934 (f 0.585), initiation adder 0.4826; d -0.0691, step 0.0309 -> pass
+      unit 2: n  76, init at cycle fraction (median) 0.566, median e: antipode 0.0281, fitted fraction 0.0918 (f 0.575), initiation adder 0.5772; d -0.0637, step 0.0237 -> pass
+      unit 3: n  75, init at cycle fraction (median) 0.567, median e: antipode 0.0305, fitted fraction 0.0676 (f 0.587), initiation adder 0.6377; d -0.0371, step 0.0234 -> pass
+      unit 4: n  75, init at cycle fraction (median) 0.572, median e: antipode 0.0430, fitted fraction 0.0689 (f 0.595), initiation adder 0.3145; d -0.0259, step 0.0316 -> no
+      unit 5: n  76, init at cycle fraction (median) 0.564, median e: antipode 0.0379, fitted fraction 0.0748 (f 0.566), initiation adder 0.2610; d -0.0369, step 0.0223 -> pass
+      unit 6: n  76, init at cycle fraction (median) 0.575, median e: antipode 0.0350, fitted fraction 0.0686 (f 0.552), initiation adder 0.2560; d -0.0336, step 0.0268 -> pass
+      unit 7: n  75, init at cycle fraction (median) 0.575, median e: antipode 0.0297, fitted fraction 0.0833 (f 0.559), initiation adder 0.2819; d -0.0536, step 0.0232 -> pass
+      unit 8: n  75, init at cycle fraction (median) 0.568, median e: antipode 0.0343, fitted fraction 0.0860 (f 0.567), initiation adder 0.4208; d -0.0518, step 0.0235 -> pass
+      unit 9: n  75, init at cycle fraction (median) 0.569, median e: antipode 0.0283, fitted fraction 0.0921 (f 0.620), initiation adder 0.4174; d -0.0638, step 0.0348 -> pass
+    W+ units where the antipode ties the fitted fraction within a step: 0.10
+    condition: W+ PASS, W- FAIL -> as required
+  tau_bar 50 min (C+D 70 min):
+    W-: 10 units (0 excluded, < 20 initiations); pass fraction 0.00 -> FAIL
+      unit 0: n  76, init at cycle fraction (median) 0.618, median e: antipode 0.1002, fitted fraction 0.1034 (f 0.631), initiation adder 0.0426; d +0.0577, step 0.0280 -> no
+      unit 1: n  75, init at cycle fraction (median) 0.603, median e: antipode 0.0809, fitted fraction 0.1037 (f 0.607), initiation adder 0.0631; d +0.0178, step 0.0308 -> no
+      unit 2: n  75, init at cycle fraction (median) 0.606, median e: antipode 0.1086, fitted fraction 0.1180 (f 0.582), initiation adder 0.0312; d +0.0773, step 0.0304 -> no
+      unit 3: n  75, init at cycle fraction (median) 0.564, median e: antipode 0.0821, fitted fraction 0.0976 (f 0.561), initiation adder 0.0488; d +0.0333, step 0.0154 -> no
+      unit 4: n  75, init at cycle fraction (median) 0.575, median e: antipode 0.0914, fitted fraction 0.1065 (f 0.604), initiation adder 0.0494; d +0.0420, step 0.0204 -> no
+      unit 5: n  74, init at cycle fraction (median) 0.573, median e: antipode 0.0824, fitted fraction 0.1055 (f 0.556), initiation adder 0.0548; d +0.0276, step 0.0643 -> no
+      unit 6: n  75, init at cycle fraction (median) 0.623, median e: antipode 0.0844, fitted fraction 0.1200 (f 0.583), initiation adder 0.0484; d +0.0361, step 0.0361 -> no
+      unit 7: n  75, init at cycle fraction (median) 0.569, median e: antipode 0.0905, fitted fraction 0.1207 (f 0.586), initiation adder 0.0455; d +0.0451, step 0.0261 -> no
+      unit 8: n  75, init at cycle fraction (median) 0.578, median e: antipode 0.0973, fitted fraction 0.1135 (f 0.560), initiation adder 0.0472; d +0.0501, step 0.0251 -> no
+      unit 9: n  74, init at cycle fraction (median) 0.597, median e: antipode 0.1155, fitted fraction 0.1141 (f 0.602), initiation adder 0.0523; d +0.0633, step 0.0422 -> no
+    W+: 10 units (0 excluded, < 20 initiations); pass fraction 1.00 -> PASS
+      unit 0: n  76, init at cycle fraction (median) 0.597, median e: antipode 0.0368, fitted fraction 0.0921 (f 0.578), initiation adder 0.6754; d -0.0553, step 0.0292 -> pass
+      unit 1: n  75, init at cycle fraction (median) 0.601, median e: antipode 0.0289, fitted fraction 0.0937 (f 0.601), initiation adder 0.4201; d -0.0648, step 0.0185 -> pass
+      unit 2: n  75, init at cycle fraction (median) 0.594, median e: antipode 0.0291, fitted fraction 0.1374 (f 0.571), initiation adder 0.6495; d -0.1083, step 0.0205 -> pass
+      unit 3: n  75, init at cycle fraction (median) 0.597, median e: antipode 0.0337, fitted fraction 0.0957 (f 0.601), initiation adder 0.6258; d -0.0620, step 0.0313 -> pass
+      unit 4: n  75, init at cycle fraction (median) 0.594, median e: antipode 0.0385, fitted fraction 0.1151 (f 0.605), initiation adder 0.3799; d -0.0766, step 0.0283 -> pass
+      unit 5: n  74, init at cycle fraction (median) 0.587, median e: antipode 0.0404, fitted fraction 0.1021 (f 0.585), initiation adder 0.3867; d -0.0617, step 0.0319 -> pass
+      unit 6: n  75, init at cycle fraction (median) 0.576, median e: antipode 0.0340, fitted fraction 0.1308 (f 0.567), initiation adder 0.3425; d -0.0967, step 0.0274 -> pass
+      unit 7: n  75, init at cycle fraction (median) 0.615, median e: antipode 0.0310, fitted fraction 0.1051 (f 0.642), initiation adder 0.4671; d -0.0741, step 0.0370 -> pass
+      unit 8: n  75, init at cycle fraction (median) 0.610, median e: antipode 0.0343, fitted fraction 0.1125 (f 0.610), initiation adder 0.6355; d -0.0782, step 0.0259 -> pass
+      unit 9: n  74, init at cycle fraction (median) 0.594, median e: antipode 0.0334, fitted fraction 0.0828 (f 0.590), initiation adder 0.5332; d -0.0493, step 0.0296 -> pass
+    W+ units where the antipode ties the fitted fraction within a step: 0.00
+    condition: W+ PASS, W- FAIL -> as required
+  tau_bar 25 min (C+D 70 min):
+    W-: 10 units (0 excluded, < 20 initiations); pass fraction 0.00 -> FAIL
+      unit 0: n  74, init at cycle fraction (median) 0.396, median e: antipode 0.4693, fitted fraction 0.2581 (f 0.439), initiation adder 0.0548; d +0.4145, step 0.4112 -> no
+      unit 1: n  74, init at cycle fraction (median) 0.391, median e: antipode 0.4016, fitted fraction 0.2344 (f 0.433), initiation adder 0.0415; d +0.3600, step 0.0614 -> no
+      unit 2: n  72, init at cycle fraction (median) 0.398, median e: antipode 0.3808, fitted fraction 0.2584 (f 0.462), initiation adder 0.0395; d +0.3414, step 0.0354 -> no
+      unit 3: n  74, init at cycle fraction (median) 0.432, median e: antipode 0.4299, fitted fraction 0.1972 (f 0.400), initiation adder 0.0484; d +0.3815, step 0.4421 -> no
+      unit 4: n  75, init at cycle fraction (median) 0.343, median e: antipode 0.3688, fitted fraction 0.2260 (f 0.329), initiation adder 0.0351; d +0.3337, step 0.0447 -> no
+      unit 5: n  72, init at cycle fraction (median) 0.375, median e: antipode 0.4423, fitted fraction 0.2919 (f 0.347), initiation adder 0.0559; d +0.3863, step 0.1962 -> no
+      unit 6: n  74, init at cycle fraction (median) 0.421, median e: antipode 0.3599, fitted fraction 0.2675 (f 0.489), initiation adder 0.0494; d +0.3105, step 0.1063 -> no
+      unit 7: n  75, init at cycle fraction (median) 0.376, median e: antipode 0.4546, fitted fraction 0.2543 (f 0.359), initiation adder 0.0444; d +0.4101, step 0.2372 -> no
+      unit 8: n  75, init at cycle fraction (median) 0.373, median e: antipode 0.3733, fitted fraction 0.1632 (f 0.351), initiation adder 0.0588; d +0.3144, step 0.0339 -> no
+      unit 9: n  74, init at cycle fraction (median) 0.373, median e: antipode 0.4139, fitted fraction 0.1705 (f 0.358), initiation adder 0.0460; d +0.3679, step 0.0724 -> no
+    W+: 10 units (0 excluded, < 20 initiations); pass fraction 1.00 -> PASS
+      unit 0: n  74, init at cycle fraction (median) 0.651, median e: antipode 0.0426, fitted fraction 0.1142 (f 0.669), initiation adder 0.4755; d -0.0716, step 0.0284 -> pass
+      unit 1: n  74, init at cycle fraction (median) 0.645, median e: antipode 0.0345, fitted fraction 0.0887 (f 0.645), initiation adder 0.5460; d -0.0542, step 0.0363 -> pass
+      unit 2: n  73, init at cycle fraction (median) 0.652, median e: antipode 0.0438, fitted fraction 0.1055 (f 0.654), initiation adder 0.5234; d -0.0617, step 0.0356 -> pass
+      unit 3: n  74, init at cycle fraction (median) 0.644, median e: antipode 0.0436, fitted fraction 0.1266 (f 0.632), initiation adder 0.5914; d -0.0830, step 0.0316 -> pass
+      unit 4: n  75, init at cycle fraction (median) 0.620, median e: antipode 0.0385, fitted fraction 0.1542 (f 0.589), initiation adder 0.4683; d -0.1156, step 0.0282 -> pass
+      unit 5: n  71, init at cycle fraction (median) 0.650, median e: antipode 0.0590, fitted fraction 0.1016 (f 0.669), initiation adder 0.4866; d -0.0427, step 0.0426 -> pass
+      unit 6: n  73, init at cycle fraction (median) 0.648, median e: antipode 0.0447, fitted fraction 0.1507 (f 0.695), initiation adder 0.6243; d -0.1059, step 0.0477 -> pass
+      unit 7: n  75, init at cycle fraction (median) 0.614, median e: antipode 0.0311, fitted fraction 0.1640 (f 0.671), initiation adder 0.5530; d -0.1329, step 0.0718 -> pass
+      unit 8: n  74, init at cycle fraction (median) 0.629, median e: antipode 0.0395, fitted fraction 0.0973 (f 0.641), initiation adder 0.5345; d -0.0579, step 0.0208 -> pass
+      unit 9: n  73, init at cycle fraction (median) 0.651, median e: antipode 0.0439, fitted fraction 0.1549 (f 0.585), initiation adder 0.5369; d -0.1110, step 0.0318 -> pass
+    W+ units where the antipode ties the fitted fraction within a step: 0.00
+    condition: W+ PASS, W- FAIL -> as required
+  G-CD3: OPEN
+
+[OL-3] protocell size sawtooth (200 cycles): divisions within one grid step of a volume maximum: 1.0000 (199/199) -> the own event is the extremum; H-CUT's own-event comparison is empty
+
+[OL-2] SYNTHESIS row: A6 memory and Eigen's error threshold
+[ 1] (life) Eigen's quasispecies, single-peak landscape (master fitness 10, mutants 1, length 50, no back mutation), with templates regenerated from the settled past
+     source:     Life_Sciences/DECLARATION_1.md OL-2
+     Q:          regenerating templates from the settled past with A6/P3 geometric age weights (offspring copied from templates of age k with weight (1-q) q^k) moves Eigen's error threshold mu_c
+     ingredient: A6 with P3 weights (q not fixed by CRR; q = 0.9 against q = 0)
+     null:       q = 0: Eigen's discrete generations
+     domain:     Eigen's threshold sigma (1-mu)^L = 1, mu_c = 1 - sigma^(-1/L) = 0.045007; the renewal (Euler-Lotka) argument: a positive delay kernel moves the growth rate, not the sign of lambda - 1
+     numbers:    mu_c from the characteristic equation (lambda_m = q + sigma Q (1-q)): q 0 0.045007, q 0.5 0.045007, q 0.9 0.045007; from iterating the dynamics: q 0 0.045007, q 0.5 0.045007, q 0.9 0.045007; at mu = mu_c/2 = 0.022504: stationary master fraction q 0 0.2449 (Eigen's (sigma Q - 1)/(sigma - 1) = 0.2449), q 0.5 0.2449, q 0.9 0.2449; master growth factor per generation q 0 3.2045, q 0.5 2.1022, q 0.9 1.2204
+     T-G:        mu_c(q 0.9) 0.045007 vs null mu_c(q 0) 0.045007: agree
+     T-N:        Eigen's mu_c 0.045007: agree
+     T-C:        the iterated thresholds match the characteristic equation within 0.1 % at every q: holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    memory of the settled past changes how fast the master grows (factor 1.2204 at q 0.9 against 3.2045 at q 0), leaves unchanged the stationary master fraction (0.2449 against 0.2449) and does not move the threshold, which is where sigma Q crosses 1 (AGENT_LOG 162: this reading was hard-coded in the first run, phase_a_run1.txt, and contradicted its own numbers on the stationary fraction; the words are now computed)
+     weakness:   a single-peak landscape without back mutation, the textbook case; q is free in CRR, so no q is predicted
+     child:      Copying from older copies as well as new ones changes how fast the good copy spreads, but not the error rate at which it is lost.
+
+[G-DS2] arc-threshold segmentation of synthetic squiggles against the domain's two-window t-test and a clock
+  200 training + 200 test reads of 400 bases per level; dwell Gamma(2, mean 9) >= 2 samples; 5 % repeated levels; noise sigma 1; tolerance +-2 samples
+  level spread s = 1 sigma:
+    A-raw   : tuned threshold 5 (train F1 0.5849) -> test F1 0.5866
+    A-smooth: tuned w 5, threshold 1.25 (train F1 0.6099) -> test F1 0.6122
+    T       : tuned w 5, threshold 1.5 (train F1 0.5956) -> test F1 0.5997
+    CL      : tuned threshold 5 (train F1 0.6310) -> test F1 0.6324
+    better arc detector A-smooth: vs T +0.0125 (step 0.0200) -> not ahead; vs CL -0.0202 (step 0.0200) -> not ahead; A-raw vs CL -0.0458 (step 0.0200)
+    DS-3 (T's misses by the A1' step |dmu| sqrt(n) / sigma): below 1 step 23948 boundaries, miss rate 0.4529 (0.4494 without repeated levels); at or above 1 step 55852, miss rate 0.2206; ratio 2.05 -> holds
+  level spread s = 2 sigma:
+    A-raw   : tuned threshold 6 (train F1 0.6129) -> test F1 0.6114
+    A-smooth: tuned w 3, threshold 2.5 (train F1 0.6338) -> test F1 0.6330
+    T       : tuned w 5, threshold 2.25 (train F1 0.6698) -> test F1 0.6694
+    CL      : tuned threshold 5 (train F1 0.6322) -> test F1 0.6317
+    better arc detector A-smooth: vs T -0.0363 (step 0.0200) -> not ahead; vs CL +0.0014 (step 0.0200) -> not ahead; A-raw vs CL -0.0203 (step 0.0200)
+    DS-3 (T's misses by the A1' step |dmu| sqrt(n) / sigma): below 1 step 14380 boundaries, miss rate 0.6953 (0.6874 without repeated levels); at or above 1 step 65420, miss rate 0.2730; ratio 2.55 -> holds
+  level spread s = 4 sigma:
+    A-raw   : tuned threshold 7 (train F1 0.6549) -> test F1 0.6538
+    A-smooth: tuned w 3, threshold 4.25 (train F1 0.6664) -> test F1 0.6662
+    T       : tuned w 5, threshold 2.75 (train F1 0.7499) -> test F1 0.7507
+    CL      : tuned threshold 5 (train F1 0.6328) -> test F1 0.6323
+    better arc detector A-smooth: vs T -0.0844 (step 0.0200) -> not ahead; vs CL +0.0339 (step 0.0200) -> ahead; A-raw vs CL +0.0215 (step 0.0200)
+    DS-3 (T's misses by the A1' step |dmu| sqrt(n) / sigma): below 1 step 9087 boundaries, miss rate 0.7977 (0.7851 without repeated levels); at or above 1 step 70713, miss rate 0.2527; ratio 3.16 -> holds
+  G-DS2: CLOSED
+  DS-3 prediction (misses below one step at least twice as often, every level): HOLDS (the t-test's own power function: REDUNDANT-DOMAIN whichever way)
+  under noise alone a raw arc advances by E|dx|/sigma = 2/sqrt(pi) = 1.1284 per sample
+
+SUMMARY: G-CD3 OPEN; G-DS2 CLOSED
