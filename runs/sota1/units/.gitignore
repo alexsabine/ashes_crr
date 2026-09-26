@@ -1,0 +1,3 @@
+# in-progress unit files (a finished unit replaces them with its .json; a failed unit log is renamed and committed)
+*.json.log
+*.json.tmp

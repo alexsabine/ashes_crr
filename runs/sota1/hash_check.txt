@@ -1,1 +1,42 @@
 HASH.txt reproduces
+22,39d21
+< 3a3f402d2eb3e4dd6526dab6a1ec89560edae14a9a302fffe4937da6125c00b6  ../../runs/sota1/frozen/mammoth/checkpoints/paused/8d1a704a-b17a-41f0-89f5-23da30fac30e.pt
+< cbe6907247fca221c8fbcf9adac0358762ecc248f71b2719ed10231009a113fb  ../../runs/sota1/frozen/mammoth/checkpoints/paused/e195caa2-b638-403a-8183-197e17c44400.pt
+< a86d7527dc2da5067fe1249c090dfb27513c1f4221f07e1c7eb68663173a33fd  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/agem/logs.pyd
+< 615a04ccb70d74434742f598d3437caba06efb82275841aec82abe9bfd68b015  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/crr_scl/logs.pyd
+< e3b91deab294a3de64b93a7c4ae001fb55209291903cd806d30f65965be9d363  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/derpp/logs.pyd
+< c86f92d157ffaa528acbf1e20dd3c281790ebd0f7ddd63c77e96b7d62e1be487  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/er/logs.pyd
+< c9dbda8967d25eee6d302d54a8d47dd8d1cbe79137d45e077471afe53981c4ce  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/er_ace/logs.pyd
+< 328a784e2eae5958d0d0d96fa9b6bcd9feebe641a5d356697935b2dae18aeae4  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/icarl/logs.pyd
+< d5a0e8dfb7ff5aac7aa366f1dd7c6ebac98f8ad19a13a778e8892ceebec9dac0  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/sgd/logs.pyd
+< 2cc544b9514a918b285f1fde1f34e8ad91db6c908d2ca2cc6180d26424568e49  ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/xder/logs.pyd
+< d670a9511498b8145f26bd91cac753691edd56e2415adf85a669e6dd1f372ac8  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/agem/logs.pyd
+< cc74015bc728e63340cc342e642bce39abc5b6d0e3564200d4d9aa19e81c47c0  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/crr_scl/logs.pyd
+< 1c098a2f8cceb8d20a79f14de30455de449a69882342a48fb4be299c2c63bf6e  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/derpp/logs.pyd
+< f325b20af5ae473ac282792f3060b1620480d451f5c6e2e4e38c54bcdbe78e3f  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/er/logs.pyd
+< bbc4f3699fc7994bcf51922d5669a66edc95f59f506cbe4b67d68489b782c057  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/er_ace/logs.pyd
+< 182b3bb93aaf80f89799cca5490889681d226fa88589134c2709939799ddbe40  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/icarl/logs.pyd
+< 6ba2084a11795d8c863d53124554990950320351c30e1f7327894f8902040bbc  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/sgd/logs.pyd
+< 4d4cefb729f94c011edca001ac5ed9ca67d31375f551af4e5288c4972c8fada0  ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/xder/logs.pyd
+post-run hash check 2026-09-26T17:13:48Z: 197 listed files, 0 mismatched or missing -> every hashed file unchanged
+  files present but not in HASH.txt (written at run time, not instrument code): 56 Python bytecode files under __pycache__; 19 others:
+    ../../runs/sota1/frozen/mammoth/checkpoints/paused/8d1a704a-b17a-41f0-89f5-23da30fac30e.pt
+    ../../runs/sota1/frozen/mammoth/checkpoints/paused/e195caa2-b638-403a-8183-197e17c44400.pt
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/agem/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/crr_scl/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/derpp/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/er/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/er_ace/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/icarl/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/sgd/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/class-il/seq-cifar100-local/xder/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/agem/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/crr_scl/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/derpp/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/er/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/er_ace/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/icarl/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/sgd/logs.pyd
+    ../../runs/sota1/frozen/mammoth/data/results/task-il/seq-cifar100-local/xder/logs.pyd
+    ../../runs/sota1/frozen/mammoth/utils/main.py
+  note: mammoth/utils/main.py is a symbolic link to ../main.py committed with the prereg (de95c63, upstream Mammoth layout); find -type f skips links, its target main.py is hashed and unchanged. The other 18 are Mammoth run outputs (results logs.pyd; two pause checkpoints .pt) written into the working folder by the frozen code; none is read as input by any unit.

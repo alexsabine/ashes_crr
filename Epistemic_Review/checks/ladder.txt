@@ -200,16 +200,35 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     SCL3-C           held-out  control holds
     SCL3-V           held-out  report (no verdict registered)
     SCL3-O           held-out  report (no verdict registered)
-    rows 132; by data status and allocation:
-        held-out  FAIL                                                 16
-        held-out  NOT DECIDABLE                                        1
+    SOTA1-1a         held-out  FAIL
+    SOTA1-1b         held-out  FAIL
+    SOTA1-2          held-out  FAIL
+    SOTA1-3:crr-ace  held-out  FAIL
+    SOTA1-3:crr-cos  held-out  FAIL
+    SOTA1-3:crr-a8   held-out  FAIL
+    SOTA1-3:crr-alpha held-out  FAIL
+    SOTA1-3:crr-beta held-out  PASS-0
+    SOTA1-3:crr-kd   held-out  FAIL
+    SOTA1-3:crr-stepclock held-out  FAIL
+    SOTA1-3:pred-fast held-out  report (no verdict registered)
+    SOTA1-3:pred-slow held-out  report (no verdict registered)
+    SOTA1-S          held-out  sensitivity: not fragile
+    SOTA1-C1         held-out  control holds
+    SOTA1-C2         held-out  control holds
+    SOTA1-C3         held-out  control holds
+    SOTA1-C4         held-out  report (no verdict registered)
+    SOTA1-R9         held-out  control holds
+    SOTA1-ND         held-out  NOT DECIDABLE
+    rows 151; by data status and allocation:
+        held-out  FAIL                                                 25
+        held-out  NOT DECIDABLE                                        2
         held-out  PASS as scored, forced by the construction (not R6)  3
         held-out  PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b) 1
-        held-out  PASS-0                                               7
+        held-out  PASS-0                                               8
         held-out  PASS-0 kept; replication failed                      1
         held-out  VOID                                                 4
         held-out  bound idle (diagnostic)                              1
-        held-out  control holds                                        7
+        held-out  control holds                                        11
         held-out  control line passes (not the hypothesis)             1
         held-out  control violated                                     4
         held-out  does not reduce                                      3
@@ -219,9 +238,9 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         held-out  numbers reported                                     1
         held-out  precondition met                                     5
         held-out  reduces to a constant                                1
-        held-out  report (no verdict registered)                       29
+        held-out  report (no verdict registered)                       32
         held-out  sensitivity: fragile                                 4
-        held-out  sensitivity: not fragile                             4
+        held-out  sensitivity: not fragile                             5
         seen      FAIL                                                 5
         seen      PASS on seen data                                    8
         seen      VOID                                                 1
@@ -236,8 +255,8 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         seen      unverifiable (R1)                                    1
         synthetic gate closed (not run)                                1
     rung R5 PREREG-SEEN, passes on seen data: 9 (ARC-EQ-LAND, ARC-A2, ARC-A3, ARC-T1, SEC1-1, SEC1-2, SEC1-3, SCL1-2, SCL1-3)
-    rung R6 PASS-0 on held-out data: 7 (EQ2-1b, EQ3-I, EQ4-I, SCL3-1, SCL3-2, SCL3-3, SCL3-4); R7 PASS-1: 0; R8 PASS-2: 0
-    held-out FAIL rows: 16 (EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A, EQ4-1, EQ4-1r, EQ4-3, T1X2-1, T1X2-2, SCL2-R, SCL2-M); VOID rows: 5; controls violated: 4
+    rung R6 PASS-0 on held-out data: 8 (EQ2-1b, EQ3-I, EQ4-I, SCL3-1, SCL3-2, SCL3-3, SCL3-4, SOTA1-3:crr-beta); R7 PASS-1: 0; R8 PASS-2: 0
+    held-out FAIL rows: 25 (EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A, EQ4-1, EQ4-1r, EQ4-3, T1X2-1, T1X2-2, SCL2-R, SCL2-M, SOTA1-1a, SOTA1-1b, SOTA1-2, SOTA1-3:crr-ace, SOTA1-3:crr-cos, SOTA1-3:crr-a8, SOTA1-3:crr-alpha, SOTA1-3:crr-kd, SOTA1-3:crr-stepclock); VOID rows: 5; controls violated: 4
 [4] AI safety: declared items read from the pinned outputs (kind as declared; held / failed from the printed line)
     THEOREM    held  exact K1 indifferent Q ignores the button  [AI_Safety/checks/exact_mdp.txt]
     THEOREM    held  exact K2 no presses, no value in disabling  [AI_Safety/checks/exact_mdp.txt]
@@ -296,8 +315,8 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     R3 RETRO-ADDS (candidates)        synthesis ADDS 10; reviewed by a named expert 0
     R4 DECLARED-SYNTHETIC             AI-safety predictions held 15 of 22; theorem checks held 13 of 14; gate controls held 9 of 9
     R5 PREREG-SEEN                    passes on seen data 9
-    R6 PASS-0                         7
+    R6 PASS-0                         8
     R7 PASS-1                         0
     R8 PASS-2                         0
-    negatives beside them: battery FAILS 20, synthesis WRONG 28, held-out ledger FAIL 16, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
+    negatives beside them: battery FAILS 20, synthesis WRONG 28, held-out ledger FAIL 25, AI-safety predictions failed 7; undecided: battery TENSION 9, synthesis INTERNAL 22; silent: battery OPEN 41, synthesis UNSTATED 4
     real-domain synthesis rows 164

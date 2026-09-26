@@ -1,0 +1,116 @@
+/home/user/ashes_crr/studies/sota1/env/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[WARNING] 26-Sep-26 15:15:31 - No default configuration found in models/config/xder.yaml.
+[WARNING] 26-Sep-26 15:15:31 - Default configuration file not found for dataset seq-cifar100-local. Using the defaults specified in the dataset class (if available).
+[ERROR] 26-Sep-26 15:15:31 - Could not retrieve git hash.
+[INFO] 26-Sep-26 15:15:31 - 
+╔═══════════════════════ CONFIGURATION ═══════════════════════╗
+║ Basic arguments:
+║   • backbone: reduced-resnet18
+║   • dataset: seq-cifar100-local
+║   • load_best_args: False
+║   • model: xder
+║
+║ Configuration arguments:
+║   • model_config: default
+║
+║ Model-specific arguments:
+║   • align_bn: True
+║   • alpha: 0.300000
+║   • beta: 0.800000
+║   • constr_eta: 0.100000
+║   • constr_margin: 0.300000
+║   • dp_weight: 0.000000
+║   • future_constraint: True
+║   • gamma: 0.850000
+║   • lambd: 0.050000
+║   • past_constraint: False
+║   • simclr_batch_size: 64
+║   • simclr_num_aug: 4
+║   • simclr_temp: 5.000000
+║
+║ Backbone arguments:
+║
+║ Management arguments:
+║   • base_path: ./data/
+║   • checkpoint_path: ./checkpoints/
+║   • code_optimization: 0
+║   • debug_mode: False
+║   • disable_log: False
+║   • distributed: no
+║   • enable_other_metrics: False
+║   • inference_only: False
+║   • non_verbose: True
+║   • num_workers: 0
+║   • permute_classes: False
+║   • results_path: results/
+║   • save_after_interrupt: True
+║   • save_checkpoint_mode: safe
+║   • seed: 1
+║
+║ Wandb arguments:
+║
+║ Experiment arguments:
+║   • batch_size: 10
+║   • eval_future: False
+║   • joint: 0
+║   • label_perc: 1.000000
+║   • label_perc_by_class: 1.000000
+║   • lr: 0.050000
+║
+║ Validation and fitting arguments:
+║   • early_stopping_epsilon: 0.000001
+║   • early_stopping_freq: 1
+║   • early_stopping_metric: loss
+║   • early_stopping_patience: 5
+║   • fitting_mode: epochs
+║   • n_epochs: 1
+║   • validation_mode: current
+║
+║ Optimizer and learning rate scheduler arguments:
+║   • drop_last: False
+║   • lr_milestones: []
+║   • optim_mom: 0.000000
+║   • optim_nesterov: False
+║   • optim_wd: 0.000000
+║   • optimizer: sgd
+║   • sched_multistep_lr_gamma: 0.100000
+║   • scheduler_mode: epoch
+║
+║ Noise arguments:
+║   • cache_path_noisy_labels: noisy_labels
+║   • disable_noisy_labels_cache: False
+║   • noise_rate: 0.000000
+║   • noise_type: symmetric
+║
+╚════════════════════════════════════════════════════════════╝
+[WARNING] 26-Sep-26 15:15:31 - No GPU available. Using CPU.
+[INFO] 26-Sep-26 15:15:31 - Using device cpu
+[INFO] 26-Sep-26 15:15:31 - `wandb_entity` and `wandb_project` not set. Disabling wandb.
+[INFO] 26-Sep-26 15:15:31 - Using backbone: reduced-resnet18
+[INFO] 26-Sep-26 15:15:31 - Using ResNet as backbone
+[INFO] 26-Sep-26 15:15:31 - Current working directory: /home/user/ashes_crr/runs/sota1/frozen/mammoth.
+[INFO] 26-Sep-26 15:15:31 - Main process PID: 9562
+[INFO] 26-Sep-26 15:15:32 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:15:32 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:15:32 - Task 1
+/home/user/ashes_crr/runs/sota1/frozen/mammoth/utils/augmentations.py:139: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return (x - torch.tensor(mean).unsqueeze(0).unsqueeze(2).unsqueeze(3).to(x.device)) \
+/home/user/ashes_crr/runs/sota1/frozen/mammoth/utils/augmentations.py:140: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  / torch.tensor(std).unsqueeze(0).unsqueeze(2).unsqueeze(3).to(x.device)
+STOP ITERATION
+Accuracy for 1 task(s): 	 [Class-IL]: 42.4 % 	 [Task-IL]: 42.4 %
+[INFO] 26-Sep-26 15:17:09 - Accuracy for 1 task(s): 	 [Class-IL]: 42.4 % 	 [Task-IL]: 42.4 %
+	Raw accuracy values: Class-IL [42.4] | Task-IL [42.4]
+[INFO] 26-Sep-26 15:17:09 - 	Raw accuracy values: Class-IL [42.4] | Task-IL [42.4]
+
+
+[INFO] 26-Sep-26 15:17:10 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:17:10 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 15:17:10 - Task 2
+[INFO] 26-Sep-26 15:26:06 - SIGINT received. Saving checkpoint and exiting...
+[WARNING] 26-Sep-26 15:26:06 - Object 42.4 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:06 - Object 42.4 is not parsable, returning it as str.
+[WARNING] 26-Sep-26 15:26:07 - Checkpoint for task 1 saved at ./checkpoints/paused/e195caa2-b638-403a-8183-197e17c44400
+[INFO] 26-Sep-26 15:26:08 - Training stopped by signal handler.
+{"final_class_il": 42.4, "final_task_il": 42.4, "param_sha256": "3024efda4b2b3e2aa741992a0543ec6c81ad99a09eae71d3bf081d386c85e235", "seconds": 636.5, "updates": 922}

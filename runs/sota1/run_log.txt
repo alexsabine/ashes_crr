@@ -1,0 +1,7 @@
+SOTA1 run started 2026-09-26T00:26:32Z
+env lock: studies/sota1/env/uv.lock sha256 84517e8d9505e5c8c7af27ec69ad7d2f968983c4319019a72cb175cb25cc03e9; frozen copy runs/sota1/frozen/env/uv.lock sha256 84517e8d9505e5c8c7af27ec69ad7d2f968983c4319019a72cb175cb25cc03e9
+repo uv.lock sha256 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2
+host: 4 CPUs; 3.12.3 2.14.0+cpu
+container lost ~00:32Z (uptime reset; logs stop 00:31-00:32Z, units er__s0 and er_ace__s0 in task 5); runner relaunched 2026-09-26T02:31:03Z as a harness-tracked background task, same command
+session restart ~15:26Z (harness restarted; background task stopped; units xder__s0__lr0.05 and xder__s1__lr0.05 killed mid-run, logs kept as *.container_lost_2.log); runner relaunched 2026-09-26T15:26:25Z, same command, tracked
+queue ended 2026-09-26T17:13:35Z: 104 unit records (110 declared; lwf and ewc_on x3 NOT DECIDABLE, argparse, AGENT_LOG 153; their repeat attempts after each relaunch failed identically and those duplicate logs were removed)

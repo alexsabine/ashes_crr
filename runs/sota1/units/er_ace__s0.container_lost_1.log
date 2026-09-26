@@ -1,0 +1,125 @@
+/home/user/ashes_crr/studies/sota1/env/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[WARNING] 26-Sep-26 00:26:47 - No default configuration found in models/config/er_ace.yaml.
+[WARNING] 26-Sep-26 00:26:47 - Default configuration file not found for dataset seq-cifar100-local. Using the defaults specified in the dataset class (if available).
+[ERROR] 26-Sep-26 00:26:47 - Could not retrieve git hash.
+[INFO] 26-Sep-26 00:26:47 - 
+╔═══════════════════════ CONFIGURATION ═══════════════════════╗
+║ Basic arguments:
+║   • backbone: reduced-resnet18
+║   • dataset: seq-cifar100-local
+║   • load_best_args: False
+║   • model: er-ace
+║
+║ Configuration arguments:
+║   • model_config: default
+║
+║ Model-specific arguments:
+║   • task_free: False
+║   • use_custom_classifier: True
+║
+║ Backbone arguments:
+║
+║ Management arguments:
+║   • base_path: ./data/
+║   • checkpoint_path: ./checkpoints/
+║   • code_optimization: 0
+║   • debug_mode: False
+║   • disable_log: False
+║   • distributed: no
+║   • enable_other_metrics: False
+║   • inference_only: False
+║   • non_verbose: True
+║   • num_workers: 0
+║   • permute_classes: False
+║   • results_path: results/
+║   • save_after_interrupt: True
+║   • save_checkpoint_mode: safe
+║   • seed: 0
+║
+║ Wandb arguments:
+║
+║ Experiment arguments:
+║   • batch_size: 10
+║   • eval_future: False
+║   • joint: 0
+║   • label_perc: 1.000000
+║   • label_perc_by_class: 1.000000
+║   • lr: 0.100000
+║
+║ Validation and fitting arguments:
+║   • early_stopping_epsilon: 0.000001
+║   • early_stopping_freq: 1
+║   • early_stopping_metric: loss
+║   • early_stopping_patience: 5
+║   • fitting_mode: epochs
+║   • n_epochs: 1
+║   • validation_mode: current
+║
+║ Optimizer and learning rate scheduler arguments:
+║   • drop_last: False
+║   • lr_milestones: []
+║   • optim_mom: 0.000000
+║   • optim_nesterov: False
+║   • optim_wd: 0.000000
+║   • optimizer: sgd
+║   • sched_multistep_lr_gamma: 0.100000
+║   • scheduler_mode: epoch
+║
+║ Noise arguments:
+║   • cache_path_noisy_labels: noisy_labels
+║   • disable_noisy_labels_cache: False
+║   • noise_rate: 0.000000
+║   • noise_type: symmetric
+║
+╚════════════════════════════════════════════════════════════╝
+[WARNING] 26-Sep-26 00:26:47 - No GPU available. Using CPU.
+[INFO] 26-Sep-26 00:26:47 - Using device cpu
+[INFO] 26-Sep-26 00:26:47 - `wandb_entity` and `wandb_project` not set. Disabling wandb.
+[INFO] 26-Sep-26 00:26:47 - Using backbone: reduced-resnet18
+[INFO] 26-Sep-26 00:26:47 - Using ResNet as backbone
+[INFO] 26-Sep-26 00:26:47 - Current working directory: /home/user/ashes_crr/runs/sota1/frozen/mammoth.
+[INFO] 26-Sep-26 00:26:47 - Main process PID: 1032
+[INFO] 26-Sep-26 00:26:48 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:26:48 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:26:48 - Task 1
+STOP ITERATION
+Accuracy for 1 task(s): 	 [Class-IL]: 33.3 % 	 [Task-IL]: 33.3 %
+[INFO] 26-Sep-26 00:27:30 - Accuracy for 1 task(s): 	 [Class-IL]: 33.3 % 	 [Task-IL]: 33.3 %
+	Raw accuracy values: Class-IL [33.300000000000004] | Task-IL [33.300000000000004]
+[INFO] 26-Sep-26 00:27:30 - 	Raw accuracy values: Class-IL [33.300000000000004] | Task-IL [33.300000000000004]
+
+
+[INFO] 26-Sep-26 00:27:31 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:27:31 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:27:31 - Task 2
+STOP ITERATION
+Accuracy for 2 task(s): 	 [Class-IL]: 33.25 % 	 [Task-IL]: 46.15 %
+[INFO] 26-Sep-26 00:28:52 - Accuracy for 2 task(s): 	 [Class-IL]: 33.25 % 	 [Task-IL]: 46.15 %
+	Raw accuracy values: Class-IL [38.4, 28.1] | Task-IL [48.4, 43.9]
+[INFO] 26-Sep-26 00:28:52 - 	Raw accuracy values: Class-IL [38.4, 28.1] | Task-IL [48.4, 43.9]
+
+
+[INFO] 26-Sep-26 00:28:53 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:28:53 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:28:53 - Task 3
+STOP ITERATION
+Accuracy for 3 task(s): 	 [Class-IL]: 27.7 % 	 [Task-IL]: 46.67 %
+[INFO] 26-Sep-26 00:30:14 - Accuracy for 3 task(s): 	 [Class-IL]: 27.7 % 	 [Task-IL]: 46.67 %
+	Raw accuracy values: Class-IL [27.3, 19.8, 36.0] | Task-IL [47.4, 40.300000000000004, 52.300000000000004]
+[INFO] 26-Sep-26 00:30:14 - 	Raw accuracy values: Class-IL [27.3, 19.8, 36.0] | Task-IL [47.4, 40.300000000000004, 52.300000000000004]
+
+
+[INFO] 26-Sep-26 00:30:15 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:30:15 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:30:15 - Task 4
+STOP ITERATION
+Accuracy for 4 task(s): 	 [Class-IL]: 24.15 % 	 [Task-IL]: 45.88 %
+[INFO] 26-Sep-26 00:31:38 - Accuracy for 4 task(s): 	 [Class-IL]: 24.15 % 	 [Task-IL]: 45.88 %
+	Raw accuracy values: Class-IL [21.0, 24.0, 26.900000000000002, 24.7] | Task-IL [44.1, 41.5, 48.9, 49.0]
+[INFO] 26-Sep-26 00:31:38 - 	Raw accuracy values: Class-IL [21.0, 24.0, 26.900000000000002, 24.7] | Task-IL [44.1, 41.5, 48.9, 49.0]
+
+
+[INFO] 26-Sep-26 00:31:39 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:31:39 - Using 0 workers for the dataloader.
+[INFO] 26-Sep-26 00:31:39 - Task 5
