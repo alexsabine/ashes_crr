@@ -90,3 +90,9 @@ FAILED /home/user/ashes_crr/runs/sota1/units/ewc_on__s2.json (log kept)
 done /home/user/ashes_crr/runs/sota1/units/icarl__s2.json
 done /home/user/ashes_crr/runs/sota1/units/crr@q0.98__s0.json
 done /home/user/ashes_crr/runs/sota1/units/crr@q0.995__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr@cap100__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr@gamma1__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr@smooth0.5__s0.json
+done /home/user/ashes_crr/runs/sota1/units/crr@q0.98__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr@q0.995__s1.json
+done /home/user/ashes_crr/runs/sota1/units/crr@cap100__s1.json
