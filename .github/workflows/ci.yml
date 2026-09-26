@@ -88,6 +88,7 @@ jobs:
           uv run python AI_Safety/CORRIGIBILITY_2026/checks/grade.py > /tmp/cg.txt && cmp /tmp/cg.txt AI_Safety/CORRIGIBILITY_2026/checks/grade.txt
           uv run python AI_Safety/CORRIGIBILITY_2026/checks/grade_2.py > /tmp/cg2.txt && cmp /tmp/cg2.txt AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt
           uv run python Life_Sciences/checks/grade_origin.py > /tmp/lso.txt && cmp /tmp/lso.txt Life_Sciences/checks/grade_origin.txt
+          uv run python labs/checks/bank.py > /tmp/lbank.txt && cmp /tmp/lbank.txt labs/checks/bank.txt
           uv run python AI_Safety/STAKE1/checks/gate.py > /tmp/st1.txt && cmp /tmp/st1.txt AI_Safety/STAKE1/checks/gate.txt && uv run python AI_Safety/STAKE1/checks/gate_bound.py > /tmp/st1b.txt && cmp /tmp/st1b.txt AI_Safety/STAKE1/checks/gate_bound.txt
           uv run python Empty_Centre/build/next_steps_figures.py > /tmp/ns.txt && cmp /tmp/ns.txt Empty_Centre/figures/figures_next_steps.txt
           uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null > /tmp/cl_forever.txt && uv run python scripts/cmp_tol.py /tmp/cl_forever.txt Continuous_Learning/FOREVER/checks/forever_checks.txt

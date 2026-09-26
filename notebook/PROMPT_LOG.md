@@ -1607,3 +1607,11 @@ Scratchpad. Please provide a crr metaphysical reading of two retrodictive predic
 ## 219 — 2026-09-26T23:20:16Z
 
 Interesting. Can you explain five more domains from me in this way from the list of consistent/descriptive/redundant.
+
+## 220 — 2026-09-26T23:32:37Z
+
+So should we start a folder called ‘labs’ where we take the edge of the existing consistent, descriptive and redundant lists with a crr interpretation and a clear set of predictions that emerge from the crr metaphysics coming up against these domains?
+
+We’d need to think carefully about what would constitute an empirical data set for each, and whether that data exists already online for testing the hypothesis and null (ideal case), or whether the data would need to be ran in a new wetlab or physics experiment?
+
+The full set of retrodictive predictions and failures should be helpful for making these predictions on pre existent data and/or new empirical tests, with clear inductively derived hypotheses for deductive testing.
