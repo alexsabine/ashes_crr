@@ -1555,3 +1555,9 @@ Thank you for being so thorough. Were there any interesting discoveries along th
 ## 209 — 2026-09-26T18:10:00Z
 
 Thank you. Scratchpad. What if we see the empty centre as the internal state of the learner as it processes the tasks. This could also be a safety feature, where the agent has full knowledge but without a stake in the outcome, so to speak. Its internal state is therefore private (empty) and it processes the data safely with full knowledge. Does that make sense?
+
+## 210 — 2026-09-26T18:17:00Z
+
+So the true map becomes the empty internal state which means no stake, which also fits with equanimity. Can you check against the AI safety literature?
+
+Also, in terms of alignment, how does this principle apply to language model corrigibility if it works? Please check.
