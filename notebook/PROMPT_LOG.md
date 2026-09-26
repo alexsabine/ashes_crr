@@ -1589,3 +1589,13 @@ Okay can we write up a next steps plan for continuous learning, AI safety and po
 Include the current successes and failures with a clear explanation of what worked and what didn’t. Incorporate a range of graphs and charts as well as extensive citation.
 
 Add this review and next steps plan to the relevant folder
+
+## 217 — 2026-09-26T22:34:56Z
+
+Thank you. Please can we run new tests on:
+
+Cell division and biological systems
+Origin of life questions (check existing theories and compare)
+DNA sequencing
+
+Please provide predictions in accordance with the pipeline
