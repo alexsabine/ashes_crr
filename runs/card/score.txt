@@ -1,0 +1,160 @@
+==============================================================================================================
+CARD scoring — thresholds from prereg/card/PREREG.md; per-record values for the primary cell
+==============================================================================================================
+
+[CARD-1 BP arc vs RR, primary cell]
+  0061 beats= 835 rho= 91.8 cv_arc=0.084 cv_clock=0.032 cv_amp=0.080 ci=(+0.049,+0.056) ci_amp=(+0.003,+0.005) -> FAIL
+  0062 beats= 674 rho= 36.9 cv_arc=0.089 cv_clock=0.134 cv_amp=0.079 ci=(-0.055,-0.035) ci_amp=(+0.006,+0.013) -> FAIL
+  0063 beats= 670 rho= 17.1 cv_arc=0.086 cv_clock=0.074 cv_amp=0.102 ci=(+0.007,+0.017) ci_amp=(-0.028,+0.002) -> FAIL
+  0064 beats= 780 rho= 90.0 cv_arc=0.097 cv_clock=0.156 cv_amp=0.088 ci=(-0.065,-0.053) ci_amp=(+0.008,+0.011) -> FAIL
+  0066 beats= 722 rho= 41.3 cv_arc=0.084 cv_clock=0.057 cv_amp=0.067 ci=(+0.021,+0.033) ci_amp=(+0.013,+0.021) -> FAIL
+  0067 beats= 663 rho= 42.7 cv_arc=0.101 cv_clock=0.139 cv_amp=0.079 ci=(-0.041,-0.035) ci_amp=(+0.018,+0.025) -> FAIL
+  0068 beats= 669 rho= 20.9 cv_arc=0.175 cv_clock=0.045 cv_amp=0.092 ci=(+0.121,+0.140) ci_amp=(+0.076,+0.091) -> FAIL
+  0069 beats= 630 rho=670.9 cv_arc=0.057 cv_clock=0.058 cv_amp=0.004 ci=(-0.001,-0.000) ci_amp=(+0.037,+0.075) -> FAIL
+  0070 beats= 767 rho= 30.1 cv_arc=0.051 cv_clock=0.072 cv_amp=0.064 ci=(-0.025,-0.016) ci_amp=(-0.016,-0.010) -> PASS
+  0071 beats= 931 rho= 92.2 cv_arc=0.126 cv_clock=0.038 cv_amp=0.111 ci=(+0.083,+0.092) ci_amp=(+0.013,+0.016) -> FAIL
+  0072 beats= 771 rho= 50.8 cv_arc=0.085 cv_clock=0.059 cv_amp=0.079 ci=(+0.021,+0.030) ci_amp=(+0.005,+0.007) -> FAIL
+  0073 beats= 661 rho= 18.5 cv_arc=0.085 cv_clock=0.030 cv_amp=0.128 ci=(+0.044,+0.068) ci_amp=(-0.062,-0.025) -> FAIL
+  0074 beats= 521 rho= 44.6 cv_arc=2.722 cv_clock=2.262 cv_amp=0.182 ci=(+0.098,+0.564) ci_amp=(+0.462,+3.650) -> FAIL
+  0075 beats= 463 rho= 35.0 cv_arc=0.065 cv_clock=0.095 cv_amp=0.053 ci=(-0.035,-0.025) ci_amp=(+0.006,+0.018) -> FAIL
+  0076 beats= 738 rho= 47.4 cv_arc=0.081 cv_clock=0.047 cv_amp=0.071 ci=(+0.028,+0.039) ci_amp=(+0.008,+0.011) -> FAIL
+  0077 beats= 625 rho=  8.5 cv_arc=0.291 cv_clock=0.085 cv_amp=0.308 ci=(+0.183,+0.230) ci_amp=(-0.028,-0.008) -> FAIL
+  0078 beats= 941 rho= 47.0 cv_arc=0.077 cv_clock=0.045 cv_amp=0.116 ci=(+0.028,+0.037) ci_amp=(-0.043,-0.036) -> FAIL
+  0079 beats= 539 rho= 15.3 cv_arc=0.240 cv_clock=0.106 cv_amp=0.427 ci=(+0.114,+0.154) ci_amp=(-0.215,-0.162) -> FAIL
+  0080 beats= 765 rho= 89.6 cv_arc=0.098 cv_clock=0.095 cv_amp=0.044 ci=(-0.009,+0.011) ci_amp=(+0.009,+0.103) -> FAIL
+  0081 beats= 562 rho= 31.4 cv_arc=0.147 cv_clock=0.065 cv_amp=0.141 ci=(+0.073,+0.090) ci_amp=(+0.003,+0.009) -> FAIL
+  0082 beats= 732 rho=163.5 cv_arc=0.039 cv_clock=0.034 cv_amp=0.029 ci=(-0.001,+0.011) ci_amp=(+0.001,+0.021) -> FAIL
+  0083 beats= 890 rho=113.0 cv_arc=0.087 cv_clock=0.029 cv_amp=0.069 ci=(+0.055,+0.061) ci_amp=(+0.016,+0.019) -> FAIL
+  0084 beats= 740 rho= 37.9 cv_arc=0.064 cv_clock=0.059 cv_amp=0.061 ci=(+0.001,+0.009) ci_amp=(+0.001,+0.005) -> FAIL
+  0085 beats= 491 rho=619.6 cv_arc=0.084 cv_clock=0.084 cv_amp=0.006 ci=(-0.001,+0.000) ci_amp=(+0.071,+0.084) -> FAIL
+  0086 beats= 758 rho= 67.1 cv_arc=0.071 cv_clock=0.071 cv_amp=0.073 ci=(-0.004,+0.005) ci_amp=(-0.005,+0.001) -> FAIL
+  0087 beats= 726 rho= 69.9 cv_arc=0.082 cv_clock=0.039 cv_amp=0.081 ci=(+0.038,+0.047) ci_amp=(-0.000,+0.002) -> FAIL
+  0088 beats= 528 rho=316.9 cv_arc=0.046 cv_clock=0.045 cv_amp=0.006 ci=(+0.001,+0.002) ci_amp=(+0.036,+0.046) -> FAIL
+  0089 beats= 740 rho= 48.3 cv_arc=0.158 cv_clock=0.080 cv_amp=0.346 ci=(+0.048,+0.109) ci_amp=(-0.271,-0.085) -> FAIL
+  0090 beats= 610 rho= 19.4 cv_arc=0.071 cv_clock=0.105 cv_amp=0.070 ci=(-0.040,-0.028) ci_amp=(-0.002,+0.006) -> FAIL
+  0065 EXCLUDED: flat channel
+  PASS 1/29 = 0.034, p = 0.0000; plain cv_arc<cv_clock 8/29; excluded 1 -> FAIL
+
+[CARD-2 ECG arc vs RR, primary cell]
+  0061 beats= 835 rho= 26.6 cv_arc=0.051 cv_clock=0.032 cv_amp=0.038 ci=(+0.017,+0.021) ci_amp=(+0.011,+0.015) -> FAIL
+  0062 beats= 674 rho= 53.1 cv_arc=0.092 cv_clock=0.134 cv_amp=0.033 ci=(-0.049,-0.032) ci_amp=(+0.051,+0.068) -> FAIL
+  0063 beats= 670 rho= 35.8 cv_arc=0.051 cv_clock=0.074 cv_amp=0.043 ci=(-0.030,-0.019) ci_amp=(-0.010,+0.033) -> FAIL
+  0064 beats= 780 rho= 50.6 cv_arc=0.055 cv_clock=0.156 cv_amp=0.055 ci=(-0.109,-0.093) ci_amp=(-0.013,+0.011) -> FAIL
+  0066 beats= 722 rho= 23.6 cv_arc=0.250 cv_clock=0.057 cv_amp=0.072 ci=(+0.181,+0.204) ci_amp=(+0.165,+0.191) -> FAIL
+  0067 beats= 663 rho= 48.0 cv_arc=0.054 cv_clock=0.139 cv_amp=0.072 ci=(-0.089,-0.080) ci_amp=(-0.021,-0.017) -> PASS
+  0068 beats= 669 rho= 18.1 cv_arc=0.052 cv_clock=0.045 cv_amp=0.072 ci=(+0.006,+0.008) ci_amp=(-0.025,-0.014) -> FAIL
+  0069 beats= 630 rho= 14.3 cv_arc=0.056 cv_clock=0.058 cv_amp=0.093 ci=(-0.024,+0.016) ci_amp=(-0.066,-0.016) -> FAIL
+  0070 beats= 767 rho= 30.6 cv_arc=0.057 cv_clock=0.072 cv_amp=0.089 ci=(-0.029,+0.004) ci_amp=(-0.062,+0.002) -> FAIL
+  0071 beats= 931 rho= 38.3 cv_arc=0.080 cv_clock=0.038 cv_amp=0.034 ci=(+0.038,+0.046) ci_amp=(+0.043,+0.051) -> FAIL
+  0072 beats= 771 rho= 45.2 cv_arc=0.055 cv_clock=0.059 cv_amp=0.033 ci=(-0.007,+0.001) ci_amp=(+0.018,+0.026) -> FAIL
+  0073 beats= 661 rho= 96.4 cv_arc=0.015 cv_clock=0.030 cv_amp=0.020 ci=(-0.017,-0.013) ci_amp=(-0.006,-0.004) -> PASS
+  0074 beats= 521 rho= 43.7 cv_arc=4.201 cv_clock=2.262 cv_amp=0.822 ci=(+0.787,+2.281) ci_amp=(+0.545,+4.551) -> FAIL
+  0075 beats= 463 rho= 84.2 cv_arc=0.039 cv_clock=0.095 cv_amp=0.022 ci=(-0.063,-0.048) ci_amp=(+0.014,+0.021) -> FAIL
+  0076 beats= 738 rho= 24.4 cv_arc=0.054 cv_clock=0.047 cv_amp=0.036 ci=(+0.003,+0.010) ci_amp=(+0.015,+0.021) -> FAIL
+  0077 beats= 625 rho= 33.2 cv_arc=0.074 cv_clock=0.085 cv_amp=0.031 ci=(-0.017,-0.003) ci_amp=(+0.029,+0.059) -> FAIL
+  0078 beats= 941 rho=102.0 cv_arc=0.022 cv_clock=0.045 cv_amp=0.015 ci=(-0.025,-0.019) ci_amp=(+0.006,+0.009) -> FAIL
+  0079 beats= 539 rho= 43.5 cv_arc=0.041 cv_clock=0.106 cv_amp=0.045 ci=(-0.070,-0.060) ci_amp=(-0.014,+0.006) -> FAIL
+  0080 beats= 765 rho= 69.2 cv_arc=0.070 cv_clock=0.095 cv_amp=0.023 ci=(-0.033,-0.024) ci_amp=(+0.007,+0.087) -> FAIL
+  0081 beats= 562 rho= 90.1 cv_arc=0.040 cv_clock=0.065 cv_amp=0.017 ci=(-0.029,-0.022) ci_amp=(+0.020,+0.026) -> FAIL
+  0082 beats= 732 rho= 28.6 cv_arc=0.061 cv_clock=0.034 cv_amp=0.054 ci=(+0.020,+0.033) ci_amp=(-0.014,+0.026) -> FAIL
+  0083 beats= 890 rho= 28.4 cv_arc=0.073 cv_clock=0.029 cv_amp=0.076 ci=(+0.042,+0.047) ci_amp=(-0.020,+0.014) -> FAIL
+  0084 beats= 740 rho= 70.5 cv_arc=0.142 cv_clock=0.059 cv_amp=0.033 ci=(+0.056,+0.111) ci_amp=(+0.083,+0.137) -> FAIL
+  0085 beats= 491 rho= 53.4 cv_arc=0.071 cv_clock=0.084 cv_amp=0.025 ci=(-0.045,+0.015) ci_amp=(+0.014,+0.074) -> FAIL
+  0086 beats= 758 rho= 98.5 cv_arc=0.039 cv_clock=0.071 cv_amp=0.045 ci=(-0.035,-0.028) ci_amp=(-0.008,-0.004) -> PASS
+  0087 beats= 726 rho= 13.7 cv_arc=0.042 cv_clock=0.039 cv_amp=0.045 ci=(-0.000,+0.005) ci_amp=(-0.006,-0.001) -> FAIL
+  0088 beats= 528 rho= 92.6 cv_arc=0.012 cv_clock=0.045 cv_amp=0.016 ci=(-0.037,-0.028) ci_amp=(-0.005,-0.002) -> PASS
+  0089 beats= 740 rho= 45.5 cv_arc=0.068 cv_clock=0.080 cv_amp=0.028 ci=(-0.036,+0.020) ci_amp=(+0.017,+0.070) -> FAIL
+  0090 beats= 610 rho= 57.6 cv_arc=0.016 cv_clock=0.105 cv_amp=0.020 ci=(-0.096,-0.083) ci_amp=(-0.005,-0.002) -> PASS
+  0065 EXCLUDED: flat channel
+  PASS 5/29 = 0.172, p = 0.0005; plain cv_arc<cv_clock 19/29; excluded 1 -> FAIL
+
+[CARD-3 antipodal-cut arc vs peak-cut arc on BP, primary cell]
+  0061 ant=1449 pk=1670 cv_ant=3.306 cv_pk=0.088 ci=(+0.261,+4.708) |antipode-extremum| median 0.079s -> FAIL
+  0062 ant=1602 pk=1344 cv_ant=0.950 cv_pk=0.226 ci=(+0.482,+0.944) |antipode-extremum| median 0.069s -> FAIL
+  0063 ant=1504 pk=1334 cv_ant=0.934 cv_pk=0.352 ci=(+0.390,+0.752) |antipode-extremum| median 0.077s -> FAIL
+  0064 ant=1241 pk=1558 cv_ant=2.228 cv_pk=0.104 ci=(+1.145,+2.859) |antipode-extremum| median 0.054s -> FAIL
+  0066 ant=1550 pk=1442 cv_ant=0.878 cv_pk=0.221 ci=(+0.174,+1.007) |antipode-extremum| median 0.147s -> FAIL
+  0067 ant=1331 pk=1326 cv_ant=0.195 cv_pk=0.302 ci=(-0.122,-0.093) |antipode-extremum| median 0.117s -> PASS
+  0068 ant=1341 pk=1337 cv_ant=0.255 cv_pk=0.267 ci=(-0.030,+0.006) |antipode-extremum| median 0.115s -> FAIL
+  0069 ant=59994 pk=3262 cv_ant=0.005 cv_pk=0.635 ci=(-0.647,-0.613) |antipode-extremum| median 0.059s -> PASS
+  0070 ant=1599 pk=1533 cv_ant=0.317 cv_pk=0.228 ci=(+0.070,+0.107) |antipode-extremum| median 0.110s -> FAIL
+  0071 ant=1598 pk=1859 cv_ant=1.894 cv_pk=0.152 ci=(+1.087,+2.307) |antipode-extremum| median 0.031s -> FAIL
+  0072 ant=1568 pk=1542 cv_ant=0.440 cv_pk=0.127 ci=(+0.116,+0.489) |antipode-extremum| median 0.087s -> FAIL
+  0073 ant=1194 pk= 953 cv_ant=1.870 cv_pk=0.948 ci=(-0.497,+1.932) |antipode-extremum| median 0.170s -> FAIL
+  0074 ant=1297 pk=1264 cv_ant=0.447 cv_pk=0.196 ci=(+0.231,+0.271) |antipode-extremum| median 0.096s -> FAIL
+  0075 ant= 918 pk= 923 cv_ant=0.234 cv_pk=0.368 ci=(-0.187,-0.061) |antipode-extremum| median 0.193s -> PASS
+  0076 ant=1492 pk=1473 cv_ant=0.329 cv_pk=0.120 ci=(+0.119,+0.319) |antipode-extremum| median 0.067s -> FAIL
+  0077 ant= 746 pk= 677 cv_ant=5.139 cv_pk=2.064 ci=(-0.642,+5.201) |antipode-extremum| median 0.587s -> FAIL
+  0078 ant=1611 pk=1882 cv_ant=1.938 cv_pk=0.255 ci=(+0.449,+2.437) |antipode-extremum| median 0.066s -> FAIL
+  0079 ant= 616 pk= 914 cv_ant=6.134 cv_pk=0.352 ci=(+0.312,+6.862) |antipode-extremum| median 0.141s -> FAIL
+  0080 ant=1551 pk=1537 cv_ant=0.235 cv_pk=0.192 ci=(+0.030,+0.056) |antipode-extremum| median 0.087s -> FAIL
+  0081 ant=1266 pk=1122 cv_ant=0.488 cv_pk=0.214 ci=(+0.218,+0.349) |antipode-extremum| median 0.138s -> FAIL
+  0082 ant=1441 pk=1462 cv_ant=0.409 cv_pk=0.039 ci=(+0.274,+0.497) |antipode-extremum| median 0.110s -> FAIL
+  0083 ant=1965 pk=1780 cv_ant=0.310 cv_pk=0.165 ci=(+0.127,+0.164) |antipode-extremum| median 0.092s -> FAIL
+  0084 ant=1950 pk=1479 cv_ant=0.569 cv_pk=0.158 ci=(+0.391,+0.430) |antipode-extremum| median 0.077s -> FAIL
+  0085 ant=59974 pk=3376 cv_ant=0.008 cv_pk=0.621 ci=(-0.628,-0.597) |antipode-extremum| median 0.050s -> PASS
+  0086 ant=2017 pk=1515 cv_ant=0.545 cv_pk=0.261 ci=(+0.265,+0.303) |antipode-extremum| median 0.067s -> FAIL
+  0087 ant=1471 pk=1451 cv_ant=0.286 cv_pk=0.106 ci=(+0.088,+0.284) |antipode-extremum| median 0.120s -> FAIL
+  0088 ant=59975 pk=3064 cv_ant=0.008 cv_pk=0.588 ci=(-0.596,-0.564) |antipode-extremum| median 0.060s -> PASS
+  0090 ant=1420 pk=1218 cv_ant=0.406 cv_pk=0.339 ci=(+0.044,+0.090) |antipode-extremum| median 0.180s -> FAIL
+  antipodal more regular than peak-cut in 5/28 records (DIAGNOSTIC, not scored — see prereg)
+  (detrend_phase=False: 3/3)
+
+--------------------------------------------------------------------------------------------------------------
+CARD-1: 1/29 (frac 0.034, p 0.0000) -> FAIL; sensitivity flips 0/26 -> not fragile
+   primary                 1/29 plain  8/29 excl  1 FAIL
+   lo4.0_hi12.0_rf200      0/28 plain  7/28 excl  2 FAIL
+   lo4.0_hi12.0_rf250      0/28 plain  7/28 excl  2 FAIL
+   lo4.0_hi12.0_rf300      0/28 plain  7/28 excl  2 FAIL
+   lo4.0_hi15.0_rf200      1/29 plain  9/29 excl  1 FAIL
+   lo4.0_hi15.0_rf250      1/29 plain  9/29 excl  1 FAIL
+   lo4.0_hi15.0_rf300      1/29 plain  9/29 excl  1 FAIL
+   lo4.0_hi20.0_rf200      1/29 plain  9/29 excl  1 FAIL
+   lo4.0_hi20.0_rf250      1/29 plain  9/29 excl  1 FAIL
+   lo4.0_hi20.0_rf300      1/29 plain  9/29 excl  1 FAIL
+   lo5.0_hi12.0_rf200      0/28 plain  7/28 excl  2 FAIL
+   lo5.0_hi12.0_rf250      0/28 plain  7/28 excl  2 FAIL
+   lo5.0_hi12.0_rf300      0/28 plain  7/28 excl  2 FAIL
+   lo5.0_hi15.0_rf250      1/29 plain  8/29 excl  1 FAIL
+   lo5.0_hi15.0_rf300      1/29 plain  8/29 excl  1 FAIL
+   lo5.0_hi20.0_rf200      1/29 plain  8/29 excl  1 FAIL
+   lo5.0_hi20.0_rf250      1/29 plain  8/29 excl  1 FAIL
+   lo5.0_hi20.0_rf300      1/29 plain  8/29 excl  1 FAIL
+   lo8.0_hi12.0_rf200      0/28 plain  8/28 excl  2 FAIL
+   lo8.0_hi12.0_rf250      0/28 plain  9/28 excl  2 FAIL
+   lo8.0_hi12.0_rf300      0/28 plain  9/28 excl  2 FAIL
+   lo8.0_hi15.0_rf200      0/29 plain 10/29 excl  1 FAIL
+   lo8.0_hi15.0_rf250      0/29 plain 10/29 excl  1 FAIL
+   lo8.0_hi15.0_rf300      0/29 plain 10/29 excl  1 FAIL
+   lo8.0_hi20.0_rf200      1/29 plain 10/29 excl  1 FAIL
+   lo8.0_hi20.0_rf250      1/29 plain 10/29 excl  1 FAIL
+   lo8.0_hi20.0_rf300      1/29 plain 10/29 excl  1 FAIL
+CARD-2: 5/29 (frac 0.172, p 0.0005) -> FAIL; sensitivity flips 0/26 -> not fragile
+   primary                 5/29 plain 19/29 excl  1 FAIL
+   lo4.0_hi12.0_rf200      1/28 plain 17/28 excl  2 FAIL
+   lo4.0_hi12.0_rf250      1/28 plain 17/28 excl  2 FAIL
+   lo4.0_hi12.0_rf300      1/28 plain 16/28 excl  2 FAIL
+   lo4.0_hi15.0_rf200      5/29 plain 18/29 excl  1 FAIL
+   lo4.0_hi15.0_rf250      5/29 plain 19/29 excl  1 FAIL
+   lo4.0_hi15.0_rf300      5/29 plain 18/29 excl  1 FAIL
+   lo4.0_hi20.0_rf200      5/29 plain 18/29 excl  1 FAIL
+   lo4.0_hi20.0_rf250      5/29 plain 18/29 excl  1 FAIL
+   lo4.0_hi20.0_rf300      5/29 plain 18/29 excl  1 FAIL
+   lo5.0_hi12.0_rf200      0/28 plain 15/28 excl  2 FAIL
+   lo5.0_hi12.0_rf250      0/28 plain 17/28 excl  2 FAIL
+   lo5.0_hi12.0_rf300      0/28 plain 15/28 excl  2 FAIL
+   lo5.0_hi15.0_rf250      5/29 plain 18/29 excl  1 FAIL
+   lo5.0_hi15.0_rf300      5/29 plain 18/29 excl  1 FAIL
+   lo5.0_hi20.0_rf200      6/29 plain 18/29 excl  1 FAIL
+   lo5.0_hi20.0_rf250      6/29 plain 18/29 excl  1 FAIL
+   lo5.0_hi20.0_rf300      6/29 plain 18/29 excl  1 FAIL
+   lo8.0_hi12.0_rf200      1/28 plain 15/28 excl  2 FAIL
+   lo8.0_hi12.0_rf250      1/28 plain 14/28 excl  2 FAIL
+   lo8.0_hi12.0_rf300      1/28 plain 14/28 excl  2 FAIL
+   lo8.0_hi15.0_rf200      4/29 plain 18/29 excl  1 FAIL
+   lo8.0_hi15.0_rf250      4/29 plain 18/29 excl  1 FAIL
+   lo8.0_hi15.0_rf300      4/29 plain 17/29 excl  1 FAIL
+   lo8.0_hi20.0_rf200      5/29 plain 18/29 excl  1 FAIL
+   lo8.0_hi20.0_rf250      5/29 plain 17/29 excl  1 FAIL
+   lo8.0_hi20.0_rf300      5/29 plain 17/29 excl  1 FAIL
+CARD-3 (diagnostic, not scored): antipodal-cut arc more regular than peak-cut arc in 5/28 records

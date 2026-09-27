@@ -39,3 +39,14 @@
 - **Anchoring.** It stays as registered: "push-timestamp only". So a PASS here could be PASS-0 at most, never PASS-1
   (strong anchoring is required), and it would need an OTS-anchored replication on 0091–0120, as the pre-registration
   itself says.
+
+## Result (2026-09-27; ledger rows CARD-1..3; `reports/card.md`)
+
+| row | observed | verdict |
+|---|---|---|
+| CARD-1 | 1/29 records pass (0.034, binomial p 0.0000); plain cv_arc < cv_clock in 8/29; 1 excluded (0065) | **FAIL**, not fragile (0/26 cells differ) |
+| CARD-2 | 5/29 records pass (0.172, p 0.0005); plain in 19/29 | **FAIL**, not fragile (0/26) |
+| CARD-3 | 5/28 records (diagnostic only) | no verdict |
+
+**The forecast held.** The cardiac pulse is in the clock-regular class. H-L5 has now failed on both real carriers tested:
+measles (MEAS2-1) and the pulse (CARD-1).

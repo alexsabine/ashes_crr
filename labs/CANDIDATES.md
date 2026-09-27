@@ -71,7 +71,12 @@ and hashed **together**, in one pre-registration.
   - **What the row shows.** The arc-clock rate is 0.0000 at the bounce, against the scalar clock's 0.9055.
   - **Why only a thought-lab.** There is no empirical access. It stays a thought-lab, never a ledger row.
 
-## Suggested order
+## Status
+
+- **L03 is done.** It ran as the frozen study CARD on 2026-09-27: **CARD-1 FAIL** (1/29 records, not fragile).
+  Details are in `labs/L03_pulse/LAB.md` and `reports/card.md`.
+
+## Suggested order (as written on 2026-09-26)
 
 1. **L03.** D1 data, a standing gate, and the study fully specified in `CLAUDE.md` §4.
 2. **L01 + L02, in one pre-registration.** First a loader VOID rule and an owner decision on the D2 risk.
