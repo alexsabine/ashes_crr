@@ -1635,3 +1635,7 @@ Interesting! Okay, I’d like you to provide me with a brief summary of the doma
 ## 225 — 2026-09-27T00:53:07Z
 
 Okay. Please provide a brief an analysis of domains where crr is coming out consistent/descriptive/redundant successfully but where the results are already known within that domain.
+
+## 226 — 2026-09-27T01:09:51Z
+
+Okay, which 2026 frontier domains are compatible with where the retrodictive passes are sat so far? We need to look at their bottleneck questions and unknowns to see whether crr can help guide the theory toward possible resolutions for within-paradigm phenomena.

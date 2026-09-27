@@ -1,0 +1,122 @@
+Frontier domains against CRR's retrodictive record (labs/frontier/DECLARATION.md; prompt-log entry 226)
+claims 141, quotes 204 (verified in verify.txt); domains 13
+
+F1  continual learning and loss of plasticity in AI
+    reading COMPATIBLE-P (P-IG, P-EWMA); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [f1:0] Dohare, Hernandez-Garcia, Lan, Rahman, Mahmood, Sutton, "Loss of plasticity in deep contin (arXiv 2306.13812 v3, 2024-04-09 (Nature ): "More fundamental, but less well known, is that they may also lose their ability to learn on new examples, a phenomenon called loss of plasticity."
+    direction  [f1:1] Kirkpatrick et al., "Overcoming catastrophic forgetting in neural networks" (EWC; abstract: "Our approach remembers old tasks by selectively slowing down learning on the weights important for those tasks."
+    direction  [f1:2] Schwarz et al., "Progress & Compress" (online EWC; full text): "where $\gamma<1$ is a hyperparameter associated with removing the approximation term associated with the previous presentation of task $i$"
+    note: the Fisher-weighted anchor (EWC) and its geometric decay (online EWC) are the field's own; SEC, the one PASS-0 line (SCL3), is not a CRR rule
+
+F2a cell cycle: replication initiation at a fixed phase of the growth-division rotor
+    reading COMPATIBLE-P (P-TR, P-PHASE); CRR direction named in the sources: no; measurable H1 against H0: yes
+    -> GUIDES (declared expectation: GUIDES; met)
+    bottleneck [life:2] Serbanescu, Ojkic, Banerjee, 'Cellular resource allocation strategies for cell size and sh (epub 2021-10-30; issue 2022-12; DOI 10.1): "the adder model does not readily reveal a molecular basis for cell size control nor any connections between cell size and growth physiology."
+    bottleneck [life:4] Herrick, 'DNA/Cell Mass Homeostasis: Coordinating DNA Replication and Cell Size with Centr (epub 2026-06-15; DOI 10.3390/genes170606): "Why and how cell size varies with DNA content remains an unresolved question of both evolutionary and physiological interest."
+    bottleneck [life:7] Witz, van Nimwegen, Julou, 'Initiation of chromosome replication controls both division an (pub 2019-11-11; DOI 10.7554/eLife.48063;): "It remains unclear how bacteria such as Escherichia coli tightly coordinate those two cycles across a wide range of growth conditions."
+    field's H0 [life:6] Torres, Carrasco, Ayora, Alonso, 'Mechanisms of chromosomal DNA replication in Escherichia: "which initiate replication at a fixed cell mass"
+    field's H0 [life:8] Witz, van Nimwegen, Julou, 'Initiation of chromosome replication controls both division an: "the cell cycle is driven from one initiation event to the next rather than from birth to division and is controlled by two adder mechanisms: the added volume since the last initiation event determines the timing of both "
+    note: not named in 7 fetched texts plus one search; the field frames initiation at a fixed mass per origin (quoted); H1 (antipode) separates from H0 (initiation adder) on the open gate G-CD3; the investigator forecasts FAIL on real lineages (Life_Sciences); GUIDES means a lab candidate (L01), not help
+
+F2b cell cycle: a lag-2 (grandmother) memory in birth size
+    reading COMPATIBLE-P (P-MEM); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: GUIDES; NOT met)
+    bottleneck [life:0] Chadha, Khurana, Schmoller, 'Eukaryotic cell size regulation and its implications for cell (epub 2024-06-20; issue 2024-10-01; DOI 1): "For size to be controlled by a sizer- or an adder-like mechanism, a molecular signal that measures cell size is required."
+    direction  [life:9] Zhang, Fei, Dunkel, 'Nonlinear memory in cell-division dynamics across species', PNAS 122:: "However, despite such major progress, there still exist fundamental open questions regarding the nonlinear and multigenerational memory (28) effects that are not captured by some of the currently prevailing standard mode"
+    direction  [life:10] ElGamel, Vashistha, Salman, Mugler, 'Multigenerational memory in bacterial size control', : "However, recent evidence from comparing sister lineages suggests that correlations in size fluctuations can persist for many generations."
+    note: named and tested (Zhang, Fei & Dunkel 2025): for E. coli the grandmother term did not improve the fit, so the direction is named and currently disfavoured
+
+F3  epidemic forecasting with behavioural feedback
+    reading COMPATIBLE-P (P-MEM); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [cx:10] Mao, Deardon, Deeth, 'Memory mechanisms for behavioural change in Bayesian individual-leve (2026 (accepted 2026-05; CC BY); full tex): "While recently developed behavioural change epidemic models attempt to acknowledge such dynamics, the role of memory in shaping perceived risk has been treated in an ad hoc fashion."
+    bottleneck [cx:0] Gozzi, Perra, Vespignani, 'Comparative evaluation of behavioral epidemic models using COVI (published 2025-06-17 (received 2024-10-2): "Characterizing the feedback linking human behavior and the transmission of infectious diseases (i.e., behavioral changes) remains a significant challenge in computational and mathematical epidemiology."
+    direction  [cx:13] Mao, Deardon, Deeth, 'Memory mechanisms for behavioural change in Bayesian individual-leve: "Similarly, we introduce an exponential decay memory model, in which past prevalence values are discounted exponentially over time:"
+    direction  [cx:17] 'Behavior-induced oscillations in epidemic outbreaks with distributed memory: Beyond the l: "Our analysis gives a more general insight into how the period and peak of epidemic waves depend on the shape of the memory kernel and how the level of minimal contact impacts the stability of the behavior-induced positiv"
+    note: exponential-decay memory of prevalence is fitted (Mao et al. 2026) and wave period set by the memory kernel is shown; counterpoint: cycles without an imposed kernel (cx:20); open: identifiability of the memory strength (cx:14)
+
+F4  macroeconomic inflation expectations
+    reading COMPATIBLE-P (P-EWMA, P-MEM); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [cx:21] D'Acunto, Charalambakis, Georgarakos, Kenny, Meyer, Weber, 'Household Inflation Expectatio (NBER WP 32488, May 2024): "Understanding how consumers make such temporal comparisons, i.e., how far back consumers look to form price change perceptions , represents an important subject for future research."
+    bottleneck [cx:28] Gennaioli, Leva, Schoenle, Shleifer, 'How Inflation Expectations De-Anchor: The Role of Se (NBER WP 32633, June 2024): "Yet the evidence from the recent inflation surge does not support stickiness, nor does it align with a simple effect of past or recent experiences."
+    direction  [cx:27] Gennaioli, Leva, Schoenle, Shleifer, 'How Inflation Expectations De-Anchor: The Role of Se: "Malmendier and Nagel (2011, 2016, 2021) show that such expectations depend on a time-discounted average of lifetime inflation experiences, which of course only gradually adjusts to recent events."
+    direction  [cx:38] Gati, 'Monetary policy & anchored expectations: an endogenous gain learning model', ECB Wo: "Thus, one can interpret the gain as the sensitivity of the expectations process to short-run surprises."
+    note: the time-discounted experience average and constant-gain learning are the stated conventional wisdom; the 2021-23 de-anchoring is posed AGAINST them (cx:28), with selective recall by similarity proposed instead: the frontier has moved past CRR's direction
+
+F5  traffic flow and automated-vehicle string stability
+    reading COMPATIBLE-P (P-MEM); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [cx:41] Zhou, Zheng, Tian, Jiang, Zhang, 'Twenty-Five Years of the Intelligent Driver Model: Found (arXiv v2, 2025-11-23 (latest on the day)): "Yet, much of this literature remains confined to linearized scenarios, externally imposed uncertainties, and idealized driver behaviors, limiting its explanatory power in real-world complexity."
+    bottleneck [cx:51] Ehrhardt, Tordeux, 'Stability of heterogeneous linear and nonlinear car-following models', (arXiv v1, 2024-08-14): "Despite the large number of studies, understanding and controlling stop-and-go in road traffic flow remains challenging and still nowadays an active area of research."
+    direction  [cx:53] Sipahi, Niculescu, 'Stability of car following with human memory effects and automatic hea: "More precisely, the delayed action/decision of human drivers is represented using distributed delays with a gap and the considered automated controller is of proportional derivative type."
+    direction  [cx:44] Zhou, Zheng, Tian, Jiang, Zhang, 'Twenty-Five Years of the Intelligent Driver Model: Found: "IDMM (IDM with memory), which incorporates driver adaptation to traffic states."
+    note: distributed-delay driver memory (Sipahi & Niculescu) and IDM with memory are named; a 25-car platoon experiment found reaction delay negligible for fluctuation growth (cx:46)
+
+F6  early-warning signals of critical transitions
+    reading COMPATIBLE-P (P-IG); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: GUIDES or RESTATES; met)
+    bottleneck [cx:55] Dakos et al., 'Tipping point detection and early warnings in climate, ecological, and huma (published 2024-08-19 (received 2023-08-0): "Whatever the term used, while early warnings are well grounded in theory, the challenge remains to apply them to real-world systems."
+    bottleneck [cx:56] Dakos et al., 'Tipping point detection and early warnings in climate, ecological, and huma (published 2024-08-19 (received 2023-08-0): "The detection of early warnings relies on the assumption that the system is approaching a transition gradually."
+    direction  [cx:65] Karunanithi, Cabezas, Frieden, Pawlowski, 'Detection and Assessment of Ecosystem Regime Sh: "Here we propose the use of Fisher information as a means of: (1) detecting dynamic regime shifts in ecosystems, and (2) assessing the quality of the shift in terms of intensity and pervasiveness."
+    direction  [cx:60] Dakos et al., 'Tipping point detection and early warnings in climate, ecological, and huma: "Fisher information (temporal)"
+    note: Fisher information as a regime-shift indicator is named since 2008 and listed in the 2024 review; the second half (distance to tipping in distinguishable steps) was not found (cx:69) but needs the unknown tipping point, so it gives no H1 separable from Fisher-information EWS
+
+F7  memory consolidation and forgetting
+    reading COMPATIBLE-P (P-TR, P-MEM); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: GUIDES or RESTATES; met)
+    bottleneck [life:12] Berry, Guhle, Davis, 'Active forgetting and neuropsychiatric diseases', Mol Psychiatry 29: (2024-09; DOI 10.1038/s41380-024-02521-9;): "Mechanistic studies of forgetting began only about one decade ago, so there remains much more to be discovered."
+    bottleneck [life:14] de Snoo, Frankland, 'Neurobiological mechanisms of forgetting across timescales', Curr Opi (epub 2025-01-31; DOI 10.1016/j.conb.2025): "However, changes in accessibility emerge on vastly different timescales."
+    direction  [life:19] Georgiou, Katkov, Tsodyks, 'Retroactive interference model of forgetting', J Math Neurosci: "One such mechanism proposed in previous studies is retrograde interference, stating that a memory can be erased due to subsequently acquired memories."
+    direction  [life:21] Wixted, 'On Common Ground: Jost's (1897) Law of Forgetting and Ribot's (1881) Law of Retro: "One reason why memories might decay less rapidly with age is because they become less vulnerable to the forces of retroactive interference (RI) as a result of consolidation."
+    direction  [life:22] Ray Barman, Starenky, Bodnar, Narasimhan, Gopinath, 'The Geometry of Forgetting', arXiv:26: "Decay theories say memory traces fade with time."
+    note: forgetting counted in interfering events (Georgiou, Katkov & Tsodyks), Jost's law from interference weakening with age (Wixted 2004) and the decay-vs-competitors question (2026) are all named: lab L04's edge is the field's own question
+
+F8  earthquake and aftershock forecasting
+    reading COMPATIBLE-P (P-TR); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [phys:2] Stockman et al., EarthquakeNPP: A Benchmark for Earthquake Forecasting with Neural Point P (arXiv:2410.08226v3 (10 Mar 2026)): "Benchmarking experiments, using both log-likelihood and generative evaluation metrics widely recognised in seismology, show that none of the five NPPs tested outperform ETAS."
+    bottleneck [phys:4] Mizrahi et al., Developing, Testing, and Communicating Earthquake Forecasts: Current Pract (published version, author-hosted PDF (do): "Because no two implementations of the model are identical, the earthquake forecasting community faces the challenge that a truly standardized benchmark version of the ETAS model is currently lacking."
+    direction  [phys:6] Mizrahi et al., Developing, Testing, and Communicating Earthquake Forecasts: Current Pract: "Clements et al. (2011) also describe a series of residual analysis for point‐process methods, which consist of transforming the points of a simulated/observed catalog (e.g., by rescaling, thinning, superpositioning), suc"
+    direction  [phys:9] Rundle, Baughman, Donnellan, Grant, Fox, From Local Earthquake Nowcasting to Natural Time : "We work in natural time, which is defined as the count of small earthquakes between large earthquakes."
+    note: time-rescaling residual analysis and event-count natural time are named; the bottleneck (neural point processes do not beat ETAS) is outside what CRR supplies
+
+F9  quantum metrology and sensing
+    reading COMPATIBLE-P (P-IG); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [phys:10] Montenegro et al., Review: Quantum Metrology and Sensing with Many-Body Systems, Phys. Rep (arXiv:2408.15323v3 (7 Jun 2025)): "Another problem which requires further investigation is the performance of quantum sensors under imperfect situations, such as the presence of decoherence"
+    bottleneck [phys:13] Konar et al., Journey in quantum metrology and sensing from foundations to applications: a (arXiv:2605.21702v2 (25 May 2026)): "In particular, we have limited understanding as yet of the resources necessary for attaining the best precision allowed by quantum mechanics."
+    direction  [phys:12] Montenegro et al., Review: Quantum Metrology and Sensing with Many-Body Systems, Phys. Rep: "Gauging the precision of parameter estimation through the quantum Cramér-Rao bound is undoubtedly the most popular approach in the literature, thanks to its geometrical properties and its utility as a signature of multip"
+    direction  [phys:15] Konar et al., Journey in quantum metrology and sensing from foundations to applications: a: "The QFI quantifies how rapidly a quantum state changes under an infinitesimal variation of an encoded parameter and hence it measures the distinguishability between neighboring quantum states and its inverse determines t"
+    note: the quantum Cramer-Rao bound and QFI as distinguishability are the field's standard; the bottlenecks (noise, robustness, multiparameter bounds) get no direction from CRR
+
+F10 stochastic thermodynamics: minimal-dissipation protocols
+    reading CONFLICT-W (W-METRIC); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> AVOID (declared expectation: AVOID; met)
+    bottleneck [phys:16] Korbel, Kolchinsky, Loos et al., Quo vadis, stochastic thermodynamics? (Perspective), DOI  (arXiv:2604.26601v2 (4 Sep 2026)): "In particular, it remains unclear how to construct geometric frameworks that faithfully capture realistic optimal control problems beyond idealized settings."
+    bottleneck [phys:22] Zhong & DeWeese, Beyond Linear Response: Equivalence between Thermodynamic Geometry and Op (arXiv:2404.01286v4 (26 Apr 2024)): "While this geometric framework is both mathematically elegant and computationally tractable, geodesic protocols are fundamentally approximate; their performance often degrades for sufficiently small protocol times, in so"
+    direction  [phys:21] Blaber & Sivak, Optimal Control in Stochastic Thermodynamics (review), J. Phys. Commun. (2: "The generalized friction tensor endows the space of thermodynamic states with a Riemannian metric where minimum-dissipation protocols correspond to geodesics of the friction tensor."
+    direction  [phys:24] Sivak & Crooks, Thermodynamic metrics and optimal paths, PRL 108, 190602 (2012), DOI 10.11: "we derive a friction tensor that induces a Riemannian manifold on the space of thermodynamic"
+    note: the dissipation metric is the friction tensor (Wasserstein-type beyond), not Fisher at one global scale; CRR's three WRONG trap rows are the same finding
+
+F11 active inference and the FEP as a theory of cognition
+    reading CONFLICT-W (W-FEP, W-CLOCK); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> AVOID (declared expectation: AVOID; met)
+    bottleneck [phys:25] Hodson, Mehta, Smith, The empirical status of predictive coding and active inference, Neur (abstract only (Europe PMC, PMID 38030100): "While Active Inference models tend to explain behavioral data reasonably well, there has not been a focus on testing empirical validity of active inference theory per se, which would require formal comparison to other mo"
+    bottleneck [phys:26] Lageman, Fahrenfort, Slagter, Prediction in action: Toward an empirical science of active  (abstract only (Europe PMC, PMID 42285188): "Despite its growing prominence, the framework is often criticized for the difficulty of extracting qualitatively distinct, testable predictions and its limited empirical grounding."
+    direction  [phys:29] Badcock & Davey, Active Inference in Psychology and Psychiatry: Progress to Date?, Entropy: "Prediction errors are also weighted by their precision , which relates to the reliability afforded to various beliefs or sources of sensory evidence, and involves neuromodulatory mechanisms (e.g., affecting attentional s"
+    direction  [phys:31] Proietti, Parr, Tessari, Friston, Pezzulo, Active inference and cognitive control: Balanci: "The theory proposes that cognitive control amounts to optimising a precision parameter, which acts as a control signal and balances the contributions of deliberative and habitual components of action selection."
+    direction  [phys:33] Klar, Stein, Paterson, Williamson, Gollee, Murray-Smith, Intermittent Active Inference, En: "Whilst standard formulations assume continuous inference and control, empirical evidence indicates that humans update their control strategies intermittently, which reduces computational demands and mitigates propagation"
+    note: precision as attention and the continuous-vs-event clock of belief updating are posed by the field itself; CRR's readings here were WRONG in batches 27-28
+
+F12 circadian medicine and chronotherapy
+    reading COMPATIBLE-P (P-PHASE); CRR direction named in the sources: yes; measurable H1 against H0: no
+    -> RESTATES (declared expectation: RESTATES; met)
+    bottleneck [life:24] Boivin, Boudreau, Kosmadopoulos, 'Disturbance of the Circadian System in Shift Work and It (epub 2021-12-30; issue 2022-02; DOI 10.1): "Simulated night-shift experiments and field-based studies with shift workers both indicate that the circadian system is resistant to adaptation from a day- to a night-oriented schedule, as determined by a lack of substan"
+    bottleneck [life:28] Lee, Field, Sehgal, 'Circadian Rhythms, Disease and Chronotherapy', J Biol Rhythms 36:503 (epub 2021-09-22; issue 2021-12; DOI 10.1): "(3) How generalizable is the application of circadian medicine? Individual variability in circadian rhythms, caused by genetics or environmental factors (e.g. chronotype, lifestyle, illness, age), could have significant "
+    direction  [life:32] Uriu, Tei, 'Complementary phase responses via functional differentiation of dual negative : "To quantify the shape of a PRC, we measure the unsigned areas of its advance (Δϕ ≥ 0) and delay (Δϕ < 0) zones, which we refer to A and D (A ≥ 0, D ≥ 0), respectively."
+    note: advance/delay PRC areas setting entrainment are named (Uriu & Tei 2021); the bottlenecks (shift-work resistance, individual internal time, phase estimation) get no direction from CRR
+
+TALLY: AVOID 2, GUIDES 1, RESTATES 10
+declared expectations met: 12 of 13

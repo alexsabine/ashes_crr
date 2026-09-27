@@ -324,7 +324,10 @@ Life_Sciences/              CRR on cell division, the origin of life and DNA seq
 labs/                       from the edge of the retrodictive bank to deductive tests (prompt-log entry 220): README.md (the entry rule: H1 from a
                            CRR ingredient against H0 the domain's best model, separated on a synthetic gate that can close; data classes D1/D2/D3/D-null),
                            checks/bank.py + bank.txt (every SYNTHESIS row as pinned, CI-checked), CANDIDATES.md (first shortlist, judgement: L03 L5x first,
-                           L01+L02 in one prereg, L04-L06 need a sharper H1); one folder per lab, each declared first; a note, not evidence (R8)
+                           L01+L02 in one prereg, L04-L06 need a sharper H1); one folder per lab, each declared first; a note, not evidence (R8);
+                           L03_pulse/ (= study CARD, FAIL); checks/themes.py, redundant.py (+ .txt, CI-checked): the bank by theme, the WRONG and
+                           redundant rows; frontier/ (prompt-log entry 226): DECLARATION.md pushed before the sources, checks/grade.py/.txt (CI-checked):
+                           12 frontier domains against the record, RESTATES 10, GUIDES 1 (F2a = L01), AVOID 2 (F10, F11); FRONTIER.md
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
                            checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
                            (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)
