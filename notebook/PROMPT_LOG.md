@@ -1639,3 +1639,7 @@ Okay. Please provide a brief an analysis of domains where crr is coming out cons
 ## 226 — 2026-09-27T01:09:51Z
 
 Okay, which 2026 frontier domains are compatible with where the retrodictive passes are sat so far? We need to look at their bottleneck questions and unknowns to see whether crr can help guide the theory toward possible resolutions for within-paradigm phenomena.
+
+## 227 — 2026-09-27T23:33:23Z
+
+That's helpful indeed. Thank you. Can we run more checks on the SEC as a way to reduce compute costs during training? e.g. to what extent does the SEC method enable "learning new tasks without paying to rediscover the forgetting weight for every task stream"?
