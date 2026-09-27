@@ -79,6 +79,7 @@ uv run python Life_Sciences/checks/grade_origin.py | cmp - Life_Sciences/checks/
 uv run python labs/checks/bank.py | cmp - labs/checks/bank.txt && echo 'labs bank index byte-identical to the committed output'
 uv run python labs/checks/themes.py | cmp - labs/checks/themes.txt && echo 'labs theme grouping byte-identical to the committed output'
 uv run python labs/checks/redundant.py | cmp - labs/checks/redundant.txt && echo 'labs redundant-rows listing byte-identical to the committed output'
+uv run python labs/frontier/checks/grade.py | cmp - labs/frontier/checks/grade.txt && echo 'labs frontier grading byte-identical to the committed output'
 uv run python AI_Safety/STAKE1/checks/gate.py | cmp - AI_Safety/STAKE1/checks/gate.txt && uv run python AI_Safety/STAKE1/checks/gate_bound.py | cmp - AI_Safety/STAKE1/checks/gate_bound.txt && echo 'STAKE1 Phase A gate (CLOSED) byte-identical to the committed output'
 uv run python Empty_Centre/build/next_steps_figures.py | cmp - Empty_Centre/figures/figures_next_steps.txt && echo 'review and next-steps figure numbers byte-identical to the committed output'
 uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null | cmp - Continuous_Learning/FOREVER/checks/forever_checks.txt && echo 'FOREVER x CRR checks F1-F6 byte-identical to the committed output'

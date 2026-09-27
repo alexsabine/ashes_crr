@@ -91,6 +91,7 @@ jobs:
           uv run python labs/checks/bank.py > /tmp/lbank.txt && cmp /tmp/lbank.txt labs/checks/bank.txt
           uv run python labs/checks/themes.py > /tmp/lthemes.txt && cmp /tmp/lthemes.txt labs/checks/themes.txt
           uv run python labs/checks/redundant.py > /tmp/lred.txt && cmp /tmp/lred.txt labs/checks/redundant.txt
+          uv run python labs/frontier/checks/grade.py > /tmp/lfr.txt && cmp /tmp/lfr.txt labs/frontier/checks/grade.txt
           uv run python AI_Safety/STAKE1/checks/gate.py > /tmp/st1.txt && cmp /tmp/st1.txt AI_Safety/STAKE1/checks/gate.txt && uv run python AI_Safety/STAKE1/checks/gate_bound.py > /tmp/st1b.txt && cmp /tmp/st1b.txt AI_Safety/STAKE1/checks/gate_bound.txt
           uv run python Empty_Centre/build/next_steps_figures.py > /tmp/ns.txt && cmp /tmp/ns.txt Empty_Centre/figures/figures_next_steps.txt
           uv run python Continuous_Learning/FOREVER/checks/forever_checks.py 2>/dev/null > /tmp/cl_forever.txt && uv run python scripts/cmp_tol.py /tmp/cl_forever.txt Continuous_Learning/FOREVER/checks/forever_checks.txt
