@@ -1623,3 +1623,7 @@ Thank you. Let’s run L03 now.
 ## 222 — 2026-09-27T00:35:02Z
 
 Scratchpad. Is the fact that this failed kind of a scientific finding in its own right? Does accepting the null mean that we’ve learned something about the heart, or not?
+
+## 223 — 2026-09-27T00:42:09Z
+
+Scratchpad. What was the class of data under examination here. How was it recorded in the first place?
