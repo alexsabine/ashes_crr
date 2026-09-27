@@ -1631,3 +1631,7 @@ Scratchpad. What was the class of data under examination here. How was it record
 ## 224 — 2026-09-27T00:47:19Z
 
 Interesting! Okay, I’d like you to provide me with a brief summary of the domains we have retrodictively tested already split into themes and a brief analysis of domains that were wrong / failed
+
+## 225 — 2026-09-27T00:53:07Z
+
+Okay. Please provide a brief an analysis of domains where crr is coming out consistent/descriptive/redundant successfully but where the results are already known within that domain.
