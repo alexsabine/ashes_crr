@@ -1,0 +1,27 @@
+======================================================================================================================
+SEC3 scoring (prereg/sec3/PREREG.md): SCL3's thresholds, the declared window change, the guard, the saving rows
+======================================================================================================================
+carriers scored 1: ['synthetic']; excluded 0: []
+
+[synthetic] step 1.7823; tuned lambda 70.922 (17 grid configurations): 41.1371
+   raw grid: 0.1:24.01  0.3:24.21  1:24.82  3:26.69  10:31.77  30:38.46  35.3357:39.20  50:40.74  70.922:41.14  100:41.00  141:32.24  200:8.23  283:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   SEC (unguarded) 39.3311 [36.45 39.80 41.81 38.80 39.80] −tuned -1.8060; SEC guarded 39.3311 [36.45 39.80 41.81 38.80 39.80] −tuned -1.8060; guard fired 0 of 20 task starts
+   raw Laplace 24.4816 −tuned -16.6555; one factor 40.3344; rule Ω=1 42.6087 −tuned +1.4716
+   3-point sweep (1.0, 30.0, 1000.0): best 30 38.4615; SEC − best3 +0.8696
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:-1.74,-1.74  0.2/0.1:-2.07,-2.07  0.2/0.2:-2.01,-2.01  guard 0.5: -5.22
+
+----------------------------------------------------------------------------------------------------------------------
+SEC3-0 precondition: miscalibrated carriers (raw Laplace behind the tuned lambda by a step) ['synthetic'] (1; need >= 3) -> NOT DECIDABLE
+SEC3-1: NOT DECIDABLE (SEC3-0)
+SEC3-2 no harm outside M: NOT DECIDABLE (no carrier outside M)
+SEC3-3 tuning-free (not behind the tuned lambda): 0/1 (need 1) -> FAIL; synthetic:-1.8060 (step 1.78)
+SEC3-3-GR tuning-free (not behind the tuned lambda): 0/1 (need 1) -> report; synthetic:-1.8060 (step 1.78)
+   beside it: raw Laplace not behind 0/1; the rule Ω=1 not behind 1/1
+SEC3-4 span collapse: tuned raw lambda span 1.00x, calibrated 1.00x (need <= raw / 10) -> FAIL
+SEC3-T: NOT DECIDABLE (the transferred lambda is behind on only 0 carriers, need >= 3): a reused lambda would have saved the sweep without SEC
+SEC3-P SEC (1 configuration) not behind the 3-point mini-sweep (3 configurations): 1/1 (need 1) -> PASS
+SEC3-S sensitivity: 'not behind' flips in 1 of 3 cells -> not fragile
+SEC3-S-GR sensitivity: 'not behind' flips in 1 of 4 cells -> report
+SEC3-K compute (report; configurations x 5 seeds each; CPU seconds from the timing files):
+   synthetic: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 5.7, 3-point 1.0, SEC 0.3 (share 0.0614), SEC guarded 0.3 (share 0.0557), raw Laplace 0.3 (SEC overhead x1.027)
+SEC3-E calibration and guard (report): synthetic: guard fired 0

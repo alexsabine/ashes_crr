@@ -1,0 +1,21 @@
+SEC3 gate (prereg/sec3/PREREG.md): SEC1's gate, then the guard gate
+====================================================================================================
+GATE SEC1 v2 (synthetic ten-class stream, 5 tasks, seeds 0-4); step 2.8221
+   raw lambda grid: 0.1:24.88  0.3:24.95  1:25.42  3:26.49  10:30.50  30:37.19  100:42.14  300:16.59  1000:0.00  3000:0.00  10000:0.00; tuned lambda 100: 42.1405
+   raw Laplace 25.2174; calibrated Laplace 41.1371; one-factor Laplace 33.8462; rule Omega=1 42.2742
+   POS   [MUST_PASS] gap tuned - raw 16.9231 (>= step: True); gain calibrated - raw +15.9197 (>= half the gap: True) -> PASS
+   INV   [MUST_PASS] calibrated arm under per-task x[1/16,16] and global x1/16, x16 distortions: max change 0.00e+00 -> PASS
+   SHAPE [MUST_FAIL] calibrated arm under a shape distortion exp(N(0,1.5)): 0.0000 (moved -41.1371) -> FAIL (as required)
+GATE OPEN
+====================================================================================================
+G-ID (MUST_PASS) guard at +inf equals SEC1's bayes_sec on the synthetic stream: 5/5 seeds identical -> holds
+[cnae-9] (SEEN; SCL3's pinned tuned lambda 1410: 74.1667, step 1.7305)
+   unguarded SEC 52.1875 [81.77 0.00 84.38 12.50 82.29] −tuned -21.9792
+   guarded SEC   72.1875 [81.77 52.60 84.38 59.90 82.29] −tuned -1.9792; guard fired 5; margins [[0.659265, 0.771408, 0.837448], [1.277804, 1.277809, 1.411967], [0.919948, 0.921574, 0.923122], [0.972858, 1.062389, 1.366939], [0.551967, 0.650047, 0.749986]]
+G-RESCUE (MUST_PASS) on SCL3's failure the guard fires, the unguarded arm is behind and the guarded arm is not: -> FAILS
+[wall-robot-navigation] (SEEN; SCL3's pinned tuned lambda 100: 24.7648, step 6.6186)
+   unguarded SEC 22.1421 [22.12 22.02 21.72 22.12 22.72] −tuned -2.6226
+   guarded SEC   22.1421 [22.12 22.02 21.72 22.12 22.72] −tuned -2.6226; guard fired 0; margins [[0.021323], [0.022736], [0.02559], [0.027817], [0.025511]]
+G-QUIET (MUST_PASS) on an SCL3 pass the guard never fires and the arm equals SEC per seed: -> holds
+====================================================================================================
+GUARD GATE CLOSED: G-ID holds, G-RESCUE FAILS, G-QUIET holds
