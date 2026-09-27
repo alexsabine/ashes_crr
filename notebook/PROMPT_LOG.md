@@ -1619,3 +1619,7 @@ The full set of retrodictive predictions and failures should be helpful for maki
 ## 221 — 2026-09-26T23:39:34Z
 
 Thank you. Let’s run L03 now.
+
+## 222 — 2026-09-27T00:35:02Z
+
+Scratchpad. Is the fact that this failed kind of a scientific finding in its own right? Does accepting the null mean that we’ve learned something about the heart, or not?
