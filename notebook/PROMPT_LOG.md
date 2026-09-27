@@ -1615,3 +1615,7 @@ So should we start a folder called ‘labs’ where we take the edge of the exis
 We’d need to think carefully about what would constitute an empirical data set for each, and whether that data exists already online for testing the hypothesis and null (ideal case), or whether the data would need to be ran in a new wetlab or physics experiment?
 
 The full set of retrodictive predictions and failures should be helpful for making these predictions on pre existent data and/or new empirical tests, with clear inductively derived hypotheses for deductive testing.
+
+## 221 — 2026-09-26T23:39:34Z
+
+Thank you. Let’s run L03 now.

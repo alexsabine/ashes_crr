@@ -9,6 +9,7 @@ file in the same commit as any data download.
 | PhysioNet BIDMC PPG & Respiration | 1.0.0 | all 53 records | 2026-09-11 |
 | PhysioNet Fantasia | 1.0.0 | all 40 records (ECG, RESP) | 2026-09-11 |
 | PhysioNet Autonomic Aging | 1.0.0 | records 0001–0060 | 2026-09-12 (0001–0030); 2026-09-15 audit (0031–0060) |
+| PhysioNet Autonomic Aging | 1.0.0 | records 0061–0090 (.hea + .dat; sha256 in data/manifests/card.sha256) | 2026-09-26 (study CARD, run as lab L03; prereg tag prereg-card-2026-09-15 at 0c8fe04; decision pushed at aaf7acd, 2026-09-26T23:41:13Z, before the fetch) |
 | Marone lab stick-slip p4581 | as downloaded 2026-09-12 | whole run | 2026-09-12 |
 | USGS Ridgecrest 2019 catalogue | ComCat export, M≥2.5 | whole export | 2026-09-12 |
 | SPY daily prices | 2010–2026 | whole series | 2026-09-12 |
@@ -56,7 +57,7 @@ file in the same commit as any data download.
 | PMLB `feynman_test_1` (GitHub mirror, master; regression) | sha256 in data/manifests/t1x2.sha256 | 5000-row subsample (seed 777) of prereg/t1x2 | 2026-09-23T05:06:06Z (study T1x2, prereg hash commit b809477 2026-09-22T16:40:01Z) |
 | PMLB `mfeat_factors`, `mfeat_morphological`, `led7`, `led24`, `krkopt`, `fars`, `satimage`, `segmentation`, `yeast`, `wine_quality_white`, `sleep`, `page_blocks` (already SEEN above; reopened, no new records) | sha256 in data/manifests/sec1.sha256 (verified against the EQ3 and EQ4 manifests) | as EQ4's class-selection rule and 5000-row cap | 2026-09-23T15:18:27Z (study SEC1, confirmatory on seen data; prereg commit 0f67f2d 2026-09-23T15:18:10Z) |
 
-Unseen and available: Autonomic Aging 0061–1121; other Marone-lab
+Unseen and available: Autonomic Aging 0091–1121; other Marone-lab
 experiments; Split-TinyImageNet; any LM domain stream;
 PMLB `usps` (not mirrored), other PMLB classification sets (no unseen 10-class set with >= 900 rows remains on the mirror except poker and kddcup).
 | PMLB `mfeat_factors`, `mfeat_morphological`, `led7`, `led24`, `krkopt`, `fars`, `satimage`, `segmentation`, `yeast`, `wine_quality_white`, `sleep`, `page_blocks` (already SEEN above; reopened, no new records) | sha256 in data/manifests/scl1.sha256 (verified against data/manifests/sec1.sha256, runs/scl1/data_check.txt) | as EQ4's class-selection rule and 5000-row cap | 2026-09-23T21:15:14Z (study SCL1, confirmatory on seen data; prereg hash commit 17366b9 2026-09-23T21:15:04Z) |
