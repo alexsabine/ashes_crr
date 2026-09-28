@@ -1657,3 +1657,7 @@ Thank you
 ## 229 — 2026-09-28T20:39:53Z
 
 So is this calculation as if only 1.5% of people take it up?
+
+## 230 — 2026-09-28T20:42:32Z
+
+What tests do we have waiting in the pipeline now?
