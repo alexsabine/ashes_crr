@@ -25,7 +25,14 @@ N_GRID = [0.0, 0.5, 1.0, 2.0, 4.0]
 DAYS, USERS, SEEDS = 1460, 2000, (0, 1, 2, 3, 4)
 C_CHRONO = 0.3                     # CHRONO's fixed share of compulsive items (the population's base share; ASSUMED)
 TIE = 1e-9
-MECH = {}                          # constant -> supporting claim ids (filled from the sweep; constants unchanged)
+MECH = {                           # constant -> supporting claim ids in claims_f*.py, or ASSUMED (filled after the sweep; constants unchanged)
+    's0,L0,SAT,g_e,g_c,beta,b': 'ASSUMED',
+    's_h,eta_c,delta (habit forms, persists after a pause)': 'f3:2 f3:3 f3:4',
+    'p0,p1,eta_n (notifications start sessions)': 'f3:24 f3:27 f1-f2 U2 claims',
+    'r_c,v_c (compulsive minutes carry little reflective value)': 'f1:21 f1:29 f1:36 f3:4',
+    'kappa_h (use has a welfare cost)': 'f3:1 f3:6 f3:7',
+    'iota (notifications cost attention)': 'f3:21 f3:22 (f3:23 mixed)',
+}
 
 POL = [(c, n) for c in C_GRID for n in N_GRID]            # 50 policies, order: c then n (the tie-break order is n, then c)
 

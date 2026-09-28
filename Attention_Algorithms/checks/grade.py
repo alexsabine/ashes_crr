@@ -35,9 +35,9 @@ def grade(tag, n):
 
 def main():
     fam = collections.Counter(c['id'].split(':')[0] for c in CLAIMS)
-    src = len({c['source'] for c in CLAIMS})
+    src = len({c['url'] for c in CLAIMS})
     print('Attention algorithms: U1-U8 against the sweep of 2026-09-28 (DECLARATION.md §2)')
-    print(f"claims {len(CLAIMS)} ({', '.join(f'{k} {v}' for k, v in sorted(fam.items()))}) from {src} sources; quotes verified in verify.txt")
+    print(f"claims {len(CLAIMS)} ({', '.join(f'{k} {v}' for k, v in sorted(fam.items()))}) from {src} distinct URLs; quotes verified in verify.txt")
     print()
     hit = 0
     for tag, text in U.items():
