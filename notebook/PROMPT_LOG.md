@@ -1653,3 +1653,7 @@ I’d then like you to make a calculation regarding how much compute would be sa
 Calculate estimated compute saving, energy saving and co2 emission saving.
 
 Thank you
+
+## 229 — 2026-09-28T20:39:53Z
+
+So is this calculation as if only 1.5% of people take it up?
