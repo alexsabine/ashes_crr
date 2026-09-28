@@ -80,6 +80,7 @@ jobs:
           uv run python Continuous_Learning/checks/results_vs_literature.py 2>/dev/null > /tmp/cl_rvl.txt && cmp /tmp/cl_rvl.txt Continuous_Learning/checks/results_vs_literature.txt
           uv run python Compute_Savings/checks/compute_savings.py > /tmp/cs.txt && cmp /tmp/cs.txt Compute_Savings/checks/compute_savings.txt
           uv run python Compute_Savings/checks/scale_estimate.py > /tmp/se.txt && cmp /tmp/se.txt Compute_Savings/checks/scale_estimate.txt
+          uv run python Compute_Savings/checks/global_estimate.py > /tmp/ge.txt && cmp /tmp/ge.txt Compute_Savings/checks/global_estimate.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

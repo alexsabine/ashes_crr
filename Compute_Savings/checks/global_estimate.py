@@ -31,8 +31,22 @@ F_SWEEP = {'low': 0.001, 'high': 0.02}
 F_SWEEP_EWC_ONLY = 0.0001        # DECLARATION_3: EWC-style continual learning only (ASSUMED)
 HOME_KWH = 10791.0
 
-# DECLARATION_3's factors (docs/citations/global_estimate_2026-09-28.md); filled from the dossier
-SRC = {}
+# DECLARATION_3's factors, quoted verbatim in docs/citations/global_estimate_2026-09-28.md (fetched 2026-09-28)
+DC_CO2_MT_2024 = 180.0           # IEA Energy and AI (2025): data centres ~180 Mt indirect CO2 'today' (2024)
+SRC = {
+    'I_dc_iea': (DC_CO2_MT_2024 * 1e12 / (DC_TWH[2024] * 1e9), 'g CO2/kWh', 'derived'),   # 180 Mt / 415 TWh (IEA, 2024)
+    'I_grid': (458.0, 'g CO2e/kWh', 'published'),      # Ember Global Electricity Review 2026: global average, 2025
+    'I_dc_us': (548.0, 'g CO2e/kWh', 'published'),     # Guidi et al., arXiv 2411.09786 v1: US data centres, energy-weighted
+    'P_board': (0.700, 'kW per GPU', 'published'),     # NVIDIA H100 SXM max TDP 700 W
+    'P_dgx': (10.2, 'kW per 8-GPU system', 'published'),   # NVIDIA DGX H100 system max input power
+    'PUE_avg': (1.54, '', 'published'),                # Uptime Institute Global Data Center Survey 2025
+    'PUE_fleet': (1.09, '', 'published'),              # Google fleet, 2025 and trailing twelve months
+    'BF16_dense': (989.4e12, 'FLOP/s', 'published'),   # NVIDIA H100 SXM5 dense BF16 Tensor Core peak (whitepaper)
+    'MFU_low': (0.38, '', 'published'),                # Llama 3 405B BF16 MFU 38-43 % (arXiv 2407.21783 v3)
+    'MFU_high': (0.43, '', 'published'),
+    'CAR_T': (4.6, 't CO2 per car-year', 'published'),  # US EPA typical passenger vehicle
+    'DC_CO2_MT': (DC_CO2_MT_2024, 'Mt CO2 (2024)', 'published'),
+}
 
 
 def load(pattern):
@@ -149,6 +163,19 @@ def report(ai, FSW, S, p_adopt):
     dce = v['DC_CO2_MT']
     e, g, f, fac, co2 = out[(2026, 'middle')]
     print(f"  scale: data-centre emissions {dce:g} Mt CO2 (IEA); the 2026 middle saving is {co2 / dce:.2e} of it")
+    print()
+    print('[6] The investigator\'s expectations (DECLARATION_3, written before the sources and the script) against the printout')
+    print('    "of the order of X or less" holds if observed <= 10^0.5 X; a stated range holds if observed is inside it')
+    e, g, f, fac, co2 = out[(2026, 'middle')]
+    ew = row(2026, 'middle', S['P-FALLBACK'], fsw=F_SWEEP_EWC_ONLY)[0]
+    checks = [('energy, 2026 middle P-FALLBACK, TWh at the meter, <~ 0.1', fac, fac <= 0.1 * 10 ** 0.5),
+              ('energy share of data-centre electricity < 0.001', fac / dc[2026], fac / dc[2026] < 0.001),
+              ('CO2, 2026 middle, Mt, <~ 0.05', co2, co2 <= 0.05 * 10 ** 0.5),
+              ('compute, 2030 high, H100-hours in 1e7..1e8', out[(2030, 'high')][1], 1e7 <= out[(2030, 'high')][1] <= 1e8),
+              ('saving against a 3-point sweep <= 2/17 of the sweep', s3, s3 <= 2 / GRID),
+              ('EWC-only row about 45x below the middle row (30..60)', e / ew, 30 <= e / ew <= 60)]
+    for lab, val, ok in checks:
+        print(f"  {lab:58}: {val:.4g} -> {'holds' if ok else 'MISSED'}")
 
 
 def main():
@@ -196,6 +223,8 @@ def main():
     print(f"  ASSUMED  f_sweep low/middle/high {FSW['low']}/{FSW['middle']:.5f}/{FSW['high']}; EWC-only row {F_SWEEP_EWC_ONLY}")
     for k, (v, unit, lab) in SRC.items():
         print(f'  {lab:9} {k}: {v:g} {unit}')
+    print(f"  derived   power per GPU in a DGX H100: {SRC['P_dgx'][0] / 8:.3f} kW; 1 TWh at {SRC['P_board'][0]} kW = "
+          f"{1e9 / SRC['P_board'][0]:.3e} H100-hours")
     report(ai, FSW, S, p_adopt)
 
 

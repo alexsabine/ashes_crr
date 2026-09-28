@@ -330,7 +330,9 @@ labs/                       from the edge of the retrodictive bank to deductive 
                            12 frontier domains against the record, RESTATES 10, GUIDES 1 (F2a = L01), AVOID 2 (F10, F11); FRONTIER.md
 Compute_Savings/            could SEC and the recent successes save compute and energy? (prompt-log entry 196): DECLARATION.md pushed before
                            checks/compute_savings.py (+ pinned .txt, CI-checked; reads runs/scl3 and runs/sec1 records); DECLARATION_2.md + checks/scale_estimate.py
-                           (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; a note, not evidence (R8)
+                           (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; DECLARATION_3.md + checks/global_estimate.py
+                           (+ .txt, CI-checked; prompt-log entry 228): a year's global compute, energy and CO2 saving, s read from the pinned SEC studies;
+                           GLOBAL_ESTIMATE.md; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

@@ -68,6 +68,7 @@ uv run python Continuous_Learning/checks/pareto_identities.py 2>/dev/null | cmp 
 uv run python Continuous_Learning/checks/results_vs_literature.py 2>/dev/null | cmp - Continuous_Learning/checks/results_vs_literature.txt && echo 'results beside the published class-IL reference points byte-identical to the committed output'
 uv run python Compute_Savings/checks/compute_savings.py | cmp - Compute_Savings/checks/compute_savings.txt && echo 'compute-savings calculation byte-identical to the committed output'
 uv run python Compute_Savings/checks/scale_estimate.py | cmp - Compute_Savings/checks/scale_estimate.txt && echo 'compute-savings scale estimate byte-identical to the committed output'
+uv run python Compute_Savings/checks/global_estimate.py | cmp - Compute_Savings/checks/global_estimate.txt && echo 'compute-savings global estimate byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/retro_energy.py" | cmp - "Energy Design Principle/checks/retro_energy.txt" && echo 'energy retrodiction byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/consolidated_estimate.py" | cmp - "Energy Design Principle/checks/consolidated_estimate.txt" && echo 'energy consolidated estimate byte-identical to the committed output'
 uv run python Lossless_Pause/checks/grade_claims.py | cmp - Lossless_Pause/checks/grade_claims.txt && echo 'lossless-pause literature grading byte-identical to the committed output'
