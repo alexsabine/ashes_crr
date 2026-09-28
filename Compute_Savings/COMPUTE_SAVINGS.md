@@ -114,3 +114,10 @@ penalty-like weights × the share of such a sweep SEC removes.
      prospect.
 5. **Weighted by the chance of holding and being adopted**, taking `cl_patent`'s assumed 0.0150, the middle case is 0.007114
    TWh.
+
+## Update 2026-09-28: a year's global compute, energy and CO₂ saving
+
+`GLOBAL_ESTIMATE.md` (prompt-log entry 228; `DECLARATION_3.md` pushed before the sources and the script;
+`checks/global_estimate.py` + pinned `.txt`) extends the model above to compute and CO₂ for 2026 and 2030. It reads the
+saving per sweep from every pinned SEC study rather than from SCL3 alone, and includes the divergences SEC3 found. It is
+re-pinned once SEC4 is scored.
