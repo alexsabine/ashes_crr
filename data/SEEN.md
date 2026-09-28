@@ -10,6 +10,7 @@ file in the same commit as any data download.
 | PhysioNet Fantasia | 1.0.0 | all 40 records (ECG, RESP) | 2026-09-11 |
 | PhysioNet Autonomic Aging | 1.0.0 | records 0001–0060 | 2026-09-12 (0001–0030); 2026-09-15 audit (0031–0060) |
 | PhysioNet Autonomic Aging | 1.0.0 | records 0061–0090 (.hea + .dat; sha256 in data/manifests/card.sha256) | 2026-09-26 (study CARD, run as lab L03; prereg tag prereg-card-2026-09-15 at 0c8fe04; decision pushed at aaf7acd, 2026-09-26T23:41:13Z, before the fetch) |
+| OpenML AutoML Benchmark (study 271) 1596 covertype, 41167 dionis, 41164 fabert, 41169 helena, 41168 jannis, 40685 shuttle, 41166 volkert | as downloaded 2026-09-28; sha256 in data/manifests/sec3.sha256 | all rows (loader: SEC1's class selection and 5000-row cap) | 2026-09-28 (study SEC3, after prereg commit 916d3d4 pushed 2026-09-27T23:42:45Z, HASH.txt 0c5ab70b OTS-stamped; fetched from 2026-09-28T00:00:13Z) |
 | Marone lab stick-slip p4581 | as downloaded 2026-09-12 | whole run | 2026-09-12 |
 | USGS Ridgecrest 2019 catalogue | ComCat export, M≥2.5 | whole export | 2026-09-12 |
 | SPY daily prices | 2010–2026 | whole series | 2026-09-12 |

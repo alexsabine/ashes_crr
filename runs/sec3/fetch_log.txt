@@ -1,0 +1,8 @@
+689d65323b4c24659de6116bb3d6f2250c9c1dfcfe4f348f07688583dea75edf  data/raw/openml/1596_covertype.arff  https://openml.org/data/v1/download/1601911/covertype.arff  md5-verified  version 4  downloaded 2026-09-28T00:00:23Z  bytes 75171052
+2616d3e0026938a2dbe91dd2e60745f3fa23f69194716f644e1eb68ea17cd417  data/raw/openml/41167_dionis.arff  https://openml.org/data/v1/download/19335690/dionis.arff  md5-verified  version 1  downloaded 2026-09-28T00:08:03Z  bytes 115433546
+3afd98b3ff70400e7096ba55257947127abca4d3fb9f11bb9e465aafbc5329ed  data/raw/openml/41164_fabert.arff  https://openml.org/data/v1/download/19335687/fabert.arff  md5-verified  version 1  downloaded 2026-09-28T00:08:53Z  bytes 13696378
+351c371c164b5ceacd9a87697d9efde170daf51ce4b3ce3819f25b7912e1042a  data/raw/openml/41169_helena.arff  https://openml.org/data/v1/download/19335692/helena.arff  md5-verified  version 1  downloaded 2026-09-28T00:09:58Z  bytes 15272740
+ffc0530b7f98207096b603b33c5cb33d1f92bc8b4f2a62acbeb5fe70e4107d4c  data/raw/openml/41168_jannis.arff  https://openml.org/data/v1/download/19335691/jannis.arff  md5-verified  version 1  downloaded 2026-09-28T00:12:27Z  bytes 38438813
+d0e47eb009fe0b77e67ec16a21d64efb69073dfb5f405936b7a51fc1dc22c9fd  data/raw/openml/40685_shuttle.arff  https://openml.org/data/v1/download/4965262/shuttle.arff  md5-verified  version 1  downloaded 2026-09-28T00:12:40Z  bytes 1538320
+0b782b59f04b71397da65a05d1117095944d35450ec4d54c423eda6809122d29  data/raw/openml/41166_volkert.arff  https://openml.org/data/v1/download/19335689/volkert.arff  md5-verified  version 1  downloaded 2026-09-28T00:17:11Z  bytes 68222706
+manifest -> data/manifests/sec3.sha256

@@ -1,0 +1,21 @@
+Sun Sep 27 23:43:13 UTC 2026
+File sha256 hash: 0c5ab70b01336286fd380eb9074e57764c7fdcc6ee306ecd8d9e0f6646bfcc56
+Timestamp:
+append a1d0cf5fe777fc0c7fbca7e36cac1967
+sha256
+ -> append 7c747652a1d306fa
+    sha256
+    append ef1093eba0f9a7e5c05eb876bfec9ac1b06703af4ef64e04af5e036758944875
+    sha256
+    append 871dbbdfe68c758d2a6d3f7d7f9b6c09
+    sha256
+    append 7f9f82bbed2736501decaf629ab84d19ce54183ab750a4bc28fec4bdbecce8f7
+    sha256
+    append 7ccb28a2223f00b1a98b3850fc06fc2c6075a8cd85f00f5c083facaf248c77f5
+    sha256
+    prepend 6ab9a9ee
+    append 4b462fd4cec2261b
+    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')
+ -> append c8907d4849989c684235df4f209bb5cc
+    sha256
+    append 4ec9546c8a0afba549169ed12354a2e05924cf917630c784a079eae2d3e77682
