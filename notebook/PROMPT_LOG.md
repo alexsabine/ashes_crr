@@ -1675,3 +1675,7 @@ When the literature review is complete, run tests using CRR to see whether the e
 ## 232 — 2026-09-28T21:18:27Z
 
 You say U4 is the field's proposal, but what methods are they using?
+
+## 233 — 2026-09-28T21:20:14Z
+
+So a metaphysics like CRR is pointing toward what the field is converging on as required for human health in the context of algorithms?
