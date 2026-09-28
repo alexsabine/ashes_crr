@@ -1,0 +1,6 @@
+The attention world (Attention_Algorithms/DECLARATION.md §4 + Amendment 1): synthetic users, no data
+1460 days, 2000 users per seed, seeds (0, 1, 2, 3, 4); policies c in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], n in [0.0, 0.5, 1.0, 2.0, 4.0]; tie-break lowest n, then c
+habit world constants: s0=1.5, s_h=2, p0=0.05, p1=0.4, L0=10, a_c=1.5, a_h=1, v_e=1, SAT=60, r_c=0.3, kappa_h=20, iota=0.5, eta_c=0.02, eta_n=0.01, delta=0.02, beta=0.5, g_e=0.6, g_c=1, b=0.3, v_c=0
+negative world: SAT=inf, r_c=0, kappa_h=0, iota=0, eta_c=0, eta_n=0, v_c=1
+mechanisms and their support in the sweep: iota (notifications cost attention): f3:21 f3:22 (f3:23 mixed), kappa_h (use has a welfare cost): f3:1 f3:6 f3:7, p0,p1,eta_n (notifications start sessions): f3:24 f3:27 f1-f2 U2 claims, r_c,v_c (compulsive minutes carry little reflective value): f1:21 f1:29 f1:36 f3:4, s0,L0,SAT,g_e,g_c,beta,b: ASSUMED, s_h,eta_c,delta (habit forms, persists after a pause): f3:2 f3:3 f3:4
+
