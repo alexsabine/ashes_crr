@@ -7,7 +7,7 @@ Run: python3 Attention_Algorithms/checks/attention_world.py  (about 20-30 minute
 
 Per user and day: self-started sessions ~ Poisson(s0 + s_h h); notifications ~ Poisson(n), each starting a session with
 probability p0 + p1 h; session length L0 (1 + a_c c)(1 + a_h h) minutes; a share c of minutes compulsive, the rest enriching.
-Reflective welfare per day = v_e SAT (1 - exp(-E/SAT)) - r_c C - kappa_h h - iota * notifications (E, C: enriching and
+Reflective welfare per day = v_e SAT (1 - exp(-E/SAT)) + (v_c - r_c) C - kappa_h h - iota * notifications (E, C: enriching and
 compulsive minutes). Habit: h += eta_c (C/60)(1 - h) + eta_n (notification sessions)(1 - h) - delta h, clipped to [0, 1].
 Engagement pull per minute = (g_e (1 - c) + g_c c)(1 + beta h). A break reminder (arm ENG-B) removes a share b of the
 minutes beyond 60 in a day.
@@ -16,9 +16,9 @@ import math
 import numpy as np
 
 HABIT = dict(s0=1.5, s_h=2.0, p0=0.05, p1=0.4, L0=10.0, a_c=1.5, a_h=1.0, v_e=1.0, SAT=60.0, r_c=0.3, kappa_h=20.0,
-             iota=0.5, eta_c=0.02, eta_n=0.01, delta=0.02, beta=0.5, g_e=0.6, g_c=1.0, b=0.3)
+             iota=0.5, eta_c=0.02, eta_n=0.01, delta=0.02, beta=0.5, g_e=0.6, g_c=1.0, b=0.3, v_c=0.0)
 # the negative world (Amendment 1): more use is simply better for the user
-NEG = dict(HABIT, eta_c=0.0, eta_n=0.0, r_c=0.0, iota=0.0, kappa_h=0.0, SAT=math.inf)
+NEG = dict(HABIT, eta_c=0.0, eta_n=0.0, r_c=0.0, iota=0.0, kappa_h=0.0, SAT=math.inf, v_c=1.0)   # every minute worth v_e
 SENS = ('s0', 's_h', 'p0', 'p1', 'L0', 'a_c', 'a_h', 'v_e', 'SAT', 'r_c', 'kappa_h', 'iota', 'eta_c', 'eta_n', 'delta', 'beta')
 C_GRID = [round(0.1 * i, 1) for i in range(10)]
 N_GRID = [0.0, 0.5, 1.0, 2.0, 4.0]
@@ -48,11 +48,11 @@ def simulate(w, seed, brk):
             M = np.minimum(M, 60.0) + np.maximum(M - 60.0, 0.0) * (1 - w['b'])
         C = c * M; E = M - C
         WE = w['v_e'] * E if math.isinf(w['SAT']) else w['v_e'] * w['SAT'] * (1 - np.exp(-E / w['SAT']))
-        W = WE - w['r_c'] * C - w['kappa_h'] * h - w['iota'] * notes
+        W = WE + w['v_c'] * C - w['r_c'] * C - w['kappa_h'] * h - w['iota'] * notes
         pull = (w['g_e'] * (1 - c) + w['g_c'] * c) * (1 + w['beta'] * h)
         Wu += W
         S['W'] += W.sum(1); S['M'] += M.sum(1); S['self'] += self_s.sum(1); S['trig'] += trig.sum(1)
-        S['pull'] += (pull * M).sum(1); S['refl'] += (w['v_e'] * E - w['r_c'] * C).sum(1)
+        S['pull'] += (pull * M).sum(1); S['refl'] += (w['v_e'] * E + (w['v_c'] - w['r_c']) * C).sum(1)
         h = np.clip(h + w['eta_c'] * (C / 60.0) * (1 - h) + w['eta_n'] * trig * (1 - h) - w['delta'] * h, 0.0, 1.0)
     S['h'] = h.mean(1); S['Wu'] = Wu.mean(1) / DAYS
     return S
