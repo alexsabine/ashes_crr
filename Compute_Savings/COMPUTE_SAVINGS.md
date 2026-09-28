@@ -61,6 +61,15 @@ number of configurations run.
   - replication on a second unseen set of datasets (the PASS-2 route);
   - a measured share of sweep compute in real projects, to turn the fraction into energy.
 
+## Update, 2026-09-28: the replication did not hold (SEC3)
+
+SEC3 (`reports/sec3.md`, ledger rows SEC3-*) re-ran SCL3's test on a second unseen family (OpenML study 271).
+- **SEC3-3 FAILs.** SEC was not behind the tuned λ on 4 of 6 carriers. One seed in five diverged on dionis and fabert,
+  cnae-9's failure mode.
+- **The saving is real where SEC works.** SEC's measured CPU share of the full sweep was 0.0575–0.0617.
+- **The ~94 % figure above is therefore SCL3's family only.** It is not a general property of SEC. SEC3-P (PASS-0): SEC
+  matched a 3-point mini-sweep on 5 of 6 carriers.
+
 ## At scale: if the method held on large AI systems (DECLARATION_2, prompt-log entry 198)
 
 **How it was done.** `DECLARATION_2.md` was pushed (536a85e) before `checks/scale_estimate.py`. Every number below is from
