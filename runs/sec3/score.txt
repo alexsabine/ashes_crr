@@ -1,0 +1,73 @@
+======================================================================================================================
+SEC3 scoring (prereg/sec3/PREREG.md): SCL3's thresholds, the declared window change, the guard, the saving rows
+======================================================================================================================
+carriers scored 6: ['covertype', 'dionis', 'fabert', 'helena', 'jannis', 'volkert']; excluded 1: ['shuttle']
+
+[covertype] step 4.8071; tuned lambda 10 (17 grid configurations): 22.8629
+   raw grid: 0.1:7.23  0.3:7.99  1:11.25  3:18.86  3.53357:19.68  5:21.60  7.0922:22.46  10:22.86  14.1:22.52  20:21.88  28.3:21.26  30:20.82  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   SEC (unguarded) 19.4995 [16.72 24.52 21.02 20.52 14.71] −tuned -3.3634; SEC guarded 19.4995 [16.72 24.52 21.02 20.52 14.71] −tuned -3.3634; guard fired 0 of 10 task starts
+   raw Laplace 22.2823 −tuned -0.5806; one factor 22.3824; rule Ω=1 17.7177 −tuned -5.1451
+   3-point sweep (1.0, 30.0, 1000.0): best 30 20.8208; SEC − best3 -1.3213
+   transferred lambda (LOCO median, snapped) 10: 22.8629 −tuned +0.0000
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:-3.40,-3.40  0.2/0.1:-2.40,-2.40  0.2/0.2:-2.38,-2.38  guard 0.5: -3.36
+
+[dionis] step 3.4360; tuned lambda 141 (17 grid configurations): 55.5245
+   raw grid: 0.1:46.03  0.3:46.13  1:46.39  3:46.91  10:48.31  30:50.61  35.3357:51.07  50:52.21  70.922:53.23  100:54.47  141:55.52  200:45.61  283:46.35  300:46.43  1000:49.55  3000:12.69  10000:0.00
+   SEC (unguarded) 50.9690 [67.13 62.94 67.13 57.64 0.00] −tuned -4.5554; SEC guarded 60.9391 [67.13 62.94 67.13 57.64 49.85] −tuned +5.4146; guard fired 4 of 20 task starts
+   raw Laplace 46.2338 −tuned -9.2907; one factor 2.4975; rule Ω=1 63.5764 −tuned +8.0519
+   3-point sweep (1.0, 30.0, 1000.0): best 30 50.6094; SEC − best3 +0.3596
+   transferred lambda (LOCO median, snapped) 10: 48.3117 −tuned -7.2128
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:-4.58,+5.39  0.2/0.1:+8.27,+8.27  0.2/0.2:+8.35,+8.35  guard 0.5: +4.02
+
+[fabert] step 1.0000; tuned lambda 14.1 (17 grid configurations): 19.2208
+   raw grid: 0.1:19.04  0.3:19.06  1:19.14  3:19.18  3.53357:19.18  5:19.10  7.0922:19.12  10:19.20  14.1:19.22  20:17.70  28.3:16.44  30:16.40  100:9.93  300:3.74  1000:0.00  3000:0.00  10000:0.00
+   SEC (unguarded) 15.3846 [19.38 19.48 0.00 19.18 18.88] −tuned -3.8362; SEC guarded 19.1209 [19.38 18.88 19.28 19.18 18.88] −tuned -0.0999; guard fired 3 of 10 task starts
+   raw Laplace 19.0609 −tuned -0.1598; one factor 0.0000; rule Ω=1 18.9411 −tuned -0.2797
+   3-point sweep (1.0, 30.0, 1000.0): best 1 19.1409; SEC − best3 -3.7562
+   transferred lambda (LOCO median, snapped) 10: 19.2008 −tuned -0.0200
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:-5.27,-0.12  0.2/0.1:-1.20,+0.28  0.2/0.2:-2.74,+0.02  guard 0.5: -0.02
+
+[helena] step 2.9750; tuned lambda 8.49 (17 grid configurations): 14.0600
+   raw grid: 0.1:12.90  0.3:12.90  1:13.08  1.06007:13.14  1.5:13.30  2.12766:13.50  3:13.58  4.23:13.80  6:13.92  8.49:14.06  10:11.02  30:4.64  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   SEC (unguarded) 13.6800 [15.70 15.20 7.70 14.30 15.50] −tuned -0.3800; SEC guarded 13.6800 [15.70 15.20 7.70 14.30 15.50] −tuned -0.3800; guard fired 0 of 20 task starts
+   raw Laplace 13.0000 −tuned -1.0600; one factor 13.5000; rule Ω=1 14.3800 −tuned +0.3200
+   3-point sweep (1.0, 30.0, 1000.0): best 1 13.0800; SEC − best3 +0.6000
+   transferred lambda (LOCO median, snapped) 10: 11.0200 −tuned -3.0400
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:-0.36,-0.36  0.2/0.1:-0.50,-0.50  0.2/0.2:-0.48,-0.48  guard 0.5: -0.38
+
+[jannis] step 15.3283; tuned lambda 60 (17 grid configurations): 22.1800
+   raw grid: 0.1:18.04  0.3:18.70  1:19.28  3:18.62  10:18.26  10.6007:18.28  15:18.26  21.2766:18.14  30:19.54  42.3:21.44  60:22.18  84.9:10.58  100:10.76  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   SEC (unguarded) 19.2400 [18.30 19.40 18.80 20.30 19.40] −tuned -2.9400; SEC guarded 19.2400 [18.30 19.40 18.80 20.30 19.40] −tuned -2.9400; guard fired 0 of 5 task starts
+   raw Laplace 19.0000 −tuned -3.1800; one factor 19.2400; rule Ω=1 18.3400 −tuned -3.8400
+   3-point sweep (1.0, 30.0, 1000.0): best 30 19.5400; SEC − best3 -0.3000
+   transferred lambda (LOCO median, snapped) 10: 18.2600 −tuned -3.9200
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:-2.94,-2.94  0.2/0.1:-2.90,-2.90  0.2/0.2:-2.90,-2.90  guard 0.5: -2.94
+
+[volkert] step 1.0000; tuned lambda 6 (17 grid configurations): 5.7600
+   raw grid: 0.1:4.62  0.3:4.72  1:4.98  1.06007:5.06  1.5:5.18  2.12766:5.36  3:5.44  4.23:5.68  6:5.76  8.49:4.84  10:3.74  30:1.74  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   SEC (unguarded) 6.4800 [7.30 6.30 6.00 6.30 6.50] −tuned +0.7200; SEC guarded 6.4800 [7.30 6.30 6.00 6.30 6.50] −tuned +0.7200; guard fired 0 of 20 task starts
+   raw Laplace 5.0000 −tuned -0.7600; one factor 0.0000; rule Ω=1 6.8000 −tuned +1.0400
+   3-point sweep (1.0, 30.0, 1000.0): best 1 4.9800; SEC − best3 +1.5000
+   transferred lambda (LOCO median, snapped) 10: 3.7400 −tuned -2.0200
+   window cells (unguarded, guarded) − tuned: 0.1/0.2:+0.70,+0.70  0.2/0.1:+0.54,+0.54  0.2/0.2:+0.48,+0.48  guard 0.5: +0.34
+
+----------------------------------------------------------------------------------------------------------------------
+SEC3-0 precondition: miscalibrated carriers (raw Laplace behind the tuned lambda by a step) ['dionis'] (1; need >= 3) -> NOT DECIDABLE
+SEC3-1: NOT DECIDABLE (SEC3-0)
+SEC3-2 no harm outside M: 4/5 -> FAIL
+SEC3-3 tuning-free (not behind the tuned lambda): 4/6 (need 5) -> FAIL; covertype:-3.3634 (step 4.81), dionis:-4.5554 (step 3.44), fabert:-3.8362 (step 1.00), helena:-0.3800 (step 2.97), jannis:-2.9400 (step 15.33), volkert:+0.7200 (step 1.00)
+SEC3-3-GR tuning-free (not behind the tuned lambda): 6/6 (need 5) -> report; covertype:-3.3634 (step 4.81), dionis:+5.4146 (step 3.44), fabert:-0.0999 (step 1.00), helena:-0.3800 (step 2.97), jannis:-2.9400 (step 15.33), volkert:+0.7200 (step 1.00)
+   beside it: raw Laplace not behind 5/6; the rule Ω=1 not behind 5/6
+SEC3-4 span collapse: tuned raw lambda span 23.50x, calibrated 30.00x (need <= raw / 10) -> FAIL
+SEC3-T the saving is SEC's (where a transferred lambda is behind): B = ['dionis', 'helena', 'volkert'] (3); SEC not behind on 2/3 (need 3) -> FAIL
+SEC3-P SEC (1 configuration) not behind the 3-point mini-sweep (3 configurations): 5/6 (need 5) -> PASS
+SEC3-S sensitivity: 'not behind' flips in 2 of 18 cells -> FRAGILE
+SEC3-S-GR sensitivity: 'not behind' flips in 0 of 24 cells -> report
+SEC3-K compute (report; configurations x 5 seeds each; CPU seconds from the timing files):
+   covertype: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 14.1, 3-point 2.5, SEC 0.8 (share 0.0587), SEC guarded 0.8 (share 0.0587), raw Laplace 0.8 (SEC overhead x1.014)
+   dionis: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 21.3, 3-point 3.7, SEC 1.3 (share 0.0602), SEC guarded 1.2 (share 0.0567), raw Laplace 1.3 (SEC overhead x1.016)
+   fabert: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 212.7, 3-point 37.2, SEC 12.3 (share 0.0579), SEC guarded 12.2 (share 0.0576), raw Laplace 12.5 (SEC overhead x0.988)
+   helena: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 14.7, 3-point 2.6, SEC 0.9 (share 0.0617), SEC guarded 0.8 (share 0.0558), raw Laplace 0.8 (SEC overhead x1.106)
+   jannis: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 14.6, 3-point 2.5, SEC 0.8 (share 0.0575), SEC guarded 0.8 (share 0.0566), raw Laplace 0.9 (SEC overhead x0.958)
+   volkert: configurations full sweep 17, 3-point 3, SEC 1 (config share 0.0588); CPU s full 52.4, 3-point 9.2, SEC 3.0 (share 0.0580), SEC guarded 3.2 (share 0.0609), raw Laplace 3.1 (SEC overhead x0.994)
+SEC3-E calibration and guard (report): covertype: guard fired 0; dionis: guard fired 4; fabert: guard fired 3; helena: guard fired 0; jannis: guard fired 0; volkert: guard fired 0
