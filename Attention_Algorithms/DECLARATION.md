@@ -186,3 +186,40 @@ floor fixed in the script before the run).
   high cases. Nothing is claimed about welfare in money or health units.
 - **Conditions.** Every figure is conditional on adoption by every platform. It is not a forecast, and not quotable
   outside the ledger (R8).
+
+## Amendment 1 (2026-09-28, pushed before any script runs and before any source is read)
+
+Writing the model exposed two flaws in the gate of §4, and one unstated rule. All are fixed here, before any code runs.
+
+1. **G-NEG could not detect a forced result.**
+   - **The flaw.** The declared no-habit world keeps the regret on compulsive items. EMPTY's valuation contains that regret,
+     and ENG's does not. So EMPTY would beat ENG there by construction, and the gate would close for a reason the check
+     was never meant to catch.
+   - **The fix: the negative world is now "more use is simply better for the user".** It has:
+     - no habit formation;
+     - no regret on compulsive items;
+     - no interruption cost;
+     - reflective welfare linear in minutes.
+   - **G-NEG as fixed:** EMPTY must NOT be ahead of ENG on welfare by a step in this world. If it is, the gate closes.
+2. **G-ZERO is a construction only for EMPTY.**
+   - **Why.** EMPTY's valuation (the user's reflective value per active minute) depends on nothing the pause changes. OWN's
+     valuation (engagement pull per active minute) rises with habit, and habit decays while the user is away. So whether a
+     pause has content for OWN is a property of the model, not of the construction.
+   - **G-ZERO (gate) is required of EMPTY only.**
+   - **For OWN it becomes a reported prediction, P-OWN, written now.** The investigator expects its content to be
+     **non-zero** and its chosen n > 0. The empty pause then requires more than own-clock indexing: the valuation must not
+     depend on any user state that the pause changes.
+3. **The content of the pause, computed.**
+   - **Definition.** The relative change in the valuation's best value when every user's pauses are made twice as long (the
+     self-start rates halved), with everything else fixed. Zero content means pauses of any length remove nothing from the
+     valuation, to round-off (|relative change| < 1e-9).
+   - **Tie-break.** When a valuation is indifferent, it chooses the lowest n, then the lowest c. Proposition 7 says the
+     agent never *strictly* prefers to act on the pause, so the tie-break is part of the construction and is printed.
+4. **The step.** Per output: max(2 × SE across seeds, 1 % of the mean absolute value of that output over the six arms in
+   that world).
+
+**Consequence, stated now.** G-POS is weak evidence. In the habit world, EMPTY optimises a per-minute form of the same
+welfare that is being scored, so its lead over ENG is expected by construction as well. The informative comparisons are
+therefore:
+- A-ADD, EMPTY against TRUE: both hold the true map, and only EMPTY holds the empty pause;
+- P-OWN / A-OWN: the empty pause without the true map.
