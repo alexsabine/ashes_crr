@@ -1671,3 +1671,7 @@ Please run robust checks on Ethics of Algorithms, human use over time and the va
 Consider existing approaches by companies using algorithms with human interaction and preciselsy what the CRR says about this phenomenon. 
 
 When the literature review is complete, run tests using CRR to see whether the empty-true-map helps in these scenarios
+
+## 232 — 2026-09-28T21:18:27Z
+
+You say U4 is the field's proposal, but what methods are they using?

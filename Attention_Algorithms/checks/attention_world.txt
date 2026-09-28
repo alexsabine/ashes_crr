@@ -4,3 +4,13 @@ habit world constants: s0=1.5, s_h=2, p0=0.05, p1=0.4, L0=10, a_c=1.5, a_h=1, v_
 negative world: SAT=inf, r_c=0, kappa_h=0, iota=0, eta_c=0, eta_n=0, v_c=1
 mechanisms and their support in the sweep: iota (notifications cost attention): f3:21 f3:22 (f3:23 mixed), kappa_h (use has a welfare cost): f3:1 f3:6 f3:7, p0,p1,eta_n (notifications start sessions): f3:24 f3:27 f1-f2 U2 claims, r_c,v_c (compulsive minutes carry little reflective value): f1:21 f1:29 f1:36 f3:4, s0,L0,SAT,g_e,g_c,beta,b: ASSUMED, s_h,eta_c,delta (habit forms, persists after a pause): f3:2 f3:3 f3:4
 
+[habit world]
+  arm     policy (c, n/day)   welfare/day  minutes/day  final habit  user-started
+  ENG     (0.9, 4.0)             -51.8709     185.3170       0.7796        0.6803
+  OWN     (0.9, 4.0)             -51.8709     185.3170       0.7796        0.6803
+  TRUE    (0.1, 4.0)              15.8432      38.6221       0.2799        0.7654
+  EMPTY   (0.0, 0.0)              12.3389      14.9968       0.0000        1.0000
+  ENG-B   (0.9, 4.0)             -41.9513     139.6884       0.7380        0.6848
+  CHRONO  (0.3, 0.0)              10.6243      28.2732       0.1248        1.0000
+  steps: welfare 0.3075, minutes 0.9870, habit 0.0045, user-started 0.0080
+  content of the pause (relative change of the best value when pauses are twice as long): ENG -4.206e-01, OWN -3.044e-02, TRUE -4.816e-01, EMPTY +0.000e+00
