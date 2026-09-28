@@ -1661,3 +1661,13 @@ So is this calculation as if only 1.5% of people take it up?
 ## 230 — 2026-09-28T20:42:32Z
 
 What tests do we have waiting in the pipeline now?
+
+## 231 — 2026-09-28T20:46:07Z
+
+Thank you. I would like you to run literature checks on the general safety of algorithms in the public domain. YouTube scrolling, Instragram etc. and how the algorithm treats a human user when they turn off their device. What happens over time to the human user, and how might the Empty True Map pause be helpful in this scenario?
+
+Please run robust checks on Ethics of Algorithms, human use over time and the value of an empty pause for the algorithm, and the long term impact on human users globally from now until 2030. 
+
+Consider existing approaches by companies using algorithms with human interaction and preciselsy what the CRR says about this phenomenon. 
+
+When the literature review is complete, run tests using CRR to see whether the empty-true-map helps in these scenarios
