@@ -1,0 +1,10 @@
+Mon Sep 28 04:12:44 UTC 2026
+Submitting to remote calendar https://a.pool.opentimestamps.org
+Submitting to remote calendar https://b.pool.opentimestamps.org
+Submitting to remote calendar https://a.pool.eternitywall.com
+Submitting to remote calendar https://ots.btc.catallaxy.com
+-rw-r--r-- 1 root root 619 Sep 28 04:12 prereg/sec4/HASH.txt.ots
+File sha256 hash: cf702c31881f5891870188312cd13aefd4fcf7b06867dc7a9e7bf4881166af25
+Timestamp:
+append 3de48368c1d58470f097beb86c8667e5
+sha256
