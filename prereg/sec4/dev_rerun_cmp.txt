@@ -1,0 +1,4 @@
+dev rerun of the final studies/sec4/sec4_score.py (byte-identical to runs/sec4/frozen/sec4_score.py) against prereg/sec4/dev_SEC4.txt, 2026-09-28:
+cmp: identical (0 differing bytes)
+97612161fbc4d54f380ae41060fe3041825771ed31399a2ac74cf09c913dee00  dev_rerun.txt
+97612161fbc4d54f380ae41060fe3041825771ed31399a2ac74cf09c913dee00  prereg/sec4/dev_SEC4.txt

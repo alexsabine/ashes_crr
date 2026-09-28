@@ -1,0 +1,22 @@
+======================================================================================================================
+SEC4 scoring (prereg/sec4/PREREG.md): the guarded SEC (clip) as the arm under test, SCL3/SEC3 thresholds, the saving rows
+======================================================================================================================
+carriers scored 1: ['synthetic']; excluded 0: []
+
+[synthetic] step 1.7823; tuned lambda 70.922 (17 grid configurations): 41.1371
+   raw grid: 0.1:24.01  0.3:24.21  1:24.82  3:26.69  10:31.77  30:38.46  35.3357:39.20  50:40.74  70.922:41.14  100:41.00  141:32.24  200:8.23  283:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   guarded SEC (clip) 39.3311 [36.45 39.80 41.81 38.80 39.80] −tuned -1.8060; fired 6
+   unguarded SEC 39.3311 [36.45 39.80 41.81 38.80 39.80] −tuned -1.8060; raw Laplace 24.4816 (-16.6555); rule Ω=1 42.6087 (+1.4716); other guards scale -1.6722, raw -1.8060
+   3-point sweep: best 30 38.4615; guarded SEC − best3 +0.8696
+   window cells (guarded) − tuned: 0.1/0.2:-1.74  0.2/0.1:-2.07  0.2/0.2:-2.01
+
+----------------------------------------------------------------------------------------------------------------------
+SEC4-1 tuning-free, the guarded SEC (clip) not behind the tuned lambda: 0/1 (need 1) -> NOT DECIDABLE (fewer than 4 carriers scored); synthetic:-1.8060 (step 1.78)
+   beside it (report): unguarded SEC 0/1; raw Laplace 0/1; the rule Ω=1 1/1
+SEC4-2 no divergence: carriers with a guarded seed below half the tuned accuracy: [] (0) -> PASS; unguarded (report): []
+SEC4-T: NOT DECIDABLE (a transferred lambda is behind on only 0 carriers, need >= 3)
+SEC4-P guarded SEC (1 configuration) not behind the 3-point mini-sweep (3): 1/1 (need 1) -> PASS
+SEC4-S sensitivity over the retained window cells: flips in 1 of 3 -> not fragile
+SEC4-K compute (report; CPU seconds from the timing files):
+   synthetic: configurations full sweep 17, guarded SEC 1; CPU s full 5.6, guarded SEC 0.3 (share 0.0556), raw Laplace 0.4 (overhead x0.830)
+SEC4-E guard firings (report): synthetic: 6

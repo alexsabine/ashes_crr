@@ -1643,3 +1643,13 @@ Okay, which 2026 frontier domains are compatible with where the retrodictive pas
 ## 227 — 2026-09-27T23:33:23Z
 
 That's helpful indeed. Thank you. Can we run more checks on the SEC as a way to reduce compute costs during training? e.g. to what extent does the SEC method enable "learning new tasks without paying to rediscover the forgetting weight for every task stream"?
+
+## 228 — 2026-09-28T03:50:26Z
+
+Yes, I’d like you to work on making this more robust as planned above and repeat the tests.
+
+I’d then like you to make a calculation regarding how much compute would be saved over the course of a year globally.
+
+Calculate estimated compute saving, energy saving and co2 emission saving.
+
+Thank you

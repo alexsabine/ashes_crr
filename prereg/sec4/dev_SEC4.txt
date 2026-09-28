@@ -1,0 +1,77 @@
+SEC4 guard development on the 16 SEEN carriers (prereg/sec4/DEV_DECLARATION.md); tuned lambda and step from pinned results
+======================================================================================================================
+D-ID clip: with an infinite bound equals SEC1's bayes_sec on the synthetic stream: 5/5 -> holds
+D-ID scale: with an infinite bound equals SEC1's bayes_sec on the synthetic stream: 5/5 -> holds
+D-ID raw: with an infinite bound equals SEC1's bayes_sec on the synthetic stream: 5/5 -> holds
+[cnae-9] (scl3) tuned 1410: 74.1667, step 1.7305; unguarded SEC 52.1875 (-21.9792)
+     clip : 82.0833 [81.77 78.65 84.38 83.33 82.29] −tuned +7.9167, fired 15
+     scale: 78.3333 [79.69 71.88 80.21 78.12 81.77] −tuned +4.1667, fired 15
+     raw  : 72.1875 [81.77 52.60 84.38 59.90 82.29] −tuned -1.9792, fired 5
+[eucalyptus] (scl3) tuned 1.5: 38.5321, step 3.5294; unguarded SEC 39.0826 (+0.5505)
+     clip : 39.0826 [40.37 42.20 44.04 33.03 35.78] −tuned +0.5505, fired 0
+     scale: 39.0826 [40.37 42.20 44.04 33.03 35.78] −tuned +0.5505, fired 0
+     raw  : 39.0826 [40.37 42.20 44.04 33.03 35.78] −tuned +0.5505, fired 0
+[first-order-theorem-proving] (scl3) tuned 1.5: 11.8318, step 1.0468; unguarded SEC 11.8118 (-0.0200)
+     clip : 11.8118 [10.41 11.11 12.71 13.31 11.51] −tuned -0.0200, fired 0
+     scale: 11.8118 [10.41 11.11 12.71 13.31 11.51] −tuned -0.0200, fired 0
+     raw  : 11.8118 [10.41 11.11 12.71 13.31 11.51] −tuned -0.0200, fired 0
+[GesturePhaseSegmentationProcessed] (scl3) tuned 14.1: 26.3063, step 1.0352; unguarded SEC 26.2062 (-0.1001)
+     clip : 26.2062 [27.63 24.52 25.53 26.63 26.73] −tuned -0.1001, fired 0
+     scale: 26.2062 [27.63 24.52 25.53 26.63 26.73] −tuned -0.1001, fired 0
+     raw  : 26.2062 [27.63 24.52 25.53 26.63 26.73] −tuned -0.1001, fired 0
+[har] (scl3) tuned 28300: 52.8671, step 4.8161; unguarded SEC 51.7283 (-1.1389)
+     clip : 51.7283 [52.55 52.75 54.05 52.55 46.75] −tuned -1.1389, fired 0
+     scale: 51.7283 [52.55 52.75 54.05 52.55 46.75] −tuned -1.1389, fired 0
+     raw  : 51.7283 [52.55 52.75 54.05 52.55 46.75] −tuned -1.1389, fired 0
+[isolet] (scl3) tuned 20000: 62.5667, step 3.4699; unguarded SEC 62.4000 (-0.1667)
+     clip : 62.4000 [69.67 61.50 59.67 59.50 61.67] −tuned -0.1667, fired 11
+     scale: 62.3667 [69.50 61.50 59.33 59.50 62.00] −tuned -0.2000, fired 11
+     raw  : 62.4000 [69.67 61.50 59.67 59.50 61.67] −tuned -0.1667, fired 0
+[MiceProtein] (scl3) tuned 709.22: 40.9091, step 1.0000; unguarded SEC 45.4545 (+4.5455)
+     clip : 45.4545 [41.82 43.64 45.45 46.36 50.00] −tuned +4.5455, fired 14
+     scale: 44.1818 [41.82 38.18 45.45 46.36 49.09] −tuned +3.2727, fired 14
+     raw  : 40.0000 [33.64 24.55 45.45 46.36 50.00] −tuned -0.9091, fired 3
+[semeion] (scl3) tuned 1500: 37.4295, step 1.5935; unguarded SEC 41.1912 (+3.7618)
+     clip : 41.1912 [43.26 44.20 38.56 40.75 39.18] −tuned +3.7618, fired 20
+     scale: 41.5047 [43.89 45.14 38.24 40.75 39.50] −tuned +4.0752, fired 20
+     raw  : 41.1912 [43.26 44.20 38.56 40.75 39.18] −tuned +3.7618, fired 0
+[steel-plates-fault] (scl3) tuned 6: 33.4748, step 1.1910; unguarded SEC 33.2626 (-0.2122)
+     clip : 33.2626 [34.75 33.42 32.63 31.56 33.95] −tuned -0.2122, fired 2
+     scale: 33.2626 [34.75 33.42 32.63 31.56 33.95] −tuned -0.2122, fired 2
+     raw  : 33.2626 [34.75 33.42 32.63 31.56 33.95] −tuned -0.2122, fired 0
+[wall-robot-navigation] (scl3) tuned 100: 24.7648, step 6.6186; unguarded SEC 22.1421 (-2.6226)
+     clip : 22.1421 [22.12 22.02 21.72 22.12 22.72] −tuned -2.6226, fired 0
+     scale: 22.1421 [22.12 22.02 21.72 22.12 22.72] −tuned -2.6226, fired 0
+     raw  : 22.1421 [22.12 22.02 21.72 22.12 22.72] −tuned -2.6226, fired 0
+[covertype] (sec3) tuned 10: 22.8629, step 4.8071; unguarded SEC 19.4995 (-3.3634)
+     clip : 19.4995 [16.72 24.52 21.02 20.52 14.71] −tuned -3.3634, fired 0
+     scale: 19.4995 [16.72 24.52 21.02 20.52 14.71] −tuned -3.3634, fired 0
+     raw  : 19.4995 [16.72 24.52 21.02 20.52 14.71] −tuned -3.3634, fired 0
+[dionis] (sec3) tuned 141: 55.5245, step 3.4360; unguarded SEC 50.9690 (-4.5554)
+     clip : 65.3347 [67.13 62.94 67.13 57.64 71.83] −tuned +9.8102, fired 8
+     scale: 64.6154 [67.13 62.94 67.13 57.44 68.43] −tuned +9.0909, fired 8
+     raw  : 60.9391 [67.13 62.94 67.13 57.64 49.85] −tuned +5.4146, fired 4
+[fabert] (sec3) tuned 14.1: 19.2208, step 1.0000; unguarded SEC 15.3846 (-3.8362)
+     clip : 19.2807 [19.38 19.48 19.48 19.18 18.88] −tuned +0.0599, fired 6
+     scale: 19.3806 [19.38 19.68 19.48 19.38 18.98] −tuned +0.1598, fired 6
+     raw  : 19.1209 [19.38 18.88 19.28 19.18 18.88] −tuned -0.0999, fired 3
+[helena] (sec3) tuned 8.49: 14.0600, step 2.9750; unguarded SEC 13.6800 (-0.3800)
+     clip : 13.6800 [15.70 15.20 7.70 14.30 15.50] −tuned -0.3800, fired 0
+     scale: 13.6800 [15.70 15.20 7.70 14.30 15.50] −tuned -0.3800, fired 0
+     raw  : 13.6800 [15.70 15.20 7.70 14.30 15.50] −tuned -0.3800, fired 0
+[jannis] (sec3) tuned 60: 22.1800, step 15.3283; unguarded SEC 19.2400 (-2.9400)
+     clip : 19.2400 [18.30 19.40 18.80 20.30 19.40] −tuned -2.9400, fired 0
+     scale: 19.2400 [18.30 19.40 18.80 20.30 19.40] −tuned -2.9400, fired 0
+     raw  : 19.2400 [18.30 19.40 18.80 20.30 19.40] −tuned -2.9400, fired 0
+[volkert] (sec3) tuned 6: 5.7600, step 1.0000; unguarded SEC 6.4800 (+0.7200)
+     clip : 6.4800 [7.30 6.30 6.00 6.30 6.50] −tuned +0.7200, fired 4
+     scale: 6.5000 [7.60 6.40 5.70 6.30 6.50] −tuned +0.7400, fired 4
+     raw  : 6.4800 [7.30 6.30 6.00 6.30 6.50] −tuned +0.7200, fired 0
+======================================================================================================================
+unguarded SEC not behind: 13/16 (pinned)
+clip : not behind 16/16; firings where unguarded SEC was already not behind 51; divergence carriers not behind 3/3
+scale: not behind 16/16; firings where unguarded SEC was already not behind 51; divergence carriers not behind 3/3
+raw  : not behind 15/16; firings where unguarded SEC was already not behind 3; divergence carriers not behind 2/3
+CHOSEN (most not behind; ties: fewest interfering firings, then ('clip', 'scale', 'raw')): clip
+D-COUNT 16/16 (need 12) -> holds; D-ID -> holds; D-FIXES 3/3 (need 2) -> holds
+D-GATE OPEN
