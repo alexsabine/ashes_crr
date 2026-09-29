@@ -330,9 +330,65 @@ field already has the construction, or a better one.
    - What is not established: whether grid operators and customers accept deadline extension instead of slowdown tiers.
    - What is needed: real flexibility-market data and contract terms, not a synthetic model.
 
-## 7. Next batches (EPS3, if wanted)
+## 7. EPS3: two more systems (`DECLARATION_EPS3.md`, cacb8ff; `checks/tally_eps3.txt`)
 
-Candidates, declared in the same form before any source or code:
-- LLM-agent memory across sessions (does a session end have content for an agent with persistent memory);
-- fleets of autonomous vehicles handing over to remote operators;
-- a real-data check of T1 against published flexibility-market prices, if a public dataset exists.
+**The order of work.** The declaration and the tally script were pushed before any source or code. One research agent
+wrote `batches/eps3_01.py`; it was run twice and was byte-identical. The sources are in `docs/citations/eps3_2026-09-29.md`:
+58 of 58 quotes were verified against the fetched texts, and the OpenAI post bodies were not reached (HTTP 403).
+
+| | result |
+|---|---|
+| gates | OPEN 2 of 2 |
+| labels | REDUNDANT-IG 1 (V1), REDUNDANT-DOMAIN 1 (V2) |
+| CRR's prediction Q held | 1 of 2 (V2's Q fails) |
+| the investigator's forecast | right on 1 of 2 |
+
+### V1. An AI assistant with persistent memory: the user ends the session — REDUNDANT-IG
+
+- **Who adds retention turns.** At a mean absence of 7 days, the calendar-day assistant (WALL) adds 4.00 retention turns
+  per session; ETM, OWN, H0 and the user's own welfare (TRUE) add none.
+- **The cost to the user.** User welfare is 3.960022 under WALL against 5.880444 for the others.
+- **Why OWN also adds none.** OWN keeps a stake (1.1283) but does not act on it. On its own clock a retention turn is one of
+  its own turns and delays every later task, so the ablation changes nothing: REDUNDANT-IG.
+- **The label turns on the reading of OWN.** Of 40 printed readings, 16 give REDUNDANT-IG and 24 give REDUNDANT-DOMAIN. At
+  0.95 per own turn, OWN adds turns if its relationship state decays to 0.874 or less per day away.
+- **What the sources add** (they qualify, not change, the row):
+  - **The developers' published standard is user benefit, not "task only".** OpenAI's Model Spec bars pursuing time
+    spent "that is not user beneficial"; Anthropic's constitution speaks of reliance "a person would endorse on
+    reflection". That is TRUE, not H0; the two coincide here only because a retention turn is worth nothing to the task.
+  - **Retention optimisation is documented practice in companion apps.** Retention tactics appear at 37 % of farewells
+    across companion apps (De Freitas et al.). Irvine et al. call retention "the overall metric that commercial entities
+    will often aim to optimise".
+  - **No source measures retention turns in task assistants.**
+  - **The regulation moved.** California SB 243's clause against "encouraging increased engagement" was dropped before
+    enactment.
+
+### V2. Learning to defer: the AI hands a case to a human expert — REDUNDANT-DOMAIN, Q fails
+
+- **ETM defers exactly by the Bayes rule.** Its threshold is h = 0.900000, equal to H0's, with stake 0.
+- **WALL never defers, at any L.** A one-step handoff already costs it 0.7425 of value, more than the largest possible
+  gain of 0.4. Its error rate is 0.25 per case against the rule's 0.09.
+- **Why Q fails.** The declared prediction was that WALL "defers less as L grows". It is already at zero at L = 1, so the
+  gradient is flat. Under a finite queue of 100 cases, WALL's deferral share falls 0.2460, 0.0447, 0.0146 as declared,
+  but that is an alternative reading, printed, not the scored one.
+- **What the sources add.**
+  - **The domain's rule admits a cost of deferring:** Mozannar & Sontag's additive cost; Madras et al.'s γ_defer penalty.
+    So a wall-clock time cost is part of the domain's own model, not only WALL's flaw.
+  - **Real review is a queue, not a stall.** In real review queues the AI keeps working while cases wait, and human
+    reviewers are scarce (Lykouris & Weng).
+- **So the empty pause names why a time-costed deferral goes wrong only where the time cost is not a real cost to the
+  principal.**
+
+## 8. Across EPS1–EPS3 (13 systems; 12 gates open)
+
+1. **The condition held in every open system.** Zero content at the pause, on the own clock and with no dependence on
+   what the pause changes, gave zero stake by construction (G-ZERO 12 of 12 open gates).
+2. **It picked out a known fix.** Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+   holding no inventory into a halt; conditional integration; preemption with return; the Bayes deferral rule;
+   user-benefit objectives.
+3. **It was not optimal where a principal's welfare or a better domain fix exists:**
+   - the true map carries the welfare (S5, V1);
+   - back-calculation (S7) and per-step approval (T4) beat it;
+   - a rollback cannot be emptied without inviting busywork (T4).
+4. **The commercial case worth checking with real data is grid demand response (T1).** It is under full checks as DR1
+   (`Grid_Demand_Response/`).

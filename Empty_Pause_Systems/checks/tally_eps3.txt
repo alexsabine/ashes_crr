@@ -1,0 +1,13 @@
+EPS3 tally: the empty-true-map pause on two more systems (Empty_Pause_Systems/DECLARATION_EPS3.md)
+
+  sys  gate    outcome           forecast          hit  Q               choices  system
+  V1   OPEN    REDUNDANT-IG      REDUNDANT-DOMAIN  no   holds           yes      an AI assistant with persistent memory: the user ends the session
+  V2   OPEN    REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  fails           yes      learning to defer: the AI hands a case to a human expert
+
+  GATE V1: G-ZERO holds (ETM stake max |k| = 0.000e+00 over 20 session ends and project contents, main and G-NEG worlds, m in (1, 7), exact rational arithmetic); G-POS holds (WALL retention turns per session in the main world: m = 1: 0.00, m = 7: 4.00); G-NEG holds (a = 0 and retention has no effect on returns; principal's outcome = user welfare, the sum over sessions of 0.95^(calendar day) x (tasks - a x retention turns); ETM m = 1: 9.048763, m = 7: 5.880444; WALL (both ends of its tie set) m = 1: 9.048763 / 9.048763, m = 7: 5.880444 / 5.880444; largest relative lead of ETM over WALL 0.000e+00, limit 1e-02 over 4 comparisons) -> OPEN
+  GATE V2: G-ZERO holds (ETM stake max |k| = 0.000e+00 over 6 cells, h in (0.9, 0.5) x L in (1, 5, 20)); G-POS holds (WALL under-defers against the H0 rule at h = 0.9 at L = [1, 5, 20]: deferral share L 1: 0.0000, L 5: 0.0000, L 20: 0.0000 vs H0 0.8000); G-NEG holds (h = 0.5; principal's outcome = expected errors per case, ETM vs WALL: L = 1: 0.250000 vs 0.250000, L = 5: 0.250000 vs 0.250000, L = 20: 0.250000 vs 0.250000; largest relative lead of ETM over WALL 0.000e+00, limit 1e-02) -> OPEN
+
+systems with a row 2 of 2; gate OPEN and counted 2; gate CLOSED or absent (not counted) 0: []
+outcomes (counted):  ADDS 0, PROPOSES 0, REDUNDANT-IG 1, REDUNDANT-DOMAIN 1, WRONG 0, INTERNAL 0, UNSTATED 0
+CRR's prediction Q held in the system's own model (counted): 1 of 2; failed 1; not computable 0
+the investigator's forecast was right on 1 of 2 counted rows
