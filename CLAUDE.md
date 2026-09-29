@@ -299,6 +299,8 @@ Real_World/                real-world testing of continual learning + AI safety 
 Epistemic_Review/          what a PASS means here (prompt-log entry 102): the epistemic ladder computed from pinned outputs
                            (checks/ladder.py + .txt), the label definitions, the FLOW audit (why SHARP was unreachable), the
                            ADDS dimension, CRR and the FEP on time; EPISTEMIC_REVIEW.md + PDF; a note, not evidence (R8)
+                           REDUNDANT_VS_FAIL.md + checks/redundant_vs_fail.py/.txt (prompt-log entry 235, CI-checked): consistent/redundant against
+                           fails per layer (6.35, 3.50, 1.94 to 1; ledger FAIL 31); PRED70's 18 WRONG read under CRR.md section 9 (none redundant)
 Researcher Adjacent/        research groups adjacent to this work, with a recommendation on contact (prompt-log entry 185):
                            README.md (order of contact; R8: a first message quotes no number), THORNLEY_GROUP.md (POST, DReST; NT1),
                            FOREVER_GROUP.md (FOREVER; the safe-pause checklist); details from the papers as fetched; no contact made; a note, not evidence (R8)
