@@ -160,6 +160,16 @@ def _hopf_gamma(b, q):
     return best
 
 
+def _gamma_bmin(q):
+    """Smallest gain b at which the moment-matched gamma kernel (shape 1/q) can reach the imaginary axis at all."""
+    p = 1.0 / q
+    if p <= 1:
+        return math.inf
+    lo = math.tan(math.pi / (2 * p)); hi = math.tan(min(math.pi / p, math.pi / 2 - 1e-12))
+    uu = np.geomspace(lo * (1 + 1e-9), min(hi * (1 - 1e-9), 1e6), 20001)
+    return float(min(math.sqrt(1 + math.tan(math.pi - p * math.atan(u)) ** 2) * (1 + u * u) ** (p / 2) for u in uu))
+
+
 def _enc(x):
     return SENT if not math.isfinite(x) or x > SENT else x
 
@@ -212,7 +222,7 @@ def r2():
                     tn=f"moment-matched gamma kernel {domain:.4f}: {_w(rel(crr, domain) <= TOL_N, 'agree (the domain has Q)', 'differ')}",
                     tc=f"threshold with memory {crr:.4f} > 1.01 x pure-delay threshold {null:.4f}: {_w(check, 'holds', 'fails')} -> {_w(check, 'Q holds', 'Q fails')}",
                     out=out,
-                    reading=f"at the canonical P/delta the remembered density {_w(crr == SENT, 'never loses stability (the effective gain b(1 - q) - q stays below 1)', f'loses stability at delta*tau = {crr:.4f}')} while the pure delay loses it at {null:.4f}; the gamma kernel with the same mean and variance {_w(domain == SENT, 'is also never unstable here (the strong kernel needs b > 8)', f'loses it at {domain:.4f}')}, so the distributed-delay literature {_w(rel(crr, domain) <= TOL_N, 'already carries the qualitative answer', 'gives a different threshold')}; the P/delta sweep shows where finite thresholds appear and how the label would change there",
+                    reading=f"at the canonical P/delta the remembered density {_w(crr == SENT, 'never loses stability (the effective gain b(1 - q) - q stays below 1)', f'loses stability at delta*tau = {crr:.4f}')} while the pure delay loses it at {null:.4f}; the gamma kernel with the same mean and variance {_w(domain == SENT, f'is also never unstable here (this kernel needs b > {_gamma_bmin(Q0):.4f})', f'loses it at {domain:.4f}')}, so the distributed-delay literature {_w(rel(crr, domain) <= TOL_N, 'already carries the qualitative answer', 'gives a different threshold')}; the P/delta sweep shows where finite thresholds appear and how the label would change there",
                     weakness=f"DEVIATION (modelling choice a reader could contest): the A6 occasion is taken as one delay tau, so q = 0 returns the pure delay (the declared null); the alternative reading with the current density inside the memory gives {_fmt(th_alt)}. The gamma comparator is moment-matched (my choice; declared.py names no shape). At the canonical P/delta both memory and gamma read 'none', so T-N agrees through the sentinel, not a measured number; P = 8, delta = 0.175 are quoted from memory (R10: not fetched)",
                     elegance="", child="")
 
