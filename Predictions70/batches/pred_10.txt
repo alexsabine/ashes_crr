@@ -1,0 +1,74 @@
+PRED70 batch P10: social systems and networks (Predictions70/DECLARATION.md; prompt-log entry 234; declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (soc) DeGroot opinion averaging on a ring of 50 agents with A6 memory of neighbours' opinions (computed as: row-stochastic ring, self-weight s_i = 0.2 + 0.4 u_i, (1 - s_i)/2 to each neighbour, u and x_0 uniform, seed 0; memory initialised at x_0; convergence time tau = -1/ln|lambda_2| of the iteration)
+     source:     PRED70 P10-1 (declared at 8397478; forecast ADDS)
+     Q:          consensus value unchanged; convergence slower by more than 1 %
+     ingredient: A6: each neighbour's opinion enters as m_j = (1 - q) x_j + q m_j(previous), q = 0.5 per round
+     null:       instantaneous opinions
+     domain:     DeGroot: consensus at the eigenvector-weighted mean
+     numbers:    consensus: A6 0.5672307282, instantaneous 0.5658056214, relative shift 2.51e-03; DeGroot's eigenvector-weighted mean pi.x_0 = 0.5658056214; convergence time: A6 356.98 rounds, instantaneous 230.56 (slower by 54.8 %; rounds to a spread below 1e-12: 9450 vs 6106); homogeneous ring (s = 1/3, sensitivity): consensus shift 1.95e-16, tau 316.34 vs 189.73; q-grid (sensitivity only): q = 0.25: consensus 0.566432, tau 272.66; q = 0.5: consensus 0.567231, tau 356.98; q = 0.75: consensus 0.568287, tau 610.32; conserved-quantity consensus equals the simulated one and is a left eigenvector: yes
+     T-G:        convergence time 356.98 vs null 230.56: differ
+     T-N:        DeGroot's theorem gives the memoryless consensus (checked in T-C); no rate is cited for the memory variant
+     T-C:        consensus unchanged within 1 % (shift 0.251 %: yes) and convergence slower by more than 1 % (54.8 %: yes): holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    with remembered neighbours the conserved quantity is pi.x + (q/(1 - q)) (pi A).m, not pi.x, so the consensus moves by 2.51e-03 (relative) on this heterogeneous ring (below the 1 % resolution) and by 1.95e-16 on the homogeneous one, where pi A is proportional to pi; averaging over remembered opinions slows convergence by 54.8 %; consensus with memory or shift registers is an existing literature, mostly on acceleration with extrapolating weights (not checked for this averaging form)
+     weakness:   'unchanged' is read at the declaration's 1 % resolution; the consensus does move (exactly) whenever self-weights differ, and a more heterogeneous ring or other initial opinions could move it past 1 %; one ring, one draw
+
+[ 2] (soc) Hawkes self-exciting process (exponential kernel, branching 0.6) (computed as: mu = 1.0, alpha = 0.6, beta = 1.0 (branching 0.6), T = 5000, Ogata thinning, seed 0; intensities compared on a 0.01 grid by relative RMS difference)
+     source:     PRED70 P10-2 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the A6 geometric kernel reproduces the Hawkes intensity: identical to the exponential-kernel Hawkes process
+     ingredient: A6: geometric weights q^k over occasion age k, q = 0.5, with occasions the inter-event intervals (CRR D5 [M]); the same jump alpha per event as Hawkes
+     null:       no memory (Poisson)
+     domain:     the Hawkes process with exponential kernel
+     numbers:    12765 events (rate 2.553; stationary theory 2.500); relative RMS distance from the Hawkes intensity: A6 on occasions 0.4083; Poisson at mu 0.6801; Poisson at the mean rate 0.3902; the Hawkes process itself 0.0; q-grid (sensitivity only): q = 0.25: 0.4722; q = 0.5: 0.4083; q = 0.75: 0.5017; clock-step readings (sensitivity, not CRR's occasion): continuous age with Delta = ln(1/q)/beta 3.02e-16; whole-occasion age 0.2666
+     T-G:        distance 0.4083 vs Poisson 0.6801: differ
+     T-N:        the exponential-kernel Hawkes process is at distance 0.0 from itself: differ
+     T-C:        the A6 kernel reproduces the Hawkes intensity (distance 0.4083 <= 0.01): fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    with occasions counted in events, the A6 kernel forgets by event count, not by clock time, so its excitation settles at alpha/(1 - q) = 1.20 whatever the spacing and the intensity stays far from the Hawkes intensity (0.4083); with occasions as clock steps of width ln(1/q)/beta, a width taken from the domain's own beta, the geometric kernel becomes the exponential kernel with a continuous age (3.0e-16) and not with a whole-occasion age (0.2666)
+     weakness:   DEVIATION (reading): 'occasion' is read as an inter-event interval, CRR's own definition for a point process (D5 [M]); the forecaster's reading (a geometric kernel in clock steps) is printed and would reproduce Hawkes by algebra, but needs a step width that CRR does not fix; the intensities are compared on the Hawkes path, not on a path simulated from the A6 intensity
+
+[ 3] (soc) Schelling segregation (tolerance 0.4) with A6-remembered neighbourhood composition (computed as: 50 x 50 torus, 10 % vacant, two equal groups, Moore neighbourhood, an agent content when its (remembered) like-fraction >= 0.4; one sweep = one occasion; unhappy agents move to random vacancies; 100 sweeps; segregation index = mean like-neighbour fraction; 40 paired seeds)
+     source:     PRED70 P10-3 (declared at 8397478; forecast PROPOSES)
+     Q:          memory lowers the final segregation index by more than 1 %
+     ingredient: A6: M = (1 - q) f + q M per sweep, q = 0.5; a mover's memory restarts at its new neighbourhood
+     null:       instantaneous neighbourhood
+     domain:     none cited
+     numbers:    final segregation index (mean over seeds): A6 0.8205, instantaneous 0.8247; drop 0.51 %; per-seed paired difference: mean -0.0042, sd 0.0067, A6 lower on 31/40, higher on 9/40; q-grid (sensitivity only): q = 0.25: 0.8254; q = 0.5: 0.8205; q = 0.75: 0.8192; memory carried across moves (sensitivity): 0.8331
+     T-G:        index 0.8205 vs null 0.8247: agree
+     T-N:        no theorem cited
+     T-C:        memory lowers the final index by more than 1 % (0.51 %): fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    the remembered like-fraction lags the present one, so agents react later; the final segregation index moves by 0.51 % (lower with memory, lower on 31 of 40 seeds), less than the 1 % the Q needs; the delay changes when agents move more than where the town ends
+     weakness:   one Schelling variant (random-vacancy moves, synchronous decisions, sequential relocation); 'final' is after 100 sweeps; the per-seed spread is printed beside the mean
+
+[ 4] (soc) Nagel-Schreckenberg traffic (p = 0.3) with drivers braking on A6-remembered headway (computed as: ring of 2000 cells, vmax 5, p = 0.3, warm-up 1000, 2000 measured steps; jam-transition density = the density of maximal flow on a 0.0025 grid over 0.05-0.20; braking to min(gap, floor(m)))
+     source:     PRED70 P10-4 (declared at 8397478; forecast ADDS)
+     Q:          memory raises the density of the jam transition by more than 1 %
+     ingredient: A6: m = (1 - q) gap + q m per step, q = 0.5, the headway the driver brakes to
+     null:       instantaneous headway
+     domain:     anticipation models raise capacity
+     numbers:    density of maximal flow: A6 0.0825 (flow 0.3842), instantaneous 0.1050 (flow 0.4736); change -21.4 %; q-grid (sensitivity only; q = 0.25 and 0.75 on a 0.005 grid): q = 0.25: 0.0850 (flow 0.3952); q = 0.5: 0.0825 (flow 0.3842); q = 0.75: 0.0700 (flow 0.3270)
+     T-G:        density 0.0825 vs null 0.1050: differ
+     T-N:        H0 gives a direction for anticipation (looking ahead), not a number for memory (looking back)
+     T-C:        memory raises the jam-transition density by more than 1 % (-21.4 %): fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    a driver who brakes to a remembered headway brakes to the smaller of the remembered and the actual gap, so after a close approach it stays cautious while the gap opens; the flow peak moves down from density 0.1050 to 0.0825 and the capacity falls from 0.4736 to 0.3842: memory acts as the opposite of anticipation here
+     weakness:   DEVIATION (model): braking to the remembered headway alone lets cars overlap when the remembered gap exceeds the actual one, so the rule brakes to min(actual gap, floor(remembered gap)); with that safety constraint memory can only add caution; one seed per density (paired across arms); the density of maximal flow is read on a grid (step 0.0025, about 2 % of the density)
+
+[ 5] (soc) Daley-Kendall rumour spreading with A6-remembered encounters (computed as: population 20000, one initial spreader, pair-model jump chain, 10 runs per arm, seeds 0-9)
+     source:     PRED70 P10-5 (declared at 8397478; forecast WRONG)
+     Q:          the final fraction never hearing the rumour (0.203 without memory) changes by more than 1 %
+     ingredient: A6: a spreader stops with probability equal to its remembered fraction of encounters with people who already knew (normalised weights q^k over encounter age, q = 0.5)
+     null:       instantaneous
+     domain:     Daley-Kendall: 0.203
+     numbers:    final fraction never hearing: A6 0.1495 (se 0.0011), instantaneous 0.2024 (se 0.0012); Daley-Kendall root of x = exp(-2(1 - x)): 0.203188; change from it 26.4 %; q-grid (sensitivity only): q = 0.25: 0.1729; q = 0.5: 0.1495; q = 0.75: 0.1267
+     T-G:        fraction 0.1495 vs null 0.2024: differ
+     T-N:        Daley-Kendall's 0.2032: differ; the memoryless simulation reproduces it within 2 % (0.40 %)
+     T-C:        the never-hearing fraction changes by more than 1 % from 0.203 (26.4 %): holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    a spreader who remembers mostly meeting people who had not heard stops less readily on its first knower, so spreaders live longer and the never-hearing fraction falls from 0.2032 to 0.1495; the effect is a lower effective stopping probability, and rumour models with a stopping probability below one are an existing generalisation that may already give this number (not checked)
+     weakness:   one reading of 'remembered encounters' (the stopping probability equals the remembered knower fraction; a new spreader has no memory); finite population and 10 runs per arm (standard errors printed)
+
+TALLY: 2 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 2 WRONG / 0 INTERNAL / 0 UNSTATED
