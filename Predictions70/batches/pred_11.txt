@@ -1,0 +1,76 @@
+PRED70 batch P11: physiology (Predictions70/DECLARATION.md; declared.py at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (phys) Bergman minimal glucose-insulin model: glucose after a meal; model: dG/dt = -(p1 + X) G + p1 Gb + Ra(t), dX/dt = -p2 X + p3 (I - Ib), dI/dt = -n (I - Ib) + gam (G - Gb)^+, meal Ra = D ka^2 t e^(-ka t); p1 0.03/min, p2 0.02/min, p3 1.3e-05, Gb 90 mg/dl, Ib 10 uU/ml, n 0.2/min, gam 0.1, D 60 mg/dl, ka 0.04/min; RK4 dt 0.1 min over 600 min
+     source:     PRED70 P11-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          remote insulin action X is already an exponential memory: adding A6 changes the glucose nadir by less than 1 % (computed as: the glucose minimum after the post-meal peak, with glucose driven by the A6-remembered M in place of X, against Bergman's X; relative change)
+     ingredient: A6 with P3's exponential kernel: dM/dt = (X - M)/T_m, mean age T_m = q/(1 - q) occasions, q = 0.5; occasion = X's own time constant 1/p2 = 50.0 min, so T_m = 50.0 min
+     null:       the model's own X
+     domain:     Bergman's remote compartment
+     numbers:    nadir: with A6 85.1337 mg/dl at 193.4 min, with X 88.0050 mg/dl at 170.2 min (peak 108.775 against 106.817); relative change 0.0326; q-grid (occasion 50 min): q 0.25: T_m 16.7 min, change 0.0187; q 0.5: T_m 50.0 min, change 0.0326; q 0.75: T_m 150.0 min, change 0.0255; occasion sweep at q = 0.5: occasion 1 min: change 0.0010; occasion 10 min: change 0.0114; occasion 300 min: change 0.0132; occasions (41-point log scan, 1-3000 min) with the change below 1 %: 1.0-7.4 min; 405.4-1347.1 min
+     T-G:        nadir 85.1337 vs null 88.0050: differ
+     T-N:        Bergman's model (X alone) gives 88.0050: differ
+     T-C:        relative change of the nadir 0.0326 below 0.01: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    remembering X at a mean age of one occasion of X's own length lags insulin action further, so the glucose nadir deepens from 88.005 to 85.134 mg/dl (0.0326 relative); X is an exponential memory already, but a second exponential memory in series is a different kernel (gamma-2), not a no-op; the change is below 1 % only on the scanned occasion bands 1.0-7.4 min; 405.4-1347.1 min; at the longest scanned occasion (3000 min) the nadir is 89.433 mg/dl, above Bergman's, so the later band is where a deeper lagged dip and a weaker insulin action cross: a coincidence of two effects, not an absence of effect
+     weakness:   DEVIATION: declared.py names no occasion for A6 in a single-meal response (CRR's [O3]: no rotor sets it); the decisive occasion is X's own time constant 1/p2 (the unit in which the model states X's memory), and the verdict flips on the occasion bands 1.0-7.4 min; 405.4-1347.1 min (printed). The meal and secretion terms are added because Bergman's minimal model is an IVGTT model; the nadir is dominated by the basal level: the depth below basal changes from 1.995 to 4.866 mg/dl (0.5900 relative)
+
+[ 2] (phys) Borbely two-process sleep model: sleep onset as a cut; model: S rises as 1 - (1 - S) e^(-dt/18.2 h) awake and decays as S e^(-dt/4.2 h) asleep; onset when S reaches 0.67 + 0.12 C(t), wake when S falls to 0.17 + 0.12 C(t); C the Daan-Beersma-Borbely skewed sine (five harmonics); 40 days at 1-min steps, days 5-35 scored
+     source:     PRED70 P11-2 (declared at 8397478; forecast WRONG)
+     Q:          sleep onset occurs at the antipode of the circadian process C phase from the last wake-up (computed as: from each wake-up, the first antipodal cut of the analytic-signal phase of C (half a turn later) against the model's sleep onset; per day, within 1 %)
+     ingredient: A3 (antipodal_cuts on intrinsic_phase of C, started at the wake-up sample)
+     null:       the S-threshold crossing
+     domain:     the two-process model: onset when S meets the upper C threshold
+     numbers:    30 days scored; wake-to-onset 15.9500 h (S-threshold crossing), wake-to-antipodal-cut 11.0333 h; circadian phase advanced from wake to onset 1.3382 pi (the antipode is 1 pi); days with the cut within 1 % of the onset: 0/30; sensitivity, pure-sine C: onset 16.0583 h, cut 12.0000 h, phase advanced 1.3382 pi
+     T-G:        cut 11.0333 h vs S-threshold onset 15.9500 h: differ
+     T-N:        the two-process onset 15.9500 h: differ
+     T-C:        onset at the antipodal cut on every scored day (0/30): fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the antipode of C's phase comes 4.917 h before the modelled onset: the sleeper stays awake for 1.3382 pi of circadian phase, not pi, because onset is set by where the rising homeostatic pressure meets the upper threshold, and a 15.95-h wake / 8.05-h sleep day is not a half-turn
+     weakness:   the two-process model is deterministic, so every day is identical after the transient; the phase is the Hilbert phase of C (the one implemented intrinsic phase); a Poincare phase was not tried
+
+[ 3] (phys) respiratory sinus arrhythmia: heart period modulated by breathing; model: breaths gamma-distributed (mean 4 s, CV 0.2), tidal volume per breath lognormal (CV 0.15); an IPFM sinus node with rate (1 + 0.07 x lung volume + 0.02 sin(2 pi 0.1 t)) / 0.85 s and 1 % beat jitter; the heart-period series resampled at 20 Hz; own events = inspiration onsets; 398 breaths, 1967 beats, seed 11
+     source:     PRED70 P11-3 (declared at 8397478; forecast WRONG)
+     Q:          arc of the heart-period signal per breath is more regular than the breath duration (computed as: CV of the arc of the resampled heart-period series between inspiration onsets against CV of the breath duration, paired bootstrap n_boot 2000 seed 0, CI excluding 0 below)
+     ingredient: H-L5 (regularity, identity metric on the heart period, segment_end inclusive)
+     null:       CV(breath duration)
+     domain:     none
+     numbers:    CV(arc per breath) 0.2647, CV(breath duration) 0.1935, difference +0.0712, 95 % CI [+0.0505, +0.0927]; amplitude control CV(peak-to-trough per breath) 0.2822; sensitivity: no beat jitter: CV(arc) 0.1993, CV(clock) 0.1935, CI [-0.0107, +0.0217]; no jitter, no Mayer wave: CV(arc) 0.1710, CV(clock) 0.1927, CI [-0.0371, -0.0066]; pure RSA (constant tidal volume, no jitter, no Mayer wave): CV(arc) 0.1105, CV(clock) 0.1932, CI [-0.0934, -0.0728]
+     T-G:        CV(arc) 0.2647 vs null CV(breath duration) 0.1935: differ
+     T-N:        no theorem cited
+     T-C:        CV(arc) - CV(breath) CI [+0.0505, +0.0927] lies below 0: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the heart-period arc per breath is less regular than the breath (0.2647 against 0.1935); removing the other sources in turn gives CV(arc) 0.1993 (no beat jitter), 0.1710 (no jitter, no Mayer wave), 0.1105 (pure RSA (constant tidal volume, no jitter, no Mayer wave)): each of beat jitter, the 0.1-Hz Mayer wave and tidal-volume variation adds arc variability that is not tied to the breath; the sensitivity variants that are arc-regular (CI below 0): no jitter, no Mayer wave, pure RSA (constant tidal volume, no jitter, no Mayer wave)
+     weakness:   one synthetic IPFM model; the RSA gain is flat in breathing frequency (vagal transfer taken as flat); a frequency-dependent RSA transfer (larger swings for slower breaths) was not tried; the noise levels are named choices; sensitivity variants that flip the verdict: no jitter, no Mayer wave, pure RSA (constant tidal volume, no jitter, no Mayer wave) (2 of 3)
+
+[ 4] (phys) repeated drug dosing with first-order elimination: trough levels; model: unit bolus every T, dC/dt = -k C by RK4 (200 steps per interval), 60 doses; trough = the level just before a dose; accumulation = steady-state trough / first trough; regimens T/t_half in {0.5, 1, 2}
+     source:     PRED70 P11-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the steady-state trough under A6 accumulation equals the pharmacokinetic accumulation factor (computed as: the A6 remembered level, one occasion per dose, steady state over first occasion, against the steady-state over first trough ratio of first-order elimination, on each of three dosing regimens; all must agree within 1 %)
+     ingredient: A6 with P3's geometric weights, q = 0.5 per occasion, occasion = one dosing interval (a dose is the system's own event, CRR [M])
+     null:       no memory
+     domain:     accumulation factor 1/(1 - e^{-kT})
+     numbers:    A6 accumulation factor 2.0000 whatever the regimen; T = 0.5 half-lives: accumulation factor 3.4142 (RK4 trough ratio 3.4142), A6 2.0000, differ, per-regimen label WRONG; T = 1.0 half-lives: accumulation factor 2.0000 (RK4 trough ratio 2.0000), A6 2.0000, equal, per-regimen label REDUNDANT-DOMAIN; T = 2.0 half-lives: accumulation factor 1.3333 (RK4 trough ratio 1.3333), A6 2.0000, differ, per-regimen label WRONG; q-grid (A6 factor): q 0.25: 1.3333; q 0.5: 2.0000; q 0.75: 4.0000; decisive regimen (largest gap): T = 0.5 half-lives
+     T-G:        A6 2.0000 vs no memory 1.0000: differ
+     T-N:        the accumulation factor at T = 0.5 half-lives is 3.4142: differ
+     T-C:        A6 equals the simulated trough ratio on 1/3 regimens: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    A6 with a fixed q = 0.5 per dose accumulates by 1/(1 - q) = 2.0000, which is the pharmacokinetic factor only when a dose is given once per half-life (e^(-kT) = q); at other intervals the drug's own elimination sets the factor and a fixed memory weight cannot know it; the geometric series is the same, the weight is the drug's
+     weakness:   DEVIATION: declared.py names no dosing regimen and CRR fixes q = 0.5 while the accumulation factor depends on kT, so Q is scored on three regimens (all must hold) and the harness is given the regimen with the largest gap; on the once-per-half-life regimen alone the row would read REDUNDANT-DOMAIN (printed per regimen)
+     elegance:   Take a pill each time half of the last one has left your body and your body settles at twice the first dose: the same halving rule as remembering with q = 1/2.
+     child:      If your body gets rid of half the medicine before the next pill, the medicine builds up until there is twice as much as after the first pill, and then it stays there.
+
+[ 5] (phys) menstrual-cycle hormone model (Keener-style) with noise: ovulation as own event; model (reduced, in the Keener-Sneyd pool form): follicle F under FSH suppressed by progesterone, estradiol E lagging F by 1 day, an LH reserve released by E (Hill 20), serum LH, ovulation at rate 20 H(LH) F with a Hill-8 LH threshold, corpus-luteum progesterone decaying over 8 days; OU noise (sd 0.2, correlation 2 days) on follicular growth; RK4 dt 0.01 day, 3400 days, first 200 discarded; own events = LH surge peaks; 154 cycles, mean length 20.551 model days, seed 5
+     source:     PRED70 P11-5 (declared at 8397478; forecast WRONG)
+     Q:          CV(arc between ovulations) < CV(cycle length) (computed as: arc of the hormone state (E2, LH, P4), each scaled by its own sd, between consecutive LH surge peaks, against the cycle length; paired bootstrap n_boot 2000 seed 0, CI excluding 0 below)
+     ingredient: H-L5 (regularity on the three-hormone state, segment_end inclusive)
+     null:       CV(cycle length)
+     domain:     none
+     numbers:    CV(arc per cycle) 0.0768, CV(cycle length) 0.1128, difference -0.0360, 95 % CI [-0.0443, -0.0273]; amplitude control CV(peak-to-trough) 0.0657 (CI of CV(arc) - CV(amp) [+0.0056, +0.0168]); noise sensitivity: sd 0.1: CV(arc) 0.0331, CV(clock) 0.0460, CI [-0.0173, -0.0082]; sd 0.3: CV(arc) 0.1193, CV(clock) 0.1703, CI [-0.0650, -0.0351]
+     T-G:        CV(arc) 0.0768 vs null CV(cycle length) 0.1128: differ
+     T-N:        no theorem cited
+     T-C:        CV(arc) - CV(cycle) CI [-0.0443, -0.0273] lies below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    noise on follicular growth moves the day of the surge more than it changes the size of the hormonal excursion (CV 0.1128 against 0.0657), and in this model the hormone arc per cycle is more regular than the cycle length (0.0768 against 0.1128); the amplitude control is more regular than the arc (0.0657; CI of the difference [+0.0056, +0.0168]), so the arc does worse than the size of the excursion alone (H-L5's control (i) in CRR.md, not part of the declared Q)
+     weakness:   DEVIATION: the published Keener-style / Selgrade models have 10 or more variables; this is a five-variable reduction written for this row (same mechanisms: FSH suppression by progesterone, estradiol-triggered LH release from a reserve pool, LH-triggered ovulation, luteal decay), with rates chosen so that it oscillates, and its mean cycle is 20.6 model days rather than 28 (CVs are scale-free). Noise enters the growth rate, not the state, so the arc converges as dt shrinks
+
+TALLY: 1 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 4 WRONG / 0 INTERNAL / 0 UNSTATED

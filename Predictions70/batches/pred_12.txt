@@ -1,0 +1,74 @@
+PRED70 batch P12: climate and earth (Predictions70/DECLARATION.md; declared.py at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (clim) Budyko-Sellers energy balance with ice-albedo feedback: hysteresis width; model: Budyko's annual-mean EBM with Legendre insolation s(y) = 1 - 0.241 (3 y^2 - 1), A = 202, B = 1.9, C = 3.04, albedo 0.32/0.62 (edge 0.47, smoothed step width 0.05), T_c = -10 C; ice line d eta/dt = eps (T(eta) - T_c) (Widiasih), eps set so the ice line relaxes in 1000 yr at Q = 343 W/m2 (eta = 0.9487)
+     source:     PRED70 P12-1 (declared at 8397478; forecast REDUNDANT-IG)
+     Q:          an A6-remembered ice line widens the hysteresis loop by more than 1 % (computed as: the quasi-static loop width in Q (W/m2), the down-jump where the stable small-cap branch of the (eta, M) system folds or loses stability, the up-jump where the snowball ends; finite-rate ramps printed as sensitivity)
+     ingredient: A6 with P3's exponential kernel on the ice line the albedo follows: dM/dt = (eta - M)/T_m, T_m = q/(1 - q) occasions, q = 0.5; occasion = the ice line's own relaxation time, 1000 yr
+     null:       instantaneous ice line
+     domain:     the static bistability: the loop width is a property of the equilibria
+     numbers:    quasi-static: with memory width 50.0756 W/m2 (down-jump 325.8339 at the fold, up-jump 375.9096); without memory 50.0756 (down 325.8339, up 375.9096); Budyko's closed form 50.0756 (fold at eta = 0.6092); q-grid: q 0.25: T_m 333 yr, quasi-static width 50.0756; q 0.5: T_m 1000 yr, quasi-static width 50.0756; q 0.75: T_m 3000 yr, quasi-static width 50.0756; finite-rate ramps (jump at eta = 0.3): 45 W/m2 per 1e+05 yr: width 56.684 without memory, 76.052 with (widening +0.3417); 45 W/m2 per 1e+06 yr: width 51.491 without memory, 56.114 with (widening +0.0898); 45 W/m2 per 1e+07 yr: width 50.373 without memory, 51.364 with (widening +0.0197)
+     T-G:        width 50.0756 vs null 50.0756: agree
+     T-N:        the static bistability gives 50.0756: agree (the domain has Q)
+     T-C:        quasi-static width with memory above 1.01 x without (50.0756 against 50.5764): fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    a remembered ice line has the same equilibria (M = eta) and keeps the small-cap branch stable up to the fold, so the quasi-static loop is unchanged (50.0756 against 50.0756 W/m2), as the static theory says; at a finite forcing rate the memory adds lag and the loop widens (+0.3417 at 45 W/m2 per 1e+05 yr, +0.0898 at 45 W/m2 per 1e+06 yr, +0.0197 at 45 W/m2 per 1e+07 yr), a rate effect that shrinks at every tenfold slowing of the ramp
+     weakness:   DEVIATION: declared.py does not say whether the loop is quasi-static or swept at a finite rate; the decisive width is the quasi-static one (the loop as a property of the system, H0's reading); ramp rates on which the finite-rate widening would flip the verdict: 1e+05 yr per leg, 1e+06 yr per leg, 1e+07 yr per leg (3 of 3), so the verdict is FRAGILE to the protocol: it holds only in the quasi-static limit. The occasion (1000 yr) and eps are named choices; the quasi-static verdict does not depend on them. A smoothed albedo step (width 0.05) replaces Budyko's discontinuity so that the remembered line enters smoothly
+
+[ 2] (clim) Stommel two-box thermohaline circulation with slow freshwater forcing; model: dT/dt = eta1 - T - |T - S| T, dS/dt = F - eta3 S - |T - S| S, eta1 = 3.0, eta3 = 0.3, circulation q = T - S; F ramped from 0 at 1e-4 per unit time until q < 0, then held 200 time units; RK4 dt 0.01
+     source:     PRED70 P12-2 (declared at 8397478; forecast WRONG)
+     Q:          collapse occurs at the antipode of the circulation carrier (half the arc from on to off) (computed as: the arc of q (identity metric) from the on state at F = 0 to the settled off state; the antipode at half of it; the collapse is the system's own event, the steepest change of q; positions compared in arc, within 1 %)
+     ingredient: H-CUT (A3) (the carrier does not oscillate, so the analytic-signal phase is not used; the antipode is read, as declared, as half the arc from on to off)
+     null:       the saddle-node point
+     domain:     Stommel: collapse at the saddle-node bifurcation
+     numbers:    total arc on -> off 1.5130 (q from 1.3028 to -0.1429); arc position of the antipode 0.7565, of the ramp passing the saddle-node F = 1.2201 0.8830, of the collapse (steepest change of q) 1.3421, of the reversal q = 0 1.3038; Stommel's quasi-static arc to the saddle-node q_on - q_SN = 0.9108 (q_SN = 0.3919); forcing at the antipode 1.1799, at the collapse 1.2259; the collapse lies nearer the saddle-node; faster ramp (1e-3): antipode 0.7620, saddle-node 0.8512, collapse 1.3439
+     T-G:        antipode 0.7565 vs saddle-node 0.8830: differ
+     T-N:        Stommel's quasi-static saddle-node at arc 0.9108: differ
+     T-C:        collapse at arc 1.3421 within 1 % of the antipode 0.7565: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    half the arc from on to off falls at 0.7565, before the saddle-node (0.8830) and before the collapse (1.3421): the circulation weakens along the on branch and then drops in one jump, and where the midpoint of that path lies depends on how far the on state sits from the fold, not on the fold; in forcing the collapse comes at F = 1.2259 against the saddle-node 1.2201 (0.0048 relative, where the domain says) and the antipode at F = 1.1799 (0.0376 from the collapse)
+     weakness:   the on state is taken at zero freshwater forcing and the off state is the one reached with the forcing held at reversal; other endpoints move the antipode (the arc depends on them), which is itself a reason the half-arc cannot be the collapse law; one parameter set
+
+[ 3] (clim) Daisyworld with A6-remembered temperature in daisy growth; model: Watson and Lovelock 1983 (S = 917 W/m2, q = 2.06e+09 K^4, albedos 0.75/0.25/0.5, gamma = 0.3, seeds 0.01); luminosity ramped from 0.5 to 1.8 over 20000 time units; RK4 dt 0.2; regulated range = luminosities at which the daisy cover is at least 0.05
+     source:     PRED70 P12-3 (declared at 8397478; forecast ADDS)
+     Q:          memory narrows the range of luminosity over which temperature is regulated by more than 1 % (computed as: the width of the luminosity interval with daisy cover >= 0.05 on the slow up-ramp, with growth on the A6-remembered local temperatures against the instantaneous ones)
+     ingredient: A6 with P3's exponential kernel: dM_i/dt = (T_i - M_i)/T_m, T_m = q/(1 - q) occasions, q = 0.5; occasion = one daisy lifetime 1/gamma = 3.333 time units
+     null:       instantaneous temperature
+     domain:     none cited
+     numbers:    regulated range: with memory 0.8366 (L 0.7120 to 1.5486), without 0.8341 (L 0.7115 to 1.5456); relative change +0.0030; q-grid: q 0.25: T_m 1.111, width 0.8351; q 0.5: T_m 3.333, width 0.8366; q 0.75: T_m 10.000, width 0.8399; sensitivity (with / without memory): cover threshold 0.2: 0.8355 / 0.8332; ramp over 5000 time units: 0.8414 / 0.8351
+     T-G:        width 0.8366 vs null 0.8341: agree
+     T-N:        no theorem cited
+     T-C:        width with memory below 0.99 x without (0.8366 against 0.8257): fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    remembered temperature leaves Daisyworld's equilibria where they were and only adds lag to a slow ramp, so the regulated range widens by 0.0030 (relative), within 1 %: the regulation is a property of the daisy-albedo feedback at steady state, not of how quickly the daisies read the temperature
+     weakness:   the regulated range is read from one slow ramp (Watson and Lovelock's protocol), not from a continuation of equilibria; sensitivity cells that flip the verdict: none (0 of 2); the occasion (one daisy lifetime) is a named choice, the q-grid spans a factor 9 in memory length
+
+[ 4] (clim) Saltzman-style glacial oscillator (ice, CO2, deep ocean) with noise; model: dX/dt = -X - Y + xi, dY/dt = -p Z + r Y + s Z^2 - Z^2 Y, dZ/dt = -q (X + Z), (p, q, r, s) = (1.0, 1.2, 0.8, 0.8) (a Saltzman-Maasch parameter set giving a ~100-kyr cycle; time unit 10 kyr); OU noise sd 0.5, correlation 1 kyr, on the ice tendency; RK4 dt 0.01 over 2200 units, first 100 discarded; own events = terminations (Schmitt trigger at +-0.5 sd); 205 cycles, mean period 10.174 units, seed 7
+     source:     PRED70 P12-4 (declared at 8397478; forecast WRONG)
+     Q:          CV(arc per glacial cycle) < CV(cycle period) (computed as: arc of the ice volume X between terminations against the time between them; paired bootstrap n_boot 2000 seed 0, CI excluding 0 below)
+     ingredient: H-L5 (regularity on X, identity metric, segment_end inclusive)
+     null:       CV(period)
+     domain:     none
+     numbers:    CV(arc per cycle) 0.0996, CV(period) 0.0483, difference +0.0513, 95 % CI [+0.0402, +0.0619]; amplitude control CV 0.1290; three-variable arc (X, Y, Z each in its own sd): CV 0.1166, CI [+0.0566, +0.0796]; noise sensitivity (1100 units, seed 8): sd 0.2: CV(arc) 0.0583, CV(period) 0.0161, CI [+0.0330, +0.0510]; sd 1.0: CV(arc) 0.1541, CV(period) 0.1572, CI [-0.0323, +0.0243]
+     T-G:        CV(arc) 0.0996 vs null CV(period) 0.0483: differ
+     T-N:        no theorem cited
+     T-C:        CV(arc) - CV(period) CI [+0.0402, +0.0619] lies below 0: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the glacial cycle of this oscillator is clock-regular: under noise the ice-volume arc per cycle varies more (CV 0.0996) than the time between terminations (CV 0.0483), and the size of the excursion varies more than the arc (CV 0.1290); this unforced limit cycle with CO2 and deep-ocean feedback keeps its timing better than its amplitude
+     weakness:   one parameter set of the Saltzman-Maasch form, unforced (orbital forcing, which could pace the period, is absent); noise enters the tendency through a smooth OU process so the arc converges as dt shrinks; sensitivity cells that flip the verdict: none (0 of 3)
+
+[ 5] (clim) annual river floods (Gumbel maxima): recurrence of the 10-year flood in natural time; model: flood events Poisson with nu = 3 per year and exponential peaks above a base level (so annual maxima are Gumbel), 1,000,000 years, seed 12; x10 = the Gumbel 0.9 quantile; natural time = event count, one natural-time year = nu events
+     source:     PRED70 P12-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          exceedances counted in natural time (events) are Poisson with the same rate as in clock time (computed as: the exceedance rate per natural-time year against per clock year, and the index of dispersion of exceedance counts in blocks of 10 natural-time years (Poisson: 1), exact and simulated; both within 1 %)
+     ingredient: A1' natural time (natural time: time counted in the system's own events, normalised to one year per nu events)
+     null:       clock time
+     domain:     return-period theory: Poisson exceedances
+     numbers:    3,001,732 flood events; x10 = 3.3490 (peak scale 1); fraction of years whose maximum exceeds x10 0.10011 (Gumbel: 0.1); exceedance rate per natural-time year 0.10543, per clock year 0.10549, return-period theory -ln(0.9) = 0.10536; dispersion index: natural time exact 1 - p = 0.96488 (p = 0.03512 per event), simulated 0.9610 (+- 0.0045, 100057 blocks); clock time exact 1, simulated 1.0013 (100000 blocks); other event rates (exact natural-time dispersion): nu 1.65: 0.9361; nu 5.0: 0.9789; natural-time counts are within 1 % of Poisson only for nu >= 10.54 events per year
+     T-G:        natural-time rate 0.10543 vs clock rate 0.10549: agree
+     T-N:        return-period theory gives 0.10536: agree (the domain has the rate)
+     T-C:        same rate within 1 % (yes) and natural-time counts Poisson within 1 % (exact dispersion 0.96488: no): fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    counted in floods, the exceedance rate is the clock rate (0.10543 against 0.10549), because a stationary Poisson stream of events turns natural time into a relabelled clock; but in natural time an exceedance is a coin toss per flood, a Bernoulli process, so counts are binomial with dispersion 1 - p = 0.96488, more than 1 % from Poisson at 3 floods per year; the Poisson law of return-period theory is a clock-time law
+     weakness:   DEVIATION: declared.py speaks of annual maxima; a series of annual maxima alone makes natural time identical to clock time (one event per year), so the flood events behind the maxima (a peaks-over-threshold stream, nu = 3 per year, a typical POT rate) are simulated and counted; the verdict depends on nu (Poisson within 1 % above the printed nu), and the natural-time unit (nu events per year) is a normalisation needed to compare rates
+
+TALLY: 0 ADDS / 0 PROPOSES / 3 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 2 WRONG / 0 INTERNAL / 0 UNSTATED
