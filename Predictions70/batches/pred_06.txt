@@ -1,0 +1,76 @@
+PRED70 batch P06: physics (prompt-log entry 234; Predictions70/DECLARATION.md, declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (phys) Kuramoto model (N = 200, Lorentzian frequencies) with A6-remembered mean field [model: d theta_j/dt = omega_j + K Im(F e^(-i theta_j)), N = 200, omega_j the deterministic Lorentzian quantiles (centre 0, half-width gamma = 1); F = Z (null) or the remembered field dM/dt = (Z - M)/T_m (A6, P3 exponential kernel, mean age q/(1-q) occasions, an occasion = half a turn at frequency gamma, T_m = 3.1416 at q = 0.5); RK4 dt 0.01, 150 time units discarded, 150 averaged; seed 0 initial phases]
+     source:     PRED70 P06-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          memory raises the critical coupling above 2 gamma by more than 1 % (computed as: Kc estimated at N = 200 from the time-averaged order parameter by the Lorentzian law r^2 = 1 - Kc/K at K = 3, 4, 5 gamma; memory raises Kc if the estimate exceeds the instantaneous-field estimate at the same N by more than TOL_G)
+     ingredient: A6: the oscillators couple to the A6-remembered mean field M instead of the instantaneous Z
+     null:       the instantaneous mean field (computed as: the same estimator with F = Z)
+     domain:     Kc = 2 gamma (Kuramoto); delayed/filtered coupling results (computed as: Kc = 2 gamma = 2)
+     numbers:    Kc estimate: remembered field 1.9973 (r = 0.5785, 0.7069, 0.7753 at K = 3, 4, 5), instantaneous 1.9955 (r = 0.5791, 0.7073, 0.7754), 2 gamma = 2; q grid: q = 0.25 (T_m 1.047): 1.9960, q = 0.5 (T_m 3.142): 1.9973, q = 0.75 (T_m 9.425): 1.9976; Ott-Antonsen linear threshold (N -> infinity): memory 2.001, instantaneous 2.000; with the frequency centre at omega0 = 1 in the frame where memory acts: q = 0.25: 2.524, q = 0.5: 3.151, q = 0.75: 3.635 (instantaneous 2.000)
+     T-G:        Kc 1.9973 vs null 1.9955: agree (relative 0.0009)
+     T-N:        Kc = 2 gamma = 2: agree (the domain has Q) (relative 0.0013)
+     T-C:        memory raises Kc by more than 1 %: fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    with the frequencies centred at zero the locked mean field is static, a remembered static field is the field itself, and the incoherent state loses stability where it did (N -> infinity: 2.001 against 2.000); at N = 200 the estimates are 1.9973 and 1.9955; memory raises the threshold only when the ensemble rotates in the frame where the memory is taken (3.151 at omega0 = 1): a low-pass filter on a rotating field lags and shrinks it, the filtered/delayed-coupling result
+     weakness:   declared.py does not name the frequency centre; the Kuramoto convention (centre 0) was chosen and decides the verdict, since a remembered field breaks the model's rotation invariance (the omega0 = 1 threshold is printed); the N = 200 estimator uses the N -> infinity Lorentzian law
+
+[ 2] (phys) mean-field Ising with Glauber dynamics and A6-remembered magnetisation in the field [model: Curie-Weiss Glauber equation dm/dt = -m + tanh(J z M_e / T), J = 1, z = 4, k_B = 1; M_e = m (null) or the remembered magnetisation dM/dt = (m - M)/T_m, T_m = q/(1-q) Glauber time units (an occasion = one sweep, the Glauber time unit); Tc by the linear stability of m = 0 on a 1e-4 grid; RK4 dt 0.01 over 400 time units for the ordered state]
+     source:     PRED70 P06-2 (declared at 8397478; forecast REDUNDANT-IG)
+     Q:          the critical temperature is unchanged by memory (the fixed point is the same) (computed as: Tc with memory within TOL_G of Tc without)
+     ingredient: A6: the local field is built from the A6-remembered magnetisation
+     null:       instantaneous magnetisation (computed as: the same scan with M_e = m)
+     domain:     Tc = J z (mean-field) (computed as: J z = 4)
+     numbers:    Tc: memory (q = 0.5) 4.0000, instantaneous 4.0000, J z 4; q grid: q = 0.25: 4.0000, q = 0.5: 4.0000, q = 0.75: 4.0000; ordered state at T = 3.60: memory m = 0.52542951, instantaneous 0.52542951, the mean-field root 0.52542951; at T = 4.20: memory m = 6.43e-07, instantaneous 5.34e-11
+     T-G:        Tc 4.0000 vs null 4.0000: agree
+     T-N:        J z = 4: agree (the domain has Q)
+     T-C:        Tc unchanged by memory (within 1 %): holds -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the remembered magnetisation equals the magnetisation at every fixed point, so the self-consistency m = tanh(Jz m/T) and its bifurcation at T = Jz are untouched (Tc 4.0000 with memory, 4.0000 without); the 2x2 Jacobian at m = 0 has trace -1 - 1/T_m < 0 and determinant (1 - Jz/T)/T_m, so the only crossing is the pitchfork at Jz; memory changes how fast the magnet relaxes (at T = 4.20, after 400 time units, the remembered run is at m = 6.43e-07, the instantaneous at 5.34e-11: slower), not whether or where it orders
+     weakness:   the mean-field equation only (no finite-N Monte Carlo); the result follows from the fixed-point algebra, and the scan confirms it
+     elegance:   Remembering the magnet's recent past changes how quickly it settles, but not the temperature at which it can hold a direction at all, because at rest the memory and the present agree.
+     child:      Tiny magnets that copy what their neighbours were doing a moment ago end up agreeing at exactly the same temperature as magnets that copy what their neighbours are doing now; they just take a little longer to get there.
+
+[ 3] (phys) radioactive decay chain A -> B -> C: B-decay events in natural time [model: exact stochastic simulation (Gillespie), k_A = 0.05, k_B = 0.5, N_A(0) = 400, N_B(0) = 0, seed 0, the first 300 B decays; carriers sampled on a 2e-05 grid (0 B decays share a sample)]
+     source:     PRED70 P06-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          counts between B decays are more regular in natural time (event count) than in clock time (computed as: regularity() on the natural-time carrier, the count of B decays, with the B decays as events: CV(natural-time increment) < CV(clock interval) with the paired-bootstrap 95 % CI (n_boot 2000, seed 0) excluding 0)
+     ingredient: H-L5: the change accumulated between the system's own events, here natural time (the event count)
+     null:       clock time (computed as: CV of the clock time between consecutive B decays)
+     domain:     a Poisson process: natural time is uniform by construction (computed as: CV of the natural-time increment = 0)
+     numbers:    299 occasions; CV natural time 0.000000, CV clock 1.2496, difference -1.2496, 95 % CI [-1.3784, -1.0851]; H-L5's rate reading (Fisher-Rao arc of the B-decay rate k_B N_B, poisson_transform): CV(arc) 0.9943, CV(clock) 1.2496, CI [-0.4644, -0.0650] (the arc is more regular)
+     T-G:        CV 0.000000 vs null 1.2496: differ
+     T-N:        natural time is uniform by construction, CV 0: agree (the domain has Q)
+     T-C:        CV natural 0.000000 < CV clock 1.2496 with the CI excluding 0: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    counted in its own events the decay chain advances by exactly one unit per B decay, so the natural-time increment has CV 0.000000 by construction, while the clock intervals of a Poisson-like process have CV 1.2496; the prediction holds and is the definition of natural time; the Fisher arc of the decay rate between decays, the reading H-L5 uses on rate carriers, is also more regular than the clock
+     weakness:   a count carrier makes Q definitional: any point process is uniform in its own event count; the rate-arc reading is the non-trivial one and is printed, not decisive
+
+[ 4] (phys) driven damped pendulum at resonance: energy per cycle [model: theta'' + 0.1 theta' + sin theta = 0.02 cos(1 t), the drive at the small-amplitude natural frequency; RK4 500 steps per drive period, 150 periods discarded, 205 recorded; occasions between antipodal_cuts of intrinsic_phase(theta), crossing times interpolated on the phase, 5 occasions dropped at each end]
+     source:     PRED70 P06-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the energy dissipated per occasion (between antipodal cuts) is constant in steady state (computed as: max/min of the dissipated energy gamma * integral theta'^2 dt over the steady-state occasions <= 1 + TOL_G)
+     ingredient: D5 occasions: the interval between consecutive antipodal cuts of the pendulum's analytic-signal phase
+     null:       per clock interval (computed as: the same max/min over consecutive clock intervals of 1 time unit)
+     domain:     steady state: dissipation per period equals work per period (computed as: the same max/min over consecutive drive periods)
+     numbers:    399 occasions (mean length 3.14159, half the drive period 3.14159; phase monotone: True); dissipation per occasion max/min 1.00000149; per clock interval of 1: 11.65407; per drive period: 1.00000000; per clock interval equal to the mean occasion length: 1.00000000; energy balance: max |W/D - 1| per drive period 6.01e-10, per occasion 2.21e-09
+     T-G:        max/min 1.00000149 vs null 11.65407: differ
+     T-N:        per drive period 1.00000000: agree (the domain has Q)
+     T-C:        dissipation per occasion constant within 1 %: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    in the periodic steady state every drive period dissipates the same energy, and the symmetric orbit makes every half-period do so too, so the occasions (half-turns, mean length 3.14159) are as constant (1.00000149) as the periods (1.00000000), while clock intervals of 1 are not (11.65407); a clock interval equal to the half-period is as constant as the occasion (1.00000000): the occasion is the drive's own half-period
+     weakness:   one weakly nonlinear operating point (amplitude about 0.2 rad); the clock-interval length of the null is a choice (1 time unit; the half-period reading is printed)
+
+[ 5] (phys) flashing Brownian ratchet: switching at antipodal cuts of the particle's phase [model: overdamped dx = F(x) s(t) dt + sqrt(2D dt) N(0,1), D = kT = 1, sawtooth of period 1, height 5 kT, maximum at a = 1/3 (minimum at 0); Euler-Maruyama dt 0.002, 400 independent particles from x = 0, horizon 50; drift velocity = mean displacement / horizon, seed 0]
+     source:     PRED70 P06-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          switching at the antipodal cut gives a higher drift velocity than periodic switching at the optimal period (computed as: the potential toggles each time the particle's ring phase 2 pi x has advanced by pi since the last cut, oriented, the target moving by exactly half a turn; drift velocity above the best periodic on/off schedule)
+     ingredient: A3: the cut on the particle's rotor (position modulo the period), fired at every forward half-turn
+     null:       optimal periodic switching (computed as: the best of t_on in {0.02, 0.05, 0.1, 0.2} x t_off in {0.02, 0.05, 0.1, 0.2})
+     domain:     feedback ratchets beat open-loop ratchets (Cao, Dinis, Parrondo) (computed as: the drift velocity of the Cao-Dinis-Parrondo single-particle feedback, potential on iff the force on the particle is forward)
+     numbers:    drift velocity: antipodal switching 0.0821 (horizon 12.5: 0.1852, 25: 0.1267, 50: 0.0821); best periodic 0.2819 at t_on = 0.05, t_off = 0.05 (inside the grid); feedback (Cao-Dinis-Parrondo) 4.2735; instrument check on particle 0: antipodal_cuts of its ring phase 17, online switches 17, matched within one step 17
+     T-G:        v 0.0821 vs null 0.2819: differ
+     T-N:        the feedback ratchet 4.2735: differ
+     T-C:        antipodal switching faster than the best periodic schedule: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    switching at the forward half-turns makes each completed on/off cycle advance one period (on at x = n + 1/2, where the force is forward, off on reaching the next minimum), but the off phase waits for a free diffusion to reach half a period ahead, whose mean first-passage time is infinite, so the velocity falls with the horizon (0.1852, 0.1267, 0.0821); the rule loses to the best periodic schedule (0.2819) at this horizon, and the feedback ratchet, which switches on as soon as the force is forward and so never lets the particle wander back, reaches 4.2735
+     weakness:   DEVIATION: the phase is the particle's position on the ring (A3's rotor with L the potential period), not the analytic-signal phase of intrinsic_phase, which is non-causal and has no meaning for a drifting random walk; the cut logic is antipodal_cuts' (oriented, the target advances by exactly half a turn) and is checked against antipodal_cuts on one recorded trajectory. The velocity of the rule depends on the horizon (printed); one potential shape and height
+
+TALLY: 0 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

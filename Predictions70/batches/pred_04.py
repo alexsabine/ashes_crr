@@ -137,10 +137,11 @@ def r2():
     reg, dr, cvE, mT = _ddm_stats(0.001, 2000)
     crr, null, domain = dr["cv_arc"], dr["cv_clock"], cvE
     lo, hi = dr["ci95"]; check = hi < 0
-    sens = []
+    sens = []; sdiff = {}; slab = {}
     for dts in (0.01, 0.0001):
         _, drs, cvEs, _ = _ddm_stats(dts, 2000, with_reg=False)
         labs = outcome(crr=drs["cv_arc"], null=drs["cv_clock"], domain=cvEs, check=drs["ci95"][1] < 0)
+        sdiff[dts] = abs(drs["diff"]); slab[dts] = labs
         sens.append(f"dt = {dts:g}: CV(arc) {drs['cv_arc']:.6f}, CV(clock) {drs['cv_clock']:.6f}, CI [{drs['ci95'][0]:+.6f}, {drs['ci95'][1]:+.6f}], evidence CV {cvEs:.6f}, label there {labs}")
     wald = (BOUND / MU) * math.tanh(BOUND * MU / SD ** 2)
     out = outcome(crr=crr, null=null, domain=domain, check=check)
@@ -155,7 +156,7 @@ def r2():
                     tn=f"Wald's constant evidence at decision, CV {domain:.6f}: {_w(rel(crr, domain) <= TOL_N, 'agree (the domain has Q)', 'differ')}",
                     tc=f"CI of CV(arc) - CV(clock) [{lo:+.6f}, {hi:+.6f}] entirely below 0: {_w(check, 'holds', 'fails')} -> {_w(check, 'Q holds', 'Q fails')}",
                     out=out,
-                    reading=f"each step of a diffusing evidence path adds about sqrt(2/pi) sigma of arc whatever its sign ({dr['arc_per_step']:.4f} here), so the arc per decision is the step count times a constant up to averaging noise: the two CVs differ by {dr['diff']:+.6f} with a CI that {_w(lo <= 0 <= hi, 'contains', 'excludes')} 0; what Wald makes constant is the chord (net evidence at the bound, CV {domain:.6f}), not the arc; the natural-time unit the domain already has is the bound itself",
+                    reading=f"each step of a diffusing evidence path adds about sqrt(2/pi) sigma of arc whatever its sign ({dr['arc_per_step']:.4f} here), so the arc per decision is the step count times a constant up to averaging noise: the two CVs differ by {dr['diff']:+.6f} with a CI that {_w(lo <= 0 <= hi, 'contains', 'excludes')} 0; what Wald makes constant is the chord (net evidence at the bound, CV {domain:.6f}), not the arc; the natural-time unit the domain already has is the bound itself; across the step sweep the label reads {slab[0.01]} at dt = 0.01, {out} at 0.001 and {slab[0.0001]} at 0.0001, and |CV(arc) - CV(clock)| {_w(sdiff[0.01] > abs(dr['diff']) and sdiff[0.01] > sdiff[0.0001], 'falls from', 'does not fall monotonically from')} {sdiff[0.01]:.6f} at dt = 0.01 to {sdiff[0.0001]:.6f} at 0.0001{_w(sdiff[0.01] > abs(dr['diff']) and sdiff[0.01] > sdiff[0.0001], ': the coarse-step difference is a discretisation effect of the Euler step', '')}",
                     weakness="the arc of a Brownian path depends on the sampling step (it grows as dt -> 0), and so does the label (the step-sensitivity lines print it at each dt; dt = 0.001 was fixed in the code before the first run); a Fisher-Rao arc of the posterior belief (a monotone reparametrisation of x) was not computed; the decisive bootstrap is regularity's scheme re-run on exact decision times because the instrument's clock adds the reset sample to every occasion (both printed)",
                     elegance="", child="")
 

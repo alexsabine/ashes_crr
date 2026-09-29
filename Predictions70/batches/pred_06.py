@@ -160,7 +160,7 @@ def r2():
                     out=out,
                     reading=(f"the remembered magnetisation equals the magnetisation at every fixed point, so the self-consistency m = tanh(Jz m/T) and its bifurcation at T = Jz are untouched "
                              f"(Tc {crr:.4f} with memory, {null:.4f} without); the 2x2 Jacobian at m = 0 has trace -1 - 1/T_m < 0 and determinant (1 - Jz/T)/T_m, so the only crossing is the pitchfork at Jz; "
-                             f"memory changes how fast the magnet orders, not whether or where"),
+                             f"memory changes how fast the magnet relaxes (at T = {1.05 * domain:.2f}, after 400 time units, the remembered run is at m = {mhi:.2e}, the instantaneous at {mhi0:.2e}: {_w(abs(mhi) > abs(mhi0), 'slower', 'not slower')}), not whether or where it orders"),
                     weakness="the mean-field equation only (no finite-N Monte Carlo); the result follows from the fixed-point algebra, and the scan confirms it",
                     elegance="Remembering the magnet's recent past changes how quickly it settles, but not the temperature at which it can hold a direction at all, because at rest the memory and the present agree.",
                     child="Tiny magnets that copy what their neighbours were doing a moment ago end up agreeing at exactly the same temperature as magnets that copy what their neighbours are doing now; they just take a little longer to get there.")
@@ -320,7 +320,7 @@ def r5():
                     tn=f"the feedback ratchet {cdp:.4f}: {_w(rel(crr, cdp) <= TOL_N, 'agree (the domain has Q)', 'differ')}",
                     tc=f"antipodal switching faster than the best periodic schedule: {_w(check, 'holds', 'fails')} {_qh(check)}",
                     out=out,
-                    reading=(f"switching at the forward half-turns makes each cycle advance exactly one period (on at x = n + 1/2, where the force is forward, off on reaching the next minimum), "
+                    reading=(f"switching at the forward half-turns makes each completed on/off cycle advance one period (on at x = n + 1/2, where the force is forward, off on reaching the next minimum), "
                              f"but the off phase waits for a free diffusion to reach half a period ahead, whose mean first-passage time is infinite, so the velocity falls with the horizon "
                              f"({vH[12.5]:.4f}, {vH[25.0]:.4f}, {crr:.4f}); the rule {_w(check, 'beats', 'loses to')} the best periodic schedule ({null:.4f}) at this horizon, and the feedback ratchet, which switches on as soon as the force is forward "
                              f"and so never lets the particle wander back, reaches {cdp:.4f}"),

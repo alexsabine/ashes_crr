@@ -1,0 +1,76 @@
+PRED70 batch P04: learning and cognition (Predictions70/DECLARATION.md; prompt-log entry 234)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (learn) Rescorla-Wagner learning of a reward that switches between 0.2 and 0.8 every 50 trials; model: Bernoulli rewards with rate 0.2 / 0.8 alternating every 50 trials, 20 blocks, 200 seeded learners; prediction before each trial scored by squared error against the latent rate; RW V0 = 0.5, alpha on a 0.01 grid in [0.01, 1]
+     source:     PRED70 P04-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          a bounded Frechet-mean (q = 0.5 geometric weights) tracker has lower mean squared error than the RW delta rule at its best rate (computed as: MSE of the A6 tracker against the smallest MSE of RW over the alpha grid)
+     ingredient: A6 (the weighted mean of past rewards, weights q^k normalised over the past seen, q = 0.5)
+     null:       RW at its best learning rate (alpha* = 0.19 on the grid)
+     domain:     the delta rule is exactly an exponential moving average (A6 with geometric weights) (computed: RW at alpha = 1 - q = 0.5)
+     numbers:    MSE: A6 0.062773, RW at its best rate alpha = 0.19 0.036882, RW at alpha = 1 - q 0.062605; q-grid sensitivity: q = 0.25: A6 0.103713 (RW at alpha = 0.75: 0.103627); q = 0.5: A6 0.062773 (RW at alpha = 0.5: 0.062605); q = 0.75: A6 0.038855 (RW at alpha = 0.25: 0.038627); deterministic-reward reading (reward equal to the rate): A6 0.009210, RW best alpha = 1.00 0.006930 (A6 not lower)
+     T-G:        MSE 0.062773 vs null 0.036882: differ
+     T-N:        the delta rule at alpha = 1 - q gives 0.062605: agree (the domain has the A6 tracker)
+     T-C:        A6 MSE 0.062773 < RW best 0.036882: fails -> Q fails
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the A6 tracker is the delta rule with alpha = 1 - q (they differ only in the first trials, where the Frechet mean normalises over the short past), so it cannot beat the delta rule at its best rate unless that rate is 1 - q; here the best rate is 0.19 and A6 is higher in MSE by 0.025892
+     weakness:   the latent-rate scoring and V0 = 0.5 are my choices; the deterministic-reading line shows the verdict does not rest on them; the best RW rate is chosen in-sample (an oracle), which is what 'at its best rate' asks
+
+[ 2] (learn) drift-diffusion decision (drift 0.2, bound 1, noise 1); model: evidence dx = 0.2 dt + 1.0 dW from 0 to the first |x| >= 1.0 (symmetric bounds), Euler-Maruyama dt = 0.001, 2000 seeded trials; arc by the instrument's arc_length in units of one step's noise sd; per-decision CVs with regularity's paired bootstrap (n_boot 2000, seed 0) on the exact decision times; regularity itself (trials concatenated, reset to 0 as the cut, segment_end='exclusive') printed beside it
+     source:     PRED70 P04-2 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          decision time measured in evidence-arc units is less variable than clock decision time (computed as: CV of the evidence arc per decision against CV of the decision time, the paired-bootstrap CI of CV(arc) - CV(clock) entirely below 0)
+     ingredient: A1' natural time (decision time counted in the arc of the evidence path, in the path's own resolvable steps)
+     null:       clock decision time
+     domain:     Wald: the bound is fixed in evidence units, so evidence at decision is constant (computed: CV of the evidence |x| at decision, the chord)
+     numbers:    n = 2000 decisions, mean decision time 1.0154 (Wald's mean 0.9869); CV(arc) 0.827585, CV(clock) 0.827671, CV(arc) - CV(clock) -0.000086, 95 % CI [-0.001544, +0.001374]; arc per step 0.7988 sigma (sqrt(2/pi) = 0.7979); instrument regularity on the concatenated record (clock counts the reset sample): CV(arc) 0.827585, CV(clock) 0.826857, CI [-0.000757, +0.002209]; CV of the evidence at decision (Wald's constant chord, overshoot only) 0.016143; step sensitivity (same seed, dt = 0.001 decides): dt = 0.01: CV(arc) 0.810619, CV(clock) 0.820789, CI [-0.013975, -0.006365], evidence CV 0.048096, label there ADDS; dt = 0.0001: CV(arc) 0.809295, CV(clock) 0.809000, CI [-0.000129, +0.000722], evidence CV 0.004702, label there REDUNDANT-IG
+     T-G:        CV(arc) 0.827585 vs null 0.827671: agree
+     T-N:        Wald's constant evidence at decision, CV 0.016143: differ
+     T-C:        CI of CV(arc) - CV(clock) [-0.001544, +0.001374] entirely below 0: fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    each step of a diffusing evidence path adds about sqrt(2/pi) sigma of arc whatever its sign (0.7988 here), so the arc per decision is the step count times a constant up to averaging noise: the two CVs differ by -0.000086 with a CI that contains 0; what Wald makes constant is the chord (net evidence at the bound, CV 0.016143), not the arc; the natural-time unit the domain already has is the bound itself; across the step sweep the label reads ADDS at dt = 0.01, REDUNDANT-IG at 0.001 and REDUNDANT-IG at 0.0001, and |CV(arc) - CV(clock)| falls from 0.010171 at dt = 0.01 to 0.000295 at 0.0001: the coarse-step difference is a discretisation effect of the Euler step
+     weakness:   the arc of a Brownian path depends on the sampling step (it grows as dt -> 0), and so does the label (the step-sensitivity lines print it at each dt; dt = 0.001 was fixed in the code before the first run); a Fisher-Rao arc of the posterior belief (a monotone reparametrisation of x) was not computed; the decisive bootstrap is regularity's scheme re-run on exact decision times because the instrument's clock adds the reset sample to every occasion (both printed)
+
+[ 3] (learn) serial-position memory: 20 items, recency by exponential decay, primacy by rehearsal; recency component on the last five positions: P3 weight q^lag (one item per occasion), exponential decay exp(-lambda lag)
+     source:     PRED70 P04-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          P3's geometric occasion weights reproduce the recency slope of the exponential-decay model within 1 %
+     ingredient: P3 (weight q^k on the item k occasions back, q = 0.5)
+     null:       equal weights
+     domain:     exponential trace decay (recency exp(-lambda lag); lambda is not named in declared.py)
+     numbers:    recency slope (log strength per position, positions 16-20): P3 0.6931, equal weights 0.0000; exponential decay at lambda per item = 0.1000: 0.1000, 0.3000: 0.3000, 0.6931: 0.6931, 1.0000: 1.0000, 2.0000: 2.0000; q-grid sensitivity: q = 0.25: slope 1.3863; q = 0.5: slope 0.6931; q = 0.75: slope 0.2877
+     T-G:        P3 slope 0.6931 vs equal weights 0.0000: differ
+     T-N:        the exponential model's slope is lambda per position (log strength rising toward the end of the list) for every lambda; it equals P3's 0.6931 only at lambda = ln(1/q) = 0.6931 per item
+     T-C:        tried: (i) the shape: both are log-linear in lag for every lambda, so shape agreement is automatic and not Q; (ii) the slope value: agreement within 1 % holds iff lambda lies within 1 % of ln 2 per item, a free parameter of the domain model that declared.py does not name and no simulation can fix; fixing it would choose the verdict; the data that would (a free-recall serial-position set such as Murdock 1962) is not in data/SEEN.md and was not opened -> not computable
+     OUTCOME:    UNSTATED
+     reading:    P3's geometric occasion weights are an exponential decay counted in items; whether the slope matches the domain's decay model depends only on the domain's decay rate per item, which the declaration leaves open, so the row is UNSTATED rather than decided by an implementer's choice of lambda; primacy by rehearsal does not enter the recency slope in this construction
+     weakness:   an implementer could pick lambda = ln 2 (Q holds trivially) or any other value (Q fails); both are refused as choosing the verdict
+
+[ 4] (learn) power law of practice: RT = a N^-b fitted to a simulated learner with exponential components; model: 50 seeded learners, RT_N = A + sum of three components B_c q^(N-1) (each an A6 memory at q per trial) + Gaussian noise sd 0.05, N = 1..100; exponential A + B exp(-c(N-1)) and power A + B N^-c fitted by least squares (three parameters each)
+     source:     PRED70 P04-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          a bounded (A6) memory predicts an exponential, not power-law, approach: exponential fits better than power (lower SSE) (computed as: the fraction of learners whose exponential SSE is lower than the power SSE; Q holds only if it is 1, per learner)
+     ingredient: A6 (bounded memory with geometric weights: an exponential approach per component)
+     null:       the power law (learners generated by RT = A + B N^-0.5 + noise)
+     domain:     Heathcote, Brown and Mewhort: exponential fits individual data better (computed: learners generated by the exponential with rate ln(1/q) per trial, the same draws)
+     numbers:    fraction with the exponential better: A6 learners 0.90, power-law learners 0.00, Heathcote exponential learners 0.90; q-grid sensitivity (A6 learners): q = 0.25: 0.72; q = 0.5: 0.90; q = 0.75: 1.00; three components at q = 0.25, 0.5, 0.75 together: 0.46
+     T-G:        0.90 vs null 0.00: differ
+     T-N:        Heathcote's exponential learners 0.90: agree (the domain has Q)
+     T-C:        exponential better on every A6 learner (0.90): fails -> Q fails
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    a learner whose components are A6 memories at one q is an exponential learner (the components add to one exponential), yet the exponential fits better on 0.90 of the learners, not all: at this noise a steep power law (large exponent) can mimic a fast exponential drop over the first few trials; the domain's own exponential learners give 0.90, so the shortfall is the fit failing to separate the forms, not the memory; the mixture line (0.46) shows components forgetting at different rates pushing the curve toward a power law
+     weakness:   the Q is close to circular: data generated by an exponential are fitted better by an exponential; 'every learner' (per learner, R6) was fixed in the code before the first run, and a majority reading would read the other way; the noise level, the number of trials and the power-law exponent of the null are my choices; the domain comparator uses the same random draws, so T-N agreement is by construction
+
+[ 5] (learn) temporal-difference learning on a 5-state chain with a reward change at trial 500; model: Sutton-Barto 5-state random walk, reward 1 on the right exit, moved to the left exit at episode 500; TD(0), V0 = 0.5, 200 seeded runs of 2000 episodes with identical walks across rules
+     source:     PRED70 P04-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          relearning after the change is faster with A6-bounded value memory than with a decaying learning rate 1/n (computed as: episodes after the change until the seed-mean value vector is within half the old-to-new distance (0.2357 RMS) of the new values)
+     ingredient: A6 (V(s) <- (1 - q) target + q V(s), q = 0.5: the settled past at bounded strength)
+     null:       1/n learning rate (alpha = 1/n(s), the sample average of the targets)
+     domain:     constant step-size TD tracks non-stationarity (Sutton and Barto) (computed: constant alpha = 1 - q = 0.5)
+     numbers:    relearning episodes: A6 4, 1/n 1286, constant alpha = 1 - q 4; per-run RMS error over the 100 episodes before the change (tracking noise): A6 0.1568, 1/n 0.0310, constant alpha 0.1568; q-grid sensitivity (A6): q = 0.25: 3 episodes; q = 0.5: 4 episodes; q = 0.75: 6 episodes
+     T-G:        4 vs null 1286 episodes: differ
+     T-N:        constant step-size TD at alpha = 1 - q, 4 episodes: agree (the domain has Q)
+     T-C:        A6 relearning 4 < 1/n relearning 1286: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A6-bounded value memory is constant step-size TD with alpha = 1 - q, so it relearns in 4 episodes where the sample average needs 1286; the price is tracking noise before the change (0.1568 against 0.0310 RMS); Sutton and Barto's constant step size is the domain's name for the same learner
+     weakness:   the relearning criterion (half the old-new distance, on the seed mean) is my choice; the A6 and constant-step learners are the same recursion written two ways, so T-N agreement is an identity
+     elegance:   A learner that gives the past a fixed, limited say can change its mind when the world changes; one that averages everything it has ever seen gets stuck in the old world.
+     child:      If you always trust the last few days a lot, you notice quickly when things change. If you add up everything since the beginning, it takes you ages to notice.
+
+TALLY: 0 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 3 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 1 UNSTATED
