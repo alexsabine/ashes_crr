@@ -17,6 +17,23 @@ import declared  # noqa: E402
 LABELS = ("ADDS", "PROPOSES", "REDUNDANT-IG", "REDUNDANT-DOMAIN", "WRONG", "INTERNAL", "UNSTATED")
 
 
+NUM = r"([-+]?\d+\.?\d*(?:e[-+]?\d+)?)"
+
+
+def amp_control(block):
+    """H-L5's control (i) (theory/CRR.md; instrument regularity()): is the arc more regular than the amplitude? POST HOC:
+    the declared Q omitted it. Read from the row's first printed CI of CV(arc) - CV(amp[litude]) (PASS if the CI lies below
+    0, FAIL if above, OPEN if it straddles 0), else from the printed CVs (FAIL if CV(arc) >= CV(amplitude)); '-' if absent."""
+    m = re.search(r"CV\(arc\) - CV\(amp(?:litude)?\)(?: = | \S+ CI | )\[" + NUM + r", " + NUM + r"\]", block)
+    if m:
+        lo, hi = float(m[1]), float(m[2])
+        return 'PASS' if hi < 0 else ('FAIL' if lo > 0 else 'OPEN')
+    m = re.search(r"CV\(arc\) = " + NUM + r", CV\(clock\) = " + NUM + r", CV\(amplitude\) = " + NUM, block)
+    if m:
+        return 'PASS' if float(m[1]) < float(m[3]) else 'FAIL'
+    return '-'
+
+
 def rows_of(path):
     txt = open(path).read()
     out = []
@@ -29,7 +46,7 @@ def rows_of(path):
         q = 'holds' if tc.rstrip().endswith('-> Q holds') else ('fails' if tc.rstrip().endswith('-> Q fails') else
                                                               ('not computable' if tc.rstrip().endswith('-> not computable') else 'UNPARSED'))
         dev = 'DEVIATION' in block
-        out.append((m[1], oc, q, dev))
+        out.append((m[1], oc, q, dev, amp_control(block)))
     return out
 
 
@@ -46,17 +63,18 @@ def main():
         f = os.path.join(ROOT, f'Predictions70/batches/pred_{n:02d}.txt')
         if not os.path.exists(f):
             missing_files.append(f'pred_{n:02d}.txt'); continue
-        for rid, oc, q, dev in rows_of(f):
-            got[rid] = (oc, q, dev)
+        for rid, oc, q, dev, amp in rows_of(f):
+            got[rid] = (oc, q, dev, amp)
     if missing_files:
         print(f"missing batch outputs: {missing_files}")
     print()
-    print(f"  {'id':6} {'ingredient':16} {'outcome':17} {'forecast':17} {'hit':4} {'Q':15} dev  system")
+    print(f"  {'id':6} {'ingredient':16} {'outcome':17} {'forecast':17} {'hit':4} {'Q':15} dev  amp  system")
     for rid, p in decl.items():
         if rid not in got:
-            print(f"  {rid:6} {p[4][:16]:16} {'(no row)':17} {p[8]:17} {'-':4} {'-':15} -    {p[3][:60]}"); continue
-        oc, q, dev = got[rid]
-        print(f"  {rid:6} {p[4][:16]:16} {oc:17} {p[8]:17} {'yes' if oc == p[8] else 'no':4} {q:15} {'yes' if dev else '-':4} {p[3][:60]}")
+            print(f"  {rid:6} {p[4][:16]:16} {'(no row)':17} {p[8]:17} {'-':4} {'-':15} -    -    {p[3][:60]}"); continue
+        oc, q, dev, amp = got[rid]
+        amp = amp if p[4] == 'H-L5' else '-'
+        print(f"  {rid:6} {p[4][:16]:16} {oc:17} {p[8]:17} {'yes' if oc == p[8] else 'no':4} {q:15} {'yes' if dev else '-':4} {amp:4} {p[3][:60]}")
     N = len(got)
     oc = collections.Counter(v[0] for v in got.values())
     qc = collections.Counter(v[1] for v in got.values())
@@ -70,6 +88,13 @@ def main():
           + (f"; UNPARSED {qc['UNPARSED']}" if qc['UNPARSED'] else ''))
     adds = [r for r in got if got[r][0] == 'ADDS']
     print(f"held AND carried CRR content (ADDS): {len(adds)} of {N} ({', '.join(sorted(adds))})")
+    hl5 = [r for r in got if decl[r][4] == 'H-L5']
+    hl5_adds = [r for r in adds if decl[r][4] == 'H-L5']
+    hl5_adds_amp = [r for r in hl5_adds if got[r][3] == 'PASS']
+    print(f"POST HOC (the declared Q omitted H-L5's amplitude control): H-L5 rows {len(hl5)}; ADDS among them {len(hl5_adds)}; "
+          f"of those, arc also beats the amplitude {len(hl5_adds_amp)} ({', '.join(hl5_adds_amp) or 'none'}); "
+          f"amplitude control per ADDS row: " + ", ".join(f"{r} {got[r][3]}" for r in hl5_adds))
+    print(f"ADDS that survive the amplitude control: {len(adds) - len(hl5_adds) + len(hl5_adds_amp)} of {N}")
     red = sum(got[r][0] in ('REDUNDANT-IG', 'REDUNDANT-DOMAIN') for r in got)
     red_h = sum(got[r][0] in ('REDUNDANT-IG', 'REDUNDANT-DOMAIN') and got[r][1] == 'holds' for r in got)
     print(f"redundant (IG or DOMAIN): {red} of {N}, of which Q held {red_h}")
