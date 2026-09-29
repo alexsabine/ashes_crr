@@ -90,6 +90,9 @@ jobs:
           uv run python Empty_Pause_Systems/batches/eps1_03.py > /tmp/eps1_03.txt && cmp /tmp/eps1_03.txt Empty_Pause_Systems/batches/eps1_03.txt
           uv run python Empty_Pause_Systems/batches/eps1_04.py > /tmp/eps1_04.txt && cmp /tmp/eps1_04.txt Empty_Pause_Systems/batches/eps1_04.txt
           uv run python Empty_Pause_Systems/checks/tally.py > /tmp/eps1_t.txt && cmp /tmp/eps1_t.txt Empty_Pause_Systems/checks/tally.txt
+          uv run python Empty_Pause_Systems/batches/eps2_01.py > /tmp/eps2_01.txt && cmp /tmp/eps2_01.txt Empty_Pause_Systems/batches/eps2_01.txt
+          uv run python Empty_Pause_Systems/batches/eps2_02.py > /tmp/eps2_02.txt && cmp /tmp/eps2_02.txt Empty_Pause_Systems/batches/eps2_02.txt
+          uv run python Empty_Pause_Systems/checks/tally_eps2.py > /tmp/eps2_t.txt && cmp /tmp/eps2_t.txt Empty_Pause_Systems/checks/tally_eps2.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

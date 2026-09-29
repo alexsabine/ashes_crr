@@ -224,12 +224,115 @@ legislation.gov.uk). Three findings qualify the rows above (AGENT_LOG 181); the 
 - **The bug fix.** One real bug was fixed after a first run: S2's closed-form ε*, caught by the batch's own enumeration
   check. It moved S2 from REDUNDANT-IG to REDUNDANT-DOMAIN.
 
-## 6. Next batches (EPS2, if wanted)
+## 6. EPS2: four more systems where the pause is contested (`DECLARATION_EPS2.md`, 6ae1b7a; `checks/tally_eps2.txt`)
 
-Candidates declared in the same form, chosen where a pause is contested and no domain fix is standard:
-- multi-agent settings where one agent's pause benefits the others (the world that does not wait, in a shared resource);
+**The order of work.**
+1. The declaration and the tally script were pushed before any source or code.
+2. Two research agents wrote `batches/eps2_01.py` (T1, T2) and `eps2_02.py` (T3, T4). Each was run twice and was
+   byte-identical.
+3. The sources (`docs/citations/eps2_2026-09-29.md`, 66 of 66 quotes verified against the fetched texts) came back
+   during implementation. Two report-only arms were added from them, labelled POST HOC; no scored row changed
+   (AGENT_LOG 183).
+
+| | result |
+|---|---|
+| gates | OPEN 3 (T1, T2, T4); CLOSED 1 (T3, not counted) |
+| CRR's prediction Q held (counted) | 3 of 3 |
+| labels (counted) | ADDS 3 |
+| the investigator's forecast | right on 0 of 3 counted rows |
+
+**Why "ADDS 3" is not three new findings.** Each ADDS turns on a reading that is printed in its row. In each case the
+field already has the construction, or a better one.
+
+### T1. Demand response: the grid asks an AI training fleet to pause (commercial) — ADDS
+
+**The minimum acceptable payment per curtailed hour** at D = 1100, H = 4:
+
+| arm | minimum payment |
+|---|---|
+| **ETM** (a contract that extends the deadline by the curtailed time) | **0.025**, the restart cost alone (R/H) |
+| H0 (mandatory contract, priced at the job's value) | 6.122560975610 |
+| OWN | 14.730882352941 |
+| WALL | 15.730882 |
+
+**The commercial numbers.**
+- **Offers accepted, at a payment of 0.2 per curtailed hour:**
+  - ETM accepts 41 of 41 events (revenue 32.8);
+  - OWN accepts 24 of 41 (19.2);
+  - WALL and H0 accept none.
+- **The price of ETM's revenue.** The job finishes at wall hour 1168.1, 68.1 h after D.
+
+**What the label depends on.**
+- **The reading.** The label turns on reading the decisive quantity as the lowest payment at which *every* offer is
+  accepted. At the first offer, with full slack, ETM, OWN and H0 all quote 0.025 (REDUNDANT-IG). The offer spacing also
+  changes it: every 48 h reads REDUNDANT-IG, every 12 h reads ADDS.
+- **Not new.** The construction is EPS1 S1's stop-the-clock, written into a demand-response contract.
+- **Not how industry contracts work.** The sources show pre-agreed tiers of tolerated slowdown (0, 10, 25 or 50 % over
+  a 3–6 hour window), not unbounded deadline extension. No source prices a curtailment at the job's opportunity cost.
+
+### T2. A shared resource: competitors take the paused agent's share — ADDS, from the investigator's row mapping
+
+- **Stakes at L = 20:**
+  - without a reservation (ETM-N): 4.991015, identical to OWN;
+  - WALL: 24.991015;
+  - with the reservation (ETM-R), and under H0 (preemption with return): 0.
+- **Paying to hold.** At c = 0.1, WALL, OWN and ETM-N pay to hold their unit; ETM-R and H0 never do.
+- **The world does not wait.** A competitor claims the idle unit with probability 0.998203 over a 20-step pause.
+- **What the ADDS means.** It is a non-zero stake set beside two zero stakes: the prediction held that own-clock indexing
+  alone does not empty a pause during which the world takes one's resources.
+- **The label comes from the investigator's mapping** (crr = ETM-N, null = ETM-R, domain = H0; AGENT_LOG 184). Under
+  EPS1's default null (OWN) it reads REDUNDANT-IG. The reservation is the domain's own tool (preemption with return),
+  although the sources find it only in YARN's capacity guarantee, not in Kubernetes or Borg.
+- **The reservation has a cost.** It idles the unit (460 pool unit-steps at L = 20, against 477.31 when the unit is
+  lent out and returned at resume).
+
+### T3. On-device learning: a phone goes offline — GATE CLOSED (not counted)
+
+- **What held.** ETM removes the client's reason to stay awake: its stake is exactly 0 at every L. WALL spends 199
+  battery-rounds per client at L = 20, b = 0.1.
+- **Why the gate closed.** In the declared no-drift world, ETM's server error was 1.11 % below WALL's (limit 1 %). An
+  undiscounted stale update helps when the target does not move, so part of any advantage is built into the
+  construction.
+- **The cost in the drifting world.** ETM's server error is 1.69 % above WALL's at L = 20, and 15–38 % above at smaller
+  learning rates.
+- **Outside practice.** The sources say devices train only when idle and charging, so the battery quantity is outside
+  practice.
+- **POST HOC.** Counting staleness in server updates or with exponent 0.5 changes the stakes a little and leaves ETM's at 0.
+
+### T4. Rollback: a "pause" that removes progress (the declared limit case) — ADDS (forecast PROPOSES)
+
+- **Effort credit makes the stake zero,** and then invites busywork. With a cheap self-revert option at k = 5:
+  - ETM-E's reverted-step share is 0.5596 (0.2169 of it self-reverted busywork), against 0.3646 for OWN and 0.3642 for
+    H0;
+  - the principal's outcome is 13.51 against OWN's 19.39.
+- **At k = 1** ETM-E's share is 0.5025, against 0.100.
+- **The label is robust** within the model: 0 of 36 sensitivity cells change it.
+- **The direction is known.** Ng, Harada & Russell (1999) show that rewarding motion creates positive-reward loops;
+  only potential-based shaping is safe.
+- **POST HOC, the literature's own arm wins.** Per-step approval (Christiano's approval-directed agents; MONA) never
+  suppresses and makes no busywork (reverted-step share 0.100 at k = 1 and 0.4385 at k = 5).
+- **What T4 shows.** A rollback is not a pause: it has content by definition. Forcing zero stake onto it is worse than
+  the approval methods the field already uses.
+
+### What EPS2 adds
+
+1. **Contested pauses behave as CRR's condition says.**
+   - Where the pause can be made empty by contract, the stake drops to the restart cost (T1: stop-the-clock).
+   - Where the world takes something during the pause, only a reservation empties it (T2).
+   - Where the pause has content by definition, it cannot be emptied without a perverse incentive (T4).
+2. **The novelty is still in the reading, not the mechanism.**
+   - T1 is stop-the-clock again, and industry contracts use slowdown tiers instead.
+   - T2's reservation is preemption with return.
+   - T4's direction is Ng et al. (1999), and per-step approval beats it.
+3. **The commercial candidate worth a real test is T1.**
+   - The finding: in the model, a job whose deadline is counted on its own clock can sell every curtailment hour at the
+     restart cost.
+   - What is not established: whether grid operators and customers accept deadline extension instead of slowdown tiers.
+   - What is needed: real flexibility-market data and contract terms, not a synthetic model.
+
+## 7. Next batches (EPS3, if wanted)
+
+Candidates, declared in the same form before any source or code:
 - LLM-agent memory across sessions (does a session end have content for an agent with persistent memory);
-- recommender "snooze" features with habit (the attention model's harder cases);
-- fleets of autonomous vehicles handing over to remote operators.
-
-Each would be declared before any source or code, as here.
+- fleets of autonomous vehicles handing over to remote operators;
+- a real-data check of T1 against published flexibility-market prices, if a public dataset exists.
