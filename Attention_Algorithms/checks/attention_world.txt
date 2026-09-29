@@ -73,3 +73,15 @@ SENSITIVITY (each habit-world constant x0.5 and x2, one at a time; A-ADD and the
   eta_n    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.2326 (behind), user-started +0.2132 (ahead)
   eta_n    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.5398 (behind), user-started +0.2812 (ahead)
   delta    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.1870 (behind), user-started +0.2772 (ahead)
+  delta    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -0.8149 (behind), user-started +0.1739 (ahead)
+  beta     x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -3.5043 (behind), user-started +0.2346 (ahead)
+  beta     x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -3.5043 (behind), user-started +0.2346 (ahead)
+  over 32 cells: welfare EMPTY vs TRUE {'ahead': 0, 'within a step': 4, 'behind': 28}; user-started {'ahead': 29, 'within a step': 3, 'behind': 0}; OWN sends notifications in 32/32; EMPTY sends none in 32/32
+
+THE INVESTIGATOR'S EXPECTATIONS (DECLARATION §4, written before the model) against the printout
+  1 G-ZERO holds by construction                                    : holds
+  2 the gate opens                                                  : holds
+  3 A-ADD welfare: EMPTY does not beat TRUE                         : holds
+  4 A-ADD autonomy: EMPTY ahead of TRUE where TRUE notifies         : holds
+  5 A-OWN: OWN removes notifications but only partly closes the gap : MISSED
+  6 A-B: break reminders recover a small part of the gap (< 0.5)    : holds

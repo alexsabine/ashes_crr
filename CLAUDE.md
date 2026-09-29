@@ -333,6 +333,12 @@ Compute_Savings/            could SEC and the recent successes save compute and 
                            (+ .txt, CI-checked; prompt-log entry 198): energy saved IF the method held at scale; COMPUTE_SAVINGS.md; DECLARATION_3.md + checks/global_estimate.py
                            (+ .txt, CI-checked; prompt-log entry 228): a year's global compute, energy and CO2 saving, s read from the pinned SEC studies;
                            GLOBAL_ESTIMATE.md; a note, not evidence (R8)
+Attention_Algorithms/      feed algorithms, the user's pause and the empty true map (prompt-log entry 231): DECLARATION.md (+ Amendment 1)
+                           pushed before the sources and the model; dossiers docs/citations/attention_f{1,2,3}_2026-09-28.md; checks/claims_f*.py,
+                           verify.py/.txt (236/236 verbatim), grade.py/.txt (CI-checked: U1, U2, U4 REDUNDANT, U3, U5 PARTLY REDUNDANT, U6 MIXED);
+                           checks/attention_world.py + .txt (synthetic, several hours, rerun by hand: gate OPEN; the true map carries the welfare,
+                           the empty pause buys autonomy at a welfare cost in the model, own-clock engagement alone changes nothing);
+                           checks/global_attention.py + .txt (CI-checked); ATTENTION_ALGORITHMS.md; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an
