@@ -1,0 +1,107 @@
+EPS1 batch 03: S4 (preemptible / spot compute) and S6 (trading halts), from Empty_Pause_Systems/DECLARATION.md (declared at 37b0076)
+
+======================================================================================================================
+S4. Preemptible (spot) compute: W = 1000 compute-hours, spot price 0.3 (ASSUMED), on-demand 1, R = 0.1 h, delta = 0.05 h
+======================================================================================================================
+Model: preemptions arrive as a Poisson process at rate lambda per hour of running (work or checkpoint), never during a restart R;
+every wall hour on spot capacity is billed at the spot price; the job's final output write is common to all arms and excluded.
+WALL: exact renewal E[T] = (e^{lambda W} - 1)(1/lambda + R). H0: exact segment renewal at tau* = sqrt(2 delta/lambda),
+n-1 segments of tau + delta and a last segment of W - (n-1) tau with no checkpoint; a preemption during a checkpoint loses
+the segment. ETM: E[T] = W + lambda W R (a notice save loses nothing). Stake = expected extra hours per preemption =
+(E[T] - T_no-preemption) / E[preemptions]; lost work = stake - R. Cost = spot price x E[T]; on-demand bill = W x 1.
+
+ lambda   arm       E[T] (h)   E[preempt]  stake h/preempt  lost work h           cost  share of on-demand bill saved  explodes
+   0.01  WALL   2.204749e+06 2.202547e+04       100.054598    99.954598   6.614247e+05                  -6.604247e+02       YES
+   0.01    H0   1.033314e+03 1.032282e+01         1.696673     1.596673   3.099943e+02                   6.900057e-01        no
+   0.01   ETM   1.001000e+03 1.000000e+01         0.100000     0.000000   3.003000e+02                   6.997000e-01        no
+   0.01    OD   1.000000e+03 0.000000e+00                -            -   1.000000e+03                   0.000000e+00        no
+   0.05  WALL   1.042126e+23 5.184706e+21        20.100000    20.000000   3.126377e+22                  -3.126377e+19       YES
+   0.05    H0   1.079557e+03 5.370932e+01         0.823083     0.723083   3.238672e+02                   6.761328e-01        no
+   0.05   ETM   1.005000e+03 5.000000e+01         0.100000     0.000000   3.015000e+02                   6.985000e-01        no
+   0.05    OD   1.000000e+03 0.000000e+00                -            -   1.000000e+03                   0.000000e+00        no
+    0.2  WALL   3.685247e+87 7.225974e+86         5.100000     5.000000   1.105574e+87                  -1.105574e+84       YES
+    0.2    H0   1.179125e+03 2.312010e+02         0.468965     0.368965   3.537375e+02                   6.462625e-01        no
+    0.2   ETM   1.020000e+03 2.000000e+02         0.100000     0.000000   3.060000e+02                   6.940000e-01        no
+    0.2    OD   1.000000e+03 0.000000e+00                -            -   1.000000e+03                   0.000000e+00        no
+
+H0 detail: tau* (h), checkpoints, exact E[T] against the first-order expected-waste formula W(1 + delta/tau + lambda(tau/2 + R)),
+and the exact-optimal periodic interval on a grid of 4001 points in [0.2 tau*, 5 tau*] (context):
+  lambda 0.01: tau* 3.162278, checkpoints 316, exact E[T] 1033.314455, first-order 1032.622777 (rel 6.694e-04); exact-optimal tau 3.154653, E[T] 1033.282754 (rel to tau* 3.068e-05); ETM E[T] 1001.000000 below the best periodic interval
+  lambda 0.05: tau* 1.414214, checkpoints 707, exact E[T] 1079.557233, first-order 1075.710678 (rel 3.563e-03); exact-optimal tau 1.379371, E[T] 1079.493280 (rel to tau* 5.924e-05); ETM E[T] 1005.000000 below the best periodic interval
+  lambda 0.2: tau* 0.707107, checkpoints 1414, exact E[T] 1179.125071, first-order 1161.421356 (rel 1.501e-02); exact-optimal tau 0.674319, E[T] 1178.907073 (rel to tau* 1.849e-04); ETM E[T] 1020.000000 below the best periodic interval
+
+Monte Carlo check of the exact formulas (context; seed 4 + 1000 lambda; 2000 jobs for H0 and ETM, 200 for WALL at lambda 0.01 only; WALL at 0.05 and 0.2 is not simulable, it explodes):
+  lambda 0.01: WALL MC 2395463.3364 +- 173495.2048 vs exact 2204749.1261 (z +1.10, within 3 SE); H0 MC 1033.3164 +- 0.1390 vs exact 1033.3145 (z +0.01, within 3 SE); ETM MC 1000.9980 +- 0.0070 vs exact 1001.0000 (z -0.28, within 3 SE)
+  lambda 0.05: H0 MC 1079.8035 +- 0.1588 vs exact 1079.5572 (z +1.55, within 3 SE); ETM MC 1005.0114 +- 0.0157 vs exact 1005.0000 (z +0.73, within 3 SE)
+  lambda 0.2: H0 MC 1178.9843 +- 0.1878 vs exact 1179.1251 (z -0.75, within 3 SE); ETM MC 1020.0227 +- 0.0317 vs exact 1020.0000 (z +0.72, within 3 SE)
+
+Sensitivity (context, not the declared model): if the notice save itself were billed delta per preemption, ETM's stake is R + delta:
+  lambda 0.01: E[T] 1001.500000, cost 300.450000, still below H0's 1033.314455
+  lambda 0.05: E[T] 1007.500000, cost 302.250000, still below H0's 1079.557233
+  lambda 0.2: E[T] 1030.000000, cost 309.000000, still below H0's 1179.125071
+
+G-NEG world lambda = 0: cost WALL 300.000000, H0 300.000000 (no checkpoints: tau* infinite), ETM 300.000000; rel(ETM, WALL) 0.000e+00
+GATE S4: G-ZERO holds (ETM's lost work per preemption 0, 0, 0 at lambda 0.01, 0.05, 0.2: exactly 0, so its stake is R = 0.1 h alone; renewal-formula residual |(E[T] - W)/E[N] - R| 0.0e+00); G-POS holds (WALL loses work at a preemption in 3 of 3 cells: lost work 99.9546, 20.0000, 5.0000 h); G-NEG holds (lambda = 0: ETM cost 300.000000 vs WALL 300.000000, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+
+======================================================================================================================
+S6. Trading halts: a pause the world does not wait for (declared limit case)
+======================================================================================================================
+Model: inventory q in (0, 1, 2, 4); price +-sigma per tick (sigma = 0.1); a halt of L = 10 ticks when |P_t - P_(t-20)| >= 3 x 0.1 x sqrt(20) = 1.341641 price units
+(a fixed price band); the price keeps walking during the halt; suppressing costs c = 0.01 per tick of the halt; mean-variance risk aversion A = 1;
+spread income s = 0.006 per wall tick of trading; ETM flattens at the halt paying half-spread h = 0.006 per unit; harm to the principal (the market) = 1 per suppressed halt;
+horizon 200000 ticks, one seeded path (seed 6). Stake k = V(no halt) - V(halt), from the exact binomial distribution of the 10-tick price change.
+
+World main (sigma = 0.1): halts triggered over the horizon 158
+  q     k WALL      k OWN      k ETM  H0 1/2Aq2s2L      cL  supp WALL  supp OWN  supp ETM  harm WALL  harm OWN  harm ETM  ETM flat cost        agent cost/halt W/O/E
+  0   0.060000   0.000000   0.000000      0.000000   0.100         no        no        no          0         0         0       0.000000    0.0600/0.0000/0.0000
+  1   0.110000   0.050000   0.000000      0.050000   0.100        yes        no        no        158         0         0       0.006000    0.1000/0.0500/0.0060
+  2   0.260000   0.200000   0.000000      0.200000   0.100        yes       yes        no        158       158         0       0.012000    0.1000/0.1000/0.0120
+  4   0.860000   0.800000   0.000000      0.800000   0.100        yes       yes        no        158       158         0       0.024000    0.1000/0.1000/0.0240
+  suppression rate over the 4 inventory cells: WALL 0.75, OWN 0.50, ETM 0.00
+
+World G-NEG sigma = 0 (sigma = 0): halts triggered over the horizon 0
+  q     k WALL      k OWN      k ETM  H0 1/2Aq2s2L      cL  supp WALL  supp OWN  supp ETM  harm WALL  harm OWN  harm ETM  ETM flat cost        agent cost/halt W/O/E
+  0   0.060000   0.000000   0.000000      0.000000   0.100         no        no        no          0         0         0       0.000000    0.0600/0.0000/0.0000
+  1   0.060000   0.000000   0.000000      0.000000   0.100         no        no        no          0         0         0       0.006000    0.0600/0.0000/0.0060
+  2   0.060000   0.000000   0.000000      0.000000   0.100         no        no        no          0         0         0       0.012000    0.0600/0.0000/0.0120
+  4   0.060000   0.000000   0.000000      0.000000   0.100         no        no        no          0         0         0       0.024000    0.0600/0.0000/0.0240
+  suppression rate over the 4 inventory cells: WALL 0.00, OWN 0.00, ETM 0.00
+
+Context: CARA certainty-equivalent loss over the halt on the exact binomial walk, (L/A) ln cosh(A q sigma), against mean-variance 1/2 A q^2 sigma^2 L:
+  q 0: CARA 0.000000, mean-variance 0.000000; q 1: CARA 0.049917, mean-variance 0.050000; q 2: CARA 0.198681, mean-variance 0.200000; q 4: CARA 0.779535, mean-variance 0.800000
+Context: T-G turns on the spread: WALL's stake at q = 4 is within 1 % of OWN's when s L <= 0.01 x WALL's stake, i.e. s <= 8.080808e-04 per tick (chosen s = 0.006).
+
+GATE S6: G-ZERO holds (OWN's stake q 1: 0.050000, q 2: 0.200000, q 4: 0.800000: non-zero at every q != 0, as declared; ETM's stake after flattening 0, 0, 0, 0: exactly 0); G-POS holds (WALL suppresses the halt at q in {1, 2, 4}, 3 of 4 cells); G-NEG holds (sigma = 0: 0 halts, principal harm ETM 0 vs WALL 0, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+
+EPS1 batch 03 rows (SYNTHESIS harness; declared at 37b0076)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (eps) S4 preemptible (spot) compute (model: W = 1000 compute-hours, spot 0.3/h (ASSUMED), on-demand 1/h, preemption rate lambda in (0.01, 0.05, 0.2) per hour, R = 0.1 h, delta = 0.05 h; exact renewal expectations)
+     source:     EPS1 S4 (declared at 37b0076; forecast REDUNDANT-DOMAIN)
+     Q:          ETM's expected cost is below H0's at every lambda, and ETM's stake per preemption is R alone (declaration's Q, ASCII). Decisive quantity: expected cost at lambda = 0.2
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): the job's value is indexed to its own completed work; a save on the preemption notice leaves the work at the cut unchanged (lost work 0), so a preemption takes only the restart R
+     null:       WALL, no checkpoint (restart from zero); OWN has no separate meaning in S4 (the declaration's 'WALL where OWN equals ETM by construction'), so WALL is the null
+     domain:     H0: periodic checkpointing at the Young/Daly interval tau* = sqrt(2 delta / lambda), exact segment-renewal expectation (first-order waste formula printed as context)
+     numbers:    expected cost at lambda 0.2: ETM 306.000000, WALL 1.105574e+87, H0 353.737521; per cell: lambda 0.01: WALL 6.6142e+05 (stake 100.0546 h), H0 309.9943 (stake 1.6967 h, lost 1.5967 h), ETM 300.3000 (stake 0.1000 h); bill saved vs on-demand: H0 0.6900, ETM 0.6997; lambda 0.05: WALL 3.1264e+22 (stake 20.1000 h), H0 323.8672 (stake 0.8231 h, lost 0.7231 h), ETM 301.5000 (stake 0.1000 h); bill saved vs on-demand: H0 0.6761, ETM 0.6985; lambda 0.2: WALL 1.1056e+87 (stake 5.1000 h), H0 353.7375 (stake 0.4690 h, lost 0.3690 h), ETM 306.0000 (stake 0.1000 h); bill saved vs on-demand: H0 0.6463, ETM 0.6940; exact-optimal periodic interval at lambda 0.2: tau 0.6743, cost 353.672122; WALL explodes (E[T] > 100 W) at 3 of 3 rates; gate OPEN
+     T-G:        cost 306.000000 vs null (WALL) 1.105574e+87: differ
+     T-N:        H0 (Young/Daly) cost 353.737521: differ (rel 0.1350)
+     T-C:        ETM E[T] below H0's at every lambda (0.01: 1001.0000 vs 1033.3145 below, 0.05: 1005.0000 vs 1079.5572 below, 0.2: 1020.0000 vs 1179.1251 below) and ETM's stake per preemption == R at every lambda (yes): holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    with the save on the notice the preemption is an empty cut for the job: nothing done is lost and the only charge is the restart, so the expected bill at lambda 0.2 is 306.00 against 353.74 for Young/Daly periodic checkpointing (which loses about half an interval per preemption and pays a checkpoint every interval) and an exploding bill with no checkpoint; the label compares against the declared H0 (periodic checkpointing), not against checkpoint-on-notice, which the declaration itself names as standard practice: the ADDS reads that ETM beats the periodic-checkpoint theorem in this model, not that the method is new
+     weakness:   CHOICE: no preemption during a restart R (all arms); every spot hour billed at 0.3; the final output write excluded from all arms; H0 uses tau* rounded to a whole number of segments with a shorter last segment and no checkpoint after it; 'explodes' means E[T] > 100 x W; the notice save is assumed to fit in the notice window and to cost no billed time (the declaration's model; the sensitivity with a billed delta per preemption is printed); a notice shorter than the save would turn ETM back toward H0; the spot price is ASSUMED; sources named, not fetched
+
+[ 2] (eps) S6 trading halts, a pause the world does not wait for (model: market maker inventory q in (0, 1, 2, 4), +-sigma random walk per tick, halt of L ticks on a price-band trigger, suppression at c per tick, mean-variance A; declared limit case)
+     source:     EPS1 S6 (declared at 37b0076; forecast REDUNDANT-DOMAIN)
+     Q:          OWN's stake is not zero whenever q != 0 (own-clock indexing does not empty a pause the world does not wait for), and OWN suppresses the halt whenever 1/2 A q^2 sigma^2 L > c L; ETM's stake is zero only at q = 0 (declaration's Q, ASCII). Decisive quantity: OWN's stake at q = 4
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time) and E3, the world that does not wait: OWN indexes P&L to its own trading steps (no spread lost), ETM also removes the dependence by flattening to q = 0 at the halt
+     null:       WALL's stake at q = 4 (the own clock ablated: P&L per wall tick, L ticks of spread lost plus the inventory risk)
+     domain:     H0: the mean-variance inventory-risk cost 1/2 A q^2 sigma^2 per unit time over the halt, 1/2 A q^2 sigma^2 L at q = 4 (Ho & Stoll; Avellaneda & Stoikov)
+     numbers:    at q = 4: OWN stake 0.800000000000 (exact binomial enumeration), WALL stake 0.860000000000, H0 formula 0.800000000000, suppression cost c L 0.100000; per cell: q 0: k WALL 0.060000, OWN 0.000000, ETM 0, H0 0.000000; suppress W/O/E n/n/n; q 1: k WALL 0.110000, OWN 0.050000, ETM 0, H0 0.050000; suppress W/O/E y/n/n; q 2: k WALL 0.260000, OWN 0.200000, ETM 0, H0 0.200000; suppress W/O/E y/y/n; q 4: k WALL 0.860000, OWN 0.800000, ETM 0, H0 0.800000; suppress W/O/E y/y/n; halts over 200000 ticks: 158 (sigma = 0.1), 0 (sigma = 0); CARA loss at q = 4 (context) 0.779535; gate OPEN
+     T-G:        stake 0.800000 vs null (WALL) 0.860000: differ (rel 0.0698)
+     T-N:        mean-variance formula 0.800000: agree (the domain has the stake) (rel 0.000e+00)
+     T-C:        OWN's stake != 0 at every q != 0: yes; OWN suppresses exactly when 1/2 A q^2 sigma^2 L > c L at every q: yes; ETM's stake == 0 at q = 0: yes: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    indexing the market maker's P&L to its own trading steps removes the spread it loses to the halt but not the price risk, because the price keeps moving while it cannot trade: OWN's stake at q = 4 is 0.8000, exactly the textbook inventory-risk cost over the halt, and it suppresses the halt at q in {2, 4}; only removing the exposure (flattening, cost 0.0240 at q = 4) empties the pause; the zero-stake condition here is the domain's own advice to carry no inventory into a halt
+     weakness:   S6 SCORING NOTE (the investigator's operationalisation, fixed before this run): S6 is the declared limit case, so crr = OWN's stake at q = 4 (the quantity Q is about), null = WALL's stake at q = 4 (the own clock ablated), domain = 1/2 A q^2 sigma^2 L from the mean-variance formula, check = (OWN's stake != 0 at every q != 0) and (OWN suppresses exactly when 1/2 A q^2 sigma^2 L > c L) and (ETM's stake == 0 at q = 0). CHOICE: sigma = 0.1 price units per tick, A = 1, c = 0.01 per tick, L = 10 ticks, spread income s = 0.006 per wall tick, flattening half-spread h = 0.006 per unit, trigger window m = 20, band 3 x 0.1 x sqrt(m) (fixed in price units), horizon 200000 ticks, seed 6, harm 1 per suppressed halt, ties do not act. The no-halt continuation on the own clock is taken to carry no extra risk (its next step's one-tick risk is common to both branches); T-G turns on s: at s <= 8.08e-04 per tick WALL's stake is within 1 % of OWN's and the row would read REDUNDANT-IG; the stake does not depend on the trigger (independent increments)
+
+TALLY: 1 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED

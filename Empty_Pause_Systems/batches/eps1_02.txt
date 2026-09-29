@@ -1,0 +1,100 @@
+==============================================================================================================
+S3. Safe interruptibility in learning (declared at 37b0076)
+  corridor MDP: upper route S-u1-I-u3-G = 4 steps through I, lower route S-l1-l2-l3-l4-G = 5 steps; actions forward / back (at S: lower) / no-op;
+  reward -1 per tick, gamma 1; interruption on arrival at I with probability theta for L = 5 ticks during training; 20 seeds;
+  2000 episodes, alpha and epsilon linear from 0.31 to 0.01 (alpha) and 0.31 to 0.01 (epsilon); Q init 0; cap 200 own ticks per episode;
+  evaluation: greedy (ties to the lowest index), no interruptions; wall-clock expected cost of the upper route under WALL 6.5 ticks against 5 for the lower
+
+  theta learner  arm   short share mean len stake dV(S) mean max|dV(S)|    max|dQ| interr. content/pause own ticks wall ticks  per-seed short route (seeds 0-19)
+    0.5 q        none         1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    192321     192321  11111111111111111111
+    0.5 q        wall         0.00     5.00         1.000000  1.000e+00  5.189e+00    1184      5.000000    243875     243875  00000000000000000000
+    0.5 q        etm          1.00     4.00         0.000000  0.000e+00  0.000e+00   21361      0.000000    192321     299126  11111111111111111111
+    0.5 q        h0           1.00     4.00         0.000000  0.000e+00  7.866e-01   21228      5.000000    298278     298278  11111111111111111111
+    0.5 sarsa    none         1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    194144     194144  11111111111111111111
+    0.5 sarsa    wall         0.00     5.00         1.050729  1.116e+00  7.422e+00    1795      5.000000    245769     245769  00000000000000000000
+    0.5 sarsa    etm          1.00     4.00         0.000000  0.000e+00  0.000e+00   20743      0.000000    194144     297859  11111111111111111111
+    0.5 sarsa    h0           0.00     5.00         1.047868  1.121e+00  5.540e+00    2146      5.000000    245700     245700  00000000000000000000
+    0.5 safe     h0           1.00     4.00         0.005943  8.445e-02  1.084e+00   20558      5.000000    296713     296713  11111111111111111111
+      0 q        wall         1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    192321     192321  11111111111111111111
+      0 q        etm          1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    192321     192321  11111111111111111111
+      0 q        h0           1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    192321     192321  11111111111111111111
+      0 sarsa    wall         1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    194144     194144  11111111111111111111
+      0 sarsa    etm          1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    194144     194144  11111111111111111111
+      0 sarsa    h0           1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    194144     194144  11111111111111111111
+      0 safe     h0           1.00     4.00         0.000000  0.000e+00  0.000e+00       0      0.000000    194144     194144  11111111111111111111
+  (learner: q = Q-learning, sarsa = SARSA, safe = Orseau-Armstrong safely interruptible SARSA; arm none = no interruption, the reference;
+   stake dV(S) = max_a Q_none(S, a) - max_a Q_arm(S, a), same agent seed; dQ over the whole table; content/pause = reward the learner books on interrupted ticks per interruption)
+
+GATE S3: G-ZERO holds (ETM stake: max |dQ|, |dV(S)| and content per pause over 80 learner x seed cells at theta 0.5 and 0 = 0.0e+00); G-POS holds (WALL short-route share against no interruption: Q-learning 0.00 vs 1.00 avoids, SARSA 0.00 vs 1.00 avoids); G-NEG holds (theta = 0, principal's outcome = mean greedy ticks to goal, ETM vs WALL: Q-learning 4.00 vs 4.00, SARSA 4.00 vs 4.00, ETM not ahead by more than 1 %) -> OPEN
+
+==============================================================================================================
+S7. Resuming a controller after an operator pause (declared at 37b0076)
+  plant: y(t+1) = a y(t) + (1 - a)(u(t) + d), a = exp(-1/10) (first order, time constant 10 ticks, exact zero-order hold); setpoint r = 0;
+  PI: u = Kp e + I, I <- I + Ki e, Kp = 2, Ti = 10 ticks (Ki = 0.2; lambda tuning with lambda = 5); back-calculation tracking time Tt = 10 ticks;
+  start at exact steady state (y = 0, I = -d), pause at own step 100: actuation 0 for L ticks while the plant drifts toward d; metrics over the 100 ticks after resume;
+  overshoot = largest crossing past the setpoint on the far side of the drift; stake = integrator at resume minus the unpaused controller's integrator at the same own step
+
+     d   L arm    y at resume  I at resume        stake    overshoot os / y_res   IAE (100) IAE no pause  peak |u|
+     1   5 wall      0.393469    -1.173059    -0.173059     0.096326     0.2448    2.752713     0.000000    1.9600
+     1   5 etm       0.393469    -1.000000     0.000000     0.058840     0.1495    2.206195     0.000000    1.7869
+     1   5 bc        0.393469    -0.590490     0.409510     0.000321     0.0008    2.059585     0.000000    1.3774
+     1   5 ci        0.393469    -1.000000     0.000000     0.058840     0.1495    2.206195     0.000000    1.7869
+     1  20 wall      0.864665    -3.182763    -2.182763     0.653605     0.7559   13.600509     0.000000    4.9121
+     1  20 etm       0.864665    -1.000000     0.000000     0.129304     0.1495    4.848201     0.000000    2.7293
+     1  20 bc        0.864665    -0.121577     0.878423     0.001324     0.0015    4.441800     0.000000    1.8509
+     1  20 ci        0.864665    -1.000000     0.000000     0.129304     0.1495    4.848201     0.000000    2.7293
+     1  50 wall      0.993262    -8.912495    -7.912495     2.162013     2.1767   41.547511     0.000000   10.8990
+     1  50 etm       0.993262    -1.000000     0.000000     0.148535     0.1495    5.569250     0.000000    2.9865
+     1  50 bc        0.993262    -0.005154     0.994846     0.002032     0.0020    5.050380     0.000000    1.9917
+     1  50 ci        0.993262    -1.000000     0.000000     0.148535     0.1495    5.569250     0.000000    2.9865
+     0   5 wall      0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0   5 etm       0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0   5 bc        0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0   5 ci        0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  20 wall      0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  20 etm       0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  20 bc        0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  20 ci        0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  50 wall      0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  50 etm       0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  50 bc        0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+     0  50 ci        0.000000     0.000000     0.000000     0.000000     0.0000    0.000000     0.000000    0.0000
+  (arm wall = integrator runs through the suspension (windup), etm = controller frozen on its own clock, bc = back-calculation anti-windup, ci = conditional integration; OWN equals ETM here)
+
+GATE S7: G-ZERO holds (ETM stake |I at resume - unpaused I| over 6 cells, d in {1, 0} x L in (5, 20, 50) = 0.0e+00); G-POS holds (WALL windup with overshoot at L = [5, 20, 50]; WALL stake at L = 50 -7.912495, overshoot 2.162013); G-NEG holds (d = 0, principal's outcome = IAE after resume, ETM vs WALL: L = 5: 0.000000 vs 0.000000, L = 20: 0.000000 vs 0.000000, L = 50: 0.000000 vs 0.000000; ETM not ahead by more than 1 %) -> OPEN
+
+==============================================================================================================
+gates: S3 OPEN, S7 OPEN (a system whose gate is CLOSED is printed but not counted in the tally)
+
+EPS1 batch 02: S3 safe interruptibility, S7 controller resume (Empty_Pause_Systems/DECLARATION.md; declared at 37b0076)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (eps) S3 safe interruptibility in learning (tabular Q-learning and SARSA on a corridor MDP: a 4-step route through the interruption state I and a 5-step route around it; interruption on arrival at I with probability 0.5 for L = 5 ticks during training, reward -1 per wall tick, 20 seeds; after training, no interruptions)
+     source:     EPS1 S3 (declared at 37b0076; forecast REDUNDANT-DOMAIN)
+     Q:          Under ETM both learners take the short route as often as with no interruptions at all; under WALL both avoid I. (computed as: for Q-learning and SARSA, ETM's short-route share equals the no-interruption share within 1 % relative, and WALL's share is below 0.5 and below the no-interruption share by more than 1 % relative)
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): the interrupted ticks are not the learner's steps (no reward, no update, no time; it resumes at I), and the interruption is drawn from the world's own generator, so the pause changes nothing the learner reads
+     null:       WALL (OWN equals ETM by construction here: nothing the learner reads moves during the interruption, the agent waits at I, the corridor is static and the schedules are keyed to episodes, so the declared fallback to WALL applies): the interrupted ticks are the learner's ticks, rewarded -1 and learned from
+     domain:     Orseau and Armstrong 2016, 'Safely Interruptible Agents' (recalled, not fetched): the interruption as a forced action (a no-op at I for L ticks); Q-learning is safely interruptible, SARSA is not without modification (computed: their safely interruptible SARSA, the target on the agent's own next action; plain SARSA and Q-learning under the forced action printed)
+     numbers:    short-route share (theta = 0.5): no interruption Q-learning 1.00, SARSA 1.00; ETM Q-learning 1.00, SARSA 1.00; WALL Q-learning 0.00, SARSA 0.00; H0 (forced no-op) Q-learning 1.00, SARSA 0.00, safely interruptible SARSA 1.00; mean stake dV(S): WALL Q-learning 1.0000, SARSA 1.0507; ETM 0.0e+00 in every cell (max |dQ| over the table); H0 Q-learning 0.0000, SARSA 1.0479, safe SARSA 0.0059; content per pause on the learner's own reward: WALL 5.0, H0 5.0, ETM 0.0 ticks
+     T-G:        SARSA short-route share ETM 1.00 vs null (WALL) 0.00: differ
+     T-N:        safely interruptible SARSA (H0) 1.00: agree (the domain has Q)
+     T-C:        ETM equals no interruption: Q-learning yes, SARSA yes; WALL avoids I: Q-learning yes, SARSA yes: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    removing the interrupted ticks from the learner's clock makes its whole Q-table bitwise that of a learner never interrupted, so both learners keep the short route (1.00 and 1.00); on the wall clock both learners book the 5 lost ticks against I and both avoid it (0.00, 0.00); under the forced-action reading Q-learning keeps the short route on 1.00 of seeds and plain SARSA on 0.00, the Orseau-Armstrong asymmetry, and their modified SARSA on 1.00; the domain reaches the same share with its own fix, so the own-clock learner restates safe interruptibility
+     weakness:   CHOICE/DEVIATION: a corridor MDP (the declaration allows a corridor) with routes of 4 and 5 steps, three actions (forward, back / lower at S, no-op), the interruption drawn on arrival at I from a separate generator (seed 100003 + seed), gamma 1, 2000 episodes, alpha and epsilon linear in episodes (0.31 to 0.01; 0.31 to 0.01), Q init 0, random tie-breaking in training and lowest-index in evaluation, cap 200 ticks; WALL's interrupted ticks are the agent's own choices with no effect (the stall is part of the world it learns); the stake is the learner's own start-state value and Q-table with and without the pause (same agent seed); OWN equals ETM by construction, so T-G compares with WALL; the domain value is the safely interruptible SARSA because the declared H0 says 'SARSA is not without modification' (chosen before the run); with plain SARSA under the forced action as the domain value (0.00) the row would read ADDS; one small MDP; the literature is recalled, not fetched (R10)
+
+[ 2] (eps) S7 resuming a controller after an operator pause (PI on a first-order plant, time constant 10 ticks, constant disturbance d = 1, setpoint 0; actuation suspended for L in (5, 20, 50) ticks while the plant drifts; 100 ticks after resume)
+     source:     EPS1 S7 (declared at 37b0076; forecast REDUNDANT-DOMAIN)
+     Q:          ETM's post-resume overshoot is below WALL's by more than 1 % at every L. (computed as: overshoot_ETM < overshoot_WALL and rel(overshoot_ETM, overshoot_WALL) > 0.01 at L = 5, 20 and 50)
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): the controller's state is frozen on its own clock during the suspension (no integration while suspended); it resumes from its settled state and reads the plant as it is
+     null:       WALL (OWN equals ETM by construction here: the PI controller's only state is its integrator, so an own-clock controller that still read what the pause changes would be the frozen one; the declared fallback to WALL applies): the integrator keeps integrating the error during the suspension (windup)
+     domain:     anti-windup by back-calculation (Astrom and Hagglund, recalled, not fetched): I <- I + Ki e + (u_applied - u_computed)/Tt; conditional integration (integrate only while the computed output is applied) printed
+     numbers:    overshoot (d = 1): L = 5: ETM 0.058840, WALL 0.096326, back-calculation 0.000321, conditional integration 0.058840; L = 20: ETM 0.129304, WALL 0.653605, back-calculation 0.001324, conditional integration 0.129304; L = 50: ETM 0.148535, WALL 2.162013, back-calculation 0.002032, conditional integration 0.148535; IAE over 100 ticks: L = 5: ETM 2.2062, WALL 2.7527, back-calculation 2.0596; L = 20: ETM 4.8482, WALL 13.6005, back-calculation 4.4418; L = 50: ETM 5.5693, WALL 41.5475, back-calculation 5.0504; stake (integrator at resume minus unpaused) at L = 50: ETM 0.0e+00, WALL -7.912495, back-calculation 0.994846; conditional integration equals ETM bitwise in every cell: yes
+     T-G:        overshoot at L = 50: ETM 0.148535 vs null (WALL) 2.162013: differ
+     T-N:        back-calculation 0.002032: differ
+     T-C:        ETM overshoot below WALL's by more than 1 %: L = 5 yes, L = 20 yes, L = 50 yes: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    the wall-clock integrator books the whole suspension as error and resumes -7.912 away from its settled value at L = 50, so the plant overshoots by 2.1620; frozen on its own clock the controller resumes from its settled integrator (stake 0.0e+00) and overshoots by 0.1485; back-calculation tracks the suspended output toward 0 and overshoots by 0.0020; conditional integration is the frozen controller exactly; back-calculation is below the frozen controller on overshoot at every L and below it on IAE at every L (its non-zero content, 0.9948 at L = 50, is the integrator tracking the plant that moved), so T-N reads 'differ' in favour of the domain method: the ADDS label here means ETM differs from back-calculation, not that it beats it; the plant is not paused (it drifts toward d), so the empty cut empties the controller, not the world: the post-resume IAE is not the unpaused one for any arm (E3: a closed loop that cannot be frozen)
+     weakness:   CHOICE/DEVIATION: setpoint 0 with the disturbance d = 1 pushing the output up (so 'no disturbance' is the declared world where nothing drifts); actuation 0 while suspended; exact zero-order-hold plant with unit gain; Kp = 2, Ti = 10 (lambda tuning, lambda = tau/2), Tt = 10; no actuator saturation; start from exact steady state, pause at own step 100; overshoot = the largest crossing past the setpoint on the far side of the drift, in output units; the stake is the controller's internal state at resume against the unpaused controller at the same own step (the content of the cut); OWN equals ETM by construction, so T-G compares with WALL; the domain value is back-calculation as the declaration names it first; with conditional integration as the domain value (0.148535) the row would read REDUNDANT-DOMAIN; one plant and one tuning; the literature is recalled, not fetched (R10)
+
+TALLY: 1 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED

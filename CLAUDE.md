@@ -346,6 +346,10 @@ Predictions70/             PRED70 (prompt-log entry 234): 70 new systems, CRR's 
                            (SYNTHESIS harness, agent-written, cmp byte-identical, rerun by hand); checks/tally.py + .txt (CI-checked): Q held 35/70,
                            ADDS 14, of which the 7 H-L5 rows fail H-L5's own amplitude control (post hoc), leaving 7 A6 candidates; PREDICTIONS70.md;
                            a note, not evidence (R8)
+Empty_Pause_Systems/       EPS1 (prompt-log entry 240): the empty-true-map pause on seven new systems (approval gates, overseer reporting,
+                           safe interruptibility, spot compute, restorative breaks, trading halts, controller resume); DECLARATION.md pushed before
+                           any source or code; batches/eps1_01-04.py + .txt (CI-checked), checks/tally.py/.txt: gates 7/7 OPEN, Q held 7/7,
+                           REDUNDANT-DOMAIN 4, REDUNDANT-IG 1, ADDS 2 (neither new); EMPTY_PAUSE_SYSTEMS.md; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

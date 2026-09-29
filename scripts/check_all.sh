@@ -73,6 +73,8 @@ uv run python Attention_Algorithms/checks/grade.py | cmp - Attention_Algorithms/
 uv run python Attention_Algorithms/checks/global_attention.py | cmp - Attention_Algorithms/checks/global_attention.txt && echo 'attention-algorithms global arithmetic byte-identical to the committed output'
 uv run python Predictions70/checks/tally.py | cmp - Predictions70/checks/tally.txt && echo 'PRED70 tally byte-identical to the committed output'
 uv run python Epistemic_Review/checks/redundant_vs_fail.py | cmp - Epistemic_Review/checks/redundant_vs_fail.txt && echo 'redundant-vs-fail review byte-identical to the committed output'
+for n in 01 02 03 04; do uv run python Empty_Pause_Systems/batches/eps1_$n.py | cmp - Empty_Pause_Systems/batches/eps1_$n.txt || exit 1; done && echo 'EPS1 batches byte-identical to the committed outputs'
+uv run python Empty_Pause_Systems/checks/tally.py | cmp - Empty_Pause_Systems/checks/tally.txt && echo 'EPS1 tally byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/retro_energy.py" | cmp - "Energy Design Principle/checks/retro_energy.txt" && echo 'energy retrodiction byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/consolidated_estimate.py" | cmp - "Energy Design Principle/checks/consolidated_estimate.txt" && echo 'energy consolidated estimate byte-identical to the committed output'
 uv run python Lossless_Pause/checks/grade_claims.py | cmp - Lossless_Pause/checks/grade_claims.txt && echo 'lossless-pause literature grading byte-identical to the committed output'
