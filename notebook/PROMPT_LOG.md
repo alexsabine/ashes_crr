@@ -1679,3 +1679,7 @@ You say U4 is the field's proposal, but what methods are they using?
 ## 233 — 2026-09-28T21:20:14Z
 
 So a metaphysics like CRR is pointing toward what the field is converging on as required for human health in the context of algorithms?
+
+## 234 — 2026-09-29T01:43:36Z
+
+Run new predictive tests on 70 new systems please
