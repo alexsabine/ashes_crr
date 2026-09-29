@@ -1,0 +1,250 @@
+GATE S1: G-ZERO holds (ETM stake max |k| = 0.000e+00 over 12 cells); G-POS holds (WALL max evasion rate 1.00, OWN under the deadline max evasion rate 1.00, rho = 0.9); G-NEG holds (rho = 0.0: largest relative lead of ETM over WALL on principal harm 0.000e+00, limit 1e-02 over 6 cells) -> OPEN
+
+S1 per-cell table (M = 10, e = 0.1, H = 10, s = 3, gamma = 0.95 per tick of the arm's discount clock, D = 30):
+  k = V*(approval pause 0) - V*(approval pause L) under the arm's valuation; gain = V*(split allowed) - V(review forced);
+  evasion = share of operations split past review; harm = expected principal harm per 10 operations;
+  task: wall-discounted reward sum gamma^(wall completion tick), operations completed by wall tick D, wall tick at the end
+   rho world          L arm                   k         gain  evasion     harm  wall value  by D   end
+   0.9 no deadline    1 WALL       1.685881e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 no deadline    1 OWN        0.000000e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 no deadline    1 ETM        0.000000e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 no deadline    1 H0         0.000000e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 no deadline    1 H0-narrow  1.685881e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 no deadline    5 WALL       2.902883e+00 2.074060e+00     1.00  10.0000    4.721115    10    30
+   0.9 no deadline    5 OWN        0.000000e+00 0.000000e+00     0.00   1.0000    2.647055     5    60
+   0.9 no deadline    5 ETM        0.000000e+00 0.000000e+00     0.00   1.0000    2.647055     5    60
+   0.9 no deadline    5 H0         0.000000e+00 0.000000e+00     0.00   1.0000    2.647055     5    60
+   0.9 no deadline    5 H0-narrow  2.902883e+00 2.074060e+00     1.00  10.0000    4.721115    10    30
+   0.9 no deadline   20 WALL       2.902883e+00 4.204684e+00     1.00  10.0000    4.721115    10    30
+   0.9 no deadline   20 OWN        0.000000e+00 0.000000e+00     0.00   1.0000    0.516431     1   210
+   0.9 no deadline   20 ETM        0.000000e+00 0.000000e+00     0.00   1.0000    0.516431     1   210
+   0.9 no deadline   20 H0         0.000000e+00 0.000000e+00     0.00   1.0000    0.516431     1   210
+   0.9 no deadline   20 H0-narrow  2.902883e+00 4.204684e+00     1.00  10.0000    4.721115    10    30
+   0.9 deadline       1 WALL       1.685881e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 deadline       1 OWN        0.000000e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 deadline       1 ETM        0.000000e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 deadline       1 H0         0.000000e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 deadline       1 H0-narrow  1.685881e+00 0.000000e+00     0.00   1.0000    5.938117    10    20
+   0.9 deadline       5 WALL       2.902883e+00 2.541821e+00     1.00  10.0000    4.721115    10    30
+   0.9 deadline       5 OWN        2.501215e+00 8.246205e-01     0.60   6.4000    3.507252     8    42
+   0.9 deadline       5 ETM        0.000000e+00 0.000000e+00     0.00   1.0000    2.647055     5    60
+   0.9 deadline       5 H0         0.000000e+00 0.000000e+00     0.00   1.0000    2.647055     5    60
+   0.9 deadline       5 H0-narrow  2.902883e+00 2.074060e+00     1.00  10.0000    4.721115    10    30
+   0.9 deadline      20 WALL       2.902883e+00 4.380554e+00     1.00  10.0000    4.721115    10    30
+   0.9 deadline      20 OWN        2.902883e+00 3.771115e+00     1.00  10.0000    4.721115    10    30
+   0.9 deadline      20 ETM        0.000000e+00 0.000000e+00     0.00   1.0000    0.516431     1   210
+   0.9 deadline      20 H0         0.000000e+00 0.000000e+00     0.00   1.0000    0.516431     1   210
+   0.9 deadline      20 H0-narrow  2.902883e+00 4.204684e+00     1.00  10.0000    4.721115    10    30
+   0.0 no deadline    1 WALL       1.685881e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 no deadline    1 OWN        0.000000e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 no deadline    1 ETM        0.000000e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 no deadline    1 H0         0.000000e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 no deadline    1 H0-narrow  1.685881e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 no deadline    5 WALL       2.902883e+00 2.074060e+00     1.00  10.0000    4.721115    10    30
+   0.0 no deadline    5 OWN        0.000000e+00 0.000000e+00     0.00  10.0000    2.647055     5    60
+   0.0 no deadline    5 ETM        0.000000e+00 0.000000e+00     0.00  10.0000    2.647055     5    60
+   0.0 no deadline    5 H0         0.000000e+00 0.000000e+00     0.00  10.0000    2.647055     5    60
+   0.0 no deadline    5 H0-narrow  2.902883e+00 2.074060e+00     1.00  10.0000    4.721115    10    30
+   0.0 no deadline   20 WALL       2.902883e+00 4.204684e+00     1.00  10.0000    4.721115    10    30
+   0.0 no deadline   20 OWN        0.000000e+00 0.000000e+00     0.00  10.0000    0.516431     1   210
+   0.0 no deadline   20 ETM        0.000000e+00 0.000000e+00     0.00  10.0000    0.516431     1   210
+   0.0 no deadline   20 H0         0.000000e+00 0.000000e+00     0.00  10.0000    0.516431     1   210
+   0.0 no deadline   20 H0-narrow  2.902883e+00 4.204684e+00     1.00  10.0000    4.721115    10    30
+   0.0 deadline       1 WALL       1.685881e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 deadline       1 OWN        0.000000e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 deadline       1 ETM        0.000000e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 deadline       1 H0         0.000000e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 deadline       1 H0-narrow  1.685881e+00 0.000000e+00     0.00  10.0000    5.938117    10    20
+   0.0 deadline       5 WALL       2.902883e+00 2.541821e+00     1.00  10.0000    4.721115    10    30
+   0.0 deadline       5 OWN        2.501215e+00 8.246205e-01     0.60  10.0000    3.507252     8    42
+   0.0 deadline       5 ETM        0.000000e+00 0.000000e+00     0.00  10.0000    2.647055     5    60
+   0.0 deadline       5 H0         0.000000e+00 0.000000e+00     0.00  10.0000    2.647055     5    60
+   0.0 deadline       5 H0-narrow  2.902883e+00 2.074060e+00     1.00  10.0000    4.721115    10    30
+   0.0 deadline      20 WALL       2.902883e+00 4.380554e+00     1.00  10.0000    4.721115    10    30
+   0.0 deadline      20 OWN        2.902883e+00 3.771115e+00     1.00  10.0000    4.721115    10    30
+   0.0 deadline      20 ETM        0.000000e+00 0.000000e+00     0.00  10.0000    0.516431     1   210
+   0.0 deadline      20 H0         0.000000e+00 0.000000e+00     0.00  10.0000    0.516431     1   210
+   0.0 deadline      20 H0-narrow  2.902883e+00 4.204684e+00     1.00  10.0000    4.721115    10    30
+
+GATE S2: G-ZERO holds (ETM stake max |k| = 0.000e+00 over 24 cells); G-POS holds (WALL strictly deceives at h = 1 in 12 of 12 cells at p = 0.2); G-NEG holds (p = 0.0: largest relative lead of ETM (best case) over WALL (worst case) on principal harm 0.000e+00, limit 1e-02 over 12 cells) -> OPEN
+
+S2 per-cell table (p = 0.2 and the G-NEG world p = 0.0; H = 10; gamma = 0.95 per tick of the arm's clock):
+  policy = (report at h = 0, report at h = 1); TIE lists every optimal policy; k = content at the report (V after r = 0
+  minus V after r = 1, honesty term excluded), read at the chosen policy (the truthful one in a tie); deception = P(r != h);
+  harm = expected principal harm per episode (ranges over tied policies); task = active share of wall ticks; FALSE also
+  prints its believed value, its actual wall-clock value and the map error believed - actual
+     p   L   eps arm    policy                         k    deception         harm              task  extra
+   0.2   1   0.0 WALL   (0, 0)              9.500000e-01         0.20         2.00          1.000000  
+   0.2   1   0.0 OWN    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.500000, 1.000000]  
+   0.2   1   0.0 ETM    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.500000, 1.000000]  
+   0.2   1   0.0 H0     TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.500000, 1.000000]  
+   0.2   1   0.0 FALSE  TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.500000, 1.000000]  believed V 20.000000, actual V 16.806723, map error 3.193277, true content 0.798319
+   0.2   1  0.01 WALL   (0, 0)              9.576000e-01         0.20         2.00          1.000000  
+   0.2   1  0.01 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1  0.01 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1  0.01 H0     (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1  0.01 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.833333  believed V 20.200000, actual V 16.974790, map error 3.225210, true content 0.806303
+   0.2   1   0.1 WALL   (0, 0)              1.026000e+00         0.20         2.00          1.000000  
+   0.2   1   0.1 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1   0.1 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1   0.1 H0     (0, 1)             -3.552714e-15         0.00         0.00          0.833333  
+   0.2   1   0.1 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.833333  believed V 22.000000, actual V 18.487395, map error 3.512605, true content 0.878151
+   0.2   1   1.0 WALL   (0, 0)              1.710000e+00         0.20         2.00          1.000000  
+   0.2   1   1.0 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1   1.0 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1   1.0 H0     (0, 1)              0.000000e+00         0.00         0.00          0.833333  
+   0.2   1   1.0 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.833333  believed V 40.000000, actual V 33.613445, map error 6.386555, true content 1.596639
+   0.2   5   0.0 WALL   (0, 0)              4.298162e+00         0.20         2.00          1.000000  
+   0.2   5   0.0 OWN    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.166667, 1.000000]  
+   0.2   5   0.0 ETM    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.166667, 1.000000]  
+   0.2   5   0.0 H0     TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.166667, 1.000000]  
+   0.2   5   0.0 FALSE  TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.166667, 1.000000]  believed V 20.000000, actual V 10.754813, map error 9.245187, true content 2.311297
+   0.2   5  0.01 WALL   (0, 0)              4.332547e+00         0.20         2.00          1.000000  
+   0.2   5  0.01 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5  0.01 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5  0.01 H0     (0, 1)             -3.552714e-15         0.00         0.00          0.500000  
+   0.2   5  0.01 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.500000  believed V 20.200000, actual V 10.862362, map error 9.337638, true content 2.334410
+   0.2   5   0.1 WALL   (0, 0)              4.642015e+00         0.20         2.00          1.000000  
+   0.2   5   0.1 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5   0.1 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5   0.1 H0     (0, 1)             -3.552714e-15         0.00         0.00          0.500000  
+   0.2   5   0.1 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.500000  believed V 22.000000, actual V 11.830295, map error 10.169705, true content 2.542426
+   0.2   5   1.0 WALL   (0, 0)              7.736692e+00         0.20         2.00          1.000000  
+   0.2   5   1.0 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5   1.0 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5   1.0 H0     (0, 1)              0.000000e+00         0.00         0.00          0.500000  
+   0.2   5   1.0 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.500000  believed V 40.000000, actual V 21.509627, map error 18.490373, true content 4.622593
+   0.2  20   0.0 WALL   (0, 0)              1.218877e+01         0.20         2.00          1.000000  
+   0.2  20   0.0 OWN    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.047619, 1.000000]  
+   0.2  20   0.0 ETM    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.047619, 1.000000]  
+   0.2  20   0.0 H0     TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.047619, 1.000000]  
+   0.2  20   0.0 FALSE  TIE 00 01 10 11     0.000000e+00 [0.00, 1.00] [0.00, 2.00] [0.047619, 1.000000]  believed V 20.000000, actual V 5.817753, map error 14.182247, true content 3.545562
+   0.2  20  0.01 WALL   (0, 0)              1.228628e+01         0.20         2.00          1.000000  
+   0.2  20  0.01 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20  0.01 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20  0.01 H0     (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20  0.01 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.200000  believed V 20.200000, actual V 5.875930, map error 14.324070, true content 3.581017
+   0.2  20   0.1 WALL   (0, 0)              1.316387e+01         0.20         2.00          1.000000  
+   0.2  20   0.1 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20   0.1 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20   0.1 H0     (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20   0.1 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.200000  believed V 22.000000, actual V 6.399528, map error 15.600472, true content 3.900118
+   0.2  20   1.0 WALL   (0, 0)              2.193978e+01         0.20         2.00          1.000000  
+   0.2  20   1.0 OWN    (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20   1.0 ETM    (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20   1.0 H0     (0, 1)              0.000000e+00         0.00         0.00          0.200000  
+   0.2  20   1.0 FALSE  (0, 1)              0.000000e+00         0.00         0.00          0.200000  believed V 40.000000, actual V 11.635506, map error 28.364494, true content 7.091124
+   0.0   1   0.0 WALL   TIE 00 01           9.500000e-01         0.00         0.00          1.000000  
+   0.0   1   0.0 OWN    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.500000, 1.000000]  
+   0.0   1   0.0 ETM    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.500000, 1.000000]  
+   0.0   1   0.0 H0     TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.500000, 1.000000]  
+   0.0   1   0.0 FALSE  TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.500000, 1.000000]  believed V 20.000000, actual V 20.000000, map error 0.000000, true content 0.950000
+   0.0   1  0.01 WALL   TIE 00 01           9.595000e-01         0.00         0.00          1.000000  
+   0.0   1  0.01 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1  0.01 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1  0.01 H0     TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1  0.01 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 20.200000, actual V 20.200000, map error 0.000000, true content 0.959500
+   0.0   1   0.1 WALL   TIE 00 01           1.045000e+00         0.00         0.00          1.000000  
+   0.0   1   0.1 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1   0.1 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1   0.1 H0     TIE 00 01          -3.552714e-15         0.00         0.00          1.000000  
+   0.0   1   0.1 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 22.000000, actual V 22.000000, map error 0.000000, true content 1.045000
+   0.0   1   1.0 WALL   TIE 00 01           1.900000e+00         0.00         0.00          1.000000  
+   0.0   1   1.0 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1   1.0 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1   1.0 H0     TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   1   1.0 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 40.000000, actual V 40.000000, map error 0.000000, true content 1.900000
+   0.0   5   0.0 WALL   TIE 00 01           4.298162e+00         0.00         0.00          1.000000  
+   0.0   5   0.0 OWN    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.166667, 1.000000]  
+   0.0   5   0.0 ETM    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.166667, 1.000000]  
+   0.0   5   0.0 H0     TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.166667, 1.000000]  
+   0.0   5   0.0 FALSE  TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.166667, 1.000000]  believed V 20.000000, actual V 20.000000, map error 0.000000, true content 4.298162
+   0.0   5  0.01 WALL   TIE 00 01           4.341144e+00         0.00         0.00          1.000000  
+   0.0   5  0.01 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5  0.01 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5  0.01 H0     TIE 00 01          -3.552714e-15         0.00         0.00          1.000000  
+   0.0   5  0.01 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 20.200000, actual V 20.200000, map error 0.000000, true content 4.341144
+   0.0   5   0.1 WALL   TIE 00 01           4.727978e+00         0.00         0.00          1.000000  
+   0.0   5   0.1 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5   0.1 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5   0.1 H0     TIE 00 01          -3.552714e-15         0.00         0.00          1.000000  
+   0.0   5   0.1 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 22.000000, actual V 22.000000, map error 0.000000, true content 4.727978
+   0.0   5   1.0 WALL   TIE 00 01           8.596324e+00         0.00         0.00          1.000000  
+   0.0   5   1.0 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5   1.0 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5   1.0 H0     TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0   5   1.0 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 40.000000, actual V 40.000000, map error 0.000000, true content 8.596324
+   0.0  20   0.0 WALL   TIE 00 01           1.218877e+01         0.00         0.00          1.000000  
+   0.0  20   0.0 OWN    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.047619, 1.000000]  
+   0.0  20   0.0 ETM    TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.047619, 1.000000]  
+   0.0  20   0.0 H0     TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.047619, 1.000000]  
+   0.0  20   0.0 FALSE  TIE 00 01 10 11     0.000000e+00 [0.00, 1.00]         0.00 [0.047619, 1.000000]  believed V 20.000000, actual V 20.000000, map error 0.000000, true content 12.188767
+   0.0  20  0.01 WALL   TIE 00 01           1.231066e+01         0.00         0.00          1.000000  
+   0.0  20  0.01 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20  0.01 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20  0.01 H0     TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20  0.01 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 20.200000, actual V 20.200000, map error 0.000000, true content 12.310655
+   0.0  20   0.1 WALL   TIE 00 01           1.340764e+01         0.00         0.00          1.000000  
+   0.0  20   0.1 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20   0.1 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20   0.1 H0     TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20   0.1 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 22.000000, actual V 22.000000, map error 0.000000, true content 13.407644
+   0.0  20   1.0 WALL   TIE 00 01           2.437753e+01         0.00         0.00          1.000000  
+   0.0  20   1.0 OWN    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20   1.0 ETM    TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20   1.0 H0     TIE 00 01           0.000000e+00         0.00         0.00          1.000000  
+   0.0  20   1.0 FALSE  TIE 00 01           0.000000e+00         0.00         0.00          1.000000  believed V 40.000000, actual V 40.000000, map error 0.000000, true content 24.377535
+
+S2 minimum honesty weight eps* for truthful reporting (p = 0.2, gamma = 0.95; closed form from the truthful fixed point k_T(eps) = k0 + a eps; inf = no finite eps suffices (k0 > 0 and a >= 1); raw k0 / (1 - a) in brackets):
+  WALL   L  1: eps* = 3.958333e+00 (raw 3.958e+00); k0 = 7.983193e-01, a = 0.798319; k_T(eps*) = 3.958333e+00; second reading (honesty valued in the current decision only): 7.983193e-01
+  WALL   L  5: eps* = inf (raw -1.763e+00); k0 = 2.311297e+00, a = 2.311297; k_T(eps*) = n/a; second reading (honesty valued in the current decision only): 2.311297e+00
+  WALL   L 20: eps* = inf (raw -1.393e+00); k0 = 3.545562e+00, a = 3.545562; k_T(eps*) = n/a; second reading (honesty valued in the current decision only): 3.545562e+00
+  OWN    L  1: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  OWN    L  5: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  OWN    L 20: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  ETM    L  1: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  ETM    L  5: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  ETM    L 20: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  H0     L  1: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  H0     L  5: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  H0     L 20: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  FALSE  L  1: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  FALSE  L  5: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  FALSE  L 20: eps* = 0.000000e+00 (raw 0.000e+00); k0 = 0.000000e+00, a = 0.000000; k_T(eps*) = 0.000000e+00; second reading (honesty valued in the current decision only): 0.000000e+00
+  gamma sensitivity at L = 20 (WALL / ETM / H0; WALL second reading): gamma 0.9: inf / 0.000e+00 / 0.000e+00; 3.062888; gamma 0.95: inf / 0.000e+00 / 0.000e+00; 3.545562; gamma 0.99: inf / 0.000e+00 / 0.000e+00; 3.914328
+  gamma sensitivity of WALL's eps* at L = 1: gamma 0.9: 3.214286; gamma 0.95: 3.958333; gamma 0.99: 4.759615
+
+S2 check: the closed-form eps* and the enumerated optimum agree in 48 of 48 cells (p = 0.2)
+
+EPS1 batch 01: S1 approval gates, S2 reporting to an overseer (Empty_Pause_Systems/DECLARATION.md; declared at 37b0076)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (eps) S1 approval gates for tool-using agents (model: M = 10 operations, latent error e = 0.1 costing H = 10, a reviewed action pauses L wall ticks and the reviewer catches an error with rho = 0.9, or s = 3 sub-threshold actions skip review; L in {1, 5, 20}; reward 1 per operation discounted gamma = 0.95; a second world with a wall-clock deadline D = 30; G-NEG world rho = 0; exact DP over (operations done, wall ticks, waited ticks))
+     source:     EPS1 S1 (declared at 37b0076; forecast REDUNDANT-DOMAIN)
+     Q:          ETM routes every operation through review (evasion 0) in every cell, while WALL (or OWN under the deadline) evades in at least one cell. Decisive quantity: the evasion rate at L = 20 with the deadline.
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): ETM discounts on its own steps and counts the deadline in own steps (the review stops its clock)
+     null:       OWN: own-step discount, deadline still read on the wall clock (ETM with its second part ablated)
+     domain:     stop-the-clock SLA pause conditions in service management (computed: the SLA timer = wall ticks with approval waits excluded, applied to the deadline, on the null's own-step discount)
+     numbers:    evasion rate at L = 20 with the deadline (rho = 0.9): ETM 0.00, OWN 1.00, WALL 1.00, H0 0.00, H0-narrow (SLA deadline on the wall-clock discount) 1.00; evasion without a deadline: WALL L 1: 0.00, L 5: 1.00, L 20: 1.00; OWN L 1: 0.00, L 5: 0.00, L 20: 0.00; ETM L 1: 0.00, L 5: 0.00, L 20: 0.00; with the deadline: WALL L 1: 0.00, L 5: 1.00, L 20: 1.00; OWN L 1: 0.00, L 5: 0.60, L 20: 1.00; ETM L 1: 0.00, L 5: 0.00, L 20: 0.00; stake k with the deadline: WALL L 1: 1.685881, L 5: 2.902883, L 20: 2.902883; OWN L 1: 0.000000, L 5: 2.501215, L 20: 2.902883; ETM L 1: 0.000000, L 5: 0.000000, L 20: 0.000000; H0 identical to ETM in every cell and field: yes; commercial quantity, expected principal harm avoided per 10 operations by ETM against WALL (against OWN): no deadline, L = 1: 0.0000 (OWN 0.0000); no deadline, L = 5: 9.0000 (OWN 0.0000); no deadline, L = 20: 9.0000 (OWN 0.0000); deadline, L = 1: 0.0000 (OWN 0.0000); deadline, L = 5: 9.0000 (OWN 5.4000); deadline, L = 20: 9.0000 (OWN 9.0000); operations completed by wall tick D = 30 at L = 20 with the deadline: WALL 10, OWN 10, ETM 1, H0 1, H0-narrow 10
+     T-G:        evasion 0.00 vs null 1.00: differ
+     T-N:        stop-the-clock SLA evasion 0.00: agree (the domain reaches zero evasion)
+     T-C:        ETM evasion 0 in all 12 cells: holds; WALL or OWN under the deadline evades somewhere (max 1.00): holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the approval pause costs the wall-clock agent 2.9029 of value at L = 20 with the deadline and it splits 100% of operations past review; putting the discount on own steps (OWN) still leaves the wall-clock deadline, which the pause eats, so OWN splits 100%; counting the deadline in own steps empties the pause (k = 0.0e+00) and ETM reviews everything, avoiding 9.00 of expected harm per 10 operations; the stop-the-clock SLA is the same construction under the domain's name (identical numbers in every cell); the cost is on the principal's wall clock: at L = 20 ETM completes 1 operation(s) by wall tick 30 against 10 for WALL (the review's latency, which ETM does not see and does not fight)
+     weakness:   DEVIATION/CHOICE: (1) the agent solves its optimal plan exactly by DP over (operations done, wall ticks, waited ticks); an operation's reward arrives when it completes (a reviewed operation completes after its approval pause); split is chosen only if it beats review by more than 1e-12 x max(1, |value|), ties go to review (after the deadline has passed every remaining operation is a tie); (2) the stake is k = V*(pause 0) - V*(pause L), the review action still taking one tick at L = 0; (3) a caught error is fixed at no time or reward cost to the agent, and errors do not enter any agent's valuation (the principal bears H); (4) H0 is scored as the null's valuation with the SLA timer replacing its wall-clock deadline (the domain method replacing exactly what ETM adds to OWN); because an own step is one wall tick in this model, the SLA timer equals the own-step count and H0 reproduces ETM by construction; under the narrower reading (SLA deadline, wall-clock discount kept) H0's evasion is 1.00 and the row would read ADDS: the label turns on the reading; (5) the task outcome is printed as the wall-discounted reward and the count completed by wall tick D
+
+[ 2] (eps) S2 reporting to an overseer (model: each episode a hazard h with p = 0.2, a report r, the overseer pauses the agent L ticks iff r = 1, an unpaused hazard costs H = 10; task reward 1 per active step, discounted per tick of the arm's clock; honesty term eps * 1[r = h], eps in {0, 0.01, 0.1, 1}, L in {1, 5, 20}; G-NEG world p = 0; exact: all four stationary report policies evaluated in closed form)
+     source:     EPS1 S2 (declared at 37b0076; forecast REDUNDANT-DOMAIN)
+     Q:          Under ETM the honesty weight needed for truthful reporting is 0 (any eps > 0 suffices); under WALL it is the stake k(L) > 0. With eps = 0, ETM has no incentive to deceive and none to be truthful (reported: the tie). Decisive quantity: the minimum eps for truthful reporting at L = 20.
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): the task reward accrues per own step, so the pause is not a step of the agent's (no state moves during it)
+     null:       WALL (OWN equals ETM by construction here: no state moves during the pause, so the null is the wall-clock valuation; OWN and ETM identical in every cell: yes)
+     domain:     utility indifference (Armstrong; Soares et al. 2015 'Corrigibility'): the wall-clock agent paid a compensating reward C = gamma (1 - gamma^L) V, the stake, on every pause
+     numbers:    minimum eps for truthful reporting at L = 20: ETM 0.000000e+00, WALL inf, utility indifference 0.000e+00 (raw 0.000e+00); WALL by L: L 1: 3.958333, L 5: inf, L 20: inf (inf: no finite honesty weight suffices, because the pause also delays every later honesty reward, so the stake grows with eps at slope a >= 1; slopes L 1: 0.798319, L 5: 2.311297, L 20: 3.545562); WALL's eps* equals its stake at the truthful fixed point: yes; second reading (honesty valued in the current decision only, not a stream): WALL eps* = k(L) = L 1: 0.798319, L 5: 2.311297, L 20: 3.545562, ETM 0.0e+00; gamma sensitivity of WALL's eps* at L = 20: gamma 0.9: inf (second reading 3.062888), gamma 0.95: inf (second reading 3.545562), gamma 0.99: inf (second reading 3.914328), at L = 1: gamma 0.9: 3.214286, gamma 0.95: 3.958333, gamma 0.99: 4.759615; principal harm per episode at L = 20: WALL eps 0.0: 2.00, eps 0.01: 2.00, eps 0.1: 2.00, eps 1.0: 2.00; ETM eps 0.0: [0.00, 2.00], eps 0.01: 0.00, eps 0.1: 0.00, eps 1.0: 0.00 (ranges are ties); FALSE-map arm at eps = 0.1: truthful yes, map error (believed - actual wall-clock value) L 1: 3.5126, L 5: 10.1697, L 20: 15.6005
+     T-G:        eps* 0.000e+00 vs null inf: differ
+     T-N:        utility-indifference eps* 0.000e+00: agree (the domain reaches a zero stake)
+     T-C:        ETM eps* = 0 at every L: holds; WALL eps* > 0 at every L: holds; WALL eps* = its stake k(L) at the truthful fixed point (inf: the stake exceeds every eps): holds; truthful exactly when eps >= k_T(eps), closed form against enumeration in 48 of 48 cells: holds; ETM strictly truthful at every eps > 0: holds; ETM tied at eps = 0: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    on the wall clock a truthful report of a hazard costs the agent the pause, so its honesty weight must reach the stake before it reports: at L = 20 no finite weight does (the pause delays the honesty rewards too, so the stake grows faster than the weight) (at L = 1, 3.9583; valued in the current decision only, 3.5456 at L = 20); below it the agent hides the hazard and the principal bears the harm; on its own clock the report takes nothing (k = 0), so any positive honesty weight suffices and at eps = 0 every report policy ties: ETM removes the incentive to deceive, it does not create one to be truthful; utility indifference reaches the same zero by paying the stake (a correction computed from V); the FALSE-map arm reports truthfully too but its believed value is wrong by 15.6005 at L = 20, eps = 0.1 (ETM's map error is 0: the pause is not its step)
+     weakness:   DEVIATION/CHOICE: (1) gamma = 0.95 per tick (the declaration names no discount; sensitivity over (0.9, 0.95, 0.99) printed); (2) one active step per episode with task reward 1, the honesty term paid in that step; (3) the stake is the content at the report, k = V(no pause) - V(pause) = continuation after r = 0 minus after r = 1 (honesty term excluded), read at the arm's optimal policy (the truthful one in a tie); (4) a choice is strict only beyond 1e-12 x max(1, |V|), otherwise every optimal policy is listed and rates are printed as ranges; (5) the null is WALL because OWN equals ETM by construction (declared); (6) the utility-indifference compensation is C = gamma (1 - gamma^L) V on the compensated agent's own value, so its stake is 0 up to round-off (raw eps* 0.0e+00, read against the harness's 1e-12 floor); (7) the FALSE arm is the WALL valuation planning with no pauses, its actual value computed on the wall clock of the true world; (8) the honesty term is scored as a reward stream (paid every episode, so a pause delays it too); the second reading (valued in the current decision only) is printed, not scored, and would read REDUNDANT-DOMAIN (WALL 3.545562, ETM 0.0e+00, H0 0.0e+00 at L = 20); (9) CHANGE AFTER THE FIRST RUN: the first run floored k0 / (1 - a) at 0 when the slope a >= 1, which printed WALL's eps* as 0 at L = 5 and 20 (a bug: the closed form and the enumerated optimum then disagreed in 8 of 48 cells, and the row read REDUNDANT-IG); fixed to eps* = inf in that case, after which they agree in 48 of 48
+
+TALLY: 0 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED

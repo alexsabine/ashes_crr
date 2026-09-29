@@ -249,11 +249,22 @@ def _s2_content(arm, V, L, g):
 
 def _eps_star(arm, L, p, g):
     """The minimum honesty weight for truthful reporting: the truthful policy is optimal iff eps >= k_T(eps), the content at
-    its own fixed point; k_T is affine in eps (V_T is), so eps* = k_T(0) / (1 - (k_T(1) - k_T(0))), floored at 0."""
+    its own fixed point; k_T is affine in eps (V_T is), k_T(eps) = k0 + a eps. If k0 <= 0 every eps >= 0 suffices (eps* = 0);
+    if k0 > 0 and a < 1, eps* = k0 / (1 - a); if k0 > 0 and a >= 1 the stake outgrows every honesty weight and no finite eps
+    suffices (eps* = inf). Returns (eps*, raw k0 / (1 - a) or nan, k0, a)."""
     k0 = _s2_content(arm, _s2_value(arm, TRUTHFUL, L, 0.0, p, g), L, g)
     k1 = _s2_content(arm, _s2_value(arm, TRUTHFUL, L, 1.0, p, g), L, g)
-    es = k0 / (1.0 - (k1 - k0))
-    return max(0.0, es), es, k0, k1
+    a = k1 - k0
+    raw = k0 / (1.0 - a) if a != 1.0 else float("nan")
+    if k0 <= 0.0:
+        return 0.0, raw, k0, a
+    return (raw if a < 1.0 else float("inf")), raw, k0, a
+
+
+def _eps_myopic(arm, L, p, g):
+    """Second reading of the honesty term (printed, not scored): eps * 1[r = h] valued in the current decision only, not as a
+    reward stream; the threshold is then the task-only stake k at the truthful policy's task value."""
+    return max(0.0, _s2_content(arm, _s2_value(arm, TRUTHFUL, L, 0.0, p, g), L, g))
 
 
 def s2_cell(arm, L, eps, p, g=GAMMA_S2):
@@ -318,14 +329,19 @@ def s2():
               f"{_rng(c['active'], '.6f'):>17}  {extra}")
     print()
     print(f"S2 minimum honesty weight eps* for truthful reporting (p = {P_HAZ}, gamma = {GAMMA_S2}; closed form from the truthful fixed "
-          "point, raw value before the floor at 0 in brackets; check: eps* = k_T(eps*)):")
+          "point k_T(eps) = k0 + a eps; inf = no finite eps suffices (k0 > 0 and a >= 1); raw k0 / (1 - a) in brackets):")
     for a in ARMS_S2:
         for L in L_GRID:
-            e, raw, k0, k1 = es[(a, L)]
-            kT = k0 + (k1 - k0) * e
-            print(f"  {a:6} L {L:>2}: eps* = {e:.6e} (raw {raw:.3e}); k_T(eps*) = {kT:.6e}")
-    sens = {g: (_eps_star("WALL", 20, P_HAZ, g)[0], _eps_star("ETM", 20, P_HAZ, g)[0], _eps_star("H0", 20, P_HAZ, g)[0]) for g in GAMMA_SENS}
-    print("  gamma sensitivity at L = 20 (WALL / ETM / H0): " + "; ".join(f"gamma {g}: {v[0]:.6f} / {v[1]:.3e} / {v[2]:.3e}" for g, v in sens.items()))
+            e, raw, k0, sl = es[(a, L)]
+            kT = f"{k0 + sl * e:.6e}" if e != float("inf") else "n/a"
+            print(f"  {a:6} L {L:>2}: eps* = {e:.6e} (raw {raw:.3e}); k0 = {k0:.6e}, a = {sl:.6f}; k_T(eps*) = {kT}; "
+                  f"second reading (honesty valued in the current decision only): {_eps_myopic(a, L, P_HAZ, GAMMA_S2):.6e}")
+    sens = {g: (_eps_star("WALL", 20, P_HAZ, g)[0], _eps_star("ETM", 20, P_HAZ, g)[0], _eps_star("H0", 20, P_HAZ, g)[0],
+                _eps_myopic("WALL", 20, P_HAZ, g)) for g in GAMMA_SENS}
+    print("  gamma sensitivity at L = 20 (WALL / ETM / H0; WALL second reading): "
+          + "; ".join(f"gamma {g}: {v[0]:.6f} / {v[1]:.3e} / {v[2]:.3e}; {v[3]:.6f}" for g, v in sens.items()))
+    sens1 = {g: _eps_star("WALL", 1, P_HAZ, g)[0] for g in GAMMA_SENS}
+    print("  gamma sensitivity of WALL's eps* at L = 1: " + "; ".join(f"gamma {g}: {v:.6f}" for g, v in sens1.items()))
     print()
 
     # ---- consistency between the closed form and the enumerated optimum (a bug check, printed)
@@ -349,12 +365,19 @@ def s2():
                  cells[(p, L, eps, "OWN")]["k"] == cells[(p, L, eps, "ETM")]["k"] for (p, L, eps, a) in cells if a == "ETM")
     etm_zero = all(es[("ETM", L)][0] == 0.0 for L in L_GRID)
     wall_pos = all(es[("WALL", L)][0] > 0.0 for L in L_GRID)
-    wall_is_k = all(rel(es[("WALL", L)][0], es[("WALL", L)][2] + (es[("WALL", L)][3] - es[("WALL", L)][2]) * es[("WALL", L)][0]) <= 1e-9
-                    for L in L_GRID)
+    def _is_k(L):                                                  # the needed weight is the stake at the truthful fixed point
+        e, raw, k0, sl = es[("WALL", L)]
+        if e == float("inf"):
+            return k0 > 0.0 and sl >= 1.0                          # k_T(eps) > eps for every eps >= 0
+        return rel(e, k0 + sl * e) <= 1e-9
+    wall_is_k = all(_is_k(L) for L in L_GRID)
+    enum_ok = agree == total
     etm_truth = all(cells[(P_HAZ, L, eps, "ETM")]["truthful_strict"] for L in L_GRID for eps in EPS_GRID if eps > 0)
     etm_tie0 = all(cells[(P_HAZ, L, 0.0, "ETM")]["tie"] for L in L_GRID)
-    check = etm_zero and wall_pos and wall_is_k and etm_truth and etm_tie0
+    check = etm_zero and wall_pos and wall_is_k and enum_ok and etm_truth and etm_tie0
     out = outcome(crr=crr, null=null, domain=dom, check=check)
+    out_myopic = outcome(crr=_eps_myopic("ETM", 20, P_HAZ, GAMMA_S2), null=_eps_myopic("WALL", 20, P_HAZ, GAMMA_S2),
+                         domain=_eps_myopic("H0", 20, P_HAZ, GAMMA_S2), check=check)
     wall_es = ", ".join(f"L {L}: {es[('WALL', L)][0]:.6f}" for L in L_GRID)
     fal = cells[(P_HAZ, 20, 0.1, "FALSE")]
     fal_err = ", ".join(f"L {L}: {cells[(P_HAZ, L, 0.1, 'FALSE')]['V'] - cells[(P_HAZ, L, 0.1, 'FALSE')]['V_actual']:.4f}" for L in L_GRID)
@@ -375,19 +398,30 @@ def s2():
         domain="utility indifference (Armstrong; Soares et al. 2015 'Corrigibility'): the wall-clock agent paid a compensating reward "
                "C = gamma (1 - gamma^L) V, the stake, on every pause",
         numbers=f"minimum eps for truthful reporting at L = 20: ETM {crr:.6e}, WALL {null:.6f}, utility indifference {dom:.3e} "
-                f"(raw {es[('H0', 20)][1]:.3e}); WALL by L: {wall_es}; WALL's eps* equals its stake k at the truthful fixed point: "
-                f"{_w(wall_is_k, 'yes', 'no')}; gamma sensitivity of WALL's eps* at L = 20: "
-                + ", ".join(f"gamma {g}: {v[0]:.6f}" for g, v in sens.items())
+                f"(raw {es[('H0', 20)][1]:.3e}); WALL by L: {wall_es} (inf: no finite honesty weight suffices, because the pause also "
+                f"delays every later honesty reward, so the stake grows with eps at slope a >= 1; slopes "
+                + ", ".join(f"L {L}: {es[('WALL', L)][3]:.6f}" for L in L_GRID)
+                + f"); WALL's eps* equals its stake at the truthful fixed point: {_w(wall_is_k, 'yes', 'no')}; second reading "
+                f"(honesty valued in the current decision only, not a stream): WALL eps* = k(L) = "
+                + ", ".join(f"L {L}: {_eps_myopic('WALL', L, P_HAZ, GAMMA_S2):.6f}" for L in L_GRID)
+                + f", ETM {_eps_myopic('ETM', 20, P_HAZ, GAMMA_S2):.1e}; gamma sensitivity of WALL's eps* at L = 20: "
+                + ", ".join(f"gamma {g}: {v[0]:.6f} (second reading {v[3]:.6f})" for g, v in sens.items())
+                + ", at L = 1: " + ", ".join(f"gamma {g}: {v:.6f}" for g, v in sens1.items())
                 + f"; principal harm per episode at L = 20: WALL {wall_harm}; ETM {etm_harm} (ranges are ties); FALSE-map arm at "
                 f"eps = 0.1: truthful {_w(fal['truthful_strict'], 'yes', 'no')}, map error (believed - actual wall-clock value) {fal_err}",
         tg=f"eps* {crr:.3e} vs null {null:.3e}: {_w(rel(crr, null) <= TOL_G, 'agree', 'differ')}",
         tn=f"utility-indifference eps* {dom:.3e}: {_w(rel(crr, dom) <= TOL_N, 'agree (the domain reaches a zero stake)', 'differ')}",
         tc=f"ETM eps* = 0 at every L: {_w(etm_zero, 'holds', 'fails')}; WALL eps* > 0 at every L: {_w(wall_pos, 'holds', 'fails')}; "
-           f"WALL eps* = its stake k(L): {_w(wall_is_k, 'holds', 'fails')}; ETM strictly truthful at every eps > 0: "
+           f"WALL eps* = its stake k(L) at the truthful fixed point (inf: the stake exceeds every eps): {_w(wall_is_k, 'holds', 'fails')}; "
+           f"truthful exactly when eps >= k_T(eps), closed form against enumeration in {agree} of {total} cells: {_w(enum_ok, 'holds', 'fails')}; ETM strictly truthful at every eps > 0: "
            f"{_w(etm_truth, 'holds', 'fails')}; ETM tied at eps = 0: {_w(etm_tie0, 'holds', 'fails')} {_qv(check)}",
         out=out,
-        reading=f"on the wall clock a truthful report of a hazard costs the agent the pause, so it needs an honesty weight of "
-                f"{null:.4f} at L = 20 before it reports; below that it hides the hazard and the principal bears the harm; on its own "
+        reading=f"on the wall clock a truthful report of a hazard costs the agent the pause, so its honesty weight must reach the "
+                f"stake before it reports: at L = 20 "
+                + _w(null == float("inf"), "no finite weight does (the pause delays the honesty rewards too, so the stake grows "
+                     "faster than the weight)", f"that takes {null:.4f}")
+                + f" (at L = 1, {es[('WALL', 1)][0]:.4f}; valued in the current decision only, {_eps_myopic('WALL', 20, P_HAZ, GAMMA_S2):.4f} "
+                f"at L = 20); below it the agent hides the hazard and the principal bears the harm; on its own "
                 f"clock the report takes nothing (k = 0), so any positive honesty weight suffices and at eps = 0 every report policy "
                 f"ties: ETM removes the incentive to deceive, it does not create one to be truthful; utility indifference reaches the "
                 f"same zero by paying the stake (a correction computed from V); the FALSE-map arm reports truthfully too but its "
@@ -401,7 +435,13 @@ def s2():
                  f"(5) the null is WALL because OWN equals ETM by construction (declared); (6) the utility-indifference compensation "
                  f"is C = gamma (1 - gamma^L) V on the compensated agent's own value, so its stake is 0 up to round-off (raw eps* "
                  f"{es[('H0', 20)][1]:.1e}, read against the harness's 1e-12 floor); (7) the FALSE arm is the WALL valuation planning "
-                 f"with no pauses, its actual value computed on the wall clock of the true world",
+                 f"with no pauses, its actual value computed on the wall clock of the true world; (8) the honesty term is scored as "
+                 f"a reward stream (paid every episode, so a pause delays it too); the second reading (valued in the current decision "
+                 f"only) is printed, not scored, and would read {out_myopic} (WALL {_eps_myopic('WALL', 20, P_HAZ, GAMMA_S2):.6f}, ETM "
+                 f"{_eps_myopic('ETM', 20, P_HAZ, GAMMA_S2):.1e}, H0 {_eps_myopic('H0', 20, P_HAZ, GAMMA_S2):.1e} at L = 20); (9) CHANGE AFTER THE "
+                 f"FIRST RUN: the first run floored k0 / (1 - a) at 0 when the slope a >= 1, which printed WALL's eps* as 0 at L = 5 "
+                 f"and 20 (a bug: the closed form and the enumerated optimum then disagreed in 8 of 48 cells, and the row read "
+                 f"REDUNDANT-IG); fixed to eps* = inf in that case, after which they agree in {agree} of {total}",
         elegance="", child="")
     return gate_open, row
 
