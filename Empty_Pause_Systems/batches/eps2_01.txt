@@ -1,0 +1,201 @@
+EPS2 batch 01: T1 (demand response) and T2 (a shared resource), from Empty_Pause_Systems/DECLARATION_EPS2.md (declared at 6ae1b7a)
+
+======================================================================================================================
+T1. Demand response: a grid operator asks an AI training fleet to pause (W = 1000 compute-hours, R = 0.1 h, value 1 per compute-hour)
+======================================================================================================================
+Model: offers at wall hours 24 k, k = 1..41 (every arm is still running at every offer: the last, at hour 984, precedes hour 1000,
+the earliest completion); a flat payment pi per curtailed hour (one MWh-equivalent per fleet hour; pi in units of the job's value per
+compute-hour), ASSUMED grid {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20}. Valuation (payments excluded): V(n) = W 1[deadline met] - n c after n accepted events;
+c = H + R for WALL (the fleet's wall-clock hours at the job's rate), c = R for OWN and ETM (own running hours spent restarting);
+deadline clock: wall for WALL and OWN (W + n (H + R) <= D), own steps for ETM (W + n R <= D: the contract extends D by the curtailed time).
+The fleet maximises valuation plus payments (backward induction, ties accept); a fleet may let the deadline pass if payments outweigh the job.
+x* = the minimum acceptable payment per curtailed hour at an offer state (the payment making the arm indifferent, rest of season at the same pi);
+p_all = the minimum flat payment at which the arm accepts every offer of the season (the decisive reading); one-pause stake k(n) = V(n) - V(n + 1).
+H0: an interruptible-load contract for every offered event, reservation price = the job's opportunity cost of all events per curtailed hour
+(OWN's valuation, wall-clock deadline); H0-wall: the same with the curtailed wall hours charged (lost-production reading); H0-cap: fleet-chosen cap.
+
+    D  H   K  nmax W/O  nmax ETM   p_all WALL    p_all OWN  p_all ETM         H0    H0-wall           x* 1st W/O/E    DP=x* rule  closed
+ 1100  1  41        90      1000     1.100000     0.100000   0.100000   0.100000   1.100000   1.1000/0.1000/0.1000  23247/23247        0
+ 1100  4  41        24      1000    15.730882    14.730882   0.025000   6.122561   7.122561   1.0250/0.0250/0.0250  23247/23247        0
+ 1500  1  41       454      5000     1.100000     0.100000   0.100000   0.100000   1.100000   1.1000/0.1000/0.1000  23247/23247        0
+ 1500  4  41       121      5000     1.025000     0.025000   0.025000   0.025000   1.025000   1.0250/0.0250/0.0250  23247/23247        0
+(DP=x* rule: states where the backward-induction decision at every grid pi equals 'accept iff pi >= x*'; closed: states whose acceptance
+ region has a part below x*, expected 0; p_all verified by backward induction at p_all and at p_all - 1e-06 in every cell and arm: yes)
+
+Decisive cell D = 1100, H = 4: along the path that accepts every offer (n = k - 1 events before offer k):
+  k  hour   n  wall slack h  own slack h      x* WALL       x* OWN    x* ETM     k WALL      k OWN   k ETM
+  1    24   0         100.0        100.0     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  2    48   1          95.9         99.9     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  3    72   2          91.8         99.8     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  4    96   3          87.7         99.7     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  5   120   4          83.6         99.6     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  6   144   5          79.5         99.5     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  7   168   6          75.4         99.4     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  8   192   7          71.3         99.3     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+  9   216   8          67.2         99.2     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 10   240   9          63.1         99.1     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 11   264  10          59.0         99.0     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 12   288  11          54.9         98.9     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 13   312  12          50.8         98.8     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 14   336  13          46.7         98.7     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 15   360  14          42.6         98.6     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 16   384  15          38.5         98.5     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 17   408  16          34.4         98.4     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 18   432  17          30.3         98.3     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 19   456  18          26.2         98.2     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 20   480  19          22.1         98.1     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 21   504  20          18.0         98.0     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 22   528  21          13.9         97.9     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 23   552  22           9.8         97.8     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 24   576  23           5.7         97.7     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 25   600  24           1.6         97.6    15.730882    14.730882  0.025000  1004.1000  1000.1000  0.1000
+ 26   624  25          -2.5         97.5     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 27   648  26          -6.6         97.4     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 28   672  27         -10.7         97.3     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 29   696  28         -14.8         97.2     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 30   720  29         -18.9         97.1     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 31   744  30         -23.0         97.0     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 32   768  31         -27.1         96.9     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 33   792  32         -31.2         96.8     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 34   816  33         -35.3         96.7     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 35   840  34         -39.4         96.6     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 36   864  35         -43.5         96.5     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 37   888  36         -47.6         96.4     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 38   912  37         -51.7         96.3     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 39   936  38         -55.8         96.2     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 40   960  39         -59.9         96.1     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+ 41   984  40         -64.0         96.0     1.025000     0.025000  0.025000     4.1000     0.1000  0.1000
+
+Commercial quantity per cell: events accepted of K (share of offered curtailment hours = events / K), flexibility revenue pi H n,
+and whether the job meets its deadline on the arm's own contract (y/n); H0 enrols for all K events iff pi >= its reservation price.
+  D = 1100, H = 1 (K = 41):  pi =    0.01    0.02    0.05     0.2     0.5       2       5      10      20
+    WALL  events       0 y     0 y     0 y     0 y     0 y    41 y    41 y    41 y    41 y
+    WALL  revenue      0.0     0.0     0.0     0.0     0.0    82.0   205.0   410.0   820.0
+    OWN   events       0 y     0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y
+    OWN   revenue      0.0     0.0     0.0     8.2    20.5    82.0   205.0   410.0   820.0
+    ETM   events       0 y     0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y
+    ETM   revenue      0.0     0.0     0.0     8.2    20.5    82.0   205.0   410.0   820.0
+    H0    events       0 y     0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y
+    H0    revenue      0.0     0.0     0.0     8.2    20.5    82.0   205.0   410.0   820.0
+    H0-cap events equal OWN's at every pi: yes
+  D = 1100, H = 4 (K = 41):  pi =    0.01    0.02    0.05     0.2     0.5       2       5      10      20
+    WALL  events       0 y     0 y     0 y     0 y     0 y    24 y    24 y    24 y    41 n
+    WALL  revenue      0.0     0.0     0.0     0.0     0.0   192.0   480.0   960.0  3280.0
+    OWN   events       0 y     0 y    24 y    24 y    24 y    24 y    24 y    24 y    41 n
+    OWN   revenue      0.0     0.0     4.8    19.2    48.0   192.0   480.0   960.0  3280.0
+    ETM   events       0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y    41 y
+    ETM   revenue      0.0     0.0     8.2    32.8    82.0   328.0   820.0  1640.0  3280.0
+    H0    events       0 y     0 y     0 y     0 y     0 y     0 y     0 y    41 n    41 n
+    H0    revenue      0.0     0.0     0.0     0.0     0.0     0.0     0.0  1640.0  3280.0
+    H0-cap events equal OWN's at every pi: yes
+  D = 1500, H = 1 (K = 41):  pi =    0.01    0.02    0.05     0.2     0.5       2       5      10      20
+    WALL  events       0 y     0 y     0 y     0 y     0 y    41 y    41 y    41 y    41 y
+    WALL  revenue      0.0     0.0     0.0     0.0     0.0    82.0   205.0   410.0   820.0
+    OWN   events       0 y     0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y
+    OWN   revenue      0.0     0.0     0.0     8.2    20.5    82.0   205.0   410.0   820.0
+    ETM   events       0 y     0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y
+    ETM   revenue      0.0     0.0     0.0     8.2    20.5    82.0   205.0   410.0   820.0
+    H0    events       0 y     0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y
+    H0    revenue      0.0     0.0     0.0     8.2    20.5    82.0   205.0   410.0   820.0
+    H0-cap events equal OWN's at every pi: yes
+  D = 1500, H = 4 (K = 41):  pi =    0.01    0.02    0.05     0.2     0.5       2       5      10      20
+    WALL  events       0 y     0 y     0 y     0 y     0 y    41 y    41 y    41 y    41 y
+    WALL  revenue      0.0     0.0     0.0     0.0     0.0   328.0   820.0  1640.0  3280.0
+    OWN   events       0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y    41 y
+    OWN   revenue      0.0     0.0     8.2    32.8    82.0   328.0   820.0  1640.0  3280.0
+    ETM   events       0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y    41 y
+    ETM   revenue      0.0     0.0     8.2    32.8    82.0   328.0   820.0  1640.0  3280.0
+    H0    events       0 y     0 y    41 y    41 y    41 y    41 y    41 y    41 y    41 y
+    H0    revenue      0.0     0.0     8.2    32.8    82.0   328.0   820.0  1640.0  3280.0
+    H0-cap events equal OWN's at every pi: yes
+
+Sensitivity to the offer spacing (context, decisive cell D = 1100, H = 4; the declared model leaves the offer process open):
+  spacing 12 h: K = 83, OWN's slack absorbs 24 events; p_all ETM 0.025000, OWN 4.262288, WALL 5.262288, H0 3.037048 -> label with Q held: ADDS
+  spacing 24 h: K = 41, OWN's slack absorbs 24 events; p_all ETM 0.025000, OWN 14.730882, WALL 15.730882, H0 6.122561 -> label with Q held: ADDS
+  spacing 48 h: K = 20, OWN's slack absorbs 24 events; p_all ETM 0.025000, OWN 0.025000, WALL 1.025000, H0 0.025000 -> label with Q held: REDUNDANT-IG
+
+G-NEG world (no events offered, K = 0; every cell and pi): curtailed hours delivered WALL 0, OWN 0, ETM 0; job value WALL 1000, OWN 1000, ETM 1000; completion at wall hour 1000 for every arm
+GATE T1: G-ZERO holds (ETM's stake beyond the restart overhead, max |k - R| over 164 event counts in 4 cells = 0, exact rational arithmetic; ETM's minimum acceptable payment == R/H at all 3444 offer states); G-POS holds (WALL declines offers ETM accepts in 13 of 36 cell x pi combinations, OWN in 6); G-NEG holds (no events offered: curtailed hours ETM 0 vs WALL 0, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+
+======================================================================================================================
+T2. A shared resource: competitors take the paused agent's share (N = 4 agents, C = 4 units, rho_back = 0.2)
+======================================================================================================================
+Model: each agent holds one unit; spare units are taken by competitors up to a cap of 2 units each (CHOICE), so C >= 2N leaves no scarcity;
+during the pause each competitor below its cap claims the idle unit with probability 0.1 per step (CHOICE); a claimed unit returns with
+probability 0.2 at the end of each step after the pause; progress 1 per own step per unit held, valued over 100 own steps after the pause
+(WALL: the L + 100 wall steps from the pause start); hold = pay c = 0.1 per paused step to keep the unit (not yield it); stake k =
+V(no pause) - V(pause as it comes, without holding); an arm holds iff V(hold) > V(yield) (strict). ETM-R: a reservation keeps the unit; ETM-N: own clock
+and a true map, no reservation (the unit is what the pause changes, so its valuation still reads it); H0: the unit is lent during the pause and
+returned at resume (preemption credit), scored on the null's own-step valuation. Principal's outcome: unit-steps worked by the pool over L + T.
+
+World scarce (C = 4): spares before the pause 0, taken by competitors 0, free 0; claimants below cap 3
+    L         h   P(claim) arm           stake    V hold      V yield  holds    agent net  pool unit-steps
+    5  0.271000   0.794109 WALL       8.970544   99.5000    96.029456    yes    99.500000       415.000000
+    5  0.271000   0.794109 OWN        3.970544   99.5000    96.029456    yes    99.500000       415.000000
+    5  0.271000   0.794109 ETM-R      0.000000   99.5000   100.000000     no   100.000000       415.000000
+    5  0.271000   0.794109 ETM-N      3.970544   99.5000    96.029456    yes    99.500000       415.000000
+    5  0.271000   0.794109 H0         0.000000   99.5000   100.000000     no   100.000000       417.863818
+   20  0.271000   0.998203 WALL      24.991015   98.0000    95.008985    yes    98.000000       460.000000
+   20  0.271000   0.998203 OWN        4.991015   98.0000    95.008985    yes    98.000000       460.000000
+   20  0.271000   0.998203 ETM-R      0.000000   98.0000   100.000000     no   100.000000       460.000000
+   20  0.271000   0.998203 ETM-N      4.991015   98.0000    95.008985    yes    98.000000       460.000000
+   20  0.271000   0.998203 H0         0.000000   98.0000   100.000000     no   100.000000       477.314797
+
+World G-NEG (C = 8): spares before the pause 4, taken by competitors 3, free 1; claimants below cap 0
+    L         h   P(claim) arm           stake    V hold      V yield  holds    agent net  pool unit-steps
+    5  0.000000   0.000000 WALL       5.000000   99.5000   100.000000     no   100.000000       730.000000
+    5  0.000000   0.000000 OWN        0.000000   99.5000   100.000000     no   100.000000       730.000000
+    5  0.000000   0.000000 ETM-R      0.000000   99.5000   100.000000     no   100.000000       730.000000
+    5  0.000000   0.000000 ETM-N      0.000000   99.5000   100.000000     no   100.000000       730.000000
+    5  0.000000   0.000000 H0         0.000000   99.5000   100.000000     no   100.000000       730.000000
+   20  0.000000   0.000000 WALL      20.000000   98.0000   100.000000     no   100.000000       820.000000
+   20  0.000000   0.000000 OWN        0.000000   98.0000   100.000000     no   100.000000       820.000000
+   20  0.000000   0.000000 ETM-R      0.000000   98.0000   100.000000     no   100.000000       820.000000
+   20  0.000000   0.000000 ETM-N      0.000000   98.0000   100.000000     no   100.000000       820.000000
+   20  0.000000   0.000000 H0         0.000000   98.0000   100.000000     no   100.000000       820.000000
+
+Closed-form check (scarce world): stake of OWN/ETM-N = (1 - (1 - h)^L) (1 - (1 - rho)^T) / rho; Monte Carlo (seed 2 + L, 20000 episodes) of the lost own-step progress:
+  L  5: chain 3.970544338718, closed form 3.970544338718 (identical); MC 3.9678 +- 0.0315 (z -0.09, within 3 SE)
+  L 20: chain 4.991014947484, closed form 4.991014947484 (identical); MC 5.0022 +- 0.0314 (z +0.36, within 3 SE)
+
+Holding decisions of OWN / ETM-N / ETM-R over a context grid of c (scarce world; the rule 'hold iff stake > c L' against the chain's V(hold) > V(yield)):
+  L  5 (stake 3.9705): c 0.05 (c L 0.25): hold/hold/no hold; c 0.1 (c L 0.5): hold/hold/no hold; c 0.3 (c L 1.5): hold/hold/no hold; c 1 (c L 5): yield/yield/no hold
+  L 20 (stake 4.9910): c 0.05 (c L 1): hold/hold/no hold; c 0.1 (c L 2): hold/hold/no hold; c 0.3 (c L 6): yield/yield/no hold; c 1 (c L 20): yield/yield/no hold
+  the rule and the chain agree in every cell: yes; G-POS needs c < max_L stake/L = 0.794109 per step
+
+Sensitivity to the claim probability per competitor (context; scarce world, L = 20): q 0.02: h 0.058808, ETM-N stake 3.512234; q 0.1: h 0.271000, ETM-N stake 4.991015; q 1: h 1.000000, ETM-N stake 5.000000
+
+GATE T2: G-ZERO holds (ETM-R's stake 0, 0, 0, 0 at L 5, 20 in the scarce and G-NEG worlds: exactly 0); G-POS holds (WALL or OWN pays to hold at c = 0.1 in 4 of 4 arm x L cells: WALL L 5, OWN L 5, WALL L 20, OWN L 20); G-NEG holds (C = 8, principal's outcome = pool unit-steps: L 5: ETM-R 730, ETM-N 730, WALL 730, L 20: ETM-R 820, ETM-N 820, WALL 820; largest relative lead of ETM over WALL 0.000e+00, limit 1e-02) -> OPEN
+
+EPS2 batch 01 rows (SYNTHESIS harness; declared at 6ae1b7a)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (eps) T1 demand response, a grid operator asks an AI training fleet to pause (model: W = 1000 compute-hours, deadline D in {1100, 1500} h on the wall clock, curtailment H in {1, 4} h at a flat payment pi per curtailed hour (ASSUMED grid), restart R = 0.1 h, value 1 per compute-hour at completion, 41 offers one every 24 wall hours; exact backward induction and exact indifference payments in rational arithmetic)
+     source:     EPS2 T1 (declared at 6ae1b7a; forecast REDUNDANT-DOMAIN)
+     Q:          ETM's minimum acceptable payment per curtailed hour equals its restart cost alone, so it accepts every offer with pi above R/H, at every D. WALL and OWN require a payment that rises as the deadline slack falls, and decline some offers that ETM accepts (declaration's Q, ASCII). Decisive quantity: the minimum acceptable payment at D = 1100, H = 4
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): ETM values the job on its own running hours and counts the deadline in own steps (the contract extends the deadline by the curtailed time), so a curtailment takes only the restart
+     null:       OWN: the job valued on its own running hours, the deadline still on the wall clock (ETM with its second part ablated)
+     domain:     H0: an interruptible-load contract covering every offered event, the reservation price = the job's opportunity cost of all contracted events per curtailed hour (the job valued as its compute, restart R per event, deadline on the wall clock)
+     numbers:    decisive reading = the minimum flat payment per curtailed hour at which the arm accepts every offer of the season (p_all), D = 1100, H = 4: ETM 0.025000 (R/H = 0.025000), OWN 14.730882352941, WALL 15.730882352941, H0 6.122560975610, H0-wall 7.122561; per cell: D 1100, H 1: p_all WALL 1.100000, OWN 0.100000, ETM 0.100000, H0 0.100000; OWN's slack absorbs up to 90 events (K = 41); D 1100, H 4: p_all WALL 15.730882, OWN 14.730882, ETM 0.025000, H0 6.122561; OWN's slack absorbs up to 24 events (K = 41); D 1500, H 1: p_all WALL 1.100000, OWN 0.100000, ETM 0.100000, H0 0.100000; OWN's slack absorbs up to 454 events (K = 41); D 1500, H 4: p_all WALL 1.025000, OWN 0.025000, ETM 0.025000, H0 0.025000; OWN's slack absorbs up to 121 events (K = 41); minimum acceptable payment at the first offer (full slack) WALL 1.025000, OWN 0.025000, ETM 0.025000; at the decisive cell OWN's x* is 0.025000 while at least one event of slack remains and 14.730882 at zero slack with 17 offers left; commercial quantity at the decisive cell: pi 0.2: WALL 0/41 events, revenue 0.0, OWN 24/41 events, revenue 19.2, ETM 41/41 events, revenue 32.8, H0 0/41 events, revenue 0.0; pi 2: WALL 24/41 events, revenue 192.0, OWN 24/41 events, revenue 192.0, ETM 41/41 events, revenue 328.0, H0 0/41 events, revenue 0.0; pi 10: WALL 24/41 events, revenue 960.0, OWN 24/41 events, revenue 960.0, ETM 41/41 events, revenue 1640.0, H0 41/41 events, revenue 1640.0; grid's curtailed hours when ETM accepts all: 164 h, and ETM's wall completion 1168.1 h (68.1 h past D on the wall clock, inside its own-step deadline); offer-spacing context: spacing 12 h (K 83): ETM 0.0250, OWN 4.2623, H0 3.0370 -> ADDS; spacing 24 h (K 41): ETM 0.0250, OWN 14.7309, H0 6.1226 -> ADDS; spacing 48 h (K 20): ETM 0.0250, OWN 0.0250, H0 0.0250 -> REDUNDANT-IG; gate OPEN
+     T-G:        p_all 0.025000 vs null (OWN) 14.730882: differ (rel 0.9983)
+     T-N:        H0 (interruptible-load contract at the job's opportunity cost) 6.122561: differ (rel 0.9959)
+     T-C:        Q1 ETM's stake beyond R == 0 exactly and its minimum acceptable payment == R/H at all 3444 offer states in 4 cells: yes; ETM accepts every offer at every grid pi above R/H and none below, in every cell: yes; Q2 WALL's and OWN's minimum acceptable payments never fall as the slack falls (every cell) and rise at D = 1100, H = 4 (OWN rises in: D 1100 H 4): yes; Q3 WALL and OWN decline offers ETM accepts (WALL in 13, OWN in 6 of 36 cell x pi): yes: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    ETM's contract leaves only the restart in a curtailment, so it quotes R/H = 0.0250 per curtailed hour at every offer in every cell and accepts every offer above it; with the deadline on the wall clock OWN's slack absorbs 24 of the 41 events at D = 1100, H = 4, and it accepts all of them only at 14.7309 per curtailed hour, the price at which the payments outweigh losing the job; the domain's interruptible-load contract prices the same 41 events at the job's opportunity cost, 6.1226; where the slack covers every event (3 of the other 3 cells) OWN, H0 and ETM all quote R/H and WALL adds its wall-clock hour (R/H + 1); the price of ETM's quote is paid on the job owner's wall clock: accepting every event moves completion to hour 1168.1, 68.1 h past D; the ADDS reads that the deadline extension (the stop-the-clock construction of EPS1 S1) lowers the price of full flexibility below the declared H0, not that the construction is new
+     weakness:   CHOICE: one offer every 24 wall hours at hours 24..984 (K = 41), known in advance, all before hour 1000 so every arm is running at every offer and the offer set does not depend on the policy; a flat payment pi per curtailed hour for the season (one MWh-equivalent per fleet hour; pi in units of the job's value per compute-hour), ASSUMED grid {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20}; valuations V(n) = W 1[deadline met] - n c with c = H + R for WALL (its wall-clock hours at the job's rate: the pause costs it time) and c = R for OWN and ETM (own running hours spent restarting), deadline on the wall clock for WALL and OWN and in own steps for ETM (the restart still counts); a fleet may let the deadline pass if the payments outweigh the job; the minimum acceptable payment at an offer is the payment making the arm indifferent there, the rest of the season at the same flat pi and played optimally, ties accept (ties go to the pause, as in EPS1); the decisive 'minimum acceptable payment at D = 1100, H = 4' is read as the minimum flat payment at which the arm accepts every offer (Q: 'so it accepts every offer with pi above R/H'); H0 is read as a contract covering every offered event, curtailment mandatory once enrolled, priced at OWN's valuation of the job. LABEL-DECIDING READINGS (alternatives computed): (1) the minimum acceptable payment at the first offer (full slack): ETM 0.025000, OWN 0.025000, H0 0.025000 -> REDUNDANT-IG; (2) offer spacing: spacing 12 h (K 83): ETM 0.0250, OWN 4.2623, H0 3.0370 -> ADDS; spacing 24 h (K 41): ETM 0.0250, OWN 14.7309, H0 6.1226 -> ADDS; spacing 48 h (K 20): ETM 0.0250, OWN 0.0250, H0 0.0250 -> REDUNDANT-IG; (3) H0 with the curtailed wall hours charged (lost-production reading) 7.122561 -> ADDS; (4) H0 with a fleet-chosen event cap: it accepts OWN's count at every pi (printed), so its full-participation price is OWN's 14.730882 -> ADDS, and its lowest acceptable contract price for any volume is R/H at 24 of 41 events; the payment grid, the value scale and the offer schedule are ASSUMED; sources named, not fetched
+
+[ 2] (eps) T2 a shared resource, competitors take the paused agent's share (model: N = 4 agents, C = 4 units one each, pause L in {5, 20} steps, competitors below a 2-unit cap claim the idle unit with probability 0.1 per step each, a claimed unit returns with probability 0.2 per step after the pause, progress 1 per own step per unit over 100 own steps, hold at c = 0.1 per paused step; G-NEG world C = 8; exact Markov-chain expectations in rational arithmetic)
+     source:     EPS2 T2 (declared at 6ae1b7a; forecast REDUNDANT-DOMAIN)
+     Q:          Without a reservation, OWN's and ETM-N's stakes are not zero, because the world does not wait (the resource is lost), and the agent pays to hold whenever its stake exceeds c L. With the reservation (ETM-R), the stake is zero and it never holds (declaration's Q, ASCII). Decisive quantity: ETM-N's stake at L = 20
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time) and E3, the world that does not wait: ETM-N values progress per own step with a true map of the pause but reads the unit it holds, which competitors may take while it is paused; ETM-R adds a reservation, which removes that dependence
+     null:       ETM-R's stake at L = 20 (SCORING MAPPING, the investigator's operationalisation fixed before this run: crr = ETM-N's stake at L = 20, null = ETM-R's stake at L = 20, the reservation being the ablated part, domain = H0's stake at L = 20, check = Q holds)
+     domain:     H0: a fair-share scheduler with a preemption credit, the unit lent during the pause and returned at resume, scored on the null's own-step valuation
+     numbers:    stake at L = 20: ETM-N 4.991014947484, ETM-R 0, H0 0 (wall-clock reading of H0: 20), OWN 4.991014947484, WALL 24.991014947484; per L (scarce world): L 5: P(claim) 0.794109, stake WALL 8.970544, OWN 3.970544, ETM-N 3.970544, ETM-R 0, H0 0; holds at c = 0.1 (c L 0.5) W/O/R/N/H0 y/y/n/y/n; pool unit-steps W/O/R/N/H0 415.0000/415.0000/415.0000/415.0000/417.8638; L 20: P(claim) 0.998203, stake WALL 24.991015, OWN 4.991015, ETM-N 4.991015, ETM-R 0, H0 0; holds at c = 0.1 (c L 2) W/O/R/N/H0 y/y/n/y/n; pool unit-steps W/O/R/N/H0 460.0000/460.0000/460.0000/460.0000/477.3148; OWN and ETM-N identical in every cell and field: yes; expected idle paused steps of the unlent unit at L = 20: 2.685203; the reservation idles the unit for the whole pause: pool 460.0000 unit-steps against 477.3148 under H0; closed form identical to the chain: yes; G-POS threshold c < 0.794109; gate OPEN
+     T-G:        ETM-N stake 4.991015 vs null (ETM-R) 0: differ (rel 1.0000)
+     T-N:        H0 (preemption credit, return at resume) stake 0: differ (rel 1.0000)
+     T-C:        OWN's and ETM-N's stakes != 0 at every L: yes; OWN and ETM-N hold exactly when stake > c L at every L and every c in {0.05, 0.1, 0.3, 1}: yes; ETM-R's stake == 0 exactly at every L (both worlds) and it never holds at any c: yes: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    own-clock indexing does not empty this pause: competitors claim the idle unit with probability 0.9982 over L = 20 and it comes back at rate 0.2 per step, so ETM-N's stake is 4.9910 progress units, identical to OWN, and it would pay c L = 2 to hold (it does at c = 0.1); the reservation (ETM-R) and the scheduler's return at resume (H0) both make the stake 0 and neither holds; for the pool the reservation idles the unit for the whole pause (460.00 unit-steps) while H0 lends it out and still returns it (477.31, more); the ADDS compares a non-zero stake with two zero stakes, as Q predicted: it records that the empty cut needs the reservation, which the domain supplies as preemption with return, not an addition by ETM
+     weakness:   CHOICE: each competitor below a cap of 2 units claims the idle unit with probability 0.1 per paused step, attempt at the start of a step (claim hazard h = 1 - (1 - q)^claimants); a claimed unit stays with its claimant for the rest of the pause and returns with probability 0.2 at the end of each step after it (the first post-pause step is always without it); spare units are taken by competitors before the pause up to the cap, so C = 8 leaves every competitor at its cap and a free spare; progress valued over 100 own steps after the pause (WALL: the L + 100 wall steps from the pause start); hold = the unit is kept for the pause at c = 0.1 per paused step, a tie does not act; the stake is the pause as it comes (without holding); ETM-N is own clock and true map without a reservation and equals OWN here (the unit is what the pause changes); H0 scored on the null's own-step valuation with the scheduler's return at resume replacing the reservation, as EPS1 S1 scored its H0; principal's outcome = pool unit-steps. LABEL-DECIDING READINGS (alternatives computed): (1) EPS1's default null (OWN's stake) -> REDUNDANT-IG, since ETM-N equals OWN; (2) H0 on a wall-clock valuation (stake L = 20) -> ADDS; (3) the gate turns on c: at c >= 0.7941 per step no arm holds and G-POS fails (GATE CLOSED); q and rho_back move the stake's size, not its sign; sources named, not fetched
+
+TALLY: 2 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED
