@@ -1,0 +1,69 @@
+DR1 drlib selftest (Grid_Demand_Response/DECLARATION.md, declared at e67e8ee; the library adds no prediction)
+Part 1 reproduces EPS2 T1 (Empty_Pause_Systems/batches/eps2_01.py) with the general engine (convex piecewise-linear value
+functions in pi, exact rational arithmetic) and compares with the pinned output Empty_Pause_Systems/batches/eps2_01.txt.
+Inputs (EPS2 T1's; none is a DR1 source number):
+  W = 1000 compute-hours, value 1 per compute-hour at completion: DECLARED (DR1 section 2 adopts EPS2 T1's units)
+  R = 0.1 h per event, D in {1100, 1500} h, H in {1, 4} h: ASSUMED (EPS2 T1 model constants; no fetched source supplies R,
+    docs/citations/eps2_2026-09-29.md, Reading (T1)); S = 0 and lost = 0: CHOICE (EPS2 has neither)
+  one offer every 24 wall hours at hours 24..984 (K = 41), spacing 12 and 48 h as EPS2's sensitivity: CHOICE (EPS2 T1)
+  payment grid {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20} per curtailed fleet-hour: ASSUMED (EPS2 T1)
+
+Block 1, the per-cell table (p_all per arm, H0, H0-wall, x* at the first offer, DP = x* rule over every state and grid pi):
+   1100  1  41        90      1000     1.100000     0.100000   0.100000   0.100000   1.100000   1.1000/0.1000/0.1000  23247/23247        0
+   1100  4  41        24      1000    15.730882    14.730882   0.025000   6.122561   7.122561   1.0250/0.0250/0.0250  23247/23247        0
+   1500  1  41       454      5000     1.100000     0.100000   0.100000   0.100000   1.100000   1.1000/0.1000/0.1000  23247/23247        0
+   1500  4  41       121      5000     1.025000     0.025000   0.025000   0.025000   1.025000   1.0250/0.0250/0.0250  23247/23247        0
+   region has a part below x*, expected 0; p_all verified by backward induction at p_all and at p_all - 1e-06 in every cell and arm: yes)
+  [match] per-cell table lines found verbatim in eps2_01.txt: 5 of 5
+Block 2, the decisive cell D = 1100, H = 4 along the all-accept path (x* per arm and one-event stakes; 41 lines, not reprinted):
+  [match] decisive-path lines found verbatim in eps2_01.txt: 41 of 41
+Block 3, the commercial quantity per cell (events accepted, deadline met, revenue per arm and pi; 40 lines, not reprinted):
+  [match] commercial-quantity lines found verbatim in eps2_01.txt: 40 of 40
+Block 4, the offer-spacing sensitivity (each line up to the harness label):
+    spacing 12 h: K = 83, OWN's slack absorbs 24 events; p_all ETM 0.025000, OWN 4.262288, WALL 5.262288, H0 3.037048 -> label with Q held:
+    spacing 24 h: K = 41, OWN's slack absorbs 24 events; p_all ETM 0.025000, OWN 14.730882, WALL 15.730882, H0 6.122561 -> label with Q held:
+    spacing 48 h: K = 20, OWN's slack absorbs 24 events; p_all ETM 0.025000, OWN 0.025000, WALL 1.025000, H0 0.025000 -> label with Q held:
+  [match] offer-spacing lines found in eps2_01.txt (up to the label): 3 of 3
+Block 5, EPS2's G-NEG world and gate line:
+  G-NEG world (no events offered, K = 0; every cell and pi): curtailed hours delivered WALL 0, OWN 0, ETM 0; job value WALL 1000, OWN 1000, ETM 1000; completion at wall hour 1000 for every arm
+  GATE T1: G-ZERO holds (ETM's stake beyond the restart overhead, max |k - R| over 164 event counts in 4 cells = 0, exact rational arithmetic; ETM's minimum acceptable payment == R/H at all 3444 offer states); G-POS holds (WALL declines offers ETM accepts in 13 of 36 cell x pi combinations, OWN in 6); G-NEG holds (no events offered: curtailed hours ETM 0 vs WALL 0, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+  [match] G-NEG and gate lines found verbatim in eps2_01.txt: 2 of 2
+Block 6, substrings of the T1 row's 'numbers' field:
+  [match] 'ETM 0.025000 (R/H = 0.025000), OWN 14.730882352941, WALL 15....' in the pinned row
+  [match] 'per cell: D 1100, H 1: p_all WALL 1.100000, OWN 0.100000, ET...' in the pinned row
+  [match] 'minimum acceptable payment at the first offer (full slack) W...' in the pinned row
+  [match] 'at the decisive cell OWN's x* is 0.025000 while at least one...' in the pinned row
+  [match] 'commercial quantity at the decisive cell: pi 0.2: WALL 0/41 ...' in the pinned row
+  [match] 'grid's curtailed hours when ETM accepts all: 164 h, and ETM'...' in the pinned row
+Decisive numbers, D = 1100, H = 4, one offer every 24 wall hours at hours 24..984 (K = 41): p_all per curtailed hour
+  arm               exact              drlib             pinned
+  ETM                1/40           0.025000           0.025000  match
+  OWN           10017/680    14.730882352941    14.730882352941  match
+  H0           10041/1640     6.122560975610     6.122560975610  match
+  WALL          10697/680          15.730882          15.730882  match
+  WALL (row)    10697/680    15.730882352941    15.730882352941  match
+
+Part 2, internal checks of the DR1 additions (toy inputs, ASSUMED where printed):
+  (a) Poisson-offer variant: rate lam = 1/48 per wall hour (ASSUMED), at most one event per 24 h slot (CHOICE), H = 4 h:
+      p = 1 - exp(-lam slot) = 0.393469340 as the rational 250361/636291 (rounding error 1.2e-12); 41 slots, E[offers] = 16.132243
+  [match] WALL: x* by backward induction == rule_xstar (m_future = sum of later p) at every state: 861 of 861
+  [match] WALL: solve().value == value function F[0](pi) == expect() fleet value at every grid pi: 9 of 9
+  [match] OWN: x* by backward induction == rule_xstar (m_future = sum of later p) at every state: 861 of 861
+  [match] OWN: solve().value == value function F[0](pi) == expect() fleet value at every grid pi: 9 of 9
+  [match] ETM: x* by backward induction == rule_xstar (m_future = sum of later p) at every state: 861 of 861
+  [match] ETM: solve().value == value function F[0](pi) == expect() fleet value at every grid pi: 9 of 9
+      context: continuous Poisson, OWN at zero slack (n = 24) at hour 600 of an offer window ending at hour 1000: x* = 26.810714
+  [match] (b) known schedule (p = 1): expect() equals play() in events and fleet value, 4 arms x 9 pi
+  [match] (c) TIER at x = 1 with the pause's overhead equals OWN (x* at every state, p_all): 861 of 861 states
+  [match] (c) TIER x = 0.25 over a 3 h window (linear power, ASSUMED; throttle overhead 0): p_all == its charge / energy per event: p_all 0; per event e = 0.75 fleet-hours, wall delay 0.75 h
+  [match] (d) Job(R = 0.05, S = 0.05) gives the same p_all as Job(R = 0.1) for WALL, OWN, ETM and H0
+  [match]     response_ok: S = 0.05 h meets T = 0.05 h and not T = 0.04 h
+  (e) heterogeneous offers (toy, ASSUMED): W = 100, D = 112, R = 0.5; offers at hours 10..80, 100, 106 with lengths 1-4 h; the last two
+      are live only if earlier events delayed completion past their hour; brute force over all 1024 plans:
+  [match] WALL: backward-induction value == brute force at 7 pi; x* at the first offer 7.900000 is the brute-force indifference point
+  [match] OWN: backward-induction value == brute force at 7 pi; x* at the first offer 6.900000 is the brute-force indifference point
+  [match] ETM: backward-induction value == brute force at 7 pi; x* at the first offer 0.500000 is the brute-force indifference point
+  [match] TIER-0.5/2h: backward-induction value == brute force at 7 pi; x* at the first offer 0.000000 is the brute-force indifference point
+
+31 of 31 comparisons match
+SELFTEST PASS
