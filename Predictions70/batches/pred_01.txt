@@ -1,0 +1,76 @@
+PRED70 batch P01: oscillators with events of their own (declared at 8397478; prompt-log entry 234)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (cycle) Hodgkin-Huxley neuron, I = 10 uA/cm2 + white noise sd 1, 200 spikes (computed as: standard squid HH, I0 = 10 uA/cm2 plus white current noise of intensity 1 uA/cm2 ms^1/2, Euler-Maruyama at dt = 0.01 ms, seed 1; spikes = upward crossings of 0 mV, 200 spikes after the first two; arc = identity-metric arc of V in mV)
+     source:     PRED70 P01-1 (declared at 8397478; forecast WRONG)
+     Q:          the Fisher arc of the voltage between spikes is more regular than the inter-spike interval: CV(arc) < CV(ISI) with the bootstrap CI excluding 0
+     ingredient: H-L5 (regularity() of the instrument, inclusive segments: a continuous ODE has no reset jump at the spike)
+     null:       CV of the ISI (clock)
+     domain:     renewal ISI statistics (a limit cycle perturbed by noise is clock-regular) (gives no value for CV(arc): passed as none to T-N)
+     numbers:    199 occasions: CV(arc) = 0.0833, CV(clock) = 0.1930, CV(amplitude) = 0.0120, C_mean = 284.013; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.1550, -0.0453] (arc-regular (CI below 0)), of CV(arc) - CV(amplitude) = [0.0238, 0.1073]; sensitivities: sampled every 0.05 ms: CV(arc) 0.0514, CV(clock) 0.1930, CI [-0.2043, -0.0504] (arc-regular (CI below 0)); sampled every 0.1 ms: CV(arc) 0.0497, CV(clock) 0.1930, CI [-0.2144, -0.0402] (arc-regular (CI below 0)); noise read as an i.i.d. current of sd 1 per 0.01-ms step (intensity 0.1): 199 occasions: CV(arc) = 0.0046, CV(clock) = 0.0053, CV(amplitude) = 0.0011, C_mean = 211.852; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.0014, -0.0001] (arc-regular (CI below 0)), of CV(arc) - CV(amplitude) = [0.0031, 0.0039]
+     T-G:        CV(arc) 0.0833 vs null CV(ISI) 0.1930: differ
+     T-N:        the renewal statement fixes the ISI's statistics, not the arc's; no value for CV(arc) is cited (none)
+     T-C:        CV(arc) < CV(ISI) with the paired-bootstrap CI below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    the arc between spikes averages 284.0 mV; the excursion amplitude is more regular than the arc (CV(amplitude) 0.0120) and the arc is more regular than the interval (CV(ISI) 0.1930): the neuron is arc-regular (CI below 0) on the integration grid; H-L5 beyond its first control reads: control (i), the amplitude, is the more regular quantity, so the spike height is more regular still: the stereotyped spike that neurophysiology already names; the verdict does not change across the sampling and noise-reading sensitivities
+     weakness:   DEVIATION (noise reading): 'white noise sd 1' is read as a current-noise intensity of 1 uA/cm2 ms^1/2; read as an i.i.d. current of sd 1 per step the class is arc-regular (CI below 0) (the verdict is the same); the arc of a noisy voltage is not a property of the neuron alone: the white-noise part of the arc grows as the sampling step shrinks (C_mean 284.0 mV at 0.01 ms against 222.0 mV at 0.1 ms); the identity metric on V is a stand-in that A1 does not license; one seed, one current
+
+[ 2] (cycle) Morris-Lecar neuron (type I parameters) near the SNIC bifurcation with noise (computed as: Rinzel-Ermentrout type-I parameters, SNIC between I = 39.5 and 40 uA/cm2; I0 = 40 (noise-free period 943.6 ms; 263.9 ms at I = 40.5), current-noise intensity 1 uA/cm2 ms^1/2, Euler-Maruyama at dt = 0.05 ms, seed 2; spikes = upward crossings of 0 mV, 200 after the first two)
+     source:     PRED70 P01-2 (declared at 8397478; forecast WRONG)
+     Q:          CV(arc) < CV(ISI), CI excluding 0 (computed as: CV(arc of V between spikes) < CV(ISI), paired-bootstrap CI of the difference below 0)
+     ingredient: H-L5 (regularity(), inclusive segments)
+     null:       CV(ISI)
+     domain:     type-I excitability: ISI variance dominated by the slow passage near the ghost (gives no value for CV(arc): passed as none to T-N)
+     numbers:    199 occasions: CV(arc) = 0.2097, CV(clock) = 0.3908, CV(amplitude) = 0.0014, C_mean = 284.568; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.1998, -0.1609] (arc-regular (CI below 0)), of CV(arc) - CV(amplitude) = [0.1806, 0.2351]; sensitivities: sampled every 0.2 ms: CV(arc) 0.1382, CV(clock) 0.3908, CI [-0.2796, -0.2235] (arc-regular (CI below 0)); sampled every 1 ms: CV(arc) 0.0756, CV(clock) 0.3908, CI [-0.3503, -0.2773] (arc-regular (CI below 0)); noise intensity 3: 199 occasions: CV(arc) = 0.3899, CV(clock) = 0.5322, CV(amplitude) = 0.0041, C_mean = 428.710; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.1589, -0.1250] (arc-regular (CI below 0)), of CV(arc) - CV(amplitude) = [0.3284, 0.4372]
+     T-G:        CV(arc) 0.2097 vs null CV(ISI) 0.3908: differ
+     T-N:        the type-I statement locates the ISI's variance in the slow passage near the ghost; it gives no value for CV(arc) (none)
+     T-C:        CV(arc) < CV(ISI) with the paired-bootstrap CI below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    near the SNIC the interval is set by the slow passage past the ghost (CV(ISI) 0.3908); the arc between spikes (C_mean 284.6 mV) is the more regular quantity (CV(arc) 0.2097): arc-regular (CI below 0); H-L5 beyond its first control reads: control (i), the amplitude, is the more regular quantity (CV(amplitude) 0.0014); the verdict does not change across the sensitivities
+     weakness:   the noise part of the arc depends on the sampling step (C_mean 284.6 mV at 0.05 ms against 179.5 mV at 1 ms); I0 and the noise intensity are this row's choices (declared.py names neither); identity metric on V; one seed
+     elegance:   Near the tipping point a neuron waits a long and variable time before it fires, but each spike is the same size. Most of the unevenness lives in the wait, so counting the distance the voltage travels is steadier than counting the time, and the steadiest thing of all is the height of the spike.
+     child:      Think of a sleepy frog that sometimes waits a little and sometimes a lot before it jumps, but every jump is the same height. If you measure the frog by how far it moved, its turns look more alike than if you measure by the clock. The most alike thing of all is the height of each jump.
+
+[ 3] (cycle) Stuart-Landau oscillator with frequency noise (phase diffusion D = 0.05) (computed as: dz = (1 + i omega) z - |z|^2 z with multiplicative frequency noise, omega = 1, |z| = 1 on the attractor, so theta carries it exactly; white frequency noise with var theta(t) = D t, D = 0.05 (the convention of H0's formula), 2000 cycles sampled 100 times per mean period (dt = 0.06283), seed 3; cycle = first passage of theta through the next multiple of 2 pi; arc = identity-metric arc of (Re z, Im z))
+     source:     PRED70 P01-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          CV(arc per cycle) < CV(period) (computed as: CV(arc per cycle) < CV(period), paired-bootstrap CI of the difference below 0)
+     ingredient: H-L5 (regularity() on the two-dimensional carrier z, inclusive segments)
+     null:       CV(period)
+     domain:     phase diffusion: period CV = sqrt(D T)/T, arc per cycle fixed by the amplitude (computed as: H0's arc per cycle, r x the net phase advance between the same event samples, and its CV)
+     numbers:    2000 occasions: CV(arc) = 0.0421, CV(clock) = 0.0863, CV(amplitude) = 0.0002, C_mean = 7.013; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.0465, -0.0418] (arc-regular (CI below 0)), of CV(arc) - CV(amplitude) = [0.0406, 0.0433]; H0's period CV sqrt(D T)/T = 0.0892 (observed CV(period) 0.0863); H0's arc (r x net advance): CV 0.0088; sensitivities: white/1000: CV(arc) 0.0796, CV(period) 0.0873, H0's CV(r x net advance) 0.0022, C_mean 15.000, CI [-0.0091, -0.0062] (arc-regular (CI below 0)), T-N differ; white/20: CV(arc) 0.0287, CV(period) 0.0921, H0's CV(r x net advance) 0.0282, C_mean 6.255, CI [-0.0663, -0.0604] (arc-regular (CI below 0)), T-N differ; OU tau 0.1 T0: CV(arc) 0.0045, CV(period) 0.0820, H0's CV(r x net advance) 0.0045, C_mean 6.282, CI [-0.0800, -0.0749] (arc-regular (CI below 0)), T-N agree
+     T-G:        CV(arc) 0.0421 vs null CV(period) 0.0863: differ
+     T-N:        H0's arc per cycle (r x net phase advance) gives CV 0.0088: differ
+     T-C:        CV(arc) < CV(period) with the paired-bootstrap CI below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    the period's CV is 0.0863 against H0's sqrt(D T)/T = 0.0892 (relative difference 0.032); the sampled arc per cycle is 2 pi r plus twice the phase's backtracking (C_mean 7.013 against 2 pi = 6.283), and its CV (0.0421) is not the same as H0's net-advance value (0.0088); with smooth (OU) frequency noise the arc's CV is 0.0045 against H0's 0.0045; the class reading is arc-regular (CI below 0) on the declared grid
+     weakness:   the noise is read as white (the reading under which H0's period formula is exact) and the sampling step is this row's choice; the arc of a white-noise phase has no continuum limit (it diverges as the step shrinks), so the arc's value and the T-N comparison depend on the sampling (printed at three steps and with an OU reading; the class verdict is the same in all four); the relative T-N tolerance is not meaningful for a CV near 0; the same harness rule on the OU (smooth frequency noise) reading gives REDUNDANT-DOMAIN
+
+[ 4] (cycle) Oregonator (Belousov-Zhabotinsky), relaxation regime, epsilon = 0.04 (computed as: Tyson's two-variable reduction eps dx/dt = x - x^2 - f z (x - q)/(x + q), dz/dt = x - z, q = 0.002, f = 1, fixed-grid RK45 at dt = 0.001, rtol 1e-9, first 20 time units dropped; period 4.8104)
+     source:     PRED70 P01-4 (declared at 8397478; forecast WRONG)
+     Q:          the system's own event (the fast rise of x) lies nearer the antipodal cut of the analytic-signal phase than the waveform extremum on at least 2/3 of cycles (computed as: per cycle, the own event = the steepest rise of x; distance to the nearest antipodal_cuts() cut on intrinsic_phase(x) against distance to the nearest peak_cuts() extremum with the gate's settings; Q holds if the cut is strictly nearer on at least 2/3 of cycles)
+     ingredient: H-CUT (A3) (antipodal_cuts on intrinsic_phase; A3 does not fix where the cut sequence starts, so three readings of the start are computed)
+     null:       the extremum (peak cut)
+     domain:     none
+     numbers:    (i) gate convention, start at the second detected extremum: own event nearer the antipodal cut on 1.000 of 20 cycles, median distance to the cut 0.0200 half-turns, to the extremum 0.0611 half-turns (at least 2/3: yes); (ii) instrument default, start at the first sample: own event nearer the antipodal cut on 1.000 of 21 cycles, median distance to the cut 0.0495 half-turns, to the extremum 0.0611 half-turns (at least 2/3: yes); (iii) the analytic phase's own zero, start where theta crosses a multiple of 2 pi: own event nearer the antipodal cut on 0.000 of 20 cycles, median distance to the cut 0.0948 half-turns, to the extremum 0.0611 half-turns (at least 2/3: no); anchor scan (48 starts evenly over one period from the first maximum): Q's criterion met for 18 of 48 starts
+     T-G:        reading (i): median distance to the cut 0.0200 vs to the extremum 0.0611 half-turns: differ
+     T-N:        no domain theorem cited
+     T-C:        the three readings of A3's start give different verdicts (holds, holds, fails) -> not computable
+     OUTCOME:    INTERNAL
+     reading:    the Oregonator is exactly periodic, so every cycle gives the same answer and the only free choice is where the half-turn sequence begins; the fast rise sits 0.1470 time units from the nearest maximum, and whether a half-turn cut lands nearer to it than the extremum does is decided by that start (18 of 48 starts satisfy Q): the readings disagree, so A3 as written does not fix Q's value here
+     weakness:   deterministic model (declared.py names no noise); q and f are this row's choices (Tyson's standard values); the own event is read as the steepest rise; the analytic-signal phase of a pulse train advances unevenly, which is why the start matters; distances are in half-turns of the mean period
+
+[ 5] (cycle) Lorenz system (sigma 10, rho 28, beta 8/3): lobe switches as own events (computed as: explicit RK4 at dt = 0.005 from (1, 1, 1) over t = 2000, first 50 dropped; own events = sign changes of x; arc = identity-metric arc of x)
+     source:     PRED70 P01-5 (declared at 8397478; forecast WRONG)
+     Q:          the Fisher arc (identity metric on x) between lobe switches is more regular than the time between switches (computed as: CV(arc) < CV(time between switches), paired-bootstrap CI of the difference below 0)
+     ingredient: H-L5 (regularity(), inclusive segments)
+     null:       CV(time between switches)
+     domain:     none (chaotic residence times, exponential tail) (no value for CV(arc): none)
+     numbers:    1132 occasions: CV(arc) = 0.6049, CV(clock) = 0.7788, CV(amplitude) = 0.0592, C_mean = 59.669; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.1950, -0.1521] (arc-regular (CI below 0)), of CV(arc) - CV(amplitude) = [0.5208, 0.5687]; per residence arc against time: corr 0.9861, arc = 26.620 x time + 13.971; sampled every 0.02: CV(arc) 0.6033, CV(clock) 0.7787, CI [-0.1966, -0.1535] (arc-regular (CI below 0))
+     T-G:        CV(arc) 0.6049 vs null CV(time) 0.7788: differ
+     T-N:        no domain theorem cited for the arc
+     T-C:        CV(arc) < CV(time between switches) with the paired-bootstrap CI below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    a residence on one lobe is a number of loops; its arc tracks the time spent (corr 0.9861) with an intercept of 13.971 (a fixed excursion per residence, which lowers the arc CV below the clock CV by arithmetic, the mechanism the regularity docstring names for reset jumps); the arc's CV (0.6049) is below the clock's (0.7788): arc-regular (CI below 0); H-L5 beyond its first control reads: control (i), the amplitude, is the more regular quantity (CV(amplitude) 0.0592)
+     weakness:   one trajectory; the identity metric on x alone is declared
+
+TALLY: 4 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 0 WRONG / 1 INTERNAL / 0 UNSTATED
