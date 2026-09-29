@@ -1,0 +1,3 @@
+frozen devreport reproduces dev_SEC5.txt byte for byte
+frozen devid reproduces dev/devid.txt byte for byte
+smokefull: frozen vs working copy: results jsonl byte-identical; the printed text differs only in the SEC5-K CPU-seconds line (timing is measured, not reproducible; it is kept out of the results file, R9)

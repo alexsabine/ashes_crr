@@ -1,0 +1,957 @@
+{"data":{"dataset":[
+    {"did":11,
+   "name":"balance-scale",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 11,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"288.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"3.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"49.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"625.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":18,
+   "name":"mfeat-morphological",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 18,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"200.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"10.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"200.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"2000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":22,
+   "name":"mfeat-zernike",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 22,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"200.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"10.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"200.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"48.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"2000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"47.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":41,
+   "name":"glass",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 41,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"76.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"6.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"9.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"214.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"9.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":54,
+   "name":"vehicle",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 54,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"218.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"4.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"199.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"19.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"846.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"18.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":62,
+   "name":"zoo",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 52352,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"41.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"7.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"17.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"101.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"16.0"
+    }
+        ]
+      }
+  ,  {"did":187,
+   "name":"wine",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 3624,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"71.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"3.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"48.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"14.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"178.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":210,
+   "name":"cloud",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 3647,
+      "quality":[
+        {"name":"MaxNominalAttDistinctValues",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"108.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"2.0"
+    }
+        ]
+      }
+  ,  {"did":463,
+   "name":"backache",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 52575,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"155.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"10.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"25.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"32.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"180.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"27.0"
+    }
+        ]
+      }
+  ,  {"did":475,
+   "name":"analcatdata_germangss",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 52587,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"100.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"5.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"100.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"400.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"5.0"
+    }
+        ]
+      }
+  ,  {"did":685,
+   "name":"visualizing_livestock",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 52985,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"26.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"26.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"26.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"130.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"2.0"
+    }
+        ]
+      }
+  ,  {"did":1056,
+   "name":"mc1",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 53939,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"9398.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"68.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"39.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"9466.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"38.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1059,
+   "name":"ar1",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 53942,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"112.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"9.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"30.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"121.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1064,
+   "name":"ar6",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 53947,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"86.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"15.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"30.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"101.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1071,
+   "name":"mw1",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 53954,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"372.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"31.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"38.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"403.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"37.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1121,
+   "name":"badges2",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 54004,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"210.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"84.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"11.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"294.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"4.0"
+    }
+        ]
+      }
+  ,  {"did":1480,
+   "name":"ilpd",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1590565,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"416.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"167.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"11.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"583.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"9.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"2.0"
+    }
+        ]
+      }
+  ,  {"did":1482,
+   "name":"leaf",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1590827,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"16.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"30.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"8.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"30.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"16.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"340.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"15.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1507,
+   "name":"twonorm",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1592299,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"3703.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"2.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"3697.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"21.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"7400.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"20.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1513,
+   "name":"heart-switzerland",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1593705,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"48.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"5.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"123.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1519,
+   "name":"robot-failures-lp4",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1593711,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"72.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"3.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"21.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"91.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"117.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"90.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1534,
+   "name":"volcanoes-b4",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1593730,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"9805.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"5.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"26.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"10190.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":1552,
+   "name":"autoUniv-au7-1100",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1593748,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"305.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"5.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"153.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1100.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"8.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"5.0"
+    }
+        ]
+      }
+  ,  {"did":4153,
+   "name":"Smartphone-Based_Recognition_of_Human_Activities",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 1696325,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"30.0"
+    }
+    ,    {"name":"MaxNominalAttDistinctValues",
+     "value":"6.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"30.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"68.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"180.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"66.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"2.0"
+    }
+        ]
+      }
+    ]}
+}

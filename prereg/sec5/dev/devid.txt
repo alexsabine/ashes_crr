@@ -1,0 +1,4 @@
+D-ID a6mean: divisor forced to 1 equals SEC1 bayes_sec on the synthetic stream: 5/5 -> holds
+D-ID a6mean_clip: divisor forced to 1 equals SEC4 clip on the synthetic stream: 5/5 -> holds
+the A6 divisor changes the run on the synthetic stream (5 tasks): 5/5 seeds
+D-ID -> holds
