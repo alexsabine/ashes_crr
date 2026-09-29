@@ -1,0 +1,76 @@
+PRED70 batch P07: chemistry and cell biology (prompt-log entry 234; Predictions70/DECLARATION.md; declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (chem) Michaelis-Menten kinetics: product formation against substrate depletion: dS/dt = -Vmax S/(Km + S), five curves S0/Km = (0.1, 0.3, 1.0, 3.0, 10.0) with a different enzyme each (Km = (1.0, 2.0, 0.5, 4.0, 0.25) mM, Vmax = (1.0, 0.5, 2.0, 1.5, 0.8) mM/min); RK4, dt = (Km + S0)/(2000 Vmax), to S = 1e-4 S0
+     source:     PRED70 P07-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the reaction's own unit (Km) makes the progress curve universal: curves at different S0/Km collapse only in Km units (computed as: collapse index CI = 1 - max over pairs of the normalised RMS gap after a time shift; collapse means CI >= 1 - TOL_N; 'only' means both clock readings stay below it)
+     ingredient: A1' own unit: substrate in Km, time in Km/Vmax (the reaction's own unit, read from its rate law)
+     null:       clock units (computed as: (a) S in mM against t in min with the same time-shift rule; (b) S/S0 against t/t_half, each curve's own clock; the null value is the better of the two)
+     domain:     the integrated Michaelis-Menten equation (Lambert W) (computed as: the Lambert-W curves s = W(s0 exp(s0 - tau)) put through the same collapse index)
+     numbers:    CI in Km units 0.9999996; clock units (a) raw 0.4158, (b) S/S0 against t/t_half 0.9030; Lambert-W curves 0.9999999878; RK4 against Lambert W, max |s error| in Km units 6.2e-13
+     T-G:        CI(Km) 1.000000 vs null (best clock reading) 0.903011: differ
+     T-N:        CI(Km) 1.000000 vs Lambert W 1.000000: agree
+     T-C:        collapse in Km units (CI 1.000000 >= 0.99): holds; no collapse in clock units (raw 0.4158, S/S0-t/t_half 0.9030, both < 0.99): holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    in Km units every progress curve is one curve shifted in time, and in clock units they are not (best clock collapse 0.9030); the integrated Michaelis-Menten equation already says so: s + ln s = s0 + ln s0 - tau is a single master curve in Km and Km/Vmax units, which is why Km is called the enzyme's own concentration scale
+     weakness:   the collapse needs a time shift (an unknown origin); in raw clock units the same shift rule is used, so the null is not denied the shift; five curves only; A1' here is the rate law's own constant, which the domain names (Km), so the unit is inherited from Michaelis-Menten, not discovered by CRR
+     elegance:   Every enzyme, fast or slow, crowded or starved, draws the same curve once substrate is measured in its own half-saturation amount and time in its own turnover time.
+     child:      Different enzymes eat sugar at different speeds. If each one is timed with its own clock and measured with its own ruler, all their eating stories look exactly the same.
+
+[ 2] (chem) genetic toggle switch (Gardner) with noise: switching events: du/dt = a/(1 + v^n) - u, dv/dt = a/(1 + u^n) - v, a = 4.0, n = 2.0 (stable states u = 3.7321, 0.2679), additive noise sd 0.6 per unit time, reflecting at 0; Euler-Maruyama dt 0.01 over 30000 time units, seed 0; a switch is the difference u - v passing +-1.7321 (half a stable state's gap) into the other basin
+     source:     PRED70 P07-2 (declared at 8397478; forecast WRONG)
+     Q:          the arc between switches is more regular than residence times (computed as: CV(arc of (u, v), identity metric) < CV(residence time) with the paired-bootstrap 95 % CI of the difference below 0; path recorded every 0.1 time unit)
+     ingredient: H-L5: regularity() on the own events (switches), n_boot 2000, seed 0
+     null:       CV(residence time)
+     domain:     Kramers escape: exponential residence times (computed as: CV = 1 for an exponential residence time)
+     numbers:    425 residences; CV(arc) 0.9503, CV(residence) 0.9537, difference -0.0034, 95 % CI [-0.0062, -0.0007]; amplitude control CV(amp) 0.1454, CV(arc) - CV(amp) +0.8049 CI [+0.7364, +0.8694]; sensitivity to the record step: record step 0.02: CV(arc) 0.9651, CV(res) 0.9665, diff -0.0014 (CI below 0); record step 0.1: CV(arc) 0.9503, CV(res) 0.9537, diff -0.0034 (CI below 0); record step 0.5: CV(arc) 0.9347, CV(res) 0.9487, diff -0.0140 (CI below 0)
+     T-G:        CV(arc) 0.9503 vs CV(residence) 0.9537: agree (relative gap 0.0036)
+     T-N:        CV(arc) 0.9503 vs Kramers 1.0: differ
+     T-C:        CV(arc) < CV(residence) with the CI below 0: holds -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    per occasion the arc is 2.3019 x residence + 0.6257 (correlation 0.9997): noise path length that grows with the residence time plus a positive constant, the deterministic transit; so the arc inherits the residence spread (CV(residence) 0.9537, against Kramers' 1: differ), and the constant lowers CV(arc) by arithmetic by 0.0034 in CV, a relative gap inside the 1 % tolerance; the excursion amplitude is more regular than the arc (CV 0.1454 against 0.9503; CRR.md control (i), arc beyond amplitude: fails)
+     weakness:   the arc of a noisy path depends on the record step (printed: the CV gap widens monotonically as the step coarsens); additive rather than chemical-Langevin noise; identity metric on concentrations; the arc beats the clock, and the fitted intercept 0.6257 is the additive transit constant, which the H-L5 gate treats as arithmetic, not class membership
+
+[ 3] (chem) repressilator (Elowitz-Leibler) with noise: protein peaks as own events: dm_i/dt = -m_i + alpha/(1 + p_(i-1)^n) + alpha0, dp_i/dt = -beta (p_i - m_i), alpha = 216.0, alpha0 = 0.216, n = 2.0, beta = 1.0; chemical Langevin noise with system size 40 (K = 1 is 40 molecules), Euler-Maruyama dt 0.005 over 2000 time units, seed 1, first 20 units dropped; mean period 16.054
+     source:     PRED70 P07-3 (declared at 8397478; forecast INTERNAL)
+     Q:          the promoter-state switch lies nearer the antipodal cut than the protein extremum (computed as: per promoter switch, the distance to the nearest antipodal cut against the nearest protein extremum; 'nearer' as H-CUT's 'more often': the fraction of switches nearer the cut exceeds the fraction nearer the extremum; pooled over the three genes)
+     ingredient: H-CUT (A3) read two ways: (a) antipodal_cuts on the intrinsic phase of the repressor protein that acts on the promoter, (b) the same on the gene's own protein; cuts start at the first protein peak (the declared own event) and fire every half turn
+     null:       the extremum (computed as: peak_cuts, maxima and minima, prominence 0.3 of the range, distance a quarter period = 40 samples)
+     domain:     none
+     numbers:    736 promoter switches (half-occupancy crossings, K = 1, band 1.25); reading (a) repressor phase: nearer the cut 0.4767, nearer the extremum 0.4795, ties 32, of 730; mean distance to cut 1.416, to extremum 1.392; reading (b) own protein phase: nearer the cut 0.2044, nearer the extremum 0.5185, ties 202, of 729; mean distance to cut 1.679, to extremum 1.591
+     T-G:        reading (a): fraction nearer the cut 0.4767 vs nearer the extremum 0.4795: agree
+     T-N:        no domain theorem cited for the promoter switch against the antipode
+     T-C:        reading (a) the switch nearer the cut more often: fails; reading (b): fails; the readings agree -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    the promoter switches when its repressor crosses the half-occupancy level; the nearest repressor extremum is a trough for 1.0000 of the switches, and the antipodal cut lands farther than the extremum on average (1.416 against 1.392 time units) and less often nearer; on the gene's own protein the extremum is nearer than the cut (1.591 against 1.679); the switch is a threshold crossing of the repressor, which is what the Hill function says, and neither the antipode nor the extremum is its cause
+     weakness:   beta = 1.0 is chosen so that the repressor crosses its half-occupancy level every cycle: the deterministic minimum of a protein is 0.5160 at beta = 1.0 and 1.2504 at beta = 5 (Elowitz and Leibler's other value), where the promoter never switches without noise; the switch is a threshold crossing of a continuous occupancy, not a stochastic binding event; the Schmitt band 1.25 and the peak-finder prominence 0.3 are named constants, not swept; DEVIATION: declared.py names no parameters, but beta = 1 departs from the beta = 5 often quoted for the repressilator, and 'nearer' is scored per switch as H-CUT's 'more often' (mean distances printed beside it)
+
+[ 4] (chem) Goodwin circadian oscillator: phase-response to a light pulse: dX/dt = v1/(1 + Z^n) - v2 X/(1 + X) + L, dY/dt = k3 X - v4 Y/(1 + Y), dZ/dt = k5 Y - v6 Z/(1 + Z) (Gonze et al. 2005 rates, n = 6), time rescaled so the free-running period 27.4694 h becomes 24 h; CT defined by entrainment to LD 12:12 with light 1e-3 on X production (150 days), subjective noon = ZT6 = CT6; RK4 dt 0.01 h; PRC from 1-h pulses of amplitude 0.01 centred on 96 CTs, read after six cycles
+     source:     PRED70 P07-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the crossover from advance to delay in the PRC lies at the antipode of subjective noon (computed as: the CT where the PRC changes sign from advance to delay as CT increases, against CT 18.0; 'at' within 1 % of the period, 0.24 h)
+     ingredient: A3: the cut half a turn (12 h of a 24-h rotor) from subjective noon
+     null:       the PRC's own crossover (computed as: the finite-pulse PRC's advance-to-delay crossing, pulse amplitude 0.01)
+     domain:     phase-response theory (infinitesimal PRC of the limit cycle) (computed as: the advance-to-delay crossing of the response to an instantaneous kick of X, 1e-4, divided by the kick)
+     numbers:    antipode of noon CT 18.00; advance-to-delay crossover: finite pulse CT 4.043 (amplitude 0.03: CT 3.994), infinitesimal PRC CT 4.055; delay-to-advance crossover: finite CT 16.487, infinitesimal CT 16.384; max advance 0.926 h, max delay 0.444 h; weak-light locking check: 1e-3 x iPRC integrated over subjective day +0.0140 h, over subjective night +0.2477 h; sensitivity: entraining light 0.0003: crossover at CT 4.066; entraining light 0.003: crossover at CT 4.041
+     T-G:        antipode CT 18.000 vs the PRC's own crossover CT 28.043 (unwrapped to the nearest turn): differ
+     T-N:        antipode CT 18.000 vs the infinitesimal PRC's crossover CT 28.055: differ
+     T-C:        |crossover - antipode| = 10.043 h <= 0.24 h: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the advance-to-delay crossover lies at CT 4.043, 1.957 h from subjective noon and 10.043 h from its antipode, inside the subjective day; phase-response theory says where it must be: an oscillator whose free period equals the day locks where the light window's integrated PRC is zero and falling, and here the weak entraining light integrated over the subjective day shifts the phase by +0.0140 h against +0.2477 h over the night (near zero: below a tenth of the night's holds), so the day sits across the advance-to-delay crossover; the other crossover (delay to advance, CT 16.487) is 1.513 h from the antipode (outside 0.24 h)
+     weakness:   'from advance to delay' is read literally (sign change + to - as CT increases); the other sign change is printed and is outside the tolerance too; light acts on X production only (Gonze et al. 2005); Hill n = 6 instead of Gonze's n = 4: the largest non-unit Floquet multiplier of the unforced cycle is 0.9509 per 23.54-h cycle at n = 4 against 0.2700 per 27.47-h cycle at n = 6, so the n = 4 cycle is the more weakly attracting one, and the phase reduction that defines CT and the iPRC needs a strongly attracting cycle; subjective noon is defined by entrainment to LD 12:12, one of several conventions (an activity-onset marker would move it); 1-h pulses; DEVIATION: Hill n = 6 rather than the n = 4 of Gonze et al. 2005, and subjective noon fixed by entrainment to LD 12:12 with light on X production (declared.py names neither)
+
+[ 5] (chem) Dupont calcium oscillations: spike timing under IP3 noise: the Goldbeter-Dupont-Berridge two-pool model (v0 1, k 10, kf 1, v1 7.3, VM2 65, VM3 500, K2 1, KR 2, KA 0.9; m = n = 2, p = 4), IP3 saturation beta = beta_bar + Ornstein-Uhlenbeck noise (sd 0.05, time constant 2.0 s) clipped to [0, 1]; RK4 dt 0.001 s over 400 s per level; a spike is cytosolic Ca crossing 0.75 uM upward after falling below 0.45 uM; decisive level beta_bar = 0.3
+     source:     PRED70 P07-5 (declared at 8397478; forecast WRONG)
+     Q:          CV(arc between Ca spikes) < CV(inter-spike interval) (computed as: regularity() on the Ca trace between spikes, identity metric, the paired-bootstrap CI of CV(arc) - CV(ISI) below 0)
+     ingredient: H-L5: regularity() on the own events (Ca spikes), n_boot 2000, seed 0
+     null:       CV(ISI)
+     domain:     stochastic Ca spikes: ISI SD proportional to mean (Skupin) (computed as: the Skupin slope alpha of SD(ISI) = alpha mean(ISI) fitted through 0 over beta_bar in (0.3, 0.35, 0.4))
+     numbers:    beta_bar 0.3: CV(arc) 0.0911, CV(ISI) 0.5724, difference -0.4813, 95 % CI [-0.5552, -0.3924]; amplitude control CV(amp) 0.0432, CV(arc) - CV(amp) +0.0479 CI [+0.0385, +0.0573]; Skupin slope 0.4824; per level: beta 0.3: 182 ISIs, mean 2.170 s, CV(arc) 0.0911, CV(ISI) 0.5724 (CI below 0), CV(amp) 0.0432; beta 0.35: 267 ISIs, mean 1.487 s, CV(arc) 0.0905, CV(ISI) 0.3917 (CI below 0), CV(amp) 0.0445; beta 0.4: 393 ISIs, mean 1.010 s, CV(arc) 0.0934, CV(ISI) 0.2634 (CI below 0), CV(amp) 0.0495
+     T-G:        CV(arc) 0.0911 vs CV(ISI) 0.5724: differ
+     T-N:        CV(arc) 0.0911 vs the Skupin slope 0.4824: differ
+     T-C:        CV(arc) < CV(ISI) with the CI below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    IP3 noise spreads the spike times (CV(ISI) 0.5724) more than the arc per spike (CV 0.0911): calcium-induced calcium release fires a stereotyped excursion: across the three IP3 levels the mean spike amplitude goes 1.136, 1.104, 1.044 uM (relative change 0.081) while the mean ISI goes 2.170, 1.487, 1.010 s (relative change 0.534), so IP3 sets the frequency more than the amplitude; the arc's regularity is the amplitude's: CRR.md's control (i), arc beyond amplitude, fails (CV(amp) 0.0432 against CV(arc) 0.0911); constant spike amplitude with frequency coding is the domain's textbook picture (Berridge's frequency encoding), so the ADDS label rests on the bare inequality the declaration wrote, not on H-L5 with its controls
+     weakness:   the declared Q is the bare inequality; CRR.md's H-L5 adds three controls, and the amplitude control fails here, so a gate-level reading would not count this as class membership; one noise model (OU on beta) and no calcium-channel noise (Skupin's puffs); identity metric on the Ca concentration
+
+TALLY: 1 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

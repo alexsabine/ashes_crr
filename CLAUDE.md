@@ -339,6 +339,11 @@ Attention_Algorithms/      feed algorithms, the user's pause and the empty true 
                            checks/attention_world.py + .txt (synthetic, several hours, rerun by hand: gate OPEN; the true map carries the welfare,
                            the empty pause buys autonomy at a welfare cost in the model, own-clock engagement alone changes nothing);
                            checks/global_attention.py + .txt (CI-checked); ATTENTION_ALGORITHMS.md; a note, not evidence (R8)
+Predictions70/             PRED70 (prompt-log entry 234): 70 new systems, CRR's prediction, ingredient, null, H0 and the investigator's
+                           forecast declared in DECLARATION.md + declared.py (pushed at 8397478) before any model; batches/pred_01-14.py + .txt
+                           (SYNTHESIS harness, agent-written, cmp byte-identical, rerun by hand); checks/tally.py + .txt (CI-checked): Q held 35/70,
+                           ADDS 14, of which the 7 H-L5 rows fail H-L5's own amplitude control (post hoc), leaving 7 A6 candidates; PREDICTIONS70.md;
+                           a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

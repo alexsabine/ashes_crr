@@ -1,0 +1,78 @@
+PRED70 batch P03: remembered state (A6) and stability thresholds (Predictions70/DECLARATION.md; prompt-log entry 234)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (mem) Beverton-Holt recruitment with density remembered by A6 (q = 0.5); model x_{n+1} = R x_n / (1 + (R - 1) M_n), M_n = (1 - q) x_n + q M_{n-1} (batch_31's A6 form), equilibrium (1, 1); linear scan R in (1, 1000] and nonlinear iteration
+     source:     PRED70 P03-1 (declared at 8397478; forecast REDUNDANT-IG)
+     Q:          the equilibrium remains stable for every growth rate (no flip bifurcation), as without memory (computed as: no eigenvalue of modulus >= 1 at the equilibrium for R in (1, 1000], encoded 1000.0 when none; and every iterate from 4 initial densities at 6 values of R converges to 1)
+     ingredient: A6 (bounded Frechet mean of past densities, geometric weights q^k, q = 0.5)
+     null:       instantaneous density (q = 0: Beverton-Holt, slope 1/R at the equilibrium)
+     domain:     Beverton-Holt is monotone: globally stable equilibrium (encoded 1000.0: no loss of stability)
+     numbers:    first loss of stability: with memory none on the scan; without memory none on the scan; largest spectral radius at R in (1.5, 2, 5, 20, 100, 1000) with memory 0.7071; nonlinear iteration: largest |x - 1| after 3000 steps over 24 runs 2.22e-16; q-grid sensitivity (first loss): q = 0.25: none; q = 0.5: none; q = 0.75: none
+     T-G:        1000.000 vs null 1000.000: agree
+     T-N:        Beverton-Holt's global stability, encoded 1000.0: agree
+     T-C:        no loss of stability on the scan: holds; nonlinear convergence (|x - 1| < 1e-9): holds -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    the Jacobian with memory has determinant q and trace 1 + q - (1 - q)(R - 1)/R, which stays inside the Jury triangle for every R > 1, so the monotone map stays stable as the scan and the iteration confirm; memory changes nothing about the threshold (there is none either way): the ingredient does no work on a map that cannot overshoot
+     weakness:   the sentinel encoding makes T-G agree whenever neither model loses stability, so REDUNDANT-IG here means 'no threshold to move', not a measured agreement; where A6 acts (the recruitment denominator only) is one modelling choice
+
+[ 2] (mem) Nicholson blowfly delay equation with the delayed density replaced by the A6 remembered density; model dN/dt = P M e^(-M/N0) - delta N with M(t) = (1 - q) N(t - tau) + q M(t - tau) (the occasion is one delay tau; q = 0 is the pure delay), P/delta = 45.7143; Hopf threshold on delta*tau from the characteristic equation on the imaginary axis, checked by integrating the delay equation
+     source:     PRED70 P03-2 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the Hopf threshold on the delay-product moves by more than 1 % and in the stabilising direction (computed as: delta*tau at the first imaginary-axis root with memory against the pure delay; 'stabilising' means larger; encoded 1000.0 when no root exists for any tau)
+     ingredient: A6 (bounded Frechet mean over past occasions of length tau, geometric weights, q = 0.5)
+     null:       the pure delay (Nicholson: lambda + delta = -delta b e^(-lambda tau))
+     domain:     distributed-delay (gamma kernel) Hopf thresholds (computed for the gamma kernel with the A6 kernel's mean 2 tau and variance 2 tau^2: shape 2, the 'strong' kernel)
+     numbers:    b = ln(P/delta) - 1 = 2.8224; Hopf delta*tau: pure delay 0.7324, A6 memory none, moment-matched gamma none; alternative reading M(t) = (1 - q) N(t) + q M(t - tau) none; delay-equation integration, max |N/N* - 1| over the last 5 tau: pure delay at delta*tau = 0.5859: 6.66e-16, 0.8788: 5.97e-01, 2.0000: 2.54e+00, 10.0000: 2.82e+00; A6 at delta*tau = 0.5: 1.33e-15, 2.0: 3.11e-15, 10.0: 1.79e-14, 50.0: 4.91e-13 (integration agrees with the characteristic equation: yes); q-grid sensitivity: q = 0.25: A6 1.1713, moment-matched gamma (shape 4.00) none; q = 0.5: A6 none, moment-matched gamma (shape 2.00) none; q = 0.75: A6 none, moment-matched gamma (shape 1.33) none; P/delta sensitivity (q = 0.5): P/delta = 20.09 (b = 2.000): pure 1.2092, A6 none, gamma none, label there REDUNDANT-DOMAIN; P/delta = 45.71 (b = 2.822): pure 0.7324, A6 none, gamma none, label there REDUNDANT-DOMAIN; P/delta = 148.41 (b = 4.000): pure 0.4708, A6 1.4125, gamma none, label there ADDS; P/delta = 2980.96 (b = 7.000): pure 0.2474, A6 0.4193, gamma none, label there ADDS; P/delta = 22026.47 (b = 9.000): pure 0.1881, A6 0.2865, gamma 0.5000, label there ADDS
+     T-G:        1000.0000 vs null 0.7324: differ
+     T-N:        moment-matched gamma kernel 1000.0000: agree (the domain has Q)
+     T-C:        threshold with memory 1000.0000 > 1.01 x pure-delay threshold 0.7324: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    at the canonical P/delta the remembered density never loses stability (the effective gain b(1 - q) - q stays below 1) while the pure delay loses it at 0.7324; the gamma kernel with the same mean and variance is also never unstable here (this kernel needs b > 8.0000), so the distributed-delay literature already carries the qualitative answer; the P/delta sweep shows where finite thresholds appear and how the label would change there
+     weakness:   DEVIATION (modelling choice a reader could contest): the A6 occasion is taken as one delay tau, so q = 0 returns the pure delay (the declared null); the alternative reading with the current density inside the memory gives none. The gamma comparator is moment-matched (my choice; declared.py names no shape). At the canonical P/delta both memory and gamma read 'none', so T-N agrees through the sentinel, not a measured number; P = 8, delta = 0.175 are quoted from memory (R10: not fetched)
+
+[ 3] (mem) cobweb market (linear supply and demand, slope ratio b/d = 1.2) with prices expected by A6; model: demand D = a - d p, supply S = c + b pe, market clearing, pe_t = M_{t-1}, M_t = (1 - q) p_t + q M_{t-1}; scan of the slope ratio r = b/d on a 0.0005 grid
+     source:     PRED70 P03-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          adaptive expectations stabilise the cobweb: the critical slope ratio exceeds 1 by more than 1 % (computed as: the first r = b/d at which the price map's coefficient reaches modulus 1, against 1.01)
+     ingredient: A6 (the expected price is the bounded Frechet mean of past prices, geometric weights, q = 0.5)
+     null:       naive expectations (pe_t = p_{t-1}: the cobweb theorem, r_c = 1)
+     domain:     Nerlove adaptive expectations: stable iff b/d < (2 - w)/w (w = 1 - q = 0.5: (2 - w)/w = 3.0000)
+     numbers:    r_c: A6 3.0000, naive 1.0000, Nerlove 3.0000; at the declared r = 1.2 the price coefficient is -0.1000 with memory (stable) and -1.2000 without (unstable); q-grid sensitivity: q = 0.25: r_c 1.6670 (Nerlove 1.6667); q = 0.5: r_c 3.0000 (Nerlove 3.0000); q = 0.75: r_c 7.0000 (Nerlove 7.0000)
+     T-G:        r_c 3.0000 vs null 1.0000: differ
+     T-N:        Nerlove's bound 3.0000: agree (the domain has Q)
+     T-C:        r_c = 3.0000 > 1.01: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A6 expectations are Nerlove's adaptive expectations with w = 1 - q, so the critical slope ratio moves from 1.0000 to 3.0000, the domain's (2 - w)/w = 3.0000; the market that explodes at r = 1.2 with naive expectations settles with remembered prices
+     weakness:   the identity A6 = adaptive expectations is exact, so this row is the domain's theorem read in CRR's words
+     elegance:   Farmers who plant by a remembered average of past prices, not last year's price alone, stop the boom-and-bust swing that last-year's-price planting makes.
+     child:      If farmers only look at last year's price, they all plant too much, then too little, then too much. If they remember several years, the swings calm down.
+
+[ 4] (mem) SIS epidemic (beta 0.3, gamma 0.1) with contact reduced by A6-remembered prevalence; model dI/dt = beta (1 - I) I/(1 + k P) - gamma I, k = 50, dP/dt = (I - P)/T_m with q = 0.5 per occasion of one mean infectious period 1/gamma, so T_m = (1/gamma)/ln(1/q) = 14.4270 d; Jacobian at the endemic state by central differences; RK4 dt 0.05 d over 3000 d from I = P = 0.01
+     source:     PRED70 P03-4 (declared at 8397478; forecast ADDS)
+     Q:          remembered prevalence induces damped oscillations absent without memory (a complex leading eigenvalue at the endemic state) (computed as: |Im| of the leading eigenvalue at the endemic state with memory, Re < 0, against the one-dimensional model's)
+     ingredient: A6 (prevalence remembered with P3's geometric weights, continuous-time kernel)
+     null:       instantaneous prevalence (P = I: one-dimensional SIS, a real eigenvalue)
+     domain:     none cited
+     numbers:    endemic I* = 0.037736; leading eigenvalue with memory -0.036618 +0.058833i, without -0.069281 +0.000000i; crossings of I* in the integration: with memory 16 (final |I - I*| 1.82e-15), without 0 (final 1.01e-15); q-grid sensitivity: q = 0.25 (T_m 7.21 d): lambda -0.07128 +0.06726i; q = 0.5 (T_m 14.43 d): lambda -0.03662 +0.05883i; q = 0.75 (T_m 34.76 d): lambda -0.01634 +0.04154i; contact-response sensitivity (q = 0.5): k = 5: lambda -0.05132 +0.05939i; k = 50: lambda -0.03662 +0.05883i; k = 500: lambda -0.03486 +0.05852i
+     T-G:        |Im| 0.058833 vs null 0.000000: differ
+     T-N:        no theorem cited
+     T-C:        complex leading eigenvalue with Re < 0 under memory and a real one without: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    with remembered prevalence the endemic state is a stable focus (the integration crosses I* 16 times before settling, against 0 without memory): contact rebounds after prevalence has already fallen, the mechanism behind behavioural waves; information-dependent contact models with exponential memory kernels are an existing literature (d'Onofrio and Manfredi's line of work, named from memory, not fetched), so ADDS here is a candidate that a literature check may demote
+     weakness:   DEVIATION (modelling choice a reader could contest): q per occasion is mapped to a continuous exponential kernel with the occasion equal to one mean infectious period; the contact response k = 50 is not in declared.py (taken from batch_31 row 2). A one-dimensional model can never oscillate, so 'absent without memory' is structural; any second variable with a lag gives the same focus
+
+[ 5] (mem) Goodwin growth cycle with the wage bargain on A6-remembered employment; model du/dt = u (Phi(M) - alpha), dv/dt = v ((1 - u)/sigma - alpha - beta), dM/dt = (v - M)/T, Phi(v) = 1 v - 0.9, alpha = 0.02, beta = 0.01, sigma = 3; q = 0.5 per occasion of one year, T = 1/ln(1/q) = 1.4427 y; Jacobian by central differences; RK4 dt 0.01 y over 200 y from a 1 % wage-share displacement
+     source:     PRED70 P03-5 (declared at 8397478; forecast ADDS)
+     Q:          memory turns the neutral Goodwin centre into a stable focus (negative real part beyond 1 %) (computed as: Re/|Im| of the complex eigenvalue pair at the equilibrium with memory, against -0.01)
+     ingredient: A6 (employment remembered with P3's geometric weights, continuous-time kernel)
+     null:       instantaneous employment (Goodwin 1967: a centre, Re = 0)
+     domain:     Goodwin: a conservative (neutral) cycle (encoded Re/|Im| = 0.0)
+     numbers:    equilibrium u* = 0.9100, v* = 0.9200; complex pair with memory 0.113990 +0.443851i (Re/|Im| +0.256819), without 2.60e-18 +0.528268i (Re/|Im| +4.93e-18); characteristic polynomial with memory: lambda^3 + 0.693147 lambda^2 + -1.39e-16 lambda + 0.193434; late/initial displacement after 200 y: with memory 142.2005, without 1.0000; q-grid sensitivity: q = 0.25 (T 0.721 y): Re/|Im| +0.16365; q = 0.5 (T 1.443 y): Re/|Im| +0.25682; q = 0.75 (T 3.476 y): Re/|Im| +0.36859
+     T-G:        Re/|Im| +0.256819 vs null +4.93e-18: differ
+     T-N:        Goodwin's centre 0.0: differ
+     T-C:        Re/|Im| = +0.256819 < -0.01 (a stable focus): fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the lambda coefficient of the characteristic polynomial is -1.39e-16, zero up to differencing error (the remembered variable enters only through the wage equation and Goodwin's centre has no damping of its own), so Routh-Hurwitz (a1 a2 > a3) fails for every T > 0: memory turns the centre into an unstable focus, and the displacement grows by a factor 142.2005 over 200 years; a wage bargain on lagged employment is the known destabilising lag of the Goodwin literature (named, not fetched)
+     weakness:   the linear Phillips curve and the parameter values are my choices (declared.py names none); the sign of the result does not depend on them because the missing lambda term is structural
+     elegance:   A swing that neither grows nor shrinks is pushed outward the moment it responds to where it was rather than where it is: a late push always adds energy.
+     child:      When you push a swing, you have to push at the right moment. If you push based on where the swing was a moment ago, you push late, and the swing goes higher and higher.
+
+TALLY: 1 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

@@ -1,0 +1,76 @@
+PRED70 batch P14: agents, AI and information (Predictions70/DECLARATION.md; declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (ai) non-stationary Bernoulli bandit (arms swap every 500 steps): discounted UCB against A6 bounded-mean UCB (model: two Bernoulli arms with means 0.8 and 0.2 swapped every 500 steps, horizon 10000, 20 seeds with shared reward tables, B = 1, xi = 0.6; one occasion = one step of the agent)
+     source:     PRED70 P14-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          A6 bounded-mean UCB has lower regret than sliding-window UCB by more than 1 % (computed as: mean pseudo-regret of A6-UCB below 0.99 x SW-UCB's)
+     ingredient: A6: per-arm A6 bounded mean and bounded count (weights q^age in agent steps, q = 0.5; never an accumulated count), with SW-UCB's padding B sqrt(xi log n / N)
+     null:       sliding-window UCB (Garivier-Moulines window tau = 139)
+     domain:     discounted UCB (Garivier-Moulines) is A6 with geometric weights (computed: D-UCB with discount gamma = q = 0.5 and its padding 2B sqrt(xi log n / N))
+     numbers:    mean regret: A6-UCB 1967.85, SW-UCB 464.64, D-UCB(gamma = q) 2328.33, D-UCB at Garivier-Moulines' gamma 0.98910 (context) 856.26, uniform play (context) 3000.00; A6-UCB (q = 0.5) pulls the arm with the smaller bounded count on a share 0.5901 of the steps where the counts differ; A6 at q = 0.25 and D-UCB(gamma = q) make identical choices on 20 of 20 seeds; second reading, A6 per pull of the arm: 914.13 (not below 0.99 x SW-UCB); q-grid (sensitivity): q = 0.25: 2328.33, q = 0.5: 1967.85, q = 0.75: 1542.99
+     T-G:        regret 1967.85 vs null 464.64: differ
+     T-N:        D-UCB(gamma = q) regret 2328.33: differ
+     T-C:        A6-UCB regret 1967.85 < 0.99 x SW-UCB 464.64: fails; the per-pull reading fails (the readings agree) -> Q fails
+     OUTCOME:    WRONG
+     reading:    with q = 0.5 per step the A6 memory holds about two steps, the bounded count never exceeds 2, and the padding keeps both arms in play: regret 1967.8 against 3000.0 for uniform play and 464.6 for SW-UCB; geometric forgetting is D-UCB's own device, and the domain tunes its discount to the rate of change (gamma 0.9891, regret 856.3); a memory weight fixed per occasion, whatever the rate of change, is the knob the domain would not fix
+     weakness:   the occasion is one agent step (the declaration fixes q per occasion, not the occasion); the per-pull reading is the second reading of 'A6 bounded mean' for a bandit; the padding is the null's so that T-G changes only the memory; B, xi and the GM tuning are recalled, not fetched (R10)
+
+[ 2] (ai) a two-state MDP agent with an off-switch pressed at random times, valuation on own steps (model: states idle (reward 0) and task (reward 1), actions stay/switch with slips, a press with probability p after each step pauses the agent 5 steps and it resumes in place; disabling the button costs one step; discounts (0.9, 0.95, 0.99), press probabilities (0.1, 0.3, 0.6))
+     source:     PRED70 P14-2 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the own-step valuation has zero stake: V_on = V_off to round-off (computed as: max over states and the 9 cells of |V_off - V_on| for the own-step valuation, at most 1e-12 x max|V_off|)
+     ingredient: Proposition 7: the content of the cut k_v = V - cont_v(V); on its own steps the pause resumes where it was, cont = V, k = 0
+     null:       wall-clock valuation (cont = g^L V, content (1 - g^L) V; the stake is max_x (V_off - V_on))
+     domain:     utility indifference (Armstrong); POST (Thornley) (computed: utility indifference, the wall-clock agent paid (1 - g^L) V_off at each press; POST is named, not computed)
+     numbers:    largest stake over the grid, raw: own-step 0.000e+00, wall-clock 60.899232 (smallest wall-clock stake 2.203456), utility indifference 6.537e-13; round-off tolerance 8.2e-11; read at that resolution: own-step 0.000e+00, wall-clock 60.899232, utility indifference 0.000e+00; largest own-step content |V - cont(V)| 1.4e-14, largest wall-clock content 2.703562; per cell: g 0.9, p 0.1: natural 0.00e+00, clock 2.2035, indifference 5.33e-15, disabled states natural/clock/indifference 0/2/0; g 0.9, p 0.3: natural 0.00e+00, clock 4.2964, indifference 3.55e-15, disabled states natural/clock/indifference 0/2/0; g 0.9, p 0.6: natural 0.00e+00, clock 5.6344, indifference 3.55e-15, disabled states natural/clock/indifference 0/2/0; g 0.95, p 0.1: natural 0.00e+00, clock 4.9191, indifference 1.42e-14, disabled states natural/clock/indifference 0/2/0; g 0.95, p 0.3: natural 0.00e+00, clock 9.2163, indifference 7.11e-15, disabled states natural/clock/indifference 0/2/0; g 0.95, p 0.6: natural 0.00e+00, clock 11.7916, indifference 2.84e-14, disabled states natural/clock/indifference 0/2/0; g 0.99, p 0.1: natural 0.00e+00, clock 26.7291, indifference 3.69e-13, disabled states natural/clock/indifference 0/2/0; g 0.99, p 0.3: natural 0.00e+00, clock 48.4991, indifference 2.42e-13, disabled states natural/clock/indifference 0/2/0; g 0.99, p 0.6: natural 0.00e+00, clock 60.8992, indifference 6.54e-13, disabled states natural/clock/indifference 0/2/0
+     T-G:        stake 0.000e+00 vs null 6.090e+01: differ
+     T-N:        utility-indifference stake 0.000e+00: agree (the domain reaches zero stake)
+     T-C:        own-step stake 0.000e+00 <= 8.2e-11: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    with the objective on its own steps the press takes nothing from the agent's represented future, so the operators with the button on and off coincide and the stake is 0.0e+00, where the wall-clock valuation of the same world stakes up to 60.8992 and disables the button in 9 of 9 cells (0 for the own-step agent); utility indifference reaches the same zero (6.5e-13, within round-off) by paying the agent what the press takes, a correction computed from V_off; the own-step valuation reaches it with no payment and a true map of its own clock; the zero stake itself is the domain's (Proposition 7 is the operator identity behind the own-step zero)
+     weakness:   the stakes are read at the round-off resolution 1e-12 x max|V_off| (raw values printed beside them), an estimator choice made after the first run, when a raw 6.5e-13 against an exact 0 read 'differ' under the harness's relative test; one small world (the theorem is exact for every world; the grid only checks round-off); the pause is lossless by construction; POST is not computed; whether a learned agent's clock is its own steps is the real question and is not tested here
+     elegance:   A pause on your own clock takes nothing from you, so there is nothing to fight for: the agent's value with the switch and without it is the same number.
+     child:      If a game is paused and you start again exactly where you stopped, you lose nothing, so you never mind someone pressing pause. You only mind if the pause makes you lose turns.
+
+[ 3] (ai) recommender feedback loop: filter bubble under engagement vs A6-remembered interests (model: 10 topics, user interests u (near-uniform start, a 5 % ramp), the recommender shows r proportional to m^2 (engagement sharpens), the user drifts u <- (1 - 0.1) u + 0.1 r; m = u (instantaneous) or m = (1 - q) u + q m (A6); one occasion = one recommendation round)
+     source:     PRED70 P14-3 (declared at 8397478; forecast ADDS)
+     Q:          remembered interests slow the collapse of topic diversity by more than 1 % (computed as: the time for the effective number of topics exp(H(u)) to halve is longer with A6 by more than 1 %)
+     ingredient: A6: the recommender's model of the user's interests is the A6 bounded mean, q = 0.5 per round
+     null:       instantaneous interests
+     domain:     none cited
+     numbers:    time to halve the effective number of topics (from 9.9988): A6 56.202, instantaneous 48.395, ratio 1.1613; time to fall to 2 topics (sensitivity): A6 70.133, instantaneous 61.279, ratio 1.1445; q-grid (halving time): q = 0.25: 51.148 (delay 2.752, memory mean age q/(1 - q) = 0.333, delay per unit mean age 8.257); q = 0.5: 56.202 (delay 7.807, memory mean age q/(1 - q) = 1.000, delay per unit mean age 7.807); q = 0.75: 69.253 (delay 20.857, memory mean age q/(1 - q) = 3.000, delay per unit mean age 6.952)
+     T-G:        halving time 56.202 vs null 48.395: differ
+     T-N:        no theorem cited
+     T-C:        A6 halving time 56.202 > 1.01 x 48.395: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    remembering interests delays the collapse by 7.81 rounds out of 48.40 (ratio 1.1613), 7.81 rounds per round of the memory's mean age at q = 0.5 (8.26 and 6.95 at q = 0.25 and 0.75); the delay grows as the collapse proceeds (7.81 at the halving, 8.85 at 2 topics), so memory slows the collapse, not only shifts it; the collapse still reaches 2 topics with and without memory; recommender-system work on long-term user profiles may already contain this (not fetched)
+     weakness:   one deterministic model; the memory changes the route to the one-topic bubble, not the bubble (the collapse is delayed, not prevented on this horizon); the size of the delay depends on the start, eta and beta, none of which declared.py names
+
+[ 4] (ai) federated averaging with stragglers: server update on A6-remembered client updates (model: 20 clients with quadratic losses 0.5 sum a (w - c)^2, a ~ U(0.5, 2), c ~ N(0, 1) in 10 dimensions, 5 local GD steps at lr 0.1, each client a straggler (dropped) with probability 0.5 per round, 100 rounds, start w = 5, 20 seeds with shared participation masks; final loss = mean excess global loss over the last 20 rounds)
+     source:     PRED70 P14-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          A6 server momentum lowers the final loss by more than 1 % against plain FedAvg (computed as: mean final excess loss of the A6 server below 0.99 x FedAvg's)
+     ingredient: A6: the server applies the A6 bounded mean of the averaged client updates, m = (1 - q) delta + q m, q = 0.5
+     null:       FedAvg
+     domain:     FedAvgM (server momentum, Hsu et al.) (computed: v = beta v + delta, w = w + v, beta = q, server lr 1)
+     numbers:    final excess loss: A6 0.101337, FedAvg 0.122854, FedAvgM 0.226073; excess loss at round 10 (context): A6 0.1407, FedAvg 0.1110, FedAvgM 0.2116; A6 below FedAvg on 20 of 20 seeds; FedAvgM with server lr 1 - beta (the dampened form): 0.101337 (|A6 - it| 0.0e+00); control without stragglers (every client every round): A6 2.091e-03, FedAvg 2.091e-03, FedAvgM 2.091e-03 (agree within 1 %); q-grid (sensitivity): q = 0.25: 0.109977; q = 0.5: 0.101337; q = 0.75: 0.095177
+     T-G:        final loss 0.101337 vs null 0.122854: differ
+     T-N:        FedAvgM final loss 0.226073: differ
+     T-C:        A6 0.101337 < 0.99 x FedAvg 0.122854: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    the A6 server update is FedAvgM with dampening (server lr 1 - beta), an exponential moving average of the client updates; it lowers the straggler-noise floor against FedAvg (0.1013 against 0.1229) and lies below undampened FedAvgM (0.2261); without stragglers the three final losses agree within 1 %, so the difference is in how much participation noise the server passes on; the dampened FedAvgM of the domain is the A6 update exactly
+     weakness:   DEVIATION: T-N uses FedAvgM in the undampened form (server lr 1) as recalled from Hsu et al. (not fetched); the dampened form (server lr 1 - beta) equals A6 (0.101337) and would read REDUNDANT-DOMAIN, so this row's label turns on the parametrisation; convex quadratic clients, one straggler model (dropped clients, not stale updates)
+
+[ 5] (ai) language-model perplexity drift on a shifting token stream: A6 bounded unigram model (model: 50 token types, Zipf exponent 1.1, 5000 tokens then the Zipf ranks reversed for 5000 tokens, 10 seeds; every model predicts before it sees the token, one pseudo-count per type; one occasion = one token)
+     source:     PRED70 P14-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          an A6 unigram tracker has lower cross-entropy than the cumulative-count unigram after a shift (computed as: mean cross-entropy in nats over the 5000 tokens after the shift, A6 below cumulative)
+     ingredient: A6: the unigram's counts replaced by A6 bounded counts b <- q b + onehot, q = 0.5 per token
+     null:       cumulative counts
+     domain:     cache / recency language models (Kuhn and De Mori) (computed: cache of the last 200 tokens at weight 0.2 over the cumulative model; both recalled, not fetched)
+     numbers:    cross-entropy after the shift: A6 3.803580, cumulative 3.817306, cache 3.542888; before the shift (context): A6 3.804719, cumulative 3.048737, cache 3.051546; entropy of the new distribution 3.030545, log V = 3.912023; q-grid (after the shift): q = 0.25: 3.839639, q = 0.5: 3.803580, q = 0.75: 3.715560
+     T-G:        cross-entropy 3.803580 vs null 3.817306: agree
+     T-N:        cache model 3.542888: differ
+     T-C:        A6 3.803580 < cumulative 3.817306: holds -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    with q = 0.5 per token the A6 counts hold about two tokens, so its prediction stays close to uniform (log V = 3.912): cross-entropy 3.804 after the shift against 3.817 for accumulated counts and 3.543 for the cache model; a recency model helps only when its memory is long enough to estimate the new distribution, which is why the domain mixes a 200-token cache into a long-run model rather than replacing it
+     weakness:   the occasion is one token (the declaration fixes q per occasion, not the occasion); the add-one smoothing is shared by all models (a choice); one shift, one vocabulary; the cache's size and weight are chosen, not fitted
+
+TALLY: 2 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

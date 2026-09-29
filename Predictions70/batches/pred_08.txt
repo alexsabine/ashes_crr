@@ -1,0 +1,76 @@
+PRED70 batch P08: ecology and evolution (prompt-log entry 234; Predictions70/DECLARATION.md; declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (eco) Rosenzweig-MacArthur predator-prey with predators responding to A6-remembered prey: dN/dt = r N (1 - N/K) - a N P/(1 + a h N), dP/dt = e a M P/(1 + a h M) - m P, r = 1.0, a = 1.0, h = 1.0, e = 0.5, m = 0.2; the predators' numerical response reads the remembered prey M (A6 with P3 weights on a continuous clock: dM/dt = (X - M)/T, T = Delta/ln(1/q), q = 0.5 per occasion Delta, Delta = 1/r, T = 1.4427); linear stability of the coexistence equilibrium, K scanned in steps of 1e-3 and refined by bisection
+     source:     PRED70 P08-1 (declared at 8397478; forecast ADDS)
+     Q:          memory lowers the enrichment level at which the paradox-of-enrichment Hopf occurs by more than 1 % (computed as: the enrichment K_H where the leading eigenvalue's real part first reaches 0, with memory against without; 'lowers by more than 1 %': K_H(memory) < 0.99 K_H(instantaneous))
+     ingredient: A6: A6 with P3 weights on a continuous clock: dM/dt = (X - M)/T, T = Delta/ln(1/q), q = 0.5 per occasion Delta
+     null:       instantaneous prey (computed as: M = N, the Rosenzweig-MacArthur model)
+     domain:     Rosenzweig: Hopf at K* = h(1 + m...) (computed as: K_H = 1/(a h) + 2 N*, N* = m/(a (e - m h)) = 0.666667)
+     numbers:    K_H with remembered prey (q = 0.5) 1.875006; instantaneous 2.333333; closed form 2.333333; ratio 0.8036; surrogate T = 1e-4 (almost no memory): K_H = 2.333283 (returns to the null, as required); q-grid (sensitivity only): q = 0.25: K_H = 2.0464, q = 0.5: K_H = 1.8750, q = 0.75: K_H = 1.6651
+     T-G:        K_H 1.875006 vs null 2.333333: differ
+     T-N:        K_H 1.875006 vs the Rosenzweig closed form 2.333333 (the memory-free theorem): differ
+     T-C:        K_H(memory) < 0.99 K_H(instantaneous): holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    when predators breed on the prey they remember, the paradox-of-enrichment Hopf comes at K = 1.8750 instead of 2.3333: memory in the numerical response is a distributed delay, and the lag destabilises the equilibrium; the direction holds over the whole q-grid and the shift grows with q; that delays in the predator's response destabilise predator-prey equilibria is a known theme (MacDonald 1978 on distributed delays), so the candidate is the size of the shift for P3 weights, not its direction
+     weakness:   A6 acts on the predators' numerical response only (the kill rate reads the present prey); the occasion Delta = 1/r (one prey generation) sets the memory's time scale and is a modelling choice; the Frechet mean is taken linearly in density (not in a Fisher-Rao coordinate); linear stability only; DEVIATION: declared.py fixes q = 0.5 per occasion for a discrete occasion; this continuous-time model uses the exponential kernel with weight q per occasion of length Delta, and Delta is a modelling choice declared.py leaves open
+     elegance:   Predators that breed on how many prey there used to be, rather than how many there are, start the boom-and-bust cycle on a poorer landscape.
+     child:      If foxes decide how many cubs to have by remembering last season's rabbits, they keep having too many or too few, and the two populations start to swing up and down sooner.
+
+[ 2] (eco) MacArthur-Wilson island biogeography with A6-remembered species pool: dS/dt = I (1 - S/M) - E S/P, I = 2.0, E = 1.0 species per year, the island's immigrants drawn from the remembered pool M (A6 with P3 weights on a continuous clock: dM/dt = (X - M)/T, T = Delta/ln(1/q), q = 0.5 per occasion Delta, Delta = 1 year); the mainland pool steps from 100 to 150 species at t = 0 with the island at its old equilibrium; RK4 dt 0.05 to t = 1500
+     source:     PRED70 P08-2 (declared at 8397478; forecast REDUNDANT-IG)
+     Q:          the equilibrium richness is unchanged by memory (computed as: the richness at t = 1500 after the pool step, with memory against without; 'unchanged' within TOL_G)
+     ingredient: A6: A6 with P3 weights on a continuous clock: dM/dt = (X - M)/T, T = Delta/ln(1/q), q = 0.5 per occasion Delta
+     null:       instantaneous pool (computed as: M = P, the MacArthur-Wilson model)
+     domain:     S* = P I/(I + E) (computed as: S* = P I/(I + E) with the new pool)
+     numbers:    final richness with memory (q = 0.5) 100.0000000000, without 100.0000000000, theorem 100.0000000000; time to 95 % of the change: with memory 150.60 years, without 149.80 years; q-grid (sensitivity only): q = 0.25: S = 100.00000000, t95 = 150.20, q = 0.5: S = 100.00000000, t95 = 150.60, q = 0.75: S = 100.00000000, t95 = 151.80
+     T-G:        S 100.00000000 vs null 100.00000000: agree
+     T-N:        S 100.00000000 vs P I/(I + E) = 100.00000000: agree
+     T-C:        equilibrium richness unchanged by memory (relative gap 1.71e-15 <= 0.01): holds -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    a remembered pool is the true pool at rest, so the equilibrium richness is P I/(I + E) with and without memory; memory changes the approach (150.60 against 149.80 years to 95 %, slower); the row reads REDUNDANT-IG: A6 with bounded strength returns the settled value at a fixed point, so the ingredient cannot move an equilibrium
+     weakness:   the pool is remembered in the immigration term only; linear immigration and extinction curves; the transient, the only place memory acts, is not what Q asks; DEVIATION: declared.py fixes q = 0.5 per occasion for a discrete occasion; this continuous-time model uses the exponential kernel with weight q per occasion of length Delta, and Delta is a modelling choice declared.py leaves open
+
+[ 3] (eco) Wright-Fisher drift, N = 100: fixation times in natural time (generations of heterozygosity loss): neutral Wright-Fisher, N = 100 diploids (2N = 200 copies), 2000 new mutants conditioned on fixation (exact size-biased binomial step), seed 0; the path in the Fisher-Rao coordinate theta = 2 arcsin(sqrt(p)), where the geodesic from 0 to 1 is pi
+     source:     PRED70 P08-3 (declared at 8397478; forecast INTERNAL)
+     Q:          the fixation 'arc' (Fisher-Rao arc of the allele frequency path) is less variable than the fixation time (computed as: regularity() with each fixation as one occasion, CV(path arc) < CV(fixation time) with the paired-bootstrap CI below 0; natural time t/2N rescales the clock and leaves its CV unchanged)
+     ingredient: A1' natural time, read two ways: (i) the arc the H0 names, the Fisher-Rao distance from the start to fixation (a geodesic); (ii) the arc along the realised frequency path, the literal Q
+     null:       fixation time
+     domain:     Kimura: mean fixation time 4N ln-type; arc from 0 to 1 is pi (fixed) (computed as: the CV of reading (i), fixed by construction; and Kimura's conditional mean time -4N (1 - p) ln(1 - p)/p = 399.00 generations as a check of the simulation)
+     numbers:    mean fixation time 402.25 generations (Kimura 399.00); CV(fixation time) 0.5555; reading (i) geodesic 3.000053 (pi = 3.141593 from p = 0), CV 2.96e-16; reading (ii) path arc mean 22.7679, CV 0.5504, difference -0.0051, 95 % CI [-0.0071, -0.0031], relative gap 0.0092; other seeds: seed 1: CV(arc) 0.5383, CV(T) 0.5427, relative gap 0.0081 (CI below 0); seed 2: CV(arc) 0.5198, CV(T) 0.5241, relative gap 0.0081 (CI below 0)
+     T-G:        reading (ii): CV(path arc) 0.5504 vs CV(fixation time) 0.5555: agree
+     T-N:        CV(path arc) 0.5504 vs the H0's fixed arc (CV 2.96e-16): differ
+     T-C:        reading (i) CV(geodesic) < CV(time): holds; reading (ii) CV(path arc) < CV(time) with the CI below 0: holds; the readings agree; the literal Q is reading (ii) -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    in the Fisher-Rao coordinate drift has a constant step size (diffusion theory: mean |step| sqrt(2/pi) sqrt(1/2N) = 0.0564 per generation; observed 0.0566), so per fixation the path arc is 0.0560 x time + 0.2609, and its CV follows the clock's (0.5504 against 0.5555); the arc 'from 0 to 1 is pi' is the geodesic, fixed by construction, which is D3's chord, not a CRR regularity; the path arc beats the clock, by the arithmetic of the positive intercept
+     weakness:   conditioning on fixation removes the lost mutants; one population size; the arc uses the variance-stabilising angle, so a per-generation step of fixed size is the domain's own diffusion approximation
+
+[ 4] (eco) host-parasite Red Queen matching-alleles cycles: dh/dt = -s_h h (1 - h)(2p - 1) + mu (1 - 2h), dp/dt = s_p p (1 - p)(2h - 1) + mu (1 - 2p) (two-allele matching alleles, host h, parasite p), s_h = s_p = 1.0, mutation mu = 0.01, genetic drift sqrt(x (1 - x)/N), N = 250; Euler-Maruyama dt 0.01 over 4000 time units, seed 0; one cycle = one full turn of (h - 1/2, p - 1/2) about the centre (unwrapped angle); arc in the Fisher-Rao coordinates 2 arcsin(sqrt(.)) of both frequencies
+     source:     PRED70 P08-4 (declared at 8397478; forecast WRONG)
+     Q:          arc per cycle is more regular than the cycle period (computed as: regularity() between consecutive turns, CV(arc) < CV(period) with the paired-bootstrap CI below 0)
+     ingredient: H-L5: regularity() on the own events (turns of the host-parasite cycle), n_boot 2000, seed 0
+     null:       CV(period)
+     domain:     none
+     numbers:    379 cycles, mean period 10.516 (linearised centre: eigenvalues -0.020 +- 0.500i, period 12.566); CV(arc) 0.5465, CV(period) 0.4893, difference +0.0573, 95 % CI [+0.0478, +0.0663]; amplitude control CV(amp) 0.5730, CV(arc) - CV(amp) -0.0265 CI [-0.0506, +0.0021]; other event rule (host frequency up through 1/2 after falling below 0.45): 305 cycles, CV(arc) 0.2717, CV(period) 0.1953, difference +0.0764 (CI above 0)
+     T-G:        CV(arc) 0.5465 vs CV(period) 0.4893: differ
+     T-N:        no domain theorem cited
+     T-C:        CV(arc) < CV(period) with the CI below 0: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the matching-alleles cycle is a noisy rotation about a damped centre (damping 0.020 against frequency 0.500): drift sets the amplitude of each turn (CV(amp) 0.5730) more than it sets the duration (CV(period) 0.4893), so the arc per cycle, which follows the amplitude (CV(arc) - CV(amp): CI includes 0), is less regular than the period (0.5465 against 0.4893); the Red Queen cycle falls in the clock-regular class here, as the measles carrier did (CRR.md, MEAS2); the other event rule agrees
+     weakness:   a diffusion approximation with mutation to keep the cycle off the boundaries; one selection strength and population size; the turn counter includes noise-driven turns near the centre
+
+[ 5] (eco) logistic harvest with the quota set on A6-remembered stock: dx/dt = r x (1 - x/K) - F M, r = 1.0, K = 1.0, F = 0.3 (below the MSY effort r/2), quota F M on the remembered stock M (A6 with P3 weights on a continuous clock: dM/dt = (X - M)/T, T = Delta/ln(1/q), q = 0.5 per occasion Delta, Delta = 1/r, T = 1.4427); recovery from a sudden 1% depletion of the stock with the memory still at the old equilibrium x* = 0.70; RK4 dt 0.001 to t = 60
+     source:     PRED70 P08-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          memory destabilises the harvest equilibrium (an overshoot in the recovery exceeds 1 %) (computed as: the overshoot (max x - x*)/(x* - x0), the control convention of percent overshoot relative to the displacement, against 1 %)
+     ingredient: A6: A6 with P3 weights on a continuous clock: dM/dt = (X - M)/T, T = Delta/ln(1/q), q = 0.5 per occasion Delta
+     null:       instantaneous stock (computed as: quota F x, the logistic with proportional harvest)
+     domain:     delayed-feedback overshoot in harvest control (computed as: the overshoot of the linearised two-variable feedback loop from the same displacement, by its eigen-decomposition)
+     numbers:    overshoot with memory 0.025503 of the displacement (0.000255 of x*), without memory -1.1e-11, linear theory 0.025414; eigenvalues at x* -0.5466+0.4318i, -0.5466-0.4318i (the equilibrium stays locally stable, a complex pair); final stock 0.700000 and 0.700000; q-grid (sensitivity only): q = 0.25: 0.0013, q = 0.5: 0.0255, q = 0.75: 0.0553; larger shocks (nonlinear): shock 0.1: 0.0264, shock 0.3: 0.0287
+     T-G:        overshoot 0.025503 vs null -1.1e-11: differ
+     T-N:        overshoot 0.025503 vs linear delayed-feedback theory 0.025414: agree
+     T-C:        overshoot above 1 % of the displacement: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    a quota that reads the remembered stock keeps taking the old catch after a depletion and eases late after recovery, so the stock overshoots by 0.0255 of the displacement where the instantaneous quota gives -1.1e-11; over the q-grid the overshoot exceeds 1 % at 2 of 3 values; the equilibrium stays locally stable, so 'destabilises' holds only in the sense Q's parenthesis gives it, an oscillatory recovery; the linearised feedback loop, the domain's delayed-feedback analysis, gives 0.0254
+     weakness:   one effort level F; the overshoot is taken relative to the displacement (percent overshoot), and relative to x* it is printed too; the 1 % shock is chosen so the domain's linear theory is the fair comparison, and larger shocks are printed; the memory starts at the old equilibrium (the quota has not yet seen the depletion); DEVIATION: declared.py fixes q = 0.5 per occasion for a discrete occasion; this continuous-time model uses the exponential kernel with weight q per occasion of length Delta, and Delta is a modelling choice declared.py leaves open
+
+TALLY: 1 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED

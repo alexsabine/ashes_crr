@@ -1,0 +1,87 @@
+PRED70 tally: 70 declared predictions (Predictions70/DECLARATION.md, declared.py pushed at 8397478)
+harness gate (synthesis.txt rows 1, 2): ADDS, WRONG (need ADDS, WRONG) -> OPEN
+
+  id     ingredient       outcome           forecast          hit  Q               dev  amp  system
+  P01-1  H-L5             ADDS              WRONG             no   holds           yes  FAIL Hodgkin-Huxley neuron, I = 10 uA/cm2 + white noise sd 1, 200
+  P01-2  H-L5             ADDS              WRONG             no   holds           -    FAIL Morris-Lecar neuron (type I parameters) near the SNIC bifurc
+  P01-3  H-L5             ADDS              REDUNDANT-DOMAIN  no   holds           -    FAIL Stuart-Landau oscillator with frequency noise (phase diffusi
+  P01-4  H-CUT (A3)       INTERNAL          WRONG             no   not computable  -    -    Oregonator (Belousov-Zhabotinsky), relaxation regime, epsilo
+  P01-5  H-L5             ADDS              WRONG             no   holds           -    FAIL Lorenz system (sigma 10, rho 28, beta 8/3): lobe switches as
+  P02-1  H-L5             WRONG             ADDS              no   fails           yes  FAIL Burridge-Knopoff two-block spring-slider with rate-and-state
+  P02-2  H-L5             REDUNDANT-IG      REDUNDANT-DOMAIN  no   fails           -    FAIL Olami-Feder-Christensen earthquake cellular automaton (alpha
+  P02-3  H-L5             ADDS              REDUNDANT-DOMAIN  no   holds           -    FAIL dripping faucet (mass-spring with mass loss at detachment), 
+  P02-4  H-L5             REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    FAIL geyser as an integrate-and-fire recharge with noisy recharge
+  P02-5  H-CUT (A3)       REDUNDANT-IG      INTERNAL          no   fails           yes  -    Suarez-Schopf delayed-oscillator El Nino model (alpha 0.75, 
+  P03-1  A6               REDUNDANT-IG      REDUNDANT-IG      yes  holds           -    -    Beverton-Holt recruitment with density remembered by A6 (q =
+  P03-2  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           yes  -    Nicholson blowfly delay equation with the delayed density re
+  P03-3  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    cobweb market (linear supply and demand, slope ratio b/d = 1
+  P03-4  A6               ADDS              ADDS              yes  holds           yes  -    SIS epidemic (beta 0.3, gamma 0.1) with contact reduced by A
+  P03-5  A6               WRONG             ADDS              no   fails           -    -    Goodwin growth cycle with the wage bargain on A6-remembered 
+  P04-1  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  fails           -    -    Rescorla-Wagner learning of a reward that switches between 0
+  P04-2  A1' natural time REDUNDANT-IG      REDUNDANT-DOMAIN  no   fails           -    -    drift-diffusion decision (drift 0.2, bound 1, noise 1)
+  P04-3  P3               UNSTATED          REDUNDANT-DOMAIN  no   not computable  -    -    serial-position memory: 20 items, recency by exponential dec
+  P04-4  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  fails           -    -    power law of practice: RT = a N^-b fitted to a simulated lea
+  P04-5  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    temporal-difference learning on a 5-state chain with a rewar
+  P05-1  D6/H-T1          WRONG             WRONG             yes  fails           -    -    two-task linear regression, SGD, EWC penalty: forgetting aga
+  P05-2  H-EQ             REDUNDANT-IG      REDUNDANT-IG      yes  holds           -    -    heavy-ball momentum on a two-task quadratic with the equanim
+  P05-3  A3               WRONG             WRONG             yes  fails           -    -    SGD with warm restarts (SGDR) on a noisy quadratic: restarts
+  P05-4  A3               INTERNAL          WRONG             no   holds           -    -    early stopping on a noisy linear model: stop at a cut of the
+  P05-5  A6               WRONG             REDUNDANT-DOMAIN  no   fails           -    -    online mean estimation under drift: A6 bounded mean against 
+  P06-1  A6               REDUNDANT-IG      REDUNDANT-DOMAIN  no   fails           -    -    Kuramoto model (N = 200, Lorentzian frequencies) with A6-rem
+  P06-2  A6               REDUNDANT-IG      REDUNDANT-IG      yes  holds           -    -    mean-field Ising with Glauber dynamics and A6-remembered mag
+  P06-3  H-L5             REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    radioactive decay chain A -> B -> C: B-decay events in natur
+  P06-4  D5 occasions     REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    driven damped pendulum at resonance: energy per cycle
+  P06-5  A3               WRONG             REDUNDANT-DOMAIN  no   fails           yes  -    flashing Brownian ratchet: switching at antipodal cuts of th
+  P07-1  A1' own unit     REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    Michaelis-Menten kinetics: product formation against substra
+  P07-2  H-L5             REDUNDANT-IG      WRONG             no   holds           -    FAIL genetic toggle switch (Gardner) with noise: switching events
+  P07-3  H-CUT (A3)       REDUNDANT-IG      INTERNAL          no   fails           yes  -    repressilator (Elowitz-Leibler) with noise: protein peaks as
+  P07-4  A3               WRONG             REDUNDANT-DOMAIN  no   fails           yes  -    Goodwin circadian oscillator: phase-response to a light puls
+  P07-5  H-L5             ADDS              WRONG             no   holds           -    FAIL Dupont calcium oscillations: spike timing under IP3 noise
+  P08-1  A6               ADDS              ADDS              yes  holds           yes  -    Rosenzweig-MacArthur predator-prey with predators responding
+  P08-2  A6               REDUNDANT-IG      REDUNDANT-IG      yes  holds           yes  -    MacArthur-Wilson island biogeography with A6-remembered spec
+  P08-3  A1' natural time REDUNDANT-IG      INTERNAL          no   holds           -    -    Wright-Fisher drift, N = 100: fixation times in natural time
+  P08-4  H-L5             WRONG             WRONG             yes  fails           -    OPEN host-parasite Red Queen matching-alleles cycles
+  P08-5  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           yes  -    logistic harvest with the quota set on A6-remembered stock
+  P09-1  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  fails           -    -    volatility of returns simulated from GARCH(1,1) (omega 0.05,
+  P09-2  A6               ADDS              ADDS              yes  holds           -    -    Kaldor business cycle (nonlinear investment) with A6-remembe
+  P09-3  A6               REDUNDANT-IG      REDUNDANT-DOMAIN  no   fails           -    -    Metzler inventory cycle with sales expectations by A6
+  P09-4  P3               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    intertemporal choice: A6 geometric weights as the discount f
+  P09-5  A3               REDUNDANT-IG      WRONG             no   fails           yes  -    a random-walk price with regime shifts: trading on A3 cuts o
+  P10-1  A6               ADDS              ADDS              yes  holds           -    -    DeGroot opinion averaging on a ring of 50 agents with A6 mem
+  P10-2  A6               WRONG             REDUNDANT-DOMAIN  no   fails           yes  -    Hawkes self-exciting process (exponential kernel, branching 
+  P10-3  A6               REDUNDANT-IG      PROPOSES          no   fails           -    -    Schelling segregation (tolerance 0.4) with A6-remembered nei
+  P10-4  A6               WRONG             ADDS              no   fails           yes  -    Nagel-Schreckenberg traffic (p = 0.3) with drivers braking o
+  P10-5  A6               ADDS              WRONG             no   holds           -    -    Daley-Kendall rumour spreading with A6-remembered encounters
+  P11-1  A6               WRONG             REDUNDANT-DOMAIN  no   fails           yes  -    Bergman minimal glucose-insulin model: glucose after a meal
+  P11-2  A3               WRONG             WRONG             yes  fails           -    -    Borbely two-process sleep model: sleep onset as a cut
+  P11-3  H-L5             WRONG             WRONG             yes  fails           -    -    respiratory sinus arrhythmia: heart period modulated by brea
+  P11-4  A6               WRONG             REDUNDANT-DOMAIN  no   fails           yes  -    repeated drug dosing with first-order elimination: trough le
+  P11-5  H-L5             ADDS              WRONG             no   holds           yes  FAIL menstrual-cycle hormone model (Keener-style) with noise: ovu
+  P12-1  A6               REDUNDANT-IG      REDUNDANT-IG      yes  fails           yes  -    Budyko-Sellers energy balance with ice-albedo feedback: hyst
+  P12-2  H-CUT (A3)       WRONG             WRONG             yes  fails           -    -    Stommel two-box thermohaline circulation with slow freshwate
+  P12-3  A6               REDUNDANT-IG      ADDS              no   fails           -    -    Daisyworld with A6-remembered temperature in daisy growth
+  P12-4  H-L5             WRONG             WRONG             yes  fails           -    -    Saltzman-style glacial oscillator (ice, CO2, deep ocean) wit
+  P12-5  A1' natural time REDUNDANT-IG      REDUNDANT-DOMAIN  no   fails           yes  -    annual river floods (Gumbel maxima): recurrence of the 10-ye
+  P13-1  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    PI controller with actuator saturation: integral windup
+  P13-2  H-CUT (A3)       WRONG             REDUNDANT-DOMAIN  no   fails           yes  -    relay (bang-bang) thermostat with hysteresis: switching even
+  P13-3  A1' natural time REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    M/M/1 queue (rho = 0.8): busy periods in natural time (custo
+  P13-4  H-L5             REDUNDANT-IG      WRONG             no   fails           yes  -    TCP AIMD congestion window sawtooth with random loss
+  P13-5  A6               REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    exponential smoothing (Holt) forecasting of a trend with lev
+  P14-1  A6               WRONG             REDUNDANT-DOMAIN  no   fails           -    -    non-stationary Bernoulli bandit (arms swap every 500 steps):
+  P14-2  Proposition 7    REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           -    -    a two-state MDP agent with an off-switch pressed at random t
+  P14-3  A6               ADDS              ADDS              yes  holds           -    -    recommender feedback loop: filter bubble under engagement vs
+  P14-4  A6               ADDS              REDUNDANT-DOMAIN  no   holds           yes  -    federated averaging with stragglers: server update on A6-rem
+  P14-5  A6               REDUNDANT-IG      REDUNDANT-DOMAIN  no   holds           -    -    language-model perplexity drift on a shifting token stream: 
+
+rows scored 70 of 70; deviations flagged 22
+outcomes:  ADDS 14, PROPOSES 0, REDUNDANT-IG 19, REDUNDANT-DOMAIN 16, WRONG 18, INTERNAL 2, UNSTATED 1
+forecast:  ADDS 9, PROPOSES 1, REDUNDANT-IG 5, REDUNDANT-DOMAIN 34, WRONG 18, INTERNAL 3, UNSTATED 0
+CRR's prediction Q held in the domain model: 35 of 70; failed 33; not computable 2
+held AND carried CRR content (ADDS): 14 of 70 (P01-1, P01-2, P01-3, P01-5, P02-3, P03-4, P07-5, P08-1, P09-2, P10-1, P10-5, P11-5, P14-3, P14-4)
+POST HOC (the declared Q omitted H-L5's amplitude control): H-L5 rows 16; ADDS among them 7; of those, arc also beats the amplitude 0 (none); amplitude control per ADDS row: P01-1 FAIL, P01-2 FAIL, P01-3 FAIL, P01-5 FAIL, P02-3 FAIL, P07-5 FAIL, P11-5 FAIL
+ADDS that survive the amplitude control: 7 of 70
+redundant (IG or DOMAIN): 35 of 70, of which Q held 20
+the investigator's forecast of the outcome was right on 33 of 70 (0.4714)
+by ingredient: A1' natural time: REDUNDANT-DOMAIN 1, REDUNDANT-IG 3; A1' own unit: REDUNDANT-DOMAIN 1; A3: INTERNAL 1, REDUNDANT-IG 1, WRONG 4; A6: ADDS 7, REDUNDANT-DOMAIN 9, REDUNDANT-IG 9, WRONG 7; D5 occasions: REDUNDANT-DOMAIN 1; D6/H-T1: WRONG 1; H-CUT (A3): INTERNAL 1, REDUNDANT-IG 2, WRONG 2; H-EQ: REDUNDANT-IG 1; H-L5: ADDS 7, REDUNDANT-DOMAIN 2, REDUNDANT-IG 3, WRONG 4; P3: REDUNDANT-DOMAIN 1, UNSTATED 1; Proposition 7: REDUNDANT-DOMAIN 1
+declared expectation 'fewer than a third hold AND carry CRR content (ADDS)': 14 < 23.33 -> holds
+beside it, the retrodictive bank (166 rows): ADDS 11, INTERNAL 22, PROPOSES 2, REDUNDANT-DOMAIN 59, REDUNDANT-IG 39, UNSTATED 4, WRONG 29

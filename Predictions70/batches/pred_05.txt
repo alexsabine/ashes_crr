@@ -1,0 +1,78 @@
+PRED70 batch P05: continual learning and optimisation (prompt-log entry 234; Predictions70/DECLARATION.md, declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (cl) two-task linear regression, SGD, EWC penalty: forgetting against path length and endpoint [model: linear regression d = 20, tasks A and B of 200 samples (S-H geometry, noise sd 0.3), start at the task-A least-squares optimum, 100 SGD steps on task B (batch 10) with the EWC penalty (lam/2)(theta - theta_A)' F_A (theta - theta_A); 60 runs = 5 schedules (constant, sawtooth, cosine restarts, gradient noise, loop back to A) x lr {0.02, 0.05, 0.1} x lam {0, 0.3, 1, 3}; forgetting F = rise of the task-A training loss (1/2 MSE); held-out R^2 of a linear fit, even runs fit, odd runs score]
+     source:     PRED70 P05-1 (declared at 8397478; forecast WRONG)
+     Q:          forgetting tracks path length better than the old-probe endpoint (R2 higher by 0.05) (computed as: held-out R^2 of the better path predictor, C_old or C_new = sum sqrt(2 KL_step) on a probe, >= held-out R^2 of E_old + 0.05)
+     ingredient: D6/H-T1: path length C = sum_t sqrt(2 KL_t) (path_length, kl_gauss) against the endpoint E
+     null:       the old-probe endpoint (computed as: held-out R^2 of E_old = KL(p_0 || p_T) on the task-A inputs)
+     domain:     convex learner: forgetting is a function of the endpoint only (SCOPE lemma) (computed as: the lemma's predictor F = E_old with no fitted coefficient, held-out R^2)
+     numbers:    held-out R^2: C_old -0.0205, C_new -0.0155, E_old 1.000000, E_new 0.9008; lemma: max |F - E_old| over 60 runs = 8.88e-15, no-fit R^2 1.000000; path length spread across runs 18.20x; S_old < 0 in 0% of runs; lr-controlled R^2 (lr as covariate): C_old 0.0985, C_new 0.1192, E_old 1.000000; battery form (independent task-A probe, forgetting on a held-out task-A set): C_ind -0.0174, C_new -0.0128, E_ind 0.9971, E_new 0.9166; positive control (wear 0.5 x path added to F, S-H2 form): best path 0.8578 against best endpoint 0.0285 (path wins by >= 0.05: the instrument sees path dependence)
+     T-G:        R^2 path (C_new) -0.0155 vs null E_old 1.000000: differ
+     T-N:        the lemma's no-fit predictor gives R^2 1.000000: differ
+     T-C:        R^2 path -0.0155 >= R^2 E_old 1.0000 + 0.05: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    on a convex learner with an EWC penalty the forgetting is the old-probe endpoint KL itself (largest gap 8.9e-15), so the endpoint explains 1.0000 of the held-out variance and the path -0.0155; the penalty and the schedules change how the learner travels but not what the loss at the end depends on; the battery form (independent probe, held-out forgetting) keeps the ordering
+     weakness:   one geometry (the S-H surrogate's), 60 runs; the old probe of the decisive reading is the task-A training inputs, where the SCOPE lemma is exact; the battery-form reading is printed beside it
+     elegance:   On a bowl-shaped learner, how much of the old task is lost depends only on where the learner ends, never on the road it took: a winding road and a straight one to the same place cost the same.
+     child:      If you walk away from your house, how far you are from home depends only on where you are standing now, not on how many loops you walked on the way.
+
+[ 2] (cl) heavy-ball momentum on a two-task quadratic with the equanimity weight Omega = 1 [model: L_present = (theta - a)' H (theta - a)/2, past term the exact quadratic (Laplace) L_past = (theta - b)' F (theta - b)/2, d = 5, F 16x H in scale (the omega_sweeps geometry, seed 0); heavy-ball v <- 0.9 v - 0.01 g, theta <- theta + v, 4000 steps from the past optimum b; exact gradients; the rule w = Omega |g_present|/|g_past| with the registered estimator (EMA 0.9 of the gradient vectors, cap 1e4, floor 1e-12); metric: total loss L_present + L_past at the end]
+     source:     PRED70 P05-2 (declared at 8397478; forecast REDUNDANT-IG)
+     Q:          Omega = 1 is within a step of the best fixed weight (reduces to a constant) (computed as: the total loss at Omega = 1 within one resolvable step, TOL_G = 1 % relative, of the best fixed weight's; the fixed weights are 81 log-spaced values in [0.01, 100])
+     ingredient: H-EQ: g = g_present + w g_past, w = Omega |g_present| / |g_past|, Omega = 1
+     null:       the best fixed weight (computed as: the lowest total loss over the 81 fixed weights under the same heavy-ball run)
+     domain:     a fixed Laplace weight is optimal on a quadratic (computed as: the closed-form minimum of L_present + L_past, the Laplace weight 1)
+     numbers:    total loss: Omega = 1 3.285522 (median w 1.306; nearest fixed-weight equilibrium lambda_eff = 1.303, distance 1.5e-04); best fixed weight w = 1: 3.276980; closed-form Laplace minimum 3.276980; fixed weights diverged: 19 of 81 (heavy-ball edge lambda* = 12.426); Omega landscape: 0.25: 69.6621, 0.35: 69.6621, 0.5: 69.6621, 0.71: 69.6621, 1: 3.2855, 1.41: 3.4068, 2: 3.4869, 2.83: 5.0437, 4: 5.7592 (best Omega 1); |update| / |g_present| at Omega = 1 on 13 points of the Pareto curve, lambda in [1e-3, 1e3]: max 2.2e-12; weight reading: lambda_eff / best w = 1.303 (within one step of the doubling grid); noise sd 0.5, 5 seeds, mean total loss: rule 3.7492, fixed 0.25: 4.4570, 0.5: 3.6069, 1: 3.3158, 2: 3.4246, 4: 3.4871 (rule outside 1 % of the best fixed 1)
+     T-G:        total loss Omega = 1 3.285522 vs best fixed 3.276980: agree (relative 0.0026)
+     T-N:        the Laplace minimum 3.276980: agree (the domain has Q)
+     T-C:        Omega = 1 within one step (1 %) of the best fixed weight: holds -> Q holds
+     OUTCOME:    REDUNDANT-IG
+     reading:    under heavy-ball momentum and exact gradients the rule at Omega = 1 lands on the best fixed weight's loss (it stops on the Pareto curve at lambda_eff = 1.303, where the best fixed weight is 1); every point of that curve is a fixed point of the rule at Omega = 1 (largest update 2.2e-12), so where it stops is set by the start and the dynamics, not by the ratio; with mini-batch noise the rule is outside 1 % of the best fixed weight
+     weakness:   one quadratic geometry (the omega_sweeps model), one momentum and step size; 'a step' is read as the harness's 1 % on the total loss, the weight reading is printed beside it
+
+[ 3] (cl) SGD with warm restarts (SGDR) on a noisy quadratic: restarts as cuts [model: L = sum_i h_i theta_i^2 / 2, d = 10, h log-spaced in [0.01, 1], gradient noise sqrt(h_i) N(0, 1), theta_0 = 10; 2000 SGD steps; within a cycle the step size anneals by a cosine from 1 to 0 over P steps and is held at 0 after P; 10 seeds, common random numbers across arms; final loss = the noise-free L(theta_T), seed mean]
+     source:     PRED70 P05-3 (declared at 8397478; forecast WRONG)
+     Q:          restarting at the antipode of the loss oscillation phase reaches a lower final loss than restarting on a fixed schedule (computed as: restart when the analytic-signal phase of the loss trace so far, intrinsic_phase, has advanced by pi since the last restart; the cosine keeps the best fixed period as its nominal length; lower seed-mean final loss than the best fixed period)
+     ingredient: A3: the restart is the cut, fired at the oriented half-turn of the loss phase
+     null:       fixed-period restarts (computed as: the best of P in {200, 250, 400, 500, 1000} by seed-mean final loss)
+     domain:     none cited
+     numbers:    seed-mean final loss: antipodal restarts 0.91939 (mean 45.6 restarts in 2000 steps); fixed periods P = 200: 0.05526, P = 250: 0.04717, P = 400: 0.03342, P = 500: 0.02875, P = 1000: 0.01864 (best P = 1000); no restart (one anneal over the horizon, reported, not a restart schedule): 0.01280; second reading (two-pass: restarts at antipodal_cuts of the best fixed run's full loss trace): 0.66139 (mean 167.0 restarts)
+     T-G:        final loss 0.91939 vs null 0.01864: differ
+     T-N:        no theorem cited
+     T-C:        antipodal restarts lower than the best fixed period: online fails, two-pass fails (the readings agree) -> Q fails
+     OUTCOME:    WRONG
+     reading:    on a noisy quadratic the final loss is set by how far the step size has annealed when the budget ends; the loss phase advances by half a turn about every 44 steps (the end-of-record analytic phase of a falling curve reaches pi quickly), so the antipodal learner ends higher than the best fixed period (0.91939 against 0.01864); the two-pass reading ends higher (0.66139)
+     weakness:   the online phase is the analytic signal of the trace so far, whose last sample carries the Hilbert edge effect; the two-pass reading avoids it but uses the future; the loss read is the noise-free loss
+
+[ 4] (cl) early stopping on a noisy linear model: stop at a cut of the validation-loss phase [model: linear regression d = 40, 50 training, 50 validation and 2000 test samples, label noise sd 1, true weights N(0, 4/d); SGD from zero, batch 10, step 0.01, horizon 3000 steps; test loss = 1/2 MSE at the returned step; 20 seeds, seed mean]
+     source:     PRED70 P05-4 (declared at 8397478; forecast WRONG)
+     Q:          stopping at the first antipodal cut of the validation-loss oscillation beats patience-based early stopping in test loss by more than 1 % (computed as: the first antipodal cut after the start, antipodal_cuts on intrinsic_phase of the validation-loss trace over the horizon; the seed-mean test loss lower than patience's by more than TOL_G = 1 %)
+     ingredient: A3: stop at the first oriented half-turn of the validation-loss phase
+     null:       patience-based stopping (computed as: patience 10, the checkpoint with the lowest validation loss restored)
+     domain:     none cited
+     numbers:    seed-mean test loss: first antipodal cut 1.27166 (cut found within the horizon in 20/20 seeds; median cut step 602); patience 5: 1.48892, 10: 1.36302, 20: 1.23865, 50: 1.18514, 100: 1.18341; oracle (lowest test loss on the path) 1.14754; second reading (online: the phase of the trace so far, stop at its first half-turn): 2.44836 (median stop step 1); horizon sensitivity of the offline cut: 1500 steps 1.17770, 3000 steps 1.27166, 6000 steps 1.45449
+     T-G:        test loss 1.27166 vs null 1.36302: differ
+     T-N:        no theorem cited
+     T-C:        the cut beats patience 10 by more than 1 %: offline holds, online fails (the readings disagree); the verdict flips against patience 20, 50, 100 and flips at horizon 6000 -> Q holds
+     OUTCOME:    INTERNAL
+     reading:    the validation loss of a noisy linear model falls and then rises as the model fits noise; the first half-turn of its phase lands at step 602 (median), and the test loss there is 1.27166 against 1.36302 for patience 10; online the analytic phase of a falling trace reaches pi within a few steps (median 1), so the causal cut stops almost at once (2.44836)
+     weakness:   one model size and noise level; the offline cut depends on the horizon (printed); patience restores the best validation checkpoint, which the cut does not
+
+[ 5] (cl) online mean estimation under drift: A6 bounded mean against a Kalman filter with known drift variance [model: random-walk mean mu_t = mu_(t-1) + N(0, 1^2), observation y_t = mu_t + N(0, 1^2) (unit variances), mu_0 = 0 known; 200000 steps, seed 0, error = MSE of the estimate of mu_t after 1000 steps]
+     source:     PRED70 P05-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the A6 tracker's error is within 1 % of the Kalman filter's (computed as: relative difference of the two mean squared errors <= TOL_G)
+     ingredient: A6: the bounded Frechet (Euclidean: weighted) mean of the observations with P3 weights q^k over age k, normalised over the available history, q = 0.5
+     null:       the Kalman filter (computed as: the time-varying Kalman filter with the known variances)
+     domain:     the steady-state Kalman gain is an exponential moving average (computed as: the closed-form steady-state posterior variance)
+     numbers:    MSE: A6 q = 0.5 0.66911 (closed form for an EMA of gain 1 - q = 0.5: 0.66667), Kalman 0.62057, steady-state Kalman 0.61803 (gain K = 0.61803); q grid: q = 0.25: 0.66930 (0.0728 from Kalman), q = 0.5: 0.66911 (0.0725 from Kalman), q = 0.75: 1.42952 (0.5659 from Kalman); closed form over the drift-to-noise ratio sw^2/sv^2 in {0.01, 0.1, 0.5, 1, 10}: A6 q = 0.5 within 1 % of Kalman at 0.5
+     T-G:        MSE 0.66911 vs Kalman 0.62057: differ (relative 0.0725)
+     T-N:        the steady-state Kalman variance 0.61803: differ
+     T-C:        A6 within 1 % of Kalman: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    A6 with q = 0.5 is an exponential moving average of gain 0.5, and the steady-state Kalman filter is an exponential moving average of gain 0.6180; they coincide only when the drift-to-noise ratio makes the Kalman gain 0.5 (sw^2/sv^2 = 0.5), so at unit variances the A6 tracker is outside 1 % (0.0725); a fixed q is a fixed gain, and the Kalman filter sets its gain from the variances A6 does not use
+     weakness:   the variances are not named in declared.py; unit variances were chosen and decide the verdict (the closed-form band where Q would hold is printed); the domain value is the Kalman variance, so T-N repeats T-G here
+     elegance:   A memory that fades by a fixed half each step is a fixed way of listening; the best way of listening depends on how fast the world moves compared with how blurry your view of it is, and a fixed memory is best for only one such world.
+     child:      If you guess where a wandering friend is by mixing what you see now with what you guessed before, how much to trust the new look depends on how fast your friend moves and how foggy it is. One fixed mix is only best for one kind of day.
+
+TALLY: 0 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 3 WRONG / 1 INTERNAL / 0 UNSTATED

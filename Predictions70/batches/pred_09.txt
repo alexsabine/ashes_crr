@@ -1,0 +1,78 @@
+PRED70 batch P09: economics and finance (Predictions70/DECLARATION.md; prompt-log entry 234; declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (econ) volatility of returns simulated from GARCH(1,1) (omega 0.05, alpha 0.1, beta 0.85) (computed as: z ~ N(0,1), 2000000 steps after 10000 burn-in, seed 0; one-step forecasts of r^2_(t+1); GARCH at its true parameters)
+     source:     PRED70 P09-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          an A6 bounded mean of squared returns forecasts volatility as well as GARCH (within 1 % in MSE)
+     ingredient: A6: f_(t+1) = (1 - q) r_t^2 + q f_t, q = 0.5 per occasion (one return per occasion), weights (1 - q) q^k over age k
+     null:       GARCH
+     domain:     GARCH(1,1) is an exponentially weighted variance plus a constant
+     numbers:    MSE ratio A6/GARCH against the realised r^2_(t+1): 1.215609 (q = 0.5, decides); GARCH-ARMA theory for the same ratio 1.219373; q-grid (sensitivity only): q = 0.25: simulated 1.4484, theory 1.4534; q = 0.5: simulated 1.2156, theory 1.2194; q = 0.75: simulated 1.0620, theory 1.0639; against the latent s^2_(t+1) (where GARCH's error is 0) the A6 relative MSE is 0.4459; Fisher-Rao reading (geometric mean of squared returns, q = 0.5): ratio 1.1809
+     T-G:        A6 ratio 1.2156 vs GARCH 1.0000: differ
+     T-N:        the GARCH-ARMA representation gives 1.2194 for the A6 tracker's ratio: agree (the domain has the number)
+     T-C:        A6 MSE within 1 % of GARCH's (ratio 1.2156 <= 1.01): fails -> Q fails
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    an A6 mean at q = 0.5 is an exponential moving average with decay 0.5 and no constant; GARCH is the same filter with decay beta = 0.85 plus a constant, so the A6 tracker is a misspecified GARCH and its mean squared error is above GARCH's by 21.6 %; the domain's own ARMA algebra predicts the ratio to within 0.31 %; on the q-grid the ratio falls toward 1 as q approaches beta (q = 0.75: 1.0620); the Fisher-Rao reading (geometric mean) gives 1.1809, better than the arithmetic reading and outside 1 % of GARCH
+     weakness:   GARCH is scored at its true parameters (the domain model), not estimated; the target is the realised squared return (the standard proxy); the A6 mean is read as the arithmetic weighted mean of squared returns, the synthesis batches' A6 convention (the Fisher-Rao Frechet mean of Gaussian variances is the geometric mean; it is printed as a second reading, not deciding); Gaussian innovations
+
+[ 2] (econ) Kaldor business cycle (nonlinear investment) with A6-remembered income (computed as: discrete Kaldor map in deviations, y' = y + alpha (I - s y), k' = (1 - d) k + I, I = a arctan(m) - b k, alpha = 1.5, a = 0.5, s = 0.3, b = 0.2, d = 0.1; one occasion = one period; amplitude = half the range of y over iterates 20000-39999)
+     source:     PRED70 P09-2 (declared at 8397478; forecast ADDS)
+     Q:          memory shrinks the limit-cycle amplitude by more than 1 %
+     ingredient: A6: m_t = (1 - q) y_t + q m_(t-1), q = 0.5, the income investment responds to
+     null:       instantaneous income
+     domain:     none cited
+     numbers:    limit-cycle amplitude of income: A6 1.12823e-167, instantaneous 0.654361; shrink 100.00 %; largest eigenvalue modulus at the equilibrium: instantaneous 1.0296 (unstable, a cycle), A6 0.9811 (stable); q-grid (sensitivity only): q = 0.25: 0.3745; q = 0.5: 1.128e-167; q = 0.75: 0; robustness over the adjustment speed: alpha = 2.0: q = 0 1.1220, q = 0.5 0.2582; alpha = 3.0: q = 0 1.6480, q = 0.5 0.8334
+     T-G:        amplitude 1.128e-167 vs null 0.6544: differ
+     T-N:        no theorem cited for the memory variant
+     T-C:        amplitude shrinks by more than 1 % (100.00 %): holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    investment on remembered income shrinks the Kaldor cycle; at alpha = 1.5 the equilibrium's largest modulus goes from 1.0296 to 0.9811, so the cycle disappears (a Neimark-Sacker bifurcation is undone); at faster adjustment (alpha = 2.0, 3.0) the cycle survives and is smaller with memory (alpha = 2.0: q = 0 1.1220, q = 0.5 0.2582; alpha = 3.0: q = 0 1.6480, q = 0.5 0.8334); Kaldor models with lags and adaptive expectations are an existing literature that may contain this (not checked)
+     weakness:   one discrete-time Kaldor map with arctan investment; the parameters were chosen to put the memoryless equilibrium just past its Neimark-Sacker point (modulus above 1), where any stabilising term can remove the cycle; the robustness scan is printed for that reason; savings respond to current income, only investment to remembered income (one choice of where A6 acts)
+
+[ 3] (econ) Metzler inventory cycle with sales expectations by A6 (computed as: Metzler's pure inventory cycle in deviations, b = 0.8, production = expected sales + replacement of last period's unintended inventory depletion; damping = ln|lambda_max| per period, the real part of the continuous-time exponent)
+     source:     PRED70 P09-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the inventory cycle's damping increases with memory (more negative real part)
+     ingredient: A6: E_t = (1 - q) sales_(t-1) + q E_(t-1), q = 0.5
+     null:       naive expectations
+     domain:     Metzler: stability depends on the expectation coefficient
+     numbers:    real part ln|lambda|: A6 -0.111571775657, naive -0.111571775657, difference 0.00e+00; Metzler's closed form for the pure inventory cycle ln sqrt(b) = -0.111571775657; cycle period (periods): A6 19.852, naive 13.552; log decrement per cycle (not the Q's quantity): A6 2.2149, naive 1.5120; q-grid (sensitivity only): q = 0.25: real part -0.111572, det 0.800000; q = 0.5: real part -0.111572, det 0.800000; q = 0.75: real part -0.111572, det 0.800000
+     T-G:        real part -0.111572 vs null -0.111572: agree
+     T-N:        Metzler's ln sqrt(b) = -0.111572: agree
+     T-C:        real part more negative with memory by more than 1 % (difference 0.00e+00): fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    the determinant of the A6 Metzler map is b = 0.800000 at every q on the grid (the q terms cancel: b[q(2 - q) + (1 - q)^2] = b), so while the roots are complex (they are, at every q on the grid) their modulus is sqrt(b) and the damping per period is exactly unchanged by memory; memory lengthens the cycle from 13.552 to 19.852 periods, so the decay per cycle rises, but the Q names the real part
+     weakness:   one reading of Metzler's model (constant normal inventory, the pure inventory cycle); Metzler's own expectation coefficient is extrapolative, not the adaptive A6 mean, so H0's number is the naive case; a model with a desired inventory proportional to expected sales would give a different determinant
+     elegance:   The inventory cycle's decay per period is fixed by how much of their income people spend, whatever memory the firms use for their sales forecasts: memory changes the rhythm, not the fade.
+     child:      Shops that guess next month's sales from a blend of past months make the ups and downs slower, but the ups and downs fade away just as fast each month as before.
+
+[ 4] (econ) intertemporal choice: A6 geometric weights as the discount function (computed as: choices between 1 unit at delay tau and x units at tau + d; x in 1.05..9.95 step 0.1, d in 1..10 periods, front-end delay tau in 0..20; a pair shows a reversal when its preference changes sign across tau; hyperbolic D = 1/(1 + k t), k = 1.0 per period)
+     source:     PRED70 P09-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          P3 geometric weights predict time-consistent choices (no preference reversal), against hyperbolic discounting
+     ingredient: P3: D(t) = q^t, q = 0.5 per occasion (one period per occasion)
+     null:       hyperbolic discounting
+     domain:     exponential discounting is time-consistent (Strotz)
+     numbers:    pairs with a preference reversal: geometric (q = 0.5) 0 of 900 (ties excluded 0); hyperbolic 515 of 900 (ties 16); Strotz: 0; q-grid (sensitivity only): q = 0.25: 0 reversals; q = 0.5: 0 reversals; q = 0.75: 0 reversals
+     T-G:        reversals 0 vs null 515: differ
+     T-N:        Strotz's theorem gives 0 reversals for exponential discounting: agree (the domain has Q)
+     T-C:        no preference reversal under P3 weights (0 reversals): holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    P3's geometric age weights are exponential discounting with factor q per occasion; the ratio D(tau + d)/D(tau) = q^d does not depend on tau, so no choice reverses as the choice is pushed into the future (0 reversals against hyperbolic 515); this is the theorem of Strotz, which the domain has had since 1955
+     weakness:   the choice grid and the hyperbolic k are one choice each; P3 fixes only the form, so the row is the domain's theorem restated in CRR's terms
+     elegance:   If each step into the future counts the same fraction less than the step before, you never change your mind just because time has passed.
+     child:      Suppose every extra day of waiting makes a treat feel half as good. Then whether you pick the small treat now or the big one later, you will make the same choice today, tomorrow and next week.
+
+[ 5] (econ) a random-walk price with regime shifts: trading on A3 cuts of the price phase (computed as: log price a Gaussian random walk, zero drift, volatility switching between 0.01 and 0.03 with probability 1/250 per step; 8 seeds x 50000 steps; causal phase = the instrument's intrinsic phase at the last sample of a trailing 128-sample window, unwrapped over time; A3 cuts by antipodal_cuts; trades at the close after each cut is known, contrarian over the last occasion; zero cost)
+     source:     PRED70 P09-5 (declared at 8397478; forecast WRONG)
+     Q:          a strategy trading at antipodal cuts earns a positive mean return net of zero cost
+     ingredient: A3: antipodal_cuts on the causal intrinsic phase (the batched window phase equals intrinsic_phase on the window: yes)
+     null:       buy-and-hold
+     domain:     efficient markets: no predictable return on a random walk
+     numbers:    mean return per step: cut strategy 1.780e-05 (95 % CI -5.034e-05 to 8.593e-05, t = 0.51, 3334 cuts); buy-and-hold -3.402e-05 (CI -1.022e-04 to 3.412e-05); values at resolution passed to the harness (0 when the CI includes 0): cut 0.000e+00, buy-and-hold 0.000e+00, EMH 0.0; sensitivity (not deciding): drift regimes +-0.002 at volatility 0.02, cut strategy -1.422e-04 (CI -2.048e-04 to -7.963e-05)
+     T-G:        cut strategy 0.000e+00 vs buy-and-hold 0.000e+00 (at resolution): agree
+     T-N:        efficient markets give 0.0: agree
+     T-C:        a positive mean return, CI lower bound -5.034e-05 above 0: fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    on a martingale price any position chosen from the past earns zero in expectation, and the cut strategy's mean return is not resolved from zero (t = 0.51); the antipodal cut of a causal phase is one more rule chosen from the past; with drift regimes the contrarian cut rule loses resolvably, because regime drift rewards following, not reversing
+     weakness:   DEVIATION: 'positive' is read at one resolvable step (the 95 % CI of the mean excludes 0, R5), because on a random walk a bare positive point estimate is a coin toss; the raw means are printed; the harness receives the means at resolution (0 when the CI includes 0), because a relative tolerance on two noise-level zeros is undefined. The instrument's global intrinsic phase uses future samples and cannot be traded, so a trailing window is used (window length a choice); the regime shifts are in volatility, keeping the price a martingale as H0 states; the direction (contrarian) is one choice and momentum is its exact negative
+
+TALLY: 1 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 2 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED
