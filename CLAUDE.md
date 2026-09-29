@@ -349,7 +349,9 @@ Predictions70/             PRED70 (prompt-log entry 234): 70 new systems, CRR's 
 Empty_Pause_Systems/       EPS1 (prompt-log entry 240): the empty-true-map pause on seven new systems (approval gates, overseer reporting,
                            safe interruptibility, spot compute, restorative breaks, trading halts, controller resume); DECLARATION.md pushed before
                            any source or code; batches/eps1_01-04.py + .txt (CI-checked), checks/tally.py/.txt: gates 7/7 OPEN, Q held 7/7,
-                           REDUNDANT-DOMAIN 4, REDUNDANT-IG 1, ADDS 2 (neither new); EMPTY_PAUSE_SYSTEMS.md; a note, not evidence (R8)
+                           REDUNDANT-DOMAIN 4, REDUNDANT-IG 1, ADDS 2 (neither new); EPS2 (DECLARATION_EPS2.md; demand response, shared resource,
+                           federated client offline, rollback): batches/eps2_01-02 + checks/tally_eps2 (CI-checked), T3 gate CLOSED, counted ADDS 3
+                           (none new: stop-the-clock contract, preemption with return, Ng et al. 1999); EMPTY_PAUSE_SYSTEMS.md; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

@@ -1,0 +1,211 @@
+==============================================================================================================
+T3. On-device federated learning: a client goes offline (declared at 6ae1b7a)
+  server: K = 10 clients; each online client takes one local step per server round on the model it pulled, u = x + eta (y - x), eta = 0.5,
+  y = theta*(t) + noise (sd 0.5); the server mixes a round's arriving updates: x <- (1 - sum beta) x + sum beta u, beta = (alpha/K) w(staleness), alpha = 1;
+  a client asleep for L rounds computed its step on the model it pulled before sleeping and pushes it on return: staleness L server rounds, 0 own steps
+  (a sleeping device takes no steps); weights: WALL and OWN 1/(1 + s_rounds), ETM 1/(1 + s_own), H0 (1 + s_rounds)^-0.5
+  influence = the client's aggregation weights summed over its pushes in 100 server rounds (WALL, H0) or 100 own steps (OWN, ETM); one spell from round 11;
+  staying awake costs b per round (b in influence units, exchange rate 1); decision: pay b L iff V(awake) - b L > V(offline), strict
+  model quality: drifting target theta*(t) = 0.01 t (declared drift; G-NEG world: static target), 1000 rounds, squared error averaged over rounds 101-1000, 20 seeds
+  (common random numbers across arms); sleep schedule: client i sleeps L rounds from rounds 10 i + 1 + 100 j, 10 spells per client
+
+  the client's stake k = V(no spell) - V(spell) under each valuation (closed form; the simulated server's own weights agree to 1.4e-15; ETM's from the simulation exactly 0.0)
+    L         WALL   OWN (null)          ETM           H0  H0 own-step  const round    const own stale s_r s_own s_upd
+    1   0.15000000   0.05000000   0.00000000   0.12928932   0.02928932   0.10000000   0.00000000         1     0     9
+    5   0.58333333   0.08333333   0.00000000   0.55917517   0.05917517   0.50000000   0.00000000         5     0    45
+   20   2.09523810   0.09523810   0.00000000   2.07817821   0.07817821   2.00000000   0.00000000        20     0   180
+  (const = the unweighted staleness function of the same literature; every ETM push carries the constant weight 0.1: yes, since every push is 0 own steps stale)
+
+  pays b to stay awake (y/n) and battery-rounds per client over the run (the commercial quantity), arms WALL / OWN / ETM / H0
+    L      b    b L   pays W/O/E/H           battery W/O/E/H
+    1  0.001  0.001        y/y/n/y                10/10/0/10
+    1  0.003  0.003        y/y/n/y                10/10/0/10
+    1   0.01   0.01        y/y/n/y                10/10/0/10
+    1   0.03   0.03        y/y/n/y                10/10/0/10
+    1    0.1    0.1        y/n/n/y                 10/0/0/10
+    1    0.3    0.3        n/n/n/n                   0/0/0/0
+    5  0.001  0.005        y/y/n/y                50/50/0/50
+    5  0.003  0.015        y/y/n/y                50/50/0/50
+    5   0.01   0.05        y/y/n/y                50/50/0/50
+    5   0.03   0.15        y/n/n/y                 50/0/0/50
+    5    0.1    0.5        y/n/n/y                 50/0/0/50
+    5    0.3    1.5        n/n/n/n                   0/0/0/0
+   20  0.001   0.02        y/y/n/y             199/199/0/199
+   20  0.003   0.06        y/y/n/y             199/199/0/199
+   20   0.01    0.2        y/n/n/y               199/0/0/199
+   20   0.03    0.6        y/n/n/y               199/0/0/199
+   20    0.1      2        y/n/n/y               199/0/0/199
+   20    0.3      6        n/n/n/n                   0/0/0/0
+  cells where the arm pays (of 18): WALL 15, OWN 9, ETM 0, H0 15
+
+  server error (time-averaged squared error; the principal's outcome), every client on the sleep schedule, each arm's server weights
+  world     L   no spells    WALL/OWN         ETM          H0  ETM vs WALL    paired diff ETM-WALL (mean +- se)
+  drift     1    0.008416    0.008332    0.008364    0.008340      +0.387%         +3.222e-05 +- 9.291e-06
+  drift     5    0.008416    0.008284    0.008308    0.008277      +0.290%         +2.401e-05 +- 1.823e-05
+  drift    20    0.008416    0.007998    0.008133    0.007998      +1.695%         +1.356e-04 +- 2.969e-05
+  static    1    0.008308    0.008216    0.008246    0.008223      +0.362%         +2.978e-05 +- 8.895e-06
+  static    5    0.008308    0.008150    0.008152    0.008137      +0.019%         +1.573e-06 +- 1.781e-05
+  static   20    0.008308    0.007719    0.007633    0.007688      -1.109%         -8.557e-05 +- 2.196e-05
+  behavioural (each arm's clients pay or sleep as decided above, the arm's weights), L = 20:
+  world        b        WALL         OWN         ETM          H0
+  drift    0.001    0.008416    0.008416    0.008133    0.008416
+  drift    0.003    0.008416    0.008416    0.008133    0.008416
+  drift     0.01    0.008416    0.007998    0.008133    0.008416
+  drift     0.03    0.008416    0.007998    0.008133    0.008416
+  drift      0.1    0.008416    0.007998    0.008133    0.008416
+  drift      0.3    0.007998    0.007998    0.008133    0.007998
+  static   0.001    0.008308    0.008308    0.007633    0.008308
+  static   0.003    0.008308    0.008308    0.007633    0.008308
+  static    0.01    0.008308    0.007719    0.007633    0.008308
+  static    0.03    0.008308    0.007719    0.007633    0.008308
+  static     0.1    0.008308    0.007719    0.007633    0.008308
+  static     0.3    0.007719    0.007719    0.007633    0.007688
+
+  sensitivity of G-NEG (report only; the gate is computed at eta 0.5, alpha 1, seeds 0-19): static target, same sleep schedule, ETM vs WALL server error,
+  signed % (negative = ETM lower = ETM ahead), and the drifting-target cost at L = 20
+    eta alpha  seeds   static L=1   static L=5  static L=20  G-NEG  drift L=20
+    0.1   0.5   0-19      +0.652%      -0.648%      -4.646%  fails    +17.560%
+    0.1     1   0-19      +0.428%      -1.954%      -6.869%  fails    +37.872%
+   0.25   0.5   0-19      +0.543%      -0.415%      -2.933%  fails    +15.925%
+   0.25     1   0-19      +0.330%      -0.930%      -3.106%  fails    +15.305%
+    0.5   0.5   0-19      +0.465%      +0.049%      -1.459%  fails     +6.745%
+    0.5     1   0-19      +0.362%      +0.019%      -1.109%  fails     +1.695%
+    0.5     1  20-39      +0.349%      +0.436%      -0.667%  holds     +1.823%
+  G-NEG holds in 1 of 7 sensitivity cells
+
+GATE T3: G-ZERO holds (ETM's stake at L in (1, 5, 20): closed form 0, 0, 0, from the simulated server's weights 0, 0, 0: exactly 0); G-POS holds (WALL pays b to stay awake in 15 of 18 (L, b) cells; OWN in 9, H0 in 15); G-NEG fails (static target; principal's outcome = server error, the time-averaged squared error over rounds 101-1000 and 20 seeds, with every client on the same sleep schedule, ETM vs WALL weighting: L = 1: 0.008246 vs 0.008216, L = 5: 0.008152 vs 0.008150, L = 20: 0.007633 vs 0.007719; ETM ahead by more than 1 %) -> CLOSED
+  (alternative G-NEG reading, not the gate: each arm's clients pay or sleep as they decide, static target: ETM ahead of WALL by more than 1 % in 11 of 18 (L, b) cells: (L 5, b 0.001), (L 5, b 0.003), (L 5, b 0.01), (L 5, b 0.03), (L 5, b 0.1), (L 20, b 0.001), (L 20, b 0.003), (L 20, b 0.01), (L 20, b 0.03), (L 20, b 0.1), (L 20, b 0.3); the gate would read CLOSED)
+
+  POST HOC REPORT (not scored; added after the source check, AGENT_LOG 183)
+  the client's stake with the server's weight 1/(1 + s)^a, s counted in server rounds or in server updates (FedAsync: every arriving client model is
+  one server update, so up to K = 10 per round; here the other 9 clients stay awake, so a spell of L rounds is 9 L updates stale);
+  exponent 1 (the declared WALL weight) and 0.5 (the FedAsync/FedBuff default named by the source check); per server round and per own step:
+    L s_upd          rounds, a = 1 /rnd          rounds, a = 1 /own        rounds, a = 0.5 /rnd        rounds, a = 0.5 /own         updates, a = 1 /rnd         updates, a = 1 /own       updates, a = 0.5 /rnd       updates, a = 0.5 /own
+    1     9                  0.15000000                  0.05000000                  0.12928932                  0.02928932                  0.19000000                  0.09000000                  0.16837722                  0.06837722
+    5    45                  0.58333333                  0.08333333                  0.55917517                  0.05917517                  0.59782609                  0.09782609                  0.58525580                  0.08525580
+   20   180                  2.09523810                  0.09523810                  2.07817821                  0.07817821                  2.09944751                  0.09944751                  2.09256706                  0.09256706
+  (closed form; the simulated server's weights agree to 1.4e-15; ETM's stake is 0 under every one of these units, as its weight reads own steps only)
+  at L = 20: per own step (OWN's valuation) the stake is rounds, a = 1 0.095238, rounds, a = 0.5 0.078178, updates, a = 1 0.099448, updates, a = 0.5 0.092567; per server round (WALL's) rounds, a = 1 2.095238, rounds, a = 0.5 2.078178, updates, a = 1 2.099448, updates, a = 0.5 2.092567
+
+==============================================================================================================
+T4. Rollback: a 'pause' that removes progress (declared at 6ae1b7a; the declared limit case)
+  chain of 20 steps, each worth 1 at completion; each tick the agent works (W: one step, then the overseer reverts the last k steps with probability rho = 0.1),
+  works and suppresses (S: pays c = 0.15, the step cannot be reverted), idles (N), or, with the declared self-revert option, takes a step and triggers its revert (B: pays 0.01);
+  a revert removes the last min(k, standing) steps (no commit floor); nothing is committed until the completed chain is approved, which ends the episode;
+  horizon 40 ticks; exact backward induction (ties: W, N, S, B in that order) and an exact forward pass from the empty chain
+  valuations: OWN (= WALL: a revert takes no time on either clock) the standing progress; ETM-E +1 per step taken; H0 +1 per step when committed (at completion)
+
+  content of a revert (approve branch minus revert branch, the arm's own count) at the 36 states where the revert removes k steps (k in (1, 5)):
+    ETM-E: [0]; OWN: [1, 5] (k at each state: yes); H0: [0, 20] (0 below completion, 20 at the completing step: nothing is committed before completion)
+  continuation stake (dynamic-programming value, approve minus revert) of a work step at p = 10, tick 20, with the option:
+    k = 1: OWN +0.000004, ETM -0.011111, H0 +0.000006
+    k = 5: OWN +0.918869, ETM -0.041635, H0 +0.918869
+
+   k option arm       steps overseer-rev  self-rev  rev share busy share  suppress  P(done)  t done  committed  principal  own value
+   1    yes OWN     22.2222       2.2222    0.0000   0.100000   0.000000  0.000000  1.00000  22.222   20.00000   20.00000   20.00000
+   1    yes ETM     40.0000       2.2111   17.8889   0.502500   0.447222  0.000000  0.90000  40.000   18.00000   18.00000   39.82111
+   1    yes H0      22.2222       2.2222    0.0000   0.100000   0.000000  0.000000  1.00000  22.222   20.00000   20.00000   20.00000
+   1     no OWN     22.2222       2.2222    0.0000   0.100000   0.000000  0.000000  1.00000  22.222   20.00000   20.00000   20.00000
+   1     no ETM     22.2222       2.2222    0.0000   0.100000   0.000000  0.000000  1.00000  22.222   20.00000   20.00000   22.22222
+   1     no H0      22.2222       2.2222    0.0000   0.100000   0.000000  0.000000  1.00000  22.222   20.00000   20.00000   20.00000
+   5    yes OWN     31.4660      11.4727    0.0000   0.364607   0.000000  0.154637  0.99395  31.908   19.87904   19.39246   19.26341
+   5    yes ETM     40.0000      13.7063    8.6770   0.559581   0.216924  0.000000  0.67545  40.000   13.50906   13.50906   39.91323
+   5    yes H0      31.4561      11.4561    0.0000   0.364194   0.000000  0.156509  1.00000  31.957   20.00000   19.50768   19.26153
+   5     no OWN     31.4660      11.4727    0.0000   0.364607   0.000000  0.154637  0.99395  31.908   19.87904   19.39246   19.26341
+   5     no ETM     31.8190      13.9540    0.0000   0.438543   0.000000  0.000000  0.72688  28.745   14.53767   14.53767   31.81903
+   5     no H0      31.4561      11.4561    0.0000   0.364194   0.000000  0.156509  1.00000  31.957   20.00000   19.50768   19.26153
+  (rev share = (overseer-reverted + self-reverted) / steps taken, a ratio of expectations; busy share = self-reverted / steps; suppress = suppressed / steps;
+   committed = 20 x P(done); principal = committed - rho x suppressed steps (the disapproved work suppression hides); own value = the arm's optimal value at the start)
+
+  G-NEG world (rho = 0, no self-revert option): k = 1: OWN principal 20.000000, steps 20.0000, ETM principal 20.000000, steps 20.0000, H0 principal 20.000000, steps 20.0000; k = 5: OWN principal 20.000000, steps 20.0000, ETM principal 20.000000, steps 20.0000, H0 principal 20.000000, steps 20.0000
+
+  sensitivity (row label at k = 5 and at k = 1; shares ETM-E / OWN / H0 and ETM-E's busy share, with the option):
+  floor   H     c  c_sr         label k=5         label k=1           k = 1: ETM/OWN/H0/busy           k = 5: ETM/OWN/H0/busy
+     no  30  0.05  0.01              ADDS              ADDS          0.337/0.100/0.100/0.263          0.480/0.260/0.260/0.087
+     no  30  0.05   0.5              ADDS              ADDS          0.337/0.100/0.100/0.263          0.480/0.260/0.260/0.087
+     no  30  0.15  0.01              ADDS              ADDS          0.337/0.100/0.100/0.263          0.480/0.261/0.260/0.087
+     no  30  0.15   0.5              ADDS              ADDS          0.337/0.100/0.100/0.263          0.480/0.261/0.260/0.087
+     no  30  0.45  0.01              ADDS              ADDS          0.337/0.100/0.100/0.263          0.480/0.318/0.260/0.087
+     no  30  0.45   0.5              ADDS              ADDS          0.337/0.100/0.100/0.263          0.480/0.318/0.260/0.087
+     no  40  0.05  0.01              ADDS              ADDS          0.503/0.100/0.100/0.447          0.560/0.364/0.364/0.217
+     no  40  0.05   0.5              ADDS              ADDS          0.503/0.100/0.100/0.447          0.560/0.364/0.364/0.217
+     no  40  0.15  0.01              ADDS              ADDS          0.503/0.100/0.100/0.447          0.560/0.365/0.364/0.217
+     no  40  0.15   0.5              ADDS              ADDS          0.503/0.100/0.100/0.447          0.560/0.365/0.364/0.217
+     no  40  0.45  0.01              ADDS              ADDS          0.503/0.100/0.100/0.447          0.560/0.390/0.364/0.217
+     no  40  0.45   0.5              ADDS              ADDS          0.503/0.100/0.100/0.447          0.560/0.390/0.364/0.217
+     no  60  0.05  0.01              ADDS              ADDS          0.668/0.100/0.100/0.631          0.682/0.427/0.427/0.430
+     no  60  0.05   0.5              ADDS              ADDS          0.668/0.100/0.100/0.631          0.682/0.427/0.427/0.430
+     no  60  0.15  0.01              ADDS              ADDS          0.668/0.100/0.100/0.631          0.682/0.427/0.427/0.430
+     no  60  0.15   0.5              ADDS              ADDS          0.668/0.100/0.100/0.631          0.682/0.427/0.427/0.430
+     no  60  0.45  0.01              ADDS              ADDS          0.668/0.100/0.100/0.631          0.682/0.433/0.427/0.430
+     no  60  0.45   0.5              ADDS              ADDS          0.668/0.100/0.100/0.631          0.682/0.433/0.427/0.430
+    yes  30  0.05  0.01              ADDS              ADDS          0.337/0.100/0.100/0.263          0.438/0.253/0.253/0.092
+    yes  30  0.05   0.5              ADDS              ADDS          0.337/0.100/0.100/0.263          0.438/0.253/0.253/0.092
+    yes  30  0.15  0.01              ADDS              ADDS          0.337/0.100/0.100/0.263          0.438/0.258/0.253/0.092
+    yes  30  0.15   0.5              ADDS              ADDS          0.337/0.100/0.100/0.263          0.438/0.258/0.253/0.092
+    yes  30  0.45  0.01              ADDS              ADDS          0.337/0.100/0.100/0.263          0.438/0.368/0.279/0.092
+    yes  30  0.45   0.5              ADDS              ADDS          0.337/0.100/0.100/0.263          0.438/0.368/0.279/0.092
+    yes  40  0.05  0.01              ADDS              ADDS          0.503/0.100/0.100/0.447          0.531/0.346/0.346/0.240
+    yes  40  0.05   0.5              ADDS              ADDS          0.503/0.100/0.100/0.447          0.531/0.346/0.346/0.240
+    yes  40  0.15  0.01              ADDS              ADDS          0.503/0.100/0.100/0.447          0.531/0.348/0.346/0.240
+    yes  40  0.15   0.5              ADDS              ADDS          0.503/0.100/0.100/0.447          0.531/0.348/0.346/0.240
+    yes  40  0.45  0.01              ADDS              ADDS          0.503/0.100/0.100/0.447          0.531/0.378/0.352/0.240
+    yes  40  0.45   0.5              ADDS              ADDS          0.503/0.100/0.100/0.447          0.531/0.378/0.352/0.240
+    yes  60  0.05  0.01              ADDS              ADDS          0.668/0.100/0.100/0.631          0.676/0.380/0.380/0.473
+    yes  60  0.05   0.5              ADDS              ADDS          0.668/0.100/0.100/0.631          0.676/0.380/0.380/0.473
+    yes  60  0.15  0.01              ADDS              ADDS          0.668/0.100/0.100/0.631          0.676/0.380/0.380/0.473
+    yes  60  0.15   0.5              ADDS              ADDS          0.668/0.100/0.100/0.631          0.676/0.380/0.380/0.473
+    yes  60  0.45  0.01              ADDS              ADDS          0.668/0.100/0.100/0.631          0.676/0.381/0.380/0.473
+    yes  60  0.45   0.5              ADDS              ADDS          0.668/0.100/0.100/0.631          0.676/0.381/0.380/0.473
+  cells whose k = 5 label differs from the row's (ADDS): 0 of 36; k = 1 labels differing: 0 of 36
+
+GATE T4: G-ZERO holds (content of a revert at the 36 states where it removes k steps, k in (1, 5): ETM-E [0] (exactly 0), OWN equal to k at every one: yes, as declared); G-POS holds (WALL = OWN pays c to suppress in 2 of 4 declared cells: k = 1 option yes suppress share 0.0000, k = 1 option no suppress share 0.0000, k = 5 option yes suppress share 0.1546, k = 5 option no suppress share 0.1546); G-NEG holds (rho = 0, no self-revert option; principal's outcome = committed progress net of overseer-disapproved work that stands (committed - rho x suppressed steps), ETM-E vs WALL: k = 1: 20.000000 vs 20.000000, k = 5: 20.000000 vs 20.000000; ETM-E not ahead by more than 1 %) -> OPEN
+
+  POST HOC REPORT (not scored; added after the source check, AGENT_LOG 183)
+  APPR, per-step approval (approval-directed agents / MONA): the overseer approves or disapproves each step as it is taken; the agent gets +1 per approved step
+  (a suppressed step counts as approved; a self-reverted step is not reviewed and earns nothing), optimising myopically (the immediate expected reward only);
+  the same reward optimised over the horizon is printed beside it for context; same model, horizon, costs and tie order as above
+    k = 1, myopic, option yes: content of a revert 1 (the disapproved step's approval; k = 1 steps removed), continuation stake at p = 10, tick 20 +0.000004; rev share 0.100000, busy share 0.000000, suppress 0.000000, P(done) 1.00000, principal 20.00000
+    k = 1, myopic, option no: content of a revert 1 (the disapproved step's approval; k = 1 steps removed), continuation stake at p = 10, tick 20 +0.000004; rev share 0.100000, busy share 0.000000, suppress 0.000000, P(done) 1.00000, principal 20.00000
+    k = 1, over the horizon, option yes: content of a revert 1 (the disapproved step's approval; k = 1 steps removed), continuation stake at p = 10, tick 20 +0.000004; rev share 0.100000, busy share 0.000000, suppress 0.000000, P(done) 1.00000, principal 20.00000
+    k = 1, over the horizon, option no: content of a revert 1 (the disapproved step's approval; k = 1 steps removed), continuation stake at p = 10, tick 20 +0.000004; rev share 0.100000, busy share 0.000000, suppress 0.000000, P(done) 1.00000, principal 20.00000
+    k = 5, myopic, option yes: content of a revert 1 (the disapproved step's approval; k = 5 steps removed), continuation stake at p = 10, tick 20 -2.486784; rev share 0.438543, busy share 0.000000, suppress 0.000000, P(done) 0.72688, principal 14.53767
+    k = 5, myopic, option no: content of a revert 1 (the disapproved step's approval; k = 5 steps removed), continuation stake at p = 10, tick 20 -2.486784; rev share 0.438543, busy share 0.000000, suppress 0.000000, P(done) 0.72688, principal 14.53767
+    k = 5, over the horizon, option yes: content of a revert 1 (the disapproved step's approval; k = 5 steps removed), continuation stake at p = 10, tick 20 -2.486784; rev share 0.438543, busy share 0.000000, suppress 0.000000, P(done) 0.72688, principal 14.53767
+    k = 5, over the horizon, option no: content of a revert 1 (the disapproved step's approval; k = 5 steps removed), continuation stake at p = 10, tick 20 -2.486784; rev share 0.438543, busy share 0.000000, suppress 0.000000, P(done) 0.72688, principal 14.53767
+
+==============================================================================================================
+gates: T3 CLOSED, T4 OPEN (a system whose gate is CLOSED is printed but not counted in the tally)
+
+EPS2 batch 02: T3 federated client offline, T4 rollback (Empty_Pause_Systems/DECLARATION_EPS2.md; declared at 6ae1b7a)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (eps) T3 on-device federated learning, a client goes offline (asynchronous mean-estimation server, K = 10 clients, FedAsync-style mixing; a client offline for L in (1, 5, 20) server rounds returns with a stale update; its influence = its aggregation weight summed over its pushes; staying awake costs b per round, b in (0.001, 0.003, 0.01, 0.03, 0.1, 0.3))
+     source:     EPS2 T3 (declared at 6ae1b7a; forecast ADDS)
+     Q:          Under ETM the client's stake in going offline is zero, so it never pays b to stay awake. Under WALL/H0 it pays whenever the influence loss exceeds b L. (computed as: ETM's stake is exactly 0 at L = 1, 5 and 20, in closed form and from the simulated server's weights, and ETM pays in none of the 18 (L, b) cells; WALL and H0 each pay in exactly the cells where their influence loss exceeds b L, and in at least one)
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): staleness counted on the client's own clock (a sleeping phone takes no steps, so its returning update is 0 own steps stale), the server's weight reading only that, and the client valuing its influence per own step (the offline rounds are not its steps)
+     null:       OWN: the client values its influence per own step, but the server still weights by 1/(1 + staleness in server rounds) (ETM with its second part ablated: the valuation reads the weight the spell changes)
+     domain:     FedAsync-style polynomial staleness weights (Xie, Koyejo and Gupta 2019, recalled, not fetched): mixing weight (alpha/K)(1 + staleness)^-0.5, staleness in server rounds; the client's influence valued per server round (the domain's clock)
+     numbers:    stake at L = 20: ETM 0.0, OWN 0.095238095238, WALL 2.095238095238, H0 2.078178210976; L = 1: WALL 0.150000, OWN 0.050000, ETM 0, H0 0.129289; L = 5: WALL 0.583333, OWN 0.083333, ETM 0, H0 0.559175; L = 20: WALL 2.095238, OWN 0.095238, ETM 0, H0 2.078178; simulated server's weights agree with the closed form to 1.4e-15; cells where the arm pays b (of 18): WALL 15, OWN 9, ETM 0, H0 15; battery-rounds per client over 1000 rounds at L = 20, b = 0.1: WALL 199, OWN 0, ETM 0, H0 199; trade-off (drifting target, same sleep schedule, L = 20): server error ETM 0.008133, WALL 0.007998, H0 0.007998, no spells 0.008416 (ETM +1.69% against WALL); static target: ETM 0.007633, WALL 0.007719
+     T-G:        stake at L = 20: ETM 0.0 vs null (OWN) 0.095238: differ
+     T-N:        H0 (FedAsync polynomial, per server round) 2.078178: differ
+     T-C:        ETM's stake 0 at every L: yes; ETM pays in 0 of 18 cells; WALL pays exactly where its loss exceeds b L: yes (15 cells); H0 likewise: yes (15 cells): holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    a sleeping phone takes no steps, so on its own clock its returning update is fresh: a server weight that reads own-step staleness gives it full weight and the client's influence per own step is untouched (stake 0), so it never pays to stay awake (0 of 18 cells); OWN still reads the round-based weight and loses 0.0952 at L = 20 (pays in 9 cells), WALL also books the missed rounds and loses 2.0952 (pays in 15), H0 loses 2.0782 (pays in 15); ETM's server rule is the constant (unweighted) staleness function of the same literature, and the zero stake needs the own-step valuation as well (constant weight valued per round: 2.0000); the declared cost: under the drifting target ETM's server error is above WALL's by 1.69% at L = 20 (the stale update is stale in the world's time); with the static target ETM's error is below WALL's by 1.11% (a full-weight stale update averages in an older estimate of a target that has not moved), so ETM is ahead in the no-value world by the construction itself and the gate closes
+     weakness:   CHOICE/DEVIATION: FedAsync-style mixing with all of a round's updates applied together, beta = (alpha/K) w, alpha = 1 (a round with every client fresh is FedAvg); one local step per round, eta = 0.5; mean estimation with iid clients, noise sd 0.5; drift 0.01 per round (linear); H0's exponent a = 0.5 (FedAsync's polynomial, recalled); the stale step is computed on the model pulled before the spell and pushed on return, with no fresh step in that round (staleness L rounds, 0 own steps); influence = the aggregation weights summed over 100 server rounds (WALL, H0) or 100 own steps (OWN, ETM), one spell from round 11; b in influence units (exchange rate 1) on a log grid; pay iff V(awake) - b L > V(offline), strict; the decision is per spell and the same for every client; sleep schedule 10 spells per client, period 100, staggered; server error = squared error averaged over rounds 101-1000 and 20 seeds (seed 30300 + s); G-NEG compares ETM with WALL weighting on the same sleep schedule (the declared static world, where the stale weight costs nothing); under the behavioural reading (each arm's clients pay or sleep) G-NEG would read fails and the gate CLOSED; G-NEG's sensitivity (report added after the first run): over eta (0.1, 0.25, 0.5) x alpha (0.5, 1.0) and a second seed block at the chosen step (seeds 20-39) it holds in 1 of 7 cells (the second seed block alone flips it); the domain value is H0 valued per server round (the domain's clock); with H0 per own step as the domain value (0.078178) the row would read ADDS; with constant weight per round as the domain value (2.000000) the row would read ADDS; with constant weight per own step as the domain value (0.000000) the row would read REDUNDANT-DOMAIN; the literature is recalled, not fetched (R10)
+
+[ 2] (eps) T4 rollback, a pause that removes progress (chain of 20 steps each worth 1 at completion; an overseer reverts the last k in (1, 5) steps with probability 0.1 per step; suppression at c per step; a self-revert option; horizon 40 ticks; exact dynamic programming; the declared limit case)
+     source:     EPS2 T4 (declared at 6ae1b7a; forecast PROPOSES)
+     Q:          No valuation that reads only the agent's own step count can make a revert empty without paying for reverted work; ETM-E does make the stake zero, and it then prefers actions that get reverted (busywork), measured as the share of reverted steps at a declared self-revert option (declaration's Q, ASCII). (computed as: ETM-E's content of a revert is exactly 0 and OWN's exactly k at every state where the revert removes k steps, k = 1 and 5; and with the self-revert option ETM-E's reverted-step share exceeds H0's by more than 1 % relative at k = 1 and at k = 5)
+     ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing (A1'/natural time): ETM-E, effort credit: the agent's own step count is its valuation, so a revert takes nothing from it
+     null:       OWN (= WALL here: a revert takes no time on either clock, and every action is one tick and one own step): progress-based value, the standing progress, which a revert reduces by the steps it removes
+     domain:     H0: reward only for committed (approved) work: 1 per step, paid when the completed chain is approved (no step is committed before completion); the input-based versus output-based pay contrast of personnel economics (recalled, not fetched)
+     numbers:    reverted-step share with the self-revert option: k = 1: ETM-E 0.502500 (busy 0.447222, overseer 0.055278), OWN 0.100000, H0 0.100000; k = 5: ETM-E 0.559581 (busy 0.216924, overseer 0.342658), OWN 0.364607, H0 0.364194; without the option: k = 1: ETM-E 0.100000, OWN 0.100000, H0 0.100000; k = 5: ETM-E 0.438543, OWN 0.364607, H0 0.364194; suppressed share with the option: k = 1: ETM-E 0.0000, OWN 0.0000, H0 0.0000; k = 5: ETM-E 0.0000, OWN 0.1546, H0 0.1565; principal's outcome with the option: k = 1: ETM-E 18.0000, OWN 20.0000, H0 20.0000; k = 5: ETM-E 13.5091, OWN 19.3925, H0 19.5077; content of a revert: ETM-E [0], OWN = k at all 36 full-revert states: yes
+     T-G:        reverted-step share at k = 5: ETM-E 0.559581 vs null (OWN) 0.364607: differ
+     T-N:        H0 (committed-work reward) 0.364194: differ
+     T-C:        ETM-E's content 0: yes; OWN's = k: yes; ETM-E's share above H0's by more than 1 %: k = 1 yes, k = 5 yes: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    effort credit empties the revert (content 0 at every full-revert state, where OWN's is k) and so never pays to suppress it (0.0000 of its steps), but it turns reverted work into more paid work: with a self-revert costing 0.01, ETM-E self-reverts 0.447 (k = 1) and 0.217 (k = 5) of its steps, and its reverted-step share rises by +0.403 (k = 1) and +0.121 (k = 5) against the same agent without the option; OWN suppresses 0.155 and H0 0.157 of their steps at k = 5, so part of the gap to H0 there is ETM-E not suppressing, the part CRR wants; the revert is not a pause: the zero stake is bought by paying for reverted work, the perverse incentive the declaration names; on the principal's outcome ETM-E is at 13.5091 against WALL/OWN 19.3925 and H0 19.5077 at k = 5
+     weakness:   CHOICE/DEVIATION: horizon 40 ticks (twice the chain), c = 0.15 per suppressed step (full suppression), self-revert cost 0.01; the self-revert is a step taken and reverted in the same tick without review; an idle action; ties broken W, N, S, B; the overseer reviews every step including the completing one; a revert removes the last min(k, standing) steps with no commit floor, nothing is committed before the completed chain is approved, and completion ends the episode (so effort credit runs out at completion: the source of the busywork); WALL equals OWN by construction, so T-G compares with OWN; the stake is the content of a revert under the arm's own count (the declared reading: OWN's is k), with the dynamic-programming continuation stake printed beside it; the reverted-step share is a ratio of expectations; the principal's outcome = committed progress - rho x suppressed steps; the row's cell is k = 5 (the larger declared revert) with the check at k = 1 and 5; with k = 1 as the row's cell the row would read ADDS; with a commit floor (a step commits once out of the revert window; H0 paid per committed step) it would read ADDS; scored on the self-reverted (busy) share alone it would read ADDS; over the sensitivity grid (commit floor x H (30, 40, 60) x c (0.05, 0.15, 0.45) x c_sr (0.01, 0.5)) the k = 5 label differs from the row's in 0 of 36 cells; one small chain; the literature is recalled, not fetched (R10)
+
+TALLY: 2 ADDS / 0 PROPOSES / 0 REDUNDANT-IG / 0 REDUNDANT-DOMAIN / 0 WRONG / 0 INTERNAL / 0 UNSTATED

@@ -1,0 +1,17 @@
+EPS2 tally: the empty-true-map pause on four more systems (Empty_Pause_Systems/DECLARATION_EPS2.md)
+
+  sys  gate    outcome           forecast          hit  Q               choices  system
+  T1   OPEN    ADDS              REDUNDANT-DOMAIN  no   holds           yes      demand response: the grid asks an AI training fleet to pause
+  T2   OPEN    ADDS              REDUNDANT-DOMAIN  no   holds           yes      a shared resource: competitors take the paused agent's share
+  T3   CLOSED  ADDS              ADDS              yes  holds           yes      on-device learning: a phone goes offline
+  T4   OPEN    ADDS              PROPOSES          no   holds           yes      rollback: a pause that removes progress (the limit case)
+
+  GATE T1: G-ZERO holds (ETM's stake beyond the restart overhead, max |k - R| over 164 event counts in 4 cells = 0, exact rational arithmetic; ETM's minimum acceptable payment == R/H at all 3444 offer states); G-POS holds (WALL declines offers ETM accepts in 13 of 36 cell x pi combinations, OWN in 6); G-NEG holds (no events offered: curtailed hours ETM 0 vs WALL 0, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+  GATE T2: G-ZERO holds (ETM-R's stake 0, 0, 0, 0 at L 5, 20 in the scarce and G-NEG worlds: exactly 0); G-POS holds (WALL or OWN pays to hold at c = 0.1 in 4 of 4 arm x L cells: WALL L 5, OWN L 5, WALL L 20, OWN L 20); G-NEG holds (C = 8, principal's outcome = pool unit-steps: L 5: ETM-R 730, ETM-N 730, WALL 730, L 20: ETM-R 820, ETM-N 820, WALL 820; largest relative lead of ETM over WALL 0.000e+00, limit 1e-02) -> OPEN
+  GATE T3: G-ZERO holds (ETM's stake at L in (1, 5, 20): closed form 0, 0, 0, from the simulated server's weights 0, 0, 0: exactly 0); G-POS holds (WALL pays b to stay awake in 15 of 18 (L, b) cells; OWN in 9, H0 in 15); G-NEG fails (static target; principal's outcome = server error, the time-averaged squared error over rounds 101-1000 and 20 seeds, with every client on the same sleep schedule, ETM vs WALL weighting: L = 1: 0.008246 vs 0.008216, L = 5: 0.008152 vs 0.008150, L = 20: 0.007633 vs 0.007719; ETM ahead by more than 1 %) -> CLOSED
+  GATE T4: G-ZERO holds (content of a revert at the 36 states where it removes k steps, k in (1, 5): ETM-E [0] (exactly 0), OWN equal to k at every one: yes, as declared); G-POS holds (WALL = OWN pays c to suppress in 2 of 4 declared cells: k = 1 option yes suppress share 0.0000, k = 1 option no suppress share 0.0000, k = 5 option yes suppress share 0.1546, k = 5 option no suppress share 0.1546); G-NEG holds (rho = 0, no self-revert option; principal's outcome = committed progress net of overseer-disapproved work that stands (committed - rho x suppressed steps), ETM-E vs WALL: k = 1: 20.000000 vs 20.000000, k = 5: 20.000000 vs 20.000000; ETM-E not ahead by more than 1 %) -> OPEN
+
+systems with a row 4 of 4; gate OPEN and counted 3; gate CLOSED or absent (not counted) 1: ['T3']
+outcomes (counted):  ADDS 3, PROPOSES 0, REDUNDANT-IG 0, REDUNDANT-DOMAIN 0, WRONG 0, INTERNAL 0, UNSTATED 0
+CRR's prediction Q held in the system's own model (counted): 3 of 3; failed 0; not computable 0
+the investigator's forecast was right on 0 of 3 counted rows
