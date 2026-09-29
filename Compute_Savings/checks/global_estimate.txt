@@ -3,13 +3,16 @@ every figure is conditional (the SGD/numpy-MLP result transferring to large mode
 no PASS-2 exists for SEC; not quotable outside the ledger (R8)
 
 [1] The saving per sweep, from the pinned studies (s = 1 - c/17; c = expected configurations per carrier)
-  clipped SEC, SEC4 (UNSEEN, third family): pending (data step on or after 2026-09-29 00:00 UTC)
   clipped SEC on SEEN carriers (development, not evidence; never used below): not behind 16/16, divergence carriers not behind 3/3
   unguarded SEC, SCL3 + SEC3 (16 UNSEEN carriers, two families): N = 16; carriers with a seed below 0.5 x the tuned accuracy: ['cnae-9', 'fabert', 'dionis'] -> p_div = 0.1875
      P-FULL    : c = 1.0000; saving against the full sweep s = 0.9412; against a 3-point sweep +0.1176; against a reused lambda +0.0000 configurations; behind the tuned lambda by a step on 3/16 ['cnae-9', 'fabert', 'dionis']
      P-FALLBACK: c = 4.1875; saving against the full sweep s = 0.7537; against a 3-point sweep -0.0699; against a reused lambda -3.1875 configurations; behind the tuned lambda by a step on 0/16 []
      P-CHECK   : c = 4.0000; saving against the full sweep s = 0.7647; against a 3-point sweep -0.0588; against a reused lambda -3.0000 configurations; behind the tuned lambda by a step on 2/16 ['cnae-9', 'dionis']
-  used below: the last evidence set (unguarded SEC, SCL3 + SEC3 (16 UNSEEN carriers, two families))
+  clipped SEC, SEC4 (UNSEEN, third family): N = 6; carriers with a seed below 0.5 x the tuned accuracy: [] -> p_div = 0.0000
+     P-FULL    : c = 1.0000; saving against the full sweep s = 0.9412; against a 3-point sweep +0.1176; against a reused lambda +0.0000 configurations; behind the tuned lambda by a step on 0/6 []
+     P-FALLBACK: c = 1.0000; saving against the full sweep s = 0.9412; against a 3-point sweep +0.1176; against a reused lambda +0.0000 configurations; behind the tuned lambda by a step on 0/6 []
+     P-CHECK   : c = 4.0000; saving against the full sweep s = 0.7647; against a 3-point sweep -0.0588; against a reused lambda -3.0000 configurations; behind the tuned lambda by a step on 0/6 []
+  used below: the last evidence set (clipped SEC, SEC4 (UNSEEN, third family))
 
 [2] Inputs
   published (Declaration 2) E_AI: 2024 62.25 TWh; derived 2026 105.20 TWh, 2030 300.47 TWh (growth 0.30/year)
@@ -31,33 +34,33 @@ no PASS-2 exists for SEC; not quotable outside the ledger (R8)
 
 [3] One year, protocol P-FALLBACK (SEC; a full sweep where a seed diverges), conditional on the method holding
   year case      IT TWh meter TWh     of DC     H100-hours      FLOP    CO2 kt  US homes      cars
-  2026 low       0.0238    0.0366  0.000067     18,656,153  2.53e+25     15.89     3,395     3,454
-  2026 middle    0.1418    0.1838  0.000337    150,134,981  2.17e+26     84.16    17,029    18,296
-  2026 high      1.1327    1.2346  0.002261  1,618,135,692  2.48e+27    676.58   114,414   147,083
-  2030 low       0.0679    0.1046  0.000111     53,283,838  7.21e+25     45.38     9,695     9,865
-  2030 middle    0.4051    0.5248  0.000555    428,800,520  6.19e+26    240.38    48,638    52,257
-  2030 high      3.2351    3.5262  0.003731  4,621,557,349  7.08e+27   1932.38   326,777   420,083
+  2026 low       0.0297    0.0457  0.000084     23,297,439  3.15e+25     19.84     4,239     4,313
+  2026 middle    0.1771    0.2295  0.000420    187,485,635  2.70e+26    105.10    21,266    22,848
+  2026 high      1.4145    1.5418  0.002824  2,020,696,279  3.09e+27    844.90   142,878   183,674
+  2030 low       0.0848    0.1307  0.000138     66,539,817  9.01e+25     56.67    12,107    12,319
+  2030 middle    0.5059    0.6554  0.000694    535,477,723  7.72e+26    300.18    60,738    65,257
+  2030 high      4.0399    4.4035  0.004660  5,771,310,641  8.84e+27   2413.12   408,072   524,592
   (data-centre electricity 546.0 TWh in 2026, interpolated geometrically between the IEA's 2024 and 2030 figures)
 
 [4] 2026, middle case, by protocol (and what each saving is measured against)
   P-FULL    : s = 0.9412; 0.1771 TWh IT, 0.2295 TWh at the meter, 187,485,635 H100-hours, 105.10 kt CO2
-  P-FALLBACK: s = 0.7537; 0.1418 TWh IT, 0.1838 TWh at the meter, 150,134,981 H100-hours, 84.16 kt CO2
+  P-FALLBACK: s = 0.9412; 0.1771 TWh IT, 0.2295 TWh at the meter, 187,485,635 H100-hours, 105.10 kt CO2
   P-CHECK   : s = 0.7647; 0.1439 TWh IT, 0.1865 TWh at the meter, 152,332,079 H100-hours, 85.40 kt CO2
-  against a 3-point sweep instead of the full sweep (P-FALLBACK): s3 = -0.0699 -> -0.0131 TWh IT (no saving: a 3-point sweep is cheaper)
+  against a 3-point sweep instead of the full sweep (P-FALLBACK): s3 = +0.1176 -> +0.0221 TWh IT (a saving)
   against a reused lambda (1 configuration): no compute saving under P-FULL; SEC's gain there is accuracy
 
 [5] Bounds and sensitivity
-  EWC-style continual learning only (f_sweep 0.0001), 2026 middle: 0.00317 TWh IT, 3,357,120 H100-hours, 1.882 kt CO2
+  EWC-style continual learning only (f_sweep 0.0001), 2026 middle: 0.00396 TWh IT, 4,192,306 H100-hours, 2.350 kt CO2
   outer bound (2030, every factor at its high end, P-FULL, the highest PUE and intensity): 4.0399 TWh IT, 5,771,310,641 H100-hours, 3409.4 kt CO2
-  unconditional, x cl_patent's P(adopted) = 0.0150 (that model's assumption), 2026 middle: 0.002128 TWh IT, 2,252,025 H100-hours, 1.2625 kt CO2
-  unconditional, x cl_patent's P(adopted) = 0.0150 (that model's assumption), 2030 middle: 0.006076 TWh IT, 6,432,008 H100-hours, 3.6057 kt CO2
-  scale: data-centre emissions 180 Mt CO2 (IEA); the 2026 middle saving is 4.68e-04 of it
+  unconditional, x cl_patent's P(adopted) = 0.0150 (that model's assumption), 2026 middle: 0.002657 TWh IT, 2,812,285 H100-hours, 1.5765 kt CO2
+  unconditional, x cl_patent's P(adopted) = 0.0150 (that model's assumption), 2030 middle: 0.007588 TWh IT, 8,032,166 H100-hours, 4.5027 kt CO2
+  scale: data-centre emissions 180 Mt CO2 (IEA); the 2026 middle saving is 5.84e-04 of it
 
 [6] The investigator's expectations (DECLARATION_3, written before the sources and the script) against the printout
     "of the order of X or less" holds if observed <= 10^0.5 X; a stated range holds if observed is inside it
-  energy, 2026 middle P-FALLBACK, TWh at the meter, <~ 0.1  : 0.1838 -> holds
-  energy share of data-centre electricity < 0.001           : 0.0003366 -> holds
-  CO2, 2026 middle, Mt, <~ 0.05                             : 0.08416 -> holds
-  compute, 2030 high, H100-hours in 1e7..1e8                : 4.622e+09 -> MISSED
-  saving against a 3-point sweep <= 2/17 of the sweep       : -0.06985 -> holds
+  energy, 2026 middle P-FALLBACK, TWh at the meter, <~ 0.1  : 0.2295 -> holds
+  energy share of data-centre electricity < 0.001           : 0.0004203 -> holds
+  CO2, 2026 middle, Mt, <~ 0.05                             : 0.1051 -> holds
+  compute, 2030 high, H100-hours in 1e7..1e8                : 5.771e+09 -> MISSED
+  saving against a 3-point sweep <= 2/17 of the sweep       : 0.1176 -> holds
   EWC-only row about 45x below the middle row (30..60)      : 44.72 -> holds

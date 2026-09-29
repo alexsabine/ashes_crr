@@ -165,7 +165,7 @@ def synthesis(rows):
 LEDGER_RULES = (
     (r"^VOID", "VOID"), (r"^NOT DECIDABLE", "NOT DECIDABLE"), (r"^(DECIDABLE|decidable)", "precondition met"),
     (r"^reported without verdict", "no verdict (precondition failed)"), (r"^report", "report (no verdict registered)"),
-    (r"^GATE CLOSED", "gate closed (not run)"), (r"^UNVERIFIABLE", "unverifiable (R1)"), (r"^PASS-0", "PASS-0"),
+    (r"^GATE CLOSED", "gate closed (not run)"), (r"^UNVERIFIABLE", "unverifiable (R1)"), (r"^PASS-1", "PASS-1"), (r"^PASS-0", "PASS-0"),
     (r"^PASS as scored \(held-out.*not counted as PASS-0", "PASS as scored, forced by the construction (not R6)"),
     (r"^PASS on a control line", "control line passes (not the hypothesis)"), (r"^PASS.*\(seen", "PASS on seen data"),
     (r"^PASS, FRAGILE", "PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b)"),
@@ -205,9 +205,10 @@ def ledger():
     for (s, l), n in sorted(c.items()): print(f"        {s:9s} {l:52s} {n}")
     ps = [r for r in rows if r[2] in ("PASS on seen data", "holds on seen data")]
     p0 = [r for r in rows if r[2] == "PASS-0"]
+    p1 = [r for r in rows if r[2] == "PASS-1"]
     fails = [r for r in rows if r[2] == "FAIL" and r[1] == "held-out"]
     print(f"    rung R5 PREREG-SEEN, passes on seen data: {len(ps)} ({', '.join(r[0] for r in ps)})")
-    print(f"    rung R6 PASS-0 on held-out data: {len(p0)} ({', '.join(r[0] for r in p0)}); R7 PASS-1: 0; R8 PASS-2: 0")
+    print(f"    rung R6 PASS-0 on held-out data: {len(p0)} ({', '.join(r[0] for r in p0)}); R7 PASS-1: {len(p1)}{(' (' + ', '.join(r[0] for r in p1) + ')') if p1 else ''}; R8 PASS-2: 0")
     print(f"    held-out FAIL rows: {len(fails)} ({', '.join(r[0] for r in fails)}); VOID rows: {sum(r[2] == 'VOID' for r in rows)}; "
           f"controls violated: {sum(r[2] == 'control violated' for r in rows)}")
     return rows
@@ -292,7 +293,7 @@ def main():
           f"theorem checks held {ai[('THEOREM', True)]} of {ai[('THEOREM', True)] + ai[('THEOREM', False)]}; gate controls held {ai[('CONTROL', True)]} of {ai[('CONTROL', True)] + ai[('CONTROL', False)]}")
     print(f"    R5 PREREG-SEEN                    passes on seen data {sum(r[2] in ('PASS on seen data', 'holds on seen data') for r in led)}")
     print(f"    R6 PASS-0                         {sum(r[2] == 'PASS-0' for r in led)}")
-    print("    R7 PASS-1                         0")
+    print(f"    R7 PASS-1                         {sum(r[2] == 'PASS-1' for r in led)}")
     print("    R8 PASS-2                         0")
     print(f"    negatives beside them: battery FAILS {b['FAILS']}, synthesis WRONG {c['WRONG']}, held-out ledger FAIL "
           f"{sum(r[2] == 'FAIL' and r[1] == 'held-out' for r in led)}, AI-safety predictions failed {ai[('PREDICTION', False)]}; "
