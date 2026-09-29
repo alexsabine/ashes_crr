@@ -1687,3 +1687,7 @@ Run new predictive tests on 70 new systems please
 ## 235 — 2026-09-29T02:31:09Z
 
 I would like you to check the number of "redundant/consistent/desriptive" systems versus the number of fails. I would also like you to review whether the "Fails" above should be classes as redundant, according to the repositories intention to test CRR as a falsifiable metaphysical formalism.
+
+## 236 — 2026-09-29T02:51:58Z
+
+In the 13 fails which count again CRR's falsifiable claims, how would the axioms need to be modified in future as a result?
