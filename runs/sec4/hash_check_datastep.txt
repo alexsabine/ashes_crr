@@ -1,0 +1,11 @@
+Tue Sep 29 00:05:49 UTC 2026
+HASH.txt reproduces: every hashed file unchanged since the prereg commit
+cf702c31881f5891870188312cd13aefd4fcf7b06867dc7a9e7bf4881166af25  prereg/sec4/HASH.txt
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+Success! Timestamp complete
+    verify PendingAttestation('https://alice.btc.calendar.opentimestamps.org')
+    verify BitcoinBlockHeaderAttestation(968935)
+    # Bitcoin block merkle root c2611224fd34e9cceada884190e9922525ff9d3a5da29377f007de1c3af1d7b7
+    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')
+    verify PendingAttestation('https://finney.calendar.eternitywall.com')

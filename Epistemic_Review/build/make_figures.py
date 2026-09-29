@@ -43,8 +43,8 @@ def e01_ladder():
     r1 = int(g(r"R1 INHERITED\s+synthesis REDUNDANT-IG (\d+)")[1]); r2 = int(g(r"R2 RETRO-PROPER\s+synthesis REDUNDANT-DOMAIN (\d+)")[1])
     r3 = int(g(r"R3 RETRO-ADDS \(candidates\)\s+synthesis ADDS (\d+)")[1])
     m4 = g(r"AI-safety predictions held (\d+) of (\d+); theorem checks held (\d+) of (\d+)"); r5 = int(g(r"R5 PREREG-SEEN\s+passes on seen data (\d+)")[1])
-    r6 = int(g(r"R6 PASS-0\s+(\d+)")[1]); neg = g(r"synthesis WRONG (\d+), held-out ledger FAIL (\d+), AI-safety predictions failed (\d+)")
-    rows = [("R8 PASS-2: a replicated finding", 0, None), ("R7 PASS-1: a result", 0, None),
+    r6 = int(g(r"R6 PASS-0\s+(\d+)")[1]); r7 = int(g(r"R7 PASS-1\s+(\d+)")[1]); neg = g(r"synthesis WRONG (\d+), held-out ledger FAIL (\d+), AI-safety predictions failed (\d+)")
+    rows = [("R8 PASS-2: a replicated finding", 0, None), ("R7 PASS-1: a result", r7, None),
             ("R6 PASS-0: pre-registered, held-out", r6, ("held-out FAIL", int(neg[2]))),
             ("R5 pre-registered, scored on seen data", r5, None),
             ("R4 declared before a synthetic run (predictions)", int(m4[1]), ("failed", int(m4[2]) - int(m4[1]))),

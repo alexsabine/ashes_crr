@@ -67,7 +67,7 @@ def f1_ladder():
     for key, _ in want:
         m = re.search(r'^\s+held-out\s+' + re.escape(key) + r'\s+(\d+)\s*$', L, re.M)
         vals.append(int(m.group(1)))
-    p1 = re.search(r'R7 PASS-1: (\d+); R8 PASS-2: (\d+)', L)
+    p1 = re.search(r'R7 PASS-1: (\d+)[^;]*; R8 PASS-2: (\d+)', L)
     print('[F1] held-out ledger rows by allocation (ladder.txt):', ', '.join(f'{k} {v}' for (k, _), v in zip(want, vals)),
           f'| PASS-1 {p1.group(1)}, PASS-2 {p1.group(2)}')
     fig, ax = plt.subplots(figsize=(7.2, 3.4))

@@ -1,0 +1,101 @@
+Attention algorithms: U1-U8 against the sweep of 2026-09-28 (DECLARATION.md §2)
+claims 120 (f1 41, f2 45, f3 34) from 75 distinct URLs; quotes verified in verify.txt
+
+U1 REDUNDANT                  (bears 4, close 2, states 6) | engagement or retention objectives value the user's return (session end / time away is a loss)
+     declared expectation: REDUNDANT -> met
+     states      Cai, Liu, Wang, Zuo, Xie, Yang, Zheng, Jiang, Gai, "Reinforcing User Retention in a Bill (v3, 12 Feb 2023)
+     states      Zou, Xia, Ding, Song, Liu, Yin, "Reinforcement Learning to Optimize Long-term User Engag (v4, 11 Jul 2019)
+     states      Wu, Wang, Hong, Shi, "Returning is Believing: Optimizing Long-term User Engagement in Re (CIKM 2017 (Nov 2017); NS)
+     close       Chen, Beutel, Covington, Jain, Belletti, Chi, "Top-K Off-Policy Correction for a REINFOR (v3, 15 Dec 2021)
+     states      Cunningham, Pandey, Sigerson, Stray, Allen, Barrilleaux, Iyer, Milli, Kothari, Rezaei, " (v1, 9 Feb 2024)
+     states      Agarwal, Usunier, Lazaric, Nickel, "System-2 Recommenders: Disentangling Utility and Eng (v1, 29 May 2024)
+     states      New York Attorney General press release, "Attorney General James and Governor Hochul Rel (2026-07-28 (rules to be )
+     close       SECONDARY: NPR, "Jury holds Meta and Google liable for role in young woman's mental heal (2026-03-25)
+U2 REDUNDANT                  (bears 3, close 6, states 7) | that stake produces re-engagement actions (notification volume, autoplay, no natural stop)
+     declared expectation: REDUNDANT -> met
+     close       Zou et al., KDD 2019 (arXiv:1902.05570) (v4, 11 Jul 2019)
+     states      Zhao, Narita, Orten, Egan, "Notification Volume Control and Optimization System at Pinte (KDD 2018 (Aug 2018); aut)
+     states      Yuan, Muralidharan, Nandy, Cheng, Prabhakar, "Offline Reinforcement Learning for Mobile  (v1, 4 Feb 2022)
+     states      Prabhakar, Yuan, Yang, Sun, Muralidharan, "Multi-objective Optimization of Notifications (v1, 7 Jul 2022)
+     states      O'Brien, Wu, Zhai, Guo, Shi, Hunt, "Should I send this notification? Optimizing push not (v1, 17 Feb 2022)
+     close       European Commission press release IP/26/312, "Commission preliminarily finds TikTok's ad (2026-02-06)
+     close       European Commission press release IP/26/1579 (Meta, preliminary findings) (2026-07-10)
+     states      European Commission, Guidelines on measures to ensure a high level of privacy, safety an (document dated Brussels,)
+     close       ICO, Age appropriate design: a code of practice for online services, standard 5 "Detrime (web page as served 2026-)
+     close       SECONDARY: Chief Healthcare Executive, "Surgeon General warns social media poses risks t (report on the advisory o)
+     states      Colorado Attorney General press release, "Bipartisan coalition of attorneys general file (2023-10-24)
+     close       SECONDARY: NPR report on the K.G.M. verdict (2026-03-25) (2026-03-25)
+     states      Bits of Freedom (C. Mohanlal), "How Snapchat's notifications manipulate users" (2025-11-24)
+U3 PARTLY REDUNDANT           (bears 2, close 5) | (CRR) an own-clock valuation: the pause has zero content, no incentive to shorten it (the empty pause)
+     declared expectation: PARTLY REDUNDANT -> met
+     close       Carroll et al., ICML 2022 (arXiv:2204.11966) (v2, 14 Jul 2022)
+     close       Krueger, Maharaj, Leike, "Hidden Incentives for Auto-Induced Distributional Shift" (arXi (v1, 19 Sep 2020)
+     close       Anwar, Dhillon, Schoenebeck, RecSys 2025 (arXiv:2412.10595) (v2, 23 Jul 2025)
+     close       Ben Ayed, Feng, Adams, Singh, Anand, Xu, "RecoMind: A Reinforcement Learning Framework f (v1, 31 Jul 2025)
+     close       ICO, Age appropriate design code, standard 5 "Detrimental use of data" (web page as served 2026-)
+U4 REDUNDANT                  (bears 4, close 11, states 1) | (CRR, shared) the true map: the pause as the user's own stop; the objective the user's reflective value
+     declared expectation: PARTLY REDUNDANT or REDUNDANT -> met
+     close       Carroll et al., ICML 2022 (arXiv:2204.11966) (v2, 14 Jul 2022)
+     close       Kleinberg, Mullainathan, Raghavan, "The Challenge of Understanding What Users Want: Inco (v3, 23 Oct 2023)
+     states      Stray, Vendrov, Nixon, Adler, Hadfield-Menell, "What are you optimizing for? Aligning Re (v1, 22 Jul 2021)
+     close       Stray, Halevy, Assar, Hadfield-Menell, Boutilier, et al., "Building Human Values into Re (v1, 20 Jul 2022 (arXiv);)
+     close       Milli, Belli, Hardt, "From Optimizing Engagement to Measuring Value", FAccT 2021 (arXiv: (v2, 19 Jul 2021)
+     close       Milli, Carroll, Wang, Pandey, Zhao, Dragan, "Engagement, User Satisfaction, and the Ampl (v6, 7 Dec 2024)
+     close       Agarwal et al., FAccT 2024 (arXiv:2406.01611) (v1, 29 May 2024)
+     close       Ashton, Franklin, "Solutions to preference manipulation in recommender systems require k (v1, 14 Sep 2022)
+     close       Zou, Sun, Ji, Zhang, Wang, Zhang, Jiang, "Hesitation and Tolerance in Recommender System (v2, 15 Feb 2026)
+     close       European Commission press release IP/26/1579 (Meta, preliminary findings) (2026-07-10)
+     close       European Commission, Art. 28 DSA guidelines on minors, C(2025) 6826 final (document dated Brussels,)
+     close       YouTube Official Blog, "On YouTube's recommendation system" (Cristos Goodrow) (2021-09-15)
+U5 PARTLY REDUNDANT           (close 2) | (CRR) U3 and U4 as one construction
+     declared expectation: NOT FOUND IN THE SWEEP or PARTLY REDUNDANT -> met
+     close       Anwar, Dhillon, Schoenebeck, "Recommendation and Temptation", RecSys 2025 (arXiv:2412.10 (v2, 23 Jul 2025)
+     close       YouTube Official Blog, "On YouTube's recommendation system" (Cristos Goodrow) (2021-09-15)
+U6 MIXED                      (established 12, mixed 8, weak 5) | long-term effects of engagement-optimised feeds on users
+     declared expectation: MIXED -> met
+     mixed       Stray et al., ACM TORS 2024 (arXiv:2207.10192) (v1, 20 Jul 2022 (arXiv);)
+     established Allcott, Braghieri, Eichmeyer & Gentzkow, "The Welfare Effects of Social Media", America (author version dated Nov)
+     established Allcott, Braghieri, Eichmeyer & Gentzkow 2020, AER 110(3):629-76 (author version dated Nov)
+     established Allcott, Gentzkow & Song, "Digital Addiction", American Economic Review 112(7):2424-63 ( (NBER Working Paper 28936)
+     established Allcott, Gentzkow & Song 2022, AER 112(7) (NBER WP 28936) (NBER Working Paper 28936)
+     established Hamilton Project (Brookings) policy brief: Allcott, Gentzkow & Song, "Digital addiction: (web page fetched 2026-09)
+     established Braghieri, Levy & Makarin, "Social Media and Mental Health", American Economic Review 11 (published AER November 2)
+     established Allcott, Gentzkow, Wittenbrink et al. (incl. Meta researchers), "The Effect of Deactivat (author PDF (undated); ae)
+     mixed       Odgers, "The great rewiring: is social media really behind an epidemic of teenage mental (Nature book review, 2024)
+     mixed       Ferguson, "Do Social Media Experiments Prove a Link With Mental Health: A Methodological (author-hosted page proof)
+     mixed       Thrul, Devkota, AlJuboori, Regan, Alomairah & Vidal, "Social Media Reduction or Abstinen (PubMed record PMID 40453)
+     established Burnell, Meter, Andrade, Slocum & George, "The effects of social media restriction: Meta (RTI publication page (ab)
+     established Lopes, Branje, David, Gennara, Haidt, Rausch, ... Goldfield, "Effect of Social Media Con (medRxiv preprint v2, 202)
+     mixed       Maerevoet, Van de Casteele, Van de Putte, Debeer, Hoorelbeke, Vansteenkiste & Koster, "C (published 30 May 2025 (d)
+     established He, Tu, Xiao, Su & Tang, "Effect of restricting bedtime mobile phone use on sleep, arous (PubMed record PMID 32040)
+     mixed       Pedersen, Rasmussen, ... Grøntved, "Effects of Limiting Recreational Screen Media Use on (PubMed record PMID 35604)
+     established Kushlev, Proulx & Dunn, "'Silence Your Phones': Smartphone Notifications Increase Inatte (ScienceDaily release dat)
+     established Fitz, Kushlev, Jagannathan, Lewis, Paliwal & Ariely, "Batching smartphone notifications  (journal PDF (2019) hoste)
+     mixed       Fitz et al. 2019, Computers in Human Behavior 101:84-94 (journal PDF (2019) hoste)
+     mixed       Felton, "Notes on Randomized Controlled Trials for Studying Social Media Harms", arXiv:2 (v1, submitted 30 May 202)
+U7 PARTLY REDUNDANT           (bears 14, close 3) | company countermeasures leave the stake intact, mostly opt-in, weak evidence of effect
+     declared expectation: REDUNDANT -> NOT met
+     close       Cunningham et al. (arXiv:2402.06831) (v1, 9 Feb 2024)
+     close       European Commission press release IP/26/312 (TikTok, preliminary findings) (2026-02-06)
+     close       European Commission press release IP/26/1579, "Commission preliminarily finds the addict (2026-07-10)
+U8 ADDRESSED                  (addresses 6, bears 9) | the tension: an empty pause costs engagement and revenue (incentives, regulation)
+     declared expectation: ADDRESSED -> met
+     addresses   Stray et al., ACM TORS 2024 (arXiv:2207.10192) (v1, 20 Jul 2022 (arXiv);)
+     addresses   Cunningham et al. (arXiv:2402.06831) (v1, 9 Feb 2024)
+     addresses   California SB 976 (Stats. 2024, ch. 321), Health and Safety Code §§ 27002, 27004 (Chaptered, approved by G)
+     addresses   Office of the Attorney General for the District of Columbia, "Attorney General Schwalb A (2026-08-26)
+     addresses   Meta and State AGs' [Proposed] Consent Judgment, Exhibit 1 (N.D. Cal. No. 4:23-cv-05448- (filed 2026-08-26)
+     addresses   YouTube Official Blog, "On YouTube's recommendation system" (Cristos Goodrow) (2021-09-15)
+declared expectations met: 7 of 8
+
+Global figures in the sweep (tag G):
+  f3:10            0.11 share of adolescents (11, 13, 15 y) with problematic social media use, HBSC Europe/central Asia/Canada 2022 | WHO Regional Office for Europe, "Teens, screens and mental health" (ne
+  f3:24            0.11 share of smartphone sessions initiated by a notification 2021 | Heitmayer & Lahlou, "Why are smartphones disruptive? An empirical stud
+  f3:26              56 notifications per user per day (median) 2018 | Pielot, Vradi & Park, "Dismissed! A Detailed Exploration of How Mobile
+  f3:27          0.2655 share of social-network notifications that lead to opening the app 2018 | Pielot, Vradi & Park 2018, MobileHCI '18
+  f3:28        5.66e+09 social media user identities (monthly active, worldwide) 2025 | DataReportal (Kepios, with Meltwater and We Are Social), "Digital 2026
+  f3:29        5.79e+09 social media user identities (monthly active, worldwide) 2026 | DataReportal, "Global Social Media Statistics" (analysis credited to M
+  f3:30            1116 minutes per week per social media user (GWI, incl. video platforms) 2026 | DataReportal, "Global Social Media Statistics" (GWI survey data)
+  f3:31         1.5e+10 hours per day, worldwide, on social platforms 2026 | DataReportal, "Global Social Media Statistics"
+  f3:32              97 minutes per day per TikTok Android user 2025 | DataReportal, "Digital 2026: Global Overview Report" (Similarweb App I
+  f3:33        6.05e+09 social media users (unique, monthly, worldwide), projection 2030 | BusinessStats, "Number of Worldwide Social Network Users 2017-2030" (S

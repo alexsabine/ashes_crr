@@ -172,7 +172,7 @@ def report(ai, FSW, S, p_adopt):
               ('energy share of data-centre electricity < 0.001', fac / dc[2026], fac / dc[2026] < 0.001),
               ('CO2, 2026 middle, Mt, <~ 0.05', co2, co2 <= 0.05 * 10 ** 0.5),
               ('compute, 2030 high, H100-hours in 1e7..1e8', out[(2030, 'high')][1], 1e7 <= out[(2030, 'high')][1] <= 1e8),
-              ('saving against a 3-point sweep <= 2/17 of the sweep', s3, s3 <= 2 / GRID),
+              ('saving against a 3-point sweep <= 2/17 of the sweep', s3, s3 <= 2 / GRID + 1e-12),
               ('EWC-only row about 45x below the middle row (30..60)', e / ew, 30 <= e / ew <= 60)]
     for lab, val, ok in checks:
         print(f"  {lab:58}: {val:.4g} -> {'holds' if ok else 'MISSED'}")

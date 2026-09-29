@@ -1,0 +1,29 @@
+Attention algorithms: time returned to users if every feed held an empty pause (DECLARATION §5; conditional)
+
+[1] Inputs (from the sweep, claims_f3.py)
+  published users 2026: 5.79e+09 (social media user identities (monthly active, worldwide)) | DataReportal, "Global Social Media Statistics" (analysis credited to Manochi)
+  published users 2030: 6.05e+09 (social media users (unique, monthly, worldwide), projection) | BusinessStats, "Number of Worldwide Social Network Users 2017-2030" (SECONDARY a
+  caution: 2026 counts user identities (not unique people); the 2030 projection counts unique users and is secondary
+  published minutes per week per user: 1116 -> derived minutes per day 159.4286 | DataReportal, "Global Social Media Statistics" (GWI survey data)
+  cross-check: users x minutes = 1.538e+10 hours/day; published world total 1.5e+10 hours/day (ratio 1.0257)
+  published f_notif (share of sessions started by a notification): 0.11 | Heitmayer & Lahlou, "Why are smartphones disruptive? An empirical study of smart (one small study, all apps)
+  ASSUMED f_avoid: low 0.2, middle 0.3464 (geometric mean), high 0.6
+
+[2] Time returned (conditional on every platform adopting the empty pause)
+  year case     min/user/day   hours/year (world)  share of social-media time
+  2026 low            3.5074            1.235e+11                      0.0220
+  2026 middle         6.0750             2.14e+11                      0.0381
+  2026 high          10.5223            3.706e+11                      0.0660
+  2030 low            3.5074            1.291e+11                      0.0220
+  2030 middle         6.0750            2.236e+11                      0.0381
+  2030 high          10.5223            3.873e+11                      0.0660
+  (2030 holds minutes per user at the 2026 figure: no published forecast of time per user was found)
+
+[3] Sensitivity: the declared fallback band for f_notif (not the headline)
+  f_notif 0.1: 5.5228 min/user/day, 2026 1.945e+11 hours/year
+  f_notif 0.3: 16.5683 min/user/day, 2026 5.836e+11 hours/year
+
+[4] Context from the sweep (not used in the arithmetic)
+  56 notifications per user per day (median) (2018) | Pielot, Vradi & Park, "Dismissed! A Detailed Exploration of How Mobile
+  0.2655 share of social-network notifications that lead to opening the app (2018) | Pielot, Vradi & Park 2018, MobileHCI '18
+  0.11 share of adolescents (11, 13, 15 y) with problematic social media use, HBSC Europe/central Asia/Canada (2022) | WHO Regional Office for Europe, "Teens, screens and mental health" (ne

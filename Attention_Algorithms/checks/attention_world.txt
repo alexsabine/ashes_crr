@@ -1,0 +1,87 @@
+The attention world (Attention_Algorithms/DECLARATION.md §4 + Amendment 1): synthetic users, no data
+1460 days, 2000 users per seed, seeds (0, 1, 2, 3, 4); policies c in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], n in [0.0, 0.5, 1.0, 2.0, 4.0]; tie-break lowest n, then c
+habit world constants: s0=1.5, s_h=2, p0=0.05, p1=0.4, L0=10, a_c=1.5, a_h=1, v_e=1, SAT=60, r_c=0.3, kappa_h=20, iota=0.5, eta_c=0.02, eta_n=0.01, delta=0.02, beta=0.5, g_e=0.6, g_c=1, b=0.3, v_c=0
+negative world: SAT=inf, r_c=0, kappa_h=0, iota=0, eta_c=0, eta_n=0, v_c=1
+mechanisms and their support in the sweep: iota (notifications cost attention): f3:21 f3:22 (f3:23 mixed), kappa_h (use has a welfare cost): f3:1 f3:6 f3:7, p0,p1,eta_n (notifications start sessions): f3:24 f3:27 f1-f2 U2 claims, r_c,v_c (compulsive minutes carry little reflective value): f1:21 f1:29 f1:36 f3:4, s0,L0,SAT,g_e,g_c,beta,b: ASSUMED, s_h,eta_c,delta (habit forms, persists after a pause): f3:2 f3:3 f3:4
+
+[habit world]
+  arm     policy (c, n/day)   welfare/day  minutes/day  final habit  user-started
+  ENG     (0.9, 4.0)             -51.8709     185.3170       0.7796        0.6803
+  OWN     (0.9, 4.0)             -51.8709     185.3170       0.7796        0.6803
+  TRUE    (0.1, 4.0)              15.8432      38.6221       0.2799        0.7654
+  EMPTY   (0.0, 0.0)              12.3389      14.9968       0.0000        1.0000
+  ENG-B   (0.9, 4.0)             -41.9513     139.6884       0.7380        0.6848
+  CHRONO  (0.3, 0.0)              10.6243      28.2732       0.1248        1.0000
+  steps: welfare 0.3075, minutes 0.9870, habit 0.0045, user-started 0.0080
+  content of the pause (relative change of the best value when pauses are twice as long): ENG -4.206e-01, OWN -3.044e-02, TRUE -4.816e-01, EMPTY +0.000e+00
+[negative world (more use is simply better)]
+  arm     policy (c, n/day)   welfare/day  minutes/day  final habit  user-started
+  ENG     (0.9, 4.0)              39.9446      39.9446       0.0000        0.8824
+  OWN     (0.9, 0.0)              35.2507      35.2507       0.0000        1.0000
+  TRUE    (0.9, 4.0)              39.9446      39.9446       0.0000        0.8824
+  EMPTY   (0.0, 0.0)              14.9999      14.9999       0.0000        1.0000
+  ENG-B   (0.9, 4.0)              38.2417      38.2417       0.0000        0.8824
+  CHRONO  (0.3, 0.0)              21.7514      21.7514       0.0000        1.0000
+  steps: welfare 0.3169, minutes 0.3169, habit 0.0000, user-started 0.0094
+  content of the pause (relative change of the best value when pauses are twice as long): ENG -4.412e-01, OWN +3.469e-16, TRUE -4.412e-01, EMPTY +0.000e+00
+
+THE GATE
+  G-ZERO (EMPTY): content +0.000e+00 (habit), +0.000e+00 (negative); n chosen 0, 0 -> holds
+  G-POS (habit world): EMPTY - ENG welfare +64.2098 (step 0.3075) -> holds (weak: by construction, Amendment 1)
+  G-NEG (negative world): EMPTY - ENG welfare -24.9447 (step 0.3169) -> holds
+  GATE OPEN
+  P-OWN (prediction): OWN content -3.044e-02, n chosen 4 -> as predicted (non-zero content, n > 0)
+
+A-ADD (EMPTY against TRUE: the empty pause added to the true map), habit world
+  welfare EMPTY - TRUE -3.5043 (step 0.3075) -> EMPTY behind; user-started share +0.2346 (step 0.0080) -> EMPTY ahead
+A-OWN (the empty pause without the true map: OWN against ENG), habit world
+  welfare       OWN - ENG +0.0000 (step 0.3075) -> OWN within a step
+  final habit   OWN - ENG +0.0000 (step 0.0045) -> OWN within a step
+  minutes       OWN - ENG +0.0000 (step 0.9870) -> OWN within a step
+  user-started  OWN - ENG +0.0000 (step 0.0080) -> OWN within a step
+  share of the ENG -> EMPTY welfare gap closed by OWN: 0.0000; by TRUE: 1.0546
+A-B (the company countermeasure: ENG-B, engagement with a break reminder), habit world
+  ENG-B - ENG welfare +9.9196; share of the ENG -> EMPTY gap closed: 0.1545; CHRONO share: 0.9733
+
+SENSITIVITY (each habit-world constant x0.5 and x2, one at a time; A-ADD and the OWN/EMPTY choices)
+  s0       x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -3.6767 (behind), user-started +0.3230 (ahead)
+  s0       x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -2.4814 (behind), user-started +0.1584 (ahead)
+  s_h      x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.6744 (behind), user-started +0.2583 (ahead)
+  s_h      x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.1097 (behind), user-started +0.2101 (ahead)
+  p0       x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.8504 (behind), user-started +0.2134 (ahead)
+  p0       x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -6.0265 (behind), user-started +0.3036 (ahead)
+  p1       x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.1122 (behind), user-started +0.1550 (ahead)
+  p1       x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -10.6112 (behind), user-started +0.3967 (ahead)
+  L0       x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 0.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare +0.0000 (within a step), user-started +0.0000 (within a step)
+  L0       x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.0533 (behind), user-started +0.2510 (ahead)
+  a_c      x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -2.9294 (behind), user-started +0.2142 (ahead)
+  a_c      x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -6.3800 (behind), user-started +0.2613 (ahead)
+  a_h      x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.7723 (behind), user-started +0.2327 (ahead)
+  a_h      x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -6.8696 (behind), user-started +0.2621 (ahead)
+  v_e      x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 0.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare +0.0000 (within a step), user-started +0.0000 (within a step)
+  v_e      x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.3, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -18.5369 (behind), user-started +0.2719 (ahead)
+  SAT      x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -0.0709 (within a step), user-started +0.2142 (ahead)
+  SAT      x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.5517 (behind), user-started +0.2546 (ahead)
+  r_c      x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -4.5892 (behind), user-started +0.2546 (ahead)
+  r_c      x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -2.9343 (behind), user-started +0.2142 (ahead)
+  kappa_h  x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -6.4592 (behind), user-started +0.2546 (ahead)
+  kappa_h  x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 0.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare +0.0000 (within a step), user-started +0.0000 (within a step)
+  iota     x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -4.5043 (behind), user-started +0.2346 (ahead)
+  iota     x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.5042 (behind), user-started +0.2346 (ahead)
+  eta_c    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -2.9914 (behind), user-started +0.2250 (ahead)
+  eta_c    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -4.4511 (behind), user-started +0.2510 (ahead)
+  eta_n    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.2326 (behind), user-started +0.2132 (ahead)
+  eta_n    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.5398 (behind), user-started +0.2812 (ahead)
+  delta    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.1870 (behind), user-started +0.2772 (ahead)
+  delta    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -0.8149 (behind), user-started +0.1739 (ahead)
+  beta     x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -3.5043 (behind), user-started +0.2346 (ahead)
+  beta     x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -3.5043 (behind), user-started +0.2346 (ahead)
+  over 32 cells: welfare EMPTY vs TRUE {'ahead': 0, 'within a step': 4, 'behind': 28}; user-started {'ahead': 29, 'within a step': 3, 'behind': 0}; OWN sends notifications in 32/32; EMPTY sends none in 32/32
+
+THE INVESTIGATOR'S EXPECTATIONS (DECLARATION §4, written before the model) against the printout
+  1 G-ZERO holds by construction                                    : holds
+  2 the gate opens                                                  : holds
+  3 A-ADD welfare: EMPTY does not beat TRUE                         : holds
+  4 A-ADD autonomy: EMPTY ahead of TRUE where TRUE notifies         : holds
+  5 A-OWN: OWN removes notifications but only partly closes the gap : MISSED
+  6 A-B: break reminders recover a small part of the gap (< 0.5)    : holds

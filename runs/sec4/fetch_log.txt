@@ -1,0 +1,12 @@
+Tue Sep 29 00:05:59 UTC 2026
+bc080e5b0de2b18a9e7cda6e1c0841a2ca1822b38ef06257028dcb3cf7cd6a47  data/raw/openml/46906_anneal.arff  https://openml.org/data/v1/download/22125217/anneal.arff  md5-verified  version 18  downloaded 2026-09-29T00:06:05Z  bytes 372064
+fb92a37547581d7a137f1492308dad7bdd745e603e67efcab55c189accdf9e55  data/raw/openml/1459_artificial-characters.arff  https://openml.org/data/v1/download/1586212/artificial-characters.arff  md5-verified  version 1  downloaded 2026-09-29T00:06:14Z  bytes 254223
+cf18b2a2447adcc3e47be945097e2e6db00dd9596597de1cb739e2162d7499b6  data/raw/openml/1466_cardiotocography.arff  https://openml.org/data/v1/download/1586231/cardiotocography.arff  md5-verified  version 1  downloaded 2026-09-29T00:06:17Z  bytes 211323
+023d6cd4e783c4a6dc3a871e6dc401902d236ef638c681682d03a7bb293d17cf  data/raw/openml/23380_cjs.arff  https://openml.org/data/v1/download/1910442/cjs.arff  md5-verified  version 3  downloaded 2026-09-29T00:06:25Z  bytes 277989
+0266d14156cb3d2e015f0fc43a1b6a9db417a46f384136f48efa29258b7f5940  data/raw/openml/1476_gas-drift.arff  https://openml.org/data/v1/download/1588715/gas-drift.arff  md5-verified  version 1  downloaded 2026-09-29T00:07:38Z  bytes 17291112
+2290186e0b8723a88c8e52e48c396f06f6cf98733f13d0e62d08b2b5c6184190  data/raw/openml/375_JapaneseVowels.arff  https://openml.org/data/v1/download/52415/JapaneseVowels.arff  md5-verified  version 1  downloaded 2026-09-29T00:07:46Z  bytes 1225033
+402ab2d964ed2c23da168e1a6d264f76926fc9365191f492b32b7bbe3c7f08fe  data/raw/openml/46980_MIC.arff  https://openml.org/data/v1/download/22125397/MIC.arff  md5-verified  version 3  downloaded 2026-09-29T00:07:53Z  bytes 771864
+de6e81c31bb9b1c67ec7777f6cb7766f1a1e042f3a86f36a3067a6d2c59db248  data/raw/openml/1491_one-hundred-plants-margin.arff  https://openml.org/data/v1/download/1592283/one-hundred-plants-margin.arff  md5-verified  version 1  downloaded 2026-09-29T00:07:59Z  bytes 749631
+2692c0c1bbf7b14485c94b151da9577f4b33acdd3352b448804f74f23e1dab39  data/raw/openml/377_synthetic_control.arff  https://openml.org/data/v1/download/52417/synthetic_control.arff  md5-verified  version 1  downloaded 2026-09-29T00:08:06Z  bytes 299973
+manifest -> data/manifests/sec4.sha256
+Tue Sep 29 00:08:06 UTC 2026

@@ -8,29 +8,31 @@
   - The sources were fetched on the day and quoted verbatim in `docs/citations/global_estimate_2026-09-28.md`.
   - Every number below is printed by `checks/global_estimate.py`, output pinned in `checks/global_estimate.txt`, CI-checked.
 - **What it is.** A note, not evidence (R8). It is not quotable outside the ledger. No PASS-2 exists for SEC.
-- **Updating.** The script will be re-run and re-pinned when SEC4 (the clipped SEC on a third unseen family) is scored on
-  or after 2026-09-29. Until then it uses unguarded SEC's record.
+- **Updating.**
+  - **Re-pinned 2026-09-29** on SEC4's evidence: the clipped SEC on a third unseen family, ledger SEC4-1 PASS-1.
+  - The first version (2026-09-28) used unguarded SEC's record: p_div 3/16, P-FALLBACK s = 0.7537. Its figures are kept in
+    git history (commit b427e2e), and the unguarded lines are still printed in section [1].
 
 ## The short answer (2026, the middle case; if the method held)
 
 | | saved in one year |
 |---|---|
-| compute | 150,134,981 H100-hours (about 2.17e+26 FLOP) |
-| energy | 0.1418 TWh at the servers, 0.1838 TWh at the meter: 0.000337 of all data-centre electricity |
-| CO₂ | 84.16 kt, 4.68e-04 of data-centres' 180 Mt |
-| in everyday units | the electricity of 17,029 US homes; the CO₂ of 18,296 cars |
+| compute | 187,485,635 H100-hours (about 2.70e+26 FLOP) |
+| energy | 0.1771 TWh at the servers, 0.2295 TWh at the meter: 0.000420 of all data-centre electricity |
+| CO₂ | 105.10 kt, 5.84e-04 of data-centres' 180 Mt |
+| in everyday units | the electricity of 21,266 US homes; the CO₂ of 22,848 cars |
 
 **The range, 2026.**
-- Energy: 0.0366 TWh (low) to 1.2346 TWh (high) at the meter.
-- Compute: 18,656,153 to 1,618,135,692 H100-hours.
-- CO₂: 15.89 kt to 676.58 kt.
+- Energy: 0.0457 TWh (low) to 1.5418 TWh (high) at the meter.
+- Compute: 23,297,439 to 2,020,696,279 H100-hours.
+- CO₂: 19.84 kt to 844.90 kt.
 
 **2030 (a projection).**
-- Middle: 0.5248 TWh, 428,800,520 H100-hours, 240.38 kt.
-- High: 3.5262 TWh, 4,621,557,349 H100-hours, 1932.38 kt.
+- Middle: 0.6554 TWh, 535,477,723 H100-hours, 300.18 kt.
+- High: 4.4035 TWh, 5,771,310,641 H100-hours, 2413.12 kt.
 
-**Weighted by the chance of holding and being adopted** (`cl_patent`'s assumed 0.0150): 2026 middle is 2,252,025
-H100-hours, 0.002128 TWh and 1.2625 kt CO₂.
+**Weighted by the chance of holding and being adopted** (`cl_patent`'s assumed 0.0150): 2026 middle is 2,812,285
+H100-hours, 0.002657 TWh and 1.5765 kt CO₂.
 
 ## How it is calculated
 
@@ -54,14 +56,20 @@ H100-hours, 0.002128 TWh and 1.2625 kt CO₂.
 
 ## What the saving per sweep is, and against what
 
-**From 16 unseen carriers** (SCL3 and SEC3; unguarded SEC):
+**The realistic protocol (P-FALLBACK):** run SEC, and run the full sweep only where a seed diverges.
+
+**The clipped SEC, SEC4 (6 unseen carriers of a third family; used for the figures above):**
+- No seed diverged (p_div = 0.0000).
+- P-FALLBACK therefore costs 1 of 17 configurations: s = 0.9412, with 0 of 6 carriers behind the tuned λ.
+
+**Unguarded SEC, SCL3 + SEC3 (16 unseen carriers; the first version):**
 - A seed diverged on 3 of 16 (cnae-9, dionis, fabert), so p_div = 0.1875.
-- The realistic protocol (**P-FALLBACK**: run SEC, and run the full sweep where a seed diverges) costs 4.1875 of 17
-  configurations: s = 0.7537, with no carrier left behind the tuned λ.
-- Accepting SEC as it stands (P-FULL) saves s = 0.9412 but leaves 3 of 16 carriers behind.
+- P-FALLBACK costs 4.1875 configurations: s = 0.7537.
 
 **The fair comparison is not only the full sweep.**
-- **Against a 3-point mini-sweep**, SEC under P-FALLBACK saves nothing (−0.0699 of a sweep: the mini-sweep is cheaper).
+- **Against a 3-point mini-sweep:**
+  - the clipped SEC under P-FALLBACK saves 0.1176 of a full sweep (2 configurations of 17);
+  - unguarded SEC saved nothing (−0.0699).
 - **Against reusing a λ from other datasets**, SEC saves no compute at all (both are one configuration). Its gain there is
   accuracy on the streams where the reused λ fails.
 
@@ -73,20 +81,21 @@ lab that already uses a small sweep or a reused default saves little or nothing 
 1. **That the result transfers.** It was measured on small numpy networks trained by SGD. Nothing in the record tests an
    AdamW-trained large model, where most compute goes. Adam_SGD found the rule's scale advantage to be an SGD property.
 2. **f_sweep**, which is assumed. If SEC applies only to EWC-style continual learning (f_sweep 0.0001, the investigator's
-   best guess at today's real use), the 2026 middle figure is 44.72 times smaller: 3,357,120 H100-hours, 0.00317 TWh,
-   1.882 kt CO₂.
-3. **SEC4.** If the clipped SEC removes the divergence on a third unseen family, P-FALLBACK's fallback cost falls toward
-   P-FULL's (s up to 0.9412). If it fails, the unguarded figures stand.
+   best guess at today's real use), the 2026 middle figure is 44.72 times smaller: 4,192,306 H100-hours, 0.00396 TWh,
+   2.350 kt CO₂.
+3. **The clipped SEC's record is one family.**
+   - SEC4-1 is PASS-1 on 6 carriers, after 3 exclusions. PASS-2 needs a replication on a fourth unseen family.
+   - If divergence reappears there, s falls back toward the unguarded 0.7537.
 
 ## The expectations, checked (section [6] of the printout)
 
 - **Five of six held:**
   - energy and CO₂ of the order declared;
   - the share of data-centre electricity under 0.001;
-  - no saving against a 3-point sweep;
+  - a saving against a 3-point sweep of at most 2/17;
   - the EWC-only ratio near 45.
 - **One was missed:** the compute expectation. The investigator expected 10⁷–10⁸ H100-hours in the high 2030 case, and the
-  printout is 4.622e+09.
+  printout is 5.771e+09.
   - **The arithmetic was checked:** one TWh is 1.429e+09 H100-hours at 0.7 kW. The expectation was mis-scaled.
   - The miss is recorded (AGENT_LOG 170), not edited away.
 
