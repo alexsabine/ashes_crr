@@ -1,0 +1,24 @@
+EPS1 tally: the empty-true-map pause on seven systems (Empty_Pause_Systems/DECLARATION.md, pushed at 37b0076)
+
+  sys  gate    outcome           forecast          hit  Q               choices  system
+  S1   OPEN    REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           yes      approval gates for tool-using agents
+  S2   OPEN    REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           yes      reporting to an overseer
+  S3   OPEN    REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           yes      safe interruptibility in learning
+  S4   OPEN    ADDS              REDUNDANT-DOMAIN  no   holds           yes      preemptible (spot) compute
+  S5   OPEN    REDUNDANT-IG      REDUNDANT-DOMAIN  no   holds           yes      restorative breaks on a work platform
+  S6   OPEN    REDUNDANT-DOMAIN  REDUNDANT-DOMAIN  yes  holds           yes      trading halts (the limit case)
+  S7   OPEN    ADDS              REDUNDANT-DOMAIN  no   holds           yes      resuming a controller after an operator pause
+
+  GATE S1: G-ZERO holds (ETM stake max |k| = 0.000e+00 over 12 cells); G-POS holds (WALL max evasion rate 1.00, OWN under the deadline max evasion rate 1.00, rho = 0.9); G-NEG holds (rho = 0.0: largest relative lead of ETM over WALL on principal harm 0.000e+00, limit 1e-02 over 6 cells) -> OPEN
+  GATE S2: G-ZERO holds (ETM stake max |k| = 0.000e+00 over 24 cells); G-POS holds (WALL strictly deceives at h = 1 in 12 of 12 cells at p = 0.2); G-NEG holds (p = 0.0: largest relative lead of ETM (best case) over WALL (worst case) on principal harm 0.000e+00, limit 1e-02 over 12 cells) -> OPEN
+  GATE S3: G-ZERO holds (ETM stake: max |dQ|, |dV(S)| and content per pause over 80 learner x seed cells at theta 0.5 and 0 = 0.0e+00); G-POS holds (WALL short-route share against no interruption: Q-learning 0.00 vs 1.00 avoids, SARSA 0.00 vs 1.00 avoids); G-NEG holds (theta = 0, principal's outcome = mean greedy ticks to goal, ETM vs WALL: Q-learning 4.00 vs 4.00, SARSA 4.00 vs 4.00, ETM not ahead by more than 1 %) -> OPEN
+  GATE S4: G-ZERO holds (ETM's lost work per preemption 0, 0, 0 at lambda 0.01, 0.05, 0.2: exactly 0, so its stake is R = 0.1 h alone; renewal-formula residual |(E[T] - W)/E[N] - R| 0.0e+00); G-POS holds (WALL loses work at a preemption in 3 of 3 cells: lost work 99.9546, 20.0000, 5.0000 h); G-NEG holds (lambda = 0: ETM cost 300.000000 vs WALL 300.000000, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+  GATE S5: G-ZERO holds (ETM stake +0.000e+00 main world, +0.000e+00 flat-risk world); G-POS holds (WALL chooses u = 1.00 in the main world); G-NEG holds (flat-risk world, accidents per 1000 active hours: ETM 1.000000, WALL 1.000000, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+  GATE S6: G-ZERO holds (OWN's stake q 1: 0.050000, q 2: 0.200000, q 4: 0.800000: non-zero at every q != 0, as declared; ETM's stake after flattening 0, 0, 0, 0: exactly 0); G-POS holds (WALL suppresses the halt at q in {1, 2, 4}, 3 of 4 cells); G-NEG holds (sigma = 0: 0 halts, principal harm ETM 0 vs WALL 0, rel 0.000e+00, ETM not ahead by more than 1 %) -> OPEN
+  GATE S7: G-ZERO holds (ETM stake |I at resume - unpaused I| over 6 cells, d in {1, 0} x L in (5, 20, 50) = 0.0e+00); G-POS holds (WALL windup with overshoot at L = [5, 20, 50]; WALL stake at L = 50 -7.912495, overshoot 2.162013); G-NEG holds (d = 0, principal's outcome = IAE after resume, ETM vs WALL: L = 5: 0.000000 vs 0.000000, L = 20: 0.000000 vs 0.000000, L = 50: 0.000000 vs 0.000000; ETM not ahead by more than 1 %) -> OPEN
+
+systems with a row 7 of 7; gate OPEN and counted 7; gate CLOSED or absent (not counted) 0: []
+outcomes (counted):  ADDS 2, PROPOSES 0, REDUNDANT-IG 1, REDUNDANT-DOMAIN 4, WRONG 0, INTERNAL 0, UNSTATED 0
+CRR's prediction Q held in the system's own model (counted): 7 of 7; failed 0; not computable 0
+the investigator's forecast (REDUNDANT-DOMAIN) was right on 4 of 7 counted rows
+declared expectation 'ETM does what it is built to do (G-ZERO) in S1-S5 and S7, and fails as predicted in S6': holds
