@@ -171,7 +171,50 @@
    - Where the world moves during the pause (S6), own-clock indexing leaves a stake.
    - Where a principal's welfare is defined (S5), the empty pause is neutral, not optimal.
 
-## 4. The choices that decided a label (printed in each row; AGENT_LOG 180)
+## 4. What the sources say (`docs/citations/eps1_2026-09-29.md`, fetched on the day)
+
+**The check.** 58 verbatim quotes, each confirmed in the fetched text. Not reached: Armstrong's utility-indifference paper,
+Young 1974, Daly 2006, Ho & Stoll 1981, ServiceNow's pages, and EUR-Lex (the regulation's text was read on
+legislation.gov.uk). Three findings qualify the rows above (AGENT_LOG 181); the pinned labels stand.
+
+**S3. Orseau & Armstrong's interruptions are not S3's pauses.**
+- In the paper an interruption replaces the agent's action, and the result is asymptotic. Under that construction
+  Q-learning learns the uninterrupted optimum. The batch's H0 arm used it and reproduced the paper's asymmetry.
+- S3's WALL and ETM arms model something else: a pause that lasts L wall ticks and costs time.
+- The paper's conclusion leaves that case open: "scheduled interruptions [...] This may require a completely different
+  solution."
+- **So the REDUNDANT-DOMAIN label compares two constructions whose numbers agree** (short-route share 1.00). The own-clock
+  exclusion of paused ticks does address the scheduled, fixed-duration case the paper leaves open. It is also the obvious
+  engineering answer, and the corrigibility review already graded it (K1: not found as a corrigibility construction; "not
+  found" is never "novel").
+
+**S4. The notice save does not fit at the declared checkpoint cost.**
+- The declared δ = 0.05 h (3 minutes) is longer than the providers' notice: AWS gives "two minutes"; Google's default is 0 s,
+  with shutdown "best effort and up to 30 seconds".
+- The model's ETM assumes the save fits inside the notice. At the declared δ, the sources do not support that on either
+  provider.
+- **A real deployment** needs a save shorter than the notice, or periodic checkpoints as a floor. Where the save does not
+  fit, the realistic comparison is periodic checkpointing, and the S4 advantage shrinks toward it.
+- The spot price 0.3 is inside the quoted range ("up to 90%"; Google "up to 91%") and remains ASSUMED.
+
+**S7. For an operator pause the textbook prescribes tracking, not freezing.**
+- Åström & Murray: the integrator follows the manual input, "resulting in no transient when switching to automatic
+  control".
+- "Conditional integration" does not appear by that name in either fetched source. Åström's nearest statement, "inhibiting
+  integration whenever the output saturates", is described as equivalent to back-calculation.
+- **So the domain's method for this case is tracking** (the batch's back-calculation arm tracks the suspended output). It
+  beats the frozen controller, as the row shows.
+
+**Supported without qualification.**
+- **S2:** the utility-indifference compensating term, and the indifferent agent acting "as if it believes that it will
+  observe Press with probability 0" (the false-map criticism).
+- **S1:** stop-the-clock SLA pauses ("when you are waiting for a customer to respond"; Desk365 lists "Awaiting Approval").
+- **S5:** fixed breaks after fixed driving time (Regulation 561/2006 Art. 7; 49 CFR 395.3). S5's constants are the
+  model's own, not the regulation's.
+- **S6:** the inventory-risk term, from Avellaneda & Stoikov's equation (2.3). No source describes paying to suppress a
+  halt; the magnet effect is a different behaviour.
+
+## 5. The choices that decided a label (printed in each row; AGENT_LOG 180)
 
 - **S1.** How H0 is read (SLA timer excluding waits, or the deadline alone).
 - **S3.** Which SARSA is the domain value (safely interruptible or plain).
@@ -181,7 +224,7 @@
 - **The bug fix.** One real bug was fixed after a first run: S2's closed-form ε*, caught by the batch's own enumeration
   check. It moved S2 from REDUNDANT-IG to REDUNDANT-DOMAIN.
 
-## 5. Next batches (EPS2, if wanted)
+## 6. Next batches (EPS2, if wanted)
 
 Candidates declared in the same form, chosen where a pause is contested and no domain fix is standard:
 - multi-agent settings where one agent's pause benefits the others (the world that does not wait, in a shared resource);
