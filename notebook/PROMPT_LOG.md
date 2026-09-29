@@ -1691,3 +1691,7 @@ I would like you to check the number of "redundant/consistent/desriptive" system
 ## 236 — 2026-09-29T02:51:58Z
 
 In the 13 fails which count again CRR's falsifiable claims, how would the axioms need to be modified in future as a result?
+
+## 237 — 2026-09-29T02:57:23Z
+
+So, we have the Continuous Learning findings and the empty true map for AI safety as the best applied use cases for this?
