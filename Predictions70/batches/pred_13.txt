@@ -1,0 +1,78 @@
+PRED70 batch P13: engineering and control (Predictions70/DECLARATION.md; declared at 8397478)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (ctrl) PI controller with actuator saturation: integral windup (model: first-order plant tau = 5.0, sample period Ts = 1.0 = one occasion, Kp = 1.0, Ki = 0.3, |u| <= 1.1, unit step, 300 samples)
+     source:     PRED70 P13-1 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          a bounded (A6) integral reduces overshoot after saturation by more than 1 % against the plain integral (computed as: relative overshoot max(y) - r of the A6-integral loop below 0.99 x the plain-integral loop's)
+     ingredient: A6: the integral replaced by Ts/(1 - q) x the A6 bounded mean of the error, M = (1 - q) e + q M, q = 0.5
+     null:       plain integral
+     domain:     anti-windup (leaky or clamped integrator) (computed: leaky integrator I = q I + Ts e with the same leak; clamped conditional integration printed)
+     numbers:    overshoot: A6 0.000000, plain 0.080486, leaky 0.000000, clamped 0.004505; final offset (r - y at the end): A6 0.384615, plain -0.000000, leaky 0.384615, clamped 0.000000; saturated samples: A6 2, plain 20, leaky 2, clamped 0 (model check, windup present: plain overshoot above the clamped one yes); max |y_A6 - y_leaky| over the run 0.000e+00; q-grid (sensitivity, q = 0.5 decides): q = 0.25: overshoot 0.000000 (leaky 0.000000), final offset 0.416667; q = 0.5: overshoot 0.000000 (leaky 0.000000), final offset 0.384615; q = 0.75: overshoot 0.000000 (leaky 0.000000), final offset 0.312500
+     T-G:        overshoot 0.000000 vs null 0.080486: differ
+     T-N:        leaky-integrator overshoot 0.000000: agree (the domain has Q)
+     T-C:        A6 overshoot 0.000000 < 0.99 x plain 0.080486: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    the A6-bounded integral is algebraically the leaky integrator with leak q per occasion (trajectories differ by 0.0e+00); it removes the windup overshoot (0.0805 -> 0.0000; the clamp gives 0.0045); with q = 0.5 per sample its settled offset is 0.3846 where the plain and clamped integrators reach -0.0000 and 0.0000: the bounded integral trades the zero-error guarantee for the missing windup, the known trade of the leaky anti-windup
+     weakness:   one plant, one gain pair; the occasion is one control sample (a choice: the declaration fixes q per occasion, not the occasion); the scale Ts/(1 - q) on the bounded mean (so the newest error enters with the plain integral's weight Ts) is a choice, and the overshoot is 0 at every q of the grid; overshoot is the only target Q names, so the offset the bounded integral costs is reported, not scored
+
+[ 2] (ctrl) relay (bang-bang) thermostat with hysteresis: switching events (model: dT/dt = (Ta - T)/tau + u (Th - Ta)/tau, Ta = 10, Th = 40 (heating twice as fast as cooling at 20), band [19.5, 20.5], tau = 1, exact update dt = 1e-4, 60 cycles, cycles 10-50 scored)
+     source:     PRED70 P13-2 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          switching occurs at the antipode of the temperature cycle's phase (computed as: the antipodal cut of the analytic-signal phase anchored at a switch-off falls on the next switch-on within 1 % of the period, every scored cycle)
+     ingredient: H-CUT (A3): intrinsic_phase + antipodal_cuts of the instrument, anchored at a switch-off
+     null:       the hysteresis thresholds (the exact switching rule: the switch-on fraction of the cycle after the switch-off)
+     domain:     relay feedback: switching at the thresholds (describing function) (computed: the describing function's first-harmonic input crosses the two thresholds half a period apart, fraction 0.5)
+     numbers:    fraction of the period from switch-off to: the antipodal cut 0.582994, the actual switch-on (thresholds) 0.666794; largest per-cycle |cut - switch| 0.083832 of a period over 40 cycles; even cuts against switch-offs: largest deviation 0.000000 of a period; period 0.150358; symmetric control Th = 30 (equal heating and cooling rates at 20): cut 0.500000, switch-on 0.500000, largest deviation 0.000000 over 40 cycles (the cut sits on the switch)
+     T-G:        switch-on fraction 0.582994 vs null 0.666794: differ
+     T-N:        describing-function fraction 0.5: differ
+     T-C:        largest per-cycle deviation 0.083832 <= 0.01 of a period: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    on the asymmetric thermostat the analytic-signal antipode falls 0.5830 of the period after the switch-off, the relay actually switches on at 0.6668: the antipode misses the switch and misses the describing function's half period; with equal heating and cooling rates the two coincide, as symmetry requires (0.5000 against 0.5000); the relay switches at its thresholds, which are the extrema of the temperature, and where the cut of the phase falls depends on the waveform's shape, which the switching rule does not consult
+     weakness:   DEVIATION: H0 names two readings; the exact threshold rule is used as the null (as declared) and the describing function's half-period spacing as the T-N value; the 1 % of a period tolerance for 'occurs at the antipode' is the harness's TOL_N, not declared for this row; one asymmetry (2:1) and its symmetric control
+
+[ 3] (ctrl) M/M/1 queue (rho = 0.8): busy periods in natural time (customers served) (model: 1000000 busy periods, service rate 1, jump-chain simulation, seed 0)
+     source:     PRED70 P13-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          busy periods are less variable in customers served than in clock time (computed as: CV of the number served per busy period below the CV of its clock length, the batch-means 95 % interval of the difference below 0)
+     ingredient: A1' natural time: busy-period length counted in customers served
+     null:       clock time
+     domain:     busy-period distributions (Kendall): both known (computed: Kendall's CV of the number served, sqrt(rho (1 + rho)/(1 - rho)))
+     numbers:    CV: customers served 2.687312 (Kendall 2.683282), clock 3.002201 (Kendall sqrt((1 + rho)/(1 - rho)) = 3.000000); mean served 5.0082 (1/(1 - rho) = 5.0000); difference -0.314889, 95 % batch-means interval [-0.318504, -0.311111] (50 batches); ratio of squared CVs 0.801229 (Kendall's ratio 0.800000, rho = 0.8)
+     T-G:        CV 2.687312 vs null 3.002201: differ
+     T-N:        Kendall's CV of the number served 2.683282: agree (the domain has Q)
+     T-C:        CV served 2.687312 < CV clock 3.002201 with the interval below 0: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    counting a busy period in customers served is less variable than timing it by the clock (2.6873 against 3.0022); the busy-period moments of queueing theory give the ratio of squared CVs as 0.8000, which is rho, (simulated 0.8012), because the clock length adds the service-time noise to the count's; natural time is the queue's own count and the domain has both distributions
+     weakness:   one load; the CV of the number served tends to the clock's as rho -> 1 (ratio rho), so the natural-time advantage shrinks in heavy traffic, where queues matter most
+     elegance:   Counting a busy spell in customers served is less jumpy than timing it with a clock, and the size of the difference is the load itself: the squared spreads differ by exactly the factor rho.
+     child:      At a busy shop counter, how many people get served before it goes quiet is steadier than how many minutes it stays busy, because the minutes also depend on how slow each person is.
+
+[ 4] (ctrl) TCP AIMD congestion window sawtooth with random loss (model: fluid AIMD, window +1 per RTT, halved at a loss (floor 1), per-packet loss probability 0.01 (hazard 0.01 W per RTT), step 0.01 RTT, 2000 losses, the first 10 dropped, seed 0)
+     source:     PRED70 P13-4 (declared at 8397478; forecast WRONG)
+     Q:          the window arc between losses is more regular than the time between losses (computed as: regularity() on the window, events = losses, segment_end 'exclusive' (the halving is the cut); CV(arc) < CV(clock) with the paired-bootstrap 95 % CI below 0, n_boot 2000, seed 0)
+     ingredient: H-L5: the arc of the congestion window between losses (identity metric, sigma 1)
+     null:       CV(time between losses)
+     domain:     AIMD sawtooth: loss times Poisson (computed: a Poisson loss process has CV 1 between losses)
+     numbers:    exclusive: CV(arc) 0.737732, CV(clock) 0.736771, difference 0.000961, CI [0.000911, 0.001015], n = 1989; inclusive (the halving jump counted in the arc; sensitivity): CV(arc) 0.541000, difference -0.195771, CI [-0.206811, -0.185456] (CI below 0); Poisson loss in time at the same mean rate (exclusive): CV(arc) 0.973111, CV(clock) 0.971861, CI [0.001177, 0.001331]
+     T-G:        CV 0.737732 vs null 0.736771: agree
+     T-N:        H0's Poisson CV 1.0: differ
+     T-C:        exclusive CI upper end 0.001015 < 0: fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    between losses the window rises one packet per RTT, so its arc is the elapsed time in RTTs less one step: CV(arc) 0.7377 against CV(clock) 0.7368, the same clock in other units; counting the halving jump as arc lowers the CV (0.5410), which is the arithmetic of adding half the peak window to every occasion, not a clock of change; H0's Poisson loss times do not match per-packet random loss in time (CV(clock) 0.7368), since the loss hazard grows with the window
+     weakness:   DEVIATION: segment_end 'exclusive' (the halving is the cut, A3) decides; declared.py does not name it, and the inclusive reading's verdict is printed beside it; one loss rate; fixed RTT (a queue-dependent RTT would decouple arc from clock)
+
+[ 5] (ctrl) exponential smoothing (Holt) forecasting of a trend with level shifts (model: x_t = 0.05 t + level shifts +4 at t = 100, -6 at 200, +3 at 300, + N(0, 1) noise, T = 400, seed 0; one-step-ahead forecasts)
+     source:     PRED70 P13-5 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          A6 with q = 0.5 equals simple exponential smoothing with alpha = 0.5 (computed as: the explicit A6 weighted mean equals the SES recursion (alpha 0.5, initial level x_0) at every step to 1e-12 x max|x|)
+     ingredient: A6: the bounded Frechet mean with weights (1 - q) q^k on the past and q^n on the first observation
+     null:       no memory (the naive forecast x_t)
+     domain:     simple exponential smoothing (computed: SES recursion with alpha = 0.5)
+     numbers:    one-step MSE: A6 1.623418, no memory 2.229249, SES(0.5) 1.623418, Holt (alpha 0.5, beta 0.1; context) 1.712940; max |A6 - SES| 7.105e-15 (tolerance 2.239e-11); the normalised-truncated reading (weights q^k / sum over the available past): largest gap to SES 3.648e-02, below tolerance at every step from 36 on; q-grid (sensitivity): q = 0.25: max |A6 - SES(alpha 0.5)| 1.588e+00, max |A6 - SES(alpha 0.75)| 7.105e-15, MSE 1.847832; q = 0.5: max |A6 - SES(alpha 0.5)| 7.105e-15, max |A6 - SES(alpha 0.5)| 7.105e-15, MSE 1.623418; q = 0.75: max |A6 - SES(alpha 0.5)| 2.069e+00, max |A6 - SES(alpha 0.25)| 7.105e-15, MSE 1.591659
+     T-G:        MSE 1.623418 vs null 2.229249: differ
+     T-N:        SES(0.5) MSE 1.623418: agree (the domain has Q)
+     T-C:        max |A6 - SES| 7.105e-15 <= 2.239e-11: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    A6 with geometric weight q per occasion is simple exponential smoothing with alpha = 1 - q, so the declared equality at q = 0.5 holds because 1 - q = q there; at q = 0.25 and 0.75 the A6 mean equals SES at alpha 0.75 and 0.25, not at 0.5 (grid); on a trend with level shifts both lag the trend (MSE 1.623 against Holt's 1.713): exponential smoothing is the domain's name for A6
+     weakness:   the equality is algebraic; the normalised-truncated reading of the weights differs from SES only in its start-up, which decays as q^n; the Holt comparison is context, not the declared target
+     elegance:   Half what you just saw and half what you remembered is the whole rule, and forecasters have used it for seventy years under the name exponential smoothing.
+     child:      To guess tomorrow, take half of today's number and half of your last guess. That simple rule is what weather and sales forecasters call smoothing.
+
+TALLY: 0 ADDS / 0 PROPOSES / 1 REDUNDANT-IG / 3 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED
