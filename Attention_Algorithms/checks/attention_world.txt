@@ -72,3 +72,4 @@ SENSITIVITY (each habit-world constant x0.5 and x2, one at a time; A-ADD and the
   eta_c    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.1, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -4.4511 (behind), user-started +0.2510 (ahead)
   eta_n    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.2, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -1.2326 (behind), user-started +0.2132 (ahead)
   eta_n    x2    ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.5398 (behind), user-started +0.2812 (ahead)
+  delta    x0.5  ENG (0.9, 4.0) OWN (0.9, 4.0) TRUE (0.0, 4.0) EMPTY (0.0, 0.0); EMPTY - TRUE welfare -7.1870 (behind), user-started +0.2772 (ahead)
