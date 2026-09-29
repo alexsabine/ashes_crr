@@ -84,6 +84,7 @@ jobs:
           uv run python Attention_Algorithms/checks/grade.py > /tmp/aa_g.txt && cmp /tmp/aa_g.txt Attention_Algorithms/checks/grade.txt
           uv run python Attention_Algorithms/checks/global_attention.py > /tmp/aa_ga.txt && cmp /tmp/aa_ga.txt Attention_Algorithms/checks/global_attention.txt
           uv run python Predictions70/checks/tally.py > /tmp/p70.txt && cmp /tmp/p70.txt Predictions70/checks/tally.txt
+          uv run python Epistemic_Review/checks/redundant_vs_fail.py > /tmp/rvf.txt && cmp /tmp/rvf.txt Epistemic_Review/checks/redundant_vs_fail.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

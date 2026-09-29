@@ -1,0 +1,45 @@
+Redundant / consistent / descriptive against fails, and PRED70's WRONG rows under CRR.md section 9 (prompt-log 235)
+
+[1] The counts, layer by layer (every number read from a pinned output)
+  (a) retrodiction batteries, 197 rows: CONSIST 41 + DESCR 86 = 127 consistent/descriptive; FAILS 20; TENSION 9; OPEN 41; SHARP 0  -> consistent/descriptive : fail = 127:20 (6.35 to 1)
+  (b) synthesis re-read, 164 real-domain rows: REDUNDANT-IG 39 + REDUNDANT-DOMAIN 59 = 98 redundant; WRONG 28; ADDS 10; INTERNAL 22; PROPOSES 2; UNSTATED 4  -> redundant : fail = 98:28 (3.50 to 1)
+      the 41 CONSIST rows re-read: redundant 29, WRONG 3, INTERNAL 9, ADDS 0, UNSTATED 0
+      the 86 DESCR rows re-read: redundant 55, WRONG 14, INTERNAL 12, ADDS 2, UNSTATED 3
+  (c) PRED70, 70 declared predictions: REDUNDANT-IG 19 + REDUNDANT-DOMAIN 16 = 35 redundant; WRONG 18; ADDS 14; INTERNAL 2; UNSTATED 1  -> redundant : fail = 35:18 (1.94 to 1)
+  (d) the held-out ledger (pre-registered, unseen data): PASS-0 11, PASS-1 1, FAIL 31 (no redundant grade exists on the ledger: a pass that reduces to a constant is its own allocation)
+  retrodictive + synthetic layers together (a + b + c; rows of (b) are re-reads of (a), so this double-counts by design): consistent/descriptive/redundant 260, fail 66
+
+[2] PRED70's WRONG rows: should any be REDUNDANT?
+  WRONG rows in the tally: 18; rows with a class reading here: 18; missing: none
+  the harness rule: a row is REDUNDANT only if the CRR value agrees with the null (T-G) or the domain (T-N) within 1 %; a row reaches WRONG only when both read "differ" (src/crr/synthesis/harness.py: outcome()). Relabelling a WRONG row as REDUNDANT would need a tolerance changed after the result (R15; CLAUDE.md section 10). Rows that qualify for REDUNDANT under the declared rule: 0 of 18
+    P02-1 H-L5             FALSIFIES   H-L5 on a slider with its own slips: the arc is not more regular than the clock
+    P03-5 A6               APPLICATION A6 as a dynamical model: the stabilising direction was the investigator's, not CRR's
+    P05-1 D6/H-T1          SCOPE       H-T1 on a convex learner: section 9 names it as H-T1's must-fail (SCOPE lemma)
+    P05-3 A3               APPLICATION A3 used as a restart schedule: CRR does not claim a cut is an optimal control
+    P05-5 A6               KNOB        A6 at q = 0.5 against the Kalman filter: the matching q depends on the noise ratio
+    P06-5 A3               APPLICATION A3 used as a ratchet switching rule: CRR does not claim optimality
+    P07-4 A3               APPLICATION A3 placed on the PRC crossover, a derived curve, not an own event
+    P08-4 H-L5             FALSIFIES   H-L5 on Red Queen cycles (own turns): clock more regular
+    P10-2 A6               APPLICATION A6 per inter-event occasion (D5 [M]) is not the clock kernel of a Hawkes process
+    P10-4 A6               APPLICATION A6 as a driver model: the capacity-raising direction was the investigator's
+    P11-1 A6               KNOB        A6 in the glucose model: the label turns on the occasion length (O1)
+    P11-2 A3               FALSIFIES   H-CUT on sleep onset (own event on the circadian cycle): onset is not at the antipode
+    P11-3 H-L5             FALSIFIES   H-L5 per breath: breath duration more regular than the arc
+    P11-4 A6               KNOB        A6 at a fixed q against pharmacokinetic accumulation: the q that matches is set by the elimination rate
+    P12-2 H-CUT (A3)       SCOPE       a cut on the thermohaline carrier, which has no rotor (O3: nothing sets L)
+    P12-4 H-L5             FALSIFIES   H-L5 on glacial terminations: the period is the regular quantity
+    P13-2 H-CUT (A3)       FALSIFIES   H-CUT on a relay thermostat (cyclic, own switching events): the switch is not at the antipode
+    P14-1 A6               KNOB        A6 at q = 0.5 in a bandit: a two-step memory; CRR does not fix q
+  FALSIFIES    6  P02-1, P08-4, P11-2, P11-3, P12-4, P13-2
+  SCOPE        2  P05-1, P12-2
+  APPLICATION  6  P03-5, P05-3, P06-5, P07-4, P10-2, P10-4
+  KNOB         4  P05-5, P11-1, P11-4, P14-1
+
+[3] The reverse direction: ADDS rows that are fails under section 9
+  H-L5 fails "if CV_C >= CV_dt, or a control matches it" (section 9). PRED70 H-L5 rows 16: section-9 FAIL 15, PASS 0, undetermined 1 (P06-3)
+  harness ADDS rows that are section-9 H-L5 FAILs (the amplitude control matches): 7 (P01-1, P01-2, P01-3, P01-5, P02-3, P07-5, P11-5)
+
+[4] PRED70 read under section 9 (a reading, not a relabel; the pinned harness labels stand)
+  fails that count against a falsifiable CRR claim: 13 (WRONG rows that falsify 6 + H-L5 ADDS rows failing their control 7)
+  fails that bound CRR's reach without falsifying it (APPLICATION + KNOB): 10; fails CRR itself predicts (SCOPE): 2
+  redundant (consistent but not risky): 35; surviving candidates (A6 ADDS): 7
