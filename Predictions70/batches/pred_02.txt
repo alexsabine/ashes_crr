@@ -1,0 +1,78 @@
+PRED70 batch P02: stick-slip, relaxation and recharge (declared at 8397478; prompt-log entry 234)
+T-G tolerance 0.01 (relative), T-N tolerance 0.01 (relative); labels computed by outcome() from the numbers (R15)
+
+[ 1] (fric) Burridge-Knopoff two-block spring-slider with rate-and-state friction under slow loading (computed as: quasi-dynamic two-block model, nondimensional, aging law, a = 0.01, b1 = 0.015, b2 = 0.018, k1 = k2 = 0.002 (k_crit of block 1 = 0.005), coupling kc = 0.001, radiation damping eta = 1e-5, loading vL = 1; Dormand-Prince rtol 1e-7 over t = 20000, first 2000 dropped; slip onsets where max(v1, v2) crosses 100 vL; carrier = the Euclidean arc of the displacement path (u1, u2) by quadrature, on a 0.01 grid)
+     source:     PRED70 P02-1 (declared at 8397478; forecast ADDS)
+     Q:          arc of the block displacement since the last slip is more regular than time since the last slip: CV(arc) < CV(clock), CI excluding 0
+     ingredient: H-L5 (regularity(); the slip is the cut: the arc accumulated while max(v) > 100 vL is removed from the carrier, so an occasion carries the displacement since the last slip; the slip-included carrier is the sensitivity)
+     null:       CV(clock)
+     domain:     none (the L5 claim's own class, synthetic)
+     numbers:    regime scan (T = 4000, the first aperiodic entry is used): b2 = 0.018, kc = 0.0005: 5 distinct intervals of 156 (periodic); b2 = 0.018, kc = 0.001: 113 distinct intervals of 121 (aperiodic); b2 = 0.018, kc = 0.002: 3 distinct intervals of 106 (periodic); b2 = 0.02, kc = 0.0005: 3 distinct intervals of 147 (periodic); b2 = 0.02, kc = 0.001: 38 distinct intervals of 185 (periodic); b2 = 0.02, kc = 0.002: 5 distinct intervals of 162 (periodic); main run: 815 slips, 561 distinct intervals; slip excluded (primary): 814 occasions: CV(arc) = 0.732026, CV(clock) = 0.717555, CV(amplitude) = 0.732026, C_mean = 9.6094; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.031854, 0.057123] (CI includes 0); slip included: 814 occasions: CV(arc) = 0.499621, CV(clock) = 0.717555, CV(amplitude) = 0.499621, C_mean = 43.0712; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.257684, -0.180205] (arc-regular (CI below 0))
+     T-G:        CV(arc since the last slip) 0.732026 vs null CV(clock) 0.717555: differ
+     T-N:        no domain theorem cited (the L5 claim's own class, synthetic)
+     T-C:        CV(arc) < CV(clock) with the paired-bootstrap CI below 0: fails -> Q fails
+     OUTCOME:    WRONG
+     reading:    the displacement since the last slip is a less regular count than the clock (CI includes 0); with the slip's own displacement counted in the occasion the class is arc-regular (CI below 0), so the verdict depends on whether the slip is read as the cut or as content
+     weakness:   DEVIATION (reading of the occasion): 'the arc of the block displacement since the last slip' is read as the displacement after the slip, the slip itself being the cut; a reader who counts the slip's own displacement gets arc-regular (CI below 0) and the label ADDS; friction parameters, coupling and damping are this row's choices (declared.py names none): the scan above picks the first aperiodic regime of a stated list so that the occasions differ; two blocks slipping in quick succession count as two slips; the identity metric on displacement is a stand-in; onset threshold 100 vL and re-arm 10 vL are named constants of this row
+
+[ 2] (fric) Olami-Feder-Christensen earthquake cellular automaton (alpha 0.2, 50 x 50), events above the median size (computed as: open boundaries, uniform driving at unit rate, 150000 events of transient dropped, 100000 events kept, seed 7; median size 1, so 'above the median' is size > 1: 42938 large events)
+     source:     PRED70 P02-2 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          the loading accumulated between large events (natural-time arc) is more regular than clock time (computed as: CV(loading accumulated between consecutive large events) < CV(clock time between them), paired-bootstrap CI below 0)
+     ingredient: H-L5 (regularity() on the accumulated uniform loading sampled on a clock grid of 1e-4)
+     null:       CV(clock)
+     domain:     Varotsos natural time: event-count time (computed as: CV of the number of events between consecutive large events)
+     numbers:    instrument (grid 1e-4; 1569 large events merged on the grid): 41368 occasions: CV(arc) = 1.032978, CV(clock) = 1.032978, CV(amplitude) = 1.032978, C_mean = 0.0015; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.000000, 0.000000] (CI includes 0); exact at event resolution: CV(loading) = 1.070070, CV(clock) = 1.070070 (the same numbers: at unit driving rate the clock is the loading); Varotsos natural time: CV(event count) = 0.774666, mean 2.329 events
+     T-G:        CV(loading) 1.032978 vs null CV(clock) 1.032978: agree (relative difference 2.4e-15)
+     T-N:        Varotsos natural time gives CV(event count) = 0.774666: differ
+     T-C:        CV(loading) < CV(clock) with the paired-bootstrap CI below 0 and a resolvable difference: fails -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    in the OFC automaton the only input is the uniform loading, and the model's time is that loading divided by the driving rate, so the 'natural-time arc' of loading between large events is the clock itself (relative difference 2.4e-15) and cannot be more regular than it; the domain's natural time is a different count, the number of events (CV 0.774666), which is more regular than the clock here
+     weakness:   the clock of a cellular automaton is defined by its driving; a model with a noisy driving rate would separate loading from time, and that is a different system from the declared one
+     elegance:   In a slowly and steadily pushed system, the push you have given it is the clock: counting the load and counting the minutes are the same count.
+     child:      If you add one grain of sand to a pile every second, then counting grains and counting seconds is the same thing. You cannot get a better clock out of the grains than the seconds already are.
+
+[ 3] (fric) dripping faucet (mass-spring with mass loss at detachment), flow in the period-1 regime with noise (computed as: nondimensional mass-spring drop g = k = 1, damping 0.2, detachment at x = 1 with a fraction 0.4 of the mass leaving and recoil to x = 0.2; mean flow 0.005 with lognormal Ornstein-Uhlenbeck flow noise (log-sd 0.3, correlation time 10), RK4 at dt = 0.05, 600000 steps, first 5 drops dropped, seed 3; carrier = cumulative inflow mass)
+     source:     PRED70 P02-3 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          CV(inflow mass between drops) < CV(inter-drop time) (computed as: CV(inflow mass between drops) < CV(inter-drop time), paired-bootstrap CI below 0)
+     ingredient: H-L5 (regularity() on the cumulative inflow, inclusive segments: the inflow has no jump at a drop)
+     null:       CV(inter-drop time)
+     domain:     the mass-threshold model: drop at fixed critical mass (computed as: the threshold model run on the same flow path, critical mass and retained mass set to the spring model's means, same grid, same instrument)
+     numbers:    noise-free flow: drop intervals 80.10-80.10 (period 1 within one step); spring model: 369 occasions: CV(arc) = 0.003612, CV(clock) = 0.136161, CV(amplitude) = 0.003612, C_mean = 0.4005; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.141564, -0.122976] (arc-regular (CI below 0)); mass at detachment mean 1.00130, CV 0.001260, correlation with the mean flow over the last 10 time units 0.0824; threshold model on the same flow: CV(inflow) = 0.000245, CV(clock) = 0.134991; flow noise log-sd 0.1: spring CV(inflow) 0.001080, CV(clock) 0.043631 (arc-regular (CI below 0)), threshold model CV(inflow) 0.000188
+     T-G:        CV(inflow) 0.003612 vs null CV(time) 0.136161: differ
+     T-N:        the mass-threshold model on the same flow gives CV(inflow) = 0.000245: differ
+     T-C:        CV(inflow) < CV(inter-drop time) with the paired-bootstrap CI below 0: holds -> Q holds
+     OUTCOME:    ADDS
+     reading:    the drop leaves when the spring has stretched to its limit, which here is nearly a fixed mass (1.00130, CV 0.001260), so the inflow between drops is the more regular count (arc-regular (CI below 0)); the threshold model gives the same direction, with its own CV(inflow) 0.000245 on the same flow against the spring model's 0.003612: the values differ, and the mass at detachment does not follow the recent flow (correlation 0.0824), a property of the spring model, not a CRR quantity; a relative tolerance on two CVs near zero is a hard test for 'the domain has Q'
+     weakness:   the drop model, its constants and the flow-noise model are this row's choices (declared.py names the class only); the threshold model is calibrated to the spring model's mean masses; the identity metric on mass
+
+[ 4] (fric) geyser as an integrate-and-fire recharge with noisy recharge rate (computed as: dh/dt = r(t), eruption when h >= H = 1, reset to 0; r = r0 exp(s eta - s^2/2), r0 = 1/60 per minute, eta a unit OU process (correlation time 60 min), s = 0.3; dt = 0.1 min, 301 eruptions after the first, seed 4)
+     source:     PRED70 P02-4 (declared at 8397478; forecast REDUNDANT-DOMAIN)
+     Q:          CV(recharge arc) < CV(eruption interval) (computed as: CV(arc of the recharge carrier h between eruptions) < CV(interval), paired-bootstrap CI below 0)
+     ingredient: H-L5 (regularity() on h, exclusive segments: the reset at an eruption is the cut, A3)
+     null:       CV(interval)
+     domain:     integrate-and-fire: the threshold on the integrated input (computed as: the integrated input h(t_b-) - h(t_a+) over the same samples, and its CV)
+     numbers:    300 occasions: CV(arc) = 0.000568, CV(clock) = 0.243396, CV(amplitude) = 0.000568, C_mean = 0.9991; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.260126, -0.224733] (arc-regular (CI below 0)); the IF's integrated input over the same samples: CV 0.000568; continuous-time integrated input at eruption (the threshold plus one step's overshoot): mean 1.00098, CV 0.000627; reset counted inside the arc (inclusive): CV(arc) 0.000568; white-noise reading (h' = r0 + 0.02 xi, seed 5): 388 occasions: CV(arc) = 0.150803, CV(clock) = 0.156744, CV(amplitude) = 0.012533, C_mean = 3.1324; paired-bootstrap 95 % CI of CV(arc) - CV(clock) = [-0.008742, -0.003108] (arc-regular (CI below 0)), integrated input CV 0.003795, label ADDS
+     T-G:        CV(arc) 0.000568 vs null CV(interval) 0.243396: differ
+     T-N:        the integrate-and-fire's integrated input gives CV 0.000568: agree (the domain has Q) (relative difference 3.8e-15)
+     T-C:        CV(arc) < CV(interval) with the paired-bootstrap CI below 0: holds -> Q holds
+     OUTCOME:    REDUNDANT-DOMAIN
+     reading:    with a positive recharge rate the carrier only rises between eruptions, so its arc is its chord, the integrated input, which the threshold fixes up to one sample (CV 0.000568 against the interval's 0.243396); that is the integrate-and-fire statement itself; under the white-noise reading the carrier wanders, its arc is still below the clock's CV (0.150803 against 0.156744) and the label is ADDS
+     weakness:   the rate-noise model is this row's choice (a rate is positive, so a lognormal process; the white reading, printed, lets the level fall); the remaining CV(arc) is one sample of recharge, so CV(arc) and the domain's value are both quantisation near zero and agree because they are the same samples
+     elegance:   A geyser is a bucket that fills and tips. However fast or slow the water comes, it always tips at the same fullness, so counting water is a perfect clock and counting minutes is not.
+     child:      Imagine a bucket under a dripping tap that tips over when it is full. On rainy days it fills fast and on dry days slowly, so the minutes between tips change. But the amount of water in each tip is always the same.
+
+[ 5] (fric) Suarez-Schopf delayed-oscillator El Nino model (alpha 0.75, delay 6) with noise (computed as: dT/dt = T - T^3 - alpha T(t - delay) + noise, alpha = 0.75, delay = 6, additive white noise of intensity 0.1, Euler-Maruyama at dt = 0.01 over t = 6000, first 200 dropped, seed 6; peaks = maxima of warm episodes between hysteretic zero crossings)
+     source:     PRED70 P02-5 (declared at 8397478; forecast INTERNAL)
+     Q:          the sign change of the temperature anomaly lies at the antipode of the analytic-signal phase from the last peak more often than halfway in clock time (computed as: per warm episode, the next downward sign change against (CRR) the antipodal cut half a turn of intrinsic_phase(T) after the peak and (null) the clock midpoint of the peak-to-next-peak cycle; Q holds if the antipode is strictly nearer on more than half of the episodes)
+     ingredient: H-CUT (A3) (antipodal_cuts started at the peak, first cut)
+     null:       the clock midpoint (reading (a), primary: halfway through the peak-to-peak cycle, the clock's half-turn; reading (b), sensitivity: halfway from the peak to the next trough)
+     domain:     delay-oscillator period ~ 4 delays (computed as: a period of 4 delays puts the sign change a quarter period, one delay = 6, after the peak)
+     numbers:    357 episodes, period 16.179 (4 delays = 24), CV(period) 0.0633; mean lag after the peak: sign change 5.415, antipodal cut 8.115, clock midpoint (a) 8.090, (b) 3.999; antipode nearer the sign change than midpoint (a) on 0.451 of episodes, than midpoint (b) on 0.112; label with null (b): WRONG; noise 0.05: 357 episodes, period 16.163, antipode nearer than midpoint (a) on 0.471, than midpoint (b) on 0.160; noise 0.2: 360 episodes, period 16.082, antipode nearer than midpoint (a) on 0.486, than midpoint (b) on 0.144
+     T-G:        antipode lag 8.115 vs null (clock midpoint (a)) lag 8.090: agree
+     T-N:        H0's quarter period (one delay) gives a lag of 6: differ
+     T-C:        antipode nearer the sign change on more than half of the episodes: fails (0.451) -> Q fails
+     OUTCOME:    REDUNDANT-IG
+     reading:    half a turn of the analytic phase after a warm peak lands 8.115 after it (the trough comes at 7.999), and half the clock cycle at 8.090; the sign change comes 5.415 after the peak, nearer the one-delay lag of the delayed-oscillator picture; the antipode and the clock half-cycle are the same prediction here, so which is nearer is decided by noise (0.451); against the peak-to-trough midpoint the antipode is nearer on 0.112; the verdict does not change with the noise level
+     weakness:   DEVIATION (reading of the null): the Q's 'halfway in clock time' needs two endpoints that declared.py does not name; the primary reading is the cycle's half (the clock's counterpart of half a turn), the peak-to-trough reading is printed and gives a different label, WRONG; the model period is 16.179 against H0's 4 delays = 24 (relative difference 0.326); the noise level is this row's choice
+
+TALLY: 1 ADDS / 0 PROPOSES / 2 REDUNDANT-IG / 1 REDUNDANT-DOMAIN / 1 WRONG / 0 INTERNAL / 0 UNSTATED
