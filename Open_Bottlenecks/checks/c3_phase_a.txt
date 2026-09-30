@@ -1,0 +1,5 @@
+OB1-C3 Phase A: consolidation triggers in a boundary-free stream (C3_DECLARATION.md); seeds 0-4; calibration seed 100
+SGD lr 0.05, batch 10, 256 hidden; 360 steps, 5 domains, sigma 0.06; window 200 inputs; clip kappa 0.5; rho 0.01
+CHOICES: see c3_lib.py docstring
+
+calibration: ORACLE final accuracy on seed 100 by lambda: 0.1 27.02, 1 27.83, 10 27.76, 100 27.16 -> lambda 1
