@@ -8,7 +8,7 @@ style, noscript and svg blocks removed, entities unescaped), Apple's documentati
 joined). Raw files live outside the repository under /tmp/claude-0/app1_src/ (`raw_file` is relative to that root):
   - m2/txt/       sources new to this family, fetched 2026-09-30 (log: m2/FETCH_LOG.txt);
   - m2/reused/    extracted texts carried over from the DR1, EPS2, Lossless_Pause and sweep dossiers (PDFs of the same
-                  arXiv version, so the text is unchanged), with every URL re-checked on 2026-09-30 (m2/REACH_LOG.txt);
+                  arXiv version, so the text is unchanged), with every URL re-checked on 2026-09-30 (m2/reused/REACH_LOG.txt);
   - m2/reused/recheck/  the HTML pages as re-fetched on 2026-09-30 (quoted from today's copy, not the older one).
 sha256 of every file: /tmp/claude-0/app1_src/m2/SHA256SUMS.txt, and per source in docs/citations/app1_m2_2026-09-30.md.
 The normalisation for the verbatim check is Open_Bottlenecks/checks/verify.py's (NFKC, whitespace collapsed, a line-break
@@ -36,9 +36,9 @@ CLAIMS = [
                'Start rolling out to eligible Android T+ devices.'],
      'raw_file': T + 'odp_overview.html.txt',
      'agent_note': 'Android platform on-device training, as a beta with a stated roll-out (the timeline table places the '
-                   'roll-out in Q3 2025). The companion page "Create a federated learning job" (fetched, same date) documents '
-                   'federated averaging with fixed Gaussian noise. The page says nothing about how an on-device training job is '
-                   'paused or resumed, nor about per-device hyperparameters.'},
+                   'roll-out in Q3 2025). The companion page "Create a federated learning job" documents federated '
+                   'averaging with fixed Gaussian noise (fetched; same "Last updated" date). The page says nothing about how '
+                   'an on-device training job is paused or resumed, nor about per-device hyperparameters.'},
     {'id': 'm2:2', 'application': 'AP1', 'role': 'who_does_it',
      'source': 'Bonawitz et al. (Google), Towards Federated Learning at Scale: System Design (SysML 2019)',
      'version': 'arXiv 1902.01046v2, 22 Mar 2019 (v1 4 Feb 2019)', 'url': 'https://arxiv.org/abs/1902.01046v2',
@@ -48,7 +48,7 @@ CLAIMS = [
      'raw_file': T + 'pdf_1902.01046v2.pdf.txt',
      'agent_note': 'The deployed pattern for on-device training: the device learns only in a narrow window and the job is '
                    'aborted, not paused, when the window closes. Old (2019) but it is the production design that later '
-                   'systems cite (FeLiX, m2:34). The abort is at the level of a federated round, so the cost of the '
+                   'systems cite (FeLiX, m2:29). The abort is at the level of a federated round, so the cost of the '
                    'interruption is a lost local update, not a corrupted model.'},
     {'id': 'm2:3', 'application': 'AP1', 'role': 'who_does_it',
      'source': 'Google AI Edge, "On-Device Training with LiteRT" (tutorial)',
@@ -144,7 +144,7 @@ CLAIMS = [
                'sufﬁcient time to save model updates into a checkpoint.'],
      'raw_file': U + 'bamboo_2204.12013v1.txt',
      'agent_note': 'Reused from DR1 F4. The difficulty is the save inside the notice for large models; a small on-device or '
-                   'fine-tuning state is a different regime (the note gives no size threshold).'},
+                   'fine-tuning state is a different regime (the passage gives no size threshold).'},
     {'id': 'm2:11', 'application': 'AP2', 'role': 'what_is_hard',
      'source': 'Wu et al., RLBoost: Harvesting Preemptible Resources for Cost-Efficient Reinforcement Learning on LLMs',
      'version': 'arXiv 2510.19225v3, 8 Apr 2026 (v1 22 Oct 2025)', 'url': 'https://arxiv.org/abs/2510.19225v3',
@@ -210,7 +210,7 @@ CLAIMS = [
      'quote': ['When resuming training, skip fast-forwarding through the dataset to reach the previous state.',
                '(slower resume but exact continuation)'],
      'raw_file': T + 'hf_trainer.html.txt',
-     'agent_note': 'The default resume path of the most used fine-tuning library is documented as an exact continuation '
+     'agent_note': 'The Hugging Face Trainer\'s default resume path is documented as an exact continuation '
                    '(ignore_data_skip=False). Real_World/RW1.md reads HF Trainer resume as an empty cut on GPT-2 and a Qwen '
                    'pilot (a construction). A user-facing "stop learning from me" switch would sit on this machinery; the page '
                    'names no such switch.'},
@@ -373,9 +373,10 @@ CLAIMS = [
                'replacement.'],
      'raw_file': T + 'pdf_2607.06979v1.pdf.txt',
      'agent_note': '2026 statement that client unavailability is the norm, with production figures quoted from other systems '
-                   '(Google FL, PAPAYA, FLINT; the 22%/2% is FeLiX citing Bonawitz et al.). The remedy is replacement and '
-                   'delay-aware aggregation, not a pause of the client\'s learning. The "traces" of the last quote are the '
-                   'paper\'s own experiments.'},
+                   '(Google FL, PAPAYA, FLINT). The 22%/2% sentence is FeLiX\'s statement about the Google FL system and '
+                   'carries no citation of its own; the paper\'s reference for that system is Bonawitz et al. (m2:28). '
+                   'The remedy is replacement and delay-aware aggregation, not a pause of the client\'s learning. The '
+                   '"traces" of the last quote are the paper\'s own experiments.'},
 
     # ------------------------------------------------------------------ AP8: exact rollback and audit
     {'id': 'm2:30', 'application': 'AP8', 'role': 'who_does_it',
@@ -406,7 +407,7 @@ CLAIMS = [
      'agent_note': 'A restore point is "true" only on the same stack, unless one pays for reproducible kernels (the same '
                    'section reports the performance cost; the Lossless_Pause dossier quotes it).'},
     {'id': 'm2:33', 'application': 'AP8', 'role': 'what_is_hard',
-     'source': 'Ma, Pei, Lausen, Karypis (AWS), Understanding Silent Data Corruption in LLM Training',
+     'source': 'Ma (Harvard), Pei, Lausen, Karypis (Amazon Web Services), Understanding Silent Data Corruption in LLM Training',
      'version': 'arXiv 2502.12340v1, 17 Feb 2025', 'url': 'https://arxiv.org/abs/2502.12340v1',
      'quote': ['SDCs can lead models to converge to different optima with different weights and even cause spikes in the '
                'training loss.',
