@@ -93,3 +93,16 @@ predictive distributions on a fixed probe set, which the instrument implements a
 
 **Forecast (from the declaration, unchanged):** at least one of the three is published. The most likely is C3: task-free
 continual learning with self-detected shifts is a literature. C1 is the most likely to survive.
+
+## Erratum (appended after stage 3; the readings above are unchanged)
+
+- **C1's description of the frontier comparator is wrong.** It says NGM-SGD's fast timescale is "driven by the loss at
+  transitions". The fetched v3 text (arXiv 2507.14056; `docs/citations/ob1_s3_c1_2026-09-30.md`) says the driver is the
+  Shannon entropy of the readout. The candidate and its prediction are unchanged; the comparator is corrected in the
+  stage-4 declaration.
+- **The stage-3 grades** (`checks/grade_s3.txt`): C1, C2 and C3 are each PARTLY REDUNDANT, with 0 states. In each case the
+  missing part is the learner's own accumulated change (the arc) as the index. That is the part CRR predicts, so all
+  three may go on.
+- **The declaration's forecasts.**
+  - Forecast 3, "at least one published", is not held as REDUNDANT. It holds in substance: every component is published.
+  - Forecast 4, "zero or one survives", is not held: three go on.
