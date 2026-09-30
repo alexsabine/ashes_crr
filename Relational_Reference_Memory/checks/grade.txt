@@ -1,0 +1,68 @@
+RRM: positions N1-N6 graded against the literature sweep (DECLARATION.md §6)
+claims 37 (rrm 37); sources 27; readings by grading agent; for the investigator's review; quotes verified in verify.txt
+rule: MIXED if states and contradicts; else REDUNDANT if states; else PARTLY REDUNDANT if close; else NOT FOUND IN THE SWEEP
+
+N1 REDUNDANT              expected REDUNDANT              hit  | states 10, contradicts 0, close 1, bears 0
+     position: correcting stored prototypes or statistics for feature drift by measuring how reference points move is published
+     states      rrm:0  Yu, Twardowski, Liu, Herranz, Wang, Cheng, Jui, van de Weijer, "Semantic Drift Compe (v1, 1 Apr 2020)
+     states      rrm:1  Gomez-Villa, Goswami, Wang, Bagdanov, Twardowski, van de Weijer, "Exemplar-free Cont (v1, 11 Jul 2024)
+     states      rrm:2  Goswami, Soutif-Cormerais, Liu, Kamath, Twardowski, van de Weijer, "Resurrecting Old (v1, 29 May 2024)
+     states      rrm:3  Iscen, Zhang, Lazebnik, Schmid, "Memory-Efficient Incremental Learning Through Featu (v2, 24 Aug 2020)
+     states      rrm:4  He, Fang, Xu, Cui, Li, Chen, Zeng, Zhuang, "Semantic Shift Estimation via Dual-Proje (v4, 18 May 2025)
+     states      rrm:5  Rypeść, Cygert, Trzciński, Twardowski, "Task-recency bias strikes back: Adapting cov (v2, 26 Oct 2024)
+     states      rrm:6  Peng, Koniusz, Guo, Lovell, Moghadam, "Multivariate Prototype Representation for Dom (v1, 24 Sep 2023)
+     states      rrm:7  Xu, Krawczyk, "Geometry-Anchored Transport Framework for Exemplar-Free Class-Increme (v2, 25 Jun 2026)
+     states      rrm:8  Jang, Han, Lee, Lee, Lee, Ko, "MPT: Missing Prototype Tracking via Barycentric Recon (v1, 11 Sep 2026)
+     states      rrm:9  He, Qiu, Meng, Zhang, Xu, Wu, Li, "Continual Learning with Vision-Language Models vi (v3, 30 Jul 2026)
+     close       rrm:10 Ramanujan, Vasu, Farhadi, Tuzel, Pouransari, "Forward Compatible Training for Large- (v2, 29 Mar 2022)
+
+N2 PARTLY REDUNDANT       expected PARTLY REDUNDANT       hit  | states 0, contradicts 0, close 3, bears 2
+     position: estimating that drift from kept old-class exemplars or anchors, rather than from current-task data, is published
+     close       rrm:11 Gomez-Villa et al., "Exemplar-free Continual Representation Learning via Learnable D (v1, 11 Jul 2024)
+     close       rrm:12 Rebuffi, Kolesnikov, Sperl, Lampert, "iCaRL: Incremental Classifier and Representati (v2, 14 Apr 2017)
+     close       rrm:13 De Lange, Tuytelaars, "Continual Prototype Evolution: Learning Online from Non-Stati (v4, 6 Apr 2021)
+     bears       rrm:14 Goswami et al., "Resurrecting Old Classes with New Data for Exemplar-Free Continual  (v1, 29 May 2024)
+     bears       rrm:15 Chaudhry, Gordo, Dokania, Torr, Lopez-Paz, "Using Hindsight to Anchor Past Knowledge (v2, 2 Mar 2021)
+
+N3 REDUNDANT              expected REDUNDANT              hit  | states 2, contradicts 0, close 0, bears 0
+     position: representations relative to a set of anchors are invariant to angle-preserving changes of the latent space
+     states      rrm:16 Moschella, Maiorca, Fumero, Norelli, Locatello, Rodolà, "Relative representations en (v2, 7 Mar 2023)
+     states      rrm:17 Maiorca, Moschella, Fumero, Locatello, Rodolà, "Latent Space Translation via Inverse (v1, 21 Jun 2024)
+
+N4 REDUNDANT              expected REDUNDANT              hit  | states 3, contradicts 0, close 2, bears 0
+     position: preserving relations between samples (relational distillation) reduces forgetting
+     states      rrm:18 Cha, Lee, Shin, "Co2L: Contrastive Continual Learning" (arXiv:2106.14413) (v1, 28 Jun 2021)
+     states      rrm:19 Gao, Zhao, Ghanem, Zhang, "R-DFCIL: Relation-Guided Representation Learning for Data (v2, 21 Jul 2022)
+     states      rrm:20 Asadi, Davari, Mudur, Aljundi, Belilovsky, "Prototype-Sample Relation Distillation:  (v2, 6 Jun 2023)
+     close       rrm:21 Park, Kim, Lu, Cho, "Relational Knowledge Distillation" (RKD; arXiv:1904.05068; CVPR (v2, 1 May 2019)
+     close       rrm:22 Douillard, Cord, Ollion, Robert, Valle, "PODNet: Pooled Outputs Distillation for Sma (v3, 6 Oct 2020)
+
+N5 PARTLY REDUNDANT       expected PARTLY REDUNDANT       hit  | states 0, contradicts 0, close 8, bears 1
+     position: storing old-class feature distributions in coordinates relative to a few kept anchors, and transporting them with the anchors' current features (RRM)
+     close       rrm:23 Xu, Krawczyk, "Geometry-Anchored Transport Framework for Exemplar-Free Class-Increme (v2, 25 Jun 2026)
+     close       rrm:24 Jang et al., "MPT: Missing Prototype Tracking via Barycentric Reconstruction in Vehi (v1, 11 Sep 2026)
+     close       rrm:25 Iscen, Zhang, Lazebnik, Schmid, "Memory-Efficient Incremental Learning Through Featu (v2, 24 Aug 2020)
+     close       rrm:26 Rypeść et al., "Task-recency bias strikes back: Adapting covariances in Exemplar-Fre (v2, 26 Oct 2024)
+     close       rrm:27 Peng et al., "Multivariate Prototype Representation for Domain-Generalized Increment (v1, 24 Sep 2023)
+     close       rrm:28 Gomez-Villa et al., "Exemplar-free Continual Representation Learning via Learnable D (v1, 11 Jul 2024)
+     close       rrm:29 Maiorca, Moschella, Norelli, Fumero, Locatello, Rodolà, "Latent Space Translation vi (v2, 11 Feb 2024)
+     close       rrm:30 Maiorca et al., "Latent Space Translation via Inverse Relative Projection" (IRP; arX (v1, 21 Jun 2024)
+     bears       rrm:31 Ramanujan et al., "Forward Compatible Training for Large-Scale Embedding Retrieval S (v2, 29 Mar 2022)
+
+N6 REDUNDANT              expected PARTLY REDUNDANT       MISS | states 2, contradicts 0, close 2, bears 1
+     position: developmental or object-relations framings (a first reference object, increasing resolution) used to design continual learners
+     states      rrm:32 Parisi, Kemker, Part, Kanan, Wermter, "Continual Lifelong Learning with Neural Netwo (v4, 11 Feb 2019)
+     states      rrm:33 Erden, Faltings, "Foundations of a Developmental Design Paradigm for Integrated Cont (v2, 18 Oct 2025)
+     close       rrm:34 Chen, Pitti, Quoy, Chen, "Developmental Predictive Coding Model for Early Infancy Mo (v1, 23 Dec 2024)
+     close       rrm:35 Cai, Lin, Nunna, Zhang, "Learning to See Through a Baby's Eyes: Early Visual Diets E (v2, 24 Mar 2026)
+     bears       rrm:36 Xiang, Tan, Wan, Ma, "Coarse-To-Fine Incremental Few-Shot Learning" (arXiv:2111.1480 (v1, 24 Nov 2021)
+
+summary (position, grade, expected, hit/miss)
+  N1  REDUNDANT               REDUNDANT               hit
+  N2  PARTLY REDUNDANT        PARTLY REDUNDANT        hit
+  N3  REDUNDANT               REDUNDANT               hit
+  N4  REDUNDANT               REDUNDANT               hit
+  N5  PARTLY REDUNDANT        PARTLY REDUNDANT        hit
+  N6  REDUNDANT               PARTLY REDUNDANT        MISS
+hits 5 of 6; misses: N6
+not found is never read as novel

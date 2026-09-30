@@ -1,0 +1,48 @@
+RRM Phase A part 1: drift worlds (DECLARATION.md section 3); K 10, d 20, H 256, T 20 increments per task, eps 0.05, beta 0.01; anchors RRM-1 10/class of task 1, RRM-A 2/class per cut; seeds 0-4; NCM accuracy (%)
+
+[RRM-1 SHARED]
+   ORACLE  mean   84.08  seeds  85.95  81.61  83.28  85.95  83.61
+   STALE   mean   80.07  seeds  82.94  80.60  78.93  77.93  79.93
+   RRM     mean   83.14  seeds  84.95  80.94  82.61  84.62  82.61
+   DECOY   mean   34.72  seeds  40.80  35.45  38.46  30.77  28.09
+
+[RRM-1 ROT]
+   ORACLE  mean   86.22  seeds  85.95  84.28  86.62  86.62  87.63
+   STALE   mean   81.07  seeds  81.94  81.94  80.94  81.61  78.93
+   RRM     mean   85.15  seeds  84.95  83.28  85.28  85.95  86.29
+   DECOY   mean   36.79  seeds  44.82  36.12  42.14  30.77  30.10
+
+[RRM-1 UNSHARED]
+   ORACLE  mean   85.48  seeds  86.96  87.63  83.95  84.62  84.28
+   STALE   mean   10.84  seeds   8.03  10.37  11.37  12.04  12.37
+   RRM     mean   52.64  seeds  57.53  51.84  51.84  51.17  50.84
+   DECOY   mean   10.43  seeds  20.40  11.04   6.02   6.02   8.70
+
+[RRM-A SHARED]
+   ORACLE  mean   84.08  seeds  85.95  81.61  83.28  85.95  83.61
+   STALE   mean   80.07  seeds  82.94  80.60  78.93  77.93  79.93
+   RRM     mean   83.01  seeds  84.62  81.27  82.61  83.61  82.94
+   DECOY   mean   45.28  seeds  51.51  47.16  43.81  39.80  44.15
+
+[RRM-A ROT]
+   ORACLE  mean   86.22  seeds  85.95  84.28  86.62  86.62  87.63
+   STALE   mean   81.07  seeds  81.94  81.94  80.94  81.61  78.93
+   RRM     mean   84.41  seeds  83.61  82.94  85.62  84.28  85.62
+   DECOY   mean   48.49  seeds  55.52  47.83  46.49  45.15  47.49
+
+[RRM-A UNSHARED]
+   ORACLE  mean   85.48  seeds  86.96  87.63  83.95  84.62  84.28
+   STALE   mean   10.84  seeds   8.03  10.37  11.37  12.04  12.37
+   RRM     mean   51.91  seeds  51.51  56.86  47.83  54.85  48.49
+   DECOY   mean   14.98  seeds  22.07  13.04  13.04  13.38  13.38
+
+----------------------------------------------------------------------------------------------------
+G-SHARED RRM-1 SHARED: RRM - STALE +3.0769 (step 1.7001); ORACLE - RRM +0.9365 (step 1.6736) -> holds
+G-SHARED RRM-1 ROT: RRM - STALE +4.0803 (step 1.1312); ORACLE - RRM +1.0702 (step 1.1072) -> holds
+G-UNSHARED RRM-1: ORACLE - RRM +32.8428 (step 2.4722): must be ahead by more than a step -> holds
+G-DECOY RRM-1 SHARED: RRM - DECOY +48.4281 (step 4.7128) -> holds
+G-SHARED RRM-A SHARED: RRM - STALE +2.9431 (step 1.7001); ORACLE - RRM +1.0702 (step 1.6736) -> holds
+G-SHARED RRM-A ROT: RRM - STALE +3.3445 (step 1.1312); ORACLE - RRM +1.8060 (step 1.1072) -> FAILS
+G-UNSHARED RRM-A: ORACLE - RRM +33.5786 (step 3.5103): must be ahead by more than a step -> holds
+G-DECOY RRM-A SHARED: RRM - DECOY +37.7258 (step 3.8923) -> holds
+PART 1 GATE CLOSED

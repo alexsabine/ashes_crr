@@ -358,6 +358,12 @@ Replay_Quality_Memory/     RQM (prompt-log entry 245): replay-quality memory wit
                            SILENT 4, no CANDIDATE; selects input-space Gaussian replay, the GMR/DGR family); DEV_DECLARATION.md (+ Amendment 1, post hoc),
                            checks/rqm_lib.py, phase_a.py + phase_a_run1.txt/phase_a.txt: GATE CLOSED twice (ledger RQM-A; the matched-ER criterion
                            cannot fail); PHASE_A.md; stopped per R12; a note, not evidence (R8)
+Relational_Reference_Memory/  RRM (prompt-log entries 248-249): the owner's object-relations reading of the RQM bottleneck, translated to
+                           anchor-referenced transport of stored feature Gaussians (forms RRM-1 first-object, RRM-A accumulating); DECLARATION.md
+                           pushed before any source or code; checks/rrm_lib.py, worlds.py + worlds.txt (drift worlds, ~40 s, rerun by hand): part 1
+                           GATE CLOSED on 1 of 8 (RRM-A under rotation; RRM-1 held all), part 2 not run (ledger RRM-PA; PHASE_A.md); sweep
+                           docs/citations/rrm_2026-09-30.md, checks/claims.py, verify.py/.txt (58/58), grade.py/.txt (CI-checked): N1, N3, N4, N6
+                           REDUNDANT, N2, N5 PARTLY REDUNDANT (the transport itself not found; nearest GATF, MPT); a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an
