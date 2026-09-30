@@ -1757,3 +1757,7 @@ Please check contemporary frontier literature to verify that this is worth pursu
 I am going to bed now so please keep working overnight on testing the idea repeatedly in different ways.
 
 Thank you
+
+## 251 — 2026-09-30T04:57:42Z
+
+Can you give me a quick summary on the last output from the hop dc comparison and what this means for CRR?
