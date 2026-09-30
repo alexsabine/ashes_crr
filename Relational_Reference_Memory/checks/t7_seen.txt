@@ -434,3 +434,23 @@ RRM2 T7 on the 30 SEEN carriers (DECLARATION_3.md, POST HOC, report only); E in 
      ANCH1 relative drift 0.6200; drift explained RRM +0.5081, HOPDC +0.1220
      ER20  relative drift 0.5882; drift explained RRM +0.4299, HOPDC +0.0895
      NCM (ANCH1) ORACLE  63.56  STALE  61.52  RRM  62.70  HOPDC  62.22
+  [Kuzushiji-MNIST E 3]
+     FT    relative drift 0.3030; drift explained RRM +0.3626, HOPDC +0.0830
+     ANCH1 relative drift 0.2259; drift explained RRM +0.0532, HOPDC -0.1073
+     ER20  relative drift 0.2299; drift explained RRM +0.3071, HOPDC +0.0412
+     NCM (ANCH1) ORACLE  65.62  STALE  66.20  RRM  64.56  HOPDC  63.06
+  [Kuzushiji-MNIST E 15]
+     FT    relative drift 0.3239; drift explained RRM +0.3633, HOPDC +0.0900
+     ANCH1 relative drift 0.2549; drift explained RRM +0.0742, HOPDC -0.0890
+     ER20  relative drift 0.2505; drift explained RRM +0.3211, HOPDC +0.0419
+     NCM (ANCH1) ORACLE  66.10  STALE  66.64  RRM  64.98  HOPDC  62.82
+  [Kuzushiji-MNIST E 30]
+     FT    relative drift 0.3274; drift explained RRM +0.3731, HOPDC +0.0672
+     ANCH1 relative drift 0.2654; drift explained RRM +0.0816, HOPDC -0.0869
+     ER20  relative drift 0.2556; drift explained RRM +0.3172, HOPDC +0.0495
+     NCM (ANCH1) ORACLE  66.02  STALE  66.36  RRM  64.32  HOPDC  62.14
+
+F1 (SEEN half) relative drift rises with E (FT learner) on 28/30 carriers (forecast: >= two thirds) -> held
+E 3: ANCH1 RRM explains more drift than HOPDC on 30/30; NCM RRM - STALE > 0 on 13, < 0 on 15, median -0.0100
+E 15: ANCH1 RRM explains more drift than HOPDC on 30/30; NCM RRM - STALE > 0 on 12, < 0 on 16, median -0.0400
+E 30: ANCH1 RRM explains more drift than HOPDC on 30/30; NCM RRM - STALE > 0 on 12, < 0 on 17, median -0.0892
