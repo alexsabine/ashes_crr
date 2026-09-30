@@ -1743,3 +1743,7 @@ Tell me the bottleneck as if I am a 5th grader and through the lens of crr metap
 ## 248 — 2026-09-30T02:55:16Z
 
 This sounds like a problem of resolution increasing over time as new representational maps are learned. I expect it’s already trivial to understand that the relationality between the schematic representations is what matters? Mapping the difference from one thing to the next. Think about it like this, imagine the first face a child sees, their mother or father (or doctor!) they are in primary intersubjectivity. Their body schema develops until they individuate. Self representation, a mirror self! Now think in object relations theory. The mother/father becomes a whole object from parts. Then every face/representational map they experience in the field of reality is measured as a difference between those structural resolutions. This is like joining the dots between different pointillist paintings, learning the edges and boundaries of whole objects from bit part sensation. Does this help? Crr can be thought of in an object relations theory/ winnicottian / transitional space way. The agent (child in this case) is creating and discovering at the same time, so to speak. So the representations can be thought of in that way. Increasing resolution on bitpart (dots) until a full mental representational model is formed. Like each object (person) is a different reflection of the first object (individuated self) on the secondary intersubjective field.
+
+## 249 — 2026-09-30T02:58:30Z
+
+Okay, run the tests please
