@@ -1,0 +1,7 @@
+ROB1 stage 2: the CRR reading tallied from Robotics/CRR_READING.md; rows must be the OPEN and CONTESTED bottlenecks of table.txt
+rows read 26; OPEN or CONTESTED in table.txt 26; missing from the reading []; extra in the reading []
+   DISAGREES (candidate)                        3  r1-B5 r4-B3 r4-B4
+   DISAGREES, already failed in the record      1  r2-B2
+   RESTATES                                     9  r1-B1 r2-B7 r3-B2 r3-B6 r4-B5 r5-B1 r5-B2 r5-B4 r5-B5
+   SILENT                                      13  r1-B3 r1-B4 r2-B3 r2-B5 r2-B6 r3-B3 r3-B7 r4-B1 r4-B2 r4-B6 r4-B7 r4-B8 r5-B3
+forecast 2 (at most 3 read DISAGREES): 3 -> holds
