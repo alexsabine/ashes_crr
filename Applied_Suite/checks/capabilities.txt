@@ -17,7 +17,7 @@ CHOICES:
   C7 an inference pause, a must-fail control and a limit case are printed beside, never as a basis
   SENSITIVITIES (the review of 2026-09-30): a decisive item prints the grade under a stricter reading; the primary grade
      stays the declaration's 'highest rung that applies'
-ledger/LEDGER.md: sha256 752506f062e0e5d0bc36117cf490bc43ac6f5653213e0a19c0bccd20c868aaad; rows parsed 199 (10 cells each); rows with another cell count 0; duplicate ids 0
+ledger/LEDGER.md: sha256 e57873e9d623e7bd0af53cea765b0e4d9d739346d03357f46e6ef004de044a4b; rows parsed 203 (10 cells each); rows with another cell count 0; duplicate ids 0
 
 ----------------------------------------------------------------------------------------------------------------------
 K1  a continual-learning penalty set without a hyperparameter sweep
@@ -91,6 +91,10 @@ K1  a continual-learning penalty set without a hyperparameter sweep
     [beside      ] SEC5-S         not fragile      not fragile (the FAIL is robust to kappa and the window)  (LEDGER.md:198)
     [beside      ] SEC5-K         report           report  (LEDGER.md:199)
     [beside      ] SEC5-E         report           report  (LEDGER.md:200)
+    [beside      ] SCL3-3-G       report           report (post hoc; not a re-score; SCL3-3 stands as scored): gate OPEN: the criterion co...  (LEDGER.md:209)
+    [beside      ] SEC3-3-G       report           report (post hoc; not a re-score; SEC3-3 stands as scored): gate CLOSED: SEC3-3 (FAIL a...  (LEDGER.md:210)
+    [beside      ] SEC4-1-G       report           report (post hoc; not a re-score; SEC4-1 stands as scored): gate CLOSED: SEC4-1 (PASS-1...  (LEDGER.md:211)
+    [beside      ] SEC5-1-G       report           report (post hoc; not a re-score; SEC5-1 stands as scored): gate CLOSED: SEC5-1 (FAIL a...  (LEDGER.md:212)
     [note        ] excluded | not read here | the SEC family, every row (C6)
                    source: ledger/LEDGER.md
                    SCL3-C, SCL3-V, SCL3-O (SCL3's operator-harness rows, read under K2 and K3)
