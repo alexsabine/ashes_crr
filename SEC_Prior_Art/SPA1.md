@@ -44,3 +44,13 @@ REDUNDANT; S6 was forecast NOT FOUND and is PARTLY REDUNDANT; S1 is MIXED.
 - NL2SOL (the ACM Digital Library returned 403).
 - The textbook self-scaling sources (Oren & Luenberger 1974; Nocedal & Wright 2006).
 - Conference title lists and code links.
+
+## Follow-up (2026-09-30, prompt-log entry 256)
+
+`COMPARISON.md` sets SEC's held-out **results** against what the sources report. The verdict KNOWN is about the method's
+parts. The finding that the calibrated weight is not behind a tuned λ across many held-out carriers is not stated by any
+source found:
+- pooled 23/30 against the raw weight's 14/30 (`checks/compare.txt`);
+- the published sources report the raw weight failing.
+
+The finding did not replicate in SEC5.

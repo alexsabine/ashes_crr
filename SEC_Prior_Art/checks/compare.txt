@@ -1,0 +1,93 @@
+SEC against the published tuning-free weight (SPA1 follow-up, prompt-log entry 256)
+held-out studies: count of carriers where the arm is not behind the tuned lambda by a step (from the pinned ledger rows)
+   SCL3-3  calibrated SEC (no clip)   9/10   raw Laplace (textbook w = 1/2, uncalibrated) 4/10
+   SEC3-3  calibrated SEC (no clip)   4/6   raw Laplace (textbook w = 1/2, uncalibrated) 5/6
+   SEC4-1  clipped SEC (kappa 0.5)    6/6   raw Laplace (textbook w = 1/2, uncalibrated) 1/6
+   SEC5-1  clipped SEC (kappa 0.5)    4/8   raw Laplace (textbook w = 1/2, uncalibrated) 4/8
+   pooled (report only; different families and arms): SEC arm 23/30, raw Laplace 14/30
+
+published statements on the tuning-free (natural, lambda = 1 or Bayes) weight, verified quotes (verify.txt):
+   [S1 states] Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Catastrophic Forgett (v1, 20 May 2018)
+      "We use an identical network architecture to the previous section and found stronger regularization of the approximate posterior to be necessary."
+   [S1 states] van de Ven, "On the Computation of the Fisher Information in Continual Learning" (arXiv:2502.11756;  (v1, 17 Feb 2025)
+      "Secondly, do not simply “use the best performing hyperparameter(s) from another paper”, especially if you cannot guarantee that the details of your implementation are the same as in the other paper."
+   [S1 states] Kao, Jensen, van de Ven, Bernacchia, Hennequin, "Natural continual learning: success is a journey, n (v2, 15 Dec 2021)
+      "We confirmed this here by performing a grid search over λ, which showed that KFAC with λ ∈[100, 1000] could perform comparably to the projection-based methods"
+   [S1 close] Schwarz, Luketina, Czarnecki, Grabska-Barwinska, Teh, Pascanu, Hadsell, "Progress & Compress: A scal (v2, 2 Jul 2018)
+      "EWC was separately tuned choosing λ from [500, 1000, 1500, 2000, 2500, 3000]. As the scale of the losses differ, we selected λ for online EWC as applied in P&C among [25, 75, 125, 175]."
+   [S1 close] Kirkpatrick et al., "Overcoming catastrophic forgetting in neural networks" (EWC; arXiv:1612.00796;  (v2, 25 Jan 2017)
+      "weights given by the Fisher information matrix times a scaling factor λ which was optimized by hyperparameter search."
+   [S1 close] Huszár, "On Quadratic Penalties in Elastic Weight Consolidation" (arXiv:1712.03847; published as the (v1, 11 Dec 2017)
+      "Therefore, sample size of each task has a non-negligible effect on the quality and behaviour of the approximation. In order to have better control over the approximation, Kirkpatrick et al. [2017] introduce a task-specific hyper-p"
+   [S1 close] Loo, Swaroop, Turner, "Generalized Variational Continual Learning" (GVCL; arXiv:2011.12328; venue no (v1, 24 Nov 2020)
+      "However, the correspondence does not recover a key hyperparameter λ used by these methods that up-weights the quadratic regularization term. Instead, our derivation produces an implicit value of λ = 1, i.e. equal weight between ta"
+   [S1 close] Liu, Chang, "Elastic Weight Consolidation Done Right for Continual Learning" (EWC-DR; arXiv:2603.185 (v3, 26 Mar 2026)
+      "Aavg increases steadily as λ grows from 1,000 and reaches its peak around λ = 10,000–20,000."
+   [S1 close] Josifovski, Auddy, Malmir, Piater, Knoll, Navarro-Guerrero, "Continual Domain Randomization" (arXiv: (v2, 27 Aug 2024)
+      "we normalize the elements of F to be in the range [0.0,1.0] after each task. This normalization decouples the regularization constant λ from the arbitrary scaling of the Fisher information of individual tasks and allows us to use "
+   [S1 close] Li, Dangel, Tam, Raffel, "Fishers for Free? Approximating the Fisher Information Matrix by Recycling (v1, 24 Jul 2025)
+      "In practice, when training EWC from scratch, λFisher is unknown and must be tuned regardless"
+   [S1 bears] Kunstner, Balles, Hennig, "Limitations of the Empirical Fisher Approximation for Natural Gradient De (v3, 8 Jun 2020)
+      "In such settings, the individual gradients, and thus the EF, will be close to zero at a minimum, whereas the Hessian will generally be nonzero."
+   [S1 bears] Martens, "New insights and perspectives on the natural gradient method" (arXiv:1412.1193; JMLR 21(14 (v11, 19 Sep 2020)
+      "in order to correct for how the empirical Fisher doesn’t have the right “scale” (which is ultimately the reason why it does poorly in the example given at the end of Section 11.1)."
+   [S1 bears] Wenzel et al., "How Good is the Bayes Posterior in Deep Neural Networks Really?" (arXiv:2002.02405;  (v2, 2 Jul 2020)
+      "we demonstrate through careful MCMC sampling that the posterior predictive induced by the Bayes posterior yields systematically worse predictions compared to simpler methods including point estimates obtained from SGD. Furthermore"
+   [S1 bears] Kutalev, Lapina, "Stabilizing Elastic Weight Consolidation method in practical ML tasks and using we (v3, 29 Oct 2021)
+      "From this reasoning, it follows that for a particular neural network architecture and a particular set of datasets in sequential learning, there exists an optimal value of λ, at which the maximum average accuracy after sequential "
+   [S1 bears] Yin, Farajtabar, Li, Levine, Mott, "Optimization and Generalization of Regularization-Based Continua (v3, 8 Feb 2021)
+      "These results confirm our theoretical finding that an accurate Hessian approximation is important for regularization-based algorithms."
+   [S1 bears] Jhajj, Lin, "Elastic Weight Consolidation for Knowledge Graph Continual Learning: An Empirical Evalu (v1, 1 Dec 2025)
+      "This suggests that optimal regularization strength depends on task construction: relation-grouped tasks require stronger protection of essential parameters, while randomly distributed tasks benefit from more flexibility."
+   [S1 contradicts] Zheng, Zhang, van de Weijer, van de Ven, Du, Zhang, Tian, "Revisiting Weight Regularization for Low- (v1, 19 Feb 2026)
+      "In general, the Exact Fisher outperforms the Empirical Fisher, requiring a smaller regularization strength, but higher computational costs."
+   [S4 states] Daxberger, Kristiadi, Immer, Eschenhagen, Bauer, Hennig, "Laplace Redux -- Effortless Bayesian Deep  (v3, 14 Mar 2022)
+      "This can be done by computing the eigendecomposition of the summed Kronecker factors [22] and allows us to 1) adjust the regularization suitably per task and 2) avoid setting a hyperparameter thereby alleviating the need for valid"
+   [S4 states] Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; ICLR 2018) (v3, 20 May 2018)
+      "EWC, diagonal LP and SI that employ tuned hyper-parameters λ whereas VCL’s objective is hyper-parameter free."
+   [S4 states] Lee, Hong, Joo, Kim, "Continual Learning With Extended Kronecker-Factored Approximate Curvature" (CV (CVF open access, CVPR 20)
+      "However, there is not a natural choice for such hyperparameters, unlike the importance hyperparameters."
+   [S4 close] Immer, Bauer, Fortuin, Rätsch, Khan, "Scalable Marginal Likelihood Estimation for Model Selection in (v3, 15 Jun 2021)
+      "Finally, extending this work beyond supervised learning, e.g., to bandits, Bayesian optimization, active learning, or continual learning, is an important avenue for future research."
+   [S4 close] Loo, Swaroop, Turner, "Generalized Variational Continual Learning" (GVCL; arXiv:2011.12328) (v1, 24 Nov 2020)
+      "Instead, our derivation produces an implicit value of λ = 1, i.e. equal weight between tasks of equal sample count."
+   [S4 close] Huszár, "On Quadratic Penalties in Elastic Weight Consolidation" (arXiv:1712.03847; PNAS 2018 letter (v1, 11 Dec 2017)
+      "The Hessian of the negative log likelihood −log p(DB|θ) can be approximated as sample size times the diagonal Fisher information NB diag(FB,i) as before. Replacing NB by a hyperparameter λB, this gives rise to the following approx"
+   [S4 close] Zenke, Poole, Ganguli, "Continual Learning Through Synaptic Intelligence" (SI; arXiv:1703.04200; ICM (v3, 12 Jun 2017)
+      "Finally, c is a strength parameter which trades off old versus new memories. If the path integral (Eq. 3) is evaluated precisely, c = 1 would correspond to an equal weighting of old and new memories. However, due to noise in the e"
+   [S6 close] Daxberger et al., "Laplace Redux -- Effortless Bayesian Deep Learning" (arXiv:2106.14806; NeurIPS 20 (v3, 14 Mar 2022)
+      "Using this scheme, the performance after 10 tasks is at around 96% accuracy, outperforming other Bayesian approaches for continual learning [7, 75, 76]."
+   [S6 close] Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; ICLR 2018) (v3, 20 May 2018)
+      "Again, unlike VCL, EWC and SI benefited from a hyper-parameter search for λ, but a value close to 1 performs well in both cases."
+   [S6 close] Zheng et al., "Revisiting Weight Regularization for Low-Rank Continual Learning" (EWC-LoRA; arXiv:26 (v1, 19 Feb 2026)
+      "This finding facilitates the use of a unified regularization strength across datasets, eliminating the need for dataset-specific tuning."
+   [S6 bears] Kao et al., "Natural continual learning" (NCL; arXiv:2106.08085; NeurIPS 2021) (v2, 15 Dec 2021)
+      "we found that NCL, OWM, and DOWM outperformed KFAC with λ = 1 (Figure 3A; see also Duncker et al., 2020 for a comparison of DOWM and EWC)."
+   [S6 bears] Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Catastrophic Forgett (v1, 20 May 2018)
+      "For the natural choice of λ = 1 (leftmost subfigure respectively), the network’s performance decays for the first task for both curvature approximations, yet it is able to learn the most recent task well."
+   [S6 bears] Cha, Cho, "Hyperparameters in Continual Learning: A Reality Check" (arXiv:2403.09066; TMLR 2025) (v5, 28 Oct 2025)
+      "Across more than 8,000 experiments, our results show that most state-of-the-art algorithms fail to replicate their reported performance, highlighting that their CL capacity has been significantly overestimated in the conventional "
+   [S6 bears] Lee, Hellan, Ericson, Crowley, Storkey, "Hyperparameter Selection in Continual Learning" (arXiv:2404 (v2, 14 Mar 2025)
+      "Surprisingly, we show that only fitting hyperparameters on the first task performs comparably to other realistic HPO frameworks for commonly used CL benchmarks."
+   [S1 close] Vander Eeckt, Van hamme, "Continual Learning With Quasi-Newton Methods" (CSQN; arXiv:2503.19939; IEE (v1, 25 Mar 2025)
+      "For each experiment, we selected the value of λ with the best performance on the validation sets of all tasks and then repeated the experiment five times with this value of λ."
+   [S4 states] Lee, Hong, Joo, Kim, "Continual Learning with Extended Kronecker-factored Approximate Curvature" (ar (v1, 16 Apr 2020)
+      "we introduce adaptive scaling hyperparameters αs and αt,"
+   [S4 states] Zhao, Wang, Huang, Lin, "A Statistical Theory of Regularization-Based Continual Learning" (arXiv:240 (v1, 10 Jun 2024)
+      "Specifically, if all tasks have the same sample size, our method recovers the online EWC proposed by Schwarz et al. (2018) with the hyperparameter γ = 1."
+   [S4 close] Hua, Shen, Zhao, Hsu, Jin, "Hyperparameter-free Continuous Learning for Domain Classification in Nat (v1, 5 Jan 2022)
+      "In our CCFI model, λ is updated dynamically based on current values of cross entropy and consolidation loss"
+   [S4 close] Li, Lu, Dai, Huang, Ding, Lu, "BECAME: BayEsian Continual Learning with Adaptive Model MErging" (arX (v2, 29 May 2025)
+      "we reformulate the merging mechanism using Bayesian continual learning principles and derive a closed-form solution for the optimal merging coefficient based on the Laplace approximation that adapts to the diverse characteristics "
+   [S4 close] Karpel, Moroshko, Levinstein, Meir, Soudry, Evron, "Optimal L2 Regularization in High-dimensional Co (v2, 13 Apr 2026)
+      "Furthermore, we prove that the optimal fixed regularization strength scales nearly linearly with the number of tasks T, specifically as T/ ln T."
+   [S4 bears] Levinstein, Attia, Schliserman, Sherman, Koren, Soudry, Evron, "Optimal Rates in Continual Linear Re (v2, 24 Oct 2025)
+      "we derive an increasing regularization strength schedule that provably achieves an optimal rate of O(1/k)."
+   [S4 close] Lin, Antorán, Hernández-Lobato, "Online Laplace Model Selection Revisited" (arXiv:2307.06093; Advanc (v2, 9 Jan 2024)
+      "Here, online model selection prevents overfitting and outperforms validation-based early stopping."
+   [S4 close] LUNCH: "Adaptive Balancing of Continual Learning via Hyperparameter Uncertainty" (OpenReview Q2Q4SyZ (OpenReview record as ret)
+      "we formulate each CL-relevant hyperparameter as a function of optimizable uncertainty under homoscedastic assumption"
+   [S6 close] Aljundi, Babiloni, Elhoseiny, Rohrbach, Tuytelaars, "Memory Aware Synapses: Learning what (not) to f (v4, 5 Oct 2018)
+      "For MAS, we used λ = 1 in all object recognition experiments while for SI[39] and EWC[12] we had to vary λ."
+   [S6 bears] van de Ven, "On the Computation of the Fisher Information in Continual Learning" (arXiv:2502.11756;  (v1, 17 Feb 2025)
+      "do not simply “use the best performing hyperparameter(s) from another paper”"

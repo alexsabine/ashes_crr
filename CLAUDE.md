@@ -367,6 +367,8 @@ Relational_Reference_Memory/  RRM (prompt-log entries 248-249): the owner's obje
 SEC_Prior_Art/             SPA1 (prompt-log entry 254): full prior-art sweep of SEC4's method; DECLARATION.md pushed before any search;
                            docs/citations/spa1_f1-f3_2026-09-30.md; checks/claims_f1-f3.py, verify.py/.txt (249/249), grade.py/.txt (CI-checked):
                            S3, S4, S5 REDUNDANT, S1 MIXED, S2, S6 PARTLY REDUNDANT, verdict KNOWN; SPA1.md; addenda to reports/sec4.md, sec5.md
+                           ; COMPARISON.md + checks/compare.py/.txt (CI-checked; prompt-log entry 256): the results against the published ones
+                           (calibrated 23/30 pooled vs raw 14/30; the finding not in the sources found; not established: SEC5)
 Relational_Reference_Memory/  also RRM2 (prompt-log entry 250): DECLARATION_2.md (+ Amendment 1), DECLARATION_3.md (post hoc); Part W sweep
                            (claims_w1-w3, verify_w, grade_w CI-checked: NOT WORTH PURSUING, P5 REDUNDANT on HopDC arXiv 2602.00144); T1-T4, T7
                            (t*_*.py/.txt): T1, T2, T3 GATE CLOSED (ledger RRM2-T1..T3), the SEC1 learner's features barely drift

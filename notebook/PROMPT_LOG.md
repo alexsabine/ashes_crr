@@ -1775,3 +1775,11 @@ See the issue here? I need you to find the actual big bottlenecks so we can put 
 ## 254 — 2026-09-30T06:02:54Z
 
 We should run a consolidation. Look at SEC 4 again. Do a deep dive online search for whether this is already known in the field or not. Full literature sweep.
+
+## 255 — 2026-09-30T06:55:22Z
+
+If it’s already known then why isn’t it implemented in devices by 2026?
+
+## 256 — 2026-09-30T06:59:41Z
+
+This is silly because we calculated the energy saving costs as high value and then thought it might not catch on. It still isn’t implemented in technology and yet, here we are with the sec 4 results showing it could work in principle…check the sec4 findings again please against what is in those published findings
