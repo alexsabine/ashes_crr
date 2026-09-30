@@ -55,3 +55,50 @@ RRM2 T4 sensitivity (report only; DECLARATION_2.md Part T); seeds 0-4
    ROT    eps 0.02  SPREAD (oracle design) M 20 beta 0.01  86.22  85.42  85.75     +0.33   +0.47
    ROT    eps 0.05  anchors/class  2 beta 0.001   86.22  81.07  84.75     +3.68   +1.47
    ROT    eps 0.05  anchors/class  2 beta 0.01    86.22  81.07  84.68     +3.61   +1.54
+   ROT    eps 0.05  anchors/class  2 beta 0.1     86.22  81.07  84.62     +3.55   +1.61
+   ROT    eps 0.05  anchors/class  5 beta 0.001   86.22  81.07  84.75     +3.68   +1.47
+   ROT    eps 0.05  anchors/class  5 beta 0.01    86.22  81.07  84.68     +3.61   +1.54
+   ROT    eps 0.05  anchors/class  5 beta 0.1     86.22  81.07  84.62     +3.55   +1.61
+   ROT    eps 0.05  anchors/class 10 beta 0.001   86.22  81.07  85.28     +4.21   +0.94
+   ROT    eps 0.05  anchors/class 10 beta 0.01    86.22  81.07  85.15     +4.08   +1.07
+   ROT    eps 0.05  anchors/class 10 beta 0.1     86.22  81.07  85.02     +3.95   +1.20
+   ROT    eps 0.05  anchors/class 20 beta 0.001   86.22  81.07  84.88     +3.81   +1.34
+   ROT    eps 0.05  anchors/class 20 beta 0.01    86.22  81.07  84.95     +3.88   +1.27
+   ROT    eps 0.05  anchors/class 20 beta 0.1     86.22  81.07  84.95     +3.88   +1.27
+   ROT    eps 0.05  SPREAD (oracle design) M 20 beta 0.01  86.22  81.07  85.28     +4.21   +0.94
+   ROT    eps 0.1   anchors/class  2 beta 0.001   86.22  56.79  79.33    +22.54   +6.89
+   ROT    eps 0.1   anchors/class  2 beta 0.01    86.22  56.79  79.40    +22.61   +6.82
+   ROT    eps 0.1   anchors/class  2 beta 0.1     86.22  56.79  79.40    +22.61   +6.82
+   ROT    eps 0.1   anchors/class  5 beta 0.001   86.22  56.79  81.40    +24.62   +4.82
+   ROT    eps 0.1   anchors/class  5 beta 0.01    86.22  56.79  81.34    +24.55   +4.88
+   ROT    eps 0.1   anchors/class  5 beta 0.1     86.22  56.79  81.54    +24.75   +4.68
+   ROT    eps 0.1   anchors/class 10 beta 0.001   86.22  56.79  82.21    +25.42   +4.01
+   ROT    eps 0.1   anchors/class 10 beta 0.01    86.22  56.79  82.21    +25.42   +4.01
+   ROT    eps 0.1   anchors/class 10 beta 0.1     86.22  56.79  82.01    +25.22   +4.21
+   ROT    eps 0.1   anchors/class 20 beta 0.001   86.22  56.79  84.41    +27.63   +1.81
+   ROT    eps 0.1   anchors/class 20 beta 0.01    86.22  56.79  84.21    +27.42   +2.01
+   ROT    eps 0.1   anchors/class 20 beta 0.1     86.22  56.79  83.68    +26.89   +2.54
+   ROT    eps 0.1   SPREAD (oracle design) M 20 beta 0.01  86.22  56.79  83.48    +26.69   +2.74
+
+(b) T1 DIAG on POS: drift explained (1 - err_RRM/err_STALE) and NCM RRM - STALE, seed means
+   FT    anchors/class  2 beta 0.001  drift explained -0.2727  NCM RRM - STALE -0.0669
+   FT    anchors/class  2 beta 0.01   drift explained -0.2672  NCM RRM - STALE -0.0669
+   FT    anchors/class  2 beta 0.1    drift explained -0.2212  NCM RRM - STALE -0.0669
+   FT    anchors/class  5 beta 0.001  drift explained -0.0948  NCM RRM - STALE +0.0000
+   FT    anchors/class  5 beta 0.01   drift explained -0.0873  NCM RRM - STALE +0.0000
+   FT    anchors/class  5 beta 0.1    drift explained -0.0346  NCM RRM - STALE +0.0000
+   FT    anchors/class 10 beta 0.001  drift explained -0.0543  NCM RRM - STALE +0.0669
+   FT    anchors/class 10 beta 0.01   drift explained -0.0370  NCM RRM - STALE +0.0669
+   FT    anchors/class 10 beta 0.1    drift explained +0.0600  NCM RRM - STALE +0.0669
+   FT    anchors/class 20 beta 0.001  drift explained -0.0268  NCM RRM - STALE -0.0669
+   FT    anchors/class 20 beta 0.01   drift explained +0.0058  NCM RRM - STALE -0.0669
+   FT    anchors/class 20 beta 0.1    drift explained +0.1532  NCM RRM - STALE +0.0000
+   ANCH1 anchors/class  2 beta 0.001  drift explained -0.6334  NCM RRM - STALE +0.1338
+   ANCH1 anchors/class  2 beta 0.01   drift explained -0.6231  NCM RRM - STALE +0.1338
+   ANCH1 anchors/class  2 beta 0.1    drift explained -0.5342  NCM RRM - STALE +0.1338
+   ANCH1 anchors/class  5 beta 0.001  drift explained -0.2405  NCM RRM - STALE -0.2007
+   ANCH1 anchors/class  5 beta 0.01   drift explained -0.2323  NCM RRM - STALE -0.2007
+   ANCH1 anchors/class  5 beta 0.1    drift explained -0.1692  NCM RRM - STALE -0.1338
+   ANCH1 anchors/class 10 beta 0.001  drift explained +0.0005  NCM RRM - STALE -0.2007
+   ANCH1 anchors/class 10 beta 0.01   drift explained +0.0137  NCM RRM - STALE -0.2007
+   ANCH1 anchors/class 10 beta 0.1    drift explained +0.0871  NCM RRM - STALE -0.2007
