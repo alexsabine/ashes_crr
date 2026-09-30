@@ -1,0 +1,305 @@
+DR1 check H7: power capping (a throttle) against a full pause, with a declared performance-power curve (Grid_Demand_Response/DECLARATION.md section 2, declared at e67e8ee)
+Declared Q: a throttle also has zero content on the own clock; its energy per step is lower; the curtailed MW per unit of
+delay is compared.  Declared forecast: Q holds.  Rung R4 (synthetic model); a note, not evidence (R8).
+
+SOURCED INPUTS (each quote checked verbatim against its dossier at run time; numbers parsed from the quote)
+  [MCD-150] McDonald et al., arXiv:2205.09646 v1 (dr1_f4_2026-09-29.md): found; parsed ('13.7', '6.8')
+      'Averaging across each choice of conﬁguration, a 150W bound on power utilization led to an average 13.7% decrease in energy usage and 6.8% increase in training time compared to the default maximum.'
+  [MCD-BERT] McDonald et al., arXiv:2205.09646 v1 (dr1_f4_2026-09-29.md): found; parsed ('108.5', '87.7')
+      'For example, training BERT with a 150W limit required 108.5% of the time and only 87.7% the energy needed to train with default settings.'
+  [MCD-100] McDonald et al., arXiv:2205.09646 v1 (dr1_f4_2026-09-29.md): found; parsed ('31.4',)
+      'Note from Figure 2 that the 100W setting has signiﬁcantly longer training times (31.4% longer on average).'
+  [POLCA] Patel et al., POLCA, arXiv:2308.12908 v1 (dr1_f4_2026-09-29.md): found; parsed ('22', '10')
+      'For Flan-T5 and GPT- NeoX, frequency capping reduces the peak server power by 22% while only impacting the performance by 10%.'
+  [ZEUS] You, Chung & Chowdhury, Zeus, arXiv:2208.06102 v2 (dr1_f4_2026-09-29.md): found; parsed ('3.0', '31.5')
+      'We found that the optimal energy consumption (Power Limit Opt. in Figure 1) may happen at a lower power limit than the maximum and can reduce energy consumption by 3.0%–31.5%.'
+  [PERSEUS-LOW] Chung et al., Perseus, arXiv:2312.06902 v3 (dr1_f4_2026-09-29.md): found; parsed ('very low frequencies',)
+      'This is typically not the lowest frequency, because computations running with very low frequencies incur more latency increase than power reduction, resulting in higher energy consumption.'
+  [PERSEUS-10MS] Chung et al., Perseus, arXiv:2312.06902 v3 (dr1_f4_2026-09-29.md): found; parsed ('10',)
+      'The SM frequency of NVIDIA GPUs can be set via NVML [4] in around 10 ms, which is much shorter than typical large model computation latencies.'
+  [PHX-CAP] Colangelo et al., arXiv:2507.00909 v1 (dr1_f4_2026-09-29.md): found; parsed ('Control overhead of power capping is negligible',)
+      'Control overhead of power capping is negligible, making real-time responsiveness feasible even in busy clusters.'
+  [FLEX] Colangelo et al., arXiv:2507.00909 v1 (dr1_f1_2026-09-29.md): found; parsed ('10', '25', '50')
+      '(b) Flex 1: up to 10% performance (average throughput) reduction allowed over a 3-6 hour period; (c) Flex 2: up to 25% allowed; (d) Flex 3: up to 50% allowed.'
+  [PHX-3H] Colangelo et al., arXiv:2507.00909 v1 (dr1_f1_2026-09-29.md): found; parsed ('3',)
+      'Each event required the cluster to reduce power by 25% with respect to the average base load during the peak demand period, sustain the reduction for 3 hours'
+  [KOK-U0] Kokolis et al., arXiv:2410.21680 v2 (dr1_f4_2026-09-29.md): found; parsed ('5', '5', '20')
+      'For the RSC clusters, rf ≈5 × 10−3 failures per GPU node-day of runtime, wcp ≈5 mins, u0 ≈5 −20 mins, and (Nnodesrf)−1 ≳0.1 day.'
+
+DERIVED AND FIXED INPUTS
+  McDonald 150 W point (MCD-150, SOURCED): time ratio 267/250 = 1.068, energy ratio 863/1000 = 0.863 (same work);
+    throughput fraction t_M = 1 / time ratio = 250/267 = 0.936329588; average-power fraction p_M = energy / time = 863/1068 = 0.808052434
+    (CHOICE: average power = energy / time over the same work); slowdown x_M = 1 - t_M = 17/267 = 0.063670412; energy per step there
+    p_M / t_M = 863/1000 = 0.863000 (= the sourced energy ratio)
+  BERT 150 W point (MCD-BERT, SOURCED): t = 0.921658986, p = 0.808294931; sensitivity curve only
+  POLCA point (SOURCED): throughput 0.90, PEAK server power 0.78; read as average power: ASSUMED; sensitivity only
+  McDonald 100 W (MCD-100, SOURCED): time ratio 1.314 (throughput 0.761035); no energy or power figure is quoted,
+    so it is NOT a curve point (printed, not used)
+  Zeus (SOURCED): the energy-optimal power limit may reduce energy by 3-31.5 % (no time figure: context, not a curve point)
+  Perseus (SOURCED, qualitative): very low frequencies raise energy per unit of work; motivates the FLOOR sensitivity curve
+  throttle own overhead: 0 (CHOICE, supported by PHX-CAP 'Control overhead of power capping is negligible'); sensitivity
+    10 ms = 1/360000 h (PERSEUS-10MS, SOURCED: the frequency-setting latency read as own time without progress, an upper CHOICE)
+  throttle depths x (scored): x_M = 0.063670 (MCD-150, SOURCED) and 0.10, 0.25, 0.50 (FLEX tiers 1-3, SOURCED;
+    0.10 also POLCA's performance loss); every depth applies for the whole event (CHOICE: a power cap has no window)
+  event lengths H in {1, 3, 4, 6} h: 1 and 4 ASSUMED (EPS2 T1); 3 SOURCED (PHX-3H); 6 CHOICE (top of FLEX's 3-6 h period)
+  W = 1000 compute-hours, value 1 per compute-hour at completion: DECLARED (section 2 adopts EPS2 T1's units)
+  R = 0.1 h restart overhead per pause event: ASSUMED (EPS2 T1); S = 0, lost = 0: ASSUMED (EPS2 T1)
+  sensitivity pause overheads (SOURCED, KOK-U0): restart u0 5-20 min, checkpoint write wcp 5 min
+  D in {1100, 1500} h: ASSUMED (EPS2 T1); one offer every 24 wall hours at hours 24..984 (K = 41), p = 1: CHOICE (EPS2 T1)
+  fleet power P = 100 MW: ASSUMED (DECLARATION.md section 3's hypothetical fleet); power drawn while paused 0: ASSUMED (EPS2 T1)
+  payment grid {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20} per curtailed fleet-hour: ASSUMED (EPS2 T1); G-NEG only
+
+THE DECLARED PERFORMANCE-POWER CURVE (throughput fraction t -> power fraction p(t), piecewise linear, exact)
+  SRC (scored): (0, 0) ASSUMED lower end; (0.936330, 0.808052) SOURCED (MCD-150); (1, 1) by definition (full power)
+  sensitivity (not scored): BERT (0,0) ASSUMED + (0.921659, 0.808295) SOURCED + (1,1); POLCA (0,0) ASSUMED + (0.90, 0.78) SOURCED peak read as average (ASSUMED) + (1,1);
+    LIN p(t) = t (drlib's default, ASSUMED: energy per step unchanged by a throttle); FLOOR (0, 0.3) ASSUMED powered-on floor
+    + (0.936330, 0.808052) SOURCED + (1,1)
+
+CHOICES
+  C1 The pause (WALL, OWN, ETM; drlib): the fleet stops for the H-hour event (power 0) and then runs R own hours without
+     progress at full power; curtailed energy H fleet-hours per event, wall delay H + R. ETM's deadline counts own steps.
+  C2 The throttle THR (drlib mech 'tier', window none): during the event the job runs at throughput t = 1 - x and power
+     p(t) for all H hours; curtailed energy H (1 - p(t)) fleet-hours; wall delay x H; own overhead 0 (no checkpoint,
+     no restart); valued on the own clock. THR-wall has the wall-clock deadline (the industry power cap, drlib.tier);
+     THR-own counts its deadline in own steps (the same cap under the stop-the-clock contract).
+  C3 'Zero content on the own clock' (Q1) = on the own clock (own-step valuation AND own-step deadline, arm THR-own), the
+     throttle's one-event stake minus rate x (its own overhead) is exactly 0 at every event count n = 0..K-1, and its
+     minimum acceptable payment x* equals rate x overhead / e (= 0 at overhead 0) at every offer state, closed and attained,
+     in every cell and depth under the scored curve (and, stakes only, under every sensitivity curve). The wall-clock
+     deadline's stake (THR-wall) is printed as context: it is content from the wall clock, not the own clock.
+  C4 'Its energy per step is lower' (Q2) needs both: (a) during the event the throttle's energy per own step p(t)/t < 1,
+     the energy per step of full-power running (every step the pause makes is at full power; during the pause it makes
+     none); and (b) over a season of K accepted events, the job's energy per own step (total fleet-hours drawn / W) is
+     lower for THR-own than for ETM, in every cell and depth under the scored curve.
+  C5 'The curtailed MW per unit of delay is compared' (Q3) = curtailed MWh per event / wall-delay hours per event (the
+     average MW curtailed per hour the job is delayed), throttle against ETM, computed in every cell and depth; Q3 holds
+     iff it is computable (both delays > 0) everywhere. The direction is printed, computed, and is not part of Q (the
+     declaration names no direction).
+  C6 Q holds iff Q1, Q2 and Q3 hold; fails if any is computed false; not computable if any clause is not computable.
+  C7 G-ZERO: ETM's one-event stake minus rate R is exactly 0 at every n = 0..K-1 and ETM's x* == R/H at every offer state,
+     in every cell. G-NEG: with no events offered (K = 0), ETM not ahead of WALL by more than 1 % (harness rel) on any outcome
+     (curtailed fleet-hours, valuation, completion hour, deadline met), every cell and grid pi.
+  C8 The job's energy accounting: the pause redoes nothing (the paused hours' steps are run later at full power) and adds its
+     overhead at full power; the throttle's t H steps during the event cost p(t) H instead of t H. The throttle's later
+     full-power hours are counted in its delay, not as curtailment.
+
+CURVE TABLE (per curve and depth x: throughput t, power p(t), depth 1 - p(t), energy per own step p(t)/t, and the throttle's
+curtailed energy per hour of delay (1 - p(t))/x; Q2(a) = p(t)/t < 1)
+  curve           x          t       p(t)     1-p(t)     p(t)/t    (1-p)/x  Q2(a)
+  SRC      0.063670   0.936330   0.808052   0.191948   0.863000   3.014706  holds
+  SRC      0.100000   0.900000   0.776700   0.223300   0.863000   2.233000  holds
+  SRC      0.250000   0.750000   0.647250   0.352750   0.863000   1.411000  holds
+  SRC      0.500000   0.500000   0.431500   0.568500   0.863000   1.137000  holds
+  BERT     0.063670   0.936330   0.844195   0.155805   0.901600   2.447059  holds
+  BERT     0.100000   0.900000   0.789300   0.210700   0.877000   2.107000  holds
+  BERT     0.250000   0.750000   0.657750   0.342250   0.877000   1.369000  holds
+  BERT     0.500000   0.500000   0.438500   0.561500   0.877000   1.123000  holds
+  POLCA    0.063670   0.936330   0.859925   0.140075   0.918400   2.200000  holds
+  POLCA    0.100000   0.900000   0.780000   0.220000   0.866667   2.200000  holds
+  POLCA    0.250000   0.750000   0.650000   0.350000   0.866667   1.400000  holds
+  POLCA    0.500000   0.500000   0.433333   0.566667   0.866667   1.133333  holds
+  LIN      0.063670   0.936330   0.936330   0.063670   1.000000   1.000000  fails
+  LIN      0.100000   0.900000   0.900000   0.100000   1.000000   1.000000  fails
+  LIN      0.250000   0.750000   0.750000   0.250000   1.000000   1.000000  fails
+  LIN      0.500000   0.500000   0.500000   0.500000   1.000000   1.000000  fails
+  FLOOR    0.063670   0.936330   0.808052   0.191948   0.863000   3.014706  holds
+  FLOOR    0.100000   0.900000   0.788340   0.211660   0.875933   2.116600  holds
+  FLOOR    0.250000   0.750000   0.706950   0.293050   0.942600   1.172200  holds
+  FLOOR    0.500000   0.500000   0.571300   0.428700   1.142600   0.857400  fails
+
+PER-CELL TABLES (scored curve SRC; P = 100 MW ASSUMED). Per arm: depth MW = P x (1 - p) while curtailed; MWh and wall delay
+per event; MWh per hour of delay; energy per own step during the event (pause: no steps, '-'); net change of the job's total
+energy per event (MWh); nmax (events the contract deadline absorbs; 'none' = unbounded); p_all (minimum flat payment at which
+the arm accepts every offer, per curtailed fleet-hour); max |stake - rate x own overhead| over n = 0..K-1 and the count of n
+where it is nonzero (WALL's charge also counts the event's wall hours H, so its stake exceeds its overhead); the season's
+energy per own step with all K events accepted; x* == overhead/e at every offer state (ETM and THR-own only)
+  cell D = 1100, H = 1 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   100.000    1.1000    90.9091        -     10.000    90   1.100000     1.000000    41      1.004100           -
+    OWN                    100.000   100.000    1.1000    90.9091        -     10.000    90   0.100000     0.000000     0      1.004100           -
+    ETM                    100.000   100.000    1.1000    90.9091        -     10.000  1000   0.100000     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195    19.195    0.0637   301.4706   0.8630    -12.828  1570   0.000000     0.000000     0      0.994741           -
+    THR-own-6.37%           19.195    19.195    0.0637   301.4706   0.8630    -12.828  none   0.000000     0.000000     0      0.994741     861/861
+    THR-wall-10.00%         22.330    22.330    0.1000   223.3000   0.8630    -12.330  1000   0.000000     0.000000     0      0.994945           -
+    THR-own-10.00%          22.330    22.330    0.1000   223.3000   0.8630    -12.330  none   0.000000     0.000000     0      0.994945     861/861
+    THR-wall-25.00%         35.275    35.275    0.2500   141.1000   0.8630    -10.275   400   0.000000     0.000000     0      0.995787           -
+    THR-own-25.00%          35.275    35.275    0.2500   141.1000   0.8630    -10.275  none   0.000000     0.000000     0      0.995787     861/861
+    THR-wall-50.00%         56.850    56.850    0.5000   113.7000   0.8630     -6.850   200   0.000000     0.000000     0      0.997192           -
+    THR-own-50.00%          56.850    56.850    0.5000   113.7000   0.8630     -6.850  none   0.000000     0.000000     0      0.997192     861/861
+  cell D = 1100, H = 3 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   300.000    3.1000    96.7742        -     10.000    32  38.070370  1003.000000    41      1.004100           -
+    OWN                    100.000   300.000    3.1000    96.7742        -     10.000    32  37.070370  1000.000000     1      1.004100           -
+    ETM                    100.000   300.000    3.1000    96.7742        -     10.000  1000   0.033333     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195    57.584    0.1910   301.4706   0.8630    -38.483   523   0.000000     0.000000     0      0.984222           -
+    THR-own-6.37%           19.195    57.584    0.1910   301.4706   0.8630    -38.483  none   0.000000     0.000000     0      0.984222     861/861
+    THR-wall-10.00%         22.330    66.990    0.3000   223.3000   0.8630    -36.990   333   0.000000     0.000000     0      0.984834           -
+    THR-own-10.00%          22.330    66.990    0.3000   223.3000   0.8630    -36.990  none   0.000000     0.000000     0      0.984834     861/861
+    THR-wall-25.00%         35.275   105.825    0.7500   141.1000   0.8630    -30.825   133   0.000000     0.000000     0      0.987362           -
+    THR-own-25.00%          35.275   105.825    0.7500   141.1000   0.8630    -30.825  none   0.000000     0.000000     0      0.987362     861/861
+    THR-wall-50.00%         56.850   170.550    1.5000   113.7000   0.8630    -20.550    66   0.000000     0.000000     0      0.991575           -
+    THR-own-50.00%          56.850   170.550    1.5000   113.7000   0.8630    -20.550  none   0.000000     0.000000     0      0.991575     861/861
+  cell D = 1100, H = 4 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   400.000    4.1000    97.5610        -     10.000    24  15.730882  1004.000000    41      1.004100           -
+    OWN                    100.000   400.000    4.1000    97.5610        -     10.000    24  14.730882  1000.000000     1      1.004100           -
+    ETM                    100.000   400.000    4.1000    97.5610        -     10.000  1000   0.025000     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195    76.779    0.2547   301.4706   0.8630    -51.311   392   0.000000     0.000000     0      0.978963           -
+    THR-own-6.37%           19.195    76.779    0.2547   301.4706   0.8630    -51.311  none   0.000000     0.000000     0      0.978963     861/861
+    THR-wall-10.00%         22.330    89.320    0.4000   223.3000   0.8630    -49.320   250   0.000000     0.000000     0      0.979779           -
+    THR-own-10.00%          22.330    89.320    0.4000   223.3000   0.8630    -49.320  none   0.000000     0.000000     0      0.979779     861/861
+    THR-wall-25.00%         35.275   141.100    1.0000   141.1000   0.8630    -41.100   100   0.000000     0.000000     0      0.983149           -
+    THR-own-25.00%          35.275   141.100    1.0000   141.1000   0.8630    -41.100  none   0.000000     0.000000     0      0.983149     861/861
+    THR-wall-50.00%         56.850   227.400    2.0000   113.7000   0.8630    -27.400    50   0.000000     0.000000     0      0.988766           -
+    THR-own-50.00%          56.850   227.400    2.0000   113.7000   0.8630    -27.400  none   0.000000     0.000000     0      0.988766     861/861
+  cell D = 1100, H = 6 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   600.000    6.1000    98.3607        -     10.000    16   7.683333  1006.000000    41      1.004100           -
+    OWN                    100.000   600.000    6.1000    98.3607        -     10.000    16   6.683333  1000.000000     1      1.004100           -
+    ETM                    100.000   600.000    6.1000    98.3607        -     10.000  1000   0.016667     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195   115.169    0.3820   301.4706   0.8630    -76.966   261   0.000000     0.000000     0      0.968444           -
+    THR-own-6.37%           19.195   115.169    0.3820   301.4706   0.8630    -76.966  none   0.000000     0.000000     0      0.968444     861/861
+    THR-wall-10.00%         22.330   133.980    0.6000   223.3000   0.8630    -73.980   166   0.000000     0.000000     0      0.969668           -
+    THR-own-10.00%          22.330   133.980    0.6000   223.3000   0.8630    -73.980  none   0.000000     0.000000     0      0.969668     861/861
+    THR-wall-25.00%         35.275   211.650    1.5000   141.1000   0.8630    -61.650    66   0.000000     0.000000     0      0.974723           -
+    THR-own-25.00%          35.275   211.650    1.5000   141.1000   0.8630    -61.650  none   0.000000     0.000000     0      0.974723     861/861
+    THR-wall-50.00%         56.850   341.100    3.0000   113.7000   0.8630    -41.100    33  36.646145  1000.000000     1      0.983149           -
+    THR-own-50.00%          56.850   341.100    3.0000   113.7000   0.8630    -41.100  none   0.000000     0.000000     0      0.983149     861/861
+  cell D = 1500, H = 1 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   100.000    1.1000    90.9091        -     10.000   454   1.100000     1.000000    41      1.004100           -
+    OWN                    100.000   100.000    1.1000    90.9091        -     10.000   454   0.100000     0.000000     0      1.004100           -
+    ETM                    100.000   100.000    1.1000    90.9091        -     10.000  5000   0.100000     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195    19.195    0.0637   301.4706   0.8630    -12.828  7852   0.000000     0.000000     0      0.994741           -
+    THR-own-6.37%           19.195    19.195    0.0637   301.4706   0.8630    -12.828  none   0.000000     0.000000     0      0.994741     861/861
+    THR-wall-10.00%         22.330    22.330    0.1000   223.3000   0.8630    -12.330  5000   0.000000     0.000000     0      0.994945           -
+    THR-own-10.00%          22.330    22.330    0.1000   223.3000   0.8630    -12.330  none   0.000000     0.000000     0      0.994945     861/861
+    THR-wall-25.00%         35.275    35.275    0.2500   141.1000   0.8630    -10.275  2000   0.000000     0.000000     0      0.995787           -
+    THR-own-25.00%          35.275    35.275    0.2500   141.1000   0.8630    -10.275  none   0.000000     0.000000     0      0.995787     861/861
+    THR-wall-50.00%         56.850    56.850    0.5000   113.7000   0.8630     -6.850  1000   0.000000     0.000000     0      0.997192           -
+    THR-own-50.00%          56.850    56.850    0.5000   113.7000   0.8630     -6.850  none   0.000000     0.000000     0      0.997192     861/861
+  cell D = 1500, H = 3 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   300.000    3.1000    96.7742        -     10.000   161   1.033333     3.000000    41      1.004100           -
+    OWN                    100.000   300.000    3.1000    96.7742        -     10.000   161   0.033333     0.000000     0      1.004100           -
+    ETM                    100.000   300.000    3.1000    96.7742        -     10.000  5000   0.033333     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195    57.584    0.1910   301.4706   0.8630    -38.483  2617   0.000000     0.000000     0      0.984222           -
+    THR-own-6.37%           19.195    57.584    0.1910   301.4706   0.8630    -38.483  none   0.000000     0.000000     0      0.984222     861/861
+    THR-wall-10.00%         22.330    66.990    0.3000   223.3000   0.8630    -36.990  1666   0.000000     0.000000     0      0.984834           -
+    THR-own-10.00%          22.330    66.990    0.3000   223.3000   0.8630    -36.990  none   0.000000     0.000000     0      0.984834     861/861
+    THR-wall-25.00%         35.275   105.825    0.7500   141.1000   0.8630    -30.825   666   0.000000     0.000000     0      0.987362           -
+    THR-own-25.00%          35.275   105.825    0.7500   141.1000   0.8630    -30.825  none   0.000000     0.000000     0      0.987362     861/861
+    THR-wall-50.00%         56.850   170.550    1.5000   113.7000   0.8630    -20.550   333   0.000000     0.000000     0      0.991575           -
+    THR-own-50.00%          56.850   170.550    1.5000   113.7000   0.8630    -20.550  none   0.000000     0.000000     0      0.991575     861/861
+  cell D = 1500, H = 4 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   400.000    4.1000    97.5610        -     10.000   121   1.025000     4.000000    41      1.004100           -
+    OWN                    100.000   400.000    4.1000    97.5610        -     10.000   121   0.025000     0.000000     0      1.004100           -
+    ETM                    100.000   400.000    4.1000    97.5610        -     10.000  5000   0.025000     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195    76.779    0.2547   301.4706   0.8630    -51.311  1963   0.000000     0.000000     0      0.978963           -
+    THR-own-6.37%           19.195    76.779    0.2547   301.4706   0.8630    -51.311  none   0.000000     0.000000     0      0.978963     861/861
+    THR-wall-10.00%         22.330    89.320    0.4000   223.3000   0.8630    -49.320  1250   0.000000     0.000000     0      0.979779           -
+    THR-own-10.00%          22.330    89.320    0.4000   223.3000   0.8630    -49.320  none   0.000000     0.000000     0      0.979779     861/861
+    THR-wall-25.00%         35.275   141.100    1.0000   141.1000   0.8630    -41.100   500   0.000000     0.000000     0      0.983149           -
+    THR-own-25.00%          35.275   141.100    1.0000   141.1000   0.8630    -41.100  none   0.000000     0.000000     0      0.983149     861/861
+    THR-wall-50.00%         56.850   227.400    2.0000   113.7000   0.8630    -27.400   250   0.000000     0.000000     0      0.988766           -
+    THR-own-50.00%          56.850   227.400    2.0000   113.7000   0.8630    -27.400  none   0.000000     0.000000     0      0.988766     861/861
+  cell D = 1500, H = 6 (K = 41):
+    arm                   depth MW    MWh/ev   delay h  MWh/h del   E/step    net MWh  nmax      p_all  max|beyond|  #n>0 season E/step       x* ok
+    WALL                   100.000   600.000    6.1000    98.3607        -     10.000    81   1.016667     6.000000    41      1.004100           -
+    OWN                    100.000   600.000    6.1000    98.3607        -     10.000    81   0.016667     0.000000     0      1.004100           -
+    ETM                    100.000   600.000    6.1000    98.3607        -     10.000  5000   0.016667     0.000000     0      1.004100     861/861
+    THR-wall-6.37%          19.195   115.169    0.3820   301.4706   0.8630    -76.966  1308   0.000000     0.000000     0      0.968444           -
+    THR-own-6.37%           19.195   115.169    0.3820   301.4706   0.8630    -76.966  none   0.000000     0.000000     0      0.968444     861/861
+    THR-wall-10.00%         22.330   133.980    0.6000   223.3000   0.8630    -73.980   833   0.000000     0.000000     0      0.969668           -
+    THR-own-10.00%          22.330   133.980    0.6000   223.3000   0.8630    -73.980  none   0.000000     0.000000     0      0.969668     861/861
+    THR-wall-25.00%         35.275   211.650    1.5000   141.1000   0.8630    -61.650   333   0.000000     0.000000     0      0.974723           -
+    THR-own-25.00%          35.275   211.650    1.5000   141.1000   0.8630    -61.650  none   0.000000     0.000000     0      0.974723     861/861
+    THR-wall-50.00%         56.850   341.100    3.0000   113.7000   0.8630    -41.100   166   0.000000     0.000000     0      0.983149           -
+    THR-own-50.00%          56.850   341.100    3.0000   113.7000   0.8630    -41.100  none   0.000000     0.000000     0      0.983149     861/861
+
+Q (scored, curve SRC)
+  Q1 zero content on the own clock: THR-own's max |stake - rate x overhead| = 0.000000 (exact 0) over 1312 event counts; x* == overhead/e at 27552 of 27552 offer states -> holds
+  Q2 energy per step lower: (a) p(t)/t < 1 at 32 of 32 (cell, depth) pairs; (b) THR-own's season energy per
+     step below ETM's at 32 of 32 -> holds
+  Q3 curtailed MWh per hour of delay compared: computable at 32 of 32 (cell, depth) pairs -> holds; direction (not part of Q): throttle more at 32, pause more at 0, equal at 0
+        D   H throttle              THR MWh/h  ETM MWh/h    ratio  direction
+     1100   1 THR-own-6.37%          301.4706    90.9091   3.3162  throttle more
+     1100   1 THR-own-10.00%         223.3000    90.9091   2.4563  throttle more
+     1100   1 THR-own-25.00%         141.1000    90.9091   1.5521  throttle more
+     1100   1 THR-own-50.00%         113.7000    90.9091   1.2507  throttle more
+     1100   3 THR-own-6.37%          301.4706    96.7742   3.1152  throttle more
+     1100   3 THR-own-10.00%         223.3000    96.7742   2.3074  throttle more
+     1100   3 THR-own-25.00%         141.1000    96.7742   1.4580  throttle more
+     1100   3 THR-own-50.00%         113.7000    96.7742   1.1749  throttle more
+     1100   4 THR-own-6.37%          301.4706    97.5610   3.0901  throttle more
+     1100   4 THR-own-10.00%         223.3000    97.5610   2.2888  throttle more
+     1100   4 THR-own-25.00%         141.1000    97.5610   1.4463  throttle more
+     1100   4 THR-own-50.00%         113.7000    97.5610   1.1654  throttle more
+     1100   6 THR-own-6.37%          301.4706    98.3607   3.0650  throttle more
+     1100   6 THR-own-10.00%         223.3000    98.3607   2.2702  throttle more
+     1100   6 THR-own-25.00%         141.1000    98.3607   1.4345  throttle more
+     1100   6 THR-own-50.00%         113.7000    98.3607   1.1560  throttle more
+     1500   1 THR-own-6.37%          301.4706    90.9091   3.3162  throttle more
+     1500   1 THR-own-10.00%         223.3000    90.9091   2.4563  throttle more
+     1500   1 THR-own-25.00%         141.1000    90.9091   1.5521  throttle more
+     1500   1 THR-own-50.00%         113.7000    90.9091   1.2507  throttle more
+     1500   3 THR-own-6.37%          301.4706    96.7742   3.1152  throttle more
+     1500   3 THR-own-10.00%         223.3000    96.7742   2.3074  throttle more
+     1500   3 THR-own-25.00%         141.1000    96.7742   1.4580  throttle more
+     1500   3 THR-own-50.00%         113.7000    96.7742   1.1749  throttle more
+     1500   4 THR-own-6.37%          301.4706    97.5610   3.0901  throttle more
+     1500   4 THR-own-10.00%         223.3000    97.5610   2.2888  throttle more
+     1500   4 THR-own-25.00%         141.1000    97.5610   1.4463  throttle more
+     1500   4 THR-own-50.00%         113.7000    97.5610   1.1654  throttle more
+     1500   6 THR-own-6.37%          301.4706    98.3607   3.0650  throttle more
+     1500   6 THR-own-10.00%         223.3000    98.3607   2.2702  throttle more
+     1500   6 THR-own-25.00%         141.1000    98.3607   1.4345  throttle more
+     1500   6 THR-own-50.00%         113.7000    98.3607   1.1560  throttle more
+  -> Q holds; the forecast 'Q holds' is right
+  Where the scored verdict rests on the ASSUMED lower end (0, 0): depths 0.10, 0.25, 0.50 lie below the sourced
+    point t_M = 0.936330 on the curve; only x_M = 0.063670 is read at the sourced point itself (FLOOR sensitivity below)
+
+CONTEXT (not scored): the industry cap THR-wall's stake, which can only come from its wall-clock deadline (its charge is 0);
+a nonzero stake at some event count in 1 of 32 (cell, depth) pairs. Per cell and depth: nmax, event counts n in
+0..K-1 with nonzero stake, the largest stake, p_all
+  D 1100 H 1: x 0.0637: nmax 1570, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 1000, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 400, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 200, nonzero 0/41, max stake 0.000, p_all 0.000000
+  D 1100 H 3: x 0.0637: nmax 523, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 333, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 133, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 66, nonzero 0/41, max stake 0.000, p_all 0.000000
+  D 1100 H 4: x 0.0637: nmax 392, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 250, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 100, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 50, nonzero 0/41, max stake 0.000, p_all 0.000000
+  D 1100 H 6: x 0.0637: nmax 261, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 166, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 66, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 33, nonzero 1/41, max stake 1000.000, p_all 36.646145
+  D 1500 H 1: x 0.0637: nmax 7852, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 5000, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 2000, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 1000, nonzero 0/41, max stake 0.000, p_all 0.000000
+  D 1500 H 3: x 0.0637: nmax 2617, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 1666, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 666, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 333, nonzero 0/41, max stake 0.000, p_all 0.000000
+  D 1500 H 4: x 0.0637: nmax 1963, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 1250, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 500, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 250, nonzero 0/41, max stake 0.000, p_all 0.000000
+  D 1500 H 6: x 0.0637: nmax 1308, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.1000: nmax 833, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.2500: nmax 333, nonzero 0/41, max stake 0.000, p_all 0.000000; x 0.5000: nmax 166, nonzero 0/41, max stake 0.000, p_all 0.000000
+
+SENSITIVITY 1 (not scored): every curve, the Q clauses recomputed (Q1 by stakes only, x* not recomputed); per curve: Q1 max
+|stake - overhead| over THR-own, Q2(a) and (b) counts, Q3 direction counts
+  SRC   : Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+  BERT  : Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+  POLCA : Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+  LIN   : Q1 max 0.000000 over 1312 -> holds; Q2(a) 0/32, (b) 32/32 -> fails; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: fails
+  FLOOR : Q1 max 0.000000 over 1312 -> holds; Q2(a) 24/32, (b) 26/32 -> fails; Q3 throttle more 24, pause more 8, equal 0 of 32; Q under this curve: fails
+
+SENSITIVITY 2 (not scored): throttle own overhead 10 ms (PERSEUS-10MS as own time without progress), curve SRC;
+  THR-own's stake beyond its overhead and its x* (= overhead/e); the MWh per hour of delay against ETM
+  max |stake - overhead| 0.000000 over 1312 event counts; x* == overhead/e at 13776 of 13776 offer states (D = 1100 cells)
+    H 4, x 0.0637: x* = 0.000003617886 (exact 89/24600000); MWh per hour of delay 301.4673
+    H 4, x 0.1000: x* = 0.000003109917 (exact 1/321552); MWh per hour of delay 223.2984
+    H 4, x 0.2500: x* = 0.000001968659 (exact 1/507960); MWh per hour of delay 141.0996
+    H 4, x 0.5000: x* = 0.000001221538 (exact 1/818640); MWh per hour of delay 113.6998
+
+SENSITIVITY 3 (not scored): the pause's overhead from KOK-U0 (restart u0 at its two ends, and u0 + wcp at both); ETM's MWh
+  per hour of delay H/(H + o) x P against the scored throttle's at each depth; direction counts over H and depth
+  R 0.1 h (ASSUMED) : ETM MWh/h of delay H 1: 90.909; H 3: 96.774; H 4: 97.561; H 6: 98.361; throttle more 16, pause more 0, equal 0 of 16
+  u0 5 min          : ETM MWh/h of delay H 1: 92.308; H 3: 97.297; H 4: 97.959; H 6: 98.630; throttle more 16, pause more 0, equal 0 of 16
+  u0 20 min         : ETM MWh/h of delay H 1: 75.000; H 3: 90.000; H 4: 92.308; H 6: 94.737; throttle more 16, pause more 0, equal 0 of 16
+  u0 + wcp 10 min   : ETM MWh/h of delay H 1: 85.714; H 3: 94.737; H 4: 96.000; H 6: 97.297; throttle more 16, pause more 0, equal 0 of 16
+  u0 + wcp 25 min   : ETM MWh/h of delay H 1: 70.588; H 3: 87.805; H 4: 90.566; H 6: 93.506; throttle more 16, pause more 0, equal 0 of 16
+
+GATE
+  G-ZERO: ETM's max |stake - R| over 328 event counts in 8 cells = 0.000000 (exact 0); ETM's x* == R/H at 6888 of 6888 offer states -> holds
+  G-NEG: no events offered (K = 0), 72 cell x pi combinations; ETM ahead of WALL by more than 1 % on 0 of 288 outcome comparisons; max rel over the numeric outcomes 0.000000 -> holds
+
+POST-FIRST-RUN CHANGES: (1) the THR-wall context header said 'keeps a stake at zero slack' as written words (R15); it now prints the computed count of (cell, depth) pairs with a nonzero stake; no number or verdict changed; (2) the per-cell table header now says that WALL's charge counts the event's wall hours (why its stake exceeds its overhead); wording only
+
+RESULT H7: Q holds; G-ZERO holds (max |ETM stake - R| = 0.000000 over 328 event counts, x* == R/H at 6888 of 6888 offer states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 288 outcome comparisons)

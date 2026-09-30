@@ -805,3 +805,60 @@ SUMMARY (one row per scored cell)
   (ETM x*=t: states where ETM's x* equals (R + S)/H; bind/rise: offers with a reachable zero-slack state / with a strict rise there)
 
 SENSITIVITY (printed, not scored)
+--- cell S-slot12-D1100-H4-dfs: D = 1100, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/66 per wall hour, slot 12 h
+    offers: 83 slots at hours 12..996, each made with p = 0.166247082 (rational 139865/841308, rounding error 7.1e-15); E[offers] = 13.798508; P(offers made > OWN's nmax 24) = 1.645812e-03
+    nmax WALL 24, OWN 24, ETM 1000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 3486 of 3486 states (closed 3486, attained 3486); max |ETM stake - rate (R + S)| over n = 0..82 = 0
+    WALL: x* == closed form rule_xstar at 3486 of 3486 states; x* falls as slack falls in 0 of 1692 adjacent pairs (slack >= 0); offers with a zero-slack state 59, strict rise there 59; states past the deadline 1711; p_all 251.025000
+    OWN : x* == closed form rule_xstar at 3486 of 3486 states; x* falls as slack falls in 0 of 1692 adjacent pairs (slack >= 0); offers with a zero-slack state 59, strict rise there 59; states past the deadline 1711; p_all 250.025000
+    ETM : x* == closed form rule_xstar at 3486 of 3486 states; x* falls as slack falls in 0 of 3403 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.054819
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..5.70     100.00..97.70               1.025000               0.025000             0.025000
+             24              1.60             97.60   24.516095-251.025000   23.516095-250.025000             0.025000
+         25..82    -2.50..-236.20      97.50..91.80               1.025000               0.025000             0.025000
+--- cell S-slot48-D1100-H4-dfs: D = 1100, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/66 per wall hour, slot 48 h
+    offers: 20 slots at hours 48..960, each made with p = 0.516774919 (rational 41373/80060, rounding error 7.2e-13); E[offers] = 10.335498; P(offers made > OWN's nmax 24) = 0.000000e+00
+    nmax WALL 24, OWN 24, ETM 1000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 210 of 210 states (closed 210, attained 210); max |ETM stake - rate (R + S)| over n = 0..19 = 0
+    WALL: x* == closed form rule_xstar at 210 of 210 states; x* falls as slack falls in 0 of 190 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.025000
+    OWN : x* == closed form rule_xstar at 210 of 210 states; x* falls as slack falls in 0 of 190 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    ETM : x* == closed form rule_xstar at 210 of 210 states; x* falls as slack falls in 0 of 190 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.025000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..19     100.00..22.10     100.00..98.10               1.025000               0.025000             0.025000
+--- cell S-boundary-D1002-H4-a3: D = 1002, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 0) = 1.000000e+00
+    nmax WALL 0, OWN 0, ETM 20; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 840 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 1000
+    WALL: x* == closed form rule_xstar at 861 of 861 states; x* falls as slack falls in 0 of 0 adjacent pairs (slack >= 0); offers with a zero-slack state 41, strict rise there 0; states past the deadline 820; p_all 251.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; x* falls as slack falls in 0 of 0 adjacent pairs (slack >= 0); offers with a zero-slack state 41, strict rise there 0; states past the deadline 820; p_all 250.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; x* falls as slack falls in 0 of 610 adjacent pairs (slack >= 0); offers with a zero-slack state 21, strict rise there 21; states past the deadline 210; p_all 250.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 7.076937
+    Q-a (ETM x* = (R + S)/H at every offer state) fails; Q-b (OWN, WALL rise as slack falls; reading B) fails; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+              0              2.00              2.00    8.050118-251.025000    7.050118-250.025000             0.025000
+          1..19     -2.10..-75.90        1.90..0.10               1.025000               0.025000             0.025000
+             20            -80.00              0.00               1.025000               0.025000  13.691210-250.025000
+         21..40   -84.10..-162.00      -0.10..-2.00               1.025000               0.025000             0.025000
+  boundary: ETM's own-step slack absorbs 20 events of overhead 1/10 h against up to 41 offers; ETM x* == R/H at 840 of 861 states; max |ETM stake - rate R| = 1000; Q-a fails there (the overhead still counts against the own-step deadline)
+  slot12: Q-a holds, Q-b (reading B) holds, reading A holds
+  slot48: Q-a holds, Q-b (reading B) holds, reading A fails
+  boundary: Q-a fails, Q-b (reading B) fails, reading A fails
+
+Q
+  internal checks: backward-induction x* equals the closed form rule_xstar at every state of every cell and arm: yes; 'accept iff pi >= x*' equals the backward-induction decision at every state and grid pi: yes
+  Q-a: ETM's x* == (R + S)/H (closed) at 27552 of 27552 offer states; cells where it holds at every state 32 of 32 -> holds
+  Q-b (reading B): OWN's and WALL's x* falls as the slack falls in 0 of 50304 adjacent state pairs; strict rise at 272 of 272 offers with a zero-slack state; cells where both arms reach zero slack 8 of 32; cells holding 32 of 32
+  Q (reading B, scored): holds; reading A (a rise required in every cell; not scored): fails (8 of 32 cells)
+  the investigator's forecast (Q holds) is right
+
+GATE
+  G-ZERO: max |ETM stake - rate (R + S)| over 1312 event counts in 32 cells = 0 (exact); ETM's x* == (R + S)/H at 27552 of 27552 states -> holds
+  G-POS: expected accepted events below ETM's: WALL in 112, OWN in 56 of 288 cell x pi combinations; largest shortfall 35.451253 events (WALL, A-D1100-H1-a3, pi 0.2); OWN's largest 11.451256 (A-D1100-H4-a3, pi 0.05) -> holds
+  G-NEG: no events offered (K = 0, and the no-arrival realisation of each cell), 3456 comparisons of ETM against WALL on six outcomes; ETM ahead by more than 1 % in 0; largest rel 0.000e+00 (curtailed fleet-hours); e.g. ETM curtails 0 h, completes at 1000 h -> holds
+  gate (H1's G-ZERO, G-POS, G-NEG): OPEN
+
+RESULT H1: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1312 event counts in 32 cells; ETM x* = (R + S)/H at 27552 of 27552 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 3456 no-event comparisons); G-POS holds (expected events below ETM's: WALL in 112, OWN in 56 of 288 cell x pi; OWN's largest shortfall 11.451256 events)

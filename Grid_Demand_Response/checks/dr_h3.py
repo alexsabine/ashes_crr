@@ -39,7 +39,11 @@ SPACING_SENS = (dl.q(12), dl.q(48))  # CHOICE (EPS2 T1's spacing sensitivity; no
 ARMS = (dl.WALL, dl.OWN, dl.ETM)
 EPS2_TXT = dl.EPS2_TXT
 
-POST_FIRST_RUN_CHANGES: list[str] = []
+POST_FIRST_RUN_CHANGES: list[str] = [
+    "(1) bug fix, second reading (not scored): the per-tercile MW shortfall against ETM was an absolute MW sum, so with terciles of "
+    "34/33/33 jobs an arm supplying nothing read 'tight largest' only because the tight tercile is one job larger; it is now the "
+    "shortfall as a fraction of the tercile's MW (46 of 46 'tight largest' cases in the first run); scored reading unchanged",
+]
 
 
 def f(x, d=6) -> str:
@@ -285,7 +289,8 @@ def main() -> int:
 
     # ------------------------------------------------------------------------------------------------ the second reading
     print("SECOND READING (not scored): season-average curtailed MW per offered event at flat payment pi (sum over jobs of events x H x")
-    print("1 MW / (K x H)), from each job's backward-induction play; per tercile (tight/middle/loose) the MW shortfall against ETM")
+    print("1 MW / (K x H)), from each job's backward-induction play; per tercile (tight/middle/loose) the MW shortfall against ETM as a")
+    print("fraction of the tercile's MW (0: supplies as much as ETM; 1: supplies nothing while ETM supplies all)")
     s2_tight_n = s2_tot = 0
     for H in HS:
         rows = cells[H]["rows"]
@@ -302,7 +307,7 @@ def main() -> int:
             mw = {a: Fr(sum(v), K) * P_JOB for a, v in ev.items()}
             sf, tl = {}, {}
             for a in ("OWN", "WALL"):
-                sf[a] = [Fr(sum(ev["ETM"][i] - ev[a][i] for i in gr), K) * P_JOB for gr in grp]
+                sf[a] = [Fr(sum(ev["ETM"][i] - ev[a][i] for i in gr), K * len(gr)) for gr in grp]
                 tl[a] = sf[a][0] > max(sf[a][1:])
             if mw["ETM"] > 0:
                 s2_tot += 2

@@ -1,0 +1,686 @@
+DR1 check H6: response time; a lossless pause must save before the power drops; products need response within T
+Declaration: Grid_Demand_Response/DECLARATION.md (pushed at e67e8ee; binding, not edited). Library: drlib.py (exact rationals).
+Declared Q: where the save time S exceeds T, ETM cannot meet the product without losing work; the feasible product set is printed.
+Forecast: Q holds.
+
+INPUTS
+  SOURCED  from docs/citations/dr1_f2/f3/f4_2026-09-29.md (each quote checked verbatim against its dossier's text at run time;
+           the number parsed out of the quote by the regular expression shown; units converted to hours exactly):
+    [ERS-10] dr1_f2_2026-09-29.md: ERCOT Nodal Protocols Section 3 (2026-08-01), ERS; quote found verbatim: yes; parsed: yes
+      "An ERS Resource participating in ERS-10 must be capable of meeting its event performance obligations relevant to its assigned performance evaluation methodology within ten minutes of an ERCOT Dispatch Instruction to its QSE"
+      regex 'within (ten) minutes of an ERCOT Dispatch Instruction'
+      -> T-ERS10         role T      raw 'ten' = 10 min = 1/6 h; CHOICE: ERCOT ERS-10: performance obligations met within ten minutes of the dispatch instruction
+    [ERS-30] dr1_f2_2026-09-29.md: ERCOT Nodal Protocols Section 3 (2026-08-01), ERS; quote found verbatim: yes; parsed: yes
+      "An ERS Resource participating in ERS-30 must be capable of meeting its event performance obligations relevant to its assigned performance evaluation methodology within 30 minutes of an ERCOT Dispatch Instruction to its QSE"
+      regex 'within (\\d+) minutes of an ERCOT Dispatch Instruction'
+      -> T-ERS30         role T      raw '30' = 30 min = 1/2 h; CHOICE: ERCOT ERS-30: performance obligations met within 30 minutes of the dispatch instruction
+    [FFR-auto] dr1_f2_2026-09-29.md: ERCOT Nodal Protocols Section 2 (definitions), Fast Frequency Response; quote found verbatim: yes; parsed: yes
+      "The automatic self-deployment and provision by a Resource of their obligated response within 15 cycles after frequency meets or drops below a preset threshold"
+      regex 'within (\\d+) cycles after frequency'
+      -> T-FFR15cyc      role T      raw '15' = 0.25 s = 1/14400 h; CHOICE: ERCOT FFR, automatic mode: 15 cycles of the grid frequency after the trigger (converted at the sourced 60 Hz; the ten-minute XML mode of the same definition is not in the task's number list and is not used)
+    [PJM-LM] dr1_f2_2026-09-29.md: PJM Manual 18 Rev. 63, Load Management lead times; quote found verbatim: yes; parsed: yes
+      "Load management is required to fully respond within 30 minutes of notification unless an exception request for 60 or 120 minutes notification time is approved by PJM."
+      regex 'within (\\d+) minutes of notification unless an exception request for (\\d+) or (\\d+) minutes'
+      -> T-PJM30         role T      raw '30' = 30 min = 1/2 h; CHOICE: PJM Load Management, default: full response within 30 minutes of notification
+      -> T-PJM60         role T      raw '60' = 60 min = 1 h; CHOICE: PJM Load Management, by approved exception: 60 minutes
+      -> T-PJM120        role T      raw '120' = 2 h = 2 h; CHOICE: PJM Load Management, by approved exception: 120 minutes
+    [PJM-2026-09-17] dr1_f2_2026-09-29.md: PJM Estimated DR Activity, September 17, 2026 (a realised event); quote found verbatim: yes; parsed: yes
+      "14:00 14:30 22:00 Pre-Emergency Quick_30"
+      regex '^(\\d+):(\\d+) (\\d+):(\\d+) '
+      -> T-PJMreal       role T      raw '14:00 -> 14:30' = 30 min = 1/2 h; CHOICE: the realised lead of the 17 Sep 2026 Quick_30 event: deploy time minus notification time (computed from the two clock times)
+    [CAISO-RDRR] dr1_f2_2026-09-29.md: CAISO RDRR overview (2014-05-08); quote found verbatim: yes; parsed: yes
+      "reaching full curtailment within 40 minutes"
+      regex 'within (\\d+) minutes'
+      -> T-RDRR40        role T      raw '40' = 40 min = 2/3 h; CHOICE: CAISO RDRR: full curtailment within 40 minutes
+    [DFS-lead] dr1_f2_2026-09-29.md: NESO DFS Participation Guidance v18; quote found verbatim: yes; parsed: yes
+      "the service can be procured at any time in a day, up to a maximum of twenty four hours ahead of the start of any Service Requirement window."
+      regex 'up to a maximum of (twenty four) hours ahead'
+      -> T-DFSmax        role Tdfs   raw 'twenty four' = 24 h = 24 h; CHOICE: DFS: a MAXIMUM lead of 24 h; the rules state no minimum notice (dossier F2), so DFS has no stated T: printed, not scored
+    [RRS-FFR] dr1_f3_2026-09-29.md: ERCOT Ancillary Services Study, Sept 2024; quote found verbatim: yes; parsed: yes
+      "RRS-FFR is (full) response when frequency is below 59.85 Hz within 250 ms"
+      regex 'within (\\d+) ms'
+      -> T-RRSFFR        role T      raw '250' = 0.25 s = 1/14400 h; CHOICE: ERCOT RRS-FFR: full response within 250 ms of the frequency trigger
+    [ECRS] dr1_f3_2026-09-29.md: ERCOT Ancillary Services Study, Sept 2024; quote found verbatim: yes; parsed: yes
+      "ECRS is capacity that can respond in 10 minutes"
+      regex 'respond in (\\d+) minutes'
+      -> T-ECRS          role T      raw '10' = 10 min = 1/6 h; CHOICE: ERCOT ECRS: response in 10 minutes
+    [NSPIN] dr1_f3_2026-09-29.md: ERCOT Ancillary Services Study, Sept 2024; quote found verbatim: yes; parsed: yes
+      "Reducing consumption based on an ERCOT Extensible Markup Language (XML) instruction within 30 minutes; and ii. Maintaining that deployment until recalled."
+      regex 'instruction within (\\d+) minutes;'
+      -> T-NSPIN         role T      raw '30' = 30 min = 1/2 h; CHOICE: ERCOT Non-Spin, non-controllable Load Resources: reduce within 30 minutes of the XML instruction
+    [REG] dr1_f3_2026-09-29.md: ERCOT Ancillary Services Study, Sept 2024; quote found verbatim: yes; parsed: yes
+      "Regulation Service is capacity that can be deployed by ERCOT systems every 4 seconds to balance supply with demand in between the 5-min Security-Constrained Economic Dispatch (SCED) intervals and maintain frequency close to 60 Hz."
+      regex 'every (\\d+) seconds .* close to (\\d+) Hz'
+      -> T-REG4s         role T      raw '4' = 4 s = 1/900 h; CHOICE: ERCOT Regulation: the 4-second deployment cadence read as the response time (a resource following Regulation must respond within one cadence)
+      -> Hz-60           role Hz     raw '60' = 60 Hz; CHOICE: the nominal frequency of the ERCOT grid, used to convert FFR's 15 cycles to seconds
+    [ERS-ramps] dr1_f3_2026-09-29.md: ERCOT Overview of Demand Response, April 2023; quote found verbatim: yes; parsed: yes
+      "Four ERS service types: • Non-Weather Sensitive in 10 and 30 minute ramps"
+      regex 'in (\\d+) and (\\d+) minute ramps'
+      -> C-ERS10         role corr   raw '10' = 10 min = 1/6 h; CHOICE: corroborates ERS-10 (F2); not a separate product
+      -> C-ERS30         role corr   raw '30' = 30 min = 1/2 h; CHOICE: corroborates ERS-30 (F2); not a separate product
+    [SB6] dr1_f3_2026-09-29.md: Texas SB 6 (enrolled); quote found verbatim: yes; parsed: yes
+      "ensure that the independent organization provides at least a 24-hour notice to large load customers"
+      regex 'at least a (\\d+)-hour notice'
+      -> T-SB6           role T      raw '24' = 24 h = 24 h; CHOICE: Texas SB 6 large-load demand reduction: a notice of AT LEAST 24 h, read as T = 24 h (a lower bound: a save that fits 24 h fits the actual notice)
+    [KOK-u0] dr1_f4_2026-09-29.md: Kokolis et al., arXiv:2410.21680 v2 (HPCA 2025); quote found verbatim: yes; parsed: yes
+      "For the RSC clusters, rf ≈5 × 10−3 failures per GPU node-day of runtime, wcp ≈5 mins, u0 ≈5 −20 mins, and (Nnodesrf)−1 ≳0.1 day."
+      regex 'wcp ≈(\\d+) mins, u0 ≈(\\d+) −(\\d+) mins'
+      -> S-KOK-wcp       role S      raw '5' = 5 min = 1/12 h; CHOICE: the paper's checkpoint write estimate for the RSC clusters, read as the save
+      -> R-KOK-u0lo      role R      raw '5' = 5 min = 1/12 h; CHOICE: the low end of the paper's restart-overhead range u0
+      -> R-KOK-u0hi      role R      raw '20' = 20 min = 1/3 h; CHOICE: the high end of the paper's restart-overhead range u0
+    [KOK-lost] dr1_f4_2026-09-29.md: Kokolis et al., arXiv:2410.21680 v2 (HPCA 2025); quote found verbatim: yes; parsed: yes
+      "we assume that all jobs checkpoint hourly (we find this is a typical checkpoint interval for larger jobs on the RSC clusters), giving an average of half an hour of lost work."
+      regex 'checkpoint (hourly) .* an average of (half) an hour of lost work'
+      -> I-KOK-hourly    role I      raw 'hourly' = 60 min = 1 h; CHOICE: 'checkpoint hourly' read as a periodic checkpoint interval of 1 h (the lossy route)
+      -> L-KOK-half      role Ichk   raw 'half' = 30 min = 1/2 h; CHOICE: 'half an hour' of lost work: checks drlib.lossy's expected loss I/2 at I = 1 h
+    [BC-405B] dr1_f4_2026-09-29.md: ByteCheckpoint, arXiv:2407.20143 v4 (NSDI '25), Table 8; quote found verbatim: yes; parsed: yes
+      "Text Transformer 405B Megatron-LM 8960 TP=8, DP=70, PP=16 0.59 51.06 129.49"
+      regex 'PP=16 ([\\d.]+) ([\\d.]+) ([\\d.]+)$'
+      -> S-BC405-block   role S      raw '0.59' = 0.59 s = 59/360000 h; CHOICE: TBlock read as the save before the power drops (the hosts stay powered to persist)
+      -> S-BC405-save    role S      raw '51.06' = 51.06 s = 851/60000 h; CHOICE: TSave read as the end-to-end persistent save before the power drops
+      -> U-BC405-load    role unused raw '129.49' = 2.15817 min = 12949/360000 h; CHOICE: TLoad: a restart component; H6 uses the Kokolis restart range
+    [BC-7B] dr1_f4_2026-09-29.md: ByteCheckpoint, arXiv:2407.20143 v4 (NSDI '25), Table 8; quote found verbatim: yes; parsed: yes
+      "Vision Transformer 7B FSDP 1488 ZeRO-2 0.34 20.13 265.73"
+      regex 'ZeRO-2 ([\\d.]+) ([\\d.]+) ([\\d.]+)$'
+      -> S-BC7-block     role S      raw '0.34' = 0.34 s = 17/180000 h; CHOICE: TBlock read as the save before the power drops (the hosts stay powered to persist)
+      -> S-BC7-save      role S      raw '20.13' = 20.13 s = 671/120000 h; CHOICE: TSave read as the end-to-end persistent save before the power drops
+      -> U-BC7-load      role unused raw '265.73' = 4.42883 min = 26573/360000 h; CHOICE: TLoad: a restart component; H6 uses the Kokolis restart range
+    [BC-175B] dr1_f4_2026-09-29.md: ByteCheckpoint, arXiv:2407.20143 v4 (NSDI '25); quote found verbatim: yes; parsed: yes
+      "the average end-to-end time required to save checkpoints of a GPT 175B model, trained on 4096 GPUs, to HDFS can be 200 seconds."
+      regex 'can be (\\d+) seconds'
+      -> S-BC175-save    role S      raw '200' = 3.33333 min = 1/18 h; CHOICE: an end-to-end save before optimisation, read as the save before the power drops
+    [GEM-remote] dr1_f4_2026-09-29.md: GEMINI, SOSP '23; quote found verbatim: yes; parsed: yes
+      "it takes 42 minutes to checkpoint the model states of MT-NLG [68] to the remote persistent storage when the bandwidth is 20Gbps."
+      regex 'it takes (\\d+) minutes to checkpoint'
+      -> S-GEM-remote    role S      raw '42' = 42 min = 7/10 h; CHOICE: a full save to remote storage at 20 Gbps, read as the save before the power drops
+    [PT-dcp] dr1_f4_2026-09-29.md: PyTorch blog (2024-06-12); quote found verbatim: yes; parsed: yes
+      "Example: 7B model ‘down time’ for a checkpoint goes from an average of 148.8 seconds to 6.3 seconds, or 23.62x faster."
+      regex 'average of ([\\d.]+) seconds to ([\\d.]+) seconds'
+      -> S-PT-sync       role S      raw '148.8' = 2.48 min = 31/750 h; CHOICE: synchronous DCP downtime read as the save
+      -> S-PT-async      role S      raw '6.3' = 6.3 s = 7/4000 h; CHOICE: asynchronous DCP downtime read as the save (the hosts stay powered to persist)
+    [PT-visible] dr1_f4_2026-09-29.md: PyTorch blog (2024-06-12); quote found verbatim: yes; parsed: yes
+      "This is the visible downtime to the user and can take from 6 – 14 seconds for 7B-13B model sizes."
+      regex 'from (\\d+) – (\\d+) seconds'
+      -> S-PT-vis6       role S      raw '6' = 6 s = 1/600 h; CHOICE: the low end of the visible downtime read as the save (the hosts stay powered)
+      -> S-PT-vis14      role S      raw '14' = 14 s = 7/1800 h; CHOICE: the high end of the visible downtime read as the save (the hosts stay powered)
+    [PT-legacy] dr1_f4_2026-09-29.md: PyTorch blog (2024-06-12); quote found verbatim: yes; parsed: yes
+      "torch.save could take up to 30 minutes to checkpoint a single 11B model (PyTorch 1.13)."
+      regex 'up to (\\d+) minutes to checkpoint'
+      -> S-PT-legacy     role S      raw '30' = 30 min = 1/2 h; CHOICE: 'up to 30 minutes' taken at its bound (legacy torch.save), read as the save
+    [CNR-snapshot] dr1_f4_2026-09-29.md: Check-N-Run, arXiv:2010.08679 v2; quote found verbatim: yes; parsed: yes
+      "would stall training in our system for less than 7 seconds."
+      regex 'less than (\\d+) seconds'
+      -> S-CNR-snap      role S      raw '7' = 7 s = 7/3600 h; CHOICE: 'less than 7 seconds' taken at its bound; an in-memory snapshot read as the save
+    [AWS-spot] dr1_f4_2026-09-29.md: AWS EC2 User Guide; quote found verbatim: yes; parsed: yes
+      "A Spot Instance interruption notice is a warning that is issued two minutes before Amazon EC2 stops or terminates your Spot Instance."
+      regex 'issued (two) minutes before'
+      -> X-AWS           role Tx     raw 'two' = 2 min = 1/30 h; CHOICE: a cloud pre-emption notice, not a demand-response product: context only
+    [GCP-spot] dr1_f4_2026-09-29.md: Google Cloud Spot VMs doc (2026-09-28); quote found verbatim: yes; parsed: yes
+      "The shutdown period for Spot VMs is best effort and up to 30 seconds, which is shorter than the shutdown period for other instances ."
+      regex 'up to (\\d+) seconds'
+      -> X-GCP           role Tx     raw '30' = 30 s = 1/120 h; CHOICE: a cloud shutdown period ('up to', taken at its bound): context only
+    [K8S-grace] dr1_f4_2026-09-29.md: Kubernetes Pod Lifecycle; quote found verbatim: yes; parsed: yes
+      "The default terminationGracePeriodSeconds setting is 30 seconds."
+      regex 'setting is (\\d+) seconds'
+      -> X-K8S           role Tx     raw '30' = 30 s = 1/120 h; CHOICE: an orchestrator's default grace period: context only
+    [POLCA-lat] dr1_f4_2026-09-29.md: POLCA, arXiv:2308.12908 v1, Table 1; quote found verbatim: yes; parsed: yes
+      "Power telemetry delay 2s Power brake latency 5s OOB commands latency 40s"
+      regex 'Power brake latency (\\d+)s OOB commands latency (\\d+)s'
+      -> Y-brake         role Tthr   raw '5' = 5 s = 1/720 h; CHOICE: a power brake's latency: how fast a throttle (not a pause) can cut power; context (H7)
+      -> Y-OOB           role Tthr   raw '40' = 40 s = 1/90 h; CHOICE: out-of-band power-capping latency; context (H7)
+    [PERSEUS-sm] dr1_f4_2026-09-29.md: Perseus, arXiv:2312.06902 v3; quote found verbatim: yes; parsed: yes
+      "The SM frequency of NVIDIA GPUs can be set via NVML [4] in around 10 ms"
+      regex 'in around (\\d+) ms'
+      -> Y-SM            role Tthr   raw '10' = 0.01 s = 1/360000 h; CHOICE: a GPU frequency change's latency ('around', taken at its value); context (H7)
+  cross-check: FFR's 15 cycles at the sourced 60 Hz = 0.25 s; RRS-FFR's sourced response time = 0.25 s; equal: yes
+  cross-check: C-ERS10 (F3, 10 min) equals T-ERS10 (F2, 10 min): yes
+  cross-check: C-ERS30 (F3, 30 min) equals T-ERS30 (F2, 30 min): yes
+  cross-check: drlib.lossy at the sourced interval 60 min loses 30 min per event; the source's average lost work 30 min; equal: yes
+  DECLARED W = 1000 compute-hours, value 1 per compute-hour at completion (DR1 section 2 adopts EPS2 T1's units)
+  ASSUMED  D = 1100 h and event length H = 4 h (EPS2 T1's decisive cell; they enter the payments only, not feasibility)
+  ASSUMED  R = 1/10 h (6 minutes; EPS2 T1's restart overhead) beside the sourced Kokolis u0 range; S = 0 (EPS2 T1 has no save)
+           as one more save value: the EPS2 reference point R = 0.1 h, S = 0 sits inside the grid
+  ASSUMED  periodic checkpoint intervals 15 min, 4 h beside the sourced hourly one (the lossy route)
+  NOT USED (numbers in the dossiers' lists that are not response times, saves, restarts or intervals):
+    F2: DFS 'respond for a minimum of 30 minutes': a minimum DURATION of response, not a response time
+    F2: DFS results 60 min after submission; bid window 1 h: a procurement timeline, not a notice before the window: the rules state no minimum notice between acceptance and the window's start
+    F2: CAISO RDRR sustained >= 4 h; <= 15 events or 48 h per term: durations and counts, not response times
+    F2: CPUC ELRP 1-5 h events, <= 60 h/yr: durations, not response times
+    F2: ERCOT ERS 24/12 h cumulative deployment: a cumulative duration, not a response time
+    F2: prices, payments, caps, VoLL, DFS K factor: prices and settlement (H8, the data part), not response times
+    F3: NOGRR282 recovery to >= 90 % within 2 s: a ride-through RECOVERY after a frequency excursion (the load must come back), not a curtailment response
+    F3: three disturbances within 1 minute (transfer scheme): a protection trigger, not a product's response time
+    F3: ramp limits (MW/min), oscillation limits, rebound, ramp events: ramps and rebound (H5), not response times
+    F4: MegaScale 'several seconds' (GPU-to-host snapshot): no number in the quote; the in-memory snapshots of Check-N-Run and ByteCheckpoint's TBlock cover it
+    F4: ByteCheckpoint TLoad, MegaScale initialisation and catch-up, ByteRobust failover: restart components (H4); H6 uses the Kokolis restart range
+
+  products (13, scored): T-FFR15cyc 0.25 s, T-RRSFFR 0.25 s, T-REG4s 4 s, T-ECRS 10 min, T-ERS10 10 min, T-ERS30 30 min, T-NSPIN 30 min, T-PJM30 30 min, T-PJMreal 30 min, T-RDRR40 40 min, T-PJM60 60 min, T-PJM120 2 h, T-SB6 24 h
+  saves (14):     S-EPS2 0 s, S-BC7-block 0.34 s, S-BC405-block 0.59 s, S-PT-vis6 6 s, S-PT-async 6.3 s, S-CNR-snap 7 s, S-PT-vis14 14 s, S-BC7-save 20.13 s, S-BC405-save 51.06 s, S-PT-sync 2.48 min, S-BC175-save 3.33333 min, S-KOK-wcp 5 min, S-PT-legacy 30 min, S-GEM-remote 42 min
+  restarts (3):   R-KOK-u0lo 5 min, R-EPS2 6 min, R-KOK-u0hi 20 min
+  checkpoint intervals (3): I-ASM-0.25h 15 min, I-KOK-hourly 60 min, I-ASM-4h 4 h
+
+CHOICES
+  CHOICE A product with response time T is met only if the fleet's power is down by T after the operator's instruction (or
+         the trigger); a later drop is a non-delivery, not a slower delivery. The save starts at the instruction: the fleet
+         does not save pre-emptively before it knows of the event (a pre-emptive save is the periodic checkpoint below).
+  CHOICE The lossless route (ETM as declared): save for S at full power, then the power drops. It meets the product iff
+         S <= T (drlib.response_ok, ties meet). A save is atomic: an interrupted save leaves only the last complete checkpoint.
+  CHOICE The lossy route: the power drops at the instruction without a save (drlib.lossy): the job loses the work since
+         its last periodic checkpoint, I/2 in expectation (the instruction's phase uniform over the interval I), redone as
+         own hours without progress; S = 0. Stopping the computation is taken as instantaneous, so this route meets every
+         product. These two routes are the only ways a pause meets a product; declining the event does not meet it.
+  CHOICE 'ETM cannot meet the product without losing work' (per cell with S > T) = the lossless route does not meet T AND
+         every route that meets T loses work (the least lost work among the meeting routes > 0) AND the pause's stake
+         beyond the restart on that route is > 0 at every event count n = 0..K-1 (ETM's stake - rate R, drlib.stake).
+  CHOICE Q holds iff that reading holds in every scored cell (product x save x restart x interval) with S > T; Q is not
+         computable if any sourced quote is not found or not parsed, if any p_all is not a threshold, or if no scored cell
+         has S > T (Q would be vacuous). The converse (S <= T: the lossless route meets with no lost work) is printed.
+  CHOICE The feasible product set = for each save S, the scored products with S <= T (the lossless route meets them).
+  CHOICE Prices (context for Q, not scored): p_all per curtailed fleet-hour, EPS2's decisive reading (drlib.p_all), for
+         ETM and OWN, one offer every 24 wall hours before hour W (K = 41), known in advance; verified by backward
+         induction at p_all and p_all - 1e-6. The lossless route's overhead is R + S, the lossy route's R + I/2.
+  CHOICE DFS (no minimum notice, a 24 h maximum lead) has no stated T: printed at its two bounds, not scored and counted as
+         an exclusion. F4's cloud pre-emption notices and power-control latencies are printed as context, not scored.
+  CHOICE G-ZERO: on the lossless route, ETM's one-event stake minus rate (R + S) is exactly 0 at every n = 0..K-1 and
+         ETM's x* == rate (R + S)/H (closed) at every offer state, for every (restart, save) pair (as H1 and H4: the save
+         counts with R). The stake minus rate R alone (the declaration's wording 'beyond R') is printed; it equals rate S.
+  CHOICE G-NEG: with no events offered (K = 0, and the no-offer realisation), ETM not ahead of WALL by more than 1 %
+         (harness rel) on any outcome (curtailed fleet-hours, payments, valuation, fleet value, deadline met, completion hour,
+         earlier ahead), on every lossless and lossy job, at pi = ETM's p_all of the job.
+  NOTE   Q follows from the model's definitions once S > T (a save that has not finished leaves only the last periodic
+         checkpoint); the check's content is the arithmetic, the feasible product set and the price of the lossy fallback.
+
+FEASIBILITY TABLE (lossless route: S <= T; one row per product x save; margin = T - S)
+       product          T           save          S  S<=T       margin source of T
+    T-FFR15cyc     0.25 s         S-EPS2        0 s   yes       0.25 s     f2
+    T-FFR15cyc     0.25 s    S-BC7-block     0.34 s    no      -0.09 s     f2
+    T-FFR15cyc     0.25 s  S-BC405-block     0.59 s    no      -0.34 s     f2
+    T-FFR15cyc     0.25 s      S-PT-vis6        6 s    no      -5.75 s     f2
+    T-FFR15cyc     0.25 s     S-PT-async      6.3 s    no      -6.05 s     f2
+    T-FFR15cyc     0.25 s     S-CNR-snap        7 s    no      -6.75 s     f2
+    T-FFR15cyc     0.25 s     S-PT-vis14       14 s    no     -13.75 s     f2
+    T-FFR15cyc     0.25 s     S-BC7-save    20.13 s    no     -19.88 s     f2
+    T-FFR15cyc     0.25 s   S-BC405-save    51.06 s    no     -50.81 s     f2
+    T-FFR15cyc     0.25 s      S-PT-sync   2.48 min    no -2.47583 min     f2
+    T-FFR15cyc     0.25 s   S-BC175-save 3.33333 min    no -3.32917 min     f2
+    T-FFR15cyc     0.25 s      S-KOK-wcp      5 min    no -4.99583 min     f2
+    T-FFR15cyc     0.25 s    S-PT-legacy     30 min    no -29.9958 min     f2
+    T-FFR15cyc     0.25 s   S-GEM-remote     42 min    no -41.9958 min     f2
+      T-RRSFFR     0.25 s         S-EPS2        0 s   yes       0.25 s     f3
+      T-RRSFFR     0.25 s    S-BC7-block     0.34 s    no      -0.09 s     f3
+      T-RRSFFR     0.25 s  S-BC405-block     0.59 s    no      -0.34 s     f3
+      T-RRSFFR     0.25 s      S-PT-vis6        6 s    no      -5.75 s     f3
+      T-RRSFFR     0.25 s     S-PT-async      6.3 s    no      -6.05 s     f3
+      T-RRSFFR     0.25 s     S-CNR-snap        7 s    no      -6.75 s     f3
+      T-RRSFFR     0.25 s     S-PT-vis14       14 s    no     -13.75 s     f3
+      T-RRSFFR     0.25 s     S-BC7-save    20.13 s    no     -19.88 s     f3
+      T-RRSFFR     0.25 s   S-BC405-save    51.06 s    no     -50.81 s     f3
+      T-RRSFFR     0.25 s      S-PT-sync   2.48 min    no -2.47583 min     f3
+      T-RRSFFR     0.25 s   S-BC175-save 3.33333 min    no -3.32917 min     f3
+      T-RRSFFR     0.25 s      S-KOK-wcp      5 min    no -4.99583 min     f3
+      T-RRSFFR     0.25 s    S-PT-legacy     30 min    no -29.9958 min     f3
+      T-RRSFFR     0.25 s   S-GEM-remote     42 min    no -41.9958 min     f3
+       T-REG4s        4 s         S-EPS2        0 s   yes          4 s     f3
+       T-REG4s        4 s    S-BC7-block     0.34 s   yes       3.66 s     f3
+       T-REG4s        4 s  S-BC405-block     0.59 s   yes       3.41 s     f3
+       T-REG4s        4 s      S-PT-vis6        6 s    no         -2 s     f3
+       T-REG4s        4 s     S-PT-async      6.3 s    no       -2.3 s     f3
+       T-REG4s        4 s     S-CNR-snap        7 s    no         -3 s     f3
+       T-REG4s        4 s     S-PT-vis14       14 s    no        -10 s     f3
+       T-REG4s        4 s     S-BC7-save    20.13 s    no     -16.13 s     f3
+       T-REG4s        4 s   S-BC405-save    51.06 s    no     -47.06 s     f3
+       T-REG4s        4 s      S-PT-sync   2.48 min    no -2.41333 min     f3
+       T-REG4s        4 s   S-BC175-save 3.33333 min    no -3.26667 min     f3
+       T-REG4s        4 s      S-KOK-wcp      5 min    no -4.93333 min     f3
+       T-REG4s        4 s    S-PT-legacy     30 min    no -29.9333 min     f3
+       T-REG4s        4 s   S-GEM-remote     42 min    no -41.9333 min     f3
+        T-ECRS     10 min         S-EPS2        0 s   yes       10 min     f3
+        T-ECRS     10 min    S-BC7-block     0.34 s   yes  9.99433 min     f3
+        T-ECRS     10 min  S-BC405-block     0.59 s   yes  9.99017 min     f3
+        T-ECRS     10 min      S-PT-vis6        6 s   yes      9.9 min     f3
+        T-ECRS     10 min     S-PT-async      6.3 s   yes    9.895 min     f3
+        T-ECRS     10 min     S-CNR-snap        7 s   yes  9.88333 min     f3
+        T-ECRS     10 min     S-PT-vis14       14 s   yes  9.76667 min     f3
+        T-ECRS     10 min     S-BC7-save    20.13 s   yes   9.6645 min     f3
+        T-ECRS     10 min   S-BC405-save    51.06 s   yes    9.149 min     f3
+        T-ECRS     10 min      S-PT-sync   2.48 min   yes     7.52 min     f3
+        T-ECRS     10 min   S-BC175-save 3.33333 min   yes  6.66667 min     f3
+        T-ECRS     10 min      S-KOK-wcp      5 min   yes        5 min     f3
+        T-ECRS     10 min    S-PT-legacy     30 min    no      -20 min     f3
+        T-ECRS     10 min   S-GEM-remote     42 min    no      -32 min     f3
+       T-ERS10     10 min         S-EPS2        0 s   yes       10 min     f2
+       T-ERS10     10 min    S-BC7-block     0.34 s   yes  9.99433 min     f2
+       T-ERS10     10 min  S-BC405-block     0.59 s   yes  9.99017 min     f2
+       T-ERS10     10 min      S-PT-vis6        6 s   yes      9.9 min     f2
+       T-ERS10     10 min     S-PT-async      6.3 s   yes    9.895 min     f2
+       T-ERS10     10 min     S-CNR-snap        7 s   yes  9.88333 min     f2
+       T-ERS10     10 min     S-PT-vis14       14 s   yes  9.76667 min     f2
+       T-ERS10     10 min     S-BC7-save    20.13 s   yes   9.6645 min     f2
+       T-ERS10     10 min   S-BC405-save    51.06 s   yes    9.149 min     f2
+       T-ERS10     10 min      S-PT-sync   2.48 min   yes     7.52 min     f2
+       T-ERS10     10 min   S-BC175-save 3.33333 min   yes  6.66667 min     f2
+       T-ERS10     10 min      S-KOK-wcp      5 min   yes        5 min     f2
+       T-ERS10     10 min    S-PT-legacy     30 min    no      -20 min     f2
+       T-ERS10     10 min   S-GEM-remote     42 min    no      -32 min     f2
+       T-ERS30     30 min         S-EPS2        0 s   yes       30 min     f2
+       T-ERS30     30 min    S-BC7-block     0.34 s   yes  29.9943 min     f2
+       T-ERS30     30 min  S-BC405-block     0.59 s   yes  29.9902 min     f2
+       T-ERS30     30 min      S-PT-vis6        6 s   yes     29.9 min     f2
+       T-ERS30     30 min     S-PT-async      6.3 s   yes   29.895 min     f2
+       T-ERS30     30 min     S-CNR-snap        7 s   yes  29.8833 min     f2
+       T-ERS30     30 min     S-PT-vis14       14 s   yes  29.7667 min     f2
+       T-ERS30     30 min     S-BC7-save    20.13 s   yes  29.6645 min     f2
+       T-ERS30     30 min   S-BC405-save    51.06 s   yes   29.149 min     f2
+       T-ERS30     30 min      S-PT-sync   2.48 min   yes    27.52 min     f2
+       T-ERS30     30 min   S-BC175-save 3.33333 min   yes  26.6667 min     f2
+       T-ERS30     30 min      S-KOK-wcp      5 min   yes       25 min     f2
+       T-ERS30     30 min    S-PT-legacy     30 min   yes          0 s     f2
+       T-ERS30     30 min   S-GEM-remote     42 min    no      -12 min     f2
+       T-NSPIN     30 min         S-EPS2        0 s   yes       30 min     f3
+       T-NSPIN     30 min    S-BC7-block     0.34 s   yes  29.9943 min     f3
+       T-NSPIN     30 min  S-BC405-block     0.59 s   yes  29.9902 min     f3
+       T-NSPIN     30 min      S-PT-vis6        6 s   yes     29.9 min     f3
+       T-NSPIN     30 min     S-PT-async      6.3 s   yes   29.895 min     f3
+       T-NSPIN     30 min     S-CNR-snap        7 s   yes  29.8833 min     f3
+       T-NSPIN     30 min     S-PT-vis14       14 s   yes  29.7667 min     f3
+       T-NSPIN     30 min     S-BC7-save    20.13 s   yes  29.6645 min     f3
+       T-NSPIN     30 min   S-BC405-save    51.06 s   yes   29.149 min     f3
+       T-NSPIN     30 min      S-PT-sync   2.48 min   yes    27.52 min     f3
+       T-NSPIN     30 min   S-BC175-save 3.33333 min   yes  26.6667 min     f3
+       T-NSPIN     30 min      S-KOK-wcp      5 min   yes       25 min     f3
+       T-NSPIN     30 min    S-PT-legacy     30 min   yes          0 s     f3
+       T-NSPIN     30 min   S-GEM-remote     42 min    no      -12 min     f3
+       T-PJM30     30 min         S-EPS2        0 s   yes       30 min     f2
+       T-PJM30     30 min    S-BC7-block     0.34 s   yes  29.9943 min     f2
+       T-PJM30     30 min  S-BC405-block     0.59 s   yes  29.9902 min     f2
+       T-PJM30     30 min      S-PT-vis6        6 s   yes     29.9 min     f2
+       T-PJM30     30 min     S-PT-async      6.3 s   yes   29.895 min     f2
+       T-PJM30     30 min     S-CNR-snap        7 s   yes  29.8833 min     f2
+       T-PJM30     30 min     S-PT-vis14       14 s   yes  29.7667 min     f2
+       T-PJM30     30 min     S-BC7-save    20.13 s   yes  29.6645 min     f2
+       T-PJM30     30 min   S-BC405-save    51.06 s   yes   29.149 min     f2
+       T-PJM30     30 min      S-PT-sync   2.48 min   yes    27.52 min     f2
+       T-PJM30     30 min   S-BC175-save 3.33333 min   yes  26.6667 min     f2
+       T-PJM30     30 min      S-KOK-wcp      5 min   yes       25 min     f2
+       T-PJM30     30 min    S-PT-legacy     30 min   yes          0 s     f2
+       T-PJM30     30 min   S-GEM-remote     42 min    no      -12 min     f2
+     T-PJMreal     30 min         S-EPS2        0 s   yes       30 min     f2
+     T-PJMreal     30 min    S-BC7-block     0.34 s   yes  29.9943 min     f2
+     T-PJMreal     30 min  S-BC405-block     0.59 s   yes  29.9902 min     f2
+     T-PJMreal     30 min      S-PT-vis6        6 s   yes     29.9 min     f2
+     T-PJMreal     30 min     S-PT-async      6.3 s   yes   29.895 min     f2
+     T-PJMreal     30 min     S-CNR-snap        7 s   yes  29.8833 min     f2
+     T-PJMreal     30 min     S-PT-vis14       14 s   yes  29.7667 min     f2
+     T-PJMreal     30 min     S-BC7-save    20.13 s   yes  29.6645 min     f2
+     T-PJMreal     30 min   S-BC405-save    51.06 s   yes   29.149 min     f2
+     T-PJMreal     30 min      S-PT-sync   2.48 min   yes    27.52 min     f2
+     T-PJMreal     30 min   S-BC175-save 3.33333 min   yes  26.6667 min     f2
+     T-PJMreal     30 min      S-KOK-wcp      5 min   yes       25 min     f2
+     T-PJMreal     30 min    S-PT-legacy     30 min   yes          0 s     f2
+     T-PJMreal     30 min   S-GEM-remote     42 min    no      -12 min     f2
+      T-RDRR40     40 min         S-EPS2        0 s   yes       40 min     f2
+      T-RDRR40     40 min    S-BC7-block     0.34 s   yes  39.9943 min     f2
+      T-RDRR40     40 min  S-BC405-block     0.59 s   yes  39.9902 min     f2
+      T-RDRR40     40 min      S-PT-vis6        6 s   yes     39.9 min     f2
+      T-RDRR40     40 min     S-PT-async      6.3 s   yes   39.895 min     f2
+      T-RDRR40     40 min     S-CNR-snap        7 s   yes  39.8833 min     f2
+      T-RDRR40     40 min     S-PT-vis14       14 s   yes  39.7667 min     f2
+      T-RDRR40     40 min     S-BC7-save    20.13 s   yes  39.6645 min     f2
+      T-RDRR40     40 min   S-BC405-save    51.06 s   yes   39.149 min     f2
+      T-RDRR40     40 min      S-PT-sync   2.48 min   yes    37.52 min     f2
+      T-RDRR40     40 min   S-BC175-save 3.33333 min   yes  36.6667 min     f2
+      T-RDRR40     40 min      S-KOK-wcp      5 min   yes       35 min     f2
+      T-RDRR40     40 min    S-PT-legacy     30 min   yes       10 min     f2
+      T-RDRR40     40 min   S-GEM-remote     42 min    no       -2 min     f2
+       T-PJM60     60 min         S-EPS2        0 s   yes       60 min     f2
+       T-PJM60     60 min    S-BC7-block     0.34 s   yes  59.9943 min     f2
+       T-PJM60     60 min  S-BC405-block     0.59 s   yes  59.9902 min     f2
+       T-PJM60     60 min      S-PT-vis6        6 s   yes     59.9 min     f2
+       T-PJM60     60 min     S-PT-async      6.3 s   yes   59.895 min     f2
+       T-PJM60     60 min     S-CNR-snap        7 s   yes  59.8833 min     f2
+       T-PJM60     60 min     S-PT-vis14       14 s   yes  59.7667 min     f2
+       T-PJM60     60 min     S-BC7-save    20.13 s   yes  59.6645 min     f2
+       T-PJM60     60 min   S-BC405-save    51.06 s   yes   59.149 min     f2
+       T-PJM60     60 min      S-PT-sync   2.48 min   yes    57.52 min     f2
+       T-PJM60     60 min   S-BC175-save 3.33333 min   yes  56.6667 min     f2
+       T-PJM60     60 min      S-KOK-wcp      5 min   yes       55 min     f2
+       T-PJM60     60 min    S-PT-legacy     30 min   yes       30 min     f2
+       T-PJM60     60 min   S-GEM-remote     42 min   yes       18 min     f2
+      T-PJM120        2 h         S-EPS2        0 s   yes          2 h     f2
+      T-PJM120        2 h    S-BC7-block     0.34 s   yes  119.994 min     f2
+      T-PJM120        2 h  S-BC405-block     0.59 s   yes   119.99 min     f2
+      T-PJM120        2 h      S-PT-vis6        6 s   yes    119.9 min     f2
+      T-PJM120        2 h     S-PT-async      6.3 s   yes  119.895 min     f2
+      T-PJM120        2 h     S-CNR-snap        7 s   yes  119.883 min     f2
+      T-PJM120        2 h     S-PT-vis14       14 s   yes  119.767 min     f2
+      T-PJM120        2 h     S-BC7-save    20.13 s   yes  119.665 min     f2
+      T-PJM120        2 h   S-BC405-save    51.06 s   yes  119.149 min     f2
+      T-PJM120        2 h      S-PT-sync   2.48 min   yes   117.52 min     f2
+      T-PJM120        2 h   S-BC175-save 3.33333 min   yes  116.667 min     f2
+      T-PJM120        2 h      S-KOK-wcp      5 min   yes      115 min     f2
+      T-PJM120        2 h    S-PT-legacy     30 min   yes       90 min     f2
+      T-PJM120        2 h   S-GEM-remote     42 min   yes       78 min     f2
+         T-SB6       24 h         S-EPS2        0 s   yes         24 h     f3
+         T-SB6       24 h    S-BC7-block     0.34 s   yes    23.9999 h     f3
+         T-SB6       24 h  S-BC405-block     0.59 s   yes    23.9998 h     f3
+         T-SB6       24 h      S-PT-vis6        6 s   yes    23.9983 h     f3
+         T-SB6       24 h     S-PT-async      6.3 s   yes    23.9982 h     f3
+         T-SB6       24 h     S-CNR-snap        7 s   yes    23.9981 h     f3
+         T-SB6       24 h     S-PT-vis14       14 s   yes    23.9961 h     f3
+         T-SB6       24 h     S-BC7-save    20.13 s   yes    23.9944 h     f3
+         T-SB6       24 h   S-BC405-save    51.06 s   yes    23.9858 h     f3
+         T-SB6       24 h      S-PT-sync   2.48 min   yes    23.9587 h     f3
+         T-SB6       24 h   S-BC175-save 3.33333 min   yes    23.9444 h     f3
+         T-SB6       24 h      S-KOK-wcp      5 min   yes    23.9167 h     f3
+         T-SB6       24 h    S-PT-legacy     30 min   yes       23.5 h     f3
+         T-SB6       24 h   S-GEM-remote     42 min   yes       23.3 h     f3
+
+FEASIBLE PRODUCT SET (per save: the products the lossless route meets)
+          S-EPS2 S =        0 s (ASSUMED): 13 of 13: T-FFR15cyc, T-RRSFFR, T-REG4s, T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+     S-BC7-block S =     0.34 s (SOURCED): 11 of 13: T-REG4s, T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+   S-BC405-block S =     0.59 s (SOURCED): 11 of 13: T-REG4s, T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+       S-PT-vis6 S =        6 s (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+      S-PT-async S =      6.3 s (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+      S-CNR-snap S =        7 s (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+      S-PT-vis14 S =       14 s (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+      S-BC7-save S =    20.13 s (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+    S-BC405-save S =    51.06 s (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+       S-PT-sync S =   2.48 min (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+    S-BC175-save S = 3.33333 min (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+       S-KOK-wcp S =      5 min (SOURCED): 10 of 13: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+     S-PT-legacy S =     30 min (SOURCED):  8 of 13: T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+    S-GEM-remote S =     42 min (SOURCED):  3 of 13: T-PJM60, T-PJM120, T-SB6
+PER PRODUCT (the saves that fit)
+    T-FFR15cyc T =     0.25 s:  1 of 14 saves fit; the largest that fits 0 s
+      T-RRSFFR T =     0.25 s:  1 of 14 saves fit; the largest that fits 0 s
+       T-REG4s T =        4 s:  3 of 14 saves fit; the largest that fits 0.59 s
+        T-ECRS T =     10 min: 12 of 14 saves fit; the largest that fits 5 min
+       T-ERS10 T =     10 min: 12 of 14 saves fit; the largest that fits 5 min
+       T-ERS30 T =     30 min: 13 of 14 saves fit; the largest that fits 30 min
+       T-NSPIN T =     30 min: 13 of 14 saves fit; the largest that fits 30 min
+       T-PJM30 T =     30 min: 13 of 14 saves fit; the largest that fits 30 min
+     T-PJMreal T =     30 min: 13 of 14 saves fit; the largest that fits 30 min
+      T-RDRR40 T =     40 min: 13 of 14 saves fit; the largest that fits 30 min
+       T-PJM60 T =     60 min: 14 of 14 saves fit; the largest that fits 42 min
+      T-PJM120 T =        2 h: 14 of 14 saves fit; the largest that fits 42 min
+         T-SB6 T =       24 h: 14 of 14 saves fit; the largest that fits 42 min
+
+NOT SCORED: DFS (no stated T)
+  at the lower bound (no minimum notice, T = 0): 1 of 14 saves fit; at the maximum lead (24 h): 14 of 14.
+  Whether a lossless pause meets a DFS window is decided by the realised notice in the event records (the data part), not by the rules.
+CONTEXT (not scored): F4 pre-emption notices and grace periods as if they were a T
+     X-GCP     30 s:  8 of 14 saves fit: S-EPS2, S-BC7-block, S-BC405-block, S-PT-vis6, S-PT-async, S-CNR-snap, S-PT-vis14, S-BC7-save
+     X-K8S     30 s:  8 of 14 saves fit: S-EPS2, S-BC7-block, S-BC405-block, S-PT-vis6, S-PT-async, S-CNR-snap, S-PT-vis14, S-BC7-save
+     X-AWS    2 min:  9 of 14 saves fit: S-EPS2, S-BC7-block, S-BC405-block, S-PT-vis6, S-PT-async, S-CNR-snap, S-PT-vis14, S-BC7-save, S-BC405-save
+CONTEXT (not scored): a throttle (power capping, H7) cuts power in its control latency, with no save and no lost work
+      Y-SM   0.01 s: within T for 13 of 13 products: T-FFR15cyc, T-RRSFFR, T-REG4s, T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+   Y-brake      5 s: within T for 10 of 13 products: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+     Y-OOB     40 s: within T for 10 of 13 products: T-ECRS, T-ERS10, T-ERS30, T-NSPIN, T-PJM30, T-PJMreal, T-RDRR40, T-PJM60, T-PJM120, T-SB6
+
+PRICES: lossless route (per restart x save; overhead o = R + S)
+       restart           save          o   K ETM nmax OWN nmax    ETM p_all      (R+S)/H      OWN p_all ver  ETM x*=o/H states
+    R-KOK-u0lo         S-EPS2      5 min  41     1200       24     0.020833     0.020833      14.726716 yes      861/861      
+    R-KOK-u0lo    S-BC7-block 5.00567 min  41     1198       24     0.020857     0.020857      14.726739 yes      861/861      
+    R-KOK-u0lo  S-BC405-block 5.00983 min  41     1197       24     0.020874     0.020874      14.726757 yes      861/861      
+    R-KOK-u0lo      S-PT-vis6    5.1 min  41     1176       24     0.021250     0.021250      14.727132 yes      861/861      
+    R-KOK-u0lo     S-PT-async  5.105 min  41     1175       24     0.021271     0.021271      14.727153 yes      861/861      
+    R-KOK-u0lo     S-CNR-snap 5.11667 min  41     1172       24     0.021319     0.021319      14.727202 yes      861/861      
+    R-KOK-u0lo     S-PT-vis14 5.23333 min  41     1146       24     0.021806     0.021806      14.727688 yes      861/861      
+    R-KOK-u0lo     S-BC7-save 5.3355 min  41     1124       24     0.022231     0.022231      14.728114 yes      861/861      
+    R-KOK-u0lo   S-BC405-save  5.851 min  41     1025       24     0.024379     0.024379      14.730262 yes      861/861      
+    R-KOK-u0lo      S-PT-sync   7.48 min  41      802       24     0.031167     0.031167      14.737049 yes      861/861      
+    R-KOK-u0lo   S-BC175-save 8.33333 min  41      720       24     0.034722     0.034722      14.740605 yes      861/861      
+    R-KOK-u0lo      S-KOK-wcp     10 min  41      600       24     0.041667     0.041667      14.747549 yes      861/861      
+    R-KOK-u0lo    S-PT-legacy     35 min  41      171       21     0.145833     0.145833      12.645833 yes      861/861      
+    R-KOK-u0lo   S-GEM-remote     47 min  41      127       20     0.195833     0.195833      12.100595 yes      861/861      
+        R-EPS2         S-EPS2      6 min  41     1000       24     0.025000     0.025000      14.730882 yes      861/861      
+        R-EPS2    S-BC7-block 6.00567 min  41      999       24     0.025024     0.025024      14.730906 yes      861/861      
+        R-EPS2  S-BC405-block 6.00983 min  41      998       24     0.025041     0.025041      14.730923 yes      861/861      
+        R-EPS2      S-PT-vis6    6.1 min  41      983       24     0.025417     0.025417      14.731299 yes      861/861      
+        R-EPS2     S-PT-async  6.105 min  41      982       24     0.025437     0.025437      14.731320 yes      861/861      
+        R-EPS2     S-CNR-snap 6.11667 min  41      980       24     0.025486     0.025486      14.731368 yes      861/861      
+        R-EPS2     S-PT-vis14 6.23333 min  41      962       24     0.025972     0.025972      14.731855 yes      861/861      
+        R-EPS2     S-BC7-save 6.3355 min  41      947       24     0.026398     0.026398      14.732280 yes      861/861      
+        R-EPS2   S-BC405-save  6.851 min  41      875       24     0.028546     0.028546      14.734428 yes      861/861      
+        R-EPS2      S-PT-sync   8.48 min  41      707       24     0.035333     0.035333      14.741216 yes      861/861      
+        R-EPS2   S-BC175-save 9.33333 min  41      642       24     0.038889     0.038889      14.744771 yes      861/861      
+        R-EPS2      S-KOK-wcp     11 min  41      545       23     0.045833     0.045833      13.934722 yes      861/861      
+        R-EPS2    S-PT-legacy     36 min  41      166       21     0.150000     0.150000      12.650000 yes      861/861      
+        R-EPS2   S-GEM-remote     48 min  41      125       20     0.200000     0.200000      12.104762 yes      861/861      
+    R-KOK-u0hi         S-EPS2     20 min  41      300       23     0.083333     0.083333      13.972222 yes      861/861      
+    R-KOK-u0hi    S-BC7-block 20.0057 min  41      299       23     0.083357     0.083357      13.972246 yes      861/861      
+    R-KOK-u0hi  S-BC405-block 20.0098 min  41      299       23     0.083374     0.083374      13.972263 yes      861/861      
+    R-KOK-u0hi      S-PT-vis6   20.1 min  41      298       23     0.083750     0.083750      13.972639 yes      861/861      
+    R-KOK-u0hi     S-PT-async 20.105 min  41      298       23     0.083771     0.083771      13.972660 yes      861/861      
+    R-KOK-u0hi     S-CNR-snap 20.1167 min  41      298       23     0.083819     0.083819      13.972708 yes      861/861      
+    R-KOK-u0hi     S-PT-vis14 20.2333 min  41      296       23     0.084306     0.084306      13.973194 yes      861/861      
+    R-KOK-u0hi     S-BC7-save 20.3355 min  41      295       23     0.084731     0.084731      13.973620 yes      861/861      
+    R-KOK-u0hi   S-BC405-save 20.851 min  41      287       23     0.086879     0.086879      13.975768 yes      861/861      
+    R-KOK-u0hi      S-PT-sync  22.48 min  41      266       22     0.093667     0.093667      13.251561 yes      861/861      
+    R-KOK-u0hi   S-BC175-save 23.3333 min  41      257       22     0.097222     0.097222      13.255117 yes      861/861      
+    R-KOK-u0hi      S-KOK-wcp     25 min  41      240       22     0.104167     0.104167      13.262061 yes      861/861      
+    R-KOK-u0hi    S-PT-legacy     50 min  41      120       20     0.208333     0.208333      12.113095 yes      861/861      
+    R-KOK-u0hi   S-GEM-remote     62 min  41       96       19     0.258333     0.258333      11.621970 yes      861/861      
+
+PRICES: lossy route (per restart x checkpoint interval; overhead o = R + I/2; no save)
+       restart       interval       lost          o ETM nmax OWN nmax    ETM p_all      OWN p_all ver  min stake-R  max stake-R
+    R-KOK-u0lo    I-ASM-0.25h    7.5 min   12.5 min      480       23     0.052083      13.940972 yes     0.125000     0.125000
+    R-KOK-u0lo   I-KOK-hourly     30 min     35 min      171       21     0.145833      12.645833 yes     0.500000     0.500000
+    R-KOK-u0lo       I-ASM-4h        2 h  2.08333 h       48       16     0.520833      10.520833 yes     2.000000     2.000000
+        R-EPS2    I-ASM-0.25h    7.5 min   13.5 min      444       23     0.056250      13.945139 yes     0.125000     0.125000
+        R-EPS2   I-KOK-hourly     30 min     36 min      166       21     0.150000      12.650000 yes     0.500000     0.500000
+        R-EPS2       I-ASM-4h        2 h      2.1 h       47       16     0.525000      10.525000 yes     2.000000     2.000000
+    R-KOK-u0hi    I-ASM-0.25h    7.5 min   27.5 min      218       22     0.114583      13.272478 yes     0.125000     0.125000
+    R-KOK-u0hi   I-KOK-hourly     30 min     50 min      120       20     0.208333      12.113095 yes     0.500000     0.500000
+    R-KOK-u0hi       I-ASM-4h        2 h  2.33333 h       42       15     0.583333      10.198718 yes     2.000000     2.000000
+  (stake-R: ETM's one-event stake minus rate R on the lossy route, over n = 0..K-1: the content the pause no longer removes)
+
+PER-CELL TABLE (scored; one row per product x save at R = R-EPS2; the three lossy columns are the checkpoint intervals;
+  route price = ETM p_all per curtailed fleet-hour; best = the cheaper route that meets T; Q-cell only where S > T)
+       product         T           save         S  S>T   lossless   lossy 15 min   lossy 60 min      lossy 4 h      best@15 min      best@60 min         best@4 h  Q-cell
+    T-FFR15cyc    0.25 s         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+    T-FFR15cyc    0.25 s    S-BC7-block    0.34 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s  S-BC405-block    0.59 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s      S-PT-vis6       6 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s     S-PT-async     6.3 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s     S-CNR-snap       7 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s     S-PT-vis14      14 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s     S-BC7-save   20.13 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s   S-BC405-save   51.06 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s      S-PT-sync  2.48 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s   S-BC175-save 3.33333 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s      S-KOK-wcp     5 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s    S-PT-legacy    30 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+    T-FFR15cyc    0.25 s   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-RRSFFR    0.25 s    S-BC7-block    0.34 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s  S-BC405-block    0.59 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s      S-PT-vis6       6 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s     S-PT-async     6.3 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s     S-CNR-snap       7 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s     S-PT-vis14      14 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s     S-BC7-save   20.13 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s   S-BC405-save   51.06 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s      S-PT-sync  2.48 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s   S-BC175-save 3.33333 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s      S-KOK-wcp     5 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s    S-PT-legacy    30 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RRSFFR    0.25 s   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-REG4s       4 s    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-REG4s       4 s  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-REG4s       4 s      S-PT-vis6       6 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s     S-PT-async     6.3 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s     S-CNR-snap       7 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s     S-PT-vis14      14 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s     S-BC7-save   20.13 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s   S-BC405-save   51.06 s  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s      S-PT-sync  2.48 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s   S-BC175-save 3.33333 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s      S-KOK-wcp     5 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s    S-PT-legacy    30 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-REG4s       4 s   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+        T-ECRS    10 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+        T-ECRS    10 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+        T-ECRS    10 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+        T-ECRS    10 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+        T-ECRS    10 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+        T-ECRS    10 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+        T-ECRS    10 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+        T-ECRS    10 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+        T-ECRS    10 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+        T-ECRS    10 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+        T-ECRS    10 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+        T-ECRS    10 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+        T-ECRS    10 min    S-PT-legacy    30 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+        T-ECRS    10 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-ERS10    10 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-ERS10    10 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-ERS10    10 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-ERS10    10 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-ERS10    10 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-ERS10    10 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+       T-ERS10    10 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+       T-ERS10    10 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+       T-ERS10    10 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+       T-ERS10    10 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+       T-ERS10    10 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+       T-ERS10    10 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+       T-ERS10    10 min    S-PT-legacy    30 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-ERS10    10 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-ERS30    30 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-ERS30    30 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-ERS30    30 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-ERS30    30 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-ERS30    30 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-ERS30    30 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+       T-ERS30    30 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+       T-ERS30    30 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+       T-ERS30    30 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+       T-ERS30    30 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+       T-ERS30    30 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+       T-ERS30    30 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+       T-ERS30    30 min    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+       T-ERS30    30 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-NSPIN    30 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-NSPIN    30 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-NSPIN    30 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-NSPIN    30 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-NSPIN    30 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-NSPIN    30 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+       T-NSPIN    30 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+       T-NSPIN    30 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+       T-NSPIN    30 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+       T-NSPIN    30 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+       T-NSPIN    30 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+       T-NSPIN    30 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+       T-NSPIN    30 min    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+       T-NSPIN    30 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-PJM30    30 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-PJM30    30 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-PJM30    30 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-PJM30    30 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-PJM30    30 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-PJM30    30 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+       T-PJM30    30 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+       T-PJM30    30 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+       T-PJM30    30 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+       T-PJM30    30 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+       T-PJM30    30 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+       T-PJM30    30 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+       T-PJM30    30 min    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+       T-PJM30    30 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+     T-PJMreal    30 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+     T-PJMreal    30 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+     T-PJMreal    30 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+     T-PJMreal    30 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+     T-PJMreal    30 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+     T-PJMreal    30 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+     T-PJMreal    30 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+     T-PJMreal    30 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+     T-PJMreal    30 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+     T-PJMreal    30 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+     T-PJMreal    30 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+     T-PJMreal    30 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+     T-PJMreal    30 min    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+     T-PJMreal    30 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+      T-RDRR40    40 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-RDRR40    40 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-RDRR40    40 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-RDRR40    40 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+      T-RDRR40    40 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+      T-RDRR40    40 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+      T-RDRR40    40 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+      T-RDRR40    40 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+      T-RDRR40    40 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+      T-RDRR40    40 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+      T-RDRR40    40 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+      T-RDRR40    40 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+      T-RDRR40    40 min    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+      T-RDRR40    40 min   S-GEM-remote    42 min  yes    fails T       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500     lossy 0.5250   holds
+       T-PJM60    60 min         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-PJM60    60 min    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-PJM60    60 min  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+       T-PJM60    60 min      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-PJM60    60 min     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+       T-PJM60    60 min     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+       T-PJM60    60 min     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+       T-PJM60    60 min     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+       T-PJM60    60 min   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+       T-PJM60    60 min      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+       T-PJM60    60 min   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+       T-PJM60    60 min      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+       T-PJM60    60 min    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+       T-PJM60    60 min   S-GEM-remote    42 min   no   0.200000       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500  lossless 0.2000       -
+      T-PJM120       2 h         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-PJM120       2 h    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-PJM120       2 h  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+      T-PJM120       2 h      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+      T-PJM120       2 h     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+      T-PJM120       2 h     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+      T-PJM120       2 h     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+      T-PJM120       2 h     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+      T-PJM120       2 h   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+      T-PJM120       2 h      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+      T-PJM120       2 h   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+      T-PJM120       2 h      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+      T-PJM120       2 h    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+      T-PJM120       2 h   S-GEM-remote    42 min   no   0.200000       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500  lossless 0.2000       -
+         T-SB6      24 h         S-EPS2       0 s   no   0.025000       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+         T-SB6      24 h    S-BC7-block    0.34 s   no   0.025024       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+         T-SB6      24 h  S-BC405-block    0.59 s   no   0.025041       0.056250       0.150000       0.525000  lossless 0.0250  lossless 0.0250  lossless 0.0250       -
+         T-SB6      24 h      S-PT-vis6       6 s   no   0.025417       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+         T-SB6      24 h     S-PT-async     6.3 s   no   0.025437       0.056250       0.150000       0.525000  lossless 0.0254  lossless 0.0254  lossless 0.0254       -
+         T-SB6      24 h     S-CNR-snap       7 s   no   0.025486       0.056250       0.150000       0.525000  lossless 0.0255  lossless 0.0255  lossless 0.0255       -
+         T-SB6      24 h     S-PT-vis14      14 s   no   0.025972       0.056250       0.150000       0.525000  lossless 0.0260  lossless 0.0260  lossless 0.0260       -
+         T-SB6      24 h     S-BC7-save   20.13 s   no   0.026398       0.056250       0.150000       0.525000  lossless 0.0264  lossless 0.0264  lossless 0.0264       -
+         T-SB6      24 h   S-BC405-save   51.06 s   no   0.028546       0.056250       0.150000       0.525000  lossless 0.0285  lossless 0.0285  lossless 0.0285       -
+         T-SB6      24 h      S-PT-sync  2.48 min   no   0.035333       0.056250       0.150000       0.525000  lossless 0.0353  lossless 0.0353  lossless 0.0353       -
+         T-SB6      24 h   S-BC175-save 3.33333 min   no   0.038889       0.056250       0.150000       0.525000  lossless 0.0389  lossless 0.0389  lossless 0.0389       -
+         T-SB6      24 h      S-KOK-wcp     5 min   no   0.045833       0.056250       0.150000       0.525000  lossless 0.0458  lossless 0.0458  lossless 0.0458       -
+         T-SB6      24 h    S-PT-legacy    30 min   no   0.150000       0.056250       0.150000       0.525000     lossy 0.0563  lossless 0.1500  lossless 0.1500       -
+         T-SB6      24 h   S-GEM-remote    42 min   no   0.200000       0.056250       0.150000       0.525000     lossy 0.0563     lossy 0.1500  lossless 0.2000       -
+
+Q
+  inputs: every sourced quote found verbatim and parsed: yes; every p_all a threshold: yes; p_all verified by backward induction for ETM and OWN on every job: yes
+  scored cells (product x save x restart x interval): 1638 = 13 x 14 x 3 x 3; with S > T: 414 (46 of 182 product x save pairs)
+  in the S > T cells: the lossless route meets T in 0; the least lost work among the meeting routes is 0 in 0; the lossy route's stake beyond R is not > 0 at some n in 0; the least lost work there is 7.5 min
+  Q (ETM cannot meet the product without losing work, in every S > T cell): 414 of 414 -> holds
+  per product (all restarts and intervals): T-FFR15cyc 117/117; T-RRSFFR 117/117; T-REG4s 99/99; T-ECRS 18/18; T-ERS10 18/18; T-ERS30 9/9; T-NSPIN 9/9; T-PJM30 9/9; T-PJMreal 9/9; T-RDRR40 9/9; T-PJM60 0/0; T-PJM120 0/0; T-SB6 0/0
+  converse (S <= T: the lossless route meets with no lost work): 1224 of 1224 cells
+  the lossy route is cheaper than a lossless route that meets T (a save longer than the expected lost work, R equal): 42 of 1224 S <= T cells, at saves S-PT-legacy, S-GEM-remote
+  feasible products per save (of 13): S-EPS2 13, S-BC7-block 11, S-BC405-block 11, S-PT-vis6 10, S-PT-async 10, S-CNR-snap 10, S-PT-vis14 10, S-BC7-save 10, S-BC405-save 10, S-PT-sync 10, S-BC175-save 10, S-KOK-wcp 10, S-PT-legacy 8, S-GEM-remote 3
+  the investigator's forecast (Q holds) is right
+
+GATE
+  G-ZERO: lossless route, 42 (restart, save) jobs: max |ETM stake - rate (R + S)| over 1722 event counts = 0 (exact); ETM's x* == rate (R + S)/H (closed) at 36162 of 36162 offer states -> holds
+          (the stake minus rate R alone equals rate S at every job and event count: yes; it ranges over 0..0.7 h)
+  G-NEG: no events offered (K = 0, and the no-offer realisation), 51 jobs (lossless and lossy) x 2, 612 comparisons of ETM against WALL on six outcomes; ETM ahead by more than 1 % in 0; largest rel 0.000e+00 (curtailed fleet-hours) -> holds
+
+CHANGES AFTER THE FIRST RUN (bug fixes only; no prediction, arm, threshold, grid or reading changed)
+  1. Display only: the grid frequency (60 Hz, parsed from the Regulation quote) was printed with an hours suffix ('60 h');
+     it now prints as '60 Hz'. The value was already used correctly (FFR's 15 cycles = 0.25 s, cross-checked against RRS-FFR).
+  2. Display only: a per-product count of the S > T cells where Q's reading holds was added to the Q block, and the NOT USED
+     line on DFS's procurement timeline was reworded. No input, cell, reading or verdict changed.
+
+RESULT H6: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1722 event counts in 42 jobs; ETM x* = (R + S)/H at 36162 of 36162 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 612 no-event comparisons)
