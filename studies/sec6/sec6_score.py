@@ -30,12 +30,18 @@ The primary arm is SEC4's run_guard(variant='clip', kappa=0.5), imported unchang
       window; CPU timing to the times file only (never the results file, R9). Amendment 1: a carrier with no usable feature
       after SCL3's loader (d = 0) is excluded before any run and counted like the class rule (load_carrier; self-test
       d0_selftest(), printed by 'smokefull' and 'check'); SEC6-B is NOT DECIDABLE below MIN_N carriers, as SEC6-1.
+      Amendment 2: 'fixed_clip' on SEC1's two-stage grid (the tuned clipped lambda) and SEC6-C against it.
+      Amendment 3: 'edge' (P1's M6, a learner frozen after task 1; a control, not in SEC6-B's set) at the primary window; the
+      instrument gates SEC6-G (against the tuned lambda: CLOSED marks SEC6-1, SEC6-B and SEC6-P UNINFORMATIVE, no level above
+      PASS-0) and SEC6-GC (against the tuned clipped lambda, for SEC6-C); SEC6-1F (SEC6-1 on the carriers not floor-bound);
+      the task-1 share report. D-ID-EDGE (devid_edge) checks 'edge' against P1's pinned M6 records.
 
     uv run python studies/sec6/sec6_score.py devid  > prereg/sec6/dev/devid.txt        # D-ID (seed 0 of 14 + 2 SEC1 carriers)
     uv run python studies/sec6/sec6_score.py devmap > prereg/sec6/dev/devmap.txt       # D-MAP on SEC1's synthetic stream
     uv run python studies/sec6/sec6_score.py devlist                                   # the SEEN (study, id) pairs of D-RUN
     uv run python studies/sec6/sec6_score.py devone <study> <OpenML id> [--arms a,b] --out F  # D-RUN on one SEEN carrier (JSON line)
-    uv run python studies/sec6/sec6_score.py devreport <devid.txt> <devmap.txt> <F ...> # dev_SEC6.txt (records merged by carrier)
+    uv run python studies/sec6/sec6_score.py devid_edge > prereg/sec6/dev/devid_edge.txt  # D-ID-EDGE (Amendment 3) against P1's M6
+    uv run python studies/sec6/sec6_score.py devreport <devid.txt> <devmap.txt> [--edge devid_edge.txt] <F ...>  # dev_SEC6.txt
     uv run python studies/sec6/sec6_score.py dev                                       # all of the above, one process
     uv run python studies/sec6/sec6_score.py all <OpenML id> [--out F] [--times F]
     uv run python studies/sec6/sec6_score.py score <results.jsonl ...>
@@ -80,7 +86,12 @@ D0_REASON = "d = 0: no usable feature after the loader"   # Amendment 1: exclude
 FIXED_CLIP = "fixed_clip"                   # Amendment 2: SEC1's 'fixed' (raw accumulated Fisher at weight lambda) with SEC4's clip
 #                                             at w = lambda (cap KAPPA / (lr lambda)), on SEC1's two-stage grid: the tuned clipped
 #                                             lambda, SEC6-C's reference. Not a tuning-free baseline, so not in SEC6-B's set.
-ARMS_B = BASELINES + (FIXED_CLIP,)          # every arm run_b implements
+EDGE = "edge"                               # Amendment 3: P1's M6 (EDGE), a must-fail control, not a baseline: after task 1 the
+#                                             importance is KAPPA / (lr w) on every coordinate, w = 1/2 (the Laplace weight); the
+#                                             instrument gates SEC6-G and SEC6-GC read it. Not in SEC6-B's set.
+ARMS_B = BASELINES + (FIXED_CLIP, EDGE)     # every arm run_b implements
+EDGE_DID = (("scl3", 1497), ("sec3", 41164), ("sec4", 377), ("sec5", 41671))   # D-ID-EDGE's SEEN carriers (P1's pinned M6 records)
+M_RUNS = ROOT / "SEC_Analysis" / "checks" / "m_runs"   # P1's pinned M records (read only by D-ID-EDGE and devreport)
 SEC1_DID = ("led7", "yeast")                # D-ID's two SEC1 carriers (runs/sec1 pinned records): small, 5 and 3 tasks
 
 # ---------------------------------------------------------------- the P1-conditional arms (DEV_DECLARATION.md, section 3)
@@ -116,7 +127,10 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
     start are recorded. si_c and si_guard=False (D-MAP only) override SI's c and switch SI-1C's guard off.
     'fixed_clip' (Amendment 2) is SEC1's 'fixed' at w = lam with SEC4's clip at each task start, exactly as run_guard does it
     at w = lam: m = lr * lam * max(imp); if not (m < kappa) the importance is clipped per coordinate at kappa / (lr lam);
-    kappa=inf (D-MAP only) gives SEC1's run('fixed', lam) bit for bit."""
+    kappa=inf (D-MAP only) gives SEC1's run('fixed', lam) bit for bit.
+    'edge' (Amendment 3) is P1's M6 (SEC_Analysis/checks/m_checks.py run_m, penalty='edge'): after task 1 the importance used is
+    np.full(n, kappa / (lr w)) with w = BAYES_W = 1/2; SEC's calibrated task-size-weighted importance is still accumulated (the
+    Fisher draws keep the training rng stream C0's) and gives the guard margins and firings as diagnostics only, as in M6."""
     if arm not in ARMS_B:
         raise ValueError(arm)
     t0 = time.process_time()
@@ -131,6 +145,7 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
     wlog = []; svals = []; cvals = []; rhovals = []; n_fallback = 0
     w_task = []; imp_max = []; imp_min = []; edge = []                                                # B (record)
     guarded = arm in SI_GUARDED and si_guard; fired = 0; n_capped = []; n_floored = []                # B (SI-1C)
+    imp_bayes = np.zeros(n); margins = []                                                             # B (edge: M6's diagnostics)
     w = None; imp_used = None
     with np.errstate(all="ignore"):
         for ti, task in enumerate(tasks):
@@ -145,6 +160,9 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
                     imp_used = np.minimum(f_sum / n_past, AR1_MAXF); w = 1.0 / (2 * lr * AR1_MAXF)
                 elif arm == "ar1b":
                     imp_used = importance; w = float(np.float64(1.0) / (2 * lr * np.max(imp_used)))
+                elif arm == EDGE:                                                                     # B (edge: P1's M6)
+                    w = S.BAYES_W; cap = kappa / (lr * w); m = lr * w * float(np.max(imp_bayes / n_task)); margins.append(m)
+                    fired += int(not (m < kappa)); imp_used = np.full(n, cap)
                 else:                                                                                 # B (fixed_clip: SEC4's clip at w = lam)
                     imp_used = importance; w = lam; cap = kappa / (lr * w)
                     if not (lr * w * float(np.max(importance)) < kappa):
@@ -189,8 +207,9 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
             sc = 1.0                                                                                  # SEC1's 'fixed' arm
             importance = importance + sc * f_task
             f_sum = f_sum + f_task; n_past += 1                                                       # B (AR1-P)
+            if arm == EDGE: imp_bayes = imp_bayes + n_task * s * f_task                               # B (edge: SEC's, diagnostic)
             theta_star = theta_now
-    value = c_si if si else (AR1_MAXF if arm == "ar1p" else (lam if arm == FIXED_CLIP else 0.0))
+    value = c_si if si else (AR1_MAXF if arm == "ar1p" else (lam if arm == FIXED_CLIP else (kappa if arm == EDGE else 0.0)))
     rec = dict(mode=arm, value=float(value), seed=int(seed), fs=float(fs), fe=float(fe), acc=100 * net.acc(Xte, yte),
                s=svals, c=cvals, rho=rhovals, n_fallback=int(n_fallback), w_task=w_task, imp_max=imp_max, imp_min=imp_min, edge=edge,
                xi=xi, w_med=float(np.median(wlog)) if wlog else None, finite=bool(np.all(np.isfinite(net.flat()))))
@@ -198,6 +217,8 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
         rec.update(guard=bool(guarded), guard_fired=int(fired), n_capped=n_capped, n_floored=n_floored)
     if arm == FIXED_CLIP:
         rec.update(kappa=float(kappa), guard_fired=int(fired), n_capped=n_capped)
+    if arm == EDGE:
+        rec.update(kappa=float(kappa), guard_fired=int(fired), guard_margins=[round(x, 6) for x in margins], frac_capped=[1.0] * len(margins))
     P4.TIMES.append(dict(mode=rec["mode"], value=rec["value"], seed=rec["seed"], fs=rec["fs"], fe=rec["fe"], cpu_s=time.process_time() - t0))
     return rec
 
@@ -345,6 +366,28 @@ def devid():
     print(f"D-ID -> {'holds' if (ok1 and ok2) else 'FAILS'}")
 
 
+def devid_edge():
+    """D-ID-EDGE (Amendment 3): 'edge' through SEC6's harness equals P1's pinned M6 records (SEC_Analysis/checks/m_runs, the lines
+    with arm 'M6') bit for bit in acc on seeds 0-4, on one SEEN carrier of each of SCL3, SEC3, SEC4 and SEC5 (EDGE_DID; two where
+    M6 is far ahead of the tuned lambda: wall-robot-navigation, microaggregation2)."""
+    print("D-ID-EDGE (prereg/sec6/DEV_DECLARATION.md, Amendment 3): 'edge' through SEC6's harness against P1's pinned M6 records "
+          "(SEC_Analysis/checks/m_runs), seeds 0-4")
+    held = []
+    for study, did in EDGE_DID:
+        d = _load_seen(study, did); Xtr, ytr, Xte, yte, K, name = d; per_task = dict(DEV_TABLES)[study][did][2]
+        pin = {r["seed"]: r for r in (json.loads(line) for line in open(M_RUNS / f"{study}_{did}.jsonl") if line.strip()) if r.get("arm") == "M6"}
+        for seed in SEEDS:
+            o = run_b(seed, Xtr, ytr, Xte, yte, K, per_task, EDGE); q = pin.get(seed)
+            same = q is not None and o["acc"] == q["acc"]
+            extra = q is not None and o["s"] == q["s"] and o["guard_margins"] == q["guard_margins"] and o["guard_fired"] == q["guard_fired"] and o["finite"] == q["finite"]
+            held.append(same)
+            print(f"   {study} {did} {name} (K {K}) seed {seed}: edge {o['acc']!r} pinned M6 {q['acc'] if q else None!r} -> {'equal' if same else 'DIFFERS'}; "
+                  f"s, guard margins, firings, finite also equal: {'yes' if extra else 'no'}", flush=True)
+    P4.TIMES.clear()
+    ok = len(held) == len(EDGE_DID) * len(SEEDS) and all(held)
+    print(f"D-ID-EDGE -> {'holds' if ok else 'FAILS'} ({sum(held)}/{len(held)} runs equal in acc; need all, on at least 3 carriers)")
+
+
 def devmap():
     """D-MAP on SEC1's synthetic stream (through SCL3's class selection, as SEC5's smoke), seeds 0-4."""
     data, K, _ = _synthetic_data()
@@ -431,9 +474,11 @@ def dev_one(study, did, out, arms=BASELINES):
     print(json.dumps(rec), file=out, flush=True)
 
 
-def dev_report(idpath, mappath, paths):
+def dev_report(idpath, mappath, paths, edgepath=None):
     idtxt = Path(idpath).read_text(); maptxt = Path(mappath).read_text()
     d_id = idtxt.strip().endswith("D-ID -> holds"); d_map = maptxt.strip().endswith("D-MAP -> holds")
+    edgetxt = Path(edgepath).read_text() if edgepath else None
+    d_edge = bool(edgetxt) and "\nD-ID-EDGE -> holds" in edgetxt
     merged = {}                  # one record per carrier: the arms of every file merged (Amendment 1's SI-1C ran after the others)
     for rec in (json.loads(line) for p in paths for line in open(p) if line.strip()):
         key = (rec["study"], rec["did"])
@@ -451,7 +496,13 @@ def dev_report(idpath, mappath, paths):
           "seeds 0-4); tuned lambda and step from pinned results")
     print("Nothing is chosen from D-RUN: every baseline's constants come from its paper. D-RUN is not evidence and adds no ledger row.")
     print("=" * 118)
-    print(idtxt.rstrip()); print("-" * 118); print(maptxt.rstrip()); print("=" * 118)
+    print(idtxt.rstrip()); print("-" * 118); print(maptxt.rstrip())
+    if edgetxt:                  # Amendment 3: the control's identity with P1's M6; its D-RUN is P1's pinned record
+        mline = [ln.strip() for ln in (ROOT / "SEC_Analysis" / "checks" / "m_checks.txt").read_text().splitlines() if ln.strip().startswith("M6: not behind")]
+        print("-" * 118); print(edgetxt.rstrip())
+        print("D-RUN of 'edge' is not run (Amendment 3): P1's M6 is the seen-data record; SEC_Analysis/checks/m_checks.txt reads: "
+              + (repr(mline[0]) if mline else "(line not found)"))
+    print("=" * 118)
     fmt = lambda xs: " ".join("%.2f" % a for a in xs)  # noqa: E731
     div = lambda seeds, r: any((a < DIV_FRAC * r["tacc"]) or not math.isfinite(a) for a in seeds)  # noqa: E731
     nb = lambda a, r: a - r["tacc"] > -r["step"]  # noqa: E731
@@ -506,7 +557,8 @@ def dev_report(idpath, mappath, paths):
         print(f"   the tuned clipped lambda at the largest lambda of its grid (the grid, SEC1's, may not reach its optimum): {len(top)}/{len(fc)} {top}")
     ran = {BASELINE_NAMES[a]: sum(a in r["arms"] for r in recs) for a in BASELINES}
     ran["tuned clipped lambda"] = len(fc)
-    print(f"D-ID -> {'holds' if d_id else 'FAILS'}; D-MAP -> {'holds' if d_map else 'FAILS'}; D-RUN carriers per baseline (of {N} SEEN, seeds 0-4): {ran}")
+    print(f"D-ID -> {'holds' if d_id else 'FAILS'}; D-MAP -> {'holds' if d_map else 'FAILS'}"
+          + (f"; D-ID-EDGE -> {'holds' if d_edge else 'FAILS'}" if edgetxt else "") + f"; D-RUN carriers per baseline (of {N} SEEN, seeds 0-4): {ran}")
 
 
 # ---------------------------------------------------------------- the fifth family
@@ -545,6 +597,8 @@ def run_carrier(did, out, tout, synthetic=False, table=None):
         for arm in CARRIED:
             o = run_carried(arm, seed, data, K, per_task); o["dataset"] = name
             print(json.dumps(o), file=out, flush=True)
+        o = run_b(seed, *data, K, per_task, EDGE); o["dataset"] = name                   # Amendment 3: the control SEC6-G reads
+        print(json.dumps(o), file=out, flush=True)
 
     def emit(o):
         o["dataset"] = name; print(json.dumps(o), file=out, flush=True)
@@ -570,12 +624,13 @@ def _pinned_primary(study):
 
 
 def score(paths):
-    by = {}; reasons = {}
+    by = {}; reasons = {}; hdrs = {}
     for p in paths:
         for line in open(p):
             o = json.loads(line)
             if "mode" in o: by.setdefault(o["dataset"], []).append(o)
             elif o.get("excluded"): by.setdefault(o["dataset"], None); reasons[o["dataset"]] = o.get("exclusion_reason")
+            else: hdrs.setdefault(o["dataset"], o)                                  # the carrier's header (run_all's first line)
     times = {}
     for p in paths:
         tp = Path(str(p).replace("results_", "times_"))
@@ -585,6 +640,7 @@ def score(paths):
     excl = sorted(d for d, v in by.items() if v is None); names = sorted(d for d, v in by.items() if v is not None)
     G = "bayes_sec_clip"
     others = [(b, BASELINE_NAMES[b]) for b in BASELINES] + [("bayes", "raw Laplace")] + [(f"carried_{a}", f"carried {a}") for a in CARRIED]
+    controls = [(EDGE, "edge (control: P1's M6, frozen after task 1; not in SEC6-B's set)")]            # Amendment 3
     print("=" * 118)
     print("SEC6 scoring (prereg/sec6/DEV_DECLARATION.md and PREREG.md): SEC4's clipped SEC (kappa 0.5) replicated on a fifth unseen family; kappa swept; "
           "against " + ", ".join(BASELINE_NAMES[m] for m in BASELINES) + ", raw Laplace" + (f" and the carried P1 arms {list(CARRIED)}" if CARRIED else " (no P1 arm carried)"))
@@ -618,6 +674,10 @@ def score(paths):
         gcm = {w: float(np.mean(v)) for w, v in sorted(gc.items())}
         r["tuned_c"] = max(gcm, key=gcm.get); r["tacc_c"] = gcm[r["tuned_c"]]; r["step_c"] = S.step_of(gc[r["tuned_c"]]); r["grid_c"] = gcm
         r["fired_c"] = sum(o["guard_fired"] for o in rows if o.get("mode") == FIXED_CLIP and o["fs"] == S.FS and o["fe"] == S.FE and o["value"] == r["tuned_c"])
+        r["e"], r["e_seeds"] = _mean(rows, EDGE)                                   # Amendment 3: the control
+        h = hdrs.get(d); cc = sorted(h["class_counts"], reverse=True) if h else None
+        r["maj"] = 100 * cc[0] / h["n"] if h else float("nan")                     # majority-class share (%), from the header
+        r["share1"] = 100 * sum(cc[:2]) / h["n"] if h else float("nan")            # task-1 share: the two most frequent used classes (%)
         R[d] = r
     for d in names:
         oth = [math.log(R[o]["tuned"]) for o in names if o != d]
@@ -648,16 +708,32 @@ def score(paths):
               f"−tuned lambda {r['tacc_c'] - r['tacc']:+.4f} ({(r['tacc_c'] - r['tacc']) / r['step']:+.2f} steps of the tuned lambda); firings at it {r['fired_c']}")
         print("   clipped grid: " + "  ".join(f"{w:g}:{v:.2f}" for w, v in r["grid_c"].items()))
         print(f"   clipped SEC − tuned clipped lambda {r['g'] - r['tacc_c']:+.4f} (step_c {r['step_c']:.2f})")
+        print(f"   edge (control, P1's M6) {r['e']:.4f} [{fmt(r['e_seeds'])}] −tuned {r['e'] - r['tacc']:+.4f}; −tuned clipped {r['e'] - r['tacc_c']:+.4f}; "
+              f"−clipped SEC {r['e'] - r['g']:+.4f}; task-1 share {r['share1']:.2f}; majority share {r['maj']:.2f} (tuned − majority share "
+              f"{(r['tacc'] - r['maj']) / r['step']:+.2f} steps)")
     N = len(names); need = math.ceil(SHARE * N)
     nb = lambda a, r: a - r["tacc"] > -r["step"]  # noqa: E731
     dv = lambda seeds, r: any(a < DIV_FRAC * r["tacc"] for a in seeds)  # noqa: E731  (SEC5-2's rule)
     print("\n" + "-" * 118)
+    kg = sum(nb(R[d]["e"], R[d]) for d in names); gate = kg >= need                # Amendment 3: CLOSED if the control meets the criterion
+    print(f"SEC6-G instrument gate: edge (a learner frozen after task 1, P1's M6) not behind the tuned lambda: {kg}/{N} (closes at {need}) -> "
+          f"{'SEC6-G CLOSED' if gate else 'SEC6-G OPEN'}; " + ", ".join(f"{d}:{R[d]['e'] - R[d]['tacc']:+.4f} (step {R[d]['step']:.2f})" for d in names))
+    mark = " [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)]" if gate else ""
     k = sum(nb(R[d]["g"], R[d]) for d in names)
     v1 = "NOT DECIDABLE (fewer than %d carriers scored)" % MIN_N if N < MIN_N else ("PASS" if k >= need else "FAIL")
-    print(f"SEC6-1 tuning-free, the clipped SEC (kappa 0.5) not behind the tuned lambda: {k}/{N} (need {need}) -> {v1}; "
+    print(f"SEC6-1 tuning-free, the clipped SEC (kappa 0.5) not behind the tuned lambda: {k}/{N} (need {need}) -> {v1}{mark}; "
           + ", ".join(f"{d}:{R[d]['g'] - R[d]['tacc']:+.4f} (step {R[d]['step']:.2f})" for d in names))
     ku = sum(nb(R[d]["u"], R[d]) for d in names); ke = sum(nb(R[d]["eq"], R[d]) for d in names)
     print(f"   beside it (report): unguarded SEC {ku}/{N}; the rule Ω=1 {ke}/{N}")
+    F = [d for d in names if R[d]["tacc"] - R[d]["maj"] >= 3 * R[d]["step"]]      # Amendment 3: not floor-bound
+    kf = sum(nb(R[d]["g"], R[d]) for d in F); needf = math.ceil(SHARE * len(F))
+    vf = "NOT DECIDABLE (fewer than %d carriers not floor-bound)" % MIN_N if len(F) < MIN_N else ("PASS" if kf >= needf else "FAIL")
+    print(f"SEC6-1F SEC6-1's criterion on the carriers not floor-bound (tuned mean − 100 x majority share >= 3 steps): F = {F} ({len(F)} of {N}); "
+          f"the clipped SEC not behind on {kf}/{len(F)} (need {needf}) -> {vf}; floor-bound: {[d for d in names if d not in F]}; tuned − majority share in steps: "
+          + ", ".join(f"{d}:{(R[d]['tacc'] - R[d]['maj']) / R[d]['step']:+.2f}" for d in names))
+    print(f"   beside it (report): edge not behind the tuned lambda on F {sum(nb(R[d]['e'], R[d]) for d in F)}/{len(F)}")
+    print("   task-1 share (report; 100 x the two most frequent used classes / n) with edge's and the clipped SEC's accuracies: "
+          + ", ".join(f"{d}: {R[d]['share1']:.2f} (edge {R[d]['e']:.2f}, clipped SEC {R[d]['g']:.2f})" for d in names))
     div = [d for d in names if dv(R[d]["g_seeds"], R[d])]
     divu = [d for d in names if dv(R[d]["u_seeds"], R[d])]
     print(f"SEC6-2 no divergence: carriers with a clipped seed below half the tuned accuracy: {div} ({len(div)}) -> {'PASS' if not div else 'FAIL'}; unguarded (report): {divu}")
@@ -666,10 +742,13 @@ def score(paths):
     vb = "NOT DECIDABLE (fewer than %d carriers scored)" % MIN_N if N < MIN_N else ("PASS" if all(beats.values()) else "FAIL")
     print(f"SEC6-B against the published baselines: the clipped SEC not behind the tuned lambda on {k}/{N}; "
           + "; ".join(f"{lab} {kb[m]}/{N} (clipped SEC strictly more: {'yes' if beats[m] else 'NO'})" for m, lab in others)
-          + f" -> {vb} (PASS only if strictly more than every one)")
+          + f" -> {vb}{mark} (PASS only if strictly more than every one)")
     for m, lab in others:
         print(f"   {lab}: −tuned " + ", ".join(f"{d}:{R[d]['b'][m][0] - R[d]['tacc']:+.4f}" for d in names)
               + f"; carriers with a seed below half the tuned accuracy (SEC6-2's rule): {[d for d in names if dv(R[d]['b'][m][1], R[d])]}")
+    for m, lab in controls:
+        print(f"   {lab}: not behind {sum(nb(R[d]['e'], R[d]) for d in names)}/{N}; −tuned " + ", ".join(f"{d}:{R[d]['e'] - R[d]['tacc']:+.4f}" for d in names)
+              + f"; carriers with a seed below half the tuned accuracy (SEC6-2's rule): {[d for d in names if dv(R[d]['e_seeds'], R[d])]}")
     B = [d for d in names if R[d]["loco"] is not None and not nb(R[d]["loco_acc"], R[d])]
     if len(B) >= MIN_B:
         kt = sum(nb(R[d]["g"], R[d]) for d in B); needt = math.ceil(SHARE * len(B))
@@ -677,7 +756,7 @@ def score(paths):
     else:
         print(f"SEC6-T: NOT DECIDABLE (a transferred lambda is behind on only {len(B)} carriers, need >= {MIN_B})")
     kp = sum(R[d]["best3"] is not None and R[d]["g"] - R[d]["best3_acc"] > -R[d]["step"] for d in names)
-    print(f"SEC6-P clipped SEC (1 configuration) not behind the 3-point mini-sweep (3): {kp}/{N} (need {need}) -> {'PASS' if kp >= need else 'FAIL'}")
+    print(f"SEC6-P clipped SEC (1 configuration) not behind the 3-point mini-sweep (3): {kp}/{N} (need {need}) -> {'PASS' if kp >= need else 'FAIL'}{mark}")
     cells = [c for c in R[names[0]]["sens"]] if names else []
     flips = {c: sum(nb(R[d]["g"], R[d]) != nb(R[d]["sens"][c], R[d]) for d in names) for c in cells}
     tot = sum(flips.values())
@@ -686,28 +765,39 @@ def score(paths):
     for kk in KAPPA_CELLS:
         kd = [d for d in names if dv(R[d]["kseeds"][kk], R[d])]
         print(f"   kappa {kk:g}: not behind {sum(nb(R[d]['sens'][('kappa', kk)], R[d]) for d in names)}/{N}; carriers with a seed below half the tuned accuracy: {kd}")
-    pass1 = v1 == "PASS" and tot <= 1 and not div
+    pass1 = v1 == "PASS" and tot <= 1 and not div and not gate
     level = ("PASS-1 candidate (the report states the anchor and admissibility)" if pass1 else
-             ("PASS-0 (not PASS-1: " + ", ".join(x for x, bad in (("fragile", tot > 1), ("divergence", bool(div))) if bad) + ")" if v1 == "PASS" else "no PASS"))
-    print(f"SEC6-1 level as computed from SEC6-S and SEC6-2: {level}")
+             ("PASS-0 (not PASS-1: " + ", ".join(x for x, bad in (("fragile", tot > 1), ("divergence", bool(div)), ("SEC6-G CLOSED", gate)) if bad) + ")"
+              if v1 == "PASS" else "no PASS"))
+    print(f"SEC6-1 level as computed from SEC6-S, SEC6-2 and SEC6-G: {level}")
+    if gate:
+        print("   SEC6-G CLOSED: SEC6-1, SEC6-B and SEC6-P claim no level above PASS-0 (UNINFORMATIVE: a learner frozen after task 1 meets the same criterion)")
     p4 = _pinned_primary("sec4"); p5 = _pinned_primary("sec5")
     fam = [("SEC4-1", p4[3] if p4 else None), ("SEC5-1", p5[3] if p5 else None), ("SEC6-1", v1)]
     print("   the clipped SEC's family record (primary rows; SEC4 and SEC5 read from runs/sec4/score.txt and runs/sec5/score.txt): "
-          + "; ".join(f"{i} {v}" + (f" ({p[0]}/{p[1]})" if p else "") for (i, v), p in zip(fam, (p4, p5, (k, N, need, v1))))
+          + "; ".join(f"{i} {v}" + (f" ({p[0]}/{p[1]})" if p else "") + (" (UNINFORMATIVE: SEC6-G CLOSED)" if i == "SEC6-1" and gate else "")
+                      for (i, v), p in zip(fam, (p4, p5, (k, N, need, v1))))
           + f" -> PASS on {sum(v == 'PASS' for _, v in fam)} of {len(fam)} families")
     if pass1 and p4 and p4[3] == "PASS":
         print("   by the letter of CLAUDE.md section 7, SEC4-1 (PASS-1, ledger) and SEC6-1 together are PASS-2 (a later day, a fresh pre-registration, "
               "the same frozen code); beside it: SEC5-1 "
               + (f"{p5[3]} on the fourth family ({p5[0]}/{p5[1]}, need {p5[2]})" if p5 else "not read (runs/sec5/score.txt missing)"))
     nbc = lambda a, r: a - r["tacc_c"] > -r["step_c"]  # noqa: E731  (Amendment 2: against the tuned clipped lambda)
+    kgc = sum(nbc(R[d]["e"], R[d]) for d in names); gatec = kgc >= need            # Amendment 3: the same gate for SEC6-C
+    print(f"SEC6-GC instrument gate against the tuned clipped lambda: edge not behind the tuned clipped lambda: {kgc}/{N} (closes at {need}) -> "
+          f"{'SEC6-GC CLOSED' if gatec else 'SEC6-GC OPEN'}; " + ", ".join(f"{d}:{R[d]['e'] - R[d]['tacc_c']:+.4f} (step_c {R[d]['step_c']:.2f})" for d in names))
+    markc = " [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-GC)]" if gatec else ""
     kc = sum(nbc(R[d]["g"], R[d]) for d in names)
     vc = "NOT DECIDABLE (fewer than %d carriers scored)" % MIN_N if N < MIN_N else ("PASS" if kc >= need else "FAIL")
     print(f"SEC6-C tuning-free against the tuned lambda given the same clip: the clipped SEC (kappa 0.5) not behind the tuned clipped lambda: {kc}/{N} "
-          f"(need {need}) -> {vc}; " + ", ".join(f"{d}:{R[d]['g'] - R[d]['tacc_c']:+.4f} (step_c {R[d]['step_c']:.2f})" for d in names))
+          f"(need {need}) -> {vc}{markc}; " + ", ".join(f"{d}:{R[d]['g'] - R[d]['tacc_c']:+.4f} (step_c {R[d]['step_c']:.2f})" for d in names))
+    if gatec:
+        print("   SEC6-GC CLOSED: SEC6-C claims no level above PASS-0 (UNINFORMATIVE: a learner frozen after task 1 meets the same criterion)")
     if v1 == "PASS" and vc == "FAIL":
         print("   SEC6-1 rests on the clip (SEC6-C fails)")
     arms_c = ([("clipped SEC", lambda r: r["g"])] + [(lab, (lambda m: lambda r: r["b"][m][0])(m)) for m, lab in others if m != "bayes"]
-              + [("raw Laplace", lambda r: r["b"]["bayes"][0]), ("unguarded SEC", lambda r: r["u"]), ("rule Ω=1", lambda r: r["eq"])])
+              + [("raw Laplace", lambda r: r["b"]["bayes"][0]), ("unguarded SEC", lambda r: r["u"]), ("rule Ω=1", lambda r: r["eq"]),
+                 ("edge (control)", lambda r: r["e"])])
     print("   beside it (report): every arm against the tuned clipped lambda (not behind: arm − tuned clipped > −step_c)")
     for lab, f in arms_c:
         print(f"      {lab}: {sum(nbc(f(R[d]), R[d]) for d in names)}/{N}; " + ", ".join(f"{d}:{f(R[d]) - R[d]['tacc_c']:+.4f}" for d in names))
@@ -724,7 +814,7 @@ def score(paths):
         full = cpu("fixed"); gcpu = cpu(G, KAPPA); raw = cpu("bayes", 0.0)
         print(f"   {d}: configurations full sweep {R[d]['n_cfg']}, clipped SEC 1; CPU s full {full:.1f}, clipped SEC {gcpu:.1f}"
               + (f" (share {gcpu / full:.4f}), raw Laplace {raw:.1f} (overhead x{gcpu / raw if raw else float('nan'):.3f})" if full else "")
-              + "; " + ", ".join(f"{BASELINE_NAMES[m]} {cpu(m):.1f}" for m in BASELINES) + f"; tuned clipped lambda's sweep ({len(R[d]['grid_c'])}) {cpu(FIXED_CLIP):.1f}")
+              + "; " + ", ".join(f"{BASELINE_NAMES[m]} {cpu(m):.1f}" for m in BASELINES) + f"; tuned clipped lambda's sweep ({len(R[d]['grid_c'])}) {cpu(FIXED_CLIP):.1f}; edge {cpu(EDGE):.1f}")
     print("SEC6-E guard firings (report): " + "; ".join(f"{d}: {R[d]['fired']}" for d in names))
     print("   fixed_clip (Amendment 2) task starts clipped at the tuned clipped lambda: " + "; ".join(f"{d}: {R[d]['fired_c']}" for d in names))
     print("   SI-1C (Amendment 1) task starts floored or capped: " + "; ".join(
@@ -769,7 +859,7 @@ def d0_selftest():
             L.RAW = raw0
     r0, r1 = res["selftest_d0"], res["selftest_d1"]
     ok0 = r0["features_used"] == 0 and r0["excluded"] and r0["reason"] == D0_REASON and r0["n_runs"] == 0
-    ok1 = r1["features_used"] == 1 and not r1["excluded"] and r1["n_runs"] > 0 and all(m in r1["modes"] for m in ("fixed", "bayes_sec_clip", FIXED_CLIP) + BASELINES)
+    ok1 = r1["features_used"] == 1 and not r1["excluded"] and r1["n_runs"] > 0 and all(m in r1["modes"] for m in ("fixed", "bayes_sec_clip", FIXED_CLIP, EDGE) + BASELINES)
     okc = counted.startswith("carriers scored 1: ['selftest_d1']; excluded 1: ['selftest_d0']; of them by the d = 0 rule (Amendment 1): ['selftest_d0']")
     print(f"d = 0 self-test (Amendment 1): selftest_d0 (2 string attributes, 4-class target, {n_per * len(classes)} rows): features_used {r0['features_used']}, "
           f"excluded {r0['excluded']}, reason {r0['reason']!r}, run records {r0['n_runs']} -> {'as required' if ok0 else 'NOT as required'}")
@@ -802,13 +892,18 @@ def data_check():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "devid": devid()
+    elif cmd == "devid_edge": devid_edge()
     elif cmd == "devmap": devmap()
     elif cmd == "devlist": print("\n".join(f"{s} {d}" for s, d in dev_list()))
     elif cmd == "devone":
         outp = sys.argv[sys.argv.index("--out") + 1]
         arms = tuple(sys.argv[sys.argv.index("--arms") + 1].split(",")) if "--arms" in sys.argv else BASELINES
         with open(outp, "w") as out: dev_one(sys.argv[2], int(sys.argv[3]), out, arms=arms)
-    elif cmd == "devreport": dev_report(sys.argv[2], sys.argv[3], sys.argv[4:])
+    elif cmd == "devreport":
+        args = sys.argv[2:]; edgep = None
+        if "--edge" in args:
+            i = args.index("--edge"); edgep = args[i + 1]; args = args[:i] + args[i + 2:]
+        dev_report(args[0], args[1], args[2:], edgep)
     elif cmd == "dev":
         dd = ROOT / "prereg" / "sec6" / "dev"; dd.mkdir(parents=True, exist_ok=True)
         import contextlib

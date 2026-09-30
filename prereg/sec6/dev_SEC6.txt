@@ -62,6 +62,30 @@ D-MAP AR1-P: imp never above 0.001: largest 0.001 -> holds
    lambda 1000 seed 4: SEC1 fixed 0.0; fixed_clip with kappa inf 0.0; fixed_clip (kappa 0.5) 38.46153846153847, firings 4, capped coordinates [289, 505, 562, 711], max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']
 (report, Amendment 2) fixed_clip with kappa = inf equals SEC1's run('fixed', lambda) (acc, s, c, rho) at lambda 10 and 1000: 10/10; with kappa 0.5: largest max_k(lr 2 w imp_k) 1.0 (the clip bounds it at 2 kappa = 1.0); firings 20
 D-MAP -> holds
+----------------------------------------------------------------------------------------------------------------------
+D-ID-EDGE (prereg/sec6/DEV_DECLARATION.md, Amendment 3): 'edge' through SEC6's harness against P1's pinned M6 records (SEC_Analysis/checks/m_runs), seeds 0-4
+   scl3 1497 wall-robot-navigation (K 4) seed 0: edge 65.86586586586587 pinned M6 65.86586586586587 -> equal; s, guard margins, firings, finite also equal: yes
+   scl3 1497 wall-robot-navigation (K 4) seed 1: edge 70.97097097097097 pinned M6 70.97097097097097 -> equal; s, guard margins, firings, finite also equal: yes
+   scl3 1497 wall-robot-navigation (K 4) seed 2: edge 65.26526526526526 pinned M6 65.26526526526526 -> equal; s, guard margins, firings, finite also equal: yes
+   scl3 1497 wall-robot-navigation (K 4) seed 3: edge 72.07207207207207 pinned M6 72.07207207207207 -> equal; s, guard margins, firings, finite also equal: yes
+   scl3 1497 wall-robot-navigation (K 4) seed 4: edge 68.26826826826827 pinned M6 68.26826826826827 -> equal; s, guard margins, firings, finite also equal: yes
+   sec3 41164 fabert (K 6) seed 0: edge 44.15584415584416 pinned M6 44.15584415584416 -> equal; s, guard margins, firings, finite also equal: yes
+   sec3 41164 fabert (K 6) seed 1: edge 42.05794205794206 pinned M6 42.05794205794206 -> equal; s, guard margins, firings, finite also equal: yes
+   sec3 41164 fabert (K 6) seed 2: edge 43.45654345654346 pinned M6 43.45654345654346 -> equal; s, guard margins, firings, finite also equal: yes
+   sec3 41164 fabert (K 6) seed 3: edge 39.66033966033966 pinned M6 39.66033966033966 -> equal; s, guard margins, firings, finite also equal: yes
+   sec3 41164 fabert (K 6) seed 4: edge 44.455544455544455 pinned M6 44.455544455544455 -> equal; s, guard margins, firings, finite also equal: yes
+   sec4 377 synthetic_control (K 6) seed 0: edge 40.833333333333336 pinned M6 40.833333333333336 -> equal; s, guard margins, firings, finite also equal: yes
+   sec4 377 synthetic_control (K 6) seed 1: edge 40.0 pinned M6 40.0 -> equal; s, guard margins, firings, finite also equal: yes
+   sec4 377 synthetic_control (K 6) seed 2: edge 48.333333333333336 pinned M6 48.333333333333336 -> equal; s, guard margins, firings, finite also equal: yes
+   sec4 377 synthetic_control (K 6) seed 3: edge 34.166666666666664 pinned M6 34.166666666666664 -> equal; s, guard margins, firings, finite also equal: yes
+   sec4 377 synthetic_control (K 6) seed 4: edge 52.5 pinned M6 52.5 -> equal; s, guard margins, firings, finite also equal: yes
+   sec5 41671 microaggregation2 (K 4) seed 0: edge 53.14685314685315 pinned M6 53.14685314685315 -> equal; s, guard margins, firings, finite also equal: yes
+   sec5 41671 microaggregation2 (K 4) seed 1: edge 53.04695304695305 pinned M6 53.04695304695305 -> equal; s, guard margins, firings, finite also equal: yes
+   sec5 41671 microaggregation2 (K 4) seed 2: edge 51.94805194805194 pinned M6 51.94805194805194 -> equal; s, guard margins, firings, finite also equal: yes
+   sec5 41671 microaggregation2 (K 4) seed 3: edge 58.74125874125874 pinned M6 58.74125874125874 -> equal; s, guard margins, firings, finite also equal: yes
+   sec5 41671 microaggregation2 (K 4) seed 4: edge 56.14385614385614 pinned M6 56.14385614385614 -> equal; s, guard margins, firings, finite also equal: yes
+D-ID-EDGE -> holds (20/20 runs equal in acc; need all, on at least 3 carriers)
+D-RUN of 'edge' is not run (Amendment 3): P1's M6 is the seen-data record; SEC_Analysis/checks/m_checks.txt reads: 'M6: not behind 24/30, behind 6/30; guard firings 190; fallbacks 368'
 ======================================================================================================================
 [cnae-9] (scl3, K 8) tuned 1410: 74.1667, step 1.7305; pinned: clipped SEC +7.9167; raw Laplace -18.4375; unguarded SEC -21.9792
      tuned clipped lambda (fixed_clip) 28300: 90.4167 [89.58 89.06 91.15 92.19 90.10], step_c 1.1219; −tuned lambda +16.2500 (+9.39 steps); firings at it [3, 3, 3, 3, 3]; grid 0.1:55.73 0.3:55.73 1:55.73 3:55.73 10:56.35 30:57.29 100:60.42 300:66.15 1000:72.40 3000:77.50 3533.57:78.12 5000:79.79 7092.2:82.08 10000:84.38 14100:86.67 20000:89.58 28300:90.42; non-finite runs in the grid 0
@@ -324,4 +348,4 @@ Amendment 2 (report, nothing chosen): against the TUNED CLIPPED lambda (not behi
    (pinned, not rerun) unguarded SEC: not behind the tuned clipped lambda 20/30
    the tuned clipped lambda ahead of the tuned lambda by more than a step (the tuned lambda's step): 10/30 ['cnae-9', 'eucalyptus', 'MiceProtein', 'steel-plates-fault', 'dionis', 'volkert', 'anneal', 'synthetic_control', 'Indian_pines', 'Kuzushiji-MNIST']; behind by more than a step: 2/30 ['pokerhand', 'volcanoes-d4']
    the tuned clipped lambda at the largest lambda of its grid (the grid, SEC1's, may not reach its optimum): 11/30 ['cnae-9', 'eucalyptus', 'har', 'isolet', 'MiceProtein', 'artificial-characters', 'cardiotocography', 'synthetic_control', 'Indian_pines', 'microaggregation2', 'volcanoes-d4']
-D-ID -> holds; D-MAP -> holds; D-RUN carriers per baseline (of 30 SEEN, seeds 0-4): {'SI-1': 30, 'SI-0.1': 30, 'AR1-P': 30, 'AR1-B': 30, 'SI-1C': 30, 'tuned clipped lambda': 30}
+D-ID -> holds; D-MAP -> holds; D-ID-EDGE -> holds; D-RUN carriers per baseline (of 30 SEEN, seeds 0-4): {'SI-1': 30, 'SI-0.1': 30, 'AR1-P': 30, 'AR1-B': 30, 'SI-1C': 30, 'tuned clipped lambda': 30}

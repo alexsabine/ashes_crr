@@ -17,6 +17,7 @@ echo "D-RUN started $(date -u +%Y-%m-%dT%H:%M:%SZ); arms $ARMS" > "$STATUS"
 uv run python studies/sec6/sec6_score.py devlist | xargs -P 2 -L 1 bash -c \
   'uv run python studies/sec6/sec6_score.py devone "$0" "$1" --arms "$ARMS" --out prereg/sec6/dev/${PFX}_$0_$1.jsonl > /tmp/claude-0/sec6_dev_logs/$PFX/dev_$0_$1.log 2>&1; echo "$0 $1 exit $?" > /tmp/claude-0/sec6_dev_logs/$PFX/exit_$0_$1.txt'
 N=$(ls "$LOGS"/exit_*.txt | wc -l); BAD=$(cat "$LOGS"/exit_*.txt | grep -v "exit 0$" | tr '\n' ';')
-uv run python studies/sec6/sec6_score.py devreport "$DEV/devid.txt" "$DEV/devmap.txt" "$DEV"/dev*.jsonl > prereg/sec6/dev_SEC6.txt 2> "$LOGS/devreport.err"
+EDGE_ARG=(); [ -f "$DEV/devid_edge.txt" ] && EDGE_ARG=(--edge "$DEV/devid_edge.txt")      # Amendment 3's D-ID-EDGE, when pinned
+uv run python studies/sec6/sec6_score.py devreport "$DEV/devid.txt" "$DEV/devmap.txt" "${EDGE_ARG[@]}" "$DEV"/dev*.jsonl > prereg/sec6/dev_SEC6.txt 2> "$LOGS/devreport.err"
 echo "devreport exit $?; carriers run $N; non-zero exits: ${BAD:-none}" >> "$STATUS"
 echo "DEV_DONE $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$STATUS"
