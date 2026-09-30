@@ -1,0 +1,116 @@
+RRM2 Part W: positions P1-P7 graded against the frontier sweep (DECLARATION_2.md)
+claims 77 (w1 23, w2 28, w3 26); sources 59; quotes verified in verify_w.txt
+rule: MIXED if states and contradicts; else REDUNDANT if states; else PARTLY REDUNDANT if close; else NOT FOUND IN THE SWEEP
+
+P1 REDUNDANT              expected REDUNDANT              hit  | states 10, contradicts 0, close 1, bears 2
+     position: 2025-26 papers still name the drift of stored class statistics as a main limitation of exemplar-free or small-memory class-IL trained from scratch
+     states      w1:0   Magistri, Trinci, Soutif-Cormerais, van de Weijer, Bagdanov, "EFC++: Elastic Feature (v4, 28 Sep 2026)
+     states      w1:1   Xu, Krawczyk, "Two-Way Is Better Than One: Bidirectional Alignment with Cycle Consis (v1, 4 Jun 2026)
+     states      w1:2   Xu, Krawczyk, "Geometry-Anchored Transport Framework for Exemplar-Free Class-Increme (v2, 25 Jun 2026)
+     states      w1:3   Xu, Jin, Sun, Xuan, Li, "Dual-Estimator: Decoupling Global and Local Semantic Shift  (CVF open access camera)
+     states      w1:4   Xu, Jin, Sun, Xuan, Li, "Class-Aware Drift Compensation for Non-Uniform Semantic Shi (CVF open access camera)
+     states      w1:5   Jučas, Pan, "Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Cont (v1, 25 Jun 2026)
+     states      w1:6   Honda, "Adversarial Pseudo-replay for Exemplar-free Class-incremental Learning" (APR (v1, 22 Nov 2025)
+     states      w1:7   He, Fang, Xu, Cui, Li, Chen, Zeng, Zhuang, "Semantic Shift Estimation via Dual-Proje (v4, 18 May 2025)
+     states      w1:8   Lu, Cao, Huang, Wang, Yang, Liu, "Restoring Forgotten Knowledge in Non-Exemplar Clas (v1, 21 Mar 2025)
+     states      w1:9   Hu, Yu, Zhang, Chen, Gao, "Confusion-Driven Self-Supervised Progressively Weighted E (NeurIPS 2025 proceedin)
+     close       w1:10  Xu, Krawczyk, "Revisiting Prototype Rehearsal for Exemplar-Free Continual Learning:  (v1, 4 Jun 2026)
+     bears       w1:11  Wang, Guo, Li, Chen, "On the Discrimination and Consistency for Exemplar-Free Class  (v1, 26 Jan 2025)
+     bears       w1:12  Tscheschner, Veas, Masana, "Incremental Learning with Repetition via Pseudo-Feature  (v1, 27 Feb 2025)
+
+P2 MIXED                  expected MIXED                  hit  | states 3, contradicts 2, close 3, bears 2
+     position: a 2025-26 exemplar-free method trained from scratch reports class-IL accuracy level with or ahead of replay at a realistic buffer, on the same protocol (the gap is closed)
+     states      w1:13  Wang, Guo, Li, Chen, "On the Discrimination and Consistency for Exemplar-Free Class  (v1, 26 Jan 2025)
+     states      w1:15  Liu, Chang, "Elastic Weight Consolidation Done Right for Continual Learning" (EWC-DR (v3, 26 Mar 2026)
+     states      w1:16  Tscheschner, Veas, Masana, "Incremental Learning with Repetition via Pseudo-Feature  (v1, 27 Feb 2025)
+     contradicts w1:19  Khademi Nori, Kim, Wang, "Autoencoder-Based Hybrid Replay for Class-Incremental Lear (v3, 16 May 2025)
+     contradicts w1:20  Qiu, Xu, Meng, Zhang, Xu, Wu, Li, "Closing the Oracle Gap: Increment Vector Transfor (v1, 26 Sep 2025)
+     close       w1:14  He, Fang, Xu, Cui, Li, Chen, Zeng, Zhuang, "Semantic Shift Estimation via Dual-Proje (v4, 18 May 2025)
+     close       w1:17  He, Fang, Chen, Tong, Chen, Wang, Chau, Zhuang, "REAL: Representation Enhanced Analy (v3, 17 Dec 2025)
+     close       w1:18  Moon, Cho, "Expandable and Differentiable Dual Memories with Orthogonal Regularizati (v1, 13 Nov 2025)
+     bears       w1:21  Cho, Moon, Chunara, Cho, Cha, "Forget Forgetting: Continual Learning in a World of A (v5, 18 Feb 2026)
+     bears       w1:22  Nguyen, Dao, Nguyen, Le, Wong, "Memory-efficient Continual Learning with Prototypica (CVF open access camera)
+
+P3 PARTLY REDUNDANT       expected PARTLY REDUNDANT       hit  | states 0, contradicts 0, close 3, bears 3
+     position: hybrids that keep a few exemplars and class statistics, and use the kept exemplars to correct the stored statistics, are published
+     close       w2:0   Iscen, Zhang, Lazebnik, Schmid, "Memory-Efficient Incremental Learning Through Featu (v2, 24 Aug 2020)
+     close       w2:1   Goswami, Soutif-Cormerais, Liu, Kamath, Twardowski, van de Weijer, "Resurrecting Old (v1, 29 May 2024)
+     close       w2:2   Nguyen, Dao, Nguyen, Le, Wong, "Memory-efficient Continual Learning with Prototypica (v2, 10 Apr 2026)
+     bears       w2:3   Lanzillotta, Meier, Hofmann, "Heads collapse, features stay: Why Replay needs big bu (v2, 19 Mar 2026)
+     bears       w2:4   Khademi Nori, Kim, Wang, "Federated Class-Incremental Learning: A Hybrid Approach Us (v3, 13 Mar 2025)
+     bears       w2:5   Ho, Liu, Du, Gao, Xiang, "Prototype-Guided Memory Replay for Continual Learning" (ar (v3, 4 Mar 2023)
+
+P4 REDUNDANT              expected PARTLY REDUNDANT       MISS | states 2, contradicts 0, close 5, bears 1
+     position: anchor-relative or relative representations are used inside one continual learner to keep old representations valid
+     states      w3:0   Ranganathan, Dalal, Banerjee, "Continual Anchored Manifold Embeddings for Learning S (OpenReview note, creat)
+     states      w3:1   Chaudhury, "Forgetting is Not Erasure: Recovering Latent Knowledge via Transport Key (v1, 1 Jun 2026)
+     close       w3:2   Geng, Zhou, Zhou, "Language as an Anchor: Preserving Relative Visual Geometry for Do (v1, 18 Nov 2025)
+     close       w3:3   Cui, Zhou, Peng, "Bi-C2R: Bidirectional Continual Compatible Representation for Re-i (v1, 31 Dec 2025)
+     close       w3:4   Nguyen, Nguyen, Li, Pham, Nguyen, Doan, "Retrospective Feature Estimation for Contin (v2, 1 Feb 2026)
+     close       w3:5   Cignoni, Cossu, Gomez-Villa, van de Weijer, Carta, "CLA: Latent Alignment for Online (v2, 15 Jul 2025)
+     close       w3:6   Li, Xiao, Jiang, Zuo, Zhang, Yang, "A Stitch in Time Saves Nine: Preserving Policy C (v1, 19 Jun 2026)
+     bears       w3:7   Si, Qin, "Continual-learning rules shape representational drift" (arXiv:2608.16141) (v2, 1 Sep 2026)
+
+P5 REDUNDANT              expected PARTLY REDUNDANT       MISS | states 1, contradicts 0, close 6, bears 2
+     position: transporting stored old-class statistics by the measured feature movement of a few kept anchors (RRM's transport) is published
+     states      w2:6   Rao, Ha, Zhao, Liu, Alippi, "Scalable Analytic Classifiers with Associative Drift Co (v1, 29 Jan 2026)
+     close       w2:7   Rao, Xu, Li, Zhao, Liu, Ha, Alippi, "Compensating Distribution Drifts in Class-incre (v1, 13 Nov 2025)
+     close       w2:8   Zhou, Sun, Ye, Zhan, "Expandable Subspace Ensemble for Pre-Trained Model-Based Class (v1, 18 Mar 2024)
+     close       w2:9   Toldo, Ozay, "Bring Evanescent Representations to Life in Lifelong Class Incremental (CVF open-access versio)
+     close       w2:10  Cui, Zhou, Peng, "Bi-C2R: Bidirectional Continual Compatible Representation for Re-i (v1, 31 Dec 2025)
+     close       w2:11  Honda, "Adversarial Pseudo-replay for Exemplar-free Class-incremental Learning" (APR (v1, 22 Nov 2025)
+     close       w2:24  Chaudhury, "Forgetting is Not Erasure: Recovering Latent Knowledge via Transport Key (v1, 1 Jun 2026)
+     bears       w2:12  Gu, Shim, Shkurti, "Preserving Linear Separability in Continual Learning by Backward (v3, 28 Jun 2023)
+     bears       w2:26  Li, Xiao, Jiang, Zuo, Zhang, Yang, "A Stitch in Time Saves Nine: Preserving Policy C (v1, 19 Jun 2026)
+
+P6 MIXED                  expected REDUNDANT              MISS | states 2, contradicts 2, close 11, bears 3
+     position: on-device or privacy-constrained continual learning is named as a setting where a small store of raw rows is acceptable and a full replay buffer is not
+     states      w3:8   Dong, Wang, Fang, Sun, Xu, Wang, Zhu, "Federated Class-Incremental Learning" (GLFC;  (v1, 22 Mar 2022)
+     states      w3:9   Wang, Xiang, Du, "FeDMRA: Federated Incremental Learning with Dynamic Memory Replay  (v1, 30 Mar 2026)
+     contradicts w3:14  Lee, Weerakoon, Choi, Zhang, Wang, Jeon, "Carousel Memory: Rethinking the Design of  (v3, 29 Dec 2022)
+     contradicts w3:15  Ma, Jeong, Zhang, Wang, Choi, Jeon, "Cost-effective On-device Continual Learning ove (v4, 5 Dec 2023)
+     close       w3:10  Kwon, Chauhan, Kumar, Hui, Mascolo, "Exploring System Performance of Continual Learn (v2, 23 Jun 2022)
+     close       w3:11  Hayes, Kanan, "Online Continual Learning for Embedded Devices" (arXiv:2203.10681; Co (v3, 15 Jul 2022)
+     close       w3:12  Verwimp, Aljundi, Ben-David, Bethge, Cossu, Gepperth, Hayes, Hüllermeier, Kanan, Kud (v3, 28 Mar 2024)
+     close       w3:17  Wilson, "Latent Replay Detection: Memory-Efficient Continual Object Detection on Mic (v1, 24 Feb 2026)
+     close       w3:18  Motetti, Dugas du Villard, Risso, Burrello, Daghero, Macii, Poncino, Castellano, Bas (v1, 7 Aug 2026)
+     close       w3:19  Li, Dutt, Liu, "Orion: Enabling Self-adaptive Memory Management for On-device Online (v1, 26 May 2026)
+     close       w3:20  Ravaglia, Rusci, Nadalini, Capotondi, Conti, Benini, "A TinyML Platform for On-Devic (v1, 20 Oct 2021)
+     close       w3:21  Jiang, Hu, Song, Xie, Xu, "Study of Class-Incremental Radio Frequency Fingerprint Re (v1, 6 Jan 2026)
+     close       w3:22  Kumari, Reisenbüchler, Luttner, Schaadt, Feuerhake, Merhof, "Continual Domain Increm (v1, 10 Sep 2024)
+     close       w3:23  Sinhal, Sinhal, Sinhal, "Federated Continual Learning for Privacy-Preserving Hospita (v1, 11 Jan 2026)
+     close       w3:24  Li, Wang, Xu, Xiao, Liu, Tu, Wang, Yang, Zhang, Yu, Guo, Li, "Unleashing the Power o (v2, 6 May 2025)
+     bears       w3:13  Verwimp et al., "Continual Learning: Applications and the Road Forward" (arXiv:2311. (v3, 28 Mar 2024)
+     bears       w3:16  Prabhu, Al Kader Hammoud, Dokania, Torr, Lim, Ghanem, Bibi, "Computationally Budgete (v2, 15 Jul 2023)
+     bears       w3:25  Lanzillotta, Meier, Hofmann, "Heads collapse, features stay: Why Replay needs big bu (v2, 19 Mar 2026)
+
+P7 MIXED                  expected MIXED                  hit  | states 2, contradicts 5, close 4, bears 2
+     position: the feature drift of a class-IL learner is reported to be approximately linear, or well corrected by a linear map
+     states      w2:13  Gomez-Villa, Goswami, Wang, Bagdanov, Twardowski, van de Weijer, "Exemplar-free Cont (v1, 11 Jul 2024)
+     states      w2:14  Rao, Xu, Li, Zhao, Liu, Ha, Alippi, "Compensating Distribution Drifts in Class-incre (v1, 13 Nov 2025)
+     contradicts w2:15  Rao, Xu, Li, Zhao, Liu, Ha, Alippi, "Compensating Distribution Drifts in Class-incre (v1, 13 Nov 2025)
+     contradicts w2:16  Rao, Ha, Zhao, Liu, Alippi, "Scalable Analytic Classifiers with Associative Drift Co (v1, 29 Jan 2026)
+     contradicts w2:17  Xu, Krawczyk, "Two-Way Is Better Than One: Bidirectional Alignment with Cycle Consis (v1, 4 Jun 2026)
+     contradicts w2:19  Xu, Krawczyk, "Geometry-Anchored Transport Framework for Exemplar-Free Class-Increme (v2, 25 Jun 2026)
+     contradicts w2:20  Xu, Jin, Sun, Xuan, Li, "Dual-Estimator: Decoupling Global and Local Semantic Shift  (CVF open-access versio)
+     close       w2:18  Xu, Krawczyk, "Geometry-Anchored Transport Framework for Exemplar-Free Class-Increme (v2, 25 Jun 2026)
+     close       w2:22  Kim, Kim, Sohn, "Measuring Representational Shifts in Continual Learning: A Linear T (v3, 12 Jun 2025)
+     close       w2:23  Gu, Shim, Shkurti, "Preserving Linear Separability in Continual Learning by Backward (v3, 28 Jun 2023)
+     close       w2:25  Chaudhury, "Forgetting is Not Erasure: Recovering Latent Knowledge via Transport Key (v1, 1 Jun 2026)
+     bears       w2:21  Xu, Jin, Sun, Xuan, Li, "Class-Aware Drift Compensation for Non-Uniform Semantic Shi (CVF open-access versio)
+     bears       w2:27  Li, Xiao, Jiang, Zuo, Zhang, Yang, "A Stitch in Time Saves Nine: Preserving Policy C (v1, 19 Jun 2026)
+
+summary (position, grade, expected, hit/miss)
+  P1  REDUNDANT               REDUNDANT               hit
+  P2  MIXED                   MIXED                   hit
+  P3  PARTLY REDUNDANT        PARTLY REDUNDANT        hit
+  P4  REDUNDANT               PARTLY REDUNDANT        MISS
+  P5  REDUNDANT               PARTLY REDUNDANT        MISS
+  P6  MIXED                   REDUNDANT               MISS
+  P7  MIXED                   MIXED                   hit
+hits 4 of 7; misses: P4, P5, P6
+
+worth rule: WORTH PURSUING iff P1 REDUNDANT or MIXED, and P2, P3, P5 not REDUNDANT
+VERDICT: NOT WORTH PURSUING; failing: P5 (the transport is published)
+sensitivity: w2:6 (P5) is read 'states' on the investigator's review; under the grading agent's 'close' P5 would grade PARTLY REDUNDANT (run 1, grade_w_run1.txt)
+not found is never read as novel; WORTH means only that a test is not redundant before it runs

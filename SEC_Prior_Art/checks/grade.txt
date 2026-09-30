@@ -1,0 +1,145 @@
+SPA1: positions S1-S6 graded against the prior-art sweep of SEC4's method (SEC_Prior_Art/DECLARATION.md)
+claims 110 (f1 47, f2 32, f3 31); sources 53; quotes verified in verify.txt
+rule: MIXED if states and contradicts; else REDUNDANT if states; else PARTLY REDUNDANT if close; else NOT FOUND IN THE SWEEP
+
+S1 MIXED                  expected REDUNDANT              MISS | states 4, contradicts 1, close 13, bears 7
+     position: the EWC/Laplace penalty strength lambda must be tuned per dataset because the (empirical) Fisher scale is wrong or arbitrary
+     states      f1:0   Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Cata (v1, 20 May 2018)
+     states      f1:1   van de Ven, "On the Computation of the Fisher Information in Continual Learning" (ar (v1, 17 Feb 2025)
+     states      f1:2   Kao, Jensen, van de Ven, Bernacchia, Hennequin, "Natural continual learning: success (v2, 15 Dec 2021)
+     states      f2:18  Schwarz, Luketina, Czarnecki, Grabska-Barwinska, Teh, Pascanu, Hadsell, "Progress &  (v2, 2 Jul 2018)
+     contradicts f1:16  Zheng, Zhang, van de Weijer, van de Ven, Du, Zhang, Tian, "Revisiting Weight Regular (v1, 19 Feb 2026)
+     close       f1:3   Schwarz, Luketina, Czarnecki, Grabska-Barwinska, Teh, Pascanu, Hadsell, "Progress &  (v2, 2 Jul 2018)
+     close       f1:4   Kirkpatrick et al., "Overcoming catastrophic forgetting in neural networks" (EWC; ar (v2, 25 Jan 2017)
+     close       f1:5   Huszár, "On Quadratic Penalties in Elastic Weight Consolidation" (arXiv:1712.03847;  (v1, 11 Dec 2017)
+     close       f1:6   Loo, Swaroop, Turner, "Generalized Variational Continual Learning" (GVCL; arXiv:2011 (v1, 24 Nov 2020)
+     close       f1:7   Liu, Chang, "Elastic Weight Consolidation Done Right for Continual Learning" (EWC-DR (v3, 26 Mar 2026)
+     close       f1:8   Josifovski, Auddy, Malmir, Piater, Knoll, Navarro-Guerrero, "Continual Domain Random (v2, 27 Aug 2024)
+     close       f1:9   Li, Dangel, Tam, Raffel, "Fishers for Free? Approximating the Fisher Information Mat (v1, 24 Jul 2025)
+     close       f2:19  Kunstner, Balles, Hennig, "Limitations of the Empirical Fisher Approximation for Nat (v3, 8 Jun 2020)
+     close       f2:20  van de Ven, "On the Computation of the Fisher Information in Continual Learning" (ar (v1, 17 Feb 2025)
+     close       f2:21  Vander Eeckt, Van hamme, "Continual Learning With Quasi-Newton Methods" (CSQN; arXiv (v1, 25 Mar 2025)
+     close       f2:22  Kao, Jensen, van de Ven, Bernacchia, Hennequin, "Natural continual learning: success (v2, 15 Dec 2021)
+     close       f2:23  Kirkpatrick et al., "Overcoming catastrophic forgetting in neural networks" (EWC; ar (v2, 25 Jan 2017)
+     close       f3:25  Li, Dangel, Tam, Raffel, "Fishers for Free? Approximating the Fisher Information Mat (v1, 24 Jul 2025)
+     bears       f1:10  Kunstner, Balles, Hennig, "Limitations of the Empirical Fisher Approximation for Nat (v3, 8 Jun 2020)
+     bears       f1:11  Martens, "New insights and perspectives on the natural gradient method" (arXiv:1412. (v11, 19 Sep 2020)
+     bears       f1:12  Wenzel et al., "How Good is the Bayes Posterior in Deep Neural Networks Really?" (ar (v2, 2 Jul 2020)
+     bears       f1:13  Kutalev, Lapina, "Stabilizing Elastic Weight Consolidation method in practical ML ta (v3, 29 Oct 2021)
+     bears       f1:14  Yin, Farajtabar, Li, Levine, Mott, "Optimization and Generalization of Regularizatio (v3, 8 Feb 2021)
+     bears       f1:15  Jhajj, Lin, "Elastic Weight Consolidation for Knowledge Graph Continual Learning: An (v1, 1 Dec 2025)
+     bears       f2:24  Martens, "New insights and perspectives on the natural gradient method" (arXiv:1412. (v11, 19 Sep 2020)
+
+S2 PARTLY REDUNDANT       expected PARTLY REDUNDANT       hit  | states 0, contradicts 0, close 16, bears 4
+     position: rescaling a Fisher or Laplace precision by a factor fitted to the loss's observed curvature is published
+     close       f1:17  Moser, Anwar, Nauen, Muralidhara, Raue, Schuster, Frolov, Dengel, "Layers Matter: Wh (v1, 16 Aug 2026)
+     close       f1:18  Vander Eeckt, Van hamme, "Continual Learning With Quasi-Newton Methods" (CSQN; arXiv (v1, 25 Mar 2025)
+     close       f1:19  Aguilar, Zainal, Herbozo Contreras, Huang, Kavehei, "Normative Loss Landscape Naviga (v1, 28 Sep 2026)
+     close       f1:20  Martens, "New insights and perspectives on the natural gradient method" (arXiv:1412. (v11, 19 Sep 2020)
+     close       f2:0   Martens, Grosse, "Optimizing Neural Networks with Kronecker-factored Approximate Cur (v7, 8 Jun 2020)
+     close       f2:1   Clarke, Hernández-Lobato, "Studying K-FAC Heuristics by Viewing Adam through a Secon (v3, 13 Jun 2024)
+     close       f2:2   Bioli et al., "Self-Scaled Broyden Family of Quasi-Newton Methods in JAX" (arXiv:260 (v1, 11 Mar 2026)
+     close       f2:3   Tan, Ma, Dai, Qian, "Barzilai-Borwein Step Size for Stochastic Gradient Descent" (SG (v2, 23 May 2016)
+     close       f2:4   Ma, "Apollo: An Adaptive Parameter-wise Diagonal Quasi-Newton Method for Nonconvex S (v6, 20 Aug 2021)
+     close       f2:5   Gao, Liu, Huang, Wang, Wang, Xu, Yu, "A Trace-restricted Kronecker-Factored Approxim (v1, 21 Nov 2020)
+     close       f2:6   Vander Eeckt, Van hamme, "Continual Learning With Quasi-Newton Methods" (CSQN; arXiv (v1, 25 Mar 2025)
+     close       f2:7   Moser, Anwar, Nauen, Muralidhara, Raue, Schuster, Frolov, Dengel, "Layers Matter: Wh (v1, 16 Aug 2026)
+     close       f2:8   Chaudhry, Dokania, Ajanthan, Torr, "Riemannian Walk for Incremental Learning: Unders (v3, 14 Aug 2018)
+     close       f3:27  Chaudhry, Dokania, Ajanthan, Torr, "Riemannian Walk for Incremental Learning: Unders (v3, 14 Aug 2018)
+     close       f3:29  Vander Eeckt, Van hamme, "Continual Learning With Quasi-Newton Methods" (CSQN; arXiv (v1, 25 Mar 2025)
+     close       f3:30  Moser, Anwar, Nauen, Muralidhara, Raue, Schuster, Frolov, Dengel, "Layers Matter: Wh (v1, 16 Aug 2026)
+     bears       f1:21  Kirkpatrick et al., "Overcoming catastrophic forgetting in neural networks" (EWC; ar (v2, 25 Jan 2017)
+     bears       f1:22  Schwarz et al., "Progress & Compress: A scalable framework for continual learning" ( (v2, 2 Jul 2018)
+     bears       f2:9   Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Cata (v1, 20 May 2018)
+     bears       f2:10  Vander Eeckt, Van hamme, "Inverse-Hessian Regularization for Continual Learning in A (v1, 21 Jan 2026)
+
+S3 REDUNDANT              expected PARTLY REDUNDANT       MISS | states 3, contradicts 0, close 7, bears 5
+     position: a curvature scale fitted along the optimisation path (quasi-Newton or secant style) is used to set a continual-learning penalty or an online Laplace posterior
+     states      f1:23  Zenke, Poole, Ganguli, "Continual Learning Through Synaptic Intelligence" (SI; arXiv (v3, 12 Jun 2017)
+     states      f2:11  Zenke, Poole, Ganguli, "Continual Learning Through Synaptic Intelligence" (SI; arXiv (v3, 12 Jun 2017)
+     states      f3:26  Zenke, Poole, Ganguli, "Continual Learning Through Synaptic Intelligence" (SI; arXiv (v3, 12 Jun 2017)
+     close       f1:24  Vander Eeckt, Van hamme, "Continual Learning With Quasi-Newton Methods" (CSQN; arXiv (v1, 25 Mar 2025)
+     close       f1:25  Aguilar, Zainal, Herbozo Contreras, Huang, Kavehei, "Normative Loss Landscape Naviga (v1, 28 Sep 2026)
+     close       f2:13  Krause, Borst, van Rij, "Structured Secant Methods to Select Smoothing Parameters fo (v2, 20 Aug 2026)
+     close       f2:14  Zhang, Carpenter, Gelman, Vehtari, "Pathfinder: Parallel quasi-Newton variational in (v4, 16 May 2022)
+     close       f2:15  Perone, Silveira, Paula, "L2M: Practical posterior Laplace approximation with optimi (v1, 9 Jul 2021)
+     close       f2:16  Li, Dangel, Tam, Raffel, "Fishers for Free? Approximating the Fisher Information Mat (v1, 24 Jul 2025)
+     close       f3:28  Chaudhry, Dokania, Ajanthan, Torr, "Riemannian Walk for Incremental Learning" (RWalk (v3, 14 Aug 2018)
+     bears       f1:26  Moser et al., "Layers Matter: Why Continual Learning Regularization Should Be Layer- (v1, 16 Aug 2026)
+     bears       f1:27  Benzing, "Unifying Regularisation Methods for Continual Learning" (arXiv:2006.06357; (v2, 3 Feb 2021)
+     bears       f1:28  Lee, Hong, Joo, Kim, "Continual Learning With Extended Kronecker-Factored Approximat (CVF open access, CVPR )
+     bears       f2:12  Benzing, "Unifying Regularisation Methods for Continual Learning" (arXiv:2006.06357; (v2, 3 Feb 2021)
+     bears       f2:17  Yin, Sun, Wu, "Unbiased Online Curvature Approximation for Regularized Graph Continu (v1, 16 Sep 2025)
+
+S4 REDUNDANT              expected REDUNDANT              hit  | states 8, contradicts 0, close 14, bears 3
+     position: setting the penalty or prior precision without tuning, by a principled rule, is published for continual learning
+     states      f1:29  Daxberger, Kristiadi, Immer, Eschenhagen, Bauer, Hennig, "Laplace Redux -- Effortles (v3, 14 Mar 2022)
+     states      f1:30  Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; IC (v3, 20 May 2018)
+     states      f1:31  Lee, Hong, Joo, Kim, "Continual Learning With Extended Kronecker-Factored Approximat (CVF open access, CVPR )
+     states      f2:28  Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; IC (v3, 20 May 2018)
+     states      f2:29  Lee, Hong, Joo, Kim, "Continual Learning with Extended Kronecker-factored Approximat (v1, 16 Apr 2020)
+     states      f3:6   Daxberger, Kristiadi, Immer, Eschenhagen, Bauer, Hennig, "Laplace Redux -- Effortles (v3, 14 Mar 2022)
+     states      f3:7   Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; IC (v3, 20 May 2018)
+     states      f3:8   Zhao, Wang, Huang, Lin, "A Statistical Theory of Regularization-Based Continual Lear (v1, 10 Jun 2024)
+     close       f1:32  Immer, Bauer, Fortuin, Rätsch, Khan, "Scalable Marginal Likelihood Estimation for Mo (v3, 15 Jun 2021)
+     close       f1:33  Loo, Swaroop, Turner, "Generalized Variational Continual Learning" (GVCL; arXiv:2011 (v1, 24 Nov 2020)
+     close       f1:34  Huszár, "On Quadratic Penalties in Elastic Weight Consolidation" (arXiv:1712.03847;  (v1, 11 Dec 2017)
+     close       f1:35  Zenke, Poole, Ganguli, "Continual Learning Through Synaptic Intelligence" (SI; arXiv (v3, 12 Jun 2017)
+     close       f2:25  Daxberger, Kristiadi, Immer, Eschenhagen, Bauer, Hennig, "Laplace Redux -- Effortles (v3, 14 Mar 2022)
+     close       f2:26  Immer, Bauer, Fortuin, Rätsch, Khan, "Scalable Marginal Likelihood Estimation for Mo (v3, 15 Jun 2021)
+     close       f2:27  Huszár, "On Quadratic Penalties in Elastic Weight Consolidation" (arXiv:1712.03847;  (v1, 11 Dec 2017)
+     close       f3:9   Huszár, "On Quadratic Penalties in Elastic Weight Consolidation" (arXiv:1712.03847;  (v1, 11 Dec 2017)
+     close       f3:10  Hua, Shen, Zhao, Hsu, Jin, "Hyperparameter-free Continuous Learning for Domain Class (v1, 5 Jan 2022)
+     close       f3:11  Li, Lu, Dai, Huang, Ding, Lu, "BECAME: BayEsian Continual Learning with Adaptive Mod (v2, 29 May 2025)
+     close       f3:12  Karpel, Moroshko, Levinstein, Meir, Soudry, Evron, "Optimal L2 Regularization in Hig (v2, 13 Apr 2026)
+     close       f3:14  Immer, Bauer, Fortuin, Rätsch, Khan, "Scalable Marginal Likelihood Estimation for Mo (v3, 15 Jun 2021)
+     close       f3:15  Lin, Antorán, Hernández-Lobato, "Online Laplace Model Selection Revisited" (arXiv:23 (v2, 9 Jan 2024)
+     close       f3:16  LUNCH: "Adaptive Balancing of Continual Learning via Hyperparameter Uncertainty" (Op (OpenReview record as r)
+     bears       f3:13  Levinstein, Attia, Schliserman, Sherman, Koren, Soudry, Evron, "Optimal Rates in Con (v2, 24 Oct 2025)
+     bears       f3:17  Zenke, Poole, Ganguli, "Continual Learning Through Synaptic Intelligence" (SI; arXiv (v3, 12 Jun 2017)
+     bears       f3:18  Loo, Swaroop, Turner, "Generalized Variational Continual Learning" (GVCL; arXiv:2011 (v1, 24 Nov 2020)
+
+S5 REDUNDANT              expected PARTLY REDUNDANT       MISS | states 4, contradicts 0, close 6, bears 1
+     position: clipping or bounding the penalty curvature by the step size (the stability edge) is published for regularisation-based continual learning
+     states      f1:36  Kutalev, Lapina, "Stabilizing Elastic Weight Consolidation method in practical ML ta (v3, 29 Oct 2021)
+     states      f2:30  Kutalev, Lapina, "Stabilizing Elastic Weight Consolidation method in practical ML ta (v3, 29 Oct 2021)
+     states      f3:0   Maltoni, Lomonaco, "Continuous Learning in Single-Incremental-Task Scenarios" (AR1;  (v3, 22 Jan 2019)
+     states      f3:1   Kutalev, Lapina, "Stabilizing Elastic Weight Consolidation method in practical ML ta (v3, 29 Oct 2021)
+     close       f1:37  Jones, Sprague, "Continual Learning Through Expandable Elastic Weight Consolidation" (PDF as served on 2026-)
+     close       f1:38  Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Cata (v1, 20 May 2018)
+     close       f1:39  Aguilar, Zainal, Kavehei, "Metaplasticity as adaptive gradient preconditioning for i (v1, 27 Jul 2026)
+     close       f3:2   Jones, Sprague, "Continual Learning Through Expandable Elastic Weight Consolidation" (PDF as served on 2026-)
+     close       f3:3   Lomonaco, Maltoni, Pellegrini, "Rehearsal-Free Continual Learning over Small Non-I.I (v3, 21 Apr 2020)
+     close       f3:4   Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Cata (v1, 20 May 2018)
+     bears       f3:5   Yin, Farajtabar, Li, Levine, Mott, "Optimization and Generalization of Regularizatio (v3, 8 Feb 2021)
+
+S6 PARTLY REDUNDANT       expected NOT FOUND IN THE SWEEP MISS | states 0, contradicts 0, close 6, bears 8
+     position: a tuning-free Laplace or EWC weight is reported to match a tuned lambda across many datasets
+     close       f1:40  Daxberger et al., "Laplace Redux -- Effortless Bayesian Deep Learning" (arXiv:2106.1 (v3, 14 Mar 2022)
+     close       f1:41  Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; IC (v3, 20 May 2018)
+     close       f1:42  Zheng et al., "Revisiting Weight Regularization for Low-Rank Continual Learning" (EW (v1, 19 Feb 2026)
+     close       f2:31  Zheng, Zhang, van de Weijer, van de Ven, Du, Zhang, Tian, "Revisiting Weight Regular (v1, 19 Feb 2026)
+     close       f3:19  Aljundi, Babiloni, Elhoseiny, Rohrbach, Tuytelaars, "Memory Aware Synapses: Learning (v4, 5 Oct 2018)
+     close       f3:20  Nguyen, Li, Bui, Turner, "Variational Continual Learning" (VCL; arXiv:1710.10628; IC (v3, 20 May 2018)
+     bears       f1:43  Kao et al., "Natural continual learning" (NCL; arXiv:2106.08085; NeurIPS 2021) (v2, 15 Dec 2021)
+     bears       f1:44  Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Cata (v1, 20 May 2018)
+     bears       f1:45  Cha, Cho, "Hyperparameters in Continual Learning: A Reality Check" (arXiv:2403.09066 (v5, 28 Oct 2025)
+     bears       f1:46  Lee, Hellan, Ericson, Crowley, Storkey, "Hyperparameter Selection in Continual Learn (v2, 14 Mar 2025)
+     bears       f3:21  Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Cata (v1, 20 May 2018)
+     bears       f3:22  Cha, Cho, "Hyperparameters in Continual Learning: A Reality Check" (arXiv:2403.09066 (v5, 28 Oct 2025)
+     bears       f3:23  Lee, Hellan, Ericsson, Crowley, Storkey, "Hyperparameter Selection in Continual Lear (v2, 14 Mar 2025)
+     bears       f3:24  van de Ven, "On the Computation of the Fisher Information in Continual Learning" (ar (v1, 17 Feb 2025)
+
+summary (position, grade, expected, hit/miss)
+  S1  MIXED                   REDUNDANT               MISS
+  S2  PARTLY REDUNDANT        PARTLY REDUNDANT        hit
+  S3  REDUNDANT               PARTLY REDUNDANT        MISS
+  S4  REDUNDANT               REDUNDANT               hit
+  S5  REDUNDANT               PARTLY REDUNDANT        MISS
+  S6  PARTLY REDUNDANT        NOT FOUND IN THE SWEEP  MISS
+hits 2 of 6; misses: S1, S3, S5, S6
+
+verdict rule (DECLARATION.md): KNOWN if (S2 or S3 REDUNDANT) and S4 REDUNDANT; else PARTLY KNOWN if any of S2-S5 is REDUNDANT or PARTLY REDUNDANT; else NOT FOUND IN THE SWEEP
+VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT)
+part by part: SEC's Fisher rescaling itself is S2 (PARTLY REDUNDANT); the stability clip is S5 (REDUNDANT); the tuning-free claim across many datasets is S6 (PARTLY REDUNDANT)
+not found is never read as novel

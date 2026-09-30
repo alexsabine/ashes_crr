@@ -1,0 +1,52 @@
+DR1 summary: the eight model checks and the data application (Grid_Demand_Response/DECLARATION.md, e67e8ee)
+Source of every row: the last 'RESULT <id>:' line of the pinned output named; forecasts parsed from DECLARATION.md.
+CHOICE: DATA's forecast is read from the declaration's 'Declared expectations' (ETM joins every event; revenue below
+  1 % in an ordinary season) as 'Q holds'; G8's interconnection expectation is not scored by dr_data.py.
+CHOICE: hit = the parsed Q word equals the forecast's Q word. 'own' = the check's own printed statement on its forecast
+  (right/wrong), shown as a cross-check; '-' where the check prints none.
+
+  check  Q               forecast  hit   own    G-ZERO  G-NEG   G-POS   file
+  --------------------------------------------------------------------------
+  H1     holds           Q holds   hit   right  holds   holds   holds   dr_h1.txt
+  H2     fails           Q holds   miss  wrong  holds   holds   -       dr_h2.txt
+  H3     holds           Q holds   hit   right  holds   holds   -       dr_h3.txt
+  H4     fails           Q holds   miss  wrong  holds   holds   -       dr_h4.txt
+  H5     holds           Q holds   hit   right  holds   holds   -       dr_h5.txt
+  H6     holds           Q holds   hit   right  holds   holds   -       dr_h6.txt
+  H7     holds           Q holds   hit   right  holds   holds   -       dr_h7.txt
+  H8     fails           Q holds   miss  wrong  holds   holds   -       dr_h8.txt
+  DATA   fails           Q holds   miss  -      holds   holds   -       dr_data.txt
+
+Forecasts as declared:
+  H1: Q holds
+  H2: Q holds (REDUNDANT in substance)
+  H3: Q holds
+  H4: Q holds
+  H5: Q holds (REDUNDANT: rebound is known)
+  H6: Q holds
+  H7: Q holds
+  H8: Q holds
+  DATA: declared expectations: ETM joins every event. | Its revenue is below 1 % of the fleet's compute cost in an ordinary season (G7). | The commercial value, if any, lies in interconnection (G8), not in event payments.
+
+cross-check: the computed hit/miss agrees with the check's own right/wrong statement in 8 of 8 checks that print one
+
+BATTERY GATE (rule: G-ZERO holds in all, G-POS holds in H1, G-NEG holds in all -> OPEN, else CLOSED)
+  over all 9 (H1-H8 and DATA): G-ZERO holds in 9 of 9; G-NEG holds in 9 of 9; G-POS in H1: holds -> OPEN
+  over the declaration's eight model checks alone: G-ZERO 8 of 8; G-NEG 8 of 8; G-POS in H1: holds -> OPEN
+
+COUNTS
+  model checks H1-H8: Q holds 5 of 8 ['H1', 'H3', 'H5', 'H6', 'H7']; fails 3 ['H2', 'H4', 'H8']; not computable 0
+  forecast hits H1-H8: 5 of 8; misses ['H2', 'H4', 'H8']
+  with DATA (9 rows): Q holds 5, fails 4; forecast hits 5 of 9
+  gate: OPEN (all nine), OPEN (the eight)
+
+RESULT lines as parsed:
+  RESULT H1: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1312 event counts in 32 cells; ETM x* = (R + S)/H at 27552 of 27552 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 3456 no-event comparisons); G-POS holds (expected events below ETM's: WALL in 112, OWN in 56 of 288 cell x pi; OWN's largest shortfall 11.451256 events)
+  RESULT H2: Q fails; G-ZERO holds (max |ETM stake - R| = 0.000000 over 328 event counts, x* == R/H at 6888 of 6888 offer states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 288 outcome comparisons)
+  RESULT H3: Q holds; G-ZERO holds (max |ETM stake - R| = 0.000000 over 12300 (job, event count) pairs, x* == R/H at 258300 of 258300 offer states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 10854 outcome comparisons)
+  RESULT H4: Q fails; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 57400 event counts in 1400 cells; ETM x* = (R + S)/H at 1205400 of 1205400 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 16560 no-event comparisons)
+  RESULT H5: Q holds; G-ZERO holds (max |ETM stake - rate R| = 0 over 194832 (job, H, stagger d, event count) cases; ETM x* = R/(H + d) at 116235 of 116235 offer states; ETM's stagger cost 0 in every row: yes); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 3612 no-event comparisons)
+  RESULT H6: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1722 event counts in 42 jobs; ETM x* = (R + S)/H at 36162 of 36162 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 612 no-event comparisons)
+  RESULT H7: Q holds; G-ZERO holds (max |ETM stake - R| = 0.000000 over 328 event counts, x* == R/H at 6888 of 6888 offer states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 288 outcome comparisons)
+  RESULT H8: Q fails; G-ZERO holds (max |ETM stake - rate (R + S)| = 0.000000 over 12300 (job, event count) pairs in 3 cells; ETM x* = (R + S)/H at 258300 of 258300 offer states); G-NEG holds (no events: ETM ahead of WALL by more than 1 % in 0 of 81405 comparisons; battery H1-H8 per pinned RESULT lines: 8 of 8 hold)
+  RESULT DATA: Q fails; G-ZERO holds (max |ETM stake - R| = 0.000000 over 29800 (job, event) states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 1224 outcome comparisons)

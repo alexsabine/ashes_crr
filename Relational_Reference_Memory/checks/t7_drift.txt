@@ -1,0 +1,43 @@
+RRM2 T7 drift-rich regime (DECLARATION_3.md, POST HOC, report only); E epochs per task in {3, 15, 30}; seeds 0-4
+  [POS E 3]
+     FT    relative drift 0.0113; drift explained RRM -0.0370, HOPDC -0.2343
+     ANCH1 relative drift 0.0147; drift explained RRM +0.0137, HOPDC -0.2973
+     ER20  relative drift 0.0180; drift explained RRM +0.0909, HOPDC -0.1209
+     NCM (ANCH1) ORACLE  85.22  STALE  85.35  RRM  85.15  HOPDC  85.22
+     learners    STALE-1  81.87  RRM-1  82.34  HOPDC-1  82.21  ER-20  79.93
+  [POS E 15]
+     FT    relative drift 0.0172; drift explained RRM -0.0479, HOPDC -0.2735
+     ANCH1 relative drift 0.0237; drift explained RRM +0.0445, HOPDC -0.2554
+     ER20  relative drift 0.0346; drift explained RRM +0.1247, HOPDC -0.0743
+     NCM (ANCH1) ORACLE  85.28  STALE  85.82  RRM  85.02  HOPDC  85.02
+     learners    STALE-1  81.67  RRM-1  82.07  HOPDC-1  82.01  ER-20  81.07
+  [POS E 30]
+     FT    relative drift 0.0208; drift explained RRM -0.0322, HOPDC -0.2498
+     ANCH1 relative drift 0.0283; drift explained RRM +0.0420, HOPDC -0.2533
+     ER20  relative drift 0.0425; drift explained RRM +0.1230, HOPDC -0.0874
+     NCM (ANCH1) ORACLE  85.62  STALE  86.09  RRM  85.42  HOPDC  85.28
+     learners    STALE-1  80.74  RRM-1  81.61  HOPDC-1  81.40  ER-20  80.47
+  [NEG2 E 3]
+     FT    relative drift 0.0243; drift explained RRM +0.1374, HOPDC +0.0701
+     ANCH1 relative drift 0.0205; drift explained RRM -0.2043, HOPDC -0.3315
+     ER20  relative drift 0.0276; drift explained RRM -0.0159, HOPDC -0.1075
+     NCM (ANCH1) ORACLE  28.36  STALE  28.56  RRM  28.83  HOPDC  28.43
+     learners    STALE-1  33.51  RRM-1  33.98  HOPDC-1  33.85  ER-20  32.04
+  [NEG2 E 15]
+     FT    relative drift 0.0350; drift explained RRM -0.0111, HOPDC -0.0852
+     ANCH1 relative drift 0.0354; drift explained RRM -0.1555, HOPDC -0.2743
+     ER20  relative drift 0.0580; drift explained RRM +0.0274, HOPDC -0.0621
+     NCM (ANCH1) ORACLE  33.18  STALE  31.97  RRM  32.98  HOPDC  32.98
+     learners    STALE-1  42.47  RRM-1  45.55  HOPDC-1  45.22  ER-20  43.75
+  [NEG2 E 30]
+     FT    relative drift 0.0397; drift explained RRM -0.0281, HOPDC -0.1064
+     ANCH1 relative drift 0.0419; drift explained RRM -0.1402, HOPDC -0.2627
+     ER20  relative drift 0.0704; drift explained RRM +0.0695, HOPDC -0.0341
+     NCM (ANCH1) ORACLE  35.45  STALE  33.98  RRM  35.45  HOPDC  35.05
+     learners    STALE-1  43.88  RRM-1  47.96  HOPDC-1  47.89  ER-20  43.55
+
+forecasts (DECLARATION_3.md), scored:
+F1 relative drift rises with E on POS (FT learner): 0.0113 0.0172 0.0208 -> held (SEEN half in t7_seen.txt)
+F2 RRM explains more drift than HOPDC in every cell (POS, NEG2; 3 learners; 3 E) -> held
+F3 RRM-1 - STALE-1 on POS by E: +0.4682 +0.4013 +0.8696; rises and |E15| <= step 1.9547 -> not held
+F4 NCM-RRM - NCM-STALE on POS at E 30 -0.6689 (step 1.0000) -> not held

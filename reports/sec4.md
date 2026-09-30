@@ -99,3 +99,17 @@ first PASS-1. It is not a CRR rule.**
   verdict comes from the carriers, not the arithmetic.
 - **Where the verdicts come from.** The divergences the clip removed are seeds of the frozen learner on real data, and the
   rerun reproduced byte for byte.
+
+## Addendum (2026-09-30): prior art for the method (SPA1; appended, nothing above changed)
+
+A full prior-art sweep of SEC4's method was run after this report (`SEC_Prior_Art/SPA1.md`, `SEC_Prior_Art/checks/grade.txt`).
+The declared verdict is **KNOWN**.
+- **The stability clip is published.** AR1 (Maltoni & Lomonaco, arXiv 1806.08568 v3) clips the Fisher so that η·λ·F ≤ 1.
+- **A path-fitted curvature used as the continual-learning penalty is published:** Synaptic Intelligence (arXiv
+  1703.04200 v3).
+- **Tuning-free principled weights are published:** VCL; Laplace Redux.
+- **Not found:** SEC's specific step, rescaling the Fisher's units by one secant scalar per task at the Laplace weight.
+  The nearest source is RWalk (arXiv 1801.10112 v3), which takes the same ratio and discards its scale.
+
+SEC4-1's PASS-1 is unchanged as scored. It is a pass for a combination of known parts plus that one step, not for a new
+method. It did not replicate in SEC5.

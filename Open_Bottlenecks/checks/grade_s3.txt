@@ -1,0 +1,20 @@
+OB1 stage 3: targeted prior art per candidate (DECLARATION.md stage 3; CRR_READING.md)
+rule: REDUNDANT if states; else PARTLY REDUNDANT if close; else NOT FOUND IN THE SWEEP; not found is never novel
+
+C1 arc-clocked optimiser moments (stability gap, h1-B6)
+   claims 27, sources 24: states 0, close 19, bears 8, contradicts 0 -> PARTLY REDUNDANT
+   missing (investigator): the index is the learner's own step (probe-set KL, the arc) and the object is the optimiser moments in the stability-gap setting; published: KL-gated decay of BatchNorm statistics (MECTA), gradient-norm-gated beta2 (Kourkoutas-beta), velocity-gated momentum (iKFAD), alignment-triggered restarts; the part CRR predicts: yes
+   goes on to a stage-4 declaration: yes
+
+C2 arc-triggered refresh (plasticity under switches, h3-B1)
+   claims 25, sources 25: states 0, close 13, bears 12, contradicts 0 -> PARTLY REDUNDANT
+   missing (investigator): accumulation of own change to a unit since the last refresh, for plasticity under task switches; published: resets on a spike of own predictive KL against a running average (RDumb++), on per-step label flips (ABR), on accumulated reward-prediction error (SeRe); the part CRR predicts: yes
+   goes on to a stage-4 declaration: yes
+
+C3 arc-triggered consolidation (boundary-free streams, h4-B1, h1-B1)
+   claims 25, sources 24: states 0, close 18, bears 7, contradicts 0 -> PARTLY REDUNDANT
+   missing (investigator): the own accumulated change (the arc, since the last consolidation) as the consolidation trigger; published: the same trigger for communication (Kamp et al.; event-triggered FL), loss-plateau-triggered consolidation (Aljundi et al. 2019; Online-LoRA), and TIDE's expansion on a significant Fisher-weighted displacement from a past task's optimum (the chord; added 2026-09-30 from the owner-supplied full text, AGENT_LOG 206); the part CRR predicts: yes
+   goes on to a stage-4 declaration: yes
+
+candidates going on: c1, c2, c3
+caution: in each case the missing part is a choice of signal within a published family; a gate must include the published signals as baselines

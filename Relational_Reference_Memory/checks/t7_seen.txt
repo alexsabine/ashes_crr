@@ -1,0 +1,456 @@
+RRM2 T7 on the 30 SEEN carriers (DECLARATION_3.md, POST HOC, report only); E in {3, 15, 30}; seeds 0-4; diagnostics only
+  [cnae-9 E 3]
+     FT    relative drift 0.0378; drift explained RRM +0.1597, HOPDC -0.0793
+     ANCH1 relative drift 0.0598; drift explained RRM -0.4016, HOPDC -0.7130
+     ER20  relative drift 0.0958; drift explained RRM +0.3174, HOPDC +0.2466
+     NCM (ANCH1) ORACLE  79.90  STALE  80.62  RRM  76.35  HOPDC  76.88
+  [cnae-9 E 15]
+     FT    relative drift 0.0430; drift explained RRM +0.0776, HOPDC -0.1696
+     ANCH1 relative drift 0.0681; drift explained RRM -0.3953, HOPDC -0.7240
+     ER20  relative drift 0.1059; drift explained RRM +0.3195, HOPDC +0.2358
+     NCM (ANCH1) ORACLE  87.50  STALE  88.23  RRM  85.94  HOPDC  86.15
+  [cnae-9 E 30]
+     FT    relative drift 0.0461; drift explained RRM +0.0474, HOPDC -0.1630
+     ANCH1 relative drift 0.0709; drift explained RRM -0.4034, HOPDC -0.7249
+     ER20  relative drift 0.1100; drift explained RRM +0.3159, HOPDC +0.2370
+     NCM (ANCH1) ORACLE  88.85  STALE  88.85  RRM  87.50  HOPDC  87.50
+  [eucalyptus E 3]
+     FT    relative drift 0.0170; drift explained RRM +0.4542, HOPDC +0.0055
+     ANCH1 relative drift 0.0158; drift explained RRM +0.1828, HOPDC -0.4412
+     ER20  relative drift 0.0153; drift explained RRM +0.3826, HOPDC -0.2625
+     NCM (ANCH1) ORACLE  70.28  STALE  70.64  RRM  70.28  HOPDC  70.09
+  [eucalyptus E 15]
+     FT    relative drift 0.0410; drift explained RRM +0.4115, HOPDC -0.0497
+     ANCH1 relative drift 0.0347; drift explained RRM +0.1205, HOPDC -0.3971
+     ER20  relative drift 0.0366; drift explained RRM +0.3388, HOPDC -0.2235
+     NCM (ANCH1) ORACLE  71.56  STALE  71.38  RRM  71.38  HOPDC  71.38
+  [eucalyptus E 30]
+     FT    relative drift 0.0579; drift explained RRM +0.4216, HOPDC -0.0330
+     ANCH1 relative drift 0.0498; drift explained RRM +0.1518, HOPDC -0.3195
+     ER20  relative drift 0.0539; drift explained RRM +0.3719, HOPDC -0.1519
+     NCM (ANCH1) ORACLE  71.74  STALE  71.93  RRM  71.74  HOPDC  71.56
+  [first-order-theorem-proving E 3]
+     FT    relative drift 0.1400; drift explained RRM +0.6191, HOPDC +0.1480
+     ANCH1 relative drift 0.0846; drift explained RRM +0.2683, HOPDC -0.2182
+     ER20  relative drift 0.0911; drift explained RRM +0.4488, HOPDC -0.1659
+     NCM (ANCH1) ORACLE  29.05  STALE  29.09  RRM  29.25  HOPDC  28.97
+  [first-order-theorem-proving E 15]
+     FT    relative drift 0.2617; drift explained RRM +0.5413, HOPDC +0.0369
+     ANCH1 relative drift 0.1535; drift explained RRM +0.2976, HOPDC -0.2913
+     ER20  relative drift 0.1637; drift explained RRM +0.4005, HOPDC -0.3326
+     NCM (ANCH1) ORACLE  31.05  STALE  30.51  RRM  30.47  HOPDC  28.67
+  [first-order-theorem-proving E 30]
+     FT    relative drift 0.3164; drift explained RRM +0.5031, HOPDC +0.0259
+     ANCH1 relative drift 0.1876; drift explained RRM +0.2927, HOPDC -0.2546
+     ER20  relative drift 0.1966; drift explained RRM +0.3782, HOPDC -0.3159
+     NCM (ANCH1) ORACLE  33.11  STALE  31.35  RRM  31.07  HOPDC  28.91
+  [GesturePhaseSegmentationProcessed E 3]
+     FT    relative drift 0.1153; drift explained RRM +0.6332, HOPDC +0.2099
+     ANCH1 relative drift 0.0852; drift explained RRM -0.0259, HOPDC -0.5675
+     ER20  relative drift 0.0941; drift explained RRM +0.4699, HOPDC -0.0929
+     NCM (ANCH1) ORACLE  49.95  STALE  50.05  RRM  50.27  HOPDC  49.69
+  [GesturePhaseSegmentationProcessed E 15]
+     FT    relative drift 0.2254; drift explained RRM +0.5576, HOPDC +0.0326
+     ANCH1 relative drift 0.1724; drift explained RRM +0.1125, HOPDC -0.5067
+     ER20  relative drift 0.1856; drift explained RRM +0.4452, HOPDC -0.1580
+     NCM (ANCH1) ORACLE  50.53  STALE  50.67  RRM  50.37  HOPDC  49.53
+  [GesturePhaseSegmentationProcessed E 30]
+     FT    relative drift 0.2793; drift explained RRM +0.5221, HOPDC -0.1113
+     ANCH1 relative drift 0.2120; drift explained RRM +0.2094, HOPDC -0.4661
+     ER20  relative drift 0.2241; drift explained RRM +0.4172, HOPDC -0.2072
+     NCM (ANCH1) ORACLE  50.31  STALE  50.39  RRM  50.11  HOPDC  48.61
+  [har E 3]
+     FT    relative drift 0.8747; drift explained RRM +0.6124, HOPDC +0.4337
+     ANCH1 relative drift 0.5231; drift explained RRM +0.4778, HOPDC +0.3511
+     ER20  relative drift 0.5053; drift explained RRM +0.5684, HOPDC +0.4249
+     NCM (ANCH1) ORACLE  86.07  STALE  72.13  RRM  75.08  HOPDC  74.35
+  [har E 15]
+     FT    relative drift 0.8223; drift explained RRM +0.5814, HOPDC +0.4241
+     ANCH1 relative drift 0.5010; drift explained RRM +0.4609, HOPDC +0.3453
+     ER20  relative drift 0.4674; drift explained RRM +0.5804, HOPDC +0.4438
+     NCM (ANCH1) ORACLE  87.07  STALE  73.53  RRM  76.38  HOPDC  75.20
+  [har E 30]
+     FT    relative drift 0.8286; drift explained RRM +0.6053, HOPDC +0.4363
+     ANCH1 relative drift 0.5085; drift explained RRM +0.4516, HOPDC +0.3419
+     ER20  relative drift 0.4733; drift explained RRM +0.5737, HOPDC +0.4360
+     NCM (ANCH1) ORACLE  87.11  STALE  73.63  RRM  76.34  HOPDC  75.10
+  [isolet E 3]
+     FT    relative drift 0.3236; drift explained RRM +0.3301, HOPDC +0.1627
+     ANCH1 relative drift 0.2280; drift explained RRM +0.2137, HOPDC +0.0771
+     ER20  relative drift 0.2158; drift explained RRM +0.2775, HOPDC +0.0670
+     NCM (ANCH1) ORACLE  91.63  STALE  90.80  RRM  91.57  HOPDC  90.53
+  [isolet E 15]
+     FT    relative drift 0.3397; drift explained RRM +0.3336, HOPDC +0.1237
+     ANCH1 relative drift 0.2476; drift explained RRM +0.2104, HOPDC +0.0768
+     ER20  relative drift 0.2346; drift explained RRM +0.2907, HOPDC +0.0827
+     NCM (ANCH1) ORACLE  92.30  STALE  91.17  RRM  92.27  HOPDC  90.93
+  [isolet E 30]
+     FT    relative drift 0.3493; drift explained RRM +0.3384, HOPDC +0.1716
+     ANCH1 relative drift 0.2568; drift explained RRM +0.2124, HOPDC +0.0855
+     ER20  relative drift 0.2443; drift explained RRM +0.2986, HOPDC +0.1016
+     NCM (ANCH1) ORACLE  92.67  STALE  91.37  RRM  92.13  HOPDC  91.00
+  [MiceProtein E 3]
+     FT    relative drift 0.0707; drift explained RRM +0.2722, HOPDC -0.0488
+     ANCH1 relative drift 0.0599; drift explained RRM +0.2352, HOPDC -0.0685
+     ER20  relative drift 0.0610; drift explained RRM +0.2470, HOPDC -0.1038
+     NCM (ANCH1) ORACLE  81.09  STALE  80.18  RRM  81.27  HOPDC  81.27
+  [MiceProtein E 15]
+     FT    relative drift 0.0864; drift explained RRM +0.2734, HOPDC -0.0485
+     ANCH1 relative drift 0.0795; drift explained RRM +0.2351, HOPDC -0.0651
+     ER20  relative drift 0.0862; drift explained RRM +0.2444, HOPDC -0.0841
+     NCM (ANCH1) ORACLE  82.18  STALE  82.36  RRM  82.73  HOPDC  82.55
+  [MiceProtein E 30]
+     FT    relative drift 0.0918; drift explained RRM +0.2651, HOPDC -0.0559
+     ANCH1 relative drift 0.0879; drift explained RRM +0.2364, HOPDC -0.0681
+     ER20  relative drift 0.0970; drift explained RRM +0.2505, HOPDC -0.0771
+     NCM (ANCH1) ORACLE  82.73  STALE  82.55  RRM  83.09  HOPDC  83.82
+  [semeion E 3]
+     FT    relative drift 0.1169; drift explained RRM +0.1654, HOPDC -0.1342
+     ANCH1 relative drift 0.1032; drift explained RRM +0.1260, HOPDC -0.1648
+     ER20  relative drift 0.1249; drift explained RRM +0.2436, HOPDC +0.0273
+     NCM (ANCH1) ORACLE  79.69  STALE  79.44  RRM  79.62  HOPDC  79.00
+  [semeion E 15]
+     FT    relative drift 0.1356; drift explained RRM +0.1685, HOPDC -0.1363
+     ANCH1 relative drift 0.1266; drift explained RRM +0.1472, HOPDC -0.1396
+     ER20  relative drift 0.1543; drift explained RRM +0.2511, HOPDC +0.0429
+     NCM (ANCH1) ORACLE  81.00  STALE  80.31  RRM  80.94  HOPDC  79.50
+  [semeion E 30]
+     FT    relative drift 0.1406; drift explained RRM +0.1787, HOPDC -0.1440
+     ANCH1 relative drift 0.1335; drift explained RRM +0.1544, HOPDC -0.1347
+     ER20  relative drift 0.1639; drift explained RRM +0.2596, HOPDC +0.0366
+     NCM (ANCH1) ORACLE  80.94  STALE  81.00  RRM  80.88  HOPDC  79.62
+  [steel-plates-fault E 3]
+     FT    relative drift 0.0334; drift explained RRM +0.3077, HOPDC -0.0138
+     ANCH1 relative drift 0.0367; drift explained RRM +0.1168, HOPDC -0.2467
+     ER20  relative drift 0.0356; drift explained RRM +0.1878, HOPDC -0.2002
+     NCM (ANCH1) ORACLE  58.73  STALE  58.89  RRM  58.73  HOPDC  58.73
+  [steel-plates-fault E 15]
+     FT    relative drift 0.0536; drift explained RRM +0.2686, HOPDC -0.0591
+     ANCH1 relative drift 0.0777; drift explained RRM +0.1299, HOPDC -0.2067
+     ER20  relative drift 0.0797; drift explained RRM +0.2008, HOPDC -0.2022
+     NCM (ANCH1) ORACLE  58.99  STALE  59.26  RRM  58.78  HOPDC  58.94
+  [steel-plates-fault E 30]
+     FT    relative drift 0.0653; drift explained RRM +0.2401, HOPDC -0.0442
+     ANCH1 relative drift 0.0984; drift explained RRM +0.1421, HOPDC -0.1951
+     ER20  relative drift 0.1010; drift explained RRM +0.1868, HOPDC -0.1843
+     NCM (ANCH1) ORACLE  59.47  STALE  59.36  RRM  59.31  HOPDC  59.05
+  [wall-robot-navigation E 3]
+     FT    relative drift 0.0258; drift explained RRM +0.5081, HOPDC -0.2250
+     ANCH1 relative drift 0.0297; drift explained RRM -0.2709, HOPDC -0.9749
+     ER20  relative drift 0.0314; drift explained RRM +0.2027, HOPDC -0.6257
+     NCM (ANCH1) ORACLE  59.24  STALE  59.32  RRM  59.26  HOPDC  59.12
+  [wall-robot-navigation E 15]
+     FT    relative drift 0.0393; drift explained RRM +0.4828, HOPDC -0.1266
+     ANCH1 relative drift 0.0531; drift explained RRM -0.1979, HOPDC -0.7592
+     ER20  relative drift 0.0563; drift explained RRM +0.2230, HOPDC -0.4763
+     NCM (ANCH1) ORACLE  61.34  STALE  61.00  RRM  60.96  HOPDC  60.82
+  [wall-robot-navigation E 30]
+     FT    relative drift 0.0449; drift explained RRM +0.4786, HOPDC -0.1415
+     ANCH1 relative drift 0.0639; drift explained RRM -0.1213, HOPDC -0.7060
+     ER20  relative drift 0.0658; drift explained RRM +0.2376, HOPDC -0.4510
+     NCM (ANCH1) ORACLE  62.04  STALE  61.62  RRM  61.58  HOPDC  61.34
+  [covertype E 3]
+     FT    relative drift 0.0463; drift explained RRM +0.1586, HOPDC +0.1403
+     ANCH1 relative drift 0.0377; drift explained RRM -0.1171, HOPDC -0.2205
+     ER20  relative drift 0.0382; drift explained RRM +0.0895, HOPDC +0.0194
+     NCM (ANCH1) ORACLE  56.94  STALE  56.86  RRM  56.76  HOPDC  56.70
+  [covertype E 15]
+     FT    relative drift 0.0758; drift explained RRM +0.1350, HOPDC +0.0978
+     ANCH1 relative drift 0.0675; drift explained RRM -0.1601, HOPDC -0.3276
+     ER20  relative drift 0.0794; drift explained RRM -0.0051, HOPDC -0.0585
+     NCM (ANCH1) ORACLE  59.10  STALE  59.04  RRM  58.50  HOPDC  58.08
+  [covertype E 30]
+     FT    relative drift 0.0881; drift explained RRM +0.1386, HOPDC +0.0744
+     ANCH1 relative drift 0.0801; drift explained RRM -0.1553, HOPDC -0.3258
+     ER20  relative drift 0.1068; drift explained RRM +0.0036, HOPDC -0.0635
+     NCM (ANCH1) ORACLE  58.80  STALE  58.90  RRM  57.82  HOPDC  57.48
+  [dionis E 3]
+     FT    relative drift 0.0722; drift explained RRM +0.2162, HOPDC +0.1169
+     ANCH1 relative drift 0.0606; drift explained RRM +0.2049, HOPDC +0.0339
+     ER20  relative drift 0.0765; drift explained RRM +0.2388, HOPDC +0.1174
+     NCM (ANCH1) ORACLE  95.34  STALE  95.44  RRM  95.30  HOPDC  95.32
+  [dionis E 15]
+     FT    relative drift 0.0953; drift explained RRM +0.2083, HOPDC +0.1003
+     ANCH1 relative drift 0.0850; drift explained RRM +0.2227, HOPDC +0.0741
+     ER20  relative drift 0.1082; drift explained RRM +0.2414, HOPDC +0.1209
+     NCM (ANCH1) ORACLE  95.62  STALE  95.70  RRM  95.58  HOPDC  95.58
+  [dionis E 30]
+     FT    relative drift 0.1076; drift explained RRM +0.2063, HOPDC +0.0966
+     ANCH1 relative drift 0.0971; drift explained RRM +0.2305, HOPDC +0.0884
+     ER20  relative drift 0.1239; drift explained RRM +0.2452, HOPDC +0.1234
+     NCM (ANCH1) ORACLE  95.66  STALE  95.76  RRM  95.62  HOPDC  95.54
+  [fabert E 3]
+     FT    relative drift 0.0474; drift explained RRM -0.7801, HOPDC -1.2626
+     ANCH1 relative drift 0.0309; drift explained RRM -6.7221, HOPDC -8.5929
+     ER20  relative drift 0.0344; drift explained RRM -0.8276, HOPDC -1.2417
+     NCM (ANCH1) ORACLE  52.59  STALE  52.49  RRM  39.70  HOPDC  37.28
+  [fabert E 15]
+     FT    relative drift 0.0570; drift explained RRM -0.6437, HOPDC -1.0831
+     ANCH1 relative drift 0.0413; drift explained RRM -5.5587, HOPDC -7.1437
+     ER20  relative drift 0.0438; drift explained RRM -0.7251, HOPDC -1.1478
+     NCM (ANCH1) ORACLE  53.63  STALE  53.27  RRM  39.00  HOPDC  36.86
+  [fabert E 30]
+     FT    relative drift 0.0594; drift explained RRM -0.6287, HOPDC -1.0443
+     ANCH1 relative drift 0.0452; drift explained RRM -5.2796, HOPDC -6.8329
+     ER20  relative drift 0.0473; drift explained RRM -0.7092, HOPDC -1.0926
+     NCM (ANCH1) ORACLE  53.29  STALE  53.37  RRM  38.92  HOPDC  36.34
+  [helena E 3]
+     FT    relative drift 0.0766; drift explained RRM +0.5422, HOPDC +0.2850
+     ANCH1 relative drift 0.0672; drift explained RRM +0.3717, HOPDC +0.1651
+     ER20  relative drift 0.0834; drift explained RRM +0.4422, HOPDC +0.1243
+     NCM (ANCH1) ORACLE  56.78  STALE  56.50  RRM  56.74  HOPDC  56.82
+  [helena E 15]
+     FT    relative drift 0.1683; drift explained RRM +0.4894, HOPDC +0.2055
+     ANCH1 relative drift 0.1194; drift explained RRM +0.3528, HOPDC +0.1239
+     ER20  relative drift 0.1659; drift explained RRM +0.4159, HOPDC +0.1076
+     NCM (ANCH1) ORACLE  56.98  STALE  56.50  RRM  56.54  HOPDC  56.18
+  [helena E 30]
+     FT    relative drift 0.2133; drift explained RRM +0.4648, HOPDC +0.1519
+     ANCH1 relative drift 0.1504; drift explained RRM +0.3522, HOPDC +0.1032
+     ER20  relative drift 0.2098; drift explained RRM +0.4052, HOPDC +0.1001
+     NCM (ANCH1) ORACLE  56.92  STALE  55.54  RRM  56.30  HOPDC  56.04
+  [jannis E 3]
+     FT    relative drift 0.0304; drift explained RRM +0.2297, HOPDC -0.4035
+     ANCH1 relative drift 0.0375; drift explained RRM -1.3627, HOPDC -2.0416
+     ER20  relative drift 0.0408; drift explained RRM +0.1166, HOPDC -0.5922
+     NCM (ANCH1) ORACLE  50.96  STALE  50.94  RRM  49.80  HOPDC  49.24
+  [jannis E 15]
+     FT    relative drift 0.0692; drift explained RRM +0.1032, HOPDC -0.5456
+     ANCH1 relative drift 0.0698; drift explained RRM -0.7955, HOPDC -1.5385
+     ER20  relative drift 0.0747; drift explained RRM +0.0467, HOPDC -0.6075
+     NCM (ANCH1) ORACLE  52.34  STALE  52.28  RRM  50.12  HOPDC  48.62
+  [jannis E 30]
+     FT    relative drift 0.0792; drift explained RRM +0.1492, HOPDC -0.4586
+     ANCH1 relative drift 0.0751; drift explained RRM -0.4834, HOPDC -1.1885
+     ER20  relative drift 0.0805; drift explained RRM +0.0498, HOPDC -0.5749
+     NCM (ANCH1) ORACLE  52.84  STALE  52.42  RRM  50.86  HOPDC  49.60
+  [volkert E 3]
+     FT    relative drift 0.3360; drift explained RRM +0.5543, HOPDC +0.1139
+     ANCH1 relative drift 0.2116; drift explained RRM +0.3734, HOPDC -0.0100
+     ER20  relative drift 0.2000; drift explained RRM +0.4675, HOPDC -0.0900
+     NCM (ANCH1) ORACLE  42.26  STALE  40.24  RRM  40.48  HOPDC  37.20
+  [volkert E 15]
+     FT    relative drift 0.4262; drift explained RRM +0.5410, HOPDC +0.0883
+     ANCH1 relative drift 0.2869; drift explained RRM +0.3897, HOPDC +0.0315
+     ER20  relative drift 0.2580; drift explained RRM +0.4646, HOPDC -0.0207
+     NCM (ANCH1) ORACLE  42.76  STALE  38.88  RRM  39.76  HOPDC  35.36
+  [volkert E 30]
+     FT    relative drift 0.4233; drift explained RRM +0.5323, HOPDC +0.0798
+     ANCH1 relative drift 0.3008; drift explained RRM +0.3813, HOPDC +0.0234
+     ER20  relative drift 0.2725; drift explained RRM +0.4411, HOPDC -0.0540
+     NCM (ANCH1) ORACLE  42.78  STALE  38.34  RRM  39.58  HOPDC  34.96
+  [anneal E 3]
+     FT    relative drift 0.0127; drift explained RRM +0.3688, HOPDC -0.0970
+     ANCH1 relative drift 0.0115; drift explained RRM +0.2339, HOPDC -0.1579
+     ER20  relative drift 0.0129; drift explained RRM +0.4201, HOPDC -0.0287
+     NCM (ANCH1) ORACLE  81.24  STALE  81.12  RRM  81.12  HOPDC  81.12
+  [anneal E 15]
+     FT    relative drift 0.0168; drift explained RRM +0.3631, HOPDC -0.1205
+     ANCH1 relative drift 0.0186; drift explained RRM +0.1668, HOPDC -0.1466
+     ER20  relative drift 0.0215; drift explained RRM +0.4474, HOPDC +0.0474
+     NCM (ANCH1) ORACLE  81.57  STALE  81.57  RRM  81.57  HOPDC  81.80
+  [anneal E 30]
+     FT    relative drift 0.0195; drift explained RRM +0.3590, HOPDC -0.1475
+     ANCH1 relative drift 0.0218; drift explained RRM +0.1452, HOPDC -0.1599
+     ER20  relative drift 0.0260; drift explained RRM +0.4495, HOPDC +0.0552
+     NCM (ANCH1) ORACLE  82.13  STALE  82.13  RRM  82.13  HOPDC  82.13
+  [artificial-characters E 3]
+     FT    relative drift 0.0464; drift explained RRM +0.6610, HOPDC +0.0007
+     ANCH1 relative drift 0.0357; drift explained RRM +0.5000, HOPDC -0.1909
+     ER20  relative drift 0.0421; drift explained RRM +0.5396, HOPDC -0.2049
+     NCM (ANCH1) ORACLE  35.00  STALE  34.87  RRM  34.99  HOPDC  35.30
+  [artificial-characters E 15]
+     FT    relative drift 0.1206; drift explained RRM +0.6851, HOPDC +0.0257
+     ANCH1 relative drift 0.0703; drift explained RRM +0.5323, HOPDC -0.1669
+     ER20  relative drift 0.0987; drift explained RRM +0.5761, HOPDC -0.1394
+     NCM (ANCH1) ORACLE  35.96  STALE  35.66  RRM  36.06  HOPDC  36.28
+  [artificial-characters E 30]
+     FT    relative drift 0.1731; drift explained RRM +0.6925, HOPDC +0.0525
+     ANCH1 relative drift 0.0930; drift explained RRM +0.5567, HOPDC -0.1186
+     ER20  relative drift 0.1309; drift explained RRM +0.5947, HOPDC -0.1032
+     NCM (ANCH1) ORACLE  36.28  STALE  36.08  RRM  36.40  HOPDC  36.28
+  [cardiotocography E 3]
+     FT    relative drift 0.0204; drift explained RRM +0.1333, HOPDC +0.0427
+     ANCH1 relative drift 0.0191; drift explained RRM +0.2271, HOPDC +0.1282
+     ER20  relative drift 0.0188; drift explained RRM +0.1612, HOPDC +0.0681
+     NCM (ANCH1) ORACLE  99.53  STALE  99.53  RRM  99.53  HOPDC  99.53
+  [cardiotocography E 15]
+     FT    relative drift 0.0211; drift explained RRM +0.1347, HOPDC +0.0380
+     ANCH1 relative drift 0.0228; drift explained RRM +0.2499, HOPDC +0.1489
+     ER20  relative drift 0.0228; drift explained RRM +0.1830, HOPDC +0.0950
+     NCM (ANCH1) ORACLE  99.58  STALE  99.53  RRM  99.58  HOPDC  99.58
+  [cardiotocography E 30]
+     FT    relative drift 0.0214; drift explained RRM +0.1313, HOPDC +0.0437
+     ANCH1 relative drift 0.0241; drift explained RRM +0.2485, HOPDC +0.1516
+     ER20  relative drift 0.0245; drift explained RRM +0.1972, HOPDC +0.1160
+     NCM (ANCH1) ORACLE  99.58  STALE  99.53  RRM  99.58  HOPDC  99.58
+  [gas-drift E 3]
+     FT    relative drift 0.3284; drift explained RRM +0.6240, HOPDC -0.3919
+     ANCH1 relative drift 0.2389; drift explained RRM +0.5878, HOPDC -0.3149
+     ER20  relative drift 0.2399; drift explained RRM +0.6103, HOPDC -0.3150
+     NCM (ANCH1) ORACLE  67.83  STALE  67.95  RRM  67.93  HOPDC  65.89
+  [gas-drift E 15]
+     FT    relative drift 0.3906; drift explained RRM +0.5898, HOPDC -0.0845
+     ANCH1 relative drift 0.3049; drift explained RRM +0.5839, HOPDC +0.0163
+     ER20  relative drift 0.3133; drift explained RRM +0.6003, HOPDC +0.0473
+     NCM (ANCH1) ORACLE  70.15  STALE  70.93  RRM  70.17  HOPDC  68.47
+  [gas-drift E 30]
+     FT    relative drift 0.4079; drift explained RRM +0.5858, HOPDC -0.0029
+     ANCH1 relative drift 0.3416; drift explained RRM +0.5979, HOPDC +0.1117
+     ER20  relative drift 0.3535; drift explained RRM +0.6043, HOPDC +0.0912
+     NCM (ANCH1) ORACLE  70.21  STALE  72.11  RRM  70.11  HOPDC  69.03
+  [JapaneseVowels E 3]
+     FT    relative drift 0.0234; drift explained RRM +0.2454, HOPDC -0.1247
+     ANCH1 relative drift 0.0255; drift explained RRM +0.2071, HOPDC -0.1468
+     ER20  relative drift 0.0319; drift explained RRM +0.2111, HOPDC -0.1359
+     NCM (ANCH1) ORACLE  82.78  STALE  82.80  RRM  82.88  HOPDC  83.00
+  [JapaneseVowels E 15]
+     FT    relative drift 0.0402; drift explained RRM +0.2297, HOPDC -0.1923
+     ANCH1 relative drift 0.0421; drift explained RRM +0.1711, HOPDC -0.2046
+     ER20  relative drift 0.0583; drift explained RRM +0.2419, HOPDC -0.1386
+     NCM (ANCH1) ORACLE  83.82  STALE  83.72  RRM  83.88  HOPDC  83.70
+  [JapaneseVowels E 30]
+     FT    relative drift 0.0523; drift explained RRM +0.2354, HOPDC -0.1847
+     ANCH1 relative drift 0.0519; drift explained RRM +0.1712, HOPDC -0.2274
+     ER20  relative drift 0.0725; drift explained RRM +0.2414, HOPDC -0.1339
+     NCM (ANCH1) ORACLE  84.16  STALE  84.14  RRM  84.26  HOPDC  84.10
+  [synthetic_control E 3]
+     FT    relative drift 0.1008; drift explained RRM +0.3897, HOPDC +0.3128
+     ANCH1 relative drift 0.0857; drift explained RRM +0.4199, HOPDC +0.3050
+     ER20  relative drift 0.0833; drift explained RRM +0.5071, HOPDC +0.3812
+     NCM (ANCH1) ORACLE  90.33  STALE  90.50  RRM  90.33  HOPDC  89.83
+  [synthetic_control E 15]
+     FT    relative drift 0.1266; drift explained RRM +0.3861, HOPDC +0.3099
+     ANCH1 relative drift 0.1328; drift explained RRM +0.4642, HOPDC +0.3517
+     ER20  relative drift 0.1415; drift explained RRM +0.5232, HOPDC +0.4095
+     NCM (ANCH1) ORACLE  90.17  STALE  91.33  RRM  90.50  HOPDC  89.17
+  [synthetic_control E 30]
+     FT    relative drift 0.1390; drift explained RRM +0.3870, HOPDC +0.3108
+     ANCH1 relative drift 0.1527; drift explained RRM +0.4791, HOPDC +0.3671
+     ER20  relative drift 0.1656; drift explained RRM +0.5358, HOPDC +0.4212
+     NCM (ANCH1) ORACLE  90.17  STALE  91.67  RRM  90.50  HOPDC  89.33
+  [pokerhand E 3]
+     FT    relative drift 0.0217; drift explained RRM +0.5416, HOPDC +0.2598
+     ANCH1 relative drift 0.0203; drift explained RRM +0.0621, HOPDC -0.1830
+     ER20  relative drift 0.0183; drift explained RRM +0.2465, HOPDC -0.1696
+     NCM (ANCH1) ORACLE  44.42  STALE  44.50  RRM  44.20  HOPDC  44.22
+  [pokerhand E 15]
+     FT    relative drift 0.0374; drift explained RRM +0.3150, HOPDC +0.0945
+     ANCH1 relative drift 0.0498; drift explained RRM -0.0349, HOPDC -0.2594
+     ER20  relative drift 0.0554; drift explained RRM +0.2407, HOPDC -0.0031
+     NCM (ANCH1) ORACLE  44.76  STALE  44.90  RRM  44.68  HOPDC  44.64
+  [pokerhand E 30]
+     FT    relative drift 0.0444; drift explained RRM +0.3016, HOPDC +0.0796
+     ANCH1 relative drift 0.0625; drift explained RRM -0.0067, HOPDC -0.2449
+     ER20  relative drift 0.0721; drift explained RRM +0.2657, HOPDC +0.0391
+     NCM (ANCH1) ORACLE  44.92  STALE  44.84  RRM  44.62  HOPDC  44.34
+  [spoken-arabic-digit E 3]
+     FT    relative drift 0.1118; drift explained RRM +0.7756, HOPDC +0.5175
+     ANCH1 relative drift 0.0399; drift explained RRM -0.0102, HOPDC -0.2490
+     ER20  relative drift 0.0475; drift explained RRM +0.3379, HOPDC -0.0317
+     NCM (ANCH1) ORACLE  10.18  STALE  10.26  RRM  10.24  HOPDC   9.98
+  [spoken-arabic-digit E 15]
+     FT    relative drift 0.2945; drift explained RRM +0.6796, HOPDC +0.4898
+     ANCH1 relative drift 0.0822; drift explained RRM +0.2259, HOPDC +0.0336
+     ER20  relative drift 0.1102; drift explained RRM +0.3176, HOPDC +0.0561
+     NCM (ANCH1) ORACLE  10.62  STALE  10.36  RRM  10.20  HOPDC  10.28
+  [spoken-arabic-digit E 30]
+     FT    relative drift 0.3517; drift explained RRM +0.5718, HOPDC +0.3725
+     ANCH1 relative drift 0.1123; drift explained RRM +0.2896, HOPDC +0.0544
+     ER20  relative drift 0.1508; drift explained RRM +0.3610, HOPDC +0.1201
+     NCM (ANCH1) ORACLE  10.38  STALE  10.66  RRM  10.02  HOPDC  10.34
+  [walking-activity E 3]
+     FT    relative drift 0.0527; drift explained RRM +0.7334, HOPDC +0.3090
+     ANCH1 relative drift 0.0432; drift explained RRM +0.6016, HOPDC +0.1012
+     ER20  relative drift 0.0460; drift explained RRM +0.6540, HOPDC +0.2439
+     NCM (ANCH1) ORACLE  38.74  STALE  38.76  RRM  38.80  HOPDC  38.80
+  [walking-activity E 15]
+     FT    relative drift 0.1491; drift explained RRM +0.7281, HOPDC +0.2350
+     ANCH1 relative drift 0.1003; drift explained RRM +0.6429, HOPDC +0.1476
+     ER20  relative drift 0.1092; drift explained RRM +0.6587, HOPDC +0.1494
+     NCM (ANCH1) ORACLE  39.32  STALE  38.88  RRM  39.38  HOPDC  39.06
+  [walking-activity E 30]
+     FT    relative drift 0.2022; drift explained RRM +0.7123, HOPDC +0.1746
+     ANCH1 relative drift 0.1299; drift explained RRM +0.6529, HOPDC +0.1403
+     ER20  relative drift 0.1553; drift explained RRM +0.6600, HOPDC +0.1444
+     NCM (ANCH1) ORACLE  39.38  STALE  38.66  RRM  39.22  HOPDC  38.74
+  [volcanoes-d4 E 3]
+     FT    relative drift 0.0276; drift explained RRM +0.8959, HOPDC +0.6300
+     ANCH1 relative drift 0.0162; drift explained RRM +0.8794, HOPDC +0.6052
+     ER20  relative drift 0.0184; drift explained RRM +0.8934, HOPDC +0.6416
+     NCM (ANCH1) ORACLE  71.79  STALE  71.77  RRM  71.81  HOPDC  71.83
+  [volcanoes-d4 E 15]
+     FT    relative drift 0.0874; drift explained RRM +0.8891, HOPDC +0.5564
+     ANCH1 relative drift 0.0487; drift explained RRM +0.8388, HOPDC +0.4901
+     ER20  relative drift 0.0518; drift explained RRM +0.8672, HOPDC +0.5269
+     NCM (ANCH1) ORACLE  68.95  STALE  69.07  RRM  68.97  HOPDC  68.99
+  [volcanoes-d4 E 30]
+     FT    relative drift 0.1258; drift explained RRM +0.8733, HOPDC +0.4823
+     ANCH1 relative drift 0.0712; drift explained RRM +0.7888, HOPDC +0.3734
+     ER20  relative drift 0.0776; drift explained RRM +0.8349, HOPDC +0.4283
+     NCM (ANCH1) ORACLE  65.75  STALE  65.55  RRM  65.73  HOPDC  65.61
+  [autoUniv-au6-750 E 3]
+     FT    relative drift 0.0165; drift explained RRM +0.1722, HOPDC +0.0135
+     ANCH1 relative drift 0.0122; drift explained RRM -1.5404, HOPDC -1.8776
+     ER20  relative drift 0.0124; drift explained RRM -0.2427, HOPDC -0.5622
+     NCM (ANCH1) ORACLE  13.38  STALE  13.25  RRM  12.98  HOPDC  13.11
+  [autoUniv-au6-750 E 15]
+     FT    relative drift 0.0269; drift explained RRM -0.1949, HOPDC -0.3853
+     ANCH1 relative drift 0.0218; drift explained RRM -1.1280, HOPDC -1.4410
+     ER20  relative drift 0.0280; drift explained RRM -0.4205, HOPDC -0.6753
+     NCM (ANCH1) ORACLE  14.04  STALE  13.77  RRM  13.38  HOPDC  13.11
+  [autoUniv-au6-750 E 30]
+     FT    relative drift 0.0309; drift explained RRM -0.2632, HOPDC -0.4535
+     ANCH1 relative drift 0.0278; drift explained RRM -0.9157, HOPDC -1.2106
+     ER20  relative drift 0.0388; drift explained RRM -0.3457, HOPDC -0.5694
+     NCM (ANCH1) ORACLE  14.57  STALE  13.91  RRM  13.51  HOPDC  13.25
+  [microaggregation2 E 3]
+     FT    relative drift 0.0617; drift explained RRM +0.6973, HOPDC -0.3049
+     ANCH1 relative drift 0.0484; drift explained RRM +0.1734, HOPDC -1.6587
+     ER20  relative drift 0.0465; drift explained RRM +0.4642, HOPDC -1.2101
+     NCM (ANCH1) ORACLE  36.58  STALE  36.54  RRM  36.36  HOPDC  35.64
+  [microaggregation2 E 15]
+     FT    relative drift 0.1572; drift explained RRM +0.6098, HOPDC -0.7579
+     ANCH1 relative drift 0.1386; drift explained RRM +0.2968, HOPDC -1.5636
+     ER20  relative drift 0.1336; drift explained RRM +0.4849, HOPDC -1.5216
+     NCM (ANCH1) ORACLE  36.88  STALE  36.24  RRM  36.38  HOPDC  33.21
+  [microaggregation2 E 30]
+     FT    relative drift 0.2435; drift explained RRM +0.5943, HOPDC -1.0183
+     ANCH1 relative drift 0.2167; drift explained RRM +0.4037, HOPDC -1.5293
+     ER20  relative drift 0.2072; drift explained RRM +0.5308, HOPDC -1.5708
+     NCM (ANCH1) ORACLE  37.22  STALE  35.10  RRM  36.42  HOPDC  32.29
+  [Indian_pines E 3]
+     FT    relative drift 0.7709; drift explained RRM +0.5599, HOPDC +0.2371
+     ANCH1 relative drift 0.5808; drift explained RRM +0.4000, HOPDC +0.1155
+     ER20  relative drift 0.4983; drift explained RRM +0.3792, HOPDC +0.0953
+     NCM (ANCH1) ORACLE  63.00  STALE  53.45  RRM  60.82  HOPDC  63.74
+  [Indian_pines E 15]
+     FT    relative drift 0.8390; drift explained RRM +0.6707, HOPDC +0.3696
+     ANCH1 relative drift 0.6351; drift explained RRM +0.4923, HOPDC +0.1547
+     ER20  relative drift 0.5872; drift explained RRM +0.3984, HOPDC +0.0925
+     NCM (ANCH1) ORACLE  64.04  STALE  58.00  RRM  63.24  HOPDC  62.42
+  [Indian_pines E 30]
+     FT    relative drift 0.8486; drift explained RRM +0.6837, HOPDC +0.3668
+     ANCH1 relative drift 0.6200; drift explained RRM +0.5081, HOPDC +0.1220
+     ER20  relative drift 0.5882; drift explained RRM +0.4299, HOPDC +0.0895
+     NCM (ANCH1) ORACLE  63.56  STALE  61.52  RRM  62.70  HOPDC  62.22
+  [Kuzushiji-MNIST E 3]
+     FT    relative drift 0.3030; drift explained RRM +0.3626, HOPDC +0.0830
+     ANCH1 relative drift 0.2259; drift explained RRM +0.0532, HOPDC -0.1073
+     ER20  relative drift 0.2299; drift explained RRM +0.3071, HOPDC +0.0412
+     NCM (ANCH1) ORACLE  65.62  STALE  66.20  RRM  64.56  HOPDC  63.06
+  [Kuzushiji-MNIST E 15]
+     FT    relative drift 0.3239; drift explained RRM +0.3633, HOPDC +0.0900
+     ANCH1 relative drift 0.2549; drift explained RRM +0.0742, HOPDC -0.0890
+     ER20  relative drift 0.2505; drift explained RRM +0.3211, HOPDC +0.0419
+     NCM (ANCH1) ORACLE  66.10  STALE  66.64  RRM  64.98  HOPDC  62.82
+  [Kuzushiji-MNIST E 30]
+     FT    relative drift 0.3274; drift explained RRM +0.3731, HOPDC +0.0672
+     ANCH1 relative drift 0.2654; drift explained RRM +0.0816, HOPDC -0.0869
+     ER20  relative drift 0.2556; drift explained RRM +0.3172, HOPDC +0.0495
+     NCM (ANCH1) ORACLE  66.02  STALE  66.36  RRM  64.32  HOPDC  62.14
+
+F1 (SEEN half) relative drift rises with E (FT learner) on 28/30 carriers (forecast: >= two thirds) -> held
+E 3: ANCH1 RRM explains more drift than HOPDC on 30/30; NCM RRM - STALE > 0 on 13, < 0 on 15, median -0.0100
+E 15: ANCH1 RRM explains more drift than HOPDC on 30/30; NCM RRM - STALE > 0 on 12, < 0 on 16, median -0.0400
+E 30: ANCH1 RRM explains more drift than HOPDC on 30/30; NCM RRM - STALE > 0 on 12, < 0 on 17, median -0.0892

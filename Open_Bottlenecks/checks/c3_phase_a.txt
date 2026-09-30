@@ -1,0 +1,46 @@
+OB1-C3 Phase A: consolidation triggers in a boundary-free stream (C3_DECLARATION.md); seeds 0-4; calibration seed 100
+SGD lr 0.05, batch 10, 256 hidden; 360 steps, 5 domains, sigma 0.06; window 200 inputs; clip kappa 0.5; rho 0.01
+CHOICES: see c3_lib.py docstring
+
+calibration: ORACLE final accuracy on seed 100 by lambda: 0.1 27.02, 1 27.83, 10 27.76, 100 27.16 -> lambda 1
+calibration: ARC threshold U 36.0068 gives 4 consolidations on seed 100
+calibration: CHORD threshold U 0.0952554 gives 4 consolidations on seed 100
+calibration: LOSS threshold U 10.052 gives 4 consolidations on seed 100
+
+[BLURRY]
+   arm       final  forget  events   final per seed
+   NONE      28.12   44.51    0.00    28.09  29.63  27.96  27.49  27.42
+   ORACLE    28.84   42.14    4.00    28.56  30.17  28.56  28.76  28.16
+   COUNT     28.84   42.14    4.00    28.56  30.17  28.56  28.76  28.16
+   RAND      28.71   43.20    4.00    28.16  30.64  28.56  27.83  28.36
+   ARC       28.88   42.11    4.20    28.43  30.37  28.23  29.16  28.23
+   CHORD     28.39   43.61    4.60    28.16  29.36  28.16  28.29  27.96
+   LOSS      28.54   43.09    4.20    28.16  29.77  28.49  28.09  28.16
+   ARC     consolidation steps: 77,148,221,291 | 71,143,218,289 | 75,144,213,281,354 | 68,139,215,286 | 74,143,219,290
+   CHORD   consolidation steps: 97,160,214,243,306,348 | 103,175,237,300,326 | 94,160,227,249,325 | 85,121,194 | 89,136,182,336
+   LOSS    consolidation steps: 213,239,294 | 212,221,282,293 | 215,227,290,301 | 207,221,254,291,317 | 161,219,280,292,319
+   COUNT   consolidation steps: 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288
+   ORACLE  consolidation steps: 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288
+
+[ABRUPT]
+   arm       final  forget  events   final per seed
+   NONE      28.39   46.49    0.00    29.43  28.70  28.29  28.09  27.42
+   ORACLE    28.68   45.62    4.00    29.43  28.83  28.76  28.56  27.83
+   COUNT     28.68   45.62    4.00    29.43  28.83  28.76  28.56  27.83
+   RAND      29.00   45.31    4.00    29.57  28.96  29.23  28.76  28.49
+   ARC       29.02   44.86    4.00    29.83  29.23  29.03  28.70  28.29
+   CHORD     28.98   45.24    4.80    29.77  29.10  28.49  28.76  28.76
+   LOSS      29.59   43.56    7.00    30.10  29.50  30.17  29.23  28.96
+   ARC     consolidation steps: 80,155,231,302 | 75,141,217,293 | 82,157,231,306 | 73,141,213,291 | 75,144,220,295
+   CHORD   consolidation steps: 91,154,182,258,333 | 91,150,182,239,302,321 | 98,174,237,300,319 | 90,151,169,240,299,329 | 91,143
+   LOSS    consolidation steps: 145,153,219,224,289,293,299 | 145,156,219,224,289,294,305 | 78,150,217,220,226,290,296 | 145,155,219,226,290,294,308 | 78,147,154,219,227,290,296
+   COUNT   consolidation steps: 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288
+   ORACLE  consolidation steps: 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288 | 72,144,216,288
+
+----------------------------------------------------------------------------------------------------
+G-MATTER BLURRY: ORACLE - NONE +0.7224 (step 1.0000) -> FAILS
+G-TIMING BLURRY: ORACLE - RAND +0.1338 (step 1.0000) -> FAILS
+C3 GATE CLOSED
+CONTEST not scored (gate closed); the differences below are reported only
+reported BLURRY: ARC - CHORD +0.4950; ARC - COUNT +0.0401; ARC - LOSS +0.3478; ARC - ORACLE +0.0401; ARC - NONE +0.7625
+reported ABRUPT: ARC - CHORD +0.0401; ARC - COUNT +0.3344; ARC - LOSS -0.5753; ARC - ORACLE +0.3344; ARC - NONE +0.6288

@@ -1,0 +1,155 @@
+POST HOC (critic follow-up 3; not declared)
+
+DR1 follow-up 3 to check DATA: C5's scarcity exclusion re-attributed; part (b) (G7) under a dossier-consistent rule.
+Binding declaration Grid_Demand_Response/DECLARATION.md (declared at e67e8ee; not edited). dr_data.py and dr_data.txt are not edited:
+dr_data.py is imported unchanged. An application calculation on public data: no ledger row; a note, not evidence (R8).
+
+DATA: 19 raw files; sha256 matches Grid_Demand_Response/data/MANIFEST.md for 19 of 19
+dr_data.py's own sources (dr_data.load_sources, unchanged): 19 of 19 found
+  [DFS-2223] (dr1_f2) "For live events, the average price paid was £4,559/MWh." -> T = 4559 GBP/MWh (the threshold of rule B; SOURCED)
+
+SOURCED QUOTES (each checked verbatim, whitespace-normalised, at run time against its dossier)
+  [LIVE-DEF] NESO DFS winter 2022/23 review (dr1_followup3_2026-09-29.md): found yes
+      'A live event could be triggered when insufficient upwards flexibility was foreseen at the day ahead stage and we believed the inadequacy could not be solved by our existing services and market incentives.'
+  [LIVE-2223] NESO DFS winter 2022/23 review (dr1_followup3_2026-09-29.md): found yes
+      'There were two live activations of DFS over winter 2022/23. These took place on 23 and 24 January 2023'
+  [GAP-2223] NESO DFS winter 2022/23 review (dr1_followup3_2026-09-29.md): found yes
+      'Prices higher than the GAP were rejected for test events'
+  [LIVE-PRICE-2223] NESO DFS winter 2022/23 review (dr1_followup3_2026-09-29.md): found yes
+      'For live events, the average price for demand reduction was £4,559/MWh and the highest accepted price was £6,500/MWh, although a sizeable portion of participants were accepted at £3,000/MWh (see Figure 8).'
+  [LIVE-2324] NESO DFS Winter 23/24 End of Year Report (dr1_followup3_2026-09-29.md): found yes
+      'A total of 14 test events along with 2 live events were run over the winter.'
+  [MARGIN-2324] NESO DFS Winter 23/24 End of Year Report (dr1_followup3_2026-09-29.md): found yes
+      'This team conducted assessments at the day ahead stage to identify whether available supply was able to meet the forecasted demand and positive margin required, which on two occasions led to live events being run.'
+  [ENHANCED-2324] NESO DFS Winter 23/24 End of Year Report (dr1_followup3_2026-09-29.md): found yes
+      'As detailed within winter order of actions, market-based solutions alone would not be able to meet reserve requirements and so enhanced actions were deemed necessary.'
+  [T6-1] NESO DFS Winter 23/24 End of Year Report, Table 6 (dr1_followup3_2026-09-29.md): found yes
+      '29/11/2023 17:00 day-ahead 449 332.4 -26.0 £776,213'
+  [T6-2] NESO DFS Winter 23/24 End of Year Report, Table 6 (dr1_followup3_2026-09-29.md): found yes
+      '01/12/2023 16:30 day-ahead 452 298.8 -33.9 £746,458'
+  F2 dossier's tightened Reading of the 2022/23 review (an investigator's reading, not a quote; whitespace-normalised match): 'Only the live events are "exceptions in scarcity events" in the declaration's sense; the £3,000/MWh was a guaranteed test price' -> found yes
+
+SCORED SETTING (dr_data.py, unchanged): price 'mean' (C1); C = 1452.4328 GBP per MWh of compute [IDX-NEO, fx 1.35 ASSUMED]; R = 0.1 h (ASSUMED); fleet 100 MW (ASSUMED); the ETM arm
+
+REPRODUCTION OF THE PINNED dr_data.txt (Q lines): ETM's revenue share per season, all events offered
+  W2022/23  here 21 of 21 events, share 1.52265 %; pinned 21 of 21, share 1.52265 % -> same: yes
+  W2023/24  here 17 of 17 events, share 0.98842 %; pinned 17 of 17, share 0.98842 % -> same: yes
+  W2024/25  here 42 of 48 events, share 0.50918 %; pinned 42 of 48, share 0.50918 % -> same: yes
+  S2025     here 60 of 86 events, share 0.28638 %; pinned 60 of 86, share 0.28638 % -> same: yes
+  W2025/26  here 25 of 33 events, share 0.19217 %; pinned 25 of 33, share 0.19217 % -> same: yes
+  S2026     here 86 of 93 events, share 0.95904 %; pinned 86 of 93, share 0.95904 % -> same: yes
+  reproduced in 6 of 6 seasons
+  pinned C5 line: 'C5 ordinary season = every season except W2022/23, the season the F2 sources mark as the scarcity exception [DFS-2223]'
+  pinned part (b): 'part (b) below 1 % in every ordinary season: yes (5 of 5)'
+
+THE EVENTS AT ISSUE: every event typed Live, or with any accepted bid at or above T = 4559 GBP/MWh, in any season
+  season      # date       from     H type          price      min      max  price>=T min>=T max>=T  ETM jobs joined
+  W2022/23   10 2023-01-23 17:00    1 Live        3954.44  2799.00  6000.00        no    no   yes  100
+  W2022/23   11 2023-01-24 16:30  1.5 Live        4779.48  2799.00  6500.00       yes    no   yes  100
+  W2023/24    2 2023-11-29 17:00  1.5 Live        4439.74  1000.00  6000.00        no    no   yes  100
+  W2023/24    3 2023-12-01 16:30  1.5 Live        5012.66  3000.00  6000.00       yes    no   yes  100
+  events typed Live in the later seasons (the service's competitive form; not listed): 259; of them at or above T on any bid: 0
+  W2022/23: the events typed Live in the records start 2023-01-23 17:00, 2023-01-24 16:30; the sources' live events [LIVE-2223] -> same: yes
+  W2023/24: the events typed Live in the records start 2023-11-29 17:00, 2023-12-01 16:30; the sources' live events [LIVE-2324, T6-1, T6-2] -> same: yes
+
+PART (b) UNDER EACH RULE: per scored season, events kept of all, the ETM rerun on the kept events (joined with all 100
+jobs), revenue (GBP), share of the compute cost over the full season's period, below 1 %; and the cross-check: the
+scored run's revenue minus the left-out events' revenue in the scored run equals the rerun's revenue
+  rule OLD: C5 as scored: every season except W2022/23 (dr_data.py's SCARCITY)
+    W2022/23  not scored
+    W2023/24  kept  17 of  17; ETM all-100  17 of  17; revenue   4375758.93; share   0.98842 % -> below 1 %: yes; cross-check yes
+    W2024/25  kept  48 of  48; ETM all-100  42 of  48; revenue   2112140.72; share   0.50918 % -> below 1 %: yes; cross-check yes
+    S2025     kept  86 of  86; ETM all-100  60 of  86; revenue   2086423.22; share   0.28638 % -> below 1 %: yes; cross-check yes
+    W2025/26  kept  33 of  33; ETM all-100  25 of  33; revenue    951201.96; share   0.19217 % -> below 1 %: yes; cross-check yes
+    S2026     kept  93 of  93; ETM all-100  86 of  93; revenue   5649754.89; share   0.95904 % -> below 1 %: yes; cross-check yes
+    -> part (b) below 1 % in every scored season: yes (5 of 5); cross-check 5 of 5; with part (a) no (2 of 6 seasons) -> Q fails
+  rule A: the critic's reading: W2022/23 scored without its events typed Live; the other seasons as scored
+    W2022/23  kept  19 of  21; ETM all-100  19 of  19; revenue   5999961.55; share   1.28451 % -> below 1 %: no ; cross-check yes
+    W2023/24  kept  17 of  17; ETM all-100  17 of  17; revenue   4375758.93; share   0.98842 % -> below 1 %: yes; cross-check yes
+    W2024/25  kept  48 of  48; ETM all-100  42 of  48; revenue   2112140.72; share   0.50918 % -> below 1 %: yes; cross-check yes
+    S2025     kept  86 of  86; ETM all-100  60 of  86; revenue   2086423.22; share   0.28638 % -> below 1 %: yes; cross-check yes
+    W2025/26  kept  33 of  33; ETM all-100  25 of  33; revenue    951201.96; share   0.19217 % -> below 1 %: yes; cross-check yes
+    S2026     kept  93 of  93; ETM all-100  86 of  93; revenue   5649754.89; share   0.95904 % -> below 1 %: yes; cross-check yes
+    -> part (b) below 1 % in every scored season: no (5 of 6); cross-check 6 of 6; with part (a) no (2 of 6 seasons) -> Q fails
+  rule B: CORRECTED: in every season, events whose price (C1 'mean') is >= T = 4559 [DFS-2223] left out; all seasons
+    W2022/23  kept  20 of  21; ETM all-100  20 of  20; revenue   6395405.97; share   1.36917 % -> below 1 %: no ; cross-check yes
+    W2023/24  kept  16 of  17; ETM all-100  16 of  16; revenue   3623859.98; share   0.81858 % -> below 1 %: yes; cross-check yes
+    W2024/25  kept  48 of  48; ETM all-100  42 of  48; revenue   2112140.72; share   0.50918 % -> below 1 %: yes; cross-check yes
+    S2025     kept  86 of  86; ETM all-100  60 of  86; revenue   2086423.22; share   0.28638 % -> below 1 %: yes; cross-check yes
+    W2025/26  kept  33 of  33; ETM all-100  25 of  33; revenue    951201.96; share   0.19217 % -> below 1 %: yes; cross-check yes
+    S2026     kept  93 of  93; ETM all-100  86 of  93; revenue   5649754.89; share   0.95904 % -> below 1 %: yes; cross-check yes
+    -> part (b) below 1 % in every scored season: no (5 of 6); cross-check 6 of 6; with part (a) no (2 of 6 seasons) -> Q fails
+  rule B-min: sensitivity: as B, the event classified by its lowest accepted bid
+    W2022/23  kept  21 of  21; ETM all-100  21 of  21; revenue   7112328.60; share   1.52265 % -> below 1 %: no ; cross-check yes
+    W2023/24  kept  17 of  17; ETM all-100  17 of  17; revenue   4375758.93; share   0.98842 % -> below 1 %: yes; cross-check yes
+    W2024/25  kept  48 of  48; ETM all-100  42 of  48; revenue   2112140.72; share   0.50918 % -> below 1 %: yes; cross-check yes
+    S2025     kept  86 of  86; ETM all-100  60 of  86; revenue   2086423.22; share   0.28638 % -> below 1 %: yes; cross-check yes
+    W2025/26  kept  33 of  33; ETM all-100  25 of  33; revenue    951201.96; share   0.19217 % -> below 1 %: yes; cross-check yes
+    S2026     kept  93 of  93; ETM all-100  86 of  93; revenue   5649754.89; share   0.95904 % -> below 1 %: yes; cross-check yes
+    -> part (b) below 1 % in every scored season: no (5 of 6); cross-check 6 of 6; with part (a) no (2 of 6 seasons) -> Q fails
+  rule B-max: sensitivity: as B, the event classified by its highest accepted bid
+    W2022/23  kept  19 of  21; ETM all-100  19 of  19; revenue   5999961.55; share   1.28451 % -> below 1 %: no ; cross-check yes
+    W2023/24  kept  15 of  17; ETM all-100  15 of  15; revenue   2957899.60; share   0.66815 % -> below 1 %: yes; cross-check yes
+    W2024/25  kept  48 of  48; ETM all-100  42 of  48; revenue   2112140.72; share   0.50918 % -> below 1 %: yes; cross-check yes
+    S2025     kept  86 of  86; ETM all-100  60 of  86; revenue   2086423.22; share   0.28638 % -> below 1 %: yes; cross-check yes
+    W2025/26  kept  33 of  33; ETM all-100  25 of  33; revenue    951201.96; share   0.19217 % -> below 1 %: yes; cross-check yes
+    S2026     kept  93 of  93; ETM all-100  86 of  93; revenue   5649754.89; share   0.95904 % -> below 1 %: yes; cross-check yes
+    -> part (b) below 1 % in every scored season: no (5 of 6); cross-check 6 of 6; with part (a) no (2 of 6 seasons) -> Q fails
+  rule OLD reproduces the pinned part (b) line: yes
+
+CHECK OF THE CRITIC'S STATEMENT that W2023/24's live events paid 'above the GBP 4,559 that defines the exception':
+  2023-11-29 17:00: price (C1 'mean') 4439.74 -> at or above T: no; highest accepted bid 6000.00 -> at or above T: yes
+  2023-12-01 16:30: price (C1 'mean') 5012.66 -> at or above T: yes; highest accepted bid 6000.00 -> at or above T: yes
+
+SENSITIVITY (not scored): rule B's part (b) at every sourced compute price and USD/GBP in {1.20, 1.35, 1.50} (ASSUMED),
+as dr_data.py's SENSITIVITY 1; per cell the seasons below 1 % of those scored, and the shares of W2022/23 and W2023/24
+  IDX-NEO    fx 1.2  C    1634.0: below 1 % in 5 of 6 -> part (b) no ; W2022/23 1.2170 %; W2023/24 0.7276 %
+  IDX-NEO    fx 1.35 C    1452.4: below 1 % in 5 of 6 -> part (b) no ; W2022/23 1.3692 %; W2023/24 0.8186 %
+  IDX-NEO    fx 1.5  C    1307.2: below 1 % in 4 of 6 -> part (b) no ; W2022/23 1.5213 %; W2023/24 0.9095 %
+  CW-SPOT    fx 1.2  C    1610.3: below 1 % in 5 of 6 -> part (b) no ; W2022/23 1.2349 %; W2023/24 0.7383 %
+  CW-SPOT    fx 1.35 C    1431.4: below 1 % in 5 of 6 -> part (b) no ; W2022/23 1.3893 %; W2023/24 0.8306 %
+  CW-SPOT    fx 1.5  C    1288.2: below 1 % in 4 of 6 -> part (b) no ; W2022/23 1.5437 %; W2023/24 0.9229 %
+  RUNPOD     fx 1.2  C    2281.0: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.8718 %; W2023/24 0.5212 %
+  RUNPOD     fx 1.35 C    2027.6: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.9808 %; W2023/24 0.5864 %
+  RUNPOD     fx 1.5  C    1824.8: below 1 % in 5 of 6 -> part (b) no ; W2022/23 1.0898 %; W2023/24 0.6515 %
+  LAMBDA-OD  fx 1.2  C    2607.8: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.7626 %; W2023/24 0.4559 %
+  LAMBDA-OD  fx 1.35 C    2318.1: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.8579 %; W2023/24 0.5129 %
+  LAMBDA-OD  fx 1.5  C    2086.3: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.9532 %; W2023/24 0.5699 %
+  LAMBDA-RES fx 1.2  C    3620.9: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.5492 %; W2023/24 0.3136 %
+  LAMBDA-RES fx 1.35 C    3218.6: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.6179 %; W2023/24 0.3634 %
+  LAMBDA-RES fx 1.5  C    2896.7: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.6865 %; W2023/24 0.4072 %
+  CW-OD      fx 1.2  C    4022.9: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.4943 %; W2023/24 0.2823 %
+  CW-OD      fx 1.35 C    3575.9: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.5561 %; W2023/24 0.3209 %
+  CW-OD      fx 1.5  C    3218.3: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.6179 %; W2023/24 0.3634 %
+  AWS        fx 1.2  C    4496.7: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.4422 %; W2023/24 0.2526 %
+  AWS        fx 1.35 C    3997.1: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.4975 %; W2023/24 0.2841 %
+  AWS        fx 1.5  C    3597.4: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.5528 %; W2023/24 0.3190 %
+  IDX-HS     fx 1.2  C    4856.2: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.4095 %; W2023/24 0.2339 %
+  IDX-HS     fx 1.35 C    4316.6: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.4607 %; W2023/24 0.2631 %
+  IDX-HS     fx 1.5  C    3885.0: below 1 % in 6 of 6 -> part (b) yes; W2022/23 0.5119 %; W2023/24 0.2923 %
+  part (b) under rule B holds in 17 of 24 cells
+  closed form (valid while ETM's joined events do not change with C): a season's share falls below 1 % iff C > revenue /
+  (0.01 x 100 MW x period hours); per season under rule B at the scored run's revenue, that C and its H100 GPU-hour price
+  equivalent (x 10.2 kW / 8 GPUs x fx 1.35):
+    W2022/23  C_flip   1988.62 GBP/MWh (scored C 1452.43; below 1 % at the scored C: no); 3.4229 USD per GPU-hour (scored 2.5)
+    W2023/24  C_flip   1188.93 GBP/MWh (scored C 1452.43; below 1 % at the scored C: yes); 2.0464 USD per GPU-hour (scored 2.5)
+    W2024/25  C_flip    739.55 GBP/MWh (scored C 1452.43; below 1 % at the scored C: yes); 1.2729 USD per GPU-hour (scored 2.5)
+    S2025     C_flip    415.95 GBP/MWh (scored C 1452.43; below 1 % at the scored C: yes); 0.7160 USD per GPU-hour (scored 2.5)
+    W2025/26  C_flip    279.11 GBP/MWh (scored C 1452.43; below 1 % at the scored C: yes); 0.4804 USD per GPU-hour (scored 2.5)
+    S2026     C_flip   1392.94 GBP/MWh (scored C 1452.43; below 1 % at the scored C: yes); 2.3976 USD per GPU-hour (scored 2.5)
+  the closed form agrees with the grid in 45 of 45 (cell, season) pairs where ETM's revenue equals the scored run's (99 pairs with a different revenue not compared)
+
+LISTED FIX (post first run of dr_data.py; listed here, NOT applied, since this follow-up may edit no other file):
+  dr_data.py sets SCARCITY = "W2022/23" and prints C5 as 'the season the F2 sources mark as the scarcity exception
+  [DFS-2223]'. The attribution is wrong: the F2 dossier's tightened Reading and the reviews [LIVE-DEF, LIVE-2223, GAP-2223, LIVE-2324,
+  MARGIN-2324, ENHANCED-2324] mark live (margin) events, not a season, as the scarcity exception, and W2023/24 had two.
+  Corrected C5 (rule B): in every season, events priced at or above the DFS-2223 live average (T = 4559 GBP/MWh)
+  are the scarcity exception and are left out of part (b); every season is scored. The old rule is kept beside it above.
+BUG FIXES IN THIS SCRIPT AFTER ITS FIRST RUN: none
+
+CORRECTED LINE (rule B; the line the G7 sentence is to quote):
+  part (b) below 1 % in every season, events priced at or above GBP 4559/MWh [DFS-2223] left out: no (5 of 6; W2022/23 1.36917 %, W2023/24 0.81858 %) -> Q fails
+OLD LINE (rule OLD, as pinned in dr_data.txt):
+  part (b) below 1 % in every ordinary season (all but W2022/23): yes (5 of 5)
+
+RESULT FOLLOW-UP 3: part (b) OLD yes (5 of 5); A no (5 of 6); B (corrected) no (5 of 6); B-min no (5 of 6); B-max no (5 of 6); part (a) no (2 of 6), so Q fails under every rule (unchanged); rule B's part (b) holds in 17 of 24 compute-cost cells
