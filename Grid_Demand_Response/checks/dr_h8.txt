@@ -1,0 +1,547 @@
+DR1 check H8: the value to the grid, curtailable MW-hours per season under each arm's minimum payment, at a price grid (Grid_Demand_Response/DECLARATION.md section 2, declared at e67e8ee)
+Declared Q: at every payment above R/H, ETM supplies all the flexibility; OWN supplies it only while slack lasts.
+Declared forecast: Q holds.  Rung R4 (synthetic model); a note, not evidence (R8).
+
+INPUTS
+  DECLARED W = 1000 compute-hours per job, value 1 per compute-hour at completion (section 2 adopts EPS2 T1's units)
+  ASSUMED  R = 0.1 h restart overhead per pause event (EPS2 T1 model constant; docs/citations/eps2_2026-09-29.md, Reading (T1):
+           'no fetched source supplies or contradicts that number'); S = 0 (save time), lost = 0 (EPS2 T1 has neither)
+  ASSUMED  the fleet: 100 jobs of 1 MW each (DECLARATION.md section 3: 'A hypothetical AI training fleet of 100 MW (ASSUMED),
+           running jobs of the H3 portfolio'); the H3 portfolio's slack D - W = 5 i h, i = 1..100 (H3's ASSUMED spread; no
+           fetched source gives a distribution of training-job deadline slack); power drawn while paused 0 (EPS2 T1)
+  SOURCED  H = 3 h: Colangelo et al., arXiv:2507.00909 v1 (the Phoenix field trial), docs/citations/dr1_f1_2026-09-29.md; quote found verbatim in the dossier: yes:
+           "Each event required the cluster to reduce power by 25% with respect to the average base load during the peak demand period, sustain the reduction for 3 hours"
+  ASSUMED  H = 1 h and H = 4 h (EPS2 T1's event lengths)
+  CHOICE   the season: one offer every 24 wall hours at hours 24..984 (K = 41), the same offers to every job, made with
+           certainty (p = 1; EPS2 T1's schedule); 'per season' = these 41 offers. Spacing 12 and 48 h and Poisson offers are
+           sensitivities (not scored)
+  SOURCED  TIER contracts x in {10, 25, 50} % over a window w in {3, 6} h: docs/citations/dr1_f1_2026-09-29.md, Colangelo et al., arXiv:2507.00909 v1 (the Phoenix field trial); quote
+           found verbatim in the dossier: yes: "(b) Flex 1: up to 10% performance (average throughput) reduction allowed over a 3-6 hour period; (c) Flex 2: up to 25% allowed; (d) Flex 3: up to 50% allowed." (w = 3 and 6: CHOICE, the two ends of the
+           sourced period); TIER's performance-power curve linear (drlib's default): ASSUMED; throttle overhead 0: ASSUMED
+  ASSUMED  payment grid pi in {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20} per curtailed fleet-hour (EPS2 T1), plus R/H of the cell;
+           the scored reading is exact over every payment, not only the grid
+  SOURCED  (sensitivity only) Poisson rate lambda_DFS: NESO, DFS winter 2024/25 report (published 3 July 2025), docs/citations/dr1_f2_2026-09-29.md; quote found verbatim: yes:
+           "Month Number of Events Bid Volume MWh Delivered Volume MWh Accuracy % of delivered vs bid volume December 6 326.5 244.8 66.69% January 8 1335.6 865.6 64.81% February 13 1839 1206.9 65.63% March 17 1948.6 1600.5 82.14% Total 44 5449.6 3917.7 71.90%"
+           events by month December 6, January 8, February 13, March 17 (sum 44), total 44; over December 2024 - March 2025 = 121 days (CHOICE, as H1) -> lambda_DFS = 44 / (121 x 24) = 1/66 per wall hour
+  SOURCED  (sensitivity only) R = 1/12 h and S = 1/12 h: Kokolis et al., 'Revisiting Reliability in Large-Scale Machine Learning Research Clusters' (HPCA 2025, arXiv:2410.21680v2), docs/citations/dr1_f4_2026-09-29.md; quote found verbatim: yes:
+           "assuming Daly-Young optimal checkpointing with 5 minute restart overhead and 5 minute checkpoint write overhead." (the paper's modelling assumption for its clusters, not a measured pause)
+  ASSUMED  (sensitivity only) slack spreads 1 i, 0.05 i and 10 i h (H3's sensitivity spreads)
+
+CHOICES
+  C1 arms (drlib): WALL values the job on the wall clock, wall-clock deadline; OWN on its own steps, wall-clock deadline; ETM
+     a lossless pause with the deadline in own steps (W + n (R + S) <= D); TIER throttles to throughput 1 - x for min(H, w)
+     hours of an event (no checkpoint, own-clock valuation, wall-clock deadline); H0 enrols for the whole season when its
+     payments cover its opportunity cost (ties enrol) and then curtails every offer. WALL, OWN, ETM and each TIER decide every
+     offer by exact backward induction on valuation plus payments (ties accept), the rest of the season at the same flat pi;
+     a job may let its deadline pass.
+  C2 'each arm's minimum payment' = the x* rule: at each offer state the job accepts iff pi > x*, or pi == x* and accepting is
+     optimal there (x* exact from drlib's convex piecewise-linear value functions). Where every acceptance region is
+     [x*, inf) ('closed'), the job's season depends on pi only through its order against the job's distinct x* values, so
+     the season's curtailed MWh is an exact step function of pi; each piece (each x* value, each open interval between
+     consecutive values, the interval above the largest) is evaluated once. 'At every payment above R/H' is scored on every
+     piece lying above R/H: exact over the whole continuum, not only the grid. The x* rule is checked against backward
+     induction (drlib.solve / play) at every grid payment for every arm, job and cell. Q is not computable in a cell where a
+     job's ETM or OWN acceptance region is not closed.
+  C3 'curtailable MW-hours per season' = the fleet's curtailed energy over the season's offers: sum over jobs of the curtailed
+     fleet-hours x 1 MW (a full pause curtails H fleet-hours per event; a TIER x min(H, w) with the linear curve). 'The
+     flexibility' = every offer to every job curtailed by a full pause: 100 jobs x K x H MWh.
+  C4 Q-a ('ETM supplies all the flexibility'): for every job, at every payment above R/H (floor = rate (R + S)/H), ETM accepts
+     every offer it is running for (the reference 'accept all'); equivalently the fleet's ETM MWh equal the flexibility.
+  C5 Q-b ('OWN supplies it only while slack lasts'): for every job, at every payment above R/H, OWN accepts an offer iff one
+     more event still meets its wall-clock deadline (the reference 'accept while the slack lasts'), so it supplies
+     min(K, nmax) events and meets its deadline. Two parts, both scored: 'while' (no offer declined while the slack lasts) and
+     'only' (no offer accepted once the slack is spent: no job gives up its deadline to supply more). The lowest payment at
+     which some job's OWN supplies beyond its slack is printed.
+  C6 Q holds in a cell iff Q-a and both parts of Q-b hold for every job on every piece above R/H; Q holds iff it holds in every
+     scored cell (H = 1, 3, 4); Q is not computable if any cell is not computable. WALL, TIER and H0 are printed (not in Q).
+  C7 the gate: G-ZERO = ETM's one-event stake minus rate (R + S) is exactly 0 at every event count n = 0..K-1 of every job in
+     every scored cell, and ETM's x* == rate (R + S)/H at every offer state; G-NEG = with no events offered (K = 0), for every
+     job of every portfolio run here (scored and sensitivity spreads), every H and every grid pi, ETM not ahead of WALL by
+     more than 1 % (harness rel) on any outcome: per job curtailed MWh, payments, valuation, fleet value, completion hour
+     (earlier is ahead), deadline met; fleet totals MWh, payments, jobs meeting their deadline. G-POS is H1's; not printed.
+  C8 H3's pinned output (Grid_Demand_Response/checks/dr_h3.txt, second reading) was seen before these choices were fixed; it
+     shows OWN's grid supply rising above the slack-limited level at pi = 10 and 20 for H = 3 and 4. C5 is the literal reading
+     of 'only while slack lasts' and was not chosen for its outcome.
+
+PER-EVENT ARITHMETIC (drlib.event: curtailed fleet-hours e, charge c on the arm's valuation, deadline budget used; job J001)
+  H = 1 (R/H = 0.100000): WALL e 1 c 1.1 use 1.1; OWN e 1 c 0.1 use 1.1; ETM e 1 c 0.1 use 0.1; T10/3h e 0.1 c 0 use 0.1; T10/6h e 0.1 c 0 use 0.1; T25/3h e 0.25 c 0 use 0.25; T25/6h e 0.25 c 0 use 0.25; T50/3h e 0.5 c 0 use 0.5; T50/6h e 0.5 c 0 use 0.5
+  H = 3 (R/H = 0.033333): WALL e 3 c 3.1 use 3.1; OWN e 3 c 0.1 use 3.1; ETM e 3 c 0.1 use 0.1; T10/3h e 0.3 c 0 use 0.3; T10/6h e 0.3 c 0 use 0.3; T25/3h e 0.75 c 0 use 0.75; T25/6h e 0.75 c 0 use 0.75; T50/3h e 1.5 c 0 use 1.5; T50/6h e 1.5 c 0 use 1.5
+  H = 4 (R/H = 0.025000): WALL e 4 c 4.1 use 4.1; OWN e 4 c 0.1 use 4.1; ETM e 4 c 0.1 use 0.1; T10/3h e 0.3 c 0 use 0.3; T10/6h e 0.4 c 0 use 0.4; T25/3h e 0.75 c 0 use 0.75; T25/6h e 1 c 0 use 1; T50/3h e 1.5 c 0 use 1.5; T50/6h e 2 c 0 use 2
+
+CHECK OF THE x* RULE AGAINST BACKWARD INDUCTION (every grid pi and R/H, every job, cell and arm): per arm, states where
+accepts_at(x*, pi) equals solve()'s decision, and jobs whose play() events and MWh equal the piecewise evaluation
+  H = 1: WALL 861000/861000 states, 1000/1000 plays; OWN 861000/861000 states, 1000/1000 plays; ETM 861000/861000 states, 1000/1000 plays; T10/3h 861000/861000 states, 1000/1000 plays; T10/6h 861000/861000 states, 1000/1000 plays; T25/3h 861000/861000 states, 1000/1000 plays; T25/6h 861000/861000 states, 1000/1000 plays; T50/3h 861000/861000 states, 1000/1000 plays; T50/6h 861000/861000 states, 1000/1000 plays
+  H = 3: WALL 861000/861000 states, 1000/1000 plays; OWN 861000/861000 states, 1000/1000 plays; ETM 861000/861000 states, 1000/1000 plays; T10/3h 861000/861000 states, 1000/1000 plays; T10/6h 861000/861000 states, 1000/1000 plays; T25/3h 861000/861000 states, 1000/1000 plays; T25/6h 861000/861000 states, 1000/1000 plays; T50/3h 861000/861000 states, 1000/1000 plays; T50/6h 861000/861000 states, 1000/1000 plays
+  H = 4: WALL 861000/861000 states, 1000/1000 plays; OWN 861000/861000 states, 1000/1000 plays; ETM 861000/861000 states, 1000/1000 plays; T10/3h 861000/861000 states, 1000/1000 plays; T10/6h 861000/861000 states, 1000/1000 plays; T25/3h 861000/861000 states, 1000/1000 plays; T25/6h 861000/861000 states, 1000/1000 plays; T50/3h 861000/861000 states, 1000/1000 plays; T50/6h 861000/861000 states, 1000/1000 plays
+  the x* rule reproduces backward induction everywhere checked: yes
+
+PER-JOB TABLES (scored). Per job: slack D - W (h); nmax = events the arm's deadline absorbs (K offers); ref = min(K, nmax OWN),
+the slack-limited events (Q-b's reference); p_all per arm = the minimum flat payment at which the job accepts every offer
+of the season; ETM ok = Q-a holds for the job on every piece above R/H; OWN first = OWN's events on the first
+interval above R/H; OWN beyond at = the lowest payment above R/H at which OWN supplies beyond its slack ('>' = just above);
+short/beyond = pieces above R/H with a declined offer while slack lasts / an accepted offer once slack is spent;
+closed = every ETM and OWN acceptance region is [x*, inf); H0 = the interruptible-load reservation price
+  cell H = 1 (K = 41, R/H = 0.100000, flexibility per job 41 MWh):
+    job    slack    nmax W/O/E  ref  p_all ETM ETM ok    p_all OWN OWN first  OWN beyond at short beyond   p_all WALL         H0 closed
+    J001       5        4/4/50    4   0.100000    yes    27.127027         4      27.127027     0     74    28.127027  24.490244    yes
+    J002      10       9/9/100    9   0.100000    yes    31.350000         9      31.350000     0     64    32.350000  24.490244    yes
+    J003      15     13/13/150   13   0.100000    yes    35.814286        13      35.814286     0     56    36.814286  24.490244    yes
+    J004      20     18/18/200   18   0.100000    yes    43.578261        18      43.578261     0     46    44.578261  24.490244    yes
+    J005      25     22/22/250   22   0.100000    yes    52.731579        22      52.731579     0     38    53.731579  24.490244    yes
+    J006      30     27/27/300   27   0.100000    yes    71.528571        27      71.528571     0     28    72.528571  24.490244    yes
+    J007      35     31/31/350   31   0.100000    yes   100.100000        31     100.100000     0     20   101.100000  24.490244    yes
+    J008      40     36/36/400   36   0.100000    yes   200.100000        36     200.100000     0     10   201.100000  24.490244    yes
+    J009      45     40/40/450   40   0.100000    yes  1000.100000        40    1000.100000     0      2  1001.100000  24.490244    yes
+    J010      50     45/45/500   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J011      55     50/50/550   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J012      60     54/54/600   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J013      65     59/59/650   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J014      70     63/63/700   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J015      75     68/68/750   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J016      80     72/72/800   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J017      85     77/77/850   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J018      90     81/81/900   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J019      95     86/86/950   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J020     100    90/90/1000   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J021     105    95/95/1050   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J022     110  100/100/1100   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J023     115  104/104/1150   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J024     120  109/109/1200   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J025     125  113/113/1250   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J026     130  118/118/1300   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J027     135  122/122/1350   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J028     140  127/127/1400   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J029     145  131/131/1450   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J030     150  136/136/1500   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J031     155  140/140/1550   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J032     160  145/145/1600   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J033     165  150/150/1650   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J034     170  154/154/1700   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J035     175  159/159/1750   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J036     180  163/163/1800   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J037     185  168/168/1850   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J038     190  172/172/1900   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J039     195  177/177/1950   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J040     200  181/181/2000   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J041     205  186/186/2050   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J042     210  190/190/2100   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J043     215  195/195/2150   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J044     220  200/200/2200   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J045     225  204/204/2250   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J046     230  209/209/2300   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J047     235  213/213/2350   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J048     240  218/218/2400   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J049     245  222/222/2450   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J050     250  227/227/2500   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J051     255  231/231/2550   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J052     260  236/236/2600   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J053     265  240/240/2650   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J054     270  245/245/2700   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J055     275  250/250/2750   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J056     280  254/254/2800   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J057     285  259/259/2850   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J058     290  263/263/2900   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J059     295  268/268/2950   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J060     300  272/272/3000   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J061     305  277/277/3050   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J062     310  281/281/3100   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J063     315  286/286/3150   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J064     320  290/290/3200   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J065     325  295/295/3250   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J066     330  300/300/3300   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J067     335  304/304/3350   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J068     340  309/309/3400   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J069     345  313/313/3450   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J070     350  318/318/3500   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J071     355  322/322/3550   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J072     360  327/327/3600   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J073     365  331/331/3650   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J074     370  336/336/3700   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J075     375  340/340/3750   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J076     380  345/345/3800   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J077     385  350/350/3850   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J078     390  354/354/3900   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J079     395  359/359/3950   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J080     400  363/363/4000   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J081     405  368/368/4050   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J082     410  372/372/4100   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J083     415  377/377/4150   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J084     420  381/381/4200   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J085     425  386/386/4250   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J086     430  390/390/4300   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J087     435  395/395/4350   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J088     440  400/400/4400   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J089     445  404/404/4450   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J090     450  409/409/4500   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J091     455  413/413/4550   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J092     460  418/418/4600   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J093     465  422/422/4650   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J094     470  427/427/4700   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J095     475  431/431/4750   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J096     480  436/436/4800   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J097     485  440/440/4850   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J098     490  445/445/4900   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J099     495  450/450/4950   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    J100     500  454/454/5000   41   0.100000    yes     0.100000        41              -     0      0     1.100000   0.100000    yes
+    TIER entry prices p_all (per curtailed fleet-hour) and events accepted just above R/H, per tier:
+      T10/3h   e per event 0.1 fleet-hours (of 1), wall delay 0.1 h; p_all kinds threshold, 1 distinct thresholds 0.000000..0.000000; jobs accepting all 41 offers just above R/H: 100 of 100; closed 100 of 100
+      T10/6h   e per event 0.1 fleet-hours (of 1), wall delay 0.1 h; p_all kinds threshold, 1 distinct thresholds 0.000000..0.000000; jobs accepting all 41 offers just above R/H: 100 of 100; closed 100 of 100
+      T25/3h   e per event 0.25 fleet-hours (of 1), wall delay 0.25 h; p_all kinds threshold, 3 distinct thresholds 0.000000..4000.000000; jobs accepting all 41 offers just above R/H: 98 of 100; closed 100 of 100
+      T25/6h   e per event 0.25 fleet-hours (of 1), wall delay 0.25 h; p_all kinds threshold, 3 distinct thresholds 0.000000..4000.000000; jobs accepting all 41 offers just above R/H: 98 of 100; closed 100 of 100
+      T50/3h   e per event 0.5 fleet-hours (of 1), wall delay 0.5 h; p_all kinds threshold, 5 distinct thresholds 0.000000..2000.000000; jobs accepting all 41 offers just above R/H: 96 of 100; closed 100 of 100
+      T50/6h   e per event 0.5 fleet-hours (of 1), wall delay 0.5 h; p_all kinds threshold, 5 distinct thresholds 0.000000..2000.000000; jobs accepting all 41 offers just above R/H: 96 of 100; closed 100 of 100
+  cell H = 3 (K = 41, R/H = 0.033333, flexibility per job 123 MWh):
+    job    slack    nmax W/O/E  ref  p_all ETM ETM ok    p_all OWN OWN first  OWN beyond at short beyond   p_all WALL         H0 closed
+    J001       5        1/1/50    1   0.033333    yes     8.366667         1       8.366667     0     80     9.366667   8.163415    yes
+    J002      10       3/3/100    3   0.033333    yes     8.805263         3       8.805263     0     76     9.805263   8.163415    yes
+    J003      15       4/4/150    4   0.033333    yes     9.042342         4       9.042342     0     74    10.042342   8.163415    yes
+    J004      20       6/6/200    6   0.033333    yes     9.557143         6       9.557143     0     70    10.557143   8.163415    yes
+    J005      25       8/8/250    8   0.033333    yes    10.134343         8      10.134343     0     66    11.134343   8.163415    yes
+    J006      30       9/9/300    9   0.033333    yes    10.450000         9      10.450000     0     64    11.450000   8.163415    yes
+    J007      35     11/11/350   11   0.033333    yes    11.144444        11      11.144444     0     60    12.144444   8.163415    yes
+    J008      40     12/12/400   12   0.033333    yes    11.527586        12      11.527586     0     58    12.527586   8.163415    yes
+    J009      45     14/14/450   14   0.033333    yes    12.379012        14      12.379012     0     54    13.379012   8.163415    yes
+    J010      50     16/16/500   16   0.033333    yes    13.366667        16      13.366667     0     50    14.366667   8.163415    yes
+    J011      55     17/17/550   17   0.033333    yes    13.922222        17      13.922222     0     48    14.922222   8.163415    yes
+    J012      60     19/19/600   19   0.033333    yes    15.184848        19      15.184848     0     44    16.184848   8.163415    yes
+    J013      65     20/20/650   20   0.033333    yes    15.906349        20      15.906349     0     42    16.906349   8.163415    yes
+    J014      70     22/22/700   22   0.033333    yes    17.577193        22      17.577193     0     38    18.577193   8.163415    yes
+    J015      75     24/24/750   24   0.033333    yes    19.641176        24      19.641176     0     34    20.641176   8.163415    yes
+    J016      80     25/25/800   25   0.033333    yes    20.866667        25      20.866667     0     32    21.866667   8.163415    yes
+    J017      85     27/27/850   27   0.033333    yes    23.842857        27      23.842857     0     28    24.842857   8.163415    yes
+    J018      90     29/29/900   29   0.033333    yes    27.811111        29      27.811111     0     24    28.811111   8.163415    yes
+    J019      95     30/30/950   30   0.033333    yes    30.336364        30      30.336364     0     22    31.336364   8.163415    yes
+    J020     100    32/32/1000   32   0.033333    yes    37.070370        32      37.070370     0     18    38.070370   8.163415    yes
+    J021     105    33/33/1050   33   0.033333    yes    41.700000        33      41.700000     0     16    42.700000   8.163415    yes
+    J022     110    35/35/1100   35   0.033333    yes    55.588889        35      55.588889     0     12    56.588889   8.163415    yes
+    J023     115    37/37/1150   37   0.033333    yes    83.366667        37      83.366667     0      8    84.366667   8.163415    yes
+    J024     120    38/38/1200   38   0.033333    yes   111.144444        38     111.144444     0      6   112.144444   8.163415    yes
+    J025     125    40/40/1250   40   0.033333    yes   333.366667        40     333.366667     0      2   334.366667   8.163415    yes
+    J026     130    41/41/1300   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J027     135    43/43/1350   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J028     140    45/45/1400   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J029     145    46/46/1450   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J030     150    48/48/1500   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J031     155    50/50/1550   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J032     160    51/51/1600   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J033     165    53/53/1650   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J034     170    54/54/1700   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J035     175    56/56/1750   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J036     180    58/58/1800   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J037     185    59/59/1850   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J038     190    61/61/1900   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J039     195    62/62/1950   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J040     200    64/64/2000   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J041     205    66/66/2050   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J042     210    67/67/2100   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J043     215    69/69/2150   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J044     220    70/70/2200   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J045     225    72/72/2250   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J046     230    74/74/2300   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J047     235    75/75/2350   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J048     240    77/77/2400   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J049     245    79/79/2450   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J050     250    80/80/2500   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J051     255    82/82/2550   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J052     260    83/83/2600   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J053     265    85/85/2650   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J054     270    87/87/2700   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J055     275    88/88/2750   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J056     280    90/90/2800   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J057     285    91/91/2850   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J058     290    93/93/2900   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J059     295    95/95/2950   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J060     300    96/96/3000   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J061     305    98/98/3050   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J062     310  100/100/3100   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J063     315  101/101/3150   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J064     320  103/103/3200   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J065     325  104/104/3250   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J066     330  106/106/3300   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J067     335  108/108/3350   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J068     340  109/109/3400   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J069     345  111/111/3450   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J070     350  112/112/3500   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J071     355  114/114/3550   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J072     360  116/116/3600   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J073     365  117/117/3650   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J074     370  119/119/3700   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J075     375  120/120/3750   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J076     380  122/122/3800   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J077     385  124/124/3850   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J078     390  125/125/3900   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J079     395  127/127/3950   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J080     400  129/129/4000   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J081     405  130/130/4050   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J082     410  132/132/4100   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J083     415  133/133/4150   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J084     420  135/135/4200   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J085     425  137/137/4250   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J086     430  138/138/4300   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J087     435  140/140/4350   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J088     440  141/141/4400   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J089     445  143/143/4450   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J090     450  145/145/4500   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J091     455  146/146/4550   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J092     460  148/148/4600   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J093     465  150/150/4650   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J094     470  151/151/4700   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J095     475  153/153/4750   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J096     480  154/154/4800   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J097     485  156/156/4850   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J098     490  158/158/4900   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J099     495  159/159/4950   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    J100     500  161/161/5000   41   0.033333    yes     0.033333        41              -     0      0     1.033333   0.033333    yes
+    TIER entry prices p_all (per curtailed fleet-hour) and events accepted just above R/H, per tier:
+      T10/3h   e per event 0.3 fleet-hours (of 3), wall delay 0.3 h; p_all kinds threshold, 3 distinct thresholds 0.000000..416.666667; jobs accepting all 41 offers just above R/H: 98 of 100; closed 100 of 100
+      T10/6h   e per event 0.3 fleet-hours (of 3), wall delay 0.3 h; p_all kinds threshold, 3 distinct thresholds 0.000000..416.666667; jobs accepting all 41 offers just above R/H: 98 of 100; closed 100 of 100
+      T25/3h   e per event 0.75 fleet-hours (of 3), wall delay 0.75 h; p_all kinds threshold, 7 distinct thresholds 0.000000..1333.333333; jobs accepting all 41 offers just above R/H: 94 of 100; closed 100 of 100
+      T25/6h   e per event 0.75 fleet-hours (of 3), wall delay 0.75 h; p_all kinds threshold, 7 distinct thresholds 0.000000..1333.333333; jobs accepting all 41 offers just above R/H: 94 of 100; closed 100 of 100
+      T50/3h   e per event 1.5 fleet-hours (of 3), wall delay 1.5 h; p_all kinds threshold, 13 distinct thresholds 0.000000..666.666667; jobs accepting all 41 offers just above R/H: 88 of 100; closed 100 of 100
+      T50/6h   e per event 1.5 fleet-hours (of 3), wall delay 1.5 h; p_all kinds threshold, 13 distinct thresholds 0.000000..666.666667; jobs accepting all 41 offers just above R/H: 88 of 100; closed 100 of 100
+  cell H = 4 (K = 41, R/H = 0.025000, flexibility per job 164 MWh):
+    job    slack    nmax W/O/E  ref  p_all ETM ETM ok    p_all OWN OWN first  OWN beyond at short beyond   p_all WALL         H0 closed
+    J001       5        1/1/50    1   0.025000    yes     6.275000         1       6.275000     0     80     7.275000   6.122561    yes
+    J002      10       2/2/100    2   0.025000    yes     6.435256         2       6.435256     0     78     7.435256   6.122561    yes
+    J003      15       3/3/150    3   0.025000    yes     6.603947         3       6.603947     0     76     7.603947   6.122561    yes
+    J004      20       4/4/200    4   0.025000    yes     6.781757         4       6.781757     0     74     7.781757   6.122561    yes
+    J005      25       6/6/250    6   0.025000    yes     7.167857         6       7.167857     0     70     8.167857   6.122561    yes
+    J006      30       7/7/300    7   0.025000    yes     7.377941         7       7.377941     0     68     8.377941   6.122561    yes
+    J007      35       8/8/350    8   0.025000    yes     7.600758         8       7.600758     0     66     8.600758   6.122561    yes
+    J008      40       9/9/400    9   0.025000    yes     7.837500         9       7.837500     0     64     8.837500   6.122561    yes
+    J009      45     10/10/450   10   0.025000    yes     8.089516        10       8.089516     0     62     9.089516   6.122561    yes
+    J010      50     12/12/500   12   0.025000    yes     8.645690        12       8.645690     0     58     9.645690   6.122561    yes
+    J011      55     13/13/550   13   0.025000    yes     8.953571        13       8.953571     0     56     9.953571   6.122561    yes
+    J012      60     14/14/600   14   0.025000    yes     9.284259        14       9.284259     0     54    10.284259   6.122561    yes
+    J013      65     15/15/650   15   0.025000    yes     9.640385        15       9.640385     0     52    10.640385   6.122561    yes
+    J014      70     17/17/700   17   0.025000    yes    10.441667        17      10.441667     0     48    11.441667   6.122561    yes
+    J015      75     18/18/750   18   0.025000    yes    10.894565        18      10.894565     0     46    11.894565   6.122561    yes
+    J016      80     19/19/800   19   0.025000    yes    11.388636        19      11.388636     0     44    12.388636   6.122561    yes
+    J017      85     20/20/850   20   0.025000    yes    11.929762        20      11.929762     0     42    12.929762   6.122561    yes
+    J018      90     21/21/900   21   0.025000    yes    12.525000        21      12.525000     0     40    13.525000   6.122561    yes
+    J019      95     23/23/950   23   0.025000    yes    13.913889        23      13.913889     0     36    14.913889   6.122561    yes
+    J020     100    24/24/1000   24   0.025000    yes    14.730882        24      14.730882     0     34    15.730882   6.122561    yes
+    J021     105    25/25/1050   25   0.025000    yes    15.650000        25      15.650000     0     32    16.650000   6.122561    yes
+    J022     110    26/26/1100   26   0.025000    yes    16.691667        26      16.691667     0     30    17.691667   6.122561    yes
+    J023     115    28/28/1150   28   0.025000    yes    19.255769        28      19.255769     0     26    20.255769   6.122561    yes
+    J024     120    29/29/1200   29   0.025000    yes    20.858333        29      20.858333     0     24    21.858333   6.122561    yes
+    J025     125    30/30/1250   30   0.025000    yes    22.752273        30      22.752273     0     22    23.752273   6.122561    yes
+    J026     130    31/31/1300   31   0.025000    yes    25.025000        31      25.025000     0     20    26.025000   6.122561    yes
+    J027     135    32/32/1350   32   0.025000    yes    27.802778        32      27.802778     0     18    28.802778   6.122561    yes
+    J028     140    34/34/1400   34   0.025000    yes    35.739286        34      35.739286     0     14    36.739286   6.122561    yes
+    J029     145    35/35/1450   35   0.025000    yes    41.691667        35      41.691667     0     12    42.691667   6.122561    yes
+    J030     150    36/36/1500   36   0.025000    yes    50.025000        36      50.025000     0     10    51.025000   6.122561    yes
+    J031     155    37/37/1550   37   0.025000    yes    62.525000        37      62.525000     0      8    63.525000   6.122561    yes
+    J032     160    39/39/1600   39   0.025000    yes   125.025000        39     125.025000     0      4   126.025000   6.122561    yes
+    J033     165    40/40/1650   40   0.025000    yes   250.025000        40     250.025000     0      2   251.025000   6.122561    yes
+    J034     170    41/41/1700   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J035     175    42/42/1750   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J036     180    43/43/1800   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J037     185    45/45/1850   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J038     190    46/46/1900   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J039     195    47/47/1950   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J040     200    48/48/2000   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J041     205    50/50/2050   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J042     210    51/51/2100   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J043     215    52/52/2150   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J044     220    53/53/2200   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J045     225    54/54/2250   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J046     230    56/56/2300   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J047     235    57/57/2350   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J048     240    58/58/2400   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J049     245    59/59/2450   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J050     250    60/60/2500   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J051     255    62/62/2550   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J052     260    63/63/2600   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J053     265    64/64/2650   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J054     270    65/65/2700   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J055     275    67/67/2750   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J056     280    68/68/2800   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J057     285    69/69/2850   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J058     290    70/70/2900   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J059     295    71/71/2950   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J060     300    73/73/3000   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J061     305    74/74/3050   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J062     310    75/75/3100   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J063     315    76/76/3150   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J064     320    78/78/3200   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J065     325    79/79/3250   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J066     330    80/80/3300   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J067     335    81/81/3350   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J068     340    82/82/3400   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J069     345    84/84/3450   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J070     350    85/85/3500   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J071     355    86/86/3550   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J072     360    87/87/3600   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J073     365    89/89/3650   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J074     370    90/90/3700   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J075     375    91/91/3750   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J076     380    92/92/3800   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J077     385    93/93/3850   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J078     390    95/95/3900   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J079     395    96/96/3950   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J080     400    97/97/4000   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J081     405    98/98/4050   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J082     410  100/100/4100   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J083     415  101/101/4150   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J084     420  102/102/4200   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J085     425  103/103/4250   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J086     430  104/104/4300   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J087     435  106/106/4350   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J088     440  107/107/4400   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J089     445  108/108/4450   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J090     450  109/109/4500   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J091     455  110/110/4550   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J092     460  112/112/4600   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J093     465  113/113/4650   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J094     470  114/114/4700   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J095     475  115/115/4750   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J096     480  117/117/4800   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J097     485  118/118/4850   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J098     490  119/119/4900   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J099     495  120/120/4950   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    J100     500  121/121/5000   41   0.025000    yes     0.025000        41              -     0      0     1.025000   0.025000    yes
+    TIER entry prices p_all (per curtailed fleet-hour) and events accepted just above R/H, per tier:
+      T10/3h   e per event 0.3 fleet-hours (of 4), wall delay 0.3 h; p_all kinds threshold, 3 distinct thresholds 0.000000..416.666667; jobs accepting all 41 offers just above R/H: 98 of 100; closed 100 of 100
+      T10/6h   e per event 0.4 fleet-hours (of 4), wall delay 0.4 h; p_all kinds threshold, 4 distinct thresholds 0.000000..625.000000; jobs accepting all 41 offers just above R/H: 97 of 100; closed 100 of 100
+      T25/3h   e per event 0.75 fleet-hours (of 4), wall delay 0.75 h; p_all kinds threshold, 7 distinct thresholds 0.000000..1333.333333; jobs accepting all 41 offers just above R/H: 94 of 100; closed 100 of 100
+      T25/6h   e per event 1 fleet-hours (of 4), wall delay 1 h; p_all kinds threshold, 9 distinct thresholds 0.000000..1000.000000; jobs accepting all 41 offers just above R/H: 92 of 100; closed 100 of 100
+      T50/3h   e per event 1.5 fleet-hours (of 4), wall delay 1.5 h; p_all kinds threshold, 13 distinct thresholds 0.000000..666.666667; jobs accepting all 41 offers just above R/H: 88 of 100; closed 100 of 100
+      T50/6h   e per event 2 fleet-hours (of 4), wall delay 2 h; p_all kinds threshold, 17 distinct thresholds 0.000000..500.000000; jobs accepting all 41 offers just above R/H: 84 of 100; closed 100 of 100
+
+VALUE TO THE GRID AT THE PRICE GRID (scored cells; fleet of 100 x 1 MW; one season of K offers). Per pi: the flexibility
+(MWh), each arm's curtailed MWh, ETM's and OWN's share of the flexibility, OWN's slack-limited MWh (Q-b's reference), and
+the jobs meeting their deadline (on the arm's contract)
+  cell H = 1: flexibility 4100 MWh; OWN's slack-limited supply 3931 MWh
+           pi      WALL       OWN       ETM    T10/3h    T10/6h    T25/3h    T25/6h    T50/3h    T50/6h        H0 ETM share OWN share   met W/O/E/H0
+       0.0100       0.0       0.0       0.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0       0.0    0.0000    0.0000   100/100/100/100
+       0.0200       0.0       0.0       0.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0       0.0    0.0000    0.0000   100/100/100/100
+       0.0500       0.0       0.0       0.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0       0.0    0.0000    0.0000   100/100/100/100
+       0.1000       0.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+       0.2000       0.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+       0.5000       0.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+       2.0000    3931.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+       5.0000    3931.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+      10.0000    3931.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+      20.0000    3931.0    3931.0    4100.0     410.0     410.0    1019.5    1019.5    2018.0    2018.0    3731.0    1.0000    0.9588   100/100/100/100
+    payments to the fleet (pi x MWh) at each grid pi, ETM / OWN / WALL: 0.01: 0.0 / 0.0 / 0.0; 0.02: 0.0 / 0.0 / 0.0; 0.05: 0.0 / 0.0 / 0.0; 0.1: 410.0 / 393.1 / 0.0; 0.2: 820.0 / 786.2 / 0.0; 0.5: 2050.0 / 1965.5 / 0.0; 2: 8200.0 / 7862.0 / 7862.0; 5: 20500.0 / 19655.0 / 19655.0; 10: 41000.0 / 39310.0 / 39310.0; 20: 82000.0 / 78620.0 / 78620.0
+  cell H = 3: flexibility 12300 MWh; OWN's slack-limited supply 10761 MWh
+           pi      WALL       OWN       ETM    T10/3h    T10/6h    T25/3h    T25/6h    T50/3h    T50/6h        H0 ETM share OWN share   met W/O/E/H0
+       0.0100       0.0       0.0       0.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0       0.0    0.0000    0.0000   100/100/100/100
+       0.0200       0.0       0.0       0.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0       0.0    0.0000    0.0000   100/100/100/100
+       0.0333       0.0   10761.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0    9225.0    1.0000    0.8749   100/100/100/100
+       0.0500       0.0   10761.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0    9225.0    1.0000    0.8749   100/100/100/100
+       0.2000       0.0   10761.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0    9225.0    1.0000    0.8749   100/100/100/100
+       0.5000       0.0   10761.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0    9225.0    1.0000    0.8749   100/100/100/100
+       2.0000   10761.0   10761.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0    9225.0    1.0000    0.8749   100/100/100/100
+       5.0000   10761.0   10761.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0    9225.0    1.0000    0.8749   100/100/100/100
+      10.0000   10995.0   11211.0   12300.0    1220.1    1220.1    2994.0    2994.0    5796.0    5796.0   12300.0    1.0000    0.9115   98/96/100/75
+      20.0000   11997.0   12048.0   12300.0    1220.1    1220.1    2994.0    2994.0    5905.5    5905.5   12300.0    1.0000    0.9795   86/85/100/75
+    payments to the fleet (pi x MWh) at each grid pi, ETM / OWN / WALL: 0.01: 0.0 / 0.0 / 0.0; 0.02: 0.0 / 0.0 / 0.0; 0.0333333: 410.0 / 358.7 / 0.0; 0.05: 615.0 / 538.0 / 0.0; 0.2: 2460.0 / 2152.2 / 0.0; 0.5: 6150.0 / 5380.5 / 0.0; 2: 24600.0 / 21522.0 / 21522.0; 5: 61500.0 / 53805.0 / 53805.0; 10: 123000.0 / 112110.0 / 109950.0; 20: 246000.0 / 240960.0 / 239940.0
+  cell H = 4: flexibility 16400 MWh; OWN's slack-limited supply 13660 MWh
+           pi      WALL       OWN       ETM    T10/3h    T10/6h    T25/3h    T25/6h    T50/3h    T50/6h        H0 ETM share OWN share   met W/O/E/H0
+       0.0100       0.0       0.0       0.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0       0.0    0.0000    0.0000   100/100/100/100
+       0.0200       0.0       0.0       0.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0       0.0    0.0000    0.0000   100/100/100/100
+       0.0250       0.0   13660.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   10988.0    1.0000    0.8329   100/100/100/100
+       0.0500       0.0   13660.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   10988.0    1.0000    0.8329   100/100/100/100
+       0.2000       0.0   13660.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   10988.0    1.0000    0.8329   100/100/100/100
+       0.5000       0.0   13660.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   10988.0    1.0000    0.8329   100/100/100/100
+       2.0000   13660.0   13660.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   10988.0    1.0000    0.8329   100/100/100/100
+       5.0000   13660.0   13660.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   10988.0    1.0000    0.8329   100/100/100/100
+      10.0000   15164.0   15376.0   16400.0    1220.1    1620.4    2994.0    3952.0    5796.0    7560.0   16400.0    1.0000    0.9376   89/87/100/67
+      20.0000   16080.0   16132.0   16400.0    1220.1    1620.4    2994.0    3952.0    5905.5    7950.0   16400.0    1.0000    0.9837   78/77/100/67
+    payments to the fleet (pi x MWh) at each grid pi, ETM / OWN / WALL: 0.01: 0.0 / 0.0 / 0.0; 0.02: 0.0 / 0.0 / 0.0; 0.025: 410.0 / 341.5 / 0.0; 0.05: 820.0 / 683.0 / 0.0; 0.2: 3280.0 / 2732.0 / 0.0; 0.5: 8200.0 / 6830.0 / 0.0; 2: 32800.0 / 27320.0 / 27320.0; 5: 82000.0 / 68300.0 / 68300.0; 10: 164000.0 / 153760.0 / 151640.0; 20: 328000.0 / 322640.0 / 321600.0
+
+EXACT FLEET SUPPLY CURVES (scored cells): per arm, the season's curtailed MWh and the jobs meeting their deadline as a step
+function of the flat payment pi >= 0 (runs of equal value merged; '[a]' the single payment a)
+  cell H = 1 (flexibility 4100 MWh, R/H = 0.100000):
+    ETM      (2 runs): [0.000000, 0.100000) 0.0 MWh, 100 met; [0.100000, inf) 4100.0 MWh, 100 met
+    OWN      (11 runs): [0.000000, 0.100000) 0.0 MWh, 100 met; [0.100000, 27.127027) 3931.0 MWh, 100 met; [27.127027, 31.350000) 3968.0 MWh, 99 met; [31.350000, 35.814286) 4000.0 MWh, 98 met; [35.814286, 43.578261) 4028.0 MWh, 97 met; [43.578261, 52.731579) 4051.0 MWh, 96 met; [52.731579, 71.528571) 4070.0 MWh, 95 met; [71.528571, 100.100000) 4084.0 MWh, 94 met; [100.100000, 200.100000) 4094.0 MWh, 93 met; [200.100000, 1000.100000) 4099.0 MWh, 92 met; [1000.100000, inf) 4100.0 MWh, 91 met
+    WALL     (11 runs): [0.000000, 1.100000) 0.0 MWh, 100 met; [1.100000, 28.127027) 3931.0 MWh, 100 met; [28.127027, 32.350000) 3968.0 MWh, 99 met; [32.350000, 36.814286) 4000.0 MWh, 98 met; [36.814286, 44.578261) 4028.0 MWh, 97 met; [44.578261, 53.731579) 4051.0 MWh, 96 met; [53.731579, 72.528571) 4070.0 MWh, 95 met; [72.528571, 101.100000) 4084.0 MWh, 94 met; [101.100000, 201.100000) 4094.0 MWh, 93 met; [201.100000, 1001.100000) 4099.0 MWh, 92 met; [1001.100000, inf) 4100.0 MWh, 91 met
+    T10/3h   (1 runs): [0.000000, inf) 410.0 MWh, 100 met
+    T10/6h   (1 runs): [0.000000, inf) 410.0 MWh, 100 met
+    T25/3h   (3 runs): [0.000000, 190.476190) 1019.5 MWh, 100 met; [190.476190, 4000.000000) 1024.8 MWh, 99 met; [4000.000000, inf) 1025.0 MWh, 98 met
+    T25/6h   (3 runs): [0.000000, 190.476190) 1019.5 MWh, 100 met; [190.476190, 4000.000000) 1024.8 MWh, 99 met; [4000.000000, inf) 1025.0 MWh, 98 met
+    T50/3h   (5 runs): [0.000000, 64.516129) 2018.0 MWh, 100 met; [64.516129, 95.238095) 2033.5 MWh, 99 met; [95.238095, 181.818182) 2044.0 MWh, 98 met; [181.818182, 2000.000000) 2049.5 MWh, 97 met; [2000.000000, inf) 2050.0 MWh, 96 met
+    T50/6h   (5 runs): [0.000000, 64.516129) 2018.0 MWh, 100 met; [64.516129, 95.238095) 2033.5 MWh, 99 met; [95.238095, 181.818182) 2044.0 MWh, 98 met; [181.818182, 2000.000000) 2049.5 MWh, 97 met; [2000.000000, inf) 2050.0 MWh, 96 met
+    H0       (2 entry prices; each enrolled job curtails 41 MWh): from 0.100000 91 jobs; from 24.490244 100 jobs
+  cell H = 3 (flexibility 12300 MWh, R/H = 0.033333):
+    ETM      (2 runs): [0.000000, 0.033333) 0.0 MWh, 100 met; [0.033333, inf) 12300.0 MWh, 100 met
+    OWN      (27 runs): [0.000000, 0.033333) 0.0 MWh, 100 met; [0.033333, 8.366667) 10761.0 MWh, 100 met; [8.366667, 8.805263) 10881.0 MWh, 99 met; [8.805263, 9.042342) 10995.0 MWh, 98 met; [9.042342, 9.557143) 11106.0 MWh, 97 met; [9.557143, 10.134343) 11211.0 MWh, 96 met; [10.134343, 10.450000) 11310.0 MWh, 95 met; [10.450000, 11.144444) 11406.0 MWh, 94 met; [11.144444, 11.527586) 11496.0 MWh, 93 met; [11.527586, 12.379012) 11583.0 MWh, 92 met; [12.379012, 13.366667) 11664.0 MWh, 91 met; [13.366667, 13.922222) 11739.0 MWh, 90 met; [13.922222, 15.184848) 11811.0 MWh, 89 met; [15.184848, 15.906349) 11877.0 MWh, 88 met; [15.906349, 17.577193) 11940.0 MWh, 87 met; [17.577193, 19.641176) 11997.0 MWh, 86 met; [19.641176, 20.866667) 12048.0 MWh, 85 met; [20.866667, 23.842857) 12096.0 MWh, 84 met; [23.842857, 27.811111) 12138.0 MWh, 83 met; [27.811111, 30.336364) 12174.0 MWh, 82 met; [30.336364, 37.070370) 12207.0 MWh, 81 met; [37.070370, 41.700000) 12234.0 MWh, 80 met; [41.700000, 55.588889) 12258.0 MWh, 79 met; [55.588889, 83.366667) 12276.0 MWh, 78 met; [83.366667, 111.144444) 12288.0 MWh, 77 met; [111.144444, 333.366667) 12297.0 MWh, 76 met; [333.366667, inf) 12300.0 MWh, 75 met
+    WALL     (27 runs): [0.000000, 1.033333) 0.0 MWh, 100 met; [1.033333, 9.366667) 10761.0 MWh, 100 met; [9.366667, 9.805263) 10881.0 MWh, 99 met; [9.805263, 10.042342) 10995.0 MWh, 98 met; [10.042342, 10.557143) 11106.0 MWh, 97 met; [10.557143, 11.134343) 11211.0 MWh, 96 met; [11.134343, 11.450000) 11310.0 MWh, 95 met; [11.450000, 12.144444) 11406.0 MWh, 94 met; [12.144444, 12.527586) 11496.0 MWh, 93 met; [12.527586, 13.379012) 11583.0 MWh, 92 met; [13.379012, 14.366667) 11664.0 MWh, 91 met; [14.366667, 14.922222) 11739.0 MWh, 90 met; [14.922222, 16.184848) 11811.0 MWh, 89 met; [16.184848, 16.906349) 11877.0 MWh, 88 met; [16.906349, 18.577193) 11940.0 MWh, 87 met; [18.577193, 20.641176) 11997.0 MWh, 86 met; [20.641176, 21.866667) 12048.0 MWh, 85 met; [21.866667, 24.842857) 12096.0 MWh, 84 met; [24.842857, 28.811111) 12138.0 MWh, 83 met; [28.811111, 31.336364) 12174.0 MWh, 82 met; [31.336364, 38.070370) 12207.0 MWh, 81 met; [38.070370, 42.700000) 12234.0 MWh, 80 met; [42.700000, 56.588889) 12258.0 MWh, 79 met; [56.588889, 84.366667) 12276.0 MWh, 78 met; [84.366667, 112.144444) 12288.0 MWh, 77 met; [112.144444, 334.366667) 12297.0 MWh, 76 met; [334.366667, inf) 12300.0 MWh, 75 met
+    T10/3h   (3 runs): [0.000000, 133.333333) 1220.1 MWh, 100 met; [133.333333, 416.666667) 1227.6 MWh, 99 met; [416.666667, inf) 1230.0 MWh, 98 met
+    T10/6h   (3 runs): [0.000000, 133.333333) 1220.1 MWh, 100 met; [133.333333, 416.666667) 1227.6 MWh, 99 met; [416.666667, inf) 1230.0 MWh, 98 met
+    T25/3h   (7 runs): [0.000000, 38.095238) 2994.0 MWh, 100 met; [38.095238, 47.619048) 3020.2 MWh, 99 met; [47.619048, 63.492063) 3041.2 MWh, 98 met; [63.492063, 88.888889) 3057.0 MWh, 97 met; [88.888889, 166.666667) 3068.2 MWh, 96 met; [166.666667, 1333.333333) 3074.2 MWh, 95 met; [1333.333333, inf) 3075.0 MWh, 94 met
+    T25/6h   (7 runs): [0.000000, 38.095238) 2994.0 MWh, 100 met; [38.095238, 47.619048) 3020.2 MWh, 99 met; [47.619048, 63.492063) 3041.2 MWh, 98 met; [63.492063, 88.888889) 3057.0 MWh, 97 met; [88.888889, 166.666667) 3068.2 MWh, 96 met; [166.666667, 1333.333333) 3074.2 MWh, 95 met; [1333.333333, inf) 3075.0 MWh, 94 met
+    T50/3h   (13 runs): [0.000000, 17.543860) 5796.0 MWh, 100 met; [17.543860, 19.047619) 5853.0 MWh, 99 met; [19.047619, 21.505376) 5905.5 MWh, 98 met; [21.505376, 23.809524) 5952.0 MWh, 97 met; [23.809524, 26.666667) 5994.0 MWh, 96 met; [26.666667, 31.746032) 6031.5 MWh, 95 met; [31.746032, 37.037037) 6063.0 MWh, 94 met; [37.037037, 44.444444) 6090.0 MWh, 93 met; [44.444444, 60.606061) 6112.5 MWh, 92 met; [60.606061, 83.333333) 6129.0 MWh, 91 met; [83.333333, 133.333333) 6141.0 MWh, 90 met; [133.333333, 666.666667) 6148.5 MWh, 89 met; [666.666667, inf) 6150.0 MWh, 88 met
+    T50/6h   (13 runs): [0.000000, 17.543860) 5796.0 MWh, 100 met; [17.543860, 19.047619) 5853.0 MWh, 99 met; [19.047619, 21.505376) 5905.5 MWh, 98 met; [21.505376, 23.809524) 5952.0 MWh, 97 met; [23.809524, 26.666667) 5994.0 MWh, 96 met; [26.666667, 31.746032) 6031.5 MWh, 95 met; [31.746032, 37.037037) 6063.0 MWh, 94 met; [37.037037, 44.444444) 6090.0 MWh, 93 met; [44.444444, 60.606061) 6112.5 MWh, 92 met; [60.606061, 83.333333) 6129.0 MWh, 91 met; [83.333333, 133.333333) 6141.0 MWh, 90 met; [133.333333, 666.666667) 6148.5 MWh, 89 met; [666.666667, inf) 6150.0 MWh, 88 met
+    H0       (2 entry prices; each enrolled job curtails 123 MWh): from 0.033333 75 jobs; from 8.163415 100 jobs
+  cell H = 4 (flexibility 16400 MWh, R/H = 0.025000):
+    ETM      (2 runs): [0.000000, 0.025000) 0.0 MWh, 100 met; [0.025000, inf) 16400.0 MWh, 100 met
+    OWN      (35 runs): [0.000000, 0.025000) 0.0 MWh, 100 met; [0.025000, 6.275000) 13660.0 MWh, 100 met; [6.275000, 6.435256) 13820.0 MWh, 99 met; [6.435256, 6.603947) 13976.0 MWh, 98 met; [6.603947, 6.781757) 14128.0 MWh, 97 met; [6.781757, 7.167857) 14276.0 MWh, 96 met; [7.167857, 7.377941) 14416.0 MWh, 95 met; [7.377941, 7.600758) 14552.0 MWh, 94 met; [7.600758, 7.837500) 14684.0 MWh, 93 met; [7.837500, 8.089516) 14812.0 MWh, 92 met; [8.089516, 8.645690) 14936.0 MWh, 91 met; [8.645690, 8.953571) 15052.0 MWh, 90 met; [8.953571, 9.284259) 15164.0 MWh, 89 met; [9.284259, 9.640385) 15272.0 MWh, 88 met; [9.640385, 10.441667) 15376.0 MWh, 87 met; [10.441667, 10.894565) 15472.0 MWh, 86 met; [10.894565, 11.388636) 15564.0 MWh, 85 met; [11.388636, 11.929762) 15652.0 MWh, 84 met; [11.929762, 12.525000) 15736.0 MWh, 83 met; [12.525000, 13.913889) 15816.0 MWh, 82 met; [13.913889, 14.730882) 15888.0 MWh, 81 met; [14.730882, 15.650000) 15956.0 MWh, 80 met; [15.650000, 16.691667) 16020.0 MWh, 79 met; [16.691667, 19.255769) 16080.0 MWh, 78 met; [19.255769, 20.858333) 16132.0 MWh, 77 met; [20.858333, 22.752273) 16180.0 MWh, 76 met; [22.752273, 25.025000) 16224.0 MWh, 75 met; [25.025000, 27.802778) 16264.0 MWh, 74 met; [27.802778, 35.739286) 16300.0 MWh, 73 met; [35.739286, 41.691667) 16328.0 MWh, 72 met; [41.691667, 50.025000) 16352.0 MWh, 71 met; [50.025000, 62.525000) 16372.0 MWh, 70 met; [62.525000, 125.025000) 16388.0 MWh, 69 met; [125.025000, 250.025000) 16396.0 MWh, 68 met; [250.025000, inf) 16400.0 MWh, 67 met
+    WALL     (35 runs): [0.000000, 1.025000) 0.0 MWh, 100 met; [1.025000, 7.275000) 13660.0 MWh, 100 met; [7.275000, 7.435256) 13820.0 MWh, 99 met; [7.435256, 7.603947) 13976.0 MWh, 98 met; [7.603947, 7.781757) 14128.0 MWh, 97 met; [7.781757, 8.167857) 14276.0 MWh, 96 met; [8.167857, 8.377941) 14416.0 MWh, 95 met; [8.377941, 8.600758) 14552.0 MWh, 94 met; [8.600758, 8.837500) 14684.0 MWh, 93 met; [8.837500, 9.089516) 14812.0 MWh, 92 met; [9.089516, 9.645690) 14936.0 MWh, 91 met; [9.645690, 9.953571) 15052.0 MWh, 90 met; [9.953571, 10.284259) 15164.0 MWh, 89 met; [10.284259, 10.640385) 15272.0 MWh, 88 met; [10.640385, 11.441667) 15376.0 MWh, 87 met; [11.441667, 11.894565) 15472.0 MWh, 86 met; [11.894565, 12.388636) 15564.0 MWh, 85 met; [12.388636, 12.929762) 15652.0 MWh, 84 met; [12.929762, 13.525000) 15736.0 MWh, 83 met; [13.525000, 14.913889) 15816.0 MWh, 82 met; [14.913889, 15.730882) 15888.0 MWh, 81 met; [15.730882, 16.650000) 15956.0 MWh, 80 met; [16.650000, 17.691667) 16020.0 MWh, 79 met; [17.691667, 20.255769) 16080.0 MWh, 78 met; [20.255769, 21.858333) 16132.0 MWh, 77 met; [21.858333, 23.752273) 16180.0 MWh, 76 met; [23.752273, 26.025000) 16224.0 MWh, 75 met; [26.025000, 28.802778) 16264.0 MWh, 74 met; [28.802778, 36.739286) 16300.0 MWh, 73 met; [36.739286, 42.691667) 16328.0 MWh, 72 met; [42.691667, 51.025000) 16352.0 MWh, 71 met; [51.025000, 63.525000) 16372.0 MWh, 70 met; [63.525000, 126.025000) 16388.0 MWh, 69 met; [126.025000, 251.025000) 16396.0 MWh, 68 met; [251.025000, inf) 16400.0 MWh, 67 met
+    T10/3h   (3 runs): [0.000000, 133.333333) 1220.1 MWh, 100 met; [133.333333, 416.666667) 1227.6 MWh, 99 met; [416.666667, inf) 1230.0 MWh, 98 met
+    T10/6h   (4 runs): [0.000000, 86.206897) 1620.4 MWh, 100 met; [86.206897, 156.250000) 1632.0 MWh, 99 met; [156.250000, 625.000000) 1638.4 MWh, 98 met; [625.000000, inf) 1640.0 MWh, 97 met
+    T25/3h   (7 runs): [0.000000, 38.095238) 2994.0 MWh, 100 met; [38.095238, 47.619048) 3020.2 MWh, 99 met; [47.619048, 63.492063) 3041.2 MWh, 98 met; [63.492063, 88.888889) 3057.0 MWh, 97 met; [88.888889, 166.666667) 3068.2 MWh, 96 met; [166.666667, 1333.333333) 3074.2 MWh, 95 met; [1333.333333, inf) 3075.0 MWh, 94 met
+    T25/6h   (9 runs): [0.000000, 27.777778) 3952.0 MWh, 100 met; [27.777778, 32.258065) 3988.0 MWh, 99 met; [32.258065, 38.461538) 4019.0 MWh, 98 met; [38.461538, 47.619048) 4045.0 MWh, 97 met; [47.619048, 62.500000) 4066.0 MWh, 96 met; [62.500000, 90.909091) 4082.0 MWh, 95 met; [90.909091, 166.666667) 4093.0 MWh, 94 met; [166.666667, 1000.000000) 4099.0 MWh, 93 met; [1000.000000, inf) 4100.0 MWh, 92 met
+    T50/3h   (13 runs): [0.000000, 17.543860) 5796.0 MWh, 100 met; [17.543860, 19.047619) 5853.0 MWh, 99 met; [19.047619, 21.505376) 5905.5 MWh, 98 met; [21.505376, 23.809524) 5952.0 MWh, 97 met; [23.809524, 26.666667) 5994.0 MWh, 96 met; [26.666667, 31.746032) 6031.5 MWh, 95 met; [31.746032, 37.037037) 6063.0 MWh, 94 met; [37.037037, 44.444444) 6090.0 MWh, 93 met; [44.444444, 60.606061) 6112.5 MWh, 92 met; [60.606061, 83.333333) 6129.0 MWh, 91 met; [83.333333, 133.333333) 6141.0 MWh, 90 met; [133.333333, 666.666667) 6148.5 MWh, 89 met; [666.666667, inf) 6150.0 MWh, 88 met
+    T50/6h   (17 runs): [0.000000, 12.820513) 7560.0 MWh, 100 met; [12.820513, 13.888889) 7638.0 MWh, 99 met; [13.888889, 14.705882) 7710.0 MWh, 98 met; [14.705882, 16.129032) 7778.0 MWh, 97 met; [16.129032, 17.241379) 7840.0 MWh, 96 met; [17.241379, 19.230769) 7898.0 MWh, 95 met; [19.230769, 20.833333) 7950.0 MWh, 94 met; [20.833333, 23.809524) 7998.0 MWh, 93 met; [23.809524, 26.315789) 8040.0 MWh, 92 met; [26.315789, 31.250000) 8078.0 MWh, 91 met; [31.250000, 35.714286) 8110.0 MWh, 90 met; [35.714286, 45.454545) 8138.0 MWh, 89 met; [45.454545, 55.555556) 8160.0 MWh, 88 met; [55.555556, 83.333333) 8178.0 MWh, 87 met; [83.333333, 125.000000) 8190.0 MWh, 86 met; [125.000000, 500.000000) 8198.0 MWh, 85 met; [500.000000, inf) 8200.0 MWh, 84 met
+    H0       (2 entry prices; each enrolled job curtails 164 MWh): from 0.025000 67 jobs; from 6.122561 100 jobs
+
+SCORED Q PER CELL (exact, every piece above R/H)
+  H = 1: Q-a jobs where ETM supplies every offer on every piece above R/H = 100 of 100 (100 job pieces) -> Q-a holds; lowest payment above R/H where some ETM job declines -
+    Q-b (438 job pieces): jobs declining an offer while slack lasts 0 -> 'while' holds; jobs supplying beyond their slack 9 -> 'only' fails; lowest payment where OWN supplies beyond its slack 27.127027 -> Q-b fails
+    Q-b's two parts both hold on payments in (R/H, 27.127027)
+    cell: Q fails
+  H = 3: Q-a jobs where ETM supplies every offer on every piece above R/H = 100 of 100 (100 job pieces) -> Q-a holds; lowest payment above R/H where some ETM job declines -
+    Q-b (1126 job pieces): jobs declining an offer while slack lasts 0 -> 'while' holds; jobs supplying beyond their slack 25 -> 'only' fails; lowest payment where OWN supplies beyond its slack 8.366667 -> Q-b fails
+    Q-b's two parts both hold on payments in (R/H, 8.366667)
+    cell: Q fails
+  H = 4: Q-a jobs where ETM supplies every offer on every piece above R/H = 100 of 100 (100 job pieces) -> Q-a holds; lowest payment above R/H where some ETM job declines -
+    Q-b (1470 job pieces): jobs declining an offer while slack lasts 0 -> 'while' holds; jobs supplying beyond their slack 33 -> 'only' fails; lowest payment where OWN supplies beyond its slack 6.275000 -> Q-b fails
+    Q-b's two parts both hold on payments in (R/H, 6.275000)
+    cell: Q fails
+
+SENSITIVITY 1 (not scored): offer spacing 12 and 48 h (EPS2's), the scored portfolio
+  spacing 12 h, H 1 (K = 83): Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 18 beyond, OWN beyond its slack from 12.758228 (fails); just above floor 0.1000: flexibility 8300.0, ETM 8267.0, OWN 7575.0 (slack-limited 7575.0) MWh -> Q fails
+  spacing 12 h, H 3 (K = 83): Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 51 beyond, OWN beyond its slack from 4.098374 (fails); just above floor 0.0333: flexibility 24900.0, ETM 24801.0, OWN 18543.0 (slack-limited 18543.0) MWh -> Q fails
+  spacing 12 h, H 4 (K = 83): Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 68 beyond, OWN beyond its slack from 3.073780 (fails); just above floor 0.0250: flexibility 33200.0, ETM 33068.0, OWN 21932.0 (slack-limited 21932.0) MWh -> Q fails
+  spacing 48 h, H 1 (K = 20): Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 4 beyond, OWN beyond its slack from 62.600000 (fails); just above floor 0.1000: flexibility 2000.0, ETM 2000.0, OWN 1964.0 (slack-limited 1964.0) MWh -> Q fails
+  spacing 48 h, H 3 (K = 20): Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 12 beyond, OWN beyond its slack from 17.577193 (fails); just above floor 0.0333: flexibility 6000.0, ETM 6000.0, OWN 5640.0 (slack-limited 5640.0) MWh -> Q fails
+  spacing 48 h, H 4 (K = 20): Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 16 beyond, OWN beyond its slack from 13.182895 (fails); just above floor 0.0250: flexibility 8000.0, ETM 8000.0, OWN 7352.0 (slack-limited 7352.0) MWh -> Q fails
+
+SENSITIVITY 2 (not scored): other slack spreads (ASSUMED, H3's), spacing 24 h
+  slack_i = 1 i h (1..100 h), H 1: Q-a 96 of 100 jobs (fails); Q-b while 0 short, only 45 beyond, OWN beyond its slack from 24.490244 (fails); just above floor 0.1000: flexibility 4100.0, ETM 4036.0, OWN 3175.0 (slack-limited 3175.0) MWh -> Q fails
+  slack_i = 1 i h (1..100 h), H 3: Q-a 96 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 8.163415 (fails); just above floor 0.0333: flexibility 12300.0, ETM 12108.0, OWN 4740.0 (slack-limited 4740.0) MWh -> Q fails
+  slack_i = 1 i h (1..100 h), H 4: Q-a 96 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 6.122561 (fails); just above floor 0.0250: flexibility 16400.0, ETM 16144.0, OWN 4728.0 (slack-limited 4728.0) MWh -> Q fails
+  slack_i = 0.05 i h (0.05..5 h), H 1: Q-a 19 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 24.490244 (fails); just above floor 0.1000: flexibility 4100.0, ETM 2419.0, OWN 184.0 (slack-limited 184.0) MWh -> Q fails
+  slack_i = 0.05 i h (0.05..5 h), H 3: Q-a 19 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 8.163415 (fails); just above floor 0.0333: flexibility 12300.0, ETM 7257.0, OWN 117.0 (slack-limited 117.0) MWh -> Q fails
+  slack_i = 0.05 i h (0.05..5 h), H 4: Q-a 19 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 6.122561 (fails); just above floor 0.0250: flexibility 16400.0, ETM 9676.0, OWN 76.0 (slack-limited 76.0) MWh -> Q fails
+  slack_i = 10 i h (10..1000 h), H 1: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 4 beyond, OWN beyond its slack from 31.350000 (fails); just above floor 0.1000: flexibility 4100.0, ETM 4100.0, OWN 4026.0 (slack-limited 4026.0) MWh -> Q fails
+  slack_i = 10 i h (10..1000 h), H 3: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 12 beyond, OWN beyond its slack from 8.805263 (fails); just above floor 0.0333: flexibility 12300.0, ETM 12300.0, OWN 11562.0 (slack-limited 11562.0) MWh -> Q fails
+  slack_i = 10 i h (10..1000 h), H 4: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 16 beyond, OWN beyond its slack from 6.435256 (fails); just above floor 0.0250: flexibility 16400.0, ETM 16400.0, OWN 15072.0 (slack-limited 15072.0) MWh -> Q fails
+
+SENSITIVITY 3 (not scored): Poisson offers at lambda_DFS (SOURCED) with at most one event per 24 h slot (CHOICE); every
+  quantity an exact expectation; Q-a/Q-b read on every reached made offer (probability mass of mismatches)
+  lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 1: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 9 beyond, OWN beyond its slack from 83.608572 (fails); just above floor 0.1000: flexibility 1249.9, ETM 1249.9, OWN 1236.8 (slack-limited 1236.8) MWh -> Q fails
+  lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 3: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 25 beyond, OWN beyond its slack from 25.894403 (fails); just above floor 0.0333: flexibility 3749.7, ETM 3749.7, OWN 3604.0 (slack-limited 3604.0) MWh -> Q fails
+  lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 4: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 33 beyond, OWN beyond its slack from 19.420802 (fails); just above floor 0.0250: flexibility 4999.6, ETM 4999.6, OWN 4733.7 (slack-limited 4733.7) MWh -> Q fails
+
+SENSITIVITY 4 (not scored): overheads R = 1/12 h and S = 1/12 h (SOURCED, Kokolis et al.); floor rate (R + S)/H
+  R + S = 1/6 h, H 1: Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 9 beyond, OWN beyond its slack from 27.193694 (fails); just above floor 0.1667: flexibility 4100.0, ETM 4089.0, OWN 3920.0 (slack-limited 3920.0) MWh -> Q fails
+  R + S = 1/6 h, H 3: Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 25 beyond, OWN beyond its slack from 8.388889 (fails); just above floor 0.0556: flexibility 12300.0, ETM 12267.0, OWN 10728.0 (slack-limited 10728.0) MWh -> Q fails
+  R + S = 1/6 h, H 4: Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 34 beyond, OWN beyond its slack from 6.291667 (fails); just above floor 0.0417: flexibility 16400.0, ETM 16356.0, OWN 13624.0 (slack-limited 13624.0) MWh -> Q fails
+
+Q (scored): cells where Q holds 0 of 3; Q-a holds in every cell: yes; Q-b 'while' in every cell: yes; Q-b 'only' in every cell: no (lowest payment where some OWN job supplies beyond its slack 6.275000) -> Q fails; the forecast 'Q holds' is wrong
+
+GATE
+  G-ZERO: ETM's stake beyond rate (R + S), max over 12300 (job, event count) pairs in 3 scored cells = 0.000000 (exact 0); ETM's x* == rate (R + S)/H at 258300 of 258300 offer states -> holds
+    context (sensitivity cells, not gated): stake beyond rate (R + S) positive at 261 of 92400 (job, event count) pairs (where ETM's own-step deadline cannot absorb the next event); x* == rate (R + S)/H at 2394933 of 2400300 offer states
+  G-NEG (this check's own terms): no events offered (K = 0), 13500 job x portfolio x H x pi combinations over 5 portfolios plus the fleet totals; ETM ahead of WALL by more than 1 % on 0 of 81405 outcome comparisons (per job: curtailed MWh, payments, valuation, fleet value, completion, deadline met; fleet: MWh, payments, jobs meeting their deadline); max rel over the numeric outcomes 0.000000 -> holds
+  G-NEG over the whole battery (H1-H7 read from their pinned RESULT lines, not recomputed here; H8 as computed above): H1 holds, H2 holds, H3 holds, H4 holds, H5 holds, H6 holds, H7 holds, H8 holds -> 8 of 8 hold
+
+PRE-RUN NOTE: code-test runs on reduced portfolios (6 and 3 jobs, slack 40 i h, not pinned) preceded the first full run;
+  after them only one table-header wording was changed (no input, choice, reading or threshold)
+POST-FIRST-RUN CHANGES: none
+
+RESULT H8: Q fails; G-ZERO holds (max |ETM stake - rate (R + S)| = 0.000000 over 12300 (job, event count) pairs in 3 cells; ETM x* = (R + S)/H at 258300 of 258300 offer states); G-NEG holds (no events: ETM ahead of WALL by more than 1 % in 0 of 81405 comparisons; battery H1-H8 per pinned RESULT lines: 8 of 8 hold)

@@ -1,0 +1,37 @@
+RQM Phase A run 2 (DEV_DECLARATION.md + Amendment 1, POST HOC: NEG2 replaces NEG, G-LEARN added); seeds 0-4; accuracy is class-IL over all 10 classes (%)
+IGR-F shrinkage alpha 0.1; replay batch 10; RFR width 512, lambda 1.0; FGR pseudo-activations clipped at 0 (the ReLU range)
+
+[POS] d 20; matched ER rows per class: IGR-F 12, IGR-D 2; RFR (deterministic) 80.94
+   FT        mean   24.35  seeds  20.40  26.76  25.75  24.08  24.75
+   JOINT     mean   85.35  seeds  85.62  83.61  85.95  86.29  85.28
+   ER-F      mean   78.06  seeds  77.93  77.93  79.93  80.94  73.58
+   ER-D      mean   56.39  seeds  55.52  57.19  54.85  56.86  57.53
+   IGR-F     mean   84.95  seeds  82.27  85.28  85.95  86.29  84.95
+   IGR-D     mean   85.15  seeds  83.61  85.28  86.29  84.28  86.29
+   FGR-F     mean   82.54  seeds  80.27  81.94  85.28  84.28  80.94
+   SEC-CLIP  mean   39.33  seeds  36.45  39.80  41.81  38.80  39.80
+
+[NEG2] d 20; matched ER rows per class: IGR-F 12, IGR-D 2; RFR (deterministic) 53.51
+   FT        mean   16.39  seeds  17.39  17.06  13.04  17.06  17.39
+   JOINT     mean   42.41  seeds  39.80  43.14  40.13  40.13  48.83
+   ER-F      mean   28.23  seeds  28.09  27.76  26.76  29.77  28.76
+   ER-D      mean   18.53  seeds  19.40  20.74  17.06  16.72  18.73
+   IGR-F     mean   36.45  seeds  37.12  36.45  35.45  36.79  36.45
+   IGR-D     mean   36.25  seeds  38.13  35.79  36.45  34.78  36.12
+   FGR-F     mean   34.78  seeds  33.44  35.79  32.44  37.46  34.78
+   SEC-CLIP  mean   17.53  seeds  17.73  17.39  16.72  17.73  18.06
+
+----------------------------------------------------------------------------------------------------
+G-POS IGR-F - ER-F on POS +6.8896 (step 2.5259) -> holds
+G-POS IGR-D - ER-D on POS +28.7625 (step 1.0276) -> holds
+G-NEG IGR-F - ER-F on NEG2 +8.2274 (step 1.0056): behind by more than a step -> FAILS
+G-NEG IGR-D - ER-D on NEG2 +17.7258 (step 1.4897): behind by more than a step -> FAILS
+G-LEARN (Amendment 1) JOINT - FT on NEG2 +26.0201 (step 3.4329): the stream is learnable -> holds
+G-FT FT - ER-F on POS -53.7124 (step 2.5259) -> holds
+G-FT FT - ER-F on NEG2 -11.8395 (step 1.0056) -> holds
+G-ID replay forced empty == FT bit for bit: 20/20 -> holds
+GATE CLOSED
+
+reported beside the gate (not gating):
+   POS: CRR ablation IGR-F - FGR-F +2.4080; IGR-F - RFR +4.0134; IGR-F - JOINT -0.4013; SEC-CLIP - ER-F -38.7291
+   NEG2: CRR ablation IGR-F - FGR-F +1.6722; IGR-F - RFR -17.0569; IGR-F - JOINT -5.9532; SEC-CLIP - ER-F -10.7023
