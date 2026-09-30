@@ -36,10 +36,25 @@ def transport(H, HA_cut, HA_now, Rm):
     return H + (H @ Rm.T) @ (HA_now - HA_cut)
 
 
+HOPDC_TAU = 0.05; HOPDC_K = 400   # HopDC (Rao et al., arXiv 2602.00144 v1): tau 0.05, k 400 (DECLARATION_2 Amendment 1)
+
+
+def hopdc_transport(H, HA_cut, HA_now, tau=HOPDC_TAU, k=HOPDC_K):
+    """HopDC's transport on kept anchors: each row of H moves by a top-k softmax (cosine / tau) average of the anchors'
+    drift HA_now - HA_cut, with similarities taken in the cut's feature space."""
+    q = H / np.maximum(np.linalg.norm(H, axis=1, keepdims=True), 1e-12)
+    kk = HA_cut / np.maximum(np.linalg.norm(HA_cut, axis=1, keepdims=True), 1e-12)
+    z = q @ kk.T / tau; kt = min(k, z.shape[1])
+    if kt < z.shape[1]:
+        thr = np.partition(z, -kt, axis=1)[:, -kt][:, None]; z = np.where(z >= thr, z, -np.inf)
+    z = z - z.max(1, keepdims=True); w = np.exp(z); w /= w.sum(1, keepdims=True)
+    return H + w @ (HA_now - HA_cut)
+
+
 def run_rrm(seed, Xtr, ytr, Xte, yte, K, form="1", mode="rrm", beta=BETA, m_first=M_FIRST, m_acc=M_ACC, per_task=2,
             force_off=False, return_mem=False):
     """mode: 'rrm' (transport), 'stale' (no transport), 'decoy' (transport with H_A(now) row-permuted by a fixed seeded
-    permutation), 'anch' (anchor replay only, no feature Gaussians). form '1' (first-task anchors) or 'A' (accumulating)."""
+    permutation), 'anch' (anchor replay only, no feature Gaussians), 'hopdc' (HopDC's transport on the same anchors). form '1' (first-task anchors) or 'A' (accumulating)."""
     rng = np.random.default_rng(seed); net = S.MLP(rng, Xtr.shape[1], K, h=HID)
     arng = np.random.default_rng(30_000 + seed); brng = np.random.default_rng(10_000 + seed)
     prng = np.random.default_rng(20_000 + seed); drng = np.random.default_rng(40_000 + seed)
@@ -54,12 +69,12 @@ def run_rrm(seed, Xtr, ytr, Xte, yte, K, form="1", mode="rrm", beta=BETA, m_firs
         H = np.empty((n, HID)); now = {}
         for i, c in enumerate(cs):
             mu, sd, gid = gauss[c]; h = mu + sd * prng.standard_normal(HID)
-            if mode in ("rrm", "decoy") and not force_off:
+            if mode in ("rrm", "decoy", "hopdc") and not force_off:
                 idx, HA_cut, Rm, perm = groups[gid]
                 if gid not in now:
                     HA_now = net.forward(Xtr[idx])[0]
                     now[gid] = HA_now[perm] if mode == "decoy" else HA_now
-                h = transport(h[None, :], HA_cut, now[gid], Rm)[0]
+                h = (hopdc_transport if mode == "hopdc" else lambda a, b, c, d=None: transport(a, b, c, Rm))(h[None, :], HA_cut, now[gid])[0]
             H[i] = h
         return np.maximum(H, 0.0), np.array(cs, dtype=ytr.dtype)
 

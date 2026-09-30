@@ -27,11 +27,11 @@ def main():
     res = {}
     for name in ("POS", "NEG2"):
         data, K = PA.stream(name); Xtr, ytr, Xte, yte = data
-        a = {k: [] for k in ("softmax", "ORACLE", "STALE", "RRM", "DECOY")}
+        a = {k: [] for k in ("softmax", "ORACLE", "STALE", "RRM", "DECOY", "HOPDC")}
         for s in SEEDS:
             net, anchors, rec, cuts = T.train(s, *data, K, "ANCH1")
             a["softmax"].append(100 * net.acc(Xte, yte))
-            for w in ("ORACLE", "STALE", "RRM", "DECOY"):
+            for w in ("ORACLE", "STALE", "RRM", "DECOY", "HOPDC"):
                 a[w].append(T.ncm_acc(net, Xte, yte, T.prototypes(net, Xtr, ytr, anchors, rec, cuts, s, w)))
         res[name] = a
         print(f"\n[{name}]")
@@ -48,7 +48,7 @@ def main():
     for name in ("POS", "NEG2"):
         a = res[name]
         print(f"   {name}: NCM-RRM - NCM-STALE {np.mean(a['RRM']) - np.mean(a['STALE']):+.4f}; NCM-RRM - softmax {np.mean(a['RRM']) - np.mean(a['softmax']):+.4f}; "
-              f"NCM-ORACLE - NCM-RRM {np.mean(a['ORACLE']) - np.mean(a['RRM']):+.4f}")
+              f"NCM-ORACLE - NCM-RRM {np.mean(a['ORACLE']) - np.mean(a['RRM']):+.4f}; NCM-RRM - NCM-HOPDC {np.mean(a['RRM']) - np.mean(a['HOPDC']):+.4f}")
 
 
 if __name__ == "__main__":

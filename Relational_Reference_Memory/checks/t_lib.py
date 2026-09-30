@@ -55,7 +55,8 @@ def train(seed, Xtr, ytr, Xte, yte, K, learner, m_first=L.M_FIRST, beta=L.BETA, 
 
 
 def prototypes(net, Xtr, ytr, anchors, rec, cuts, seed, which):
-    """which: ORACLE (current means), STALE, RRM (transported by the first-task anchors), DECOY (permuted anchors)."""
+    """which: ORACLE (current means), STALE, RRM (transported by the first-task anchors), DECOY (permuted anchors), HOPDC
+    (HopDC's transport of the stored mean on the same anchors; DECLARATION_2 Amendment 1)."""
     out = {}
     with np.errstate(all="ignore"):
         HA_now = net.forward(Xtr[anchors])[0]
@@ -65,6 +66,9 @@ def prototypes(net, Xtr, ytr, anchors, rec, cuts, seed, which):
                 out[c] = net.forward(Xtr[ytr == c])[0].mean(0)
             elif which == "STALE":
                 out[c] = mu
+            elif which == "HOPDC":
+                HA, Rm = cuts[j]
+                out[c] = L.hopdc_transport(mu[None], HA, HA_now)[0]
             else:
                 HA, Rm = cuts[j]
                 out[c] = L.transport(mu[None], HA, HA_now[perm] if which == "DECOY" else HA_now, Rm)[0]

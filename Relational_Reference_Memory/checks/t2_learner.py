@@ -4,7 +4,7 @@ alone. Disclosure: part 1 is not blind for this form (its result was known when 
   G-CANFAIL DECOY-1 behind ER-20 by more than a step (step of ER-20) on POS and on NEG2
   G-FT      FT behind ER-20 by more than a step on both streams
   G-ID      RRM-1 with transport forced off equals STALE-1 bit for bit (10/10)
-Reported: RRM-1 - ANCH-1, - ER-20, - JOINT, - IGR-F, - RFR; memory. Seeds 0-4. Words computed (R15).
+Reported: RRM-1 - ANCH-1, - ER-20, - JOINT, - IGR-F, - RFR, - HOPDC-1 (Amendment 1: HopDC's transport on the same anchors); memory. Seeds 0-4. Words computed (R15).
 Run: uv run python Relational_Reference_Memory/checks/t2_learner.py
 """
 import math
@@ -31,13 +31,13 @@ def main():
     res = {}; ok = {}
     for name in ("POS", "NEG2"):
         data, K = PA.stream(name)
-        a = {k: [] for k in ("FT", "JOINT", "ER-20", "IGR-F", "ANCH-1", "STALE-1", "RRM-1", "DECOY-1")}; ident = []; mem = None
+        a = {k: [] for k in ("FT", "JOINT", "ER-20", "IGR-F", "ANCH-1", "STALE-1", "RRM-1", "DECOY-1", "HOPDC-1")}; ident = []; mem = None
         for s in SEEDS:
             a["FT"].append(R.run_ft(s, *data, K)); a["JOINT"].append(R.run_joint(s, *data, K))
             a["ER-20"].append(R.run_er_pc(s, *data, K, 20)); a["IGR-F"].append(R.run_igr(s, *data, K, "F"))
             a["ANCH-1"].append(L.run_rrm(s, *data, K, "1", "anch")); a["STALE-1"].append(L.run_rrm(s, *data, K, "1", "stale"))
             acc, raw, nums = L.run_rrm(s, *data, K, "1", "rrm", return_mem=True); a["RRM-1"].append(acc); mem = (raw, nums)
-            a["DECOY-1"].append(L.run_rrm(s, *data, K, "1", "decoy"))
+            a["DECOY-1"].append(L.run_rrm(s, *data, K, "1", "decoy")); a["HOPDC-1"].append(L.run_rrm(s, *data, K, "1", "hopdc"))
             ident.append(L.run_rrm(s, *data, K, "1", "rrm", force_off=True) == a["STALE-1"][-1])
         rfr = R.run_rfr(*data, K); res[name] = (a, ident, rfr)
         print(f"\n[{name}] K {K}, d {data[0].shape[1]}; RFR (deterministic) {rfr:.2f}; RRM-1 memory: raw rows {mem[0]}, stored numbers {mem[1]}; "
@@ -61,7 +61,7 @@ def main():
     for name in ("POS", "NEG2"):
         a, _, rfr = res[name]; m = np.mean(a["RRM-1"])
         print(f"   {name}: RRM-1 - ANCH-1 {m - np.mean(a['ANCH-1']):+.4f}; - ER-20 {m - np.mean(a['ER-20']):+.4f}; - JOINT {m - np.mean(a['JOINT']):+.4f}; "
-              f"- IGR-F {m - np.mean(a['IGR-F']):+.4f}; - RFR {m - rfr:+.4f}")
+              f"- IGR-F {m - np.mean(a['IGR-F']):+.4f}; - RFR {m - rfr:+.4f}; - HOPDC-1 {m - np.mean(a['HOPDC-1']):+.4f}")
 
 
 if __name__ == "__main__":
