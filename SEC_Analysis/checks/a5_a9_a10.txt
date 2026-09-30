@@ -1,5 +1,5 @@
 ======================================================================================================================================================
-SEC_Analysis A5, A9, A10 (SEC_Analysis/DECLARATION.md, pushed at 5f64b5f; prompt-log entry 257): forecasts F5, F9, F10
+SEC_Analysis A5, A9, A10 (SEC_Analysis/DECLARATION.md, pushed at 5f64b5f; Amendment 1 at 347cb90; prompt-log entry 257): forecasts F5, F9, F10
 POST HOC on SEEN records; no ledger row; the words are HOLDS / FAILS against the declared forecasts, never PASS
 ======================================================================================================================================================
 carriers: 42 (sec1 12, scl3 10, sec3 6, sec4 6, sec5 8); SEC 'bayes_sec' on all 42; clipped SEC 'bayes_sec_clip' (kappa 0.5) on 14 (SEC4 and SEC5)
@@ -9,7 +9,7 @@ step = the carrier's step at lambda*_raw, max(1, 2 SE over seeds); behind = arm 
 A5  what kind of failure is each 'behind'?  first of D, C, U, O, N whose condition holds, else X (unclassified)
 ======================================================================================================================================================
    P = the calibrated not-behind set (fixed_sec grid points with mean > tacc_sec - step); lo, hi its lowest and highest grid point
-   D: a seed < 0.5 tacc or non-finite | C (clipped only): fired > 0 AND (unclipped SEC not behind OR lo > 0.5) | U: lo > 0.5 | O: hi < 0.5 | N: margin > -2 steps AND lo <= 0.5 <= hi
+   D: a seed < 0.5 tacc or non-finite | C (clipped only): fired > 0 AND lo > 0.5 (the script's reading of the declared phrase, see the REPORT below) | U: lo > 0.5 | O: hi < 0.5 | N: margin > -2 steps AND lo <= 0.5 <= hi
    study carrier                            arm       mean     tacc   step margin st min/tacc nonfin fired SEC nb      P lo      P hi |  D  C  U  O  N | class
    sec1  fars                               SEC     9.3400  12.7400  1.943    -1.750    0.722      0     -      N  0.003534         3 |  N  N  N  N  Y | N
    sec1  mfeat_factors                      SEC    49.4000  54.4500  4.537    -1.113    0.000      1     -      N       0.1     0.423 |  Y  N  N  Y  N | D
@@ -44,6 +44,14 @@ REPORT: cases where more than one condition holds (the order decides the class):
    sec5  volcanoes-d4                       SEC   conditions DU -> D
    sec5  pokerhand                          clip  conditions DU -> D
    sec5  volcanoes-d4                       clip  conditions DCU -> D
+REPORT: class C's declared phrase, "the clip fired and lambda*_sec lies above the not-behind set's reach at 1/2", names no computation (an ambiguity of the declaration).
+   script's reading: fired > 0 AND lo > 0.5. Other reading: fired > 0 AND lambda*_sec > reach, reach = the top of the gap-free run of P whose span contains 0.5 (0.5 where none does). Every clipped failure:
+   study carrier                fired  lam*_sec      P lo     reach | C script C reach | class script  class reach
+   sec5  Indian_pines               0     7.092         3       0.5 |        N       N |            U            U
+   sec5  pokerhand                  0       300       300       0.5 |        N       N |            D            D
+   sec5  volcanoes-d4               5       500       500       0.5 |        Y       Y |            D            D
+   sec5  walking-activity           0     0.423      0.01         3 |        N       N |            X            X
+   clipped failures whose class differs between the two readings: 0 of 4; C differs on 0
 
 class counts per family (unclipped SEC failures | clipped SEC failures):
    sec1   SEC behind  3 of 12: D 2 C 0 U 0 O 0 N 1 X 0   |   clipped behind -  (no clipped arm)
@@ -57,24 +65,25 @@ F5 (ii) every clipped failure is C, U or N: classes ['U', 'D', 'D', 'X'] (Indian
         reduced reading, no clipped failure is D: D on 2 of 4 -> False (agrees with (ii): True)
 F5: FAILS
 
-REPORT: the clipped arm's other kappa cells at the primary window (SEC5; not declared, decides nothing): the same A5 rule read on each cell's seed mean
-   carrier                kappa     mean margin st      fired/seed nb  class
-   Indian_pines            0.25  48.2717    -1.304 [1, 1, 0, 0, 1]  N  C
-   Indian_pines               1  48.2717    -1.304 [0, 0, 0, 0, 0]  N  U
-   Kuzushiji-MNIST         0.25  30.9200    +3.939 [4, 4, 4, 4, 4]  Y  nb
-   Kuzushiji-MNIST            1  30.8800    +3.909 [0, 0, 0, 0, 0]  Y  nb
-   autoUniv-au6-750        0.25   7.6821    -0.242 [0, 0, 1, 0, 1]  Y  nb
-   autoUniv-au6-750           1   7.6821    -0.242 [0, 0, 0, 0, 0]  Y  nb
-   microaggregation2       0.25  13.4865    -0.265 [0, 0, 0, 0, 0]  Y  nb
-   microaggregation2          1  13.4865    -0.265 [0, 0, 0, 0, 0]  Y  nb
-   pokerhand               0.25  15.2200   -15.502 [0, 0, 0, 0, 0]  N  D
-   pokerhand                  1  15.2200   -15.502 [0, 0, 0, 0, 0]  N  D
-   spoken-arabic-digit     0.25   9.8600    -0.020 [0, 0, 0, 0, 0]  Y  nb
-   spoken-arabic-digit        1   9.8600    -0.020 [0, 0, 0, 0, 0]  Y  nb
-   volcanoes-d4            0.25   6.0060   -88.989 [1, 1, 1, 1, 1]  N  D
-   volcanoes-d4               1   6.7668   -88.228 [1, 1, 1, 1, 1]  N  D
-   walking-activity        0.25  11.0400    -2.252 [0, 0, 0, 2, 0]  N  X
-   walking-activity           1  11.0400    -2.252 [0, 0, 0, 0, 0]  N  X
+REPORT: the clipped arm's other kappa cells at the primary window (SEC5; not declared): the A5 conditions on each behind cell's seed mean, Y/N only; no class is assigned
+   carrier                kappa     mean margin st      fired/seed nb |  D  C  U  O  N | C reach
+   Indian_pines            0.25  48.2717    -1.304 [1, 1, 0, 0, 1]  N |  N  Y  Y  N  N | Y
+   Indian_pines               1  48.2717    -1.304 [0, 0, 0, 0, 0]  N |  N  N  Y  N  N | N
+   Kuzushiji-MNIST         0.25  30.9200    +3.939 [4, 4, 4, 4, 4]  Y |  -  -  -  -  - | -
+   Kuzushiji-MNIST            1  30.8800    +3.909 [0, 0, 0, 0, 0]  Y |  -  -  -  -  - | -
+   autoUniv-au6-750        0.25   7.6821    -0.242 [0, 0, 1, 0, 1]  Y |  -  -  -  -  - | -
+   autoUniv-au6-750           1   7.6821    -0.242 [0, 0, 0, 0, 0]  Y |  -  -  -  -  - | -
+   microaggregation2       0.25  13.4865    -0.265 [0, 0, 0, 0, 0]  Y |  -  -  -  -  - | -
+   microaggregation2          1  13.4865    -0.265 [0, 0, 0, 0, 0]  Y |  -  -  -  -  - | -
+   pokerhand               0.25  15.2200   -15.502 [0, 0, 0, 0, 0]  N |  Y  N  Y  N  N | N
+   pokerhand                  1  15.2200   -15.502 [0, 0, 0, 0, 0]  N |  Y  N  Y  N  N | N
+   spoken-arabic-digit     0.25   9.8600    -0.020 [0, 0, 0, 0, 0]  Y |  -  -  -  -  - | -
+   spoken-arabic-digit        1   9.8600    -0.020 [0, 0, 0, 0, 0]  Y |  -  -  -  -  - | -
+   volcanoes-d4            0.25   6.0060   -88.989 [1, 1, 1, 1, 1]  N |  Y  Y  Y  N  N | Y
+   volcanoes-d4               1   6.7668   -88.228 [1, 1, 1, 1, 1]  N |  Y  Y  Y  N  N | Y
+   walking-activity        0.25  11.0400    -2.252 [0, 0, 0, 2, 0]  N |  N  N  N  N  N | N
+   walking-activity           1  11.0400    -2.252 [0, 0, 0, 0, 0]  N |  N  N  N  N  N | N
+   cells read: 16; of them among F5's cases 0, among F9's 0: these cells enter neither F5 nor F9
 
 ======================================================================================================================================================
 A9  why SEC4 passed and SEC5 did not, carrier by carrier (the 14 carriers of SEC4 and SEC5)
@@ -96,22 +105,22 @@ A9  why SEC4 passed and SEC5 did not, carrier by carrier (the 14 carriers of SEC
    sec5  volcanoes-d4            -88.909  -78.719   +0.000  -88.909  -78.719        D       D      4.708       1167       2.07      4.582 [1, 1, 1, 1, 1]  1.5958
    sec5  walking-activity         -2.252   -2.252   -2.428   +0.176   +0.176        X       X      1.809      24.09      1.809      24.09 [0, 0, 0, 0, 0]  0.3564
 
-   properties (header) and the tuned raw arm's seeds: nonfin = its non-finite records; low = a tuned seed < 0.5 tacc; spread = max - min of the tuned seeds; noisy = low OR spread > 4 steps
-   study carrier                   d   K tasks n_train   imbal per-task n                    lam*_raw     tacc   step nonfin low  spread     st noisy
-   sec4  JapaneseVowels           14   8     4    4001    1.87 [1345, 988, 873, 795]               10  27.2673  1.000      0   N   2.102  2.102     N
-   sec4  anneal                   38   4     2     712   17.10 [626, 86]                         42.3  76.8539  5.634      0   N  14.607  2.593     N
-   sec4  artificial-characters     7  10     5    3997    2.36 [1023, 934, 785, 707, 548]        14.1  14.6653  1.962      0   N   5.295  2.698     N
-   sec4  cardiotocography         35  10     5    1702   10.92 [770, 468, 244, 123, 97]          7092  98.8679  1.000      0   N   2.123  2.123     N
-   sec4  gas-drift               128   6     3    4002    1.83 [1708, 1295, 999]                 28.3  46.8068  2.594      0   N   6.406  2.470     N
-   sec4  synthetic_control        60   6     3     480    1.00 [160, 160, 160]                   4230  44.8333  3.590      0   N  10.833  3.018     N
-   sec5  Indian_pines            220   6     3    3999   19.09 [2889, 800, 310]                    20  55.0649  5.211      0   N  13.786  2.646     N
-   sec5  Kuzushiji-MNIST         784  10     5    4000    1.00 [800, 800, 800, 800, 800]          300  25.6800  1.330      0   N   3.500  2.631     N
-   sec5  autoUniv-au6-750         40   8     4     599    2.89 [251, 133, 116, 99]            0.03534   8.0795  1.644      0   N   4.636  2.820     N
-   sec5  microaggregation2        20   4     2    3999    7.37 [3249, 750]                         60  17.6024 15.522      1   Y  46.753  3.012     Y
-   sec5  pokerhand                10   4     2    4001   23.60 [3723, 278]                        100  43.4600  1.822      0   N   4.700  2.580     N
-   sec5  spoken-arabic-digit      14  10     5    4000    1.01 [804, 803, 800, 799, 794]       0.2128   9.8800  1.000      0   N   0.800  0.800     N
-   sec5  volcanoes-d4              3   4     2    4001   96.88 [3908, 93]                        1000  94.9950  1.000      0   N   0.000  0.000     N
-   sec5  walking-activity          4  10     5    4000    4.33 [1503, 1018, 622, 481, 376]     0.2128  13.6000  1.137      0   N   3.500  3.079     N
+   properties (header) and the tuned raw arm's seeds: nonfin = its non-finite records; low = a tuned seed < 0.5 tacc or a non-finite record (A5 D's line); spread = max - min of the tuned seeds, in points and steps (report column, no threshold); floor = 100 x majority share; fb = floor-bound (A12: tacc - floor < 3 steps)
+   study carrier                   d   K tasks n_train   imbal per-task n                    lam*_raw     tacc   step nonfin low  spread     st    floor (t-fl)/st fb
+   sec4  JapaneseVowels           14   8     4    4001    1.87 [1345, 988, 873, 795]               10  27.2673  1.000      0   N   2.102  2.102  17.5800    +9.687  N
+   sec4  anneal                   38   4     2     712   17.10 [626, 86]                         42.3  76.8539  5.634      0   N  14.607  2.593  76.8539    +0.000  Y
+   sec4  artificial-characters     7  10     5    3997    2.36 [1023, 934, 785, 707, 548]        14.1  14.6653  1.962      0   N   5.295  2.698  13.8655    +0.408  Y
+   sec4  cardiotocography         35  10     5    1702   10.92 [770, 468, 244, 123, 97]          7092  98.8679  1.000      0   N   2.123  2.123  27.2342   +71.634  N
+   sec4  gas-drift               128   6     3    4002    1.83 [1708, 1295, 999]                 28.3  46.8068  2.594      0   N   6.406  2.470  21.6357    +9.704  N
+   sec4  synthetic_control        60   6     3     480    1.00 [160, 160, 160]                   4230  44.8333  3.590      0   N  10.833  3.018  16.6667    +7.846  N
+   sec5  Indian_pines            220   6     3    3999   19.09 [2889, 800, 310]                    20  55.0649  5.211      0   N  13.786  2.646  44.6600    +1.997  Y
+   sec5  Kuzushiji-MNIST         784  10     5    4000    1.00 [800, 800, 800, 800, 800]          300  25.6800  1.330      0   N   3.500  2.631  10.0000   +11.787  N
+   sec5  autoUniv-au6-750         40   8     4     599    2.89 [251, 133, 116, 99]            0.03534   8.0795  1.644      0   N   4.636  2.820  22.0000    -8.469  Y
+   sec5  microaggregation2        20   4     2    3999    7.37 [3249, 750]                         60  17.6024 15.522      1   Y  46.753  3.012  57.9600    -2.600  Y
+   sec5  pokerhand                10   4     2    4001   23.60 [3723, 278]                        100  43.4600  1.822      0   N   4.700  2.580  50.4899    -3.859  Y
+   sec5  spoken-arabic-digit      14  10     5    4000    1.01 [804, 803, 800, 799, 794]       0.2128   9.8800  1.000      0   N   0.800  0.800  10.0600    -0.180  Y
+   sec5  volcanoes-d4              3   4     2    4001   96.88 [3908, 93]                        1000  94.9950  1.000      0   N   0.000  0.000  94.9400    +0.055  Y
+   sec5  walking-activity          4  10     5    4000    4.33 [1503, 1018, 622, 481, 376]     0.2128  13.6000  1.137      0   N   3.500  3.079  19.3200    -5.032  Y
 
    per-seed accuracies (seeds 0-4): the tuned raw lambda, the clipped SEC, the unclipped SEC; 0.5 tacc = the divergence line
    study carrier                0.5 tacc  tuned raw lambda                      clipped SEC                           unclipped SEC
@@ -130,20 +139,24 @@ A9  why SEC4 passed and SEC5 did not, carrier by carrier (the 14 carriers of SEC
    sec5  volcanoes-d4            47.4975  [ 94.99  94.99  94.99  94.99  94.99]  [  5.71   9.11   1.00   9.51   5.11]  [  7.81  45.75   2.60  13.41  11.81]
    sec5  walking-activity         6.8000  [ 13.50  14.00  13.80  11.60  15.10]  [ 11.20  13.40  10.00   9.50  11.10]  [ 11.20  13.40  10.00   9.50  11.10]
 
-per family (report): clipped SEC not behind | unclipped SEC not behind | clip fired on a carrier | median s max (SEC) | tuned arm noisy
-   sec4  6/6 | 3/6 | 3/6 | 1625 | 0/6
-   sec5  4/8 | 4/8 | 2/8 | 24.08 | 1/8
+per family (report): clipped SEC not behind | unclipped SEC not behind | clip fired on a carrier | median s max (SEC) | tuned lambda has a low seed | floor-bound
+   sec4  6/6 | 3/6 | 3/6 | 1625 | 0/6 | 2/6
+   sec5  4/8 | 4/8 | 2/8 | 24.08 | 1/8 | 7/8
 
 F9  SEC5's clipped failures: 4 (Indian_pines U, pokerhand D, volcanoes-d4 D, walking-activity X)
 F9 (a) distinct classes among D, C, U, O, N: 2 ['D', 'U'] >= 2 -> True   (with X counted: 3 ['D', 'U', 'X'])
 F9 (b) at least one is C: C on 0 of 4 -> False
-F9 (c) rule: a failure carrier whose tuned raw arm has a seed < 0.5 x tacc, or a seed spread (max - min) > 4 steps (a low-accuracy seed the tuned lambda shows too is not caused by the penalty)
-       Indian_pines           tuned seeds [ 47.85  50.45  61.64  59.34  56.04]; lowest 47.85214785214785 vs 0.5 tacc 27.53246753246753 -> low N; spread 13.786213786213786 = 2.6456 steps (> 4: N) -> noisy N
-       pokerhand              tuned seeds [ 42.60  42.60  47.10  42.40  42.60]; lowest 42.4 vs 0.5 tacc 21.73 -> low N; spread 4.699999999999996 = 2.5801 steps (> 4: N) -> noisy N
-       volcanoes-d4           tuned seeds [ 94.99  94.99  94.99  94.99  94.99]; lowest 94.994994994995 vs 0.5 tacc 47.4974974974975 -> low N; spread 0.0 = 0.0000 steps (> 4: N) -> noisy N
-       walking-activity       tuned seeds [ 13.50  14.00  13.80  11.60  15.10]; lowest 11.600000000000001 vs 0.5 tacc 6.8 -> low N; spread 3.4999999999999982 = 3.0792 steps (> 4: N) -> noisy N
-       noisy on 0 of 4 -> False
-REPORT (not the rule; decides nothing): on each SEC5 clipped-failure carrier, the grid points (primary window) where a seed is below 0.5 tacc or a record is non-finite, on the raw ('fixed') and calibrated ('fixed_sec') axes; * marks the tuned lambda
+F9 (c) declared: "at least one is not caused by the penalty (pokerhand's low-accuracy seeds, visible in the tuned arm too)"
+       script's operationalisation (not declared): a failure carrier whose tuned lambda*_raw has a seed < 0.5 x tacc or a non-finite record (A5 D's line on the tuned arm's own seeds)
+       Indian_pines           tuned seeds [ 47.85  50.45  61.64  59.34  56.04]; lowest 47.85214785214785 vs 0.5 tacc 27.53246753246753; non-finite 0 -> low N   (report: spread 13.786213786213786 = 2.6456 steps)
+       pokerhand              tuned seeds [ 42.60  42.60  47.10  42.40  42.60]; lowest 42.4 vs 0.5 tacc 21.73; non-finite 0 -> low N   (report: spread 4.699999999999996 = 2.5801 steps)
+       volcanoes-d4           tuned seeds [ 94.99  94.99  94.99  94.99  94.99]; lowest 94.994994994995 vs 0.5 tacc 47.4974974974975; non-finite 0 -> low N   (report: spread 0.0 = 0.0000 steps)
+       walking-activity       tuned seeds [ 13.50  14.00  13.80  11.60  15.10]; lowest 11.600000000000001 vs 0.5 tacc 6.8; non-finite 0 -> low N   (report: spread 3.4999999999999982 = 3.0792 steps)
+       low on 0 of 4 -> False
+       other reading of "the tuned arm": the 'fixed' mode at any raw-grid lambda (sec1_score's "tuned-lambda baseline"); a carrier counts if any raw-grid lambda crosses the same line (counts in the REPORT below)
+       low on 4 of 4 (Indian_pines, pokerhand, volcanoes-d4, walking-activity) -> True
+       F9 under that reading: FAILS; the word is the same under both readings: True; (b) is False, so F9 FAILS whatever (c) reads
+REPORT (decides nothing): on each SEC5 clipped-failure carrier, the grid points (primary window) where a seed is below 0.5 tacc or a record is non-finite, on the raw ('fixed') and calibrated ('fixed_sec') axes; * marks the tuned lambda
        Indian_pines           raw  7 of 17: 28.3 30 100 300 1000 3000 10000
        Indian_pines           cal  9 of 19: 14.1 20 28.3 30 100 300 1000 3000 10000
        pokerhand              raw 12 of 17: 0.1 0.3 1 3 10 30 35.3357 283 300 1000 3000 10000
@@ -152,7 +165,7 @@ REPORT (not the rule; decides nothing): on each SEC5 clipped-failure carrier, th
        volcanoes-d4           cal  9 of 19: 0.01 0.03 0.1 0.3 1 3 10 30 100
        walking-activity       raw  8 of 17: 3 10 30 100 300 1000 3000 10000
        walking-activity       cal  7 of 19: 10 30 100 300 1000 3000 10000
-REPORT: the carriers the declaration names: pokerhand clipped class D (A5 conditions DU), tuned arm noisy N; volcanoes-d4 clipped class D (A5 conditions DCU), tuned arm noisy N
+REPORT: the carriers the declaration names: pokerhand clipped class D (A5 conditions DU), tuned lambda low N, raw-grid lambdas low 12, floor-bound Y (tacc - floor -7.0299 points); volcanoes-d4 clipped class D (A5 conditions DCU), tuned lambda low N, raw-grid lambdas low 8, floor-bound Y (tacc - floor +0.0550 points)
 F9: FAILS
 
 ======================================================================================================================================================
@@ -219,7 +232,67 @@ F10 negative margin among the 20 held-out passes: 12/20 = 0.6 (0.600) >= 0.25 ->
 F10: HOLDS
 
 ======================================================================================================================================================
-summary (words computed above)
+Amendment 1 report (POST HOC in origin; 347cb90): F5, F9 and F10 with the floor-bound carriers removed
+======================================================================================================================================================
+   floor = 100 x the majority class's share of the loaded rows (header class_counts); floor-bound iff tacc - floor < 3 steps (the definition of a1_a3.py's Amendment 1 report)
+   study carrier                               floor     tacc   step  (tacc-floor)/step  floor-bound
+   sec1  fars                                41.8316  12.7400  1.943            -14.974  Y
+   sec1  krkopt                              17.5270   6.2926  1.000            -11.234  Y
+   sec1  led24                               10.5312  20.1878  1.817             +5.315  N
+   sec1  led7                                10.6562  23.6562  1.000            +13.000  N
+   sec1  mfeat_factors                       10.0000  54.4500  4.537             +9.797  N
+   sec1  mfeat_morphological                 10.0000  34.2000  4.872             +4.967  N
+   sec1  page_blocks                         90.2200  42.4024 10.899             -4.387  Y
+   sec1  satimage                            23.8248  22.8428  1.618             -0.607  Y
+   sec1  segmentation                        16.6667  73.2323  1.863            +30.370  N
+   sec1  sleep                               54.4000  23.3367  1.115            -27.852  Y
+   sec1  wine_quality_white                  46.6667  24.9045  6.739             -3.229  Y
+   sec1  yeast                               33.2138  26.1429  6.042             -1.170  Y
+   scl3  GesturePhaseSegmentationProcessed   33.2466  26.3063  1.035             -6.704  Y
+   scl3  MiceProtein                         16.3043  40.9091  1.000            +24.605  N
+   scl3  cnae-9                              12.5000  74.1667  1.731            +35.634  N
+   scl3  eucalyptus                          37.3849  38.5321  3.529             +0.325  Y
+   scl3  first-order-theorem-proving         41.7483  11.8318  1.047            -28.579  Y
+   scl3  har                                 18.8762  52.8671  4.816             +7.058  N
+   scl3  isolet                              10.0000  62.5667  3.470            +15.149  N
+   scl3  semeion                             10.1695  37.4295  1.594            +17.107  N
+   scl3  steel-plates-fault                  35.6840  33.4748  1.191             -1.855  Y
+   scl3  wall-robot-navigation               40.4119  24.7648  6.619             -2.364  Y
+   sec3  covertype                           49.0000  22.8629  4.807             -5.437  Y
+   sec3  dionis                              12.4600  55.5245  3.436            +12.533  N
+   sec3  fabert                              24.9200  19.2208  1.000             -5.699  Y
+   sec3  helena                              16.0768  14.0600  2.975             -0.678  Y
+   sec3  jannis                              46.0000  22.1800 15.328             -1.554  Y
+   sec3  volkert                             21.9600   5.7600  1.000            -16.200  Y
+   sec4  JapaneseVowels                      17.5800  27.2673  1.000             +9.687  N
+   sec4  anneal                              76.8539  76.8539  5.634             +0.000  Y
+   sec4  artificial-characters               13.8655  14.6653  1.962             +0.408  Y
+   sec4  cardiotocography                    27.2342  98.8679  1.000            +71.634  N
+   sec4  gas-drift                           21.6357  46.8068  2.594             +9.704  N
+   sec4  synthetic_control                   16.6667  44.8333  3.590             +7.846  N
+   sec5  Indian_pines                        44.6600  55.0649  5.211             +1.997  Y
+   sec5  Kuzushiji-MNIST                     10.0000  25.6800  1.330            +11.787  N
+   sec5  autoUniv-au6-750                    22.0000   8.0795  1.644             -8.469  Y
+   sec5  microaggregation2                   57.9600  17.6024 15.522             -2.600  Y
+   sec5  pokerhand                           50.4899  43.4600  1.822             -3.859  Y
+   sec5  spoken-arabic-digit                 10.0600   9.8800  1.000             -0.180  Y
+   sec5  volcanoes-d4                        94.9400  94.9950  1.000             +0.055  Y
+   sec5  walking-activity                    19.3200  13.6000  1.137             -5.032  Y
+   floor-bound per study: sec1 7/12; scl3 5/10; sec3 5/6; sec4 2/6; sec5 7/8; all 26/42
+   F5's cases floor-bound: unclipped failures 8 of 13, clipped failures 4 of 4
+   F5 (i)  kept unclipped failures 5: D 5 C 0 U 0 O 0 N 0 X 0; most common D; D share 5/5 = 1.0 (1.000) > 0.5 -> True
+   F5 (ii) kept clipped failures 0: [] all in C/U/N -> True (vacuous: no case left)
+   F5 floor-bound removed (report): HOLDS ((ii) vacuous: no clipped failure left)
+   F9's SEC5 clipped failures floor-bound: 4 of 4; kept 0: []
+   F9 (a) 0 distinct [] >= 2 -> False; (b) C on 0 -> False; (c) tuned lambda low on 0 -> False (any raw-grid lambda: 0 -> False) (vacuous: no case left)
+   F9 floor-bound removed (report): FAILS (vacuous: no case left)
+   F10 held-out carriers floor-bound: 19 of 30; of the 20 held-out passes 13 floor-bound; kept passes 7 (MiceProtein pos, har neg, isolet neg, semeion pos, JapaneseVowels pos, gas-drift pos, Kuzushiji-MNIST pos)
+   F10 negative margin among the kept held-out passes: 2/7 = 0.2857142857142857 (0.286) >= 0.25 -> True
+   F10 floor-bound removed (report): HOLDS
+
+======================================================================================================================================================
+summary (words computed above; the words for the declared forecasts are those on all carriers)
    F5   FAILS   (i) D 10/13 unclipped failures (0.769 > 0.5; most common D) -> True; (ii) clipped failures ['U', 'D', 'D', 'X'] all in C/U/N -> False (none D -> False)
-   F9   FAILS   SEC5 clipped failures 4: (a) 2 distinct classes ['D', 'U'] -> True; (b) C on 0 -> False; (c) tuned arm noisy on 0 -> False
+   F9   FAILS   SEC5 clipped failures 4: (a) 2 distinct classes ['D', 'U'] -> True; (b) C on 0 -> False; (c) tuned lambda low on 0 -> False [script's operationalisation; any raw-grid lambda: 4 -> True, word FAILS]
    F10  HOLDS   12/20 held-out passes with a negative margin (0.600 >= 0.25)
+   floor-bound removed (Amendment 1 report, post hoc): F5 HOLDS ((ii) vacuous), F9 FAILS (vacuous: no case left), F10 HOLDS (2/7)

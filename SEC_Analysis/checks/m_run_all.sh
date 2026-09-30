@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# SEC_Analysis mechanism checks, the full run (SEC_Analysis/DECLARATION.md, M1-M4; m_checks.py): arms C0, M1, M2, M4 x seeds 0-4
+# SEC_Analysis mechanism checks, the full run (SEC_Analysis/DECLARATION.md, M1-M4, and M5, M6 of its Amendment 2; m_checks.py):
+# arms C0, M1, M2, M4, M5, M6 x seeds 0-4
 # on the 30 SEEN carriers of SCL3, SEC3, SEC4 and SEC5 that their loaders keep, three carriers at a time (the machine is shared).
 # One results file per carrier in SEC_Analysis/checks/m_runs/<study>_<id>.jsonl (CPU seconds in m_runs/times/), one line per
 # carrier exit in m_runs/exits.txt, and a final line M_ALL_DONE. Per-carrier logs go outside the repository. The M0 identity
-# (m_identity.txt) is checked before this runs. POST HOC on SEEN carriers; no ledger row.
+# (m_identity.txt) is checked before this runs; the byte-identical rerun is m_rerun_cmp.sh. POST HOC on SEEN carriers; no ledger row.
 #     nohup bash SEC_Analysis/checks/m_run_all.sh > /tmp/claude-0/m_run_all.log 2>&1 &
 # then: uv run python SEC_Analysis/checks/m_checks.py score > SEC_Analysis/checks/m_checks.txt
 set -u

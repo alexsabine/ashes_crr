@@ -2,7 +2,9 @@
 extracted source text (run by hand; output pinned in verify_a11.txt). POST HOC; no ledger row.
 
 The extracted texts were saved outside the repository (third-party full texts, not committed), under
-/tmp/claude-0/sec_an_src/; each claim's `raw_file` is relative to that root (sha256 in SHA256SUMS.txt there).
+/tmp/claude-0/sec_an_src/; each claim's `raw_file` is relative to that root. The fetch record is committed in
+SEC_Analysis/sources/ (FETCH_LOG.txt: URL, version, date, HTTP status; SHA256SUMS.txt: every fetched file, PDFs included;
+fetch.py: the fetch script), copied from that root.
 Normalisation (copied from Open_Bottlenecks/checks/verify.py), applied to quote and text alike: Unicode NFKC; whitespace
 collapsed to one space. A hyphen at a line break in the text may be read either as kept ("exemplar-free") or as a rejoin
 ("stabilityplasticity"), independently at each break. A quote containing "[...]" is checked fragment by fragment. A raw
@@ -84,7 +86,7 @@ def main():
     for status, cid, i, q in bad:
         print(f'  {status} {cid} quote {i}: {q}')
     print()
-    print('raw files read (sha256 of the extracted text as read now; the fetch record is FETCH_LOG.txt in the root):')
+    print('raw files read (sha256 of the extracted text as read now; the fetch record is SEC_Analysis/sources/FETCH_LOG.txt and SHA256SUMS.txt):')
     for rf in sorted({c['raw_file'] for c in CLAIMS}):
         p = os.path.join(root, rf)
         h = hashlib.sha256(open(p, 'rb').read()).hexdigest() if os.path.isfile(p) else 'MISSING'

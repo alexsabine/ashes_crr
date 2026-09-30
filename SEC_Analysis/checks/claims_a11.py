@@ -3,9 +3,10 @@ load-bearing ingredient of SEC's code (runs/sec4/frozen/sec1_score.py run(), run
 
 Every quote is copied from the text that pymupdf 1.28.2 extracted from the fetched PDF (arXiv current version), fetched
 2026-09-30 through the session proxy. Raw files live outside the repository under /tmp/claude-0/sec_an_src/ (`raw_file` is
-relative to that root); their sha256 is in /tmp/claude-0/sec_an_src/SHA256SUMS.txt and the fetch record (URL, version,
-date, HTTP status) in /tmp/claude-0/sec_an_src/FETCH_LOG.txt. Formulae are quoted as the extractor emitted them, symbol by
-symbol in reading order (a fraction a/b comes out as "a b", a sum as "X" or "P"). Checked by SEC_Analysis/checks/verify_a11.py.
+relative to that root); their sha256 is in SEC_Analysis/sources/SHA256SUMS.txt and the fetch record (URL, version,
+date, HTTP status) in SEC_Analysis/sources/FETCH_LOG.txt (both copied from that root, with fetch.py). Formulae are
+quoted as the extractor emitted them, symbol by symbol in reading order (a fraction a/b comes out as "a b", a sum as "X"
+or "P"). Checked by SEC_Analysis/checks/verify_a11.py.
 
 Barzilai & Borwein 1988 (IMA J. Numer. Anal. 8(1):141-148, doi 10.1093/imanum/8.1.141) was NOT read: doi.org redirects to
 academic.oup.com, which returned HTTP 403 with a Cloudflare challenge page on 2026-09-30. Its bibliographic record is

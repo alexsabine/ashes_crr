@@ -51,7 +51,7 @@ PASS      a11:25  T states      quote 0 src/pdf_1612.00796v2.txt
 
 quotes found verbatim: 47 of 47 (claims 26; raw files 11, missing 0); not found 0; missing 0
 
-raw files read (sha256 of the extracted text as read now; the fetch record is FETCH_LOG.txt in the root):
+raw files read (sha256 of the extracted text as read now; the fetch record is SEC_Analysis/sources/FETCH_LOG.txt and SHA256SUMS.txt):
   3afffb189964fc4827bf03de2d113d0e8544be4e90a7a73654f1634abae183d6  src/bb_crossref.json
   b74b7dd142f50b4bbb96ba1cf3e852d17538d66661b20141c6552de10b848cb5  src/pdf_1412.1193v11.txt
   78e4d82d0294610add4c9d8f36fadc352a440e471b4863301df7ea0da735aded  src/pdf_1605.04131v2.txt
