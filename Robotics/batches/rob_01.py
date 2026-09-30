@@ -25,7 +25,7 @@ RA2. A differential-drive robot on a straight path at a time-varying speed (leve
      from N robots as the only variation per arc: its prediction for the scored CV is sqrt(2/(N-1)), computed without the
      arcs. T-C: the ratio of the CVs against the law's prediction (the same sampling theory), within two bootstrap standard
      errors. Printed, not scored: a clock-driven drift (variance proportional to time), 40 other slip seeds, two other robot
-     counts, and the pose drift on a curved path.
+     counts, and the pose drift on a circle and on the straight path.
 
 CHOICES (every underspecified point, the most literal and simplest reading; also printed in each row's weakness line):
 see CHOICES_RA1 and CHOICES_RA2 below. One model change after the first run (RA1's kick sd, before any cut was
@@ -399,8 +399,8 @@ CHOICES_RA2 = (
     "wheels roll forward); (2) speed levels uniform on [0.1, 2.0] m/s held for exponential dwell times of mean 20 s, time step 0.1 s, "
     "seed 1; (3) slip: each wheel's measured increment = true + N(0, k |ds|), k = 1e-4 m, 200 robots on the one profile, seed 2; "
     "(4) drift = the odometer's distance error, the mean of the two wheels' errors, whose variance the law makes k/2 per metre (the "
-    "heading error is also proportional to distance and is printed; the Cartesian cross-track error integrates the heading error, grows "
-    "faster than distance and is not the law's quantity: it is printed on a curved path, (11)); (5) occasions = 1000 clock windows of "
+    "heading error is also proportional to distance and is printed; the Cartesian position error integrates the heading error and "
+    "is not the law's quantity: it is printed on the straight path and on a circle, (11)); (5) occasions = 1000 clock windows of "
     "10 s (the declaration names no events); per window the drift "
     "variance is the across-robot variance (ddof 1) of the window's drift increment, per arc = divided by the true path's arc_length "
     "in the window, per clock = divided by 10 s; (6) T-N (CHANGED AFTER REVIEW): the law's prediction for the scored quantity, "
@@ -414,9 +414,10 @@ CHOICES_RA2 = (
     "(9) seed sensitivity (not scored): slip seeds 100-139, each labelled by outcome() with its own T-C; the label is called "
     "seed-fragile if more than 1 of the 40 differs from the scored label (CLAUDE.md's rule for a sensitivity table: a verdict "
     "that flips in more than one cell); (10) robot counts N = 10 and 800 on slip seed 2, printed, not scored; (11) the pose drift "
-    "(not scored): the same speed profile on a circle of radius 10 m (both wheels forward), slip seed 4, the pose integrated with "
-    "the midpoint-heading update; per window the trace of the across-robot covariance of the position-error increment, CV per arc "
-    "and per clock, and the cumulative position-error variance per metre at the window nearest 1 km and at the end")
+    "(not scored): the same speed profile on a circle of radius 10 m (both wheels forward; ASSUMED round value) and on the "
+    "straight path, slip seed 4, the pose integrated with the midpoint-heading update; per window the trace of the across-robot "
+    "covariance of the position-error increment, CV per arc and per clock, and the cumulative position-error variance per metre "
+    "at the window nearest 1 km and at the end, with its growth exponent in distance between the two (the law's 1)")
 
 
 def _speed_profile(n, rng):
@@ -463,11 +464,11 @@ def _ra2_stats(vs, arcs, clock, n_rob):
                 out=outcome(crr=crr, null=null, domain=cva_pred, check=check))
 
 
-def _pose_drift(ds, n_per, rng):
-    """The same speed profile on a circle of radius R_CURVE (both wheels forward), N_ROB robots dead-reckoning with the
-    midpoint-heading update: per window, the trace of the across-robot covariance of the position-error increment and of the
-    cumulative position error at the window's end (m^2)."""
-    fl, fr = 1.0 - BASE / (2.0 * R_CURVE), 1.0 + BASE / (2.0 * R_CURVE)
+def _pose_drift(ds, n_per, rng, radius):
+    """The same speed profile on a circle of the given radius (None: the straight path; both wheels forward), N_ROB robots
+    dead-reckoning with the midpoint-heading update: per window, the trace of the across-robot covariance of the position-error
+    increment and of the cumulative position error at the window's end (m^2)."""
+    fl, fr = (1.0, 1.0) if radius is None else (1.0 - BASE / (2.0 * radius), 1.0 + BASE / (2.0 * radius))
     th_t, x_t, y_t = 0.0, 0.0, 0.0
     th_h, x_h, y_h = np.zeros(N_ROB), np.zeros(N_ROB), np.zeros(N_ROB)
     ex0, ey0 = np.zeros(N_ROB), np.zeros(N_ROB)
@@ -539,12 +540,24 @@ def ra2():
     n_txt = "; ".join(f"N = {nr}: CV per arc {q['crr']:.6f} (sqrt(2/(N-1)) = {q['dom']:.6f}), per clock {q['null']:.6f}, T-G relative "
                       f"difference {rel(q['crr'], q['null']):.4f}, T-N relative difference {rel(q['crr'], q['dom']):.4f}, would read "
                       f"{q['out']}" for nr, q in nsens.items())
-    # the pose drift on a curved path (not scored)
-    p_inc, p_cum = _pose_drift(ds, n_per, np.random.default_rng(SEED_POSE))
-    p_arc, p_clk = cv(p_inc / arcs), cv(p_inc / clock)
+    # the pose drift (not scored): on a circle of radius R_CURVE and on the straight path itself, the same slip seed
     cumdist = np.cumsum(arcs)
     m1 = int(np.argmin(np.abs(cumdist - 1000.0)))
-    pm1, pmE = float(p_cum[m1] / cumdist[m1]), float(p_cum[-1] / cumdist[-1])
+    pose = {}
+    for name, rad in (("circle", R_CURVE), ("straight path", None)):
+        p_inc, p_cum = _pose_drift(ds, n_per, np.random.default_rng(SEED_POSE), rad)
+        pose[name] = dict(arc=cv(p_inc / arcs), clk=cv(p_inc / clock), sd1=math.sqrt(float(p_cum[m1])),
+                          pm1=float(p_cum[m1] / cumdist[m1]), pmE=float(p_cum[-1] / cumdist[-1]),
+                          expo=math.log(float(p_cum[-1] / p_cum[m1])) / math.log(float(cumdist[-1] / cumdist[m1])))
+    pose_txt = "; ".join(
+        f"{name}: position-error increment variance CV per arc {q['arc']:.6f}, per clock {q['clk']:.6f}; cumulative position-error "
+        f"variance per metre {q['pm1']:.3e} m at {cumdist[m1]:.1f} m and {q['pmE']:.3e} m at {cumdist[-1]:.1f} m, growth exponent "
+        f"against distance {q['expo']:.4f} (the law's 1)" for name, q in pose.items())
+    pose_read = "; ".join(
+        f"on the {name} its window variance per arc has CV {q['arc']:.6f} against the law's sampling {dom:.6f} "
+        f"({_w(rel(q['arc'], dom) <= TOL_N, 'as the law predicts', 'not as the law predicts')}; per clock {q['clk']:.6f}, so Q's "
+        f"inequality {_w(q['arc'] < q['clk'], 'still holds there', 'fails there')}) and its cumulative variance grows with exponent "
+        f"{q['expo']:.4f} in distance, {_w(q['expo'] > 1.0, 'faster', 'slower')} than the law's 1" for name, q in pose.items())
     # robotics reading: drift per km and per hour
     rate = float(vs.sum() / arcs.sum())                             # m^2 per metre, pooled
     per_km, per_km_law = math.sqrt(rate * 1000.0), math.sqrt(K_SLIP / 2.0 * 1000.0)
@@ -577,11 +590,10 @@ def ra2():
                  f"{SEEDS_SENS[0]}-{SEEDS_SENS[-1]}): CV per arc from {s_crr.min():.6f} to {s_crr.max():.6f} (seed-to-seed sd "
                  f"{s_sd:.4f} of the law's prediction), T-N relative difference above {TOL_N:g} on {int((s_rel > TOL_N).sum())} of "
                  f"{len(SEEDS_SENS)} (median {np.median(s_rel):.4f}, max {s_rel.max():.4f}), T-C holds on {s_tc} of {len(SEEDS_SENS)}, "
-                 f"labels {s_lab_txt}; robot counts (not scored, slip seed {SEED_SLIP}): {n_txt}; pose drift on a circle of radius "
-                 f"{R_CURVE:g} m (not scored, seed {SEED_POSE}): position-error increment variance CV per arc {p_arc:.6f}, per clock "
-                 f"{p_clk:.6f}; cumulative position-error variance per metre {pm1:.3e} m at {cumdist[m1]:.1f} m and {pmE:.3e} m at "
-                 f"{cumdist[-1]:.1f} m (ratio {pmE / pm1:.2f}); robotics reading: distance drift sd per km {per_km:.4f} m (law "
-                 f"{per_km_law:.4f} m), pose drift sd at {cumdist[m1]:.1f} m on the circle {math.sqrt(p_cum[m1]):.4f} m, distance drift "
+                 f"labels {s_lab_txt}; robot counts (not scored, slip seed {SEED_SLIP}): {n_txt}; pose drift (not scored, seed "
+                 f"{SEED_POSE}; circle of radius {R_CURVE:g} m and the straight path): {pose_txt}; robotics reading: distance drift sd "
+                 f"per km {per_km:.4f} m (law {per_km_law:.4f} m), pose drift sd at {cumdist[m1]:.1f} m "
+                 f"{pose['circle']['sd1']:.4f} m on the circle and {pose['straight path']['sd1']:.4f} m on the straight path, distance drift "
                  f"sd per hour "
                  + ", ".join(f"{per_h[u]:.4f} m at {u:.4f} m/s" for u in per_h)),
         tg=f"CV per arc {crr:.6f} vs null CV per clock {null:.6f}: {_w(rel(crr, null) <= TOL_G, 'agree', 'differ')} (Q's inequality "
@@ -599,6 +611,7 @@ def ra2():
                  f"variance varies only by the sampling of a variance from {N_ROB} robots, so the CV per arc ({crr:.6f}) is the "
                  f"estimator's noise, set by the robot count (the law's sqrt(2/(N-1)) = {dom:.6f}; at N = "
                  + " and N = ".join(f"{nr} it is {q['crr']:.6f}" for nr, q in nsens.items())
+                 + "; the label would be " + " and ".join(f"{q['out']} at N = {nr}" for nr, q in nsens.items())
                  + f"), and per clock it carries the window's speed as well (CV {null:.6f}, window distances CV {c_s:.4f}); "
                  + _w(is_dist, f"the arc is the distance (max |arc - distance| {arc_gap:.2e} m), so T-G's difference is the law itself; ", "")
                  + f"T-N sets the CV per arc against the law's prediction, relative difference {rel_n:.4f} "
@@ -614,11 +627,7 @@ def ra2():
                  f"{c_clk:.6f}, per arc {c_arc:.6f}), T-N {_w(rel(c_arc, dom) <= TOL_N, 'agrees', 'differs')} (relative difference "
                  f"{rel(c_arc, dom):.4f}) and the row would read {stc['out']}, where the first T-N construction agreed "
                  f"({rel(c_arc, c_old):.1e}); so which index is the regular one is set by the noise law, which the domain states "
-                 f"before CRR does; on a curved path (not scored) the pose drift a buyer reads per km is not the law's quantity: "
-                 f"its window variance has CV per arc {p_arc:.6f} and per clock {p_clk:.6f}, and its cumulative variance per metre "
-                 f"{_w(pmE > pm1, 'grows', 'does not grow')} from {pm1:.3e} m at {cumdist[m1]:.1f} m to {pmE:.3e} m at "
-                 f"{cumdist[-1]:.1f} m, so the law "
-                 f"{_w(pmE > 1.1 * pm1, 'stops holding for the pose', 'holds for the pose too')}"),
+                 f"before CRR does; the pose drift a buyer reads per km (not scored) is not the law's quantity: {pose_read}"),
         weakness=(CHOICES_RA2 + "; the model puts the law in (the slip is defined per metre), so the row checks that H-L5 recovers the "
                   "law and nothing more, and its label is decided by the estimator noise of a variance against the harness's 1 % "
                   "tolerance; a real robot's drift has clock-driven parts (gyro bias, thermal drift) that this model leaves out"),
