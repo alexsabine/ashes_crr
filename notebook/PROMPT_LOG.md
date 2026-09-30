@@ -1719,3 +1719,9 @@ Have we already conducted literature sweeps on the SEC method?
 ## 243 — 2026-09-30T01:42:09Z
 
 With the SEC, if we were to actually implement it on a handheld device or showcase it on a banking system, what would the user experience be? e.g. how would the use of the device feel tangibly different for the leader of a banking firm and/or the mobile phone general user? Please think carefully. I am thinking for a "feel the difference" interpretation  - end user scenario (assuming the technology gets to that stage)
+
+## 244 — 2026-09-30T01:49:29Z
+
+What do you mean by ". Learning happens on the device, so your data doesn't need to leave it."? That sounds like SEC is touching into something more interesting... and earlier you said "Replay keeps a notebook, SEC doesn't need one" 
+
+What do you mean, in simple terms/
