@@ -4,17 +4,17 @@
 - **Study id:** `sec6`.
 - **Written:** 2026-09-30 (UTC).
 - **Why:** prompt-log entry 257 ("We should then run more tests on sec4"), P2 of `Applied_Suite/PROGRAMME.md`; AGENT_LOG
-  214, 217, 218 and 219.
+  214, 217, 218, 219, 222 and 224.
 
 **What came before this file.**
 - The development declaration was pushed at 66ff6c7 (`DEV_DECLARATION.md`).
-- Its Amendment 1 (4e5f009) and Amendment 2 (e15e1ff) were pushed before their changes were coded.
+- Its Amendment 1 (4e5f009), Amendment 2 (e15e1ff) and Amendment 3 (34b4765) were pushed before their changes were coded.
 - The development stage ran on SEEN carriers (`dev_SEC6.txt`).
 - The carrier selection ran on metadata only (`carrier_selection.txt`).
 
 **Timing.** This file, the development outputs, the selection, the frozen scorer and the smoke output are hashed,
 OTS-stamped and pushed before any carrier below is fetched. **No carrier below is fetched or opened before 2026-10-01
-00:00 UTC.** Under R3, SI-1C, the d = 0 rule and `fixed_clip` were fixed on SEEN data on 2026-09-30.
+00:00 UTC.** Under R3, SI-1C, the d = 0 rule, `fixed_clip`, `edge` and the gate SEC6-G were fixed on SEEN data on 2026-09-30.
 
 ## What this study is
 
@@ -54,7 +54,33 @@ OTS-stamped and pushed before any carrier below is fetched. **No carrier below i
 
 ## Part M: the P1-conditional arms (from `SEC_Analysis/checks/m_checks.json`)
 
-PENDING: filled from the pinned P1 output before the hash, by the rule in `SEC_Analysis/DECLARATION.md`.
+**None of the P1 arms is carried.** The rule in `SEC_Analysis/DECLARATION.md` ("What the results may change"), applied by
+`SEC_Analysis/checks/m_checks.py score` and pinned in `m_checks.txt`, reads:
+
+```
+   M1 not behind 13 vs C0 26 (carried iff >= 25) -> NOT CARRIED
+   M2 not behind 21 vs C0 26 (carried iff >= 25) -> NOT CARRIED
+   M4 ahead of C0 by more than a step on 0 (needs >= 3) -> a TIE or a loss, NOT CARRIED
+```
+
+`CARRIED = ()` in the frozen scorer, so `m_checks.py` is not part of the instrument.
+
+## Part G: the instrument gate (`DEV_DECLARATION.md` Amendment 3)
+
+**What P1 found.**
+- P1's must-fail control M6 (EDGE) puts every coordinate at SEC4's cap after task 1, with no Fisher, so the learner stays
+  within one step of task 1's end. It is **not behind the tuned λ on 24/30** SEEN carriers (`m_checks.txt`, FM6
+  FAILS).
+- **The reason is the stream.** The frozen loader relabels classes by descending count, and SEC1's tasks are consecutive
+  label pairs, so task 1 always holds the two most frequent classes. The stratified test set rewards keeping them.
+
+**What this pre-registration does about it.**
+- **The arm `edge`.** SEC6 runs M6 as the arm `edge`, self-contained in the frozen scorer. It equals P1's pinned M6
+  records on 20/20 runs (`dev/devid_edge.txt`).
+- **The gate SEC6-G** asks whether the family's criterion can fail on this family.
+- **SEC6-1F** reads SEC6-1 on the carriers that are not floor-bound.
+- **The stream is SEC4's, unchanged.** SEC6-1 must replicate SEC4-1 exactly. A random-class-order stream would be a new
+  study, on a later day.
 
 ## The development stage (SEEN data only; `DEV_DECLARATION.md`; output `dev_SEC6.txt`)
 
@@ -79,6 +105,7 @@ bit for bit. SEC1's `bayes_sec` also matches on 2/2.
 | clipped SEC (pinned) | 26/30 | 22/30 | 2 |
 | raw Laplace (pinned) | 14/30 | 11/30 | 2 |
 | unguarded SEC (pinned) | 20/30 | 20/30 | 8 |
+| `edge` = P1's M6 (the must-fail control; P1's run, `m_checks.txt`) | 24/30 | — | — |
 
 **What the development already suggests (a reading, not evidence).**
 - On SEEN data the clipped SI is at least as good as the clipped SEC on every carrier count.
@@ -154,7 +181,8 @@ folder.
 - the clipped SEC at the primary window, at SEC4's 3 retained window cells, and at κ ∈ {0.25, 1.0};
 - SI-1, SI-1C, SI-0.1, AR1-P and AR1-B at the primary window;
 - `fixed_clip` on SEC1's two-stage grid;
-- the carried P1 arms.
+- `edge` (P1's M6) at the primary window;
+- no P1 arm is carried (Part M).
 
 **Timing.** Every configuration is timed into `times_<id>.jsonl`, never into the results file (R9 `cmp`).
 
@@ -175,7 +203,11 @@ N is the number of scored carriers, and need = ⌈0.75 N⌉ (SCL3-3's share).
 | **SEC6-T** (is the saving SEC's?) | B = carriers where a transferred λ (leave-one-carrier-out log-median, snapped to the coarse grid) is behind the tuned λ by a step | DECIDABLE if \|B\| ≥ 3; PASS if the clipped SEC is not behind on ≥ ⌈0.75 \|B\|⌉ of B |
 | **SEC6-P** (against a cheap sweep) | clipped SEC − best of the 3-point sweep {1, 30, 1000} > −step | PASS on ≥ need |
 | **SEC6-S** (sensitivity) | SEC6-1's per-carrier "not behind" over 5 cells: SEC4's 3 retained window cells and κ ∈ {0.25, 1.0} | more than 1 flip in the 5 × N cells = FRAGILE |
+| **SEC6-G** (the instrument gate; computed first) | `edge` − tuned λ > −step, counted per carrier | CLOSED if `edge` is not behind on ≥ need carriers: SEC6-1, SEC6-B and SEC6-P are then printed UNINFORMATIVE ("a learner frozen after task 1 meets the same criterion"), and no level above PASS-0 may be claimed for them; OPEN otherwise. The counts are printed either way. |
+| **SEC6-GC** | `edge` − tuned clipped λ > −step_c | the same gate for SEC6-C |
+| **SEC6-1F** (secondary) | SEC6-1's criterion on the carriers that are not floor-bound (tuned λ mean − 100 × majority-class share ≥ 3 steps, from the carrier header) | PASS on ≥ ⌈0.75 N_F⌉; FAIL; NOT DECIDABLE if N_F < 4 |
 | SEC6-K, SEC6-E | CPU seconds (including the clipped sweep's); firings, per arm | report |
+| report | per carrier, the task-1 share (100 × the two largest used-class counts / n), with `edge`'s and the clipped SEC's accuracies | report |
 
 **Printed beside the verdicts.**
 - Every per-carrier and per-seed value (R6).
@@ -189,7 +221,9 @@ A non-finite run scores 0 and is kept. Calibration fallbacks are counted, never 
 ## What a PASS would be
 
 - **PASS-0.** SEC6-1 or SEC6-C passing is PASS-0 (R2–R9 as written).
-- **PASS-1.** SEC6-1 is PASS-1 if also all of these hold:
+- **The gate caps the level.** If SEC6-G is CLOSED, SEC6-1 is at most PASS-0, whatever else holds. If SEC6-GC is CLOSED,
+  SEC6-C is at most PASS-0.
+- **PASS-1.** SEC6-1 is PASS-1 if SEC6-G is OPEN and also all of these hold:
   - SEC6-S is not fragile;
   - SEC6-2 passes;
   - the OTS anchor completes;
@@ -206,6 +240,7 @@ A non-finite run scores 0 and is kept. Calibration fallbacks are counted, never 
 
 | result | reading |
 |---|---|
+| SEC6-G CLOSED | a learner frozen after task 1 meets the family's criterion, so SEC6-1, SEC6-B and SEC6-P cannot show that a method is tuning-free on this family. SEC4-1 was scored without this gate; P1 finds the same control not behind on 24 of the 30 carriers of SCL3, SEC3, SEC4 and SEC5 |
 | SEC6-1 FAIL | the clipped SEC is not tuning-free on a third new family (two of three would then fail) |
 | SEC6-1 PASS, SEC6-C FAIL | the pass rests on the clip: a tuned λ given the same guard beats it |
 | SEC6-B FAIL | a published tuning-free rule does at least as well. On SEEN data SI-1C and AR1-B already do. The calibration is then not what makes the clipped SEC work. |
