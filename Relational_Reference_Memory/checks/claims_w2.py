@@ -99,7 +99,17 @@ CLAIMS = [
      'agent_note': 'Bears: prototypes and a few kept samples in one learner, in the reverse direction (the prototypes '
                    'select the kept samples; the samples do not correct stored statistics).'},
     # ------------------------------------------------------------------ P5
-    {'id': 'w2:6', 'tag': 'P5', 'reading': 'close', 'reading_by': RB,
+    {'id': 'w2:6', 'tag': 'P5', 'reading': 'states',
+     'reading_by': "investigator (review of the grading agent's 'close'; AGENT_LOG 198)",
+     'investigator_note': "P5's predicates, one by one: stored old-class statistics (class Gaussians) - yes; transported "
+                          "by the measured feature movement of anchors (D = Fnew - Fold) - yes; the anchors kept (a fixed "
+                          "set for the whole stream, features stored) - yes; a few (1,024 images against ImageNet-scale "
+                          "data) - yes on the reading 'a small fixed set'. Anchor provenance (external, not stream rows) and "
+                          "the relation's form (softmax kernel, not ridge) are not predicates of P5 as declared, so the "
+                          "declared policy ('every predicate ... for at least one of the objects') reads STATES. Decided "
+                          "on reading the agent's report, before grade_w.py was meant to run; a script error ran it once "
+                          "under the agent's reading first (grade_w_run1.txt, pinned). grade_w.py prints the verdict under "
+                          "the agent's reading beside it.",
      'source': 'Rao, Ha, Zhao, Liu, Alippi, "Scalable Analytic Classifiers with Associative Drift Compensation for '
                'Class-Incremental Learning of Vision Transformers" (LR-RGDA and HopDC; arXiv:2602.00144)',
      'version': 'v1, 29 Jan 2026', 'url': 'https://arxiv.org/abs/2602.00144',
@@ -318,4 +328,57 @@ CLAIMS = [
      'raw_file': 'f2/src/pdf_2303.14595v3.txt',
      'agent_note': 'Close: the drift is constrained to be linear by design (a regulariser), and a non-linear projector gives '
                    'no gain; this is not a report of how an unconstrained learner drifts.'},
+    # ---------------------------------------------- leads passed on from the F3 sweep (coordinator, 2026-09-30)
+    {'id': 'w2:24', 'tag': 'P5', 'reading': 'close', 'reading_by': RB,
+     'source': 'Chaudhury, "Forgetting is Not Erasure: Recovering Latent Knowledge via Transport Keys" (arXiv:2606.02860; '
+               'technical report)',
+     'version': 'v1, 1 Jun 2026', 'url': 'https://arxiv.org/abs/2606.02860',
+     'quote': ['We describe transport keys at a systems level as compact interface-alignment operators estimated from a small '
+               'set of paired anchor activations and evaluated through model stitching.',
+               'Anchors are ordinary examples from the earlier task and are passed through both checkpoints.',
+               'it is inserted between an early portion of a post-update network and a late portion of the pre-update '
+               'network, and it maps the new activation coordinate system back into a form that the old downstream '
+               'computation can decode.'],
+     'raw_file': 'f2/src/pdf_2606.02860v1.txt',
+     'agent_note': 'Close: the anchor side matches RRM exactly: a few kept examples of the earlier task, passed through the '
+                   'old and the updated network, give paired features, and an alignment map is fitted on them. The '
+                   'transported object differs: live post-update activations are mapped back (new to old) into a kept copy '
+                   'of the pre-update late network, which is not stored old-class statistics carried forward (old to new) '
+                   'into the current space. It also needs the Task A checkpoint, not features stored at the cut. The '
+                   'report is preliminary and gives no key-fitting equations.'},
+    {'id': 'w2:25', 'tag': 'P7', 'reading': 'close', 'reading_by': RB,
+     'source': 'Chaudhury, "Forgetting is Not Erasure: Recovering Latent Knowledge via Transport Keys" (arXiv:2606.02860; '
+               'technical report)',
+     'version': 'v1, 1 Jun 2026', 'url': 'https://arxiv.org/abs/2606.02860',
+     'quote': ['transport keys recover most of the original Task A performance after sequential training on Task B.',
+               'It corrects per-channel drift, such as changes in activation scale or offset.',
+               'In the same-domain CIFAR experiments, this compact correction explains most of the recovered accuracy.'],
+     'raw_file': 'f2/src/pdf_2606.02860v1.txt',
+     'agent_note': 'Close: in a two-task split of CIFAR-100 (a task-A head kept, an intermediate interface), a per-channel '
+                   'scale-and-offset correction (a diagonal affine map) explains most of the recovery; cross-channel mixing '
+                   'matters more under domain shift. This is a different scope from class-IL feature drift at the '
+                   'penultimate layer, and a preliminary report.'},
+    {'id': 'w2:26', 'tag': 'P5', 'reading': 'bears', 'reading_by': RB,
+     'source': 'Li, Xiao, Jiang, Zuo, Zhang, Yang, "A Stitch in Time Saves Nine: Preserving Policy Compatibility Under '
+               'Perception Updates in End-to-End Autonomous Driving" (arXiv:2606.21509; T-ITS under review)',
+     'version': 'v1, 19 Jun 2026', 'url': 'https://arxiv.org/abs/2606.21509',
+     'quote': ['We study low-complexity model stitching methods, including linear and convolutional stitchers, for restoring '
+               'compatibility between updated perception modules and frozen downstream policy modules.',
+               'where A ∈Rn×n and b ∈R1×n are estimated from the paired anchors [30].'],
+     'raw_file': 'f2/src/pdf_2606.21509v1.txt',
+     'agent_note': 'Bears: an affine map fitted by least squares on paired anchors across a module retrain, applied to live '
+                   'latents feeding a frozen downstream policy; it is not a continual learner, and no stored statistics '
+                   'are transported.'},
+    {'id': 'w2:27', 'tag': 'P7', 'reading': 'bears', 'reading_by': RB,
+     'source': 'Li, Xiao, Jiang, Zuo, Zhang, Yang, "A Stitch in Time Saves Nine: Preserving Policy Compatibility Under '
+               'Perception Updates in End-to-End Autonomous Driving" (arXiv:2606.21509; T-ITS under review)',
+     'version': 'v1, 19 Jun 2026', 'url': 'https://arxiv.org/abs/2606.21509',
+     'quote': ['This result suggests that, under small distribution shifts, the original and updated latent representations '
+               'remain approximately linearly aligned.',
+               'These results indicate that sensor-induced representation shifts require a more expressive compatibility '
+               'mapping than a simple linear transformation.'],
+     'raw_file': 'f2/src/pdf_2606.21509v1.txt',
+     'agent_note': 'Bears (outside class-IL: a perception module retrained from a new initialisation, sensor set-up or domain): '
+                   'the change is approximately linear for small shifts and not for larger ones, the same split by regime '
+                   'that the class-IL sources show.'},
 ]

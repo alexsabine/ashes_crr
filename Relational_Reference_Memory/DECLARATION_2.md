@@ -107,3 +107,27 @@ only the chain that depends on it.
 - T2 closes at G-REL (DECLARATION.md §7's forecast, unchanged).
 - T3 holds.
 - T5 is not reached.
+
+## Amendment 1 (2026-09-30, after the sweep and before any Part T run; AGENT_LOG 198)
+
+**The verdict.** Part W's verdict (`checks/grade_w.txt`, pinned) is **NOT WORTH PURSUING; failing: P5 (the transport is
+published)**.
+- **The deciding source** is HopDC (Rao et al., arXiv 2602.00144 v1, 29 Jan 2026).
+  - It keeps a fixed anchor set for the whole stream and stores the anchors' features.
+  - It measures the anchors' drift and moves pseudo-features sampled from each stored class Gaussian by a
+    similarity-weighted average of that drift.
+- **The reading.** The grading agent read it "close"; the investigator reads it "states" on P5's declared predicates.
+  - Anchor provenance and the relation's form are not predicates of P5.
+  - Under the agent's reading, P5 is PARTLY REDUNDANT and the verdict is WORTH PURSUING. That output is pinned as
+    `checks/grade_w_run1.txt`: a script error ran the grade once before the review was applied.
+- **Consequence.** As declared, T6 (pre-registration) is off. No unseen data will be opened for RRM.
+
+**The addition (R7: the closest published method).** A **HOPDC** arm is added as a reported baseline, never gating, to
+T1 (prototypes), T2 (a learner arm HOPDC-1) and T3 (NCM-HOPDC).
+- **The anchors:** the same kept anchors as RRM-1.
+- **The relation:** HopDC's transport. The query and the anchors' cut features are ℓ2-normalised; weights are a top-k
+  softmax of cosine similarity over τ, with τ = 0.05 and k = min(400, M), HopDC's published values. The query moves by
+  the weighted average of the anchors' drift, H_A(now) − H_A(cut).
+- **The comparison it answers.** RRM − HOPDC is the one difference left to RRM: a linear ridge relation on the stream's
+  own kept rows against HopDC's kernel relation on the same rows.
+- **Nothing else changes:** the gates, the thresholds and T1–T5.

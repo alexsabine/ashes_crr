@@ -84,6 +84,11 @@ def main():
     print()
     print('worth rule: WORTH PURSUING iff P1 REDUNDANT or MIXED, and P2, P3, P5 not REDUNDANT')
     print('VERDICT: ' + ('WORTH PURSUING' if not fail else 'NOT WORTH PURSUING; failing: ' + '; '.join(fail)))
+    for c in [c for c in CLAIMS if c['reading_by'].startswith('investigator')]:
+        n = collections.Counter(x['reading'] for x in CLAIMS if x['tag'] == c['tag'] and x['id'] != c['id'])
+        n['close'] += 1
+        print(f"sensitivity: {c['id']} ({c['tag']}) is read '{c['reading']}' on the investigator's review; under the grading "
+              f"agent's 'close' {c['tag']} would grade {grade(n)} (run 1, grade_w_run1.txt)")
     print('not found is never read as novel; WORTH means only that a test is not redundant before it runs')
 
 
