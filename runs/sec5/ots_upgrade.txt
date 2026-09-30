@@ -1,0 +1,14 @@
+Wed Sep 30 00:04:19 UTC 2026
+Got 1 attestation(s) from https://btc.calendar.catallaxy.com
+Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org
+Got 1 attestation(s) from https://finney.calendar.eternitywall.com
+Success! Timestamp complete
+    verify PendingAttestation('https://btc.calendar.catallaxy.com')
+    verify BitcoinBlockHeaderAttestation(969098)
+    # Bitcoin block merkle root c6962e925ec2a46c00b30263d55a4a5b26da4e3af5f0fb3056a254f688a81149
+    verify PendingAttestation('https://alice.btc.calendar.opentimestamps.org')
+    verify BitcoinBlockHeaderAttestation(969093)
+    # Bitcoin block merkle root f117f71ed665629ac22ae70228305be97c6a23eeb04971ade729bb83a3c22639
+    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')
+    verify PendingAttestation('https://finney.calendar.eternitywall.com')

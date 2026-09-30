@@ -1,0 +1,615 @@
+DR1 check H1: online offers, Poisson arrivals of unknown count, each arm decides per offer
+Declaration: Grid_Demand_Response/DECLARATION.md (pushed at e67e8ee; binding, not edited). Library: drlib.py (exact rationals).
+Declared Q: ETM's minimum acceptable payment is R/H at every offer; OWN's and WALL's rise as the slack falls. Forecast: Q holds.
+
+INPUTS
+  SOURCED  Poisson rate lambda_DFS: NESO, DFS winter 2024/25 report (published 3 July 2025), docs/citations/dr1_f2_2026-09-29.md; quote found verbatim in the dossier: yes:
+           "Month Number of Events Bid Volume MWh Delivered Volume MWh Accuracy % of delivered vs bid volume December 6 326.5 244.8 66.69% January 8 1335.6 865.6 64.81% February 13 1839 1206.9 65.63% March 17 1948.6 1600.5 82.14% Total 44 5449.6 3917.7 71.90%"
+           events by month December 6, January 8, February 13, March 17 (sum 44), total 44; over the calendar months December 2024 - March 2025 = 121 days (CHOICE: the report's monthly table read as
+           these four calendar months) -> lambda_DFS = 44 / (121 x 24) = 1/66 = 0.015151515 per wall hour
+  SOURCED  overheads R = 1/12 h and S = 1/12 h: Kokolis et al., 'Revisiting Reliability in Large-Scale Machine Learning Research Clusters' (HPCA 2025, arXiv:2410.21680v2), docs/citations/dr1_f4_2026-09-29.md; quote found verbatim: yes:
+           "assuming Daly-Young optimal checkpointing with 5 minute restart overhead and 5 minute checkpoint write overhead."
+           (5 minute restart overhead -> R = 1/12 h; 5 minute checkpoint write -> S = 1/12 h, the save before the power drops;
+           the quote is the paper's own modelling assumption for its RSC clusters, not a measured pause)
+  DECLARED W = 1000 compute-hours, value 1 per compute-hour at completion (DR1 section 2 adopts EPS2 T1's units)
+  ASSUMED  R = 1/10 h, S = 0 (EPS2 T1's restart overhead; no save time in EPS2)
+  ASSUMED  D in {1100, 1500} h, H in {1, 4} h (EPS2 T1's cells)
+  ASSUMED  Poisson rates lambda in {1/240, 1/48, 1/12} per wall hour (besides lambda_DFS)
+  ASSUMED  payment grid pi in {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20} per curtailed fleet-hour (EPS2 T1)
+  ASSUMED  (sensitivity only, not scored) D = 1002 h for the boundary cell; slots of 12 and 48 h
+
+CHOICES
+  CHOICE Poisson offers: arrivals at rate lambda per wall hour; at most one event per slot of 24 h (further arrivals in the slot
+         are void; the event starts at the slot's start), so each slot carries an offer with p = 1 - exp(-lambda slot), independently;
+         p is the best rational with denominator <= 10^6 and its rounding error is printed. The fleet knows lambda, not the count.
+  CHOICE Slots at hours 24 k strictly before hour W = 1000 (EPS2's offer window: every arm is running at every slot).
+  CHOICE Each arm decides per offer by exact backward induction on its valuation plus payments (ties accept), the rest of the
+         season played optimally at the same flat pi; x* (the minimum acceptable payment) is the start of the final acceptance
+         interval in pi at the state, computed exactly from the convex piecewise-linear value functions (drlib.xstar_all).
+  CHOICE 'At every offer' = at every reachable offer state (k, n, L) of every scored cell; Q-a needs
+         x* == rate (R + S)/H there with an acceptance region [x*, inf) (closed). (R + S)/H is R/H when S = 0: the save time
+         counts as own hours without progress, added to R (drlib's CHOICE).
+  CHOICE 'The slack' = the arm's remaining deadline budget before the offer, D - W - (wall delay so far) for WALL and OWN,
+         D - W - n (R + S) for ETM. 'Rise as the slack falls' (reading B, scored) = for OWN and for WALL, in every cell: among
+         the states that can still meet the deadline (slack >= 0), at each offer x* never falls as the slack falls, and at every
+         offer where a zero-slack state (one more event misses the deadline) is reachable, x* there is strictly above x* at
+         full slack (n = 0); at least one scored cell must reach a zero-slack state, else Q-b is not computable. States past
+         the deadline (slack < 0: the job is already lost) are not part of 'as the slack falls'; they are counted and printed.
+         Reading A (printed, not scored) also requires a zero-slack state to be reachable in every cell.
+  CHOICE Scored grid: EPS2 T1's cells (D x H) x the rates x the two overhead settings above. Sensitivity (printed,
+         not scored): slots of 12 and 48 h at lambda_DFS; a boundary cell where ETM's own-step slack is smaller than the
+         season's possible overheads (D = 1002 h).
+  CHOICE H0 (an interruptible-load contract covering every made offer) is printed for context (its reservation price = expected
+         opportunity cost / expected curtailed hours); TIER is not part of H1 (H2 checks it).
+  CHOICE G-POS per (cell, pi): OWN's or WALL's expected accepted events strictly below ETM's (exact rationals). G-ZERO: ETM's
+         one-event stake minus rate (R + S) at every event count n = 0..K-1 of every scored cell, exactly 0. G-NEG: with no events
+         offered (K = 0, and each cell's realisation with no arrival), ETM not ahead of WALL by more than 1 % (harness rel) on
+         any outcome: curtailed fleet-hours, payments, valuation, fleet value, deadline met, completion hour (earlier is ahead).
+
+PER-CELL TABLES (scored grid)
+--- cell A-D1100-H1-dfs: D = 1100, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 90) = 0.000000e+00
+    nmax WALL 90, OWN 90, ETM 1000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..56.00     100.00..96.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+--- cell A-D1100-H1-a1: D = 1100, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/240 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.095162582 (rational 12002/126121, rounding error 9.0e-13); E[offers] = 3.901666; P(offers made > OWN's nmax 90) = 0.000000e+00
+    nmax WALL 90, OWN 90, ETM 1000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..56.00     100.00..96.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]         3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+--- cell A-D1100-H1-a2: D = 1100, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/48 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.393469340 (rational 250361/636291, rounding error 1.2e-12); E[offers] = 16.132243; P(offers made > OWN's nmax 90) = 0.000000e+00
+    nmax WALL 90, OWN 90, ETM 1000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..56.00     100.00..96.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+--- cell A-D1100-H1-a3: D = 1100, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 90) = 0.000000e+00
+    nmax WALL 90, OWN 90, ETM 1000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..56.00     100.00..96.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+--- cell A-D1100-H4-dfs: D = 1100, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 24) = 5.250239e-05
+    nmax WALL 24, OWN 24, ETM 1000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.026050
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..5.70     100.00..97.70               1.025000               0.025000             0.025000
+             24              1.60             97.60   43.558665-251.025000   42.558665-250.025000             0.025000
+         25..40     -2.50..-64.00      97.50..96.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499029       12.499029       12.499029       12.499029
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       12.499029       12.499029       12.499029       12.499029       12.499029       12.499029       12.499029
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        0.999947        0.999947        0.999947        0.999947        0.999947        0.999947        0.999947
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+--- cell A-D1100-H4-a1: D = 1100, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/240 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.095162582 (rational 12002/126121, rounding error 9.0e-13); E[offers] = 3.901666; P(offers made > OWN's nmax 24) = 6.438846e-16
+    nmax WALL 24, OWN 24, ETM 1000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.025000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..5.70     100.00..97.70               1.025000               0.025000             0.025000
+             24              1.60             97.60  100.129047-251.025000   99.129047-250.025000             0.025000
+         25..40     -2.50..-64.00      97.50..96.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]         3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+--- cell A-D1100-H4-a2: D = 1100, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/48 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.393469340 (rational 250361/636291, rounding error 1.2e-12); E[offers] = 16.132243; P(offers made > OWN's nmax 24) = 4.147901e-03
+    nmax WALL 24, OWN 24, ETM 1000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.089280
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..5.70     100.00..97.70               1.025000               0.025000             0.025000
+             24              1.60             97.60   35.292655-251.025000   34.292655-250.025000             0.025000
+         25..40     -2.50..-64.00      97.50..96.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       16.125760       16.125760       16.125760       16.125760
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       16.125760       16.125760       16.125760       16.125760       16.125760       16.125760       16.125760
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      H0   P(met)           1.000000        1.000000        1.000000        0.995852        0.995852        0.995852        0.995852        0.995852        0.995852
+      E[live offers]        16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+--- cell A-D1100-H4-a3: D = 1100, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 24) = 9.999900e-01
+    nmax WALL 24, OWN 24, ETM 1000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 7.076867
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..5.70     100.00..97.70               1.025000               0.025000             0.025000
+             24              1.60             97.60   17.877453-251.025000   16.877453-250.025000             0.025000
+         25..40     -2.50..-64.00      97.50..96.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       23.999998       23.999998       23.999998       25.637899
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.884388
+      OWN  E[events]        0.000000        0.000000       23.999998       23.999998       23.999998       23.999998       23.999998       23.999998       27.695428
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.727388
+      ETM  E[events]        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000       35.451253       35.451253
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.000010        0.000010
+      E[live offers]        35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+--- cell A-D1500-H1-dfs: D = 1500, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 454) = 0.000000e+00
+    nmax WALL 454, OWN 454, ETM 5000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..456.00    500.00..496.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+--- cell A-D1500-H1-a1: D = 1500, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/240 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.095162582 (rational 12002/126121, rounding error 9.0e-13); E[offers] = 3.901666; P(offers made > OWN's nmax 454) = 0.000000e+00
+    nmax WALL 454, OWN 454, ETM 5000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..456.00    500.00..496.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]         3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+--- cell A-D1500-H1-a2: D = 1500, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/48 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.393469340 (rational 250361/636291, rounding error 1.2e-12); E[offers] = 16.132243; P(offers made > OWN's nmax 454) = 0.000000e+00
+    nmax WALL 454, OWN 454, ETM 5000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..456.00    500.00..496.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+--- cell A-D1500-H1-a3: D = 1500, H = 1, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 454) = 0.000000e+00
+    nmax WALL 454, OWN 454, ETM 5000; target (R + S)/H = 1/10 = 0.100000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.100000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.100000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.100000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..456.00    500.00..496.00               1.100000               0.100000             0.100000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+--- cell A-D1500-H4-dfs: D = 1500, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 121) = 0.000000e+00
+    nmax WALL 121, OWN 121, ETM 5000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.025000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..336.00    500.00..496.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+--- cell A-D1500-H4-a1: D = 1500, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/240 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.095162582 (rational 12002/126121, rounding error 9.0e-13); E[offers] = 3.901666; P(offers made > OWN's nmax 121) = 0.000000e+00
+    nmax WALL 121, OWN 121, ETM 5000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.025000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..336.00    500.00..496.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]         3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+--- cell A-D1500-H4-a2: D = 1500, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/48 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.393469340 (rational 250361/636291, rounding error 1.2e-12); E[offers] = 16.132243; P(offers made > OWN's nmax 121) = 0.000000e+00
+    nmax WALL 121, OWN 121, ETM 5000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.025000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..336.00    500.00..496.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+--- cell A-D1500-H4-a3: D = 1500, H = 4, R = 1/10 h, S = 0 h (overhead R + S = 1/10 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 121) = 0.000000e+00
+    nmax WALL 121, OWN 121, ETM 5000; target (R + S)/H = 1/40 = 0.025000; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.025000
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.025000
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.025000
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..336.00    500.00..496.00               1.025000               0.025000             0.025000
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+--- cell K-D1100-H1-dfs: D = 1100, H = 1, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 85) = 0.000000e+00
+    nmax WALL 85, OWN 85, ETM 600; target (R + S)/H = 1/6 = 0.166667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.166667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.166667
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..53.33     100.00..93.33               1.166667               0.166667             0.166667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+--- cell K-D1100-H1-a1: D = 1100, H = 1, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/240 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.095162582 (rational 12002/126121, rounding error 9.0e-13); E[offers] = 3.901666; P(offers made > OWN's nmax 85) = 0.000000e+00
+    nmax WALL 85, OWN 85, ETM 600; target (R + S)/H = 1/6 = 0.166667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.166667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.166667
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..53.33     100.00..93.33               1.166667               0.166667             0.166667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]         3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+--- cell K-D1100-H1-a2: D = 1100, H = 1, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/48 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.393469340 (rational 250361/636291, rounding error 1.2e-12); E[offers] = 16.132243; P(offers made > OWN's nmax 85) = 0.000000e+00
+    nmax WALL 85, OWN 85, ETM 600; target (R + S)/H = 1/6 = 0.166667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.166667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.166667
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..53.33     100.00..93.33               1.166667               0.166667             0.166667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+--- cell K-D1100-H1-a3: D = 1100, H = 1, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 85) = 0.000000e+00
+    nmax WALL 85, OWN 85, ETM 600; target (R + S)/H = 1/6 = 0.166667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.166667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.166667
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40     100.00..53.33     100.00..93.33               1.166667               0.166667             0.166667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+--- cell K-D1100-H4-dfs: D = 1100, H = 4, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 24) = 5.250239e-05
+    nmax WALL 24, OWN 24, ETM 600; target (R + S)/H = 1/24 = 0.041667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.041667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.041667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.041667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.042717
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..4.17     100.00..96.17               1.041667               0.041667             0.041667
+             24              0.00             96.00   43.575331-251.041667   42.575331-250.041667             0.041667
+         25..40     -4.17..-66.67      95.83..93.33               1.041667               0.041667             0.041667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499029       12.499029       12.499029       12.499029
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       12.499029       12.499029       12.499029       12.499029       12.499029       12.499029       12.499029
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        0.999947        0.999947        0.999947        0.999947        0.999947        0.999947        0.999947
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+--- cell K-D1100-H4-a1: D = 1100, H = 4, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/240 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.095162582 (rational 12002/126121, rounding error 9.0e-13); E[offers] = 3.901666; P(offers made > OWN's nmax 24) = 6.438846e-16
+    nmax WALL 24, OWN 24, ETM 600; target (R + S)/H = 1/24 = 0.041667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.041667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.041667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.041667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.041667
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..4.17     100.00..96.17               1.041667               0.041667             0.041667
+             24              0.00             96.00  100.145714-251.041667   99.145714-250.041667             0.041667
+         25..40     -4.17..-66.67      95.83..93.33               1.041667               0.041667             0.041667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]         3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666        3.901666
+--- cell K-D1100-H4-a2: D = 1100, H = 4, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/48 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.393469340 (rational 250361/636291, rounding error 1.2e-12); E[offers] = 16.132243; P(offers made > OWN's nmax 24) = 4.147901e-03
+    nmax WALL 24, OWN 24, ETM 600; target (R + S)/H = 1/24 = 0.041667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.041667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.041667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.041667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.105946
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..4.17     100.00..96.17               1.041667               0.041667             0.041667
+             24              0.00             96.00   35.309322-251.041667   34.309322-250.041667             0.041667
+         25..40     -4.17..-66.67      95.83..93.33               1.041667               0.041667             0.041667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       16.125760       16.125760       16.125760       16.125760
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000       16.125760       16.125760       16.125760       16.125760       16.125760       16.125760       16.125760
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+      H0   P(met)           1.000000        1.000000        1.000000        0.995852        0.995852        0.995852        0.995852        0.995852        0.995852
+      E[live offers]        16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243       16.132243
+--- cell K-D1100-H4-a3: D = 1100, H = 4, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/12 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.864664717 (rational 152839/176761, rounding error 1.1e-12); E[offers] = 35.451253; P(offers made > OWN's nmax 24) = 9.999900e-01
+    nmax WALL 24, OWN 24, ETM 600; target (R + S)/H = 1/24 = 0.041667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 251.041667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 684 adjacent pairs (slack >= 0); offers with a zero-slack state 17, strict rise there 17; states past the deadline 136; p_all 250.041667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.041667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 7.093533
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) holds
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..23      100.00..4.17     100.00..96.17               1.041667               0.041667             0.041667
+             24              0.00             96.00   17.894120-251.041667   16.894120-250.041667             0.041667
+         25..40     -4.17..-66.67      95.83..93.33               1.041667               0.041667             0.041667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       23.999998       23.999998       23.999998       25.637899
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.884388
+      OWN  E[events]        0.000000        0.000000       23.999998       23.999998       23.999998       23.999998       23.999998       23.999998       27.695428
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.727388
+      ETM  E[events]        0.000000        0.000000       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000       35.451253       35.451253
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.000010        0.000010
+      E[live offers]        35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253       35.451253
+--- cell K-D1500-H1-dfs: D = 1500, H = 1, R = 1/12 h, S = 1/12 h (overhead R + S = 1/6 h), lambda = 1/66 per wall hour, slot 24 h
+    offers: 41 slots at hours 24..984, each made with p = 0.304856072 (rational 50411/165360, rounding error 2.3e-13); E[offers] = 12.499099; P(offers made > OWN's nmax 428) = 0.000000e+00
+    nmax WALL 428, OWN 428, ETM 3000; target (R + S)/H = 1/6 = 0.166667; ETM x* == target at 861 of 861 states (closed 861, attained 861); max |ETM stake - rate (R + S)| over n = 0..40 = 0
+    WALL: x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 1.166667
+    OWN : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    ETM : x* == closed form rule_xstar at 861 of 861 states; DP = x* rule 7749/7749; x* falls as slack falls in 0 of 820 adjacent pairs (slack >= 0); offers with a zero-slack state 0, strict rise there 0; states past the deadline 0; p_all 0.166667
+    H0 reservation price (expected opportunity cost per expected curtailed hour): 0.166667
+    Q-a (ETM x* = (R + S)/H at every offer state) holds; Q-b (OWN, WALL rise as slack falls; reading B) holds; reading A (a rise must occur in the cell) fails
+    x* by events accepted n (min-max over the offers k >= n at which (n, n H) is reached); runs of identical rows merged:
+              n      wall slack h       own slack h                x* WALL                 x* OWN               x* ETM
+          0..40    500.00..453.33    500.00..493.33               1.166667               0.166667             0.166667
+    expected outcome over the Poisson offers, optimal policy at each flat pi (E[events accepted] / P(deadline met on the arm's contract)):
+      pi                      0.01            0.02            0.05             0.2             0.5               2               5              10              20
+      WALL E[events]        0.000000        0.000000        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099
+      WALL P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      OWN  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      OWN  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      ETM  E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      ETM  P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      H0   E[events]        0.000000        0.000000        0.000000       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099
+      H0   P(met)           1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000
+      E[live offers]        12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099       12.499099

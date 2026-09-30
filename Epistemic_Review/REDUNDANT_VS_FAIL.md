@@ -14,7 +14,7 @@
 | retrodiction batteries (197 rows) | CONSIST 41 + DESCR 86 = 127 | FAILS 20 | 6.35 to 1 |
 | synthesis re-read (164 real-domain rows) | REDUNDANT-IG 39 + REDUNDANT-DOMAIN 59 = 98 | WRONG 28 | 3.50 to 1 |
 | PRED70 (70 declared predictions) | REDUNDANT-IG 19 + REDUNDANT-DOMAIN 16 = 35 | WRONG 18 | 1.94 to 1 |
-| held-out ledger (pre-registered, unseen data) | PASS-0 11, PASS-1 1 (no redundant grade) | FAIL 31 | — |
+| held-out ledger (pre-registered, unseen data) | PASS-0 12, PASS-1 1 (no redundant grade) | FAIL 34 (after SEC5; `checks/redundant_vs_fail.txt` re-pinned 2026-09-30) | — |
 
 **The pattern.** The more a test demands of CRR, the smaller the ratio. Loose retrodiction gives 6.35 to 1. The synthesis
 re-read, which asks whether the CRR ingredient did any work, gives 3.50. Declared prediction gives 1.94. On

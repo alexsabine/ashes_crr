@@ -1,0 +1,15 @@
+Wed Sep 30 00:04:37 UTC 2026
+cf5d4df0da766cbd8d6883ba7389791370e6b59ed94fa01286d2257942c6c225  data/raw/openml/57_hypothyroid.arff  https://openml.org/data/v1/download/57/hypothyroid.arff  md5-verified  version 1  downloaded 2026-09-30T00:04:46Z  bytes 310897
+7c395a6d5bdd45155e37cd857f8ae7f5a44175e41361be5dd2e9a7d9a3f66d77  data/raw/openml/155_pokerhand.arff  https://openml.org/data/v1/download/2423/pokerhand.arff  md5-verified  version 1  downloaded 2026-09-30T00:06:13Z  bytes 19518660
+1e02b0d371eafa8b0f05201e2a47ea701d2e30fbe71fc52477d3c2d3293f76c1  data/raw/openml/1503_spoken-arabic-digit.arff  https://openml.org/data/v1/download/1592295/spoken-arabic-digit.arff  md5-verified  version 1  downloaded 2026-09-30T00:08:20Z  bytes 29307277
+ffafc7b40865cae30318d0738e9c93db4595a49494a867c870f2f1d631d60157  data/raw/openml/1509_walking-activity.arff  https://openml.org/data/v1/download/1592317/walking-activity.arff  md5-verified  version 1  downloaded 2026-09-30T00:08:48Z  bytes 4775720
+8df462f65db7c37fbf57717f27b6d853da7e71cc430defddec33340929f8548e  data/raw/openml/1529_volcanoes-a3.arff  https://openml.org/data/v1/download/1593725/volcanoes-a3.arff  md5-verified  version 1  downloaded 2026-09-30T00:08:53Z  bytes 28597
+cfee82f050e074a3f34773f6353e931e0a11ef071f668f4d30d120f9a1f8a43c  data/raw/openml/1530_volcanoes-a4.arff  https://openml.org/data/v1/download/1593726/volcanoes-a4.arff  md5-verified  version 1  downloaded 2026-09-30T00:09:01Z  bytes 28474
+842977a7e66db15ee2061dbf7e6239248f87d23273306ef299d3d24e98ad5b70  data/raw/openml/1532_volcanoes-b2.arff  https://openml.org/data/v1/download/1593728/volcanoes-b2.arff  md5-verified  version 1  downloaded 2026-09-30T00:09:07Z  bytes 199959
+d0952b14007c17ebe6d0b0308c013f0589d9b9e08a3b3efc2521ee37044d6aa0  data/raw/openml/1541_volcanoes-d4.arff  https://openml.org/data/v1/download/1593737/volcanoes-d4.arff  md5-verified  version 1  downloaded 2026-09-30T00:09:17Z  bytes 162076
+60c15acaea73d41b2517b539020e49705f9205c36dec153d0a37f4d1415768f9  data/raw/openml/1549_autoUniv-au6-750.arff  https://openml.org/data/v1/download/1593745/autoUniv-au6-750.arff  md5-verified  version 1  downloaded 2026-09-30T00:09:22Z  bytes 156204
+06f5ad4b2fb5d182b7ac83b5b96db99284a48b4a4f532508a5bf5e9da5a2901c  data/raw/openml/41671_microaggregation2.arff  https://openml.org/data/v1/download/21376689/microaggregation2.arff  md5-verified  version 1  downloaded 2026-09-30T00:09:32Z  bytes 1906354
+a4f7b1fd36da41c3fa0526e68211f14e8b5108098757e4a276b9b338c9770537  data/raw/openml/41972_Indian_pines.arff  https://openml.org/data/v1/download/21379704/Indian_pines.arff  md5-verified  version 1  downloaded 2026-09-30T00:10:19Z  bytes 10120688
+83d07de39b8517384568dcf9b3f71e51f72f68614494ee9d8aabaeda522fee4d  data/raw/openml/41982_Kuzushiji-MNIST.arff  https://openml.org/data/v1/download/21388379/Kuzushiji-MNIST.arff  md5-verified  version 1  downloaded 2026-09-30T00:21:14Z  bytes 137517548
+manifest -> data/manifests/sec5.sha256
+Wed Sep 30 00:21:15 UTC 2026
