@@ -108,3 +108,14 @@ tuned > −step), and with the clipped SEC run beside it.
 4. The M runner is written. The M0 identity is checked before the full M run.
 5. Two adversarial reviewers per analysis check each script against this declaration.
 6. `WHY_SEC4_WORKED.md` is written from the pinned outputs.
+
+## Amendment 1 (2026-09-30, after `loader_check.txt` and before any analysis output was read; pushed before A12's script exists)
+
+**What prompted it.** The loader check prints each carrier's arm means. Several held-out carriers have a tuned-λ accuracy
+near chance: for example spoken-arabic-digit 9.86 and autoUniv-au6-750 7.68 under the clipped SEC. On such a carrier,
+"not behind the tuned λ" may be passing at a floor where no method learns anything. The declared analyses do not separate
+this. This amendment adds one analysis. It is post hoc in origin and is labelled so in its output.
+
+| id | question | the computation | forecast |
+|---|---|---|---|
+| **A12** | how much of the pass count sits at the accuracy floor? | Per carrier, the floor is the majority-class share of the loaded rows × 100 (from the header's `class_counts`). The carrier is **floor-bound** if the tuned λ\*_raw's mean accuracy − floor < 3 steps. Per study and pooled over the 30 held-out carriers: the number floor-bound; the not-behind rates of the unclipped SEC, the clipped SEC (SEC4 and SEC5), raw Laplace and the transferred λ on floor-bound carriers against the rest. Every forecast F1–F11 whose decisive count includes floor-bound carriers is also printed with them removed, as a report. | **F12.** At least a quarter of the 30 held-out carriers are floor-bound, and the unclipped SEC's not-behind rate is higher on them than on the rest. |
