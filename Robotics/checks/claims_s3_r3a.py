@@ -32,7 +32,7 @@ fixed before the readings were written:
                the step-index problem is named for a different reason (situation variation) or answered by adding the clock;
   contradicts  the source shows the mechanism (or its limiting case) fails or is inferior to a step-indexed threshold.
 Clock-only frontier sources (SAFE, Hide-and-Seek, FAIL-Detect, Foresight and others: per-timestep bands) are listed in the
-dossier as context (section F) and are not claims here. 'Not found' is never 'novel'.
+dossier as context (section J) and are not claims here. 'Not found' is never 'novel'.
 """
 
 RB = "stage-3 agent (searcher A); for the investigator's review"
@@ -88,7 +88,7 @@ CLAIMS = [
                    'positive rate, but no step-indexed (per-timestep) threshold is among the baselines, so the comparison C-R3 '
                    'predicts is not made. The authors call their own progress-indexed threshold "time-varying". The journal '
                    'follow-up (Park, Kim, Kemp, Autonomous Robots 2019, 8 detectors) could not be read on the day (paywalled; '
-                   'dossier section G).'},
+                   'dossier section K).'},
     # ------------------------------------------------ B. a state-indexed threshold for a learned anomaly model
     {'id': 'r3a:4', 'position': 'P1', 'reading': 'close', 'reading_by': RB,
      'source': 'Park, Hoshi, Kemp, "A Multimodal Anomaly Detector for Robot-Assisted Feeding Using an LSTM-based Variational '
