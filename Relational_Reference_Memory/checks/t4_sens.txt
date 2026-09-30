@@ -102,3 +102,6 @@ RRM2 T4 sensitivity (report only; DECLARATION_2.md Part T); seeds 0-4
    ANCH1 anchors/class 10 beta 0.001  drift explained +0.0005  NCM RRM - STALE -0.2007
    ANCH1 anchors/class 10 beta 0.01   drift explained +0.0137  NCM RRM - STALE -0.2007
    ANCH1 anchors/class 10 beta 0.1    drift explained +0.0871  NCM RRM - STALE -0.2007
+   ANCH1 anchors/class 20 beta 0.001  drift explained +0.1521  NCM RRM - STALE -0.3344
+   ANCH1 anchors/class 20 beta 0.01   drift explained +0.1721  NCM RRM - STALE -0.3344
+   ANCH1 anchors/class 20 beta 0.1    drift explained +0.2587  NCM RRM - STALE -0.3344
