@@ -41,14 +41,17 @@ DEFINITIONS (the declaration's, read literally; tacc, step: the tuned lambda*_ra
                                        own 'tuned', 'acc' and 'step' fields.
                  not behind the tuned lambda (a - tacc > -step) and not behind the tuned clipped lambda (a - tacc_c > -step_c) for
                  SI-1C, AR1-B and the clipped SEC. The clipped SEC is C0 read from m_runs on all 30 carriers; on the 14 SEC4 and
-                 SEC5 carriers C0 is checked seed for seed against the pinned 'bayes_sec_clip' (equal on all 14 means the counts are
-                 the same whichever of the two is read there); SCL3 and SEC3 have no pinned 'bayes_sec_clip' in runs/, so C0 is the
-                 only record there (a REPORT compares it with the reference SEC6's development records carry).
+                 SEC5 carriers C0 is checked seed for seed against the pinned 'bayes_sec_clip', and C0's two counts are recomputed
+                 with the pinned record read in its place; "the same whichever of the two is read" is printed only if the seeds are
+                 equal on all 14 and the counts agree, else the disagreement is printed; SCL3 and SEC3 have no pinned
+                 'bayes_sec_clip' in runs/, so C0 is the only record there (a REPORT compares it with the reference SEC6's
+                 development records carry).
                  The tuned clipped lambda against the unclipped tuned lambda: ahead iff tacc_c - tacc > step, behind iff
                  tacc - tacc_c > step (strict; step the unclipped tuned lambda's).
                  The fraction of capped coordinates: C0's frac_capped from m_runs (per guarded task start; 0 where the clip did not
                  fire), mean and max over task starts and seeds, per carrier (cross-checked against m_checks.json).
-                 F13 HOLDS iff the tuned clipped lambda is ahead by more than a step on at least a third of the 30 (3 x count >= 30).
+                 F13 HOLDS iff the tuned clipped lambda is ahead by more than a step on at least a third of the 30 (3 x count >= 30);
+                 the step is the unclipped tuned lambda's, as 'ahead' above (an AMBIGUITY, below).
   A14            over the 30 carriers of the M runs: Spearman (scipy.stats.spearmanr; average ranks for ties) of M6's seed-mean
                  accuracy with the task-1 share; over all 42: Spearman of SEC's margin in steps, (bayes_sec - tacc) / step, with
                  the task-1 share; the same for the clipped SEC (pinned 'bayes_sec_clip', 14) and for C0 (m_runs, 30), each margin
@@ -56,15 +59,20 @@ DEFINITIONS (the declaration's, read literally; tacc, step: the tuned lambda*_ra
                  F14 HOLDS iff Spearman(M6 accuracy, share) >= 0.8 AND Spearman(SEC margin, share) > 0.
 AMBIGUITIES, each resolved by the most literal reading and named in a printed line: A12's "per study" (the four held-out studies;
 SEC1 is printed as a REPORT line outside the pool); F12's "the rest" (the held-out carriers that are not floor-bound); A13's "C0
-from m_runs or the pinned bayes_sec_clip" (m_runs on all 30, the pinned record checked equal where it exists); A14's task-1 share
-over n (all loaded rows, as declared; the test split's share is a REPORT); A14's margins of the clipped SEC and C0 (over the
-unclipped tuned lambda, as SEC's).
-REPORT lines (not declared; they decide nothing): the per-carrier table's columns beyond the declared ones (n, (tacc - floor) / step,
-the clipped SEC's and C0's margins, the not-behind flags); the test split's task-1 share; A12's SEC1 row and its all-42 row; the
-dev records' 'tuned' field against sec_lib's tie rule; C0 against the clipped-SEC reference of SEC6's development records on SCL3 and
-SEC3; the tuned clipped lambda at the top of its grid; the capped fraction over the starts where the clip fired only; the firings
-at the ahead carriers; the reproduction of SEC6's development counts; Spearman's p-values, the SEC margin over the 30 only, M6's
-margin and Spearman(M6 accuracy, floor). Accuracies are the records' (per cent; a non-finite run is recorded as 0).
+from m_runs or the pinned bayes_sec_clip" (m_runs on all 30, the pinned record checked equal where it exists); F13's "by more than
+a step", which names no step (the unclipped tuned lambda's step, as A13's 'ahead'; the count under step_c and under
+max(step, step_c) is a REPORT); A14's task-1 share over n (all loaded rows, as declared; the test split's share is a REPORT);
+A14's margins of the clipped SEC and C0 (over the unclipped tuned lambda, as SEC's).
+REPORT lines (not declared; they decide nothing): the per-carrier table's columns beyond the declared ones (K, n,
+(tacc - floor) / step, the clipped SEC's and C0's margins, the not-behind flags), labelled in its printed legend; the test split's
+task-1 share; A12's SEC1 row and its all-42 row; F12 (b)'s margin (the smallest change in the floor-bound pass count that reverses
+it, (b) and the floor-bound set size at bars of 1-5 steps, the nearest floor-bound pass to the not-behind line); the dev records'
+'tuned' field against sec_lib's tie rule; C0 against the clipped-SEC reference of SEC6's development records on SCL3 and SEC3;
+the A13 table's 'fired' column; the tuned clipped lambda at the top of its grid; the fixed_clip grid against the carrier's raw
+grid; the capped fraction over the starts where the clip fired only; the firings at the ahead carriers; the boundary of F13's
+count (the smallest ahead, the largest not ahead); the reproduction of SEC6's development counts; F13's count under step_c and
+under max(step, step_c); Spearman's p-values, the SEC margin over the 30 only, M6's margin and Spearman(M6 accuracy, floor).
+Accuracies are the records' (per cent; a non-finite run is recorded as 0).
 The words HOLDS and FAILS are computed here from the printed numbers (R15).
 
     uv run python SEC_Analysis/checks/a12_a14.py > SEC_Analysis/checks/a12_a14.txt
@@ -94,6 +102,11 @@ FLOOR_STEPS = 3.0                                             # Amendment 1: flo
 F12_QUARTER = 4                                               # F12 (a): 4 x floor-bound >= 30
 F13_THIRD = 3                                                 # F13: 3 x ahead >= 30
 F14_RHO = 0.8                                                 # F14 (a): Spearman(M6 accuracy, share) >= 0.8
+FB_BARS = (1.0, 2.0, 3.0, 4.0, 5.0)                           # REPORT only: F12 (b) at other floor-bound bars (the declared bar is 3)
+EWC_REFINE = (1 / 2.83, 1 / 2.0, 1 / 1.41, 1.41, 2.0, 2.83)   # REPORT only: SEC1's refinement factors, checked against the frozen text
+SEC1_SCORE = os.path.join(ROOT, "runs", "sec1", "frozen", "sec1_score.py")
+assert [ln for ln in open(SEC1_SCORE).read().splitlines() if ln.startswith("EWC_REFINE = ")] == \
+    ["EWC_REFINE = (1 / 2.83, 1 / 2.0, 1 / 1.41, 1.41, 2.0, 2.83)"]
 DEV = os.path.join(ROOT, "prereg", "sec6", "dev")
 DEV_RE = re.compile(r"^(dev|devsi1c|devfclip)_(scl3|sec3|sec4|sec5)_(\d+)\.jsonl$")
 BAR = "=" * 150
@@ -284,6 +297,8 @@ for C in CS:
           f"      {nbf(SEC)}    {nbf(CLIP)}   {nbf(LAP)}  {yn(L.not_behind(C['loco_acc'], C['tacc'], C['step']))}")
 print("   (share = task-1 share; fb = floor-bound; st = margin in steps; nb = not behind the tuned lambda; tr = the transferred lambda;"
       " '-' = no such record: SEC1 carriers are not in the M runs, the clipped SEC exists on SEC4 and SEC5 only)")
+print("   REPORT columns (beyond the declared ones; they decide nothing): K, n, (t-fl)/st, clip st, C0 st and the nb flags (the clipped"
+      " SEC's and C0's margins enter A14's Spearman lines, which decide no forecast)")
 
 # ============================================================================================================== A12
 hdr("A12  how much of the pass count sits at the accuracy floor?  not-behind rates on the floor-bound carriers against the rest")
@@ -331,6 +346,37 @@ f12b = na > 0 and nb > 0 and ka / na > kb / nb
 print(f"F12 (a) floor-bound among the {len(H30)} held-out carriers: {nfb30} >= {len(H30)}/{F12_QUARTER} = {len(H30) / F12_QUARTER:g} -> {f12a}")
 print(f"F12 (b) unclipped SEC not-behind rate on the floor-bound {rate(ka, na)} > on the rest {rate(kb, nb)} -> {f12b}")
 print(f"F12: {word(f12a and f12b)}")
+# REPORT (undeclared, post hoc; decides nothing): how much F12 (b) rests on
+if f12b:                                                      # the fewest floor-bound passes removed that make (b) False
+    d12 = next(d for d in range(1, ka + 1) if not (ka - d) / na > kb / nb)
+    k12 = ka - d12
+    rev12 = (f"with {d12} fewer floor-bound pass{'es' if d12 > 1 else ''}, {k12}/{na} = {k12 / na!r} ({k12 / na:.3f})"
+             f" {'<' if k12 / na < kb / nb else '=='} {kb}/{nb} = {kb / nb!r} ({kb / nb:.3f}) -> (b) would fail")
+else:                                                         # the fewest floor-bound passes added that make (b) True, if any
+    d12 = next((d for d in range(1, na - ka + 1) if (ka + d) / na > kb / nb), None)
+    rev12 = ("no number of added floor-bound passes makes (b) hold" if d12 is None else
+             f"with {d12} more floor-bound pass{'es' if d12 > 1 else ''}, {ka + d12}/{na} = {(ka + d12) / na!r} ({(ka + d12) / na:.3f})"
+             f" > {kb}/{nb} = {kb / nb!r} ({kb / nb:.3f}) -> (b) would hold")
+print(f"   REPORT (undeclared, post hoc; decides nothing): (i) the smallest change in the floor-bound pass count that reverses (b): {rev12}")
+bar_rows = []
+for bar in FB_BARS:
+    fbb = [C for C in H30 if C["tacc"] - FLOOR[key(C)] < bar * C["step"]]; rsb = [C for C in H30 if C not in fbb]
+    kab, kbb = sum(L.arm_nb(C, SEC) for C in fbb), sum(L.arm_nb(C, SEC) for C in rsb)
+    wb = bool(fbb) and bool(rsb) and kab / len(fbb) > kbb / len(rsb)
+    if bar == FLOOR_STEPS:
+        assert [key(C) for C in fbb] == [key(C) for C in H30 if FB[key(C)]] and wb == f12b
+    bar_rows.append((bar, len(fbb), kab, kbb, len(rsb), wb))
+print(f"   REPORT (ii) (b) at floor-bound bars of {', '.join(f'{b:g}' for b, *_ in bar_rows)} steps (the declared bar is {FLOOR_STEPS:g}): "
+      + "; ".join(f"{b:g}: floor-bound {n_}/{len(H30)}, {short(k1, n_)} > rest {short(k2, n2)} -> {w}" for b, n_, k1, k2, n2, w in bar_rows)
+      + (f" -> (b) is {bar_rows[0][5]} at every bar" if len({r[5] for r in bar_rows}) == 1 else
+         " -> (b) changes with the bar: " + ", ".join(f"{b:g} {w}" for b, *_, w in bar_rows)))
+fbp = sorted((L.margin_steps(C, C["primary"][SEC].mean), C["study"], C["carrier"]) for C in H30 if FB[key(C)] and L.arm_nb(C, SEC))
+if fbp:
+    m0, s0, c0n = fbp[0]
+    print(f"   REPORT (iii) the nearest floor-bound pass to the not-behind line (margin -1 step, strict): {s0}:{c0n}, margin {m0!r} ({m0:+.3f})"
+          f" steps, {m0 + 1.0!r} ({m0 + 1.0:.3f}) steps above the line")
+else:
+    print("   REPORT (iii) no floor-bound held-out carrier is a pass of the unclipped SEC")
 
 print("\nAmendment 1: 'Every forecast F1-F11 whose decisive count includes floor-bound carriers is also printed with them removed, as a report.'")
 print("   Each is already printed by the script that decides the forecast; cited here (file, line, the word printed there), not reprinted:")
@@ -374,9 +420,28 @@ print("   the tuned clipped lambda: the best seed mean over SEC6's fixed_clip gr
 print("   AMBIGUITY: 'C0 from m_runs or the pinned bayes_sec_clip' is read as C0 from m_runs on all 30 carriers, with the pinned record"
       " checked equal where it exists (below)")
 id14 = [k for k in MK if CLIP in D[k]["primary"]]
-eq14 = [k for k in id14 if [r["acc"] for r in R[k]["C0"]] == D[k]["primary"][CLIP].acc.tolist()]
+assert all(D[k]["primary"][CLIP].seeds == list(L.SEEDS) and [r["seed"] for r in R[k]["C0"]] == list(L.SEEDS) for k in id14)
+seq14 = {k: [a == b for a, b in zip([r["acc"] for r in R[k]["C0"]], D[k]["primary"][CLIP].acc.tolist())] for k in id14}
+eq14 = [k for k in id14 if all(seq14[k])]
+
+
+def c0_counts(val):
+    """C0's two A13 counts over the 30: (not behind the tuned lambda, not behind the tuned clipped lambda), val(k) its seed mean."""
+    return (sum(L.not_behind(val(k), D[k]["tacc"], D[k]["step"]) for k in MK),
+            sum(val(k) - A13[k]["tc"]["acc"] > -A13[k]["tc"]["step"] for k in MK))
+
+
+cnt_m = c0_counts(lambda k: A13[k]["c0"])
+cnt_p = c0_counts(lambda k: D[k]["primary"][CLIP].mean if k in id14 else A13[k]["c0"])
 print(f"   C0 (m_runs) against the pinned bayes_sec_clip, all five seeds: equal on {len(eq14)}/{len(id14)} of the SEC4 and SEC5 carriers"
-      f" ({5 * len(eq14)}/{5 * len(id14)} seeds) -> the counts below are the same whichever of the two is read there")
+      f" ({sum(sum(v) for v in seq14.values())}/{5 * len(id14)} seeds); C0's counts (not behind the tuned lambda; not behind the tuned"
+      f" clipped lambda) with m_runs read there {cnt_m[0]}/{len(MK)}; {cnt_m[1]}/{len(MK)}, with the pinned record read there"
+      f" {cnt_p[0]}/{len(MK)}; {cnt_p[1]}/{len(MK)}")
+if len(eq14) == len(id14) and cnt_m == cnt_p:
+    print("   -> the counts below are the same whichever of the two is read there")
+else:
+    print(f"   -> NOT the same whichever is read: the seeds differ on {', '.join(k[1] for k in id14 if k not in eq14) or 'no carrier'}; the"
+          f" counts {'agree' if cnt_m == cnt_p else 'differ'}; the counts below read m_runs")
 no_pin = [k for k in MK if CLIP not in D[k]["primary"]]
 eqref = [k for k in no_pin if [r["acc"] for r in R[k]["C0"]] == A13[k]["ref_clip"]]
 print(f"   the {len(no_pin)} SCL3 and SEC3 carriers have no pinned bayes_sec_clip in runs/: C0 (m_runs) is the only record read. REPORT: it"
@@ -398,8 +463,8 @@ for k in MK:
     x.update(d=d, ds=d / C["step"], ahead=d > C["step"], behind=-d > C["step"])
     print(f"   {C['study']:5} {C['carrier'][:34]:34} {C['tuned']:9.4g} {C['tacc']:8.4f} {C['step']:7.3f} | {t['lam']:9.4g} {t['acc']:8.4f}"
           f" {t['step']:7.3f} {yn(t['top']):>3} {str(t['fired']):>15} | {d!r:>30} {d / C['step']:+8.3f} {ab:>3}")
-print("   (top = the tuned clipped lambda is the largest lambda of its grid (REPORT: the grid, SEC1's, may not reach its optimum); fired ="
-      " the clip's firings per seed at it; A = ahead by more than a step, B = behind by more than a step, step the unclipped one)")
+print("   (top = the tuned clipped lambda is the largest lambda of its grid (REPORT: the grid, SEC1's, may not reach its optimum); fired"
+      " (REPORT) = the clip's firings per seed at it; A = ahead by more than a step, B = behind by more than a step, step the unclipped one)")
 
 print(f"\n   {'study':5} {'carrier':34} | {'SI-1C':>8} {'st':>7} {'st_c':>7} | {'AR1-B':>8} {'st':>7} {'st_c':>7} | {'C0':>8} {'st':>7} {'st_c':>7}"
       f" | {'C0 fired':>8} {'seeds':>5} {'cap mean':>9} {'cap max':>9} {'fired mean':>10}")
@@ -428,6 +493,7 @@ for lab, a in (("SI-1C", "si1c"), ("AR1-B", "ar1b"), ("clipped SEC (C0)", "c0"))
     k1 = [k for k in MK if L.not_behind(A13[k][a], D[k]["tacc"], D[k]["step"])]
     k2 = [k for k in MK if A13[k][a] - A13[k]["tc"]["acc"] > -A13[k]["tc"]["step"]]
     NB[a] = (len(k1), len(k2))
+    assert a != "c0" or NB[a] == cnt_m
     print(f"   {lab:18} not behind the tuned lambda {len(k1)}/{len(MK)}; not behind the tuned clipped lambda {len(k2)}/{len(MK)}"
           f"   (behind the tuned clipped lambda: {', '.join(k[1] for k in MK if k not in k2) or 'none'})")
 AH = [k for k in MK if A13[k]["ahead"]]; BH = [k for k in MK if A13[k]["behind"]]
@@ -438,7 +504,38 @@ print(f"   the tuned clipped lambda against the unclipped tuned lambda: ahead by
 TOP = [k for k in MK if A13[k]["tc"]["top"]]
 print(f"   REPORT: the tuned clipped lambda at the top of its grid on {len(TOP)}/{len(MK)} ({', '.join(k[1] for k in TOP)}); of the {len(AH)} ahead,"
       f" {sum(k in TOP for k in AH)} are at the top")
-FIRED = [k for k in MK if A13[k]["fired"] > 0]
+
+
+def two_stage(means):
+    """SEC1's two-stage grid read back from a grid's seed means: (the coarse best by Python max over EWC_COARSE, ties to the smallest;
+    whether the grid's other points are exactly the refinement round(best x EWC_REFINE, 6) of runs/sec1/frozen/sec1_score.py)."""
+    co = L.EWC_COARSE
+    assert all(c in means for c in co), sorted(means)
+    best = max(co, key=lambda w: means[w])
+    ref = sorted(w for w in (round(best * f, 6) for f in EWC_REFINE) if all(abs(w - c) / c > 1e-6 for c in co))
+    return best, ref == sorted(w for w in means if w not in co)
+
+
+GR = {}
+for k in MK:
+    fcm = {g["value"]: float(np.mean(np.asarray(g["seeds"], dtype=float))) for g in DEVR[k]["devfclip"]["arms"]["fixed_clip"]["grid"]}
+    GR[k] = dict(raw=two_stage(D[k]["raw_means"]), clip=two_stage(fcm), same=sorted(D[k]["raw_means"]) == sorted(fcm),
+                 lam_in_raw=A13[k]["tc"]["lam"] in D[k]["raw_means"])
+g_same = [k for k in MK if GR[k]["same"]]; g_cb = [k for k in MK if GR[k]["raw"][0] == GR[k]["clip"][0]]
+ah_out = [k for k in AH if not GR[k]["lam_in_raw"]]
+ah_out_s = ", ".join("%s %g" % (k[1], A13[k]["tc"]["lam"]) for k in ah_out) or "none"
+print(f"   REPORT: SEC6's fixed_clip grid and the carrier's raw grid (sec_lib) are the same lambda values on {len(g_same)}/{len(MK)} carriers."
+      f" Each is SEC1's two-stage grid (prereg/sec6/DEV_DECLARATION.md Amendment 2): the {len(L.EWC_COARSE)} coarse points, then the arm's"
+      f" own coarse best x EWC_REFINE; verified on {sum(GR[k]['raw'][1] for k in MK)}/{len(MK)} (raw) and"
+      f" {sum(GR[k]['clip'][1] for k in MK)}/{len(MK)} (fixed_clip); the two coarse bests coincide on {len(g_cb)}/{len(MK)}"
+      + (", exactly the carriers where the grids coincide" if g_cb == g_same else f" (not the same carriers as the grids: {len(g_cb)} vs {len(g_same)})")
+      + f". Of the {len(AH)} ahead, the grids coincide on {sum(k in g_same for k in AH)}, and the tuned clipped lambda is not a value of"
+      f" the raw grid on {len(ah_out)} ({ah_out_s})"
+      + (" -> so 'ahead' partly reflects lambda values the raw refinement never visits" if ah_out and all(GR[k]["raw"][1] and GR[k]["clip"][1]
+                                                                                                        for k in MK) else
+         " -> the tuned clipped lambda is a raw-grid value on every ahead carrier" if not ah_out else
+         " -> the two-stage rule is not verified on every carrier; no reading is offered"))
+FIRED =[k for k in MK if A13[k]["fired"] > 0]
 cm = [A13[k]["cap_mean"] for k in FIRED]; cf = [A13[k]["cap_fired"] for k in FIRED]
 print(f"   C0's clip fired (at least one seed) on {len(FIRED)}/{len(MK)} carriers; over those, the per-carrier mean capped fraction: median"
       f" {float(np.median(cm)):.3e}, range [{min(cm):.3e}, {max(cm):.3e}]; largest capped fraction at any start {max(A13[k]['cap_max'] for k in MK):.3e}"
@@ -450,7 +547,7 @@ ordered = sorted(MK, key=lambda k: -A13[k]["ds"])
 assert set(ordered[:len(AH)]) == set(AH)
 b10 = ordered[len(AH) - 1] if AH else None
 b11 = ordered[len(AH)] if len(AH) < len(MK) else None
-print("   the boundary (full precision): "
+print("   REPORT: the boundary (full precision): "
       + (f"the smallest ahead, {b10[1]}: (tacc_c - tacc) / step = {A13[b10]['ds']!r}; " if b10 else "")
       + (f"the largest not ahead, {b11[1]}: {A13[b11]['ds']!r}" if b11 else ""))
 
@@ -472,9 +569,22 @@ print("   REPORT: the same counts in prereg/sec6/dev_SEC6.txt (SEC6's developmen
       " record): " + "; ".join(f"{lab} {a} vs here {b}" for lab, a, b in chk)
       + f" -> {'REPRODUCED' if all(a == b for _, a, b in chk) else 'DIFFERS'}")
 f13 = F13_THIRD * len(AH) >= len(MK)
+print("   AMBIGUITY (F13): 'by more than a step' names no step; it is read as the unclipped tuned lambda's step (tacc_c - tacc > step), as"
+      " A13's 'ahead' above (the scored reading); the REPORT after F13 gives the count under step_c and under max(step, step_c)")
 print(f"F13 the tuned clipped lambda ahead of the unclipped tuned lambda by more than a step (tacc_c - tacc > step): {len(AH)}/{len(MK)} >="
       f" {len(MK)}/{F13_THIRD} = {len(MK) / F13_THIRD:g} -> {f13}")
 print(f"F13: {word(f13)}")
+READ13 = []                                                   # REPORT: F13's count under each reading of the step
+for lab, sf in (("the unclipped step (scored)", lambda k: D[k]["step"]), ("step_c", lambda k: A13[k]["tc"]["step"]),
+                ("max(step, step_c)", lambda k: max(D[k]["step"], A13[k]["tc"]["step"]))):
+    ah13 = [k for k in MK if A13[k]["d"] > sf(k)]
+    READ13.append((lab, ah13, F13_THIRD * len(ah13) >= len(MK)))
+assert READ13[0][1] == AH and READ13[0][2] == f13
+print("   REPORT (undeclared, post hoc; decides nothing): F13's count by the step read: "
+      + "; ".join(f"under {lab} {len(ah)}/{len(MK)} >= {len(MK) / F13_THIRD:g} -> {w}" for lab, ah, w in READ13)
+      + f"; the ahead set is the same under all three: {all(r[1] == AH for r in READ13)}"
+      + (f" -> F13's word ({word(f13)}) does not depend on which step is read" if len({r[2] for r in READ13}) == 1 else
+         " -> F13's word depends on which step is read: " + ", ".join(f"{lab} {word(w)}" for lab, _, w in READ13)))
 
 # ============================================================================================================== A14
 hdr("A14  does the benchmark's class order explain the pass counts?  Spearman with the task-1 share")
@@ -509,12 +619,14 @@ print(f"F14: {word(f14a and f14b)}")
 print(); print(BAR)
 print("summary: POST HOC in origin (Amendments 1-3); declared checks on seen records; no ledger row; the words are computed above")
 print(f"   F12  {word(f12a and f12b)}   (a) floor-bound {nfb30}/{len(H30)} held-out (>= {len(H30) / F12_QUARTER:g}) -> {f12a}; (b) unclipped SEC not"
-      f" behind on floor-bound {ka}/{na} ({ka / na:.3f}) > rest {kb}/{nb} ({kb / nb:.3f}) -> {f12b}")
+      f" behind on floor-bound {ka}/{na} ({ka / na:.3f}) > rest {kb}/{nb} ({kb / nb:.3f}) -> {f12b}; REPORT: {rev12}")
 print(f"   F13  {word(f13)}   the tuned clipped lambda ahead of the unclipped tuned lambda by more than a step on {len(AH)}/{len(MK)}"
       f" (need >= {len(MK) / F13_THIRD:g}); behind by more than a step on {len(BH)}; SI-1C / AR1-B / C0 not behind the tuned lambda"
       f" {NB['si1c'][0]} / {NB['ar1b'][0]} / {NB['c0'][0]}, the tuned clipped lambda {NB['si1c'][1]} / {NB['ar1b'][1]} / {NB['c0'][1]} of {len(MK)};"
-      f" at the boundary: the smallest ahead {b10[1]} {A13[b10]['ds']:.3f} steps, the largest not ahead {b11[1]} {A13[b11]['ds']:.3f};"
-      f" the tuned clipped lambda at the top of its grid on {sum(k in TOP for k in AH)} of the {len(AH)} ahead")
+      f" REPORT: at the boundary: the smallest ahead {b10[1]} {A13[b10]['ds']:.3f} steps, the largest not ahead {b11[1]} {A13[b11]['ds']:.3f};"
+      f" the tuned clipped lambda at the top of its grid on {sum(k in TOP for k in AH)} of the {len(AH)} ahead; ahead under step_c"
+      f" {len(READ13[1][1])}/{len(MK)}, under max(step, step_c) {len(READ13[2][1])}/{len(MK)}; the fixed_clip and raw grids coincide on"
+      f" {sum(k in g_same for k in AH)} of the {len(AH)} ahead")
 print(f"   F14  {word(f14a and f14b)}   (a) Spearman(M6 accuracy, share) {m6[0]:.3f} >= {F14_RHO} -> {f14a}; (b) Spearman(SEC margin, share)"
       f" {sec[0]:.3f} > 0 -> {f14b}; clipped SEC {clp[0]:.3f} ({clp[2]}), C0 {c0s[0]:.3f} ({c0s[2]})")
 print("   Amendment 1's F1-F11 with the floor-bound carriers removed: cited above, printed in a1_a3.txt, a4_a6.txt, a5_a9_a10.txt, a7_a8.txt"

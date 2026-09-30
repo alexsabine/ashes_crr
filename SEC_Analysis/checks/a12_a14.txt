@@ -66,6 +66,7 @@ PER CARRIER  (all 42; M6 and C0 from m_runs on the 30 held-out carriers, '-' els
    sec5  volcanoes-d4                         4   5000  94.9400  97.6800  94.9950   1.000    +0.055  Y  87.9880   6.0861  -78.719  -88.909  -88.909 |      N    N   N  N
    sec5  walking-activity                    10   5000  19.3200  37.5600  13.6000   1.137    -5.032  Y  22.5000  11.0400   -2.252   -2.252   -2.252 |      N    N   Y  N
    (share = task-1 share; fb = floor-bound; st = margin in steps; nb = not behind the tuned lambda; tr = the transferred lambda; '-' = no such record: SEC1 carriers are not in the M runs, the clipped SEC exists on SEC4 and SEC5 only)
+   REPORT columns (beyond the declared ones; they decide nothing): K, n, (t-fl)/st, clip st, C0 st and the nb flags (the clipped SEC's and C0's margins enter A14's Spearman lines, which decide no forecast)
 
 ======================================================================================================================================================
 A12  how much of the pass count sits at the accuracy floor?  not-behind rates on the floor-bound carriers against the rest
@@ -92,6 +93,9 @@ A12  how much of the pass count sits at the accuracy floor?  not-behind rates on
 F12 (a) floor-bound among the 30 held-out carriers: 19 >= 30/4 = 7.5 -> True
 F12 (b) unclipped SEC not-behind rate on the floor-bound 13/19 = 0.6842105263157895 (0.684) > on the rest 7/11 = 0.6363636363636364 (0.636) -> True
 F12: HOLDS
+   REPORT (undeclared, post hoc; decides nothing): (i) the smallest change in the floor-bound pass count that reverses (b): with 1 fewer floor-bound pass, 12/19 = 0.631578947368421 (0.632) < 7/11 = 0.6363636363636364 (0.636) -> (b) would fail
+   REPORT (ii) (b) at floor-bound bars of 1, 2, 3, 4, 5 steps (the declared bar is 3): 1: floor-bound 18/30, 13/18 (0.722) > rest 7/12 (0.583) -> True; 2: floor-bound 19/30, 13/19 (0.684) > rest 7/11 (0.636) -> True; 3: floor-bound 19/30, 13/19 (0.684) > rest 7/11 (0.636) -> True; 4: floor-bound 19/30, 13/19 (0.684) > rest 7/11 (0.636) -> True; 5: floor-bound 19/30, 13/19 (0.684) > rest 7/11 (0.636) -> True -> (b) is True at every bar
+   REPORT (iii) the nearest floor-bound pass to the not-behind line (margin -1 step, strict): sec3:covertype, margin -0.6996599701405833 (-0.700) steps, 0.30034002985941666 (0.300) steps above the line
 
 Amendment 1: 'Every forecast F1-F11 whose decisive count includes floor-bound carriers is also printed with them removed, as a report.'
    Each is already printed by the script that decides the forecast; cited here (file, line, the word printed there), not reprinted:
@@ -119,7 +123,8 @@ A13  the development arms as mechanism evidence: SI-1C, AR1-B, the clipped SEC (
 ======================================================================================================================================================
    the tuned clipped lambda: the best seed mean over SEC6's fixed_clip grid (ties to the smallest lambda); tacc_c its mean; step_c = max(1, 2 SE) of its seeds
    AMBIGUITY: 'C0 from m_runs or the pinned bayes_sec_clip' is read as C0 from m_runs on all 30 carriers, with the pinned record checked equal where it exists (below)
-   C0 (m_runs) against the pinned bayes_sec_clip, all five seeds: equal on 14/14 of the SEC4 and SEC5 carriers (70/70 seeds) -> the counts below are the same whichever of the two is read there
+   C0 (m_runs) against the pinned bayes_sec_clip, all five seeds: equal on 14/14 of the SEC4 and SEC5 carriers (70/70 seeds); C0's counts (not behind the tuned lambda; not behind the tuned clipped lambda) with m_runs read there 26/30; 22/30, with the pinned record read there 26/30; 22/30
+   -> the counts below are the same whichever of the two is read there
    the 16 SCL3 and SEC3 carriers have no pinned bayes_sec_clip in runs/: C0 (m_runs) is the only record read. REPORT: it equals the clipped-SEC reference in SEC6's development records (from SEC5's development runs, prereg/sec5/dev) on 16/16 carriers, all five seeds
    the tuned clipped lambda, tacc_c and step_c recomputed here equal the devfclip record's own 'tuned', 'acc' and 'step' on 30/30; grid configurations per carrier [17]; non-finite runs in the grids 0
    the dev records' tacc and step equal sec_lib's on 30/30 (asserted). REPORT: their 'tuned' field differs from sec_lib's tie rule on 1 (autoUniv-au6-750 (record 0.1, sec_lib 0.035336)); tacc and step are the same there, so nothing below moves
@@ -155,7 +160,7 @@ A13  the development arms as mechanism evidence: SI-1C, AR1-B, the clipped SEC (
    sec5  spoken-arabic-digit                   0.2128   9.8800   1.000 |        10   9.8600   1.000   N [4, 4, 4, 4, 4] |          -0.019999999999999574   -0.020   -
    sec5  volcanoes-d4                            1000  94.9950   1.000 |  2.83e+04  15.3954   7.772   Y [1, 1, 1, 1, 1] |              -79.5995995995996  -79.600   B
    sec5  walking-activity                      0.2128  13.6000   1.137 |    0.2128  13.6000   1.137   N [0, 0, 0, 0, 0] |                            0.0   +0.000   -
-   (top = the tuned clipped lambda is the largest lambda of its grid (REPORT: the grid, SEC1's, may not reach its optimum); fired = the clip's firings per seed at it; A = ahead by more than a step, B = behind by more than a step, step the unclipped one)
+   (top = the tuned clipped lambda is the largest lambda of its grid (REPORT: the grid, SEC1's, may not reach its optimum); fired (REPORT) = the clip's firings per seed at it; A = ahead by more than a step, B = behind by more than a step, step the unclipped one)
 
    study carrier                            |    SI-1C      st    st_c |    AR1-B      st    st_c |       C0      st    st_c | C0 fired seeds  cap mean   cap max fired mean
    scl3  GesturePhaseSegmentationProcessed  |  42.6627 +15.80  +15.80  |  26.2462  -0.06   -0.06  |  26.2062  -0.10   -0.10  |        0     0 0.000e+00 0.000e+00          -
@@ -198,12 +203,15 @@ counts over the 30 carriers:
    clipped SEC (C0)   not behind the tuned lambda 26/30; not behind the tuned clipped lambda 22/30   (behind the tuned clipped lambda: cnae-9, eucalyptus, steel-plates-fault, anneal, synthetic_control, Indian_pines, volcanoes-d4, walking-activity)
    the tuned clipped lambda against the unclipped tuned lambda: ahead by more than a step on 10/30 (MiceProtein, cnae-9, eucalyptus, steel-plates-fault, dionis, volkert, anneal, synthetic_control, Indian_pines, Kuzushiji-MNIST); behind by more than a step on 2/30 (pokerhand, volcanoes-d4); within a step on 18; REPORT: not behind (tacc_c - tacc > -step) on 28/30
    REPORT: the tuned clipped lambda at the top of its grid on 11/30 (MiceProtein, cnae-9, eucalyptus, har, isolet, artificial-characters, cardiotocography, synthetic_control, Indian_pines, microaggregation2, volcanoes-d4); of the 10 ahead, 5 are at the top
+   REPORT: SEC6's fixed_clip grid and the carrier's raw grid (sec_lib) are the same lambda values on 11/30 carriers. Each is SEC1's two-stage grid (prereg/sec6/DEV_DECLARATION.md Amendment 2): the 11 coarse points, then the arm's own coarse best x EWC_REFINE; verified on 30/30 (raw) and 30/30 (fixed_clip); the two coarse bests coincide on 11/30, exactly the carriers where the grids coincide. Of the 10 ahead, the grids coincide on 0, and the tuned clipped lambda is not a value of the raw grid on 8 (MiceProtein 28300, cnae-9 28300, eucalyptus 28300, steel-plates-fault 709.22, volkert 200, anneal 709.22, synthetic_control 28300, Indian_pines 28300) -> so 'ahead' partly reflects lambda values the raw refinement never visits
    C0's clip fired (at least one seed) on 13/30 carriers; over those, the per-carrier mean capped fraction: median 6.889e-05, range [9.827e-07, 9.552e-03]; largest capped fraction at any start 1.852e-02 (volcanoes-d4); REPORT, where it fired only: median 3.444e-04, range [4.913e-06, 9.552e-03]
    REPORT: of the 10 carriers where the tuned clipped lambda is ahead, C0's clip fired on 8; the tuned clipped lambda's own clip fired (any seed) on 10
-   the boundary (full precision): the smallest ahead, volkert: (tacc_c - tacc) / step = 1.1599999999999993; the largest not ahead, cardiotocography: 0.943396226415075
+   REPORT: the boundary (full precision): the smallest ahead, volkert: (tacc_c - tacc) / step = 1.1599999999999993; the largest not ahead, cardiotocography: 0.943396226415075
    REPORT: the same counts in prereg/sec6/dev_SEC6.txt (SEC6's development report; its clipped SEC on SCL3/SEC3 is SEC5's development record): SI-1C not behind the tuned lambda 28 vs here 28; AR1-B not behind the tuned lambda 27 vs here 27; clipped SEC not behind the tuned lambda 26 vs here 26; SI-1C not behind the tuned clipped lambda 30 vs here 30; AR1-B not behind the tuned clipped lambda 19 vs here 19; clipped SEC not behind the tuned clipped lambda 22 vs here 22; tuned clipped lambda ahead by more than a step 10 vs here 10; tuned clipped lambda behind by more than a step 2 vs here 2 -> REPRODUCED
+   AMBIGUITY (F13): 'by more than a step' names no step; it is read as the unclipped tuned lambda's step (tacc_c - tacc > step), as A13's 'ahead' above (the scored reading); the REPORT after F13 gives the count under step_c and under max(step, step_c)
 F13 the tuned clipped lambda ahead of the unclipped tuned lambda by more than a step (tacc_c - tacc > step): 10/30 >= 30/3 = 10 -> True
 F13: HOLDS
+   REPORT (undeclared, post hoc; decides nothing): F13's count by the step read: under the unclipped step (scored) 10/30 >= 10 -> True; under step_c 10/30 >= 10 -> True; under max(step, step_c) 10/30 >= 10 -> True; the ahead set is the same under all three: True -> F13's word (HOLDS) does not depend on which step is read
 
 ======================================================================================================================================================
 A14  does the benchmark's class order explain the pass counts?  Spearman with the task-1 share
@@ -220,7 +228,7 @@ F14: FAILS
 
 ======================================================================================================================================================
 summary: POST HOC in origin (Amendments 1-3); declared checks on seen records; no ledger row; the words are computed above
-   F12  HOLDS   (a) floor-bound 19/30 held-out (>= 7.5) -> True; (b) unclipped SEC not behind on floor-bound 13/19 (0.684) > rest 7/11 (0.636) -> True
-   F13  HOLDS   the tuned clipped lambda ahead of the unclipped tuned lambda by more than a step on 10/30 (need >= 10); behind by more than a step on 2; SI-1C / AR1-B / C0 not behind the tuned lambda 28 / 27 / 26, the tuned clipped lambda 30 / 19 / 22 of 30; at the boundary: the smallest ahead volkert 1.160 steps, the largest not ahead cardiotocography 0.943; the tuned clipped lambda at the top of its grid on 5 of the 10 ahead
+   F12  HOLDS   (a) floor-bound 19/30 held-out (>= 7.5) -> True; (b) unclipped SEC not behind on floor-bound 13/19 (0.684) > rest 7/11 (0.636) -> True; REPORT: with 1 fewer floor-bound pass, 12/19 = 0.631578947368421 (0.632) < 7/11 = 0.6363636363636364 (0.636) -> (b) would fail
+   F13  HOLDS   the tuned clipped lambda ahead of the unclipped tuned lambda by more than a step on 10/30 (need >= 10); behind by more than a step on 2; SI-1C / AR1-B / C0 not behind the tuned lambda 28 / 27 / 26, the tuned clipped lambda 30 / 19 / 22 of 30; REPORT: at the boundary: the smallest ahead volkert 1.160 steps, the largest not ahead cardiotocography 0.943; the tuned clipped lambda at the top of its grid on 5 of the 10 ahead; ahead under step_c 10/30, under max(step, step_c) 10/30; the fixed_clip and raw grids coincide on 0 of the 10 ahead
    F14  FAILS   (a) Spearman(M6 accuracy, share) 0.785 >= 0.8 -> False; (b) Spearman(SEC margin, share) -0.393 > 0 -> False; clipped SEC -0.543 (14), C0 -0.604 (30)
    Amendment 1's F1-F11 with the floor-bound carriers removed: cited above, printed in a1_a3.txt, a4_a6.txt, a5_a9_a10.txt, a7_a8.txt and a11_grade.txt

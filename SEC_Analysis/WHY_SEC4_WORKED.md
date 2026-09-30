@@ -94,6 +94,10 @@ origin, F14 FAILS;
 **Floor effects** (post hoc in origin, F12; `checks/a12_a14.txt`).
 - 19 of the 30 held-out carriers are floor-bound. Per study: SCL3 5/10, SEC3 5/6, SEC4 2/6, SEC5 7/8.
 - The unclipped SEC is not behind on 13/19 of them, against 7/11 on the rest.
+  - That difference rests on one carrier: with one fewer floor-bound pass, 12/19 = 0.632 < 0.636.
+  - It holds at every floor-bound bar from 1 to 5 steps.
+  - The nearest floor-bound pass (covertype) is 0.300 steps above the line.
+  - These are REPORT lines in `checks/a12_a14.txt`.
 - The clipped SEC runs the other way: 5/9 on floor-bound carriers against 5/5 on the rest (the pinned arm, SEC4 and SEC5
   only: 14 carriers).
 
@@ -185,6 +189,10 @@ report, not a test.
 - **It changes the reference** (post hoc, F13 HOLDS at its bar).
   - A tuned λ given the same clip is ahead of the unclipped tuned λ by more than a step on 10/30.
   - Against it, the clipped SEC is not behind on 22/30, not 26/30 (`checks/a12_a14.txt`).
+  - The count is 10/30 whichever step is read: the unclipped step, step_c, or their maximum.
+  - "Ahead" partly reflects λ values the raw refinement never visits. The two grids coincide on 11/30 carriers, none of
+    them among the 10 ahead. On 8 of the 10, the tuned clipped λ is not a value of the raw grid.
+  - These are REPORT lines in `checks/a12_a14.txt`.
 
 ## 5. CRR's part
 
