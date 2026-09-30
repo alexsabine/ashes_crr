@@ -1,0 +1,222 @@
+======================================================================================================================
+SEC_Analysis loader check (SEC_Analysis/DECLARATION.md): sec_lib.load_all() against the pinned runs/<study>/score.txt
+POST HOC on SEEN records; no ledger row. DECLARED = the declaration's table; PINNED = the frozen scorer's printed output
+======================================================================================================================
+frozen runs/sec1/frozen/sec1_score.py: EWC_COARSE equal True; windows (FS, FE) equal True; SEEDS equal True; TEST_FRAC equal True; step_of bit-equal on 42/42 tuned arms -> REPRODUCED
+records: 10650 run records loaded over 42 scored carriers; SCL3 operator-harness records skipped 450; per-task training n sums to n_train on 42/42; one s per task in every record on 42/42
+
+carriers per study (scored / loader-excluded):
+   sec1: scored 12 ['fars', 'krkopt', 'led24', 'led7', 'mfeat_factors', 'mfeat_morphological', 'page_blocks', 'satimage', 'segmentation', 'sleep', 'wine_quality_white', 'yeast']; excluded 0 []
+   scl3: scored 10 ['GesturePhaseSegmentationProcessed', 'MiceProtein', 'cnae-9', 'eucalyptus', 'first-order-theorem-proving', 'har', 'isolet', 'semeion', 'steel-plates-fault', 'wall-robot-navigation']; excluded 0 []
+   sec3: scored 6 ['covertype', 'dionis', 'fabert', 'helena', 'jannis', 'volkert']; excluded 1 ['shuttle']
+   sec4: scored 6 ['JapaneseVowels', 'anneal', 'artificial-characters', 'cardiotocography', 'gas-drift', 'synthetic_control']; excluded 3 ['MIC', 'cjs', 'one-hundred-plants-margin']
+   sec5: scored 8 ['Indian_pines', 'Kuzushiji-MNIST', 'autoUniv-au6-750', 'microaggregation2', 'pokerhand', 'spoken-arabic-digit', 'volcanoes-d4', 'walking-activity']; excluded 4 ['hypothyroid', 'volcanoes-a3', 'volcanoes-a4', 'volcanoes-b2']
+   total: scored 42, excluded 8
+
+carrier properties (header; per-task n = training rows per task from the stratified 80/20 split; imbalance = max / min used class count):
+   study carrier                                  d   K tasks n_train n_test imbalance  per-task n
+   sec1  fars                                    29   6     3    4001   1000    46.489  [2469, 1151, 381]
+   sec1  krkopt                                   6  10     5    4000    998     6.687  [1347, 993, 764, 570, 326]
+   sec1  led24                                   24  10     5    2561    639     1.139  [538, 525, 518, 501, 479]
+   sec1  led7                                     7  10     5    2560    640     1.263  [542, 534, 522, 503, 459]
+   sec1  mfeat_factors                          216  10     5    1600    400     1.000  [320, 320, 320, 320, 320]
+   sec1  mfeat_morphological                      6  10     5    1600    400     1.000  [320, 320, 320, 320, 320]
+   sec1  page_blocks                             10   4     2    4001    999    55.691  [3851, 150]
+   sec1  satimage                                36   6     3    4000    999     2.451  [1891, 1283, 826]
+   sec1  segmentation                            19   6     3    1584    396     1.000  [528, 528, 528]
+   sec1  sleep                                   13   4     2    3999   1001     4.866  [3058, 941]
+   sec1  wine_quality_white                      11   4     2    3768    942    12.560  [2924, 844]
+   sec1  yeast                                    8   6     3    1114    280    10.523  [713, 325, 76]
+   scl3  GesturePhaseSegmentationProcessed       32   4     2    4000    999     2.716  [2565, 1435]
+   scl3  MiceProtein                             77   8     4     442    110     2.000  [132, 120, 106, 84]
+   scl3  cnae-9                                 856   8     4     768    192     1.000  [192, 192, 192, 192]
+   scl3  eucalyptus                              19   4     2     434    109     1.990  [264, 170]
+   scl3  first-order-theorem-proving             51   6     3    4000    999     5.257  [2382, 897, 721]
+   scl3  har                                    561   6     3    4000   1001     1.382  [1495, 1359, 1146]
+   scl3  isolet                                 617  10     5    2400    600     1.000  [480, 480, 480, 480, 480]
+   scl3  semeion                                256  10     5    1274    319     1.045  [259, 258, 254, 253, 250]
+   scl3  steel-plates-fault                      27   6     3    1509    377     9.347  [860, 465, 184]
+   scl3  wall-robot-navigation                   24   4     2    4002    999     6.714  [3155, 847]
+   sec3  covertype                               54   6     3    4001    999    29.878  [3426, 389, 186]
+   sec3  dionis                                  60  10     5    3999   1001     1.422  [980, 784, 776, 740, 719]
+   sec3  fabert                                 800   6     3    3999   1001     2.066  [1780, 1247, 972]
+   sec3  helena                                  27  10     5    4001   1000     2.191  [1135, 903, 711, 660, 592]
+   sec3  jannis                                  54   4     2    4000   1000    22.772  [3215, 785]
+   sec3  volkert                                180  10     5    4000   1000     9.385  [1668, 1152, 662, 322, 196]
+   sec4  JapaneseVowels                          14   8     4    4001    999     1.874  [1345, 988, 873, 795]
+   sec4  anneal                                  38   4     2     712    178    17.100  [626, 86]
+   sec4  artificial-characters                    7  10     5    3997   1001     2.357  [1023, 934, 785, 707, 548]
+   sec4  cardiotocography                        35  10     5    1702    424    10.925  [770, 468, 244, 123, 97]
+   sec4  gas-drift                              128   6     3    4002    999     1.834  [1708, 1295, 999]
+   sec4  synthetic_control                       60   6     3     480    120     1.000  [160, 160, 160]
+   sec5  Indian_pines                           220   6     3    3999   1001    19.085  [2889, 800, 310]
+   sec5  Kuzushiji-MNIST                        784  10     5    4000   1000     1.000  [800, 800, 800, 800, 800]
+   sec5  autoUniv-au6-750                        40   8     4     599    151     2.895  [251, 133, 116, 99]
+   sec5  microaggregation2                       20   4     2    3999   1001     7.374  [3249, 750]
+   sec5  pokerhand                               10   4     2    4001   1000    23.598  [3723, 278]
+   sec5  spoken-arabic-digit                     14  10     5    4000   1000     1.014  [804, 803, 800, 799, 794]
+   sec5  volcanoes-d4                             3   4     2    4001    999    96.878  [3908, 93]
+   sec5  walking-activity                         4  10     5    4000   1000     4.332  [1503, 1018, 622, 481, 376]
+
+======================================================================================================================
+SEC1  (SEC1-3; headline arm bayes_sec; runs/sec1/score.txt)
+======================================================================================================================
+headline counts                                        DECLARED  PINNED  RECOMPUTED
+   carriers scored                                           12      12          12  -> REPRODUCED
+   SEC1-3 bayes_sec not behind                                9       9           9  -> REPRODUCED
+   raw Laplace (bayes) not behind                             6       6           6  -> REPRODUCED
+   the rule Ω=1 (eq 1.0) not behind                           8       8           8  -> REPRODUCED
+per carrier: bayes_sec − tuned lambda (full precision | 4 dp | pinned), step (2 dp | pinned), tuned lambda (recomputed | pinned), and the block checks
+   carrier                                     margin (full)      4 dp    pinned   step pinned      tuned     pinned  nb  verdict
+   fars                                      -3.400000000000   -3.4000   -3.4000   1.94   1.94    21.2766    21.2766   N  REPRODUCED
+      arm means bayes 9.2200, bayes_sec 9.3400, bayes_s1 10.4800, eq 9.2400 (pinned 9.2200, 9.3400, 10.4800, 9.2400); grid line(s) equal True; transferred lambda 10: 9.8200 (not computed by the frozen scorer)  -> REPRODUCED
+   krkopt                                    -0.541082164329   -0.5411   -0.5411   1.00   1.00    0.70922    0.70922   Y  REPRODUCED
+      arm means bayes 6.2124, bayes_sec 5.7515, bayes_s1 6.2525, eq 5.6914 (pinned 6.2124, 5.7515, 6.2525, 5.6914); grid line(s) equal True; transferred lambda 10: 0.0000 (not computed by the frozen scorer)  -> REPRODUCED
+   led24                                     +3.067292644757   +3.0673   +3.0673   1.82   1.82       8.49       8.49   Y  REPRODUCED
+      arm means bayes 18.9045, bayes_sec 23.2551, bayes_s1 16.2128, eq 23.7872 (pinned 18.9045, 23.2551, 16.2128, 23.7872); grid line(s) equal True; transferred lambda 10: 19.2801 (not computed by the frozen scorer)  -> REPRODUCED
+   led7                                      +0.062500000000   +0.0625   +0.0625   1.00   1.00          3          3   Y  REPRODUCED
+      arm means bayes 19.6250, bayes_sec 23.7188, bayes_s1 18.1562, eq 22.4375 (pinned 19.6250, 23.7188, 18.1562, 22.4375); grid line(s) equal True; transferred lambda 10: 16.9688 (not computed by the frozen scorer)  -> REPRODUCED
+   mfeat_factors                             -5.050000000000   -5.0500   -5.0500   4.54   4.54        300        300   N  REPRODUCED
+      arm means bayes 41.9500, bayes_sec 49.4000, bayes_s1 0.0000, eq 58.3500 (pinned 41.9500, 49.4000, 0.0000, 58.3500); grid line(s) equal True; transferred lambda 10: 43.3000 (not computed by the frozen scorer)  -> REPRODUCED
+   mfeat_morphological                       +2.700000000000   +2.7000   +2.7000   4.87   4.87       2.83       2.83   Y  REPRODUCED
+      arm means bayes 26.6000, bayes_sec 36.9000, bayes_s1 0.0000, eq 37.9000 (pinned 26.6000, 36.9000, 0.0000, 37.9000); grid line(s) equal True; transferred lambda 10: 23.1000 (not computed by the frozen scorer)  -> REPRODUCED
+   page_blocks                               +0.540540540541   +0.5405   +0.5405  10.90  10.90         30         30   Y  REPRODUCED
+      arm means bayes 34.7548, bayes_sec 42.9429, bayes_s1 42.9429, eq 34.5746 (pinned 34.7548, 42.9429, 42.9429, 34.5746); grid line(s) equal True; transferred lambda 10: 32.0320 (not computed by the frozen scorer)  -> REPRODUCED
+   satimage                                  +5.565565565566   +5.5656   +5.5656   1.62   1.62          3          3   Y  REPRODUCED
+      arm means bayes 22.6627, bayes_sec 28.4084, bayes_s1 10.9710, eq 27.6677 (pinned 22.6627, 28.4084, 10.9710, 27.6677); grid line(s) equal True; transferred lambda 10: 22.6827 (not computed by the frozen scorer)  -> REPRODUCED
+   segmentation                              -0.606060606061   -0.6061   -0.6061   1.86   1.86        300        300   Y  REPRODUCED
+      arm means bayes 68.8384, bayes_sec 72.6263, bayes_s1 72.6263, eq 70.9596 (pinned 68.8384, 72.6263, 72.6263, 70.9596); grid line(s) equal True; transferred lambda 10: 71.5152 (not computed by the frozen scorer)  -> REPRODUCED
+   sleep                                     -0.279720279720   -0.2797   -0.2797   1.12   1.12         30         30   Y  REPRODUCED
+      arm means bayes 23.0769, bayes_sec 23.0569, bayes_s1 23.0569, eq 22.8372 (pinned 23.0769, 23.0569, 23.0569, 22.8372); grid line(s) equal True; transferred lambda 10: 22.8771 (not computed by the frozen scorer)  -> REPRODUCED
+   wine_quality_white                        -6.709129511677   -6.7091   -6.7091   6.74   6.74       14.1       14.1   Y  REPRODUCED
+      arm means bayes 18.1741, bayes_sec 18.1953, bayes_s1 18.1953, eq 18.1741 (pinned 18.1741, 18.1953, 18.1953, 18.1741); grid line(s) equal True; transferred lambda 10: 23.0149 (not computed by the frozen scorer)  -> REPRODUCED
+   yeast                                    -11.428571428571  -11.4286  -11.4286   6.04   6.04       8.49       8.49   N  REPRODUCED
+      arm means bayes 18.3571, bayes_sec 14.7143, bayes_s1 20.5000, eq 19.3571 (pinned 18.3571, 14.7143, 20.5000, 19.3571); grid line(s) equal True; transferred lambda 10: 13.7857 (not computed by the frozen scorer)  -> REPRODUCED
+SEC1-4 tuned lambda dictionaries (raw and calibrated), exact floats: equal True  -> REPRODUCED
+SEC1-S window-cell flips of 'not behind' (bayes_sec, 8 windows per carrier): pinned 8 of 96, recomputed 8 of 96  -> REPRODUCED
+
+======================================================================================================================
+SCL3  (SCL3-3; headline arm bayes_sec; runs/scl3/score.txt)
+======================================================================================================================
+headline counts                                        DECLARED  PINNED  RECOMPUTED
+   carriers scored                                           10      10          10  -> REPRODUCED
+   SCL3-3 bayes_sec not behind                                9       9           9  -> REPRODUCED
+   raw Laplace (bayes) not behind                             4       4           4  -> REPRODUCED
+   the rule Ω=1 (eq 1.0) not behind                           7       7           7  -> REPRODUCED
+per carrier: bayes_sec − tuned lambda (full precision | 4 dp | pinned), step (2 dp | pinned), tuned lambda (recomputed | pinned), and the block checks
+   carrier                                     margin (full)      4 dp    pinned   step pinned      tuned     pinned  nb  verdict
+   GesturePhaseSegmentationProcessed         -0.100100100100   -0.1001   -0.1001   1.04   1.04       14.1       14.1   Y  REPRODUCED
+      arm means bayes 26.1862, bayes_sec 26.2062, bayes_s1 26.2062, eq 26.2462 (pinned 26.1862, 26.2062, 26.2062, 26.2462); grid line(s) equal True; transferred lambda 1000: 0.0000 (not computed by the frozen scorer)  -> REPRODUCED
+   MiceProtein                               +4.545454545455   +4.5455   +4.5455   1.00   1.00     709.22     709.22   Y  REPRODUCED
+      arm means bayes 24.1818, bayes_sec 45.4545, bayes_s1 38.3636, eq 39.4545 (pinned 24.1818, 45.4545, 38.3636, 39.4545); grid line(s) equal True; transferred lambda 100: 28.0000 (not computed by the frozen scorer)  -> REPRODUCED
+   cnae-9                                   -21.979166666667  -21.9792  -21.9792   1.73   1.73       1410       1410   N  REPRODUCED
+      arm means bayes 55.7292, bayes_sec 52.1875, bayes_s1 0.0000, eq 72.0833 (pinned 55.7292, 52.1875, 0.0000, 72.0833); grid line(s) equal True; transferred lambda 100: 60.4167 (not computed by the frozen scorer)  -> REPRODUCED
+   eucalyptus                                +0.550458715596   +0.5505   +0.5505   3.53   3.53        1.5        1.5   Y  REPRODUCED
+      arm means bayes 37.6147, bayes_sec 39.0826, bayes_s1 39.0826, eq 34.8624 (pinned 37.6147, 39.0826, 39.0826, 34.8624); grid line(s) equal True; transferred lambda 1000: 17.4312 (not computed by the frozen scorer)  -> REPRODUCED
+   first-order-theorem-proving               -0.020020020020   -0.0200   -0.0200   1.05   1.05        1.5        1.5   Y  REPRODUCED
+      arm means bayes 11.7718, bayes_sec 11.8118, bayes_s1 11.7718, eq 11.7117 (pinned 11.7718, 11.8118, 11.7718, 11.7117); grid line(s) equal True; transferred lambda 1000: 0.0000 (not computed by the frozen scorer)  -> REPRODUCED
+   har                                       -1.138861138861   -1.1389   -1.1389   4.82   4.82      28300      28300   Y  REPRODUCED
+      arm means bayes 47.6523, bayes_sec 51.7283, bayes_s1 40.8392, eq 50.3896 (pinned 47.6523, 51.7283, 40.8392, 50.3896); grid line(s) equal True; transferred lambda 100: 47.8721 (not computed by the frozen scorer)  -> REPRODUCED
+   isolet                                    -0.166666666667   -0.1667   -0.1667   3.47   3.47      20000      20000   Y  REPRODUCED
+      arm means bayes 53.2000, bayes_sec 62.4000, bayes_s1 44.1667, eq 61.6000 (pinned 53.2000, 62.4000, 44.1667, 61.6000); grid line(s) equal True; transferred lambda 100: 53.7000 (not computed by the frozen scorer)  -> REPRODUCED
+   semeion                                   +3.761755485893   +3.7618   +3.7618   1.59   1.59       1500       1500   Y  REPRODUCED
+      arm means bayes 27.5235, bayes_sec 41.1912, bayes_s1 0.0000, eq 36.7398 (pinned 27.5235, 41.1912, 0.0000, 36.7398); grid line(s) equal True; transferred lambda 100: 30.2821 (not computed by the frozen scorer)  -> REPRODUCED
+   steel-plates-fault                        -0.212201591512   -0.2122   -0.2122   1.19   1.19          6          6   Y  REPRODUCED
+      arm means bayes 31.2997, bayes_sec 33.2626, bayes_s1 31.8302, eq 33.6870 (pinned 31.2997, 33.2626, 31.8302, 33.6870); grid line(s) equal True; transferred lambda 1000: 0.0000 (not computed by the frozen scorer)  -> REPRODUCED
+   wall-robot-navigation                     -2.622622622623   -2.6226   -2.6226   6.62   6.62        100        100   Y  REPRODUCED
+      arm means bayes 22.1622, bayes_sec 22.1421, bayes_s1 22.1421, eq 21.2613 (pinned 22.1622, 22.1421, 22.1421, 21.2613); grid line(s) equal True; transferred lambda 1000: 0.0000 (not computed by the frozen scorer)  -> REPRODUCED
+SCL3-4 tuned lambda dictionaries (raw and calibrated), exact floats: equal True  -> REPRODUCED
+SCL3-S window-cell flips of 'not behind' (bayes_sec, 8 windows per carrier): pinned 6 of 80, recomputed 6 of 80  -> REPRODUCED
+
+======================================================================================================================
+SEC3  (SEC3-3; headline arm bayes_sec; runs/sec3/score.txt)
+======================================================================================================================
+headline counts                                        DECLARED  PINNED  RECOMPUTED
+   carriers scored                                            6       6           6  -> REPRODUCED
+   SEC3-3 bayes_sec not behind                                4       4           4  -> REPRODUCED
+   raw Laplace (bayes) not behind                             5       5           5  -> REPRODUCED
+   the rule Ω=1 (eq 1.0) not behind                           -       5           5  -> REPRODUCED
+per carrier: bayes_sec − tuned lambda (full precision | 4 dp | pinned), step (2 dp | pinned), tuned lambda (recomputed | pinned), and the block checks
+   carrier                                     margin (full)      4 dp    pinned   step pinned      tuned     pinned  nb  verdict
+   covertype                                 -3.363363363363   -3.3634   -3.3634   4.81   4.81         10         10   Y  REPRODUCED
+      arm means bayes_sec 19.4995, bayes_sec_g 19.4995, bayes 22.2823, bayes_s1 22.3824, eq 17.7177 (pinned 19.4995, 19.4995, 22.2823, 22.3824, 17.7177); grid line(s) equal True; transferred lambda 10: 22.8629 (pinned 10: 22.8629)  -> REPRODUCED
+   dionis                                    -4.555444555445   -4.5554   -4.5554   3.44   3.44        141        141   N  REPRODUCED
+      arm means bayes_sec 50.9690, bayes_sec_g 60.9391, bayes 46.2338, bayes_s1 2.4975, eq 63.5764 (pinned 50.9690, 60.9391, 46.2338, 2.4975, 63.5764); grid line(s) equal True; transferred lambda 10: 48.3117 (pinned 10: 48.3117)  -> REPRODUCED
+   fabert                                    -3.836163836164   -3.8362   -3.8362   1.00   1.00       14.1       14.1   N  REPRODUCED
+      arm means bayes_sec 15.3846, bayes_sec_g 19.1209, bayes 19.0609, bayes_s1 0.0000, eq 18.9411 (pinned 15.3846, 19.1209, 19.0609, 0.0000, 18.9411); grid line(s) equal True; transferred lambda 10: 19.2008 (pinned 10: 19.2008)  -> REPRODUCED
+   helena                                    -0.380000000000   -0.3800   -0.3800   2.97   2.97       8.49       8.49   Y  REPRODUCED
+      arm means bayes_sec 13.6800, bayes_sec_g 13.6800, bayes 13.0000, bayes_s1 13.5000, eq 14.3800 (pinned 13.6800, 13.6800, 13.0000, 13.5000, 14.3800); grid line(s) equal True; transferred lambda 10: 11.0200 (pinned 10: 11.0200)  -> REPRODUCED
+   jannis                                    -2.940000000000   -2.9400   -2.9400  15.33  15.33         60         60   Y  REPRODUCED
+      arm means bayes_sec 19.2400, bayes_sec_g 19.2400, bayes 19.0000, bayes_s1 19.2400, eq 18.3400 (pinned 19.2400, 19.2400, 19.0000, 19.2400, 18.3400); grid line(s) equal True; transferred lambda 10: 18.2600 (pinned 10: 18.2600)  -> REPRODUCED
+   volkert                                   +0.720000000000   +0.7200   +0.7200   1.00   1.00          6          6   Y  REPRODUCED
+      arm means bayes_sec 6.4800, bayes_sec_g 6.4800, bayes 5.0000, bayes_s1 0.0000, eq 6.8000 (pinned 6.4800, 6.4800, 5.0000, 0.0000, 6.8000); grid line(s) equal True; transferred lambda 10: 3.7400 (pinned 10: 3.7400)  -> REPRODUCED
+SEC3-3-GR the guarded arm (bayes_sec_g, GUARD 1.0) not behind: pinned 6/6, recomputed 6/6; per-carrier margins equal True  -> REPRODUCED
+SEC3-4 spans of the tuned lambda (raw, calibrated): pinned ('23.50', '30.00'), recomputed ('23.50', '30.00')  -> REPRODUCED
+SEC3-S flips of 'not behind' (bayes_sec; cells [(0.0, 0.1, 0.2), (0.0, 0.2, 0.1), (0.0, 0.2, 0.2)]): pinned 2 of 18, recomputed 2 of 18  -> REPRODUCED
+SEC3-S-GR flips of 'not behind' (bayes_sec_g; cells [(0.5, 0.1, 0.1), (1.0, 0.1, 0.2), (1.0, 0.2, 0.1), (1.0, 0.2, 0.2)]): pinned 0 of 24, recomputed 0 of 24  -> REPRODUCED
+SEC3-T transferred lambda behind on B: pinned ['dionis', 'helena', 'volkert'], bayes_sec not behind 2/3; recomputed ['dionis', 'helena', 'volkert'], 2/3  -> REPRODUCED
+
+======================================================================================================================
+SEC4  (SEC4-1; headline arm bayes_sec_clip; runs/sec4/score.txt)
+======================================================================================================================
+headline counts                                        DECLARED  PINNED  RECOMPUTED
+   carriers scored                                            6       6           6  -> REPRODUCED
+   SEC4-1 bayes_sec_clip not behind                           6       6           6  -> REPRODUCED
+   unguarded SEC (bayes_sec) not behind                       3       3           3  -> REPRODUCED
+   raw Laplace (bayes) not behind                             1       1           1  -> REPRODUCED
+   the rule Ω=1 (eq 1.0) not behind                           5       5           5  -> REPRODUCED
+per carrier: bayes_sec_clip − tuned lambda (full precision | 4 dp | pinned), step (2 dp | pinned), tuned lambda (recomputed | pinned), and the block checks
+   carrier                                     margin (full)      4 dp    pinned   step pinned      tuned     pinned  nb  verdict
+   JapaneseVowels                            +2.562562562563   +2.5626   +2.5626   1.00   1.00         10         10   Y  REPRODUCED
+      arm means bayes_sec_clip 29.8298, bayes_sec 29.8298, bayes 25.5656, eq 28.1081 (pinned 29.8298, 29.8298, 25.5656, 28.1081); grid line(s) equal True; transferred lambda 30: 26.7267 (pinned 30: 26.7267)  -> REPRODUCED
+   anneal                                    +5.505617977528   +5.5056   +5.5056   5.63   5.63       42.3       42.3   Y  REPRODUCED
+      arm means bayes_sec_clip 82.3596, bayes_sec 70.4494, bayes 65.1685, eq 57.9775 (pinned 82.3596, 70.4494, 65.1685, 57.9775); grid line(s) equal True; transferred lambda 30: 75.7303 (pinned 30: 75.7303)  -> REPRODUCED
+   artificial-characters                     +0.559440559441   +0.5594   +0.5594   1.96   1.96       14.1       14.1   Y  REPRODUCED
+      arm means bayes_sec_clip 15.2248, bayes_sec 15.2248, bayes 12.4675, eq 14.8052 (pinned 15.2248, 15.2248, 12.4675, 14.8052); grid line(s) equal True; transferred lambda 30: 14.4855 (pinned 30: 14.4855)  -> REPRODUCED
+   cardiotocography                          +1.037735849057   +1.0377   +1.0377   1.00   1.00     7092.2     7092.2   Y  REPRODUCED
+      arm means bayes_sec_clip 99.9057, bayes_sec 68.9623, bayes 88.6321, eq 99.1038 (pinned 99.9057, 68.9623, 88.6321, 99.1038); grid line(s) equal True; transferred lambda 30: 88.8679 (pinned 30: 88.8679)  -> REPRODUCED
+   gas-drift                                 +2.182182182182   +2.1822   +2.1822   2.59   2.59       28.3       28.3   Y  REPRODUCED
+      arm means bayes_sec_clip 48.9890, bayes_sec 48.9890, bayes 44.2843, eq 48.4484 (pinned 48.9890, 48.9890, 44.2843, 48.4484); grid line(s) equal True; transferred lambda 30: 44.2242 (pinned 30: 44.2242)  -> REPRODUCED
+   synthetic_control                         +3.500000000000   +3.5000   +3.5000   3.59   3.59       4230       4230   Y  REPRODUCED
+      arm means bayes_sec_clip 48.3333, bayes_sec 38.6667, bayes 38.3333, eq 46.3333 (pinned 48.3333, 38.6667, 38.3333, 46.3333); grid line(s) equal True; transferred lambda 30: 38.5000 (pinned 30: 38.5000)  -> REPRODUCED
+SEC4-T transferred lambda behind: pinned 2 carriers (NOT DECIDABLE), recomputed 2 ['cardiotocography', 'synthetic_control']  -> REPRODUCED
+SEC4-2 diverged (a seed below half the tuned accuracy): bayes_sec_clip pinned [], recomputed []; bayes_sec pinned ['anneal', 'cardiotocography', 'synthetic_control'], recomputed ['anneal', 'cardiotocography', 'synthetic_control']  -> REPRODUCED
+   (report) with the records' non-finite flags added (sec_lib.arm_diverged): bayes_sec_clip []; bayes_sec ['anneal', 'cardiotocography', 'synthetic_control']
+SEC4-S flips of 'not behind' (bayes_sec_clip; cells [(0.5, 0.1, 0.2), (0.5, 0.2, 0.1), (0.5, 0.2, 0.2)]): pinned 0 of 18, recomputed 0 of 18  -> REPRODUCED
+
+======================================================================================================================
+SEC5  (SEC5-1; headline arm bayes_sec_clip; runs/sec5/score.txt)
+======================================================================================================================
+headline counts                                        DECLARED  PINNED  RECOMPUTED
+   carriers scored                                            8       8           8  -> REPRODUCED
+   SEC5-1 bayes_sec_clip not behind                           4       4           4  -> REPRODUCED
+   unguarded SEC (bayes_sec) not behind                       -       4           4  -> REPRODUCED
+   raw Laplace (bayes) not behind                             -       4           4  -> REPRODUCED
+   the rule Ω=1 (eq 1.0) not behind                           -       4           4  -> REPRODUCED
+per carrier: bayes_sec_clip − tuned lambda (full precision | 4 dp | pinned), step (2 dp | pinned), tuned lambda (recomputed | pinned), and the block checks
+   carrier                                     margin (full)      4 dp    pinned   step pinned      tuned     pinned  nb  verdict
+   Indian_pines                              -6.793206793207   -6.7932   -6.7932   5.21   5.21         20         20   N  REPRODUCED
+      arm means bayes_sec_clip 48.2717, bayes_sec 48.2717, bayes 44.4955, eq 10.6893 (pinned 48.2717, 48.2717, 44.4955, 10.6893); grid line(s) equal True; transferred lambda 100: 1.8981 (pinned 100: 1.8981)  -> REPRODUCED
+   Kuzushiji-MNIST                           +5.200000000000   +5.2000   +5.2000   1.33   1.33        300        300   Y  REPRODUCED
+      arm means bayes_sec_clip 30.8800, bayes_sec 30.8800, bayes 22.4400, eq 28.9800 (pinned 30.8800, 30.8800, 22.4400, 28.9800); grid line(s) equal True; transferred lambda 30: 22.9000 (pinned 30: 22.9000)  -> REPRODUCED
+   autoUniv-au6-750                          -0.397350993377   -0.3974   -0.3974   1.64   1.64   0.035336   0.035336   Y  REPRODUCED
+      arm means bayes_sec_clip 7.6821, bayes_sec 7.6821, bayes 8.0795, eq 7.5497 (pinned 7.6821, 7.6821, 8.0795, 7.5497); grid line(s) equal True; transferred lambda 100: 0.0000 (pinned 100: 0.0000)  -> REPRODUCED
+   microaggregation2                         -4.115884115884   -4.1159   -4.1159  15.52  15.52         60         60   Y  REPRODUCED
+      arm means bayes_sec_clip 13.4865, bayes_sec 13.4865, bayes 13.4865, eq 13.4665 (pinned 13.4865, 13.4865, 13.4865, 13.4665); grid line(s) equal True; transferred lambda 30: 15.2248 (pinned 30: 15.2248)  -> REPRODUCED
+   pokerhand                                -28.240000000000  -28.2400  -28.2400   1.82   1.82        100        100   N  REPRODUCED
+      arm means bayes_sec_clip 15.2200, bayes_sec 15.2200, bayes 11.3200, eq 8.4400 (pinned 15.2200, 15.2200, 11.3200, 8.4400); grid line(s) equal True; transferred lambda 30: 29.5800 (pinned 30: 29.5800)  -> REPRODUCED
+   spoken-arabic-digit                       -0.020000000000   -0.0200   -0.0200   1.00   1.00   0.212766   0.212766   Y  REPRODUCED
+      arm means bayes_sec_clip 9.8600, bayes_sec 9.8600, bayes 9.8400, eq 9.7600 (pinned 9.8600, 9.8600, 9.8400, 9.7600); grid line(s) equal True; transferred lambda 100: 0.0000 (pinned 100: 0.0000)  -> REPRODUCED
+   volcanoes-d4                             -88.908908908909  -88.9089  -88.9089   1.00   1.00       1000       1000   N  REPRODUCED
+      arm means bayes_sec_clip 6.0861, bayes_sec 16.2763, bayes 5.3053, eq 5.3654 (pinned 6.0861, 16.2763, 5.3053, 5.3654); grid line(s) equal True; transferred lambda 30: 9.1291 (pinned 30: 9.1291)  -> REPRODUCED
+   walking-activity                          -2.560000000000   -2.5600   -2.5600   1.14   1.14   0.212766   0.212766   N  REPRODUCED
+      arm means bayes_sec_clip 11.0400, bayes_sec 11.0400, bayes 12.6200, eq 11.3200 (pinned 11.0400, 11.0400, 12.6200, 11.3200); grid line(s) equal True; transferred lambda 100: 0.0000 (pinned 100: 0.0000)  -> REPRODUCED
+SEC5-T transferred lambda behind on B: pinned ['Indian_pines', 'Kuzushiji-MNIST', 'autoUniv-au6-750', 'pokerhand', 'spoken-arabic-digit', 'volcanoes-d4', 'walking-activity'], bayes_sec_clip not behind 3/7; recomputed ['Indian_pines', 'Kuzushiji-MNIST', 'autoUniv-au6-750', 'pokerhand', 'spoken-arabic-digit', 'volcanoes-d4', 'walking-activity'], 3/7  -> REPRODUCED
+SEC5-2 diverged (a seed below half the tuned accuracy): bayes_sec_clip pinned ['pokerhand', 'volcanoes-d4'], recomputed ['pokerhand', 'volcanoes-d4']; bayes_sec pinned ['pokerhand', 'volcanoes-d4'], recomputed ['pokerhand', 'volcanoes-d4']  -> REPRODUCED
+   (report) with the records' non-finite flags added (sec_lib.arm_diverged): bayes_sec_clip ['pokerhand', 'volcanoes-d4']; bayes_sec ['pokerhand', 'volcanoes-d4']
+SEC5-S flips of 'not behind' (bayes_sec_clip; cells [(0.25, 0.1, 0.1), (0.5, 0.1, 0.2), (0.5, 0.2, 0.1), (0.5, 0.2, 0.2), (1.0, 0.1, 0.1)]): pinned 0 of 40, recomputed 0 of 40  -> REPRODUCED
+
+======================================================================================================================
+carriers scored 42 (sec1 12, scl3 10, sec3 6, sec4 6, sec5 8); loader-excluded 8 (sec1 0, scl3 0, sec3 1, sec4 3, sec5 4)
+checks REPRODUCED 122, DIFFERS 0
+loader check: every pinned count REPRODUCED; the analyses may be read

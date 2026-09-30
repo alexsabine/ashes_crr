@@ -1,0 +1,85 @@
+SEC6 carrier selection (SEC4's rule) from OpenML suites 454 (New_OpenML_Suite_2025_classification), 445 (IRT Diverse Dataset Benchmark), pooled in that order until >= 8 eligible; cap 12 by a seeded draw; metadata saved in prereg/sec6/
+OpenML ids listed in data/SEEN.md: 51
+study 454: 77 datasets in the data list
+    43136 ACSIncome                            v1 rows 1664500 features    12 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    43138 ACSPublicCoverage                    v1 rows 1138289 features    19 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46745 Advanced_IoT_Dataset                 v1 rows   30000 features    14 classes   6 missing       0 K requested  6 -> ELIGIBLE
+    46737 agriculture_dataset_karnataka        v1 rows    3158 features    12 classes  13 missing      58 K requested 10 -> ELIGIBLE
+    46762 air-quality-and-pollution-assessment v1 rows    5000 features    10 classes   4 missing       0 K requested  4 -> ELIGIBLE
+    46648 AVIDa-hIL6                           v1 rows  573891 features     4 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46647 AVIDa-SARS-CoV-2                     v1 rows    3733 features     6 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46646 BAF_base                             v1 rows 1000000 features    32 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46641 BAF_variant_I                        v1 rows 1000000 features    32 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46642 BAF_variant_II                       v1 rows 1000000 features    32 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46643 BAF_variant_III                      v1 rows 1000000 features    34 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46644 BAF_variant_IV                       v1 rows 1000000 features    32 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46645 BAF_variant_V                        v1 rows 1000000 features    34 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46633 BNP_Paribas_Cardif_Claims_Management v2 rows  114321 features   133 classes   0 missing 5097471 K requested  0 -> excluded (0 classes (< 4))
+    46610 bone_marrow_transplant_children      v1 rows     187 features    37 classes   0 missing      81 K requested  0 -> excluded (0 classes (< 4))
+    46598 cdc_diabetes                         v1 rows  253680 features    22 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46592 Cervical_Cancer_Risk_Factors         v1 rows     858 features    33 classes   0 missing    3622 K requested  0 -> excluded (0 classes (< 4))
+    46601 Cirrhosis_Patient_Survival_Predictio v1 rows     418 features    18 classes   3 missing     965 K requested  2 -> excluded (3 classes (< 4))
+    46674 college_scorecard                    v1 rows  124699 features   119 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    44162 compass                              v3 rows   16644 features    18 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46606 darwin                               v1 rows     174 features   452 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46664 data_scientist_salary                v1 rows   15841 features     7 classes   6 missing   15520 K requested  6 -> ELIGIBLE
+    46750 Dataset-Mental-Disorders             v1 rows     120 features    19 classes   4 missing       0 K requested  4 -> excluded (120 rows (< 400))
+    46686 DBPedia                              v1 rows  342781 features     4 classes 219 missing       0 K requested 10 -> ELIGIBLE
+    46649 DDXPlus                              v1 rows 1292579 features     6 classes  49 missing       0 K requested 10 -> excluded (1292579 rows (> 1000000))
+    46757 depression_2020                      v1 rows    1429 features    23 classes   0 missing      20 K requested  0 -> excluded (0 classes (< 4))
+    46733 diabetes_risk_prediction_dataset     v1 rows     520 features    17 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46605 differentiated_thyroid_cancer_recurr v1 rows     383 features    17 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46756 divorce_prediction                   v1 rows     170 features    55 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46608 drug_reviews_druglib_com             v1 rows    4143 features     8 classes 541 missing      12 K requested 10 -> ELIGIBLE
+    46683 Dynamically-Generated-Hate-Speech-Da v1 rows   41144 features    13 classes   2 missing   11054 K requested  2 -> excluded (2 classes (< 4))
+    46597 Estimation_of_Obesity_Levels         v1 rows    2111 features    17 classes   7 missing       0 K requested  6 -> ELIGIBLE
+    46655 fake_job_postings2                   v1 rows   12725 features     6 classes   0 missing   21193 K requested  0 -> excluded (0 classes (< 4))
+    46635 Fetal_cardiotocography_dataset       v2 rows    2126 features    40 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46692 funpedia                             v1 rows   29819 features     4 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46604 glioma_grading_clinical_and_mutation v1 rows     839 features    24 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46593 HCV_data                             v1 rows     615 features    13 classes   5 missing      31 K requested  4 -> ELIGIBLE
+    46607 hepatitis_c_virus_hcv_for_egyptian_p v1 rows    1385 features    29 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46684 HolisticBias                         v1 rows  472991 features    15 classes   4 missing     780 K requested  4 -> ELIGIBLE
+    46636 Homesite_Quote_Conversion            v1 rows  260753 features   299 classes   0 missing  326623 K requested  0 -> excluded (0 classes (< 4))
+    46637 IEEE-CIS_Fraud_Detection             v1 rows  590540 features   457 classes   0 missing 129105493 K requested  0 -> excluded (0 classes (< 4))
+    46760 Indicators_of_Anxiety_or_Depression  v1 rows   16092 features    14 classes   3 missing    8358 K requested  2 -> excluded (3 classes (< 4))
+    46654 jigsaw_unintended_bias100K           v1 rows  100000 features    45 classes   2 missing 1902953 K requested  2 -> excluded (2 classes (< 4))
+    46668 kick_starter_funding                 v1 rows   86502 features    10 classes   0 missing       7 K requested  0 -> excluded (0 classes (< 4))
+    46640 LICD                                 v2 rows   63634 features   581 classes   0 missing 33545438 K requested  0 -> excluded (0 classes (< 4))
+    46600 maternal_health_risk                 v1 rows    1014 features     7 classes   3 missing       0 K requested  2 -> excluded (3 classes (< 4))
+    46721 Mental_Health_Dataset                v1 rows  292364 features    17 classes   5 missing    5202 K requested  4 -> ELIGIBLE
+    46761 mental_health_detection              v1 rows     540 features    16 classes  10 missing       0 K requested 10 -> ELIGIBLE
+    46719 mental-health-in-tech-survey         v3 rows    1259 features    27 classes   2 missing    1892 K requested  2 -> excluded (2 classes (< 4))
+    46678 mimic_extract_los_3                  v1 rows 4156450 features    19 classes  79 missing 4797904 K requested 10 -> excluded (4156450 rows (> 1000000))
+    46652 news_channel                         v1 rows   20284 features    18 classes   6 missing       0 K requested  6 -> ELIGIBLE
+    46720 OSMI_Mental_Health_in_Tech_Survey    v1 rows    1433 features    63 classes   3 missing   21961 K requested  2 -> excluded (3 classes (< 4))
+    46722 Phishing_Legitimate_full             v1 rows   10000 features    50 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46677 physionet_sepsis                     v1 rows 1552210 features    44 classes   0 missing 43512155 K requested  0 -> excluded (0 classes (< 4))
+    46758 PostPartum_Depression                v1 rows    1503 features    11 classes   2 missing      27 K requested  2 -> excluded (2 classes (< 4))
+    46602 Predicting_Risk_Factors_of_Chronic_K v1 rows     200 features    29 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46651 product_sentiment_machine_hack       v1 rows    5091 features     5 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46585 QSAR_Bioconcentration_classification v1 rows     779 features    13 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46681 REASONER                             v1 rows   58497 features    35 classes   0 missing      59 K requested  0 -> excluded (0 classes (< 4))
+    46603 regensburg_pediatric_appendicitis    v1 rows     782 features    56 classes   5 missing   13984 K requested  4 -> ELIGIBLE
+    44160 rl                                   v4 rows    4970 features    13 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    44161 road-safety                          v6 rows  111762 features    33 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46634 Santander_Customer_Satisfaction      v1 rows   76020 features   371 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    42395 SantanderCustomerSatisfaction        v1 rows  200000 features   202 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46609 sepsis_survival_minimal_clinical_rec v1 rows  110341 features     4 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+    46630 Skin_Cancer_PAD-UFES-20              v1 rows    2298 features    26 classes   2 missing   10484 K requested  2 -> excluded (2 classes (< 4))
+    46709 SOCC                                 v1 rows    1043 features    16 classes  14 missing    2641 K requested 10 -> ELIGIBLE
+    46701 social_bias_frames                   v1 rows  147139 features    19 classes   4 missing  784148 K requested  4 -> ELIGIBLE
+    46753 student_depression_dataset           v1 rows   27901 features    18 classes   0 missing       3 K requested  0 -> excluded (0 classes (< 4))
+    46752 student_lifestyle_dataset            v1 rows    2000 features     8 classes   3 missing       0 K requested  2 -> excluded (3 classes (< 4))
+    46584 Student_Performance_on_an_Entrance_E v1 rows     666 features    12 classes   4 missing       0 K requested  4 -> ELIGIBLE
+    46628 Support2                             v1 rows    9105 features    47 classes   0 missing   47110 K requested  0 -> excluded (0 classes (< 4))
+    46611 toxicity                             v1 rows     171 features  1204 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+    46650 US_Accidents_March23                 v1 rows 7728394 features    46 classes   0 missing 12840498 K requested  0 -> excluded (0 classes (< 4))
+    46676 WBCAtt                               v1 rows   10298 features    12 classes   5 missing       0 K requested  4 -> ELIGIBLE
+    46708 Wikipedia_Talk_Labels                v1 rows  855514 features    13 classes  16 missing  727142 K requested 10 -> ELIGIBLE
+    46653 wine_reviews                         v2 rows   84123 features     6 classes  30 missing    5644 K requested 10 -> ELIGIBLE
+   pool after study 454: 19 eligible
+study 445: not needed (the pool already holds 19 >= 8)
+pool 19 > cap 12: kept by the seeded draw (default_rng(20261001) over the sorted ids): [46584, 46593, 46597, 46603, 46652, 46653, 46676, 46686, 46708, 46721, 46737, 46762]
+suites used: [454]; chosen (12): 46584 Student_Performance_on_an_Entrance_Examination K 4; 46593 HCV_data K 4; 46597 Estimation_of_Obesity_Levels K 6; 46603 regensburg_pediatric_appendicitis K 4; 46652 news_channel K 6; 46653 wine_reviews K 10; 46676 WBCAtt K 4; 46686 DBPedia K 10; 46708 Wikipedia_Talk_Labels K 10; 46721 Mental_Health_Dataset K 4; 46737 agriculture_dataset_karnataka K 10; 46762 air-quality-and-pollution-assessment K 4
+DATASETS = {46584: ('Student_Performance_on_an_Entrance_Examination', 4, 2), 46593: ('HCV_data', 4, 2), 46597: ('Estimation_of_Obesity_Levels', 6, 2), 46603: ('regensburg_pediatric_appendicitis', 4, 2), 46652: ('news_channel', 6, 2), 46653: ('wine_reviews', 10, 2), 46676: ('WBCAtt', 4, 2), 46686: ('DBPedia', 10, 2), 46708: ('Wikipedia_Talk_Labels', 10, 2), 46721: ('Mental_Health_Dataset', 4, 2), 46737: ('agriculture_dataset_karnataka', 10, 2), 46762: ('air-quality-and-pollution-assessment', 4, 2)}
