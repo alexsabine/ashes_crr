@@ -54,3 +54,13 @@ source found:
 - the published sources report the raw weight failing.
 
 The finding did not replicate in SEC5.
+
+**Addendum 2026-09-30.** The pooled 23/30 above needs to be read beside one more count. On the same 30 held-out carriers,
+a learner frozen after task 1 is not behind the tuned λ on 24/30 (`SEC_Analysis/checks/m_checks.txt`; the SEC_Analysis
+must-fail control M6).
+- So on these streams the criterion does not separate the calibrated weight from a learner that stops learning.
+- The raw weight's 14/30 still differs from the calibrated 23/30 on that criterion, but neither count shows that a weight
+  learns well.
+
+See `SEC_Analysis/WHY_SEC4_WORKED.md` and the post hoc ledger rows SCL3-3-G, SEC3-3-G, SEC4-1-G and SEC5-1-G. Of these,
+only SCL3-3's gate is OPEN.

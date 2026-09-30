@@ -71,3 +71,18 @@ van de Ven report the tuned λ (λ = 3; 100–1000; 10–1000; orders of magnitu
 That is a replication against published numbers, not our own sweep. The benchmarks are MNIST-family and CIFAR, which
 are SEEN in this repository, so it would be confirmatory on seen data (rung R5) unless an unseen benchmark with a
 published tuned λ is found first.
+
+## Addendum 2026-09-30: the criterion itself
+
+The table above quotes the held-out rows as scored. One count on the same 30 carriers changes how they read. A learner
+frozen after task 1 (the must-fail control M6 in `SEC_Analysis/`) is not behind the tuned λ on **24/30**
+(`SEC_Analysis/checks/m_checks.txt`), one more than the calibrated weight's pooled 23/30.
+- **SEC4 on its own:** the frozen learner is not behind on 5 of SEC4's 6 carriers (SEC4-1-G). SEC6's later rule, applied
+  after the fact, would print SEC4-1 UNINFORMATIVE.
+- **Only SCL3's carriers leave the criterion able to fail** (SCL3-3-G: 7/10, need 8).
+- **Point 1 above still holds.** The raw textbook weight is behind the tuned λ where the literature says it is.
+- **The calibrated weight's 23/30 does not show a weight that learns well.** On these class-incremental streams, "not
+  behind the tuned λ" is met by a learner that stops after task 1. A random class order with balanced accuracy did not
+  repair this (SEC7-A, GATE CLOSED).
+- **The cause:** the loader ranks classes by count, so task 1 holds the two largest (`SEC_Analysis/WHY_SEC4_WORKED.md`).
+- **For the proposal above,** the external test would need a criterion that the frozen learner fails.

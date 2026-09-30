@@ -108,3 +108,29 @@ and the DGX H100 user guide; the Uptime Institute 2025 survey; Google's efficien
 
 The IEA revised its 2030 data-centre figure from ~945 to ~950 TWh in April 2026. The model keeps Declaration 2's factors
 unchanged, as declared.
+
+## Addendum 2026-09-30: the premise after SEC5 and SEC4-1-G (figures not re-pinned)
+
+The figures above are unchanged; they quote their own pinned output. Since they were pinned, the ledger shows three
+things that weaken the premise they rest on.
+
+1. **SEC4-1 did not replicate.** SEC5-1 (the replication on a fourth unseen family) FAILS: the clipped SEC is not behind
+   the tuned λ on 4/8, need 6. SEC5-2 FAILS too. SEC4-1 therefore stays a single-family PASS-1, and no PASS-2 exists.
+2. **The criterion could not fail on SEC4's carriers.** SEC4-1-G is a post hoc report, not a re-score. It applies SEC6's
+   later instrument rule. A learner frozen after task 1 is not behind the tuned λ on 5 of SEC4's 6 carriers (need 5), so
+   under that rule SEC4-1 would be printed UNINFORMATIVE.
+   - Across the 30 held-out carriers of SCL3, SEC3, SEC4 and SEC5, the frozen learner is not behind on 24/30
+     (`SEC_Analysis/checks/m_checks.txt`).
+   - The cause is traced in `SEC_Analysis/WHY_SEC4_WORKED.md`: the loader ranks classes by count, and task 1 holds the two
+     largest.
+3. **A random class order with balanced accuracy does not repair it** (SEC7-A, GATE CLOSED). The frozen learner is behind
+   the tuned λ on only 13/30 of the SEEN carriers.
+
+**What this means for this note.** The saving per sweep, s = 0.9412, assumes that one SEC configuration replaces the
+17-point sweep without loss. The only evidence for "without loss" is the criterion "not behind the tuned λ". On these
+streams that criterion does not separate SEC from a learner that stops learning after task 1. So the record does not
+currently support the premise, and the figures above are an arithmetic on an unsupported premise, not an estimate of a
+saving.
+
+Following AGENT_LOG 188, the script is not re-pinned. A re-estimate needs its own declaration and a criterion that can
+fail. SEC6 (data step 2026-10-01) carries that check as its instrument gate SEC6-G.
