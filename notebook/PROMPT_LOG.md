@@ -1731,3 +1731,7 @@ What do you mean, in simple terms/
 Apply CRR to solving this "replay-quality memory" problem. You are at liberty to search online for the frontier methods, using CRR as a heuristic to determine the bottlenecks. Find ways to use CRR to resolve these bottlenecks then we continue the pipeline testing to try to achieve a Pass-1.
 
 Thank you
+
+## 246 — 2026-09-30T02:38:13Z
+
+Please tell me precisely where the test was mixed or redundant and why crr failed to resolve the bottleneck
