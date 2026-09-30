@@ -9,7 +9,8 @@ POST HOC on SEEN records. No ledger row; no word here is a PASS. It reads, and n
   claims_a11.py      the published sources (fetched 2026-09-30, versions there) and verify_a11.txt, the PINNED verbatim check
                      (a claim counts only if every one of its quotes is PASS there; the raw texts are outside the repository)
   sec_lib.load_all() the pinned run records of the 42 carriers (validated first: loader_check.txt)
-  m_checks.json      the mechanism checks M0-M4 (checks/m_checks.py), IF it exists; otherwise every M line prints pending
+  m_checks.json      the mechanism checks M0-M4 (checks/m_checks.py; M5, M6 of Amendment 2 when present), IF it exists;
+                     otherwise every M line prints pending
 
 Per ingredient of SEC's code (W the weight 1/2, N the task-size weighting and single accumulated penalty, F the per-sample
 empirical Fisher, E the empirical Fisher's scale error (the premise), C the secant c_j, R rho_j, S the calibration
@@ -178,7 +179,7 @@ CLAUSES = [
     ("A3/D5", ["The cut fires when the phase has advanced half a turn from the last cut", "**[D5] Occasion.** The interval between consecutive cuts."],
      "a cut at the antipode of an intrinsic phase",
      "boundaries are the label schedule (T's statement found: {T}); calls to antipodal_cuts / intrinsic_phase: {ph}",
-     lambda: not (all(has(f, l) for f, l in ING["T"][3]) and not any({"antipodal_cuts", "intrinsic_phase"} & calls(f) for f in FN))),
+     lambda: not (all(has(f, ln) for f, ln in ING["T"][3]) and not any({"antipodal_cuts", "intrinsic_phase"} & calls(f) for f in FN))),
     ("A6", ["The successor state is the Fisher–Rao Fréchet mean of past occasion contents", "regeneration returns a reweighted content, never an accumulated count"],
      "anchor = Fisher-Rao Frechet mean of past occasion contents under MaxEnt weights, strength bounded, never an accumulated count",
      "anchor theta_star = theta_now (the last task end) found: {anc}; importance accumulated over tasks (imp_bayes += n_task s f_task) found: {accu}",
@@ -190,7 +191,7 @@ CLAUSES = [
     ("A1'/D1", ["take σ = 1.4826·MAD(residual) with no additive floor", "**[D1] Resolution.** ρ := (extent of one monotone half-turn) / σ"],
      "sigma = 1.4826 MAD of ONE occasion statistic; rho = half-turn extent / sigma, reported, never in a threshold",
      "calls into the CRR instrument (unit_sigma, rho, ...): {crr}; names sigma/mad in the code: {sig}; the code's rho is the Fisher Rayleigh quotient (R found: {R})",
-     lambda: not (NO_CRR_CALLS and not any(SIGMA_NAMES.values()) and all(has(f, l) for f, l in ING["R"][3]))),
+     lambda: not (NO_CRR_CALLS and not any(SIGMA_NAMES.values()) and all(has(f, ln) for f, ln in ING["R"][3]))),
     ("H-L5", ["CV( C_m ) < CV( Δt_m )"], "CV of arc against CV of clock between own events",
      "calls to regularity / cv: {reg}",
      lambda: any({"regularity", "cv"} & calls(f) for f in FN)),
@@ -201,7 +202,7 @@ CLAUSES = [
     ("H-EQ", ["w = Ω · ‖ḡ_present‖_F / ‖ḡ_past‖_F,   Ω = 1"],
      "a weight set per step from the ratio of smoothed gradient norms",
      "SEC's weight is the constant BAYES_W (W's statements found: {W}); the norm ratio exists only in run()'s mode 'eq' (a comparison arm): {eqm}",
-     lambda: not (all(has(f, l) for f, l in ING["W"][3][:1] + ING["W"][3][3:4]) and EQ_ONLY_IN_EQ_MODE)),
+     lambda: not (all(has(f, ln) for f, ln in ING["W"][3][:1] + ING["W"][3][3:4]) and EQ_ONLY_IN_EQ_MODE)),
     ("A7/A8", ["What is future for a system can only be fed by what is already past for something.", "**[A8] No valence, no certainty.**"],
      "prohibitions (no operation to perform)",
      "window sums reset at every task start (found: {reset}): the calibration uses only the task's own settled steps, as every online learner does",
@@ -242,7 +243,7 @@ def _nk(k):
 def _match(d, arm):
     if not isinstance(d, dict):
         return None
-    pref = {"C0": ("c0",), "M1": ("m1",), "M2": ("m2",), "M3": ("m3", "bayess1"), "M4": ("m4",)}[arm]
+    pref = {"C0": ("c0",), "M1": ("m1",), "M2": ("m2",), "M3": ("m3", "bayess1"), "M4": ("m4",), "M5": ("m5",), "M6": ("m6",)}[arm]
     for k in sorted(d, key=str):
         if any(_nk(k).startswith(p) for p in pref):
             return d[k]
@@ -279,7 +280,7 @@ def m_results(D):
     p42 = J.get("pinned42") if isinstance(J.get("pinned42"), dict) else {}
     conts = [J.get(k) for k in ("not_behind", "arms", "counts", "summary")] + [p42.get("not_behind"), J]
     nb = {}
-    for arm in ("C0", "M1", "M2", "M3", "M4"):
+    for arm in ("C0", "M1", "M2", "M3", "M4", "M5", "M6"):
         for c in conts:
             v = _nb(_match(c, arm))
             if v is not None:
@@ -331,10 +332,10 @@ def main():
     print(f"   constants: LR {LR}, BS {BS}, N_FISHER {N_FISHER}, BAYES_W {BAYES_W}, FS {FS}, FE {FE}, DTH_FLOOR {DTH_FLOOR}, KAPPA {KAPPA}")
     n_found = n_lines = 0
     for iid, name, home, lines in INGREDIENTS:
-        f = [has(fn, l) for fn, l in lines]; n_found += sum(f); n_lines += len(f)
+        f = [has(fn, ln) for fn, ln in lines]; n_found += sum(f); n_lines += len(f)
         print(f"   {iid}  {name}")
-        for (fn, l), ok in zip(lines, f):
-            print(f"        {'found' if ok else 'NOT FOUND':9} {fn:9} {l}")
+        for (fn, ln), ok in zip(lines, f):
+            print(f"        {'found' if ok else 'NOT FOUND':9} {fn:9} {ln}")
         if not lines:
             print("        (a premise, not a statement of the code; its evidence is the recorded s_j below)")
     print(f"   code statements found verbatim: {n_found} of {n_lines}")
@@ -342,8 +343,8 @@ def main():
     print("\n[2] COMPUTED CODE FACTS")
     print(f"   per-step accumulators (AugAssign targets) in the training step loop: run {ACC['run']}; run_guard {ACC['run_guard']}")
     print(f"   -> the path enters the secant only through the START-window sums (s_th, s_g) and the END-window sums (e_th, e_g): {WINDOW_ONLY}")
-    print(f"   -> c_j and rho_j are functions of dth = mean(END theta) - mean(START theta) and dg = mean(END g) - mean(START g): a CHORD between two window means;")
-    print(f"      no per-step length is summed, so the secant is not D2's arc (nor D6's sum of sqrt(2 KL)); the metric in c_j is Euclidean, so it is not D3's Fisher-Rao chord either")
+    print("   -> c_j and rho_j are functions of dth = mean(END theta) - mean(START theta) and dg = mean(END g) - mean(START g): a CHORD between two window means;")
+    print("      no per-step length is summed, so the secant is not D2's arc (nor D6's sum of sqrt(2 KL)); the metric in c_j is Euclidean, so it is not D3's Fisher-Rao chord either")
     print(f"   window share of a task's steps entering the secant: FS + FE = {FS + FE:.2f} (plus at most one step per window from the ceiling); the middle {1 - FS - FE:.2f} of the path is not read")
     print(f"   calls from run()/run_guard() into the CRR instrument ({CORE}: {len(CORE_FUNCS)} functions): run {CRR_CALLS['run']}, run_guard {CRR_CALLS['run_guard']}")
     print(f"   names sigma / mad / sig / unit in the code: run {SIGMA_NAMES['run']}, run_guard {SIGMA_NAMES['run_guard']}")
@@ -352,22 +353,24 @@ def main():
     cap = KAPPA / (LR * BAYES_W); ar1_at_cap = LR * 2 * BAYES_W * cap; euler_edge = 2 / (LR * 2 * BAYES_W)
     print(f"   the clip: cap = KAPPA / (LR BAYES_W) = {cap:g}; SEC's penalty step is lr w g_q = lr 2 w imp dth, so AR1's 'eta lambda F' is lr 2 w imp;")
     print(f"      at the cap lr 2 w imp = {ar1_at_cap:.12g} (AR1's overshoot edge is 1: equal {abs(ar1_at_cap - 1) < 1e-12}); explicit-Euler divergence at imp = {euler_edge:g} (lr w imp = 1 = 2 KAPPA)")
+    print(f"      a capped coordinate's offset from the anchor is multiplied by 1 - lr 2 w cap = {1 - ar1_at_cap:.12g} per step: each step resets it to -lr g_p alone")
+    print("      (the correction is exact, AR1's edge at equality; the 'freeze' of DECLARATION.md Amendment 2, tested by M5 and M6)")
     print(f"   the H-EQ norm ratio is in run() only under mode 'eq' (a comparison arm) and absent from run_guard: {EQ_ONLY_IN_EQ_MODE}")
     rng = np.random.default_rng(0); Sk = rng.standard_normal((5, 40)); Yk = rng.standard_normal((5, 40))
     c_arc = float((Sk * Yk).sum() / (Sk * Sk).sum()); c_ls = float(np.linalg.lstsq(Sk.reshape(-1, 1), Yk.reshape(-1), rcond=None)[0][0])
-    print(f"   M4 (declared): c_arc = sum_k <dg_k, dth_k> / sum_k ||dth_k||^2 is the least-squares solution of BB's secant equation (1/eta) dth_k = dg_k")
+    print("   M4 (declared): c_arc = sum_k <dg_k, dth_k> / sum_k ||dth_k||^2 is the least-squares solution of BB's secant equation (1/eta) dth_k = dg_k")
     print(f"      stacked over the 5 segment pairs (seeded instance: formula {c_arc:.12f}, lstsq {c_ls:.12f}, equal to 1e-12: {abs(c_arc - c_ls) < 1e-12});")
     print("      it reads the path's intermediate window means, but sums SQUARED segment displacements, not segment lengths: not D2's arc either")
 
     # ---- CRR clauses
     print("\n[3] THE CRR-PROPER CLAUSES (CLAUDE.md sec. 7 list): the defining text found in theory/CRR.md, and whether SEC's code path performs the operation")
-    fmt = dict(T=all(has(f, l) for f, l in ING["T"][3]), ph=[sorted({"antipodal_cuts", "intrinsic_phase"} & calls(f)) for f in FN],
+    fmt = dict(T=all(has(f, ln) for f, ln in ING["T"][3]), ph=[sorted({"antipodal_cuts", "intrinsic_phase"} & calls(f)) for f in FN],
                anc=has("run_guard", "theta_star = theta_now"), accu=has("run_guard", "imp_bayes = imp_bayes + n_task * s * f_task"),
                ex=sorted({"exp", "power"} & calls("run_guard")), crr=CRR_CALLS, sig=SIGMA_NAMES,
-               R=all(has(f, l) for f, l in ING["R"][3]), reg=[sorted({"regularity", "cv"} & calls(f)) for f in FN],
+               R=all(has(f, ln) for f, ln in ING["R"][3]), reg=[sorted({"regularity", "cv"} & calls(f)) for f in FN],
                acc_r=ACC["run"], acc_g=ACC["run_guard"], wo=WINDOW_ONLY,
                arc=[sorted({"sqrt", "path_length", "arc_length", "kl_step"} & calls(f)) for f in FN],
-               W=all(has(f, l) for f, l in ING["W"][3]), eqm=EQ_ONLY_IN_EQ_MODE,
+               W=all(has(f, ln) for f, ln in ING["W"][3]), eqm=EQ_ONLY_IN_EQ_MODE,
                reset=all(has(f, "s_th = np.zeros(n); s_g = np.zeros(n); e_th = np.zeros(n); e_g = np.zeros(n); k_step = 0") for f in FN))
     crr_ops = {}
     for cid, quotes, op, test, impl in CLAUSES:
@@ -434,7 +437,7 @@ def main():
           f"median over carriers of the per-carrier median s {float(np.median(md)):.4g} (min {min(md):.4g}, max {max(md):.4g})")
 
     # ---- mechanism checks
-    print("\n[6] LOAD-BEARING EVIDENCE FROM THE MECHANISM CHECKS (m_checks.json: C0 clipped SEC, M1 true-Fisher Laplace, M2 endpoint curvature, M3 one factor, M4 arc secant)")
+    print("\n[6] LOAD-BEARING EVIDENCE FROM THE MECHANISM CHECKS (m_checks.json: C0 clipped SEC, M1 true-Fisher Laplace, M2 endpoint curvature, M3 one factor, M4 arc secant; M5, M6 of Amendment 2 if present)")
     M, why = m_results(D)
     if M is None:
         print(f"   {why}")
@@ -442,7 +445,8 @@ def main():
         print(f"   {why}; carriers {M['n'] if M['n'] is not None else 'not stated'}")
         for arm, lab in (("C0", "clipped SEC (reference)"), ("M1", "true-Fisher Laplace, uncalibrated (bears on F, S)"),
                          ("M2", "endpoint-curvature calibration (bears on C: path secant or local curvature)"),
-                         ("M3", "one factor, bayes_s1 (bears on S)"), ("M4", "arc secant, the CRR-guided variant (bears on C, D6)")):
+                         ("M3", "one factor, bayes_s1 (bears on S)"), ("M4", "arc secant, the CRR-guided variant (bears on C, D6)"),
+                         ("M5", "FREEZE-TOP, Amendment 2 (bears on K)"), ("M6", "EDGE, a must-fail control, Amendment 2 (bears on K)")):
             v = M["nb"].get(arm)
             rel = "" if v is None or arm == "C0" or "C0" not in M["nb"] else f"; against C0 {v - M['nb']['C0']:+d}"
             if arm == "M3" and M["n42"] is not None and v is not None:
@@ -478,7 +482,7 @@ def main():
     # ---- F11
     print("\n[8] F11")
     parts = {
-        "a": ("the weight 1/2 is the Laplace (Bayes) weight", G["W"] == "REDUNDANT" and BAYES_W == 0.5 and all(has(f, l) for f, l in ING["W"][3])),
+        "a": ("the weight 1/2 is the Laplace (Bayes) weight", G["W"] == "REDUNDANT" and BAYES_W == 0.5 and all(has(f, ln) for f, ln in ING["W"][3])),
         "b": ("the calibration is a Barzilai-Borwein secant fixing the empirical Fisher's known scale error",
               G["C"] == "REDUNDANT" and G["E"] == "REDUNDANT"),
         "c": ("the secant is a chord between window means, not CRR's arc", WINDOW_ONLY and not crr_ops["D6/H-T1"]),

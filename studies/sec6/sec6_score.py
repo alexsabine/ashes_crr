@@ -77,6 +77,10 @@ AR1_MAXF = 0.001                            # AR1's clip of the averaged Fisher 
 BASELINES = ("si1", "si01", "ar1p", "ar1b", "si1c")  # SI-1, SI-0.1, AR1-P, AR1-B; SI-1C (Amendment 1)
 BASELINE_NAMES = {"si1": "SI-1", "si01": "SI-0.1", "ar1p": "AR1-P", "ar1b": "AR1-B", "si1c": "SI-1C"}
 D0_REASON = "d = 0: no usable feature after the loader"   # Amendment 1: excluded and counted before any run; d = 1 is kept
+FIXED_CLIP = "fixed_clip"                   # Amendment 2: SEC1's 'fixed' (raw accumulated Fisher at weight lambda) with SEC4's clip
+#                                             at w = lambda (cap KAPPA / (lr lambda)), on SEC1's two-stage grid: the tuned clipped
+#                                             lambda, SEC6-C's reference. Not a tuning-free baseline, so not in SEC6-B's set.
+ARMS_B = BASELINES + (FIXED_CLIP,)          # every arm run_b implements
 SEC1_DID = ("led7", "yeast")                # D-ID's two SEC1 carriers (runs/sec1 pinned records): small, 5 and 3 tasks
 
 # ---------------------------------------------------------------- the P1-conditional arms (DEV_DECLARATION.md, section 3)
@@ -103,14 +107,17 @@ DEV_TABLES = (("scl3", dict(P3.SCL3_DATASETS)), ("sec3", dict(P3.DATASETS)), ("s
 DEV_CACHE = Path("/tmp/claude-0/rrm_cache")   # npz cache outside the repository (Relational_Reference_Memory/checks/t_lib.py's)
 
 
-def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=None, si_guard=True, lr=S.LR, bs=S.BS, epochs=S.EPOCHS,
-          hidden=S.HID):
+def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=None, si_guard=True, lam=None, kappa=KAPPA, lr=S.LR, bs=S.BS,
+          epochs=S.EPOCHS, hidden=S.HID):
     """SEC1's run() (runs/sec5/frozen/sec1_score.py) with a baseline penalty. Every line not marked B is SEC1's; the lines
     marked B compute the baseline's imp and w (at each task start) or accumulate SI's path integral (per step, task end).
     'si1c' (Amendment 1) is 'si1' with the importance used at each task start np.clip(Omega, 0, KAPPA / (lr w)), w = c; its
     firings (task starts where any coordinate was floored or capped) and the floored and capped coordinate counts per task
-    start are recorded. si_c and si_guard=False (D-MAP only) override SI's c and switch SI-1C's guard off."""
-    if arm not in BASELINES:
+    start are recorded. si_c and si_guard=False (D-MAP only) override SI's c and switch SI-1C's guard off.
+    'fixed_clip' (Amendment 2) is SEC1's 'fixed' at w = lam with SEC4's clip at each task start, exactly as run_guard does it
+    at w = lam: m = lr * lam * max(imp); if not (m < kappa) the importance is clipped per coordinate at kappa / (lr lam);
+    kappa=inf (D-MAP only) gives SEC1's run('fixed', lam) bit for bit."""
+    if arm not in ARMS_B:
         raise ValueError(arm)
     t0 = time.process_time()
     rng = np.random.default_rng(seed)
@@ -136,8 +143,14 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
                         imp_used = np.clip(Omega, 0, cap); n_capped.append(nc); n_floored.append(nf); fired += int(nc > 0 or nf > 0)
                 elif arm == "ar1p":
                     imp_used = np.minimum(f_sum / n_past, AR1_MAXF); w = 1.0 / (2 * lr * AR1_MAXF)
-                else:                                                                                 # ar1b
+                elif arm == "ar1b":
                     imp_used = importance; w = float(np.float64(1.0) / (2 * lr * np.max(imp_used)))
+                else:                                                                                 # B (fixed_clip: SEC4's clip at w = lam)
+                    imp_used = importance; w = lam; cap = kappa / (lr * w)
+                    if not (lr * w * float(np.max(importance)) < kappa):
+                        n_capped.append(int(np.sum(importance > cap))); imp_used = np.minimum(importance, cap); fired += 1
+                    else:
+                        n_capped.append(0)
                 w_task.append(float(w)); imp_max.append(float(np.max(imp_used))); imp_min.append(float(np.min(imp_used)))
                 edge.append(float(np.max(lr * 2 * w * imp_used)))
             total = epochs * int(math.ceil(n_task / bs)); n_s = max(1, int(math.ceil(fs * total))); n_e = max(1, int(math.ceil(fe * total)))
@@ -177,14 +190,35 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
             importance = importance + sc * f_task
             f_sum = f_sum + f_task; n_past += 1                                                       # B (AR1-P)
             theta_star = theta_now
-    value = c_si if si else (AR1_MAXF if arm == "ar1p" else 0.0)
+    value = c_si if si else (AR1_MAXF if arm == "ar1p" else (lam if arm == FIXED_CLIP else 0.0))
     rec = dict(mode=arm, value=float(value), seed=int(seed), fs=float(fs), fe=float(fe), acc=100 * net.acc(Xte, yte),
                s=svals, c=cvals, rho=rhovals, n_fallback=int(n_fallback), w_task=w_task, imp_max=imp_max, imp_min=imp_min, edge=edge,
                xi=xi, w_med=float(np.median(wlog)) if wlog else None, finite=bool(np.all(np.isfinite(net.flat()))))
     if arm in SI_GUARDED:
         rec.update(guard=bool(guarded), guard_fired=int(fired), n_capped=n_capped, n_floored=n_floored)
+    if arm == FIXED_CLIP:
+        rec.update(kappa=float(kappa), guard_fired=int(fired), n_capped=n_capped)
     P4.TIMES.append(dict(mode=rec["mode"], value=rec["value"], seed=rec["seed"], fs=rec["fs"], fe=rec["fe"], cpu_s=time.process_time() - t0))
     return rec
+
+
+def fixed_clip_grid(data, K, per_task, emit):
+    """Amendment 2: 'fixed_clip' on SEC1's two-stage grid, replicating run_all's rule for 'fixed' exactly with its own coarse
+    best: every lambda of EWC_COARSE at seeds 0-4; best = max over EWC_COARSE (in its order) of the seed mean (ties to the
+    first, the smallest); then round(best * f, 6) for f in EWC_REFINE, skipped if within 1e-6 (relative) of a coarse value.
+    emit(record) receives every run; returns {round(lambda, 6): [seed accuracies]}."""
+    done = {}
+
+    def go(lam):
+        for seed in SEEDS:
+            o = run_b(seed, *data, K, per_task, FIXED_CLIP, lam=lam); emit(o); done.setdefault(round(o["value"], 6), []).append(o["acc"])
+
+    for w in S.EWC_COARSE: go(w)
+    best = max(S.EWC_COARSE, key=lambda w: np.mean(done[round(w, 6)]))
+    for fct in S.EWC_REFINE:
+        w = round(best * fct, 6)
+        if all(abs(w - c) / c > 1e-6 for c in S.EWC_COARSE): go(w)
+    return done
 
 
 def clip_arm(seed, data, K, per_task, fs=S.FS, fe=S.FE, kappa=KAPPA):
@@ -351,6 +385,17 @@ def devmap():
               f"max_k(lr 2 w imp_k) {[repr(e) for e in o['edge']]}; acc {o['acc']!r} (SI-1 {a['acc']!r})")
     print(f"(report, Amendment 1) SI-1C with its guard switched off equals SI-1 (acc, s, c, rho): {sum(same_c)}/{len(same_c)}; with it, the importance used "
           f"lies in [0, {cap!r}] at every task start: {sum(inb)}/{len(inb)} seeds")
+    same_f = []; edges = []; fires = []
+    for lam in (10.0, 1000.0):   # (report, Amendment 2; not part of the declared D-MAP verdict)
+        for seed in SEEDS:
+            a = P3._run("fixed", lam, seed, *data, K, 2); b = run_b(seed, *data, K, 2, FIXED_CLIP, lam=lam, kappa=float("inf"))
+            o = run_b(seed, *data, K, 2, FIXED_CLIP, lam=lam)
+            same_f.append(a["acc"] == b["acc"] and a["s"] == b["s"] and a["c"] == b["c"] and a["rho"] == b["rho"] and a["finite"] == b["finite"])
+            edges += o["edge"]; fires.append(o["guard_fired"])
+            print(f"   lambda {lam:g} seed {seed}: SEC1 fixed {a['acc']!r}; fixed_clip with kappa inf {b['acc']!r}; fixed_clip (kappa {KAPPA}) {o['acc']!r}, "
+                  f"firings {o['guard_fired']}, capped coordinates {o['n_capped']}, max_k(lr 2 w imp_k) {[repr(e) for e in o['edge']]}")
+    print(f"(report, Amendment 2) fixed_clip with kappa = inf equals SEC1's run('fixed', lambda) (acc, s, c, rho) at lambda 10 and 1000: {sum(same_f)}/{len(same_f)}; "
+          f"with kappa {KAPPA}: largest max_k(lr 2 w imp_k) {max(edges)!r} (the clip bounds it at 2 kappa = {2 * KAPPA!r}); firings {sum(fires)}")
     P4.TIMES.clear()
     print(f"D-MAP -> {'holds' if (ok1 and ok2 and ok3) else 'FAILS'}")
 
@@ -370,6 +415,13 @@ def dev_one(study, did, out, arms=BASELINES):
     rec = dict(study=study, did=did, name=name, K=K, tuned=tuned, tacc=tacc, step=step,
                ref=dict(clip=_pinned_clip(study, did), bayes=_pinned_seeds(rows, "bayes", 0.0), bayes_sec=_pinned_seeds(rows, "bayes_sec", 0.0)), arms={})
     for arm in arms:
+        if arm == FIXED_CLIP:    # Amendment 2: the whole grid; the tuned clipped lambda as the scorer chooses it (ties to the smallest)
+            runs = []; done = fixed_clip_grid((Xtr, ytr, Xte, yte), K, per_task, runs.append)
+            grid = [dict(value=v, acc=float(np.mean(done[v])), seeds=done[v], fired=[o["guard_fired"] for o in runs if round(o["value"], 6) == v],
+                         nonfinite=sum(not o["finite"] for o in runs if round(o["value"], 6) == v)) for v in sorted(done)]
+            best = max(grid, key=lambda g: g["acc"])
+            rec["arms"][arm] = dict(grid=grid, tuned=best["value"], acc=best["acc"], seeds=best["seeds"], step=S.step_of(best["seeds"]), fired=best["fired"])
+            continue
         os_ = [run_b(s, Xtr, ytr, Xte, yte, K, per_task, arm) for s in SEEDS]
         rec["arms"][arm] = dict(acc=float(np.mean([o["acc"] for o in os_])), seeds=[o["acc"] for o in os_], finite=[o["finite"] for o in os_],
                                 edge=[o["edge"] for o in os_], w_task=[o["w_task"] for o in os_], imp_min=[o["imp_min"] for o in os_])
@@ -395,7 +447,8 @@ def dev_report(idpath, mappath, paths):
     recs.sort(key=lambda r: (order.index(r["study"]), r["name"].lower()))
     excl = [f"{r['study']}:{r['name']}" for r in recs if r.get("excluded")]; recs = [r for r in recs if not r.get("excluded")]
     print("SEC6 development stage (prereg/sec6/DEV_DECLARATION.md) on SEEN data only: D-ID, D-MAP and D-RUN (the published baselines "
-          "SI-1, SI-0.1, AR1-P, AR1-B, and SI-1C of Amendment 1, on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, seeds 0-4); tuned lambda and step from pinned results")
+          "SI-1, SI-0.1, AR1-P, AR1-B, SI-1C of Amendment 1, and the tuned clipped lambda of Amendment 2, on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, "
+          "seeds 0-4); tuned lambda and step from pinned results")
     print("Nothing is chosen from D-RUN: every baseline's constants come from its paper. D-RUN is not evidence and adds no ledger row.")
     print("=" * 118)
     print(idtxt.rstrip()); print("-" * 118); print(maptxt.rstrip()); print("=" * 118)
@@ -406,6 +459,14 @@ def dev_report(idpath, mappath, paths):
         ref = r["ref"]
         print(f"[{r['name']}] ({r['study']}, K {r['K']}) tuned {r['tuned']:g}: {r['tacc']:.4f}, step {r['step']:.4f}; pinned: "
               + "; ".join(f"{lab} {np.mean(ref[k]) - r['tacc']:+.4f}" if ref[k] else f"{lab} none" for k, lab in (("clip", "clipped SEC"), ("bayes", "raw Laplace"), ("bayes_sec", "unguarded SEC"))))
+        if FIXED_CLIP in r["arms"]:
+            x = r["arms"][FIXED_CLIP]; mc = lambda a: a - x["acc"]  # noqa: E731
+            print(f"     tuned clipped lambda (fixed_clip) {x['tuned']:g}: {x['acc']:.4f} [{fmt(x['seeds'])}], step_c {x['step']:.4f}; −tuned lambda "
+                  f"{x['acc'] - r['tacc']:+.4f} ({(x['acc'] - r['tacc']) / r['step']:+.2f} steps); firings at it {x['fired']}; grid "
+                  + " ".join(f"{g['value']:g}:{g['acc']:.2f}" for g in x["grid"]) + f"; non-finite runs in the grid {sum(g['nonfinite'] for g in x['grid'])}")
+            print("     against the tuned clipped lambda: " + "; ".join(
+                [f"{lab} (pinned) {mc(float(np.mean(ref[k]))):+.4f}" for k, lab in (("clip", "clipped SEC"), ("bayes", "raw Laplace"), ("bayes_sec", "unguarded SEC")) if ref[k]]
+                + [f"{BASELINE_NAMES[a]} {mc(r['arms'][a]['acc']):+.4f}" for a in BASELINES if a in r["arms"]]))
         for arm in BASELINES:
             if arm not in r["arms"]:
                 print(f"     {BASELINE_NAMES[arm]:7}: not run"); continue
@@ -427,7 +488,24 @@ def dev_report(idpath, mappath, paths):
         have = [r for r in recs if r["ref"][key]]
         k = sum(nb(float(np.mean(r["ref"][key])), r) for r in have); dv = [r["name"] for r in have if div(r["ref"][key], r)]
         print(f"(pinned, not rerun) {lab}: not behind {k}/{len(have)}; divergent carriers ({len(dv)}): {dv}")
+    fc = [r for r in recs if FIXED_CLIP in r["arms"]]
+    if fc:                       # Amendment 2 (report): the reference given the same clip
+        nbc = lambda a, r: a - r["arms"][FIXED_CLIP]["acc"] > -r["arms"][FIXED_CLIP]["step"]  # noqa: E731
+        print(f"Amendment 2 (report, nothing chosen): against the TUNED CLIPPED lambda (not behind: arm − tuned clipped > −step_c), on {len(fc)} carriers")
+        for arm in BASELINES:
+            have = [r for r in fc if arm in r["arms"]]
+            print(f"   {BASELINE_NAMES[arm]:7}: not behind the tuned clipped lambda {sum(nbc(r['arms'][arm]['acc'], r) for r in have)}/{len(have)}")
+        for key, lab in (("clip", "clipped SEC"), ("bayes", "raw Laplace"), ("bayes_sec", "unguarded SEC")):
+            have = [r for r in fc if r["ref"][key]]
+            print(f"   (pinned, not rerun) {lab}: not behind the tuned clipped lambda {sum(nbc(float(np.mean(r['ref'][key])), r) for r in have)}/{len(have)}")
+        ah = [r["name"] for r in fc if r["arms"][FIXED_CLIP]["acc"] - r["tacc"] > r["step"]]
+        bh = [r["name"] for r in fc if r["tacc"] - r["arms"][FIXED_CLIP]["acc"] > r["step"]]
+        print(f"   the tuned clipped lambda ahead of the tuned lambda by more than a step (the tuned lambda's step): {len(ah)}/{len(fc)} {ah}; "
+              f"behind by more than a step: {len(bh)}/{len(fc)} {bh}")
+        top = [r["name"] for r in fc if r["arms"][FIXED_CLIP]["tuned"] == max(g["value"] for g in r["arms"][FIXED_CLIP]["grid"])]
+        print(f"   the tuned clipped lambda at the largest lambda of its grid (the grid, SEC1's, may not reach its optimum): {len(top)}/{len(fc)} {top}")
     ran = {BASELINE_NAMES[a]: sum(a in r["arms"] for r in recs) for a in BASELINES}
+    ran["tuned clipped lambda"] = len(fc)
     print(f"D-ID -> {'holds' if d_id else 'FAILS'}; D-MAP -> {'holds' if d_map else 'FAILS'}; D-RUN carriers per baseline (of {N} SEEN, seeds 0-4): {ran}")
 
 
@@ -467,6 +545,10 @@ def run_carrier(did, out, tout, synthetic=False, table=None):
         for arm in CARRIED:
             o = run_carried(arm, seed, data, K, per_task); o["dataset"] = name
             print(json.dumps(o), file=out, flush=True)
+
+    def emit(o):
+        o["dataset"] = name; print(json.dumps(o), file=out, flush=True)
+    fixed_clip_grid(data, K, per_task, emit)                                # Amendment 2: the tuned clipped lambda's grid
     for t in P4.TIMES:
         t["dataset"] = name; print(json.dumps(t), file=tout, flush=True)
     P4.TIMES.clear()
@@ -530,6 +612,12 @@ def score(paths):
         r["b_edge"] = {m: max((max(o["edge"]) for o in rows if o.get("mode") == m and o["fs"] == S.FS and o["fe"] == S.FE and o.get("edge")), default=float("nan"))
                        for m in BASELINES}
         r["b_finite"] = {m: sum(not o.get("finite", True) for o in rows if o.get("mode") == m and o["fs"] == S.FS and o["fe"] == S.FE) for m, _ in others}
+        gc = {}                  # Amendment 2: the tuned clipped lambda (fixed_clip), chosen as the tuned lambda is (ties to the smallest)
+        for o in rows:
+            if o.get("mode") == FIXED_CLIP and o["fs"] == S.FS and o["fe"] == S.FE: gc.setdefault(o["value"], []).append(o["acc"])
+        gcm = {w: float(np.mean(v)) for w, v in sorted(gc.items())}
+        r["tuned_c"] = max(gcm, key=gcm.get); r["tacc_c"] = gcm[r["tuned_c"]]; r["step_c"] = S.step_of(gc[r["tuned_c"]]); r["grid_c"] = gcm
+        r["fired_c"] = sum(o["guard_fired"] for o in rows if o.get("mode") == FIXED_CLIP and o["fs"] == S.FS and o["fe"] == S.FE and o["value"] == r["tuned_c"])
         R[d] = r
     for d in names:
         oth = [math.log(R[o]["tuned"]) for o in names if o != d]
@@ -556,6 +644,10 @@ def score(paths):
         if r["loco"] is not None:
             print(f"   transferred lambda {r['loco']:g}: {r['loco_acc']:.4f} −tuned {r['loco_acc'] - r['tacc']:+.4f}")
         print("   window cells (clip) − tuned: " + "  ".join(f"{c[0]:g}/{c[1]:g}:{r['sens'][('window', c)] - r['tacc']:+.2f}" for c in KEEP_CELLS))
+        print(f"   tuned clipped lambda (fixed_clip, kappa 0.5) {r['tuned_c']:g} ({len(r['grid_c'])} grid configurations): {r['tacc_c']:.4f}, step_c {r['step_c']:.4f}; "
+              f"−tuned lambda {r['tacc_c'] - r['tacc']:+.4f} ({(r['tacc_c'] - r['tacc']) / r['step']:+.2f} steps of the tuned lambda); firings at it {r['fired_c']}")
+        print("   clipped grid: " + "  ".join(f"{w:g}:{v:.2f}" for w, v in r["grid_c"].items()))
+        print(f"   clipped SEC − tuned clipped lambda {r['g'] - r['tacc_c']:+.4f} (step_c {r['step_c']:.2f})")
     N = len(names); need = math.ceil(SHARE * N)
     nb = lambda a, r: a - r["tacc"] > -r["step"]  # noqa: E731
     dv = lambda seeds, r: any(a < DIV_FRAC * r["tacc"] for a in seeds)  # noqa: E731  (SEC5-2's rule)
@@ -607,6 +699,23 @@ def score(paths):
         print("   by the letter of CLAUDE.md section 7, SEC4-1 (PASS-1, ledger) and SEC6-1 together are PASS-2 (a later day, a fresh pre-registration, "
               "the same frozen code); beside it: SEC5-1 "
               + (f"{p5[3]} on the fourth family ({p5[0]}/{p5[1]}, need {p5[2]})" if p5 else "not read (runs/sec5/score.txt missing)"))
+    nbc = lambda a, r: a - r["tacc_c"] > -r["step_c"]  # noqa: E731  (Amendment 2: against the tuned clipped lambda)
+    kc = sum(nbc(R[d]["g"], R[d]) for d in names)
+    vc = "NOT DECIDABLE (fewer than %d carriers scored)" % MIN_N if N < MIN_N else ("PASS" if kc >= need else "FAIL")
+    print(f"SEC6-C tuning-free against the tuned lambda given the same clip: the clipped SEC (kappa 0.5) not behind the tuned clipped lambda: {kc}/{N} "
+          f"(need {need}) -> {vc}; " + ", ".join(f"{d}:{R[d]['g'] - R[d]['tacc_c']:+.4f} (step_c {R[d]['step_c']:.2f})" for d in names))
+    if v1 == "PASS" and vc == "FAIL":
+        print("   SEC6-1 rests on the clip (SEC6-C fails)")
+    arms_c = ([("clipped SEC", lambda r: r["g"])] + [(lab, (lambda m: lambda r: r["b"][m][0])(m)) for m, lab in others if m != "bayes"]
+              + [("raw Laplace", lambda r: r["b"]["bayes"][0]), ("unguarded SEC", lambda r: r["u"]), ("rule Ω=1", lambda r: r["eq"])])
+    print("   beside it (report): every arm against the tuned clipped lambda (not behind: arm − tuned clipped > −step_c)")
+    for lab, f in arms_c:
+        print(f"      {lab}: {sum(nbc(f(R[d]), R[d]) for d in names)}/{N}; " + ", ".join(f"{d}:{f(R[d]) - R[d]['tacc_c']:+.4f}" for d in names))
+    ahead = [d for d in names if R[d]["tacc_c"] - R[d]["tacc"] > R[d]["step"]]
+    print("   the tuned clipped lambda against the tuned lambda (report; margin in steps of the tuned lambda): "
+          + ", ".join(f"{d}:{(R[d]['tacc_c'] - R[d]['tacc']) / R[d]['step']:+.2f}" for d in names) + f"; ahead by more than a step on {len(ahead)}/{N}: {ahead}")
+    top = [d for d in names if R[d]["tuned_c"] == max(R[d]["grid_c"])]
+    print(f"   the tuned clipped lambda at the largest lambda of its grid (report; SEC1's grid may not reach its optimum): {len(top)}/{N} {top}")
     print("SEC6-K compute (report; CPU seconds from the timing files):")
     for d in names:
         t = times.get(d, [])
@@ -615,8 +724,9 @@ def score(paths):
         full = cpu("fixed"); gcpu = cpu(G, KAPPA); raw = cpu("bayes", 0.0)
         print(f"   {d}: configurations full sweep {R[d]['n_cfg']}, clipped SEC 1; CPU s full {full:.1f}, clipped SEC {gcpu:.1f}"
               + (f" (share {gcpu / full:.4f}), raw Laplace {raw:.1f} (overhead x{gcpu / raw if raw else float('nan'):.3f})" if full else "")
-              + "; " + ", ".join(f"{BASELINE_NAMES[m]} {cpu(m):.1f}" for m in BASELINES))
+              + "; " + ", ".join(f"{BASELINE_NAMES[m]} {cpu(m):.1f}" for m in BASELINES) + f"; tuned clipped lambda's sweep ({len(R[d]['grid_c'])}) {cpu(FIXED_CLIP):.1f}")
     print("SEC6-E guard firings (report): " + "; ".join(f"{d}: {R[d]['fired']}" for d in names))
+    print("   fixed_clip (Amendment 2) task starts clipped at the tuned clipped lambda: " + "; ".join(f"{d}: {R[d]['fired_c']}" for d in names))
     print("   SI-1C (Amendment 1) task starts floored or capped: " + "; ".join(
         f"{d}: {sum(o.get('guard_fired', 0) for o in by[d] if o.get('mode') == 'si1c' and o['fs'] == S.FS and o['fe'] == S.FE)}" for d in names))
 
@@ -659,7 +769,7 @@ def d0_selftest():
             L.RAW = raw0
     r0, r1 = res["selftest_d0"], res["selftest_d1"]
     ok0 = r0["features_used"] == 0 and r0["excluded"] and r0["reason"] == D0_REASON and r0["n_runs"] == 0
-    ok1 = r1["features_used"] == 1 and not r1["excluded"] and r1["n_runs"] > 0 and all(m in r1["modes"] for m in ("fixed", "bayes_sec_clip") + BASELINES)
+    ok1 = r1["features_used"] == 1 and not r1["excluded"] and r1["n_runs"] > 0 and all(m in r1["modes"] for m in ("fixed", "bayes_sec_clip", FIXED_CLIP) + BASELINES)
     okc = counted.startswith("carriers scored 1: ['selftest_d1']; excluded 1: ['selftest_d0']; of them by the d = 0 rule (Amendment 1): ['selftest_d0']")
     print(f"d = 0 self-test (Amendment 1): selftest_d0 (2 string attributes, 4-class target, {n_per * len(classes)} rows): features_used {r0['features_used']}, "
           f"excluded {r0['excluded']}, reason {r0['reason']!r}, run records {r0['n_runs']} -> {'as required' if ok0 else 'NOT as required'}")

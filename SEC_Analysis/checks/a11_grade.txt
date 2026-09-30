@@ -66,6 +66,8 @@ POST HOC on SEEN records; no ledger row; the words are HOLDS / FAILS / PENDING a
    the word 'unit(s)' in runs/sec4/frozen/sec1_score.py (docstring, gate): 10 occurrences -- the calibration is NAMED a units correction; no CRR unit (A1') is computed
    the clip: cap = KAPPA / (LR BAYES_W) = 20; SEC's penalty step is lr w g_q = lr 2 w imp dth, so AR1's 'eta lambda F' is lr 2 w imp;
       at the cap lr 2 w imp = 1 (AR1's overshoot edge is 1: equal True); explicit-Euler divergence at imp = 40 (lr w imp = 1 = 2 KAPPA)
+      a capped coordinate's offset from the anchor is multiplied by 1 - lr 2 w cap = 0 per step: each step resets it to -lr g_p alone
+      (the correction is exact, AR1's edge at equality; the 'freeze' of DECLARATION.md Amendment 2, tested by M5 and M6)
    the H-EQ norm ratio is in run() only under mode 'eq' (a comparison arm) and absent from run_guard: True
    M4 (declared): c_arc = sum_k <dg_k, dth_k> / sum_k ||dth_k||^2 is the least-squares solution of BB's secant equation (1/eta) dth_k = dg_k
       stacked over the 5 segment pairs (seeded instance: formula -0.070680374105, lstsq -0.070680374105, equal to 1e-12: True);
@@ -150,7 +152,7 @@ POST HOC on SEEN records; no ledger row; the words are HOLDS / FAILS / PENDING a
    N the task-size weights: no arm in the records removes them alone ('fixed_sec' drops n_j but tunes lambda): not tested
    E the premise (the EF understates the curvature at a task's end, so s_j > 1): carriers with geometric-mean s > 1: 41/42; median over carriers of the per-carrier median s 25.51 (min 0.8691, max 5.97e+04)
 
-[6] LOAD-BEARING EVIDENCE FROM THE MECHANISM CHECKS (m_checks.json: C0 clipped SEC, M1 true-Fisher Laplace, M2 endpoint curvature, M3 one factor, M4 arc secant)
+[6] LOAD-BEARING EVIDENCE FROM THE MECHANISM CHECKS (m_checks.json: C0 clipped SEC, M1 true-Fisher Laplace, M2 endpoint curvature, M3 one factor, M4 arc secant; M5, M6 of Amendment 2 if present)
    pending (m_checks.json not yet written)
 
 [7] PER INGREDIENT

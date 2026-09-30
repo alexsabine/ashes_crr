@@ -87,6 +87,9 @@ is `e_g, e_th, k_step, s_g, s_th` in both functions ([2]).
   Explicit Euler diverges at imp = 40, where lr·w·imp = 1.
 - **So two descriptions name the same bound.** SEC4's docstring ("half the explicit-Euler stability edge") and AR1's
   "η · λ · F ≤ 1" describe it from two sides.
+- **At equality the clip freezes.** On a capped coordinate the penalty step multiplies the offset from the anchor by
+  1 − lr·2w·cap = 0 ([2]). Each step therefore resets the offset to −lr·g_p alone. This is the "freeze" of
+  DECLARATION.md Amendment 2, which M5 and M6 test. It too is AR1's bound, met exactly: optimisation, not CRR.
 - **A correction to SPA1.** `SEC_Prior_Art/SPA1.md` read the clip as AR1's "with κ = 0.5 in place of 1". Once the factor 2
   in `g_q` is counted, κ = 0.5 is AR1's own bound. This refines that wording; it changes no grade (S5 was REDUNDANT
   either way).
@@ -143,6 +146,8 @@ is a report rule and decides nothing.
     GGN for softmax cross-entropy, a11:23), does the calibration's job.
   - **M2** (endpoint curvature) tests whether the secant's path averaging matters, or only the curvature's size.
   - **M4** (arc secant) is the CRR-guided variant.
+  - **M5 and M6** (Amendment 2: freeze the capped coordinates only; freeze everything) test whether the clip's freeze,
+    rather than the importance, does the work. `a11_grade.py` prints them when `m_checks.json` carries them.
 
 ## 4. Where CRR does real work, and where it does not (a fair account)
 

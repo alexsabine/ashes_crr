@@ -1,5 +1,5 @@
 d = 0 self-test (Amendment 1): selftest_d0 (2 string attributes, 4-class target, 240 rows): features_used 0, excluded True, reason 'd = 0: no usable feature after the loader', run records 0 -> as required
-d = 1 self-test: selftest_d1 (one numeric attribute added): features_used 1, excluded False; SEC1's run_all and every SEC6 arm ran: 295 run records, 12 modes ['ar1b', 'ar1p', 'bayes', 'bayes_s1', 'bayes_sec', 'bayes_sec_clip', 'eq', 'fixed', 'fixed_sec', 'si01', 'si1', 'si1c'], non-finite 0 -> as required
+d = 1 self-test: selftest_d1 (one numeric attribute added): features_used 1, excluded False; SEC1's run_all and every SEC6 arm ran: 380 run records, 13 modes ['ar1b', 'ar1p', 'bayes', 'bayes_s1', 'bayes_sec', 'bayes_sec_clip', 'eq', 'fixed', 'fixed_clip', 'fixed_sec', 'si01', 'si1', 'si1c'], non-finite 0 -> as required
 score on the two: carriers scored 1: ['selftest_d1']; excluded 1: ['selftest_d0']; of them by the d = 0 rule (Amendment 1): ['selftest_d0'] -> as required
    (report) without the rule, SEC1's MLP at d = 0 raises: ZeroDivisionError (division by zero)
 d = 0 rule self-test -> holds
@@ -22,6 +22,9 @@ carriers scored 1: ['synthetic']; excluded 0: []; of them by the d = 0 rule (Ame
    clip kappa 1: 39.3311 [36.45 39.80 41.81 38.80 39.80] −tuned -1.8060
    3-point sweep: best 30 38.4615; clipped SEC − best3 +0.8696
    window cells (clip) − tuned: 0.1/0.2:-1.74  0.2/0.1:-2.07  0.2/0.2:-2.01
+   tuned clipped lambda (fixed_clip, kappa 0.5) 70.922 (17 grid configurations): 41.1371, step_c 1.7823; −tuned lambda +0.0000 (+0.00 steps of the tuned lambda); firings at it 4
+   clipped grid: 0.1:24.01  0.3:24.21  1:24.82  3:26.69  10:31.77  30:38.46  35.3357:39.20  50:40.74  70.922:41.14  100:41.00  141:40.94  200:41.00  283:40.74  300:40.60  1000:38.93  3000:38.13  10000:39.26
+   clipped SEC − tuned clipped lambda -1.8060 (step_c 1.78)
 
 ----------------------------------------------------------------------------------------------------------------------
 SEC6-1 tuning-free, the clipped SEC (kappa 0.5) not behind the tuned lambda: 0/1 (need 1) -> NOT DECIDABLE (fewer than 4 carriers scored); synthetic:-1.8060 (step 1.78)
@@ -41,7 +44,21 @@ SEC6-S sensitivity over 5 cells x 1 carriers (3 window cells, kappa 0.25 and 1.0
    kappa 1: not behind 0/1; carriers with a seed below half the tuned accuracy: []
 SEC6-1 level as computed from SEC6-S and SEC6-2: no PASS
    the clipped SEC's family record (primary rows; SEC4 and SEC5 read from runs/sec4/score.txt and runs/sec5/score.txt): SEC4-1 PASS (6/6); SEC5-1 FAIL (4/8); SEC6-1 NOT DECIDABLE (fewer than 4 carriers scored) (0/1) -> PASS on 1 of 3 families
+SEC6-C tuning-free against the tuned lambda given the same clip: the clipped SEC (kappa 0.5) not behind the tuned clipped lambda: 0/1 (need 1) -> NOT DECIDABLE (fewer than 4 carriers scored); synthetic:-1.8060 (step_c 1.78)
+   beside it (report): every arm against the tuned clipped lambda (not behind: arm − tuned clipped > −step_c)
+      clipped SEC: 0/1; synthetic:-1.8060
+      SI-1: 0/1; synthetic:-41.1371
+      SI-0.1: 0/1; synthetic:-13.7124
+      AR1-P: 0/1; synthetic:-4.0803
+      AR1-B: 1/1; synthetic:+0.0000
+      SI-1C: 1/1; synthetic:+16.3211
+      raw Laplace: 0/1; synthetic:-16.6555
+      unguarded SEC: 0/1; synthetic:-1.8060
+      rule Ω=1: 1/1; synthetic:+1.4716
+   the tuned clipped lambda against the tuned lambda (report; margin in steps of the tuned lambda): synthetic:+0.00; ahead by more than a step on 0/1: []
+   the tuned clipped lambda at the largest lambda of its grid (report; SEC1's grid may not reach its optimum): 0/1 []
 SEC6-K compute (report; CPU seconds from the timing files):
-   synthetic: configurations full sweep 17, clipped SEC 1; CPU s full 10.9, clipped SEC 0.8 (share 0.0702), raw Laplace 0.6 (overhead x1.314); SI-1 0.7, SI-0.1 0.8, AR1-P 0.7, AR1-B 0.6, SI-1C 0.8
+   synthetic: configurations full sweep 17, clipped SEC 1; CPU s full 11.4, clipped SEC 0.7 (share 0.0577), raw Laplace 0.8 (overhead x0.854); SI-1 0.7, SI-0.1 0.7, AR1-P 0.6, AR1-B 0.6, SI-1C 0.7; tuned clipped lambda's sweep (17) 11.3
 SEC6-E guard firings (report): synthetic: 6
+   fixed_clip (Amendment 2) task starts clipped at the tuned clipped lambda: synthetic: 4
    SI-1C (Amendment 1) task starts floored or capped: synthetic: 20
