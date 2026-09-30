@@ -72,8 +72,8 @@ PASS      m1:29  AP6     what_is_hard         quote 2 m1/txt/2607.29172v1.pdf.tx
 PASS      m1:30  AP6     our_method_relevance quote 0 m1/txt/2607.29172v1.pdf.txt
 PASS      m1:31  AP7     who_does_it          quote 0 m1/txt/2305.18465v2.pdf.txt
 PASS      m1:31  AP7     who_does_it          quote 1 m1/txt/2305.18465v2.pdf.txt
-PASS      m1:32  AP7     what_is_hard         quote 0 m1/txt/1902.01046v2.pdf.txt
-PASS      m1:32  AP7     what_is_hard         quote 1 m1/txt/1902.01046v2.pdf.txt
+PASS      m1:32  AP7     who_does_it          quote 0 m1/txt/1902.01046v2.pdf.txt
+PASS      m1:32  AP7     who_does_it          quote 1 m1/txt/1902.01046v2.pdf.txt
 PASS      m1:33  AP8     who_does_it          quote 0 m1/txt/apple_pcc_blog.html.txt
 PASS      m1:34  AP8     what_is_hard         quote 0 m1/txt/apple_pcc_blog.html.txt
 PASS      m1:34  AP8     what_is_hard         quote 1 m1/txt/apple_pcc_blog.html.txt
@@ -85,8 +85,11 @@ PASS      m1:37  AP9     what_is_hard         quote 0 m1/txt/apple_clean_energy_
 PASS      m1:37  AP9     what_is_hard         quote 1 m1/txt/apple_clean_energy_charging.html.txt
 PASS      m1:38  AP10    who_does_it          quote 0 m1/txt/youtube_watch_history_help.html.txt
 PASS      m1:38  AP10    who_does_it          quote 1 m1/txt/youtube_watch_history_help.html.txt
-PASS      m1:39  AP10    what_is_hard         quote 0 m1/txt/youtube_watch_history_help.html.txt
+PASS      m1:39  AP10    risk                 quote 0 m1/txt/youtube_watch_history_help.html.txt
 PASS      m1:40  AP10    what_is_hard         quote 0 m1/txt/mozilla_youtube_user_controls.pdf.txt
+PASS      m1:41  AP1     our_method_relevance quote 0 m1/txt/2305.18465v2.pdf.txt
+PASS      m1:41  AP1     our_method_relevance quote 1 m1/txt/2305.18465v2.pdf.txt
+PASS      m1:41  AP1     our_method_relevance quote 2 m1/txt/2305.18465v2.pdf.txt
 PASS      m2:1   AP1     who_does_it          quote 0 m2/txt/odp_overview.html.txt
 PASS      m2:1   AP1     who_does_it          quote 1 m2/txt/odp_overview.html.txt
 PASS      m2:1   AP1     who_does_it          quote 2 m2/txt/odp_overview.html.txt
@@ -94,10 +97,10 @@ PASS      m2:2   AP1     who_does_it          quote 0 m2/txt/pdf_1902.01046v2.pd
 PASS      m2:3   AP1     who_does_it          quote 0 m2/txt/litert_ondevice_training.html.txt
 PASS      m2:3   AP1     who_does_it          quote 1 m2/txt/litert_ondevice_training.html.txt
 PASS      m2:3   AP1     who_does_it          quote 2 m2/txt/litert_ondevice_training.html.txt
-PASS      m2:4   AP1     what_is_hard         quote 0 m2/txt/android_workmanager_define.html.txt
-PASS      m2:4   AP1     what_is_hard         quote 1 m2/txt/android_workmanager_define.html.txt
-PASS      m2:5   AP1     what_is_hard         quote 0 m2/txt/apple_bgprocessingtask.json.txt
-PASS      m2:5   AP1     what_is_hard         quote 1 m2/txt/apple_bgprocessingtask.json.txt
+PASS      m2:4   AP1     who_does_it          quote 0 m2/txt/android_workmanager_define.html.txt
+PASS      m2:4   AP1     who_does_it          quote 1 m2/txt/android_workmanager_define.html.txt
+PASS      m2:5   AP1     who_does_it          quote 0 m2/txt/apple_bgprocessingtask.json.txt
+PASS      m2:5   AP1     who_does_it          quote 1 m2/txt/apple_bgprocessingtask.json.txt
 PASS      m2:6   AP2     who_does_it          quote 0 m2/txt/aws_sagemaker_managed_spot.html.txt
 PASS      m2:6   AP2     who_does_it          quote 1 m2/txt/aws_sagemaker_managed_spot.html.txt
 PASS      m2:7   AP2     what_is_hard         quote 0 m2/txt/aws_sagemaker_checkpoints.html.txt
@@ -173,13 +176,16 @@ PASS      m2:38  AP9     what_is_hard         quote 1 m2/reused/dodge_2206.05229
 PASS      m2:39  AP10    who_does_it          quote 0 m2/txt/youtube_watch_history.html.txt
 PASS      m2:39  AP10    who_does_it          quote 1 m2/txt/youtube_watch_history.html.txt
 PASS      m2:39  AP10    who_does_it          quote 2 m2/txt/youtube_watch_history.html.txt
-PASS      m2:40  AP10    what_is_hard         quote 0 m2/txt/youtube_how_recs_work.html.txt
-PASS      m2:40  AP10    what_is_hard         quote 1 m2/txt/youtube_how_recs_work.html.txt
-PASS      m3:1   AP1     who_does_it          quote 0 m3/txt/fda_pccp.pdf.txt
-PASS      m3:1   AP1     who_does_it          quote 1 m3/txt/fda_pccp.pdf.txt
-PASS      m3:1   AP1     who_does_it          quote 2 m3/txt/fda_pccp.pdf.txt
-PASS      m3:2   AP1     what_is_hard         quote 0 m3/txt/nist_ai_100-2e2025.pdf.txt
-PASS      m3:2   AP1     what_is_hard         quote 1 m3/txt/nist_ai_100-2e2025.pdf.txt
+PASS      m2:40  AP10    risk                 quote 0 m2/txt/youtube_how_recs_work.html.txt
+PASS      m2:40  AP10    risk                 quote 1 m2/txt/youtube_how_recs_work.html.txt
+PASS      m2:41  AP2     who_does_it          quote 0 m2/reused/recheck/gcp_spot.html.txt
+PASS      m2:41  AP2     who_does_it          quote 1 m2/reused/recheck/gcp_spot.html.txt
+PASS      m2:41  AP2     who_does_it          quote 2 m2/reused/recheck/gcp_spot.html.txt
+PASS      m3:1   AP1     regulation           quote 0 m3/txt/fda_pccp.pdf.txt
+PASS      m3:1   AP1     regulation           quote 1 m3/txt/fda_pccp.pdf.txt
+PASS      m3:1   AP1     regulation           quote 2 m3/txt/fda_pccp.pdf.txt
+PASS      m3:2   AP1     risk                 quote 0 m3/txt/nist_ai_100-2e2025.pdf.txt
+PASS      m3:2   AP1     risk                 quote 1 m3/txt/nist_ai_100-2e2025.pdf.txt
 PASS      m3:3   AP2     who_does_it          quote 0 m3/txt/hf_safetensors_audit.html.txt
 PASS      m3:3   AP2     who_does_it          quote 1 m3/txt/hf_safetensors_audit.html.txt
 PASS      m3:4   AP2     what_is_hard         quote 0 m3/txt/pytorch_2.14_torch_load.html.txt
@@ -201,9 +207,10 @@ PASS      m3:12  AP4     what_is_hard         quote 0 m3/txt/2509.14260v2.pdf.tx
 PASS      m3:12  AP4     what_is_hard         quote 1 m3/txt/2509.14260v2.pdf.txt
 PASS      m3:13  AP4     what_is_hard         quote 0 m3/txt/2609.22882v1.pdf.txt
 PASS      m3:13  AP4     what_is_hard         quote 1 m3/txt/2609.22882v1.pdf.txt
-PASS      m3:14  AP5     who_does_it          quote 0 m3/txt/fda_pccp.pdf.txt
-PASS      m3:14  AP5     who_does_it          quote 1 m3/txt/fda_pccp.pdf.txt
-PASS      m3:14  AP5     who_does_it          quote 2 m3/txt/fda_pccp.pdf.txt
+PASS      m3:13  AP4     what_is_hard         quote 2 m3/txt/2609.22882v1.pdf.txt
+PASS      m3:14  AP5     regulation           quote 0 m3/txt/fda_pccp.pdf.txt
+PASS      m3:14  AP5     regulation           quote 1 m3/txt/fda_pccp.pdf.txt
+PASS      m3:14  AP5     regulation           quote 2 m3/txt/fda_pccp.pdf.txt
 PASS      m3:15  AP5     who_does_it          quote 0 m3/txt/anthropic_consumer_terms_2025.html.txt
 PASS      m3:15  AP5     who_does_it          quote 1 m3/txt/anthropic_consumer_terms_2025.html.txt
 PASS      m3:16  AP5     regulation           quote 0 m3/txt/edpb_opinion_28_2024.pdf.txt
@@ -219,8 +226,8 @@ PASS      m3:19  AP6     regulation           quote 2 m3/txt/rockwell_machinery_
 PASS      m3:20  AP6     regulation           quote 0 m3/txt/aia_explorer_omnibus.html.txt
 PASS      m3:20  AP6     regulation           quote 1 m3/txt/aia_explorer_omnibus.html.txt
 PASS      m3:20  AP6     regulation           quote 2 m3/txt/aia_explorer_omnibus.html.txt
-PASS      m3:21  AP6     what_is_hard         quote 0 m3/txt/nist_ai_100-2e2025.pdf.txt
-PASS      m3:21  AP6     what_is_hard         quote 1 m3/txt/nist_ai_100-2e2025.pdf.txt
+PASS      m3:21  AP6     risk                 quote 0 m3/txt/nist_ai_100-2e2025.pdf.txt
+PASS      m3:21  AP6     risk                 quote 1 m3/txt/nist_ai_100-2e2025.pdf.txt
 PASS      m3:22  AP7     who_does_it          quote 0 m3/txt/iacr_2017_281.pdf.txt
 PASS      m3:22  AP7     who_does_it          quote 1 m3/txt/iacr_2017_281.pdf.txt
 PASS      m3:23  AP7     risk                 quote 0 m3/txt/iacr_2017_281.pdf.txt
@@ -253,11 +260,86 @@ PASS      m3:39  general risk                 quote 0 m3/txt/2409.13864v3.pdf.tx
 PASS      m3:39  general risk                 quote 1 m3/txt/2409.13864v3.pdf.txt
 PASS      m3:40  general risk                 quote 0 m3/txt/2606.12655v1.pdf.txt
 PASS      m3:40  general risk                 quote 1 m3/txt/2606.12655v1.pdf.txt
+PASS      m3:41  AP1     regulation           quote 0 m3/txt/fda_pccp.pdf.txt
+PASS      m3:41  AP1     regulation           quote 1 m3/txt/fda_pccp.pdf.txt
+PASS      m3:41  AP1     regulation           quote 2 m3/txt/fda_pccp.pdf.txt
+PASS      m3:41  AP1     regulation           quote 3 m3/txt/fda_pccp.pdf.txt
 
-family m1: claims 40; quotes found 87 of 87
-family m2: claims 40; quotes found 88 of 88
-family m3: claims 40; quotes found 78 of 78
-raw files cited: 90; listed in SHA256SUMS.txt 90; sha256 matches 90
+family m1: claims 41; quotes found 90 of 90
+family m2: claims 41; quotes found 91 of 91
+family m3: claims 41; quotes found 83 of 83
+raw files cited: 91; listed in SHA256SUMS.txt 91; sha256 matches 91
 duplicate claim ids: 0
 verify corrections recorded (VERIFY_CORRECTIONS): 0 (corrected 0, dropped 0)
-quotes found verbatim: 253 of 253 (claims 120; raw files 90, missing 0); not found 0; missing 0
+quotes found verbatim: 264 of 264 (claims 123; raw files 91, missing 0); not found 0; missing 0
+
+NOTE SPANS AND NOTE CHECKS (agent_note and version; the review fixes of 2026-09-30)
+PASS      m1:21  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: stop learning from me
+PASS      m1:34  agent_note span in m1/txt/apple_pcc_blog.html.txt: unmodified
+PASS      m1:38  agent_note span in m1/txt/youtube_watch_history_help.html.txt: Pause & clear watch history
+PASS      m1:38  agent_note span in m1/txt/youtube_watch_history_help.html.txt: turn on or off
+PASS      m1:39  agent_note span in m2/txt/youtube_how_recs_work.html.txt: a streamlined user experience
+PASS      m2:1   agent_note span in m2/txt/odp_overview.html.txt: Create a federated learning job
+PASS      m2:1   agent_note span in m2/txt/odp_overview.html.txt: Last updated
+PASS      m2:1   version    span in m2/txt/odp_overview.html.txt: Last updated 2025-12-18 UTC
+PASS      m2:3   version    span in m2/txt/litert_ondevice_training.html.txt: Last updated 2026-05-28 UTC
+PASS      m2:4   version    span in m2/txt/android_workmanager_define.html.txt: Last updated 2026-09-16 UTC
+PASS      m2:5   agent_note span in m2/txt/apple_bgtask_expirationhandler.json.txt: may be called before the background process uses the full amount of its allocate
+PASS      m2:6   agent_note span in m2/txt/aws_sagemaker_managed_spot.html.txt: up to
+PASS      m2:8   version    span in m2/txt/skypilot_managed_jobs.html.txt: latest
+PASS      m2:9   agent_note span in m2/reused/recheck/gcp_spot.html.txt: 120 seconds ( Preview )
+PASS      m2:9   agent_note span in m2/reused/recheck/gcp_spot.html.txt: 0 seconds (default)
+PASS      m2:9   agent_note span in m2/reused/recheck/gcp_spot.html.txt: is best effort and up to 30 seconds
+PASS      m2:9   agent_note span in m2/txt/azure_spot_vms.html.txt: on a best effort basis up to 30 seconds prior to the eviction
+PASS      m2:12  agent_note span in m2/reused/open1b_2609.17380v1.txt: Changing the number of data parallel workers results in different batch ordering
+PASS      m2:12  agent_note span in m2/txt/pytorch_torchrun_2.14.html.txt: WORLD_SIZE
+PASS      m2:12  version    span in m2/txt/pytorch_torchrun_2.14.html.txt: Created On: May 12, 2026 | Last Updated On: May 12, 2026
+PASS      m2:16  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: stop learning from me
+PASS      m2:16  note_check in m2/recheck_2/hf_trainer_v5.17.0.html.txt: skip fast-forwarding through the dataset to reach the previous state
+PASS      m2:16  note_check in m2/recheck_2/hf_trainer_v5.17.0.html.txt: slower resume but exact continuation
+PASS      m2:17  note_check in m2/recheck_2/hf_trainer_v5.17.0.html.txt: results won’t match interrupted training
+PASS      m2:17  note_check in m2/recheck_2/hf_trainer_v5.17.0.html.txt: Significantly reduces checkpoint size but prevents resuming training from the ch
+PASS      m2:18  agent_note span in m2/txt/torchdata_stateful_dataloader.html.txt: naively fast-forward
+PASS      m2:19  agent_note span in m2/reused/mitra_2609.22087v1.txt: ineffective(active)
+PASS      m2:19  agent_note span in m2/reused/mitra_2609.22087v1.txt: wall-clocktime
+PASS      m2:19  version    span in m2/recheck_2/abs_2609.22087v1.html.txt: Submitted on 22 Jun 2026
+PASS      m2:23  version    span in m2/reused/recheck/gke_agent_substrate.html.txt: Last updated 2026-09-24 UTC
+PASS      m2:24  version    span in m2/txt/odp_overview.html.txt: Last updated 2025-12-18 UTC
+PASS      m2:25  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: without keeping raw examples
+PASS      m2:26  version    span in m2/txt/ros2_node_lifecycle.html.txt: Date Written: 2015-06
+PASS      m2:26  version    span in m2/txt/ros2_node_lifecycle.html.txt: Last Modified: 2021-02
+PASS      m2:27  version    span in m2/txt/px4_safety.html.txt: main
+PASS      m2:29  agent_note span in m2/txt/pdf_2607.06979v1.pdf.txt: traces
+PASS      m2:34  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: every checkpoint a true restore point
+PASS      m2:37  agent_note span in m2/txt/casdk_overview.html.txt: up to
+PASS      m2:39  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: stop learning from me
+PASS      m2:40  agent_note span in m2/txt/youtube_how_recs_work.html.txt: a streamlined user experience
+PASS      m2:40  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: without penalising it
+PASS      m3:1   agent_note span in m3/txt/fda_pccp.pdf.txt: different architectures or hyperparameters
+PASS      m3:1   version    span in m3/txt/fda_pccp.pdf.txt: Document issued on August 18, 2025. Document originally issued on December 4, 20
+PASS      m3:4   note_check in m3/txt/pytorch_2.14_serialization.html.txt: Starting in version 2.6, torch.load will use weights_only=True
+PASS      m3:5   agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: leaves the model exactly as it was
+PASS      m3:7   agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: stop learning from me
+PASS      m3:9   agent_note span in m3/txt/eurlex_ai_act.html.txt: safe state
+PASS      m3:10  version    span in m3/txt/nist_ai_rmf_page.html.txt: Released on January 26, 2023
+PASS      m3:10  note_check in m3/txt/nist_ai_rmf_page.html.txt: On April 7, 2026, NIST released a concept note
+PASS      m3:13  agent_note span in m3/txt/2609.22882v1.pdf.txt: to a defined safe state in a set order
+PASS      m3:13  note_check in m3/txt/2609.22882v1.pdf.txt: engineered protections that bring the plant to a defined safe state in a set ord
+PASS      m3:17  agent_note span in m3/txt/2207.00099v2.pdf.txt: deterministically trained
+PASS      m3:21  agent_note span in m3/txt/nist_ai_100-2e2025.pdf.txt: Availability
+PASS      m3:21  agent_note span in m3/txt/nist_ai_100-2e2025.pdf.txt: cybersecurity
+PASS      m3:25  agent_note span in Applied_Suite/APPLICATIONS_DECLARATION.md: every checkpoint a true restore point
+PASS      m3:25  agent_note span in m3/txt/nist_ai_100-2e2025.pdf.txt: from a certain checkpoint
+PASS      m3:35  note_check in m3/txt/fpf_omnibus_timeline.html.txt: The AI Omnibus was published in the Official Journal of the EU on 24 July 2026.
+PASS      m3:35  note_check in m3/txt/aia_explorer_omnibus.html.txt: such systems shall be deemed to comply with the cybersecurity requirements set o
+PASS      m3:36  note_check in m3/txt/aia_explorer_omnibus.html.txt: such systems shall be deemed to comply with the cybersecurity requirements set o
+PASS      m3:36  note_check in m3/txt/eurlex_ai_act.html.txt: trained models (e.g. adversarial attacks or membership inference)
+PASS      m3:41  version    span in m3/txt/fda_pccp.pdf.txt: Document issued on August 18, 2025. Document originally issued on December 4, 20
+note spans found: 50 of 50; note checks found: 11 of 11; further raw files named by notes 14, listed in SHA256SUMS.txt 14, sha256 matches 14
+
+NEGATIVE CONTROL (every quote with a digit, altered at its first digit, searched again in its raw file)
+quotes with a digit: 60; altered and still found: 0 (expected 0)
+
+COVERAGE: claims 123; distinct source URLs 90; distinct raw files 91; quotes appearing verbatim in more than one claim 2
+  m1:19, m2:2: The FL runtime requests that the job scheduler only invoke the job when the phone is idle,
+  m1:38, m2:39: YouTube watch history makes it easy to find videos you recently watched, and, when it’s tu

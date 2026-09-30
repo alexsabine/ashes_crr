@@ -32,39 +32,43 @@ T = 'm3/txt/'
 
 CLAIMS = [
     # ------------------------------------------------------------------ AP1: on-device personalisation without a sweep
-    {'id': 'm3:1', 'application': 'AP1', 'role': 'who_does_it',
+    {'id': 'm3:1', 'application': 'AP1', 'role': 'regulation',
      'source': 'US FDA, Marketing Submission Recommendations for a Predetermined Change Control Plan for Artificial '
-               'Intelligence-Enabled Device Software Functions (guidance for industry and FDA staff)',
-     'version': 'final guidance, "Document issued on August 18, 2025. Document originally issued on December 4, 2024." '
-                '(PDF as served 2026-09-30; the landing page answered HTTP 401)',
+                'Intelligence-Enabled Device Software Functions (guidance for industry and FDA staff)',
+     'version': 'final guidance, "Document issued on August 18, 2025. Document originally issued on December 4, '
+                 '2024." (PDF as served 2026-09-30; the landing page answered HTTP 401)',
      'url': 'https://www.fda.gov/media/166704/download',
-     'quote': ['implemented differently on different devices on the market based on, for example, the unique characteristics '
-               'of a specific clinical site or individual patients (sometimes referred to as heterogenous or local changes, '
-               'or local adaptations).',
-               'For local adaptations, the Description of Modifications should include a description of what local factors '
-               'or conditions warrant a local change.',
-               'Will updates be made globally (i.e., the same update applied to all devices in the field) or locally (e.g., '
-               'the devices may be modified for a patient/provider/care unit/hospital)?'],
-     'raw_file': T + 'fda_pccp.pdf.txt',
-     'agent_note': 'How per-device adaptation is done in one regulated sector: a medical AI device may adapt per patient or '
-                   'per site, if the change and its triggers are described in a plan authorised before marketing. The text '
-                   'does not mention hyperparameter tuning. A sweep-free weight (K1) would enter such a plan as a fixed '
-                   're-training practice. The record has no medical carrier.'},
-    {'id': 'm3:2', 'application': 'AP1', 'role': 'what_is_hard',
-     'source': 'NIST AI 100-2 E2025, Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations '
-               '(Vassilev et al., with the US AI Safety Institute and the UK AI Security Institute)',
+     'quote': ['implemented differently on different devices on the market based on, for example, the unique '
+               'characteristics of a specific clinical site or individual patients (sometimes referred to as '
+               'heterogenous or local changes, or local adaptations).',
+               'For local adaptations, the Description of Modifications should include a description of what local '
+               'factors or conditions warrant a local change.',
+               'Will updates be made globally (i.e., the same update applied to all devices in the field) or locally '
+               '(e.g., the devices may be modified for a patient/provider/care unit/hospital)?'],
+     'raw_file': 'm3/txt/fda_pccp.pdf.txt',
+     'agent_note': 'How per-device adaptation is regulated in one sector: a medical AI device may adapt per patient '
+                   'or per site, if the change and its triggers are described in a plan authorised before marketing. '
+                   'The same guidance also covers tuning: it defines tuning data as data used to explore "different '
+                   'architectures or hyperparameters", places the tuning phase inside the training process, and '
+                   'names re-training practices as one of the four primary components of the plan (m3:41). A '
+                   'per-deployment tuning step can therefore be pre-specified in such a plan; a sweep-free weight '
+                   '(K1) would enter it as one more re-training practice, not as an easier route. The record has no '
+                   'medical carrier. (Corrected by the review fixes of 2026-09-30: an earlier note said the text '
+                   'does not mention hyperparameter tuning, which was false.)'},
+    {'id': 'm3:2', 'application': 'AP1', 'role': 'risk',
+     'source': 'NIST AI 100-2 E2025, Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and '
+                'Mitigations (Vassilev et al., with the US AI Safety Institute and the UK AI Security Institute)',
      'version': 'NIST AI 100-2e2025, March 2025 (PDF as served 2026-09-30)',
      'url': 'https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf',
-     'quote': ['These incidents highlight the risks associated with online learning, as the Tay.AI chatbot was updated in '
-               'real-time based on user interactions',
-               'In all these incidents, attackers crafted poisoned samples after an initial model release, counting on the '
-               'fact that models are continuously updated.'],
-     'raw_file': T + 'nist_ai_100-2e2025.pdf.txt',
-     'agent_note': 'The attack surface of any learner that keeps updating from its users, as NIST states it. AP1 learns on '
-                   'the device from the user\'s own data, so it is in this class. K1 sets a penalty weight and K2 preserves '
-                   'state across a pause; neither filters or checks inputs. This is a different difficulty, and nothing in the '
-                   'record addresses it.'},
-
+     'quote': ['These incidents highlight the risks associated with online learning, as the Tay.AI chatbot was '
+               'updated in real-time based on user interactions',
+               'In all these incidents, attackers crafted poisoned samples after an initial model release, counting '
+               'on the fact that models are continuously updated.'],
+     'raw_file': 'm3/txt/nist_ai_100-2e2025.pdf.txt',
+     'agent_note': 'The attack surface of any learner that keeps updating from its users, as NIST states it. AP1 '
+                   "learns on the device from the user's own data, so it is in this class. K1 sets a penalty weight "
+                   'and K2 preserves state across a pause; neither filters or checks inputs. This is a different '
+                   'difficulty, and nothing in the record addresses it.'},
     # ------------------------------------------------------------------ AP2: fine-tuning on interruptible compute
     {'id': 'm3:3', 'application': 'AP2', 'role': 'who_does_it',
      'source': 'Hugging Face (Patry, Biderman et al.), Audit shows that safetensors is safe and ready to become the default',
@@ -81,34 +85,36 @@ CLAIMS = [
                    'everywhere in 2026 was not checked.'},
     {'id': 'm3:4', 'application': 'AP2', 'role': 'what_is_hard',
      'source': 'PyTorch documentation: torch.load, and the Serialization semantics note',
-     'version': 'PyTorch 2.14 documentation as served 2026-09-30 (the "stable" URLs redirect to /docs/2.14/)',
+     'version': "PyTorch 2.14 documentation as served 2026-09-30 (the 'stable' URLs redirect to /docs/2.14/)",
      'url': 'https://docs.pytorch.org/docs/2.14/generated/torch.load.html',
      'quote': ['torch.load() uses an unpickler under the hood. Never load data from an untrusted source.',
                'pickle_module = pickle , * , weights_only = True'],
-     'raw_file': T + 'pytorch_2.14_torch_load.html.txt',
-     'agent_note': 'A pause on shared or spot compute ends with a restore from a file. If the file is a pickle, restoring it '
-                   'can run code. The second quote is the signature\'s default. The Serialization note (fetched the same day, '
-                   'pytorch_2.14_serialization.html.txt, not quoted here) dates that default to version 2.6. The '
-                   'record\'s own pause check, Empty_Cut_Engineering/checks/stack.py, loads its checkpoint with '
-                   'weights_only=False, on files it wrote itself. K2\'s "lossless" means the state is bitwise the same; it '
-                   'says nothing about a checkpoint that was tampered with. AP2 on preemptible infrastructure would need '
-                   'both.'},
-
+     'raw_file': 'm3/txt/pytorch_2.14_torch_load.html.txt',
+     'agent_note': 'A pause on shared or spot compute ends with a restore from a file. If the file is a pickle, '
+                   "restoring it can run code. The second quote is the signature's default. The Serialization note "
+                   '(fetched the same day, pytorch_2.14_serialization.html.txt, not quoted here) dates that default '
+                   "to version 2.6. The record's own pause check, Empty_Cut_Engineering/checks/stack.py, loads its "
+                   "checkpoint with weights_only=False, on files it wrote itself. K2's 'lossless' means the state is "
+                   'bitwise the same; it says nothing about a checkpoint that was tampered with. AP2 on preemptible '
+                   'infrastructure would need both.',
+     'note_checks': [('m3/txt/pytorch_2.14_serialization.html.txt', 'Starting in version 2.6, torch.load will use '
+                                                                     'weights_only=True')]},
     # ------------------------------------------------------------------ AP3: a user's "stop learning from me" switch
     {'id': 'm3:5', 'application': 'AP3', 'role': 'who_does_it',
      'source': 'Anthropic, Updates to Consumer Terms and Privacy Policy',
      'version': 'news post, Aug 28, 2025 (as served 2026-09-30)',
      'url': 'https://www.anthropic.com/news/updates-to-our-consumer-terms',
-     'quote': ['If you decide to turn off the model training setting, we will not use any new chats and coding sessions you '
-               'have with Claude for future model training. Your data will still be included in model training that has '
-               'already started and in models that have already been trained, but we will stop using your previously stored '
-               'chats and coding sessions in future model training runs.'],
-     'raw_file': T + 'anthropic_consumer_terms_2025.html.txt',
-     'agent_note': 'A deployed opt-out from training, and what it does not do. It stops future use. It says that models '
-                   'already trained keep what they learned. AP3\'s "leaves the model exactly as it was" is the forward half '
-                   '(no further learning from the user). The backward half, removing what was learned, is erasure and '
-                   'unlearning (m3:7, m3:8). The record\'s pause does not address it. Anthropic develops the model the agent '
-                   'runs on; the post is cited as a vendor statement only.'},
+     'quote': ['If you decide to turn off the model training setting, we will not use any new chats and coding '
+               'sessions you have with Claude for future model training. Your data will still be included in model '
+               'training that has already started and in models that have already been trained, but we will stop '
+               'using your previously stored chats and coding sessions in future model training runs.'],
+     'raw_file': 'm3/txt/anthropic_consumer_terms_2025.html.txt',
+     'agent_note': 'A deployed opt-out from training, and what it does not do. It stops future use. It says that '
+                   'models already trained keep what they learned. AP3\'s "leaves the model exactly as it was" is '
+                   'the forward half (no further learning from the user). The backward half, removing what was '
+                   "learned, is erasure and unlearning (m3:7, m3:8). The record's pause does not address it. "
+                   'Anthropic develops the model the agent runs on; the post is cited as a vendor statement only.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md']},
     {'id': 'm3:6', 'application': 'AP3', 'role': 'who_does_it',
      'source': 'Liu, Liu & Stone, Continual Learning and Private Unlearning',
      'version': 'arXiv v2, 13 Aug 2022 (v1 24 Mar 2022); CoLLAs 2022', 'url': 'https://arxiv.org/abs/2203.12817v2',
@@ -121,19 +127,21 @@ CLAIMS = [
                    'solution is built on DER++, a replay method that stores examples. The record\'s pause does something '
                    'else. It stops learning without losing state; it does not forget. Older than 2025.'},
     {'id': 'm3:7', 'application': 'AP3', 'role': 'regulation',
-     'source': 'Regulation (EU) 2016/679 (GDPR), Article 17 "Right to erasure (\'right to be forgotten\')", as reproduced '
-               'by gdpr-info.eu (an unofficial reproduction; EUR-Lex NOT REACHED on the day)',
+     'source': 'Regulation (EU) 2016/679 (GDPR), Article 17 "Right to erasure (\'right to be forgotten\')", as '
+                'reproduced by gdpr-info.eu (an unofficial reproduction; EUR-Lex NOT REACHED on the day)',
      'version': 'GDPR as in force (OJ L 119, 4.5.2016); reproduction page as served 2026-09-30',
      'url': 'https://gdpr-info.eu/art-17-gdpr/',
-     'quote': ['The data subject shall have the right to obtain from the controller the erasure of personal data concerning '
-               'him or her without undue delay and the controller shall have the obligation to erase personal data without '
-               'undue delay where one of the following grounds applies:',
+     'quote': ['The data subject shall have the right to obtain from the controller the erasure of personal data '
+               'concerning him or her without undue delay and the controller shall have the obligation to erase '
+               'personal data without undue delay where one of the following grounds applies:',
                'the data subject withdraws consent on which the processing is based'],
-     'raw_file': T + 'gdpr_art17.html.txt',
-     'agent_note': 'The legal root of "stop learning from me" in the EU. The duty is erasure, and a pause does not erase. '
-                   'Whether a trained model counts as personal data is a separate question (m3:16; RQM Q4, S46 and S47). '
-                   'Article 21 (right to object) was fetched from the same site and is not quoted. The official text on '
-                   'EUR-Lex returned HTTP 202 with an empty body on the day. Information, not legal advice.'},
+     'raw_file': 'm3/txt/gdpr_art17.html.txt',
+     'agent_note': 'The legal root of "stop learning from me" in the EU. The duty is erasure, and a pause does not '
+                   'erase. Whether a trained model counts as personal data is a separate question (m3:16; RQM Q4, '
+                   'S46 and S47). Article 21 (right to object) was fetched from the same site and is not quoted. The '
+                   'official text on EUR-Lex returned HTTP 202 with an empty body on the day. Information, not legal '
+                   'advice.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md']},
     {'id': 'm3:8', 'application': 'AP3', 'role': 'what_is_hard',
      'source': 'Özdenizci, Rueckert & Legenstein, Privacy-Aware Lifelong Learning (PALL)',
      'version': 'arXiv v1, 16 May 2025 (only version)', 'url': 'https://arxiv.org/abs/2505.10941v1',
@@ -165,18 +173,21 @@ CLAIMS = [
                    'advice.'},
     {'id': 'm3:10', 'application': 'AP4', 'role': 'regulation',
      'source': 'NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0)',
-     'version': 'January 2023; the NIST AI RMF page on 2026-09-30 still lists AI RMF 1.0 ("Released on January 26, 2023") '
-                'and an April 7, 2026 concept note for a critical-infrastructure profile; no revised framework found',
+     'version': 'January 2023; the NIST AI RMF page on 2026-09-30 still lists AI RMF 1.0 ("Released on January 26, '
+                 '2023") and an April 7, 2026 concept note for a critical-infrastructure profile; no revised '
+                 'framework found',
      'url': 'https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf',
-     'quote': ['MANAGE 2.4: Mechanisms are in place and applied, and responsibilities are assigned and understood, to '
-               'supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with '
-               'intended use.',
-               'AI systems may require more frequent maintenance and triggers for conducting corrective maintenance due to '
-               'data, model, or concept drift.'],
-     'raw_file': T + 'nist_ai_100-1.pdf.txt',
-     'agent_note': 'The US voluntary framework asks for the means to disengage or deactivate, and it names drift as a '
-                   'maintenance trigger. It does not distinguish stopping learning from stopping operation. The record\'s '
-                   'pause stops learning (K2); the framework asks for both kinds of stop.'},
+     'quote': ['MANAGE 2.4: Mechanisms are in place and applied, and responsibilities are assigned and understood, '
+               'to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes '
+               'inconsistent with intended use.',
+               'AI systems may require more frequent maintenance and triggers for conducting corrective maintenance '
+               'due to data, model, or concept drift.'],
+     'raw_file': 'm3/txt/nist_ai_100-1.pdf.txt',
+     'agent_note': 'The US voluntary framework asks for the means to disengage or deactivate, and it names drift as '
+                   'a maintenance trigger. It does not distinguish stopping learning from stopping operation. The '
+                   "record's pause stops learning (K2); the framework asks for both kinds of stop.",
+     'note_files': ['m3/txt/nist_ai_rmf_page.html.txt'],
+     'note_checks': [('m3/txt/nist_ai_rmf_page.html.txt', 'On April 7, 2026, NIST released a concept note')]},
     {'id': 'm3:11', 'application': 'AP4', 'role': 'who_does_it',
      'source': 'Orseau & Armstrong, Safely Interruptible Agents (Google DeepMind; FHI Oxford / MIRI)',
      'version': 'UAI 2016; PDF as hosted by MIRI, served 2026-09-30', 'url': 'https://intelligence.org/files/Interruptibility.pdf',
@@ -204,38 +215,51 @@ CLAIMS = [
                    'could not act as agents. So the record has not tested K3 on an agent of the kind this paper studies.'},
     {'id': 'm3:13', 'application': 'AP4', 'role': 'what_is_hard',
      'source': 'Perez, The Law of Stop: Interruptibility, Injunctions, and the Governance of Agentic AI',
-     'version': 'arXiv v1, 19 Sep 2026 (only version)', 'url': 'https://arxiv.org/abs/2609.22882v1',
-     'quote': ['Yet the requirement is rarely specified in enough detail to answer the hard questions: who may stop the '
-               'system, when they may do so, what counts as a safe state, how resistance or evasion should be handled, and '
-               'who is accountable if no one acts in time.',
-               'Its central claim is that agentic AI exposes a mismatch between the existing legal mechanisms of stop and '
-               'the distributed agency of AI systems'],
-     'raw_file': T + '2609.22882v1.pdf.txt',
-     'agent_note': 'A 2026 legal analysis of what the AI Act\'s stop requirement leaves open. Two of its five questions are '
-                   'technical: what counts as a safe state, and how resistance is handled. The record gives one '
-                   'construction for each, for a learner\'s state (K2) and for its valuation (K3), on tabular learners and '
-                   'gridworlds. The other three are institutional (authority, timing, accountability), and the record says '
-                   'nothing on them.'},
-
+     'version': 'arXiv v1, 19 Sep 2026 (only version)',
+     'url': 'https://arxiv.org/abs/2609.22882v1',
+     'quote': ['Yet the requirement is rarely specified in enough detail to answer the hard questions: who may stop '
+               'the system, when they may do so, what counts as a safe state, how resistance or evasion should be '
+               'handled, and who is accountable if no one acts in time.',
+               'Its central claim is that agentic AI exposes a mismatch between the existing legal mechanisms of '
+               'stop and the distributed agency of AI systems',
+               'The Act requires that the system “come to a halt in a safe state,” and neither defines a safe state '
+               'nor says how one is reached. No other instrument supplies the missing terms: none specifies the '
+               'order in which a stop is to be carried out, and none says what must be preserved when a system is '
+               'stopped.'],
+     'raw_file': 'm3/txt/2609.22882v1.pdf.txt',
+     'agent_note': "A 2026 legal analysis of what the AI Act's stop requirement leaves open. In this paper a safe "
+                   'state is a hazard-controlled halt (its sequenced-shutdown paradigm: a plant brought down "to a '
+                   'defined safe state in a set order"); the record\'s pause (K2) is bitwise preservation of a '
+                   "learner's state and is not a safety function (m3:19). K2 bears on a different open term the "
+                   'paper names in its footnote 193 (third quote): what must be preserved when a system is stopped. '
+                   "On resistance, the published construction is Orseau and Armstrong's (m3:11), and the record's "
+                   'own sweeps grade its zero-stake pause PARTLY REDUNDANT against the literature '
+                   '(CORRIGIBILITY_2026 K2-K5; Lossless_Pause C2); K3 was shown on tabular learners and gridworlds '
+                   'only. Authority, timing and accountability are institutional, and the record says nothing on '
+                   'them.',
+     'note_checks': [('m3/txt/2609.22882v1.pdf.txt', 'engineered protections that bring the plant to a defined safe '
+                                                      'state in a set order')]},
     # ------------------------------------------------------------------ AP5: privacy-regulated CL without raw examples
-    {'id': 'm3:14', 'application': 'AP5', 'role': 'who_does_it',
-     'source': 'US FDA, Marketing Submission Recommendations for a Predetermined Change Control Plan for AI-Enabled Device '
-               'Software Functions',
-     'version': 'final guidance, issued August 18, 2025 (originally December 4, 2024)', 'url': 'https://www.fda.gov/media/166704/download',
-     'quote': ['This includes AI-DSFs for which modifications to the AI model are implemented automatically (i.e., for which '
-               'the modifications are implemented automatically by software, also known as “continuous learning”)',
+    {'id': 'm3:14', 'application': 'AP5', 'role': 'regulation',
+     'source': 'US FDA, Marketing Submission Recommendations for a Predetermined Change Control Plan for AI-Enabled '
+                'Device Software Functions',
+     'version': 'final guidance, issued August 18, 2025 (originally December 4, 2024)',
+     'url': 'https://www.fda.gov/media/166704/download',
+     'quote': ['This includes AI-DSFs for which modifications to the AI model are implemented automatically (i.e., '
+               'for which the modifications are implemented automatically by software, also known as “continuous '
+               'learning”)',
                'The data management practices in a Modification Protocol should outline how those new data will be '
                'collected, annotated, curated, stored, retained,',
-               'The QSR requires manufacturers to retain all records for a period of time equivalent to the design and '
-               'expected life of the device, but in no case less than 2 years from the date of release for commercial '
-               'distribution by the manufacturer (21 CFR 820.180(b)).'],
-     'raw_file': T + 'fda_pccp.pdf.txt',
-     'agent_note': 'How continual learning is done in one regulated health setting: under a pre-authorised plan whose data '
-                   'management covers storing and retaining the new data. The footnote on record retention concerns '
-                   'records. The agent reads it as making retained, traceable data the regulator\'s default. That is the '
-                   'agent\'s reading; the guidance does not say whether raw training data must be kept. A learner that keeps '
-                   'no examples (K4) would have to show traceability another way. K4\'s gates closed in the record '
-                   '(RQM-A, RRM-PA, RRM2-T1..T3).'},
+               'The QSR requires manufacturers to retain all records for a period of time equivalent to the design '
+               'and expected life of the device, but in no case less than 2 years from the date of release for '
+               'commercial distribution by the manufacturer (21 CFR 820.180(b)).'],
+     'raw_file': 'm3/txt/fda_pccp.pdf.txt',
+     'agent_note': 'How continual learning is done in one regulated health setting: under a pre-authorised plan '
+                   'whose data management covers storing and retaining the new data. The footnote on record '
+                   'retention concerns records. The agent reads it as making retained, traceable data the '
+                   "regulator's default. That is the agent's reading; the guidance does not say whether raw training "
+                   'data must be kept. A learner that keeps no examples (K4) would have to show traceability another '
+                   "way. K4's gates closed in the record (RQM-A, RRM-PA, RRM2-T1..T3)."},
     {'id': 'm3:15', 'application': 'AP5', 'role': 'who_does_it',
      'source': 'Anthropic, Updates to Consumer Terms and Privacy Policy',
      'version': 'news post, Aug 28, 2025 (as served 2026-09-30)',
@@ -324,22 +348,23 @@ CLAIMS = [
                    'Regulation to Section B instead. Its AI requirements are to be written into '
                    'the Machinery Regulation\'s Annex III by delegated acts, applying by 2 August 2028. For AP6, the '
                    'requirements that would bind an on-board learner are not yet written. Information, not legal advice.'},
-    {'id': 'm3:21', 'application': 'AP6', 'role': 'what_is_hard',
-     'source': 'NIST AI 100-2 E2025, Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations',
-     'version': 'NIST AI 100-2e2025, March 2025', 'url': 'https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf',
-     'quote': ['poisoning attacks have also been proposed for ML-based systems that detect [...] attacks against industrial '
-               'control systems: such detectors are often retrained',
-               'using data collected during system operation to account for plant operational drift of the monitored signals, '
-               'creating opportunities for an attacker to mimic the signals of corrupted sensors at training time to poison '
-               'the detector such that real attacks remain undetected'],
-     'raw_file': T + 'nist_ai_100-2e2025.pdf.txt',
-     'agent_note': 'One sentence, split by a page footer in the extracted text; the two quotes are its halves. The words '
-                   '"Availability" and "cybersecurity" carry soft hyphens in the extraction, so the first quote starts after '
-                   'the first and is split by [...] at the second. On-board '
-                   'adaptation to drift from operating data is the class AP6 is in, and NIST names it as a poisoning '
-                   'target. No M3 source says who already does robot on-board adaptation with safe pauses. That belongs to '
-                   'M1 (m1:28-m1:30) and to ROB1.'},
-
+    {'id': 'm3:21', 'application': 'AP6', 'role': 'risk',
+     'source': 'NIST AI 100-2 E2025, Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and '
+                'Mitigations',
+     'version': 'NIST AI 100-2e2025, March 2025',
+     'url': 'https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf',
+     'quote': ['poisoning attacks have also been proposed for ML-based systems that detect [...] attacks against '
+               'industrial control systems: such detectors are often retrained',
+               'using data collected during system operation to account for plant operational drift of the monitored '
+               'signals, creating opportunities for an attacker to mimic the signals of corrupted sensors at '
+               'training time to poison the detector such that real attacks remain undetected'],
+     'raw_file': 'm3/txt/nist_ai_100-2e2025.pdf.txt',
+     'agent_note': 'One sentence, split by a page footer in the extracted text; the two quotes are its halves. The '
+                   'words "Availability" and "cybersecurity" carry soft hyphens in the extraction, so the first '
+                   'quote starts after the first and is split by [...] at the second. On-board adaptation to drift '
+                   'from operating data is the class AP6 is in, and NIST names it as a poisoning target. No M3 '
+                   'source says who already does robot on-board adaptation with safe pauses. That belongs to M1 '
+                   '(m1:28-m1:30) and to ROB1.'},
     # ------------------------------------------------------------------ AP7: federated CL with clients going offline
     {'id': 'm3:22', 'application': 'AP7', 'role': 'who_does_it',
      'source': 'Bonawitz, Ivanov, Kreuter, Marcedone, McMahan, Patel, Ramage, Segal, Seth (Google), Practical Secure '
@@ -356,12 +381,13 @@ CLAIMS = [
                    'round. Older than 2025; it is the published design of the deployed protocol.'},
     {'id': 'm3:23', 'application': 'AP7', 'role': 'risk',
      'source': 'Bonawitz et al. (Google), Practical Secure Aggregation for Privacy-Preserving Machine Learning',
-     'version': 'IACR ePrint 2017/281, last revision 2018-03-16', 'url': 'https://eprint.iacr.org/2017/281',
-     'quote': ['Moreover, an adversarial server in the active model can similarly learn xu simply by lying about whether user u '
-               'has dropped out.'],
-     'raw_file': T + 'iacr_2017_281.pdf.txt',
-     'agent_note': 'Whether a client dropped out is itself security-relevant: a server that lies about it can unmask a '
-                   'client\'s update (the paper then adds double masking). So a "client went offline" event is an attack '
+     'version': 'IACR ePrint 2017/281, last revision 2018-03-16',
+     'url': 'https://eprint.iacr.org/2017/281',
+     'quote': ['Moreover, an adversarial server in the active model can similarly learn xu simply by lying about '
+               'whether user u has dropped out.'],
+     'raw_file': 'm3/txt/iacr_2017_281.pdf.txt',
+     'agent_note': 'Whether a client dropped out is itself security-relevant: a server that lies about it can unmask '
+                   "a client's update (the paper then adds double masking). So a client's going offline is an attack "
                    'surface in federated learning, whatever the client does with its own state.'},
     {'id': 'm3:24', 'application': 'AP7', 'role': 'what_is_hard',
      'source': 'Ng, Daluwatta, Edirimannage, Elvitigala, Don, Khalil, Zhang, Niyato, Federated Unlearning in Edge Networks: A '
@@ -378,18 +404,21 @@ CLAIMS = [
 
     # ------------------------------------------------------------------ AP8: exact rollback and audit
     {'id': 'm3:25', 'application': 'AP8', 'role': 'who_does_it',
-     'source': 'Bourtoule, Chandrasekaran, Choquette-Choo, Jia, Travers, Zhang, Lie, Papernot, Machine Unlearning (SISA)',
-     'version': 'arXiv v3, 15 Dec 2020 (v1 9 Dec 2019); IEEE S&P 2021', 'url': 'https://arxiv.org/abs/1912.03817v3',
-     'quote': ['We save the state of model parameters before introducing each new slice, allowing us to start retraining the '
-               'model from the last known parameter state that does not include the point to be unlearned—rather than a '
-               'random initialization.',
+     'source': 'Bourtoule, Chandrasekaran, Choquette-Choo, Jia, Travers, Zhang, Lie, Papernot, Machine Unlearning '
+                '(SISA)',
+     'version': 'arXiv v3, 15 Dec 2020 (v1 9 Dec 2019); IEEE S&P 2021',
+     'url': 'https://arxiv.org/abs/1912.03817v3',
+     'quote': ['We save the state of model parameters before introducing each new slice, allowing us to start '
+               'retraining the model from the last known parameter state that does not include the point to be '
+               'unlearned—rather than a random initialization.',
                'Slicing further contributes to decreasing the time to unlearn, at the expense of additional storage.'],
-     'raw_file': T + '1912.03817v3.pdf.txt',
-     'agent_note': 'Restore points used for exact erasure: saved states, and a retrain from the last state that predates '
-                   'the data. This is prior art for AP8\'s "every checkpoint a true restore point", and it is priced in '
-                   'storage. State closure (Empty_Cut_Engineering) would make such restores bitwise, but SISA does not need '
-                   'that to be exact in its sense. NIST AI 100-2e2025 (same file as m3:2) lists retraining "from a certain '
-                   'checkpoint" as exact unlearning. Older than 2025.'},
+     'raw_file': 'm3/txt/1912.03817v3.pdf.txt',
+     'agent_note': 'Restore points used for exact erasure: saved states, and a retrain from the last state that '
+                   'predates the data. This is prior art for AP8\'s "every checkpoint a true restore point", and it '
+                   'is priced in storage. State closure (Empty_Cut_Engineering) would make such restores bitwise, '
+                   'but SISA does not need that to be exact in its sense. NIST AI 100-2e2025 (same file as m3:2) '
+                   'lists retraining "from a certain checkpoint" as exact unlearning. Older than 2025.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md', 'm3/txt/nist_ai_100-2e2025.pdf.txt']},
     {'id': 'm3:26', 'application': 'AP8', 'role': 'regulation',
      'source': 'Regulation (EU) 2024/1689 (AI Act), Article 12 "Record-keeping", Official Journal text',
      'version': 'OJ L 2024/1689, 12.7.2024, via EUR-Lex, fetched 2026-09-29 by EPS3; Article 12 not amended by Regulation (EU) 2026/1744',
@@ -497,64 +526,85 @@ CLAIMS = [
                    'platform\'s own help page (m1:39). An NGO\'s allegation, not a regulator\'s finding. Who offers the '
                    'option: the platforms, by the DSA\'s mandate (m3:32; M1 m1:38).'},
     {'id': 'm3:34', 'application': 'AP10', 'role': 'what_is_hard',
-     'source': 'Solarova, Mesarčík, Pecher & Srba, Beyond the Checkbox: Strengthening DSA Compliance Through Social Media '
-               'Algorithmic Auditing',
-     'version': 'arXiv v1, 26 Jan 2026 (only version); CHI 2026', 'url': 'https://arxiv.org/abs/2601.18405v1',
-     'quote': ['Similarly, for non-profiling options under Article 38 (1), auditors can verify that alternative recommendation '
-               'modes exist but cannot assess whether these truly eliminate profiling or simply reduce certain data inputs '
-               'while maintaining similar behavioural targeting through other means.'],
-     'raw_file': T + '2601.18405v1.pdf.txt',
-     'agent_note': 'The verification gap for AP10: an outsider cannot tell whether a paused or non-profiling feed really '
-                   'stopped learning from the user. An exact pause of the learner (K2) would be checkable by its operator '
-                   '(state before equals state after). Auditors reading published reports would not see that. The record\'s '
-                   'AP10 support is synthetic (K6).'},
-
+     'source': 'Solarova, Mesarčík, Pecher & Srba, Beyond the Checkbox: Strengthening DSA Compliance Through Social '
+                'Media Algorithmic Auditing',
+     'version': 'arXiv v1, 26 Jan 2026 (only version); CHI 2026',
+     'url': 'https://arxiv.org/abs/2601.18405v1',
+     'quote': ['Similarly, for non-profiling options under Article 38 (1), auditors can verify that alternative '
+               'recommendation modes exist but cannot assess whether these truly eliminate profiling or simply '
+               'reduce certain data inputs while maintaining similar behavioural targeting through other means.'],
+     'raw_file': 'm3/txt/2601.18405v1.pdf.txt',
+     'agent_note': 'A different difficulty from a pause: auditors cannot tell whether a non-profiling mode truly '
+                   'eliminates profiling or keeps targeting through other means. A learner whose state stays '
+                   'unchanged during a pause can still serve profiled recommendations from what it learned before, '
+                   "so K2's state equality (before equals after) does not show the absence of profiling at "
+                   "inference. The record's AP10 support is synthetic (K6)."},
     # ------------------------------------------------------------------ general: regulation timeline, learning after release, standards, attacks
     {'id': 'm3:35', 'application': 'general', 'role': 'regulation',
-     'source': 'Regulation (EU) 2026/1744 (Digital Omnibus on AI), Article 1(40) amending Article 113 of the AI Act, as '
-               'reproduced by the Future of Life Institute\'s AI Act Explorer (EUR-Lex NOT REACHED on the day)',
-     'version': 'Regulation of 8 July 2026; reproduction page as served 2026-09-30 (the FPF timeline post, fetched the same day, '
-                'gives OJ publication on 24 July 2026)',
+     'source': 'Regulation (EU) 2026/1744 (Digital Omnibus on AI), Article 1(40) amending Article 113 of the AI '
+                "Act, as reproduced by the Future of Life Institute's AI Act Explorer (EUR-Lex NOT REACHED on the "
+                'day)',
+     'version': 'Regulation of 8 July 2026; reproduction page as served 2026-09-30 (the FPF timeline post, fetched '
+                 'the same day, gives OJ publication on 24 July 2026)',
      'url': 'https://artificialintelligenceact.eu/ai-act-explorer/digital-omnibus/',
      'quote': ['It entered into force on 27 July 2026.',
-               '(c) Chapter III, Sections 1, 2, and 3, with the exception of Article 6 (5), shall apply from: (i) 2 December '
-               '2027 as regards AI systems classified as high-risk pursuant to Article 6 (2) and Annex III; and (ii) 2 August '
-               '2028 as regards AI systems classified as high-risk pursuant to Article 6 (1) and Annex I;',
+               '(c) Chapter III, Sections 1, 2, and 3, with the exception of Article 6 (5), shall apply from: (i) 2 '
+               'December 2027 as regards AI systems classified as high-risk pursuant to Article 6 (2) and Annex III; '
+               'and (ii) 2 August 2028 as regards AI systems classified as high-risk pursuant to Article 6 (1) and '
+               'Annex I;',
                'a way that does not justify maintaining their initial date of application, namely 2 August 2026.'],
-     'raw_file': T + 'aia_explorer_omnibus.html.txt',
-     'agent_note': 'The AI Act timeline as of today. The high-risk requirements (Articles 12, 14 and 15 among them) do not '
-                   'apply yet: from 2 December 2027 for Annex III systems and from 2 August 2028 for Annex I products. The '
-                   'original date was 2 August 2026 (Article 113 of the OJ text, m3:9\'s raw file). Articles 12, 14, 15 and '
-                   '43(4) are not among the Omnibus amendments (the agent read the list of amended articles). Information, '
-                   'not legal advice.'},
+     'raw_file': 'm3/txt/aia_explorer_omnibus.html.txt',
+     'agent_note': 'The AI Act timeline as of today. The high-risk requirements (Articles 12, 14 and 15 among them) '
+                   'do not apply yet: from 2 December 2027 for Annex III systems and from 2 August 2028 for Annex I '
+                   "products. The original date was 2 August 2026 (Article 113 of the OJ text, m3:9's raw file). "
+                   'Articles 12, 14, 15 and 43(4) are not among the articles the Omnibus amends; its item 18 adds a '
+                   "paragraph 3 to Article 42, under which a high-risk system meeting Regulation (EU) 2024/2847's "
+                   "Article 12(1) conditions is deemed to comply with Article 15's cybersecurity requirements "
+                   '(m3:36). Information, not legal advice.',
+     'note_checks': [('m3/txt/fpf_omnibus_timeline.html.txt', 'The AI Omnibus was published in the Official Journal '
+                                                               'of the EU on 24 July 2026.'),
+                     ('m3/txt/aia_explorer_omnibus.html.txt', 'such systems shall be deemed to comply with the '
+                                                               'cybersecurity requirements set out in Article 15 of '
+                                                               'this Regulation.')]},
     {'id': 'm3:36', 'application': 'general', 'role': 'regulation',
-     'source': 'Regulation (EU) 2024/1689 (AI Act), Article 15(4) and 15(5) "Accuracy, robustness and cybersecurity", '
-               'Official Journal text',
-     'version': 'OJ L 2024/1689, 12.7.2024, via EUR-Lex, fetched 2026-09-29 by EPS3; Article 15 not amended by the Omnibus',
+     'source': 'Regulation (EU) 2024/1689 (AI Act), Article 15(4) and 15(5) "Accuracy, robustness and '
+                'cybersecurity", Official Journal text',
+     'version': 'OJ L 2024/1689, 12.7.2024, via EUR-Lex, fetched 2026-09-29 by EPS3. Article 15 itself is not '
+                 'amended by the Omnibus, but Omnibus item 18 adds Article 42(3): a high-risk system within the '
+                 'scope of Regulation (EU) 2024/2847 that meets its Article 12(1) conditions is deemed to comply '
+                 "with Article 15's cybersecurity requirements (aia_explorer_omnibus.html.txt)",
      'url': 'https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689',
-     'quote': ['High-risk AI systems that continue to learn after being placed on the market or put into service shall be '
-               'developed in such a way as to eliminate or reduce as far as possible the risk of possibly biased outputs '
-               'influencing input for future operations (feedback loops)',
-               'measures to prevent, detect, respond to, resolve and control for attacks trying to manipulate the training '
-               'data set (data poisoning), or pre-trained components used in training (model poisoning)'],
-     'raw_file': T + 'eurlex_ai_act.html.txt',
-     'agent_note': 'The two duties the AI Act puts on a learner that keeps learning after release: control of feedback '
-                   'loops, and defence against poisoning. Recital 76 of the same text names membership inference as an '
-                   'attack on trained models. Neither duty is addressed by the record\'s capabilities K1 to K7. Information, '
-                   'not legal advice.'},
+     'quote': ['High-risk AI systems that continue to learn after being placed on the market or put into service '
+               'shall be developed in such a way as to eliminate or reduce as far as possible the risk of possibly '
+               'biased outputs influencing input for future operations (feedback loops)',
+               'measures to prevent, detect, respond to, resolve and control for attacks trying to manipulate the '
+               'training data set (data poisoning), or pre-trained components used in training (model poisoning)'],
+     'raw_file': 'm3/txt/eurlex_ai_act.html.txt',
+     'agent_note': 'The two duties the AI Act puts on a learner that keeps learning after release: control of '
+                   'feedback loops, and defence against poisoning. Recital 76 of the same text names membership '
+                   "inference as an attack on trained models. Neither duty is addressed by the record's capabilities "
+                   'K1 to K7. Information, not legal advice.',
+     'note_checks': [('m3/txt/aia_explorer_omnibus.html.txt', 'such systems shall be deemed to comply with the '
+                                                               'cybersecurity requirements set out in Article 15 of '
+                                                               'this Regulation.'),
+                     ('m3/txt/eurlex_ai_act.html.txt', 'trained models (e.g. adversarial attacks or membership '
+                                                        'inference)')]},
     {'id': 'm3:37', 'application': 'general', 'role': 'regulation',
      'source': 'Regulation (EU) 2024/1689 (AI Act), Article 43(4) and recital 128, Official Journal text',
-     'version': 'OJ L 2024/1689, 12.7.2024, via EUR-Lex, fetched 2026-09-29 by EPS3; the Omnibus replaces Article 43(3) only',
+     'version': 'OJ L 2024/1689, 12.7.2024, via EUR-Lex, fetched 2026-09-29 by EPS3; the Omnibus replaces Article '
+                 '43(3) only',
      'url': 'https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689',
-     'quote': ['For high-risk AI systems that continue to learn after being placed on the market or put into service, changes '
-               'to the high-risk AI system and its performance that have been pre-determined by the provider at the moment of '
-               'the initial conformity assessment and are part of the information contained in the technical documentation '
-               'referred to in point 2(f) of Annex IV, shall not constitute a substantial modification.'],
-     'raw_file': T + 'eurlex_ai_act.html.txt',
-     'agent_note': 'The EU counterpart of the FDA\'s predetermined plan (m3:1, m3:14). Learning after release does not '
-                   'trigger a new conformity assessment if it was pre-determined. The agent\'s reading, not legal advice: '
-                   'an update rule fixed in advance, such as a penalty weight set without a per-deployment sweep (K1), is '
-                   'easier to "pre-determine" than one retuned per deployment. No source here says so.'},
+     'quote': ['For high-risk AI systems that continue to learn after being placed on the market or put into '
+               'service, changes to the high-risk AI system and its performance that have been pre-determined by the '
+               'provider at the moment of the initial conformity assessment and are part of the information '
+               'contained in the technical documentation referred to in point 2(f) of Annex IV, shall not constitute '
+               'a substantial modification.'],
+     'raw_file': 'm3/txt/eurlex_ai_act.html.txt',
+     'agent_note': "The EU counterpart of the FDA's predetermined plan (m3:1, m3:14, m3:41). Learning after release "
+                   'does not trigger a new conformity assessment if it was pre-determined. Both regulators provide '
+                   'for pre-specified tuning and re-training inside such a plan (m3:41), so no source here makes a '
+                   'weight set without a per-deployment sweep (K1) easier to pre-determine than a pre-specified '
+                   'tuning procedure. (Corrected by the review fixes of 2026-09-30.) Not legal advice.'},
     {'id': 'm3:38', 'application': 'general', 'role': 'regulation',
      'source': 'ISO/IEC 42001:2023 Information technology - Artificial intelligence - Management system, product page of the '
                'IEC Webstore (co-publisher); the ISO pages were NOT REACHED (Cloudflare challenge, HTTP 403)',
@@ -592,6 +642,28 @@ CLAIMS = [
                    'examples are replayed, within audited limits, is enough to degrade a replay learner (ER, ER-ACE and '
                    'DER++ are named as targets in the abstract). An exemplar-free learner removes this surface, but K4\'s '
                    'gates closed in the record.'},
+    {'id': 'm3:41', 'application': 'AP1', 'role': 'regulation',
+     'source': 'US FDA, Marketing Submission Recommendations for a Predetermined Change Control Plan for Artificial '
+                'Intelligence-Enabled Device Software Functions (guidance for industry and FDA staff)',
+     'version': 'final guidance, "Document issued on August 18, 2025. Document originally issued on December 4, '
+                 '2024." (PDF as served 2026-09-30)',
+     'url': 'https://www.fda.gov/media/166704/download',
+     'quote': ['Tuning Data: These data are typically used by the manufacturer of an AI-DSF to evaluate a small '
+               'number of trained AI models. This process involves exploring various aspects, including different '
+               'architectures or hyperparameters.',
+               'The tuning phase happens before the testing phase of the AI-DSF and is part of the training process.',
+               'This guidance identifies four primary components of a Modification Protocol that outline a '
+               'manufacturer’s 1) data management practices, 2) re-training practices, 3) performance evaluation '
+               'protocols, and 4) update procedures',
+               'if re-training involves architecture modifications (e.g., in a neural network, modifications to '
+               'training hyperparameters or the number of nodes, layers, etc.), the re-training practices component '
+               'of a Modification Protocol should also describe the rationale or the justification for each specific '
+               'architecture modification.'],
+     'raw_file': 'm3/txt/fda_pccp.pdf.txt',
+     'agent_note': "Added by the review fixes of 2026-09-30 (the correction of m3:1). The regulator's own text "
+                   'provides for hyperparameter tuning and re-training inside a predetermined change control plan. '
+                   'It works against the reading that a sweep-free weight is easier to pre-determine: a tuning step '
+                   'can itself be pre-specified.'},
 ]
 
 # Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Applied_Suite/checks/verify.py; one dict

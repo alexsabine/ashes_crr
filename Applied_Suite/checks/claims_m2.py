@@ -63,30 +63,33 @@ CLAIMS = [
                    'tutorial\'s save function as extracted (code, spacing from tag stripping): it writes the model\'s weights. '
                    'The agent reads the listing as not saving optimizer state; what a resume restores is left to the '
                    'developer. Nothing on hyperparameter selection per device.'},
-    {'id': 'm2:4', 'application': 'AP1', 'role': 'what_is_hard',
+    {'id': 'm2:4', 'application': 'AP1', 'role': 'who_does_it',
      'source': 'Android Developers, "Define work requests" (WorkManager)',
      'version': 'developer.android.com page, "Last updated 2026-09-16 UTC"',
      'url': 'https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started/define-work',
      'quote': ['When multiple constraints are specified, your work will run only when all the constraints are met.',
-               'In the event that a constraint becomes unmet while your work is running, WorkManager will stop your worker. '
-               'The work will then be retried when all the constraints are met.'],
-     'raw_file': T + 'android_workmanager_define.html.txt',
-     'agent_note': 'The operating system, not the learner, decides when background work stops (for example when the device '
-                   'leaves the charger). "Retried" means the work restarts; whether the learner resumes where it was is left '
-                   'to the app. An on-device learner is therefore paused from outside, often, and must checkpoint its own state.'},
-    {'id': 'm2:5', 'application': 'AP1', 'role': 'what_is_hard',
+               'In the event that a constraint becomes unmet while your work is running, WorkManager will stop your '
+               'worker. The work will then be retried when all the constraints are met.'],
+     'raw_file': 'm2/txt/android_workmanager_define.html.txt',
+     'agent_note': 'Platform behaviour, not a difficulty the practitioners name: the operating system, not the '
+                   'learner, decides when background work stops (for example when the device leaves the charger), '
+                   'and the work is retried when the constraints are met again. Whether the learner resumes where it '
+                   'was is left to the app, which must checkpoint its own state.'},
+    {'id': 'm2:5', 'application': 'AP1', 'role': 'who_does_it',
      'source': 'Apple Developer Documentation, BGProcessingTask (BackgroundTasks framework)',
      'version': 'Apple documentation (JSON render), iOS 13.0+, iPadOS 13.0+, Mac Catalyst 13.1+, tvOS 13.0+; undated',
      'url': 'https://developer.apple.com/documentation/backgroundtasks/bgprocessingtask',
      'quote': ['Although processing tasks can run for minutes, the system can interrupt the process.',
-               'Processing tasks run only when the device is idle. The system terminates any background processing tasks '
-               'running when the user starts using the device.'],
-     'raw_file': T + 'apple_bgprocessingtask.json.txt',
-     'agent_note': 'Fetched as https://developer.apple.com/tutorials/data/documentation/backgroundtasks/bgprocessingtask.json '
-                   '(the page itself is rendered by script). On iOS the user picking up the phone ends background training; the '
-                   'companion "expirationHandler" page (fetched) says the handler "may be called before the background process '
-                   'uses the full amount of its allocated time". A pause arrives at the user\'s moment, not the learner\'s.'},
-
+               'Processing tasks run only when the device is idle. The system terminates any background processing '
+               'tasks running when the user starts using the device.'],
+     'raw_file': 'm2/txt/apple_bgprocessingtask.json.txt',
+     'agent_note': 'Platform behaviour, not a difficulty the practitioners name. Fetched as '
+                   'https://developer.apple.com/tutorials/data/documentation/backgroundtasks/bgprocessingtask.json '
+                   '(the page itself is rendered by script). On iOS the user picking up the phone ends background '
+                   'training; the companion page on the expiration handler (fetched) says the handler "may be called '
+                   'before the background process uses the full amount of its allocated time". A pause arrives at '
+                   "the user's moment, not the learner's.",
+     'note_files': ['m2/txt/apple_bgtask_expirationhandler.json.txt']},
     # ------------------------------------------------------------------ AP2: fine-tuning on interruptible compute
     {'id': 'm2:6', 'application': 'AP2', 'role': 'who_does_it',
      'source': 'Amazon Web Services, "Managed Spot Training in Amazon SageMaker AI"',
@@ -125,26 +128,35 @@ CLAIMS = [
                    'checkpoint itself. The ~70% is the project\'s own cost claim.'},
     {'id': 'm2:9', 'application': 'AP2', 'role': 'what_is_hard',
      'source': 'Amazon EC2 User Guide, "Spot Instance interruption notices"',
-     'version': 'AWS documentation page, undated; re-fetched 2026-09-30, same sha256 as the DR1 F4 copy of 2026-09-30 00:08 UTC',
+     'version': 'AWS documentation page, undated; re-fetched 2026-09-30, same sha256 as the DR1 F4 copy of '
+                 '2026-09-30 00:08 UTC',
      'url': 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html',
-     'quote': ['A Spot Instance interruption notice is a warning that is issued two minutes before Amazon EC2 stops or '
-               'terminates your Spot Instance.',
+     'quote': ['A Spot Instance interruption notice is a warning that is issued two minutes before Amazon EC2 stops '
+               'or terminates your Spot Instance.',
                'Interruption notices are emitted on a best effort basis.'],
-     'raw_file': V + 'aws_spot_notices.html.txt',
-     'agent_note': 'Reused from docs/citations/dr1_f4_2026-09-29.md. The pause is imposed with two minutes\' warning at best; '
-                   'Google Cloud Spot VMs default to no dedicated notice and a best-effort shutdown of up to 30 s (DR1 F4, '
-                   're-checked today: reachable), and Azure Spot VMs give scheduled events "on a best effort basis up to 30 '
-                   'seconds prior to the eviction" (azure_spot_vms, fetched today, not quoted as a claim). A pause that needs '
-                   'a save must fit that window, or the state it saves periodically is the state it resumes from.'},
+     'raw_file': 'm2/reused/recheck/aws_spot_notices.html.txt',
+     'agent_note': "Reused from docs/citations/dr1_f4_2026-09-29.md. On AWS the pause comes with two minutes' "
+                   'warning at best. The Google Cloud Spot VMs page (re-checked today) offers a preemption notice of '
+                   '"120 seconds ( Preview )" or "0 seconds (default)", and its shutdown period "is best effort and '
+                   'up to 30 seconds" (m2:41). Azure Spot VMs give scheduled events "on a best effort basis up to 30 '
+                   'seconds prior to the eviction" (azure_spot_vms, fetched today, not quoted as a claim). A pause '
+                   'that needs a save must fit that window, or the state it saves periodically is the state it '
+                   'resumes from.',
+     'note_files': ['m2/reused/recheck/gcp_spot.html.txt', 'm2/txt/azure_spot_vms.html.txt']},
     {'id': 'm2:10', 'application': 'AP2', 'role': 'what_is_hard',
-     'source': 'Thorpe et al., Bamboo: Making Preemptible Instances Resilient for Affordable Training of Large DNNs (NSDI 2023)',
-     'version': 'arXiv 2204.12013v1, 26 Apr 2022 (only version; re-checked 2026-09-30)', 'url': 'https://arxiv.org/abs/2204.12013v1',
-     'quote': ['While AWS spot instances have 2 minutes before preemption, GCP and Azure provide only 30 seconds, with GCP '
-               'not even guaranteeing such a warning. For large models, this can be too short of a warning and may not leave '
-               'sufﬁcient time to save model updates into a checkpoint.'],
-     'raw_file': U + 'bamboo_2204.12013v1.txt',
-     'agent_note': 'Reused from DR1 F4. The difficulty is the save inside the notice for large models; a small on-device or '
-                   'fine-tuning state is a different regime (the passage gives no size threshold).'},
+     'source': 'Thorpe et al., Bamboo: Making Preemptible Instances Resilient for Affordable Training of Large DNNs '
+                '(NSDI 2023)',
+     'version': 'arXiv 2204.12013v1, 26 Apr 2022 (only version; re-checked 2026-09-30)',
+     'url': 'https://arxiv.org/abs/2204.12013v1',
+     'quote': ['While AWS spot instances have 2 minutes before preemption, GCP and Azure provide only 30 seconds, '
+               'with GCP not even guaranteeing such a warning. For large models, this can be too short of a warning '
+               'and may not leave sufﬁcient time to save model updates into a checkpoint.'],
+     'raw_file': 'm2/reused/bamboo_2204.12013v1.txt',
+     'agent_note': 'Reused from DR1 F4. Superseded for GCP: the Google Cloud Spot VMs page re-fetched today offers a '
+                   '120-second preemption notice (Preview) beside a 0-second default (m2:41, m2:9); the 2022 '
+                   'statement that GCP gives no guaranteed warning holds only for the default. Still current as a '
+                   'difficulty: the save inside the notice for large models; a small on-device or fine-tuning state '
+                   'is a different regime (the passage gives no size threshold).'},
     {'id': 'm2:11', 'application': 'AP2', 'role': 'what_is_hard',
      'source': 'Wu et al., RLBoost: Harvesting Preemptible Resources for Cost-Efficient Reinforcement Learning on LLMs',
      'version': 'arXiv 2510.19225v3, 8 Apr 2026 (v1 22 Oct 2025)', 'url': 'https://arxiv.org/abs/2510.19225v3',
@@ -156,24 +168,31 @@ CLAIMS = [
                    'difficulty AP2 names.'},
     {'id': 'm2:12', 'application': 'AP2', 'role': 'what_is_hard',
      'source': 'PyTorch documentation, "torchrun (Elastic Launch)"',
-     'version': 'PyTorch 2.14 docs, "Created On: May 12, 2026 | Last Updated On: May 12, 2026" (docs/stable redirects to 2.14)',
+     'version': 'PyTorch 2.14 docs, "Created On: May 12, 2026 | Last Updated On: May 12, 2026" (docs/stable '
+                 'redirects to 2.14)',
      'url': 'https://docs.pytorch.org/docs/2.14/elastic/run.html',
-     'quote': ['all existing workers are stopped, a new WorkerGroup is formed, and all workers are started with a new RANK and',
-               'DO NOT hard code assumptions about WORLD_SIZE as the world size can change as nodes are allowed to leave and join.'],
-     'raw_file': T + 'pytorch_torchrun_2.14.html.txt',
-     'agent_note': 'Elastic training is standard: a node leaving stops and restarts every worker under a new world size, and the '
-                   'script is told to reload its checkpoint. A resume under a new world size is not the same trajectory '
-                   '(OPEN-1B: "Changing the number of data parallel workers results in different batch orderings", '
-                   'Lossless_Pause training dossier). The first quote ends at the tag boundary before "WORLD_SIZE".'},
+     'quote': ['all existing workers are stopped, a new WorkerGroup is formed, and all workers are started with a '
+               'new RANK and',
+               'DO NOT hard code assumptions about WORLD_SIZE as the world size can change as nodes are allowed to '
+               'leave and join.'],
+     'raw_file': 'm2/txt/pytorch_torchrun_2.14.html.txt',
+     'agent_note': 'Elastic training is standard: a node leaving stops and restarts every worker under a new world '
+                   'size, and the script is told to reload its checkpoint. A resume under a new world size is not '
+                   'the same trajectory (OPEN-1B: "Changing the number of data parallel workers results in different '
+                   'batch orderings", Lossless_Pause training dossier). The first quote ends at the tag boundary '
+                   'before "WORLD_SIZE".',
+     'note_files': ['m2/reused/open1b_2609.17380v1.txt']},
     {'id': 'm2:13', 'application': 'AP2', 'role': 'who_does_it',
-     'source': 'Emerald AI (Sivaram), "Sharing our Strategic Expansion Round: Emerald AI Raises $25 Million ..." (company blog)',
+     'source': 'Emerald AI (Sivaram), "Sharing our Strategic Expansion Round: Emerald AI Raises $25 Million ..." '
+                '(company blog)',
      'version': 'blog post dated March 31, 2026; re-fetched 2026-09-30, same sha256 as the DR1 F1 copy',
      'url': 'https://www.emeraldai.co/blog/sharing-our-strategic-expansion-round-emerald-ai-raises-25-million-to-transform-ai-data-centers-into-flexible-power-grid-assets',
      'quote': ['Temporal Flexibility: Slowing or pausing AI workloads such as fine-tuning runs that have some '
                'customer-designated flexibility on completion time.'],
-     'raw_file': V + 'emerald_2026.html.txt',
-     'agent_note': 'Reused from docs/citations/dr1_f1_2026-09-29.md. Pausing fine-tuning for the grid is a commercial offer in '
-                   '2026, with flexibility set by the customer as a completion-time tolerance. Company announcement.'},
+     'raw_file': 'm2/reused/recheck/emerald_2026.html.txt',
+     'agent_note': "Reused from docs/citations/dr1_f1_2026-09-29.md. A funding announcement on the company's blog, "
+                   'not a customer or deployment record: pausing fine-tuning for the grid is offered commercially in '
+                   '2026, with flexibility set by the customer as a completion-time tolerance.'},
     {'id': 'm2:14', 'application': 'AP2', 'role': 'who_does_it',
      'source': 'Colangelo et al. (Emerald AI, NVIDIA, SRP, EPRI), Turning AI Data Centers into Grid-Interactive Assets: '
                'Results from a Field Demonstration in Phoenix, Arizona',
@@ -205,63 +224,81 @@ CLAIMS = [
     # ------------------------------------------------------------------ AP3: "stop learning from me" and exact resume
     {'id': 'm2:16', 'application': 'AP3', 'role': 'who_does_it',
      'source': 'Hugging Face Transformers documentation, Trainer (TrainingArguments: Resuming Training)',
-     'version': 'Transformers docs (version selector shows v5.17.0), fetched 2026-09-30',
+     'version': 'Transformers docs fetched 2026-09-30 from the unversioned URL, which serves the development docs '
+                 "(the version selector lists 'main' first, then v5.17.0); both quoted passages are also in the "
+                 'v5.17.0 page re-fetched 2026-09-30 (recheck_2/hf_trainer_v5.17.0.html.txt)',
      'url': 'https://huggingface.co/docs/transformers/main_classes/trainer',
      'quote': ['When resuming training, skip fast-forwarding through the dataset to reach the previous state.',
                '(slower resume but exact continuation)'],
-     'raw_file': T + 'hf_trainer.html.txt',
-     'agent_note': 'The Hugging Face Trainer\'s default resume path is documented as an exact continuation '
-                   '(ignore_data_skip=False). Real_World/RW1.md reads HF Trainer resume as an empty cut on GPT-2 and a Qwen '
-                   'pilot (a construction). A user-facing "stop learning from me" switch would sit on this machinery; the page '
-                   'names no such switch.'},
+     'raw_file': 'm2/txt/hf_trainer.html.txt',
+     'agent_note': "The Hugging Face Trainer's default resume path is documented as an exact continuation "
+                   '(ignore_data_skip=False). Real_World/RW1.md reads HF Trainer resume as an empty cut on GPT-2 and '
+                   'a Qwen pilot (a construction). A user-facing "stop learning from me" switch would sit on this '
+                   'machinery; the page names no such switch.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md'],
+     'note_checks': [('m2/recheck_2/hf_trainer_v5.17.0.html.txt', 'skip fast-forwarding through the dataset to '
+                                                                   'reach the previous state'),
+                     ('m2/recheck_2/hf_trainer_v5.17.0.html.txt', 'slower resume but exact continuation')]},
     {'id': 'm2:17', 'application': 'AP3', 'role': 'what_is_hard',
      'source': 'Hugging Face Transformers documentation, Trainer (TrainingArguments)',
-     'version': 'Transformers docs (version selector shows v5.17.0), fetched 2026-09-30',
+     'version': 'Transformers docs fetched 2026-09-30 from the unversioned URL, which serves the development docs '
+                 "(the version selector lists 'main' first, then v5.17.0); both quoted passages are also in the "
+                 'v5.17.0 page re-fetched 2026-09-30 (recheck_2/hf_trainer_v5.17.0.html.txt)',
      'url': 'https://huggingface.co/docs/transformers/main_classes/trainer',
      'quote': ['(faster resume but results won’t match interrupted training)',
-               'Save only model weights, not optimizer/scheduler/RNG state. Significantly reduces checkpoint size but prevents '
-               'resuming training from the checkpoint.'],
-     'raw_file': T + 'hf_trainer.html.txt',
-     'agent_note': 'Two documented ways to lose exactness: a fast resume that restarts the data order, and a weights-only '
-                   'checkpoint that cannot resume at all. Exact resume costs checkpoint size and resume time.'},
+               'Save only model weights, not optimizer/scheduler/RNG state. Significantly reduces checkpoint size '
+               'but prevents resuming training from the checkpoint.'],
+     'raw_file': 'm2/txt/hf_trainer.html.txt',
+     'agent_note': 'Two documented ways to lose exactness: a fast resume that restarts the data order, and a '
+                   'weights-only checkpoint that cannot resume at all. Exact resume costs checkpoint size and resume '
+                   'time.',
+     'note_checks': [('m2/recheck_2/hf_trainer_v5.17.0.html.txt', 'results won’t match interrupted training'),
+                     ('m2/recheck_2/hf_trainer_v5.17.0.html.txt', 'Significantly reduces checkpoint size but '
+                                                                   'prevents resuming training from the checkpoint.')]},
     {'id': 'm2:18', 'application': 'AP3', 'role': 'who_does_it',
      'source': 'PyTorch, torchdata "Stateful DataLoader"',
-     'version': 'TorchData 0.11.0 documentation (beta; docs.pytorch.org/data/beta redirects to meta-pytorch.org/data/beta)',
+     'version': 'TorchData 0.11.0 documentation (beta; docs.pytorch.org/data/beta redirects to '
+                 'meta-pytorch.org/data/beta)',
      'url': 'https://docs.pytorch.org/data/beta/torchdata.stateful_dataloader.html',
-     'quote': ['StatefulDataLoader is a drop-in replacement for torch.utils.data.DataLoader which offers state_dict / '
-               'load_state_dict methods for handling mid-epoch checkpointing',
-               'By default, the state includes the number of batches yielded and uses this to naively fast-forward the '
-               'sampler (map-style) or the dataset (iterable-style).'],
-     'raw_file': T + 'torchdata_stateful_dataloader.html.txt',
-     'agent_note': 'The data-order state, the part of a resume that CheckFreq (Lossless_Pause training dossier) found missing '
-                   'in 2021, is now a library component. "Naively fast-forward" re-reads data to reach the position.'},
+     'quote': ['StatefulDataLoader is a drop-in replacement for torch.utils.data.DataLoader which offers state_dict '
+               '/ load_state_dict methods for handling mid-epoch checkpointing',
+               'By default, the state includes the number of batches yielded and uses this to naively fast-forward '
+               'the sampler (map-style) or the dataset (iterable-style).'],
+     'raw_file': 'm2/txt/torchdata_stateful_dataloader.html.txt',
+     'agent_note': 'The data-order state, the part of a resume that CheckFreq (Lossless_Pause training dossier) '
+                   'found missing in 2021, is now a library component. By default it will "naively fast-forward" the '
+                   'sampler or the dataset: it re-reads data to reach the position.'},
     {'id': 'm2:19', 'application': 'AP3', 'role': 'our_method_relevance',
-     'source': 'Mitra, When Is Availability-Aware Training Worth It? A Benchmark and Empirical Study of Interruption-Resilient '
-               'Optimization Under Predictable Compute Schedules',
-     'version': 'arXiv 2609.22087v1 (abstract page "Submitted on 22 Jun 2026"; re-checked 2026-09-30)',
+     'source': 'Mitra, When Is Availability-Aware Training Worth It? A Benchmark and Empirical Study of '
+                'Interruption-Resilient Optimization Under Predictable Compute Schedules',
+     'version': 'arXiv 2609.22087v1; the abstract page, re-fetched 2026-09-30, says "Submitted on 22 Jun 2026", '
+                 "which conflicts with the identifier's month (2609 = September 2026); both are recorded as served "
+                 'and the conflict is not resolved',
      'url': 'https://arxiv.org/abs/2609.22087v1',
      'quote': ['A baseline that preserves full optimizer state across a gap and advances its learning-rate schedule '
                'ineffective(active) time, not wall-clock time, reproduces uninterrupted training almost perfectly.',
-               'Checkpoint(weak): preserve( θ,m,BN stats )across a gap but index the learning-rate schedule on wall-clocktime t. '
-               'The schedule advances during idle gaps, over-annealing the learning rate at resumption.',
+               'Checkpoint(weak): preserve( θ,m,BN stats )across a gap but index the learning-rate schedule on '
+               'wall-clocktime t. The schedule advances during idle gaps, over-annealing the learning rate at '
+               'resumption.',
                '(B) when the data distribution drifts across the gap so that preserved state is stale.'],
-     'raw_file': U + 'mitra_2609.22087v1.txt',
-     'agent_note': 'Reused from docs/citations/sweep_prior_art_2026-09-25.md (P7); Lossless_Pause/checks/grade_sweep.txt reads '
-                   'it as stating C4, the empty-cut checklist, which is graded REDUNDANT. It states the record\'s pause '
-                   'construction (full state, schedule on active steps) as the honest baseline, and names wall-clock keying as '
-                   'the failure and drift across the gap as the remaining cost. So the record\'s method addresses the '
-                   'difficulty, and so does published practice. Spacing ("ineffective(active)", "wall-clocktime") is as '
-                   'extracted.'},
+     'raw_file': 'm2/reused/mitra_2609.22087v1.txt',
+     'agent_note': 'Reused from docs/citations/sweep_prior_art_2026-09-25.md (P7); '
+                   'Lossless_Pause/checks/grade_sweep.txt reads it as stating C4, the empty-cut checklist, which is '
+                   "graded REDUNDANT. It states the record's pause construction (full state, schedule on active "
+                   'steps) as the honest baseline, and names wall-clock keying as the failure and drift across the '
+                   "gap as the remaining cost. So the record's method addresses the difficulty, and so does "
+                   'published practice. Spacing ("ineffective(active)", "wall-clocktime") is as extracted.',
+     'note_files': ['m2/recheck_2/abs_2609.22087v1.html.txt']},
     {'id': 'm2:20', 'application': 'AP3', 'role': 'what_is_hard',
      'source': 'PyTorch documentation, "Reproducibility" notes',
-     'version': 'PyTorch 2.14 docs; re-fetched 2026-09-30 (first read in the Lossless_Pause training dossier, 2026-09-25)',
+     'version': 'PyTorch 2.14 docs; re-fetched 2026-09-30 (first read in the Lossless_Pause training dossier, '
+                 '2026-09-25)',
      'url': 'https://docs.pytorch.org/docs/2.14/notes/randomness.html',
-     'quote': ['Completely reproducible results are not guaranteed across PyTorch releases, individual commits, or different '
-               'platforms.'],
-     'raw_file': V + 'pytorch_randomness.html.txt',
-     'agent_note': '"Resumes exactly" holds on one software and hardware stack. A switch that must resume exactly after a '
-                   'software update or a device change is a harder promise than a pause on the same stack.'},
-
+     'quote': ['Completely reproducible results are not guaranteed across PyTorch releases, individual commits, or '
+               'different platforms.'],
+     'raw_file': 'm2/reused/recheck/pytorch_randomness.html.txt',
+     'agent_note': 'An exact resume holds on one software and hardware stack. A switch that must resume exactly '
+                   'after a software update or a device change is a harder promise than a pause on the same stack.'},
     # ------------------------------------------------------------------ AP4: operator-interruptible continual agents
     {'id': 'm2:21', 'application': 'AP4', 'role': 'who_does_it',
      'source': 'LangChain, LangGraph documentation, "Interrupts"',
@@ -311,45 +348,51 @@ CLAIMS = [
      'agent_note': 'The deployed privacy answer is locality (raw data stays on the device), not the absence of stored examples '
                    'that AP5 names. M2 is an infrastructure family; the privacy and erasure sources are M3\'s.'},
     {'id': 'm2:25', 'application': 'AP5', 'role': 'what_is_hard',
-     'source': 'Wan et al., ByteCheckpoint: A Unified Checkpointing System for Large Foundation Model Development (NSDI 2025)',
-     'version': 'arXiv 2407.20143v4, 2 Apr 2025 (re-checked 2026-09-30)', 'url': 'https://arxiv.org/abs/2407.20143v4',
-     'quote': ['CPU states include dataloader module, Random Number Generator (RNG) state, global training step number, and '
-               'learning-rate scheduler, all stored in CPU memory.',
-               'Our dataloader module incorporates a token buffer to cache input samples of varying lengths read from the data '
-               'sources',
+     'source': 'Wan et al., ByteCheckpoint: A Unified Checkpointing System for Large Foundation Model Development '
+                '(NSDI 2025)',
+     'version': 'arXiv 2407.20143v4, 2 Apr 2025 (re-checked 2026-09-30)',
+     'url': 'https://arxiv.org/abs/2407.20143v4',
+     'quote': ['CPU states include dataloader module, Random Number Generator (RNG) state, global training step '
+               'number, and learning-rate scheduler, all stored in CPU memory.',
+               'Our dataloader module incorporates a token buffer to cache input samples of varying lengths read '
+               'from the data sources',
                'the token buffers should be copied to the destination workers for bitwise-correct resuming.'],
-     'raw_file': U + 'bytecheckpoint_2407.20143v4.txt',
-     'agent_note': 'Reused from the Lossless_Pause training dossier. The agent\'s inference, not the source\'s claim: the state '
-                   'that makes a resume bit-exact can include buffered raw training samples, so an exact-resume checkpoint is '
-                   'itself a store of training data. Exact resume (K2) and "no raw examples kept" (K4) pull against each other '
-                   'unless the buffer is excluded or drained at the pause.'},
-
+     'raw_file': 'm2/reused/bytecheckpoint_2407.20143v4.txt',
+     'agent_note': "Reused from the Lossless_Pause training dossier. The agent's inference, not the source's claim: "
+                   'the state that makes a resume bit-exact can include buffered raw training samples, so an '
+                   'exact-resume checkpoint is itself a store of training data. Exact resume (K2) and learning '
+                   '"without keeping raw examples" (K4, the declaration\'s AP5) pull against each other unless the '
+                   'buffer is excluded or drained at the pause.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md']},
     # ------------------------------------------------------------------ AP6: robot and drone on-board adaptation
     {'id': 'm2:26', 'application': 'AP6', 'role': 'who_does_it',
      'source': 'ROS 2 design article, "Managed nodes" (node life cycle), Biggs and Foote',
-     'version': 'design.ros2.org article, "Date Written: 2015-06, Last Modified: 2021-02"',
+     'version': 'design.ros2.org design article (a design proposal, not implementation documentation), "Date '
+                 'Written: 2015-06" and "Last Modified: 2021-02"',
      'url': 'https://design.ros2.org/articles/node_lifecycle.html',
-     'quote': ['To transition out of a primary state requires action from an external supervisory process, with the exception of '
-               'an error being triggered in the Active state.',
+     'quote': ['To transition out of a primary state requires action from an external supervisory process, with the '
+               'exception of an error being triggered in the Active state.',
                'This state represents a node that is not currently performing any processing.',
-               'In the inactive state, any data that arrives on managed topics will not be read and or processed. Data '
-               'retention will be subject to the configured QoS policy for the topic.'],
-     'raw_file': T + 'ros2_node_lifecycle.html.txt',
-     'agent_note': 'Robot middleware provides a supervised pause state for any node, which an on-board learner could use. What '
-                   'happens to the world\'s data during the pause is a per-topic QoS setting, i.e. the content of the pause is '
+               'In the inactive state, any data that arrives on managed topics will not be read and or processed. '
+               'Data retention will be subject to the configured QoS policy for the topic.'],
+     'raw_file': 'm2/txt/ros2_node_lifecycle.html.txt',
+     'agent_note': 'A design article, not implementation documentation: robot middleware is designed to give any '
+                   'node a supervised inactive state, which an on-board learner could use. What happens to the '
+                   "world's data during the pause is a per-topic QoS setting, i.e. the content of the pause is "
                    'configured, not given. Nothing on learning.'},
     {'id': 'm2:27', 'application': 'AP6', 'role': 'what_is_hard',
      'source': 'PX4 Autopilot User Guide, "Safety Configuration (Failsafes)"',
-     'version': 'PX4 User Guide, "main" branch docs, fetched 2026-09-30', 'url': 'https://docs.px4.io/main/en/config/safety.html',
-     'quote': ['The Data Link Loss failsafe is triggered if the connection to the last MAVLink ground station like QGroundControl '
-               'is lost.',
-               'This must be kept short because the vehicle will continue to fly using the last known stick position until the '
-               'timeout triggers.'],
-     'raw_file': T + 'px4_safety.html.txt',
-     'agent_note': 'A lost link is handled by a configured failsafe action; the vehicle does not stop while the loss is being '
-                   'detected. For AP6 the difficulty is that the physical system keeps moving during a "pause"; the learner\'s '
-                   'pause and the vehicle\'s are different things. Robotics sources proper are P5\'s (Robotics/).'},
-
+     'version': 'PX4 User Guide, "main" branch docs, fetched 2026-09-30',
+     'url': 'https://docs.px4.io/main/en/config/safety.html',
+     'quote': ['The Data Link Loss failsafe is triggered if the connection to the last MAVLink ground station like '
+               'QGroundControl is lost.',
+               'This must be kept short because the vehicle will continue to fly using the last known stick position '
+               'until the timeout triggers.'],
+     'raw_file': 'm2/txt/px4_safety.html.txt',
+     'agent_note': 'A lost link is handled by a configured failsafe action; the vehicle does not stop while the loss '
+                   'is being detected. For AP6 the difficulty is that the physical system keeps moving during a '
+                   "'pause'; the learner's pause and the vehicle's are different things. Robotics sources proper are "
+                   "P5's (Robotics/)."},
     # ------------------------------------------------------------------ AP7: federated continual learning, clients offline
     {'id': 'm2:28', 'application': 'AP7', 'role': 'who_does_it',
      'source': 'Bonawitz et al. (Google), Towards Federated Learning at Scale: System Design (SysML 2019)',
@@ -398,14 +441,15 @@ CLAIMS = [
                    '(bitwise training holds only on the same hardware, software and layout).'},
     {'id': 'm2:32', 'application': 'AP8', 'role': 'what_is_hard',
      'source': 'Donaghy et al. (Gensyn), OPEN-1B: A Fully Auditable Training Run',
-     'version': 'arXiv 2609.17380v1, 15 Sep 2026', 'url': 'https://arxiv.org/abs/2609.17380v1',
-     'quote': ['Determinism does not imply reproducibility. A training run can be perfectly repeatable on its own GPU while '
-               'disagreeing with an identical run on a processor or a different GPU model. A framework’s deterministic mode '
-               'addresses only the first case.',
+     'version': 'arXiv 2609.17380v1, 15 Sep 2026',
+     'url': 'https://arxiv.org/abs/2609.17380v1',
+     'quote': ['Determinism does not imply reproducibility. A training run can be perfectly repeatable on its own '
+               'GPU while disagreeing with an identical run on a processor or a different GPU model. A framework’s '
+               'deterministic mode addresses only the first case.',
                'We trade off compute performance for reproducibility.'],
-     'raw_file': U + 'open1b_2609.17380v1.txt',
-     'agent_note': 'A restore point is "true" only on the same stack, unless one pays for reproducible kernels (the same '
-                   'section reports the performance cost; the Lossless_Pause dossier quotes it).'},
+     'raw_file': 'm2/reused/open1b_2609.17380v1.txt',
+     'agent_note': "A restore point is 'true' only on the same stack, unless one pays for reproducible kernels (the "
+                   'same section reports the performance cost; the Lossless_Pause dossier quotes it).'},
     {'id': 'm2:33', 'application': 'AP8', 'role': 'what_is_hard',
      'source': 'Ma (Harvard), Pei, Lausen, Karypis (Amazon Web Services), Understanding Silent Data Corruption in LLM Training',
      'version': 'arXiv 2502.12340v1, 17 Feb 2025', 'url': 'https://arxiv.org/abs/2502.12340v1',
@@ -417,18 +461,20 @@ CLAIMS = [
                    'bad. Exact restore of a corrupted state restores the corruption; knowing which checkpoint is clean is the '
                    'hard part, and state closure does not answer it.'},
     {'id': 'm2:34', 'application': 'AP8', 'role': 'what_is_hard',
-     'source': 'Xia et al., TrainSDC: Characterizing and Mitigating Silent Data Corruption in Large Language Model Training',
-     'version': 'arXiv 2608.30769v1, 31 Aug 2026', 'url': 'https://arxiv.org/abs/2608.30769v1',
-     'quote': ['The damage may become visible only later as a loss spike or failed convergence, or remain hidden while degrading '
-               'final model quality',
-               'The online window persists within an uninterrupted training process but is not stored in the ordinary '
-               'model/optimizer checkpoint.'],
-     'raw_file': T + 'pdf_2608.30769v1.pdf.txt',
-     'agent_note': 'The second quote is an instance of a checkpoint that is not state-closed: the protection\'s own running '
-                   'state is outside the model/optimizer checkpoint, so a restart does not return the whole system to where '
-                   'it was (the authors say their main runs were uninterrupted). Auxiliary state is where "every checkpoint '
-                   'is a true restore point" fails in practice.'},
-
+     'source': 'Xia et al., TrainSDC: Characterizing and Mitigating Silent Data Corruption in Large Language Model '
+                'Training',
+     'version': 'arXiv 2608.30769v1, 31 Aug 2026',
+     'url': 'https://arxiv.org/abs/2608.30769v1',
+     'quote': ['The damage may become visible only later as a loss spike or failed convergence, or remain hidden '
+               'while degrading final model quality',
+               'The online window persists within an uninterrupted training process but is not stored in the '
+               'ordinary model/optimizer checkpoint.'],
+     'raw_file': 'm2/txt/pdf_2608.30769v1.pdf.txt',
+     'agent_note': "The second quote is an instance of a checkpoint that is not state-closed: the protection's own "
+                   'running state is outside the model/optimizer checkpoint, so a restart does not return the whole '
+                   'system to where it was (the authors say their main runs were uninterrupted). Auxiliary state is '
+                   'where the declaration\'s "every checkpoint a true restore point" fails in practice.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md']},
     # ------------------------------------------------------------------ AP9: training scheduled against carbon intensity
     {'id': 'm2:35', 'application': 'AP9', 'role': 'who_does_it',
      'source': 'Green Software Foundation, Green Software Patterns, "Use carbon-aware scheduling and region selection for AI workloads"',
@@ -471,25 +517,47 @@ CLAIMS = [
     # ------------------------------------------------------------------ AP10: feeds that honour a user's pause
     {'id': 'm2:39', 'application': 'AP10', 'role': 'who_does_it',
      'source': 'YouTube Help, "View, delete, or turn on or off watch history"',
-     'version': 'support.google.com help page (hl=en), undated', 'url': 'https://support.google.com/youtube/answer/95725?hl=en',
-     'quote': ['YouTube watch history makes it easy to find videos you recently watched, and, when it’s turned on, allows us to '
-               'give relevant video recommendations.',
-               'Any videos that you watch while history is turned off won\'t show up in your history.',
+     'version': 'support.google.com help page (hl=en), undated',
+     'url': 'https://support.google.com/youtube/answer/95725?hl=en',
+     'quote': ['YouTube watch history makes it easy to find videos you recently watched, and, when it’s turned on, '
+               'allows us to give relevant video recommendations.',
+               "Any videos that you watch while history is turned off won't show up in your history.",
                'Select Pause watch history or Clear all watch history'],
-     'raw_file': T + 'youtube_watch_history.html.txt',
-     'agent_note': 'A user-facing "stop learning from me" switch for a recommender exists and is named a pause. Outside M2\'s '
-                   'infrastructure scope; recorded because AP10 needs a provider and M2 fetched it.'},
-    {'id': 'm2:40', 'application': 'AP10', 'role': 'what_is_hard',
+     'raw_file': 'm2/txt/youtube_watch_history.html.txt',
+     'agent_note': 'A user-facing "stop learning from me" switch for a recommender exists and is named a pause. '
+                   "Outside M2's infrastructure scope; recorded because AP10 needs a provider and M2 fetched it.",
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md']},
+    {'id': 'm2:40', 'application': 'AP10', 'role': 'risk',
      'source': 'YouTube Help, "How YouTube recommendations work"',
-     'version': 'support.google.com help page (hl=en), undated', 'url': 'https://support.google.com/youtube/answer/16089387?hl=en',
-     'quote': ['To provide video recommendations on the homepage, our system primarily relies on your watch history. You can turn '
-               'off and delete your watch history if you don’t prefer to have video recommendations on the homepage.',
-               'If your YouTube watch history is off and you have no significant prior watch history, the homepage will continue '
-               'to show the search bar and the left-side menu.'],
-     'raw_file': T + 'youtube_how_recs_work.html.txt',
-     'agent_note': 'Pausing the history removes homepage recommendations for a user with little history: the pause has a cost '
-                   'to the user in the product as shipped. AP10 names exactly this (a pause "without penalising it"). The page '
-                   'frames it as "a streamlined user experience". Attention_Algorithms/ holds the model-side reading.'},
+     'version': 'support.google.com help page (hl=en), undated',
+     'url': 'https://support.google.com/youtube/answer/16089387?hl=en',
+     'quote': ['To provide video recommendations on the homepage, our system primarily relies on your watch history. '
+               'You can turn off and delete your watch history if you don’t prefer to have video recommendations on '
+               'the homepage.',
+               'If your YouTube watch history is off and you have no significant prior watch history, the homepage '
+               'will continue to show the search bar and the left-side menu.'],
+     'raw_file': 'm2/txt/youtube_how_recs_work.html.txt',
+     'agent_note': "The agent's reading, not the platform's words: with history off and little prior history, the "
+                   'homepage shows the search bar and menu, not recommendations. The platform frames this as the '
+                   'user\'s choice and "a streamlined user experience"; that it is a penalty is the allegation of an '
+                   'NGO (EDRi, m3:33), not the vendor\'s statement. AP10 names a pause "without penalising it"; '
+                   'Attention_Algorithms/ holds the model-side reading.',
+     'note_files': ['Applied_Suite/APPLICATIONS_DECLARATION.md']},
+    {'id': 'm2:41', 'application': 'AP2', 'role': 'who_does_it',
+     'source': 'Google Cloud documentation, "Spot VMs" (Compute Engine), preemption process',
+     'version': 'page as served 2026-09-30 (re-checked 10:06:21Z, HTTP 200); the 120-second notice is marked Preview',
+     'url': 'https://cloud.google.com/compute/docs/instances/spot',
+     'quote': ['120 seconds ( Preview ) : We recommend setting the preemption notice duration to 120 seconds for any '
+               'workloads that need a dedicated duration or longer than 30 seconds to handle preemption.',
+               "0 seconds (default) : If the preemption notice duration for a Spot VM isn't specified or is set to "
+               '0, then there is no dedicated delay between detecting preemption in metadata and the ACPI G2 Soft '
+               'Off signal.',
+               'The shutdown period for Spot VMs is best effort and up to 30 seconds'],
+     'raw_file': 'm2/reused/recheck/gcp_spot.html.txt',
+     'agent_note': 'Added by the review fixes of 2026-09-30 (the page was already re-fetched for m2:9). A cloud '
+                   "provider now offers a dedicated 120-second notice as an option; m2:10's 2022 statement for GCP "
+                   'holds only for the default. A save on the notice is the standard way to lose no work at a '
+                   'preemption (the EPS report on S4: not new).'},
 ]
 
 # Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Applied_Suite/checks/verify.py; one dict

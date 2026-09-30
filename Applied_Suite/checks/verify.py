@@ -9,6 +9,16 @@ its quotes and is never counted as found. Each raw file's sha256 is also checked
 family's SHA256SUMS.txt (<root>/m1..m3/SHA256SUMS.txt, written by the literature agents at fetch time). Quotes corrected or dropped after a first NOT FOUND are listed in each claims
 module's VERIFY_CORRECTIONS; this script counts them and prints them, and never edits a claim.
 Normalisation and matching are copied from Open_Bottlenecks/checks/verify.py.
+Added by the review fixes of 2026-09-30 (printed after the quote check; the quote check itself is unchanged):
+- NOTE SPANS: every double-quoted span ("..." or “...”) in a claim's agent_note and version must be found, with the same
+  matching, in the claim's raw file, in a raw file the claim lists in 'note_files', or in the APP1 declaration (for the
+  declaration's own words). The agent's own terms are written in single quotes and are not checked.
+- NOTE CHECKS: facts paraphrased in a note or version are checked through 'note_checks', a list of (raw file, verbatim span).
+- Every raw file named in 'note_files' or 'note_checks' is checked against SHA256SUMS.txt like a quote's raw file.
+- NEGATIVE CONTROL: every quote that contains a digit is altered at its first digit (d -> d+1 mod 10) and searched again in
+  its raw file; a found altered quote is a coincidence to report. The control counts how many altered quotes are found.
+- COVERAGE: distinct source URLs and raw files beside the claim count, and quotes that appear verbatim in more than one
+  claim.
 Deterministic, stdlib only. Run: python3 Applied_Suite/checks/verify.py [raw-root]
 """
 import hashlib
@@ -30,6 +40,9 @@ class C:
 
 
 ROOT = '/tmp/claude-0/app1_src'
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DECL = 'Applied_Suite/APPLICATIONS_DECLARATION.md'
+SPAN = re.compile(r'"([^"]{3,}?)"|“([^”]{3,}?)”')
 BRK = '\x00'  # marks a line-break hyphen in the normalised text
 
 
@@ -134,6 +147,75 @@ def main():
           f'missing {n_missing}')
     for status, cid, i, q in bad:
         print(f'  {status} {cid} quote {i}: {q}')
+
+    def text_of(rel):
+        p = os.path.join(REPO, rel) if rel == DECL else os.path.join(root, rel)
+        if p not in cache:
+            cache[p] = norm_text(open(p, encoding='utf-8', errors='replace').read()) if os.path.isfile(p) else None
+        return cache[p]
+
+    print()
+    print('NOTE SPANS AND NOTE CHECKS (agent_note and version; the review fixes of 2026-09-30)')
+    n_sp = n_sp_ok = n_nc = n_nc_ok = 0
+    extra_raws = set()
+    for c in C.CLAIMS:
+        files = [c['raw_file']] + list(c.get('note_files', []))
+        extra_raws.update(f for f in c.get('note_files', []) if f != DECL)
+        for fld in ('agent_note', 'version'):
+            for m in SPAN.finditer(c[fld]):
+                span = norm_quote(m.group(1) or m.group(2))
+                n_sp += 1
+                where = next((f for f in files + [DECL] if text_of(f) is not None and found(span, text_of(f))), None)
+                n_sp_ok += where is not None
+                print(f"{'PASS' if where else 'NOT FOUND':9} {c['id']:6} {fld:10} span in {where or '-'}: {span[:80]}")
+        for f, span in c.get('note_checks', []):
+            extra_raws.add(f)
+            n_nc += 1
+            t = text_of(f)
+            ok = t is not None and found(norm_quote(span), t)
+            n_nc_ok += ok
+            print(f"{'PASS' if ok else 'NOT FOUND':9} {c['id']:6} note_check in {f}: {norm_quote(span)[:80]}")
+    n_xl = n_xm = 0
+    for r in sorted(extra_raws):
+        h = listed.get(os.path.normpath(r))
+        p = os.path.join(root, r)
+        n_xl += h is not None
+        ok = h is not None and os.path.isfile(p) and hashlib.sha256(open(p, 'rb').read()).hexdigest() == h
+        n_xm += ok
+        if not ok:
+            print(f'  SHA256 {r}' + (' (not listed)' if h is None else ' (sha256 differs or file missing)'))
+    print(f'note spans found: {n_sp_ok} of {n_sp}; note checks found: {n_nc_ok} of {n_nc}; further raw files named by notes '
+          f'{len(extra_raws)}, listed in SHA256SUMS.txt {n_xl}, sha256 matches {n_xm}')
+
+    print()
+    print('NEGATIVE CONTROL (every quote with a digit, altered at its first digit, searched again in its raw file)')
+    n_dig = n_alt_found = 0
+    for c in C.CLAIMS:
+        t = text_of(c['raw_file'])
+        for i, q in enumerate(c['quote']):
+            m = re.search(r'\d', q)
+            if not m or t is None:
+                continue
+            n_dig += 1
+            alt = q[:m.start()] + str((int(m.group(0)) + 1) % 10) + q[m.end():]
+            frags = [f for f in (norm_quote(x) for x in norm_quote(alt).split('[...]')) if f]
+            hit = bool(frags) and all(found(f, t) for f in frags)
+            n_alt_found += hit
+            if hit:
+                print(f'  altered quote still found (coincidence): {c["id"]} quote {i}')
+    print(f'quotes with a digit: {n_dig}; altered and still found: {n_alt_found} (expected 0)')
+
+    print()
+    urls = {c['url'] for c in C.CLAIMS}
+    qn = {}
+    for c in C.CLAIMS:
+        for q in c['quote']:
+            qn.setdefault(norm_quote(q), []).append(c['id'])
+    dupq = {q: v for q, v in qn.items() if len(v) > 1}
+    print(f'COVERAGE: claims {len(C.CLAIMS)}; distinct source URLs {len(urls)}; distinct raw files {len(raws)}; '
+          f'quotes appearing verbatim in more than one claim {len(dupq)}')
+    for q, v in sorted(dupq.items(), key=lambda kv: kv[1]):
+        print(f'  {", ".join(v)}: {q[:90]}')
 
 
 if __name__ == '__main__':

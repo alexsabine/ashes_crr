@@ -114,6 +114,8 @@ jobs:
           uv run python SEC_Analysis/checks/m_checks.py score > /tmp/sa_m.txt && cmp /tmp/sa_m.txt SEC_Analysis/checks/m_checks.txt
           uv run python Robotics/checks/reading_tally.py > /tmp/rob_rt.txt && cmp /tmp/rob_rt.txt Robotics/checks/reading_tally.txt
           uv run python Robotics/checks/tally_4b.py > /tmp/rob_t4b.txt && cmp /tmp/rob_t4b.txt Robotics/checks/tally_4b.txt
+          uv run python Applied_Suite/checks/capabilities.py > /tmp/app_cap.txt && cmp /tmp/app_cap.txt Applied_Suite/checks/capabilities.txt
+          uv run python Applied_Suite/checks/applications.py > /tmp/app_app.txt && cmp /tmp/app_app.txt Applied_Suite/checks/applications.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

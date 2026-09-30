@@ -22,17 +22,20 @@ CLAIMS = [
     # ---------------- AP1: on-device personalisation without a per-device hyperparameter sweep
     {'id': 'm1:1', 'application': 'AP1', 'role': 'who_does_it',
      'source': 'Apple, Core ML documentation: Personalizing a Model with On-Device Updates (sample code article)',
-     'version': 'developer.apple.com documentation JSON as served 2026-09-30 (no date on the page; sample targets iOS 13 or later)',
+     'version': 'developer.apple.com documentation JSON as served 2026-09-30 (no date on the page; sample targets '
+                 'iOS 13 or later)',
      'url': 'https://developer.apple.com/documentation/coreml/personalizing-a-model-with-on-device-updates',
-     'quote': ['With the Core ML framework, you can customize an updatable model at runtime on the user’s device. Using this '
-               'technique, you can create a personalized experience for the user while keeping their data private.',
-               'Each time the user adds a new emoji sticker, the app prompts the user to make three drawings, and uses those '
-               'drawings to update the drawing classifier.',
+     'quote': ['With the Core ML framework, you can customize an updatable model at runtime on the user’s device. '
+               'Using this technique, you can create a personalized experience for the user while keeping their data '
+               'private.',
+               'Each time the user adds a new emoji sticker, the app prompts the user to make three drawings, and '
+               'uses those drawings to update the drawing classifier.',
                'An MLModelConfiguration, if applicable'],
-     'raw_file': R + 'apple_coreml_personalizing.json.txt',
-     'agent_note': 'The platform API for on-device training on phones (MLUpdateTask). In the sample the configuration is '
-                   'passed as nil, so the update runs with the parameters baked into the model file: the developer fixes '
-                   'them before shipping, and nothing is tuned per device.'},
+     'raw_file': 'm1/txt/apple_coreml_personalizing.json.txt',
+     'agent_note': 'The platform API for on-device training on phones (MLUpdateTask). In this one sample the '
+                   'configuration is passed as nil, so the update runs with the parameters baked into the model '
+                   'file: in the sample, the developer fixes them before shipping. The page does not say what other '
+                   'apps do.'},
     {'id': 'm1:2', 'application': 'AP1', 'role': 'who_does_it',
      'source': 'Paulik et al. (Apple), Federated Evaluation and Tuning for On-Device Personalization: System Design & Applications',
      'version': 'arXiv v1, 16 Feb 2021 (only version)', 'url': 'https://arxiv.org/abs/2102.08503v1',
@@ -117,41 +120,57 @@ CLAIMS = [
                    'data inside the enclave.'},
     {'id': 'm1:9', 'application': 'AP1', 'role': 'what_is_hard',
      'source': 'Apple, Apple Intelligence Foundation Language Models: Tech Report 2025',
-     'version': 'arXiv v3, 27 Aug 2025 (v1 17 Jul 2025, v2 26 Aug 2025)', 'url': 'https://arxiv.org/abs/2507.13575v3',
-     'quote': ['For specialized use cases that require teaching the∼3B model entirely new skills, we also provide a Python '
-               'toolkit for training rank-32 LoRA adapters',
-               'However, each adapter is compatible with a single specific model version, meaning that a new adapter must be '
-               'trained for each new version of the base model.',
-               'Since each adapter takes significant storage space, the Foundation Models framework leverages the Background '
-               'Assets framework to download just a single adapter that matches the base model’s version on device.'],
-     'raw_file': R + '2507.13575v3.pdf.txt',
-     'agent_note': 'Personalisation of the 2025 on-device model is by developer-trained adapters, trained off the device '
-                   'with a Python toolkit, and every base-model update invalidates them. The retraining (and any sweep '
-                   'inside it) recurs per base version; storage on device is a stated constraint.'},
+     'version': 'arXiv v3, 27 Aug 2025 (v1 17 Jul 2025, v2 26 Aug 2025)',
+     'url': 'https://arxiv.org/abs/2507.13575v3',
+     'quote': ['For specialized use cases that require teaching the∼3B model entirely new skills, we also provide a '
+               'Python toolkit for training rank-32 LoRA adapters',
+               'However, each adapter is compatible with a single specific model version, meaning that a new adapter '
+               'must be trained for each new version of the base model.',
+               'Since each adapter takes significant storage space, the Foundation Models framework leverages the '
+               'Background Assets framework to download just a single adapter that matches the base model’s version '
+               'on device.'],
+     'raw_file': 'm1/txt/2507.13575v3.pdf.txt',
+     'agent_note': "Apple's 2025 on-device model is specialised by developer-trained LoRA adapters ('teaching the "
+                   "~3B model entirely new skills'), trained off the device with a Python toolkit: developer "
+                   'specialisation, not per-user adaptation. Every base-model update invalidates the adapters, so '
+                   'their training (and any sweep inside it) recurs per base version; storage on device is a stated '
+                   'constraint.'},
     {'id': 'm1:10', 'application': 'AP1', 'role': 'our_method_relevance',
-     'source': 'Xu, Zhang, Andrew, Choquette-Choo, Kairouz, McMahan, Rosenstock, Zhang (Google), Federated Learning of Gboard Language Models with Differential Privacy (ACL industry track)',
-     'version': 'arXiv v2, 17 Jul 2023 (v1 29 May 2023)', 'url': 'https://arxiv.org/abs/2305.18465v2',
-     'quote': ['We show how quantile-based clip estimation [Andrew et al., 2021] can be combined with DP-FTRL to adaptively '
-               'choose the clip norm during training or reduce the hyperparameter tuning in preparation for training.',
-               'For example, adaptive clipping for the de-DE NWP model experiences catastrophic failure and makes no progress '
-               'in the first 1000 rounds.',
-               'Nevertheless, adaptive clipping can reduce hyperparameter tuning for many tasks when privacy budget allows.'],
-     'raw_file': R + '2305.18465v2.pdf.txt',
-     'agent_note': 'A deployed precedent for a tuning-reducing estimator in on-device learning, and for its failure mode: it '
-                   'worked on many models and failed catastrophically on one, so the vendor fixed the clip from the '
-                   'estimate. The same shape as the record\'s SEC family (SEC4-1 PASS-1 not replicated by SEC5-1): a '
-                   'sweep-free rule that holds on most carriers is not yet a rule that can ship without a fallback.'},
+     'source': 'Xu, Zhang, Andrew, Choquette-Choo, Kairouz, McMahan, Rosenstock, Zhang (Google), Federated Learning '
+                'of Gboard Language Models with Differential Privacy (ACL industry track)',
+     'version': 'arXiv v2, 17 Jul 2023 (v1 29 May 2023)',
+     'url': 'https://arxiv.org/abs/2305.18465v2',
+     'quote': ['We show how quantile-based clip estimation [Andrew et al., 2021] can be combined with DP-FTRL to '
+               'adaptively choose the clip norm during training or reduce the hyperparameter tuning in preparation '
+               'for training.',
+               'For example, adaptive clipping for the de-DE NWP model experiences catastrophic failure and makes no '
+               'progress in the first 1000 rounds.',
+               'Nevertheless, adaptive clipping can reduce hyperparameter tuning for many tasks when privacy budget '
+               'allows.'],
+     'raw_file': 'm1/txt/2305.18465v2.pdf.txt',
+     'agent_note': 'A deployed precedent for a tuning-reducing estimator in on-device learning. The paper gives its '
+                   'own reasons for running the final models with a fixed clip: the adaptive estimator inflates the '
+                   'noise and needs restarts that complicate the privacy accounting, and a fixed clip was comparable '
+                   'or slightly better and more robust with a large report goal (m1:41). One model (de-DE) failed '
+                   'catastrophically under adaptive clipping. Adaptive clipping was used in small tuning runs to '
+                   'estimate the clip norm, and the final models for deployment used a fixed clip (m1:41): estimate '
+                   "once, then fix, not an adaptive rule that ships. The record's SEC family has a result of the "
+                   'same shape (SEC4-1 PASS-1 not replicated by SEC5-1).'},
     {'id': 'm1:11', 'application': 'AP1', 'role': 'our_method_relevance',
-     'source': 'Kwon, Chauhan, Kumar, Hui, Mascolo, Exploring System Performance of Continual Learning for Mobile and Embedded Sensing Applications (SEC 2021)',
-     'version': 'arXiv v2, 23 Jun 2022 (v1 25 Oct 2021)', 'url': 'https://arxiv.org/abs/2110.13290v2',
+     'source': 'Kwon, Chauhan, Kumar, Hui, Mascolo, Exploring System Performance of Continual Learning for Mobile '
+                'and Embedded Sensing Applications (SEC 2021)',
+     'version': 'arXiv v2, 23 Jun 2022 (v1 25 Oct 2021)',
+     'url': 'https://arxiv.org/abs/2110.13290v2',
      'quote': ['(2) 𝜆⊂{1, 10, 102, 103, 104, 105, 106} for both EWC and Online EWC',
                'Note that tuning appropriate parameters in the IL method would still allow IL to perform effectively'],
-     'raw_file': R + '2110.13290v2.pdf.txt',
-     'agent_note': 'The extractor flattens superscripts: the grid is 1, 10, 10^2 ... 10^6. In an on-device continual-learning '
-                   'study the penalty weight is searched over six orders of magnitude, which is the quantity K1 (the SEC '
-                   'family) sets without a sweep. The record\'s method addresses this hyperparameter; it does not address the '
-                   'learning rate, which the same study also sweeps.'},
-
+     'raw_file': 'm1/txt/2110.13290v2.pdf.txt',
+     'agent_note': 'The extractor flattens superscripts: the grid is 1, 10, 10^2 ... 10^6. In an on-device '
+                   'continual-learning study the penalty weight is searched over six orders of magnitude; K1 (the '
+                   'SEC family) replaces that grid with one configuration. That configuration is itself a default '
+                   "chosen in development: SEC4's clip was chosen on SEEN development carriers (ledger SEC4-D) and "
+                   'the calibration has a window parameter (prereg/sec4/PREREG.md), so against a fixed default the '
+                   "compute saving is nil (m1:17, m1:30). The record's method addresses this hyperparameter; it does "
+                   'not address the learning rate, which the same study also sweeps.'},
     # ---------------- general: the published cost of hyperparameter sweeps in fine-tuning and continual learning
     {'id': 'm1:12', 'application': 'general', 'role': 'what_is_hard',
      'source': 'Strubell, Ganesh, McCallum, Energy and Policy Considerations for Deep Learning in NLP (ACL 2019)',
@@ -169,15 +188,17 @@ CLAIMS = [
                    'unit a sweep-free weight would remove; the paper is about 2018 NLP hardware and prices.'},
     {'id': 'm1:13', 'application': 'general', 'role': 'what_is_hard',
      'source': 'Schwartz, Dodge, Smith, Etzioni, Green AI',
-     'version': 'arXiv v3, 13 Aug 2019 (v1 22 Jul 2019); later published in CACM', 'url': 'https://arxiv.org/abs/1907.10597v3',
-     'quote': ['the number of (H)yperparameter experiments, which controls how many times the model is trained during model '
-               'development. The total cost of producing a (R)esult in machine learning increases linearly with each of these '
-               'quantities.',
-               'Some projects have poured large amounts of computation into tuning hyperparameters or searching over neural '
-               'architectures, well beyond the reach of most researchers.'],
-     'raw_file': R + '1907.10597v3.pdf.txt',
-     'agent_note': 'The cost model the Energy and Compute dimensions need: cost is linear in the number of hyperparameter '
-                   'experiments, so removing an n-point sweep divides that factor by n, before any other saving.'},
+     'version': 'arXiv v3, 13 Aug 2019 (v1 22 Jul 2019)',
+     'url': 'https://arxiv.org/abs/1907.10597v3',
+     'quote': ['the number of (H)yperparameter experiments, which controls how many times the model is trained '
+               'during model development. The total cost of producing a (R)esult in machine learning increases '
+               'linearly with each of these quantities.',
+               'Some projects have poured large amounts of computation into tuning hyperparameters or searching over '
+               'neural architectures, well beyond the reach of most researchers.'],
+     'raw_file': 'm1/txt/1907.10597v3.pdf.txt',
+     'agent_note': 'The cost model the Energy and Compute dimensions need: cost is linear in the number of '
+                   'hyperparameter experiments, so removing an n-point sweep divides that factor by n, before any '
+                   'other saving.'},
     {'id': 'm1:14', 'application': 'general', 'role': 'what_is_hard',
      'source': 'Dodge, Gururangan, Card, Schwartz, Smith, Show Your Work: Improved Reporting of Experimental Results (EMNLP 2019)',
      'version': 'arXiv v1, 6 Sep 2019 (only version)', 'url': 'https://arxiv.org/abs/1909.03004v1',
@@ -396,19 +417,20 @@ CLAIMS = [
      'raw_file': R + '2305.18465v2.pdf.txt',
      'agent_note': 'Federated training with intermittent clients ships at scale; the round succeeds by a report goal (enough '
                    'clients), so any single offline client is absorbed by the protocol rather than paused.'},
-    {'id': 'm1:32', 'application': 'AP7', 'role': 'what_is_hard',
+    {'id': 'm1:32', 'application': 'AP7', 'role': 'who_does_it',
      'source': 'Bonawitz et al. (Google), Towards Federated Learning at Scale: System Design',
-     'version': 'arXiv v2, 22 Mar 2019', 'url': 'https://arxiv.org/abs/1902.01046v2',
-     'quote': ['We also observe that on average the portion of devices that drop out due to computation errors, network '
-               'failures, or changes in eligibility varies between 6% and 10%. Therefore, in order to compensate for device '
-               'drop out as well as to allow stragglers to be discarded, the server typically selects 130% of the target '
-               'number of devices to initially participate.',
+     'version': 'arXiv v2, 22 Mar 2019',
+     'url': 'https://arxiv.org/abs/1902.01046v2',
+     'quote': ['We also observe that on average the portion of devices that drop out due to computation errors, '
+               'network failures, or changes in eligibility varies between 6% and 10%. Therefore, in order to '
+               'compensate for device drop out as well as to allow stragglers to be discarded, the server typically '
+               'selects 130% of the target number of devices to initially participate.',
                'unreliable device connectivity and interrupted execution'],
-     'raw_file': R + '1902.01046v2.pdf.txt',
-     'agent_note': 'Drop-out is handled by over-selection (130%) and discarding stragglers: the incumbent pays for offline '
-                   'clients with extra devices, not with lost state. EPS2\'s federated-client row is where the record reads '
-                   'this; a lossless client pause would compete with over-selection, whose cost is spare device time.'},
-
+     'raw_file': 'm1/txt/1902.01046v2.pdf.txt',
+     'agent_note': 'Drop-out is handled by over-selection (130%) and discarding stragglers: the incumbent pays for '
+                   "offline clients with extra devices, not with lost state. EPS2's federated-client row is where "
+                   'the record reads this; a lossless client pause would compete with over-selection, whose cost is '
+                   'spare device time.'},
     # ---------------- AP8: exact rollback and audit of a learning system
     {'id': 'm1:33', 'application': 'AP8', 'role': 'who_does_it',
      'source': 'Apple, Private Cloud Compute blog', 'version': 'post dated 10 Jun 2024, as served 2026-09-30',
@@ -469,23 +491,28 @@ CLAIMS = [
      'source': 'YouTube Help: View, delete, or turn on or off watch history (Computer)',
      'version': 'help page as served 2026-09-30 (no date on the page)',
      'url': 'https://support.google.com/youtube/answer/95725?hl=en&co=GENIE.Platform%3DDesktop',
-     'quote': ['YouTube watch history makes it easy to find videos you recently watched, and, when it’s turned on, allows us to '
-               'give relevant video recommendations.',
+     'quote': ['YouTube watch history makes it easy to find videos you recently watched, and, when it’s turned on, '
+               'allows us to give relevant video recommendations.',
                'Pause & clear watch history on TV or gaming console'],
-     'raw_file': R + 'youtube_watch_history_help.html.txt',
-     'agent_note': 'A feed that offers a user\'s pause: the watch history that feeds recommendations can be paused (the page '
-                   'uses both "pause" and "turn off"). The pause acts on the input the recommender learns from.'},
-    {'id': 'm1:39', 'application': 'AP10', 'role': 'what_is_hard',
+     'raw_file': 'm1/txt/youtube_watch_history_help.html.txt',
+     'agent_note': "A feed that offers a user's pause: the watch history that feeds recommendations can be paused "
+                   '(the page\'s own labels include "Pause & clear watch history" and "turn on or off"). The pause '
+                   'acts on the input the recommender learns from.'},
+    {'id': 'm1:39', 'application': 'AP10', 'role': 'risk',
      'source': 'YouTube Help: View, delete, or turn on or off watch history (Computer)',
      'version': 'help page as served 2026-09-30 (no date on the page)',
      'url': 'https://support.google.com/youtube/answer/95725?hl=en&co=GENIE.Platform%3DDesktop',
-     'quote': ['If you have no relevant or significant recent watch history and have indicated you do not wish to receive '
-               'future recommendations based on that history, YouTube features like recommendations on the YouTube homepage '
-               'are removed.'],
-     'raw_file': R + 'youtube_watch_history_help.html.txt',
-     'agent_note': 'What the pause costs the user, in the platform\'s own words: past a point, the paused user loses homepage '
-                   'recommendations. That is the penalty AP10 says a pause should not carry. The record\'s support for AP10 is '
-                   'a synthetic model only (K6).'},
+     'quote': ['If you have no relevant or significant recent watch history and have indicated you do not wish to '
+               'receive future recommendations based on that history, YouTube features like recommendations on the '
+               'YouTube homepage are removed.'],
+     'raw_file': 'm1/txt/youtube_watch_history_help.html.txt',
+     'agent_note': "The agent's reading, not the platform's words: the page states that homepage recommendations are "
+                   'removed for a user with little or no recent history who has declined history-based '
+                   'recommendations. The platform presents the history-off state as the user\'s choice ("a '
+                   'streamlined user experience", m2:40). That this is a penalty is the allegation of an NGO (EDRi, '
+                   "m3:33), not a regulator's finding and not the vendor's statement. The record's support for AP10 "
+                   'is a synthetic model only (K6).',
+     'note_files': ['m2/txt/youtube_how_recs_work.html.txt']},
     {'id': 'm1:40', 'application': 'AP10', 'role': 'what_is_hard',
      'source': 'Ricks & McCrosky (Mozilla Foundation), Does This Button Work? Investigating YouTube\'s ineffective user controls',
      'version': 'report dated September 2022 (PDF as served 2026-09-30)',
@@ -496,6 +523,24 @@ CLAIMS = [
      'raw_file': R + 'mozilla_youtube_user_controls.pdf.txt',
      'agent_note': 'Third-party audit (crowdsourced data, not the vendor): user controls change little. Older than 2025-26; '
                    'the controls audited are feedback buttons, not the history pause of m1:38.'},
+    {'id': 'm1:41', 'application': 'AP1', 'role': 'our_method_relevance',
+     'source': 'Xu, Zhang, Andrew, Choquette-Choo, Kairouz, McMahan, Rosenstock, Zhang (Google), Federated Learning '
+                'of Gboard Language Models with Differential Privacy (ACL industry track)',
+     'version': 'arXiv v2, 17 Jul 2023 (v1 29 May 2023)',
+     'url': 'https://arxiv.org/abs/2305.18465v2',
+     'quote': ['Interestingly, we observe the learning rate and clip norm to be consistent for various Gboard LMs, '
+               'and tuning seems to be unnecessary. DP-FTRL with fixed clip and large report goal is used to run the '
+               'final model for deployment.',
+               'requires restarts that complicate the privacy accounting for DP-FTRL. Moreover, we find that a fixed '
+               'clip norm can achieve comparable or slightly better model utility, and is more robust in experiments '
+               'with large report goal.',
+               'stabilizes and we can fix the clip norm to 5 based on the estimated value.'],
+     'raw_file': 'm1/txt/2305.18465v2.pdf.txt',
+     'agent_note': 'Added by the review fixes of 2026-09-30 (m1:10 had left it out). In a deployed on-device system, '
+                   'values estimated once in a small tuning run were reused across models, and the vendor reports '
+                   'that tuning seemed unnecessary. That is the reused-value comparator: against it a sweep-free '
+                   "weight saves no compute (the record's SEC4-T and SEC5-T, and global_estimate's reused-lambda "
+                   'line), and its case would have to be accuracy.'},
 ]
 
 # Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Applied_Suite/checks/verify.py; one dict
