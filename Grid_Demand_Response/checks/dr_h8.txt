@@ -524,3 +524,24 @@ SENSITIVITY 2 (not scored): other slack spreads (ASSUMED, H3's), spacing 24 h
 SENSITIVITY 3 (not scored): Poisson offers at lambda_DFS (SOURCED) with at most one event per 24 h slot (CHOICE); every
   quantity an exact expectation; Q-a/Q-b read on every reached made offer (probability mass of mismatches)
   lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 1: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 9 beyond, OWN beyond its slack from 83.608572 (fails); just above floor 0.1000: flexibility 1249.9, ETM 1249.9, OWN 1236.8 (slack-limited 1236.8) MWh -> Q fails
+  lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 3: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 25 beyond, OWN beyond its slack from 25.894403 (fails); just above floor 0.0333: flexibility 3749.7, ETM 3749.7, OWN 3604.0 (slack-limited 3604.0) MWh -> Q fails
+  lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 4: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 33 beyond, OWN beyond its slack from 19.420802 (fails); just above floor 0.0250: flexibility 4999.6, ETM 4999.6, OWN 4733.7 (slack-limited 4733.7) MWh -> Q fails
+
+SENSITIVITY 4 (not scored): overheads R = 1/12 h and S = 1/12 h (SOURCED, Kokolis et al.); floor rate (R + S)/H
+  R + S = 1/6 h, H 1: Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 9 beyond, OWN beyond its slack from 27.193694 (fails); just above floor 0.1667: flexibility 4100.0, ETM 4089.0, OWN 3920.0 (slack-limited 3920.0) MWh -> Q fails
+  R + S = 1/6 h, H 3: Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 25 beyond, OWN beyond its slack from 8.388889 (fails); just above floor 0.0556: flexibility 12300.0, ETM 12267.0, OWN 10728.0 (slack-limited 10728.0) MWh -> Q fails
+  R + S = 1/6 h, H 4: Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 34 beyond, OWN beyond its slack from 6.291667 (fails); just above floor 0.0417: flexibility 16400.0, ETM 16356.0, OWN 13624.0 (slack-limited 13624.0) MWh -> Q fails
+
+Q (scored): cells where Q holds 0 of 3; Q-a holds in every cell: yes; Q-b 'while' in every cell: yes; Q-b 'only' in every cell: no (lowest payment where some OWN job supplies beyond its slack 6.275000) -> Q fails; the forecast 'Q holds' is wrong
+
+GATE
+  G-ZERO: ETM's stake beyond rate (R + S), max over 12300 (job, event count) pairs in 3 scored cells = 0.000000 (exact 0); ETM's x* == rate (R + S)/H at 258300 of 258300 offer states -> holds
+    context (sensitivity cells, not gated): stake beyond rate (R + S) positive at 261 of 92400 (job, event count) pairs (where ETM's own-step deadline cannot absorb the next event); x* == rate (R + S)/H at 2394933 of 2400300 offer states
+  G-NEG (this check's own terms): no events offered (K = 0), 13500 job x portfolio x H x pi combinations over 5 portfolios plus the fleet totals; ETM ahead of WALL by more than 1 % on 0 of 81405 outcome comparisons (per job: curtailed MWh, payments, valuation, fleet value, completion, deadline met; fleet: MWh, payments, jobs meeting their deadline); max rel over the numeric outcomes 0.000000 -> holds
+  G-NEG over the whole battery (H1-H7 read from their pinned RESULT lines, not recomputed here; H8 as computed above): H1 holds, H2 holds, H3 holds, H4 holds, H5 holds, H6 holds, H7 holds, H8 holds -> 8 of 8 hold
+
+PRE-RUN NOTE: code-test runs on reduced portfolios (6 and 3 jobs, slack 40 i h, not pinned) preceded the first full run;
+  after them only one table-header wording was changed (no input, choice, reading or threshold)
+POST-FIRST-RUN CHANGES: none
+
+RESULT H8: Q fails; G-ZERO holds (max |ETM stake - rate (R + S)| = 0.000000 over 12300 (job, event count) pairs in 3 cells; ETM x* = (R + S)/H at 258300 of 258300 offer states); G-NEG holds (no events: ETM ahead of WALL by more than 1 % in 0 of 81405 comparisons; battery H1-H8 per pinned RESULT lines: 8 of 8 hold)
