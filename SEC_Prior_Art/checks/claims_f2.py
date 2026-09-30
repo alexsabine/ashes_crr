@@ -32,7 +32,7 @@ CLAIMS = [
     # ------------------------------------------------------------------ S2: rescaling a curvature by observed curvature
     {'id': 'f2:0', 'tag': 'S2', 'reading': 'close', 'reading_by': RB,
      'source': 'Martens, Grosse, "Optimizing Neural Networks with Kronecker-factored Approximate Curvature" (K-FAC; '
-               'arXiv:1503.05671; ICML 2015)',
+               'arXiv:1503.05671; ICML 2015, venue not verified on the day)',
      'version': 'v7, 8 Jun 2020', 'url': 'https://arxiv.org/abs/1503.05671',
      'quote': ['Given an update proposal ∆produced by multiplying the negative gradient −∇h by our approximate Fisher inverse '
                '(subject to the Tikhonov technique described in the previous subsection), the second stage of our proposed '
@@ -77,7 +77,7 @@ CLAIMS = [
                    '(Oren and Luenberger 1974; Nocedal and Wright 2006) were not fetched.'},
     {'id': 'f2:3', 'tag': 'S2', 'reading': 'close', 'reading_by': RB,
      'source': 'Tan, Ma, Dai, Qian, "Barzilai-Borwein Step Size for Stochastic Gradient Descent" (SGD-BB; arXiv:1605.04131; '
-               'NeurIPS 2016)',
+               'NeurIPS 2016, venue not verified on the day)',
      'version': 'v2, 23 May 2016', 'url': 'https://arxiv.org/abs/1605.04131',
      'quote': ['Instead, one can find ηt such that the residual of the secant equation is minimized',
                'SGD-BB takes the average of the stochastic gradients in one epoch as an estimation of the full gradient.',
@@ -102,7 +102,7 @@ CLAIMS = [
                    'learning.'},
     {'id': 'f2:5', 'tag': 'S2', 'reading': 'close', 'reading_by': RB,
      'source': 'Gao, Liu, Huang, Wang, Wang, Xu, Yu, "A Trace-restricted Kronecker-Factored Approximation to Natural '
-               'Gradient" (TKFAC; arXiv:2011.10741; AAAI 2021, venue not verified on the day)',
+               'Gradient" (TKFAC; arXiv:2011.10741; venue not verified on the day)',
      'version': 'v1, 21 Nov 2020', 'url': 'https://arxiv.org/abs/2011.10741',
      'quote': ['which can hold the certain trace relationship between the exact and the approximate FIM.',
                'In TKFAC, we decompose each block of the approximate FIM as a Kronecker product of two smaller matrices and '
@@ -146,7 +146,7 @@ CLAIMS = [
                    'along the path (the authors name path drift as a candidate cause).'},
     {'id': 'f2:8', 'tag': 'S2', 'reading': 'close', 'reading_by': RB,
      'source': 'Chaudhry, Dokania, Ajanthan, Torr, "Riemannian Walk for Incremental Learning: Understanding Forgetting and '
-               'Intransigence" (RWalk; arXiv:1801.10112; ECCV 2018)',
+               'Intransigence" (RWalk; arXiv:1801.10112; ECCV 2018, venue not verified on the day)',
      'version': 'v3, 14 Aug 2018', 'url': 'https://arxiv.org/abs/1801.10112',
      'quote': ['the importance of the parameter θi from training iteration t1 to t2 can be computed as',
                'where ∆θi(t) = θi(t + ∆t) −θi(t) and ϵ > 0.',
@@ -161,7 +161,7 @@ CLAIMS = [
                    '[0, 1] (which discards the units SEC calibrates), and lambda is still a hyperparameter.'},
     {'id': 'f2:9', 'tag': 'S2', 'reading': 'bears', 'reading_by': RB,
      'source': 'Ritter, Botev, Barber, "Online Structured Laplace Approximations For Overcoming Catastrophic Forgetting" '
-               '(arXiv:1805.07810; NeurIPS 2018)',
+               '(arXiv:1805.07810; NeurIPS 2018, venue not verified on the day)',
      'version': 'v1, 20 May 2018', 'url': 'https://arxiv.org/abs/1805.07810',
      'quote': ['As modifying the objective would propagate into the recursion for the precision matrix, we instead place the '
                'multiplier on the Hessian of each log likelihood and update the precision as:',
@@ -237,7 +237,7 @@ CLAIMS = [
                    'Fisher.'},
     {'id': 'f2:14', 'tag': 'S3', 'reading': 'close', 'reading_by': RB,
      'source': 'Zhang, Carpenter, Gelman, Vehtari, "Pathfinder: Parallel quasi-Newton variational inference" '
-               '(arXiv:2108.03782; JMLR 2022, venue not verified on the day)',
+               '(arXiv:2108.03782; venue not verified on the day)',
      'version': 'v4, 16 May 2022', 'url': 'https://arxiv.org/abs/2108.03782',
      'quote': ['Pathfinder locates normal approximations to the target density along a quasi-Newton optimization path, with '
                'local covariance estimated using the inverse Hessian estimates produced by the optimizer.',
@@ -296,7 +296,7 @@ CLAIMS = [
                    'a rescaling of the Fisher by its own norm, not by observed curvature (bears).'},
     {'id': 'f2:19', 'tag': 'S1', 'reading': 'close', 'reading_by': RB,
      'source': 'Kunstner, Balles, Hennig, "Limitations of the Empirical Fisher Approximation for Natural Gradient Descent" '
-               '(arXiv:1905.12558; NeurIPS 2019)',
+               '(arXiv:1905.12558; NeurIPS 2019, venue not verified on the day)',
      'version': 'v3, 8 Jun 2020', 'url': 'https://arxiv.org/abs/1905.12558',
      'quote': ['One particular issue is the scaling of EF-preconditioned updates.',
                'This effect has to be counteracted by adapting the step size, which requires manual tuning and makes the '
@@ -340,7 +340,7 @@ CLAIMS = [
                    'a tuned one here).'},
     {'id': 'f2:23', 'tag': 'S1', 'reading': 'close', 'reading_by': RB,
      'source': 'Kirkpatrick et al., "Overcoming catastrophic forgetting in neural networks" (EWC; arXiv:1612.00796; PNAS '
-               '2017)',
+               '2017, venue not verified on the day)',
      'version': 'v2, 25 Jan 2017', 'url': 'https://arxiv.org/abs/1612.00796',
      'quote': ['λ sets how important the old task is compared to the new one',
                'weights given by the Fisher information matrix times a scaling factor λ which was optimized by hyperparameter '
