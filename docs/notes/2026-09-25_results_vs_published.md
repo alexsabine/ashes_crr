@@ -98,3 +98,10 @@ There, tuning the weight moves nothing, so any arm is "not behind" it.
 3. **The closest published equivalents as arms:** MEGA-II, the normalised two-term sum, and the VQGAN weight. These are
    required before any claim that the rule adds anything beyond them (R7).
 4. **A prior-art search on the secant calibration** before SEC is described as the repository's method.
+
+## Erratum (2026-09-30, AGENT_LOG 190)
+
+§2's line "Replay reaches 90.78–90.79" joins two different methods. 90.78 is Hsu et al.'s naive rehearsal of stored
+examples (arXiv 1810.12488 v4, Table 2). 90.79 is deep generative replay (DGR), which stores **no** examples (van de Ven &
+Tolias, arXiv 1904.07734 v1, Table 4). On split MNIST at controlled memory, generative replay reached 91.24 (DGR) and 92.56
+(RtF), above stored rehearsal (quotes in `docs/citations/rqm_q2_2026-09-30.md`). The line above is left as written.
