@@ -26,8 +26,19 @@ def rings(K=10, n=1500, d=20, seed=0):
     return X, y
 
 
+def neg2(K=10, n=1500, d=20, a=3.0, sd=0.3, seed=0):
+    """Amendment 1: five pairs (2k, 2k+1) on coordinates (2k, 2k+1); class 2k at the corners (+-a, +-a), class 2k+1 at
+    (+-sqrt2 a, 0), (0, +-sqrt2 a); both have mean 0 and covariance a^2 I there, so their Gaussians are identical."""
+    rng = np.random.default_rng(seed); y = rng.integers(0, K, n); X = rng.standard_normal((n, d)); k = rng.integers(0, 4, n)
+    cor = np.array([[a, a], [a, -a], [-a, a], [-a, -a]]); axs = math.sqrt(2) * a * np.array([[1, 0], [-1, 0], [0, 1], [0, -1]])
+    for i in range(n):
+        c = y[i]; base = cor[k[i]] if c % 2 == 0 else axs[k[i]]
+        X[i, 2 * (c // 2): 2 * (c // 2) + 2] = base + rng.normal(0, sd, 2)
+    return X, y
+
+
 def stream(name):
-    X, y = R.S._synthetic() if name == "POS" else rings()
+    X, y = R.S._synthetic() if name == "POS" else (rings() if name == "NEG" else neg2())
     Xs, ys, meta = R.L.select_classes(X, y, 10); K = meta["classes_used"]
     return R.S.split_standardise(Xs, ys, K), K
 
@@ -36,11 +47,11 @@ def step_of(v): return max(1.0, 2 * float(np.std(v, ddof=1)) / math.sqrt(len(v))
 
 
 def main():
-    print("RQM Phase A: the synthetic gate (DEV_DECLARATION.md); seeds 0-4; accuracy is class-IL over all 10 classes (%)")
+    print("RQM Phase A run 2 (DEV_DECLARATION.md + Amendment 1, POST HOC: NEG2 replaces NEG, G-LEARN added); seeds 0-4; accuracy is class-IL over all 10 classes (%)")
     print(f"IGR-F shrinkage alpha {R.ALPHA}; replay batch {R.REPLAY_BS}; RFR width {R.RFR_WIDTH}, lambda {R.RFR_LAMBDA}; "
           "FGR pseudo-activations clipped at 0 (the ReLU range)")
     res = {}
-    for name in ("POS", "NEG"):
+    for name in ("POS", "NEG2"):
         data, K = stream(name); d = data[0].shape[1]; mF = R.mem_rows_per_class("F", d); mD = R.mem_rows_per_class("D", d)
         a = {k: [] for k in ("FT", "JOINT", "ER-F", "ER-D", "IGR-F", "IGR-D", "FGR-F", "SEC-CLIP")}
         idF = []; idD = []
@@ -57,7 +68,7 @@ def main():
             print(f"   {k:9} mean {np.mean(v):7.2f}  seeds " + " ".join(f"{x:6.2f}" for x in v))
     print("\n" + "-" * 100)
     ok = {}
-    P, N = res["POS"], res["NEG"]
+    P, N = res["POS"], res["NEG2"]
     for form in ("F", "D"):
         er = P["a"][f"ER-{form}"]; st = step_of(er); diff = np.mean(P["a"][f"IGR-{form}"]) - np.mean(er)
         ok[f"POS-{form}"] = diff > -st
@@ -65,17 +76,20 @@ def main():
     for form in ("F", "D"):
         er = N["a"][f"ER-{form}"]; st = step_of(er); diff = np.mean(N["a"][f"IGR-{form}"]) - np.mean(er)
         ok[f"NEG-{form}"] = diff < -st
-        print(f"G-NEG IGR-{form} - ER-{form} on NEG {diff:+.4f} (step {st:.4f}): behind by more than a step -> {'holds' if ok[f'NEG-{form}'] else 'FAILS'}")
-    for name in ("POS", "NEG"):
+        print(f"G-NEG IGR-{form} - ER-{form} on NEG2 {diff:+.4f} (step {st:.4f}): behind by more than a step -> {'holds' if ok[f'NEG-{form}'] else 'FAILS'}")
+    jn = N["a"]["JOINT"]; ftn = N["a"]["FT"]; st = step_of(jn); diff = np.mean(jn) - np.mean(ftn)
+    ok["LEARN"] = diff > st
+    print(f"G-LEARN (Amendment 1) JOINT - FT on NEG2 {diff:+.4f} (step {st:.4f}): the stream is learnable -> {'holds' if ok['LEARN'] else 'FAILS'}")
+    for name in ("POS", "NEG2"):
         er = res[name]["a"]["ER-F"]; st = step_of(er); diff = np.mean(res[name]["a"]["FT"]) - np.mean(er)
         ok[f"FT-{name}"] = diff < -st
         print(f"G-FT FT - ER-F on {name} {diff:+.4f} (step {st:.4f}) -> {'holds' if ok[f'FT-{name}'] else 'FAILS'}")
-    idall = all(all(res[n]["idF"]) and all(res[n]["idD"]) for n in ("POS", "NEG"))
+    idall = all(all(res[n]["idF"]) and all(res[n]["idD"]) for n in ("POS", "NEG2"))
     ok["ID"] = idall
-    print(f"G-ID replay forced empty == FT bit for bit: {sum(sum(res[n]['idF']) + sum(res[n]['idD']) for n in ('POS', 'NEG'))}/20 -> {'holds' if idall else 'FAILS'}")
+    print(f"G-ID replay forced empty == FT bit for bit: {sum(sum(res[n]['idF']) + sum(res[n]['idD']) for n in ('POS', 'NEG2'))}/20 -> {'holds' if idall else 'FAILS'}")
     print("GATE " + ("OPEN" if all(ok.values()) else "CLOSED"))
     print("\nreported beside the gate (not gating):")
-    for name in ("POS", "NEG"):
+    for name in ("POS", "NEG2"):
         a = res[name]["a"]
         print(f"   {name}: CRR ablation IGR-F - FGR-F {np.mean(a['IGR-F']) - np.mean(a['FGR-F']):+.4f}; IGR-F - RFR {np.mean(a['IGR-F']) - res[name]['rfr']:+.4f}; "
               f"IGR-F - JOINT {np.mean(a['IGR-F']) - np.mean(a['JOINT']):+.4f}; SEC-CLIP - ER-F {np.mean(a['SEC-CLIP']) - np.mean(a['ER-F']):+.4f}")
