@@ -136,3 +136,14 @@ See `SEC_Prior_Art/SPA1.md`. SEC4's method is KNOWN by the declared rule:
 - tuning-free weights are published (VCL; Laplace Redux).
 
 Only the Fisher's secant units calibration itself was not found in the sweep.
+
+## Addendum (2026-09-30): why SEC4 passed and SEC5 did not (P1, `SEC_Analysis/WHY_SEC4_WORKED.md`; post hoc; appended, nothing above changed)
+
+- **A reused λ.** It was not behind on 1/8 here, against 4/6 in SEC4. 4 of the 7 behind cases have a non-finite seed at
+  the reused λ (`SEC_Analysis/checks/a7_a8.txt`).
+- **The calibration did not collapse the optimum's spread here:** SD ratio 1.0348, against 0.3611 in SEC4
+  (`SEC_Analysis/checks/a1_a3.txt`).
+- **The four clipped failures** are classed U, D, D and X (`SEC_Analysis/checks/a5_a9_a10.txt`).
+  - On pokerhand the clip never fired.
+  - On volcanoes-d4 it fired on every seed and lowered accuracy (6.0861 against 16.2763).
+- **The floor.** 7 of the 8 carriers are floor-bound (`SEC_Analysis/checks/a12_a14.txt`, post hoc in origin).

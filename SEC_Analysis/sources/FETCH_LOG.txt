@@ -1,0 +1,17 @@
+SEC_Analysis A11 sources, fetched 2026-09-30 through the session proxy (curl), text extracted with pymupdf 1.28.2
+(uv run --with pymupdf). arXiv: abstract page read for the current version, then /pdf/<id>v<N>.
+1905.12558 v3 (8 Jun 2020; v1 29 May 2019) Kunstner, Balles & Hennig, Limitations of the Empirical Fisher Approximation for Natural Gradient Descent
+1412.1193 v11 (19 Sep 2020; official JMLR version) Martens, New insights and perspectives on the natural gradient method
+1612.00796 v2 (25 Jan 2017) Kirkpatrick et al., Overcoming catastrophic forgetting in neural networks
+1712.03847 v1 (11 Dec 2017) Huszar, On Quadratic Penalties in Elastic Weight Consolidation
+1805.07810 v1 (20 May 2018) Ritter, Botev & Barber, Online Structured Laplace Approximations For Overcoming Catastrophic Forgetting
+1806.08568 v3 (22 Jan 2019) Maltoni & Lomonaco, Continuous Learning in Single-Incremental-Task Scenarios (AR1)
+1703.04200 v3 (12 Jun 2017; ICML 2017) Zenke, Poole & Ganguli, Continual Learning Through Synaptic Intelligence
+1605.04131 v2 (23 May 2016) Tan, Ma, Dai & Qian, Barzilai-Borwein Step Size for Stochastic Gradient Descent
+1805.06370 v2 (2 Jul 2018; ICML 2018) Schwarz et al., Progress & Compress: A scalable framework for continual learning
+1801.10112 v3 (14 Aug 2018) Chaudhry et al., Riemannian Walk for Incremental Learning (RWalk)
+Barzilai & Borwein 1988, doi 10.1093/imanum/8.1.141: https://doi.org/10.1093/imanum/8.1.141 redirects to
+  https://academic.oup.com/imajna/article-lookup/doi/10.1093/imanum/8.1.141, which returned HTTP 403 with a Cloudflare
+  challenge page ("Just a moment...") on 2026-09-30 (src/bb_doi.html). The article text was NOT read. Bibliographic
+  record from Crossref (https://api.crossref.org/works/10.1093/imanum/8.1.141, HTTP 200, src/bb_crossref.json).
+  The BB step formula is quoted from Tan et al. 2016 (arXiv 1605.04131 v2, freely readable), which cites it as [3].

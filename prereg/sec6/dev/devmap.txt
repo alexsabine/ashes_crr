@@ -1,0 +1,38 @@
+D-MAP (prereg/sec6/DEV_DECLARATION.md) on SEC1's synthetic stream (K 10, 5 tasks, seeds 0-4); lr 0.05
+   seed 0: fine-tuning (fixed, w 0) 18.729096989966553; SI-1 with c forced to 0 18.729096989966553; SI-1 (c 1) 0.0; SI-1 max Omega per task ['79.4604', '2.15691e+36', 'nan', 'nan'], min ['5.87077e-05', '0.00108096', 'nan', 'nan']
+   seed 1: fine-tuning (fixed, w 0) 25.75250836120401; SI-1 with c forced to 0 25.75250836120401; SI-1 (c 1) 0.0; SI-1 max Omega per task ['92.3744', '7.87942e+19', 'nan', 'nan'], min ['0.000421509', '0.00206169', 'nan', 'nan']
+   seed 2: fine-tuning (fixed, w 0) 27.09030100334448; SI-1 with c forced to 0 27.09030100334448; SI-1 (c 1) 0.0; SI-1 max Omega per task ['58.3463', '8.09581e+24', 'nan', 'nan'], min ['0.000116661', '0.000707502', 'nan', 'nan']
+   seed 3: fine-tuning (fixed, w 0) 23.745819397993312; SI-1 with c forced to 0 23.745819397993312; SI-1 (c 1) 0.0; SI-1 max Omega per task ['68.9079', '1.51202e+07', 'nan', 'nan'], min ['0.000200546', '0.00108333', 'nan', 'nan']
+   seed 4: fine-tuning (fixed, w 0) 24.414715719063544; SI-1 with c forced to 0 24.414715719063544; SI-1 (c 1) 0.0; SI-1 max Omega per task ['68.9686', '6.08468e+14', 'nan', 'nan'], min ['0.000362901', '0.00264071', 'nan', 'nan']
+D-MAP SI-1 with c forced to 0 equals SEC1's run('fixed', 0.0) (acc, s, c, rho): 5/5 -> holds; SI-1 at c = 1 moves the run on 5/5 seeds (report: the check is not vacuous)
+   seed 0: AR1-B w per task ['84.8678017809717', '84.79081722470306', '84.75077151890913', '84.75017212823067']; max_k(lr 2 w imp_k) per task ['0.9999999999999999', '1.0', '0.9999999999999998', '0.9999999999999999']; acc 38.79598662207358
+   seed 1: AR1-B w per task ['113.25623930825887', '112.84470249992316', '112.84225198601527', '112.84142044401294']; max_k(lr 2 w imp_k) per task ['1.0000000000000002', '1.0', '1.0', '1.0']; acc 40.802675585284284
+   seed 2: AR1-B w per task ['58.25594189448405', '58.18425401399333', '58.172616818747144', '58.17235363636735']; max_k(lr 2 w imp_k) per task ['1.0', '1.0000000000000002', '1.0', '1.0']; acc 43.812709030100336
+   seed 3: AR1-B w per task ['135.02246755522418', '76.54130752884318', '76.43809928818636', '76.43196607407543']; max_k(lr 2 w imp_k) per task ['1.0', '1.0', '1.0', '0.9999999999999999']; acc 42.14046822742475
+   seed 4: AR1-B w per task ['72.16577318806242', '72.07566888793563', '72.07558997339436', '72.07163182036666']; max_k(lr 2 w imp_k) per task ['0.9999999999999999', '0.9999999999999999', '1.0', '0.9999999999999999']; acc 40.13377926421405
+D-MAP AR1-B: max_k(lr 2 w imp_k) = 1.0 at every task start: largest |deviation| 2.220e-16 (need <= 1e-12) -> holds
+   seed 0: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+   seed 1: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 37.12374581939799
+   seed 2: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 40.802675585284284
+   seed 3: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+   seed 4: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+D-MAP AR1-P: imp never above 0.001: largest 0.001 -> holds
+   (report) SI-0.1 (c 0.1, xi 0.1) runs: acc [22.7425, 29.7659, 30.7692, 26.7559, 27.0903]
+   seed 0: SI-1C firings 4 of 4 task starts; capped coordinates [152, 541, 964, 1269]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 54.84949832775919 (SI-1 0.0)
+   seed 1: SI-1C firings 4 of 4 task starts; capped coordinates [196, 691, 950, 1365]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 59.53177257525084 (SI-1 0.0)
+   seed 2: SI-1C firings 4 of 4 task starts; capped coordinates [159, 633, 897, 1197]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 58.52842809364549 (SI-1 0.0)
+   seed 3: SI-1C firings 4 of 4 task starts; capped coordinates [86, 429, 915, 1383]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 56.85618729096989 (SI-1 0.0)
+   seed 4: SI-1C firings 4 of 4 task starts; capped coordinates [138, 589, 892, 1293]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 57.52508361204013 (SI-1 0.0)
+(report, Amendment 1) SI-1C with its guard switched off equals SI-1 (acc, s, c, rho): 5/5; with it, the importance used lies in [0, 10.0] at every task start: 5/5 seeds
+   lambda 10 seed 0: SEC1 fixed 26.421404682274247; fixed_clip with kappa inf 26.421404682274247; fixed_clip (kappa 0.5) 26.421404682274247, firings 0, capped coordinates [0, 0, 0, 0], max_k(lr 2 w imp_k) ['0.11783031715382676', '0.11794664261025262', '0.1180801864103564', '0.11808643535284208']
+   lambda 10 seed 1: SEC1 fixed 34.11371237458194; fixed_clip with kappa inf 34.11371237458194; fixed_clip (kappa 0.5) 34.11371237458194, firings 0, capped coordinates [0, 0, 0, 0], max_k(lr 2 w imp_k) ['0.08829535627421085', '0.08842489798668711', '0.08842667851326888', '0.08842827863182515']
+   lambda 10 seed 2: SEC1 fixed 33.11036789297659; fixed_clip with kappa inf 33.11036789297659; fixed_clip (kappa 0.5) 33.11036789297659, firings 0, capped coordinates [0, 0, 0, 0], max_k(lr 2 w imp_k) ['0.17165630963640546', '0.17189973466024502', '0.17196137355611257', '0.17196453667131822']
+   lambda 10 seed 3: SEC1 fixed 33.44481605351171; fixed_clip with kappa inf 33.44481605351171; fixed_clip (kappa 0.5) 33.44481605351171, firings 0, capped coordinates [0, 0, 0, 0], max_k(lr 2 w imp_k) ['0.07406174824874978', '0.13055025381550917', '0.13073155528359715', '0.13074993453418238']
+   lambda 10 seed 4: SEC1 fixed 31.77257525083612; fixed_clip with kappa inf 31.77257525083612; fixed_clip (kappa 0.5) 31.77257525083612, firings 0, capped coordinates [0, 0, 0, 0], max_k(lr 2 w imp_k) ['0.13856984493106198', '0.13870379581636252', '0.13870416996094223', '0.1387484364994498']
+   lambda 1000 seed 0: SEC1 fixed 0.0; fixed_clip with kappa inf 0.0; fixed_clip (kappa 0.5) 37.79264214046823, firings 4, capped coordinates [366, 515, 545, 645], max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']
+   lambda 1000 seed 1: SEC1 fixed 0.0; fixed_clip with kappa inf 0.0; fixed_clip (kappa 0.5) 39.79933110367893, firings 4, capped coordinates [165, 304, 320, 461], max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']
+   lambda 1000 seed 2: SEC1 fixed 0.0; fixed_clip with kappa inf 0.0; fixed_clip (kappa 0.5) 41.1371237458194, firings 4, capped coordinates [341, 532, 548, 703], max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']
+   lambda 1000 seed 3: SEC1 fixed 0.0; fixed_clip with kappa inf 0.0; fixed_clip (kappa 0.5) 37.45819397993311, firings 4, capped coordinates [241, 601, 655, 864], max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']
+   lambda 1000 seed 4: SEC1 fixed 0.0; fixed_clip with kappa inf 0.0; fixed_clip (kappa 0.5) 38.46153846153847, firings 4, capped coordinates [289, 505, 562, 711], max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']
+(report, Amendment 2) fixed_clip with kappa = inf equals SEC1's run('fixed', lambda) (acc, s, c, rho) at lambda 10 and 1000: 10/10; with kappa 0.5: largest max_k(lr 2 w imp_k) 1.0 (the clip bounds it at 2 kappa = 1.0); firings 20
+D-MAP -> holds

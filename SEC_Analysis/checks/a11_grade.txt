@@ -1,0 +1,242 @@
+======================================================================================================================================================
+SEC_Analysis A11 (SEC_Analysis/DECLARATION.md, pushed at 5f64b5f; prompt-log entry 257): forecast F11 -- is the explanation of SEC CRR, Bayes, optimisation or information geometry?
+POST HOC on SEEN records; no ledger row; the words are HOLDS / FAILS against the declared forecast, never PASS; lines marked REPORT are not declared and decide nothing
+======================================================================================================================================================
+
+[1] THE FROZEN CODE (read as text, parsed with ast; never imported or run)
+   sec1_score.py: frozen in ['scl3', 'sec1', 'sec3', 'sec4', 'sec5']; distinct sha256 1: db490c8ac30871ad...
+   sec4_score.py: frozen in ['sec4', 'sec5']; distinct sha256 1: c9701c310ac86e10...
+   run() in runs/sec4/frozen/sec1_score.py, lines 169-230 (the SEC arms of all five studies: 'bayes_sec', 'bayes', 'bayes_s1', 'fixed', 'fixed_sec', 'eq')
+   run_guard() in runs/sec4/frozen/sec4_score.py, lines 58-114 (the clipped SEC of SEC4 and SEC5)
+   constants: LR 0.05, BS 10, N_FISHER 50, BAYES_W 0.5, FS 0.1, FE 0.1, DTH_FLOOR 1e-12, KAPPA 0.5
+   W  the Laplace weight w = 1/2 on w * dth' imp dth
+        found     run       L197     elif mode in ("bayes", "bayes_sec", "bayes_s1"): w = BAYES_W
+        found     run       L195     dth = theta_before - theta_star; g_q = 2 * imp_used * dth
+        found     run       L205     net.set_flat(theta_before - lr * (g_p + w * g_q))
+        found     run_guard L94      w = S.BAYES_W
+        found     run_guard L96      net.set_flat(theta_before - lr * (g_p + w * g_q))
+   N  task-size weighting imp_bayes = sum_j n_j s_j f_j used as imp_bayes / n_task; one penalty anchored at the last task end
+        found     run       L181     imp_used = (imp_bayes / n_task) if mode in ("bayes", "bayes_sec", "bayes_s1") else importance
+        found     run       L223     importance = importance + sc * f_task; imp_bayes = imp_bayes + n_task * sc * f_task
+        found     run       L224     theta_star = theta_now
+        found     run_guard L71      imp_used = imp_bayes / n_task
+        found     run_guard L107     imp_bayes = imp_bayes + n_task * s * f_task
+        found     run_guard L109     theta_star = theta_now
+   F  the per-sample empirical Fisher f_task (training labels; bs x mean of N_FISHER squared mini-batch gradients)
+        found     run       L209     ii = ii_task[rng.integers(0, len(ii_task), bs)]; f += ce_loss_grad(net, Xtr[ii], ytr[ii])[1] ** 2
+        found     run       L210     f_task = f / N_FISHER * bs
+        found     run_guard L100     ii = ii_task[rng.integers(0, len(ii_task), bs)]; f += S.ce_loss_grad(net, Xtr[ii], ytr[ii])[1] ** 2
+        found     run_guard L101     f_task = f / S.N_FISHER * bs
+   E  premise: the empirical Fisher's scale is wrong where the task is fit (it understates the curvature)
+        (a premise, not a statement of the code; the recorded s_j bear on it, [5])
+   C  the secant c_j = <dg, dth> / <dth, dth>, dth and dg = END-window mean minus START-window mean
+        found     run       L183     s_th = np.zeros(n); s_g = np.zeros(n); e_th = np.zeros(n); e_g = np.zeros(n); k_step = 0
+        found     run       L190     if k_step < n_s: s_th += theta_before; s_g += g_p
+        found     run       L191     if k_step >= total - n_e: e_th += theta_before; e_g += g_p
+        found     run       L217     dth = e_th / n_e - s_th / n_s; dg = e_g / n_e - s_g / n_s; nn = float(dth @ dth)
+        found     run       L218     c = float(dg @ dth) / nn if nn > DTH_FLOOR else float("nan")
+        found     run_guard L102     dth = e_th / n_e - s_th / n_s; dg = e_g / n_e - s_g / n_s; nn = float(dth @ dth)
+        found     run_guard L103     c = float(dg @ dth) / nn if nn > S.DTH_FLOOR else float("nan")
+   R  rho_j = <f dth, dth> / <dth, dth>, the empirical Fisher's Rayleigh quotient along the same chord
+        found     run       L218     rho = float((f_task * dth) @ dth) / nn if nn > DTH_FLOOR else float("nan")
+        found     run_guard L103     rho = float((f_task * dth) @ dth) / nn if nn > S.DTH_FLOOR else float("nan")
+   S  the calibration s_j = c_j / rho_j (fallback s_j = 1), multiplying task j's Fisher in the recursion
+        found     run       L219     if nn > DTH_FLOOR and np.isfinite(c) and np.isfinite(rho) and c > 0 and rho > 0: s = c / rho
+        found     run       L220     else: s = 1.0; n_fallback += 1
+        found     run       L222     sc = s if mode in ("fixed_sec", "bayes_sec") else (svals[0] if mode == "bayes_s1" else 1.0)
+        found     run_guard L104     if nn > S.DTH_FLOOR and np.isfinite(c) and np.isfinite(rho) and c > 0 and rho > 0: s = c / rho
+        found     run_guard L105     else: s = 1.0; n_fallback += 1
+   K  the clip imp_used = min(imp_used, kappa / (lr w)) when lr w max(imp_used) >= kappa (kappa = 0.5)
+        found     run_guard L67      cap = kappa / (lr * S.BAYES_W)
+        found     run_guard L73      m = lr * S.BAYES_W * float(np.max(imp_used)); margins.append(m)
+        found     run_guard L76      elif variant == "clip" and not (m < kappa):
+        found     run_guard L77      imp_used = np.minimum(imp_used, cap); fired += 1
+   T  the task boundary (the stream's label schedule), where the Fisher, the secant and the anchor are taken
+        found     run       L175     tasks = [tuple(range(i, i + per_task)) for i in range(0, K, per_task)]
+        found     run_guard L64      tasks = [tuple(range(i, i + per_task)) for i in range(0, K, per_task)]
+   code statements found verbatim: 35 of 35
+   SEC's code path (the branches the bindings decide, pruned from a copy of the ast; the clause tests in [3] read what remains):
+     run() with mode = 'bayes_sec', distort = None:
+        L181  mode in ('bayes', 'bayes_sec', 'bayes_s1') -> True; pruned: the other arm of the conditional expression on line 181
+        L196  mode in ('fixed', 'fixed_sec') -> False; pruned: its if arm, line 196
+        L197  mode in ('bayes', 'bayes_sec', 'bayes_s1') -> True; pruned: its else arm, lines 198-203
+        L211  distort is not None -> False; pruned: its if arm, lines 212-216
+        L222  mode in ('fixed_sec', 'bayes_sec') -> True; pruned: the other arm of the conditional expression on line 222
+        L225  distort -> False; pruned: the other arm of the conditional expression on line 225
+     run_guard() with variant = 'clip':
+        L74   variant == 'raw' and (not m < raw_bound) -> False; pruned: its if arm, line 75
+        L78   variant == 'scale' and (not m < kappa) -> False; pruned: its if arm, line 79
+        L110  variant in ('clip', 'scale') -> True; pruned: the other arm of the conditional expression on line 110
+
+[2] COMPUTED CODE FACTS (on SEC's code path)
+   per-step accumulators (AugAssign targets) in the training step loop: run ['e_g', 'e_th', 'k_step', 's_g', 's_th']; run_guard ['e_g', 'e_th', 'k_step', 's_g', 's_th']
+   -> the path enters the secant only through the START-window sums (s_th, s_g) and the END-window sums (e_th, e_g): True
+   -> dth and dg are differences of the END- and START-window means (statement found in both): True
+   -> so c_j and rho_j are functions of a CHORD between two window means; no per-step length is summed, so the secant is not D2's arc (nor D6's sum of sqrt(2 KL))
+   names in c's expression: run ['DTH_FLOOR', 'dg', 'dth', 'float', 'nn'], run_guard ['S', 'dg', 'dth', 'float', 'nn']; nn = ['float(dth @ dth)'] / ['float(dth @ dth)']
+   -> the metric in c_j is Euclidean (no f_task in c, nn = dth @ dth): True; so it is not D3's Fisher-Rao chord either
+   window share of a task's steps entering the secant, (n_s + n_e) / steps as the code computes them (n_s = max(1, ceil(FS steps)); epochs, bs and per-task n
+      from each carrier's header): nominal FS + FE = 0.20; over the 149 tasks of the 42 carriers median 0.2037, above 0.20 on 124, max 0.2500 (sec1:yeast task index 2, 24 steps, windows 3 and 3)
+      the steps between the two windows, at least 0.7500 of every task's path, are not read
+   calls from SEC's path into the CRR instrument (src/crr/instrument/core.py: 17 functions): run [], run_guard []
+   names sigma / mad / sig / unit on SEC's path: run [], run_guard []
+   the clip: cap = KAPPA / (LR BAYES_W) = 20; SEC's penalty step is lr w g_q = lr 2 w imp dth, so AR1's 'eta lambda F' is lr 2 w imp;
+      at the cap lr 2 w imp = 1 (AR1's overshoot edge is 1: equal True); explicit-Euler divergence at imp = 40 (lr w imp = 1 = 2 KAPPA)
+      a capped coordinate's offset from the anchor is multiplied by 1 - lr 2 w cap = 0 per step: each step resets it to -lr g_p alone
+      (AR1's edge met with equality; the 'freeze' of DECLARATION.md Amendment 2, tested by M5 and M6)
+   the H-EQ norm ratio: every norm call of run() lies in its 'eq' branch, none on SEC's path of either function: True
+   REPORT (M4 is not SEC's code and does not enter F11): the declared M4, c_arc = sum_k <dg_k, dth_k> / sum_k ||dth_k||^2, is the least-squares
+      solution of BB's secant equation (1/eta) dth_k = dg_k stacked over the 5 segment pairs (seeded instance: formula -0.070680374105, lstsq -0.070680374105, equal to 1e-12: True)
+      as implemented (m_checks.py run_m as it stands, its 4 'if arc' blocks): calls to sqrt / norm / path_length / arc_length / kl_step: []; it sums squared segment displacements and no segment length: not D2's arc either
+
+[3] THE CRR-PROPER CLAUSES (CLAUDE.md sec. 7 list): the defining text found in theory/CRR.md, and whether SEC's code path performs the operation
+   A3/D5    text in CRR.md: 2/2 found | operation: a cut at the antipode of an intrinsic phase
+            calls to antipodal_cuts / intrinsic_phase: run [], run_guard []
+            boundaries are the label schedule (T's statements found: True)
+            SEC's code path (run and run_guard) performs it: no
+   A6       text in CRR.md: 2/2 found | operation: anchor = Fisher-Rao Frechet mean of past occasion contents under MaxEnt weights, strength bounded, never an accumulated count
+            values assigned to the anchor theta_star: run ['None', 'theta_now'], run_guard ['None', 'theta_now'] (the last task end only: True)
+            importance accumulated over tasks (imp_bayes = imp_bayes + ...): run True, run_guard True
+            SEC's code path (run and run_guard) performs it: no
+   P2/P3    text in CRR.md: 2/2 found | operation: occasion weights exp(beta S_m) or q^k
+            exp / power calls: run [], run_guard []; powers with a non-constant exponent: run [], run_guard []
+            (the whole run(), outside SEC's path included: exp / power at [('exp', 213), ('exp', 215)], the gate-only distort branch)
+            task weights are n_task x s (data count x calibration): run True, run_guard True
+            SEC's code path (run and run_guard) performs it: no
+   A1'/D1   text in CRR.md: 2/2 found | operation: sigma = 1.4826 MAD of ONE occasion statistic; rho = half-turn extent / sigma, reported, never in a threshold
+            calls into the CRR instrument (src/crr/instrument/core.py, 17 functions): run [], run_guard []
+            names sigma / mad / sig / unit: run [], run_guard []
+            the code's rho is the Fisher's Rayleigh quotient (R's statements found: True), not D1's resolution
+            SEC's code path (run and run_guard) performs it: no
+   H-L5     text in CRR.md: 1/1 found | operation: CV of arc against CV of clock between own events
+            calls to regularity / cv: run [], run_guard []
+            SEC's code path (run and run_guard) performs it: no
+   D6/H-T1  text in CRR.md: 2/2 found | operation: an arc: a per-step length summed along the path (sum_t sqrt(2 KL_t))
+            per-step accumulators in the step loop: run ['e_g', 'e_th', 'k_step', 's_g', 's_th'], run_guard ['e_g', 'e_th', 'k_step', 's_g', 's_th'] (only the START/END window sums: True)
+            calls to sqrt / path_length / arc_length / kl_step: run [], run_guard []
+            SEC's code path (run and run_guard) performs it: no
+   H-EQ     text in CRR.md: 1/1 found | operation: a weight set per step from the ratio of smoothed gradient norms
+            values assigned to the weight w: run ['BAYES_W'], run_guard ['S.BAYES_W']; norm calls: run 0, run_guard 0
+            every norm call of run() lies inside its 'mode == "eq"' branch (a comparison arm, pruned from SEC's path): True (2 of 2)
+            SEC's code path (run and run_guard) performs it: no
+   A7/A8    text in CRR.md: 2/2 found | prohibitions: nothing to perform, not counted among the operational clauses
+            the code fact that bears on A7: the window sums reset before each task's step loop and are read after it, so the calibration reads only steps
+            already taken (both functions: True)
+   CRR-proper operations performed in SEC's code path: 0 of 7 operational clauses (A7/A8 are prohibitions, listed apart)
+
+[4] THE SOURCES (claims_a11.py; a claim counts only if all its quotes are PASS in the pinned verify_a11.txt)
+   claims 26, quotes 47; claims fully verified 26; sources 11
+   fetch record: SEC_Analysis/sources/FETCH_LOG.txt, SHA256SUMS.txt, fetch.py; raw-text sha256 in verify_a11.txt equal to SEC_Analysis/sources/SHA256SUMS.txt: 11 of 11
+   rule: MIXED if states and contradicts; else REDUNDANT if states; else PARTLY REDUNDANT if close; else NOT FOUND (never read as novel)
+   W  REDUNDANT         states 2, close 0, bears 1, contradicts 0
+        states      a11:1   Huszar, On Quadratic Penalties in Elastic Weight Consolidation (arXiv v1, 11 Dec 2017 (only versio)
+        states      a11:2   Ritter, Botev & Barber, Online Structured Laplace Approximations For Overcoming Catastrophic (arXiv v1, 20 May 2018 (only versio)
+        bears       a11:3   Kirkpatrick et al., Overcoming catastrophic forgetting in neural networks (EWC) (arXiv v2, 25 Jan 2017)
+   N  REDUNDANT         states 2, close 1, bears 0, contradicts 0
+        states      a11:4   Huszar, On Quadratic Penalties in Elastic Weight Consolidation (arXiv v1, 11 Dec 2017 (only versio)
+        states      a11:5   Ritter, Botev & Barber, Online Structured Laplace Approximations For Overcoming Catastrophic (arXiv v1, 20 May 2018 (only versio)
+        close       a11:6   Schwarz et al., Progress & Compress: A scalable framework for continual learning (online EWC (arXiv v2, 2 Jul 2018 (ICML 2018))
+   F  REDUNDANT         states 2, close 0, bears 2, contradicts 0
+        states      a11:7   Martens, New insights and perspectives on the natural gradient method (arXiv v11, 19 Sep 2020 (official J)
+        states      a11:8   Kunstner, Balles & Hennig, Limitations of the Empirical Fisher Approximation for Natural Gra (arXiv v3, 8 Jun 2020 (v1 29 May 20)
+        bears       a11:9   Kunstner, Balles & Hennig, Limitations of the Empirical Fisher Approximation for Natural Gra (arXiv v3, 8 Jun 2020 (v1 29 May 20)
+        bears       a11:10  Kirkpatrick et al., Overcoming catastrophic forgetting in neural networks (EWC) (arXiv v2, 25 Jan 2017)
+   E  REDUNDANT         states 2, close 0, bears 1, contradicts 0
+        states      a11:11  Kunstner, Balles & Hennig, Limitations of the Empirical Fisher Approximation for Natural Gra (arXiv v3, 8 Jun 2020 (v1 29 May 20)
+        states      a11:12  Martens, New insights and perspectives on the natural gradient method (arXiv v11, 19 Sep 2020 (official J)
+        bears       a11:26  Huszar, On Quadratic Penalties in Elastic Weight Consolidation (arXiv v1, 11 Dec 2017 (only versio)
+   C  REDUNDANT         states 1, close 2, bears 2, contradicts 0
+        states      a11:13  Tan, Ma, Dai & Qian, Barzilai-Borwein Step Size for Stochastic Gradient Descent (arXiv v2, 23 May 2016)
+        close       a11:14  Tan, Ma, Dai & Qian, Barzilai-Borwein Step Size for Stochastic Gradient Descent (arXiv v2, 23 May 2016)
+        close       a11:17  Zenke, Poole & Ganguli, Continual Learning Through Synaptic Intelligence (arXiv v3, 12 Jun 2017 (ICML 2017))
+        bears       a11:15  Tan, Ma, Dai & Qian, Barzilai-Borwein Step Size for Stochastic Gradient Descent (arXiv v2, 23 May 2016)
+        bears       a11:16  Barzilai & Borwein, Two-Point Step Size Gradient Methods, IMA J. Numer. Anal. 8(1):141-148 ( (Crossref metadata fetched 2026-09-)
+   R  REDUNDANT         states 1, close 0, bears 0, contradicts 0
+        states      a11:18  Chaudhry et al., Riemannian Walk for Incremental Learning: Understanding Forgetting and Intr (arXiv v3, 14 Aug 2018)
+   S  PARTLY REDUNDANT  states 0, close 4, bears 1, contradicts 0
+        close       a11:19  Ritter, Botev & Barber, Online Structured Laplace Approximations For Overcoming Catastrophic (arXiv v1, 20 May 2018 (only versio)
+        close       a11:20  Martens, New insights and perspectives on the natural gradient method (arXiv v11, 19 Sep 2020 (official J)
+        close       a11:21  Chaudhry et al., Riemannian Walk for Incremental Learning: Understanding Forgetting and Intr (arXiv v3, 14 Aug 2018)
+        close       a11:22  Zenke, Poole & Ganguli, Continual Learning Through Synaptic Intelligence (arXiv v3, 12 Jun 2017 (ICML 2017))
+        bears       a11:23  Kunstner, Balles & Hennig, Limitations of the Empirical Fisher Approximation for Natural Gra (arXiv v3, 8 Jun 2020 (v1 29 May 20)
+   K  REDUNDANT         states 1, close 0, bears 0, contradicts 0
+        states      a11:24  Maltoni & Lomonaco, Continuous Learning in Single-Incremental-Task Scenarios (AR1) (arXiv v3, 22 Jan 2019)
+   T  REDUNDANT         states 1, close 0, bears 0, contradicts 0
+        states      a11:25  Kirkpatrick et al., Overcoming catastrophic forgetting in neural networks (EWC) (arXiv v2, 25 Jan 2017)
+   claims not counted (a quote not PASS or missing in verify_a11.txt): none
+
+[5] REPORT (not declared; decides nothing): LOAD-BEARING EVIDENCE FROM THE PINNED RECORDS (sec_lib; not behind = arm - tacc > -step,
+    tacc and step at lambda*_raw); 'LOAD-BEARING (report rule, not declared)' = the arm without the ingredient not behind on at least 2 fewer carriers
+   S the calibration (ablation: raw Laplace 'bayes', s = 1), 42 carriers: bayes_sec not behind 29/42, bayes 20/42 (difference +9; rescued 11, lost 2) -> LOAD-BEARING (report rule, not declared)
+        per study (SEC-raw): sec1 9-6; scl3 9-4; sec3 4-5; sec4 3-1; sec5 4-4
+   S per-task factors (ablation: one factor, task 1's s, 'bayes_s1' = M3; FM3 decides in m_checks.txt), 42 carriers: bayes_sec not behind 29/42, bayes_s1 18/42 (difference +11; rescued 13, lost 2) -> LOAD-BEARING (report rule, not declared)
+   K the clip (ablation: the unclipped SEC), SEC4 + SEC5: bayes_sec_clip not behind 10/14, bayes_sec 7/14 (difference +3; rescued 3, lost 0) -> LOAD-BEARING (report rule, not declared)
+        diverged (a seed < 0.5 tacc or non-finite): unclipped 5/14, clipped 2/14; clip fired on 5/14 carriers
+   H-EQ, the CRR-proper equanimity rule (run()'s mode 'eq', Omega = 1; a comparison arm, not an ingredient of SEC: its weight is the norm ratio,
+      SEC's the constant 1/2), not behind the tuned lambda, on the 42 carriers that carry it:
+      against the unclipped SEC (bayes_sec): rule 29/42, SEC 29/42 (SEC only 5, rule only 5)
+        per study (SEC-rule): sec1 9-8; scl3 9-7; sec3 4-5; sec4 3-5; sec5 4-4
+      against the SEC arm each study scored (bayes_sec_clip on SEC4 and SEC5, bayes_sec elsewhere): rule 29/42, SEC 32/42
+      SEC4 + SEC5 alone: rule 9/14, clipped SEC 10/14, unclipped SEC 7/14
+   W the value 1/2: SEC within a step of the best calibrated multiplier lambda*_sec (SEC - tacc_sec > -step; A1's location cost, F1 decides in a1_a3.txt): 31/42
+   N the task-size weights: no arm in the records removes them alone ('fixed_sec' drops n_j but tunes lambda): not tested
+   E the premise (the EF understates the curvature at a task's end, so s_j > 1): carriers with geometric-mean s > 1: 41/42; median over carriers of the per-carrier median s 25.51 (min 0.8691, max 5.97e+04)
+      the direction does not single out the EF's error: a larger curvature on the task's early path than at its end (M2's question, FM2) or a
+      diagonal-against-full curvature gap would also give s > 1; M1 (the true Fisher, the known fix for the EF, FM1) bears on it
+
+[6] THE MECHANISM CHECKS (m_checks.json, m_checks.py's layout only: C0 clipped SEC, M1 true-Fisher Laplace, M2 endpoint curvature, M3 one factor,
+    M4 arc secant, M5 FREEZE-TOP, M6 EDGE; their forecasts FM0-FM6 and the SEC6 carry rule are decided in m_checks.txt; nothing here decides F11)
+   m_checks.json read; carriers 30
+   C0 clipped SEC (reference): not behind 26/30
+   M1 true-Fisher Laplace, uncalibrated (bears on F, S): not behind 13/30; against C0 -13
+   M2 endpoint-curvature calibration (bears on C: path secant or local curvature): not behind 21/30; against C0 -5
+   M4 arc secant (bears on C): not behind 26/30; against C0 +0
+   M3 one factor, bayes_s1 (bears on S): not behind 18 of 42 (the pinned records), bayes_sec 29
+   M5 FREEZE-TOP (Amendment 2; bears on K): not behind 9/30 (FM5: FAILS)
+   M6 EDGE, a must-fail control (Amendment 2; bears on K): not behind 24/30 (FM6: FAILS)
+   REPORT beside F11: M4 within a step of C0 on 29/30 (FM4: HOLDS); ahead by more than
+      a step on 0/30 (the SEC6 carry rule: not carried). M4 is not SEC's code and performs no CRR-proper operation ([2]), so it cannot make one load-bearing
+
+[7] PER INGREDIENT (field and nearest clause: the agent's classification, not computed; stated: [4]; CRR-proper: computed in [3])
+   id field (agent)                        stated            nearest CRR clause (agent)                 CRR-proper evidence (REPORT)
+   W  Bayes (Laplace)                      REDUNDANT         H-EQ (a weight rule)                       no         records: 1/2 within a step of lambda*_sec on 31/42
+   N  Bayes (online Laplace recursion)     REDUNDANT         A6 / P2-P3 (weights over occasions)        no         not tested
+   F  information geometry / statistics    REDUNDANT         none (the metric: information geometry's)  no         M1: see [6]
+   E  optimisation + information geometry  REDUNDANT         A1' (named 'units')                        no         records: s > 1 (geometric mean) on 41/42
+   C  optimisation (BB)                    REDUNDANT         D6 / D2 (arc)                              no         M2, M4: see [6]
+   R  information geometry                 REDUNDANT         D1 (letter rho only)                       no         enters only through S
+   S  optimisation + information geometry  PARTLY REDUNDANT  A1' (named 'units')                        no         records: LOAD-BEARING (raw Laplace); per-task factors LOAD-BEARING (bayes_s1); M1: see [6]
+   K  optimisation (step-size stability)   REDUNDANT         A6 ('bounded strength')                    no         records: LOAD-BEARING (unclipped SEC); M5, M6: see [6]
+   T  continual-learning protocol          REDUNDANT         A3 / D5 (the cut)                          no         fixed by the stream (not ablatable)
+   F maps to no clause: CLAUDE.md sec. 7 'the Fisher–Rao metric, arc, chord and surplus are information geometry's, not CRR's' found verbatim: True
+   fields, coarse (the agent's classification, not computed; each ingredient's stating sources are in [4]): Bayes 2, information geometry 2, optimisation 2, optimisation + information geometry 2, protocol 1
+   CRR-proper ingredients (computed): 0 of 9 (8 in the code, 1 premise)
+
+[8] F11 (declared: 'No CRR-proper ingredient is load-bearing. The weight 1/2 is the Laplace (Bayes) weight. The calibration is a
+    Barzilai-Borwein secant fixing the empirical Fisher's known scale error. The secant is a chord between window means, not CRR's arc.
+    The clip is AR1's. A1' supplies a name ("units") for the correction. Rung R1 (inherited) at best.')
+   rule: F11 HOLDS iff every sentence holds (the headline and parts (a)-(f)); otherwise FAILS, naming the sentences that fail
+   headline  no CRR-proper ingredient is load-bearing: CRR-proper operations performed in SEC's code path 0 of 7 ([3]); an operation not performed cannot bear load: holds
+   (a) the weight 1/2 is the Laplace (Bayes) weight: holds  (W REDUNDANT; BAYES_W 0.5; W's statements found True)
+   (b) the calibration is a Barzilai-Borwein secant fixing the empirical Fisher's known scale error: holds
+       (b-i)   c_j is BB's secant: C REDUNDANT, C's statements found True: True
+       (b-ii)  the EF's scale error is a published one: E REDUNDANT: True
+       (b-iii) the calibration rescales the EF by c_j / rho_j, rho_j the EF's Rayleigh quotient: S's statements found True, R's True, R REDUNDANT: True
+       (b-iv)  it moves the EF the way that error needs (s > 1) on most carriers: geometric-mean s > 1 on 41/42, more than half: True
+       OPERATIONALISATION (the declaration is ambiguous): 'fixing' is read as purpose and direction, which a code reading can decide; 'most' = more
+         than half, as in F4. The mechanism reading (SEC works because the EF's error is removed) is not A11's: M1 and M2 test it (FM1, FM2 in m_checks.txt).
+       beside (b), not part of it: S, the calibration as a combination, is PARTLY REDUNDANT: no verified source states it; (b) names its parts and does not claim the combination is published
+       Amendment 1 report ((b-iv) counts carriers; post hoc in origin; decides nothing): floor-bound carriers (tacc - floor < 3 steps,
+         floor = 100 x the majority class's share) 26 of 42; with them removed, geometric-mean s > 1 on 16/16, more than half: True; the other sentences count no carriers
+   (c) the secant is a chord between window means, not CRR's arc: holds  (window sums only True; differences of window means True; D6/H-T1 performed False)
+   (d) the clip is AR1's: holds  (K REDUNDANT; K's statements found True; lr 2 w cap = 1, AR1's bound 1)
+   (e) A1' supplies a name ('units') for the correction: holds
+       A1' is CRR's clause on the unit: '**[A1′] The unit is the system's own resolvable step.**' found in CRR.md: True
+       SEC's documents name the correction with that word: prereg/sec1/PREREG.md 'fixing the Fisher's units' found True; prose 'unit(s)' in runs/sec4/frozen/sec1_score.py
+         (docstrings and comments, quoted literals excluded) 6 at lines [19, 21, 22, 360, 361, 365] (the distort kind 'unit' as a literal, not counted: 4 at [171, 213, 381, 397])
+         -> named: True  (context, not counted: prompt-log entry 118 'The Ω = 1 rule corrects the units at every step.' found True)
+       no CRR unit is computed (A1'/D1 performed False; instrument calls none True): True
+   (f) rung R1 (inherited) at best: holds  (the ladder's R2 needs 'a CRR-proper ingredient changed the number', found in ladder.py True;
+       CRR-proper operations in SEC's code path 0, so none can change SEC's number and CRR's rung for the explanation is at most R1;
+       this is CRR's credit for the explanation of SEC, not a re-grading of the method's ledger rows)
+F11: HOLDS  (M4 does not enter F11; see [6] and FM4 in m_checks.txt)

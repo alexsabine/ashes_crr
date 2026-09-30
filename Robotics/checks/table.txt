@@ -1,0 +1,713 @@
+ROB1 stages 1 and 1b: the harvested bottlenecks and the double check (DECLARATION.md); label computed from verified claims only
+root: /tmp/claude-0/rob_src
+claims 464 (verified 464); quotes 1051 (found 1051); sources 237
+
+==== family R1 (7 bottlenecks; claims_r1.py, claims_r1x.py)
+
+r1-B1  CONTESTED | Dexterous manipulation: speed and generality against a human
+       why: verified contrary claims, none shows the target reached: r1x:1, r1x:2, r1x:3, r1x:4
+       roles (verified claims): a 3, b 2, c 2, d 3; x 5 (contrary 4, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: Robothon electronic task board trial protocol (six subtasks), DR.J remote judge (So et al., IEEE RAM, Table 6); Robothon 2025 (TBv2025) completion count
+       best: best robot full trial 52 s (Team J, Epson VT6; also the best any-robot composite); 2025: 1 of 8 teams finished, 106 s
+       target: human baseline: best human full trial 8.1 s (N = 10 people, mean 18.9 s); ARIA sets no numeric target
+       gap: robot speed 8.1/52 = 0.156 of the best human (6.4x slower; 2.75x slower than the human mean 18.9 s); the robot beats the human only on ST5 (0.2 s vs 1.7 s) with a purpose-built fixture. Same paper, same protocol. The 2025 board has no human time, so its 1/8 completion is reported without a gap.
+       CPU-testable: no (the benchmark is a physical task board timed on real robots; a simulated manipulation proxy could run on CPU but would not be the benchmark or its human baseline)
+       assumes: rigid hardware fixed first, then control designed for it (the "Genesis paradigm"), on a fast fixed control clock (about 1 ms loops, per ARIA) - clock
+       assumes: a human teleoperator as fallback during tasks - interruption/human in the loop
+       assumes: task and board known and rehearsed in advance; purpose-built fixtures per subtask - boundaries given
+       assumes: learned control (RL, VLA/LLM scene understanding) expected to add generality - tuning/data
+       double check (8 searches listed): CONTESTED at most, not NOT OPEN. Deployed manipulators work at about human speed on single engineered tasks (Amazon Vulcan stow/pick, on about 75% of items; CATL connector insertion as relayed by Epoch), and learned policies match or beat expert teleoperators on trained tasks (RL-100). A 2026 independent assessment (Epoch) argues speed is "not the main bottleneck to deployment" (transfer is), a partial misframing argument, while confirming robots are typically 3-10x slower than humans. No 2025-26 source reports a robot at or above the human time on the Robothon task board or on any varied manipulation protocol with a timed human baseline; no Robothon 2026 result was found. The generality half of the bottleneck is supported by every source found.
+       contrary: r1x:1, r1x:2, r1x:3, r1x:4; re-checks: r1x:5
+       harvester errors found by the double check: 2
+         - Best robot time: the harvester used DR.J Table 6's 52 s, but the organiser's own README (which the harvester quoted for 2023 and 2025) gives "Best Time 31 seconds" for 2022 (RoboTechX MDX, all six tasks ticked on the scorecard) on the same 2021 six-task protocol; on 31 s the gap is 3.8x (0.26 of the best human), not 6.4x (0.156). The two records from the same organiser disagree; the harvester reported only the larger gap.
+         - "also the best any-robot composite": the AnyRobot row's per-subtask best times (11, 5.8, 5.1, 12, 0.2, 1.9) sum to 36.0 s although the table's trial column reads 52; the per-subtask historical limit is 4.4x the best human, not 6.4x. Minor; the quote itself is verbatim.
+
+r1-B2  NOT OPEN | Legged locomotion: range, endurance and robustness outside prepared ground
+       why: verified contrary claim shows the target reached: r1x:6
+       roles (verified claims): a 1, b 2, c 2, d 2; x 4 (contrary 4, target reached 1, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: range on one charge (Burden et al. 2024); cost of transport (Riener et al. 2023)
+       best: Ranger 65 km in 31 h on one charge, on a smooth track; best robot CoT 0.52 (MIT Cheetah)
+       target: human/animal baseline: athletes run "hundreds of kilometers over multiple days" over rough terrain; human CoT 0.2-0.47; batteries hold about 50x less energy per unit mass than fat
+       gap: range at least 1.5x (65 km vs the floor of "hundreds"), and on smooth ground only; CoT 1.1x-2.6x the human value for the best robot. The sources give no single human range number; CoT samples come from different references.
+       CPU-testable: no (range and CoT are measured on physical robots; a simulated legged proxy (MuJoCo-class) is CPU-feasible for short gaits but not for the benchmark)
+       assumes: stiff actuators with compliance emulated in software; every disturbance treated as an error to reject - control on the robot's reference, not the body's dynamics
+       assumes: missions cut short by recharging: robots stay near charging points with short operating windows - interruption
+       assumes: feedback control for recovery from perturbations
+       assumes: comparisons of latency normalised by the limb's natural period (Burden) rather than seconds - a body clock
+       double check (6 searches listed): Split by metric. Cost of transport: the target is reached. RAIBO2 (Nature, 23 Sep 2026) ran a full marathon on one charge with a total CoT of 0.25, "surpassing the human benchmark of 0.37" and inside the harvester's human range 0.2-0.47; even Ranger was at 0.28 in 2011. Range on one charge: not reached (RAIBO2 42.195 km; Ranger 65 km; the human baseline is "hundreds of kilometers" over days). Multi-day endurance with battery swaps reached 106.286 km (AgiBot A2, Guinness, Nov 2025) on paved routes. Robustness outside prepared ground: a four-hour public road race with climbs was completed (KAIST), but not rough terrain and not with loads, so the bottleneck as ARIA frames it (a shift carrying loads over uneven terrain) is still open. Because one of the two named metrics shows the target reached (r1x:6), the table rule reads NOT OPEN; the fair summary is "closed on CoT, open on range and rough-terrain duty".
+       contrary: r1x:6, r1x:7, r1x:8, r1x:9; re-checks: none
+       harvester errors found by the double check: 2
+         - "best robot CoT 0.52 (MIT Cheetah)" and "CoT 1.1x-2.6x the human value for the best robot": Riener et al.'s "closest of all robots" is limited to the robots in its own table. Ranger, which the harvester cites for range, had a CoT of 0.28 in 2011 (Cornell Chronicle), inside the human range the harvester used as the target; RAIBO2 reports 0.25 (Nature 2026). The CoT gap was already 0.6x-1.4x in 2011 and is now below the human benchmark.
+         - "range at least 1.5x (taking 100 km as the floor of 'hundreds')": "hundreds of kilometers" implies at least 200 km, so on the harvester's own reading the range gap is at least 3.1x (65 km); the floor of 100 km understated it. The comparison also mixes one battery charge (robot) with multi-day refuelled running (athletes); the harvester flagged the second point only in part.
+
+r1-B3  CONTESTED | Persistent stratospheric platforms at low hourly cost and high recovery
+       why: verified contrary claims, none shows the target reached: r1x:10, r1x:11, r1x:12
+       roles (verified claims): a 1, b 2, c 3, d 2; x 4 (contrary 3, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: ARIA EAP metrics: gross hourly operating cost CGross, redeployment (recovery) rate, 300 W for one week on station
+       best: solar HALE (Zephyr) about £7,000/hr with 1 in 4 aircraft lost on ascent/descent (ARIA estimate); 67-day record flight (2025) ended with the aircraft lost
+       target: CGross < £500/hr by programme end (goal £100/hr); Rredeployment > 0.95 (loss 1 in 20); 300 W for one week (50.4 kWh)
+       gap: cost 14x over the threshold, 70x over the goal; recovery 0.75 vs > 0.95; endurance (> 1 week) already exceeded by 67 days in the tropics, so it is not the open part; the 300 W payload power is stated to lie "significantly beyond" the state of the art (no state-of-the-art watt figure quoted).
+       CPU-testable: no (the benchmark is a week-long flight demonstration; the programme's techno-economic cost model is CPU-computable, but it is a model, not the benchmark)
+       assumes: solar family: one deep battery discharge per day; battery wear counted in daily cycles caps mission length - a diurnal clock
+       assumes: costs amortised per mission hour; each mission a boundary with a fixed probability of loss on ascent/descent
+       assumes: balloons: limited station keeping and recovery; airships: cost and airspeed
+       double check (6 searches listed): CONTESTED weakly. In 2026 a lighter-than-air HAPS (Sceye ST1) carried a cell-tower payload, worked about a week over Japan within a 5 km station radius at best, and its maker claims readiness for service; a solar HALE (Zephyr) landed after a 13-day flight in 2025. None shows the named targets: no payload power figure (300 W for a week), no cost per hour (below GBP 500/hr), and no recovery rate (above 0.95); Sceye's flights ended in planned terminations, not recovery for reuse, and at about 35 N, not UK latitudes. Nothing found argues the bottleneck is misframed.
+       contrary: r1x:10, r1x:11, r1x:12; re-checks: r1x:13
+       harvester errors found by the double check: 1
+         - "endurance (> 1 week) already exceeded by 67 days ... so it is not the open part": ARIA's TWR is "endurance within range" (station-keeping for the region of interest; the primary metric needs a week within line of sight of a fixed point). The quoted Amprius release states 67 days in the stratosphere, not 67 days within range of a fixed point, so "target exceeded" is plausible but not shown by the harvester's source.
+
+r1-B4  CONTESTED | Heavy-lift drones: payload-to-weight ratio
+       why: verified contrary claims, none shows the target reached: r1x:14
+       roles (verified claims): a 2, b 2, c 2, d 1; x 2 (contrary 1, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: DARPA Lift Challenge (DLC-1): payload-to-weight on a scored 5-nautical-mile circuit, aircraft <= 55 lb
+       best: 3.84:1 (AVIDrone, scored); 9.63:1 in a run that was not scored (DefendTex)
+       target: 4:1 (Challenge goal); typical current multirotor 1:1 or less
+       gap: scored best is 96% of the goal (short by 0.16); an unscored run exceeded it 2.4x. Narrowly open under the programme's own scoring; likely CONTESTED at the double check.
+       CPU-testable: no (a flight-hardware benchmark; nothing about it runs on this machine)
+       assumes: static metric: one loaded circuit; no clock, interruption or memory assumption stated
+       assumes: airframe and propulsion families (electric helicopter, convertible tri-rotor, exhaust-driven rotors, tension-structure multirotor)
+       double check (4 searches listed): CONTESTED, as the harvester expected. DARPA's scoreboard lists DefendTex lifting 112 lb on a 12 lb aircraft (9.63:1) in an attempted run that received no official score; the best scored run is 3.84:1 and no scored run met 4:1. DARPA reads 4:1 as possible and sets it as the entry floor for DLC-2 (220 lb minimum payload, 55 lb maximum aircraft). The target is not reached on the named (scored-circuit) metric; no other 2025-26 source reporting a completed circuit above 4:1 was found.
+       contrary: r1x:14; re-checks: r1x:15
+       harvester errors found by the double check: 1
+         - Omission, not a misquote: the harvester's r1:31 note says DLC-2 "raises the course length", but the same page also doubles the minimum payload to 220 lb with the aircraft still at most 55 lb, making 4:1 the floor at maximum weight in 2028.
+
+r1-B5  CONTESTED | Autonomous search in unknown, communication-denied environments
+       why: verified contrary claims, none shows the target reached: r1x:16, r1x:17, r1x:18, r1x:19
+       roles (verified claims): a 3, b 2, c 2, d 2; x 6 (contrary 4, target reached 0, re-check 2); unverified 0
+       harvester open flag: True
+       benchmark: DARPA SubT Challenge Final Event prize round (40 artifacts, 60 minutes, one human supervisor)
+       best: 23 of 40 artifacts (CERBERUS and CSIRO Data61, tied; 2021)
+       target: 40 of 40 artifacts in 60 minutes (the course total)
+       gap: 57.5% of the artifacts; 17 unfound. The result is from 2021 and the benchmark has not been re-run; the 2025 survey and 2026 euROBIN report still name intermittent communication and unstructured navigation as open.
+       CPU-testable: no (the benchmark is a physical course (the SubT Virtual track needed a full robotics simulator); the lost-link rules themselves could be simulated on CPU in a gridworld proxy)
+       assumes: lost link declared by a clock/count rule (a threshold on consecutive failed pings), then backtrack until reconnection - interruption on a clock
+       assumes: out-of-range exploration bounded by a human-set time budget (homing timer) or remaining mission time - clock
+       assumes: recovery triggered after a predefined time without motion - clock
+       assumes: findings buffered on board and forwarded on reconnection - store-and-forward memory
+       assumes: learned planners early-stage, overfitting to training environments - tuning
+       double check (7 searches listed): CONTESTED for the capability, open on the benchmark. Commercial drones map underground voids autonomously beyond communications range with on-board lost-link handling (Emesent Hovermap, claimed in use at over 200 mines, 2025; Exyn), and a 2026 independent assessment lists GPS-denied inspection in mine shafts and caves among deployed capabilities. These are single-robot mapping missions in bounded voids, not multi-robot search for objects under intermittent links. SubT has not been re-run and no newer score on it or on a comparable artifact-search benchmark was found; the 23/40 of 2021 remains the best number.
+       contrary: r1x:16, r1x:17, r1x:18, r1x:19; re-checks: r1x:20, r1x:21
+       harvester errors found by the double check: 2
+         - "target: 40 of 40 artifacts in 60 minutes": DARPA stated no target score ("Teams earn points by correctly identifying artifacts"); 40/40 is the course ceiling (an oracle), which should be labelled as such rather than as the programme target.
+         - The benchmark result is presented as autonomous search, but CSIRO's tied 23-point run ended with the human supervisor relying "heavily on teleoperation", and its robots detected 27 of 40 (four detected but not reported). The score is neither fully autonomous nor the detection limit.
+
+r1-B6  not shown open | Off-road ground autonomy at human-driver speed
+       why: role b missing
+       roles (verified claims): a 1, b 0, c 2, d 1; x 1 (contrary 1, target reached 0, re-check 0); unverified 0
+       harvester open flag: False
+       benchmark: DARPA RACER field experiments (E3 Fort Irwin 2023; E4 Texas 2023)
+       best: E3: 246 miles in 24.6 hours (10.0 mph average), about 25 mph peak; E4: up to 30 mph
+       target: "speeds on par with a human driver" (no number published in the fetched pages)
+       gap: not shown open: no human-driver speed is quoted, so no gap can be computed, and no 2025-26 source states the problem open; DARPA reported the programme complete (14 Jan 2026) and transitioning.
+       CPU-testable: no (full-size vehicles in field experiments)
+       assumes: a platform-agnostic learned autonomy stack retrained per new environment (weeks, now one day) - tuning
+       assumes: independent of GPS or pre-mapped routes
+       double check (5 searches listed): Agrees with the harvester's "not shown open". A RACER performer (Overland AI, Dec 2025) reports its stack in production and operationally fielded, matching DARPA's January 2026 completion claim. No source found publishes a human-driver speed on the RACER courses, so the target "on par with a human driver" can be shown neither reached nor missed.
+       contrary: r1x:22; re-checks: none
+       harvester errors found by the double check: 0
+
+r1-B7  not shown open | Modularity and interoperability of robot systems
+       why: role c missing
+       roles (verified claims): a 1, b 2, c 0, d 1; x 2 (contrary 2, target reached 0, re-check 0); unverified 0
+       harvester open flag: False
+       benchmark: none quantified (ARIA TA3 survey and workshop; euROBIN coopetition royalty scoring)
+       best: none quoted
+       target: none quoted
+       gap: not shown open: 2025-26 statements exist but no metric with a target is published; the euROBIN scores are in figures only.
+       CPU-testable: no (an ecosystem property, not a benchmark)
+       assumes: shared modules and a module marketplace; common data formats and protocols; standards
+       double check (2 searches listed): Partial solutions ship in one sub-domain: fleet-level interoperability of mobile robots through VDA 5050 (version 3.0.0 by 2026) with vendor adapters (MiR, 2025). Nothing found addresses the hardware and low-level module modularity that ARIA TA3 and euROBIN name, and no metric with a target exists, so the harvester's "not shown open" stands; the contrary evidence is partial.
+       contrary: r1x:23, r1x:24; re-checks: none
+       harvester errors found by the double check: 0
+
+==== family R2 (8 bottlenecks; claims_r2.py, claims_r2x.py)
+
+r2-B1  NOT OPEN | Forgetting in lifelong robot learning (sequential skill acquisition)
+       why: verified contrary claim shows the target reached: r2x:1
+       roles (verified claims): a 1, b 6, c 4, d 4; x 4 (contrary 2, target reached 1, re-check 2); unverified 0
+       harvester open flag: True
+       benchmark: LIBERO-10 continual learning with experience replay, NBT (negative backward transfer) at a replay budget of 100 samples per task (2%) (Liu et al. 2026, Table 5); supporting: PHASER Table 1, LifeLong-RFT Table IV, OrthoSkillVLA Table 1
+       best: NBT 0.229 at 2% replay (Pi0); NBT -0.068 / 0.059 at 20% replay (Pi0 / GR00T); PHASER final ASR 85.8, NBT 10.0 on LIBERO-Long (OpenVLA-OFT-7B); replay-free OrthoSkillVLA final SR 83.50 vs oracle routing 86.2
+       target: zero forgetting, NBT = 0 ("NBT=0 implying zero forgetting", PHASER); multitask learning as the upper bound (LIBERO); oracle routing 86.2 (OrthoSkillVLA)
+       gap: Open only under a small memory budget or a weak backbone: NBT 0.229 at 2% replay on LIBERO-10; closed at 20% replay (Pi0 -0.068, GR00T 0.059, same paper). Replay-free with oracle routing as target: 2.7 points (three skills). With 3B backbones whose action heads are trained from scratch, final ASR on LIBERO-Long 48.6-51.6 and NBT 11.1-12.4 (PHASER). Contested by its own best source ("surprisingly resistant to forgetting"); the double check should read it as CONTESTED unless a small-budget or real-world target is the one that counts.
+       CPU-testable: no (the named results fine-tune 3B-7B VLAs on GPUs; LIBERO's own small BC baselines (ResNet-T, ViT-T) with robosuite rollouts could run a reduced proxy (few tasks, few epochs) on CPU in hours, but that is a proxy)
+       assumes: task boundaries given: replay buffers are written and consolidation runs "after each task"
+       assumes: raw-sample replay with a fixed per-task budget (5 demonstrations; 2% or 20% of data)
+       assumes: uniform replay over clock time within a trajectory (PHASER: this under-samples short phases; phase boundaries from annotation or change points in the action signal)
+       assumes: fixed epoch budget per arriving task; pruning on a task-count clock (every 10 tasks); some methods need oracle task identifiers
+       assumes: deployed default: freeze the policy after deployment, so no on-robot learning at all
+       double check (3 searches listed): NOT OPEN by the table rule, CONTESTED in substance. On real robots, experience replay with a 2% buffer (of all past data) gives final average BWT +0.25, i.e. no forgetting, and at 20% ER beats joint multi-task training (97.2 vs 82.6/83.2) on 5-task streams (Zhu et al., Aug 2026). In simulation, LIBERO's own protocol (1000 transitions per task) already gives Pi0 NBT -0.016 averaged over four suites (the harvester's source), and replay-free sequential LoRA + on-policy RL gives NBT within about 1 point of zero and within 0.7-4.6 points of the multitask oracle, over up to 30 tasks (Hu et al., RLC 2026). What stays open: supervised (imitation) continual fine-tuning with very small memories on long simulated suites (Pi0 NBT 0.229 at 100 samples per task on LIBERO-10; SFT in place of RL gives NBT 78.7), heterogeneous real streams (10-task BWT -2.7, with large losses under uniform replay), and small backbones. Fair summary: closed for large pretrained VLAs with replay at LIBERO's budget or with RL; open for low-memory imitation and weak backbones.
+       contrary: r2x:1, r2x:2; re-checks: r2x:3, r2x:4
+       harvester errors found by the double check: 3
+         - Named metric chosen off-protocol: the harvester named NBT at 100 samples per task (2%), but LIBERO's official ER budget is 1000 transitions per task (about 15-20%), where the same source reports the target reached (Pi0 average NBT -0.016). The harvester disclosed this (r2:7) and flagged the bottleneck as likely CONTESTED, so this is a framing choice, not a misquote.
+         - "20% replay" is the source's round figure; its appendix says approximately 15-20% and counts transitions (state-action pairs), not demonstrations. Minor.
+         - r2:8 PHASER: the NBT gaps given (10.0 on OV-7B, 11.1 and 12.4 on 3B) are PHASER's, not the best NBT in the table: plain ER has NBT -5.6 on OV-7B LIBERO-Long (with only 54.6 success) and iCaRL 6.0 on QwenOFT-3B LIBERO-Long. Best-by-success was reported as best-by-forgetting. Minor.
+
+r2-B2  CONTESTED | Erosion of pretrained VLM capabilities when fine-tuning into a VLA
+       why: verified contrary claims, none shows the target reached: r2x:5, r2x:6, r2x:7
+       roles (verified claims): a 1, b 2, c 1, d 2; x 3 (contrary 3, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: Multimodal understanding benchmarks (MMMU, OCRBench, MMBench, TextVQA, DocVQA, InfoVQA, AI2D, RealWorldQA, etc.) of the VLA against its base VLM (VLM2VLA Table 1)
+       best: VLM2VLA (12B, LoRA, actions as language): MMMU 42.7, OCRBench 63.9, MMB-en 68.5, RealWorldQA 43.3
+       target: the base VLM Gemma-3-12B-IT: MMMU 46.0, OCRBench 75.0, MMB-en 76.9, RealWorldQA 50.6
+       gap: Below the base on 9 of 12 benchmarks, by 2.2 (DocVQA) to 11.1 (OCRBench) points; ahead on MMStar, MME and ChartQA. A co-trained generalist VLA (pi0.5) scores 0.3-27.0 on the same text benchmarks. Same paper; one best method; 2025 numbers (a 2026 B-b exists: Anchor-Align).
+       CPU-testable: no (a 12B VLM fine-tune and 12 VQA benchmark evaluations need GPUs; a toy two-head network with a frozen-anchor penalty could run on CPU but is not the benchmark)
+       assumes: the pretrained VLM is the fixed reference to preserve: frozen backbone, anchoring to a frozen copy, proximity to the initial weights
+       assumes: low-rank adaptation suffices to learn actions (small parameter change)
+       assumes: co-training with web data at a fixed, tuned mixture ratio; gradient insulation between action and language heads
+       double check (3 searches listed): CONTESTED, not closed. The erosion is now a few points rather than the harvester's up-to-11: InstructVLA (ICLR 2026, co-trained with VLM corpora) is at or above its base Eagle2 on 6 of 13 multimodal benchmarks and within 0.2-3.0 points on the other 7; UAM (May 2026, action-only training with a second visual pathway) keeps over 95% of its base BAGEL, below it on all six comparable benchmarks by 1.3-4.9 points. A frozen-copy design (TwinBrainVLA) retains the VLM by construction at twice the VLM cost, a misframing argument that reports no VQA scores. No source shows a VLA at or above its base on every benchmark; plain VLA training still collapses the VLM (POPE 88.87% -> 0.04%).
+       contrary: r2x:5, r2x:6, r2x:7; re-checks: none
+       harvester errors found by the double check: 1
+         - "best" understated: the harvester took VLM2VLA (Sep 2025; below its base on 9 of 12 by up to 11.1) as the best retention result. InstructVLA (arXiv v2 Mar 2026, ICLR 2026) and UAM (May 2026) retain more, within about 3 and 5 points of their bases. The gap in the BOTTLENECKS entry (2.2-11.1 points) overstates the 2026 state.
+
+r2-B3  CONTESTED | Generalisation of VLA policies under distribution shift (positions, robot initial state, viewpoint)
+       why: verified contrary claims, none shows the target reached: r2x:8, r2x:9, r2x:10
+       roles (verified claims): a 1, b 2, c 3, d 2; x 3 (contrary 3, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: LIBERO-PRO position swap and LIBERO-Plus robot-initial-state perturbations on the LIBERO-Spatial suite (Anchor-Align Tables 1 and 5)
+       best: position swap 22.6; robot initial state 59.1; LIBERO-PRO mean 71.9; LIBERO-Plus mean 90.3 (Anchor-Align VLA, Sep 2026)
+       target: the same model unperturbed on LIBERO-Spatial, 98.4
+       gap: Position swap 75.8 points; robot initial state 39.3; LIBERO-PRO mean 26.5; LIBERO-Plus mean 8.1 (same paper). Appearance perturbations are nearly closed (background 99.6, lighting 99.0). On Colosseum V2 even unperturbed success on new tasks is 12.6-44.5%.
+       CPU-testable: no (evaluating 0.5B-7B VLAs over thousands of LIBERO rollouts needs a GPU; the simulator itself runs on CPU)
+       assumes: the test shifts can be enumerated and sampled into training (generalised training sets of >20,000 trajectories)
+       assumes: evaluation on the training tasks and layouts (the standard LIBERO protocol) measures capability
+       assumes: pretrained representations are preserved by anchoring or freezing
+       double check (5 searches listed): CONTESTED, not closed. The harvester's best numbers came from a paper comparing only small (0.5B) models; larger VLAs do better. Under LIBERO-PRO position perturbation on LIBERO-Spatial plain pi0.5 scores 58.0 and 69.4 with a 3D grounding module (oracle target points from the simulator), against the harvester's 22.6; under LIBERO-Plus robot-initial-state perturbation pi0.5 scores 73.6 (all suites), against 59.1. Camera change is largely repaired by one-shot visual adaptation (48.5% -> 87.1%, CVPR 2026) or by a world-action model (94.1%). No source shows spatial shifts without loss against the unperturbed ~96-98; the gaps are about 20-30 points, not 40-76.
+       contrary: r2x:8, r2x:9, r2x:10; re-checks: none
+       harvester errors found by the double check: 1
+         - "best: position swap 22.6; robot initial state 59.1" understates the state of the art: both come from Anchor-Align, whose Table 1 compares only 0.5B-backbone models and none of pi0.5 or GR00T; pi0.5 alone reports 58.0 (position, LIBERO-Spatial; Tsai et al., Jun 2026) and 73.6 (robot, LIBERO-Plus all suites; GE-Act 2.0, Sep 2026). The gaps 75.8 and 39.3 are therefore overstated. Protocol identity ("Pos. Swap" vs "position perturbation", Spatial suite vs all suites) was not verified, so the comparison is cross-paper.
+
+r2-B4  NOT OPEN | Transfer to new robot embodiments
+       why: verified contrary claim shows the target reached: r2x:11
+       roles (verified claims): a 1, b 2, c 1, d 2; x 2 (contrary 1, target reached 1, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: ZETA strict zero-shot cross-embodiment transfer, mean task progress on full-embodiment changes (Tables 3 and 4)
+       best: FULL 60.4 (simulation), 81.9 (real world), EEF-Delta state and action
+       target: progress on the source embodiment: 91.5 (simulation), 100.0 (real world)
+       gap: 31.1 points in simulation, 18.1 in the real world (140 rollouts per model); same paper; progress with partial credit, not binary success. 5% target-embodiment data in pretraining recovers 13.4 points.
+       CPU-testable: no (the study pretrains a pi0.5-class VLA on 640K trajectories from 512 procedurally generated embodiments)
+       assumes: a fixed shared action interface (end-effector deltas) maps to every body
+       assumes: diversity of source bodies substitutes for target data
+       assumes: or target-embodiment data is available for pretraining or fine-tuning
+       double check (3 searches listed): NOT OPEN by the table rule, CONTESTED in substance. Cloak (Stanford, CoRL 2026) transfers a pi0.5 policy trained only on Franka + Robotiq data zero-shot to an unseen YAM arm and gripper at 86.3 +/- 3.7 task progress against 88.0 +/- 3.3 on the source (and 70.8 vs 75.0 binary success), i.e. no measurable loss, in the real world; to an unseen UMI gripper at 85.1. This uses inverse-kinematics retargeting of the known target body and masking of the end-effector in the wrist view. The five-fingered hand is still 6.2 points below the source, and the harvester's broader statement (joint or continued training across bodies interferes) is not addressed. Fair summary: closed for arm-and-gripper changes that IK can bridge; open for bodies with a different grasp mechanism and for multi-embodiment co-training.
+       contrary: r2x:11; re-checks: r2x:12
+       harvester errors found by the double check: 1
+         - "Real world (140 rollouts per model)": 140 is the total over seven embodiments and two tasks; the FULL cell (81.9) rests on 10 trials per task-embodiment pair. The quote is right; the precision attached to the FULL gap is overstated. Minor.
+
+r2-B5  CONTESTED | Sim-to-real transfer of manipulation policies
+       why: verified contrary claims, none shows the target reached: r2x:13, r2x:14, r2x:15, r2x:16, r2x:17
+       roles (verified claims): a 1, b 2, c 3, d 2; x 5 (contrary 5, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: Zero-shot sim-to-real success of OpenVLA-OFT on five bimanual tasks (Jin et al. Table 3); sim-real correlation of evaluation scores (X2Real; Colosseum V2)
+       best: real 42.8% average (SFT + RL + DR) vs 70.8% in held-out simulation; evaluation correlation 0.84 (X2Real, calibrated simulator); R^2 0.49 (Colosseum V2)
+       target: no transfer loss (real equal to simulated success); correlation 1.0 ("ideally, this correlation should approach 1.0", X2Real)
+       gap: Transfer loss 28.0 points (same paper, same policy); correlation short by 0.16. Fairness: sim-to-real works well for locomotion and acrobatics (Goldberg); the open part is contact-rich manipulation.
+       CPU-testable: no (requires a physical robot for the real side; the simulation side uses GPU rendering)
+       assumes: domain randomisation on a fixed clock (per episode or per simulation step; per step transfers better)
+       assumes: rendering and physics fidelity close the gap
+       assumes: RL fine-tuning in simulation adds robustness
+       double check (4 searches listed): CONTESTED on both halves, not closed. Transfer loss: a simulation-trained residual policy loses 10 points (86% sim, 76% real, five real tasks; none on one task), against the harvester's 28.0; synthetic data is reported worth real data at 1:1 on basic tasks and within 8:1 on harder ones (InternData-A1, CVPR 2026), a reframing of the target. Evaluation predictivity: real-to-sim evaluators now report Pearson r of 0.91 (SimFoundry), 0.95 with sub-task scoring, 0.960 (ReVeal) and 0.98 against RoboArena (PolaRiS; 0.9 on average, worst 0.81), against the harvester's best 0.84. No source shows zero transfer loss on average or a correlation of 1.0.
+       contrary: r2x:13, r2x:14, r2x:15, r2x:16, r2x:17; re-checks: none
+       harvester errors found by the double check: 1
+         - "evaluation correlation 0.84 (X2Real)" is not the best reported: PolaRiS (Dec 2025) reports 0.9 on average and 0.98 against RoboArena, ReVeal (Sep 2026) 0.960, SimFoundry (Aug 2026) 0.911-0.95. The gap to 1.0 is about 0.02-0.09, not 0.16.
+
+r2-B6  CONTESTED | Data scarcity and cost of robot interaction data
+       why: verified contrary claims, none shows the target reached: r2x:18, r2x:19
+       roles (verified claims): a 2, b 2, c 3, d 2; x 2 (contrary 2, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: Size of the largest reported robot-learning corpus, in hours, against the reading time of LLM training text
+       best: >100,000 hours of real-world UMI trajectories (Xiaomi-Robotics-1, 2026); about 3,000 hours of robot data (AgiBot World Beta); over 10,000 hours (pi0)
+       target: about 100,000 years (Goldberg: the reading time of LLM text, stated as a lower bound for robots)
+       gap: 100,000 h is about 11.4 years: a factor of about 8,800 short; 3,000 h, a factor of about 290,000. CROSS-SOURCE, heterogeneous units, and the target is an analogy rather than a programme requirement: an order-of-magnitude reading only. A 2026 survey argues the central challenge is not merely data scarcity (possible misframing; for the double check).
+       CPU-testable: no (a corpus-size gap is not a computation; nothing to run)
+       assumes: teleoperated data accrue one hour per hour of operator time ("every eight hours of work gives you just eight more hours of data")
+       assumes: cheaper substitutes transfer: hand-held UMI, human egocentric video, simulation, web data
+       assumes: fleet data collected during useful work, once engineered systems are good enough to deploy
+       double check (3 searches listed): CONTESTED as framed; the target is not reached. The largest reported interaction corpus is a company claim of over 500,000 hours from wearable devices (Generalist, Apr 2026; 270,000 hours already in Nov 2025), about 57 years, still a factor of about 1,750 short of the harvester's 100,000-year analogy. The same company claims 99% success on simple tasks with about 1 hour of robot data per task after pretraining without robot data, i.e. that robot data is not the binding constraint; the harvester's own sources make the same point (a TMLR survey: "not merely data scarcity"; Goldberg's article title: engineering can close the gap). The Generalist claims are not independently evaluated.
+       contrary: r2x:18, r2x:19; re-checks: none
+       harvester errors found by the double check: 1
+         - "best: >100,000 hours ... (Xiaomi-Robotics-1, 2026)" understates the largest reported corpus: Generalist reported 270,000 hours in Nov 2025 and over half a million hours in Apr 2026 (company statements). The gap "a factor of about 8,800" is then about 1,750; the harvester's survey source did not list company corpora.
+
+r2-B7  CONTESTED | Long-horizon multi-step tasks with one generalist policy
+       why: verified contrary claims, none shows the target reached: r2x:20, r2x:21, r2x:22
+       roles (verified claims): a 1, b 2, c 3, d 2; x 4 (contrary 3, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: 2025 BEHAVIOR Challenge (50 household tasks, OmniGibson), full task success rate and q-score (Openpi Comet Table 1); RoboSPA long-horizon procedural planning at level L5 (Table 2)
+       best: BEHAVIOR test full success 0.1240, q-score 0.2599 (1st place); post-challenge validation 0.1500 / 0.3453; RoboSPA L5 23.1% (pi0.5), memory-intensive planning 0.0 for all models
+       target: full completion of every task (success 1.0; the benchmark goal); no human success rate reported
+       gap: Full-success gap 0.876 (test) and 0.850 (validation); RoboSPA 76.9 points. Contrary evidence: a single real-robot garment-folding policy reaches 95.00% with recovery data (RoboFolDeX Table 3), so narrow long-horizon tasks are close to solved; breadth is not.
+       CPU-testable: no (BEHAVIOR needs Isaac Sim on RTX GPUs (the 1st-place team used 20 RTX 4090s; a full evaluation took under 2 days))
+       assumes: fixed subtask boundaries with separate local policies (skill chaining unsolved)
+       assumes: Markovian policies without memory; fixes add an explicit stage counter from demonstration stages
+       assumes: wall-clock time limits (twice the human completion time)
+       assumes: demonstrations of success only; recovery data added afterwards
+       double check (3 searches listed): OPEN on the named metric; narrow long-horizon tasks near solved. No 2025-26 source reports BEHAVIOR full success above 0.124 (test) or 0.15 (post-challenge validation); the 2026 edition (100 tasks) was still open on the day. Deployed narrow long-horizon tasks reach 90%+ with hours of unattended running (pi*0.6: espresso for 13 hours, boxes in a factory; Generalist GEN-1: kitting for over an hour), as the harvester conceded. A misframing argument: a VLA interleaved with a classical planner more than doubles BEHAVIOR task progress with no more data (MPVI), and the organisers now admit planners and LLM-assisted systems, so "one generalist policy" is a design choice rather than the benchmark's requirement.
+       contrary: r2x:20, r2x:21, r2x:22; re-checks: r2x:23
+       harvester errors found by the double check: 0
+
+r2-B8  NOT OPEN | On-robot inference latency and compute for VLA policies
+       why: verified contrary claim shows the target reached: r2x:24
+       roles (verified claims): a 1, b 3, c 3, d 4; x 5 (contrary 5, target reached 1, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: Closed-loop control frequency of pi0.5 on NVIDIA Jetson Orin, evaluated on LIBERO (Jetson-PI Table 4)
+       best: 6.06 Hz (reaction time 165.1 ms) on Jetson Orin; 7.59 Hz on Jetson Thor (Jetson-PI, CoRL 2026)
+       target: at least 10-20 Hz (Vishwanathan et al. 2026); fixed control loops of 50-100 Hz (Grover et al. 2026)
+       gap: Short by 3.94-13.94 Hz on Orin (a factor 1.65-3.3) against 10-20 Hz; cross-paper target. Met off-board: pi0 20/50 Hz on an RTX 4090 (a 6.0x battery-life cost per Jetson-PI). Asynchronous chunking (RTC) keeps success under >300 ms delay, so part of the gap is absorbed by execution design.
+       CPU-testable: no (the named metric is hardware-specific (Jetson Orin); a synthetic scheduling model (clock-driven vs event-driven replanning under delay) could run on CPU as a proxy)
+       assumes: action chunking: open-loop execution between inference calls on a fixed step clock
+       assumes: asynchronous inference with the delay known and the committed prefix frozen
+       assumes: dual-rate hierarchies with two fixed clocks (slow planner, fast controller at 50-500 Hz)
+       assumes: event-triggered invocation of the VLM by a confidence signal (Jetson-PI)
+       assumes: nominal loop rates that drift under thermal throttling
+       double check (4 searches listed): NOT OPEN by the table rule on Jetson Thor; OPEN on Jetson Orin. NVIDIA's own tutorial runs pi0.5 on Jetson AGX Thor in about 49 ms (FP8 + NVFP4) or 54 ms (FP8), i.e. 18-20 Hz, inside the 10-20 Hz target, against the harvester's best on Thor of 7.59 Hz; an independent developer reports 44 ms and a paper measures a pi0 runtime at 49.5 ms on Thor. These are latency benchmarks, not closed-loop success evaluations. On Orin no source reaches 10 Hz for pi0.5 (a 2026 company report says Orin "has limited compute headroom for 10 Hz VLA inference"); a pi0.5-scale model on a Chinese edge SoC reaches 11.69 Hz. Misframing: a deployed dual-system VLA (Figure Helix, Feb 2025) runs its VLM on board at 7-9 Hz and closes the control loop at 200 Hz with a small policy.
+       contrary: r2x:24, r2x:25, r2x:26, r2x:27, r2x:28; re-checks: none
+       harvester errors found by the double check: 1
+         - "best: 7.59 Hz on Jetson Thor (Jetson-PI)" understates the best reported rate for pi0.5 on Thor: a TensorRT FP8/NVFP4 build reaches about 49 ms per inference (NVIDIA Jetson AI Lab, 2026), i.e. about 20 Hz. Jetson-PI's own naive Thor latency (457.9 ms) is also far above NVIDIA's PyTorch BF16 figure (~132 ms); the two setups differ (not investigated).
+
+==== family R3 (7 bottlenecks; claims_r3.py, claims_r3x.py)
+
+r3-B1  NOT OPEN | Endurance and energy of small battery-electric multirotors
+       why: verified contrary claim shows the target reached: r3x:1
+       roles (verified claims): a 1, b 1, c 3, d 2; x 4 (contrary 3, target reached 1, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: mission range on one battery in the SPRIN-D Funke Fully Autonomous Flight (9 km course, 2 h slot; Werner et al. Table I); specific energy of the power source against lithium-ion (Williamson et al.)
+       best: longest competition flight 1371 m (977 s), ended on low battery; thermoelectric prototype 30 Wh/kg at 1.8% efficiency; best TE module 12% (modelled parity only)
+       target: the 9 km course (programme task); lithium-ion 200 Wh/kg (parity); TE efficiency more than 2x 12% for VTOL multicopter endurance parity
+       gap: range per flight 1371/9000 = 15% of the course (about 6.6 battery-limited flights per course); the prototype reaches 30/200 = 15% of lithium-ion specific energy. CONTESTED for other carriers: a liquid-hydrogen multirotor flew 12 h 7 min 5 s (Guinness, 2019, payload not stated), so the bottleneck holds for battery-electric small multirotors with payload, not for multirotors as such. The two c-claims are from different papers and are not combined.
+       CPU-testable: no (energy storage and flight endurance are hardware properties measured in flight; an energy-budget simulation of battery swaps against a mission could run on CPU in minutes but would not be the benchmark)
+       assumes: flight planned to one battery's clock (10-30 min); a longer mission is cut into flights at battery boundaries (land, swap, relaunch) - clock and boundaries
+       assumes: tethering or power beaming: an uninterrupted external supply from fixed infrastructure that is assumed always present - interruptions
+       assumes: hybrid hydrocarbon or fuel-cell generation with a battery buffer for transients; fixed conversion efficiency
+       assumes: fixed wing instead of rotor: gives up hover
+       assumes: online adaptation to battery depletion (estimate maximum motor RPM in real time and re-plan): state-indexed rather than clock-indexed, adds no energy
+       double check (6 searches listed): NOT OPEN by the table rule on the range-per-battery metric, CONTESTED in substance. A commercial battery-electric multirotor is specified at 49 km on one battery with a 10.67 kg camera-payload configuration (DJI Matrice 400, manufacturer figure, 17 m/s, windless, to 0%), 5.4x the 9 km course; a hydrogen multirotor flew 188.605 km in more than four hours (Nov 2025, state media reporting Guinness); silicon-anode lithium-ion cells are claimed at 500 Wh/kg (company, availability Q4 2026). What stays open: flight duration of battery multirotors is still tens of minutes (59 min at best here), no non-lithium drop-in beats lithium on specific power for hover, and at the SPRIN-D winner's localization-limited 1.40 m/s even 59 min covers only about 5 km. The SPRIN-D 15% is that team's platform and speed, not the frontier of battery endurance.
+       contrary: r3x:1, r3x:2, r3x:3; re-checks: r3x:4
+       harvester errors found by the double check: 3
+         - r3:3 passes through the source's sentence "Flights exceeding 1 km were consistently terminated due to battery constraints" although the source's own Table I shows that of the three competition flights over 1 km only one (239, 1371 m) ended on low battery; 206 (1023 m) ended on a software issue and 232 (1256 m) on a hardware failsafe. The harvester's own count ("3 of the 6 competition flights ended on low battery") is right; the quoted generalisation is overstated.
+         - The target "9 km course on one battery" (range per flight / course = 15%, "about 6.6 battery-limited flights per course") is the harvester's construction: the programme gave a 2 h slot to "visit as many waypoints as possible", with no one-battery requirement.
+         - Range per battery is attributed to energy although the source names speed, capped by its local-map size, as what limited range; the 977 s flight (16.3 min) is ordinary endurance for the class. The harvester notes this under r3-B2 but not under r3-B1.
+
+r3-B2  CONTESTED | GNSS-denied long-range navigation (drift over kilometres at low altitude)
+       why: verified contrary claims, none shows the target reached: r3x:5, r3x:6, r3x:7, r3x:8, r3x:9
+       roles (verified claims): a 1, b 3, c 2, d 3; x 5 (contrary 5, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: SPRIN-D Funke Fully Autonomous Flight (Sep 2024): 9 km waypoint course below 25 m AGL without GNSS or prior dense mapping; localization RMSE and waypoints reached (Werner et al. Table I)
+       best: winner: longest flight 1371 m with 4/4 waypoints, localization RMSE below 11 m (7 m against 53 m for odometry on flight 232); only 3 of 9 teams flew more than 100 m autonomously
+       target: the 9 km track with 27 waypoints and a package pick-up at the last (programme task, SPRIND 2024); SPRIND 2.0 (2025-26): safe navigation without GNSS or human intervention
+       gap: longest flight 1.371 km = 15% of the 9 km course; the paper does not report the course completed; flights over 1 km ended on battery, not drift, so range is jointly limited by energy (r3-B1) and by the local map size that capped speed. The 2025-26 second edition published no metrics. Ground truth in competition is approximate (0-5 m).
+       CPU-testable: no (the benchmark is a field course flown by real drones; the winning localization itself runs on CPU-only onboard hardware, so a replay on recorded flight data could run on CPU if the data are public (supplementary site named in the paper, not checked))
+       assumes: odometry corrected by loop closures: assumes revisits, i.e. a memory of places, absent on long unseen routes - memory
+       assumes: SLAM: memory and compute grow with the environment - memory
+       assumes: satellite-image matching: assumes a viewpoint close to the map's (fails below 25 m)
+       assumes: prior-geodata heightmap matching with a particle filter: assumes the prior map matches the present terrain and has structure; in open fields it falls back to odometry
+       assumes: bounded local map traded against flight speed and range; compass alignment with slowly drifting bias
+       assumes: programme-listed alternatives: ultra-wideband (installed beacons), magnetic-field navigation (a magnetic map)
+       double check (11 searches listed): CONTESTED (misframing), not shown closed. No 2025-26 source reports a GNSS-free small drone completing a 9 km low-altitude course, and the 2025-26 SPRIND edition published no metrics. Against the reading: in the harvester's own benchmark no competition flight ended on localization drift (terminations: test finished, software, hardware failsafe, low battery), with method RMSE 6-11 m; the programme's 2026 final set 60-minute area missions, not a traverse, and its winner calls its GNSS-free navigation "ready for the real world" (no numbers); magnetic navigation flew on a Group 3 UAS (no numbers); low-altitude (30-300 m) absolute visual localization reaches 74.1% within 5 m on real imagery. What stays open: a published, measured kilometre-scale GNSS-free flight below 25 m AGL over unseen terrain, especially over structureless ground.
+       contrary: r3x:5, r3x:6, r3x:7, r3x:8, r3x:9; re-checks: none
+       harvester errors found by the double check: 2
+         - r3-B2 gap_note repeats "flights over 1 km ended on battery, not drift"; Table I shows one of three flights over 1 km ended on battery (see r3-B1). The correct and stronger statement is that no flight ended on drift.
+         - The harvester counts the 2025-26 SPRIND edition only as "no metrics published"; it did not record that the edition changed the task from a 9 km traverse to 60-minute area missions, which bears on whether the 9 km course is still the programme's target.
+
+r3-B3  OPEN (double-checked) | Perception in adverse conditions (fog and haze) for airborne detection and tracking
+       why: no verified contrary claim
+       roles (verified claims): a 1, b 2, c 2, d 2; x 3 (contrary 0, target reached 0, re-check 3); unverified 0
+       harvester open flag: True
+       benchmark: DUT Anti-UAV sample videos with depth-aware synthetic fog (beta up to 3.6), YOLO11 + ByteTrack MOTA (Pouladi et al. Table 3); HazyDet real-haze mAP (Feng et al.)
+       best: MOTA at beta = 3.6 (best over detector, training regime, foggy or restored input): V02 0.771, V03 0.940, V06 0.960, V10 0.179; HazyDet real-haze best mAP 38.7 (no clear-weather reference)
+       target: oracle: the best clean-condition MOTA on the same video: V02 1.000, V03 0.980, V06 0.995, V10 0.321
+       gap: gaps 0.229 (V02), 0.040 (V03), 0.035 (V06), 0.142 (V10; 56% retained). Clean-trained detectors collapse at beta = 3.6 (MOTA 0.000-0.250 on V02, V03, V06). Fog-inclusive training nearly closes the gap on 2 of 4 videos, so the reading is open on the worst sequences only; synthetic fog, 4 sample videos, one tracker. The double check may read it CONTESTED.
+       CPU-testable: no (the named benchmark retrains three YOLO11 sizes under three regimes for 100 epochs (GPU-scale); synthetic fog generation and inference with a pretrained YOLO11n on the four public DUT Anti-UAV videos could run on CPU in hours as a proxy)
+       assumes: fog-inclusive training: the test-time degradation distribution is sampled offline at training time - tuning, boundaries of the training set
+       assumes: test-time restoration (dehazing): the degradation model is known and stationary
+       assumes: synthetic data from a scattering model because real foggy data are hard to collect
+       assumes: staged fine-tuning (clear -> synthetic haze -> real haze) with designer-set stage boundaries
+       assumes: tracking-by-detection: a target lost by the detector is not recovered by the tracker
+       double check (5 searches listed): OPEN (double-checked): no contrary claim found. No 2025-26 source reports drone-view or anti-UAV detection or tracking in real fog at clear-weather performance; a 2026 drone-detection paper corroborates the problem (fog lowers mAP@0.25 by 6.2 pp and raises misses by 12.7 pp on matched synthetic scenes) and again names the lack of real adverse-weather evaluation data. Radar or acoustic sensing as a fog-proof alternative (a possible misframing argument) appears only in vendor blogs and trade press, with no primary 2025-26 measurement found. The harvester's numbers are right; the V10 residual is partly sequence difficulty (clean oracle 0.321), not fog.
+       contrary: none; re-checks: r3x:10, r3x:11, r3x:12
+       harvester errors found by the double check: 1
+         - None in the numbers (Table 3 parsed in full; the per-video best values match). Framing only: Video 10's low absolute MOTA is not fog-caused (clean 0.321, light fog up to 0.368), so "open on the worst sequences" is carried by the heavy-fog relative drop (V02 0.229; V10 0.179 vs 0.321), not by V10's level.
+
+r3-B4  NOT OPEN | Agile flight against human pilots (autonomous drone racing)
+       why: verified contrary claim shows the target reached: r3x:13
+       roles (verified claims): a 1, b 1, c 1, d 2; x 2 (contrary 1, target reached 1, re-check 1); unverified 0
+       harvester open flag: False
+       benchmark: A2RL x DCL 2025 AI-vs-human knockout (organiser-designed drone and track, one forward camera)
+       best: TU Delft AI won the knockout against three former DCL world champions, up to 95.8 km/h
+       target: human champion pilots
+       gap: not shown open: the source states the target reached on this metric (15 Apr 2025, in an externally organised race). The residual problem the 2025 sources state - generality to unseen tracks, drones and unstructured environments, where humans adapt - carries no number against a target in the sources found.
+       CPU-testable: no (the benchmark is a physical race against human pilots; a simulated racing proxy could run on CPU but would not be the benchmark or its human baseline)
+       assumes: known track and drone; policy trained in simulation by RL for that task - boundaries given, tuning offline
+       assumes: end-to-end neural control directly to the motors under tight compute and energy budgets
+       assumes: modular pipelines assume the structured setting they were designed for
+       assumes: online parameter estimation whose estimates drift over time
+       double check (4 searches listed): NOT OPEN, as the harvester read it. The team's own paper confirms the 2025 A2RL result with numbers: the AI beat three world-champion-level pilots, fastest completion 16.56 s, onboard monocular camera + IMU, speeds up to 100 km/h. For fairness: at the next A2RL championship (Jan 2026) a human world champion beat the AI 5-4 in a best-of-nine after the AI struck a gate, so the state is parity, not dominance; and generality (gate shapes, other drones, unstructured settings) stays open with no metric against a target.
+       contrary: r3x:13; re-checks: r3x:14
+       harvester errors found by the double check: 0
+
+r3-B5  NOT OPEN | C2 link reliability and lost-link behaviour for BVLOS (commercial networks; jammed spectrum)
+       why: verified contrary claim shows the target reached: r3x:15
+       roles (verified claims): a 2, b 2, c 1, d 5; x 4 (contrary 3, target reached 1, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: in-flight packet delivery and RTT over commercial LTE and Starlink (rural Kansas, >10 flights, 4.5+ h, 18K samples; Chintareddy et al.)
+       best: packet delivery 99.44% (LTE), 99.31% (Starlink); RTT: Starlink 95% < 50 ms, LTE 80% < 150 ms; worst handover RTT increase 275 ms
+       target: 99.9% C2 reliability and sub-100 ms one-way delay (as stated in the same paper, citing field evaluations)
+       gap: loss 0.56% (LTE) and 0.69% (Starlink) against 0.1% allowed: 5.6x and 6.9x; at least 20% of LTE RTTs exceed 150 ms, and neither link's 99.9th-percentile latency is reported. The authors judge the rates sufficient for data transfer; the C2 comparison is the agent's. Test traffic, not a C2 protocol; one rural area, one carrier. Contested-spectrum context (RUSI, 2025): jamming of command and navigation links is ubiquitous; not quantified as a C2 metric.
+       CPU-testable: no (the benchmark is an in-flight radio measurement; a lost-link simulation (timeout policies against a link model) could run on CPU in minutes, but it would not be the measured link)
+       assumes: link loss declared by a timeout on the clock; response a predetermined action (return to home, loiter, continue) fixed before flight; timeout value left to industry standards - clock, interruptions
+       assumes: C2 performance specified by transaction expiration time, availability, continuity, integrity (EASA) - clock
+       assumes: redundancy by dual links (LTE + LEO) with failover: assumes the links do not fail together
+       assumes: cellular handover triggers (fixed dB thresholds) designed for ground users fire 3-4x more at altitude
+       assumes: under jamming: remove the radio link (fibre spool, about 10 km), autonomous terminal guidance, or planned windows (pauses in friendly jamming) that make operations periodic rather than continuous - interruptions scheduled
+       assumes: reliability shown by 150 clocked flight hours without failure; maintenance by time in service, calendar time or cycles - clock
+       double check (7 searches listed): NOT OPEN by the table rule on the civil C2 metric, CONTESTED in substance. A vendor measurement on a flying drone reached 99.99% of packets within 50 ms by duplicating over two live LTE operators (Nokia, 2023; pre-2025, one urban flight at 40 m), meeting the 99.9% / sub-100 ms target that single links miss; a 2026 KTH/Airbus flight study shows multi-link aggregation keeps connectivity through severe outages but can break latency bounds; and the FAA NPRM sets no numeric C2 reliability and expects intermittent lost link to be mitigated, so the 99.9% target is a 3GPP service figure, not the BVLOS gate. What stays open: single commercial links (99.3-99.4% in 2026), latency under multipath, and the jammed-spectrum half, which none of these sources touches.
+       contrary: r3x:15, r3x:16, r3x:17; re-checks: r3x:18
+       harvester errors found by the double check: 3
+         - r3:33 note: "at least 20% of LTE RTTs exceed 150 ms" turns the source's "approximately 80% ... under the 150 ms threshold" into a bound; "about 20%" is what the source supports. Minor.
+         - The source gives cellular packet delivery as 99.44% (Table 1) and as 99.66% (dual-connectivity paragraph); the harvester used 99.44% without noting the inconsistency. Either is below 99.9%. Minor.
+         - The problem statement ("a command-and-control link that commercial networks do not deliver at the required reliability") treats 99.9% as required; the harvester's own regulator source (FAA NPRM) sets no numeric C2 requirement. Framing.
+
+r3-B6  CONTESTED | BVLOS detect-and-avoid of non-cooperative aircraft by small UAS
+       why: verified contrary claims, none shows the target reached: r3x:19, r3x:20, r3x:22
+       roles (verified claims): a 2, b 4, c 3, d 6; x 4 (contrary 3, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: logic NMAC risk ratio of a vision-only DAA (ViSafe) in digital-twin hardware-in-the-loop encounter sets (4000-6000 encounters per scenario; Kapoor et al. Table II)
+       best: NMAC RR 0.439 (overtake), 0.5248 (crossing), 0.55 (head-on); 0.1 above the horizon, 0.91 below it; real world 0.667 below the horizon (6 encounters)
+       target: UK CAA CAP 3015 v2 DAA02: non-cooperative NMAC RR <= 0.3, LWC RR <= 0.5 (NMAC 500 ft / +/-100 ft); ASTM non-cooperative NMAC RR 0.3, LoWC 0.5 (ASSURE A65); human baseline: modelled GA pilot see-and-avoid NMAC RR 0.625 (ownship only) / 0.331 (both)
+       gap: head-on/overtake/crossing RRs are 1.46-1.83x the allowed 0.3; below the horizon 3.0x; above the horizon meets it. CROSS-DOCUMENT and protocol-different: ViSafe's NMAC is its own unsafe distance between small drones, not the regulatory 500 ft volume around manned aircraft, so the gap is indicative. ViSafe beats the modelled human own-only baseline (0.625). No final FAA Part 108 rule on 2026-09-30; UK DAA-enabled BVLOS is in a policy test phase.
+       CPU-testable: yes (the regulatory metric is itself a fast-time simulation: CAP 3015 allows a deterministic framework "without requiring extensive computational resources" and gives an example non-cooperative EO sensor model, so a logic risk ratio for a given avoidance logic over 10^4-10^5 encounters is CPU work of minutes to hours; ViSafe's learned perception and Isaac Sim digital twin are not)
+       assumes: qualification by fast-time encounter simulation on encounter models built from long-term historical traffic; simulation count set by convergence of the risk ratio within 5% - stationarity of traffic
+       assumes: fixed protection volumes and alerting times (tau thresholds) - clock
+       assumes: control barrier function avoidance: constant-velocity, non-reacting intruder, planar manoeuvres, hand-tuned hyperparameters - tuning
+       assumes: reaction window bounded by detection range (287 m / 525 m -> 14.35 s / 13.12 s)
+       assumes: strategic deconfliction of shared intent before flight: assumes all UAS participate
+       assumes: cooperative route: make every aircraft broadcast (electronic conspicuity mandate), assumes universal equipage; low-risk airspace: a fixed avoidance manoeuvre (rapid descent)
+       double check (8 searches listed): CONTESTED. Deployed onboard DAA exists: Amazon Prime Air received FAA BVLOS approval in 2024 after flight demonstrations against real planes, helicopters and a balloon, and in Dec 2025 states its onboard vision DAA is in service; Zipline flies an acoustic DAA under FAA exemption; standards for small-UAS DAA (ASTM F3442-25) and a standardised logic (ACAS sXu, DO-396, validated 2022) exist. None of these shows the named target: no deployed system publishes a non-cooperative NMAC risk ratio <= 0.3, ALPA says Zipline's DAA performance evidence is not available to stakeholders, and the UK regulator says equipment standards alone do not demonstrate operational safety. The open part is public evidence that a whole small-UAS DAA meets the risk ratio, not the existence of systems.
+       contrary: r3x:19, r3x:20, r3x:22; re-checks: r3x:21
+       harvester errors found by the double check: 1
+         - The problem text ("no small-UAS approach has passed from prototype to a standardised subsystem") and B-b (DLR, r3:41) are read without the FAA-approved onboard DAA in service since 2024 (Amazon) and 2023 (Zipline), or ACAS sXu (DO-396) and ASTM F3442-25; "standardised" is defensible, "prototype" is overstated. Omission, not a misquote.
+
+r3-B7  CONTESTED | Counter-UAS: tracking tiny drones in complex scenes and non-destructive interception
+       why: verified contrary claims, none shows the target reached: r3x:23, r3x:24
+       roles (verified claims): a 1, b 2, c 2, d 2; x 2 (contrary 2, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: CST Anti-UAV thermal-infrared single-object tracking, mean state accuracy (Xie et al. Table 3); SPRIND Funke Anti-Drone Response specification
+       best: mSA 35.92 (GlobalTrack, trained and tested on CST); first SPRIND Funke: no team met the specification
+       target: oracle SA 100 (reference: 67.69 on Anti-UAV410); SPRIND: autonomous non-destructive neutralisation of UAVs up to 25 kg and 200 km/h
+       gap: 64.08 points below the oracle; the best score falls 31.77 points from Anti-UAV410 to CST (GlobalTrack loses 30.50, SiamDT 31.85; same paper, same metric); SPRIND gives a count of zero teams meeting the specification, not a measured gap (number of teams not published).
+       CPU-testable: no (the named results retrain 20 trackers on 8 A100 GPUs; evaluating one pretrained tracker on the public 240k-frame CST test data could run on CPU in hours as a proxy; interception is a field trial)
+       assumes: single-object trackers trained offline per dataset; accuracy about halves on a harder distribution - tuning, boundaries
+       assumes: continuity after interruptions: targets reappearing where they vanished (occlusion) are easy, out-of-view gaps need re-localization and score as low as 14.53% - interruptions
+       assumes: thermal-infrared sensing to survive low light and fog
+       assumes: detect-classify-respond pipelines with reversible effectors (guided interception, redirection, blocking, capture)
+       double check (7 searches listed): CONTESTED on the interception half; OPEN on the tracking half. A fielded autonomous, radar-guided, non-destructive (net-capture) interceptor exists and was bought by the US DoD counter-UAS task force (Fortem DroneHunter F700: more than 4,500 captures, an autonomous 5-vs-5 swarm capture in Feb 2026, Group-1 and large Group-2 targets; company statements). It is not shown to meet SPRIND's specification (200 km/h, 25 kg, "without kinetic means", reproducibly; Fortem calls its interceptor kinetic). On CST Anti-UAV no later tracker result above 35.92 mSA was found. Misframing note: fielded counter-UAS guides by radar, so a thermal single-object tracking score is a proxy, not the operational metric.
+       contrary: r3x:23, r3x:24; re-checks: none
+       harvester errors found by the double check: 2
+         - The "oracle SA 100" target and the 64.08-point gap are the harvester's construction, not a programme, regulatory or human target; the meaningful same-paper reference is the 67.69 reached on Anti-UAV410, which the harvester also reports. Framing.
+         - The problem text ("no autonomous civilian soft-kill system has met a public specification") is right for SPRIND's specification but omits a fielded autonomous net-capture system (Fortem). Omission.
+
+==== family R4 (8 bottlenecks; claims_r4.py, claims_r4x.py)
+
+r4-B1  CONTESTED | Jailbreaks of LLM/VLM-planned robots
+       why: verified contrary claims, none shows the target reached: r4x:1, r4x:3
+       roles (verified claims): a 1, b 2, c 4, d 4; x 3 (contrary 2, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: RoboJailBench (six intent-contrast datasets; attacks CD, CJ, SM, RoboPAIR; security rate SR, utility rate UR); RoboGuard's own RoboPAIR suite (70 prompts x 3 environments)
+       best: RoboGuard on its own suite: attack success 2.3% (non-adaptive RoboPAIR) to 5.2% (white-box adaptive), utility 100%; on RoboJailBench RJB-Instructions: SR 65.00, UR 100.00, conceptual-deception ASR 94.44%; J-DAPT detection accuracy "nearly 100%"; AuthGuard-R 109/109 unauthorised actions blocked (preliminary)
+       target: "the adversarial goal should be rejected, maximizing both utility and security" (SR 100 at UR 100)
+       gap: own-suite: 2.3-5.2 points of attack success above zero; independent benchmark: 35.0 points of security rate on RJB-Instructions (the best defence), with CD attacks at 93.33-100% on four datasets under either defence. Different protocols; not pooled. Contrary evidence (J-DAPT, AuthGuard-R) is on narrower threats or preliminary.
+       CPU-testable: no (the reference numbers use frontier LLM/VLM planners (GPT-4o, Claude, Gemini) through APIs, not available here (no API key); a reduced proxy with a small local model (as in STAKE1) runs on CPU but is not the benchmark)
+       assumes: classifier detection: the attack distribution of a fixed training set (no drift)
+       assumes: specification guardrail: rules written in advance and grounded once per plan in a world-model snapshot
+       assumes: authorisation: a signed mission with a fixed scope and time window (boundaries given from outside)
+       assumes: evaluation: one instruction and one frame per episode; no temporally extended attack
+       double check (7 searches listed): CONTESTED at most, not NOT OPEN. On a small physical-robot set RoboGuard reached the stated target literally (RoboPAIR 100% -> 0% attack success, utility 100%), but on 35 behaviours with non-adaptive attacks only; under adaptive attack on the authors' larger suite 2.5-5.2% still succeed. On the independent RoboJailBench the best defence is SR 95.00 at UR 100 (Robo2VLM, Google prompt), not the 65.00 the harvester reported; across datasets the gap to SR 100 is 5.0 to 51.25 points and conceptual deception stays at 93-100% on four datasets. AuthGuard-R blocked 23/23 unauthorised actions from Claude Haiku 4.5 (fixed and adaptive) but also accepted one unauthorised action when the mission policy was mis-encoded. A 2025 survey argues that low-level control safeguards bound physical harm whatever the planner does (a partial misframing), while stating the layers are not integrated end to end. No source shows zero adversarial success at full utility under adaptive attack on a shared benchmark.
+       contrary: r4x:1, r4x:3; re-checks: r4x:2
+       harvester errors found by the double check: 2
+         - B-c "best" on RoboJailBench: the harvester gave SR 65.00 (RJB-Instructions, RoboGuard) and a gap of 35.0 points as the independent benchmark's best; the same Table 4 has SR 95.00 at UR 100.00 (Robo2VLM, Google defence prompt) and 89.75 (DROID). The gap on the named benchmark ranges 5.0-51.25 points by dataset; 35.0 is one dataset's value.
+         - The real-world RoboGuard result (0% ASR at 100% utility, Table IV) is the stated target on a small, non-adaptive protocol; the harvester mentioned it only in an agent_note, not in B-c or the BOTTLENECKS "best" field.
+
+r4-B2  OPEN (double-checked) | Physical adversarial attacks on VLA policies and certified defence
+       why: no verified contrary claim
+       roles (verified claims): a 1, b 2, c 1, d 2; x 4 (contrary 0, target reached 0, re-check 4); unverified 0
+       harvester open flag: True
+       benchmark: Real-robot pick-and-place with a physical patch (CertVLA Table 2, pi0.5, 10 trials); LIBERO patch/texture attacks (CertVLA Table 1); printed-patch attack on OpenVLA-7B (RA-L 2026, 50 trials)
+       best: CertVLA real robot: defended 60%, certified 30% (attacked 40%); simulation best certified average 94.00
+       target: attack-free (clean) success 90% on the same task and policy
+       gap: 30 points (defended) and 60 points (certified) below clean on the real robot; same paper, same protocol. Simple input defences leave ASR at 79.2-80.2% against 81.0% undefended (other paper).
+       CPU-testable: no (the benchmarks run 3B-7B VLA policies (OpenVLA, pi0, pi0.5) in LIBERO and on real arms; GPU inference per step; not reproducible on this CPU in hours)
+       assumes: empirical defences: robustness only to the attacks tried in training
+       assumes: certified defence: a bounded-support threat model and a certificate per policy query chained over the rollout (the query clock); calibration constants fixed on held-out clean episodes
+       assumes: attacks: earlier work assumed the whole trajectory; 2026 attacks use a short prefix and a fixed patch
+       double check (4 searches listed): OPEN (no contrary claim of the declared kinds: no target reached, no deployed defence, no misframing argument found), with a much smaller gap than the harvester reported. The best empirical defence found is much closer to the attack-free oracle than the harvester's best: SARF on a real PiPER arm (3 tasks x 100 trials) recovers 23.0% -> 65.0% against 72.0% clean (7 points short; pick-and-place 74 vs 79), and in simulation under an adaptive re-optimised patch it averages 28.6% failure against 23.5% clean. Certified defence in simulation is about 3 points below clean (CertVLA 94.00 certified for OpenVLA-OFT against 97.1% clean in the OFT paper; cross-source). On a real robot the certified rate remains 30% against 90% clean (CertVLA, 10 trials). No source reports clean-level success under physical attack on a real robot, and the real-robot SARF patch was not re-optimised against the defended model.
+       contrary: none; re-checks: r4x:4, r4x:5, r4x:6, r4x:7
+       harvester errors found by the double check: 2
+         - B-c "best" understated: the harvester called CertVLA (real robot: defended 60% vs clean 90%, 10 trials) "the best defence found"; SARF (arXiv v1, 4 Aug 2026, IROS 2026) reports 65.0% defended vs 72.0% clean on a real arm over 300 trials per condition, a 7-point gap rather than 30. The harvester's own screening did not include it. (For the certified sub-question CertVLA remains the best found.)
+         - "so the gap is mainly physical": stated without a clean simulation baseline; with OFT's 97.1% the certified simulation gap is about 3.1 points, which supports the statement (cross-source).
+
+r4-B3  OPEN (double-checked) | Runtime failure detection for generalist learned policies
+       why: no verified contrary claim
+       roles (verified claims): a 1, b 3, c 2, d 2; x 3 (contrary 0, target reached 0, re-check 3); unverified 0
+       harvester open flag: True
+       benchmark: LIBERO-10 multitask failure detection, unseen tasks, OpenVLA (Hide-and-Seek Table 1: bACC, TWA); FailBench (2,197 attempts, 14 sources, balanced accuracy)
+       best: bACC 0.834, TWA 0.663 on unseen tasks (Hide-and-Seek); FailBench best mean balanced accuracy 0.77, at most 0.60 on contact-intensive assembly; VLA-Scope ROC-AUC 0.8497 after 60 actions on OOD rollouts (other protocol)
+       target: the ground-truth outcome labels (a perfect detector: bACC 1.0, alarm at failure onset)
+       gap: 0.166 bACC and 0.337 TWA below a perfect detector on unseen LIBERO tasks; 0.23 (FailBench mean) and >= 0.40 (contact-rich); 0.150 ROC-AUC (VLA-Scope); each within one paper, protocols differ.
+       CPU-testable: no (rollouts of 7B VLAs in LIBERO are GPU-scale; a small proxy (a toy policy, synthetic failures) would run on CPU but is not the benchmark)
+       assumes: benchmark failure defined by a clock: a time-out at the maximum rollout length (elapsed time alone would detect it)
+       assumes: per-timestep thresholds from conformal prediction on the step clock, valid under exchangeability
+       assumes: label weights that grow linearly with the step index (SAFE-MLP)
+       assumes: detector trained on one policy's rollouts (policy-dependent) or a frozen VLM judge
+       double check (4 searches listed): OPEN (no contrary claim of the declared kinds found), with a smaller gap than the harvester reported. On the harvester's own benchmark and table the best unseen-task result is pi0's bACC 0.892 / TWA 0.705 (not OpenVLA's 0.834 / 0.663). On a real robot the same monitor reaches bACC 0.972 / TWA 0.876 on one unseen KITCHEN task and 0.914 / 0.800 on one unseen CUBE task; these are single held-out tasks. Timeliness (TWA) remains the larger shortfall everywhere. Industry practice (an NVIDIA Halos blueprint) routes around task-failure prediction with an OOD input monitor that triggers fallback safety functions; the source does not argue misframing and reports no detection rate. The target itself (a perfect detector, bACC 1.0) is a definitional oracle, not a programme goal.
+       contrary: none; re-checks: r4x:8, r4x:9, r4x:10
+       harvester errors found by the double check: 2
+         - B-c "best" understated: Hide-and-Seek Table 1 gives bACC 0.892 and TWA 0.705 on unseen LIBERO-10 tasks with pi0, higher than the OpenVLA row (0.834 / 0.663) the harvester called the best; the gap to a perfect detector is 0.108 / 0.295, not 0.166 / 0.337.
+         - The same paper's real-robot Table 3 (unseen bACC 0.914 and 0.972) was not reported in B-c.
+
+r4-B4  CONTESTED | Emergency stop of dynamically balancing (legged, humanoid) robots
+       why: verified contrary claims, none shows the target reached: r4x:11, r4x:12, r4x:13
+       roles (verified claims): a 2, b 2, c 2, d 4; x 4 (contrary 3, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: ISO 13849-1 / IEC 62061 rating of the emergency-stop chain (PFHD, PL, SILCL) on a Unitree G1 cell; ISO 13855 stopping time; learned safe-stoppability prediction accuracy (PRISM, simulation)
+       best: external chain ratable to PL e; robot-side reaction chain: no PFHD, no PL; stop 0.3-1.0 s, worst-case response about 1.1 s; comm-loss standstill 12/12 trials in 0.5-1.3 s; learned monitor 99.38% of unsafe states flagged at 62.05% safe accuracy
+       target: the certified reference chain: PL e / SIL 3, total PFHD 7.35e-9 (ISO 13849-1), with Stop Category 0 power removal
+       gap: categorical: the reaction subsystem that closes the reference's PL e figure has no rated equivalent on the humanoid; a per-state accuracy (PRISM) is not a per-hour dangerous-failure rate. Same paper for target and best (Siemens).
+       CPU-testable: no (the named metrics are a functional-safety rating and stopping times measured on a real humanoid cell; a reduced proxy (a planar biped or inverted-pendulum walker with a fallback controller and E-stops injected at random gait phases) runs on CPU with numpy/scipy, but it is a proxy)
+       assumes: fail-passive safe state: de-energising is safe (ISO 13849-1 / EN 60204-1)
+       assumes: fixed or statically stable base (ISO 10218-1/-2:2025 exclude mobile-platform mobility)
+       assumes: one stopping time T on the clock in S = K T + C, sized by the worst gait phase
+       assumes: the stop can arrive at any instant; one fixed fallback policy trained in advance
+       assumes: SIL/PL assume deterministic systems
+       double check (7 searches listed): CONTESTED, not NOT OPEN. A deployed humanoid has a Category 1 controlled stop and a safety PLC with PL d safety functions (Agility, Mar 2025), passed a site-specific NRTL field evaluation (Nov 2025), and Digit 5 (Sep 2026) adds an independent safety controller that makes the robot stop or sit when a person comes too close, for fence-free work. None of these states a PL or PFHD for the balancing reaction chain, and NVIDIA (Jun 2026) states that Digit's safety software is being inspected "before final third-party certification". ISO 25785-1 is still in development (a search snippet of the unreachable iso.org page reads ISO/CD 25785-1 with a committee-draft consultation opened in May 2026; not verified). The categorical gap to a certified PL e chain stands.
+       contrary: r4x:11, r4x:12, r4x:13; re-checks: r4x:14
+       harvester errors found by the double check: 0
+
+r4-B5  CONTESTED | Formal verification of neural controllers at deployed scale
+       why: verified contrary claims, none shows the target reached: r4x:15, r4x:16, r4x:17
+       roles (verified claims): a 1, b 2, c 3, d 2; x 4 (contrary 3, target reached 0, re-check 1); unverified 0
+       harvester open flag: True
+       benchmark: ARCH-COMP26 AINNCS (12 closed-loop benchmarks, 4 tools); VNN-COMP 2025 (open-loop)
+       best: closed loop: controllers <= 1,000 neurons, <= 5 hidden layers, with unknown verdicts left (docking unsolved another year); open loop: a 138-million-parameter VGG16
+       target: the policies deployed on robots: OpenVLA 7B parameters
+       gap: about six orders of magnitude (1e3 neurons against 7e9 parameters; different units, cross-source, an order-of-magnitude reading); about 50x even for open-loop verification of one network.
+       CPU-testable: yes (the ARCH-COMP benchmarks and tools (CORA, JuliaReach, CROWN-Reach) run on CPU in seconds to minutes per instance; the 7B target does not)
+       assumes: sample-and-hold control on a fixed period; the loop unrolled step by step, conservatism growing with the number of steps (verdicts change with the time model)
+       assumes: small feed-forward controllers with low-dimensional state inputs
+       assumes: runtime assurance (barrier functions, reachability, STL shields) instead of verifying the policy; anytime safety under interruption named as a requirement
+       double check (5 searches listed): CONTESTED as framed. No source verifies a billion-parameter policy against a dynamics-level safety specification, and FEARL confirms that "all existing verifiers remain tractable only for relatively small networks". But three sources argue or show that the target is misframed: FEARL verifies a small safety module (2 x 32 units) through which a VLA's action passes, with zero violations in simulation; CertVLA proves a closed-loop certificate (patch consistency) for 7B-scale VLA policies; and NNV3 argues that probabilistic verification scales with inference cost (feasibility only). As context, NVIDIA's safety platform builds a small isolated safety island to SIL 3 capability, not the policy. The harvester's "six orders of magnitude" is correct for exact reachability of the whole policy and overstates the gap for certificates of narrower closed-loop properties at deployed scale.
+       contrary: r4x:15, r4x:16, r4x:17; re-checks: r4x:18
+       harvester errors found by the double check: 1
+         - The gap is framed against verifying the whole 7B policy, a target no quoted source sets; the harvester's own r4:39 source (CertVLA) proves a closed-loop certificate at that scale for a narrower property. The order-of-magnitude reading holds only for exact reachability of the full policy.
+
+r4-B6  CONTESTED | Cybersecurity of commercial robots and fleets
+       why: verified contrary claims, none shows the target reached: r4x:19, r4x:20
+       roles (verified claims): a 1, b 2, c 4, d 3; x 5 (contrary 2, target reached 0, re-check 3); unverified 0
+       harvester open flag: True
+       benchmark: Vulnerabilities found per platform by an automated assessment (Alias Robotics CAI, three consumer robots; Unitree G1)
+       best: fewest findings on an assessed product: 9 (Hookii Neomow, 2.5 h); 12 and 17 on the others; G1 (the most mature seen) with one static key across all units
+       target: EU CRA: vulnerabilities handled effectively for the support period (main obligations from 11 Dec 2027)
+       gap: every assessed product had >= 9 findings; the CRA Annex I text (no known exploitable vulnerabilities) could not be fetched (EUR-Lex unreachable), so the zero-vulnerability target is recorded as unverified. Vendor-authored assessments, one tool.
+       CPU-testable: no (the named metric is an assessment of real products; a synthetic proxy (a fleet or ROS 2 traffic model with gait-phase-modulated messages and injected attacks) runs on CPU, but it is a proxy)
+       assumes: intrusion detection trained on stationary traffic with one global model (clock-indexed)
+       assumes: fleet-wide shared keys (one secret for every unit)
+       assumes: defence in depth on the host, updated on the vendor's schedule
+       assumes: standards cover cybersecurity only as it bears on safety
+       double check (4 searches listed): CONTESTED for robots as a class, open for the consumer and humanoid products the harvester named. KUKA's robot system is certified to IEC 62443-4-2 Security Level 2 and claimed by KUKA to meet the CRA already (Jul 2026); Roborock robot vacuums hold a TUV Rheinland ETSI EN 303 645 certification (2024). Neither is an assessment on the harvester's metric (vulnerabilities found by an automated tool), and the CRA's main obligations bind only from 11 Dec 2027, so the target is prospective. The Unitree fleet-wide flaws are registered CVEs (NIST analysed CVE-2025-35027), but they were found by the harvester's own G1 co-authors, so the harvester's "no independent replication" stands; the researchers report no vendor engagement, and a year later two new G1 root-RCE chains had no verified firmware fix (Aug 2026, trade press relaying a co-author of the consumer-robot paper).
+       contrary: r4x:19, r4x:20; re-checks: r4x:21, r4x:29, r4x:22
+       harvester errors found by the double check: 0
+
+r4-B7  CONTESTED | Privacy of robots' sensor data and physical-world privacy awareness
+       why: verified contrary claims, none shows the target reached: r4x:25, r4x:26
+       roles (verified claims): a 1, b 2, c 3, d 1; x 4 (contrary 2, target reached 0, re-check 2); unverified 0
+       harvester open flag: True
+       benchmark: EAPrivacy (ICLR 2026) tiers 2-3; GDPR data-subject-rights endpoints on three consumer robots
+       best: Tier 2 selection accuracy 59% (Gemini 2.5 Pro); Tier 3 lowest privacy violation rate 71%; consumer robots 0/3 with consent management, 0/18 endpoint patterns
+       target: Tier 3: respect the secret item while completing the task (0% violations); Tier 2: the human-rated most appropriate action; GDPR rights of access, erasure, portability and consent (as cited by the authors)
+       gap: 41 points (Tier 2), 71 points (Tier 3), 3 of 3 products and 18 of 18 endpoints missing; within each source.
+       CPU-testable: no (the EAPrivacy scenarios are text/PDDL but the reference numbers are frontier LLMs through APIs (not available here); a small local model on CPU would be a proxy; the consumer-robot findings need the products)
+       assumes: sanitised perception applied per frame; privacy as a fixed penalty at one stage
+       assumes: telemetry on a fixed clock from power-on, without interruption
+       assumes: LLM planners follow the explicit instruction over inferred constraints
+       double check (3 searches listed): Open on the named metric, CONTESTED on the deployed-product half. In EAPrivacy the best model generates a privacy-respecting plan in at most 29% of Tier 3 cases, but gpt-5-high selects the right plan in 100% of the same scenarios (and 1.00 in Tier 4): the gap is in generation, not recognition. A newer benchmark (IMMERSEDPRIVACY, May 2026) puts the best 2026 model at 51% of conflict cases handled correctly. Mass-market and industrial robots with consent-before-collection, local processing and a third-party privacy certification exist (Roborock, EN 303 645; Agility Digit 5, company statement), so the harvester's generalisation from three niche products and one humanoid to deployed consumer robots is overstated.
+       contrary: r4x:25, r4x:26; re-checks: r4x:23, r4x:24
+       harvester errors found by the double check: 3
+         - EAPrivacy Tier 3: the harvester reported the generative violation rate (best 71%, gap 71 points) but not the same tier's selection accuracy, where gpt-5-high reaches 1.00; B-c should report both.
+         - Minor: the harvester quoted the paper's text "2.5-flash-w.o.think and 4o, achieve the lowest violation rates of 71%"; the paper's Table 1 has no 4o column and gives 0.71 for 2.5-flash-w.o.think only (a source inconsistency, faithfully quoted).
+         - "deployed consumer robots stream sensor telemetry without consent": generalised from three niche products (Alias Robotics assessment) and the Unitree G1; market-leading consumer robots claim and hold third-party certifications to the contrary.
+
+r4-B8  OPEN (double-checked) | Collaborative throughput lost to safety speed reduction
+       why: no verified contrary claim
+       roles (verified claims): a 1, b 1, c 2, d 3; x 2 (contrary 0, target reached 0, re-check 2); unverified 0
+       harvester open flag: True
+       benchmark: Mean speed scaling s and time per task, real UR5e pick-and-packaging with a human (Faroni et al., Table III)
+       best: s = 0.74 (variant 1) and 0.68 (variant 2), greedy learned scheduling; up to 15% cycle-time reduction from body-part-aware speed adaptation (other paper)
+       target: the nominal speed without human presence (s = 1)
+       gap: 26% and 32% of nominal speed still lost; the oracle s = 1 is an upper bound that a safe cell does not reach with a person present, so the recoverable gap is smaller and not quantified by the source.
+       CPU-testable: no (the named benchmark is a real UR5e cell with a human operator; a simulated shared-workspace scheduling model with a stepwise speed-scaling function (as the paper's own simulation, Table II) runs on CPU in minutes, as a proxy)
+       assumes: static safety zones set at installation (boundaries fixed)
+       assumes: one constant speed for the most restrictive collision case (PFL tuning)
+       assumes: scheduling with a predictive window fixed on the clock (~14 s)
+       double check (9 searches listed): OPEN, as the harvester read it (no contrary claim of the declared kinds found), with a smaller gap on another protocol. A 2026 predictive-CBF controller keeps a mean speed scaling of 0.81 (vs 0.15 for standard SSM) in a 15,000 s simulation replaying recorded human motion, above the harvester's 0.74 on a real cell; safety-aware replanning cuts execution time by up to 60% against SSM. No source reports nominal speed (s = 1) with a person nearby, and the harvester already flagged that s = 1 is an oracle no safe cell reaches. No primary source was found arguing that cell throughput (human plus robot) rather than robot speed is the right metric.
+       contrary: none; re-checks: r4x:27, r4x:28
+       harvester errors found by the double check: 0
+
+==== family R5 (8 bottlenecks; claims_r5.py, claims_r5x.py)
+
+r5-B1  CONTESTED | Humanoid battery runtime against a working shift and a 24-hour day
+       why: verified contrary claims, none shows the target reached: r5x:1, r5x:2, r5x:4
+       roles (verified claims): a 1, b 2, c 5, d 3; x 6 (contrary 3, target reached 0, re-check 3); unverified 0
+       harvester open flag: True
+       benchmark: runtime per charge (h) against the customer shift (10 h at BMW); productive hours per 24 h
+       best: deployed: up to 4 h per charge (Digit v4, Agility 2025; NEO spec 4 h), Digit 4 at 2:1 run-to-charge (at most 16 of 24 h); announced: Digit 5 90-min battery, 10:1, "more than 20 hours of productive work in a 24-hour day" (early access H1 2027); claimed: UBTech Walker S2 "3-minute autonomous battery swap and 24-hour continuous operation"
+       target: a full working day (IFR 2025: "a battery cycle does not last a full working day"); a 10-hour shift (Figure at BMW); multi-shift use in a 24-hour day (Agility S-4)
+       gap: Per cycle: 4 h of a 10-hour shift = 40% (cross-source: Agility runtime, BMW shift). Per day: deployed Digit 4 at most 16/24 h = 67%; announced Digit 5 at least 20/24 = 83% (a specification, not delivered). CONTRARY at the day level: UBTech claims 24-hour operation by swapping on a robot delivered at the 1,000-unit level in 2025 (a results-announcement claim; no measured hours worked per day). The double check may read this CONTESTED; the per-cycle reading stands.
+       CPU-testable: no (runtime and availability are measured on hardware in service; a CPU duty-cycle model (charge/swap scheduling) can be simulated but would test scheduling, not battery capacity)
+       assumes: opportunity charging at a dock or mat: continuity assumes the workflow leaves charging windows ("shift breaks", "a certain period of time during the use case") - charging slots set by the task's clock
+       assumes: fast charging (10:1): shorter cycles, more boundaries per day (runtime per charge falls from 4 h to 90 min)
+       assumes: autonomous hot-swap: the energy boundary is triggered by battery state and task priority; needs swap stations and spare packs in the cell
+       assumes: self-docking on need in the home (state-triggered), where idle time is plentiful
+       double check (8 searches listed): CONTESTED, not NOT OPEN. Per cycle, a humanoid in mass production (Kepler K2, shipping since Sep 2025) is specified at up to 8 h per charge and ran an 8-hour exhibition livestream on one charge, and Figure 03 is specified at 5 h; both exceed the harvester's "best deployed 4 h", but neither reaches the 10-hour BMW shift, and both are makers' specifications. At the day level, Figure's CEO reports a humanoid package-sorting cell running non-stop for about 200 hours at Figure's site (more than one robot, since one is specified at 5 h a charge), and UBTech claims 24-hour operation by swapping; neither gives productive hours per robot at a customer. Boston Dynamics' Atlas (4 h, autonomous swap) was seen only in press and could not be read at the source.
+       contrary: r5x:1, r5x:2, r5x:4; re-checks: r5x:3, r5x:5, r5x:6
+       harvester errors found by the double check: 2
+         - B-c "best deployed runtime per charge: up to 4 h" is not the best reported: Figure 03 (delivered in the hundreds by Apr 2026, at BMW from Jun 2026) is specified at 5 h, and Kepler's K2 (in mass production, shipping) at up to 8 h per charge; the per-cycle gap to a 10-hour shift is 20-50% on company specs, not 60%.
+         - r5:5: the harvester quoted Agility's press release ("more than 20 hours ... in a 24-hour day") and wrote "at least 83%"; Agility's SEC filing of 4 Sep 2026 says "Approximately 20 hours of operation within a 24-hour period", so about 83% is what the company states under securities law.
+
+r5-B2  CONTESTED | Humanoid functional reliability in production (task accuracy, interventions, hardware failures)
+       why: verified contrary claims, none shows the target reached: r5x:7, r5x:8, r5x:9
+       roles (verified claims): a 1, b 3, c 2, d 2; x 6 (contrary 3, target reached 0, re-check 3); unverified 0
+       harvester open flag: True
+       benchmark: task accuracy / success per shift; interventions per shift (Figure's BMW KPIs); operational accuracy on tote handling (Agility S-4)
+       best: about 98% operational accuracy (Digit v4 at Schaeffler, ~25,000 totes; at GXO, >100,000 totes); interventions per shift not disclosed by any source
+       target: > 99% success per shift and zero interventions per shift, 84 s cycle (the BMW line's KPIs for Figure 02)
+       gap: CROSS-SOURCE (Agility's number, Figure's target; different tasks): failure share ~2% against <1%, at least 2x the target's. Figure reports no achieved KPI values; neither company reports interventions per shift. The IFR (2025, 2026) says humanoids have yet to prove reliability. Gap direction robust, size uncertain.
+       CPU-testable: no (the metric is measured on physical robots in customer plants; no CPU benchmark reproduces it)
+       assumes: field calibration per robot (periodic, clock- or event-scheduled by staff)
+       assumes: reliability fixed by redesign at hardware-generation boundaries (a whole fleet retired and replaced)
+       assumes: vendor-owned fleets (RaaS) with time-based KPIs (uptime, Mean Time Between Incidents) tracked centrally; values not published
+       assumes: human reset/pause as the recovery path (interventions counted per shift)
+       double check (6 searches listed): CONTESTED, not NOT OPEN. AgiBot and its customer Longcheer claim over 99.9% success "in continuous operation" on a tablet mass-production line with 24/7 operation, "minimal human intervention" and downtime below 4% (Apr 2026), above the >99% per-shift success target; Figure's CEO claims 200 hours "without a failure" in a public package-sorting livestream (May 2026). Neither reaches both halves of the target (>99% per shift AND zero interventions) in one verified statement: AgiBot's interventions are "minimal", Figure gives no success rate and ran at its own site. All are company claims without counts. The IFR (Sep 2026) still says reliability is unproven, and UBTech describes its industrial work as solution validation.
+       contrary: r5x:7, r5x:8, r5x:9; re-checks: r5x:10, r5x:11, r5x:12
+       harvester errors found by the double check: 2
+         - B-c "best: about 98% operational accuracy ... interventions per shift not disclosed by any source" omits AgiBot/Longcheer's claimed >99.9% success on a production line (15 Apr 2026) and Figure's CEO's claim of 200 hours without a failure (22 May 2026); the gap "failure share ~2% against <1%" is not computed from the best reported value.
+         - r5:15 quotes the forearm as the "top hardware failure point" but not the preceding sentence on the same page, "Across 1,250+ operational hours, Figure 02 recorded minimal hardware failures"; one-sided selection (minor).
+
+r5-B3  CONTESTED | Unit cost and business case of humanoids for productive work
+       why: verified contrary claims, none shows the target reached: r5x:13, r5x:14, r5x:16
+       roles (verified claims): a 1, b 4, c 4, d 4; x 6 (contrary 3, target reached 0, re-check 3); unverified 0
+       harvester open flag: True
+       benchmark: bill of materials per robot at commercial launch against the maker's volume cost targets (Agility S-4); gross margin; share of humanoid revenue from productive industrial scenes
+       best: BOM about $150,000 at launch (Digit v5); 2025 cost of goods sold $4.5M against net sales $1.8M (Agility); Unitree unit price RMB 167,600 at 62.91% gross margin, but industry applications 9.01% of humanoid revenue and explicit productive scenes 2.64% (Jan-Sep 2025); UBTech ~RMB 760,000 per unit (1,079 units, RMB 820M)
+       target: BOM about $75,000 at 1,000 robots per year and about $30,000 at 10,000 per year (Agility's own targets); an economically viable business case (IFR 2026: lacking)
+       gap: BOM 2.0x the 1,000/yr target and 5.0x the 10,000/yr target (same document). Agility COGS 2.5x sales in 2025. CONTRARY on price: Unitree sells humanoids cheaply and profitably, but its own filing says industrial use is not yet at scale and only 2.64% of its humanoid revenue came from explicit productive scenes. The double check may read the price part CONTESTED; the productive-work business case stays open on the IFR's 2026 statement.
+       CPU-testable: no (cost and margins are business data; nothing to run on a CPU beyond arithmetic)
+       assumes: volume cost-down: cost falls with cumulative production (tooling, in-house lines); assumes the demand arrives (Figure: 100,000 in four years; IFR: ~7,000 full-size sold worldwide in 2025)
+       assumes: RaaS: a calendar subscription priced below the fully burdened labour it replaces; assumes a 5-year life and vendor-borne maintenance (durability unproven)
+       assumes: low-price volume strategy (Unitree G1): margin traded for adoption; buyers mostly research and education
+       assumes: payback computed from planning assumptions, not measured deployments
+       double check (4 searches listed): CONTESTED, not NOT OPEN. On cost and price, makers other than Agility are near or below Agility's own targets: Unitree's humanoid cost of sales is about US$9,260 per unit and the company expects a 2025 net profit of RMB 600M; Kepler lists an industrial humanoid at RMB 248,000 (about US$36,950); UBTech sold 921 full-size humanoids in H1 2026 at a higher-than-average margin (conversions at the 25 Sep 2026 H.10 rate, indicative). The productive-work business case is not shown by any source: Unitree's buyers are mostly research and education, UBTech still lost RMB 338.8M in the half and its industrial work is at solution validation, Kepler's orders are framework agreements, Agility's 2025 sales were 63% to one investor, and the IFR (Sep 2026) says the business case is lacking.
+       contrary: r5x:13, r5x:14, r5x:16; re-checks: r5x:15, r5x:17, r5x:18
+       harvester errors found by the double check: 1
+         - The problem statement "Industrial humanoids cost several times their makers' own volume targets" generalises from one maker's filing (Agility); an industrial humanoid in mass production (Kepler K2) lists at RMB 248,000, about US$36,950 at the Fed H.10 rate, near Agility's US$30,000 BOM target; the harvester made no currency conversions, so this comparison was not visible.
+
+r5-B4  CONTESTED | Warehouse robotic stow and pick: item coverage, rate and defects against the production target
+       why: verified contrary claims, none shows the target reached: r5x:19, r5x:20, r5x:21, r5x:22
+       roles (verified claims): a 1, b 2, c 3, d 3; x 4 (contrary 4, target reached 0, re-check 0); unverified 0
+       harvester open flag: True
+       benchmark: Amazon robotic stow: units per hour (UPH), share of items handled, outcomes over 100,000 attempts (Stow paper, Table II); Vulcan item coverage
+       best: 224 UPH (March 2025); 85.86% success, 9.31% unproductive, 4.83% defects; ~75% of item types (Vulcan)
+       target: design: 80% of items at 300 UPH, more than 20 h/day, 7 days/week, no interruptions needing human intervention; unproductive-stow aim 3%; human stowers 243 UPH on the same floor
+       gap: Same paper: 224/243 = 92.2% of the human rate, 224/300 = 74.7% of the design rate; unproductive 9.31% vs 3% (3.1x). Coverage 75% vs 80% (company page vs paper, denominators may differ). Hours per day and interventions not reported. Ocado's best site picks c.50% of volume robotically (different task, no target; supporting only).
+       CPU-testable: no (the benchmark is a production warehouse; only a toy bin-packing or risk-model proxy would run on CPU)
+       assumes: human-in-the-loop decomposition: a human inducts and screens items, robots take the rest; unhandled items tagged to humans
+       assumes: learned risk model with a fixed exploration rate (up to 5%, epsilon-greedy) and retraining when behaviours change (data recollected at development boundaries)
+       assumes: real-robot training data (simulation judged insufficient for touch and deformation)
+       assumes: dedicated hardware per sub-task (band separator, plank, conveyor paddles)
+       double check (4 searches listed): CONTESTED, not NOT OPEN. The harvester's own source reports, in an A/B test on one workcell, 307.6 UPH (the production algorithm) and 326 UPH (learned risk) per pod, above the 300 UPH design rate; the floor's monthly average (224 UPH) is a different measure and stays below it. The operator also frames the target differently: robots take the top and bottom shelves and humans the middle and hard items ("the combination is better than either on their own"), so items handed to humans are partly by design. The unproductive-stow aim (3% against 9.31%), the 80% item coverage and the 20 h/day requirement are not shown met by any source; Vulcan was at 6 robots (pilot) and 30 (beta) in 2025.
+       contrary: r5x:19, r5x:20, r5x:21, r5x:22; re-checks: none
+       harvester errors found by the double check: 2
+         - B-c reports 224 UPH (monthly floor average) and "74.7% of the design rate" but omits Table III of the same paper: 307.6 and 326 UPH per pod on a single workcell, above the 300 UPH design target; the note mentions only the 7% relative gain.
+         - The problem statement ("covers most but not all item types; the rest goes to humans") omits that the operator designs the split: the paper values robot stowing of the top rows (+4.5% human stow rate, no ladders) and Amazon plans robots for the highest and lowest shelves with humans on the middle ones.
+
+r5-B5  CONTESTED | Field harvesting robots: throughput and success against human pickers
+       why: verified contrary claims, none shows the target reached: r5x:23, r5x:24, r5x:25, r5x:26
+       roles (verified claims): a 1, b 2, c 2, d 2; x 6 (contrary 4, target reached 0, re-check 2); unverified 0
+       harvester open flag: True
+       benchmark: berries per minute against a human picker in the same field (CLASP); per-attempt success and cycle time over 1,738 apple arm cycles (2025 season)
+       best: 32 berries/min with the gripper manually aligned (autonomous rate not reported), 92% autonomous success (23/25); apple: 80.0% per-attempt success, 7.53 s per arm cycle
+       target: human picker 55 berries/min (same paper); hand-picked firmness 195.59 g/mm
+       gap: 58% of the human rate at best (42% short), and that with manual alignment; firmness 15% lower. The apple paper gives no human baseline (supporting only). n = 25 for CLASP's success rate, flagged by its authors.
+       CPU-testable: no (field throughput needs orchards and hardware; a CPU simulation of stop scheduling would not be the benchmark)
+       assumes: stop-and-go harvesting: the row is cut into stops at fixed intervals chosen by a human operator driving the tractor (clock/boundary set outside the robot); the authors propose repositioning by fruit distribution instead
+       assumes: teleoperated transport between fixed test locations; autonomy only at the stop
+       assumes: perception from fixed viewpoints (40.3% of clusters visible to the global camera in CLASP)
+       double check (4 searches listed): CONTESTED, not NOT OPEN. Commercial selective harvesters exist (Dogtooth: strawberries on 10 customer sites over 10 seasons, 200 kg per day; Tevel: tree fruit in several countries), and makers reframe the metric as output per day with round-the-clock work; Fieldwork says its robots are designed for human speed. No source reports a robot rate at or above a human picker's on the same crop and metric; the 2025-26 arXiv field results found report 60-92% success and multi-second cycles without human baselines. The CLASP rate gap (58% of the human rate) stands; its firmness gap is an upper bound per its authors.
+       contrary: r5x:23, r5x:24, r5x:25, r5x:26; re-checks: r5x:27, r5x:28
+       harvester errors found by the double check: 2
+         - r5:45 and the BOTTLENECKS target use hand-picked firmness (195.59 g/mm) as a target and report a 15% shortfall; the authors state that 15% is an upper bound confounded by a longer interval before measurement and compares favourably with 16-26% severe bruising for mechanical harvesters.
+         - r5:46 "20% of attempts fail" omits the authors' statement that the 80.0% per-attempt success is a conservative lower bound per apple (retries not credited); minor.
+
+r5-B6  not shown open | Remote human help per robot (teleoperation dependence)
+       why: role c missing
+       roles (verified claims): a 2, b 4, c 0, d 6; x 5 (contrary 3, target reached 0, re-check 2); unverified 0
+       harvester open flag: False
+       benchmark: robots per remote human; interventions per robot-hour (not published by any source found)
+       best: delivery drones: up to 6 sUA per remote pilot by FAA waiver (Zipline, 2025); robotaxi comparator: ~70 remote-assistance agents on duty for over 3,000 vehicles (Waymo 2026); Starship claims "over 99% autonomy" (undefined)
+       target: none numeric: the FAA NPRM proposes a 1:1 default and says "1:many at scale" is wanted but not standardised
+       gap: not shown open: B-a and B-b are quoted (Agility, FAA 2025, Serve 2026, 1X 2025, Markey 2026), but no source states a numeric target, and every AV company refused to disclose intervention frequency; one vendor (Starship) claims the problem largely solved for sidewalk robots. No B-c is recorded.
+       CPU-testable: yes (a queueing/fleet model of robot-initiated help requests against scheduled or continuous monitoring runs on CPU in minutes; no public intervention data exist to calibrate it)
+       assumes: scheduled teleoperation sessions booked on the calendar (1X Expert Mode), doubling as data collection
+       assumes: continuous remote monitoring with situation-triggered assists (Serve), partly offshore
+       assumes: event-driven remote assistance requested by the robot (Waymo, Starship "on standby")
+       assumes: ratio raised case by case by waiver with redundancy and one operational volume per pilot (FAA/Zipline)
+       assumes: system-level supervision: pilots monitor the whole system, not each flight (Wing; ratio not stated)
+       double check (3 searches listed): Not shown open, as the harvester found; vendors claim it largely solved for their own classes. Starship (Apr 2026) says its 3,000+ robots cross roads at Level 4 "without active human supervision"; Serve's 10-K says Level 4 in certain environments lets one supervisor oversee several deliveries; Figure's CEO reports unsupervised humanoid work in a demonstration. No source gives a humans-to-robots ratio against a target or an intervention rate for sidewalk robots or humanoids; UBTech builds teleoperation into its 2026 deployment pipeline; the FAA's 1:1 default is still a proposal.
+       contrary: r5x:29, r5x:30, r5x:31; re-checks: r5x:32, r5x:33
+       harvester errors found by the double check: 0
+
+r5-B7  not shown open | Delivery-drone collisions with obstacles and other aircraft (incident record)
+       why: role b, c missing
+       roles (verified claims): a 4, b 0, c 0, d 3; x 2 (contrary 2, target reached 0, re-check 0); unverified 0
+       harvester open flag: False
+       benchmark: NTSB reports (incidents), no rate against a target
+       best: not applicable (incident reports: two MK30 struck a crane erected about 2 h earlier, Oct 2025; test accidents 2024-25)
+       target: none numeric found (the Part 108 NPRM sets no obstacle-data refresh interval)
+       gap: not shown open: only B-a and B-d quotes; no 2025-26 source states the problem as open with a rate against a target. Recorded because the scope names safety incidents and because the survey assumption is explicit.
+       CPU-testable: yes (a CPU simulation of obstacle arrival against scan schedules is cheap; no public incident-rate data to calibrate it)
+       assumes: obstacle survey on a fixed clock (Amazon: rooftop scans twice per day) - assumes the obstacle map changes slowly relative to the interval
+       assumes: obstacle assessment once before operations in a new area (NPRM; Zipline waiver site survey)
+       assumes: shared contingency rules (divert to the same alternate pad) across drones
+       double check (2 searches listed): Not shown open, as the harvester found; the operators frame it as a rate problem they meet: Zipline claims 135 million autonomous miles without injury and compares that exposure with road crashes; Wing states a target of lower public risk than ground transport and over a million deliveries. Neither gives a collision rate with obstacles or aircraft, so neither answers the incident record the harvester cited; no target exists to score.
+       contrary: r5x:34, r5x:35; re-checks: none
+       harvester errors found by the double check: 0
+
+r5-B8  not shown open | Cost of collecting robot training data
+       why: role c missing
+       roles (verified claims): a 2, b 1, c 0, d 4; x 3 (contrary 3, target reached 0, re-check 0); unverified 0
+       harvester open flag: False
+       benchmark: hours of public robot data; hardware cost per collection station (no primary source gives cost per hour)
+       best: about 2 x 10^4 public robot hours in aggregate; ALOHA about $20k per station (HumanScale 2026)
+       target: none numeric here; the size target (Goldberg's LLM-equivalent) is family R2's r2-B6
+       gap: not shown open in this family: B-a and B-b are quoted (IFR 2026, HumanScale 2026) but no 2025-26 primary source reports a data-collection cost against a target; per-hour cost figures seen were vendor blogs (not used). The size gap is r2-B6 and is not double-counted.
+       CPU-testable: no (data cost is an operational figure; CPU experiments would not measure it)
+       assumes: teleoperated collection in staged scenes, counted in hours (the clock), though an hour of teleoperation carries fewer trajectories than an hour of human video
+       assumes: pretrain on human video, adapt on a small robot set (a pretrain/post-train boundary)
+       assumes: demonstration + simulation RL before deployment, fleet learning after (a train/deploy boundary)
+       assumes: fleet data offload at docks during shift breaks; dedicated data-collection centres
+       double check (2 searches listed): Not shown open, as the harvester found, and partly misframed: companies now collect manipulation data at scales far above the public supply HumanScale counts (Generalist: 270,000 h in Nov 2025, over half a million by 2026, 10,000 h a week; Figure Index: about 43,000 h of human video a day) and pretrain without teleoperation (low-cost wearables, phone video). Cost remains large (Figure commits over $1B in a year to data and compute; Generalist says teleoperation data is expensive), and no source gives a cost per hour against a target.
+       contrary: r5x:36, r5x:37, r5x:38; re-checks: none
+       harvester errors found by the double check: 1
+         - B-c/best "about 2 x 10^4 public robot hours in aggregate" is correct as HumanScale's count of public data, but the harvester did not record that single companies report private corpora an order of magnitude larger (270,000-500,000+ h), which bears on whether the data volume is the binding constraint; an omission, not a misquote.
+
+labels per family:
+  family OPEN (double-checked) | CONTESTED | NOT OPEN | not shown open | total
+  R1     0 | 4 | 1 | 2 | 7
+  R2     0 | 5 | 3 | 0 | 8
+  R3     1 | 3 | 3 | 0 | 7
+  R4     3 | 5 | 0 | 0 | 8
+  R5     0 | 5 | 0 | 3 | 8
+  all    4 | 22 | 7 | 5 | 38
+
+label totals: OPEN (double-checked) 4; CONTESTED 22; NOT OPEN 7; not shown open 5; bottlenecks 38

@@ -113,3 +113,25 @@ The declared verdict is **KNOWN**.
 
 SEC4-1's PASS-1 is unchanged as scored. It is a pass for a combination of known parts plus that one step, not for a new
 method. It did not replicate in SEC5.
+
+## Addendum (2026-09-30): why it passed (P1, `SEC_Analysis/WHY_SEC4_WORKED.md`; post hoc on seen records; appended, nothing above changed)
+
+**The scope.**
+- A declared post hoc analysis of all five SEC-family studies.
+- The loader reproduces every pinned result it checks (`SEC_Analysis/checks/loader_check.txt`: REPRODUCED 122, DIFFERS 0).
+- Two adversarial verification rounds.
+
+**What it finds.**
+- **SEC4-1's own passes do not rest on the tolerance** (0/6 negative margins; `SEC_Analysis/checks/a5_a9_a10.txt`).
+  2 of its 6 carriers are floor-bound (`SEC_Analysis/checks/a12_a14.txt`).
+- **But the criterion SEC4-1 shares with the family is met by a must-fail control on most carriers.**
+  - A learner frozen after task 1 (P1's M6) is not behind the tuned λ on 24 of the 30 held-out carriers of SCL3, SEC3,
+    SEC4 and SEC5 (`SEC_Analysis/checks/m_checks.txt`, FM6 FAILS).
+  - On SEC4's own six, its rows mark only cardiotocography behind.
+- **SEC4's family was easier than SEC5's.** A reused λ was not behind on 4/6 against 1/8, and the calibration collapsed
+  the optimum's spread (SD ratio 0.3611, against 1.0348 in SEC5) (`SEC_Analysis/checks/a7_a8.txt`,
+  `SEC_Analysis/checks/a1_a3.txt`).
+- **Both parts added carriers here:** raw Laplace 1/6, unguarded SEC 3/6, clipped SEC 6/6.
+- **No CRR-proper ingredient is load-bearing** (`SEC_Analysis/checks/a11_grade.txt`, F11 HOLDS).
+
+SEC6 (`prereg/sec6/PREREG.md`, hashed before its data) carries the instrument gate SEC6-G for this.
