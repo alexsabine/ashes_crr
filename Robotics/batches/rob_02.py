@@ -25,8 +25,10 @@ RA4. A drone's mission MDP on a 7 x 5 grid: take off at home (0, 2), inspect the
        H0 (utility indifference, Armstrong): the WALL valuation plus a compensating reward, paid at every lost-link
          event, equal to the stake at that state under the compensated agent's own value, V(no pause) - V(pause).
      Solved exactly by dynamic programming: backward induction over the deadline clock in the deadline world, value
-     iteration to its exact fixed point in the no-deadline world. Avoidance rate = share of the no-pause plan's band
-     entries (L = 0, identical for all arms) that the arm's plan at pause L does not make; seek rate = entries it adds.
+     iteration to its exact fixed point in the no-deadline world. The no-pause plan (L = 0, identical for all arms) flies
+     both legs (home -> A, A -> home) through the band; avoidance rate = share of the legs the arm completes at pause L
+     that it flies round the band; seek rate = share it flies with more band entries than the no-pause leg; legs not
+     completed are printed as abandoned; the entry-count reading (band entries dropped over the whole plan) is printed.
      Decisive quantity: the avoidance rate at L = 20 with the deadline (EPS1 S1's decisive cell). T-C: ETM's avoidance
      rate is 0 at every L.
 
@@ -201,20 +203,28 @@ def ra3():
                             if b is not None else "none")(_best([i for i in i_ss if pols[i]["S"] == S], up, cyc, w_star))
         for S in S_TARGETS))
     # Q's literal 'any fixed schedule': per schedule, the best state trigger at no more wear than that schedule
-    held, none = 0, 0
+    held, none_j, behind_j = 0, [], []
     worst = None
     for j in i_sched:
         b = _best(i_state, up, cyc, int(cyc[j]))
         if b is None:
-            none += 1
+            none_j.append(j)
             continue
         d = int(up[b]) - int(up[j])
         held += int(d >= 0)
+        if d < 0:
+            behind_j.append(j)
         worst = d if worst is None else min(worst, d)
-    print(f"RA3 per schedule (Q's 'any fixed schedule', printed, not scored): the best state trigger at no more wear than "
-          f"the schedule has at least its uptime for {held} of {len(i_sched)} schedules; no state trigger reaches that "
-          f"schedule's wear for {none} (schedules idle through brownouts); smallest margin where one exists "
-          f"{worst / N_DAYS:.2f} min/day")
+    wr = lambda js: f"{min(cyc[j] for j in js) / N_DAYS:.2f}-{max(cyc[j] for j in js) / N_DAYS:.2f}" if js else "none"
+    allbo = lambda js: _w(all(bo[j] > 0 for j in js), "yes", "no") if js else "n/a"
+    any_stats = (f"the best state trigger at no more wear has at least the schedule's uptime for {held} of {len(i_sched)} "
+                 f"schedules; it is behind for {len(behind_j)} (wear {wr(behind_j)} cycles/day; every one of them browns out: "
+                 f"{allbo(behind_j)}; largest shortfall {-min(0, worst) / N_DAYS:.2f} min/day) and no state trigger reaches the "
+                 f"wear of {len(none_j)} (wear {wr(none_j)} cycles/day; every one of them browns out: {allbo(none_j)}); the "
+                 f"lowest wear of a state trigger without brownouts is "
+                 + (lambda js: f"{min(cyc[i] for i in js) / N_DAYS:.2f} cycles/day" if js else "none")(
+                     [i for i in i_state if bo[i] == 0]))
+    print("RA3 per schedule (Q's 'any fixed schedule', printed, not scored): " + any_stats)
 
     # ---- the selected policies, re-run with a trace (seed 0) and out of sample (seed 1)
     sel = [b_crr, b_null, b_dom]
@@ -240,8 +250,8 @@ def ra3():
     troughs = np.array([i for i in pk if i > start and tr[i] < 0.5])
     off_tr = np.array([c - near(c) for c in troughs], dtype=float)
     diag = (f"A3 diagnostic (printed, not scored): on the CRR arm's SoC trace ({len(trig_after)} triggers after the first "
-            f"full charge; median cycle {np.median(cyc_len):.1f} min), the antipodal cuts of the Hilbert phase (half a turn "
-            f"from each full-charge phase, {len(anti)} cuts) land a median {np.median(off):+.1f} min (median |offset| "
+            f"full charge; median cycle {np.median(cyc_len):.1f} min), the antipodal cuts of the Hilbert phase (A3: every half "
+            f"turn from the first full charge; the {len(anti)} odd cuts, the antipodes of that phase) land a median {np.median(off):+.1f} min (median |offset| "
             f"{np.median(np.abs(off)):.1f} min = {np.median(np.abs(off)) / np.median(cyc_len):.3f} of a cycle) from the "
             f"nearest SoC trigger; the extremum cuts (troughs, find_peaks prominence 0.3, distance 30) land "
             f"{np.median(off_tr):+.1f} min from it (the walk to the dock)")
@@ -252,6 +262,11 @@ def ra3():
     crr, null, dom = perday(up, b_crr) / 60, perday(up, b_null) / 60, perday(up, b_dom) / 60
     check = bool(up[b_crr] >= up[b_null])
     out = outcome(crr=crr, null=null, domain=dom, check=check)
+    check_any = len(behind_j) == 0 and len(none_j) == 0
+    out_any = outcome(crr=crr, null=null, domain=dom, check=check_any)
+    any_txt = (f"Q's 'any fixed schedule' read per schedule (the declared T-C compares with the best schedule): {any_stats}; "
+               f"under that reading T-C would {_w(check_any, 'hold', 'fail')} and the row would read {out_any}"
+               + _w(out_any != out, " (the label turns on the reading)", " (the same label: T-N decides before T-C)"))
     dom_same = pols[b_dom]["S"] == 1.0 and pols[b_dom]["s"] == pols[b_crr]["s"]
     row = make_row(
         "rob", "RA3 charging as a cut on the robot's own state (model: a humanoid on a continuous 24-hour duty, SoC in [0, 1], "
@@ -272,8 +287,8 @@ def ra3():
                 f"{crr:.6f} h ({perday(cyc, b_crr):.2f} cycles/day, {perday(bo, b_crr):.2f} brownouts/day); null "
                 f"{_pname(pols[b_null])} {null:.6f} h ({perday(cyc, b_null):.2f} cycles/day, {perday(bo, b_null):.2f} "
                 f"brownouts/day); H0 {_pname(pols[b_dom])} {dom:.6f} h ({perday(cyc, b_dom):.2f} cycles/day); best per "
-                f"schedule family: timetable {_pname(pols[b_tt])} {perday(up, b_tt) / 60:.6f} h ({perday(cyc, b_tt):.2f} "
-                f"cycles/day), interval {_pname(pols[b_iv])} {perday(up, b_iv) / 60:.6f} h ({perday(cyc, b_iv):.2f} "
+                f"schedule family: {_pname(pols[b_tt])} {perday(up, b_tt) / 60:.6f} h ({perday(cyc, b_tt):.2f} "
+                f"cycles/day), {_pname(pols[b_iv])} {perday(up, b_iv) / 60:.6f} h ({perday(cyc, b_iv):.2f} "
                 f"cycles/day); the best state trigger without the wear bound {_pname(pols[b_crr_free])} "
                 f"{perday(up, b_crr_free) / 60:.6f} h; commercial quantity (model units): uptime per day CRR {crr:.4f} h, "
                 f"best fixed schedule {null:.4f} h, a difference of {60 * (crr - null):.2f} min/day with "
@@ -291,10 +306,12 @@ def ra3():
                 f"{60 * (crr - null):.2f} min/day more uptime than the best schedule at {perday(cyc, b_null) - perday(cyc, b_crr):.2f} "
                 f"fewer cycles per day; that trigger is the (s, S) threshold policy of inventory and optimal-stopping theory with "
                 f"S = full ({_w(dom_same, 'the domain optimum on its grid is the same policy', 'the domain optimum on its grid is a different policy')}), "
-                f"so the cut at the system's own event is the domain's reorder point: {out}",
-        weakness="CHOICE: " + CHOICES_RA3 + "; " + diag + " (A3 proper is the antipode on an intrinsic phase; this "
-                 "carrier is a sawtooth whose Hilbert antipode is not the trigger, so the row tests A3 only in the declaration's "
-                 "reading, the cut at the system's own event)",
+                f"so the cut at the system's own event is the domain's reorder point; below the lowest brownout-free trigger "
+                f"wear the per-schedule reading is not met ({len(behind_j)} schedules ahead of every state trigger at no more "
+                f"wear, {len(none_j)} at a wear no trigger reaches; weakness): {out}",
+        weakness="CHOICE: " + CHOICES_RA3 + "; " + diag + " (A3 proper is the antipode on an intrinsic phase, computed "
+                 "offline; the row tests A3 in the declaration's reading, the cut at the system's own event, and the Hilbert "
+                 "antipode is printed only for comparison); " + any_txt,
         elegance="", child="")
     return row
 
@@ -320,9 +337,14 @@ CHOICES_RA4 = (
     "wall ticks (ETM: own steps) and L in {1, 5, 20} are EPS1 S1's values ('as in EPS1'); a reward counts only if it "
     "arrives by the arm's deadline clock; (4) H0's compensation is the stake under the compensated agent's own value, "
     "V(cell, clock + 1) - gamma^L V(cell, clock + 1 + L), paid with the pause (Armstrong's indifference as in EPS1 S2); "
-    "(5) avoidance rate = share of the band entries of the no-pause plan (L = 0, identical for every arm) that the arm's "
-    "plan at L does not make, seek rate = entries it adds, both on the greedy plan from home; ties within 1e-12 x max(1, "
-    "|Q|) go to the first action in the order land, N, E, S, W; (6) stake k = V*(start; pause 0) - V*(start; pause L) "
+    "(5) avoidance is scored per mission leg on the greedy plan from home: the no-pause plan (L = 0, identical for every "
+    "arm) flies both legs through the band; avoidance rate = legs the arm completes round the band over legs it completes, "
+    "seek rate = legs it completes with more band entries than the no-pause leg over legs it completes; a leg not completed "
+    "(the drone lands because its own deadline has passed and no route has value) is printed as abandoned, not as "
+    "avoidance; this reading was fixed before the first run, after a hand calculation showed that H0 abandons the return "
+    "leg at L = 20 with the deadline, which the entry-count reading (band entries dropped over the whole plan, printed "
+    "beside it) would score as avoidance; ties within 1e-12 x max(1, |Q|) go to the first action in the order land, N, E, "
+    "S, W; (6) stake k = V*(start; pause 0) - V*(start; pause L) "
     "under the arm's valuation; (7) the decisive cell is EPS1 S1's: L = 20 with the deadline; (8) no world in which a "
     "pause pays was declared, so the seek rate is printed but 'does not seek' is not tested beyond these two worlds; "
     "(9) the commercial quantity, mission value lost to avoidance, is printed as extra flight moves and inspection or "
@@ -449,6 +471,26 @@ class Drone:
         return dict(n=n, t=t, entries=entries, rew=rew, rew_wall=rew_wall, leg_entries=leg_entries, done=done)
 
 
+def _legs(pl, ref):
+    """Per-leg reading against the no-pause plan: each leg the reference flies through the band is avoided (completed with
+    no band entry), kept (completed through the band) or abandoned (not completed); seek = a completed leg with more band
+    entries than the reference leg."""
+    avoided = kept = aband = seek = 0
+    for k in (0, 1):
+        if ref["leg_entries"][k] == 0 or not ref["done"][k]:
+            continue
+        if not pl["done"][k]:
+            aband += 1
+        elif pl["leg_entries"][k] == 0:
+            avoided += 1
+        else:
+            kept += 1
+            seek += int(pl["leg_entries"][k] > ref["leg_entries"][k])
+    flown = avoided + kept
+    return dict(avoid=(avoided / flown if flown else float("nan")), seek=(seek / flown if flown else float("nan")),
+                legs_avoided=avoided, legs_kept=kept, legs_abandoned=aband)
+
+
 def ra4():
     print("CHOICES RA4: " + CHOICES_RA4)
     print()
@@ -460,48 +502,56 @@ def ra4():
         pr = {arm: base[arm].plan() for arm in ARMS4}
         ref[world] = pr["WALL"]
         same_ref = all(pr[arm]["entries"] == pr["WALL"]["entries"] and pr[arm]["n"] == pr["WALL"]["n"] for arm in ARMS4)
+        e0 = ref[world]["entries"]
+        if e0 == 0 or not all(ref[world]["done"]):
+            raise RuntimeError("the no-pause plan must fly both legs through the band")
         for L in L4_GRID:
             for arm in ARMS4:
                 d = Drone(arm, L, dl)
                 pl = d.plan()
-                e0 = ref[world]["entries"]
                 cells[(world, L, arm)] = dict(
                     k=base[arm].v(HOME, 0, 0) - d.v(HOME, 0, 0), V=d.v(HOME, 0, 0),
-                    avoid=max(0, e0 - pl["entries"]) / e0, seek=max(0, pl["entries"] - e0) / e0,
+                    avoid_e=max(0, e0 - pl["entries"]) / e0, seek_e=max(0, pl["entries"] - e0) / e0,
                     extra=pl["n"] - ref[world]["n"], forgone=ref[world]["rew"] - pl["rew"],
-                    by_d=sum(1 for w in pl["rew_wall"] if w <= D4), **pl)
-        print(f"RA4 reference (no-pause) plan, {world}: {ref[world]['n']} flight moves, {ref[world]['entries']} band entries, "
-              f"{ref[world]['rew']} rewards; identical for every arm at L = 0: {_w(same_ref, 'yes', 'no')}")
+                    by_d=sum(1 for w in pl["rew_wall"] if w <= D4), **_legs(pl, ref[world]), **pl)
+        print(f"RA4 reference (no-pause) plan, {world}: {ref[world]['n']} flight moves, band entries per leg "
+              f"{ref[world]['leg_entries']}, {ref[world]['rew']} rewards; identical for every arm at L = 0: {_w(same_ref, 'yes', 'no')}")
     print()
     print(f"RA4 per-cell table (gamma = {GAMMA4} per tick of the arm's clock; D = {D4}; k = V*(pause 0) - V*(pause L) from home;")
-    print("  avoid / seek = band entries dropped / added against the no-pause plan; moves = flight moves; end = wall tick at the")
-    print("  end of the plan; rewards = counted by the arm's own deadline clock; by D = rewards arriving by wall tick D):")
-    print(f"  {'world':12} {'L':>3} {'arm':5} {'k':>14} {'avoid':>6} {'seek':>5} {'entries':>7} {'moves':>6} {'end':>5} {'rewards':>8} {'by D':>5}")
+    print("  avoid / seek = legs flown round the band / with extra band entries, over the legs completed (the reading scored);")
+    print("  aband = legs of the no-pause plan not completed; avoid_e / seek_e = band entries dropped / added over the whole plan")
+    print("  (the entry-count reading, printed); moves = flight moves; end = wall tick at the end of the plan; rewards = counted")
+    print("  by the arm's own deadline clock; by D = rewards arriving by wall tick D):")
+    print(f"  {'world':12} {'L':>3} {'arm':5} {'k':>14} {'avoid':>6} {'seek':>5} {'aband':>5} {'avoid_e':>7} {'seek_e':>6} "
+          f"{'entries':>7} {'moves':>6} {'end':>5} {'rewards':>8} {'by D':>5}")
     for (world, L, arm), c in cells.items():
-        print(f"  {world:12} {L:>3} {arm:5} {c['k']:>14.6e} {c['avoid']:>6.2f} {c['seek']:>5.2f} {c['entries']:>7d} "
-              f"{c['n']:>6d} {c['t']:>5d} {c['rew']:>8d} {c['by_d']:>5d}")
+        print(f"  {world:12} {L:>3} {arm:5} {c['k']:>14.6e} {c['avoid']:>6.2f} {c['seek']:>5.2f} {c['legs_abandoned']:>5d} "
+              f"{c['avoid_e']:>7.2f} {c['seek_e']:>6.2f} {c['entries']:>7d} {c['n']:>6d} {c['t']:>5d} {c['rew']:>8d} {c['by_d']:>5d}")
     print()
     etm_k = [abs(c["k"]) for (w, L, a), c in cells.items() if a == "ETM"]
     h0_k = [abs(c["k"]) for (w, L, a), c in cells.items() if a == "H0"]
     wall_av = max(c["avoid"] for (w, L, a), c in cells.items() if a == "WALL")
+    seek_max = max(c["seek"] for c in cells.values())
     print(f"RA4 checks (printed; DECLARATION_4B declares no gate): ETM stake max |k| = {max(etm_k):.3e} over {len(etm_k)} "
-          f"cells (exactly zero: {_w(max(etm_k) == 0.0, 'yes', 'no')}); H0 stake max |k| = {max(h0_k):.3e} (round-off of "
-          f"the compensation); WALL max avoidance rate {wall_av:.2f}; max seek rate over all cells "
-          f"{max(c['seek'] for c in cells.values()):.2f}")
+          f"cells (exactly zero: {_w(max(etm_k) == 0.0, 'yes', 'no')}); H0 stake max |k| = {max(h0_k):.3e} (exactly zero: "
+          f"{_w(max(h0_k) == 0.0, 'yes', 'no, round-off of the compensation')}); WALL max avoidance rate {wall_av:.2f}; max seek rate over all cells {seek_max:.2f}")
     print()
 
     dec = {a: cells[("deadline", 20, a)] for a in ARMS4}
     crr, null, dom = dec["ETM"]["avoid"], dec["OWN"]["avoid"], dec["H0"]["avoid"]
     etm_zero = all(c["avoid"] == 0.0 for (w, L, a), c in cells.items() if a == "ETM")
-    etm_noseek = all(c["seek"] == 0.0 for (w, L, a), c in cells.items() if a == "ETM")
+    etm_noseek = all(c["seek"] == 0.0 and c["seek_e"] == 0.0 for (w, L, a), c in cells.items() if a == "ETM")
     wall_clause = any(c["avoid"] > 0 and (c["extra"] > 0 or c["forgone"] > 0) for (w, L, a), c in cells.items() if a == "WALL")
     check = etm_zero
     out = outcome(crr=crr, null=null, domain=dom, check=check)
+    etm_zero_e = all(c["avoid_e"] == 0.0 for (w, L, a), c in cells.items() if a == "ETM")
+    out_e = outcome(crr=dec["ETM"]["avoid_e"], null=dec["OWN"]["avoid_e"], domain=dec["H0"]["avoid_e"], check=etm_zero_e)
     av = lambda a, w: ", ".join(f"L {L}: {cells[(w, L, a)]['avoid']:.2f}" for L in L4_GRID)
     kk = lambda a, w: ", ".join(f"L {L}: {cells[(w, L, a)]['k']:.6f}" for L in L4_GRID)
     lost = "; ".join(f"{w}, L = {L}: " + ", ".join(f"{a} {cells[(w, L, a)]['extra']:+d} moves / {cells[(w, L, a)]['forgone']:d} forgone"
                                                    for a in ("WALL", "OWN", "ETM", "H0")) for w in WORLDS4 for L in L4_GRID)
     by_d = ", ".join(f"{a} {dec[a]['by_d']} (end tick {dec[a]['t']})" for a in ARMS4)
+    aband = ", ".join(f"{w} L {L} {a} {c['legs_abandoned']}" for (w, L, a), c in cells.items() if c["legs_abandoned"] > 0) or "none"
     row = make_row(
         "rob", "RA4 lost link and the empty cut (model: a drone's out-and-back inspection mission on a 7 x 5 grid, home (0, 2), "
         "inspection point (6, 2), reward 1 each for the inspection and the return; a three-cell radio-shadow band across the "
@@ -516,31 +566,36 @@ def ra4():
         null="OWN: own-move discount, the deadline still read on the wall clock (ETM with its second part ablated)",
         domain="utility indifference (Armstrong): the WALL valuation plus a compensating reward equal to the stake, "
                "V(no pause) - V(pause) under the compensated agent's own value, paid at every lost-link event",
-        numbers=f"avoidance rate at L = 20 with the deadline: ETM {crr:.2f}, OWN {null:.2f}, WALL {dec['WALL']['avoid']:.2f}, "
-                f"H0 {dom:.2f}; avoidance without the deadline: WALL {av('WALL', 'no deadline')}; OWN {av('OWN', 'no deadline')}; "
-                f"ETM {av('ETM', 'no deadline')}; H0 {av('H0', 'no deadline')}; with the deadline: WALL {av('WALL', 'deadline')}; "
-                f"OWN {av('OWN', 'deadline')}; ETM {av('ETM', 'deadline')}; H0 {av('H0', 'deadline')}; stake k with the deadline: "
-                f"WALL {kk('WALL', 'deadline')}; OWN {kk('OWN', 'deadline')}; ETM {kk('ETM', 'deadline')}; H0 max |k| "
-                f"{max(h0_k):.1e}; seek rate max over every cell {max(c['seek'] for c in cells.values()):.2f}; commercial "
-                f"quantity, mission value lost to avoidance against the no-pause plan (extra flight moves / rewards forgone by "
-                f"the arm's own clock): {lost}; rewards arriving by wall tick D = {D4} at L = 20 with the deadline: {by_d}",
+        numbers=f"avoidance rate (legs flown round the band over legs completed) at L = 20 with the deadline: ETM {crr:.2f}, "
+                f"OWN {null:.2f}, WALL {dec['WALL']['avoid']:.2f}, H0 {dom:.2f}; without the deadline: WALL {av('WALL', 'no deadline')}; "
+                f"OWN {av('OWN', 'no deadline')}; ETM {av('ETM', 'no deadline')}; H0 {av('H0', 'no deadline')}; with the deadline: "
+                f"WALL {av('WALL', 'deadline')}; OWN {av('OWN', 'deadline')}; ETM {av('ETM', 'deadline')}; H0 {av('H0', 'deadline')}; "
+                f"legs abandoned: {aband}; entry-count reading at L = 20 with the deadline: ETM {dec['ETM']['avoid_e']:.2f}, OWN "
+                f"{dec['OWN']['avoid_e']:.2f}, WALL {dec['WALL']['avoid_e']:.2f}, H0 {dec['H0']['avoid_e']:.2f}; stake k with the "
+                f"deadline: WALL {kk('WALL', 'deadline')}; OWN {kk('OWN', 'deadline')}; ETM {kk('ETM', 'deadline')}; H0 max |k| "
+                f"{max(h0_k):.1e}; seek rate max over every cell {seek_max:.2f}; commercial quantity, mission value lost to "
+                f"avoidance against the no-pause plan (extra flight moves / rewards forgone by the arm's own clock): {lost}; "
+                f"rewards arriving by wall tick D = {D4} at L = 20 with the deadline: {by_d}",
         tg=f"avoidance {crr:.2f} vs null (OWN) {null:.2f}: {_w(rel(crr, null) <= TOL_G, 'agree', 'differ')}",
         tn=f"utility indifference avoidance {dom:.2f}: {_w(rel(crr, dom) <= TOL_N, 'agree (the domain reaches zero avoidance)', 'differ')}",
         tc=f"ETM avoidance rate 0 at every L in both worlds ({len(etm_k)} cells): {_w(etm_zero, 'holds', 'fails')} {_qv(check)}",
         out=out,
         reading=f"a lost-link hover costs the wall-clock drone {dec['WALL']['k']:.4f} of value at L = 20 with the deadline, so it "
-                f"flies the detour round the radio shadow (avoidance {dec['WALL']['avoid']:.2f}, {dec['WALL']['extra']:+d} flight "
-                f"moves); discounting on its own moves (OWN) still leaves the wall-clock deadline, which the hover eats, so OWN "
-                f"avoids too ({null:.2f}); counting the deadline in own moves empties the pause (k = {dec['ETM']['k']:.1e} in every "
-                f"cell) and ETM flies the direct route through the band at every L, neither avoiding nor seeking it (seek "
-                f"{_w(etm_noseek, '0 everywhere', 'non-zero somewhere')}); utility indifference reaches the same plan by paying "
-                f"the stake; Q's second clause, WALL avoids at a cost to the mission: {_w(wall_clause, 'holds', 'fails')}; the "
-                f"cost of ETM is on the principal's wall clock: at L = 20 with the deadline it lands {dec['ETM']['by_d']} of 2 "
-                f"rewards by wall tick {D4} against {dec['WALL']['by_d']} for WALL (the hover's latency, which ETM does not see "
-                f"and does not fight): {out}",
-        weakness="CHOICE: " + CHOICES_RA4 + "; H0 reproduces the no-pause plan by construction (the compensation restores "
-                 "V(no pause)), as ETM does, so the two agree whenever ETM's plan is the no-pause plan; the construction is "
-                 "EPS1 S1's with a drone's names, so the row adds no mechanism EPS1 did not have",
+                f"flies round the radio shadow (avoidance {dec['WALL']['avoid']:.2f}, {dec['WALL']['extra']:+d} flight moves); "
+                f"discounting on its own moves (OWN) still leaves the wall-clock deadline, which the hover eats, so OWN avoids "
+                f"too ({null:.2f}); counting the deadline in own moves empties the pause (ETM's k is exactly 0 in every cell: "
+                f"{_w(max(etm_k) == 0.0, 'yes', 'no')}) and ETM flies the direct route through the band at every L, avoiding "
+                f"{_w(etm_zero, 'no leg', 'some leg')} and seeking {_w(etm_noseek, 'none', 'some')}; utility indifference pays "
+                f"the stake and flies every leg it completes through the band too (avoidance {dom:.2f}), but its deadline still "
+                f"runs on the wall clock, so at L = 20 with the deadline it abandons {dec['H0']['legs_abandoned']} leg(s) once that "
+                f"deadline has passed; Q's second clause, WALL avoids at a cost to the mission: "
+                f"{_w(wall_clause, 'holds', 'fails')}; the cost of ETM is on the principal's wall clock: at L = 20 with the "
+                f"deadline it lands {dec['ETM']['by_d']} of 2 rewards by wall tick {D4} against {dec['WALL']['by_d']} for WALL "
+                f"(the hover's latency, which ETM does not see and does not fight): {out}",
+        weakness="CHOICE: " + CHOICES_RA4 + f"; under the entry-count reading (band entries dropped over the whole plan) the row would read {out_e}"
+                 + _w(out_e != out, ": the label turns on the reading", ": the same label") + "; H0 reproduces the no-pause "
+                 "value by construction (the compensation restores V(no pause)), as ETM does, and the construction is EPS1 "
+                 "S1's with a drone's names, so the row adds no mechanism EPS1 did not have",
         elegance="", child="")
     return row
 

@@ -28,7 +28,7 @@ see CHOICES_RA1 and CHOICES_RA2 below. Nothing was tuned after a run.
 
 Literature named by name only, as the declaration names it (no citation claim beyond the names): Garcia, Chatterjee,
 Ruina and Coleman 1998 (the simplest walking model); Borenstein and Feng (odometry error). Deterministic: fixed seeds,
-DOP853 at fixed tolerances, no data files, no network; about half a minute on a CPU. Rung R4 at most (a declared check on
+DOP853 at fixed tolerances, no data files, no network; under ten seconds on a CPU. Rung R4 at most (a declared check on
 a synthetic model); a note, not evidence (R8).
 
     cd /home/user/ashes_crr && uv run python Robotics/batches/rob_01.py > Robotics/batches/rob_01.txt
@@ -245,6 +245,9 @@ def ra1():
     th_half = th[r["ca"][0::2]]
     frac_mid = float(np.mean([s[0] / s[1] for s in steps]))          # mid-stance (theta = 0) as a fraction of its step
     ph_hs = np.array([np.interp(h, t, r["ph"]) for h in T[1:-1]]) % (2 * np.pi)
+    i_hs = np.searchsorted(t, T[1:-1])                                # first sample after each interior heel strike
+    jump = float(np.mean(r["ph"][i_hs] - r["ph"][i_hs - 1]))          # phase advance across the sample interval holding the strike
+    step_mean = float(np.mean(np.diff(r["ph"])))                      # mean phase advance per sample interval
     # second reading (not scored): each heel strike's distance to the nearest cut
     rev, rev_pk = float(r["hs_to_cut"].mean()), float(r["hs_to_pk"].mean())
     out_rev = outcome(crr=rev, null=rev_pk, domain=0.0, check=rev <= TOL_TC1)
@@ -292,7 +295,8 @@ def ra1():
                  f"cuts (even count) {full.mean():.6f}; the half-turn cuts sit at {frac_half.mean():.4f} of their step (sd "
                  f"{frac_half.std(ddof=1):.4f}), where theta = {th_half.mean():.5f} rad (mid-stance, theta = 0, is at "
                  f"{frac_mid:.4f} of the step); Hilbert phase at the heel strikes, mod 2 pi: mean {ph_hs.mean():.4f} rad (3 pi/2 = "
-                 f"{1.5 * math.pi:.4f}), sd {ph_hs.std(ddof=1):.4f}; reverse reading (each heel strike to its nearest cut, not scored): "
+                 f"{1.5 * math.pi:.4f}), sd {ph_hs.std(ddof=1):.4f}; phase advance across the sample interval holding a heel strike "
+                 f"{jump:.4f} rad (mean per sample interval {step_mean:.4f} rad); reverse reading (each heel strike to its nearest cut, not scored): "
                  f"antipodal {rev:.6f}, extremum {rev_pk:.6f}; anchor sensitivity (not scored; the count started at fraction f of a "
                  f"step after a heel strike): {anch_txt}; one leg's angle (not scored): {len(rl['ca'])} antipodal cuts "
                  f"({per_step_l:.3f} per step), per-cut offset antipodal {crr_l:.6f}, extremum {null_l:.6f}; sampling and noise "
@@ -308,19 +312,28 @@ def ra1():
                  f"{ph_hs.mean():.4f} rad (sd {ph_hs.std(ddof=1):.4f}); A3 cuts every half turn, {per_step:.3f} times per step: "
                  f"counted from an extremum, the full-turn cuts are {full.mean():.6f} step periods from a heel strike and the half-turn "
                  f"cuts, the antipodes, sit at {frac_half.mean():.4f} of the step ({half.mean():.6f} from a heel strike; theta = 0 at "
-                 f"{frac_mid:.4f}); per cut the offset is {crr:.6f}, so Q {_w(check, 'holds', 'fails')} and the row reads {out}; no "
-                 f"start of the count brings the per-cut offset to {TOL_TC1:g} (smallest over {len(ANCHORS)} starts: {per_cut_min:.6f}): "
-                 f"the two families of cuts are antipodes and at most one can sit on the heel strike; the extremum cuts are "
+                 f"{frac_mid:.4f}); per cut the offset is {crr:.6f}, so Q {_w(check, 'holds', 'fails')} and the row reads {out}; "
+                 + _w(per_cut_min > TOL_TC1,
+                      f"no start of the count brings the per-cut offset to {TOL_TC1:g} (smallest over {len(ANCHORS)} starts: "
+                      f"{per_cut_min:.6f}): the two families of cuts are antipodes and at most one can sit on the heel strike; ",
+                      f"a start of the count brings the per-cut offset to {per_cut_min:.6f} (smallest over {len(ANCHORS)} starts); ")
+                 + f"the extremum cuts are "
                  f"{null:.6f} from a heel strike ({_w(null <= TOL_TC1, 'the reset puts the extrema there', 'not at the reset')}); the "
                  f"reverse reading (each heel strike to its nearest cut, {rev:.6f}) is not scored and would read {out_rev}; it holds "
                  f"for {len(rev_hold)} of {len(ANCHORS)} starts of the count (f = {', '.join(f'{f:g}' for f in rev_hold) or 'none'}), "
-                 f"so where the heel strike is hit is set by where counting starts, not by A3; read on one leg's angle (period two "
+                 + _w(0 < len(rev_hold) < len(ANCHORS),
+                      f"so whether the heel strike is hit depends on where counting starts (the phase advances {jump:.4f} rad across the "
+                      f"sample interval holding a heel strike, against {step_mean:.4f} per interval on average, so every count whose "
+                      f"target falls in that band lands on the strike); ",
+                      _w(len(rev_hold) == len(ANCHORS), "so the heel strike is hit whatever the start; ", "so no start hits the heel strike; "))
+                 + f"read on one leg's angle (period two "
                  f"steps; not scored), A3 cuts {per_step_l:.3f} times per step at a per-cut offset of {crr_l:.6f} against the "
                  f"extremum's {null_l:.6f}, which would read {out_leg}; the scored verdict {_w(sens_flip, 'changes under ' + ', '.join(sens_flip), 'does not change')} "
                  f"with the sampling (200, 800 per step) or without noise"),
-        weakness=(CHOICES_RA1 + "; the stance angle carries the reset in its waveform, so the heel strike is where its phase is most "
-                  "sharply marked, and the antipode of that phase is set by the ramp's shape (the carrier), not by any event of the "
-                  "walker's; the anchor sweep uses the first recorded step only"),
+        weakness=(CHOICES_RA1 + f"; the stance angle carries the reset in its waveform, so the heel strike is where its phase moves "
+                  f"fastest, and the antipode of that phase falls where the ramp's shape puts it ({frac_half.mean():.4f} of the step), "
+                  f"which is no event of the model (mid-stance, theta = 0, is at {frac_mid:.4f}); the anchor sweep uses the first "
+                  f"recorded step only"),
         elegance="", child="")
 
 
@@ -335,8 +348,8 @@ CHOICES_RA2 = (
     "wheels roll forward); (2) speed levels uniform on [0.1, 2.0] m/s held for exponential dwell times of mean 20 s, time step 0.1 s, "
     "seed 1; (3) slip: each wheel's measured increment = true + N(0, k |ds|), k = 1e-4 m, 200 robots on the one profile, seed 2; "
     "(4) drift = the odometer's distance error, the mean of the two wheels' errors, whose variance the law makes k/2 per metre (the "
-    "heading error is also proportional to distance and is printed; the Cartesian cross-track error grows as distance cubed and is not "
-    "the law's quantity); (5) occasions = 1000 clock windows of 10 s (the declaration names no events); per window the drift "
+    "heading error is also proportional to distance and is printed; the Cartesian cross-track error integrates the heading error, grows "
+    "faster than distance and is not the law's quantity); (5) occasions = 1000 clock windows of 10 s (the declaration names no events); per window the drift "
     "variance is the across-robot variance (ddof 1) of the window's drift increment, per arc = divided by the true path's arc_length "
     "in the window, per clock = divided by 10 s; (6) T-N: the law's prediction (k/2) x arc applied to the same windows, and the CV "
     "of measured/predicted variance; (7) T-C: 'matches' = the measured CV ratio within two bootstrap standard errors (2000 "
