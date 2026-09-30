@@ -49,3 +49,31 @@ stage and any pre-registration were not run. Ledger row **RRM-PA**.
   - The forecast in DECLARATION.md §7 was that it probably would not.
 - **Rejected here:** dropping the failed form and continuing under this declaration. That would change a declared gate
   after its result (CLAUDE.md §10).
+
+## The literature grade of N1–N6 (DECLARATION.md §6; `checks/grade.txt`, pinned, CI-checked)
+
+**The sweep:** 37 claims from 27 sources (`docs/citations/rrm_2026-09-30.md`). `checks/verify.py` found 58 of 58 quotes
+verbatim in the fetched texts. No source contradicts any position.
+
+| | position | grade | forecast | |
+|---|---|---|---|---|
+| N1 | drift correction of stored statistics by measuring how reference points move | REDUNDANT | REDUNDANT | hit |
+| N2 | that drift estimated from kept old-class rows rather than current data | PARTLY REDUNDANT | PARTLY REDUNDANT | hit |
+| N3 | anchor-relative representations are invariant to angle-preserving change | REDUNDANT | REDUNDANT | hit |
+| N4 | preserving relations between samples reduces forgetting | REDUNDANT | REDUNDANT | hit |
+| N5 | the RRM transport itself | PARTLY REDUNDANT | PARTLY REDUNDANT | hit |
+| N6 | developmental framings used to design continual learners | REDUNDANT | PARTLY REDUNDANT | miss |
+
+**The judgement calls** (the grading agent's, kept as pinned, R15):
+- **N5 was not found published**; each part exists separately. The nearest:
+  - **GATF** (arXiv 2606.25347 v2) carries stored class Gaussians by a ridge-regularised linear map fitted on
+    **current-task** features, not on kept anchors.
+  - **MPT** (arXiv 2609.12771 v1, federated) splits a class prototype into an in-span part, expressed by its relation to
+    other classes' live prototypes, and a residual. That is the nearest form of the owner's reading, but its references
+    are not kept anchors.
+  - **Maiorca et al.** (arXiv 2311.00664 v2) fit the transport between two separate models.
+  - A one-day arXiv keyword sweep is not a novelty search. "Not found" is never "novel".
+- **N6** is graded REDUNDANT on the developmental framing alone: Parisi et al.'s review (arXiv 1802.07569 v4) presents
+  critical periods and coarse-to-fine staging as design sources. If N6 needs the owner's specific framing (a first
+  reference object, rising resolution), nothing states it, and it would be PARTLY REDUNDANT. No source applying
+  psychoanalytic object-relations theory to machine learning was found.
