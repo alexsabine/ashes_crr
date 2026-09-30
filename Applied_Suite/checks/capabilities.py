@@ -49,15 +49,15 @@ import textwrap
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LEDGER = 'ledger/LEDGER.md'
 RUNG = {'FINDING': 4, 'RESULT': 3, 'CONSTRUCTION': 2, 'MODEL': 1, 'CLOSED': 0}
-DECL = 'Applied_Suite/APPLICATIONS_DECLARATION.md (pushed at 4e78058)'
+DECL = 'Applied_Suite/APPLICATIONS_DECLARATION.md, pushed at 4e78058'
 
 
 def L(rid, what, pending_ok=False):
     return {'kind': 'L', 'id': rid, 'what': what, 'pending_ok': pending_ok}
 
 
-def LP(prefixes, what):
-    return {'kind': 'LP', 'prefixes': prefixes, 'what': what}
+def LP(prefixes, what, empty=None):
+    return {'kind': 'LP', 'prefixes': prefixes, 'what': what, 'empty': empty}
 
 
 def F(path, pat, effect, what, anchor=None, absent='error', label=None, st=None):
@@ -103,6 +103,10 @@ MAP = [
          F('SEC_Analysis/checks/m_checks.txt', r'^\s*FM6 ', 'FAILURE',
            "P1's must-fail control M6 (every coordinate at the cap after task 1: a learner frozen after task 1) against the "
            'same criterion on the 30 now-SEEN held-out carriers', label='SEC_Analysis FM6', st='must-fail control met the criterion'),
+         F('SEC_Analysis/checks/m_checks.txt', r'^\s+M6: not behind', 'BESIDE', "the must-fail control's own count on the 30 carriers",
+           label='SEC_Analysis M6 count'),
+         F('SEC_Analysis/checks/m_checks.txt', r'^\s+C0: not behind', 'BESIDE', "the clipped SEC's count on the same 30 carriers",
+           label='SEC_Analysis C0 count'),
          F('SEC_Analysis/checks/m_checks.txt', r'^\s*FM1 ', 'BESIDE', 'P1: the model-Fisher Laplace weight (M1) against the clipped SEC',
            label='SEC_Analysis FM1'),
          F('SEC_Analysis/checks/m_checks.txt', r'^\s*FM4 ', 'BESIDE', 'P1: the arc-secant variant (M4) against the clipped SEC',
@@ -136,7 +140,7 @@ MAP = [
          F('Real_World/checks/rw1.txt', r'detectors S2-S5 not identical', 'BESIDE',
            'a partial checkpoint resumes as if normal but is not an empty cut', label='RW1 S2-S5'),
          F('Real_World/checks/rw2_phaseA.txt', r'P3 construction: FAILS', 'FAILURE',
-           'RW2 round 1: the pause construction during continual fine-tuning (a design flaw, AGENT_LOG 125)', label='RW2 round 1 P3',
+           'RW2 round 1: the pause construction during continual fine-tuning (a design flaw, AGENT_LOG 125)', label='RW2 round 1',
            st='P3 construction FAILS'),
          F('Real_World/checks/rw2_phaseA_2.txt', r'P3 construction: holds', 'BESIDE',
            'RW2 round 2 (POST HOC): the pause construction held; the gate closed on headroom', label='RW2 round 2 P3'),
@@ -194,8 +198,9 @@ MAP = [
          L('RRM2-T1', 'transport tracks the SEC1 learner feature drift'),
          L('RRM2-T2', 'RRM-1 in the learner'),
          L('RRM2-T3', 'relational nearest-class-mean'),
-         F('Coupling/checks/cpl_phase_a.txt', r'^CPL1 GATE (OPEN|CLOSED)', 'GATEWORD', 'CPL1 Phase A gate (G-CANFAIL, G-DRIFT)',
-           label='CPL1 gate'),
+         L('CPL1-A', 'CPL1 Phase A: SEC + exemplar-free class statistics moved by anchor transport + the pause, one learner'),
+         F('Coupling/checks/cpl_phase_a.txt', r'^CPL1 GATE (OPEN|CLOSED)', 'BESIDE', 'CPL1 Phase A gate line in the pinned output',
+           label='CPL1 gate line'),
          F('Coupling/checks/cpl_phase_a.txt', r'^ER-20 ahead of the best readout', 'BESIDE',
            "CPL1 C3, the price of exemplar-free: the coupled learner's best readout (stored class statistics, no raw rows) "
            'against ER-20 (20 raw rows per class); SEEN carriers and two synthetic streams; reported under the CPL1 gate',
@@ -267,6 +272,7 @@ READINGS = [
      'items': [
          F('Robotics/checks/tally_4b.txt', r'.', 'UNREAD', "ROB1 stage 4b tally (Robotics/DECLARATION_4B.md)", absent='pending',
            label='ROB1 tally_4b'),
+         LP(('ROB1-',), 'ROB1 ledger rows (stage 4a gates, if any)', empty='pending'),
      ]},
 ]
 
@@ -369,6 +375,10 @@ def read_item(it, ledger, root, cache):
                         'effect': eff, 'rung': rung, 'text': 'verdict: ' + row['verdict'].replace('*', ''),
                         'observed': row['observed'].replace('*', ''), 'compact': False})
     elif it['kind'] == 'LP':
+        if it.get('empty') and not any(rid.startswith(it['prefixes']) for rid in ledger['order']):
+            out.append({'label': '/'.join(it['prefixes']) + '*', 'src': LEDGER, 'what': it['what'], 'status': it['empty'],
+                        'effect': 'pending', 'rung': None, 'text': '(no row whose id starts with %s)' % ' or '.join(it['prefixes']),
+                        'compact': False})
         for rid in ledger['order']:
             if rid.startswith(it['prefixes']):
                 row = ledger['rows'][rid]
@@ -454,10 +464,13 @@ def short(s, n=170):
     return s if len(s) <= n else s[:n - 3] + '...'
 
 
-def wrap(text, indent=19, width=200):
+def wrap(text, indent=19, width=200, first=None):
     for i, ln in enumerate(textwrap.wrap(' '.join(text.split()), width - indent, break_long_words=True,
                                          break_on_hyphens=False)):
-        print(' ' * (indent if i == 0 else indent + 2) + ln)
+        if i == 0:
+            print((first if first is not None else ' ' * indent) + ln)
+        else:
+            print(' ' * (indent + 2) + ln)
 
 
 def print_block(r):
@@ -470,10 +483,10 @@ def print_block(r):
         tag = {'rung': x['rung'] or '', 'failure': 'FAILURE', 'beside': 'beside', 'prior': 'prior art', 'pending': 'PENDING',
                'error': 'ERROR'}[x['effect']]
         if x.get('compact'):
-            print('    [%-12s] %-14s %-16s %s  (%s)' % (tag, x['label'], short(x['status'], 16), short(x['text'][9:], 90),
-                                                      x['src'].split(':')[-1]))
+            print('    [%-12s] %-14s %-16s %s  (LEDGER.md:%s)' % (tag, x['label'], short(x['status'], 16), short(x['text'][9:], 90),
+                                                                x['src'].split(':')[-1]))
             continue
-        print('    [%-12s] %s | %s | %s' % (tag, x['label'], x['status'], x['what']))
+        wrap('%s | %s | %s' % (x['label'], x['status'], x['what']), indent=19, first='    [%-12s] ' % tag)
         print('                   source: %s' % x['src'])
         wrap(x['text'])
         if x.get('observed'):
@@ -525,6 +538,12 @@ def main():
             k, r['grade'], short(', '.join(r['basis']) or '-', 40), len(r['failures']), len(r['pending'])))
     nerr = sum(len(r['errors']) for r in list(res['caps'].values()) + list(res['readings'].values()))
     print('  MAP items that could not be read (errors): %d' % nerr)
+    print('  the failures of the same kind, by capability:')
+    for k in [b['id'] for b in MAP] + [b['id'] for b in READINGS]:
+        r = res['caps'].get(k) or res['readings'][k]
+        if r['failures']:
+            wrap('; '.join('%s %s' % (x['label'], x['status']) for x in r['failures']), indent=6,
+                 first='    %-11s ' % k)
     print()
     print('files read (sha256):')
     for rel in sorted(res['files']):
