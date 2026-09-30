@@ -1,0 +1,4 @@
+CPL1 byte-identical rerun (R9): the synthetic and rotated streams (every C1, C2 and C3 arm, seeds 0-4) rerun into a scratch directory and compared byte for byte with the pinned records
+cmp Coupling/checks/cpl_runs/synthetic.jsonl <rerun>/synthetic.jsonl: exit 0 -> IDENTICAL; sha256 7f1c074352fbbdb3 / 7f1c074352fbbdb3
+cmp Coupling/checks/cpl_runs/rotated.jsonl <rerun>/rotated.jsonl: exit 0 -> IDENTICAL; sha256 f668ed3b4b52531a / f668ed3b4b52531a
+rerun -> BYTE-IDENTICAL
