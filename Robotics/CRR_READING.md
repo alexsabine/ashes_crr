@@ -96,3 +96,25 @@ Forecast 2 (at most 3 DISAGREES) holds.
   - C-R3: progress-aware or phase-aware failure detection, and conformal prediction indexed by task progress.
 - **Only a NOT FOUND candidate, or a PARTLY REDUNDANT one whose missing part is CRR's, goes on** to a gate
   (`Robotics/DECLARATION.md` stage 4a).
+
+## Stage 3 result (appended after the search; nothing above changed)
+
+Two independent searchers worked on each candidate. Quotes were verified 303 of 303 (`checks/verify_s3.txt`) and graded by
+`checks/grade_s3.py` (`checks/grade_s3.txt`; each grade holds with any one source left out).
+
+| candidate | grade | the decisive prior art (verified claims) |
+|---|---|---|
+| C-R1, the phase-keyed stop | **REDUNDANT** | Honda's biped emergency-stop patent (US 5,369,346, 1994): keep walking until the ZMP is in the stable region, then stop. AIST's HRP-2 stops (Morisawa et al. 2005; Kaneko et al. 2007; Takubo et al. 2009): the stop mode and landing are chosen from when the command arrives in the step. Cassie (Crowley et al., ICRA 2023): stand deferred to the foot's apex, with fewer falls than an immediate swap. |
+| C-R2, the own-progress budget out of contact | **REDUNDANT** | Return-to-comms triggered by undelivered data (ACHORD, 2022). Team MARBLE's return after 3 unreported artifacts, with a clock backstop (2023). A survey's taxonomy that names information-triggered and time-triggered reconnection as one class (Amigoni et al.). |
+| C-R3, progress-indexed failure detection | **REDUNDANT** | Execution-progress representation in multimodal monitors (Park et al., ICRA 2016, and the dissertation). The step-index mismatch named by 2024–26 papers (Warped time-series anomaly detection; Römer et al. 2025; the surgical flow-matching monitor, 2026; VLA-FAIL, 2026; Lee & Har, 2026). An aligned-index conformal band (FIDeL, April 2026). |
+
+**Consequence (the declaration's stop condition, R12).**
+- Every candidate is published, so stage 4a does not run. On the open robotics bottlenecks found, CRR's three points of
+  disagreement with the frontier are each already on the frontier's side in some published work.
+- Forecast 3 (most mechanisms published; at most one reaches a gate) holds: none reaches a gate.
+- **What was not found, recorded as information** (this is not a finding, and "not found" is never "novel"):
+  - C-R1's exact benchmark: against the best single clock-sized stop at an equal delay budget, over uniformly timed
+    commands. Physics bounds its "lower worst case" half.
+  - C-R3's P2: an earlier-detection comparison against step-indexed thresholds.
+
+**Stage 4b (the SYNTHESIS battery RA1–RA10)** runs as declared. It is a retrodictive battery, not a test.

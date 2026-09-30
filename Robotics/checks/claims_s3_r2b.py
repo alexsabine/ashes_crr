@@ -398,3 +398,8 @@ READING_CHECKS = [
      'note': 'Close and mixed. These are team communication events, not returns, and both thresholds are sensitive to their '
              'settings.'},
 ]
+
+# Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Robotics/checks/verify_s3.py; one dict per
+# quote: {'id', 'quote_index', 'action': 'corrected' | 'dropped', 'old', 'new', 'reason'}. The first run of verify_s3.py
+# (2026-09-30, root /tmp/claude-0/rob_s3) found every quote of this module verbatim, so nothing was corrected or dropped.
+VERIFY_CORRECTIONS = []

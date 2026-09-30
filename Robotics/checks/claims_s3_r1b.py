@@ -418,3 +418,8 @@ READING_CHECKS = [
     {'claim_id': 'r1a:20', 'agree': True,
      'note': 'Justified as close: humans, not robots.'},
 ]
+
+# Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Robotics/checks/verify_s3.py; one dict per
+# quote: {'id', 'quote_index', 'action': 'corrected' | 'dropped', 'old', 'new', 'reason'}. The first run of verify_s3.py
+# (2026-09-30, root /tmp/claude-0/rob_s3) found every quote of this module verbatim, so nothing was corrected or dropped.
+VERIFY_CORRECTIONS = []

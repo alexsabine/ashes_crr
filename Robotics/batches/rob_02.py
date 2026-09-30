@@ -49,7 +49,7 @@ labels are computed by crr.synthesis.harness.outcome() from the numbers (R15). M
 values with no source (the declaration names none). Literature by name only (R10: nothing fetched here): (s, S) inventory
 policies (Scarf 1960) and optimal stopping; Armstrong (utility indifference); Soares et al. 2015 'Corrigibility'.
 
-Deterministic (numpy default_rng, seeds 0 and 1; constant loads); no data files; CPU; about two minutes.
+Deterministic (numpy default_rng, seeds 0 and 1; constant loads); no data files; CPU; about 80 seconds.
 Rung R4 at most (a declared check on a synthetic model); a note, not evidence (R8).
     cd /home/user/ashes_crr && uv run python Robotics/batches/rob_02.py > Robotics/batches/rob_02.txt
 """
@@ -803,8 +803,8 @@ def ra4():
                  f"value table (max difference {h0_vd:.1e}; the compensation restores V(no pause)), as ETM's does (max "
                  f"difference {etm_vd:.1e})"
                  + _w(etm_vd == 0.0 and h0_vd <= TIE_TOL,
-                      ", so T-C and, under the scored reading, T-N follow from the construction (neither valuation reads the "
-                      "pause); T-G carries the information", ", so the construction does not fix T-C and T-N")
+                      ", so T-C and, under the scored reading, T-N follow from the construction (neither value table depends "
+                      "on L); T-G carries the information", ", so the construction does not fix T-C and T-N")
                  + _w(geo_forces, f", and T-G turns on the grid geometry (the detour mission fits D = {D4}, a mission with "
                                   f"a {DEC_L}-tick hover does not)", "")
                  + "; the construction is EPS1 S1's with a drone's names, so the row adds no mechanism EPS1 did not have",

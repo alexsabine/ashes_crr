@@ -360,3 +360,8 @@ CLAIMS = [
                    'and 90.7); with N = 3 it is behind both intervals in SubT and behind Tc = 80 in Caves. Each fixed '
                    'threshold, on either clock, is sensitive to its setting; the authors\' adaptive planner beats both.'},
 ]
+
+# Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Robotics/checks/verify_s3.py; one dict per
+# quote: {'id', 'quote_index', 'action': 'corrected' | 'dropped', 'old', 'new', 'reason'}. The first run of verify_s3.py
+# (2026-09-30, root /tmp/claude-0/rob_s3) found every quote of this module verbatim, so nothing was corrected or dropped.
+VERIFY_CORRECTIONS = []

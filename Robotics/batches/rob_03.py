@@ -24,19 +24,25 @@ RA5. A learning controller on a fleet of 8 robots. Each robot is a damped joint 
 RA6. A linearised inverted pendulum (one quadrotor attitude axis): theta'' = (g/l) theta + u, g/l = 9.81 s^-2, continuous
      LQR (Q = I, R = 1) held between updates, exact zero-order hold on a 1 kHz grid; the sensor reads x = (theta, theta')
      with Gaussian noise sd sigma = 0.01 on each component at every tick; 100 episodes of 5 s from x0 ~ N(0, 0.1^2 I),
-     common random numbers for every trigger. Triggers, checked every tick on the state x: the CRR trigger (A1'), an
-     update when ||x - x_last|| >= sigma (one resolvable step of the sensor's Fisher metric I/sigma^2); Tabuada's
+     common random numbers for every trigger. Triggers, checked every tick on the state x: the declared trigger (the
+     declaration calls it A1'; it is not CRR-proper A1', which excludes the instrument's sample noise as the unit), an
+     update when ||x - x_last|| >= sigma (one unit step of the sensor's Fisher metric I/sigma^2); Tabuada's
      relative trigger, ||x - x_last|| >= s_T ||x||; periodic updates every h seconds. At an update the held control is
      -K (x + v). Cost J = mean over episodes of the integral of x'Qx + u'Ru. The CRR trigger sets the cost; the periodic
      h and Tabuada's s_T are each swept (41-point log scan, then bisection on the last upward crossing, the fewest updates
      at that cost) to the same J, and the mean update counts are compared. T-C: the CRR trigger's updates at equal cost
      within 1 % of Tabuada's (literal). If a family cannot reach J*, the comparison at equal cost does not exist and the
      row is UNSTATED (the rule in the code before the first run, which the first run reached: see CHOICES (10)). Printed,
-     not scored: the CRR threshold at 0.5, 2 and 4 sigma against both matched families, and both event triggers reading
-     the noisy measurement instead of the state.
+     not scored: the CRR threshold at 0.5, 2 and 4 sigma against both matched families, both event triggers reading
+     the noisy measurement instead of the state (with its outcome() labels), and a noise-free reading (the control also
+     reads x; sigma only a threshold constant) with its outcome() labels (added after review: CHOICES RA6 (11)).
 
 CHOICES (every underspecified point, the most literal and simplest reading; printed on a CHOICES line before the rows and
 repeated in each row's weakness line): see CHOICES_RA5 and CHOICES_RA6 below. Nothing was tuned after a run.
+
+Run 1 is kept: Robotics/batches/rob_03_run1.txt is the first run's output, verbatim (code state: this file before the
+post-run changes CHOICES RA5 (11)-(12) and RA6 (10)-(11); that code state was never committed). Every number, both
+OUTCOME lines and the tally of run 1 equal the current output's; the later changes are text and printed readings only.
 
 Literature named by name only, as the declaration names it (no citation claim beyond the names; R10: nothing fetched here):
 A/B partitions and atomic updates (standard practice); Tabuada 2007 (event-triggered control). Proposition 7 as in
@@ -125,7 +131,12 @@ CHOICES_RA5 = (
     "tick (L = 0, 10, 1000), the variables of the controller that no group names (none is expected), and the checkpoint sizes; "
     "(11) CHANGE AFTER THE FIRST RUN: two phrases of the reading were reworded (a claim that the enumeration is what CRR adds over "
     "the image, and a claim about an image restore of the wall-keyed controller, which was not run); the model, the numbers and the "
-    "label are unchanged")
+    "label are unchanged; (12) CHANGE AFTER REVIEW (text only): the reading now states that the pause length L has no pathway into "
+    "the own-clock arms (the wall tick is read only by the wall-keyed schedule, the world is parked, the update is never installed), "
+    "so the L sweep under closure could not fail; that closure and image restore the same attributes; that dropped groups return at "
+    "constructor defaults; and that the clock half of the ingredient is ablated only in the printed wall-keyed arm; the model, the "
+    "numbers and the label are unchanged; the first run's output is pinned verbatim at Robotics/batches/rob_03_run1.txt (code state: "
+    "this file before changes (11) and (12), never committed)")
 
 
 def _expert():
@@ -364,12 +375,24 @@ def ra5():
         tc=f"bit-identical under closure at every resumed step, robot and L: {_w(check, 'holds', 'fails')} {_qv(check)}",
         out=out,
         reading=(f"saving every persistent group by name and keying the schedule to k makes the rollback an empty cut: "
-                 f"{sum(e['bit'] for e in clos)} of {len(clos)} robot-pauses resume bit for bit whatever the pause length, so Q "
-                 f"{_w(check, 'holds', 'fails')}; each declared lossy variant changes the trajectory on "
+                 f"{sum(e['bit'] for e in clos)} of {len(clos)} robot-pauses resume bit for bit at L in "
+                 f"{{{', '.join(str(L) for L in L_SWEEP)}}}, so Q {_w(check, 'holds', 'fails')}; the test could have failed only "
+                 f"through an enumeration or restore error: in the own-clock arms the pause length L has no pathway into "
+                 f"the run (the wall tick is read only by the wall-keyed schedule, the world is parked by construction and the update "
+                 f"is never installed), so the L sweep under closure tests nothing beyond the restore; each declared lossy variant "
+                 f"changes the trajectory on "
                  + ", ".join(f"{N_FLEET - n_bit_lossy[g]}/{N_FLEET} robots ({g})" for g in LOSSY)
-                 + f"; the A/B slot, which saves the whole image without naming anything, restores bit for bit on {img_bit}/{N_FLEET} "
-                 f"with content {dom:.6e}, the closure's number, so the row reads {out}; the image needs no list of what to save; the part "
-                 f"of the ingredient that no checkpoint supplies is the clock: the wall-keyed schedule, saved in full, "
+                 + f", each dropped group returning at its constructor default (a fresh-process reboot, not an installed update's "
+                 f"state), which fixes how much each variant changes; the A/B slot, which saves the whole image without naming "
+                 f"anything, restores bit for bit on {img_bit}/{N_FLEET} with content {dom:.6e}, the closure's number, so the row reads "
+                 f"{out}; "
+                 + _w(not unnamed, "mechanically the closure and the image restore the same thing (the closure names every persistent "
+                                   "attribute of the controller, none is left unnamed, and the image pickles them all), so T-N's "
+                                   "agreement is by construction; ",
+                      f"the closure leaves {unnamed} unnamed, which the image carries; ")
+                 + f"the image needs no list of what to save; the clock half of the ingredient has no scored ablation (the declared "
+                 f"null ablates only the lossy groups) and is ablated only in the printed wall-keyed arm: the wall-keyed schedule, "
+                 f"saved in full, "
                  f"{_w(wk_max[L_SWEEP[0]] == 0.0 and all(wk_max[L] > 0.0 for L in L_SWEEP[1:]), 'is exact only at L = 0 and leaks the pause length into the trajectory', 'does not behave as a wall-keyed channel should')} "
                  f"(content {wk_max[L_SWEEP[1]]:.6e} at L = {L_SWEEP[1]}, {wk_max[L_SWEEP[2]]:.6e} at L = {L_SWEEP[2]}; the wall tick is "
                  f"a host variable, outside every checkpoint)"),
@@ -421,7 +444,18 @@ CHOICES_RA6 = (
     "first run reached the UNSTATED rule (no periodic schedule reached J*) and its fallback printed only 'not computable' on T-G, "
     "T-N, T-C and the reading; the fallback now prints the periodic family's cost floor, Tabuada's match, the literal T-C, the labels "
     "two numeric readings of the null would give, and the measured-state and threshold readings, all not scored; the model, the "
-    "scoring rule, the numbers and the label are unchanged")
+    "scoring rule, the numbers and the label are unchanged; (11) CHANGE AFTER REVIEW (the second post-run change; text and printed "
+    "readings only): (a) the ingredient and Q fields name what was run, the declaration's absolute threshold at the sensor sd sigma "
+    "(CRR.md's A1' excludes the instrument's sample-level noise as the unit, so the row does not test A1'); (b) printed, not scored: "
+    "outcome() under the measured-state reading (both families matched on y, the declared T-C and Q's own inequality), and a "
+    "noise-free reading (the held control also reads x, -K x; sigma is then only a threshold constant; both families scanned and "
+    "matched as above) with its outcome() labels, and the per-tick periodic cost with and without noise in the held control; "
+    "(c) the reading and the weakness line state whether the scored reading's oracle (event triggers on the noise-free state, "
+    "control on the sensor) is what puts J* below the periodic floor, that the absolute-threshold trigger is the domain's own "
+    "send-on-delta (level-crossing, Lebesgue) sampling, so a printed ADDS alternative is not a novelty signal, and that the "
+    "declaration's T-C coincides with its T-N; the scored reading, the scoring rule, every earlier number and the label are "
+    "unchanged; the first run's output is pinned verbatim at Robotics/batches/rob_03_run1.txt (code state: this file before "
+    "changes (10) and (11), never committed)")
 
 
 def _plant6():
@@ -438,13 +472,18 @@ X06 = np.random.default_rng(SEED_X0).standard_normal((M6, 2)) * X0_SD6
 V6 = np.random.default_rng(SEED_V).standard_normal((N6, M6, 2)) * SIG6
 
 
-def sim6(kind, p, read="x"):
+def sim6(kind, p, read="x", ctrl="noisy"):
     """One trigger over the M6 episodes. kind: 'abs' (||e|| >= p sigma), 'rel' (||e|| >= p ||s||), 'per' (period p seconds).
-    read: 'x' (the state) or 'y' (the noisy measurement) for the event triggers. Returns (J, mean updates)."""
+    read: 'x' (the state) or 'y' (the noisy measurement) for the event triggers. ctrl: 'noisy' (the held control reads the
+    sensor, -K (x + v); the scored reading) or 'clean' (the held control reads the state, -K x; the noise-free reading,
+    printed only, used with read = 'x'). Returns (J, mean updates)."""
+    if ctrl not in ("noisy", "clean") or (ctrl == "clean" and read != "x"):
+        raise ValueError((read, ctrl))
+    clean = ctrl == "clean"
     x = X06.copy()
     y = x + V6[0]
     ref = x.copy() if read == "x" else y.copy()
-    u = -(y @ K6)
+    u = -(x @ K6) if clean else -(y @ K6)
     n = np.ones(M6)
     J = np.zeros(M6)
     AdT = AD6.T
@@ -455,7 +494,7 @@ def sim6(kind, p, read="x"):
         if i > 0:
             if kind == "per":
                 if per_fire[i]:
-                    u = -((x + V6[i]) @ K6)
+                    u = -(x @ K6) if clean else -((x + V6[i]) @ K6)
                     n += 1.0
             else:
                 s = x if read == "x" else x + V6[i]
@@ -464,20 +503,20 @@ def sim6(kind, p, read="x"):
                 fire = e >= thr
                 if fire.any():
                     ref[fire] = s[fire]
-                    u[fire] = -((x[fire] + V6[i, fire]) @ K6)
+                    u[fire] = -(x[fire] @ K6) if clean else -((x[fire] + V6[i, fire]) @ K6)
                     n += fire
         J += (x * x).sum(axis=1) + R6 * u * u
         x = x @ AdT + u[:, None] * BD6
     return float((J * DT6).mean()), float(n.mean())
 
 
-def _scan(kind, lo, hi, read="x"):
+def _scan(kind, lo, hi, read="x", ctrl="noisy"):
     ps = np.geomspace(lo, hi, N_SCAN)
-    res = [sim6(kind, p, read) for p in ps]
+    res = [sim6(kind, p, read, ctrl) for p in ps]
     return ps, np.array([r[0] for r in res]), np.array([r[1] for r in res])
 
 
-def _match(kind, scan, Jstar, read="x"):
+def _match(kind, scan, Jstar, read="x", ctrl="noisy"):
     """Last upward crossing of Jstar on the scan, bisected on log p; N interpolated in J. None if the family cannot reach Jstar."""
     ps, J, N = scan
     up = [i for i in range(len(ps) - 1) if J[i] <= Jstar < J[i + 1]]
@@ -488,7 +527,7 @@ def _match(kind, scan, Jstar, read="x"):
     plo, phi, Jlo, Jhi, Nlo, Nhi = ps[i], ps[i + 1], J[i], J[i + 1], N[i], N[i + 1]
     for _ in range(N_BISECT):
         pm = math.sqrt(plo * phi)
-        Jm, Nm = sim6(kind, pm, read)
+        Jm, Nm = sim6(kind, pm, read, ctrl)
         if Jm <= Jstar:
             plo, Jlo, Nlo = pm, Jm, Nm
         else:
@@ -509,6 +548,30 @@ def ra6():
     Jy, Ny = sim6("abs", C_SCORED, "y")
     scan_tab_y = _scan("rel", *ST_RANGE, read="y")
     my = dict(J=Jy, N=Ny, per=_match("per", scan_per, Jy), tab=_match("rel", scan_tab_y, Jy, "y"))
+    # noise-free reading (printed, not scored; added after review, CHOICES RA6 (11)): the held control reads x as well
+    Jz, Nz = sim6("abs", C_SCORED, "x", "clean")
+    scan_per_z = _scan("per", *H_RANGE, ctrl="clean")
+    scan_tab_z = _scan("rel", *ST_RANGE, ctrl="clean")
+    mz = dict(J=Jz, N=Nz, per=_match("per", scan_per_z, Jz, ctrl="clean"), tab=_match("rel", scan_tab_z, Jz, "x", "clean"))
+    J_tick, J_tick_z = float(scan_per[1][0]), float(scan_per_z[1][0])     # periodic at h = the tick (the scan's first point)
+    h_tick = float(scan_per[0][0])
+
+    def _labels(n_crr, mt_per, mt_tab):
+        """outcome() for a reading in which both families reach the CRR trigger's cost: (declared T-C, Q's own inequality)."""
+        if not (mt_per["ok"] and mt_tab["ok"]):
+            return None
+        chk = rel(n_crr, mt_tab["N"]) <= TOL_TC6
+        return (outcome(crr=n_crr, null=mt_per["N"], domain=mt_tab["N"], check=chk),
+                outcome(crr=n_crr, null=mt_per["N"], domain=mt_tab["N"], check=n_crr < mt_per["N"]))
+
+    def _lab_txt(lab, n_crr, mt_per, mt_tab):
+        if lab is None:
+            return "outcome() not computable (a family does not reach that cost)"
+        return (f"outcome() gives {lab[0]} under the declared T-C (T-G relative difference {rel(n_crr, mt_per['N']):.4f}, T-N "
+                f"{rel(n_crr, mt_tab['N']):.4f}) and {lab[1]} under Q's own inequality")
+
+    lab_y = _labels(Ny, my["per"], my["tab"])
+    lab_z = _labels(Nz, mz["per"], mz["tab"])
 
     def _fmt(mt, name):
         if not mt["ok"]:
@@ -530,8 +593,15 @@ def ra6():
     nty = my["tab"]["N"] if my["tab"]["ok"] else float("nan")
     print(f"  measured-state reading, c = {C_SCORED:g}: J {Jy:.6f}, N_CRR {Ny:.3f}, N_per {npy:.3f}, N_Tab {nty:.3f}, "
           f"CRR/per {Ny / npy:.4f}, CRR/Tab {Ny / nty:.4f}")
+    npz = mz["per"]["N"] if mz["per"]["ok"] else float("nan")
+    ntz = mz["tab"]["N"] if mz["tab"]["ok"] else float("nan")
+    print(f"  noise-free reading (held control -K x), c = {C_SCORED:g}: J {Jz:.6f}, N_CRR {Nz:.3f}, N_per {npz:.3f}, "
+          f"N_Tab {ntz:.3f}, CRR/per {Nz / npz:.4f}, CRR/Tab {Nz / ntz:.4f}")
     print(f"  periodic scan J from {scan_per[1].min():.6f} to {scan_per[1].max():.6f}; Tabuada scan J from {scan_tab[1].min():.6f} "
           f"to {scan_tab[1].max():.6f}; LQR gain K = ({K6[0]:.6f}, {K6[1]:.6f})")
+    print(f"  noise-free scans: periodic J from {scan_per_z[1].min():.6f} to {scan_per_z[1].max():.6f}; Tabuada J from "
+          f"{scan_tab_z[1].min():.6f} to {scan_tab_z[1].max():.6f}; periodic at h = {h_tick:g} s: J {J_tick:.6f} with noise in the "
+          f"held control, {J_tick_z:.6f} without; sigma^2 ||K||^2 T = {SIG6 ** 2 * float(K6 @ K6) * T6:.6f}")
     print()
 
     t = table[C_SCORED]
@@ -548,10 +618,36 @@ def ra6():
                   f"{{{', '.join(f'{c:g}' for c in fewer_tab) or 'none'}}} of {{{', '.join(f'{c:g}' for c in sorted(table))}}} "
                   f"and no periodic schedule reaches its cost at c in {{{', '.join(f'{c:g}' for c in no_per) or 'none'}}} "
                   f"({sweep_txt})")
-    meas_read = (f"under the measured-state reading (not scored) the CRR trigger costs {Jy:.6f} with {Ny:.3f} updates, "
+    meas_read = (f"under the measured-state reading (not scored; the literal one, both event triggers reading the sensor as a "
+                 f"robot must) the CRR trigger costs {Jy:.6f} with {Ny:.3f} updates, "
                  + (f"{Ny / my['per']['N']:.4f} of periodic's" if my["per"]["ok"] else "no periodic match")
                  + " and " + (f"{Ny / my['tab']['N']:.4f} of Tabuada's" if my["tab"]["ok"] else "no Tabuada match")
-                 + " at that cost")
+                 + " at that cost; " + _lab_txt(lab_y, Ny, my["per"], my["tab"])
+                 + f"; there the one-sigma trigger fires on sensor noise, at {(Ny - 1.0) / (N6 - 1):.4f} of the checked ticks, "
+                 f"where two independent sensor draws alone differ by at least sigma with probability exp(-1/4) = "
+                 f"{math.exp(-0.25):.4f}")
+    free_read = (f"under the noise-free reading (not scored; the held control reads x as well, so sigma is only a threshold "
+                 f"constant) the CRR trigger costs {Jz:.6f} with {Nz:.3f} updates, "
+                 + (f"{Nz / mz['per']['N']:.4f} of periodic's" if mz["per"]["ok"] else "no periodic match")
+                 + " and " + (f"{Nz / mz['tab']['N']:.4f} of Tabuada's" if mz["tab"]["ok"] else "no Tabuada match")
+                 + " at that cost; " + _lab_txt(lab_z, Nz, mz["per"], mz["tab"]))
+    oracle_read = ("the scored reading gives the event triggers an oracle: they read the noise-free state x, which a robot's "
+                   "sensor does not give, while the held control reads the sensor, -K (x + v); "
+                   + _w(J_tick_z <= Jz and J_tick > t["J"],
+                        f"this oracle is what puts J* below the periodic floor: with the held control noise-free as well, the CRR "
+                        f"trigger costs {Jz:.6f} and periodic at every tick {J_tick_z:.6f}, within periodic's reach",
+                        f"with the held control noise-free as well, the CRR trigger costs {Jz:.6f} and periodic at every tick "
+                        f"{J_tick_z:.6f}")
+                   + f"; the noise in the held control adds {t['J'] - Jz:.6f} to the CRR trigger's cost and "
+                   f"{J_tick - J_tick_z:.6f} to the cost of periodic updates at every tick (sigma^2 ||K||^2 T = "
+                   f"{SIG6 ** 2 * float(K6 @ K6) * T6:.6f})")
+    novelty_read = ("the row does not test A1': CRR.md's A1' excludes the instrument's sample-level noise as the unit, and the "
+                    "declaration's ingredient column sets the unit to the sensor's sigma; "
+                    + _w(any(lab is not None and lab[1] == "ADDS" for lab in (lab_y, lab_z)),
+                         "an ADDS printed under Q's own inequality is not a novelty signal: an absolute threshold on "
+                         "||x - x_last|| is the domain's own send-on-delta (level-crossing, Lebesgue) sampling",
+                         "an absolute threshold on ||x - x_last|| is the domain's own send-on-delta (level-crossing, Lebesgue) "
+                         "sampling"))
     if not (t["per"]["ok"] and t["tab"]["ok"]):
         # the rule written before the first run: if a declared family cannot reach J*, the comparison at equal cost
         # does not exist and the row is UNSTATED; everything that can be computed is printed, not scored
@@ -569,23 +665,33 @@ def ra6():
             tc = (f"not scored: the literal column, CRR updates {crr:.3f} within {TOL_TC6:g} of Tabuada's {dom:.3f}: "
                   f"{_w(chk_lit, 'holds', 'fails')}")
             alt = ""
+            lab_fl = None
             if not t["per"]["ok"]:
                 o_lit = outcome(crr=crr, null=N_fl, domain=dom, check=chk_lit)
                 o_q = outcome(crr=crr, null=N_fl, domain=dom, check=crr < N_fl)
+                lab_fl = (o_lit, o_q)
                 alt = (f"; read with the periodic floor as the null (every tick, {N_fl:.3f} updates, at a cost above J*; not "
                        f"scored) the row would read {o_lit} under the declared T-C and {o_q} under Q's own inequality")
         else:
             tn = tc = "not scored: Tabuada cannot reach J* either"
             alt = ""
+            lab_fl = None
+        alts = [(nm, lab) for nm, lab in (("the measured-state reading", lab_y),
+                                           ("the scored oracle reading with the periodic floor as the null", lab_fl),
+                                           ("the noise-free reading", lab_z)) if lab is not None]
+        lit_set = sorted({lab[0] for _, lab in alts})
+        summary = ("under the declared T-C the computable readings give "
+                   + "; ".join(f"{lab[0]} ({nm})" for nm, lab in alts)
+                   + (f", so {lit_set[0]} under every computable reading ({len(alts)} of {len(alts)})" if len(lit_set) == 1 else "")
+                   if alts else "no other reading is computable")
         reading = (f"Q cannot be formed as declared: at one sigma the absolute trigger costs J* = {t['J']:.6f} with {crr:.3f} updates "
                    f"per 5 s episode, and 'periodic updates at the same mean cost' does not exist"
                    + (f": the cheapest periodic schedule updates at every 1 kHz sensor tick ({N_fl:.3f} updates) and still costs "
                       f"{J_fl:.6f}" if not t["per"]["ok"] else "")
-                   + f"; by the rule written before the run the row reads {out}"
+                   + f"; by the rule written before the run the row reads {out} as scored; " + summary
                    + (f"; Tabuada's relative trigger reaches J* with {dom:.3f} updates, {dom / crr:.4f} times the CRR trigger's"
                       if t["tab"]["ok"] else "")
-                   + alt + f"; both event triggers read the noise-free state, which the periodic schedule does not use; "
-                   + meas_read + "; " + sweep_read)
+                   + alt + "; " + oracle_read + "; " + meas_read + "; " + free_read + "; " + novelty_read + "; " + sweep_read)
         rob_per = (f"no periodic schedule reaches J* (the floor, {N_fl:.3f} updates at every tick, costs more)"
                    if not t["per"]["ok"] else f"{1 - t['N'] / t['per']['N']:+.4f}")
     else:
@@ -604,29 +710,40 @@ def ra6():
                    f"needs {null:.3f} to reach the same cost and Tabuada's relative trigger {dom:.3f}; so the CRR trigger "
                    f"{_w(q_ineq, 'saves', 'does not save')} updates against periodic ({1 - crr / null:+.4f} of periodic's) and sits "
                    f"{rel(crr, dom):.4f} (relative) from Tabuada's count, {_w(crr < dom, 'below', 'above')} it; the row reads {out}; "
-                   + meas_read + "; " + sweep_read)
+                   + oracle_read + "; " + meas_read + "; " + free_read + "; " + novelty_read + "; " + sweep_read)
         rob_per = f"{1 - t['N'] / t['per']['N']:+.4f}"
     rob_tab = f"{1 - t['N'] / t['tab']['N']:+.4f}" if t["tab"]["ok"] else "no Tabuada match"
     return make_row(
         "robotics", f"RA6 event-triggered attitude control: a linearised inverted pendulum (g/l = {G_L6:g} s^-2) under LQR held "
                     f"between updates, sensor noise sd {SIG6:g}, {M6} episodes of {T6:g} s on a {1 / DT6:g} Hz tick",
         source=f"ROB1 RA6 (declared in {DECL}; forecast REDUNDANT-DOMAIN or ADDS)",
-        Q="the A1' trigger (an update when the state has moved one resolvable step, sigma, since the last update) needs fewer updates "
-          "than periodic control at equal cost (computed as: mean updates per episode at the CRR trigger's own mean quadratic cost, "
-          "the other families swept to that cost)",
-        ingredient="A1' (count in the system's own resolvable step: the sensor's sigma, the unit step of its Fisher metric)",
+        Q="the declared trigger (an update when the state has moved the sensor sd sigma since the last update, the declaration's "
+          "'one resolvable step') needs fewer updates than periodic control at equal cost (computed as: mean updates per episode at "
+          "the CRR trigger's own mean quadratic cost, the other families swept to that cost)",
+        ingredient="the declaration's absolute threshold at the sensor sd sigma (the declaration calls it A1'; CRR.md's A1' excludes "
+                   "the instrument's sample-level noise as the unit, so this is not CRR-proper A1')",
         null="periodic updates at the same mean cost (h swept to match)",
         domain="event-triggered control (Tabuada 2007): an update when ||e|| >= s_T ||x||, s_T swept to the same mean cost",
         numbers=(f"LQR gain K = ({K6[0]:.6f}, {K6[1]:.6f}); J* = {t['J']:.6f} at c = {C_SCORED:g} sigma with {t['N']:.3f} updates "
                  f"per episode ({t['N'] / T6:.3f} per s); {_fmt(t['per'], 'periodic')}; {_fmt(t['tab'], 'Tabuada')}; measured-state "
                  f"reading (not scored): J {Jy:.6f}, CRR {Ny:.3f}, {_fmt(my['per'], 'periodic')}; {_fmt(my['tab'], 'Tabuada on y')}; "
+                 f"noise-free reading (not scored): J {Jz:.6f}, CRR {Nz:.3f}, {_fmt(mz['per'], 'periodic')}; "
+                 f"{_fmt(mz['tab'], 'Tabuada')}; periodic at h = {h_tick:g} s: J {J_tick:.6f} with noise in the held control, "
+                 f"{J_tick_z:.6f} without; "
                  f"periodic cost floor on the scan {J_fl:.6f} at h = {h_fl:.6g} s ({N_fl:.3f} updates); robotics reading (updates "
                  f"saved, energy and bandwidth, as a share of the matched family's updates): against periodic {rob_per}, against "
                  f"Tabuada {rob_tab}"),
         tg=tg, tn=tn, tc=tc, out=out, reading=reading,
         weakness=(CHOICES_RA6 + "; the comparison is at one cost level set by the CRR trigger's own threshold and one operating "
-                  "regime (x0 sd 0.1, sensor sd 0.01, 5 s); the declared T-C coincides with T-N (see CHOICES), so the label cannot "
-                  "be ADDS whatever the numbers; mixed absolute-plus-relative triggers were not declared and were not run"),
+                  "regime (x0 sd 0.1, sensor sd 0.01, 5 s); the scored reading's event triggers read the noise-free state (an oracle "
+                  "a robot's sensor does not give) while the held control reads the sensor, and the reading states what that does "
+                  "to the periodic floor; the declared T-C coincides with T-N (see CHOICES), so the label cannot be ADDS whatever "
+                  "the numbers, and the declaration's forecast 'REDUNDANT-DOMAIN or ADDS' could reach ADDS only through a T-C it "
+                  "did not write (a defect of the declaration, for the tally); the declaration's ingredient column for RA6 sets "
+                  "A1''s unit to the sensor's sigma, which CRR.md's A1' excludes (for the tally); an absolute threshold on "
+                  "||x - x_last|| is the domain's own send-on-delta (level-crossing, Lebesgue) sampling, named here, not cited and "
+                  "not fetched (R10), so an ADDS printed under Q's own inequality is not a novelty signal; mixed "
+                  "absolute-plus-relative triggers were not declared and were not run"),
         elegance="", child="")
 
 

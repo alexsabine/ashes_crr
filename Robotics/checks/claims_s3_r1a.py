@@ -363,3 +363,8 @@ CLAIMS = [
                    'the stop signal arrives, and the extra-step decision is a capture-point-like test of momentum against the '
                    'forward support; the biological precedent the robotics sources follow.'},
 ]
+
+# Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Robotics/checks/verify_s3.py; one dict per
+# quote: {'id', 'quote_index', 'action': 'corrected' | 'dropped', 'old', 'new', 'reason'}. The first run of verify_s3.py
+# (2026-09-30, root /tmp/claude-0/rob_s3) found every quote of this module verbatim, so nothing was corrected or dropped.
+VERIFY_CORRECTIONS = []

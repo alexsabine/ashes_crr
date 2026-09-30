@@ -39,7 +39,7 @@ Literature named by name only, as the declaration names it (no citation claim be
 here): Palmgren and Miner (the linear damage rule); Basquin (the power-law S-N curve); Jadbabaie, Lin and Morse 2003
 (coordination under switching nearest-neighbour rules); and one name from the review, Boyd, Ghosh, Prabhakar and Shah
 2006 (randomized gossip), cited in RA8's weakness only as the reviewer's pointer, not fetched. Deterministic (numpy
-default_rng, fixed seeds), no data files, no network; CPU, about two minutes. Rung R4 at most (a declared check on a
+default_rng, fixed seeds), no data files, no network; CPU, about a minute. Rung R4 at most (a declared check on a
 synthetic model); a note, not evidence (R8).
 
     cd /home/user/ashes_crr && uv run python Robotics/batches/rob_04.py > Robotics/batches/rob_04.txt
@@ -266,6 +266,8 @@ def ra7():
     n_within = sum(z["within"] for z in sens)
     n_check = sum(z["check"] for z in sens)
     n_flip = sum(z["out"] != out for z in sens)
+    n_exp = 0.9545 * n_sens                                        # two-sided normal coverage of +-2 se
+    n_miss_adds = sum(z["out"] == "ADDS" for z in sens)
     fragile = n_flip > 1
     misses = [(m, s) for m, s in sweep.items() if rel(s["crr"], s["p_arc"]) > TOL_N]
     miss_txt = ("; the full prediction misses the tolerance at " + ", ".join(
@@ -318,9 +320,12 @@ def ra7():
                  + f"over duty seeds {SEEDS_SENS[0]}-{SEEDS_SENS[-1]} the label reads {sens_labels}: "
                  + _w(fragile, f"SEED-FRAGILE ({n_flip} of {n_sens} differ from the scored label; where T-N misses, T-C decides, "
                       f"and it holds on {n_check} of {n_sens})", f"stable ({n_flip} of {n_sens} differ from the scored label)")
-                 + f"; the measured CV lies within two bootstrap se of Miner's prediction on {n_within} of {n_sens} seeds"
-                 + _w(n_within == n_sens, ", so the domain's prediction holds within sampling error on every seed and an ADDS "
-                      "where T-N misses is the tolerance's, not a candidate", "")
+                 + f"; the measured CV lies within two bootstrap se of Miner's prediction on {n_within} of {n_sens} seeds "
+                 f"({n_exp:.1f} expected if the prediction were exact and the CV normal)"
+                 + _w(n_within >= math.floor(n_exp), f": the measured CVs scatter about Miner's prediction as sampling error "
+                      f"alone would, so the {n_miss_adds} ADDS come from T-N's tolerance being finer than that error and are not "
+                      "candidates",
+                      ", fewer than an exact prediction gives, so Miner's prediction misses beyond sampling error on some seeds")
                  + f"; the first T-N (the CV of Miner's damage per life, {dom_idx:.2e}; not scored) reads {r['out_idx']}"
                  + _w(r["out_idx"] != "REDUNDANT-DOMAIN", ": damage at failure is 1 by construction, so it can agree only where "
                       f"the arc is proportional to the damage (m = 1: {sweep[1.0]['out_idx']}; constant load: "
@@ -544,14 +549,13 @@ def ra8():
                  f"exchanges per tick, into the clock (CV {pooled['null']:.6f}), which the event count cancels (CV "
                  f"{pooled['crr']:.6f}), so the q grid's width decides T-C there, and the label is "
                  + _w(pooled_s["out"] == "ADDS" and "ADDS" not in fixed_labels,
-                      f"ADDS only when the rates are pooled and never at a fixed rate",
+                      "ADDS only when the rates are pooled and never at a fixed rate",
                       f"{pooled_s['out']} pooled and {fixed_txt} at the fixed rates")
                  + f"; the domain's interval count has CV {dom:.6f} at the scored rate ("
                  + _w(dom < crr, "more regular than the event count", "less regular than the event count")
                  + f", relative difference {rel(crr, dom):.4f}); under the non-empty-tick reading of an event the row would read "
                  f"{alt_ne['out']} (every tick carries an exchange on {n_all_nonempty} of {N_PAT} patterns), and under the "
-                 f"average-consensus rule {alt_l['out']} at q = {Q_SCORED:g} ({fixed_l_txt} over the rates); the exchange count "
-                 f"is the usual cost clock of gossip averaging, so even where it wins it restates a standard count"),
+                 f"average-consensus rule {alt_l['out']} at q = {Q_SCORED:g} ({fixed_l_txt} over the rates; printed, not scored)"),
         weakness=("CHOICE: " + CHOICES_RA8 + "; i.i.d. drops make each tick's exchanges a binomial draw: at a fixed rate the event "
                   "count and the tick count differ only by that draw, and pooled rates build the event count's regularity in; "
                   "bursty (Markov) drops, lossy links and a swarm whose graph moves with its state were not modelled; the "
