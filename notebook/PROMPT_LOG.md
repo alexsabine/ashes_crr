@@ -1761,3 +1761,9 @@ Thank you
 ## 251 — 2026-09-30T04:57:42Z
 
 Can you give me a quick summary on the last output from the hop dc comparison and what this means for CRR?
+
+## 252 — 2026-09-30T05:02:41Z
+
+Yes. CRR is pointing toward SOTA and we are learning why things work. Now how can we push beyond that method using CRR to the next step? I asked you earlier for bottlenecks, I gave you a possible solution. You tried it then found a paper that already does it.
+
+See the issue here? I need you to find the actual big bottlenecks so we can put crr to the proper test on things that are not currently possible
