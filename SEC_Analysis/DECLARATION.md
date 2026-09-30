@@ -119,3 +119,24 @@ this. This amendment adds one analysis. It is post hoc in origin and is labelled
 | id | question | the computation | forecast |
 |---|---|---|---|
 | **A12** | how much of the pass count sits at the accuracy floor? | Per carrier, the floor is the majority-class share of the loaded rows × 100 (from the header's `class_counts`). The carrier is **floor-bound** if the tuned λ\*_raw's mean accuracy − floor < 3 steps. Per study and pooled over the 30 held-out carriers: the number floor-bound; the not-behind rates of the unclipped SEC, the clipped SEC (SEC4 and SEC5), raw Laplace and the transferred λ on floor-bound carriers against the rest. Every forecast F1–F11 whose decisive count includes floor-bound carriers is also printed with them removed, as a report. | **F12.** At least a quarter of the 30 held-out carriers are floor-bound, and the unclipped SEC's not-behind rate is higher on them than on the rest. |
+
+## Amendment 2 (2026-09-30, after SEC6's development runs of SI-1C and AR1-B on the same 30 SEEN carriers; before any M output was read; pushed before any M5/M6 code)
+
+**What prompted it.**
+- SEC6's D-RUN (`prereg/sec6/dev_SEC6.txt`) gives these not-behind counts on the 30 carriers:
+  - SI-1C (SI at c = 1 with SEC4's clip and a zero floor): 28/30;
+  - AR1-B (the raw Fisher scaled so its largest coordinate sits at half the stability edge): 27/30;
+  - SI-1 unclipped: 0/30;
+  - the pinned clipped SEC: 26/30.
+- At κ = 0.5, a coordinate at the cap has lr · 2w · imp = 1. The penalty's step then returns that coordinate to its
+  anchor on every update, so **the clip freezes the capped coordinates**.
+- **The candidate explanation.** The clip turns a soft penalty into a hard freeze of the most important coordinates, and
+  the importance measure only decides which coordinates those are.
+
+**Added checks** (run by the P1 runner or read from SEC6's development records):
+
+| id | what | forecast |
+|---|---|---|
+| **M5** | FREEZE-TOP. The clipped SEC's importance is used only to choose the coordinates at the cap. Those are frozen (snapped to the anchor on every step), and the penalty is removed everywhere else. Run on the 30 carriers, seeds 0–4, with the fraction of coordinates frozen per task recorded. | FM5: within a step of the clipped SEC on at least 80 % of the carriers where the clip fired |
+| **M6** | EDGE, a must-fail control. Every coordinate is set at the cap after task 1: a uniform freeze with no Fisher at all. | FM6: behind the tuned λ on most carriers; freezing everything stops learning |
+| **A13** | The development arms read as mechanism evidence: SI-1C, AR1-B, SEC6's `fixed_clip` (the tuned λ with the clip), the clipped SEC, and the fraction of capped coordinates, all against the tuned λ with and without the clip. Read from `prereg/sec6/dev/` and the M records. | **F13.** The tuned clipped λ is ahead of the unclipped tuned λ by more than a step on at least a third of the 30 carriers: part of SEC4's margins is the clip's |

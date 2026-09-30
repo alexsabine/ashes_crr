@@ -142,3 +142,31 @@ only on or after 2026-10-01):
 
 **For P1, stated now:** AR1-B's strength rule uses no calibration. It only puts the Fisher's largest coordinate at half the
 stability edge. It is recorded here as a candidate explanation to be read beside P1's M checks. It adds no row.
+
+## Amendment 2 (2026-09-30, after SI-1C's D-RUN on SEEN carriers; before any SEC6 carrier is fetched; pushed before it is coded)
+
+**What prompted it.**
+- On the 30 SEEN carriers SI-1C is not behind the tuned λ on 28/30. Its margins over the tuned λ are often +10 to +30.
+  The pinned clipped SEC reaches 26/30, and AR1-B 27/30.
+- **The reference had no clip.** The tuned λ that SEC4-1 and SEC5-1 measure against is SEC1's two-stage grid on the raw
+  Fisher **without** the clip. At large λ its largest coordinates cross the stability edge, so a strong but stable penalty
+  is out of its reach. Every clipped arm has that reach.
+- **So part of any clipped arm's margin over that reference may be the clip's, not the importance measure's.** A tuning-free
+  claim should also be measured against a tuned λ that is given the same clip.
+
+**The change** (learned on the 30 SEEN carriers today; used on the fifth family only on or after 2026-10-01):
+
+1. **A new arm, `fixed_clip`, the tuned λ with SEC4's clip.**
+   - It is SEC1's `fixed` arm (the raw Fisher at weight λ) on SEC1's same two-stage grid (the coarse grid, then the
+     refinement rule), 5 seeds.
+   - Every importance coordinate is clipped at κ / (lr · λ), with κ = 0.5, at each task start, exactly as SEC4's clip
+     does at w = λ.
+   - The best seed-mean is the **tuned clipped λ**, and its step is max(1, 2 × SE).
+2. **A new registered hypothesis, SEC6-C:** clipped SEC − tuned clipped λ > −step_c on at least need carriers.
+   - PASS or FAIL, and NOT DECIDABLE if N < 4.
+   - It is not the replication. **SEC6-1 stays SEC4-1's criterion, unchanged,** so the replication is exact.
+   - SEC6-C asks whether the clipped SEC is tuning-free against a reference with the same stability guard.
+   - **SEC6-C is the stronger claim.** If SEC6-1 passes and SEC6-C fails, the report says the pass rests on the clip.
+3. **The development check.** `fixed_clip` is run through D-RUN on the 30 SEEN carriers before the hash, only to show it
+   runs and what it gives. Nothing is chosen from it.
+4. **Beside SEC6-C (report):** SI-1C, AR1-B and every other baseline against the tuned clipped λ.

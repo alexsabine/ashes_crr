@@ -18,4 +18,10 @@ D-MAP AR1-B: max_k(lr 2 w imp_k) = 1.0 at every task start: largest |deviation| 
    seed 4: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
 D-MAP AR1-P: imp never above 0.001: largest 0.001 -> holds
    (report) SI-0.1 (c 0.1, xi 0.1) runs: acc [22.7425, 29.7659, 30.7692, 26.7559, 27.0903]
+   seed 0: SI-1C firings 4 of 4 task starts; capped coordinates [152, 541, 964, 1269]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 54.84949832775919 (SI-1 0.0)
+   seed 1: SI-1C firings 4 of 4 task starts; capped coordinates [196, 691, 950, 1365]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 59.53177257525084 (SI-1 0.0)
+   seed 2: SI-1C firings 4 of 4 task starts; capped coordinates [159, 633, 897, 1197]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 58.52842809364549 (SI-1 0.0)
+   seed 3: SI-1C firings 4 of 4 task starts; capped coordinates [86, 429, 915, 1383]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 56.85618729096989 (SI-1 0.0)
+   seed 4: SI-1C firings 4 of 4 task starts; capped coordinates [138, 589, 892, 1293]; floored [0, 0, 0, 0]; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 57.52508361204013 (SI-1 0.0)
+(report, Amendment 1) SI-1C with its guard switched off equals SI-1 (acc, s, c, rho): 5/5; with it, the importance used lies in [0, 10.0] at every task start: 5/5 seeds
 D-MAP -> holds

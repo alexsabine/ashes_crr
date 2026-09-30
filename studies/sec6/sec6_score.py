@@ -18,29 +18,34 @@ The primary arm is SEC4's run_guard(variant='clip', kappa=0.5), imported unchang
         'ar1p'  AR1 as published: imp = min(mean over past tasks of f_task, 0.001) elementwise, w = 1 / (2 * lr * 0.001)
         'ar1b'  AR1's bound as the strength: imp = the raw accumulated Fisher exactly as SEC1's 'fixed' arm accumulates it
                 (sum of f_task), w = 1 / (2 * lr * max_k imp_k) recomputed at each task start
-      None of them is clipped. The extra accumulations consume no training rng, so for the same w the trajectory is SEC1's
-      (D-MAP: si1 with c forced to 0 equals SEC1's run('fixed', 0.0) bit for bit).
+        'si1c'  Amendment 1: 'si1' with the importance used at each task start np.clip(Omega, 0, KAPPA / (lr w)), w = c = 1
+                (Omega floored at 0, then SEC4's per-coordinate cap); firings and floored / capped coordinate counts recorded
+      The four published arms are not clipped. The extra accumulations consume no training rng, so for the same w the trajectory
+      is SEC1's (D-MAP: si1 with c forced to 0 equals SEC1's run('fixed', 0.0) bit for bit; si1c with its guard off equals si1).
   (2) the P1-conditional hook: CARRIED (filled by the lead from SEC_Analysis/checks/m_checks.json by the declared rule) and
-      run_carried(), which runs each carried arm through m_checks.py's run function.
+      run_carried(), which runs each carried arm through SEC_Analysis/checks/m_checks.py's run_m with m_checks.ARMS[arm].
   (3) the development stage on SEEN data (devid, devmap, devone, devreport; output prereg/sec6/dev_SEC6.txt).
   (4) run_carrier() and score() for the fifth family: SEC1's run_all (every arm, unchanged); the clip at the primary window,
-      at SEC4's 3 retained window cells and at kappa 0.25 and 1.0; the four baselines and every CARRIED arm at the primary
-      window; CPU timing to the times file only (never the results file, R9).
+      at SEC4's 3 retained window cells and at kappa 0.25 and 1.0; the five baselines and every CARRIED arm at the primary
+      window; CPU timing to the times file only (never the results file, R9). Amendment 1: a carrier with no usable feature
+      after SCL3's loader (d = 0) is excluded before any run and counted like the class rule (load_carrier; self-test
+      d0_selftest(), printed by 'smokefull' and 'check'); SEC6-B is NOT DECIDABLE below MIN_N carriers, as SEC6-1.
 
     uv run python studies/sec6/sec6_score.py devid  > prereg/sec6/dev/devid.txt        # D-ID (seed 0 of 14 + 2 SEC1 carriers)
     uv run python studies/sec6/sec6_score.py devmap > prereg/sec6/dev/devmap.txt       # D-MAP on SEC1's synthetic stream
     uv run python studies/sec6/sec6_score.py devlist                                   # the SEEN (study, id) pairs of D-RUN
-    uv run python studies/sec6/sec6_score.py devone <study> <OpenML id> --out F        # D-RUN on one SEEN carrier (JSON line)
-    uv run python studies/sec6/sec6_score.py devreport <devid.txt> <devmap.txt> <F ...> # dev_SEC6.txt
+    uv run python studies/sec6/sec6_score.py devone <study> <OpenML id> [--arms a,b] --out F  # D-RUN on one SEEN carrier (JSON line)
+    uv run python studies/sec6/sec6_score.py devreport <devid.txt> <devmap.txt> <F ...> # dev_SEC6.txt (records merged by carrier)
     uv run python studies/sec6/sec6_score.py dev                                       # all of the above, one process
     uv run python studies/sec6/sec6_score.py all <OpenML id> [--out F] [--times F]
     uv run python studies/sec6/sec6_score.py score <results.jsonl ...>
-    uv run python studies/sec6/sec6_score.py check
+    uv run python studies/sec6/sec6_score.py check                                     # raw files against the manifest; d = 0 self-test
     uv run python studies/sec6/sec6_score.py smokefull [--out F]
 """
 from __future__ import annotations
 
 import importlib
+import importlib.util
 import json
 import math
 import os
@@ -65,11 +70,13 @@ KAPPA = P4.KAPPA                 # 0.5, SEC4's clip margin: the primary arm, unc
 KAPPA_CELLS = P5.KAPPA_CELLS     # (0.25, 1.0), SEC5's kappa sweep
 KEEP_CELLS = P4.KEEP_CELLS       # SEC4's three retained window cells
 THREE = P4.THREE; SHARE = P4.SHARE; MIN_B = P4.MIN_B; MIN_N = P4.MIN_N; DIV_FRAC = P4.DIV_FRAC; SEEDS = S.SEEDS
-SI_C = {"si1": 1.0, "si01": 0.1}            # SI's strength c: 1 ("equal weighting of old and new memories"); 0.1 (permuted MNIST)
-SI_XI = {"si1": 1e-3, "si01": 0.1}          # SI's damping xi: 1e-3 (split MNIST); 0.1 (permuted MNIST, with c = 0.1)
+SI_C = {"si1": 1.0, "si01": 0.1, "si1c": 1.0}     # SI's strength c: 1 ("equal weighting of old and new memories"); 0.1 (permuted MNIST)
+SI_XI = {"si1": 1e-3, "si01": 0.1, "si1c": 1e-3}  # SI's damping xi: 1e-3 (split MNIST); 0.1 (permuted MNIST, with c = 0.1)
+SI_GUARDED = ("si1c",)                      # Amendment 1: Omega floored at 0 and clipped at KAPPA / (lr w), w = c (SEC4's clip)
 AR1_MAXF = 0.001                            # AR1's clip of the averaged Fisher ("Fk values are averaged and clipped to 0.001")
-BASELINES = ("si1", "si01", "ar1p", "ar1b")  # SI-1, SI-0.1, AR1-P, AR1-B
-BASELINE_NAMES = {"si1": "SI-1", "si01": "SI-0.1", "ar1p": "AR1-P", "ar1b": "AR1-B"}
+BASELINES = ("si1", "si01", "ar1p", "ar1b", "si1c")  # SI-1, SI-0.1, AR1-P, AR1-B; SI-1C (Amendment 1)
+BASELINE_NAMES = {"si1": "SI-1", "si01": "SI-0.1", "ar1p": "AR1-P", "ar1b": "AR1-B", "si1c": "SI-1C"}
+D0_REASON = "d = 0: no usable feature after the loader"   # Amendment 1: excluded and counted before any run; d = 1 is kept
 SEC1_DID = ("led7", "yeast")                # D-ID's two SEC1 carriers (runs/sec1 pinned records): small, 5 and 3 tasks
 
 # ---------------------------------------------------------------- the P1-conditional arms (DEV_DECLARATION.md, section 3)
@@ -77,11 +84,12 @@ SEC1_DID = ("led7", "yeast")                # D-ID's two SEC1 carriers (runs/sec
 # >>> SEC_Analysis/DECLARATION.md: M1 (model-Fisher Laplace) and M2 (endpoint-curvature SEC) are carried if not behind the
 # >>> tuned lambda on at least (the clipped SEC's count - 1) of the 30 SEEN carriers; M4 (the arc secant) if ahead of the
 # >>> clipped SEC by more than a step on at least 3 of them. This file does not read m_checks.json: the tuple IS the record.
-CARRIED: tuple = ()              # the arm names exactly as m_checks.py's run function takes them, e.g. ("m1", "m2")
-M_RUN = "run_m"                  # >>> the lead sets the name of m_checks.py's run function when CARRIED is filled; it is called
-#                                    as M_RUN(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=..., fe=...) and must return a
-#                                    record dict with 'acc' (test accuracy in %), 'seed', 'fs', 'fe'. m_checks.py is frozen
-#                                    beside this file (runs/sec6/frozen/) when CARRIED is not empty.
+CARRIED: tuple = ()              # the arm names as keys of m_checks.ARMS, e.g. ("M1", "M2"); "M4" only as the rule allows
+M_RUN = "run_m"                  # m_checks.py's run function: run_m(seed, Xtr, ytr, Xte, yte, K, per_task, fisher=, calib=, fs=, fe=)
+M_ARMS = "ARMS"                  # m_checks.py's table: arm name -> (fisher, calib); every M arm keeps SEC4's clip (kappa 0.5)
+#                                  m_checks.py computes ROOT as its own folder's parents[1], so it is imported from
+#                                  SEC_Analysis/checks/ (a frozen copy beside this file is used first if one exists); each carried
+#                                  record carries the sha256 of the m_checks.py it ran.
 
 # ---------------------------------------------------------------- the fifth family (prereg/sec6/carrier_selection.txt)
 DATASETS = {46584: ('Student_Performance_on_an_Entrance_Examination', 4, 2), 46593: ('HCV_data', 4, 2), 46597: ('Estimation_of_Obesity_Levels', 6, 2),
@@ -95,10 +103,13 @@ DEV_TABLES = (("scl3", dict(P3.SCL3_DATASETS)), ("sec3", dict(P3.DATASETS)), ("s
 DEV_CACHE = Path("/tmp/claude-0/rrm_cache")   # npz cache outside the repository (Relational_Reference_Memory/checks/t_lib.py's)
 
 
-def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=None, lr=S.LR, bs=S.BS, epochs=S.EPOCHS, hidden=S.HID):
+def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=None, si_guard=True, lr=S.LR, bs=S.BS, epochs=S.EPOCHS,
+          hidden=S.HID):
     """SEC1's run() (runs/sec5/frozen/sec1_score.py) with a baseline penalty. Every line not marked B is SEC1's; the lines
     marked B compute the baseline's imp and w (at each task start) or accumulate SI's path integral (per step, task end).
-    si_c (D-MAP only) overrides SI's c."""
+    'si1c' (Amendment 1) is 'si1' with the importance used at each task start np.clip(Omega, 0, KAPPA / (lr w)), w = c; its
+    firings (task starts where any coordinate was floored or capped) and the floored and capped coordinate counts per task
+    start are recorded. si_c and si_guard=False (D-MAP only) override SI's c and switch SI-1C's guard off."""
     if arm not in BASELINES:
         raise ValueError(arm)
     t0 = time.process_time()
@@ -112,6 +123,7 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
     f_sum = np.zeros(n); n_past = 0                                                                   # B (AR1-P)
     wlog = []; svals = []; cvals = []; rhovals = []; n_fallback = 0
     w_task = []; imp_max = []; imp_min = []; edge = []                                                # B (record)
+    guarded = arm in SI_GUARDED and si_guard; fired = 0; n_capped = []; n_floored = []                # B (SI-1C)
     w = None; imp_used = None
     with np.errstate(all="ignore"):
         for ti, task in enumerate(tasks):
@@ -119,6 +131,9 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
             if theta_star is not None:                                                                # B
                 if si:
                     imp_used = Omega; w = c_si
+                    if guarded:                                                                       # B (SI-1C: floor 0, SEC4's cap)
+                        cap = KAPPA / (lr * w); nc = int(np.sum(Omega > cap)); nf = int(np.sum(Omega < 0))
+                        imp_used = np.clip(Omega, 0, cap); n_capped.append(nc); n_floored.append(nf); fired += int(nc > 0 or nf > 0)
                 elif arm == "ar1p":
                     imp_used = np.minimum(f_sum / n_past, AR1_MAXF); w = 1.0 / (2 * lr * AR1_MAXF)
                 else:                                                                                 # ar1b
@@ -166,6 +181,8 @@ def run_b(seed, Xtr, ytr, Xte, yte, K, per_task, arm, fs=S.FS, fe=S.FE, si_c=Non
     rec = dict(mode=arm, value=float(value), seed=int(seed), fs=float(fs), fe=float(fe), acc=100 * net.acc(Xte, yte),
                s=svals, c=cvals, rho=rhovals, n_fallback=int(n_fallback), w_task=w_task, imp_max=imp_max, imp_min=imp_min, edge=edge,
                xi=xi, w_med=float(np.median(wlog)) if wlog else None, finite=bool(np.all(np.isfinite(net.flat()))))
+    if arm in SI_GUARDED:
+        rec.update(guard=bool(guarded), guard_fired=int(fired), n_capped=n_capped, n_floored=n_floored)
     P4.TIMES.append(dict(mode=rec["mode"], value=rec["value"], seed=rec["seed"], fs=rec["fs"], fe=rec["fe"], cpu_s=time.process_time() - t0))
     return rec
 
@@ -175,19 +192,28 @@ def clip_arm(seed, data, K, per_task, fs=S.FS, fe=S.FE, kappa=KAPPA):
     return P4.run_guard(seed, *data, K, per_task, "clip", fs=fs, fe=fe, kappa=kappa)
 
 
+_M = []
+
+
 def _m_checks():
-    where = str(_HERE.parent if FROZEN else ROOT / "SEC_Analysis" / "checks")
-    if where not in sys.path: sys.path.insert(0, where)
-    return importlib.import_module("m_checks")
+    """SEC_Analysis/checks/m_checks.py, loaded once by path (it computes ROOT as its own folder's parents[1], so it runs only
+    from SEC_Analysis/checks/): (module, its sha256, its repository path). Every carried record carries the sha256."""
+    if not _M:
+        path = ROOT / "SEC_Analysis" / "checks" / "m_checks.py"
+        spec = importlib.util.spec_from_file_location("m_checks", path); mod = importlib.util.module_from_spec(spec)
+        sys.modules["m_checks"] = mod; spec.loader.exec_module(mod)
+        _M.append((mod, S.sha256(path), str(path.relative_to(ROOT))))
+    return _M[0]
 
 
 def run_carried(arm, seed, data, K, per_task, fs=S.FS, fe=S.FE):
-    """A carried P1 arm through m_checks.py's run function (named M_RUN); its record is kept whole, with mode 'carried_<arm>'
-    (the original mode, if any, kept as 'm_mode')."""
+    """A carried P1 arm: m_checks.run_m with (fisher, calib) = m_checks.ARMS[arm] (every M arm keeps SEC4's clip); the
+    record is kept whole, with mode 'carried_<arm>', value its kappa, and the m_checks.py path and sha256."""
     t0 = time.process_time()
-    o = dict(getattr(_m_checks(), M_RUN)(seed, *data, K, per_task, arm, fs=fs, fe=fe))
-    if "mode" in o: o["m_mode"] = o["mode"]
-    o["mode"] = f"carried_{arm}"; o.setdefault("value", 0.0); o.setdefault("seed", int(seed)); o.setdefault("fs", float(fs)); o.setdefault("fe", float(fe))
+    M, sha, rel = _m_checks()
+    fisher, calib = getattr(M, M_ARMS)[arm]
+    o = dict(getattr(M, M_RUN)(seed, *data, K, per_task, fisher=fisher, calib=calib, fs=fs, fe=fe))
+    o.update(mode=f"carried_{arm}", value=float(o.get("kappa", 0.0)), m_arm=arm, m_checks=rel, m_checks_sha256=sha)
     o.pop("arm", None)
     P4.TIMES.append(dict(mode=o["mode"], value=o["value"], seed=o["seed"], fs=o["fs"], fe=o["fe"], cpu_s=time.process_time() - t0))
     return o
@@ -316,6 +342,15 @@ def devmap():
     for arm in ("si01",):
         o = [run_b(seed, *data, K, 2, arm) for seed in SEEDS]
         print(f"   (report) {BASELINE_NAMES[arm]} (c {SI_C[arm]}, xi {SI_XI[arm]}) runs: acc {[round(x['acc'], 4) for x in o]}")
+    cap = KAPPA / (S.LR * SI_C["si1c"]); same_c = []; inb = []
+    for seed in SEEDS:           # (report, Amendment 1; not part of the declared D-MAP verdict)
+        a = run_b(seed, *data, K, 2, "si1"); b = run_b(seed, *data, K, 2, "si1c", si_guard=False); o = run_b(seed, *data, K, 2, "si1c")
+        same_c.append(a["acc"] == b["acc"] and a["s"] == b["s"] and a["c"] == b["c"] and a["rho"] == b["rho"] and a["finite"] == b["finite"])
+        inb.append(all(v >= 0 for v in o["imp_min"]) and all(v <= cap for v in o["imp_max"]))
+        print(f"   seed {seed}: SI-1C firings {o['guard_fired']} of {len(o['n_capped'])} task starts; capped coordinates {o['n_capped']}; floored {o['n_floored']}; "
+              f"max_k(lr 2 w imp_k) {[repr(e) for e in o['edge']]}; acc {o['acc']!r} (SI-1 {a['acc']!r})")
+    print(f"(report, Amendment 1) SI-1C with its guard switched off equals SI-1 (acc, s, c, rho): {sum(same_c)}/{len(same_c)}; with it, the importance used "
+          f"lies in [0, {cap!r}] at every task start: {sum(inb)}/{len(inb)} seeds")
     P4.TIMES.clear()
     print(f"D-MAP -> {'holds' if (ok1 and ok2 and ok3) else 'FAILS'}")
 
@@ -324,7 +359,7 @@ def dev_list():
     return [(study, did) for study, table in DEV_TABLES for did in table]
 
 
-def dev_one(study, did, out):
+def dev_one(study, did, out, arms=BASELINES):
     table = dict(DEV_TABLES)[study]; name, _, per_task = table[did]
     d = _load_seen(study, did)
     if d is None:
@@ -334,10 +369,12 @@ def dev_one(study, did, out):
     tuned, tacc, step, _ = P4._pinned(path); rows = _pinned_rows(path)
     rec = dict(study=study, did=did, name=name, K=K, tuned=tuned, tacc=tacc, step=step,
                ref=dict(clip=_pinned_clip(study, did), bayes=_pinned_seeds(rows, "bayes", 0.0), bayes_sec=_pinned_seeds(rows, "bayes_sec", 0.0)), arms={})
-    for arm in BASELINES:
+    for arm in arms:
         os_ = [run_b(s, Xtr, ytr, Xte, yte, K, per_task, arm) for s in SEEDS]
         rec["arms"][arm] = dict(acc=float(np.mean([o["acc"] for o in os_])), seeds=[o["acc"] for o in os_], finite=[o["finite"] for o in os_],
                                 edge=[o["edge"] for o in os_], w_task=[o["w_task"] for o in os_], imp_min=[o["imp_min"] for o in os_])
+        if arm in SI_GUARDED:
+            rec["arms"][arm].update(fired=[o["guard_fired"] for o in os_], n_capped=[o["n_capped"] for o in os_], n_floored=[o["n_floored"] for o in os_])
     P4.TIMES.clear()
     print(json.dumps(rec), file=out, flush=True)
 
@@ -345,12 +382,20 @@ def dev_one(study, did, out):
 def dev_report(idpath, mappath, paths):
     idtxt = Path(idpath).read_text(); maptxt = Path(mappath).read_text()
     d_id = idtxt.strip().endswith("D-ID -> holds"); d_map = maptxt.strip().endswith("D-MAP -> holds")
-    recs = [json.loads(line) for p in paths for line in open(p) if line.strip()]
+    merged = {}                  # one record per carrier: the arms of every file merged (Amendment 1's SI-1C ran after the others)
+    for rec in (json.loads(line) for p in paths for line in open(p) if line.strip()):
+        key = (rec["study"], rec["did"])
+        if key not in merged: merged[key] = rec; continue
+        m = merged[key]
+        assert {k: v for k, v in m.items() if k != "arms"} == {k: v for k, v in rec.items() if k != "arms"}, key
+        assert not set(m.get("arms", {})) & set(rec.get("arms", {})), key
+        m.get("arms", {}).update(rec.get("arms", {}))
+    recs = list(merged.values())
     order = [t for t, _ in DEV_TABLES]
     recs.sort(key=lambda r: (order.index(r["study"]), r["name"].lower()))
     excl = [f"{r['study']}:{r['name']}" for r in recs if r.get("excluded")]; recs = [r for r in recs if not r.get("excluded")]
     print("SEC6 development stage (prereg/sec6/DEV_DECLARATION.md) on SEEN data only: D-ID, D-MAP and D-RUN (the published baselines "
-          "SI-1, SI-0.1, AR1-P, AR1-B on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, seeds 0-4); tuned lambda and step from pinned results")
+          "SI-1, SI-0.1, AR1-P, AR1-B, and SI-1C of Amendment 1, on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, seeds 0-4); tuned lambda and step from pinned results")
     print("Nothing is chosen from D-RUN: every baseline's constants come from its paper. D-RUN is not evidence and adds no ledger row.")
     print("=" * 118)
     print(idtxt.rstrip()); print("-" * 118); print(maptxt.rstrip()); print("=" * 118)
@@ -362,30 +407,46 @@ def dev_report(idpath, mappath, paths):
         print(f"[{r['name']}] ({r['study']}, K {r['K']}) tuned {r['tuned']:g}: {r['tacc']:.4f}, step {r['step']:.4f}; pinned: "
               + "; ".join(f"{lab} {np.mean(ref[k]) - r['tacc']:+.4f}" if ref[k] else f"{lab} none" for k, lab in (("clip", "clipped SEC"), ("bayes", "raw Laplace"), ("bayes_sec", "unguarded SEC"))))
         for arm in BASELINES:
+            if arm not in r["arms"]:
+                print(f"     {BASELINE_NAMES[arm]:7}: not run"); continue
             x = r["arms"][arm]; emax = max((max(e) for e in x["edge"] if e), default=float("nan"))
             print(f"     {BASELINE_NAMES[arm]:7}: {x['acc']:.4f} [{fmt(x['seeds'])}] −tuned {x['acc'] - r['tacc']:+.4f} ({'not behind' if nb(x['acc'], r) else 'BEHIND'})"
                   f"; largest max_k(lr 2 w imp_k) {emax:.4g}; non-finite seeds {sum(not f for f in x['finite'])}; divergent {'yes' if div(x['seeds'], r) else 'no'}"
                   + (f"; w per task (seed 0) {['%.4g' % w for w in x['w_task'][0]]}" if arm == "ar1b" else "")
-                  + (f"; negative Omega entries at a task start (seed 0 min {min(x['imp_min'][0]):.3g})" if arm in SI_C and x["imp_min"][0] and min(x["imp_min"][0]) < 0 else ""))
+                  + (f"; negative Omega entries at a task start (seed 0 min {min(x['imp_min'][0]):.3g})" if arm in SI_C and arm not in SI_GUARDED and x["imp_min"][0] and min(x["imp_min"][0]) < 0 else "")
+                  + (f"; firings per seed {x['fired']}; capped coordinates (seed 0) {x['n_capped'][0]}; floored (seed 0) {x['n_floored'][0]}" if arm in SI_GUARDED else ""))
     print("=" * 118)
     N = len(recs)
     print(f"carriers {N} (loader-excluded {len(excl)}: {excl})")
     for arm in BASELINES:
-        k = sum(nb(r["arms"][arm]["acc"], r) for r in recs); dv = [r["name"] for r in recs if div(r["arms"][arm]["seeds"], r)]
-        print(f"{BASELINE_NAMES[arm]:7}: not behind the tuned lambda {k}/{N}; carriers with a seed below {DIV_FRAC} x the tuned accuracy ({len(dv)}): {dv}")
+        have = [r for r in recs if arm in r["arms"]]
+        k = sum(nb(r["arms"][arm]["acc"], r) for r in have); dv = [r["name"] for r in have if div(r["arms"][arm]["seeds"], r)]
+        print(f"{BASELINE_NAMES[arm]:7}: not behind the tuned lambda {k}/{len(have)}; carriers with a seed below {DIV_FRAC} x the tuned accuracy ({len(dv)}): {dv}"
+              + (f"; firings (task starts guarded) {sum(sum(r['arms'][arm]['fired']) for r in have)}" if arm in SI_GUARDED else ""))
     for key, lab in (("clip", "clipped SEC"), ("bayes", "raw Laplace"), ("bayes_sec", "unguarded SEC")):
         have = [r for r in recs if r["ref"][key]]
         k = sum(nb(float(np.mean(r["ref"][key])), r) for r in have); dv = [r["name"] for r in have if div(r["ref"][key], r)]
         print(f"(pinned, not rerun) {lab}: not behind {k}/{len(have)}; divergent carriers ({len(dv)}): {dv}")
-    print(f"D-ID -> {'holds' if d_id else 'FAILS'}; D-MAP -> {'holds' if d_map else 'FAILS'}; D-RUN ran every baseline on {N} SEEN carriers, seeds 0-4")
+    ran = {BASELINE_NAMES[a]: sum(a in r["arms"] for r in recs) for a in BASELINES}
+    print(f"D-ID -> {'holds' if d_id else 'FAILS'}; D-MAP -> {'holds' if d_map else 'FAILS'}; D-RUN carriers per baseline (of {N} SEEN, seeds 0-4): {ran}")
 
 
 # ---------------------------------------------------------------- the fifth family
-def run_carrier(did, out, tout, synthetic=False):
+def load_carrier(did, table=None):
+    """SCL3's loader, unchanged, with the carrier's table; then Amendment 1's rule, before any run: a carrier with no usable
+    feature after the loader (features_used == 0) is excluded (reason D0_REASON) and counted like the class rule; d = 1 is kept."""
+    table = DATASETS if table is None else table
+    L.DATASETS = table; Xs, ys, meta = L.load_openml(did)
+    if int(meta["features_used"]) == 0:
+        meta = dict(meta, excluded=True, exclusion_reason=D0_REASON)
+    return table[did][0], Xs, ys, meta
+
+
+def run_carrier(did, out, tout, synthetic=False, table=None):
     if synthetic:
         X, y = S._synthetic(); Xs, ys, meta = L.select_classes(X, y, 10); meta = dict(file="synthetic", sha256="none", openml_id=did, **meta); name = "synthetic"
     else:
-        L.DATASETS = DATASETS; name = DATASETS[did][0]; Xs, ys, meta = L.load_openml(did)
+        name, Xs, ys, meta = load_carrier(did, table)
     per_task = 2
     if meta["excluded"]:
         print(json.dumps(dict(dataset=name, **meta)), file=out, flush=True); return
@@ -427,12 +488,12 @@ def _pinned_primary(study):
 
 
 def score(paths):
-    by = {}
+    by = {}; reasons = {}
     for p in paths:
         for line in open(p):
             o = json.loads(line)
             if "mode" in o: by.setdefault(o["dataset"], []).append(o)
-            elif o.get("excluded"): by.setdefault(o["dataset"], None)
+            elif o.get("excluded"): by.setdefault(o["dataset"], None); reasons[o["dataset"]] = o.get("exclusion_reason")
     times = {}
     for p in paths:
         tp = Path(str(p).replace("results_", "times_"))
@@ -444,9 +505,10 @@ def score(paths):
     others = [(b, BASELINE_NAMES[b]) for b in BASELINES] + [("bayes", "raw Laplace")] + [(f"carried_{a}", f"carried {a}") for a in CARRIED]
     print("=" * 118)
     print("SEC6 scoring (prereg/sec6/DEV_DECLARATION.md and PREREG.md): SEC4's clipped SEC (kappa 0.5) replicated on a fifth unseen family; kappa swept; "
-          "against SI-1, SI-0.1, AR1-P, AR1-B, raw Laplace" + (f" and the carried P1 arms {list(CARRIED)}" if CARRIED else " (no P1 arm carried)"))
+          "against " + ", ".join(BASELINE_NAMES[m] for m in BASELINES) + ", raw Laplace" + (f" and the carried P1 arms {list(CARRIED)}" if CARRIED else " (no P1 arm carried)"))
     print("=" * 118)
-    print(f"carriers scored {len(names)}: {names}; excluded {len(excl)}: {excl}")
+    print(f"carriers scored {len(names)}: {names}; excluded {len(excl)}: {excl}; of them by the d = 0 rule (Amendment 1): "
+          f"{[d for d in excl if reasons.get(d) == D0_REASON]}")
     R = {}
     for d in names:
         rows = by[d]
@@ -509,9 +571,10 @@ def score(paths):
     print(f"SEC6-2 no divergence: carriers with a clipped seed below half the tuned accuracy: {div} ({len(div)}) -> {'PASS' if not div else 'FAIL'}; unguarded (report): {divu}")
     kb = {m: sum(nb(R[d]["b"][m][0], R[d]) for d in names) for m, _ in others}
     beats = {m: k > kb[m] for m, _ in others}
+    vb = "NOT DECIDABLE (fewer than %d carriers scored)" % MIN_N if N < MIN_N else ("PASS" if all(beats.values()) else "FAIL")
     print(f"SEC6-B against the published baselines: the clipped SEC not behind the tuned lambda on {k}/{N}; "
           + "; ".join(f"{lab} {kb[m]}/{N} (clipped SEC strictly more: {'yes' if beats[m] else 'NO'})" for m, lab in others)
-          + f" -> {'PASS' if all(beats.values()) else 'FAIL'} (PASS only if strictly more than every one)")
+          + f" -> {vb} (PASS only if strictly more than every one)")
     for m, lab in others:
         print(f"   {lab}: −tuned " + ", ".join(f"{d}:{R[d]['b'][m][0] - R[d]['tacc']:+.4f}" for d in names)
               + f"; carriers with a seed below half the tuned accuracy (SEC6-2's rule): {[d for d in names if dv(R[d]['b'][m][1], R[d])]}")
@@ -554,6 +617,62 @@ def score(paths):
               + (f" (share {gcpu / full:.4f}), raw Laplace {raw:.1f} (overhead x{gcpu / raw if raw else float('nan'):.3f})" if full else "")
               + "; " + ", ".join(f"{BASELINE_NAMES[m]} {cpu(m):.1f}" for m in BASELINES))
     print("SEC6-E guard firings (report): " + "; ".join(f"{d}: {R[d]['fired']}" for d in names))
+    print("   SI-1C (Amendment 1) task starts floored or capped: " + "; ".join(
+        f"{d}: {sum(o.get('guard_fired', 0) for o in by[d] if o.get('mode') == 'si1c' and o['fs'] == S.FS and o['fe'] == S.FE)}" for d in names))
+
+
+def d0_selftest():
+    """Amendment 1's d = 0 rule on two synthetic ARFF carriers written to a temporary folder (never the repository), through the
+    same load_carrier / run_carrier / score path as a real carrier: 'selftest_d0' has two string attributes and a 4-class
+    nominal target (SCL3's loader keeps no feature), 'selftest_d1' the same plus one numeric attribute (d = 1). Deterministic:
+    no random numbers. Returns True if the d = 0 carrier is excluded with its reason and no run, and the d = 1 carrier runs
+    through SEC1's run_all and every SEC6 arm without error, and score counts one scored and one excluded."""
+    import contextlib
+    import io
+    import tempfile
+    classes = ("a", "b", "c", "d"); n_per = 60
+    table = {990001: ("selftest_d0", 4, 2), 990002: ("selftest_d1", 4, 2)}
+    raw0 = L.RAW; res = {}
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp); L.RAW = tmp
+        try:
+            for did, (name, _, _) in table.items():
+                numeric = name.endswith("d1")
+                lines = ["@relation selftest", "@attribute note string", "@attribute comment string"] + (["@attribute x numeric"] if numeric else []) \
+                    + ["@attribute class {" + ",".join(classes) + "}", "@data"]
+                for i in range(n_per * len(classes)):
+                    c = i % len(classes)
+                    lines.append(f"'note {i}','comment {i % 7}'" + (f",{c + ((i * 37) % 11) / 10}" if numeric else "") + f",{classes[c]}")
+                (tmp / f"{did}_{name}.arff").write_text("\n".join(lines) + "\n")
+                (tmp / f"{did}_{name}.json").write_text(json.dumps({"data_set_description": {"default_target_attribute": "class", "version": "1"}}))
+                with open(tmp / f"results_{name}.jsonl", "w") as out, open(tmp / f"times_{name}.jsonl", "w") as tout:
+                    run_carrier(did, out, tout, table=table)
+                recs = [json.loads(line) for line in open(tmp / f"results_{name}.jsonl")]
+                hdr = recs[0]; runs = [r for r in recs if "mode" in r]
+                res[name] = dict(features_used=hdr["features_used"], excluded=hdr["excluded"], reason=hdr.get("exclusion_reason"), n_runs=len(runs),
+                                 modes=sorted({r["mode"] for r in runs}), nonfinite=sum(not r.get("finite", True) for r in runs))
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                score([tmp / "results_selftest_d0.jsonl", tmp / "results_selftest_d1.jsonl"])
+            counted = [line for line in buf.getvalue().splitlines() if line.startswith("carriers scored")][0]
+        finally:
+            L.RAW = raw0
+    r0, r1 = res["selftest_d0"], res["selftest_d1"]
+    ok0 = r0["features_used"] == 0 and r0["excluded"] and r0["reason"] == D0_REASON and r0["n_runs"] == 0
+    ok1 = r1["features_used"] == 1 and not r1["excluded"] and r1["n_runs"] > 0 and all(m in r1["modes"] for m in ("fixed", "bayes_sec_clip") + BASELINES)
+    okc = counted.startswith("carriers scored 1: ['selftest_d1']; excluded 1: ['selftest_d0']; of them by the d = 0 rule (Amendment 1): ['selftest_d0']")
+    print(f"d = 0 self-test (Amendment 1): selftest_d0 (2 string attributes, 4-class target, {n_per * len(classes)} rows): features_used {r0['features_used']}, "
+          f"excluded {r0['excluded']}, reason {r0['reason']!r}, run records {r0['n_runs']} -> {'as required' if ok0 else 'NOT as required'}")
+    print(f"d = 1 self-test: selftest_d1 (one numeric attribute added): features_used {r1['features_used']}, excluded {r1['excluded']}; SEC1's run_all and every SEC6 arm "
+          f"ran: {r1['n_runs']} run records, {len(r1['modes'])} modes {r1['modes']}, non-finite {r1['nonfinite']} -> {'as required' if ok1 else 'NOT as required'}")
+    print(f"score on the two: {counted} -> {'as required' if okc else 'NOT as required'}")
+    try:
+        S.MLP(np.random.default_rng(0), 0, 4); why = "no error"
+    except ZeroDivisionError as e:
+        why = f"ZeroDivisionError ({e})"
+    print(f"   (report) without the rule, SEC1's MLP at d = 0 raises: {why}")
+    print(f"d = 0 rule self-test -> {'holds' if (ok0 and ok1 and okc) else 'FAILS'}")
+    return ok0 and ok1 and okc
 
 
 def data_check():
@@ -577,7 +696,8 @@ if __name__ == "__main__":
     elif cmd == "devlist": print("\n".join(f"{s} {d}" for s, d in dev_list()))
     elif cmd == "devone":
         outp = sys.argv[sys.argv.index("--out") + 1]
-        with open(outp, "w") as out: dev_one(sys.argv[2], int(sys.argv[3]), out)
+        arms = tuple(sys.argv[sys.argv.index("--arms") + 1].split(",")) if "--arms" in sys.argv else BASELINES
+        with open(outp, "w") as out: dev_one(sys.argv[2], int(sys.argv[3]), out, arms=arms)
     elif cmd == "devreport": dev_report(sys.argv[2], sys.argv[3], sys.argv[4:])
     elif cmd == "dev":
         dd = ROOT / "prereg" / "sec6" / "dev"; dd.mkdir(parents=True, exist_ok=True)
@@ -590,7 +710,9 @@ if __name__ == "__main__":
             with open(outs[-1], "w") as out: dev_one(s, d, out)
         with open(ROOT / "prereg" / "sec6" / "dev_SEC6.txt", "w") as fo, contextlib.redirect_stdout(fo):
             dev_report(dd / "devid.txt", dd / "devmap.txt", outs)
-    elif cmd == "check": sys.exit(0 if data_check() else 1)
+    elif cmd == "check":
+        ok = data_check(); ok = d0_selftest() and ok
+        sys.exit(0 if ok else 1)
     elif cmd == "all":
         did = int(sys.argv[2])
         outp = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else f"runs/sec6/results_{did}.jsonl"
@@ -599,6 +721,7 @@ if __name__ == "__main__":
     elif cmd == "score": score(sys.argv[2:])
     elif cmd == "smokefull":
         outp = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else "/tmp/results_sec6_smoke.jsonl"
+        d0_selftest()
         with open(outp, "w") as out, open(outp.replace("results_", "times_"), "w") as tout: run_carrier(0, out, tout, synthetic=True)
         score([outp])
     else: raise SystemExit(__doc__)
