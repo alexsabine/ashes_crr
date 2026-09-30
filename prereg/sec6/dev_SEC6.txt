@@ -1,0 +1,208 @@
+SEC6 development stage (prereg/sec6/DEV_DECLARATION.md) on SEEN data only: D-ID, D-MAP and D-RUN (the published baselines SI-1, SI-0.1, AR1-P, AR1-B on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, seeds 0-4); tuned lambda and step from pinned results
+Nothing is chosen from D-RUN: every baseline's constants come from its paper. D-RUN is not evidence and adds no ledger row.
+======================================================================================================================
+D-ID (prereg/sec6/DEV_DECLARATION.md): the clipped SEC (kappa 0.5) through SEC6's harness against the pinned bayes_sec_clip, seed 0
+   sec4 46906 anneal (K 4): rerun 84.26966292134831 pinned 84.26966292134831 -> equal; s, firings and margins also equal: yes
+   sec4 1459 artificial-characters (K 10): rerun 15.484515484515486 pinned 15.484515484515486 -> equal; s, firings and margins also equal: yes
+   sec4 1466 cardiotocography (K 10): rerun 99.76415094339622 pinned 99.76415094339622 -> equal; s, firings and margins also equal: yes
+   sec4 1476 gas-drift (K 6): rerun 50.35035035035035 pinned 50.35035035035035 -> equal; s, firings and margins also equal: yes
+   sec4 375 JapaneseVowels (K 8): rerun 30.630630630630627 pinned 30.630630630630627 -> equal; s, firings and margins also equal: yes
+   sec4 377 synthetic_control (K 6): rerun 48.333333333333336 pinned 48.333333333333336 -> equal; s, firings and margins also equal: yes
+   sec5 155 pokerhand (K 4): rerun 20.0 pinned 20.0 -> equal; s, firings and margins also equal: yes
+   sec5 1503 spoken-arabic-digit (K 10): rerun 10.0 pinned 10.0 -> equal; s, firings and margins also equal: yes
+   sec5 1509 walking-activity (K 10): rerun 11.200000000000001 pinned 11.200000000000001 -> equal; s, firings and margins also equal: yes
+   sec5 1541 volcanoes-d4 (K 4): rerun 5.7057057057057055 pinned 5.7057057057057055 -> equal; s, firings and margins also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8): rerun 5.298013245033113 pinned 5.298013245033113 -> equal; s, firings and margins also equal: yes
+   sec5 41671 microaggregation2 (K 4): rerun 13.286713286713287 pinned 13.286713286713287 -> equal; s, firings and margins also equal: yes
+   sec5 41972 Indian_pines (K 6): rerun 37.56243756243756 pinned 37.56243756243756 -> equal; s, firings and margins also equal: yes
+   sec5 41982 Kuzushiji-MNIST (K 10): rerun 31.2 pinned 31.2 -> equal; s, firings and margins also equal: yes
+   loader-excluded (no pinned arm): 7 ['sec4:cjs', 'sec4:MIC', 'sec4:one-hundred-plants-margin', 'sec5:hypothyroid', 'sec5:volcanoes-a3', 'sec5:volcanoes-a4', 'sec5:volcanoes-b2']
+D-ID clipped SEC: 14/14 carriers equal (need 14/14) -> holds
+   sec1 led7 (K 10): bayes_sec rerun 25.937500000000004 pinned 25.937500000000004 -> equal; s also equal: yes
+   sec1 yeast (K 6): bayes_sec rerun 27.142857142857142 pinned 27.142857142857142 -> equal; s also equal: yes
+D-ID SEC1 bayes_sec: 2/2 carriers equal (need 2/2) -> holds
+(report, not part of D-ID) the data D-RUN reads for the SCL3 and SEC3 carriers: the clipped SEC on seed 0 equals SEC5's pinned development record (prereg/sec5/dev) on 16/16
+D-ID -> holds
+----------------------------------------------------------------------------------------------------------------------
+D-MAP (prereg/sec6/DEV_DECLARATION.md) on SEC1's synthetic stream (K 10, 5 tasks, seeds 0-4); lr 0.05
+   seed 0: fine-tuning (fixed, w 0) 18.729096989966553; SI-1 with c forced to 0 18.729096989966553; SI-1 (c 1) 0.0; SI-1 max Omega per task ['79.4604', '2.15691e+36', 'nan', 'nan'], min ['5.87077e-05', '0.00108096', 'nan', 'nan']
+   seed 1: fine-tuning (fixed, w 0) 25.75250836120401; SI-1 with c forced to 0 25.75250836120401; SI-1 (c 1) 0.0; SI-1 max Omega per task ['92.3744', '7.87942e+19', 'nan', 'nan'], min ['0.000421509', '0.00206169', 'nan', 'nan']
+   seed 2: fine-tuning (fixed, w 0) 27.09030100334448; SI-1 with c forced to 0 27.09030100334448; SI-1 (c 1) 0.0; SI-1 max Omega per task ['58.3463', '8.09581e+24', 'nan', 'nan'], min ['0.000116661', '0.000707502', 'nan', 'nan']
+   seed 3: fine-tuning (fixed, w 0) 23.745819397993312; SI-1 with c forced to 0 23.745819397993312; SI-1 (c 1) 0.0; SI-1 max Omega per task ['68.9079', '1.51202e+07', 'nan', 'nan'], min ['0.000200546', '0.00108333', 'nan', 'nan']
+   seed 4: fine-tuning (fixed, w 0) 24.414715719063544; SI-1 with c forced to 0 24.414715719063544; SI-1 (c 1) 0.0; SI-1 max Omega per task ['68.9686', '6.08468e+14', 'nan', 'nan'], min ['0.000362901', '0.00264071', 'nan', 'nan']
+D-MAP SI-1 with c forced to 0 equals SEC1's run('fixed', 0.0) (acc, s, c, rho): 5/5 -> holds; SI-1 at c = 1 moves the run on 5/5 seeds (report: the check is not vacuous)
+   seed 0: AR1-B w per task ['84.8678017809717', '84.79081722470306', '84.75077151890913', '84.75017212823067']; max_k(lr 2 w imp_k) per task ['0.9999999999999999', '1.0', '0.9999999999999998', '0.9999999999999999']; acc 38.79598662207358
+   seed 1: AR1-B w per task ['113.25623930825887', '112.84470249992316', '112.84225198601527', '112.84142044401294']; max_k(lr 2 w imp_k) per task ['1.0000000000000002', '1.0', '1.0', '1.0']; acc 40.802675585284284
+   seed 2: AR1-B w per task ['58.25594189448405', '58.18425401399333', '58.172616818747144', '58.17235363636735']; max_k(lr 2 w imp_k) per task ['1.0', '1.0000000000000002', '1.0', '1.0']; acc 43.812709030100336
+   seed 3: AR1-B w per task ['135.02246755522418', '76.54130752884318', '76.43809928818636', '76.43196607407543']; max_k(lr 2 w imp_k) per task ['1.0', '1.0', '1.0', '0.9999999999999999']; acc 42.14046822742475
+   seed 4: AR1-B w per task ['72.16577318806242', '72.07566888793563', '72.07558997339436', '72.07163182036666']; max_k(lr 2 w imp_k) per task ['0.9999999999999999', '0.9999999999999999', '1.0', '0.9999999999999999']; acc 40.13377926421405
+D-MAP AR1-B: max_k(lr 2 w imp_k) = 1.0 at every task start: largest |deviation| 2.220e-16 (need <= 1e-12) -> holds
+   seed 0: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+   seed 1: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 37.12374581939799
+   seed 2: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 40.802675585284284
+   seed 3: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+   seed 4: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+D-MAP AR1-P: imp never above 0.001: largest 0.001 -> holds
+   (report) SI-0.1 (c 0.1, xi 0.1) runs: acc [22.7425, 29.7659, 30.7692, 26.7559, 27.0903]
+D-MAP -> holds
+======================================================================================================================
+[cnae-9] (scl3, K 8) tuned 1410: 74.1667, step 1.7305; pinned: clipped SEC +7.9167; raw Laplace -18.4375; unguarded SEC -21.9792
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -74.1667 (BEHIND); largest max_k(lr 2 w imp_k) 8.45e+24; non-finite seeds 5; divergent yes; negative Omega entries at a task start (seed 0 min -64)
+     SI-0.1 : 59.0625 [58.85 56.77 60.42 59.38 59.90] −tuned -15.1042 (BEHIND); largest max_k(lr 2 w imp_k) 0.06154; non-finite seeds 0; divergent no
+     AR1-P  : 79.6875 [79.17 75.52 81.25 80.21 82.29] −tuned +5.5208 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 75.9375 [77.08 70.31 77.60 74.48 80.21] −tuned +1.7708 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['5296', '1839', '1502']
+[eucalyptus] (scl3, K 4) tuned 1.5: 38.5321, step 3.5294; pinned: clipped SEC +0.5505; raw Laplace -0.9174; unguarded SEC +0.5505
+     SI-1   : 19.8165 [16.51 11.01 24.77 19.27 27.52] −tuned -18.7156 (BEHIND); largest max_k(lr 2 w imp_k) 59.37; non-finite seeds 0; divergent yes
+     SI-0.1 : 35.9633 [39.45 34.86 39.45 30.28 35.78] −tuned -2.5688 (not behind); largest max_k(lr 2 w imp_k) 0.08162; non-finite seeds 0; divergent no
+     AR1-P  : 41.8349 [41.28 49.54 48.62 35.78 33.94] −tuned +3.3028 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 36.3303 [38.53 38.53 39.45 31.19 33.94] −tuned -2.2018 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['10.34']
+[first-order-theorem-proving] (scl3, K 6) tuned 1.5: 11.8318, step 1.0468; pinned: clipped SEC -0.0200; raw Laplace -0.0601; unguarded SEC -0.0200
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -11.8318 (BEHIND); largest max_k(lr 2 w imp_k) 189.3; non-finite seeds 5; divergent yes
+     SI-0.1 : 11.7117 [10.21 11.11 12.61 13.31 11.31] −tuned -0.1201 (not behind); largest max_k(lr 2 w imp_k) 0.2932; non-finite seeds 0; divergent no
+     AR1-P  : 11.6917 [10.11 10.81 12.71 13.31 11.51] −tuned -0.1401 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 11.7317 [10.21 11.11 12.71 13.31 11.31] −tuned -0.1001 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['34.58', '30.64']
+[GesturePhaseSegmentationProcessed] (scl3, K 4) tuned 14.1: 26.3063, step 1.0352; pinned: clipped SEC -0.1001; raw Laplace -0.1201; unguarded SEC -0.1001
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -26.3063 (BEHIND); largest max_k(lr 2 w imp_k) 124.6; non-finite seeds 5; divergent yes
+     SI-0.1 : 26.1261 [27.53 24.62 25.03 26.73 26.73] −tuned -0.1802 (not behind); largest max_k(lr 2 w imp_k) 0.2307; non-finite seeds 0; divergent no
+     AR1-P  : 26.1061 [26.83 25.13 25.43 26.23 26.93] −tuned -0.2002 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 26.2462 [27.63 24.62 25.63 26.73 26.63] −tuned -0.0601 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['48.24']
+[har] (scl3, K 6) tuned 28300: 52.8671, step 4.8161; pinned: clipped SEC -1.1389; raw Laplace -5.2148; unguarded SEC -1.1389
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -52.8671 (BEHIND); largest max_k(lr 2 w imp_k) 30.44; non-finite seeds 5; divergent yes
+     SI-0.1 : 51.2687 [52.15 51.15 52.95 53.05 47.05] −tuned -1.5984 (not behind); largest max_k(lr 2 w imp_k) 0.0455; non-finite seeds 0; divergent no
+     AR1-P  : 51.0090 [48.85 50.75 54.45 54.95 46.05] −tuned -1.8581 (not behind); largest max_k(lr 2 w imp_k) 0.07929; non-finite seeds 0; divergent no
+     AR1-B  : 53.3267 [53.25 52.45 53.35 60.14 47.45] −tuned +0.4595 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['5.433e+05', '2.112e+04']
+[isolet] (scl3, K 10) tuned 20000: 62.5667, step 3.4699; pinned: clipped SEC -0.1667; raw Laplace -9.3667; unguarded SEC -0.1667
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -62.5667 (BEHIND); largest max_k(lr 2 w imp_k) 8.62e+07; non-finite seeds 5; divergent yes
+     SI-0.1 : 56.5333 [59.83 54.17 54.50 56.33 57.83] −tuned -6.0333 (BEHIND); largest max_k(lr 2 w imp_k) 0.04208; non-finite seeds 0; divergent no
+     AR1-P  : 60.7000 [63.83 60.33 57.50 59.83 62.00] −tuned -1.8667 (not behind); largest max_k(lr 2 w imp_k) 0.4648; non-finite seeds 0; divergent no
+     AR1-B  : 62.6000 [69.50 60.50 60.33 59.17 63.50] −tuned +0.0333 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['6.319e+04', '2.423e+04', '1.935e+04', '1.795e+04']
+[MiceProtein] (scl3, K 8) tuned 709.22: 40.9091, step 1.0000; pinned: clipped SEC +4.5455; raw Laplace -16.7273; unguarded SEC +4.5455
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -40.9091 (BEHIND); largest max_k(lr 2 w imp_k) 5.914e+16; non-finite seeds 5; divergent yes
+     SI-0.1 : 25.8182 [28.18 26.36 22.73 25.45 26.36] −tuned -15.0909 (BEHIND); largest max_k(lr 2 w imp_k) 0.03492; non-finite seeds 0; divergent no
+     AR1-P  : 46.9091 [42.73 48.18 45.45 47.27 50.91] −tuned +6.0000 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 40.9091 [40.91 34.55 45.45 43.64 40.00] −tuned +0.0000 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['903.4', '860', '858.9']
+[semeion] (scl3, K 10) tuned 1500: 37.4295, step 1.5935; pinned: clipped SEC +3.7618; raw Laplace -9.9060; unguarded SEC +3.7618
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -37.4295 (BEHIND); largest max_k(lr 2 w imp_k) 7.77e+33; non-finite seeds 5; divergent yes; negative Omega entries at a task start (seed 0 min -1.18e+04)
+     SI-0.1 : 30.0940 [28.53 31.35 29.78 32.29 28.53] −tuned -7.3354 (BEHIND); largest max_k(lr 2 w imp_k) 0.02759; non-finite seeds 0; divergent no
+     AR1-P  : 37.5549 [40.75 37.93 36.36 36.68 36.05] −tuned +0.1254 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 38.2445 [41.69 38.56 36.68 37.30 36.99] −tuned +0.8150 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['2.133e+04', '3882', '3801', '2275']
+[steel-plates-fault] (scl3, K 6) tuned 6: 33.4748, step 1.1910; pinned: clipped SEC -0.2122; raw Laplace -2.1751; unguarded SEC -0.2122
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -33.4748 (BEHIND); largest max_k(lr 2 w imp_k) 121.2; non-finite seeds 5; divergent yes
+     SI-0.1 : 32.6790 [33.42 32.10 31.56 32.89 33.42] −tuned -0.7958 (not behind); largest max_k(lr 2 w imp_k) 0.1638; non-finite seeds 0; divergent no
+     AR1-P  : 35.1724 [35.01 35.54 34.22 35.81 35.28] −tuned +1.6976 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 33.7931 [35.54 32.89 32.10 34.22 34.22] −tuned +0.3183 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['12.47', '12.47']
+[wall-robot-navigation] (scl3, K 4) tuned 100: 24.7648, step 6.6186; pinned: clipped SEC -2.6226; raw Laplace -2.6026; unguarded SEC -2.6226
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -24.7648 (BEHIND); largest max_k(lr 2 w imp_k) 210.6; non-finite seeds 5; divergent yes
+     SI-0.1 : 21.7618 [21.42 21.52 21.62 21.82 22.42] −tuned -3.0030 (not behind); largest max_k(lr 2 w imp_k) 0.2263; non-finite seeds 0; divergent no
+     AR1-P  : 21.4214 [21.32 21.12 21.12 21.32 22.22] −tuned -3.3433 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 21.3814 [21.32 21.12 21.12 21.42 21.92] −tuned -3.3834 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['39.28']
+[covertype] (sec3, K 6) tuned 10: 22.8629, step 4.8071; pinned: clipped SEC -3.3634; raw Laplace -0.5806; unguarded SEC -3.3634
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -22.8629 (BEHIND); largest max_k(lr 2 w imp_k) 170.8; non-finite seeds 5; divergent yes
+     SI-0.1 : 23.1431 [20.42 27.73 25.53 25.73 16.32] −tuned +0.2803 (not behind); largest max_k(lr 2 w imp_k) 0.2057; non-finite seeds 0; divergent no
+     AR1-P  : 9.6496 [11.51 10.81 8.51 9.41 8.01] −tuned -13.2132 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent yes
+     AR1-B  : 21.3213 [17.22 25.93 23.72 24.82 14.91] −tuned -1.5415 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['18.68', '18.68']
+[dionis] (sec3, K 10) tuned 141: 55.5245, step 3.4360; pinned: clipped SEC +9.8102; raw Laplace -9.2907; unguarded SEC -4.5554
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -55.5245 (BEHIND); largest max_k(lr 2 w imp_k) 3.224e+09; non-finite seeds 5; divergent yes
+     SI-0.1 : 56.9830 [57.04 55.54 57.54 48.75 66.03] −tuned +1.4585 (not behind); largest max_k(lr 2 w imp_k) 0.3201; non-finite seeds 0; divergent no
+     AR1-P  : 63.0370 [65.13 58.04 65.73 59.04 67.23] −tuned +7.5125 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 63.2767 [65.43 60.24 55.34 70.63 64.74] −tuned +7.7522 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['1.84e+04', '4138', '4130', '2540']
+[fabert] (sec3, K 6) tuned 14.1: 19.2208, step 1.0000; pinned: clipped SEC +0.0599; raw Laplace -0.1598; unguarded SEC -3.8362
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -19.2208 (BEHIND); largest max_k(lr 2 w imp_k) 25.83; non-finite seeds 5; divergent yes
+     SI-0.1 : 19.2607 [19.48 18.98 19.58 19.18 19.08] −tuned +0.0400 (not behind); largest max_k(lr 2 w imp_k) 0.06734; non-finite seeds 0; divergent no
+     AR1-P  : 18.5814 [17.98 19.38 18.78 18.78 17.98] −tuned -0.6394 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 19.0010 [19.48 18.78 19.58 18.78 18.38] −tuned -0.2198 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['2.68e+04', '10.86']
+[helena] (sec3, K 10) tuned 8.49: 14.0600, step 2.9750; pinned: clipped SEC -0.3800; raw Laplace -1.0600; unguarded SEC -0.3800
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -14.0600 (BEHIND); largest max_k(lr 2 w imp_k) 99.66; non-finite seeds 5; divergent yes
+     SI-0.1 : 13.3600 [15.50 14.90 7.70 13.90 14.80] −tuned -0.7000 (not behind); largest max_k(lr 2 w imp_k) 0.1796; non-finite seeds 0; divergent no
+     AR1-P  : 13.9200 [16.10 15.50 7.90 14.40 15.70] −tuned -0.1400 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 14.1000 [16.20 15.40 8.30 14.90 15.70] −tuned +0.0400 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['52.55', '11.84', '5.234', '5.234']
+[jannis] (sec3, K 4) tuned 60: 22.1800, step 15.3283; pinned: clipped SEC -2.9400; raw Laplace -3.1800; unguarded SEC -2.9400
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -22.1800 (BEHIND); largest max_k(lr 2 w imp_k) 333.9; non-finite seeds 5; divergent yes
+     SI-0.1 : 18.9200 [18.00 18.20 19.80 20.00 18.60] −tuned -3.2600 (not behind); largest max_k(lr 2 w imp_k) 0.3904; non-finite seeds 0; divergent no
+     AR1-P  : 18.2400 [17.70 18.10 18.00 19.40 18.00] −tuned -3.9400 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 18.2800 [17.70 18.10 17.90 19.30 18.40] −tuned -3.9000 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['25.3']
+[volkert] (sec3, K 10) tuned 6: 5.7600, step 1.0000; pinned: clipped SEC +0.7200; raw Laplace -0.7600; unguarded SEC +0.7200
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -5.7600 (BEHIND); largest max_k(lr 2 w imp_k) 14.06; non-finite seeds 5; divergent yes
+     SI-0.1 : 5.6000 [6.40 5.60 5.20 5.40 5.40] −tuned -0.1600 (not behind); largest max_k(lr 2 w imp_k) 0.089; non-finite seeds 0; divergent no
+     AR1-P  : 6.5800 [6.40 6.60 7.00 6.70 6.20] −tuned +0.8200 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 7.1000 [8.40 7.00 7.30 6.10 6.70] −tuned +1.3400 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['564.8', '18.23', '18.22', '8.678']
+[anneal] (sec4, K 4) tuned 42.3: 76.8539, step 5.6337; pinned: clipped SEC +5.5056; raw Laplace -11.6854; unguarded SEC -6.4045
+     SI-1   : 4.3820 [1.69 10.11 0.00 3.93 6.18] −tuned -72.4719 (BEHIND); largest max_k(lr 2 w imp_k) 12.27; non-finite seeds 0; divergent yes
+     SI-0.1 : 63.8202 [65.73 65.17 59.55 74.72 53.93] −tuned -13.0337 (BEHIND); largest max_k(lr 2 w imp_k) 0.02046; non-finite seeds 0; divergent no
+     AR1-P  : 84.7191 [87.08 83.15 78.09 87.64 87.64] −tuned +7.8652 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 81.1236 [84.27 75.28 74.72 85.96 85.39] −tuned +4.2697 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['68.67']
+[artificial-characters] (sec4, K 10) tuned 14.1: 14.6653, step 1.9621; pinned: clipped SEC +0.5594; raw Laplace -2.1978; unguarded SEC +0.5594
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -14.6653 (BEHIND); largest max_k(lr 2 w imp_k) 44.06; non-finite seeds 5; divergent yes
+     SI-0.1 : 17.3227 [17.78 15.48 15.58 19.98 17.78] −tuned +2.6573 (not behind); largest max_k(lr 2 w imp_k) 0.09333; non-finite seeds 0; divergent no
+     AR1-P  : 14.5854 [14.69 12.69 14.49 15.28 15.78] −tuned -0.0799 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 15.6244 [17.78 13.19 13.49 16.68 16.98] −tuned +0.9590 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['145', '57.11', '57.11', '25.85']
+[cardiotocography] (sec4, K 10) tuned 7092.2: 98.8679, step 1.0000; pinned: clipped SEC +1.0377; raw Laplace -10.2358; unguarded SEC -29.9057
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -98.8679 (BEHIND); largest max_k(lr 2 w imp_k) 3.93e+45; non-finite seeds 5; divergent yes
+     SI-0.1 : 92.2170 [94.34 98.58 95.75 87.74 84.67] −tuned -6.6509 (BEHIND); largest max_k(lr 2 w imp_k) 0.06483; non-finite seeds 0; divergent no
+     AR1-P  : 98.0189 [99.53 100.00 98.35 95.99 96.23] −tuned -0.8491 (not behind); largest max_k(lr 2 w imp_k) 0.596; non-finite seeds 0; divergent no
+     AR1-B  : 99.8113 [99.76 100.00 99.53 99.76 100.00] −tuned +0.9434 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['6.299e+04', '2.187e+04', '5294', '4557']
+[gas-drift] (sec4, K 6) tuned 28.3: 46.8068, step 2.5938; pinned: clipped SEC +2.1822; raw Laplace -2.5225; unguarded SEC +2.1822
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -46.8068 (BEHIND); largest max_k(lr 2 w imp_k) 54.01; non-finite seeds 5; divergent yes
+     SI-0.1 : 52.2322 [50.75 54.65 51.35 49.65 54.75] −tuned +5.4254 (not behind); largest max_k(lr 2 w imp_k) 0.09235; non-finite seeds 0; divergent no
+     AR1-P  : 43.4835 [42.04 52.85 40.64 39.34 42.54] −tuned -3.3233 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 47.8679 [49.95 51.15 45.25 44.84 48.15] −tuned +1.0611 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['492.5', '69.18']
+[JapaneseVowels] (sec4, K 8) tuned 10: 27.2673, step 1.0000; pinned: clipped SEC +2.5626; raw Laplace -1.7017; unguarded SEC +2.5626
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -27.2673 (BEHIND); largest max_k(lr 2 w imp_k) 13.24; non-finite seeds 5; divergent yes
+     SI-0.1 : 29.3293 [30.33 28.93 28.53 30.63 28.23] −tuned +2.0621 (not behind); largest max_k(lr 2 w imp_k) 0.0554; non-finite seeds 0; divergent no
+     AR1-P  : 26.7868 [26.13 27.73 26.73 26.03 27.33] −tuned -0.4805 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 27.6677 [27.53 28.43 27.23 26.33 28.83] −tuned +0.4004 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['296.8', '296.6', '35.83']
+[synthetic_control] (sec4, K 6) tuned 4230: 44.8333, step 3.5901; pinned: clipped SEC +3.5000; raw Laplace -6.5000; unguarded SEC -6.1667
+     SI-1   : 8.8333 [16.67 0.00 0.00 0.00 27.50] −tuned -36.0000 (BEHIND); largest max_k(lr 2 w imp_k) 3.25e+06; non-finite seeds 3; divergent yes
+     SI-0.1 : 39.0000 [41.67 39.17 41.67 38.33 34.17] −tuned -5.8333 (BEHIND); largest max_k(lr 2 w imp_k) 0.0441; non-finite seeds 0; divergent no
+     AR1-P  : 46.3333 [45.00 44.17 50.00 48.33 44.17] −tuned +1.5000 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 44.6667 [45.00 42.50 47.50 47.50 40.83] −tuned -0.1667 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['1.096e+04', '1606']
+[autoUniv-au6-750] (sec5, K 8) tuned 0.1: 8.0795, step 1.6437; pinned: clipped SEC -0.3974; raw Laplace +0.0000; unguarded SEC -0.3974
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -8.0795 (BEHIND); largest max_k(lr 2 w imp_k) 5.928e+25; non-finite seeds 5; divergent yes
+     SI-0.1 : 8.0795 [5.30 9.93 9.27 7.28 8.61] −tuned +0.0000 (not behind); largest max_k(lr 2 w imp_k) 0.1081; non-finite seeds 0; divergent no
+     AR1-P  : 7.4172 [4.64 9.27 8.61 6.62 7.95] −tuned -0.6623 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 7.6821 [5.30 9.93 8.61 6.62 7.95] −tuned -0.3974 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['20.79', '20.72', '20.72']
+[Indian_pines] (sec5, K 6) tuned 20: 55.0649, step 5.2111; pinned: clipped SEC -6.7932; raw Laplace -10.5694; unguarded SEC -6.7932
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -55.0649 (BEHIND); largest max_k(lr 2 w imp_k) 162; non-finite seeds 5; divergent yes
+     SI-0.1 : 51.9481 [36.96 54.95 61.24 57.04 49.55] −tuned -3.1169 (not behind); largest max_k(lr 2 w imp_k) 0.3499; non-finite seeds 0; divergent no
+     AR1-P  : 59.6204 [48.45 62.04 69.33 58.04 60.24] −tuned +4.5554 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 54.9451 [43.86 54.15 60.74 60.84 55.14] −tuned -0.1199 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['12.91', '12.91']
+[Kuzushiji-MNIST] (sec5, K 10) tuned 300: 25.6800, step 1.3303; pinned: clipped SEC +5.2000; raw Laplace -3.2400; unguarded SEC +5.2000
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -25.6800 (BEHIND); largest max_k(lr 2 w imp_k) 9.033e+59; non-finite seeds 5; divergent yes
+     SI-0.1 : 27.6000 [28.00 25.80 28.50 28.00 27.70] −tuned +1.9200 (not behind); largest max_k(lr 2 w imp_k) 0.03007; non-finite seeds 0; divergent no
+     AR1-P  : 29.7000 [30.60 28.60 28.60 30.60 30.10] −tuned +4.0200 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 29.4000 [30.60 28.50 26.40 30.60 30.90] −tuned +3.7200 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['4.599e+04', '7228', '4025', '3919']
+[microaggregation2] (sec5, K 4) tuned 60: 17.6024, step 15.5216; pinned: clipped SEC -4.1159; raw Laplace -4.1159; unguarded SEC -4.1159
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -17.6024 (BEHIND); largest max_k(lr 2 w imp_k) 334.2; non-finite seeds 5; divergent yes
+     SI-0.1 : 13.4665 [13.29 13.69 13.09 13.09 14.19] −tuned -4.1359 (not behind); largest max_k(lr 2 w imp_k) 0.4345; non-finite seeds 0; divergent no
+     AR1-P  : 13.5864 [14.09 13.29 12.79 13.39 14.39] −tuned -4.0160 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 13.4466 [13.29 13.59 12.89 13.09 14.39] −tuned -4.1558 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['26.96']
+[pokerhand] (sec5, K 4) tuned 100: 43.4600, step 1.8216; pinned: clipped SEC -28.2400; raw Laplace -32.1400; unguarded SEC -28.2400
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -43.4600 (BEHIND); largest max_k(lr 2 w imp_k) 685.1; non-finite seeds 5; divergent yes
+     SI-0.1 : 10.5400 [13.90 8.30 17.50 6.80 6.20] −tuned -32.9200 (BEHIND); largest max_k(lr 2 w imp_k) 0.6921; non-finite seeds 0; divergent yes
+     AR1-P  : 8.0400 [9.50 6.50 11.90 6.20 6.10] −tuned -35.4200 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent yes
+     AR1-B  : 9.6000 [11.50 7.50 16.40 6.40 6.20] −tuned -33.8600 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent yes; w per task (seed 0) ['10.57']
+[spoken-arabic-digit] (sec5, K 10) tuned 0.212766: 9.8800, step 1.0000; pinned: clipped SEC -0.0200; raw Laplace -0.0400; unguarded SEC -0.0200
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -9.8800 (BEHIND); largest max_k(lr 2 w imp_k) 252.9; non-finite seeds 5; divergent yes
+     SI-0.1 : 9.7600 [9.90 9.40 10.20 9.40 9.90] −tuned -0.1200 (not behind); largest max_k(lr 2 w imp_k) 0.3437; non-finite seeds 0; divergent no
+     AR1-P  : 9.8400 [10.20 9.20 9.90 10.00 9.90] −tuned -0.0400 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 9.8000 [10.00 9.40 10.20 9.50 9.90] −tuned -0.0800 (not behind); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['2.799', '2.129', '2.129', '2.129']
+[volcanoes-d4] (sec5, K 4) tuned 1000: 94.9950, step 1.0000; pinned: clipped SEC -88.9089; raw Laplace -89.6897; unguarded SEC -78.7187
+     SI-1   : 80.2803 [67.87 91.79 92.19 76.58 72.97] −tuned -14.7147 (BEHIND); largest max_k(lr 2 w imp_k) 365.7; non-finite seeds 0; divergent no
+     SI-0.1 : 3.2633 [8.01 2.50 1.00 2.40 2.40] −tuned -91.7317 (BEHIND); largest max_k(lr 2 w imp_k) 0.58; non-finite seeds 0; divergent yes
+     AR1-P  : 13.6937 [23.02 12.31 1.70 17.22 14.21] −tuned -81.3013 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent yes
+     AR1-B  : 4.1842 [4.90 5.81 1.00 5.51 3.70] −tuned -90.8108 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent yes; w per task (seed 0) ['25.22']
+[walking-activity] (sec5, K 10) tuned 0.212766: 13.6000, step 1.1367; pinned: clipped SEC -2.5600; raw Laplace -0.9800; unguarded SEC -2.5600
+     SI-1   : 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -13.6000 (BEHIND); largest max_k(lr 2 w imp_k) 1336; non-finite seeds 5; divergent yes
+     SI-0.1 : 12.8800 [14.50 13.60 10.30 12.80 13.20] −tuned -0.7200 (not behind); largest max_k(lr 2 w imp_k) 1.343; non-finite seeds 0; divergent no
+     AR1-P  : 9.6400 [10.60 10.70 8.90 8.80 9.20] −tuned -3.9600 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no
+     AR1-B  : 10.6600 [11.00 10.70 9.40 9.50 12.70] −tuned -2.9400 (BEHIND); largest max_k(lr 2 w imp_k) 1; non-finite seeds 0; divergent no; w per task (seed 0) ['2.615', '2.615', '2.615', '2.615']
+======================================================================================================================
+carriers 30 (loader-excluded 8: ['sec3:shuttle', 'sec4:cjs', 'sec4:MIC', 'sec4:one-hundred-plants-margin', 'sec5:hypothyroid', 'sec5:volcanoes-a3', 'sec5:volcanoes-a4', 'sec5:volcanoes-b2'])
+SI-1   : not behind the tuned lambda 0/30; carriers with a seed below 0.5 x the tuned accuracy (29): ['cnae-9', 'eucalyptus', 'first-order-theorem-proving', 'GesturePhaseSegmentationProcessed', 'har', 'isolet', 'MiceProtein', 'semeion', 'steel-plates-fault', 'wall-robot-navigation', 'covertype', 'dionis', 'fabert', 'helena', 'jannis', 'volkert', 'anneal', 'artificial-characters', 'cardiotocography', 'gas-drift', 'JapaneseVowels', 'synthetic_control', 'autoUniv-au6-750', 'Indian_pines', 'Kuzushiji-MNIST', 'microaggregation2', 'pokerhand', 'spoken-arabic-digit', 'walking-activity']
+SI-0.1 : not behind the tuned lambda 21/30; carriers with a seed below 0.5 x the tuned accuracy (2): ['pokerhand', 'volcanoes-d4']
+AR1-P  : not behind the tuned lambda 25/30; carriers with a seed below 0.5 x the tuned accuracy (3): ['covertype', 'pokerhand', 'volcanoes-d4']
+AR1-B  : not behind the tuned lambda 27/30; carriers with a seed below 0.5 x the tuned accuracy (2): ['pokerhand', 'volcanoes-d4']
+(pinned, not rerun) clipped SEC: not behind 26/30; divergent carriers (2): ['pokerhand', 'volcanoes-d4']
+(pinned, not rerun) raw Laplace: not behind 14/30; divergent carriers (2): ['pokerhand', 'volcanoes-d4']
+(pinned, not rerun) unguarded SEC: not behind 20/30; divergent carriers (8): ['cnae-9', 'dionis', 'fabert', 'anneal', 'cardiotocography', 'synthetic_control', 'pokerhand', 'volcanoes-d4']
+D-ID -> holds; D-MAP -> holds; D-RUN ran every baseline on 30 SEEN carriers, seeds 0-4

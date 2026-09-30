@@ -1,0 +1,21 @@
+D-MAP (prereg/sec6/DEV_DECLARATION.md) on SEC1's synthetic stream (K 10, 5 tasks, seeds 0-4); lr 0.05
+   seed 0: fine-tuning (fixed, w 0) 18.729096989966553; SI-1 with c forced to 0 18.729096989966553; SI-1 (c 1) 0.0; SI-1 max Omega per task ['79.4604', '2.15691e+36', 'nan', 'nan'], min ['5.87077e-05', '0.00108096', 'nan', 'nan']
+   seed 1: fine-tuning (fixed, w 0) 25.75250836120401; SI-1 with c forced to 0 25.75250836120401; SI-1 (c 1) 0.0; SI-1 max Omega per task ['92.3744', '7.87942e+19', 'nan', 'nan'], min ['0.000421509', '0.00206169', 'nan', 'nan']
+   seed 2: fine-tuning (fixed, w 0) 27.09030100334448; SI-1 with c forced to 0 27.09030100334448; SI-1 (c 1) 0.0; SI-1 max Omega per task ['58.3463', '8.09581e+24', 'nan', 'nan'], min ['0.000116661', '0.000707502', 'nan', 'nan']
+   seed 3: fine-tuning (fixed, w 0) 23.745819397993312; SI-1 with c forced to 0 23.745819397993312; SI-1 (c 1) 0.0; SI-1 max Omega per task ['68.9079', '1.51202e+07', 'nan', 'nan'], min ['0.000200546', '0.00108333', 'nan', 'nan']
+   seed 4: fine-tuning (fixed, w 0) 24.414715719063544; SI-1 with c forced to 0 24.414715719063544; SI-1 (c 1) 0.0; SI-1 max Omega per task ['68.9686', '6.08468e+14', 'nan', 'nan'], min ['0.000362901', '0.00264071', 'nan', 'nan']
+D-MAP SI-1 with c forced to 0 equals SEC1's run('fixed', 0.0) (acc, s, c, rho): 5/5 -> holds; SI-1 at c = 1 moves the run on 5/5 seeds (report: the check is not vacuous)
+   seed 0: AR1-B w per task ['84.8678017809717', '84.79081722470306', '84.75077151890913', '84.75017212823067']; max_k(lr 2 w imp_k) per task ['0.9999999999999999', '1.0', '0.9999999999999998', '0.9999999999999999']; acc 38.79598662207358
+   seed 1: AR1-B w per task ['113.25623930825887', '112.84470249992316', '112.84225198601527', '112.84142044401294']; max_k(lr 2 w imp_k) per task ['1.0000000000000002', '1.0', '1.0', '1.0']; acc 40.802675585284284
+   seed 2: AR1-B w per task ['58.25594189448405', '58.18425401399333', '58.172616818747144', '58.17235363636735']; max_k(lr 2 w imp_k) per task ['1.0', '1.0000000000000002', '1.0', '1.0']; acc 43.812709030100336
+   seed 3: AR1-B w per task ['135.02246755522418', '76.54130752884318', '76.43809928818636', '76.43196607407543']; max_k(lr 2 w imp_k) per task ['1.0', '1.0', '1.0', '0.9999999999999999']; acc 42.14046822742475
+   seed 4: AR1-B w per task ['72.16577318806242', '72.07566888793563', '72.07558997339436', '72.07163182036666']; max_k(lr 2 w imp_k) per task ['0.9999999999999999', '0.9999999999999999', '1.0', '0.9999999999999999']; acc 40.13377926421405
+D-MAP AR1-B: max_k(lr 2 w imp_k) = 1.0 at every task start: largest |deviation| 2.220e-16 (need <= 1e-12) -> holds
+   seed 0: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+   seed 1: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 37.12374581939799
+   seed 2: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 40.802675585284284
+   seed 3: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+   seed 4: AR1-P w 10000.0; max imp per task ['0.001', '0.001', '0.001', '0.001']; max_k(lr 2 w imp_k) ['1.0', '1.0', '1.0', '1.0']; acc 35.785953177257525
+D-MAP AR1-P: imp never above 0.001: largest 0.001 -> holds
+   (report) SI-0.1 (c 0.1, xi 0.1) runs: acc [22.7425, 29.7659, 30.7692, 26.7559, 27.0903]
+D-MAP -> holds

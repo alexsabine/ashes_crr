@@ -99,3 +99,46 @@ pushed on 2026-09-30. **No carrier is fetched before 2026-10-01T00:00Z** (R3).
 2. **SEC6-B:** SI-1 is the strongest baseline. Its per-parameter path secant is the nearest published relative of SEC's
    calibration. It is behind SEC on fewer carriers than raw Laplace.
 3. **AR1-P** is behind the tuned λ on most carriers: its maxF constant does not transfer across networks.
+
+## Amendment 1 (2026-09-30, after D-ID, D-MAP and D-RUN on SEEN carriers; before any SEC6 carrier is fetched; pushed before the changes are coded)
+
+**What D-RUN showed** (`prereg/sec6/dev_SEC6.txt`, 30 SEEN carriers; not evidence, nothing chosen by count):
+
+| arm | not behind the tuned λ | carriers with a divergent seed |
+|---|---|---|
+| SI-1 | 0/30 | 29 |
+| SI-0.1 | 21/30 | 2 |
+| AR1-P | 25/30 | 3 |
+| AR1-B | 27/30 | 2 |
+| clipped SEC (pinned records) | 26/30 | 2 |
+
+- **SI-1 runs away.** At c = 1 under this learner's SGD, lr · 2c · Ω runs from about 8 to 10⁵⁹, and Ω has negative
+  entries. The negatives come from minibatch noise in ω = −Σ g Δθ; SI's formula has no floor.
+- **AR1-B is the strongest arm on SEEN data.** It is one carrier ahead of the clipped SEC. Its strength puts lr · w · max
+  imp at 0.5 = κ, so it is SEC4's `scale` guard applied at every task start to the raw Fisher. It is a baseline that can
+  win, and it stays exactly as declared.
+- **Forecast 2 is wrong on SEEN data** ("SI-1 is the strongest baseline"). The forecast is recorded as written, not
+  changed.
+
+**The changes, each named with the data it was learned on** (R3: the 30 SEEN carriers, today; used on the fifth family
+only on or after 2026-10-01):
+
+1. **SI-1C is added** (SI-1 is kept as published). It is SI with c = 1 and ξ = 10⁻³, with Ω floored at 0 and clipped at
+   κ / (lr · w), SEC4's clip with κ = 0.5 and w = c = 1.
+   - **Why:** SEC itself is non-negative by construction (squared gradients), and it passes only with the clip (unguarded
+     SEC diverged on 8 of 30). A comparison of the two calibrations that gives SEC its guard and denies SI the same guard
+     would not be a baseline that can win (R7).
+   - **Where it enters:** SEC6-B's "strictly more than every baseline" includes SI-1C.
+   - **Its check:** SI-1C is run through D-RUN on the same 30 SEEN carriers before the hash, only to show it runs. Nothing
+     is chosen from its count.
+2. **An exclusion for carriers with no usable feature.** The metadata shows carriers whose features may all be string or
+   text columns, which SCL3's loader drops (Student_Performance, WBCAtt, Mental_Health; DBPedia keeps 1).
+   - **The rule:** a carrier with no usable feature after SCL3's loader (d = 0) is excluded and counted before any run,
+     like the class rule. Otherwise the frozen scorer would divide by zero (SEC3 and T1x were voided by scorer crashes).
+   - **d = 1 is not excluded.**
+3. **SEC6-B is NOT DECIDABLE if N < 4,** as SEC6-1 is.
+4. **Freezing.** The selection script is frozen as `sec6_select_carriers.py`, because `select_carriers.py` in the frozen
+   folder is SEC4's.
+
+**For P1, stated now:** AR1-B's strength rule uses no calibration. It only puts the Fisher's largest coordinate at half the
+stability edge. It is recorded here as a candidate explanation to be read beside P1's M checks. It adds no row.

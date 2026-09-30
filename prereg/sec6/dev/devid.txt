@@ -1,0 +1,22 @@
+D-ID (prereg/sec6/DEV_DECLARATION.md): the clipped SEC (kappa 0.5) through SEC6's harness against the pinned bayes_sec_clip, seed 0
+   sec4 46906 anneal (K 4): rerun 84.26966292134831 pinned 84.26966292134831 -> equal; s, firings and margins also equal: yes
+   sec4 1459 artificial-characters (K 10): rerun 15.484515484515486 pinned 15.484515484515486 -> equal; s, firings and margins also equal: yes
+   sec4 1466 cardiotocography (K 10): rerun 99.76415094339622 pinned 99.76415094339622 -> equal; s, firings and margins also equal: yes
+   sec4 1476 gas-drift (K 6): rerun 50.35035035035035 pinned 50.35035035035035 -> equal; s, firings and margins also equal: yes
+   sec4 375 JapaneseVowels (K 8): rerun 30.630630630630627 pinned 30.630630630630627 -> equal; s, firings and margins also equal: yes
+   sec4 377 synthetic_control (K 6): rerun 48.333333333333336 pinned 48.333333333333336 -> equal; s, firings and margins also equal: yes
+   sec5 155 pokerhand (K 4): rerun 20.0 pinned 20.0 -> equal; s, firings and margins also equal: yes
+   sec5 1503 spoken-arabic-digit (K 10): rerun 10.0 pinned 10.0 -> equal; s, firings and margins also equal: yes
+   sec5 1509 walking-activity (K 10): rerun 11.200000000000001 pinned 11.200000000000001 -> equal; s, firings and margins also equal: yes
+   sec5 1541 volcanoes-d4 (K 4): rerun 5.7057057057057055 pinned 5.7057057057057055 -> equal; s, firings and margins also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8): rerun 5.298013245033113 pinned 5.298013245033113 -> equal; s, firings and margins also equal: yes
+   sec5 41671 microaggregation2 (K 4): rerun 13.286713286713287 pinned 13.286713286713287 -> equal; s, firings and margins also equal: yes
+   sec5 41972 Indian_pines (K 6): rerun 37.56243756243756 pinned 37.56243756243756 -> equal; s, firings and margins also equal: yes
+   sec5 41982 Kuzushiji-MNIST (K 10): rerun 31.2 pinned 31.2 -> equal; s, firings and margins also equal: yes
+   loader-excluded (no pinned arm): 7 ['sec4:cjs', 'sec4:MIC', 'sec4:one-hundred-plants-margin', 'sec5:hypothyroid', 'sec5:volcanoes-a3', 'sec5:volcanoes-a4', 'sec5:volcanoes-b2']
+D-ID clipped SEC: 14/14 carriers equal (need 14/14) -> holds
+   sec1 led7 (K 10): bayes_sec rerun 25.937500000000004 pinned 25.937500000000004 -> equal; s also equal: yes
+   sec1 yeast (K 6): bayes_sec rerun 27.142857142857142 pinned 27.142857142857142 -> equal; s also equal: yes
+D-ID SEC1 bayes_sec: 2/2 carriers equal (need 2/2) -> holds
+(report, not part of D-ID) the data D-RUN reads for the SCL3 and SEC3 carriers: the clipped SEC on seed 0 equals SEC5's pinned development record (prereg/sec5/dev) on 16/16
+D-ID -> holds
