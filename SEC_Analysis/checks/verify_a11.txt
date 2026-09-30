@@ -1,0 +1,65 @@
+SEC_Analysis A11: verbatim check of every quote in claims_a11.py against its extracted source text
+POST HOC; no ledger row. Sources fetched 2026-09-30 (versions in claims_a11.py)
+root: /tmp/claude-0/sec_an_src
+PASS      a11:1   W states      quote 0 src/pdf_1712.03847v1.txt
+PASS      a11:1   W states      quote 1 src/pdf_1712.03847v1.txt
+PASS      a11:2   W states      quote 0 src/pdf_1805.07810v1.txt
+PASS      a11:3   W bears       quote 0 src/pdf_1612.00796v2.txt
+PASS      a11:3   W bears       quote 1 src/pdf_1612.00796v2.txt
+PASS      a11:4   N states      quote 0 src/pdf_1712.03847v1.txt
+PASS      a11:4   N states      quote 1 src/pdf_1712.03847v1.txt
+PASS      a11:4   N states      quote 2 src/pdf_1712.03847v1.txt
+PASS      a11:5   N states      quote 0 src/pdf_1805.07810v1.txt
+PASS      a11:5   N states      quote 1 src/pdf_1805.07810v1.txt
+PASS      a11:6   N close       quote 0 src/pdf_1805.06370v2.txt
+PASS      a11:6   N close       quote 1 src/pdf_1805.06370v2.txt
+PASS      a11:7   F states      quote 0 src/pdf_1412.1193v11.txt
+PASS      a11:7   F states      quote 1 src/pdf_1412.1193v11.txt
+PASS      a11:8   F states      quote 0 src/pdf_1905.12558v3.txt
+PASS      a11:8   F states      quote 1 src/pdf_1905.12558v3.txt
+PASS      a11:9   F bears       quote 0 src/pdf_1905.12558v3.txt
+PASS      a11:10  F bears       quote 0 src/pdf_1612.00796v2.txt
+PASS      a11:11  E states      quote 0 src/pdf_1905.12558v3.txt
+PASS      a11:11  E states      quote 1 src/pdf_1905.12558v3.txt
+PASS      a11:11  E states      quote 2 src/pdf_1905.12558v3.txt
+PASS      a11:12  E states      quote 0 src/pdf_1412.1193v11.txt
+PASS      a11:12  E states      quote 1 src/pdf_1412.1193v11.txt
+PASS      a11:26  E bears       quote 0 src/pdf_1712.03847v1.txt
+PASS      a11:26  E bears       quote 1 src/pdf_1712.03847v1.txt
+PASS      a11:13  C states      quote 0 src/pdf_1605.04131v2.txt
+PASS      a11:13  C states      quote 1 src/pdf_1605.04131v2.txt
+PASS      a11:13  C states      quote 2 src/pdf_1605.04131v2.txt
+PASS      a11:14  C close       quote 0 src/pdf_1605.04131v2.txt
+PASS      a11:15  C bears       quote 0 src/pdf_1605.04131v2.txt
+PASS      a11:16  C bears       quote 0 src/bb_crossref.json
+PASS      a11:16  C bears       quote 1 src/bb_crossref.json
+PASS      a11:16  C bears       quote 2 src/bb_crossref.json
+PASS      a11:17  C close       quote 0 src/pdf_1703.04200v3.txt
+PASS      a11:17  C close       quote 1 src/pdf_1703.04200v3.txt
+PASS      a11:18  R states      quote 0 src/pdf_1801.10112v3.txt
+PASS      a11:19  S close       quote 0 src/pdf_1805.07810v1.txt
+PASS      a11:20  S close       quote 0 src/pdf_1412.1193v11.txt
+PASS      a11:21  S close       quote 0 src/pdf_1801.10112v3.txt
+PASS      a11:21  S close       quote 1 src/pdf_1801.10112v3.txt
+PASS      a11:22  S close       quote 0 src/pdf_1703.04200v3.txt
+PASS      a11:23  S bears       quote 0 src/pdf_1905.12558v3.txt
+PASS      a11:23  S bears       quote 1 src/pdf_1905.12558v3.txt
+PASS      a11:24  K states      quote 0 src/pdf_1806.08568v3.txt
+PASS      a11:24  K states      quote 1 src/pdf_1806.08568v3.txt
+PASS      a11:24  K states      quote 2 src/pdf_1806.08568v3.txt
+PASS      a11:25  T states      quote 0 src/pdf_1612.00796v2.txt
+
+quotes found verbatim: 47 of 47 (claims 26; raw files 11, missing 0); not found 0; missing 0
+
+raw files read (sha256 of the extracted text as read now; the fetch record is FETCH_LOG.txt in the root):
+  3afffb189964fc4827bf03de2d113d0e8544be4e90a7a73654f1634abae183d6  src/bb_crossref.json
+  b74b7dd142f50b4bbb96ba1cf3e852d17538d66661b20141c6552de10b848cb5  src/pdf_1412.1193v11.txt
+  78e4d82d0294610add4c9d8f36fadc352a440e471b4863301df7ea0da735aded  src/pdf_1605.04131v2.txt
+  4c29b1aef574660555d558a5375dd08a8df0649a2f896b7619a7f054ed203a99  src/pdf_1612.00796v2.txt
+  04af3de3056f43e8d5fa46c51149cb5fa3ba039f32bdd885f002eba888ef019a  src/pdf_1703.04200v3.txt
+  8a7406a4da903b83b9f9d0dcfbd07440d2a50a69478ec229accff9f345160c0a  src/pdf_1712.03847v1.txt
+  a46b97b3fcf6353640680657b969688344a51b5de0b049d562286967d081976b  src/pdf_1801.10112v3.txt
+  76975678c2bcea10a3684b35d2cf41930712c1fdd02f8104eec9d9ca8a173e88  src/pdf_1805.06370v2.txt
+  84986743e8067658689f8406a5e4dd5995e2a58902e317620cf95723d361cc2d  src/pdf_1805.07810v1.txt
+  eda8bc6cda34f5acf4e72f970645b63d652d9a3a0751f8a095b0fc76ff817f8c  src/pdf_1806.08568v3.txt
+  44684ecffe67be9f36bebf95d2706529b65d6cc4739f2c976fe8a16ae45aa57a  src/pdf_1905.12558v3.txt
