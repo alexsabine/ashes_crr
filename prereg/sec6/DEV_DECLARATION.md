@@ -1,0 +1,101 @@
+# SEC6 development declaration: SEC4's clipped SEC on a fifth unseen family, against the published tuning-free baselines (pushed before any SEC6 code)
+
+**The request.** Prompt-log entry 257: "We should then run more tests on sec4". This is P2 of `Applied_Suite/PROGRAMME.md`.
+
+**Where SEC stands.**
+- SEC4-1 is PASS-1 on the third unseen family (6/6).
+- SEC5-1 FAILs on the fourth family (4/8).
+- SPA1 finds the method's parts published. The two nearest published rules are:
+  - **Synaptic Intelligence (SI).** It is a path-fitted, per-parameter importance "with the same units as the loss", at a
+    strength c for which it states a principled value: "If the path integral (Eq. 3) is evaluated precisely, c = 1 would
+    correspond to an equal weighting of old and new memories". Source: arXiv 1703.04200 v3, fetched in SPA1.
+  - **AR1.** It bounds the EWC strength by the step size: "Given maxF and η we can easily determine the maximum value for
+    λ as 1/(η · maxF )". Source: arXiv 1806.08568 v3, SPA1 claim f3:0.
+- Neither was run against SEC on held-out carriers. SEC6 does both. R7 asks for the published method closest to the rule
+  under test.
+
+## What SEC6 tests (fixed now; the pre-registration adds only the carriers, the P1-conditional arms and the hash)
+
+**1. The replication (primary): SEC4's clipped SEC, unchanged.**
+- It is `run_guard(variant="clip")` with κ = 0.5, imported from byte copies of `runs/sec5/frozen/`, which are themselves
+  byte copies of SEC4's.
+- It runs on a fifth unseen family.
+
+**2. The published tuning-free baselines** (new arms; each maps its paper's penalty onto SEC1's learner exactly):
+
+| arm | the published rule | in SEC1's parametrisation (penalty gradient w · 2 · imp · (θ − θ\*)) |
+|---|---|---|
+| **SI-1** | SI with c = 1, ξ = 10⁻³ (the split-MNIST damping, reported with the same 2 × 256 MLP family). The per-task ω_k = −Σ_t g_k(t) Δθ_k(t) uses the clean present-task gradient, as SI's reference implementation does. Ω_k = Σ_ν ω_k^ν / ((Δ_k^ν)² + ξ). | w = c = 1; imp = Ω (summed over past tasks); anchor θ̃ = the parameters at the previous task's end |
+| **SI-0.1** | SI with c = 0.1 and ξ = 0.1, the values the paper reports for permuted MNIST ("the value for c = 0.1 was determined via a coarse grid search"). This is a published default carried across. | w = 0.1; imp = Ω with ξ = 0.1 |
+| **AR1-P** | AR1 as published: the Fisher averaged over past tasks and clipped at maxF = 0.001 ("Fk values are averaged and clipped to 0.001"), and λ = 1/(η · maxF) | imp = min(mean_j f_j, 0.001); λ = 2w, so w = 1/(2 · lr · 0.001) = 10,000 |
+| **AR1-B** | AR1's bound used as the strength, with no maxF constant: λ = 1/(η · max_k F_k) on the accumulated raw Fisher at each task start (an adaptation: AR1's inequality, SEC's units-free direction) | w = 1/(2 · lr · max_k imp_k), recomputed at each task start; imp = the raw accumulated Fisher (the `fixed` arm's) |
+
+- **None of these baselines is clipped by SEC4's guard.** They are run as published. A divergence is reported (SEC6-2's
+  rule, applied to each).
+- **raw Laplace** (`bayes`), unguarded SEC (`bayes_sec`), the one-factor SEC (`bayes_s1`) and Ω = 1 (`eq`) are SEC1's arms,
+  unchanged.
+
+**3. The P1-conditional arms** (the rule is fixed in `SEC_Analysis/DECLARATION.md` before any P1 run):
+- **M1** (the model-Fisher Laplace) and **M2** (endpoint-curvature SEC) are carried if P1's pinned `m_checks.json` shows
+  them not behind the tuned λ on at least (the clipped SEC's count − 1) of the 30 SEEN carriers.
+- **M4** (the arc secant) is carried if it is ahead of the clipped SEC by more than a step on at least 3 of them.
+- The pre-registration states which were carried, quoting `m_checks.json`.
+
+## The development stage (SEEN data only; output `prereg/sec6/dev_SEC6.txt`, covered by the hash)
+
+1. **D-ID.** The clipped SEC run through SEC6's harness equals SEC4's pinned `bayes_sec_clip` accuracy bit for bit, on
+   seed 0 of every SEC4 and SEC5 carrier (14). The same identity holds for `bayes_sec` against SEC1's pinned records on 2
+   SEC1 carriers.
+2. **D-MAP.** Each baseline's mapping is checked on SEC1's synthetic stream:
+   - SI-1 with c forced to 0 equals the fine-tuning run (`fixed` at w = 0 through the same harness) bit for bit.
+   - AR1-B's w is printed per task, with max_k(lr · 2w · imp_k) = 1.0 to 10⁻¹².
+   - AR1-P's imp never exceeds 0.001.
+3. **D-RUN.** Every arm runs on the 30 SEEN carriers of SCL3, SEC3, SEC4 and SEC5 at seeds 0–4.
+   - The count not behind the tuned λ is printed per arm, with divergences.
+   - **Nothing is chosen from D-RUN.** Every baseline's constants come from its paper. D-RUN only shows that the arms run,
+     and what they do on seen data.
+   - D-RUN is not evidence and adds no ledger row. A baseline that does badly on SEEN data is still carried (R7: baselines
+     that can win are not removed for losing).
+
+## The fifth family (carrier selection from metadata only; `studies/sec6/select_carriers.py`)
+
+**The rule.** SEC5's selection script with the suite order changed and nothing else:
+- **Suites:** OpenML study 454 (New_OpenML_Suite_2025_classification), then study 445 (IRT Diverse Dataset Benchmark).
+  Suites are pooled in this order until at least 8 datasets are eligible.
+- **Eligibility:** SEC4's rule, unchanged. At least 4 classes; 400 to 1,000,000 rows; at most 1001 features; not SEEN by id,
+  name or alias.
+- **The records considered SEEN** include the twelve SEC5 carriers and everything else in `data/SEEN.md` on the day of the
+  hash.
+- **Draw:** at most 12, by `default_rng(20261001)` over the sorted eligible ids.
+- **Metadata:** the study records and data lists are re-fetched today and saved in `prereg/sec6/`.
+
+**If fewer than 8 are eligible across both suites,** SEC6 is declared NOT RUNNABLE on this family and stops (R12).
+
+## Hypotheses to be registered (the pre-registration fixes them; stated now)
+
+Here N is the number of scored carriers and need = ⌈0.75 N⌉.
+
+| id | criterion |
+|---|---|
+| **SEC6-1** | the replication: clipped SEC − tuned λ > −step on at least need carriers |
+| **SEC6-2** | no seed of the clipped SEC below 0.5 × the tuned λ's mean |
+| **SEC6-B** | against the published baselines: the clipped SEC is not behind the tuned λ on **strictly more** carriers than each of SI-1, SI-0.1, AR1-P, AR1-B, raw Laplace, and each carried P1 arm. PASS only if it beats every one. |
+| **SEC6-T, SEC6-P, SEC6-S** | as SEC5: the transferred λ, the 3-point sweep, and the sensitivity over the 3 window cells and κ ∈ {0.25, 1.0}. More than 1 flip is FRAGILE. |
+| **SEC6-K, SEC6-E** | compute and firings, reported |
+
+**PASS levels.**
+- **PASS-0 and PASS-1** are as in SEC5.
+- **If SEC6-1 is PASS-1,** it replicates SEC4-1 on a later day under a fresh pre-registration with the same frozen code,
+  which is **PASS-2 by the letter of CLAUDE.md §7**. The row must print beside it that SEC5-1 FAILED on the fourth family,
+  so the clipped SEC's family record is 2 of 3. The ladder prints both.
+
+**Timing.** The pre-registration, the development output, the selection and the frozen scorer are hashed, OTS-stamped and
+pushed on 2026-09-30. **No carrier is fetched before 2026-10-01T00:00Z** (R3).
+
+## Forecasts (written now)
+
+1. **SEC6-1:** FAIL is as likely as PASS. Two families of three were close to the edge, and SEC5 failed on the cap and on
+   noisy seeds.
+2. **SEC6-B:** SI-1 is the strongest baseline. Its per-parameter path secant is the nearest published relative of SEC's
+   calibration. It is behind SEC on fewer carriers than raw Laplace.
+3. **AR1-P** is behind the tuned λ on most carriers: its maxF constant does not transfer across networks.
