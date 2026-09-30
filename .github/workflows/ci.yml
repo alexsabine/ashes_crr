@@ -100,6 +100,9 @@ jobs:
           uv run python Relational_Reference_Memory/checks/grade_w.py > /tmp/rrm_gw.txt && cmp /tmp/rrm_gw.txt Relational_Reference_Memory/checks/grade_w.txt
           uv run python Grid_Demand_Response/checks/grade.py > /tmp/dr1_g.txt && cmp /tmp/dr1_g.txt Grid_Demand_Response/checks/grade.txt
           uv run python Grid_Demand_Response/checks/dr_summary.py > /tmp/dr1_s.txt && cmp /tmp/dr1_s.txt Grid_Demand_Response/checks/dr_summary.txt
+          uv run python SEC_Prior_Art/checks/grade.py > /tmp/spa1_g.txt && cmp /tmp/spa1_g.txt SEC_Prior_Art/checks/grade.txt
+          uv run python Open_Bottlenecks/checks/table.py > /tmp/ob1_t.txt && cmp /tmp/ob1_t.txt Open_Bottlenecks/checks/table.txt
+          uv run python Open_Bottlenecks/checks/grade_s3.py > /tmp/ob1_g3.txt && cmp /tmp/ob1_g3.txt Open_Bottlenecks/checks/grade_s3.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

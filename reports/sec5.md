@@ -127,3 +127,12 @@ family. The failure is SEC's calibration on carriers whose tuned λ lies far fro
   verdict comes from the carriers, not the arithmetic.
 - **Where the verdicts come from.** The failures are the frozen learner's runs on real data, and the rerun reproduced
   byte for byte.
+
+## Addendum (2026-09-30): prior art (SPA1; appended, nothing above changed)
+
+See `SEC_Prior_Art/SPA1.md`. SEC4's method is KNOWN by the declared rule:
+- the clip is AR1's (arXiv 1806.08568 v3);
+- the path-fitted penalty is Synaptic Intelligence's family (arXiv 1703.04200 v3);
+- tuning-free weights are published (VCL; Laplace Redux).
+
+Only the Fisher's secant units calibration itself was not found in the sweep.
