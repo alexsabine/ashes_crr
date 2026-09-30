@@ -375,6 +375,10 @@ def simulate(events: list, start: Fr, end: Fr, arm, jobs: list, C: Fr, gz: list 
             tot["revenue"] += e["price"] * eq * P_JOB
             if m.arm.mech == "pause":
                 busy_until = e["t"] + e["H"] + m.o
+        while t0 + m.completion(n, L) <= end:          # jobs that complete after the last event, within the period
+            done.append((t0, n, L, m.dw(n, L)))
+            t0 = t0 + m.completion(n, L)
+            n, L, busy_until = 0, ZERO, None
         cur = (t0, n, L, m.dw(n, L))
         per_slot.append(dict(job=job, accepted=acc, done=done, current=cur,
                              jobs_done=len(done), max_delay=max([x[3] for x in done] + [cur[3]])))
