@@ -1,67 +1,73 @@
 ======================================================================================================================
-SEC_Analysis A4 and A6 (SEC_Analysis/DECLARATION.md, pushed at 5f64b5f; prompt-log entry 257): forecasts F4 and F6
+SEC_Analysis A4 and A6 (SEC_Analysis/DECLARATION.md at 5f64b5f with Amendments 1 (347cb90) and 2 (e15e1ff); prompt-log entry 257)
+forecasts F4 and F6; Amendment 1's report (F4 and F6 with the floor-bound carriers removed) after A6; Amendment 2 bears on nothing here
 POST HOC on SEEN records; no ledger row. s is read from the unclipped SEC arm (bayes_sec, w = 1/2, fs = fe = 0.1), all tasks, seeds 0-4
+lines and columns marked REPORT are not declared and decide nothing; F4 and F6 read the declared rows only
 ======================================================================================================================
 carriers 42 (sec1 12, scl3 10, sec3 6, sec4 6, sec5 8); s values per carrier = 5 seeds x tasks; s values in all 745
 
 ======================================================================================================================
 A4  is the calibration a units correction of the raw Fisher?  x = log10(0.5 s-bar), y = log10 lambda*_raw
 ======================================================================================================================
-   s-bar = geometric mean of s over tasks and seeds; resid = y - (a + b x) of the pooled fit below; SDw = the within-carrier SD of
-   log10 s across tasks (per seed, ddof 1, averaged over seeds); fb = fallbacks (s = 1) among the carrier's s
-   study carrier                            tasks  n_s  fb  lambda*_raw       y       s-bar       x   resid    median s      min s       max s mean lg s    SDw
-   sec1  fars                                   3   15   0      21.2766  +1.328      7.9202  +0.598  +0.295      7.2892      0.513      118.48    +0.899  1.017
-   sec1  krkopt                                 5   25   0      0.70922  -0.149      1.2913  -0.190  -0.616      1.2688      0.181      7.8734    +0.111  0.493
-   sec1  led24                                  5   25   0         8.49  +0.929      36.509  +1.261  -0.580      57.545      0.877      385.69    +1.562  0.600
-   sec1  led7                                   5   25   0            3  +0.477      25.196  +1.100  -0.916       24.94       1.24       224.3    +1.401  0.523
-   sec1  mfeat_factors                          5   25   3          300  +2.477      2516.4  +3.100  -0.352      4430.2          1  2.8266e+05    +3.401  0.985
-   sec1  mfeat_morphological                    5   25   0         2.83  +0.452      93.549  +1.670  -1.351      36.191      0.857       27001    +1.971  1.410
-   sec1  page_blocks                            2   10   1           30  +1.477      15.951  +0.902  +0.226      23.839          1       68.26    +1.203  0.471
-   sec1  satimage                               3   15   0            3  +0.477      216.61  +2.035  -1.587       97.55       23.9      1763.3    +2.336  0.782
-   sec1  segmentation                           3   15   0          300  +2.477      614.78  +2.488  +0.087      258.14        109        8344    +2.789  0.824
-   sec1  sleep                                  2   10   0           30  +1.477      2.8292  +0.151  +0.766      3.4443      0.523      10.173    +0.452  0.566
-   sec1  wine_quality_white                     2   10   0         14.1  +1.149      0.7126  -0.448  +0.868     0.86909      0.126      2.3081    -0.147  0.518
-   sec1  yeast                                  3   15   1         8.49  +0.929       2.963  +0.171  +0.203      2.0727   0.000962      48.921    +0.472  1.096
-   scl3  GesturePhaseSegmentationProcessed      2   10   0         14.1  +1.149      1.3465  -0.172  +0.669      1.4118      0.468      3.2213    +0.129  0.300
-   scl3  MiceProtein                            4   20   0       709.22  +2.851      2163.9  +3.034  +0.068        3347       3.29      7392.1    +3.335  0.463
-   scl3  cnae-9                                 4   20   3         1410  +3.149       77.18  +1.586  +1.407        3521    6.9e-20       17072    +1.888  2.807
-   scl3  eucalyptus                             2   10   0          1.5  +0.176      4.4332  +0.346  -0.676      5.9864       1.26      11.837    +0.647  0.292
-   scl3  first-order-theorem-proving            3   15   0          1.5  +0.176      1.8826  -0.026  -0.408       1.839      0.831      3.8459    +0.275  0.151
-   scl3  har                                    3   15   0        28300  +4.452      9900.8  +3.695  +1.195       59702       37.8  5.3736e+05    +3.996  1.735
-   scl3  isolet                                 5   25   4        20000  +4.301      3340.5  +3.223  +1.383      8372.1          1  1.5018e+05    +3.524  1.452
-   scl3  semeion                                5   25   0         1500  +3.176      5123.8  +3.409  +0.125      2876.7   1.22e+03       86757    +3.710  0.630
-   scl3  steel-plates-fault                     3   15   1            6  +0.778      42.723  +1.330  -0.780      115.74      0.939      2507.4    +1.631  1.487
-   scl3  wall-robot-navigation                  2   10   0          100  +2.000      10.628  +0.725  +0.876      26.081      0.899       200.2    +1.026  1.454
-   sec3  covertype                              3   15   0           10  +1.000      23.408  +1.068  -0.371       12.97       1.09      955.69    +1.369  1.279
-   sec3  dionis                                 5   25   4          141  +2.149      450.45  +2.353  -0.144      861.27          1  1.5593e+05    +2.654  1.293
-   sec3  fabert                                 3   15   2         14.1  +1.149      257.21  +2.109  -0.969      149.19          1       40127    +2.410  1.850
-   sec3  helena                                 5   25   0         8.49  +0.929      5.5683  +0.445  +0.006       6.374      0.185      16.275    +0.746  0.367
-   sec3  jannis                                 2   10   0           60  +1.778      1.5716  -0.105  +1.250      2.4422      0.383      6.8671    +0.196  0.789
-   sec3  volkert                                5   25   0            6  +0.778      26.965  +1.130  -0.637      29.974          2      465.46    +1.431  0.918
-   sec4  JapaneseVowels                         4   20   0           10  +1.000      165.36  +1.917  -0.980      190.13       10.6      2347.3    +2.218  0.639
-   sec4  anneal                                 2   10   0         42.3  +1.626      14.333  +0.855  +0.409      56.024   7.59e-08      903.27    +1.156  1.853
-   sec4  artificial-characters                  5   25   0         14.1  +1.149      19.472  +0.988  -0.164      21.815       1.32      191.39    +1.289  0.628
-   sec4  cardiotocography                       5   25   1       7092.2  +3.851      4509.3  +3.353  +0.839       10331    0.00519  1.3656e+05    +3.654  0.964
-   sec4  gas-drift                              3   15   0         28.3  +1.452      106.72  +1.727  -0.392      209.75       6.99      691.07    +2.028  0.749
-   sec4  synthetic_control                      3   15   2         4230  +3.626      1516.8  +2.880  +0.955      2251.2          1  1.8582e+05    +3.181  1.278
-   sec5  Indian_pines                           3   15   0           20  +1.301      55.212  +1.441  -0.337      14.499       1.48      9883.9    +1.742  1.782
-   sec5  Kuzushiji-MNIST                        5   25   0          300  +2.477      5315.3  +3.425  -0.586      3009.2        321  3.2414e+05    +3.726  0.848
-   sec5  autoUniv-au6-750                       4   20   0     0.035336  -1.452       5.374  +0.429  -2.363      5.5819       1.54      24.079    +0.730  0.337
-   sec5  microaggregation2                      2   10   0           60  +1.778      1.4877  -0.129  +1.267        1.62      0.603      3.6035    +0.173  0.386
-   sec5  pokerhand                              2   10   0          100  +2.000      1.4475  -0.140  +1.498      4.4981     0.0776      16.416    +0.161  1.296
-   sec5  spoken-arabic-digit                    5   25   0     0.212766  -0.672      1.0259  -0.290  -1.067      1.2379      0.199       2.782    +0.011  0.300
-   sec5  volcanoes-d4                           2   10   1         1000  +3.000      4.7084  +0.372  +2.130      2.7122          1      1166.9    +0.673  0.618
-   sec5  walking-activity                       5   25   0     0.212766  -0.672      1.8091  -0.044  -1.244      2.1485      0.143      24.087    +0.257  0.712
+   s-bar = geometric mean of s over tasks and seeds; SDw = the within-carrier SD of log10 s across tasks (per seed, ddof 1,
+   averaged over seeds); mean lg s = the mean log10 s (its SD across carriers is the between-carrier SD)
+   REPORT columns (descriptive; decide nothing): tasks, n_s, fb = fallbacks (s = 1) among the carrier's s, resid = y - (a + b x)
+   of the pooled fit below, min s, max s, tie = T where the raw-grid maximum is tied (lambda*_raw is then the smallest tied lambda)
+   study carrier                            tasks  n_s  fb  lambda*_raw       y       s-bar       x   resid    median s      min s       max s mean lg s    SDw tie
+   sec1  fars                                   3   15   0      21.2766  +1.328      7.9202  +0.598  +0.295      7.2892      0.513      118.48    +0.899  1.017   -
+   sec1  krkopt                                 5   25   0      0.70922  -0.149      1.2913  -0.190  -0.616      1.2688      0.181      7.8734    +0.111  0.493   -
+   sec1  led24                                  5   25   0         8.49  +0.929      36.509  +1.261  -0.580      57.545      0.877      385.69    +1.562  0.600   -
+   sec1  led7                                   5   25   0            3  +0.477      25.196  +1.100  -0.916       24.94       1.24       224.3    +1.401  0.523   -
+   sec1  mfeat_factors                          5   25   3          300  +2.477      2516.4  +3.100  -0.352      4430.2          1  2.8266e+05    +3.401  0.985   -
+   sec1  mfeat_morphological                    5   25   0         2.83  +0.452      93.549  +1.670  -1.351      36.191      0.857       27001    +1.971  1.410   -
+   sec1  page_blocks                            2   10   1           30  +1.477      15.951  +0.902  +0.226      23.839          1       68.26    +1.203  0.471   -
+   sec1  satimage                               3   15   0            3  +0.477      216.61  +2.035  -1.587       97.55       23.9      1763.3    +2.336  0.782   -
+   sec1  segmentation                           3   15   0          300  +2.477      614.78  +2.488  +0.087      258.14        109        8344    +2.789  0.824   -
+   sec1  sleep                                  2   10   0           30  +1.477      2.8292  +0.151  +0.766      3.4443      0.523      10.173    +0.452  0.566   -
+   sec1  wine_quality_white                     2   10   0         14.1  +1.149      0.7126  -0.448  +0.868     0.86909      0.126      2.3081    -0.147  0.518   -
+   sec1  yeast                                  3   15   1         8.49  +0.929       2.963  +0.171  +0.203      2.0727   0.000962      48.921    +0.472  1.096   -
+   scl3  GesturePhaseSegmentationProcessed      2   10   0         14.1  +1.149      1.3465  -0.172  +0.669      1.4118      0.468      3.2213    +0.129  0.300   -
+   scl3  MiceProtein                            4   20   0       709.22  +2.851      2163.9  +3.034  +0.068        3347       3.29      7392.1    +3.335  0.463   -
+   scl3  cnae-9                                 4   20   3         1410  +3.149       77.18  +1.586  +1.407        3521    6.9e-20       17072    +1.888  2.807   -
+   scl3  eucalyptus                             2   10   0          1.5  +0.176      4.4332  +0.346  -0.676      5.9864       1.26      11.837    +0.647  0.292   -
+   scl3  first-order-theorem-proving            3   15   0          1.5  +0.176      1.8826  -0.026  -0.408       1.839      0.831      3.8459    +0.275  0.151   -
+   scl3  har                                    3   15   0        28300  +4.452      9900.8  +3.695  +1.195       59702       37.8  5.3736e+05    +3.996  1.735   -
+   scl3  isolet                                 5   25   4        20000  +4.301      3340.5  +3.223  +1.383      8372.1          1  1.5018e+05    +3.524  1.452   -
+   scl3  semeion                                5   25   0         1500  +3.176      5123.8  +3.409  +0.125      2876.7   1.22e+03       86757    +3.710  0.630   -
+   scl3  steel-plates-fault                     3   15   1            6  +0.778      42.723  +1.330  -0.780      115.74      0.939      2507.4    +1.631  1.487   -
+   scl3  wall-robot-navigation                  2   10   0          100  +2.000      10.628  +0.725  +0.876      26.081      0.899       200.2    +1.026  1.454   -
+   sec3  covertype                              3   15   0           10  +1.000      23.408  +1.068  -0.371       12.97       1.09      955.69    +1.369  1.279   -
+   sec3  dionis                                 5   25   4          141  +2.149      450.45  +2.353  -0.144      861.27          1  1.5593e+05    +2.654  1.293   -
+   sec3  fabert                                 3   15   2         14.1  +1.149      257.21  +2.109  -0.969      149.19          1       40127    +2.410  1.850   -
+   sec3  helena                                 5   25   0         8.49  +0.929      5.5683  +0.445  +0.006       6.374      0.185      16.275    +0.746  0.367   -
+   sec3  jannis                                 2   10   0           60  +1.778      1.5716  -0.105  +1.250      2.4422      0.383      6.8671    +0.196  0.789   -
+   sec3  volkert                                5   25   0            6  +0.778      26.965  +1.130  -0.637      29.974          2      465.46    +1.431  0.918   -
+   sec4  JapaneseVowels                         4   20   0           10  +1.000      165.36  +1.917  -0.980      190.13       10.6      2347.3    +2.218  0.639   -
+   sec4  anneal                                 2   10   0         42.3  +1.626      14.333  +0.855  +0.409      56.024   7.59e-08      903.27    +1.156  1.853   -
+   sec4  artificial-characters                  5   25   0         14.1  +1.149      19.472  +0.988  -0.164      21.815       1.32      191.39    +1.289  0.628   -
+   sec4  cardiotocography                       5   25   1       7092.2  +3.851      4509.3  +3.353  +0.839       10331    0.00519  1.3656e+05    +3.654  0.964   -
+   sec4  gas-drift                              3   15   0         28.3  +1.452      106.72  +1.727  -0.392      209.75       6.99      691.07    +2.028  0.749   -
+   sec4  synthetic_control                      3   15   2         4230  +3.626      1516.8  +2.880  +0.955      2251.2          1  1.8582e+05    +3.181  1.278   -
+   sec5  Indian_pines                           3   15   0           20  +1.301      55.212  +1.441  -0.337      14.499       1.48      9883.9    +1.742  1.782   -
+   sec5  Kuzushiji-MNIST                        5   25   0          300  +2.477      5315.3  +3.425  -0.586      3009.2        321  3.2414e+05    +3.726  0.848   -
+   sec5  autoUniv-au6-750                       4   20   0     0.035336  -1.452       5.374  +0.429  -2.363      5.5819       1.54      24.079    +0.730  0.337   T
+   sec5  microaggregation2                      2   10   0           60  +1.778      1.4877  -0.129  +1.267        1.62      0.603      3.6035    +0.173  0.386   -
+   sec5  pokerhand                              2   10   0          100  +2.000      1.4475  -0.140  +1.498      4.4981     0.0776      16.416    +0.161  1.296   -
+   sec5  spoken-arabic-digit                    5   25   0     0.212766  -0.672      1.0259  -0.290  -1.067      1.2379      0.199       2.782    +0.011  0.300   -
+   sec5  volcanoes-d4                           2   10   1         1000  +3.000      4.7084  +0.372  +2.130      2.7122          1      1166.9    +0.673  0.618   T
+   sec5  walking-activity                       5   25   0     0.212766  -0.672      1.8091  -0.044  -1.244      2.1485      0.143      24.087    +0.257  0.712   -
 
 pooled over 42 carriers:
-   Spearman(y, x) = 0.54518200331363 (0.545)  (ties in lambda*_raw take average ranks; two-sided p 0.000189)
-   least squares y = a + b x: slope b = 0.7181862157518399 (0.718), intercept a = 0.6033201087630774 (0.603)  (Pearson r 0.676; lambda*_raw = 10^a (0.5 s-bar)^b)
+   Spearman(y, x) = 0.54518200331363 (0.545)  (ties in lambda*_raw take average ranks)
+   least squares y = a + b x: slope b = 0.7181862157518399 (0.718), intercept a = 0.6033201087630774 (0.603)  (lambda*_raw = 10^a (0.5 s-bar)^b)
    carriers with median s > 10: 26 of 42 (half is 21)
    within-carrier SD of log10 s: mean 0.927, median 0.786, min 0.151, max 2.807 over 42 carriers; between-carrier SD of the mean log10 s 1.237; mean within / between 0.750
-   carriers whose within SD exceeds the between SD: 13 of 42
-   fallbacks (s = 1): 23 of 745 s values, on 11 of 42 carriers: sec1/mfeat_factors 3, sec1/page_blocks 1, sec1/yeast 1, scl3/cnae-9 3, scl3/isolet 4, scl3/steel-plates-fault 1, sec3/dionis 4, sec3/fabert 2, sec4/cardiotocography 1, sec4/synthetic_control 2, sec5/volcanoes-d4 1
+   REPORT: Spearman's two-sided p 0.000189; Pearson r 0.676
+   REPORT: carriers whose within SD exceeds the between SD: 13 of 42
+   REPORT: fallbacks (s = 1): 23 of 745 s values, on 11 of 42 carriers: sec1/mfeat_factors 3, sec1/page_blocks 1, sec1/yeast 1, scl3/cnae-9 3, scl3/isolet 4, scl3/steel-plates-fault 1, sec3/dionis 4, sec3/fabert 2, sec4/cardiotocography 1, sec4/synthetic_control 2, sec5/volcanoes-d4 1
 
-per study (Spearman and fit within the study; SDw mean over its carriers; SDb = between-carrier SD of the mean log10 s within the study):
+REPORT (not declared; decides nothing), per study (Spearman and fit within the study; SDw mean over its carriers; SDb = between-carrier
+SD of the mean log10 s within the study):
    study   N  Spearman    slope intercept med s>10   fb SDw mean    SDb median s-bar median lambda*
    sec1   12    +0.250   +0.365    +0.734        7    5    0.774  1.098       20.573         11.295
    scl3   10    +0.875   +0.933    +0.621        7    8    1.077  1.506       59.952         404.61
@@ -69,24 +75,37 @@ per study (Spearman and fit within the study; SDw mean over its carriers; SDb = 
    sec4    6    +0.486   +1.096    -0.024        6    3    1.018  1.001       136.04           35.3
    sec5    8    +0.180   +0.512    +0.646        2    1    0.785  1.256       3.2587             40
 
-REPORT (not declared; decides nothing; F4's word is the declared row's): the pooled statistics under other summaries of s.
+REPORT (not declared; decides nothing): the pooled statistics under other summaries of s.
    The last task's s enters no penalty (no task follows it); task 1's s is computed before any penalty acts; a diverged run's
-   later s are read after the divergence.
-   summary of s per carrier                                     N  Spearman   slope intercept  (a)  (b)
-   geometric mean, all tasks and seeds (DECLARED)              42    0.5452   0.718    +0.603   no  yes
-   geometric mean over tasks 1..T-1                            42    0.4800   0.574    +0.814   no  yes
-   median, all tasks and seeds                                 42    0.6076   0.733    +0.507  yes  yes
-   geometric mean of task 1's s over seeds                     42    0.4914   0.410    +0.896   no   no
-   geometric mean, all tasks; carriers not diverged            32    0.4914   0.754    +0.375   no  yes
+   later s are read after the divergence. No row of this table is F4 and none may be quoted as F4: each summary other than
+   the declared one was chosen after the declared one was computed (CLAUDE.md §10), so no threshold is applied to it here.
+   summary of s per carrier                                     N  Spearman   slope intercept
+   geometric mean, all tasks and seeds (DECLARED)              42    0.5452   0.718    +0.603
+   geometric mean over tasks 1..T-1                            42    0.4800   0.574    +0.814
+   median, all tasks and seeds                                 42    0.6076   0.733    +0.507
+   geometric mean of task 1's s over seeds                     42    0.4914   0.410    +0.896
+   REPORT, a post hoc exclusion (R6 forbids it as an exemption; shown only to read what divergence does to s-bar): the declared
+   summary on the 32 carriers where the unclipped SEC did not diverge: Spearman 0.4914, slope 0.754, intercept +0.375
+
+REPORT (not declared; decides nothing): carriers whose raw-grid maximum is tied within 1e-09 points (2 of 42);
+   lambda*_raw is then the smallest tied lambda (the frozen scorers' tie-break), so y is a tie-break there, not an identified optimum
+   sec5/autoUniv-au6-750: 8 tied grid points, lambda in [0.035336, 0.3] (0 untied grid points inside), tied mean 8.079470198675498; log-middle 0.10296; resid -2.363
+   sec5/volcanoes-d4: 6 tied grid points, lambda in [1000, 10000] (0 untied grid points inside), tied mean 94.994994994995; log-middle 3162.28; resid +2.130
+   lambda*_raw on the tied carriers                             N  Spearman   slope intercept
+   smallest tied lambda (DECLARED, the scorers' tie-break)     42    0.5452   0.718    +0.603
+   largest tied lambda                                         42    0.5337   0.691    +0.684
+   log-middle of the tied range                                42    0.5385   0.705    +0.644
+   tied carriers dropped (a post hoc exclusion)                40    0.5786   0.717    +0.611
 
 F4  (a) Spearman >= 0.6: 0.54518200331363 (0.545) -> no; (b) slope in [0.5, 1.5]: 0.7181862157518399 (0.718) -> yes; (c) median s > 10 on more than half: 26 of 42 -> yes
-F4 FAILS
+F4 FAILS  (Amendment 1's report with the floor-bound carriers removed follows A6)
 
 ======================================================================================================================
 A6  what separates divergence from stability?  s of the unclipped SEC arm; diverged = sec_lib.arm_diverged(C, 'bayes_sec')
 ======================================================================================================================
-   min/tacc = the lowest seed accuracy over the tuned raw mean (diverged below 0.5); nonfin = non-finite seeds or records;
-   REPORT columns: max s over tasks 1..T-1 (the s that enter a penalty), max over seeds of task 1's s (computed before any penalty)
+   min/tacc = the lowest seed accuracy over the tuned raw mean (diverged below 0.5); nonfin = seeds with a non-finite record
+   or accuracy; REPORT columns: max s over tasks 1..T-1 (the s that enter a penalty), max over seeds of task 1's s (computed
+   before any penalty)
    study carrier                                  max s    median s min/tacc nonfin div | max s 1..T-1     max s_1
    sec1  fars                                    118.48      7.2892    0.722      0   N |       27.921      27.921
    sec1  krkopt                                  7.8734      1.2688    0.732      0   N |       7.8734      1.2688
@@ -132,16 +151,16 @@ A6  what separates divergence from stability?  s of the unclipped SEC arm; diver
    sec5  walking-activity                        24.087      2.1485    0.699      0   N |       24.087     0.22321
 
 diverged (unclipped SEC): 10 of 42: sec1/mfeat_factors, sec1/yeast, scl3/cnae-9, sec3/dionis, sec3/fabert, sec4/anneal, sec4/cardiotocography, sec4/synthetic_control, sec5/pokerhand, sec5/volcanoes-d4
-   the same 10 under the accuracy-only rule (sec_lib.diverged with finite=None, SEC4-2/SEC5-2's): 10 of 42
+   under accuracy alone (sec_lib.diverged with finite=None: a seed below 0.5 x tacc or a non-finite accuracy): 10 of 42; under SEC4-2/SEC5-2's literal rule (a seed a with a < 0.5 x tacc): 10 of 42
                                       diverged         rest
    median of per-carrier max s           28599       212.25
    median of per-carrier median s       505.23       22.827
-   median of s-bar                      167.19        21.44
+   REPORT median of s-bar               167.19        21.44
    REPORT max s over tasks 1..T-1        27442       94.982
    REPORT max s_1                        27442       19.176
-   carriers with max s above the rest's median (212.25): diverged 8 of 10, rest 16 of 32
+   REPORT: carriers with max s above the rest's median (212.25): diverged 8 of 10, rest 16 of 32
 
-per study:
+REPORT (not declared; decides nothing), per study:
    study   N diverged median max s (div) median max s (rest)
    sec1   12        2         1.4135e+05              171.39
    scl3   10        1              17072              2507.4
@@ -150,27 +169,33 @@ per study:
    sec5    8        2             591.64              24.083
 
 clipped SEC (bayes_sec_clip, kappa 0.5, primary window; SEC4 and SEC5): firings and guard margins per carrier
-   starts = task starts guarded (tasks - 1 per seed); m >= 0.5 and m >= 1.0 count the margins at or beyond kappa and the edge;
-   m first = the first start's margin per seed (the same in the unclipped SEC run); div = the unclipped SEC diverged
-   study carrier                fired starts        per seed m>=k m>=1 median m   max m                  m first (seeds 0-4) clip nb div
-   sec4  JapaneseVowels             0     15 [0, 0, 0, 0, 0]    0    0   0.1770  0.2377    0.191  0.155  0.089  0.121  0.183       Y   N
-   sec4  anneal                     5      5 [1, 1, 1, 1, 1]    5    1   0.7497  1.4134    0.655  1.413  0.640  0.750  0.847       Y   Y
-   sec4  artificial-characters      0     20 [0, 0, 0, 0, 0]    0    0   0.1112  0.2650    0.052  0.044  0.061  0.044  0.082       Y   N
-   sec4  cardiotocography          11     20 [2, 2, 2, 2, 3]   11    6   0.7004  1.6434    0.216  0.251  0.222  0.174  0.332       Y   Y
-   sec4  gas-drift                  0     10 [0, 0, 0, 0, 0]    0    0   0.1378  0.2978    0.223  0.096  0.091  0.117  0.230       Y   N
-   sec4  synthetic_control         10     10 [2, 2, 2, 2, 2]   10    4   0.8882  2.0442    0.856  0.908  2.044  0.868  0.807       Y   Y
-   sec5  Indian_pines               0     10 [0, 0, 0, 0, 0]    0    0   0.1629  0.3517    0.108  0.136  0.061  0.077  0.077       N   N
-   sec5  Kuzushiji-MNIST            4     20 [4, 0, 0, 0, 0]    4    0   0.3584  0.6396    0.639  0.356  0.392  0.310  0.301       Y   N
-   sec5  autoUniv-au6-750           0     15 [0, 0, 0, 0, 0]    0    0   0.1510  0.3185    0.131  0.112  0.104  0.107  0.147       Y   N
-   sec5  microaggregation2          0      5 [0, 0, 0, 0, 0]    0    0   0.0426  0.0856    0.037  0.034  0.043  0.051  0.086       Y   N
-   sec5  pokerhand                  0      5 [0, 0, 0, 0, 0]    0    0   0.0952  0.1577    0.079  0.101  0.158  0.041  0.095       N   Y
-   sec5  spoken-arabic-digit        0     20 [0, 0, 0, 0, 0]    0    0   0.0437  0.0704    0.042  0.043  0.049  0.030  0.070       Y   N
-   sec5  volcanoes-d4               5      5 [1, 1, 1, 1, 1]    5    5   1.1786  1.5958    1.146  1.596  1.346  1.179  1.030       N   Y
-   sec5  walking-activity           0     20 [0, 0, 0, 0, 0]    0    0   0.1140  0.3564    0.031  0.035  0.026  0.035  0.044       N   N
+   starts = task starts guarded (tasks - 1 per seed); m >= 0.5 counts the margins at or beyond kappa (the firings);
+   m first = the first start's margin per seed (computed from task-1 state before any guard acts; by construction the unclipped
+   SEC's at that start, checked only indirectly below); div = the unclipped SEC diverged
+   REPORT columns: m >= 1.0 counts the margins at or beyond the edge; clip nb = the clipped SEC not behind the tuned lambda
+   study carrier                fired starts        per seed m>=k median m   max m                  m first (seeds 0-4) div | m>=1 clip nb
+   sec4  JapaneseVowels             0     15 [0, 0, 0, 0, 0]    0   0.1770  0.2377    0.191  0.155  0.089  0.121  0.183   N |    0       Y
+   sec4  anneal                     5      5 [1, 1, 1, 1, 1]    5   0.7497  1.4134    0.655  1.413  0.640  0.750  0.847   Y |    1       Y
+   sec4  artificial-characters      0     20 [0, 0, 0, 0, 0]    0   0.1112  0.2650    0.052  0.044  0.061  0.044  0.082   N |    0       Y
+   sec4  cardiotocography          11     20 [2, 2, 2, 2, 3]   11   0.7004  1.6434    0.216  0.251  0.222  0.174  0.332   Y |    6       Y
+   sec4  gas-drift                  0     10 [0, 0, 0, 0, 0]    0   0.1378  0.2978    0.223  0.096  0.091  0.117  0.230   N |    0       Y
+   sec4  synthetic_control         10     10 [2, 2, 2, 2, 2]   10   0.8882  2.0442    0.856  0.908  2.044  0.868  0.807   Y |    4       Y
+   sec5  Indian_pines               0     10 [0, 0, 0, 0, 0]    0   0.1629  0.3517    0.108  0.136  0.061  0.077  0.077   N |    0       N
+   sec5  Kuzushiji-MNIST            4     20 [4, 0, 0, 0, 0]    4   0.3584  0.6396    0.639  0.356  0.392  0.310  0.301   N |    0       Y
+   sec5  autoUniv-au6-750           0     15 [0, 0, 0, 0, 0]    0   0.1510  0.3185    0.131  0.112  0.104  0.107  0.147   N |    0       Y
+   sec5  microaggregation2          0      5 [0, 0, 0, 0, 0]    0   0.0426  0.0856    0.037  0.034  0.043  0.051  0.086   N |    0       Y
+   sec5  pokerhand                  0      5 [0, 0, 0, 0, 0]    0   0.0952  0.1577    0.079  0.101  0.158  0.041  0.095   Y |    0       N
+   sec5  spoken-arabic-digit        0     20 [0, 0, 0, 0, 0]    0   0.0437  0.0704    0.042  0.043  0.049  0.030  0.070   N |    0       Y
+   sec5  volcanoes-d4               5      5 [1, 1, 1, 1, 1]    5   1.1786  1.5958    1.146  1.596  1.346  1.179  1.030   Y |    5       N
+   sec5  walking-activity           0     20 [0, 0, 0, 0, 0]    0   0.1140  0.3564    0.031  0.035  0.026  0.035  0.044   N |    0       N
    fired on 5 of 14 carriers (35 firings); on the unclipped-diverged 4 of 5, on the rest 1 of 9
-   median of per-carrier max margin: unclipped-diverged 1.5958, rest 0.2978; any first-start margin >= 1.0: diverged 3 of 5, rest 0 of 9
-   the first start precedes any guard action: task 1's s equal in the guarded arm (clip, or SEC3's guard) and in the unclipped SEC on every seed on 20 of 20 carriers; where the guard never fired, accuracy and every s equal on 13 of 13
-   REPORT (not declared) over the 20 carriers with guarded records (SEC3's guard included): largest first-start margin >= 1.0 (the unclipped SEC's own, before any penalty step): diverged 5 of 7 (dionis 1.222, fabert 1.082, anneal 1.413, cardiotocography 0.332, synthetic_control 2.044, pokerhand 0.158, volcanoes-d4 1.596), rest 0 of 13 (largest 0.639)
+   median of per-carrier max margin: unclipped-diverged 1.5958, rest 0.2978
+   REPORT (not declared; the edge m >= 1.0 is not a declared threshold): any first-start margin >= 1.0: diverged 3 of 5, rest 0 of 9
+   REPORT, a construction check: the first-start margin is computed from task-1 state before any guard acts, so by construction
+   (D-ID/G-ID) it equals the unclipped SEC's; the unclipped records store no margins, so it is checked only indirectly: task 1's s
+   bit-equal in the guarded arm (clip, or SEC3's guard) and in the unclipped SEC on every seed on 20 of 20 carriers;
+   where the guard never fired, accuracy and every s equal on 13 of 13
+   REPORT (not declared) over the 20 carriers with guarded records (SEC3's guard included): largest first-start margin >= 1.0 (by construction the unclipped SEC's own, computed before any guard acts): diverged 5 of 7 (dionis 1.222, fabert 1.082, anneal 1.413, cardiotocography 0.332, synthetic_control 2.044, pokerhand 0.158, volcanoes-d4 1.596), rest 0 of 13 (largest 0.639)
 
 REPORT (not declared): the other guarded records at the primary window (fired / starts; max margin; first-start margins equal to the clipped or guarded arm's primary record)
    sec3  covertype              bayes_sec_g 1: 0/10, max 0.4413, first equal True; bayes_sec_g 0.5: 0/10, max 0.4413, first equal True; div N
@@ -195,7 +220,56 @@ REPORT (not declared): the other guarded records at the primary window (fired / 
    sec5  walking-activity       bayes_sec_clip 0.25: 2/20, max 0.3564, first equal True; bayes_sec_clip 1: 0/20, max 0.3564, first equal True; div N
 
 F6  median of per-carrier max s: diverged (10) 28599.49242406799 (28599.492) > rest (32) 212.25069213529997 (212.251) -> yes
-F6 HOLDS
+F6 HOLDS  (Amendment 1's report with the floor-bound carriers removed follows)
 
 ======================================================================================================================
-F4 FAILS; F6 HOLDS
+Amendment 1 report (POST HOC in origin; 347cb90; decides nothing): F4 and F6 with the floor-bound carriers removed
+======================================================================================================================
+   floor = 100 x the majority class's share of the loaded rows (header class_counts); floor-bound iff tacc - floor < 3 steps
+   floor-bound: 26 of 42; per study sec1 7/12; scl3 5/10; sec3 5/6; sec4 2/6; sec5 7/8; held-out (SCL3, SEC3, SEC4, SEC5) 19/30
+   study carrier                               floor     tacc   step  (tacc-floor)/step div    median s       max s
+   sec1  fars                                41.8316  12.7400  1.943            -14.974   N      7.2892      118.48
+   sec1  krkopt                              17.5270   6.2926  1.000            -11.234   N      1.2688      7.8734
+   sec1  page_blocks                         90.2200  42.4024 10.899             -4.387   N      23.839       68.26
+   sec1  satimage                            23.8248  22.8428  1.618             -0.607   N       97.55      1763.3
+   sec1  sleep                               54.4000  23.3367  1.115            -27.852   N      3.4443      10.173
+   sec1  wine_quality_white                  46.6667  24.9045  6.739             -3.229   N     0.86909      2.3081
+   sec1  yeast                               33.2138  26.1429  6.042             -1.170   Y      2.0727      48.921
+   scl3  GesturePhaseSegmentationProcessed   33.2466  26.3063  1.035             -6.704   N      1.4118      3.2213
+   scl3  eucalyptus                          37.3849  38.5321  3.529             +0.325   N      5.9864      11.837
+   scl3  first-order-theorem-proving         41.7483  11.8318  1.047            -28.579   N       1.839      3.8459
+   scl3  steel-plates-fault                  35.6840  33.4748  1.191             -1.855   N      115.74      2507.4
+   scl3  wall-robot-navigation               40.4119  24.7648  6.619             -2.364   N      26.081       200.2
+   sec3  covertype                           49.0000  22.8629  4.807             -5.437   N       12.97      955.69
+   sec3  fabert                              24.9200  19.2208  1.000             -5.699   Y      149.19       40127
+   sec3  helena                              16.0768  14.0600  2.975             -0.678   N       6.374      16.275
+   sec3  jannis                              46.0000  22.1800 15.328             -1.554   N      2.4422      6.8671
+   sec3  volkert                             21.9600   5.7600  1.000            -16.200   N      29.974      465.46
+   sec4  anneal                              76.8539  76.8539  5.634             +0.000   Y      56.024      903.27
+   sec4  artificial-characters               13.8655  14.6653  1.962             +0.408   N      21.815      191.39
+   sec5  Indian_pines                        44.6600  55.0649  5.211             +1.997   N      14.499      9883.9
+   sec5  autoUniv-au6-750                    22.0000   8.0795  1.644             -8.469   N      5.5819      24.079
+   sec5  microaggregation2                   57.9600  17.6024 15.522             -2.600   N        1.62      3.6035
+   sec5  pokerhand                           50.4899  43.4600  1.822             -3.859   Y      4.4981      16.416
+   sec5  spoken-arabic-digit                 10.0600   9.8800  1.000             -0.180   N      1.2379       2.782
+   sec5  volcanoes-d4                        94.9400  94.9950  1.000             +0.055   Y      2.7122      1166.9
+   sec5  walking-activity                    19.3200  13.6000  1.137             -5.032   N      2.1485      24.087
+   AMBIGUITY: the amendment says floor-bound carriers are 'removed' but not whether among all 42 or only among the 30 held-out
+   (A12's own counts are pooled over the 30 held-out). The most literal reading, every floor-bound carrier removed (as a1_a3.py
+   does), is read first; the other, SEC1 kept whole and only the held-out floor-bound carriers removed, is printed beside it.
+
+   all floor-bound removed: 16 carriers (sec1 5, scl3 5, sec3 1, sec4 4, sec5 1)
+   F4  (a) Spearman >= 0.6: 0.7522156621387671 (0.752) -> yes; (b) slope in [0.5, 1.5]: 1.2240513317723052 (1.224) -> yes (intercept -0.621); (c) median s > 10 on more than half: 16 of 16 -> yes
+   F4 all floor-bound removed (report): HOLDS
+   F6  median of per-carrier max s: diverged (5) 155927.38247045435 (155927.382) > rest (11) 8343.951759268148 (8343.952) -> yes
+   F6 all floor-bound removed (report): HOLDS
+
+   held-out floor-bound removed, SEC1 kept whole: 23 carriers (sec1 12, scl3 5, sec3 1, sec4 4, sec5 1)
+   F4  (a) Spearman >= 0.6: 0.7329879841632596 (0.733) -> yes; (b) slope in [0.5, 1.5]: 0.7974168809979271 (0.797) -> yes (intercept +0.493); (c) median s > 10 on more than half: 18 of 23 -> yes
+   F4 held-out floor-bound removed, SEC1 kept whole (report): HOLDS
+   F6  median of per-carrier max s: diverged (6) 146243.49239147548 (146243.492) > rest (17) 1763.254027898844 (1763.254) -> yes
+   F6 held-out floor-bound removed, SEC1 kept whole (report): HOLDS
+
+======================================================================================================================
+F4 FAILS; F6 HOLDS  (the declared words, all 42 carriers)
+Amendment 1 report (post hoc in origin; decides nothing): all floor-bound removed (16): F4 HOLDS, F6 HOLDS; held-out floor-bound removed, SEC1 kept whole (23): F4 HOLDS, F6 HOLDS
