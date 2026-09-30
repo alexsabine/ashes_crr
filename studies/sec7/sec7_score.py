@@ -404,6 +404,17 @@ def dev_report(idpath, gatepath, paths):
     print("SEC7 development stage (prereg/sec7/DEV_DECLARATION.md, Amendment 1) on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, seeds 0-4, with the "
           "declared random class order and balanced accuracy. Nothing is chosen from D-RUN; it is not evidence and adds no ledger row.")
     print("=" * 118); print(idtxt.rstrip()); print("-" * 118); print(gatetxt.rstrip()); print("=" * 118)
+    old = (ROOT / "prereg" / "sec6" / "dev_SEC6.txt").read_text().splitlines()
+    keep = [ln.strip() for ln in old if re.match(r"^(SI-1C|AR1-B) +: not behind the tuned lambda|^\(pinned, not rerun\) (clipped SEC|raw Laplace|unguarded SEC): not behind \d", ln)]
+    mline = [ln.strip() for ln in (ROOT / "SEC_Analysis" / "checks" / "m_checks.txt").read_text().splitlines() if ln.strip().startswith("M6: not behind")]
+    oldline = ("the old stream (largest classes first, raw accuracy), for comparison: prereg/sec6/dev_SEC6.txt reads " + " | ".join(keep)
+               + "; SEC_Analysis/checks/m_checks.txt reads " + (mline[0] if mline else "(line not found)"))
+    if not any("run" in r for r in recs):
+        closed = gatetxt.strip().endswith("D-GATE-7 CLOSED")
+        print(oldline)
+        print("D-GATE-7 CLOSED: SEC7 stops (R12; DEV_DECLARATION.md): no D-RUN and no pre-registration. On these carriers a random class order with "
+              "balanced accuracy does not make the criterion informative." if closed else "D-RUN not yet run.")
+        return
     arms = ("bayes_sec_clip", "bayes_sec", "bayes", "eq", "si1c", "ar1b", "edge")
     get = lambda r, a: (r["arms"][a] if a in ("edge", "bayes_sec_clip") else r.get("run", {}).get(a))  # noqa: E731
     fmt = lambda xs: " ".join("%.2f" % v for v in xs)  # noqa: E731
@@ -429,11 +440,7 @@ def dev_report(idpath, gatepath, paths):
         kc = sum(float(np.mean(get(r, a)["bal"])) - r["run"]["fixed_clip"]["tacc"] > -r["run"]["fixed_clip"]["step"] for r in hc)
         dv = [r["name"] for r in hv if any(v < DIV_FRAC * r["tacc"] for v in get(r, a)["bal"])]
         print(f"{NAMES[a]:15}: not behind the tuned lambda {k}/{len(hv)}; not behind the tuned clipped lambda {kc}/{len(hc)}; divergent ({len(dv)}): {dv}")
-    old = (ROOT / "prereg" / "sec6" / "dev_SEC6.txt").read_text().splitlines()
-    keep = [ln.strip() for ln in old if re.match(r"^(SI-1C|AR1-B) +: not behind the tuned lambda|^\(pinned, not rerun\) (clipped SEC|raw Laplace|unguarded SEC): not behind \d", ln)]
-    mline = [ln.strip() for ln in (ROOT / "SEC_Analysis" / "checks" / "m_checks.txt").read_text().splitlines() if ln.strip().startswith("M6: not behind")]
-    print("the old stream (largest classes first, raw accuracy), for comparison: prereg/sec6/dev_SEC6.txt reads " + " | ".join(keep)
-          + "; SEC_Analysis/checks/m_checks.txt reads " + (mline[0] if mline else "(line not found)"))
+    print(oldline)
 
 
 # ---------------------------------------------------------------- scoring (SEC7-G, GC, 1, C, B, 2, T, P, S, K)

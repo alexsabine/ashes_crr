@@ -261,7 +261,8 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     SEC3-3-G         seen      report (no verdict registered)
     SEC4-1-G         seen      report (no verdict registered)
     SEC5-1-G         seen      report (no verdict registered)
-    rows 193; by data status and allocation:
+    SEC7-A           seen      gate closed (not run)
+    rows 194; by data status and allocation:
         held-out  FAIL                                                 34
         held-out  NOT DECIDABLE                                        5
         held-out  PASS as scored, forced by the construction (not R6)  3
@@ -288,7 +289,7 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         seen      PASS on seen data                                    8
         seen      VOID                                                 1
         seen      control holds                                        4
-        seen      gate closed (not run)                                8
+        seen      gate closed (not run)                                9
         seen      holds on seen data                                   1
         seen      not a PASS (fragile at the boundary)                 1
         seen      numbers reported                                     1

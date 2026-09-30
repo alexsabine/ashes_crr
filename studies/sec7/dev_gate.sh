@@ -15,6 +15,7 @@ uv run python studies/sec7/sec7_score.py devlist | xargs -P 3 -L 1 bash -c \
 N=$(ls "$LOGS"/exit_*.txt | wc -l); BAD=$(cat "$LOGS"/exit_*.txt | grep -v "exit 0$" | tr '\n' ';')
 if [ "$STAGE" = gate ]; then
   uv run python studies/sec7/sec7_score.py devgatereport "$DEV"/gate_*.jsonl > "$DEV/gate7.txt" 2> "$LOGS/report.err"
+  uv run python studies/sec7/sec7_score.py devreport "$DEV/devid.txt" "$DEV/gate7.txt" "$DEV"/gate_*.jsonl > prereg/sec7/dev_SEC7.txt 2>> "$LOGS/report.err"
 else
   uv run python studies/sec7/sec7_score.py devreport "$DEV/devid.txt" "$DEV/gate7.txt" "$DEV"/gate_*.jsonl "$DEV"/run_*.jsonl > prereg/sec7/dev_SEC7.txt 2> "$LOGS/report.err"
 fi

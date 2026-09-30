@@ -17,7 +17,7 @@ CHOICES:
   C7 an inference pause, a must-fail control and a limit case are printed beside, never as a basis
   SENSITIVITIES (the review of 2026-09-30): a decisive item prints the grade under a stricter reading; the primary grade
      stays the declaration's 'highest rung that applies'
-ledger/LEDGER.md: sha256 e57873e9d623e7bd0af53cea765b0e4d9d739346d03357f46e6ef004de044a4b; rows parsed 203 (10 cells each); rows with another cell count 0; duplicate ids 0
+ledger/LEDGER.md: sha256 1131975ea614a2f5880dca416ab334751e2fd1dac15270eeba3715a3c86e0ba5; rows parsed 204 (10 cells each); rows with another cell count 0; duplicate ids 0
 
 ----------------------------------------------------------------------------------------------------------------------
 K1  a continual-learning penalty set without a hyperparameter sweep
