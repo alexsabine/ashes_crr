@@ -4,40 +4,40 @@ Laplace), M2 (endpoint curvature), M4 (arc secant), M5 (FREEZE-TOP), M6 (EDGE), 
 from the pinned records
 POST HOC on SEEN carriers; declared checks on seen data, not a test; no ledger row. tuned lambda, tacc, step: sec_lib
 ======================================================================================================================
-provenance: uv.lock sha256 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2; m_checks.py sha256 145081ff7a393cd9919bd46f9a6952e48f76f75f1b4df10ce53de0de524991eb
-            frozen sec4_score.py c9701c310ac86e10d2a0c8c2362d6dadfdf1b65d167e942a0906eb936a9009f3; sec1_score.py db490c8ac30871ad5105d966adc09866a667acb6d099a9e4bc9dd022e54c3495; numpy 2.5.3, Python 3.14.0rc2
+provenance: uv.lock sha256 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2; m_checks.py sha256 23512f38052bbd3d3a8f878d75e6b2029bf126fcbe1fd7c606c827cc9dd32570
+            frozen sec4_score.py c9701c310ac86e10d2a0c8c2362d6dadfdf1b65d167e942a0906eb936a9009f3; sec1_score.py db490c8ac30871ad5105d966adc09866a667acb6d099a9e4bc9dd022e54c3495; numpy 2.5.3, Python 3.14
 the m_runs files read (30), with the header each carries (the runner's uv.lock and m_checks.py against the current):
-   scl3_1468.jsonl        bc193c309030060dcd608264b8121ed3d3ee3f94ed0292e1d70405c5df4287f7  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_1475.jsonl        5721b4423e170cf26d11d8132fab6a0a0dae8e11c341e08e8d237efd9a24d571  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_1478.jsonl        e69d725f43769762252824c8a66ed36aa4258698631c7b0c6ddea722219c591a  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_1497.jsonl        790299438d8d6c7ab001899642ff569c4dd9c0627efeeb996db6262eef2b1401  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_1501.jsonl        81fb104ee5335b9bb0d9c9f8142ec08fdd30277e82efd05f5cf898cfe526a4f4  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_188.jsonl         7b21eea0502994b4f1fdf0139bb7ac8f121394383ede608e033375ab10f54601  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_300.jsonl         de6e16ff69a6c4f506b144a2ea16db28cb310f3371a96e234af9b0ca0064385d  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_40966.jsonl       94521c274454151e45419eacb54792ce7e5942c1c23ff9e6183eb6d046d4eb65  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_40982.jsonl       96052becae520ff719591d202074e483e69d0f4e5021a635c21a8a903538acfd  uv.lock SAME, m_checks.py SAME, frozen SAME
-   scl3_4538.jsonl        56127db3b1d21865fcc71f824fccaa350600e656a4387df3e56f5e39247f9c56  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec3_1596.jsonl        89a3837e3645f8e8d2195e1da7d33324a438ecbaf9d461de3f8bfb8a30d7a388  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec3_41164.jsonl       fab7ae520846ecd75f879597c3dd5b2a20c7798ce56f4a43b896b920619f8871  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec3_41166.jsonl       2da60a0610fd1c0bc3313f98c3b2277cd4c4709ceb74bf371058c42c96c7bb25  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec3_41167.jsonl       0269abe053718eed6ce210483e015767955be523e08fe56e15ced46f810a6ca4  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec3_41168.jsonl       3582a8375f6de2ea45f7b699a4d0153c0de395a7074666c4a4f19db05e80d14b  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec3_41169.jsonl       bd2eb9a372a71c1bc27810402aa904291c986791b659de38673c35ee92ef0519  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec4_1459.jsonl        0c569f52702cc0e98ac5f264aec93b7fe4a7bd3b58957b4e3905c4c5fdee23de  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec4_1466.jsonl        bd325f3038ecdb6c3b991c975179ff1c26a6d5e165aebf44c59abf04c399749e  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec4_1476.jsonl        29d37829cb0dfb06737a1aed67c93e06dd33ee1d3310a08f6e1519e9b6baf44e  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec4_375.jsonl         b26f457a441064c94c02241a1eb71c21775c35378caf7e8aeed8e8eb5e9d6e76  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec4_377.jsonl         c05619f879352c3a7a4bf286226c35001aac4108322537f2ce95d5a81611c034  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec4_46906.jsonl       fcb8d45e4c2aba923399fdcd7278098f87c69a67ed2839bce5934692ea4f3e81  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_1503.jsonl        b5eef810187217cdb606e38abcbf3a7ee96bf6ca8cd6114c01d379c51aaced0f  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_1509.jsonl        4e48ec916b86a85d8a9b772b494174c2c4e0b28132da1d32997269a852f4ad60  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_1541.jsonl        1c905c2a3a938c1c680ba46adeca31e7ac16188c699a9901de070b3ca707cc6a  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_1549.jsonl        983f2f142733440e2568e02ef491e5d78e3aa0289cac8610594493e74181a8b4  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_155.jsonl         de9008d396a0993db4683cec1861d1c0a121efd3236a1fc3cfae7aa384229276  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_41671.jsonl       eb77ab5a969928120908fdd461359126264e4c318226e4914f9cd5fc563c08d3  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_41972.jsonl       f27e9ea9ad700cddc6eb2d64a488e61ce410076e7366fc0ed33697cd4b7192e2  uv.lock SAME, m_checks.py SAME, frozen SAME
-   sec5_41982.jsonl       f27f9244f21ee3b306c7e9a11f5116e758c07a771d517d97ee65e972ac5821ec  uv.lock SAME, m_checks.py SAME, frozen SAME
-   headers: uv.lock SAME on 30/30; m_checks.py SAME on 30/30 (CHANGED means this file was edited after the run: the runner's sha256 is in the header); frozen learner SAME on 30/30
+   scl3_1468.jsonl        bc193c309030060dcd608264b8121ed3d3ee3f94ed0292e1d70405c5df4287f7  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_1475.jsonl        5721b4423e170cf26d11d8132fab6a0a0dae8e11c341e08e8d237efd9a24d571  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_1478.jsonl        e69d725f43769762252824c8a66ed36aa4258698631c7b0c6ddea722219c591a  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_1497.jsonl        790299438d8d6c7ab001899642ff569c4dd9c0627efeeb996db6262eef2b1401  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_1501.jsonl        81fb104ee5335b9bb0d9c9f8142ec08fdd30277e82efd05f5cf898cfe526a4f4  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_188.jsonl         7b21eea0502994b4f1fdf0139bb7ac8f121394383ede608e033375ab10f54601  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_300.jsonl         de6e16ff69a6c4f506b144a2ea16db28cb310f3371a96e234af9b0ca0064385d  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_40966.jsonl       94521c274454151e45419eacb54792ce7e5942c1c23ff9e6183eb6d046d4eb65  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_40982.jsonl       96052becae520ff719591d202074e483e69d0f4e5021a635c21a8a903538acfd  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   scl3_4538.jsonl        56127db3b1d21865fcc71f824fccaa350600e656a4387df3e56f5e39247f9c56  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec3_1596.jsonl        89a3837e3645f8e8d2195e1da7d33324a438ecbaf9d461de3f8bfb8a30d7a388  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec3_41164.jsonl       fab7ae520846ecd75f879597c3dd5b2a20c7798ce56f4a43b896b920619f8871  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec3_41166.jsonl       2da60a0610fd1c0bc3313f98c3b2277cd4c4709ceb74bf371058c42c96c7bb25  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec3_41167.jsonl       0269abe053718eed6ce210483e015767955be523e08fe56e15ced46f810a6ca4  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec3_41168.jsonl       3582a8375f6de2ea45f7b699a4d0153c0de395a7074666c4a4f19db05e80d14b  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec3_41169.jsonl       bd2eb9a372a71c1bc27810402aa904291c986791b659de38673c35ee92ef0519  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec4_1459.jsonl        0c569f52702cc0e98ac5f264aec93b7fe4a7bd3b58957b4e3905c4c5fdee23de  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec4_1466.jsonl        bd325f3038ecdb6c3b991c975179ff1c26a6d5e165aebf44c59abf04c399749e  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec4_1476.jsonl        29d37829cb0dfb06737a1aed67c93e06dd33ee1d3310a08f6e1519e9b6baf44e  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec4_375.jsonl         b26f457a441064c94c02241a1eb71c21775c35378caf7e8aeed8e8eb5e9d6e76  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec4_377.jsonl         c05619f879352c3a7a4bf286226c35001aac4108322537f2ce95d5a81611c034  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec4_46906.jsonl       fcb8d45e4c2aba923399fdcd7278098f87c69a67ed2839bce5934692ea4f3e81  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_1503.jsonl        b5eef810187217cdb606e38abcbf3a7ee96bf6ca8cd6114c01d379c51aaced0f  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_1509.jsonl        4e48ec916b86a85d8a9b772b494174c2c4e0b28132da1d32997269a852f4ad60  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_1541.jsonl        1c905c2a3a938c1c680ba46adeca31e7ac16188c699a9901de070b3ca707cc6a  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_1549.jsonl        983f2f142733440e2568e02ef491e5d78e3aa0289cac8610594493e74181a8b4  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_155.jsonl         de9008d396a0993db4683cec1861d1c0a121efd3236a1fc3cfae7aa384229276  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_41671.jsonl       eb77ab5a969928120908fdd461359126264e4c318226e4914f9cd5fc563c08d3  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_41972.jsonl       f27e9ea9ad700cddc6eb2d64a488e61ce410076e7366fc0ed33697cd4b7192e2  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   sec5_41982.jsonl       f27f9244f21ee3b306c7e9a11f5116e758c07a771d517d97ee65e972ac5821ec  uv.lock SAME, m_checks.py CHANGED, frozen SAME
+   headers: uv.lock SAME on 30/30; m_checks.py SAME on 0/30 (CHANGED means this file was edited after the run: the runner's sha256 is in the header); frozen learner SAME on 30/30
 
 carriers with all six arms x seeds 0-4 in m_runs: 30/30
 

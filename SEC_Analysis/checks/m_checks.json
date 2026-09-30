@@ -904,7 +904,7 @@
   }
  },
  "provenance": {
-  "m_checks_sha256": "145081ff7a393cd9919bd46f9a6952e48f76f75f1b4df10ce53de0de524991eb",
+  "m_checks_sha256": "23512f38052bbd3d3a8f878d75e6b2029bf126fcbe1fd7c606c827cc9dd32570",
   "m_runs": {
    "scl3_1468.jsonl": "bc193c309030060dcd608264b8121ed3d3ee3f94ed0292e1d70405c5df4287f7",
    "scl3_1475.jsonl": "5721b4423e170cf26d11d8132fab6a0a0dae8e11c341e08e8d237efd9a24d571",
@@ -938,7 +938,7 @@
    "sec5_41982.jsonl": "f27f9244f21ee3b306c7e9a11f5116e758c07a771d517d97ee65e972ac5821ec"
   },
   "numpy": "2.5.3",
-  "python": "3.14.0rc2",
+  "python": "3.14",
   "sec1_score_sha256": "db490c8ac30871ad5105d966adc09866a667acb6d099a9e4bc9dd022e54c3495",
   "sec4_score_sha256": "c9701c310ac86e10d2a0c8c2362d6dadfdf1b65d167e942a0906eb936a9009f3",
   "uv_lock_sha256": "34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2"

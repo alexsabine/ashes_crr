@@ -8,8 +8,10 @@ extras and the operator's pauses added around it:
   transport          at the end of every later task, every stored class mean is moved by rrm_lib.hopdc_transport, unchanged
                      (tau 0.05, k 400), with the anchors taken from the current task's training rows: their features under the
                      previous task end's weights (SEC's theta_star) and under the current weights; covariances are not moved
+                     (a named deviation from the declaration's 'every stored class's statistics are moved': only the means are)
   readouts           (i) the network's own head (SEC1's net.acc); (ii) NCM on the stored statistics with a diagonal Gaussian
-                     likelihood (ncm_gauss below)
+                     likelihood (ncm_gauss below); POST HOC report diagnostic (after the first run, review request): the same NCM
+                     with the ORACLE means (every class's training rows through the final weights), recorded as acc_ncm_oracle
   penalty            'sec' (the clipped SEC) or 'none' (fine-tuning: the same loop with the penalty term removed; the Fisher,
                      the secant and the guard are still computed as diagnostics, so the training rng is consumed exactly as in
                      the 'sec' arm)
@@ -300,13 +302,18 @@ def run_cpl(seed, Xtr, ytr, Xte, yte, K, per_task, penalty="sec", transport=True
                    theta_sha=hashlib.sha256(theta.tobytes()).hexdigest(), stats_sha=stats_sha(st["stats"]) if stats else None,
                    finite=bool(np.all(np.isfinite(theta))))
         if stats:                                                                         # report: stored means against the current ones
-            last = set(tasks[-1]); rel = []
-            for cc, (mu, _, j) in sorted(st["stats"].items()):
+            last = set(tasks[-1]); rel = []; orc = {}
+            for cc, (mu, v, j) in sorted(st["stats"].items()):
+                o = net.forward(Xtr[ytr == cc])[0].mean(0); orc[cc] = (o, v, j)
                 if cc in last:
                     continue
-                o = net.forward(Xtr[ytr == cc])[0].mean(0); no = float(np.linalg.norm(o))
+                no = float(np.linalg.norm(o))
                 rel.append(float(np.linalg.norm(mu - o)) / max(no, 1e-12))
             rec["rel_err_old"] = float(np.mean(rel)) if rel and np.all(np.isfinite(rel)) else None
+            # POST HOC report diagnostic (added after the first run, at an adversarial review's request): the same Gaussian NCM
+            # readout with every class mean replaced by the mean of its training rows' features under the final weights (the
+            # ORACLE means; a ceiling an exemplar-free learner cannot have), covariances as stored. No rng, no state touched.
+            rec["acc_ncm_oracle"] = ncm_gauss(Zte, yte, orc)
     return rec
 
 

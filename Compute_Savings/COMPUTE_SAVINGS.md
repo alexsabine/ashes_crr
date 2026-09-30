@@ -121,3 +121,19 @@ penalty-like weights × the share of such a sweep SEC removes.
 `checks/global_estimate.py` + pinned `.txt`) extends the model above to compute and CO₂ for 2026 and 2030. It reads the
 saving per sweep from every pinned SEC study rather than from SCL3 alone, and includes the divergences SEC3 found. It is
 re-pinned once SEC4 is scored.
+
+## Addendum 2026-09-30: the criterion behind the saving
+
+This note reads the saving from SCL3 (SCL3-3: SEC not behind the tuned λ on 9/10).
+
+**SCL3 is not affected.** SEC6's later instrument rule was applied to SCL3-3 as a post hoc report (SCL3-3-G). It reads
+gate OPEN: a learner frozen after task 1 is not behind the tuned λ on 7/10, against a need of 8. The criterion could fail
+there, so SCL3-3 stands as scored.
+
+**The other SEC studies are.**
+- **SEC4-1-G: gate CLOSED.** The frozen learner is not behind on 5/6 (need 5).
+- **The later studies failed.** SEC3-3 and SEC5-1 FAIL as scored.
+- **Across all 30 held-out carriers,** the frozen learner is not behind on 24/30 (`SEC_Analysis/checks/m_checks.txt`).
+
+So on these class-incremental streams, "not behind the tuned λ" is a weak mark of success. See the addendum to
+`GLOBAL_ESTIMATE.md` and `SEC_Analysis/WHY_SEC4_WORKED.md`. The figures above are not re-pinned.

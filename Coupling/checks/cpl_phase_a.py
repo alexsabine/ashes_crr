@@ -65,8 +65,10 @@ CHOICES = [
     "covariance per task pooled within class (mean over the task's rows of (h - its class mean)^2)",
     "transport: at the end of every task after the first, all stored class means are moved by rrm_lib.hopdc_transport (tau 0.05, k 400) "
     "with the anchor pool = all current-task training rows, H_A(cut) their features under the previous task end's weights (SEC's "
-    "theta_star), H_A(now) under the current weights; hopdc's own top-k keeps the 400 most similar anchors per mean; covariances are not "
-    "moved (a translation leaves a covariance unchanged); no rng is drawn",
+    "theta_star), H_A(now) under the current weights; hopdc's own top-k keeps the 400 most similar anchors per mean; no rng is drawn. "
+    "NAMED DEVIATION: the declaration says 'every stored class's statistics are moved by HopDC-type anchor drift'; here only the class "
+    "means are moved and the stored diagonal covariances are kept as stored (HopDC's transport moves a point; a translation leaves a "
+    "covariance unchanged)",
     "NCM readout: diagonal Gaussian log-likelihood, equal priors, over all K stored classes; each class uses its task's covariance shrunk "
     "toward its mean variance with RQM's ALPHA 0.1 (v' = 0.9 v + 0.1 mean(v); ReLU features have zero-variance units); accuracy 0 if the "
     "test features or the statistics are non-finite (as SEC1's net.acc)",
@@ -89,6 +91,19 @@ CHOICES = [
     "ADDS iff the gate is OPEN and the count is at least ceil(2/3 x that number); none such -> does not add",
     "forecast 3 read without a quantifier as every carrier: I_NCM not positive by more than a step on every carrier, and the rule's word "
     "is not ADDS; forecast 2's 'most other SEEN carriers' = more than half of the 29 SEEN carriers other than Kuzushiji-MNIST",
+]
+
+POST_HOC = [
+    "ORACLE-means NCM: the declared Gaussian NCM readout with every class mean replaced by the mean of its training rows' features "
+    "under the final weights (a ceiling an exemplar-free learner cannot have; covariances as stored); recorded per run as "
+    "acc_ncm_oracle; ORACLE - STALE is paired per seed on the transport-off arm (FT and SEC), with the declared step",
+    "per drift world, the declaration's fixed consequence of a failed G-DRIFT ('transport has nothing to fix in this learner') is "
+    "replaced by computed words from ORACLE - STALE and T - STALE under FT (G-DRIFT's penalty); the rotated stream's stale relative "
+    "error (FT) is ranked against the 30 SEEN carriers",
+    "with the gate CLOSED, the adds-something line prints the I_NCM label counts without an interpretive word (the declaration: C2 is "
+    "reported without interpretation); the adds-something verdict is unchanged",
+    "under C2, for every stream with I_NCM > step, the transport effect on NCM under each penalty; under C3, ER-20 minus the SEC-only "
+    "NCM (no transport) beside ER-20 minus the coupled best readout",
 ]
 
 
@@ -202,6 +217,16 @@ def _cmp(d):
     return m, st, ("POSITIVE" if m > st else ("NEGATIVE" if m < -st else "WITHIN"))
 
 
+def _eff(m):
+    return "harms" if m < 0 else ("helps" if m > 0 else "does not change NCM")
+
+
+def _rel(A, arm):
+    """Seed mean of the relative error of the stored old-class means against the current ones (nan if any seed has none)."""
+    v = [r["rel_err_old"] for r in A[arm]]
+    return float(np.mean(v)) if all(x is not None for x in v) else float("nan")
+
+
 def _same(u, v):
     return u["theta_sha"] == v["theta_sha"] and u["s"] == v["s"] and u["stats_sha"] == v["stats_sha"]
 
@@ -229,6 +254,10 @@ def report():
     print("CHOICES (underspecified points; the most literal, simplest reading; fixed in the code before any CPL1 output was read):")
     for i, c in enumerate(CHOICES, 1):
         print(f"CHOICES {i:2d}: {c}")
+    print("POST HOC (added after the first run, at an adversarial review's request; report lines only; no gate, forecast or "
+          "adds-something rule changed; the run-1 report is kept as cpl_phase_a_run1.txt):")
+    for i, c in enumerate(POST_HOC, 1):
+        print(f"POST HOC {i}: {c}")
     print("-" * W)
     print("provenance (R9): " + "; ".join(f"{k} {v[:16]}" for k, v in prov["sha256"].items()) + f"; numpy {prov['numpy']}; python {prov['python']}")
     same_h = [k for k in have if H[k]["sha256"] == prov["sha256"]]
@@ -305,6 +334,36 @@ def report():
     print(f"I_NCM over the {N} streams: positive by more than a step {cnt['POSITIVE']}, negative by more than a step {cnt['NEGATIVE']}, within a step {cnt['WITHIN']}; "
           f"median I_NCM {np.median([I[k][0] for k in have]):+.4f}")
     print(f"G-DRIFT (per stream) holds on {sum(gd.values())}/{N}: {[H[k]['dataset'] for k in have if gd[k]]}")
+    for k in have:
+        if lab_I[k] != "POSITIVE":
+            continue
+        A = Rr[k]
+        eS, sS_, lS_ = _cmp(_v(A["SEC+T"], "acc_ncm") - _v(A["SEC"], "acc_ncm")); eF, sF_, lF_ = _cmp(_v(A["FT+T"], "acc_ncm") - _v(A["FT"], "acc_ncm"))
+        if eS < 0 and eF < 0:
+            words = "transport harms under both penalties; SEC damps the harm"
+        elif eS > 0 and eF > 0:
+            words = "transport helps under both penalties; more under SEC"
+        else:
+            words = f"transport {_eff(eS)} under SEC and {_eff(eF)} under FT"
+        print(f"REPORT (I_NCM > step) [{H[k]['dataset']}] transport effect on NCM (T - STALE): under SEC {eS:+.3f} (step {sS_:.2f}) {lS_}, "
+              f"under FT {eF:+.3f} (step {sF_:.2f}) {lF_} -> {words}")
+    print("REPORT ORACLE-means NCM (POST HOC diagnostic; the true current class means, a ceiling no exemplar-free learner has; covariances as stored),")
+    print("paired per seed against the stale statistics (transport off) and against the transported ones, under FT and under SEC:")
+    orc = {}
+    for k in have:
+        A = Rr[k]; row = {}
+        for pen, off, on in (("FT", "FT", "FT+T"), ("SEC", "SEC", "SEC+T")):
+            st_ = _v(A[off], "acc_ncm"); o_ = _v(A[off], "acc_ncm_oracle"); t_ = _v(A[on], "acc_ncm")
+            row[pen] = dict(oracle=float(o_.mean()), OS=_cmp(o_ - st_), TS=_cmp(t_ - st_))
+        orc[k] = row
+        print(f"  [{H[k]['dataset']}] " + "; ".join(
+            f"{pen}: ORACLE {row[pen]['oracle']:.2f}, ORACLE - STALE {row[pen]['OS'][0]:+.3f} (step {row[pen]['OS'][1]:.2f}) {row[pen]['OS'][2]}, "
+            f"T - STALE {row[pen]['TS'][0]:+.3f} ({row[pen]['TS'][2]})" for pen in ("FT", "SEC")))
+    for pen in ("FT", "SEC"):
+        dr = [k for k in have if orc[k][pen]["OS"][2] == "POSITIVE"]
+        fx = [k for k in dr if orc[k][pen]["TS"][2] == "POSITIVE"]; wr = [k for k in dr if orc[k][pen]["TS"][2] == "NEGATIVE"]
+        print(f"REPORT under {pen}: ORACLE ahead of STALE by more than a step on {len(dr)}/{N} streams {[H[k]['dataset'] for k in dr]}; "
+              f"on those, the transport ahead of STALE by more than a step on {len(fx)}, behind by more than a step on {len(wr)}")
 
     # ---------------- C4
     print("\n" + "=" * W); print("C4: the drift world (C2 printed separately): the rotated synthetic stream and Kuzushiji-MNIST (the highest-drift SEEN carrier in T7)"); print("=" * W)
@@ -315,6 +374,27 @@ def report():
         for a in ("SEC+T", "SEC", "FT+T", "FT"):
             print(f"  [{H[k]['dataset']}] {a:5} NCM [{' '.join('%.2f' % x for x in _v(A[a], 'acc_ncm'))}] head [{' '.join('%.2f' % x for x in _v(A[a]))}]")
         print(f"  [{H[k]['dataset']}] I_NCM {I[k][0]:+.4f} (step {I[k][1]:.2f}) {lab_I[k]}; G-DRIFT {'holds' if gd[k] else 'fails'}")
+        print(f"  [{H[k]['dataset']}] REPORT stale relative error of the old-class means against the current ones: FT {_rel(A, 'FT'):.4f}, SEC {_rel(A, 'SEC'):.4f}")
+        mO, sO, lO = orc[k]["FT"]["OS"]; mT, sT, lT = orc[k]["FT"]["TS"]
+        if lO == "POSITIVE":
+            tail = ("this exemplar-free transport recovers part of it by more than a step" if lT == "POSITIVE" else
+                    ("this exemplar-free transport does not fix it and lowers NCM by more than a step" if lT == "NEGATIVE" else
+                     "this exemplar-free transport does not fix it"))
+            print(f"  [{H[k]['dataset']}] REPORT (FT) there is drift to fix (ORACLE - STALE = {mO:+.3f}, step {sO:.2f}); {tail} "
+                  f"(T - STALE = {mT:+.3f}, step {sT:.2f})")
+        elif lO == "WITHIN":
+            print(f"  [{H[k]['dataset']}] REPORT (FT) nothing to fix here (ORACLE - STALE = {mO:+.3f} within a step, step {sO:.2f})")
+        else:
+            print(f"  [{H[k]['dataset']}] REPORT (FT) nothing to fix here: the ORACLE means are behind the stale ones by more than a step "
+                  f"(ORACLE - STALE = {mO:+.3f}, step {sO:.2f})")
+    seen_k = [k for k in have if k not in (SYN, ROT)]
+    if ROT in have and seen_k:
+        rr_ = _rel(Rr[ROT], "FT"); sv = [_rel(Rr[k], "FT") for k in seen_k]; med = float(np.median(sv)); n_hi = sum(v > rr_ for v in sv)
+        words = ("the rotated stream drifts less than the median SEEN carrier: the synthetic drift world barely drifts" if rr_ < med else
+                 "the rotated stream drifts at least as much as the median SEEN carrier")
+        kr_ = f"; Kuzushiji-MNIST {_rel(Rr[KMNIST], 'FT'):.4f}" if KMNIST in have else ""
+        print(f"REPORT drift size (stale relative error, FT): rotated {rr_:.4f}; the {len(seen_k)} SEEN carriers median {med:.4f}, "
+              f"{n_hi} of {len(seen_k)} above the rotated stream{kr_} -> {words}")
     gdrift = any(gd.get(k, False) for k in (ROT, KMNIST))
     print(f"G-DRIFT (gate; at least one of the two drift-world streams): rotated {'holds' if gd.get(ROT) else 'fails'}, Kuzushiji-MNIST "
           f"{'holds' if gd.get(KMNIST) else 'fails'} -> {'holds' if gdrift else 'FAILS'}")
@@ -322,7 +402,8 @@ def report():
     print(f"G-CANFAIL -> {'holds' if g_canfail else 'FAILS'}; G-DRIFT -> {'holds' if gdrift else 'FAILS'}")
     print(f"CPL1 GATE {'OPEN' if gate else 'CLOSED'}")
     if not gdrift:
-        print("G-DRIFT fails: C2 is reported without interpretation; transport has nothing to fix in this learner (RRM2's finding, repeated)")
+        print("G-DRIFT fails: C2 is reported without interpretation (the declaration); whether there is drift to fix is stated per drift "
+              "world above (REPORT, computed from the ORACLE-means diagnostic)")
 
     # ---------------- the adds-something rule
     Dk = [k for k in have if gd[k]]; need = math.ceil(2 * len(Dk) / 3) if Dk else 0
@@ -338,24 +419,33 @@ def report():
         why = "gate CLOSED" if not gate else ("no stream where G-DRIFT holds" if not Dk else f"{len(ok)} of {len(Dk)} < {need}")
         base = Dk if Dk else have
         c = {lab: sum(lab_I[k] == lab for k in base) for lab in ("NEGATIVE", "WITHIN", "POSITIVE")}
-        top = max(c, key=lambda z: (c[z], z == "WITHIN"))
-        reading = {"NEGATIVE": "substitutes (negative interaction)", "WITHIN": "independent (zero interaction)", "POSITIVE": "complements, but short of the rule"}[top]
-        word = (f"DOES NOT ADD SOMETHING ({why}): the coupling is an integration, not a new capability; the modal I_NCM label over "
-                f"{'the G-DRIFT streams' if Dk else 'all streams'} is {top} ({c[top]} of {len(base)}): {reading}")
+        if not gate:
+            word = (f"DOES NOT ADD SOMETHING ({why}): the coupling is an integration, not a new capability; C2 is reported without "
+                    f"interpretation: I_NCM labels over {'the G-DRIFT streams' if Dk else 'all streams'}: negative {c['NEGATIVE']}, "
+                    f"within {c['WITHIN']}, positive {c['POSITIVE']} (of {len(base)})")
+        else:
+            top = max(c, key=lambda z: (c[z], z == "WITHIN"))
+            reading = {"NEGATIVE": "substitutes (negative interaction)", "WITHIN": "independent (zero interaction)", "POSITIVE": "complements, but short of the rule"}[top]
+            word = (f"DOES NOT ADD SOMETHING ({why}): the coupling is an integration, not a new capability; the modal I_NCM label over "
+                    f"{'the G-DRIFT streams' if Dk else 'all streams'} is {top} ({c[top]} of {len(base)}): {reading}")
     print(f"   -> {word}")
 
     # ---------------- C3
     print("\n" + "=" * W); print("C3: the price of exemplar-free: the coupled learner's best readout against ER-20 (20 raw rows per class), same epochs and stream passes"); print("=" * W)
-    gap = {}; ahead = 0; behind = 0; ratios_c = []; ratios_e = []
+    gap = {}; ahead = 0; behind = 0; ratios_c = []; ratios_e = []; gap2 = {}; ahead2 = 0; behind2 = 0
+    lw = lambda lab: 'ER-20 AHEAD' if lab == 'POSITIVE' else ('ER-20 BEHIND' if lab == 'NEGATIVE' else 'within')  # noqa: E731
     for k in have:
         A = Rr[k]; hd = _v(A["SEC+T"]); nc = _v(A["SEC+T"], "acc_ncm"); er = _v(A["ER-20"])
         best, bn = (hd, "head") if hd.mean() >= nc.mean() else (nc, "NCM")
         m, st, lab = _cmp(er - best); gap[k] = m; ahead += lab == "POSITIVE"; behind += lab == "NEGATIVE"
+        m2, st2, lab2 = _cmp(er - _v(A["SEC"], "acc_ncm")); gap2[k] = m2; ahead2 += lab2 == "POSITIVE"; behind2 += lab2 == "NEGATIVE"
         cp = H[k]["compute"]; ratios_c.append(cp["cpl_grad"] / cp["stream"]); ratios_e.append(cp["er_grad"] / cp["stream"])
         print(f"  [{H[k]['dataset']}] head {hd.mean():.2f}, NCM {nc.mean():.2f}, best {bn} {best.mean():.2f}; ER-20 {er.mean():.2f}; "
-              f"ER-20 - best {m:+.3f} (step {st:.2f}) {'ER-20 AHEAD' if lab == 'POSITIVE' else ('ER-20 BEHIND' if lab == 'NEGATIVE' else 'within')}")
+              f"ER-20 - best {m:+.3f} (step {st:.2f}) {lw(lab)}; REPORT ER-20 - SEC NCM (no transport) {m2:+.3f} (step {st2:.2f}) {lw(lab2)}")
     print(f"ER-20 ahead of the best readout by more than a step on {ahead}/{N}, behind on {behind}/{N}, within on {N - ahead - behind}/{N}; "
           f"median gap (ER-20 - best) {np.median(list(gap.values())):+.4f}")
+    print(f"REPORT ER-20 against the SEC-only NCM (no transport): ahead by more than a step on {ahead2}/{N}, behind on {behind2}/{N}, within on "
+          f"{N - ahead2 - behind2}/{N}; median gap (ER-20 - SEC NCM) {np.median(list(gap2.values())):+.4f}")
     print(f"compute (report): forward+backward rows per stream row, coupled learner min {min(ratios_c):.3f} median {np.median(ratios_c):.3f} max {max(ratios_c):.3f} "
           f"(its Fisher minibatches; plus forward-only rows for the statistics and the transport); ER-20 min {min(ratios_e):.3f} median {np.median(ratios_e):.3f} "
           f"max {max(ratios_e):.3f} (its replay rows)")

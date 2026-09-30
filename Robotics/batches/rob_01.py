@@ -12,23 +12,29 @@ RA1. The simplest passive walker (Garcia et al. 1998; the limit of a point-mass 
      first choice, made the walker fall at step 168; see CHOICES). 20 transient steps are discarded and 200 recorded; the stance angle is sampled 400 times per fixed-point step on a uniform clock grid.
      A3: antipodal_cuts on intrinsic_phase of the recorded stance angle, counting from the second detected extremum (as
      the gate's CUT and A3 tests and study CARD count). Null: peak_cuts of the same angle. Domain: the Poincare section at
-     heel strike (offset 0). Scored quantity: the mean over cuts of |cut - nearest heel strike| in mean step periods.
+     heel strike released on the same clock (the sample nearest each heel strike), scored as the cuts are; the exact
+     offset 0 is printed with its label, not scored. Scored quantity: the mean over cuts of |cut - nearest heel strike| in
+     mean step periods.
 RA2. A differential-drive robot on a straight path at a time-varying speed (levels uniform on [0.1, 2.0] m/s, held for
      exponential dwell times of mean 20 s), wheel base 0.5 m, time step 0.1 s; each wheel's measured increment carries a
      Gaussian slip error of variance k |ds| with k = 1e-4 m (variance grows with distance, the declaration's
      Borenstein-Feng type); 200 robots share the profile and draw independent slip. Drift = the odometer's distance error
      (the mean of the two wheels' errors). Occasions: 1000 clock windows of 10 s. Per window, the drift variance (across
      robots) per arc (the true path's arc_length in the window) and per clock (the window's 10 s); Q: CV per arc < CV per
-     clock. Domain: the error model's law, variance = (k/2) x distance, applied to the same windows. T-C: the ratio of the
-     CVs against the law's prediction (sampling theory of a Gaussian variance estimate), within two bootstrap standard
-     errors. A clock-driven drift (variance proportional to time) is printed as a control, not scored.
+     clock. Domain: the error model's law, variance = (k/2) x distance, which leaves the sampling of a Gaussian variance
+     from N robots as the only variation per arc: its prediction for the scored CV is sqrt(2/(N-1)), computed without the
+     arcs. T-C: the ratio of the CVs against the law's prediction (the same sampling theory), within two bootstrap standard
+     errors. Printed, not scored: a clock-driven drift (variance proportional to time), 40 other slip seeds, two other robot
+     counts, and the pose drift on a circle and on the straight path.
 
 CHOICES (every underspecified point, the most literal and simplest reading; also printed in each row's weakness line):
-see CHOICES_RA1 and CHOICES_RA2 below. Nothing was tuned after a run.
+see CHOICES_RA1 and CHOICES_RA2 below. One model change after the first run (RA1's kick sd, before any cut was
+computed; CHOICES_RA1 (2)) and two changes after review (the T-N constructions of RA1 and RA2, CHOICES_RA1 (7) and
+CHOICES_RA2 (6), with the added sensitivity prints); nothing was tuned toward a label.
 
 Literature named by name only, as the declaration names it (no citation claim beyond the names): Garcia, Chatterjee,
 Ruina and Coleman 1998 (the simplest walking model); Borenstein and Feng (odometry error). Deterministic: fixed seeds,
-DOP853 at fixed tolerances, no data files, no network; under ten seconds on a CPU. Rung R4 at most (a declared check on
+DOP853 at fixed tolerances, no data files, no network; about a minute on a CPU. Rung R4 at most (a declared check on
 a synthetic model); a note, not evidence (R8).
 
     cd /home/user/ashes_crr && uv run python Robotics/batches/rob_01.py > Robotics/batches/rob_01.txt
@@ -76,10 +82,14 @@ CHOICES_RA1 = (
     "is not scored; (5) 'the mean cut-to-heel-strike offset' is read per cut: each antipodal cut's distance to the nearest heel "
     "strike, averaged over all cuts, in mean step periods; the reverse reading (each heel strike's distance to the nearest cut) is "
     "printed, not scored; (6) the null is peak_cuts (maxima and minima) with the gate's CUT parameters, scored the same way; "
-    "(7) T-N passes the declared offset 0 of the Poincare section to outcome(): under the harness's relative tolerance only an "
-    "offset below its 1e-12 floor could agree; (8) the robotics reading uses a 1 m leg; (9) printed, not scored: the anchor sweep "
-    "(the count started at eighths of the first recorded step), one physical leg's angle as the carrier (theta while it stands, "
-    "theta - phi while it swings), 200 and 800 samples per step, and the noise-free walk")
+    "(7) T-N (CHANGED AFTER REVIEW): the Poincare section released on the same clock, a cut at the sample nearest each interior "
+    "heel strike, scored as the A3 cuts are (per cut, the distance to the nearest heel strike, in mean step periods), so that T-N "
+    "compares like with like, as RA9 does with minimum jerk's T/2; the first construction passed the section's exact offset 0 to "
+    "outcome(), under whose relative tolerance only an offset below the 1e-12 floor could agree, so REDUNDANT-DOMAIN was "
+    "unreachable; that exact-theorem reading is printed with its label, not scored; (8) the robotics reading uses a 1 m leg; "
+    "(9) printed, not scored: the anchor sweep (the count started at eighths of the first recorded step) on the stance angle and "
+    "on one physical leg's angle as the carrier (theta while it stands, theta - phi while it swings), 200 and 800 samples per "
+    "step, and the noise-free walk; the reverse and one-leg readings use the same-clock section for T-N")
 
 
 def _rhs(t, y):
@@ -213,7 +223,16 @@ def _read(x, t, T, tau_bar, anchor=None):
     hs = T[(T > t[a[0]]) & (T < t[ca[-1]])]
     hs_to_cut = np.array([np.min(np.abs(t[ca] - h)) for h in hs]) / tau_bar
     hs_to_pk = np.array([np.min(np.abs(t[pk] - h)) for h in hs]) / tau_bar
-    return dict(ph=ph, pk=pk, a=a, ca=ca, off_a=off_a, off_p=off_p, hs_to_cut=hs_to_cut, hs_to_pk=hs_to_pk)
+    dt = float(t[1] - t[0])
+    hs_to_dom = np.abs(np.rint(hs / dt) * dt - hs) / tau_bar         # the same-clock section: each heel strike to its nearest sample
+    return dict(ph=ph, pk=pk, a=a, ca=ca, off_a=off_a, off_p=off_p, hs_to_cut=hs_to_cut, hs_to_pk=hs_to_pk, hs_to_dom=hs_to_dom)
+
+
+def _section(t, T, tau_bar):
+    """The domain's cuts on the same clock: the sample nearest each interior heel strike, scored per cut as the A3 cuts are."""
+    dt = float(t[1] - t[0])
+    idx = np.rint(T[1:-1] / dt).astype(int)
+    return float(_offsets(t[idx], T, tau_bar).mean())
 
 
 def _where(tc, T, taus):
@@ -234,9 +253,13 @@ def ra1():
     t, th, leg, T = _sample(steps, dt)
     taus = np.diff(T); tau_bar = float(taus.mean())
     r = _read(th, t, T, tau_bar)
-    crr, null, dom = float(r["off_a"].mean()), float(r["off_p"].mean()), 0.0
+    crr, null = float(r["off_a"].mean()), float(r["off_p"].mean())
+    dom = _section(t, T, tau_bar)                                     # the Poincare section released on the same clock
     check = crr <= TOL_TC1
     out = outcome(crr=crr, null=null, domain=dom, check=check)
+    out_exact = outcome(crr=crr, null=null, domain=0.0, check=check)  # the exact-theorem reading (offset 0; not scored)
+    a0_off = float(_offsets(t[r["a"][:1]], T, tau_bar)[0])           # the anchor (second extremum) to its nearest heel strike
+    a0_frac = float(_where(t[r["a"][:1]], T, taus)[0])
     per_step = len(r["ca"]) / N_REC
     turns = float((r["ph"][-1] - r["ph"][0]) / (2 * np.pi * (t[-1] - t[0]) / tau_bar))
     # where the cuts land: the half-turn cuts (odd count from the anchor) and the full-turn cuts (even count)
@@ -249,8 +272,8 @@ def ra1():
     jump = float(np.mean(r["ph"][i_hs] - r["ph"][i_hs - 1]))          # phase advance across the sample interval holding the strike
     step_mean = float(np.mean(np.diff(r["ph"])))                      # mean phase advance per sample interval
     # second reading (not scored): each heel strike's distance to the nearest cut
-    rev, rev_pk = float(r["hs_to_cut"].mean()), float(r["hs_to_pk"].mean())
-    out_rev = outcome(crr=rev, null=rev_pk, domain=0.0, check=rev <= TOL_TC1)
+    rev, rev_pk, rev_dom = float(r["hs_to_cut"].mean()), float(r["hs_to_pk"].mean()), float(r["hs_to_dom"].mean())
+    out_rev = outcome(crr=rev, null=rev_pk, domain=rev_dom, check=rev <= TOL_TC1)
     # anchor sensitivity (not scored): the count started at fractions f of the first recorded step after its heel strike
     anch = {}
     for f in ANCHORS:
@@ -262,8 +285,17 @@ def ra1():
     # the carrier read as one physical leg's angle (period two steps; not scored)
     rl = _read(leg, t, T, tau_bar)
     crr_l, null_l = float(rl["off_a"].mean()), float(rl["off_p"].mean())
-    out_leg = outcome(crr=crr_l, null=null_l, domain=0.0, check=crr_l <= TOL_TC1)
+    out_leg = outcome(crr=crr_l, null=null_l, domain=dom, check=crr_l <= TOL_TC1)
     per_step_l = len(rl["ca"]) / N_REC
+    a0_frac_l = float(_where(t[rl["a"][:1]], T, taus)[0])            # where the one-leg count starts (its second extremum)
+    a0_off_l = float(_offsets(t[rl["a"][:1]], T, tau_bar)[0])
+    anch_l = {}
+    for f in ANCHORS:
+        i0 = int(np.argmin(np.abs(t - (T[1] + f * taus[1]))))
+        ra = _read(leg, t, T, tau_bar, anchor=i0)
+        anch_l[f] = (float(ra["off_a"].mean()), float(ra["hs_to_cut"].mean()))
+    lo_l, hi_l = min(v[0] for v in anch_l.values()), max(v[0] for v in anch_l.values())
+    hold_l = [f for f in ANCHORS if anch_l[f][0] <= TOL_TC1]
     # sampling sensitivity (not scored): the same walk at 200 and 800 samples per step
     samp = {}
     for ps in (200, 800):
@@ -277,6 +309,7 @@ def ra1():
                  if (v <= TOL_TC1) != check]
     unit_s = math.sqrt(LEG_M / 9.81)
     anch_txt = "; ".join(f"f = {f:g}: per cut {anch[f][0]:.6f}, per heel strike {anch[f][1]:.6f}" for f in ANCHORS)
+    anch_l_txt = "; ".join(f"f = {f:g}: per cut {anch_l[f][0]:.6f}, per heel strike {anch_l[f][1]:.6f}" for f in ANCHORS)
     return make_row(
         "robotics", f"RA1 gait phase and the cut: the simplest passive walker (Garcia et al. 1998) on a slope gamma = {GAMMA:g}, "
                     f"{N_REC} steps on its limit cycle with a speed kick of sd {SIG_KICK:g} at each heel strike",
@@ -285,11 +318,14 @@ def ra1():
           "small against the step period (computed as: the mean over antipodal cuts of |cut - nearest heel strike| / mean step period)",
         ingredient="A3 (antipodal_cuts on intrinsic_phase of the stance angle theta, counted from the second detected extremum)",
         null="extremum cuts (peak_cuts, maxima and minima) of the same angle, scored the same way",
-        domain="the Poincare section at heel strike, the hybrid model's own reset event (offset 0)",
+        domain="the Poincare section at heel strike, the hybrid model's own reset event (offset 0), released on the same clock: a cut "
+               "at the sample nearest each heel strike, scored as the A3 cuts are",
         numbers=(f"fixed point theta* = {z[0]:.8f}, theta'* = {z[1]:.8f} (stride-map residual {fp_res:.1e}), step period "
                  f"{tau_star:.6f}, stride-map multipliers {', '.join(f'{m:.4f}' for m in mult)} (moduli "
                  f"{', '.join(f'{abs(m):.4f}' for m in mult)}); recorded steps {N_REC}, mean step {tau_bar:.6f} "
-                 f"(CV {cv(taus):.2e}), {len(t)} samples (dt {dt:.6f}); the Hilbert phase of theta turns {turns:.4f} times per step; "
+                 f"(CV {cv(taus):.2e}), {len(t)} samples (dt {dt:.6f}); the same-clock Poincare section's offset per cut {dom:.6f} step "
+                 f"periods; the Hilbert phase of theta turns {turns:.4f} times per step; the count's anchor (second extremum) sits "
+                 f"{a0_off:.6f} step periods from a heel strike ({a0_frac:.4f} of its step); "
                  f"{len(r['ca'])} antipodal cuts ({per_step:.3f} per step), {len(r['pk'])} extremum cuts; mean offset per cut: antipodal "
                  f"{crr:.6f} step periods, extremum {null:.6f}; half-turn cuts (odd count from the anchor) {half.mean():.6f}, full-turn "
                  f"cuts (even count) {full.mean():.6f}; the half-turn cuts sit at {frac_half.mean():.4f} of their step (sd "
@@ -297,14 +333,18 @@ def ra1():
                  f"{frac_mid:.4f} of the step); Hilbert phase at the heel strikes, mod 2 pi: mean {ph_hs.mean():.4f} rad (3 pi/2 = "
                  f"{1.5 * math.pi:.4f}), sd {ph_hs.std(ddof=1):.4f}; phase advance across the sample interval holding a heel strike "
                  f"{jump:.4f} rad (mean per sample interval {step_mean:.4f} rad); reverse reading (each heel strike to its nearest cut, not scored): "
-                 f"antipodal {rev:.6f}, extremum {rev_pk:.6f}; anchor sensitivity (not scored; the count started at fraction f of a "
-                 f"step after a heel strike): {anch_txt}; one leg's angle (not scored): {len(rl['ca'])} antipodal cuts "
-                 f"({per_step_l:.3f} per step), per-cut offset antipodal {crr_l:.6f}, extremum {null_l:.6f}; sampling and noise "
+                 f"antipodal {rev:.6f}, extremum {rev_pk:.6f}, same-clock section {rev_dom:.6f}; anchor sensitivity (not scored; the count "
+                 f"started at fraction f of a step after a heel strike): {anch_txt}; one leg's angle (not scored): {len(rl['ca'])} antipodal cuts "
+                 f"({per_step_l:.3f} per step), per-cut offset antipodal {crr_l:.6f}, extremum {null_l:.6f}, its anchor (second extremum) at "
+                 f"{a0_frac_l:.4f} of its step ({a0_off_l:.6f} step periods from a heel strike); one leg's anchor sensitivity (not scored): "
+                 f"{anch_l_txt}; sampling and noise "
                  f"(not scored): 200 and 800 samples per step {samp[200]:.6f} and {samp[800]:.6f}, noise-free walk {nf:.6f}; "
                  f"robotics reading (cutting error, 1 m leg, time unit {unit_s:.4f} s): antipodal {crr * tau_bar * unit_s:.4f} s per "
                  f"cut on a {tau_bar * unit_s:.4f} s step, extremum {null * tau_bar * unit_s:.4f} s"),
         tg=f"antipodal offset {crr:.6f} vs null extremum offset {null:.6f}: {_w(rel(crr, null) <= TOL_G, 'agree', 'differ')}",
-        tn=f"the Poincare section's offset 0: {_w(rel(crr, dom) <= TOL_N, 'agree', 'differ')} (relative difference {rel(crr, dom):.3f})",
+        tn=f"the same-clock Poincare section's offset {dom:.6f}: {_w(rel(crr, dom) <= TOL_N, 'agree (the domain has Q)', 'differ')} "
+           f"(relative difference {rel(crr, dom):.3f}); the exact-theorem reading (offset 0, not scored) gives {out_exact}, and under the "
+           f"relative tolerance it could never agree",
         tc=f"mean offset {crr:.6f} <= {TOL_TC1:g} of the step period: {_w(check, 'holds', 'fails')} {_qv(check)}",
         out=out,
         reading=(f"the stance angle theta always belongs to the current stance leg, so it ramps from +{z[0]:.4f} to -{z[0]:.4f} rad and "
@@ -319,16 +359,24 @@ def ra1():
                       f"a start of the count brings the per-cut offset to {per_cut_min:.6f} (smallest over {len(ANCHORS)} starts); ")
                  + f"the extremum cuts are "
                  f"{null:.6f} from a heel strike ({_w(null <= TOL_TC1, 'the reset puts the extrema there', 'not at the reset')}); the "
-                 f"reverse reading (each heel strike to its nearest cut, {rev:.6f}) is not scored and would read {out_rev}; it holds "
-                 f"for {len(rev_hold)} of {len(ANCHORS)} starts of the count (f = {', '.join(f'{f:g}' for f in rev_hold) or 'none'}), "
+                 f"reverse reading (each heel strike to its nearest cut, {rev:.6f}) is not scored; outcome() would give it {out_rev}"
+                 + _w(rev <= TOL_TC1 and a0_off <= TOL_TC1 and 0 < len(rev_hold) < len(ANCHORS),
+                      f", which is no candidate: a cut on the reset event is the domain's own section, and the hit is not located by A3 "
+                      f"but inherited from where the count starts (the default anchor is an extremum {a0_off:.6f} step periods from a heel "
+                      f"strike, and the full-turn cuts carry its phase forward one turn per step)", "")
+                 + f"; it holds for {len(rev_hold)} of {len(ANCHORS)} starts "
+                 f"of the count (f = {', '.join(f'{f:g}' for f in rev_hold) or 'none'}), "
                  + _w(0 < len(rev_hold) < len(ANCHORS),
                       f"so whether the heel strike is hit depends on where counting starts (the phase advances {jump:.4f} rad across the "
                       f"sample interval holding a heel strike, against {step_mean:.4f} per interval on average, so every count whose "
-                      f"target falls in that band lands on the strike); ",
+                      f"target falls in that band lands on the strike: the reset discontinuity, not A3, puts the cut there); ",
                       _w(len(rev_hold) == len(ANCHORS), "so the heel strike is hit whatever the start; ", "so no start hits the heel strike; "))
                  + f"read on one leg's angle (period two "
-                 f"steps; not scored), A3 cuts {per_step_l:.3f} times per step at a per-cut offset of {crr_l:.6f} against the "
-                 f"extremum's {null_l:.6f}, which would read {out_leg}; the scored verdict {_w(sens_flip, 'changes under ' + ', '.join(sens_flip), 'does not change')} "
+                 f"steps; not scored), counted from its second extremum at {a0_frac_l:.4f} of its step "
+                 f"({_w(a0_off_l > TOL_TC1, 'not at a heel strike', 'at a heel strike')}), A3 cuts "
+                 f"{per_step_l:.3f} times per step at a per-cut offset of {crr_l:.6f} against the extremum's {null_l:.6f}, which would "
+                 f"read {out_leg}; over {len(ANCHORS)} starts its per-cut offset runs from {lo_l:.6f} to {hi_l:.6f}, within {TOL_TC1:g} "
+                 f"at {len(hold_l)} of them; the scored verdict {_w(sens_flip, 'changes under ' + ', '.join(sens_flip), 'does not change')} "
                  f"with the sampling (200, 800 per step) or without noise"),
         weakness=(CHOICES_RA1 + f"; the stance angle carries the reset in its waveform, so the heel strike is where its phase moves "
                   f"fastest, and the antipode of that phase falls where the ramp's shape puts it ({frac_half.mean():.4f} of the step), "
@@ -343,19 +391,33 @@ K_SLIP = 1e-4                 # m: each wheel's slip variance is K_SLIP x |ds| (
 BASE = 0.5                    # m, wheel base (heading channel, printed only)
 V_LO, V_HI, DWELL = 0.1, 2.0, 20.0
 SEED_V, SEED_SLIP, SEED_CLK, SEED_BOOT, N_BOOT = 1, 2, 3, 0, 2000
+SEEDS_SENS = tuple(range(100, 140))   # 40 other slip seeds (not scored)
+N_SENS = (10, 800)                    # other robot counts on the slip seed (not scored)
+R_CURVE, SEED_POSE = 10.0, 4          # m, the curved path's radius (ASSUMED round value) and its slip seed (not scored)
 CHOICES_RA2 = (
     "CHOICES: (1) a straight path, so both wheels roll forward the same true distance (the law is the same on a curve while both "
     "wheels roll forward); (2) speed levels uniform on [0.1, 2.0] m/s held for exponential dwell times of mean 20 s, time step 0.1 s, "
     "seed 1; (3) slip: each wheel's measured increment = true + N(0, k |ds|), k = 1e-4 m, 200 robots on the one profile, seed 2; "
     "(4) drift = the odometer's distance error, the mean of the two wheels' errors, whose variance the law makes k/2 per metre (the "
-    "heading error is also proportional to distance and is printed; the Cartesian cross-track error integrates the heading error, grows "
-    "faster than distance and is not the law's quantity); (5) occasions = 1000 clock windows of 10 s (the declaration names no events); per window the drift "
+    "heading error is also proportional to distance and is printed; the Cartesian position error integrates the heading error and "
+    "is not the law's quantity: it is printed on the straight path and on a circle, (11)); (5) occasions = 1000 clock windows of "
+    "10 s (the declaration names no events); per window the drift "
     "variance is the across-robot variance (ddof 1) of the window's drift increment, per arc = divided by the true path's arc_length "
-    "in the window, per clock = divided by 10 s; (6) T-N: the law's prediction (k/2) x arc applied to the same windows, and the CV "
-    "of measured/predicted variance; (7) T-C: 'matches' = the measured CV ratio within two bootstrap standard errors (2000 "
+    "in the window, per clock = divided by 10 s; (6) T-N (CHANGED AFTER REVIEW): the law's prediction for the scored quantity, "
+    "computed without the arcs: under variance = (k/2) x distance the population CV per arc is 0 and the only variation is the "
+    "sampling of a Gaussian variance from N robots, so the law predicts CV per arc = sqrt(2/(N-1)); the first construction (the "
+    "measured variance over the law applied to the same arcs) was CV(variance/arc) itself, an identity that agreed in any world, "
+    "and is printed, not scored; (7) T-C: 'matches' = the measured CV ratio within two bootstrap standard errors (2000 "
     "window resamples, seed 0) of the law's prediction, CV_arc = sqrt(2/(N-1)) (a Gaussian variance estimate from N robots) and "
     "CV_clock = sqrt((1 + c_s^2)(1 + 2/(N-1)) - 1), c_s the CV of the window distances; (8) the clock-driven control (variance "
-    "proportional to time, the same mean rate; seed 3) is printed, not scored")
+    "proportional to time, the same mean rate; seed 3) is printed, not scored, through T-G and through both T-N constructions; "
+    "(9) seed sensitivity (not scored): slip seeds 100-139, each labelled by outcome() with its own T-C; the label is called "
+    "seed-fragile if more than 1 of the 40 differs from the scored label (CLAUDE.md's rule for a sensitivity table: a verdict "
+    "that flips in more than one cell); (10) robot counts N = 10 and 800 on slip seed 2, printed, not scored; (11) the pose drift "
+    "(not scored): the same speed profile on a circle of radius 10 m (both wheels forward; ASSUMED round value) and on the "
+    "straight path, slip seed 4, the pose integrated with the midpoint-heading update; per window the trace of the across-robot "
+    "covariance of the position-error increment, CV per arc and per clock, and the cumulative position-error variance per metre "
+    "at the window nearest 1 km and at the end, with its growth exponent in distance between the two (the law's 1)")
 
 
 def _speed_profile(n, rng):
@@ -368,34 +430,26 @@ def _speed_profile(n, rng):
     return v
 
 
-def _window_vars(ds, n_per, rng, per_step_var):
+def _window_vars(ds, n_per, rng, per_step_var, n_rob=N_ROB):
     """Across-robot variance of each window's drift increment; per_step_var(ds_block) gives the per-step variance of each wheel."""
     out = np.empty((K_WIN, 2))
     for m in range(K_WIN):
         sd = np.sqrt(per_step_var(ds[m * n_per:(m + 1) * n_per]))
-        dL = rng.standard_normal((N_ROB, n_per)) * sd
-        dR = rng.standard_normal((N_ROB, n_per)) * sd
+        dL = rng.standard_normal((n_rob, n_per)) * sd
+        dR = rng.standard_normal((n_rob, n_per)) * sd
         out[m, 0] = ((dL + dR) / 2).sum(axis=1).var(ddof=1)
         out[m, 1] = ((dR - dL) / BASE).sum(axis=1).var(ddof=1)
     return out
 
 
-def ra2():
-    n_per = int(round(WIN / DT2)); n = K_WIN * n_per
-    v = _speed_profile(n, np.random.default_rng(SEED_V))
-    ds = v * DT2
-    x = np.concatenate([[0.0], np.cumsum(ds)])                     # the true path (one dimension along the straight line)
-    arcs = np.array([arc_length(x[m * n_per:(m + 1) * n_per + 1]) for m in range(K_WIN)])
-    clock = np.full(K_WIN, WIN)
-    var = _window_vars(ds, n_per, np.random.default_rng(SEED_SLIP), lambda b: K_SLIP * np.abs(b))
-    vs, vh = var[:, 0], var[:, 1]
+def _ra2_stats(vs, arcs, clock, n_rob):
+    """The scored quantities for one set of window variances: CV per arc (crr) and per clock (null), the law's predictions,
+    T-C's bootstrap (seed SEED_BOOT) and the label outcome() computes with T-N = the law's sqrt(2/(N-1))."""
     r_arc, r_clk = vs / arcs, vs / clock
     crr, null = cv(r_arc), cv(r_clk)
-    law = (K_SLIP / 2.0) * arcs
-    dom = cv(vs / law)
     c_s = cv(arcs)
-    cva_pred = math.sqrt(2.0 / (N_ROB - 1))
-    cvc_pred = math.sqrt((1 + c_s ** 2) * (1 + 2.0 / (N_ROB - 1)) - 1)
+    cva_pred = math.sqrt(2.0 / (n_rob - 1))
+    cvc_pred = math.sqrt((1 + c_s ** 2) * (1 + 2.0 / (n_rob - 1)) - 1)
     ratio, ratio_pred = crr / null, cva_pred / cvc_pred
     rng = np.random.default_rng(SEED_BOOT)
     br, bd = [], []
@@ -404,19 +458,111 @@ def ra2():
         a, c = cv(r_arc[idx]), cv(r_clk[idx])
         br.append(a / c); bd.append(a - c)
     se = float(np.std(br, ddof=1)); lo, hi = np.percentile(bd, [2.5, 97.5])
-    check = abs(ratio - ratio_pred) <= 2.0 * se
+    check = bool(abs(ratio - ratio_pred) <= 2.0 * se)
+    return dict(crr=crr, null=null, dom=cva_pred, c_s=c_s, cva_pred=cva_pred, cvc_pred=cvc_pred, ratio=ratio,
+                ratio_pred=ratio_pred, se=se, lo=float(lo), hi=float(hi), check=check,
+                out=outcome(crr=crr, null=null, domain=cva_pred, check=check))
+
+
+def _pose_drift(ds, n_per, rng, radius):
+    """The same speed profile on a circle of the given radius (None: the straight path; both wheels forward), N_ROB robots
+    dead-reckoning with the midpoint-heading update: per window, the trace of the across-robot covariance of the position-error
+    increment and of the cumulative position error at the window's end (m^2)."""
+    fl, fr = (1.0, 1.0) if radius is None else (1.0 - BASE / (2.0 * radius), 1.0 + BASE / (2.0 * radius))
+    th_t, x_t, y_t = 0.0, 0.0, 0.0
+    th_h, x_h, y_h = np.zeros(N_ROB), np.zeros(N_ROB), np.zeros(N_ROB)
+    ex0, ey0 = np.zeros(N_ROB), np.zeros(N_ROB)
+    inc, cum = np.empty(K_WIN), np.empty(K_WIN)
+    for m in range(K_WIN):
+        b = ds[m * n_per:(m + 1) * n_per]
+        sL, sR = fl * b, fr * b
+        eL = rng.standard_normal((N_ROB, n_per)) * np.sqrt(K_SLIP * sL)
+        eR = rng.standard_normal((N_ROB, n_per)) * np.sqrt(K_SLIP * sR)
+        dth = (sR - sL) / BASE
+        thc = th_t + np.cumsum(dth)
+        x_t += float(np.sum((sL + sR) / 2.0 * np.cos(thc - dth / 2.0)))
+        y_t += float(np.sum((sL + sR) / 2.0 * np.sin(thc - dth / 2.0)))
+        th_t = float(thc[-1])
+        mL, mR = sL + eL, sR + eR
+        dthh = (mR - mL) / BASE
+        thch = th_h[:, None] + np.cumsum(dthh, axis=1)
+        x_h = x_h + np.sum((mL + mR) / 2.0 * np.cos(thch - dthh / 2.0), axis=1)
+        y_h = y_h + np.sum((mL + mR) / 2.0 * np.sin(thch - dthh / 2.0), axis=1)
+        th_h = thch[:, -1]
+        ex, ey = x_h - x_t, y_h - y_t
+        inc[m] = np.var(ex - ex0, ddof=1) + np.var(ey - ey0, ddof=1)
+        cum[m] = np.var(ex, ddof=1) + np.var(ey, ddof=1)
+        ex0, ey0 = ex, ey
+    return inc, cum
+
+
+def ra2():
+    n_per = int(round(WIN / DT2)); n = K_WIN * n_per
+    v = _speed_profile(n, np.random.default_rng(SEED_V))
+    ds = v * DT2
+    x = np.concatenate([[0.0], np.cumsum(ds)])                     # the true path (one dimension along the straight line)
+    arcs = np.array([arc_length(x[m * n_per:(m + 1) * n_per + 1]) for m in range(K_WIN)])
+    dist = ds.reshape(K_WIN, n_per).sum(axis=1)                     # the odometer's true distance per window
+    arc_gap = float(np.max(np.abs(arcs - dist)))
+    clock = np.full(K_WIN, WIN)
+    slip = lambda b: K_SLIP * np.abs(b)
+    var = _window_vars(ds, n_per, np.random.default_rng(SEED_SLIP), slip)
+    vs, vh = var[:, 0], var[:, 1]
+    st = _ra2_stats(vs, arcs, clock, N_ROB)
+    crr, null, dom, check, out = st["crr"], st["null"], st["dom"], st["check"], st["out"]
+    c_s, lo, hi, se = st["c_s"], st["lo"], st["hi"], st["se"]
+    ratio, ratio_pred = st["ratio"], st["ratio_pred"]
     q_ineq = bool(crr < null and hi < 0.0)
-    out = outcome(crr=crr, null=null, domain=dom, check=check)
+    rel_n = rel(crr, dom)
+    # the first T-N construction (not scored): the measured variance over the law applied to the same arcs, an identity
+    dom_old = cv(vs / ((K_SLIP / 2.0) * arcs))
     # heading channel (printed only)
     h_arc, h_clk = cv(vh / arcs), cv(vh / clock)
     # clock-driven control: per-step variance proportional to dt at the same mean rate (not scored)
     q_rate = (K_SLIP / 2.0) * float(arcs.sum() / clock.sum())       # m^2 per second on the distance channel
     varc = _window_vars(ds, n_per, np.random.default_rng(SEED_CLK), lambda b: np.full(len(b), 2.0 * q_rate * DT2))[:, 0]
-    c_arc, c_clk = cv(varc / arcs), cv(varc / clock)
+    stc = _ra2_stats(varc, arcs, clock, N_ROB)
+    c_arc, c_clk = stc["crr"], stc["null"]
+    c_old = cv(varc / ((K_SLIP / 2.0) * arcs))
+    # seed sensitivity (not scored): 40 other slip seeds, each labelled by outcome() with its own T-C
+    sens = [_ra2_stats(_window_vars(ds, n_per, np.random.default_rng(sd), slip)[:, 0], arcs, clock, N_ROB) for sd in SEEDS_SENS]
+    s_rel = np.array([rel(q["crr"], q["dom"]) for q in sens])
+    s_crr = np.array([q["crr"] for q in sens])
+    s_lab = {lab: sum(1 for q in sens if q["out"] == lab) for lab in ("ADDS", "PROPOSES", "REDUNDANT-IG", "REDUNDANT-DOMAIN", "WRONG")}
+    s_lab_txt = ", ".join(f"{k} {lab}" for lab, k in s_lab.items() if k)
+    s_tc = sum(1 for q in sens if q["check"])
+    n_flip = sum(1 for q in sens if q["out"] != out)
+    fragile = n_flip > 1
+    s_sd = float(np.std(s_crr, ddof=1) / dom)
+    # robot counts (not scored)
+    nsens = {nr: _ra2_stats(_window_vars(ds, n_per, np.random.default_rng(SEED_SLIP), slip, n_rob=nr)[:, 0], arcs, clock, nr)
+             for nr in N_SENS}
+    n_txt = "; ".join(f"N = {nr}: CV per arc {q['crr']:.6f} (sqrt(2/(N-1)) = {q['dom']:.6f}), per clock {q['null']:.6f}, T-G relative "
+                      f"difference {rel(q['crr'], q['null']):.4f}, T-N relative difference {rel(q['crr'], q['dom']):.4f}, would read "
+                      f"{q['out']}" for nr, q in nsens.items())
+    # the pose drift (not scored): on a circle of radius R_CURVE and on the straight path itself, the same slip seed
+    cumdist = np.cumsum(arcs)
+    m1 = int(np.argmin(np.abs(cumdist - 1000.0)))
+    pose = {}
+    for name, rad in (("circle", R_CURVE), ("straight path", None)):
+        p_inc, p_cum = _pose_drift(ds, n_per, np.random.default_rng(SEED_POSE), rad)
+        pose[name] = dict(arc=cv(p_inc / arcs), clk=cv(p_inc / clock), sd1=math.sqrt(float(p_cum[m1])),
+                          pm1=float(p_cum[m1] / cumdist[m1]), pmE=float(p_cum[-1] / cumdist[-1]),
+                          expo=math.log(float(p_cum[-1] / p_cum[m1])) / math.log(float(cumdist[-1] / cumdist[m1])))
+    pose_txt = "; ".join(
+        f"{name}: position-error increment variance CV per arc {q['arc']:.6f}, per clock {q['clk']:.6f}; cumulative position-error "
+        f"variance per metre {q['pm1']:.3e} m at {cumdist[m1]:.1f} m and {q['pmE']:.3e} m at {cumdist[-1]:.1f} m, growth exponent "
+        f"against distance {q['expo']:.4f} (the law's 1)" for name, q in pose.items())
+    pose_read = "; ".join(
+        f"on the {name} its window variance per arc has CV {q['arc']:.6f} against the law's sampling {dom:.6f} "
+        f"({_w(rel(q['arc'], dom) <= TOL_N, 'as the law predicts', 'not as the law predicts')}; per clock {q['clk']:.6f}, so Q's "
+        f"inequality {_w(q['arc'] < q['clk'], 'still holds there', 'fails there')}) and its cumulative variance grows with exponent "
+        f"{q['expo']:.4f} in distance, {_w(q['expo'] > 1.0, 'faster', 'slower')} than the law's 1" for name, q in pose.items())
     # robotics reading: drift per km and per hour
     rate = float(vs.sum() / arcs.sum())                             # m^2 per metre, pooled
     per_km, per_km_law = math.sqrt(rate * 1000.0), math.sqrt(K_SLIP / 2.0 * 1000.0)
     per_h = {u: math.sqrt(rate * u * 3600.0) for u in (V_LO, float(v.mean()), V_HI)}
+    is_dist = arc_gap <= 1e-6 * float(dist.min())
     return make_row(
         "robotics", f"RA2 odometry drift has its own clock: a differential-drive robot on a straight path at a time-varying speed "
                     f"({V_LO:g} to {V_HI:g} m/s), wheel slip of variance k |ds| per wheel (k = {K_SLIP:g} m), {N_ROB} robots, "
@@ -424,33 +570,67 @@ def ra2():
         source=f"ROB1 RA2 (declared in {DECL}; forecast REDUNDANT-DOMAIN)",
         Q="drift is more regular per unit distance (arc) than per unit time: CV of drift variance per arc < CV per clock (computed "
           "as: across the clock windows, CV of the window's drift variance divided by its arc, against the same divided by its duration)",
-        ingredient="H-L5 (the arc, arc_length of the true path in each occasion, against the clock as the index of change)",
+        ingredient=("H-L5 as declared ('per unit distance (arc)'), which here reduces to the odometer's distance: the arc is arc_length "
+                    "of the true path in each clock window, a monotone one-dimensional path under the identity metric with sigma = 1, "
+                    "so arc = chord = distance travelled (surplus 0); H-L5's own event structure (occasions between events) and its "
+                    "controls (i) amplitude and (ii) identity metric are not exercised: the occasions are clock windows, the null's "
+                    "index, and the arc is control (ii) itself"),
         null="clock time (the window's duration)",
-        domain="the error model's own law: variance = (k/2) x distance on the odometer's distance channel, applied to the same windows",
-        numbers=(f"window distances: mean {arcs.mean():.4f} m, CV c_s = {c_s:.4f}; mean speed {v.mean():.4f} m/s; drift variance per "
-                 f"window: CV per arc {crr:.6f}, CV per clock {null:.6f}; paired-bootstrap 95 % CI of CV(arc) - CV(clock) "
-                 f"[{lo:.4f}, {hi:.4f}]; CV of measured/law variance {dom:.6f}; law's sampling prediction CV_arc "
-                 f"{cva_pred:.6f}, CV_clock {cvc_pred:.6f}; ratio of CVs measured {ratio:.6f}, law {ratio_pred:.6f}, bootstrap "
-                 f"se {se:.6f}; heading channel (variance 2k/b^2 x distance, printed only): CV per arc {h_arc:.6f}, per clock "
-                 f"{h_clk:.6f}; clock-driven control (variance proportional to time, not scored): CV per arc {c_arc:.6f}, per clock "
-                 f"{c_clk:.6f}; robotics reading: distance drift sd per km {per_km:.4f} m (law {per_km_law:.4f} m), per hour "
+        domain=("the error model's own law: variance = (k/2) x distance on the odometer's distance channel, which leaves only the "
+                "sampling of a variance from N robots, so its prediction for the CV per arc is sqrt(2/(N-1)) (computed without the arcs)"),
+        numbers=(f"window distances: mean {arcs.mean():.4f} m, CV c_s = {c_s:.4f}; max |arc - distance| {arc_gap:.2e} m; mean speed "
+                 f"{v.mean():.4f} m/s; drift variance per window: CV per arc {crr:.6f}, CV per clock {null:.6f}; paired-bootstrap 95 % CI "
+                 f"of CV(arc) - CV(clock) [{lo:.4f}, {hi:.4f}]; law's sampling prediction CV_arc {dom:.6f}, CV_clock "
+                 f"{st['cvc_pred']:.6f}; ratio of CVs measured {ratio:.6f}, law {ratio_pred:.6f}, bootstrap se {se:.6f}; first T-N "
+                 f"construction (not scored): CV of measured/law variance on the same arcs {dom_old:.6f}, relative difference to CV per "
+                 f"arc {rel(crr, dom_old):.1e}; heading channel (variance 2k/b^2 x distance, printed only): CV per arc {h_arc:.6f}, per "
+                 f"clock {h_clk:.6f}; clock-driven control (variance proportional to time, not scored): CV per arc {c_arc:.6f}, per clock "
+                 f"{c_clk:.6f}, T-N relative difference to the law's {dom:.6f}: {rel(c_arc, dom):.4f}, first-construction relative "
+                 f"difference {rel(c_arc, c_old):.1e}, would read {stc['out']}; seed sensitivity (not scored; slip seeds "
+                 f"{SEEDS_SENS[0]}-{SEEDS_SENS[-1]}): CV per arc from {s_crr.min():.6f} to {s_crr.max():.6f} (seed-to-seed sd "
+                 f"{s_sd:.4f} of the law's prediction), T-N relative difference above {TOL_N:g} on {int((s_rel > TOL_N).sum())} of "
+                 f"{len(SEEDS_SENS)} (median {np.median(s_rel):.4f}, max {s_rel.max():.4f}), T-C holds on {s_tc} of {len(SEEDS_SENS)}, "
+                 f"labels {s_lab_txt}; robot counts (not scored, slip seed {SEED_SLIP}): {n_txt}; pose drift (not scored, seed "
+                 f"{SEED_POSE}; circle of radius {R_CURVE:g} m and the straight path): {pose_txt}; robotics reading: distance drift sd "
+                 f"per km {per_km:.4f} m (law {per_km_law:.4f} m), pose drift sd at {cumdist[m1]:.1f} m "
+                 f"{pose['circle']['sd1']:.4f} m on the circle and {pose['straight path']['sd1']:.4f} m on the straight path, distance drift "
+                 f"sd per hour "
                  + ", ".join(f"{per_h[u]:.4f} m at {u:.4f} m/s" for u in per_h)),
         tg=f"CV per arc {crr:.6f} vs null CV per clock {null:.6f}: {_w(rel(crr, null) <= TOL_G, 'agree', 'differ')} (Q's inequality "
-           f"with the CI below 0: {_w(q_ineq, 'holds', 'fails')})",
-        tn=f"the law's normalisation gives CV {dom:.6f}: {_w(rel(crr, dom) <= TOL_N, 'agree (the domain has Q)', 'differ')} "
-           f"(relative difference {rel(crr, dom):.1e})",
+           f"with the CI below 0: {_w(q_ineq, 'holds', 'fails')})"
+           + _w(is_dist, "; the arc is the distance travelled, so the difference is the domain's law (a per-metre variance "
+                         "normalised by metres), not work done by a CRR-proper ingredient", ""),
+        tn=f"the law's prediction sqrt(2/(N-1)) = {dom:.6f}: {_w(rel_n <= TOL_N, 'agree (the domain has Q)', 'differ')} "
+           f"(relative difference {rel_n:.4f}); the first construction (the law applied to the same arcs, CV {dom_old:.6f}, relative "
+           f"difference {rel(crr, dom_old):.1e}) is an identity that agrees in any world (the clock-driven control: "
+           f"{rel(c_arc, c_old):.1e}) and is not scored",
         tc=f"ratio of CVs {ratio:.6f} against the law's {ratio_pred:.6f}: |difference| {abs(ratio - ratio_pred):.6f} "
            f"<= 2 se {2 * se:.6f}: {_w(check, 'holds', 'fails')} {_qv(check)}",
         out=out,
-        reading=(f"the slip model puts the variance on the metre, so the drift variance per window divided by the arc varies only by "
-                 f"the sampling of a variance from {N_ROB} robots (CV {crr:.6f} against sqrt(2/(N-1)) = {cva_pred:.6f}), and per clock it "
-                 f"carries the window's speed as well (CV {null:.6f}, window distances CV {c_s:.4f}); the arc is the law's own index: the "
-                 f"law's prediction differs from the arc by the constant k/2 and a CV is scale-free, so T-N "
-                 f"{_w(rel(crr, dom) <= 1e-12, 'agrees to round-off', 'differs')} and the row reads {out}; with a clock-driven drift "
-                 f"(not scored) the order {_w(c_clk < c_arc, 'flips', 'does not flip')} (per clock {c_clk:.6f}, per arc {c_arc:.6f}), "
-                 f"so which index is the regular one is set by the noise law, which the domain states before CRR does"),
+        reading=(f"the slip model puts the variance on the metre, so Q holds by construction on the scored channel: per arc the drift "
+                 f"variance varies only by the sampling of a variance from {N_ROB} robots, so the CV per arc ({crr:.6f}) is the "
+                 f"estimator's noise, set by the robot count (the law's sqrt(2/(N-1)) = {dom:.6f}; at N = "
+                 + " and N = ".join(f"{nr} it is {q['crr']:.6f}" for nr, q in nsens.items())
+                 + "; the label would be " + " and ".join(f"{q['out']} at N = {nr}" for nr, q in nsens.items())
+                 + f"), and per clock it carries the window's speed as well (CV {null:.6f}, window distances CV {c_s:.4f}); "
+                 + _w(is_dist, f"the arc is the distance (max |arc - distance| {arc_gap:.2e} m), so T-G's difference is the law itself; ", "")
+                 + f"T-N sets the CV per arc against the law's prediction, relative difference {rel_n:.4f} "
+                 f"{_w(rel_n <= TOL_N, '<=', '>')} {TOL_N:g}, and the row reads {out}; over {len(SEEDS_SENS)} other slip seeds the "
+                 f"relative difference exceeds {TOL_N:g} on {int((s_rel > TOL_N).sum())} (median {np.median(s_rel):.4f}; the "
+                 f"seed-to-seed sd of the CV per arc is {s_sd:.4f} of the prediction"
+                 + _w(s_sd > TOL_N, f", above the {TOL_N:g} tolerance, so T-N misses on sampling noise alone", "")
+                 + f"), T-C holds on {s_tc} of them and the labels are {s_lab_txt}: {n_flip} of {len(SEEDS_SENS)} differ from the "
+                 f"scored label, so the label is "
+                 + _w(fragile, f"SEED-FRAGILE at N = {N_ROB} robots and {K_WIN} windows (where T-N misses, T-C decides)",
+                      f"stable over the seeds at N = {N_ROB} robots and {K_WIN} windows")
+                 + f"; with a clock-driven drift (not scored) the order {_w(c_clk < c_arc, 'flips', 'does not flip')} (per clock "
+                 f"{c_clk:.6f}, per arc {c_arc:.6f}), T-N {_w(rel(c_arc, dom) <= TOL_N, 'agrees', 'differs')} (relative difference "
+                 f"{rel(c_arc, dom):.4f}) and the row would read {stc['out']}, where the first T-N construction agreed "
+                 f"({rel(c_arc, c_old):.1e}); so which index is the regular one is set by the noise law, which the domain states "
+                 f"before CRR does; the pose drift a buyer reads per km (not scored) is not the law's quantity: {pose_read}"),
         weakness=(CHOICES_RA2 + "; the model puts the law in (the slip is defined per metre), so the row checks that H-L5 recovers the "
-                  "law and nothing more; a real robot's drift has clock-driven parts (gyro bias, thermal drift) that this model leaves out"),
+                  "law and nothing more, and its label is decided by the estimator noise of a variance against the harness's 1 % "
+                  "tolerance; a real robot's drift has clock-driven parts (gyro bias, thermal drift) that this model leaves out"),
         elegance="", child="")
 
 

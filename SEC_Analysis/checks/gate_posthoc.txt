@@ -1,0 +1,15 @@
+SEC6-G's instrument rule applied POST HOC to the earlier SEC-family rows (prereg/sec6/PREREG.md, hashed 69c37965);
+a report: decides nothing and re-scores nothing; the ledger rows stand as scored under their own pre-registrations
+M6 = the learner frozen after task 1 (SEC_Analysis/checks/m_runs, arm M6); tuned lambda and step from sec_lib (the frozen scorers' rule)
+
+[scl3] SCL3-3: M6 not behind the tuned lambda on 7/10 (need 8) -> gate OPEN; the criterion could fail here; SCL3-3 (PASS-0 as scored) is not affected by the rule
+   M6 - tuned (* = behind): GesturePhaseSegmentationProcessed +25.1051 (step 1.035); MiceProtein +0.5455 (step 1.000); cnae-9 -37.1875 (step 1.731)*; eucalyptus +5.6881 (step 3.529); first-order-theorem-proving +26.3063 (step 1.047); har -3.8162 (step 4.816); isolet -25.4000 (step 3.470)*; semeion -4.5768 (step 1.594)*; steel-plates-fault +6.8435 (step 1.191); wall-robot-navigation +43.7237 (step 6.619)
+
+[sec3] SEC3-3: M6 not behind the tuned lambda on 5/6 (need 5) -> gate CLOSED; under SEC6-G's rule SEC3-3 (FAIL as scored) would be printed UNINFORMATIVE and capped at PASS-0
+   M6 - tuned (* = behind): covertype +29.8498 (step 4.807); dionis -14.4655 (step 3.436)*; fabert +23.5365 (step 1.000); helena +9.3600 (step 2.975); jannis +28.4200 (step 15.328); volkert +28.9600 (step 1.000)
+
+[sec4] SEC4-1: M6 not behind the tuned lambda on 5/6 (need 5) -> gate CLOSED; under SEC6-G's rule SEC4-1 (PASS-1 as scored) would be printed UNINFORMATIVE and capped at PASS-0
+   M6 - tuned (* = behind): JapaneseVowels +18.2583 (step 1.000); anneal +0.6742 (step 5.634); artificial-characters +9.4905 (step 1.962); cardiotocography -44.0566 (step 1.000)*; gas-drift -1.7618 (step 2.594); synthetic_control -1.6667 (step 3.590)
+
+[sec5] SEC5-1: M6 not behind the tuned lambda on 7/8 (need 6) -> gate CLOSED; under SEC6-G's rule SEC5-1 (FAIL as scored) would be printed UNINFORMATIVE and capped at PASS-0
+   M6 - tuned (* = behind): Indian_pines +2.3177 (step 5.211); Kuzushiji-MNIST +8.0000 (step 1.330); autoUniv-au6-750 +7.2848 (step 1.644); microaggregation2 +37.0030 (step 15.522); pokerhand +20.8200 (step 1.822); spoken-arabic-digit +0.0800 (step 1.000); volcanoes-d4 -7.0070 (step 1.000)*; walking-activity +8.9000 (step 1.137)

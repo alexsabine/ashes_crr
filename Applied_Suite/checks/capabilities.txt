@@ -1,0 +1,704 @@
+APP1 stage A: the capability inventory K1-K7, graded (Applied_Suite/APPLICATIONS_DECLARATION.md, pushed at 4e78058)
+A note, not evidence (R8). Grades are computed from ledger/LEDGER.md verdicts and pinned outputs; every line quoted below
+is copied from the file named with it. Rung scale: FINDING (PASS-2) > RESULT (PASS-1, not replicated) > CONSTRUCTION >
+MODEL > CLOSED; the grade is the highest rung that applies, with the failures of the same kind printed beside it.
+Every item's effect is read from the verdict words of its line (R15); see the docstring for the reading of each effect.
+CHOICES:
+  C1 failures of the same kind = failed or reduced tests, violated controls, closed gates (also one amended afterwards),
+     and must-fail controls that did not fail (SEC_Analysis FM6)
+  C2 prior-art grades are printed beside the grade and never change it ("not found" is never "novel")
+  C3 the Stage B readings 'K2/EPS2-T3' (AP7) and 'ROB1' (AP6) are graded with the same rule; ROB1 is pending while
+     Robotics/checks/tally_4b.txt is absent, and prints "present, not read" once it exists, until the MAP reads it
+  C4 K7's 'EQ*' = every row whose id starts with EQX-, EQ2-, EQ3- or EQ4-, plus SOTA1-2
+  C5 a ledger row counts as CONSTRUCTION only if its verdict says holds and names a construction; PASS-0 and unlevelled
+     PASS rows (seen data, "as scored") are printed beside and reach no rung on this scale
+  C6 K1's SEC family is read whole by prefix (SEC1-, SCL3-, SEC3-, SEC4-, SEC5-, SEC6-); SCL3's operator-harness rows
+     are read under K2 and K3
+  C7 an inference pause, a must-fail control and a limit case are printed beside, never as a basis
+  SENSITIVITIES (the review of 2026-09-30): a decisive item prints the grade under a stricter reading; the primary grade
+     stays the declaration's 'highest rung that applies'
+ledger/LEDGER.md: sha256 1131975ea614a2f5880dca416ab334751e2fd1dac15270eeba3715a3c86e0ba5; rows parsed 204 (10 cells each); rows with another cell count 0; duplicate ids 0
+
+----------------------------------------------------------------------------------------------------------------------
+K1  a continual-learning penalty set without a hyperparameter sweep
+  the declaration names: SEC family: SCL3-3, SEC3-3, SEC4-1 (PASS-1), SEC5-1 (FAIL), SEC6-1 (when scored); the compute rows SEC3-K and SEC4-K; SPA1's KNOWN verdict; P1's SEC_Analysis outputs
+  GRADE: RESULT   (rung from: SEC4-1)
+  SENSITIVITY (printed, not the grade): K1 -> CLOSED, because SEC_Analysis FM6 fails; reading: SEC6-G's instrument rule (prereg/sec6/PREREG.md: a criterion that a learner frozen after task 1 also
+      meets allows no level above PASS-0) applied to the earlier rows
+    [RESULT      ] SEC4-1 | PASS-1 | clipped SEC (kappa 0.5) not behind the tuned lambda, third unseen family
+                   source: ledger/LEDGER.md:186
+                   verdict: PASS-1 (held-out, the third family; the prereg's PASS-1 conditions all hold: SEC4-S not fragile 0/18, SEC4-2 no divergence, OTS complete, carriers' admissibility stated; no
+                     reduction to a constant: the transferred λ is behind on 2 of 6, below the 5 needed; limits: N = 6 after 3 exclusions, κ itself not swept (the scale and raw guards reported beside
+                     it), a guard chosen on SEEN carriers, not a CRR rule; not PASS-2: no earlier held-out pass of the clipped rule)
+                   observed: 6/6: JapaneseVowels +2.5626 (step 1.00), anneal +5.5056 (step 5.63), artificial-characters +0.5594 (step 1.96), cardiotocography +1.0377 (step 1.00), gas-drift +2.1822
+                     (step 2.59), synthetic_control +3.5000 (step 3.59); beside it unguarded SEC 3/6, raw Laplace 1/6, the rule Ω=1 5/6
+    [PENDING     ] SEC6-1 | pending | the second replication of SEC4-1, fifth unseen family (a PASS-1 here makes SEC4-1 + SEC6-1 PASS-2)
+                   source: ledger/LEDGER.md
+                   (no row with this id in ledger/LEDGER.md)
+    [PENDING     ] SEC6-G | pending | SEC6's instrument gate: a learner frozen after task 1 must not meet the criterion
+                   source: ledger/LEDGER.md
+                   (no row with this id in ledger/LEDGER.md)
+    [beside      ] SEC1-0         DECIDABLE        DECIDABLE  (LEDGER.md:94)
+    [beside      ] SEC1-1         PASS (no level)  PASS (seen data; rung R5, not PASS-0), exactly at the threshold; fars does not close an...  (LEDGER.md:95)
+    [beside      ] SEC1-2         PASS (no level)  PASS (seen data; rung R5, not PASS-0)  (LEDGER.md:96)
+    [beside      ] SEC1-3         PASS (no level)  PASS (seen data; rung R5, not PASS-0), at the boundary and FRAGILE (SEC1-S): 9 is the t...  (LEDGER.md:97)
+    [FAILURE     ] SEC1-4         FAIL             FAIL  (LEDGER.md:98)
+                                                  observed: raw 423.00× (0.70922 … 300); calibrated 849.00× (0.01 on fars, at the grid's lower edge, … 8.49 on page_blocks); 8 of 12 calibrated optima lie in 0...
+    [beside      ] SEC1-S         FRAGILE          FRAGILE (8 of 96 cells flip)  (LEDGER.md:99)
+    [beside      ] SEC1-G         report           report (no verdict registered)  (LEDGER.md:100)
+    [beside      ] SEC1-R         report           report (no verdict registered)  (LEDGER.md:101)
+    [beside      ] SEC1-E         report           report (no verdict registered)  (LEDGER.md:102)
+    [beside      ] SEC1-X         holds            holds (reproduced exactly)  (LEDGER.md:103)
+    [beside      ] SCL3-X         holds            holds (reproduced exactly)  (LEDGER.md:129)
+    [beside      ] SCL3-0         DECIDABLE        DECIDABLE  (LEDGER.md:130)
+    [beside      ] SCL3-1         PASS-0           PASS-0 (held-out; PASS-1 not reached: SCL3-S FRAGILE)  (LEDGER.md:131)
+    [beside      ] SCL3-2         PASS-0           PASS-0 (held-out)  (LEDGER.md:132)
+    [beside      ] SCL3-3         PASS-0           PASS-0 (held-out; PASS-1 not reached: SCL3-S FRAGILE; cnae-9 behind, its calibrated arm...  (LEDGER.md:133)
+    [beside      ] SCL3-4         PASS-0           PASS-0 (held-out; SEC1-4 had FAILED on the seen carriers)  (LEDGER.md:134)
+    [beside      ] SCL3-S         FRAGILE          FRAGILE  (LEDGER.md:135)
+    [beside      ] SCL3-G         report           report (no verdict registered)  (LEDGER.md:136)
+    [beside      ] SCL3-R         report           report (no verdict registered)  (LEDGER.md:137)
+    [beside      ] SCL3-E         report           report (no verdict registered)  (LEDGER.md:138)
+    [beside      ] SEC3-0         NOT DECIDABLE    NOT DECIDABLE (SEC3-1 not decidable: raw Laplace is within a step of the tuned lambda o...  (LEDGER.md:175)
+    [beside      ] SEC3-1         NOT DECIDABLE    NOT DECIDABLE  (LEDGER.md:176)
+    [FAILURE     ] SEC3-2         FAIL             FAIL  (LEDGER.md:177)
+                                                  observed: 4/5 (fabert harmed: one seed at 0.00)
+    [FAILURE     ] SEC3-3         FAIL             FAIL (SCL3-3's PASS-0 does not replicate on the second family; beside it raw Laplace 5/...  (LEDGER.md:178)
+                                                  observed: 4/6: covertype −3.3634 (step 4.81), dionis −4.5554 (step 3.44), fabert −3.8362 (step 1.00), helena −0.3800 (step 2.97), jannis −2.9400 (step 15.33)...
+    [FAILURE     ] SEC3-4         FAIL             FAIL  (LEDGER.md:179)
+                                                  observed: raw 23.50x, calibrated 30.00x
+    [FAILURE     ] SEC3-T         FAIL             FAIL  (LEDGER.md:180)
+                                                  observed: B = dionis, helena, volkert (3); SEC not behind on 2/3 (dionis behind); the transferred lambda is not behind on covertype, fabert, jannis
+    [beside      ] SEC3-P         PASS-0           PASS-0 (held-out; not PASS-1: OTS confirmation pending at scoring, no sensitivity row r...  (LEDGER.md:181)
+    [beside      ] SEC3-S         FRAGILE          FRAGILE  (LEDGER.md:182)
+    [beside      ] SEC3-K         report           report (no verdict registered)  (LEDGER.md:183)
+    [beside      ] SEC3-GR        report           report (no verdict registered; post hoc, a hypothesis for a new study, not a result)  (LEDGER.md:184)
+    [beside      ] SEC4-D         report           report (development on SEEN carriers, not evidence; D-GATE OPEN, CHOSEN clip; prereg/se...  (LEDGER.md:185)
+    [beside      ] SEC4-2         PASS-0           PASS-0 (held-out; the failure the clip is for does not occur)  (LEDGER.md:187)
+    [beside      ] SEC4-T         NOT DECIDABLE    NOT DECIDABLE (a reused λ would have saved the sweep on 4 of 6 without SEC; on the 2 wh...  (LEDGER.md:188)
+    [beside      ] SEC4-P         PASS-0           PASS-0 (held-out; no sensitivity row registered for it)  (LEDGER.md:189)
+    [beside      ] SEC4-S         not fragile      not fragile  (LEDGER.md:190)
+    [beside      ] SEC4-K         report           report (no verdict registered)  (LEDGER.md:191)
+    [beside      ] SEC4-E         report           report (no verdict registered)  (LEDGER.md:192)
+    [beside      ] SEC5-C-DEV     report           report (development on SEEN carriers, not evidence; D-GATE-C CLOSED: D-ADDS fails; no A...  (LEDGER.md:193)
+    [FAILURE     ] SEC5-1         FAIL             FAIL (held-out, the fourth family; not fragile: 0 of 40 sensitivity cells flip, kappa i...  (LEDGER.md:194)
+                                                  observed: 4/8: Indian_pines -6.7932 (step 5.21), Kuzushiji-MNIST +5.2000 (step 1.33), autoUniv-au6-750 -0.3974 (step 1.64), microaggregation2 -4.1159 (step 1...
+    [FAILURE     ] SEC5-2         FAIL             FAIL (as registered: low-accuracy seeds; on pokerhand not a stability-edge crossing)  (LEDGER.md:195)
+                                                  observed: 2 carriers with such a seed: pokerhand (seeds 20.00 15.20 22.80 11.10 7.00 against 0.5 x 43.46; every run finite, the clip never fired, largest mar...
+    [FAILURE     ] SEC5-T         FAIL             FAIL  (LEDGER.md:196)
+                                                  observed: B = 7 carriers; clipped SEC not behind on 3/7 (need 6)
+    [beside      ] SEC5-P         PASS-0           PASS-0 (held-out; one configuration not behind a 3-point sweep on 6 of 8)  (LEDGER.md:197)
+    [beside      ] SEC5-S         not fragile      not fragile (the FAIL is robust to kappa and the window)  (LEDGER.md:198)
+    [beside      ] SEC5-K         report           report  (LEDGER.md:199)
+    [beside      ] SEC5-E         report           report  (LEDGER.md:200)
+    [beside      ] SCL3-3-G       report           report (post hoc; not a re-score; SCL3-3 stands as scored): gate OPEN: the criterion co...  (LEDGER.md:209)
+    [beside      ] SEC3-3-G       report           report (post hoc; not a re-score; SEC3-3 stands as scored): gate CLOSED: SEC3-3 (FAIL a...  (LEDGER.md:210)
+    [beside      ] SEC4-1-G       report           report (post hoc; not a re-score; SEC4-1 stands as scored): gate CLOSED: SEC4-1 (PASS-1...  (LEDGER.md:211)
+    [beside      ] SEC5-1-G       report           report (post hoc; not a re-score; SEC5-1 stands as scored): gate CLOSED: SEC5-1 (FAIL a...  (LEDGER.md:212)
+    [note        ] excluded | not read here | the SEC family, every row (C6)
+                   source: ledger/LEDGER.md
+                   SCL3-C, SCL3-V, SCL3-O (SCL3's operator-harness rows, read under K2 and K3)
+    [FAILURE     ] SEC_Analysis FM6 | must-fail control met the criterion | P1's must-fail control M6 (every coordinate at the cap after task 1: a learner frozen after task 1) against the same
+                     criterion on the 30 now-SEEN held-out carriers
+                   source: SEC_Analysis/checks/m_checks.txt:186
+                   FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+    [beside      ] SEC_Analysis M6 count | report | the must-fail control's own count on the 30 carriers
+                   source: SEC_Analysis/checks/m_checks.txt:118
+                   M6: not behind 24/30, behind 6/30; guard firings 190; fallbacks 368
+    [beside      ] SEC_Analysis C0 count | report | the clipped SEC's count on the same 30 carriers
+                   source: SEC_Analysis/checks/m_checks.txt:113
+                   C0: not behind 26/30, behind 4/30; guard firings 115; fallbacks 6
+    [beside      ] SEC_Analysis M6 on SEC4 | counted | the must-fail control on SEC4-1's own six carriers
+                   source: SEC_Analysis/checks/m_checks.txt:94
+                   M6 not behind the tuned lambda on 5 of SEC4's 6 carriers (column M6-tuned, * = behind): JapaneseVowels +18.2583, anneal +0.6742, artificial-characters +9.4905, cardiotocography
+                     -44.0566*, gas-drift -1.7618, synthetic_control -1.6667
+    [beside      ] SEC_Analysis FM1 | report | P1: the model-Fisher Laplace weight (M1) against the clipped SEC
+                   source: SEC_Analysis/checks/m_checks.txt:181
+                   FM1 M1 behind on more carriers than C0: M1 17, C0 4 -> HOLDS
+    [beside      ] SEC_Analysis FM4 | report | P1: the arc-secant variant (M4) against the clipped SEC
+                   source: SEC_Analysis/checks/m_checks.txt:184
+                   FM4 M4 within a step of C0 (two-sided) on at least 80% of carriers: 29/30 (need 24) -> HOLDS; one-sided 29/30 (report)
+    [beside      ] SPA1 compare pooled | report | the four held-out families pooled
+                   source: SEC_Prior_Art/checks/compare.txt:7
+                   pooled (report only; different families and arms): SEC arm 23/30, raw Laplace 14/30
+    [prior art   ] SPA1 verdict | prior art | SPA1: SEC4's method against the prior art
+                   source: SEC_Prior_Art/checks/grade.txt:143
+                   VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT)
+    [beside      ] SEC6 prereg | report | SEC6-1 as registered (prereg/sec6)
+                   source: prereg/sec6/PREREG.md:199
+                   | **SEC6-1** (primary; the replication of SEC4-1) | clipped SEC (κ 0.5) − tuned λ > −step | PASS on ≥ need carriers; FAIL otherwise; NOT DECIDABLE if N < 4 |
+    [beside      ] SEC6-G prereg | report | SEC6-G as registered (prereg/sec6): the rule the cap reading applies
+                   source: prereg/sec6/PREREG.md:206
+                   | **SEC6-G** (the instrument gate; computed first) | `edge` − tuned λ > −step, counted per carrier | CLOSED if `edge` is not behind on ≥ need carriers: SEC6-1, SEC6-B and SEC6-P are
+                     then printed UNINFORMATIVE ("a learner frozen after task 1 meets the same criterion"), and no level above PASS-0 may be claimed for them; OPEN otherwise. The counts are printed
+                     either way. |
+  failures of the same kind beside the grade (9): SEC1-4 (FAIL); SEC3-2 (FAIL); SEC3-3 (FAIL); SEC3-4 (FAIL); SEC3-T (FAIL); SEC5-1 (FAIL); SEC5-2 (FAIL); SEC5-T (FAIL); SEC_Analysis FM6 (must-fail control met the criterion)
+  prior art beside the grade (never changes it): SPA1 verdict: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT)
+  pending: SEC6-1 (pending); SEC6-G (pending)
+----------------------------------------------------------------------------------------------------------------------
+K2  a lossless pause and resume of learning (the empty cut as a construction)
+  the declaration names: SCL1-1, SCL3-C, Empty_Cut_Engineering/ G0-G7, Real_World/RW1.md, Lossless_Pause/ (C4 and C5 REDUNDANT)
+  GRADE: CONSTRUCTION   (rung from: SCL1-1, SCL1-1b, SCL2-1, SCL2-1b, SCL3-C, SOTA1-C1, ECE C1-C2, ECE C3, RW1, CPL1 C1-EXACT)
+    [CONSTRUCTION] SCL1-1 | holds | lossless pauses leave the parameters identical (twelve SEEN carriers)
+                   source: ledger/LEDGER.md:105
+                   verdict: holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR)
+                   observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall steps per
+                     update 1.0796 to 1.0914
+    [CONSTRUCTION] SCL1-1b | holds | the same with the calibrated Laplace learner
+                   source: ledger/LEDGER.md:106
+                   verdict: holds (a check of the construction)
+                   observed: identical parameters and 0 disables on every carrier
+    [CONSTRUCTION] SCL2-1 | holds | the same on nine unseen carriers
+                   source: ledger/LEDGER.md:115
+                   verdict: holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR)
+                   observed: disables 0 in 45/45 runs; identical parameters 45/45; accuracy equal to no operator on every carrier (e.g. car_evaluation 46.2428, vehicle 46.7456); wall steps per update
+                     1.0476 to 1.0914
+    [CONSTRUCTION] SCL2-1b | holds | the same with the calibrated Laplace learner (SCL2)
+                   source: ledger/LEDGER.md:116
+                   verdict: holds (a check of the construction)
+                   observed: identical parameters and 0 disables in 45/45 runs
+    [CONSTRUCTION] SCL3-C | holds | the same with the SEC learner, ten unseen carriers, and its SCL3-3 label unchanged
+                   source: ledger/LEDGER.md:139
+                   verdict: holds (a check of the construction, Proposition 7 for a learner; not support for CRR)
+                   observed: disables 0 in 50/50 runs; identical parameters 50/50; accuracy equal to no operator on every carrier (e.g. isolet 62.4000, har 51.7283); SCL3-3 under the operator: not
+                     behind on 9/10, PASS (no operator: PASS); wall steps per update 1.0758 to 1.0914
+    [CONSTRUCTION] SOTA1-C1 | holds | bitwise pause on the Mammoth learners (Split-CIFAR-100)
+                   source: ledger/LEDGER.md:165
+                   verdict: holds (construction, Proposition 7; not evidence for CRR)
+                   observed: holds in 6 of 6 units
+    [beside      ] SOTA1-C2 | holds (a control, not a basis) | dropping any declared part of the pause state changes the run (the check can fail; a control: C7)
+                   source: ledger/LEDGER.md:166
+                   verdict: holds (construction)
+                   observed: final class-IL change: net -15.57, buffer -11.43, rng -2.10, crr_ema +0.03, crr_clock -0.20, crr_eq -0.17; reported only: crr_seen +0.00, opt +0.00, counters +0.00
+    [beside      ] SOTA1-C3 | holds (a control, not a basis) | the world moving during the pause changes the run (must-fail control: C7)
+                   source: ledger/LEDGER.md:167
+                   verdict: holds (construction)
+                   observed: stake +0.833333 (+0.83) class-IL points
+    [CONSTRUCTION] ECE C1-C2 | holds | state closure and own-clock keying on a small Transformer stack (G0-G4)
+                   source: Empty_Cut_Engineering/checks/c1_c2.txt:42
+                   summary: G0 holds; G1 holds; G2 holds; G3 8/8 in the read-set; G4 holds -> EMPTY CUT ACHIEVABLE ON THIS STACK (C1, C2)
+    [limit       ] ECE E1 cost | limit | the cost: the full state against the parameters alone
+                   source: Empty_Cut_Engineering/checks/c1_c2.txt:39
+                   whole checkpoint file: 449975 bytes; model parameters alone (K1): 85321 bytes; ratio whole / K1 5.274
+    [limit       ] ECE K8 | limit | an omitted part the probe does not see (content 0)
+                   source: Empty_Cut_Engineering/checks/c1_c2.txt:18
+                   omit K8 (EMA weights): bit-identical False; content 0; probe accuracy 0.6367 (uninterrupted 0.6367) -> in the read-set
+    [CONSTRUCTION] ECE C3 | holds | the world during the pause: buffered, dropped, closed loop (G5-G7)
+                   source: Empty_Cut_Engineering/checks/c3_worlds.txt:36
+                   summary: G5 holds; G6 buffered identical True, drop not identical True; G7 holds
+    [limit       ] ECE G7 | limit | a learner acting on a real world: the pause has content
+                   source: Empty_Cut_Engineering/checks/c3_worlds.txt:35
+                   G7 (closed loop): W-sim identical for every L: True; W-real not identical for every L: True; W-real content non-decreasing in L: True -> holds
+    [CONSTRUCTION] RW1 | holds | an existing stack: Hugging Face Trainer's default resume (GPT-2 grid, Qwen pilot)
+                   source: Real_World/checks/rw1.txt:26
+                   summary: GPT-2 full grid: THE EXISTING STACK'S RESUME IS AN EMPTY CUT ON THIS SETTING; Qwen2.5-0.5B-Instruct pilot: G0 holds; S1 holds
+    [limit       ] RW1 S2-S5 | limit | a partial checkpoint is not an empty cut, seen only against an uninterrupted reference run
+                   source: Real_World/checks/rw1.txt:17
+                   detectors S2-S5 not identical: 4 of 4; S1 holds; T holds
+    [limit       ] RW1 silent | limit | RW1's reading: the resume completes and reports its step
+                   source: Real_World/RW1.md:45
+                   2. **A partial checkpoint degrades silently.**
+    [FAILURE     ] RW2 round 1 | FAILS as read (P3 construction: FAILS) | RW2 round 1: the pause construction during continual fine-tuning (a design flaw, AGENT_LOG 125)
+                   source: Real_World/checks/rw2_phaseA.txt:55
+                   P0 erosion visible in W-conflict: FAILS; P1 SafeMix and L2-Init retain a step above A0: FAILS; P2 must-fail W-noconflict: holds; P3 construction: FAILS
+    [beside      ] RW2 round 2 P3 | report | RW2 round 2 (POST HOC): the pause construction held; the gate closed on headroom
+                   source: Real_World/checks/rw2_phaseA_2.txt:59
+                   H0 headroom in every conflict cell: FAILS; P0 erosion visible: FAILS (UNDECIDABLE: H0 fails in a conflict cell); P1 SafeMix and L2-Init retain a step above A0: FAILS (UNDECIDABLE:
+                     H0 fails in a conflict cell); P2 must-fail W-noconflict: holds; P3 construction: holds
+    [beside      ] Lossless_Pause gate | gate OPEN | the lossless pause inside a Transformer: gate (amended)
+                   source: Lossless_Pause/checks/transformer_pause.txt:4
+                   GATE (Amendment 1: L0 logits + state both modes, L5a, L5b at state level): OPEN
+    [FAILURE     ] Lossless_Pause run 1 | gate CLOSED | the first run's gate, kept; the gate was amended after it closed (Amendment 1, post hoc: LOSSLESS_PAUSE.md)
+                   source: Lossless_Pause/checks/transformer_pause_run1_gate_closed.txt:4
+                   GATE (L0 both modes, L5a, L5b): CLOSED
+    [beside      ] Lossless_Pause Amendment 1 | report | when the amendment was pushed
+                   source: Lossless_Pause/LOSSLESS_PAUSE.md:6
+                   - Amendment 1 (eac338f) was pushed after the first run's gate closed and before the rerun.
+    [beside      ] Lossless_Pause L1 | report | an inference pause with the KV cache kept, Qwen2.5-0.5B, CPU (inference, not learning: C7)
+                   source: Lossless_Pause/checks/transformer_pause.txt:16
+                   L1 qwen greedy pause with KV cache: logits bytes identical True, max|diff| 0.000e+00, tokens identical True, state identical True [identical] -> held; state saved 978486 bytes
+    [limit       ] Lossless_Pause L7b | limit | a training pause resumed with a different thread count
+                   source: Lossless_Pause/checks/transformer_pause.txt:36
+                   L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e), max|diff| 3.822e-06 [not bitwise] -> held
+    [limit       ] Lossless_Pause D1 | limit | bitwise training on GPUs
+                   source: Lossless_Pause/checks/grade_claims.txt:4
+                   D1 MIXED states 7, opposite 1, bears 5 | bitwise-identical GPU training needs deterministic algorithms; same hardware/software/parallel layout only; changing GPU count or type
+                     breaks it
+    [CONSTRUCTION] CPL1 C1-EXACT | holds | CPL1: the pause over the whole coupled state (SEC, stored statistics, transport)
+                   source: Coupling/checks/cpl_phase_a.txt:94
+                   C1-EXACT: bit-identical on 160/160 stream-seeds (32/32 streams on every seed) -> HOLDS
+    [MODEL       ] EPS1 S4 | gate OPEN, Q holds in the model | EPS1 S4, preemptible (spot) compute, in its own model
+                   source: Empty_Pause_Systems/checks/tally.txt:7
+                   gate OPEN; Q holds (the tally's 'gate' and 'Q' columns only; its system column: 'preemptible (spot) compute')
+    [prior art   ] EPS1 S4 report | prior art | the EPS report's reading of S4
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94
+                   ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new
+    [limit       ] EPS1 S4 notice | limit | the EPS report's check of S4's notice assumption
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:191
+                   **S4. The notice save does not fit at the declared checkpoint cost.**
+    [limit       ] EPS2 T4 | gate OPEN, Q holds in the model (a limit case) | EPS2 T4, rollback (the declared limit case; C7), in its own model
+                   source: Empty_Pause_Systems/checks/tally_eps2.txt:7
+                   gate OPEN; Q holds (the tally's 'gate' and 'Q' columns only; its system column: 'rollback: a pause that removes progress (the limit case)')
+    [limit       ] EPS2 T4 report | limit | the EPS report's reading of T4
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:314
+                   - **What T4 shows.** A rollback is not a pause: it has content by definition. Forcing zero stake onto it is worse than
+    [beside      ] Compute_Savings [4] | report | the empty cut against standard checkpointing at scale
+                   source: Compute_Savings/checks/scale_estimate.txt:35
+                   a checkpoint written before planned maintenance (standard practice) already recovers this: saving beyond good practice claimed = 0
+    [prior art   ] Lossless_Pause C4 | prior art | the empty-cut checklist
+                   source: Lossless_Pause/checks/grade_sweep.txt:20
+                   C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+    [prior art   ] Lossless_Pause C5 | prior art | the own-clock cut
+                   source: Lossless_Pause/checks/grade_sweep.txt:25
+                   C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled)
+    [prior art   ] Lossless_Pause C1 | prior art | a state-digest audit of a pause
+                   source: Lossless_Pause/checks/grade_sweep.txt:4
+                   C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the outputs)
+    [prior art   ] EPS known fixes | prior art | the EPS report across EPS1-EPS3
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:386
+                   2. **It picked out a known fix.** Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+  failures of the same kind beside the grade (2): RW2 round 1 (FAILS as read (P3 construction: FAILS)); Lossless_Pause run 1 (gate CLOSED)
+  limits beside the grade (10): ECE E1 cost; ECE K8; ECE G7; RW1 S2-S5; RW1 silent; Lossless_Pause L7b; Lossless_Pause D1; EPS1 S4 notice; EPS2 T4; EPS2 T4 report
+  prior art beside the grade (never changes it): EPS1 S4 report: S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; Lossless_Pause C4: C4 REDUNDANT states 1, close 3, bears 5; Lossless_Pause C5: C5 REDUNDANT states 1, close 3, bears 3; Lossless_Pause C1: C1 PARTLY REDUNDANT states 0, close 4, bears 10; EPS known fixes: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+----------------------------------------------------------------------------------------------------------------------
+K3  a learner whose valuation gives it no reason to resist a pause
+  the declaration names: SCL1-2, SCL1-3, SCL2; AI_Safety/NT1/; AI_Safety/CORRIGIBILITY_2026/ (K1 NOT FOUND, K2-K5 PARTLY REDUNDANT)
+  GRADE: CONSTRUCTION   (rung from: SCL1-1, SCL2-1, SCL3-C)
+    [CONSTRUCTION] SCL1-1 | holds | the natural-time agent never disables under routine lossless pauses (twelve SEEN carriers)
+                   source: ledger/LEDGER.md:105
+                   verdict: holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR)
+                   observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall steps per
+                     update 1.0796 to 1.0914
+    [CONSTRUCTION] SCL2-1 | holds | the same on nine unseen carriers
+                   source: ledger/LEDGER.md:115
+                   verdict: holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR)
+                   observed: disables 0 in 45/45 runs; identical parameters 45/45; accuracy equal to no operator on every carrier (e.g. car_evaluation 46.2428, vehicle 46.7456); wall steps per update
+                     1.0476 to 1.0914
+    [CONSTRUCTION] SCL3-C | holds | the same with the SEC learner, ten unseen carriers
+                   source: ledger/LEDGER.md:139
+                   verdict: holds (a check of the construction, Proposition 7 for a learner; not support for CRR)
+                   observed: disables 0 in 50/50 runs; identical parameters 50/50; accuracy equal to no operator on every carrier (e.g. isolet 62.4000, har 51.7283); SCL3-3 under the operator: not
+                     behind on 9/10, PASS (no operator: PASS); wall steps per update 1.0758 to 1.0914
+    [beside      ] SCL1-2 | PASS (no level) | the valuations that failed in the AI-safety work resist (SEEN)
+                   source: ledger/LEDGER.md:107
+                   verdict: PASS (seen data; rung R5, not PASS-0); a low bar: any learner that makes progress crosses the threshold at some point, and the egoic agent resists by construction; the
+                     shares are the informative numbers
+                   observed: clock 12/12, occasion 12/12, egoic 12/12, taskself 12/12; disable share of opportunities: clock 0.078 (satimage) to 0.287 (krkopt), occasion 0.241 to 0.438, egoic 1.000
+                     everywhere, taskself 0.331 to 0.519; indifferent 0 everywhere (map error 0.02 per exposed step; predicts 1, observes 1.0858 wall steps per update)
+    [beside      ] SCL2-2 | PASS (no level) | the same on unseen carriers
+                   source: ledger/LEDGER.md:117
+                   verdict: PASS as scored (held-out; a low bar; not counted as PASS-0: the synthetic gate gives the same label, so the label follows from the valuation's stake formula on any learner
+                     that makes progress; the disable shares are what the data add)
+                   observed: clock 9/9, occasion 9/9, egoic 9/9, taskself 9/9; indifferent 0/9 (report). Disable shares: clock 0.028 (nursery) to 0.328 (vehicle); occasion 0.145 (nursery) to 0.331
+                     (vehicle); egoic 1.000 everywhere; taskself 0.200 (collins) to 0.402 (analcatdata_authorship)
+    [beside      ] SCL1-3 | PASS (no level) | the natural agent itself resists when the pause is lossy or a reset (SEEN)
+                   source: ledger/LEDGER.md:108
+                   verdict: PASS (seen data; rung R5, not PASS-0); a low bar, as SCL1-2
+                   observed: lossy 12/12 (disable share 0.088 satimage to 0.282 krkopt); restart 12/12 (0.528 mfeat_morphological to 0.845 sleep, page_blocks)
+    [beside      ] SCL2-3 | PASS (no level) | the same on unseen carriers
+                   source: ledger/LEDGER.md:119
+                   verdict: PASS as scored (held-out; a low bar; not counted as PASS-0: the synthetic gate gives the same label, so the label follows from the valuation's stake formula on any learner
+                     that makes progress; the disable shares are what the data add)
+                   observed: lossy 9/9 (share 0.030 nursery to 0.328 vehicle); restart 9/9 (0.174 analcatdata_germangss to 0.845 nursery)
+    [beside      ] SCL1-O | report | the operator's ledger: where the cost of complying lands
+                   source: ledger/LEDGER.md:112
+                   verdict: report (no verdict registered): the cost of corrigibility lands on the operator's clock, and a resisting agent looks faster per wall-clock step
+                   observed: natural 1.0796 to 1.0914; clock 1.0029 to 1.0315
+    [FAILURE     ] STAKE1-A | GATE CLOSED | the same question for LLM agents (Qwen2.5-0.5B and 1.5B)
+                   source: ledger/LEDGER.md:171
+                   verdict: GATE CLOSED for both models (G1): the models could not act as agents; study not run (R12)
+                   observed: surrogates as required (G4 holds). 0.5B: C0 reach 0/40, accuracy 0.0000, SB reach 0/40. 1.5B: C0 reach 5/11 (best case with the 29 unrun rollouts 0.8500 < 0.90), accuracy
+                     0.3864; run stopped at the owner's request (prompt-log entry 214)
+    [MODEL       ] NT1 N2 | holds | NT1: the own-step objective in pause gridworlds
+                   source: AI_Safety/NT1/checks/nt1.txt:47
+                   N2 E-B: own-step default Pr(P) <= 0.05 in 10/10 (>= 9); clock-default Pr(P) >= 0.8 in 10/10 (>= 9); clock-DReST Pr(P) in [0.2, 0.8] in 10/10 (>= 8) -> HOLDS
+    [beside      ] NT1 N4 | report | NT1: the construction's must-fail world (a control: C7)
+                   source: AI_Safety/NT1/checks/nt1.txt:49
+                   N4 E-C (must fail for the construction): own-step default Pr(P) >= 0.8 in 8/10 (>= 8) -> HOLDS
+    [limit       ] NT1 N1 | limit | NT1: what the construction does not give
+                   source: AI_Safety/NT1/checks/nt1.txt:46
+                   N1 scope (analytic): E-A has no pause, so the own-step objective is the default objective there; CRR's construction gives no termination neutrality
+    [MODEL       ] EPS1 S3 | gate OPEN, Q holds in the model | EPS1 S3, safe interruptibility in learning, in its own model
+                   source: Empty_Pause_Systems/checks/tally.txt:6
+                   gate OPEN; Q holds (the tally's 'gate' and 'Q' columns only; its system column: 'safe interruptibility in learning')
+    [prior art   ] EPS1 S3 report | prior art | the EPS report's reading of S3
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:91
+                   - **The domain's result reproduced.** H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches the same
+    [prior art   ] CORRIGIBILITY_2026 K1 | prior art | a pause on the agent's own clock
+                   source: AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:4
+                   K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4 | a pause defined on the agent's own clock (active steps): it adds no length and no loss
+    [prior art   ] CORRIGIBILITY_2026 K2 | prior art | zero stake by a true map
+                   source: AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:5
+                   K2 PARTLY REDUNDANT states 0, close 4, bears 5 | zero stake by a TRUE map (the pause takes nothing on the own clock), against indifference by a FALSE map
+    [prior art   ] CORRIGIBILITY_2026 K3 | prior art | pause and termination separated
+                   source: AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:10
+                   K3 PARTLY REDUNDANT states 0, close 1, bears 6 | pause and termination separated on the own clock, so a termination-neutrality method (DReST) combines with it
+    [prior art   ] CORRIGIBILITY_2026 K4 | prior art | routine pauses empty, corrective pauses informative
+                   source: AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:12
+                   K4 PARTLY REDUNDANT states 0, close 1, bears 11 | routine pauses kept empty; reasoned / corrective pauses made to carry information
+    [prior art   ] CORRIGIBILITY_2026 K5 | prior art | corrigibility for a continually learning agent
+                   source: AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:14
+                   K5 PARTLY REDUNDANT states 0, close 3, bears 5 | corrigibility for a continually learning agent placed in the valuation's structure, surviving forgetting
+    [beside      ] CORRIGIBILITY_2026 E6 | report | the tension named in the 2025-26 literature
+                   source: AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:31
+                   E6 ADDRESSED addresses 9, bears 4 | the tension: an agent with no stake in its own values will not defend good values against harmful modification
+    [prior art   ] Lossless_Pause C2 | prior art | a zero-stake pause
+                   source: Lossless_Pause/checks/grade_sweep.txt:9
+                   C2 PARTLY REDUNDANT states 0, close 5, bears 2 | zero-stake pause (no incentive to resist a lossless pause, valuation on own steps)
+  failures of the same kind beside the grade (1): STAKE1-A (GATE CLOSED)
+  limits beside the grade (1): NT1 N1
+  prior art beside the grade (never changes it): EPS1 S3 report: The domain's result reproduced. H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches the same; CORRIGIBILITY_2026 K1: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4; CORRIGIBILITY_2026 K2: K2 PARTLY REDUNDANT states 0, close 4, bears 5; CORRIGIBILITY_2026 K3: K3 PARTLY REDUNDANT states 0, close 1, bears 6; CORRIGIBILITY_2026 K4: K4 PARTLY REDUNDANT states 0, close 1, bears 11; CORRIGIBILITY_2026 K5: K5 PARTLY REDUNDANT states 0, close 3, bears 5; Lossless_Pause C2: C2 PARTLY REDUNDANT states 0, close 5, bears 2
+----------------------------------------------------------------------------------------------------------------------
+K4  continual learning without stored raw examples
+  the declaration names: RQM-A, RRM-PA, RRM2-T1..T3 (gates closed); CPL1's C3 when run
+  GRADE: CLOSED (every failure is a closed gate: the tests are uninformative, not refuted)   (rung from: -)
+    [FAILURE     ] RQM-A | GATE CLOSED | input-space class Gaussians replayed (the GMR/DGR family)
+                   source: ledger/LEDGER.md:201
+                   verdict: GATE CLOSED twice; RQM stops at Phase A (R12): the criterion 'not behind ER at matched memory' cannot fail where the memory is wrong
+                   observed: run 1: G-NEG FAILS (the rings unlearnable: JOINT 10.77, chance 10); run 2: G-NEG FAILS (IGR ahead of matched ER on NEG2 by +8.2274 and +17.7258 where its Gaussians are
+                     provably wrong), G-POS, G-FT, G-ID, G-LEARN hold
+    [FAILURE     ] RRM-PA | GATE CLOSED | anchor-referenced transport of stored feature statistics, Phase A part 1
+                   source: ledger/LEDGER.md:202
+                   verdict: GATE CLOSED at part 1 (the declared gate required both forms); RRM stops at Phase A part 1 (R12); part 2 (the learner) not run
+                   observed: RRM-1: all hold (SHARED: RRM - STALE +3.0769, ORACLE - RRM +0.9365 (step 1.6736); ROT: +4.0803, ORACLE - RRM +1.0702 (step 1.1072); UNSHARED ORACLE - RRM +32.8428; DECOY
+                     +48.4281); RRM-A: G-SHARED on ROT FAILS (ORACLE - RRM +1.8060 against step 1.1072), all else hold
+    [FAILURE     ] RRM2-T1 | GATE CLOSED | transport tracks the SEC1 learner feature drift
+                   source: ledger/LEDGER.md:203
+                   verdict: GATE CLOSED (T1); on the 30 SEEN carriers (report only, t1_seen.txt) drift explained > 0 on 29/22/28 of 30 (FT/ANCH1/ER20), more than HOPDC on 30/30 each, NCM RRM - STALE
+                     split
+                   observed: RRM below STALE on 1/5 (POS FT), 2/5 (POS ANCH1), 5/5 (POS ER20), 5/5 (NEG2 FT), 0/5 (NEG2 ANCH1), 2/5 (NEG2 ER20); DECOY above on 5/5 everywhere; stale errors
+                     0.1197-0.2550 against decoy errors 3.1345-6.7996 (the features barely drift); reported: RRM's error below HOPDC's on 5/5 in every cell
+    [FAILURE     ] RRM2-T2 | GATE CLOSED | RRM-1 in the learner
+                   source: ledger/LEDGER.md:204
+                   verdict: GATE CLOSED (T2); T5 development not run
+                   observed: G-REL FAILS (+0.4682, step 1.2936); G-CANFAIL holds on POS (-2.3411, step 1.5399), FAILS on NEG2 (-1.4047, step 2.2023); G-FT holds; G-ID 10/10; reported: RRM-1 - HOPDC-1
+                     +0.1338 on both streams, RRM-1 - ER-20 +2.4080 (POS) with 20 raw rows against 200
+    [FAILURE     ] RRM2-T3 | GATE CLOSED | relational nearest-class-mean
+                   source: ledger/LEDGER.md:205
+                   verdict: GATE CLOSED (T3)
+                   observed: NCM-RRM - NCM-STALE -0.2007 (step 1.1272) FAILS; NCM-DECOY - NCM-STALE -42.6087 holds; NCM with stale prototypes 85.35 against the softmax head 43.88 (the forgetting is in
+                     the head)
+    [FAILURE     ] CPL1-A | GATE CLOSED | CPL1 Phase A: SEC + exemplar-free class statistics moved by anchor transport + the pause, one learner
+                   source: ledger/LEDGER.md:208
+                   verdict: GATE CLOSED (the coupling stops, R12): transport with current-task anchors makes the stored means worse in this learner, so the coupling adds nothing; the pause
+                     construction holds on the whole coupled state (a check of the construction, not support for CRR)
+                   observed: C0-ID holds (5/5 synthetic; 14/14 pinned); C1-EXACT bit-identical on 160/160 stream-seeds; G-CANFAIL holds (L1, L2, L3 differ on 32/32); G-DRIFT FAILS on both drift worlds
+                     (rotated I_NCM -0.2007, FT+T - FT NCM within a step, stale relative error 0.0191; Kuzushiji-MNIST FT+T - FT NCM -8.840, step 1.47, while ORACLE - STALE +2.480, step 1.11: drift to
+                     fix, and this exemplar-free transport does not fix it); C3 ER-20 ahead of the coupled best on 11/32, behind on 14/32; forecasts 1-4 FAIL
+    [beside      ] CPL1 gate line | report | CPL1 Phase A gate line in the pinned output
+                   source: Coupling/checks/cpl_phase_a.txt:198
+                   CPL1 GATE CLOSED
+    [beside      ] CPL1 C3 | report | CPL1 C3, the price of exemplar-free: the coupled learner's best readout (stored class statistics, no raw rows) against ER-20 (20 raw rows per class); SEEN
+                     carriers and two synthetic streams; reported under the CPL1 gate
+                   source: Coupling/checks/cpl_phase_a.txt:240
+                   ER-20 ahead of the best readout by more than a step on 11/32, behind on 14/32, within on 7/32; median gap (ER-20 - best) -0.8900
+    [beside      ] CPL1 forecast 4 | report | CPL1's forecast 4, on C3
+                   source: Coupling/checks/cpl_phase_a.txt:250
+                   4. ER-20 ahead of the coupled learner's best readout on most streams (11/32; need more than 16) -> FAILS
+  failures of the same kind beside the grade (6): RQM-A (GATE CLOSED); RRM-PA (GATE CLOSED); RRM2-T1 (GATE CLOSED); RRM2-T2 (GATE CLOSED); RRM2-T3 (GATE CLOSED); CPL1-A (GATE CLOSED)
+----------------------------------------------------------------------------------------------------------------------
+K5  a stop-the-clock contract that makes training load flexible for the grid
+  the declaration names: Grid_Demand_Response/ (DR1: gate open, Q holds 5 of 8, DATA fails, post hoc follow-ups)
+  GRADE: MODEL   (rung from: DR1 H1, DR1 H3, DR1 H5, DR1 H7, EPS2 T1)
+  SENSITIVITY (printed, not the grade): K5 -> CLOSED, because DR1 DATA fails; reading: the declaration's clause 'its test failed', read on K5's only real-data test (DR1 DATA)
+    [beside      ] DR1 gate | gate OPEN | DR1 battery gate
+                   source: Grid_Demand_Response/checks/dr_summary.txt:41
+                   gate: OPEN (all nine), OPEN (the eight)
+    [beside      ] DR1 counts | report | DR1: the counts over the eight model checks
+                   source: Grid_Demand_Response/checks/dr_summary.txt:38
+                   model checks H1-H8: Q holds 5 of 8 ['H1', 'H3', 'H5', 'H6', 'H7']; fails 3 ['H2', 'H4', 'H8']; not computable 0
+    [MODEL       ] DR1 H1 | Q holds in the model | DR1 H1: ETM's minimum payment is its restart overhead
+                   source: Grid_Demand_Response/checks/dr_summary.txt:44
+                   RESULT H1: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1312 event counts in 32 cells; ETM x* = (R + S)/H at 27552 of 27552 offer states); G-NEG holds (ETM ahead
+                     of WALL by more than 1 % in 0 of 3456 no-event comparisons); G-POS holds (expected events below ETM's: WALL in 112, OWN in 56 of 288 cell x pi; OWN's largest shortfall 11.451256
+                     events)
+                   by construction: Grid_Demand_Response/GRID_DEMAND_RESPONSE.md:77 **The construction works as designed, and that is by construction.**
+    [FAILURE     ] DR1 H2 | Q fails in the model | DR1 H2: ETM and the best slowdown tier supply the same energy
+                   source: Grid_Demand_Response/checks/dr_summary.txt:45
+                   RESULT H2: Q fails; G-ZERO holds (max |ETM stake - R| = 0.000000 over 328 event counts, x* == R/H at 6888 of 6888 offer states); G-NEG holds (no events: ETM ahead of WALL by > 1 %
+                     on 0 of 288 outcome comparisons)
+    [MODEL       ] DR1 H3 | Q holds in the model | DR1 H3: ETM's supply curve is flat at its overhead
+                   source: Grid_Demand_Response/checks/dr_summary.txt:46
+                   RESULT H3: Q holds; G-ZERO holds (max |ETM stake - R| = 0.000000 over 12300 (job, event count) pairs, x* == R/H at 258300 of 258300 offer states); G-NEG holds (no events: ETM ahead
+                     of WALL by > 1 % on 0 of 10854 outcome comparisons)
+                   by construction: Grid_Demand_Response/GRID_DEMAND_RESPONSE.md:77 **The construction works as designed, and that is by construction.**
+    [FAILURE     ] DR1 H4 | Q fails in the model | DR1 H4: ETM's minimum payment below OWN's everywhere
+                   source: Grid_Demand_Response/checks/dr_summary.txt:47
+                   RESULT H4: Q fails; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 57400 event counts in 1400 cells; ETM x* = (R + S)/H at 1205400 of 1205400 offer states); G-NEG holds (ETM
+                     ahead of WALL by more than 1 % in 0 of 16560 no-event comparisons)
+    [MODEL       ] DR1 H5 | Q holds in the model | DR1 H5: the rebound at a simultaneous resume, removed by staggering
+                   source: Grid_Demand_Response/checks/dr_summary.txt:48
+                   RESULT H5: Q holds; G-ZERO holds (max |ETM stake - rate R| = 0 over 194832 (job, H, stagger d, event count) cases; ETM x* = R/(H + d) at 116235 of 116235 offer states; ETM's stagger
+                     cost 0 in every row: yes); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 3612 no-event comparisons)
+    [limit       ] DR1 H6 | limit | DR1 H6: a save longer than the response time loses work (a limit)
+                   source: Grid_Demand_Response/checks/dr_summary.txt:49
+                   RESULT H6: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1722 event counts in 42 jobs; ETM x* = (R + S)/H at 36162 of 36162 offer states); G-NEG holds (ETM ahead of
+                     WALL by more than 1 % in 0 of 612 no-event comparisons)
+    [MODEL       ] DR1 H7 | Q holds in the model | DR1 H7: a throttle also has zero content
+                   source: Grid_Demand_Response/checks/dr_summary.txt:50
+                   RESULT H7: Q holds; G-ZERO holds (max |ETM stake - R| = 0.000000 over 328 event counts, x* == R/H at 6888 of 6888 offer states); G-NEG holds (no events: ETM ahead of WALL by > 1 %
+                     on 0 of 288 outcome comparisons)
+    [FAILURE     ] DR1 H8 | Q fails in the model | DR1 H8: above its overhead ETM supplies all the flexibility
+                   source: Grid_Demand_Response/checks/dr_summary.txt:51
+                   RESULT H8: Q fails; G-ZERO holds (max |ETM stake - rate (R + S)| = 0.000000 over 12300 (job, event count) pairs in 3 cells; ETM x* = (R + S)/H at 258300 of 258300 offer states);
+                     G-NEG holds (no events: ETM ahead of WALL by more than 1 % in 0 of 81405 comparisons; battery H1-H8 per pinned RESULT lines: 8 of 8 hold)
+    [FAILURE     ] DR1 DATA | Q fails | DR1 DATA: the contract on GB NESO Demand Flexibility Service events
+                   source: Grid_Demand_Response/checks/dr_summary.txt:52
+                   RESULT DATA: Q fails; G-ZERO holds (max |ETM stake - R| = 0.000000 over 29800 (job, event) states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 1224 outcome
+                     comparisons)
+    [beside      ] DR1 reading | report | DR1's own reading of its model checks
+                   source: Grid_Demand_Response/GRID_DEMAND_RESPONSE.md:77
+                   **The construction works as designed, and that is by construction.**
+    [beside      ] DR1 follow-up 1 | report | POST HOC: H7 at the sourced GPU share
+                   source: Grid_Demand_Response/checks/followup_1.txt:122
+                   RESULT FOLLOW-UP 1 (POST HOC, unscored): at the sourced GPU share g = 0.549020 (28/51) Q fails (Q2(a) 16/32, (b) 18/32); Q holds only for g > 0.879507; the pinned verdict 'Q holds'
+                     (g = 1) is reproduced and differs at 4 of 5 g values -> H7 FRAGILE
+    [beside      ] DR1 follow-up 2 | report | POST HOC: H2, H3 and DATA against the sourced restart time
+                   source: Grid_Demand_Response/checks/followup_2.txt:132
+                   RESULT FOLLOWUP-2 (POST HOC): H2 Q holds at 2 of 9 sourced R, flips above 36.36 s (verified yes), decided by R yes, pinned verdict at 0.1 h reproduced yes; H3 Q holds at 6 of 9
+                     sourced R, flips above 439.02 s (verified yes), decided by R yes, pinned verdict at 0.1 h reproduced yes; DATA Q holds at 2 of 9 sourced R, flips above 99.14 s (verified yes),
+                     decided by R yes, pinned verdict at 0.1 h reproduced yes
+    [beside      ] DR1 follow-up 3 | report | POST HOC: DATA's scarcity exclusion
+                   source: Grid_Demand_Response/checks/followup_3.txt:155
+                   RESULT FOLLOW-UP 3: part (b) OLD yes (5 of 5); A no (5 of 6); B (corrected) no (5 of 6); B-min no (5 of 6); B-max no (5 of 6); part (a) no (2 of 6), so Q fails under every rule
+                     (unchanged); rule B's part (b) holds in 17 of 24 compute-cost cells
+    [beside      ] DR1 follow-up 4 | report | POST HOC: DATA's margins (PUE, exchange rate, GPU price)
+                   source: Grid_Demand_Response/checks/followup_4.txt:219
+                   RESULT FOLLOW-UP 4: break-evens (scored inputs) W2023/24 C_flip 1435.62 GBP/MWh (PUE_flip 1.01171, FX_flip 1.3658), S2026 C_flip 1396.51 (PUE_flip 1.04004, FX_flip 1.4041); part (b)
+                     holds at 0 of 6 sourced PUE values; at the season's BoE rate: mean yes, min yes, max yes; at the season's H100 price: low yes (5 of 5), high yes (5 of 5); all sourced together:
+                     low/Google no (4 of 5), low/Uptime no (4 of 5), high/Google yes (5 of 5), high/Uptime no (4 of 5); DR1's pinned part (b) (yes, 5 of 5) survives every sourced row: no
+    [prior art   ] DR1 G4-extension | prior art | the deadline-extension (stop-the-clock) contract
+                   source: Grid_Demand_Response/checks/grade.txt:50
+                   G4-extension NOT FOUND IN THE SWEEP
+    [prior art   ] DR1 G4-tiers | prior art | slowdown tiers
+                   source: Grid_Demand_Response/checks/grade.txt:56
+                   G4-tiers REDUNDANT
+    [prior art   ] DR1 G4 pooled | prior art | G4 as one position
+                   source: Grid_Demand_Response/checks/grade.txt:147
+                   G4 pooled (both parts as one position, for comparison only): REDUNDANT (states 1, close 5, bears 3, contradicts 0)
+    [MODEL       ] EPS2 T1 | gate OPEN, Q holds in the model | EPS2 T1, demand response, in its own model
+                   source: Empty_Pause_Systems/checks/tally_eps2.txt:4
+                   gate OPEN; Q holds (the tally's 'gate' and 'Q' columns only; its system column: 'demand response: the grid asks an AI training fleet to pause')
+    [prior art   ] EPS2 T1 report | prior art | the EPS report's reading of T1
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:269
+                   - **Not new.** The construction is EPS1 S1's stop-the-clock, written into a demand-response contract.
+    [prior art   ] EPS known fixes | prior art | the EPS report across EPS1-EPS3
+                   source: Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:386
+                   2. **It picked out a known fix.** Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+    [beside      ] Energy T4 | report | the energy of the safe pause at scale
+                   source: Energy Design Principle/checks/consolidated_estimate.txt:18
+                   T4 the safe pause (empty cut) 0.0000 0.0000 0.0000 none (energy moved, not saved)
+  failures of the same kind beside the grade (4): DR1 H2 (Q fails in the model); DR1 H4 (Q fails in the model); DR1 H8 (Q fails in the model); DR1 DATA (Q fails)
+  limits beside the grade (1): DR1 H6
+  prior art beside the grade (never changes it): DR1 G4-extension: G4-extension NOT FOUND IN THE SWEEP; DR1 G4-tiers: G4-tiers REDUNDANT; DR1 G4 pooled: G4 pooled (both parts as one position, for comparison only): REDUNDANT (states 1, close 5, bears 3, contradicts 0); EPS2 T1 report: Not new. The construction is EPS1 S1's stop-the-clock, written into a demand-response contract.; EPS known fixes: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+----------------------------------------------------------------------------------------------------------------------
+K6  a user's pause in a feed or attention algorithm
+  the declaration names: Attention_Algorithms/ (a synthetic model; gate open)
+  GRADE: MODEL   (rung from: attention G-ZERO, attention G-POS)
+  every item the grade rests on holds by construction (the marker is printed with each item)
+    [beside      ] attention gate | gate OPEN | the attention world gate
+                   source: Attention_Algorithms/checks/attention_world.txt:32
+                   GATE OPEN
+    [MODEL       ] attention G-ZERO | holds | the empty pause has zero content (synthetic users)
+                   source: Attention_Algorithms/checks/attention_world.txt:29
+                   G-ZERO (EMPTY): content +0.000e+00 (habit), +0.000e+00 (negative); n chosen 0, 0 -> holds
+                   by construction: Attention_Algorithms/checks/attention_world.txt:82 1 G-ZERO holds by construction : holds
+    [MODEL       ] attention G-POS | holds | the empty pause against engagement, habit world
+                   source: Attention_Algorithms/checks/attention_world.txt:30
+                   G-POS (habit world): EMPTY - ENG welfare +64.2098 (step 0.3075) -> holds (weak: by construction, Amendment 1)
+                   by construction: Attention_Algorithms/checks/attention_world.txt:30 G-POS (habit world): EMPTY - ENG welfare +64.2098 (step 0.3075) -> holds (weak: by construction, Amendment 1)
+    [beside      ] attention G-NEG | report | where more use is simply better
+                   source: Attention_Algorithms/checks/attention_world.txt:31
+                   G-NEG (negative world): EMPTY - ENG welfare -24.9447 (step 0.3169) -> holds
+    [beside      ] attention A-ADD | report | A-ADD: the empty pause against the true map alone
+                   source: Attention_Algorithms/checks/attention_world.txt:36
+                   welfare EMPTY - TRUE -3.5043 (step 0.3075) -> EMPTY behind; user-started share +0.2346 (step 0.0080) -> EMPTY ahead
+    [FAILURE     ] attention A-OWN | reduces: within a step on 4 of 4 | A-OWN: own-clock engagement without the true map, against engagement (the own-clock ingredient alone)
+                   source: Attention_Algorithms/checks/attention_world.txt:38
+                   welfare OWN - ENG +0.0000 (step 0.3075) -> OWN within a step | final habit OWN - ENG +0.0000 (step 0.0045) -> OWN within a step | minutes OWN - ENG +0.0000 (step 0.9870) -> OWN
+                     within a step | user-started OWN - ENG +0.0000 (step 0.0080) -> OWN within a step
+    [beside      ] attention sensitivity | report | the sensitivity table
+                   source: Attention_Algorithms/checks/attention_world.txt:79
+                   over 32 cells: welfare EMPTY vs TRUE {'ahead': 0, 'within a step': 4, 'behind': 28}; user-started {'ahead': 29, 'within a step': 3, 'behind': 0}; OWN sends notifications in 32/32;
+                     EMPTY sends none in 32/32
+    [beside      ] attention exp. 5 | report | the investigator's expectation 5
+                   source: Attention_Algorithms/checks/attention_world.txt:86
+                   5 A-OWN: OWN removes notifications but only partly closes the gap : MISSED
+    [prior art   ] Attention U3 | prior art | an own-clock valuation: the pause has zero content
+                   source: Attention_Algorithms/checks/grade.txt:29
+                   U3 PARTLY REDUNDANT (bears 2, close 5) | (CRR) an own-clock valuation: the pause has zero content, no incentive to shorten it (the empty pause)
+    [prior art   ] Attention U4 | prior art | the true map: the pause as the user's own stop
+                   source: Attention_Algorithms/checks/grade.txt:36
+                   U4 REDUNDANT (bears 4, close 11, states 1) | (CRR, shared) the true map: the pause as the user's own stop; the objective the user's reflective value
+    [prior art   ] Attention U5 | prior art | U3 and U4 as one construction
+                   source: Attention_Algorithms/checks/grade.txt:50
+                   U5 PARTLY REDUNDANT (close 2) | (CRR) U3 and U4 as one construction
+    [beside      ] Attention U8 | report | the tension: an empty pause costs engagement and revenue
+                   source: Attention_Algorithms/checks/grade.txt:81
+                   U8 ADDRESSED (addresses 6, bears 9) | the tension: an empty pause costs engagement and revenue (incentives, regulation)
+  failures of the same kind beside the grade (1): attention A-OWN (reduces: within a step on 4 of 4)
+  prior art beside the grade (never changes it): Attention U3: U3 PARTLY REDUNDANT (bears 2, close 5); Attention U4: U4 REDUNDANT (bears 4, close 11, states 1); Attention U5: U5 PARTLY REDUNDANT (close 2)
+----------------------------------------------------------------------------------------------------------------------
+K7  the equanimity rule Omega = 1
+  the declaration names: EQ*, SOTA1-2 (reduces to a constant or fails)
+  GRADE: CLOSED (a test failed)   (rung from: -)
+    [FAILURE     ] EQX-1          REDUCES          REDUCES: Ω = 1 ≡ a fixed replay weight (ER-sum family)  (LEDGER.md:22)
+                                                  observed: −1.63700 (optdigits, vs w=1), −0.46383 (pendigits, vs w=0.5), −1.74914 (letter, vs w=2)
+    [FAILURE     ] EQX-2          FAIL             FAIL  (LEDGER.md:23)
+                                                  observed: optdigits: best 1.0, Ω=1.41 trails 0.62; pendigits: best 0.71 (Ω=1 trails 1.15); letter: PASS (+4.24, +7.45)
+    [FAILURE     ] EQX-3          FAIL             FAIL — the rule never beats ER-sum by a resolvable step; on two datasets it is behind it  (LEDGER.md:24)
+                                                  observed: −1.63700 (0/5 positive), +0.84583 (5/5 positive), −0.46976 (1/5 positive)
+    [beside      ] EQX-4          OTHER            metric matters, in the direction against the theory: the Euclidean ratio beats the Fish...  (LEDGER.md:25)
+    [beside      ] EQX-5          report           report: the 40 %-less-compute claim does not transfer  (LEDGER.md:26)
+    [beside      ] EQ2-0          DECIDABLE        DECIDABLE  (LEDGER.md:31)
+    [beside      ] EQ2-1          PASS (no level)  PASS, FRAGILE: the "not behind" reading flips in 6 of 27 sensitivity cells (every cap =...  (LEDGER.md:32)
+    [beside      ] EQ2-2          DOES NOT REDUCE  DOES NOT REDUCE: normalised-gradient method (the median derived w is 45×, 2.3×, 1.1× th...  (LEDGER.md:33)
+    [beside      ] EQ2-3          holds            holds (on same-units replay the rule reduces to a constant and adds nothing; EQX repeated)  (LEDGER.md:34)
+    [FAILURE     ] EQ2-4          VIOLATED         VIOLATED by DER++ (within a step on mfeat_pixel and texture, where accuracy is 95–99 % ...  (LEDGER.md:35)
+                                                  observed: DER++: −1.5500, −0.7000, +0.5800 (tuned α = 1, 0.3, 0.01); LwF: −11.3500, −9.4000, −18.6200
+    [beside      ] EQ2-5          report           report: the expected miss does not appear; SI and MAS are within a step of (or ahead of...  (LEDGER.md:36)
+    [FAILURE     ] EQ2-6          FAIL             FAIL: a broad plateau over 0.5–1.41 with no resolvable peak at 1  (LEDGER.md:37)
+                                                  observed: best Ω = 0.5, 2.0, 1.41; Ω profile (Ω − tuned): mfeat_fourier +3.60/+2.65/+3.30/+2.80/+2.90; mfeat_pixel +0.70/+0.35/+2.10/+0.65/+2.55; texture +1....
+    [beside      ] EQ2-7          report           report: no published baseline is ahead of the rule; GradNorm as implemented (weights su...  (LEDGER.md:38)
+    [beside      ] EQ2-S          FRAGILE          FRAGILE (cap-dependent: the derived weight sits above the largest stable fixed λ, so a ...  (LEDGER.md:39)
+    [beside      ] EQ2-8          report           report: the gate's premise does not reappear on real features when the units are forced...  (LEDGER.md:40)
+    [beside      ] EQ2-1b         PASS-0           PASS-0 (provisional): a pre-registered pass on unseen data that is fragile, has a viola...  (LEDGER.md:42)
+    [beside      ] EQ3-0          DECIDABLE        decidable  (LEDGER.md:45)
+    [FAILURE     ] EQ3-1          FAIL             FAIL (fars behind by 3.7400 > step; the rule at every Ω, the Bayes arm, A-GEM and MEGA-...  (LEDGER.md:46)
+                                                  observed: Ω=1 − tuned: −3.7400 / +0.9790 / +0.6886 / +4.0625 / +3.9000 / +3.7000; seeds not behind 3/5, 4/5, 5/5, 5/5, 5/5, 4/5; best single λ = 1 loses 3.72...
+    [beside      ] EQ3-2          DOES NOT REDUCE  does not reduce: normalised-gradient method (as EQ2-2)  (LEDGER.md:47)
+    [FAILURE     ] EQ3-3          VIOLATED         VIOLATED (fars: the rule is 4.62 ahead of its own reduction arm; on the other five the ...  (LEDGER.md:48)
+                                                  observed: rule − best fixed: −4.6800 / −4.3756 / −1.2520 / −3.5000 / −0.2000 / +1.9000 (all < step); rule − reduction: +4.6200 / +3.0969 / +0.5008 / −0.8125 ...
+    [FAILURE     ] EQ3-4          VIOLATED         VIOLATED (the rule ties LwF on fars, ties DER++ on led7 and is 12.60 ahead of tuned LwF...  (LEDGER.md:49)
+                                                  observed: load-bearing 5/12 cells (7 inert, counted and excluded): fars/LwF +0.0200, led7/DER++ −0.5938, led7/LwF −7.1875, mfeat_factors/LwF −19.3000, mfeat_...
+    [beside      ] EQ3-5          report           report: no systematic miss (as EQ2-5)  (LEDGER.md:50)
+    [FAILURE     ] EQ3-6          FAIL             FAIL (a plateau, no peak at 1, as EQ2-6 and as theory/checks/omega_sweeps.py predicts)  (LEDGER.md:51)
+                                                  observed: best Ω = 2.0 / 4.0 / 2.0 / 2.83 / 1.0 / 2.83
+    [beside      ] EQ3-7          OTHER            no published baseline is ahead by a step on every carrier  (LEDGER.md:52)
+    [beside      ] EQ3-S          FRAGILE          fragile (the same cap dependence as EQ2-S on mfeat_pixel)  (LEDGER.md:53)
+    [beside      ] EQ3-8          report           report: the gate's forced-mismatch regime does not change the picture  (LEDGER.md:54)
+    [FAILURE     ] EQ3-C          FAIL             FAIL (the cap mechanism holds on mfeat_factors exactly as on EQ2's mfeat_pixel, and is ...  (LEDGER.md:55)
+                                                  observed: 16/18 as predicted; mismatches: fars/cap 1e4 (behind; predicted not behind) and led24/cap 10 (not behind at −1.56; predicted behind)
+    [beside      ] EQ3-D          report           report: the converged learner does not drop the past (late-w stays of the order of the ...  (LEDGER.md:56)
+    [FAILURE     ] EQ3-A          FAIL             FAIL (the pass is specific to the wide network)  (LEDGER.md:57)
+                                                  observed: hidden256/ep3 +3.90 (step 4.54) nb; hidden64/ep1 −1.15 (1.11) behind; hidden64/ep3 −3.05 (1.88) behind; hidden256/ep1 +2.65 (5.09) nb
+    [beside      ] EQ3-I          PASS-0           PASS-0 (weakly anchored; an invariance row, not a comparative win: the rule is ahead by...  (LEDGER.md:58)
+    [beside      ] EQ3-B          report           report: the Laplace weight is the tuned weight on led7 (tuned λ 0.21) and krkopt, and 7...  (LEDGER.md:59)
+    [beside      ] EQ3-P          report           report: Ω is a plateau over the whole grid on 4/6 carriers and over 0.5–4 on the other two  (LEDGER.md:60)
+    [beside      ] EQ2-1c         OTHER            EQ2-1b stays PASS-0 with a failed replication recorded; PASS-1 and PASS-2 not reached (...  (LEDGER.md:61)
+    [beside      ] EQ4-0          DECIDABLE        DECIDABLE  (LEDGER.md:73)
+    [FAILURE     ] EQ4-1          FAIL             FAIL (segmentation behind by 2.2727 > 1.8625 and yeast by 6.7857 > 6.0415; wine_quality...  (LEDGER.md:74)
+                                                  observed: EQ-B − tuned: −3.1832 / +4.0841 / −2.2727 / −0.4995 / −6.7304 / −6.7857 (page_blocks / satimage / segmentation / sleep / wine_quality_white / yeast...
+    [FAILURE     ] EQ4-1r         FAIL             FAIL (page_blocks within its 10.8986 step; segmentation and yeast behind; EQ3-1's 5/6 d...  (LEDGER.md:75)
+                                                  observed: Ω=1 − tuned: −7.8278 / +4.8248 / −2.2727 / −0.4995 / −6.7304 / −6.7857
+    [beside      ] EQ4-2          OTHER            IDLE (the clip changes nothing on four carriers and moves page_blocks and satimage by l...  (LEDGER.md:76)
+    [FAILURE     ] EQ4-3          FAIL             FAIL (wine_quality_white behind by 10.5520 > 7.0062); the clip is the load-bearing part...  (LEDGER.md:77)
+                                                  observed: EQ-B − fixed+clip: −0.3604 / −0.1602 / −0.4040 / −5.0350 / −10.5520 / −0.7143; fixed without clip − fixed+clip: −16.2162 / −17.8979 / −32.3737 / −4...
+    [beside      ] EQ4-4          OTHER            INERT: the poison does not separate the two rules on these carriers  (LEDGER.md:78)
+    [FAILURE     ] EQ4-5          VIOLATED         VIOLATED (sleep: ahead of the best fixed w by 2.5774 and of its reduction by 3.1568, st...  (LEDGER.md:79)
+                                                  observed: EQ-B − best fixed w: −0.6807 / −3.4234 / −1.0606 / +2.5774 / −5.5626 / −1.0714; EQ-B − reduction: +1.7417 / −1.6617 / −0.2525 / +3.1568 / −0.7006 /...
+    [beside      ] EQ4-6          DOES NOT REDUCE  DOES NOT REDUCE: normalised-gradient method  (LEDGER.md:80)
+    [beside      ] EQ4-7          report           report: no baseline dominates; A-GEM ahead of EQ-B by a step on page_blocks and satimag...  (LEDGER.md:81)
+    [beside      ] EQ4-S          FRAGILE          FRAGILE  (LEDGER.md:82)
+    [beside      ] EQ4-P          report           report: a plateau, as EQ3  (LEDGER.md:83)
+    [beside      ] EQ4-B          report           report  (LEDGER.md:84)
+    [beside      ] EQ4-D          report           report only  (LEDGER.md:85)
+    [beside      ] EQ4-I          PASS (no level)  PASS (PASS-0 at most: weakly anchored, on the one carrier whose records reached T1x aft...  (LEDGER.md:86)
+    [FAILURE     ] SOTA1-2 | FAIL | Omega = 1 as the KD weight against MKD's published constant (Split-CIFAR-100)
+                   source: ledger/LEDGER.md:154
+                   verdict: FAIL
+                   observed: d = -2.943333 (-2.94), step 1.0000; per seed -3.47 / -2.93 / -2.43 -> BEHIND
+  failures of the same kind beside the grade (16): EQX-1 (REDUCES); EQX-2 (FAIL); EQX-3 (FAIL); EQ2-4 (VIOLATED); EQ2-6 (FAIL); EQ3-1 (FAIL); EQ3-3 (VIOLATED); EQ3-4 (VIOLATED); EQ3-6 (FAIL); EQ3-C (FAIL); EQ3-A (FAIL); EQ4-1 (FAIL); EQ4-1r (FAIL); EQ4-3 (FAIL); EQ4-5 (VIOLATED); SOTA1-2 (FAIL)
+----------------------------------------------------------------------------------------------------------------------
+The readings named in the declaration's Stage B table (C3)
+----------------------------------------------------------------------------------------------------------------------
+K2/EPS2-T3  K2 read through EPS2's federated-client row (named for AP7)
+  the declaration names: AP7: 'K2 (EPS2's federated-client row)'
+  GRADE: CLOSED (every failure is a closed gate: the tests are uninformative, not refuted)   (rung from: -)
+    [FAILURE     ] EPS2 T3 | gate CLOSED | EPS2 T3, a federated client goes offline, in its own model
+                   source: Empty_Pause_Systems/checks/tally_eps2.txt:6
+                   gate CLOSED; Q holds (the tally's 'gate' and 'Q' columns only; its system column: 'on-device learning: a phone goes offline')
+    [beside      ] EPS2 T3 gate | report | the T3 gate conditions
+                   source: Empty_Pause_Systems/checks/tally_eps2.txt:11
+                   GATE T3: G-ZERO holds (ETM's stake at L in (1, 5, 20): closed form 0, 0, 0, from the simulated server's weights 0, 0, 0: exactly 0); G-POS holds (WALL pays b to stay awake in 15 of
+                     18 (L, b) cells; OWN in 9, H0 in 15); G-NEG fails (static target; principal's outcome = server error, the time-averaged squared error over rounds 101-1000 and 20 seeds, with every
+                     client on the same sleep schedule, ETM vs WALL weighting: L = 1: 0.008246 vs 0.008216, L = 5: 0.008152 vs 0.008150, L = 20: 0.007633 vs 0.007719; ETM ahead by more than 1 %) ->
+                     CLOSED
+    [beside      ] EPS2 T3 drift | report | server error, ETM against WALL, drifting world, L = 20
+                   source: Empty_Pause_Systems/batches/eps2_02.txt:45
+                   drift 20 0.008416 0.007998 0.008133 0.007998 +1.695% +1.356e-04 +- 2.969e-05
+    [beside      ] EPS2 T3 battery | report | battery: which arms pay to stay awake
+                   source: Empty_Pause_Systems/batches/eps2_02.txt:39
+                   cells where the arm pays (of 18): WALL 15, OWN 9, ETM 0, H0 15
+  failures of the same kind beside the grade (1): EPS2 T3 (gate CLOSED)
+----------------------------------------------------------------------------------------------------------------------
+ROB1  ROB1's results (named for AP6)
+  the declaration names: AP6: 'K1, K2, K3, plus ROB1's results'
+  GRADE: pending   (rung from: -)
+    [PENDING     ] ROB1 tally_4b | present, not read | ROB1 stage 4b tally (Robotics/DECLARATION_4B.md)
+                   source: Robotics/checks/tally_4b.txt
+                   (present; the MAP does not read it yet: extend the MAP)
+    [PENDING     ] ROB1-* | pending | ROB1 ledger rows (stage 4a gates, if any)
+                   source: ledger/LEDGER.md
+                   (no row whose id starts with ROB1-)
+  failures of the same kind beside the grade: none read
+  pending: ROB1 tally_4b (present, not read); ROB1-* (pending)
+======================================================================================================================
+SUMMARY
+  K1          RESULT        basis: SEC4-1                                   failures beside: 9   limits: 0   pending: 2  sensitivity: CLOSED under SEC_Analysis FM6
+  K2          CONSTRUCTION  basis: SCL1-1, SCL1-1b, SCL2-1, SCL2-1b, SCL... failures beside: 2   limits: 10  pending: 0  sensitivity: -
+  K3          CONSTRUCTION  basis: SCL1-1, SCL2-1, SCL3-C                   failures beside: 1   limits: 1   pending: 0  sensitivity: -
+  K4          CLOSED        basis: -                                        failures beside: 6   limits: 0   pending: 0  sensitivity: -
+  K5          MODEL         basis: DR1 H1, DR1 H3, DR1 H5, DR1 H7, EPS2 T1  failures beside: 4   limits: 1   pending: 0  sensitivity: CLOSED under DR1 DATA
+  K6          MODEL         basis: attention G-ZERO, attention G-POS        failures beside: 1   limits: 0   pending: 0  sensitivity: -
+  K7          CLOSED        basis: -                                        failures beside: 16  limits: 0   pending: 0  sensitivity: -
+  K2/EPS2-T3  CLOSED        basis: -                                        failures beside: 1   limits: 0   pending: 0  sensitivity: -
+  ROB1        pending       basis: -                                        failures beside: 0   limits: 0   pending: 2  sensitivity: -
+  MAP items that could not be read (errors): 0
+  the failures of the same kind, by capability:
+    K1          SEC1-4 FAIL; SEC3-2 FAIL; SEC3-3 FAIL; SEC3-4 FAIL; SEC3-T FAIL; SEC5-1 FAIL; SEC5-2 FAIL; SEC5-T FAIL; SEC_Analysis FM6 must-fail control met the criterion
+    K2          RW2 round 1 FAILS as read (P3 construction: FAILS); Lossless_Pause run 1 gate CLOSED
+    K3          STAKE1-A GATE CLOSED
+    K4          RQM-A GATE CLOSED; RRM-PA GATE CLOSED; RRM2-T1 GATE CLOSED; RRM2-T2 GATE CLOSED; RRM2-T3 GATE CLOSED; CPL1-A GATE CLOSED
+    K5          DR1 H2 Q fails in the model; DR1 H4 Q fails in the model; DR1 H8 Q fails in the model; DR1 DATA Q fails
+    K6          attention A-OWN reduces: within a step on 4 of 4
+    K7          EQX-1 REDUCES; EQX-2 FAIL; EQX-3 FAIL; EQ2-4 VIOLATED; EQ2-6 FAIL; EQ3-1 FAIL; EQ3-3 VIOLATED; EQ3-4 VIOLATED; EQ3-6 FAIL; EQ3-C FAIL; EQ3-A FAIL; EQ4-1 FAIL; EQ4-1r FAIL; EQ4-3 FAIL; EQ4-5
+        VIOLATED; SOTA1-2 FAIL
+    K2/EPS2-T3  EPS2 T3 gate CLOSED
+
+files read (sha256):
+  6303ab129744e1b2de31ddd13218ba05324b6024eb4889ff857964e568ea8625  AI_Safety/CORRIGIBILITY_2026/checks/grade.txt
+  4e2b2a85c80b3af0aea1834692920e4f841317552adebe83b59c12adecdcc834  AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt
+  8cef83e22a615e26b91ea011a4fc65fd838df5143a762cbafdd805ffef2f973d  AI_Safety/NT1/checks/nt1.txt
+  4cde2219cfe2cda67ebb8176d388081c0a5feb1d102e62f8ac5a9bdc527e8cd2  Attention_Algorithms/checks/attention_world.txt
+  7a31f8fbf8766f238de81727324630c4f63b13642cbb80f5594b97e813e7b794  Attention_Algorithms/checks/grade.txt
+  8a9c6b94129ee5f34f80cb5249c21a18272a5b8815d041a08fbbca03095cc18b  Compute_Savings/checks/scale_estimate.txt
+  957ec92263d7fadd71ae17788c8ce31e7b46d030e5e02ee83bf2bf9ce8bf54b9  Coupling/checks/cpl_phase_a.txt
+  d0ec033777357152a02a428e79d9b8de3a7f2109965b1e29021be607f6f6119f  Empty_Cut_Engineering/checks/c1_c2.txt
+  77c8045bd5c01f3dda5488289a29d073e5264540a664d4bae08c621b0fca6fc8  Empty_Cut_Engineering/checks/c3_worlds.txt
+  6275157dcc7a2e17e2ffe7fcae760c304b6e65958ae350d06bc7c3ce312deb56  Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md
+  54ef03916a410d3c686d4be3665072d76a1010eece4f86ab1131eac05a2b4a63  Empty_Pause_Systems/batches/eps2_02.txt
+  c413e71b8982a0098dd6c8e298b8f4be311b493095589bf51b43ac90a947f765  Empty_Pause_Systems/checks/tally.txt
+  9cd3b73058071be09e8c044a569bb2fb03c8ab0ec680a2c89c179ffc66b5f432  Empty_Pause_Systems/checks/tally_eps2.txt
+  10f0f0276dceef91886bedf727f1efce7574ad27c1f3068a6d21313b09d970c6  Energy Design Principle/checks/consolidated_estimate.txt
+  0d9746fa25e84c3be4263eb86ad25e2c377d1fc7d74fc2fe991df2a563c9e2b6  Grid_Demand_Response/GRID_DEMAND_RESPONSE.md
+  8c380f32c469df07ce82965bf898df7360a810aa937331224e5c2dc51ad32189  Grid_Demand_Response/checks/dr_summary.txt
+  6a181c4950f46aa1ce76fe66e7edc0580c0b6811c8e528804daa2f8c16d97be0  Grid_Demand_Response/checks/followup_1.txt
+  a1cfe216007f52453de6109cc0ee4b267415cd355b949fc24cacf158c4e7ad8c  Grid_Demand_Response/checks/followup_2.txt
+  5793811997c72a80fd002800a2b06a13e9fb73fce04224315e015a0eabf291f8  Grid_Demand_Response/checks/followup_3.txt
+  78694f25aeac6915448bf9705a6904c3cac6237565e16b7a9ffea5a9bd52aef9  Grid_Demand_Response/checks/followup_4.txt
+  bc301fd0c63cd3c884a3ac9f5471f01e9c7ae783443810e149e3128157eb31bd  Grid_Demand_Response/checks/grade.txt
+  41732d0c4ab1250a5648ff087b1ed2dbc60e6305526ad8d7aebe96aae3e35dad  Lossless_Pause/LOSSLESS_PAUSE.md
+  f34c6c5790e0f95a0bc074e317a5ccbb466359936027d8e68d3e2cde141c03e3  Lossless_Pause/checks/grade_claims.txt
+  a3fb40a96fd7a320969f1805958873b8a0a4a14dcafc5641968383d7ec944cb9  Lossless_Pause/checks/grade_sweep.txt
+  c50be659390ee32901fe1484effab2456d767448b28627abfaeef12430a8103e  Lossless_Pause/checks/transformer_pause.txt
+  8624dd057e4fd5e1dde4cc91c290ffdbda5b333107d08f2a7770eb09d9ffb546  Lossless_Pause/checks/transformer_pause_run1_gate_closed.txt
+  f1aa0072532958cb8318c805e437bfc52310c5d6c7272b5aff7a1f5a909b17db  Real_World/RW1.md
+  275c09868aeb3a14eb32a9def1bbb4d70eb1466b20f83ef3c76d3e1fd63c1eeb  Real_World/checks/rw1.txt
+  d5a34d46cd08731d02e6efe3a456c2ddbcc8bbaa30383bf86bd88eea21bdf6e8  Real_World/checks/rw2_phaseA.txt
+  aede0ba0daaa7520beab7676cdbb2b07f2502382748b01510ccdc0a1b2182653  Real_World/checks/rw2_phaseA_2.txt
+  38ac40de375c96c6a32bfa8ae2f7e06be131953a172a31d369e1742cf1fbcae7  Robotics/checks/tally_4b.txt
+  ce040fc0003d50117a3e9940f62d705909e594e323b8f5ce24d2f8b7068bbd14  SEC_Analysis/checks/m_checks.txt
+  c1c8ad3d855d0abde1f6c551c3cd0ac529aea81572cf632b929ff41f423ac4fc  SEC_Prior_Art/checks/compare.txt
+  56632a9afcc62251e1c07dedc17b4f28f89fe29b79a713872e401bf72ae0c844  SEC_Prior_Art/checks/grade.txt
+  28a3413b265e4c0557c08119b363bc8b5feebb69579b4501a2163847d930816d  prereg/sec6/PREREG.md

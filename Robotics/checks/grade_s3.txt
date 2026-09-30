@@ -1,0 +1,203 @@
+ROB1 stage 3: targeted prior art per candidate (Robotics/DECLARATION.md stage 3; Robotics/CRR_READING.md); grades computed from verified claims only
+root: /tmp/claude-0/rob_s3
+claims 105 (verified 105); quotes 303 (found 303); sources 72
+position rule: MIXED if a verified claim states and another contradicts; else REDUNDANT if any states; else PARTLY REDUNDANT if any close; else NOT FOUND IN THE SWEEP
+effective reading: A's 'states' that B's READING_CHECKS does not agree with counts as 'close'
+candidate rule: REDUNDANT if P1 REDUNDANT; PARTLY REDUNDANT if P1 PARTLY REDUNDANT, or P1 NOT FOUND and P2 or P3 close; else NOT FOUND IN THE SWEEP
+not found is never novel
+
+==== C-R1 a phase-keyed stop for a dynamically balancing robot (r4-B4; A3, Proposition 7)
+   claims: A 20, B 15 (verified 35; unverified 0); sources 24
+   B's READING_CHECKS: 20 of A's 20 claims checked; agree 20; disagree 0
+
+   P1 phase-dependent timing or shaping of a stop for a legged or humanoid robot is published
+      verified claims 17 (A 11, B 6): states 10, close 7, bears 0, contradicts 0 -> REDUNDANT
+      states      r1a:1, r1a:2, r1a:4, r1a:5, r1a:6, r1a:7, r1b:1, r1b:4, r1b:7, r1b:8
+      close       r1a:9, r1a:10, r1a:11, r1a:13, r1a:20, r1b:10, r1b:11
+      decisive (states):
+        r1a:1   states      Takahashi & Suzaki (Honda Giken Kogyo), "Emergency stop control system for mobile robot"; US 5,369,346 A, granted 29 Nov 1994 [B agrees]
+                B's check: Justified: the quoted flow defers the emergency stop until the attitude can hold a stopped state (CoG over the supporting foot, ZMP in the stable region), and the patent ties that to the support phase ("particularly unstable during one-leg support period"). The trigger is a state test rather than an explicit phase variable, which the caller's list ("stop at the next stance") covers.
+        r1a:2   states      Morisawa, Kajita, Harada, Fujiwara, Kanehiro, Kaneko & Hirukawa (AIST), "Emergency stop algorithm for walking humanoid robots"; IROS 2005 proceedings PDF [B agrees]
+                B's check: Justified: the stop motion starts from the Landing phase in single support and from the ZMP Transition phase in double support. B's r1b:4 (the same group, 2008) adds the deferral form: a stop commanded in single support begins at the next double support.
+        r1a:4   states      Tanaka, Takubo, Inoue & Arai (Osaka University), "Emergent stop for Humanoid Robots"; IROS 2006 [B agrees]
+                B's check: Justified, and confirmed from the full text: the journal version (r1b:7, r1b:8) defines the command timing tc from the start of single support and selects the stop mode, landing position and landing time from it.
+        r1a:5   states      Takubo, Tanaka, Inoue & Arai (Osaka University), "Emergent walking stop using 3-D ZMP modification criteria map for humanoid robot"; ICRA 2007 [B agrees]
+                B's check: Justified; the same confirmation from the journal full text (r1b:8).
+        r1a:6   states      Pratt, Carff, Drakunov & Goswami (IHMC; Honda Research Institute), "Capture Point: A Step toward Humanoid Push Recovery"; Humanoids 2006 conference PDF [B agrees]
+                B's check: Justified only under the caller's list, which names capture-point stopping as an instance of C-R1: the stopping strategy is chosen from the state (capture region against the base of support), not from a gait-phase variable. Read strictly as phase-keying it would be close. The grade does not rest on it: r1a:2, r1b:1, r1b:4 and r1b:8 state P1 on explicit phase.
+        r1a:7   states      Crowley, Dao, Duan, Green, Hurst & Fern (Oregon State University), "Optimizing Bipedal Locomotion for The 100m Dash With Comparison to Human Running"; arXiv v1, 5 Aug 2025 [B agrees]
+                B's check: Justified: the stand command is deferred to a foot-apex phase. It is an operational (end-of-run) stop, not a safety function; A's policy includes commanded stops. van Marum et al. (r1b:10) independently describe it as "hand-engineered cycle-time constraints", though from the same laboratory.
+        r1b:1   states      Kaneko, Kanehiro, Morisawa, Kajita, Fujiwara, Harada & Hirukawa (AIST), "Motion Suspension System for Humanoids: Real-time Judgment and Motion Gene...; JRSJ 25(2), published 15 Mar 2007 [searcher B's claim; not cross-checked]
+        r1b:4   states      Morisawa, Kajita, Kaneko, Kanehiro, Nakaoka, Harada, Fujiwara & Hirukawa (AIST), "Motion Generation of Emergency Stop at Double Support Phase for H...; JRSJ 26(4), published 15 May 2008 [searcher B's claim; not cross-checked]
+        r1b:7   states      Takubo, Inoue & Arai, "Emergent Stop by Using Preview ZMP Criteria Map for Humanoid Robot"; Trans. JSME C 75(759), published 25 Nov 2009 [searcher B's claim; not cross-checked]
+        r1b:8   states      Takubo, Inoue & Arai, Trans. JSME C 75(759) (2009), Sections 2.2, 3.5 and 3.6 (full text); Trans. JSME C 75(759), 25 Nov 2009 [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: REDUNDANT
+      leave-one-source-out (17 sources): the grade holds for every source left out
+
+   P2 it is shown to reduce worst-case or mean stopping distance, time or falls against a phase-independent stop
+      verified claims 6 (A 3, B 3): states 2, close 4, bears 0, contradicts 0 -> REDUNDANT
+      states      r1a:8, r1b:9
+      close       r1a:3, r1a:14, r1b:2, r1b:5
+      decisive (states):
+        r1a:8   states      Crowley et al., 100m dash (arXiv:2508.03070), Section V-C, stepping to standing; arXiv v1, 5 Aug 2025 [B agrees]
+                B's check: Justified under the policy (falls, hardware and simulation, phase-timed against immediate). Cautions A states hold: approximate counts ("less than 10%", "about 2 in 3"), the 100% arm confounded with a speed-command change, an operational stop, and an immediate comparator rather than the best clock-delayed stop. r1b:9 is a second, computed P2 comparison.
+        r1b:9   states      Takubo, Inoue & Arai, Trans. JSME C 75(759) (2009), Section 3.4 and Fig. 10: retimed against unchanged single support time; Trans. JSME C 75(759), 25 Nov 2009 [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: REDUNDANT
+      leave-one-source-out (6 sources): the grade holds for every source left out
+
+   P3 it appears in a standard, a standards proposal or an industrial safety function
+      verified claims 12 (A 6, B 6): states 0, close 7, bears 0, contradicts 5 -> PARTLY REDUNDANT
+      close       r1a:15, r1a:16, r1a:19, r1b:3, r1b:6, r1b:14, r1b:15
+      contradicts r1a:12, r1a:17, r1a:18, r1b:12, r1b:13
+      decisive (close):
+        r1a:15  close       IEEE Humanoid Study Group (Prather, Keller et al.), "A Pathway Study for Future Humanoid Standards"; September 2025 [B agrees]
+                B's check: Justified as close: the proposal grades e-stop levels and names swing-phase capturability as a stability criterion, and its double-stance, no-step mode (context checked) is a collaborative operating mode, not a phase-timed stop.
+        r1a:16  close       Reese, Abate, Chen, ... Wise, Velagapudi, ... (Agility Robotics), "Escalating hazard-response of dynamically stable mobile robot in a collaborative...; US 12,560,948 B2, granted 24 Feb 2026 [B agrees]
+                B's check: Justified as close, and reinforced: the same patent's method 350 gives the stop command a time limit and picks a reconfiguration whose known implementation time fits it (r1b:12), so the stop's timing is on the clock; the swing-foot-down deceleration shapes the stop by contact state without phase-keyed timing.
+        r1a:19  close       Takahashi & Suzaki (Honda), US Patent 5,369,346 (r1a:1), read for P3; US 5,369,346 A, granted 29 Nov 1994 [B agrees]
+                B's check: Justified as close under the policy (a patent without evidence of deployment). B adds that a phase-keyed stop was in public operation for 185 days at Expo 2005 (r1b:6) and in exhibition use on HRP-2 (r1b:3), still neither certified nor industrial.
+        r1b:3   close       Kaneko et al. (AIST), "Motion Suspension System for Humanoids"; JRSJ 25(2), 15 Mar 2007 [searcher B's claim; not cross-checked]
+        r1b:6   close       Morisawa et al. (AIST), JRSJ 26(4) (2008), Introduction: the emergency stop system of the dinosaur-type biped robot operated at Expo 2005 (Aichi); JRSJ 26(4), 15 May 2008 [searcher B's claim; not cross-checked]
+        r1b:14  close       US 29 CFR 1910.217, "Mechanical power presses"; Code of Federal Regulations, Title 29, vol. 5, revised as of 1 July 2021 [searcher B's claim; not cross-checked]
+        r1b:15  close       US 14 CFR 1.2, "Abbreviations and symbols"; Code of Federal Regulations, Title 14, vol. 1, revised as of 1 January 2025 [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): PARTLY REDUNDANT; searcher B's alone: PARTLY REDUNDANT
+      leave-one-source-out (11 sources): the grade holds for every source left out
+
+   candidate grade: REDUNDANT (P1 REDUNDANT, P2 REDUNDANT, P3 PARTLY REDUNDANT)
+   positions short of REDUNDANT (information; the candidate's grade rests on P1): P3 PARTLY REDUNDANT
+   goes on to a stage-4a declaration: no (P1 REDUNDANT: the mechanism is published)
+
+==== C-R2 an own-progress budget for out-of-contact exploration (r1-B5; A1', H-L5, Proposition 7)
+   claims: A 20, B 17 (verified 37; unverified 0); sources 27
+   B's READING_CHECKS: 20 of A's 20 claims checked; agree 19; disagree 1: r2a:11 (A states -> counted close)
+
+   P1 a return or rendezvous decision triggered by information or progress accumulated since the last contact is published
+      verified claims 19 (A 11, B 8): states 10, close 9, bears 0, contradicts 0 -> REDUNDANT
+      states      r2a:1, r2a:5, r2a:8, r2a:9, r2a:10, r2a:13, r2a:14, r2a:16, r2b:1, r2b:6
+      close       r2a:11, r2a:17, r2a:19, r2b:2, r2b:4, r2b:13, r2b:15, r2b:16, r2b:17
+      decisive (states):
+        r2a:1   states      Saboia, Clark, Thangavelu, Edlund, Otsu, ... Agha-mohammadi, "ACHORD: Communication-Aware Multi-Robot Coordination with Intermittent Connectivity"; arXiv v1, 5 Jun 2022 [B agrees]
+                B's check: The quote states a return to comms when the undelivered-data buffer exceeds 300 KB. Caution: the buffer also grows under congestion inside comms, so it is undelivered data rather than data gathered since the last contact. ACHORD's own 60 s timeout is a clock.
+        r2a:5   states      Biggie, Rush, Riley, Ahmad, Ohradzansky, Harlow, Miles, Torres, McGuire, Frew, Heckman, Humbert (Team MARBLE), "Flexible Supervised Autonomy for Ex...; arXiv v2, 11 Apr 2023 [B agrees]
+                B's check: The quote states the artifact-count trigger (3 unreported), with a clock backstop that starts at the first unreported artifact.
+        r2a:8   states      Amigoni, Banfi, Basilico, "Multirobot Exploration of Communication-Restricted Environments: A Survey"; author manuscript, PoliMi repository handle 11311/1046659 [B agrees]
+                B's check: The survey's own taxonomy names information-triggered and time-triggered reconnection as members of one class. That is a statement of P1 at the class level.
+        r2a:9   states      Banfi, Quattrini Li, Rekleitis, Amigoni, Basilico, "Strategies for coordinated multirobot exploration with recurrent connectivity constraints"; author manuscript [B agrees]
+                B's check: Borderline. Recurrent connectivity is a planning constraint at each assigned observation location (a unit of one observation, no accumulation), not a threshold on accumulated information. It is still a reconnection keyed to new information, as the quote says.
+        r2a:10  states      Banfi et al. (Autonomous Robots 2018), description of the Utility strategy of Spirin, Cameron and de Hoog (TAROS 2013) used as its baseline; author manuscript [B agrees]
+                B's check: The quote is the authors' own experimental setup ("In our experiments, we set r = 0.5"), so the rule was implemented and run, not only reported. A's own policy would read a merely second-hand report as close. Clark et al. (r2b:1) independently give the same rule in formula form and ran it too.
+        r2a:13  states      Guo, Zavlanos, "Multi-Robot Data Gathering Under Buffer Constraints and Intermittent Communication"; arXiv v2, 30 Oct 2017 [B agrees]
+                B's check: Caution: the data per gathering action, D_i(g), is known in the plan, so the buffer bound is a scheduled count. When information accrues predictably, a count bound and a time bound can be scheduled alike. That is C-R2's must-fail case, and this source does not separate the two.
+        r2a:14  states      Kim, Baek, Corah, Best, Moon, Scherer, "PRoID: Predicted Rate of Information Delivery in Multi-Robot Exploration and Relaying"; arXiv v1, 12 Apr 2026 [B agrees]
+                B's check: The trigger is stated (the unreported-information rate against a predicted rate). The learned map prediction is an addition, not a replacement, of the accumulated-information term.
+        r2a:16  states      Zijlstra, Aplin, Hunt, "Multi-Robot Strategies for Communication-Constrained Exploration and Electrostatic Anomaly Characterization"; arXiv v1, 1 May 2024 [B agrees]
+                B's check: The quote defines the parameter as "a threshold cap on the amount of new data". That is the nearest to C-R2's literal rule.
+        r2b:1   states      Clark, Galante, Krishnamachari, Psounis, "A Queue-Stabilizing Framework for Networked Multi-Robot Exploration"; author copy on the first author's site [searcher B's claim; not cross-checked]
+        r2b:6   states      Van Meeteren, Shyshkov, Bachiochi, Fratini, Parobek (Travelers Indemnity Co), "Systems and methods for autonomous hazardous area data collection"; Google Patents full text of US11710411B2 [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: REDUNDANT
+      leave-one-source-out (17 sources): the grade holds for every source left out
+
+   P2 it is compared with a fixed time budget and shown better (more coverage, information delivered or artifacts, at equal loss or return failure where modelled)
+      verified claims 8 (A 4, B 4): states 1, close 7, bears 0, contradicts 0 -> REDUNDANT
+      states      r2a:15
+      close       r2a:12, r2a:18, r2a:20, r2b:3, r2b:11, r2b:12, r2b:14
+      decisive (states):
+        r2a:15  states      Kim et al., PRoID (arXiv:2604.10433), baselines and results; arXiv v1, 12 Apr 2026 [B agrees]
+                B's check: States P2 in direction. Robot failures are modelled and delivered coverage is scored. Differences from C-R2 as A notes: a rate rule with learned prediction, intervals swept on the test maps, and the n = 2 exception against final-relay-only.
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: PARTLY REDUNDANT
+      leave-one-source-out: without r2a:15 (https://arxiv.org/abs/2604.10433v1) the grade is PARTLY REDUNDANT
+
+   P3 it is used in a fielded system (DARPA SubT teams, mine-mapping drones, field deployments)
+      verified claims 10 (A 5, B 5): states 4, close 6, bears 0, contradicts 0 -> REDUNDANT
+      states      r2a:2, r2a:3, r2a:6, r2a:7
+      close       r2a:4, r2b:5, r2b:7, r2b:8, r2b:9, r2b:10
+      decisive (states):
+        r2a:2   states      Saboia et al., ACHORD (arXiv:2206.02245), evaluation and lessons learned; arXiv v1, 5 Jun 2022 [B agrees]
+                B's check: In context the evaluation is in the SubT Finals course (Fig. 6: "exploration of the DARPA SubT Finals competition environment, day 2"), and the lessons speak of returning to comms "sparingly". It is fielded. The paper does not show that the buffer trigger fired, as A notes.
+        r2a:3   states      Agha, Otsu, Morrell, ... (Team CoSTAR), "An Addendum to NeBula: Towards Extending TEAM CoSTAR's Solution to Larger Scale Environments"; arXiv v1, 18 Apr 2025 [B agrees]
+                B's check: States P3, but the contrast with the clock is weak in this source. The same paper has a 10-minute rule, and the authors read a large buffer as a sign that the robot "has explored autonomously for a long period of time" (a proxy for time out of contact).
+        r2a:6   states      Biggie et al. (Team MARBLE), "Flexible Supervised Autonomy for Exploration in Subterranean Environments"; arXiv v2, 11 Apr 2023 [B agrees]
+                B's check: "as configured during the Final Event Prize Run" makes it fielded.
+        r2a:7   states      Ohradzansky, Rush, Riley, Mills, Ahmad, McGuire, Biggie, Harlow, Miles, Frew, Heckman, Humbert (Team MARBLE), "Multi-Agent Autonomy: Advancements a...; arXiv v1, 8 Oct 2021 [B agrees]
+                B's check: Checked in context: the report-on-artifact behaviour is part of Greedy Explore ("like the previous, when an artifact was detected, the robot entered Report mode"), and Greedy Explore "was used through all phases of the competition".
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: PARTLY REDUNDANT
+      leave-one-source-out (10 sources): the grade holds for every source left out
+
+   candidate grade: REDUNDANT (P1 REDUNDANT, P2 REDUNDANT, P3 REDUNDANT)
+   goes on to a stage-4a declaration: no (P1 REDUNDANT: the mechanism is published)
+
+==== C-R3 progress-indexed runtime failure detection (r4-B3; H-L5, A1')
+   claims: A 21, B 12 (verified 33; unverified 0); sources 21
+   B's READING_CHECKS: 21 of A's 21 claims checked; agree 21; disagree 0
+
+   P1 progress- or phase-indexed failure detection or conformal calibration for robot policies is published
+      verified claims 12 (A 6, B 6): states 4, close 8, bears 0, contradicts 0 -> REDUNDANT
+      states      r3a:1, r3a:6, r3b:1, r3b:5
+      close       r3a:4, r3a:7, r3a:9, r3a:16, r3b:8, r3b:10, r3b:11, r3b:12
+      decisive (states):
+        r3a:1   states      Park, Erickson, Bhattacharjee, Kemp, "Multimodal Execution Monitoring for Anomaly Detection During Robot Manipulation"; ICRA 2016 conference PDF [B agrees]
+                B's check: In context the run-time threshold is selected by the estimated progress: tau(gamma) = mu - c sigma given the hidden-state distribution. The dissertation (r3b:7) adds that cluster membership was built by temporal similarity and that this beat progress-similarity clustering. States P1 holds for the run-time index; the clock enters the construction, as A notes.
+        r3a:6   states      Schneider, Welte, Rayyes, "RAFAIL: Relationship-Aware Failure Detection for Robotic Manipulation"; arXiv v1, 16 Sep 2026 [B agrees]
+                B's check: States P1 under the policy's "or detection statistic": the RND score is FiLM-conditioned on predicted progress, and the conformal threshold is one number per relationship. In context, progress is a normalised cumulative sum of learned positive increments (trained from VLM preferences), not normalised time. B checked the ablation section: every ablation keeps the progress conditioning, so P2 is not shown, as A says.
+        r3b:1   states      Rolland, Mayran de Chamisso, Mouret, "Failure Identification in Imitation Learning via Statistical and Semantic Filtering"; arXiv v1, 15 Apr 2026 [searcher B's claim; not cross-checked]
+        r3b:5   states      Park, "A Multimodal Execution Monitor for Assistive Robots"; dissertation PDF from the Georgia Tech repository [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: REDUNDANT
+      leave-one-source-out (12 sources): the grade holds for every source left out
+
+   P2 it is shown to detect earlier or more accurately than step-indexed thresholds
+      verified claims 11 (A 7, B 4): states 0, close 11, bears 0, contradicts 0 -> PARTLY REDUNDANT
+      close       r3a:3, r3a:5, r3a:8, r3a:11, r3a:13, r3a:14, r3a:15, r3b:3, r3b:6, r3b:7, r3b:9
+      decisive (close):
+        r3a:3   close       Park, Erickson, Bhattacharjee, Kemp (ICRA 2016), section V, the threshold comparison; ICRA 2016 conference PDF [B agrees]
+                B's check: Close: the baselines are change detection and a fixed threshold. The dissertation adds a detection-delay result at equal FPR, still against a fixed threshold (r3b:6).
+        r3a:5   close       Park, Hoshi, Kemp (arXiv:1711.00614), the thresholding comparison (Fig. 8); arXiv v1, 2 Nov 2017 [B agrees]
+                B's check: Close: fixed-threshold comparator, ROC only.
+        r3a:8   close       Bhardwaj et al. (arXiv:2608.13474), cross-task and held-out-perturbation results against SAFE; arXiv v1, 13 Aug 2026 [B agrees]
+                B's check: Close: AUROC under injected perturbations; speed is not varied.
+        r3a:11  close       Yasar, Alemzadeh, "Real-Time Context-aware Detection of Unsafe Events in Robot-Assisted Surgery"; arXiv v2, 18 Jun 2020 [B agrees]
+                B's check: Close: phase-free comparator, teleoperated surgery; the later detection is a cost of inferring the phase online.
+        r3a:13  close       Lacoquelle et al., WETSAND (arXiv:2404.12134), comparison with convolutional autoencoders; arXiv v1, 18 Apr 2024 [B agrees]
+                B's check: Close: confounded comparison (model class differs), offline per cycle.
+        r3a:14  close       Centofanti, Lepore, Kulahci, Spooner, "Real-time Monitoring of Functional Data"; arXiv v1, 12 May 2022 [B agrees]
+                B's check: Close by domain. In context NOAL is the same monitor without alignment, so this is the cleanest published form of C-R3's P2, outside robotics.
+        r3a:15  close       Wang, Kurtek, Zhang, "Joint Registration and Conformal Prediction for Partially Observed Functional Data"; arXiv v2, 19 Nov 2025 [B agrees]
+                B's check: Close: prediction of missing segments, not failure detection.
+        r3b:3   close       Rolland, Mayran de Chamisso, Mouret, "Failure Identification in Imitation Learning via Statistical and Semantic Filtering"; arXiv v1, 15 Apr 2026 [searcher B's claim; not cross-checked]
+        r3b:6   close       Park, "A Multimodal Execution Monitor for Assistive Robots"; dissertation PDF from the Georgia Tech repository [searcher B's claim; not cross-checked]
+        r3b:7   close       Park, "A Multimodal Execution Monitor for Assistive Robots"; dissertation PDF from the Georgia Tech repository [searcher B's claim; not cross-checked]
+        r3b:9   close       Wu, Guan, Rojas, "A Latent State-Based Multimodal Execution Monitor with Anomaly Detection and Classification for Robot Introspection"; published 14 Mar 2019 [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): PARTLY REDUNDANT; searcher B's alone: PARTLY REDUNDANT
+      leave-one-source-out (10 sources): the grade holds for every source left out
+
+   P3 the step-index mismatch (rollouts of different speed) is named as a problem
+      verified claims 10 (A 8, B 2): states 8, close 2, bears 0, contradicts 0 -> REDUNDANT
+      states      r3a:2, r3a:12, r3a:17, r3a:18, r3a:19, r3a:20, r3b:2, r3b:4
+      close       r3a:10, r3a:21
+      decisive (states):
+        r3a:2   states      Park, Erickson, Bhattacharjee, Kemp (ICRA 2016), section IV-A "Representing Execution Progress"; ICRA 2016 conference PDF [B agrees]
+                B's check: Borderline, and supported elsewhere. The first quote is about constant thresholds, not per-timestep ones. The second is hedged ("would have the advantage"). The dissertation says it outright: time-varying thresholds "easily break down" under delay or speed variation (r3b:4).
+        r3a:12  states      Lacoquelle, Pucel, Travé-Massuyès, Reymonet, Enaux, "Warped Time Series Anomaly Detection"; arXiv v1, 18 Apr 2024 [B agrees]
+                B's check: States P3 in the caller's wording (cycles of different duration named as the obstacle). In context the obstacle is to reusing state-of-the-art detectors on raw cycles, not per-timestep thresholds as such. The robots run scripted programs.
+        r3a:17  states      Römer, Kobras, Worbis, Schoellig, "Failure Prediction at Runtime for Generative Robot Policies"; arXiv v2, 13 Oct 2025 [B agrees]
+                B's check: States P3. The measured fact is the constant threshold's higher TNR; attributing it to varying order or timing is the authors' reading. As A notes, the per-timestep threshold still has the best TWA.
+        r3a:18  states      Huang, Cai, Patel, Hajiha, Browne, Chen, "Failure Detection for Surgical Robot Imitation Policies via Flow-Matching World Modeling"; arXiv v1, 29 Jul 2026 [B agrees]
+                B's check: States P3, and states C-R3's remedy as future work. FIDeL (r3b:1) had already published an aligned-index conformal band in April 2026.
+        r3a:19  states      Seligmann, Gospodinov, Dincer, Neumann, "VLA-FAIL: Efficient Task Failure Detection for Finetuned Vision-Language-Action Models"; arXiv v1, 19 Jun 2026 [B agrees]
+                B's check: States P3 (episode length); the remedy is a constant threshold.
+        r3a:20  states      Lee, Har, "Perturbation-Based Epistemic Uncertainty for Failure Detection in Vision-Language-Action Models"; arXiv v3, 14 Sep 2026 [B agrees]
+                B's check: States P3 in C-R3's terms (execution speed and task progress).
+        r3b:2   states      Rolland, Mayran de Chamisso, Mouret, "Failure Identification in Imitation Learning via Statistical and Semantic Filtering"; arXiv v1, 15 Apr 2026 [searcher B's claim; not cross-checked]
+        r3b:4   states      Park, "A Multimodal Execution Monitor for Assistive Robots"; dissertation PDF from the Georgia Tech repository [searcher B's claim; not cross-checked]
+      searcher A's claims alone (B's checks applied): REDUNDANT; searcher B's alone: REDUNDANT
+      leave-one-source-out (10 sources): the grade holds for every source left out
+
+   candidate grade: REDUNDANT (P1 REDUNDANT, P2 PARTLY REDUNDANT, P3 REDUNDANT)
+   positions short of REDUNDANT (information; the candidate's grade rests on P1): P2 PARTLY REDUNDANT
+   goes on to a stage-4a declaration: no (P1 REDUNDANT: the mechanism is published)
+
+summary
+   C-R1: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 PARTLY REDUNDANT); goes on: no
+   C-R2: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 REDUNDANT); goes on: no
+   C-R3: REDUNDANT (P1 REDUNDANT; P2 PARTLY REDUNDANT; P3 REDUNDANT); goes on: no
+candidates going on: none; for the investigator to decide: none
+stop condition (Robotics/DECLARATION.md, R12): every candidate published; stage 4a does not run; the prior art is named in the decisive claims above

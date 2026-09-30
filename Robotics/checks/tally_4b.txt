@@ -1,0 +1,44 @@
+ROB1 stage 4b tally: ten robotics applications through the SYNTHESIS harness (Robotics/DECLARATION_4B.md, pushed at d44e713)
+CHOICES: the pinned outputs read are rob_01.txt .. rob_05.txt exactly (a kept first run such as rob_03_run1.txt is not read); a row is found by 'source: ROB1 [4b ]RAn'; F3 is scored on its literal reading (RA1's label within its declared pair), the stronger reading (WRONG nowhere but RA1) printed, not scored
+batch outputs read 5 of 5
+  rob_01: rows RA1, RA2; its TALLY line recomputed by the harness's tally_line from the parsed rows: agrees
+  rob_02: rows RA3, RA4; its TALLY line recomputed by the harness's tally_line from the parsed rows: agrees
+  rob_03: rows RA5, RA6; its TALLY line recomputed by the harness's tally_line from the parsed rows: agrees
+  rob_04: rows RA7, RA8; its TALLY line recomputed by the harness's tally_line from the parsed rows: agrees
+  rob_05: rows RA9, RA10; its TALLY line recomputed by the harness's tally_line from the parsed rows: agrees
+  no duplicate or undeclared row; every row's source line states the declared forecast
+
+  row   outcome           forecast (declared)         hit  Q               choices  changed  batch   application; robotics quantity
+  RA1   WRONG             REDUNDANT-DOMAIN or WRONG   yes  fails           yes      yes      rob_01  gait phase and the cut; stopping or cutting error
+  RA2   REDUNDANT-DOMAIN  REDUNDANT-DOMAIN            yes  holds           yes      yes      rob_01  odometry drift has its own clock; drift per km
+  RA3   REDUNDANT-DOMAIN  REDUNDANT-DOMAIN            yes  holds           yes      -        rob_02  charging as a cut on the robot's own state; uptime per day
+  RA4   REDUNDANT-DOMAIN  REDUNDANT-DOMAIN            yes  holds           yes      -        rob_02  lost link and the empty cut; mission value lost to avoidance
+  RA5   REDUNDANT-DOMAIN  REDUNDANT-DOMAIN            yes  holds           yes      yes      rob_03  fleet update and rollback as a state-closed cut; restore fidelity
+  RA6   UNSTATED          REDUNDANT-DOMAIN or ADDS    no   not scored      yes      yes      rob_03  event-triggered attitude control; updates saved (energy and bandwidth)
+  RA7   REDUNDANT-DOMAIN  REDUNDANT-DOMAIN            yes  holds           yes      yes      rob_04  actuator wear by arc; maintenance interval spread
+  RA8   WRONG             REDUNDANT-DOMAIN            no   fails           yes      yes      rob_04  swarm consensus with intermittent links; rounds to consensus
+  RA9   INTERNAL          REDUNDANT-DOMAIN            no   not computable  yes      yes      rob_05  handover timing on the partner's phase; handover timing error
+  RA10  REDUNDANT-DOMAIN  REDUNDANT-DOMAIN            yes  holds           yes      yes      rob_05  safe interruptibility of a learning robot; policy distance under interruption
+
+rows with an OUTCOME 10 of 10
+outcomes:  ADDS 0, PROPOSES 0, REDUNDANT-IG 0, REDUNDANT-DOMAIN 6, WRONG 2, INTERNAL 1, UNSTATED 1
+  REDUNDANT-DOMAIN  RA2, RA3, RA4, RA5, RA7, RA10
+  WRONG             RA1, RA8
+  INTERNAL          RA9
+  UNSTATED          RA6
+CRR's prediction Q held in the row's own model (T-C line): 6 of 10; failed 2; not computable 1; not scored 1
+the investigator's per-row forecast was right on 7 of 10 rows; missed on RA6 (UNSTATED), RA8 (WRONG), RA9 (INTERNAL)
+rows naming CHOICES 10 of 10; rows recording a change after a first run or a review 8 of 10: RA1, RA2, RA5, RA6, RA7, RA8, RA9, RA10
+
+the declaration's overall forecast (d44e713), computed:
+  F1 at least 8 of 10 read REDUNDANT-DOMAIN or REDUNDANT-IG: 6 of 10 (RA2, RA3, RA4, RA5, RA7, RA10); not redundant: RA1 WRONG, RA6 UNSTATED, RA8 WRONG, RA9 INTERNAL -> FAILS
+  F2 at most 1 reads ADDS, and it would be RA6: ADDS 0 (none) -> HOLDS
+  F3 WRONG is possible for RA1 (scored: RA1's label is REDUNDANT-DOMAIN or WRONG): RA1 reads WRONG -> HOLDS
+     not scored, the stronger reading (no row other than RA1 reads WRONG): WRONG elsewhere RA8 -> FAILS
+overall forecast: FAILS (failed: F1)
+
+REPORT (added after the reviews; decides nothing): label robustness read from each batch's printed sensitivity
+  RA2  slip seeds 100-139: ADDS 29, REDUNDANT-DOMAIN 11; 29 of 40 differ from the scored label -> FRAGILE (where T-N misses it misses on sampling noise, T-C holds)
+  RA7  duty seeds 100-139: ADDS 34, REDUNDANT-DOMAIN 6; differ from REDUNDANT-DOMAIN (the scored label) 34 of 40 -> FRAGILE
+  RA4  READING-DEPENDENT (the batch prints the labels by reading; see rob_02.txt)
+  reading: a stochastic row's T-N at the harness's 1 % relative tolerance can miss on sampling noise alone; where it misses and T-C holds, the harness reads ADDS. Such an ADDS is a tolerance artefact, not a CRR addition.

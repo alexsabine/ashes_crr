@@ -1,0 +1,257 @@
+================================================================================================================================
+CPL1 Phase A (Coupling/DECLARATION.md, pushed at 440e185 before any CPL1 code): SEC4's clipped SEC + HopDC-type transport of
+stored class statistics + the empty-cut pause, in one learner (CL-X, Coupling/checks/cpl_lib.py). Seeds 0-4.
+Nothing here is held out: R4 on the synthetic streams, a declared check on SEEN data at best; no ledger row; words computed (R15).
+================================================================================================================================
+CHOICES (underspecified points; the most literal, simplest reading; fixed in the code before any CPL1 output was read):
+CHOICES  1: streams: SEC1's synthetic stream (RQM's phase_a.stream('POS'), as RRM2's POS); the rotated stream = POS with task j's training and test rows multiplied by an orthogonal Q_j (QR of a standard normal 20 x 20, signs fixed, worlds.py's ROT construction), drawn in task order from default_rng(60000), after SEC1's standardisation; the 30 SEEN carriers through t_lib's cache (K from the loader, per_task from each frozen scorer's DATASETS table, checked against the pinned header). 'Carriers' in every count = these 32 streams
+CHOICES  2: pause: immediately before own-clock step k of a task (k in 0..steps-1); 3 distinct k per task drawn from default_rng([70000, seed]): the first uniformly from the secant-window steps (the first and the last ceil(0.1 x steps)), the other two uniformly without replacement from the task's remaining steps; one schedule per seed, shared by the closure run and L1-L3
+CHOICES  3: pause construction: the whole learner state (listed in cpl_lib's docstring) pickled to bytes, the live dict cleared, a fresh learner rebuilt from the bytes (new MLP object, new Generator with the restored bit-generator state, new arrays); the operator's schedule is not learner state
+CHOICES  4: L1: the four secant accumulators (start- and end-window sums of parameters and gradients) are zeros after the restore; the window counts (the divisors) unchanged
+CHOICES  5: L2: every task holds 3 pauses, so under L2 no stored statistic is ever transported (L2 = transport off at every task end)
+CHOICES  6: L3: the window counter k_step (SEC's only use of the step count) advances by D = 50 at each pause; the divisors unchanged; the pause schedule stays keyed to own steps
+CHOICES  7: stored statistics: hidden features = the ReLU layer on the task's training rows at the task's end; class means, and one diagonal covariance per task pooled within class (mean over the task's rows of (h - its class mean)^2)
+CHOICES  8: transport: at the end of every task after the first, all stored class means are moved by rrm_lib.hopdc_transport (tau 0.05, k 400) with the anchor pool = all current-task training rows, H_A(cut) their features under the previous task end's weights (SEC's theta_star), H_A(now) under the current weights; hopdc's own top-k keeps the 400 most similar anchors per mean; no rng is drawn. NAMED DEVIATION: the declaration says 'every stored class's statistics are moved by HopDC-type anchor drift'; here only the class means are moved and the stored diagonal covariances are kept as stored (HopDC's transport moves a point; a translation leaves a covariance unchanged)
+CHOICES  9: NCM readout: diagonal Gaussian log-likelihood, equal priors, over all K stored classes; each class uses its task's covariance shrunk toward its mean variance with RQM's ALPHA 0.1 (v' = 0.9 v + 0.1 mean(v); ReLU features have zero-variance units); accuracy 0 if the test features or the statistics are non-finite (as SEC1's net.acc)
+CHOICES 10: fine-tuning (FT): the same loop with the penalty term removed; the Fisher, the secant and the guard are still computed as diagnostics, so the training rng is consumed exactly as in the SEC arm; transport on and off are separate runs, and since the statistics never feed training the head readout's interaction is 0 by construction (computed and printed)
+CHOICES 11: step: every 'by more than a step' or 'within a step' uses the paired per-seed difference d_s over seeds 0-4, step = max(1, 2 SE of d_s); ahead / positive iff mean d > step, behind / negative iff mean d < -step, within iff |mean d| <= step
+CHOICES 12: C1-EXACT compares the paused run with state closure against the uninterrupted coupled run (SEC+T, no pause) in the final weights (sha256 of the bytes), every s_j (exact floats) and the stored statistics (sha256 of every mean and covariance); 'differs' is the negation. Forecast 1's accuracy changes: L1 and L3 on the head readout, L2 on the NCM readout; 'most' = more than half
+CHOICES 13: C0-ID: all 14 SEC4 and SEC5 carriers are checked at seed 0 (the declaration asks at least 3); C0-ID holds iff every checked carrier and 5/5 synthetic seeds are identical in acc, s, firings and margins
+CHOICES 14: C3: best readout = the readout (head or NCM) with the higher seed mean per carrier; ER-20 = t_lib.train(..., 'ER20') unchanged (20 raw training rows per class, replay batch = stream batch, SEC1's MLP and SGD, 3 epochs); equal training compute read as the record's convention (the same epochs, stream batch and stream passes for both; forward/backward rows per stream row printed, not equalised)
+CHOICES 15: G-DRIFT per carrier: NCM(FT+T) - NCM(FT) > step; the gate's G-DRIFT holds iff it holds on at least one of C4's two drift-world streams (the rotated stream, Kuzushiji-MNIST): 'transport has something to fix' somewhere in the drift world
+CHOICES 16: adds-something rule: over the carriers where G-DRIFT holds, a carrier counts iff C1-EXACT holds on its 5 seeds and I_NCM > step; ADDS iff the gate is OPEN and the count is at least ceil(2/3 x that number); none such -> does not add
+CHOICES 17: forecast 3 read without a quantifier as every carrier: I_NCM not positive by more than a step on every carrier, and the rule's word is not ADDS; forecast 2's 'most other SEEN carriers' = more than half of the 29 SEEN carriers other than Kuzushiji-MNIST
+POST HOC (added after the first run, at an adversarial review's request; report lines only; no gate, forecast or adds-something rule changed; the run-1 report is kept as cpl_phase_a_run1.txt):
+POST HOC 1: ORACLE-means NCM: the declared Gaussian NCM readout with every class mean replaced by the mean of its training rows' features under the final weights (a ceiling an exemplar-free learner cannot have; covariances as stored); recorded per run as acc_ncm_oracle; ORACLE - STALE is paired per seed on the transport-off arm (FT and SEC), with the declared step
+POST HOC 2: per drift world, the declaration's fixed consequence of a failed G-DRIFT ('transport has nothing to fix in this learner') is replaced by computed words from ORACLE - STALE and T - STALE under FT (G-DRIFT's penalty); the rotated stream's stale relative error (FT) is ranked against the 30 SEEN carriers
+POST HOC 3: with the gate CLOSED, the adds-something line prints the I_NCM label counts without an interpretive word (the declaration: C2 is reported without interpretation); the adds-something verdict is unchanged
+POST HOC 4: under C2, for every stream with I_NCM > step, the transport effect on NCM under each penalty; under C3, ER-20 minus the SEC-only NCM (no transport) beside ER-20 minus the coupled best readout
+--------------------------------------------------------------------------------------------------------------------------------
+provenance (R9): uv.lock 34ad60bcd44eaf0b; cpl_lib.py bf9c36e78df459df; cpl_phase_a.py 453a54ef381b6b9a; sec4_score.py c9701c310ac86e10; sec1_score.py db490c8ac30871ad; scl3_score.py 7450734a5c5907b6; sec5_score.py 32331e0059d805ae; rrm_lib.py 1584e6bd53147dd4; t_lib.py 5b0b6a1ce0ef97f9; rqm_lib.py 9df97d313bc5228f; phase_a.py 231699d1945ea7cb; numpy 2.5.3; python 3.14.0rc2
+record headers carrying the current sha256 of every file above: 32/32 -> SAME
+what was run: 32 of 32 streams complete (synthetic, rotated, 30 SEEN carriers); per stream and seed the arms SEC+T, SEC, FT+T, FT, closure, L1, L2, L3, ER-20 (C1 on all, C2 on all, C3 on all); missing: none
+
+================================================================================================================================
+C0-ID: cpl_lib.run_cpl (penalty 'sec', no extras, no pause) against the frozen runs/sec5/frozen/sec4_score.run_guard('clip')
+================================================================================================================================
+synthetic stream, seeds 0-4: equal to run_guard('clip') in acc, s, firings and margins on 5/5 -> IDENTICAL
+synthetic stream: with the extras on (statistics and transport), final weights, acc and s equal to extras off on 5/5 -> IDENTICAL (the extras never touch training)
+   study carrier                    id  pinned bayes_sec_clip acc          run_cpl acc  acc        s/firings/margins
+   sec4  anneal                  46906          84.26966292134831    84.26966292134831  IDENTICAL  equal
+   sec4  artificial-characters    1459         15.484515484515486   15.484515484515486  IDENTICAL  equal
+   sec4  cardiotocography         1466          99.76415094339622    99.76415094339622  IDENTICAL  equal
+   sec4  gas-drift                1476          50.35035035035035    50.35035035035035  IDENTICAL  equal
+   sec4  JapaneseVowels            375         30.630630630630627   30.630630630630627  IDENTICAL  equal
+   sec4  synthetic_control         377         48.333333333333336   48.333333333333336  IDENTICAL  equal
+   sec5  pokerhand                 155                       20.0                 20.0  IDENTICAL  equal
+   sec5  spoken-arabic-digit      1503                       10.0                 10.0  IDENTICAL  equal
+   sec5  walking-activity         1509         11.200000000000001   11.200000000000001  IDENTICAL  equal
+   sec5  volcanoes-d4             1541         5.7057057057057055   5.7057057057057055  IDENTICAL  equal
+   sec5  autoUniv-au6-750         1549          5.298013245033113    5.298013245033113  IDENTICAL  equal
+   sec5  microaggregation2       41671         13.286713286713287   13.286713286713287  IDENTICAL  equal
+   sec5  Indian_pines            41972          37.56243756243756    37.56243756243756  IDENTICAL  equal
+   sec5  Kuzushiji-MNIST         41982                       31.2                 31.2  IDENTICAL  equal
+pinned SEC4/SEC5 carriers at seed 0: IDENTICAL on 14/14 (at least 3 required)
+C0-ID -> HOLDS
+
+================================================================================================================================
+C1: the empty cut on the coupled state (3 pauses per task at own-clock steps, at least one inside a secant window)
+================================================================================================================================
+per stream: C1-EXACT (closure = uninterrupted in weights, s_j and statistics) seeds; each lossy variant: seeds that differ;
+L1/L3: s_j that differ (of tasks x seeds), median |log10 s ratio|, head acc change (step, label); L2: NCM acc change (step, label)
+  [synthetic (POS)] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 2.45), dhead -14.916 (step 1.21) NEGATIVE, dNCM +0.000; L2 differs 5/5, dNCM +0.000 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 2.16), dhead -11.438 (step 3.60) NEGATIVE, dNCM +0.000
+  [rotated synthetic] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 2.3), dhead -11.906 (step 1.00) NEGATIVE, dNCM +0.067; L2 differs 5/5, dNCM +0.201 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 2.19), dhead -9.431 (step 2.86) NEGATIVE, dNCM +0.201
+  [cnae-9] C1-EXACT 5/5; L1 differs 5/5, s_j 20/20 (med 3.55), dhead -26.354 (step 1.02) NEGATIVE, dNCM -0.104; L2 differs 5/5, dNCM +5.729 (step 1.19) POSITIVE; L3 differs 5/5, s_j 20/20 (med 2.86), dhead -22.083 (step 4.62) NEGATIVE, dNCM +0.000
+  [eucalyptus] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 1.67), dhead -4.037 (step 2.76) NEGATIVE, dNCM -0.183; L2 differs 5/5, dNCM +0.000 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 1.82), dhead -6.239 (step 3.04) NEGATIVE, dNCM -0.183
+  [first-order-theorem-proving] C1-EXACT 5/5; L1 differs 5/5, s_j 15/15 (med 1.52), dhead -0.040 (step 1.00) WITHIN, dNCM +0.080; L2 differs 5/5, dNCM -0.280 (step 1.00) WITHIN; L3 differs 5/5, s_j 15/15 (med 0.72), dhead -0.080 (step 1.00) WITHIN, dNCM +0.060
+  [GesturePhaseSegmentationProcessed] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 1.38), dhead +0.060 (step 1.00) WITHIN, dNCM -0.040; L2 differs 5/5, dNCM +0.561 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 0.74), dhead -0.020 (step 1.00) WITHIN, dNCM +0.120
+  [har] C1-EXACT 5/5; L1 differs 5/5, s_j 15/15 (med 4.78), dhead -4.076 (step 1.59) NEGATIVE, dNCM +0.120; L2 differs 5/5, dNCM +1.279 (step 1.46) WITHIN; L3 differs 5/5, s_j 15/15 (med 0.995), dhead -2.238 (step 1.89) NEGATIVE, dNCM +0.160
+  [isolet] C1-EXACT 5/5; L1 differs 5/5, s_j 21/25 (med 4.23), dhead -9.200 (step 3.64) NEGATIVE, dNCM +0.033; L2 differs 5/5, dNCM +11.833 (step 2.61) POSITIVE; L3 differs 5/5, s_j 25/25 (med 1.71), dhead -4.367 (step 2.90) NEGATIVE, dNCM -0.500
+  [MiceProtein] C1-EXACT 5/5; L1 differs 5/5, s_j 20/20 (med 3.5), dhead -21.273 (step 4.80) NEGATIVE, dNCM +0.909; L2 differs 5/5, dNCM +0.182 (step 1.00) WITHIN; L3 differs 5/5, s_j 20/20 (med 3.22), dhead -17.636 (step 7.42) NEGATIVE, dNCM +0.727
+  [semeion] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 3.46), dhead -13.668 (step 2.03) NEGATIVE, dNCM +0.063; L2 differs 5/5, dNCM +0.690 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 1.67), dhead -9.969 (step 2.60) NEGATIVE, dNCM +0.125
+  [steel-plates-fault] C1-EXACT 5/5; L1 differs 5/5, s_j 14/15 (med 2.14), dhead -2.759 (step 1.39) NEGATIVE, dNCM -0.000; L2 differs 5/5, dNCM -0.106 (step 1.00) WITHIN; L3 differs 5/5, s_j 15/15 (med 1.92), dhead -1.592 (step 1.85) WITHIN, dNCM -0.000
+  [wall-robot-navigation] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 1.85), dhead -0.320 (step 1.00) WITHIN, dNCM +0.000; L2 differs 5/5, dNCM +0.240 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 0.865), dhead -0.581 (step 1.00) WITHIN, dNCM +0.040
+  [covertype] C1-EXACT 5/5; L1 differs 5/5, s_j 15/15 (med 1.46), dhead -10.470 (step 4.93) NEGATIVE, dNCM -0.060; L2 differs 5/5, dNCM +1.542 (step 1.00) POSITIVE; L3 differs 5/5, s_j 15/15 (med 0.676), dhead -0.541 (step 2.39) WITHIN, dNCM -0.280
+  [dionis] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 3.19), dhead -19.101 (step 6.18) NEGATIVE, dNCM -0.000; L2 differs 5/5, dNCM -0.040 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 1.09), dhead -9.990 (step 8.20) NEGATIVE, dNCM +0.080
+  [fabert] C1-EXACT 5/5; L1 differs 5/5, s_j 15/15 (med 2.17), dhead -0.220 (step 1.00) WITHIN, dNCM -0.839; L2 differs 5/5, dNCM +0.859 (step 1.00) WITHIN; L3 differs 5/5, s_j 15/15 (med 1.03), dhead +0.500 (step 1.00) WITHIN, dNCM -0.500
+  [helena] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 1.06), dhead -0.760 (step 1.00) WITHIN, dNCM +0.420; L2 differs 5/5, dNCM -0.520 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 1.29), dhead -0.680 (step 1.00) WITHIN, dNCM +0.200
+  [jannis] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 0.765), dhead -0.860 (step 1.00) WITHIN, dNCM -0.020; L2 differs 5/5, dNCM +0.080 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 0.581), dhead -0.560 (step 1.00) WITHIN, dNCM +0.000
+  [volkert] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 1.67), dhead -1.600 (step 1.00) NEGATIVE, dNCM +0.960; L2 differs 5/5, dNCM +1.300 (step 1.00) POSITIVE; L3 differs 5/5, s_j 25/25 (med 1.23), dhead -1.440 (step 1.00) NEGATIVE, dNCM +0.860
+  [anneal] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 2.23), dhead -17.191 (step 9.86) NEGATIVE, dNCM -0.000; L2 differs 5/5, dNCM -0.562 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 1.55), dhead -17.416 (step 7.52) NEGATIVE, dNCM -0.000
+  [artificial-characters] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 1.38), dhead -2.757 (step 1.82) NEGATIVE, dNCM +0.040; L2 differs 5/5, dNCM +0.460 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 1.36), dhead -0.979 (step 1.00) WITHIN, dNCM -0.000
+  [cardiotocography] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 4.06), dhead -11.274 (step 8.20) NEGATIVE, dNCM -0.047; L2 differs 5/5, dNCM -0.094 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 1.39), dhead -7.500 (step 6.98) NEGATIVE, dNCM -0.047
+  [gas-drift] C1-EXACT 5/5; L1 differs 5/5, s_j 15/15 (med 2.32), dhead -4.725 (step 1.20) NEGATIVE, dNCM -0.681; L2 differs 5/5, dNCM +4.464 (step 1.00) POSITIVE; L3 differs 5/5, s_j 15/15 (med 1.15), dhead -3.784 (step 1.98) NEGATIVE, dNCM -0.541
+  [JapaneseVowels] C1-EXACT 5/5; L1 differs 5/5, s_j 20/20 (med 2.28), dhead -4.264 (step 1.02) NEGATIVE, dNCM -0.000; L2 differs 5/5, dNCM +0.020 (step 1.00) WITHIN; L3 differs 5/5, s_j 20/20 (med 1.35), dhead -2.242 (step 1.91) NEGATIVE, dNCM +0.020
+  [synthetic_control] C1-EXACT 5/5; L1 differs 5/5, s_j 14/15 (med 3.36), dhead -10.000 (step 3.37) NEGATIVE, dNCM +0.000; L2 differs 5/5, dNCM -0.833 (step 1.00) WITHIN; L3 differs 5/5, s_j 15/15 (med 2.53), dhead -10.000 (step 3.46) NEGATIVE, dNCM +0.000
+  [pokerhand] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 1.17), dhead +0.360 (step 4.71) WITHIN, dNCM +0.060; L2 differs 5/5, dNCM +0.040 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 0.761), dhead +2.060 (step 3.29) WITHIN, dNCM +0.040
+  [spoken-arabic-digit] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 1.17), dhead -0.080 (step 1.00) WITHIN, dNCM -0.060; L2 differs 5/5, dNCM +0.200 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 0.92), dhead -0.040 (step 1.00) WITHIN, dNCM -0.100
+  [walking-activity] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 1.03), dhead -0.580 (step 1.63) WITHIN, dNCM -0.060; L2 differs 5/5, dNCM -0.040 (step 1.00) WITHIN; L3 differs 5/5, s_j 25/25 (med 1.22), dhead +1.360 (step 1.00) POSITIVE, dNCM -0.080
+  [volcanoes-d4] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 1.25), dhead -3.063 (step 3.09) WITHIN, dNCM -0.040; L2 differs 5/5, dNCM -0.040 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 0.85), dhead -2.883 (step 2.51) NEGATIVE, dNCM -0.020
+  [autoUniv-au6-750] C1-EXACT 5/5; L1 differs 5/5, s_j 20/20 (med 1.28), dhead +0.397 (step 1.00) WITHIN, dNCM +0.132; L2 differs 5/5, dNCM -0.000 (step 1.00) WITHIN; L3 differs 5/5, s_j 20/20 (med 0.91), dhead +0.397 (step 1.00) WITHIN, dNCM +0.000
+  [microaggregation2] C1-EXACT 5/5; L1 differs 5/5, s_j 10/10 (med 0.867), dhead -0.020 (step 1.00) WITHIN, dNCM +0.060; L2 differs 5/5, dNCM +0.000 (step 1.00) WITHIN; L3 differs 5/5, s_j 10/10 (med 0.5), dhead +0.000 (step 1.00) WITHIN, dNCM +0.100
+  [Indian_pines] C1-EXACT 5/5; L1 differs 5/5, s_j 15/15 (med 1.16), dhead -3.776 (step 4.89) WITHIN, dNCM -0.280; L2 differs 5/5, dNCM +5.295 (step 9.10) WITHIN; L3 differs 5/5, s_j 15/15 (med 1.18), dhead -8.971 (step 5.61) NEGATIVE, dNCM -1.399
+  [Kuzushiji-MNIST] C1-EXACT 5/5; L1 differs 5/5, s_j 25/25 (med 3.48), dhead -8.440 (step 1.14) NEGATIVE, dNCM -1.600; L2 differs 5/5, dNCM +6.560 (step 2.34) POSITIVE; L3 differs 5/5, s_j 25/25 (med 0.856), dhead -4.980 (step 1.00) NEGATIVE, dNCM -1.780
+C1-EXACT: bit-identical on 160/160 stream-seeds (32/32 streams on every seed) -> HOLDS
+G-CANFAIL: streams where the variant differs from the uninterrupted run on at least one seed: L1 32/32, L2 32/32, L3 32/32 -> holds
+accuracy changes within a step (L1, L3 head; L2 NCM): L1 13/32, L2 26/32, L3 13/32
+
+================================================================================================================================
+C2: do the parts interact? 2 x 2 {clipped SEC, FT} x {transport on, off}; I = (SEC+T - SEC) - (FT+T - FT) per seed
+================================================================================================================================
+per stream: NCM seed means of the four arms; I_NCM (step, label); I_head; G-DRIFT = NCM(FT+T) - NCM(FT) (step, holds);
+transport's NCM gain under SEC; relative error of the stored old-class means against the current ones (FT stale, FT transported, SEC stale, SEC transported)
+  [synthetic (POS)] NCM SEC+T 84.15 SEC 84.15 FT+T 84.15 FT 84.15; I_NCM +0.000 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.000 (step 1.00) fails; SEC gain +0.000 (WITHIN); rel err FT 0.0115/0.0276 SEC 0.0173/0.0351
+  [rotated synthetic] NCM SEC+T 71.44 SEC 71.64 FT+T 71.51 FT 71.51; I_NCM -0.201 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.000 (step 1.00) fails; SEC gain -0.201 (WITHIN); rel err FT 0.0191/0.0284 SEC 0.0292/0.0356
+  [cnae-9] NCM SEC+T 49.69 SEC 55.42 FT+T 49.58 FT 53.75; I_NCM -1.563 (step 2.03) WITHIN; I_head +0.000; G-DRIFT -4.167 (step 1.44) fails; SEC gain -5.729 (NEGATIVE); rel err FT 0.0369/0.2599 SEC 0.0441/0.3056
+  [eucalyptus] NCM SEC+T 70.46 SEC 70.46 FT+T 70.28 FT 70.46; I_NCM +0.183 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.183 (step 1.00) fails; SEC gain +0.000 (WITHIN); rel err FT 0.0176/0.0257 SEC 0.0188/0.0276
+  [first-order-theorem-proving] NCM SEC+T 22.48 SEC 22.20 FT+T 22.64 FT 22.24; I_NCM -0.120 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.400 (step 1.00) fails; SEC gain +0.280 (WITHIN); rel err FT 0.1559/0.1554 SEC 0.1965/0.1763
+  [GesturePhaseSegmentationProcessed] NCM SEC+T 50.29 SEC 50.85 FT+T 50.33 FT 51.15; I_NCM +0.260 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.821 (step 1.00) fails; SEC gain -0.561 (WITHIN); rel err FT 0.1146/0.0771 SEC 0.1431/0.0919
+  [har] NCM SEC+T 45.51 SEC 46.79 FT+T 45.63 FT 46.91; I_NCM +0.000 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -1.279 (step 1.44) fails; SEC gain -1.279 (WITHIN); rel err FT 0.8655/0.9314 SEC 0.8106/0.8480
+  [isolet] NCM SEC+T 74.53 SEC 86.37 FT+T 74.60 FT 85.13; I_NCM -1.300 (step 4.34) WITHIN; I_head +0.000; G-DRIFT -10.533 (step 5.15) fails; SEC gain -11.833 (NEGATIVE); rel err FT 0.3271/0.6707 SEC 0.3202/0.6952
+  [MiceProtein] NCM SEC+T 86.18 SEC 86.36 FT+T 87.09 FT 86.00; I_NCM -1.273 (step 1.00) NEGATIVE; I_head +0.000; G-DRIFT +1.091 (step 1.06) holds; SEC gain -0.182 (WITHIN); rel err FT 0.0698/0.0956 SEC 0.0825/0.1148
+  [semeion] NCM SEC+T 80.13 SEC 80.82 FT+T 80.19 FT 80.19; I_NCM -0.690 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.000 (step 1.00) fails; SEC gain -0.690 (WITHIN); rel err FT 0.1160/0.1703 SEC 0.1298/0.2013
+  [steel-plates-fault] NCM SEC+T 59.89 SEC 59.79 FT+T 59.89 FT 59.95; I_NCM +0.159 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.053 (step 1.00) fails; SEC gain +0.106 (WITHIN); rel err FT 0.0327/0.0456 SEC 0.0463/0.0569
+  [wall-robot-navigation] NCM SEC+T 63.06 SEC 63.30 FT+T 63.00 FT 63.28; I_NCM +0.040 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.280 (step 1.00) fails; SEC gain -0.240 (WITHIN); rel err FT 0.0260/0.0327 SEC 0.0310/0.0349
+  [covertype] NCM SEC+T 58.78 SEC 60.32 FT+T 58.94 FT 60.36; I_NCM -0.120 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -1.421 (step 1.00) fails; SEC gain -1.542 (NEGATIVE); rel err FT 0.0451/0.1164 SEC 0.0544/0.1402
+  [dionis] NCM SEC+T 93.89 SEC 93.85 FT+T 93.89 FT 93.77; I_NCM -0.080 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.120 (step 1.00) fails; SEC gain +0.040 (WITHIN); rel err FT 0.0726/0.1604 SEC 0.0673/0.1546
+  [fabert] NCM SEC+T 46.75 SEC 47.61 FT+T 45.97 FT 45.75; I_NCM -1.079 (step 1.00) NEGATIVE; I_head +0.000; G-DRIFT +0.220 (step 1.00) fails; SEC gain -0.859 (WITHIN); rel err FT 0.0483/0.0965 SEC 0.0527/0.1097
+  [helena] NCM SEC+T 53.28 SEC 52.76 FT+T 53.88 FT 53.18; I_NCM -0.180 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.700 (step 1.00) fails; SEC gain +0.520 (WITHIN); rel err FT 0.0779/0.0571 SEC 0.1174/0.0779
+  [jannis] NCM SEC+T 47.90 SEC 47.98 FT+T 47.98 FT 48.00; I_NCM -0.060 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.020 (step 1.00) fails; SEC gain -0.080 (WITHIN); rel err FT 0.0309/0.0445 SEC 0.0374/0.0485
+  [volkert] NCM SEC+T 30.96 SEC 32.26 FT+T 32.18 FT 33.94; I_NCM +0.460 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -1.760 (step 1.04) fails; SEC gain -1.300 (NEGATIVE); rel err FT 0.3330/0.4842 SEC 0.4955/0.6747
+  [anneal] NCM SEC+T 84.16 SEC 83.60 FT+T 84.16 FT 83.60; I_NCM +0.000 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.562 (step 1.07) fails; SEC gain +0.562 (WITHIN); rel err FT 0.0119/0.1041 SEC 0.0134/0.1138
+  [artificial-characters] NCM SEC+T 35.48 SEC 35.94 FT+T 35.52 FT 35.76; I_NCM -0.220 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.240 (step 1.00) fails; SEC gain -0.460 (WITHIN); rel err FT 0.0457/0.0522 SEC 0.0515/0.0561
+  [cardiotocography] NCM SEC+T 99.43 SEC 99.34 FT+T 99.39 FT 99.34; I_NCM +0.047 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.047 (step 1.00) fails; SEC gain +0.094 (WITHIN); rel err FT 0.0205/0.1524 SEC 0.0216/0.1839
+  [gas-drift] NCM SEC+T 61.68 SEC 66.15 FT+T 60.76 FT 66.89; I_NCM +1.662 (step 1.49) POSITIVE; I_head +0.000; G-DRIFT -6.126 (step 1.36) fails; SEC gain -4.464 (NEGATIVE); rel err FT 0.3339/0.4708 SEC 0.3285/0.4312
+  [JapaneseVowels] NCM SEC+T 85.31 SEC 85.33 FT+T 85.33 FT 85.29; I_NCM -0.060 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.040 (step 1.00) fails; SEC gain -0.020 (WITHIN); rel err FT 0.0232/0.0355 SEC 0.0274/0.0409
+  [synthetic_control] NCM SEC+T 91.00 SEC 90.17 FT+T 91.00 FT 90.33; I_NCM +0.167 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.667 (step 1.00) fails; SEC gain +0.833 (WITHIN); rel err FT 0.0990/0.0764 SEC 0.1090/0.0813
+  [pokerhand] NCM SEC+T 45.70 SEC 45.74 FT+T 45.74 FT 45.96; I_NCM +0.180 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.220 (step 1.00) fails; SEC gain -0.040 (WITHIN); rel err FT 0.0214/0.0244 SEC 0.0263/0.0258
+  [spoken-arabic-digit] NCM SEC+T 11.02 SEC 11.22 FT+T 10.94 FT 11.40; I_NCM +0.260 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.460 (step 1.00) fails; SEC gain -0.200 (WITHIN); rel err FT 0.1088/0.0436 SEC 0.1352/0.0506
+  [walking-activity] NCM SEC+T 41.76 SEC 41.72 FT+T 41.72 FT 41.94; I_NCM +0.260 (step 1.00) WITHIN; I_head +0.000; G-DRIFT -0.220 (step 1.00) fails; SEC gain +0.040 (WITHIN); rel err FT 0.0514/0.0395 SEC 0.0704/0.0524
+  [volcanoes-d4] NCM SEC+T 72.01 SEC 71.97 FT+T 71.97 FT 71.91; I_NCM -0.020 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.060 (step 1.00) fails; SEC gain +0.040 (WITHIN); rel err FT 0.0309/0.0206 SEC 0.0307/0.0187
+  [autoUniv-au6-750] NCM SEC+T 13.11 SEC 13.11 FT+T 13.11 FT 12.85; I_NCM -0.265 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.265 (step 1.00) fails; SEC gain +0.000 (WITHIN); rel err FT 0.0168/0.0111 SEC 0.0254/0.0145
+  [microaggregation2] NCM SEC+T 24.88 SEC 24.88 FT+T 24.86 FT 24.84; I_NCM -0.020 (step 1.00) WITHIN; I_head +0.000; G-DRIFT +0.020 (step 1.00) fails; SEC gain +0.000 (WITHIN); rel err FT 0.0619/0.0344 SEC 0.0857/0.0457
+  [Indian_pines] NCM SEC+T 41.70 SEC 46.99 FT+T 40.12 FT 47.29; I_NCM +1.878 (step 4.25) WITHIN; I_head +0.000; G-DRIFT -7.173 (step 10.76) fails; SEC gain -5.295 (WITHIN); rel err FT 0.8076/1.3729 SEC 0.7714/1.3139
+  [Kuzushiji-MNIST] NCM SEC+T 55.06 SEC 61.62 FT+T 53.48 FT 62.32; I_NCM +2.280 (step 1.38) POSITIVE; I_head +0.000; G-DRIFT -8.840 (step 1.47) fails; SEC gain -6.560 (NEGATIVE); rel err FT 0.2998/0.4264 SEC 0.3203/0.4316
+construction: transport on and off give identical weights and head accuracy on 320/320 arm-seeds (the statistics never feed training)
+I_head is exactly 0 on every seed on 32/32 streams
+I_NCM over the 32 streams: positive by more than a step 2, negative by more than a step 2, within a step 28; median I_NCM -0.0100
+G-DRIFT (per stream) holds on 1/32: ['MiceProtein']
+REPORT (I_NCM > step) [gas-drift] transport effect on NCM (T - STALE): under SEC -4.464 (step 1.00) NEGATIVE, under FT -6.126 (step 1.36) NEGATIVE -> transport harms under both penalties; SEC damps the harm
+REPORT (I_NCM > step) [Kuzushiji-MNIST] transport effect on NCM (T - STALE): under SEC -6.560 (step 2.34) NEGATIVE, under FT -8.840 (step 1.47) NEGATIVE -> transport harms under both penalties; SEC damps the harm
+REPORT ORACLE-means NCM (POST HOC diagnostic; the true current class means, a ceiling no exemplar-free learner has; covariances as stored),
+paired per seed against the stale statistics (transport off) and against the transported ones, under FT and under SEC:
+  [synthetic (POS)] FT: ORACLE 84.08, ORACLE - STALE -0.067 (step 1.00) WITHIN, T - STALE +0.000 (WITHIN); SEC: ORACLE 84.21, ORACLE - STALE +0.067 (step 1.00) WITHIN, T - STALE +0.000 (WITHIN)
+  [rotated synthetic] FT: ORACLE 71.77, ORACLE - STALE +0.268 (step 1.00) WITHIN, T - STALE +0.000 (WITHIN); SEC: ORACLE 71.91, ORACLE - STALE +0.268 (step 1.00) WITHIN, T - STALE -0.201 (WITHIN)
+  [cnae-9] FT: ORACLE 53.75, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE -4.167 (NEGATIVE); SEC: ORACLE 55.73, ORACLE - STALE +0.312 (step 1.00) WITHIN, T - STALE -5.729 (NEGATIVE)
+  [eucalyptus] FT: ORACLE 70.46, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE -0.183 (WITHIN); SEC: ORACLE 70.46, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE +0.000 (WITHIN)
+  [first-order-theorem-proving] FT: ORACLE 22.42, ORACLE - STALE +0.180 (step 1.00) WITHIN, T - STALE +0.400 (WITHIN); SEC: ORACLE 22.22, ORACLE - STALE +0.020 (step 1.00) WITHIN, T - STALE +0.280 (WITHIN)
+  [GesturePhaseSegmentationProcessed] FT: ORACLE 50.35, ORACLE - STALE -0.801 (step 1.00) WITHIN, T - STALE -0.821 (WITHIN); SEC: ORACLE 50.39, ORACLE - STALE -0.460 (step 1.00) WITHIN, T - STALE -0.561 (WITHIN)
+  [har] FT: ORACLE 66.41, ORACLE - STALE +19.500 (step 1.62) POSITIVE, T - STALE -1.279 (WITHIN); SEC: ORACLE 67.23, ORACLE - STALE +20.440 (step 1.82) POSITIVE, T - STALE -1.279 (WITHIN)
+  [isolet] FT: ORACLE 88.57, ORACLE - STALE +3.433 (step 1.00) POSITIVE, T - STALE -10.533 (NEGATIVE); SEC: ORACLE 89.43, ORACLE - STALE +3.067 (step 1.00) POSITIVE, T - STALE -11.833 (NEGATIVE)
+  [MiceProtein] FT: ORACLE 86.73, ORACLE - STALE +0.727 (step 1.00) WITHIN, T - STALE +1.091 (POSITIVE); SEC: ORACLE 86.73, ORACLE - STALE +0.364 (step 1.00) WITHIN, T - STALE -0.182 (WITHIN)
+  [semeion] FT: ORACLE 80.38, ORACLE - STALE +0.188 (step 1.00) WITHIN, T - STALE -0.000 (WITHIN); SEC: ORACLE 80.38, ORACLE - STALE -0.439 (step 1.00) WITHIN, T - STALE -0.690 (WITHIN)
+  [steel-plates-fault] FT: ORACLE 60.00, ORACLE - STALE +0.053 (step 1.00) WITHIN, T - STALE -0.053 (WITHIN); SEC: ORACLE 60.00, ORACLE - STALE +0.212 (step 1.00) WITHIN, T - STALE +0.106 (WITHIN)
+  [wall-robot-navigation] FT: ORACLE 63.10, ORACLE - STALE -0.180 (step 1.00) WITHIN, T - STALE -0.280 (WITHIN); SEC: ORACLE 63.20, ORACLE - STALE -0.100 (step 1.00) WITHIN, T - STALE -0.240 (WITHIN)
+  [covertype] FT: ORACLE 60.12, ORACLE - STALE -0.240 (step 1.00) WITHIN, T - STALE -1.421 (NEGATIVE); SEC: ORACLE 60.12, ORACLE - STALE -0.200 (step 1.00) WITHIN, T - STALE -1.542 (NEGATIVE)
+  [dionis] FT: ORACLE 93.97, ORACLE - STALE +0.200 (step 1.00) WITHIN, T - STALE +0.120 (WITHIN); SEC: ORACLE 94.03, ORACLE - STALE +0.180 (step 1.00) WITHIN, T - STALE +0.040 (WITHIN)
+  [fabert] FT: ORACLE 45.99, ORACLE - STALE +0.240 (step 1.00) WITHIN, T - STALE +0.220 (WITHIN); SEC: ORACLE 47.45, ORACLE - STALE -0.160 (step 1.00) WITHIN, T - STALE -0.859 (WITHIN)
+  [helena] FT: ORACLE 53.86, ORACLE - STALE +0.680 (step 1.00) WITHIN, T - STALE +0.700 (WITHIN); SEC: ORACLE 53.74, ORACLE - STALE +0.980 (step 1.00) WITHIN, T - STALE +0.520 (WITHIN)
+  [jannis] FT: ORACLE 47.90, ORACLE - STALE -0.100 (step 1.00) WITHIN, T - STALE -0.020 (WITHIN); SEC: ORACLE 47.96, ORACLE - STALE -0.020 (step 1.00) WITHIN, T - STALE -0.080 (WITHIN)
+  [volkert] FT: ORACLE 34.40, ORACLE - STALE +0.460 (step 1.00) WITHIN, T - STALE -1.760 (NEGATIVE); SEC: ORACLE 32.70, ORACLE - STALE +0.440 (step 1.00) WITHIN, T - STALE -1.300 (NEGATIVE)
+  [anneal] FT: ORACLE 83.48, ORACLE - STALE -0.112 (step 1.00) WITHIN, T - STALE +0.562 (WITHIN); SEC: ORACLE 83.60, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE +0.562 (WITHIN)
+  [artificial-characters] FT: ORACLE 35.78, ORACLE - STALE +0.020 (step 1.00) WITHIN, T - STALE -0.240 (WITHIN); SEC: ORACLE 35.76, ORACLE - STALE -0.180 (step 1.00) WITHIN, T - STALE -0.460 (WITHIN)
+  [cardiotocography] FT: ORACLE 99.34, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE +0.047 (WITHIN); SEC: ORACLE 99.34, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE +0.094 (WITHIN)
+  [gas-drift] FT: ORACLE 64.98, ORACLE - STALE -1.902 (step 1.00) NEGATIVE, T - STALE -6.126 (NEGATIVE); SEC: ORACLE 65.11, ORACLE - STALE -1.041 (step 1.00) NEGATIVE, T - STALE -4.464 (NEGATIVE)
+  [JapaneseVowels] FT: ORACLE 85.33, ORACLE - STALE +0.040 (step 1.00) WITHIN, T - STALE +0.040 (WITHIN); SEC: ORACLE 85.37, ORACLE - STALE +0.040 (step 1.00) WITHIN, T - STALE -0.020 (WITHIN)
+  [synthetic_control] FT: ORACLE 91.17, ORACLE - STALE +0.833 (step 1.00) WITHIN, T - STALE +0.667 (WITHIN); SEC: ORACLE 91.17, ORACLE - STALE +1.000 (step 1.00) WITHIN, T - STALE +0.833 (WITHIN)
+  [pokerhand] FT: ORACLE 45.88, ORACLE - STALE -0.080 (step 1.00) WITHIN, T - STALE -0.220 (WITHIN); SEC: ORACLE 45.80, ORACLE - STALE +0.060 (step 1.00) WITHIN, T - STALE -0.040 (WITHIN)
+  [spoken-arabic-digit] FT: ORACLE 11.12, ORACLE - STALE -0.280 (step 1.00) WITHIN, T - STALE -0.460 (WITHIN); SEC: ORACLE 11.22, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE -0.200 (WITHIN)
+  [walking-activity] FT: ORACLE 41.70, ORACLE - STALE -0.240 (step 1.00) WITHIN, T - STALE -0.220 (WITHIN); SEC: ORACLE 41.66, ORACLE - STALE -0.060 (step 1.00) WITHIN, T - STALE +0.040 (WITHIN)
+  [volcanoes-d4] FT: ORACLE 71.97, ORACLE - STALE +0.060 (step 1.00) WITHIN, T - STALE +0.060 (WITHIN); SEC: ORACLE 72.05, ORACLE - STALE +0.080 (step 1.00) WITHIN, T - STALE +0.040 (WITHIN)
+  [autoUniv-au6-750] FT: ORACLE 12.85, ORACLE - STALE +0.000 (step 1.00) WITHIN, T - STALE +0.265 (WITHIN); SEC: ORACLE 12.98, ORACLE - STALE -0.132 (step 1.00) WITHIN, T - STALE +0.000 (WITHIN)
+  [microaggregation2] FT: ORACLE 24.98, ORACLE - STALE +0.140 (step 1.00) WITHIN, T - STALE +0.020 (WITHIN); SEC: ORACLE 24.92, ORACLE - STALE +0.040 (step 1.00) WITHIN, T - STALE +0.000 (WITHIN)
+  [Indian_pines] FT: ORACLE 61.32, ORACLE - STALE +14.026 (step 2.21) POSITIVE, T - STALE -7.173 (WITHIN); SEC: ORACLE 61.20, ORACLE - STALE +14.206 (step 1.74) POSITIVE, T - STALE -5.295 (WITHIN)
+  [Kuzushiji-MNIST] FT: ORACLE 64.80, ORACLE - STALE +2.480 (step 1.11) POSITIVE, T - STALE -8.840 (NEGATIVE); SEC: ORACLE 65.58, ORACLE - STALE +3.960 (step 1.00) POSITIVE, T - STALE -6.560 (NEGATIVE)
+REPORT under FT: ORACLE ahead of STALE by more than a step on 4/32 streams ['har', 'isolet', 'Indian_pines', 'Kuzushiji-MNIST']; on those, the transport ahead of STALE by more than a step on 0, behind by more than a step on 2
+REPORT under SEC: ORACLE ahead of STALE by more than a step on 4/32 streams ['har', 'isolet', 'Indian_pines', 'Kuzushiji-MNIST']; on those, the transport ahead of STALE by more than a step on 0, behind by more than a step on 2
+
+================================================================================================================================
+C4: the drift world (C2 printed separately): the rotated synthetic stream and Kuzushiji-MNIST (the highest-drift SEEN carrier in T7)
+================================================================================================================================
+  [rotated synthetic] SEC+T NCM [69.23 70.57 72.91 72.58 71.91] head [37.12 34.45 35.45 34.45 32.78]
+  [rotated synthetic] SEC   NCM [69.23 70.23 73.58 72.24 72.91] head [37.12 34.45 35.45 34.45 32.78]
+  [rotated synthetic] FT+T  NCM [69.90 70.57 73.24 71.91 71.91] head [23.41 23.08 22.41 22.74 20.74]
+  [rotated synthetic] FT    NCM [69.23 70.57 73.58 71.57 72.58] head [23.41 23.08 22.41 22.74 20.74]
+  [rotated synthetic] I_NCM -0.2007 (step 1.00) WITHIN; G-DRIFT fails
+  [rotated synthetic] REPORT stale relative error of the old-class means against the current ones: FT 0.0191, SEC 0.0292
+  [rotated synthetic] REPORT (FT) nothing to fix here (ORACLE - STALE = +0.268 within a step, step 1.00)
+  [Kuzushiji-MNIST] SEC+T NCM [56.50 55.40 57.60 50.70 55.10] head [31.20 30.40 30.70 30.70 31.40]
+  [Kuzushiji-MNIST] SEC   NCM [61.40 61.50 61.80 61.60 61.80] head [31.20 30.40 30.70 30.70 31.40]
+  [Kuzushiji-MNIST] FT+T  NCM [55.00 54.80 55.30 49.40 52.90] head [22.30 20.50 24.40 22.70 22.40]
+  [Kuzushiji-MNIST] FT    NCM [63.40 61.80 63.30 60.70 62.40] head [22.30 20.50 24.40 22.70 22.40]
+  [Kuzushiji-MNIST] I_NCM +2.2800 (step 1.38) POSITIVE; G-DRIFT fails
+  [Kuzushiji-MNIST] REPORT stale relative error of the old-class means against the current ones: FT 0.2998, SEC 0.3203
+  [Kuzushiji-MNIST] REPORT (FT) there is drift to fix (ORACLE - STALE = +2.480, step 1.11); this exemplar-free transport does not fix it and lowers NCM by more than a step (T - STALE = -8.840, step 1.47)
+REPORT drift size (stale relative error, FT): rotated 0.0191; the 30 SEEN carriers median 0.0567, 27 of 30 above the rotated stream; Kuzushiji-MNIST 0.2998 -> the rotated stream drifts less than the median SEEN carrier: the synthetic drift world barely drifts
+G-DRIFT (gate; at least one of the two drift-world streams): rotated fails, Kuzushiji-MNIST fails -> FAILS
+G-CANFAIL -> holds; G-DRIFT -> FAILS
+CPL1 GATE CLOSED
+G-DRIFT fails: C2 is reported without interpretation (the declaration); whether there is drift to fix is stated per drift world above (REPORT, computed from the ORACLE-means diagnostic)
+
+the adds-something rule (gate OPEN; C1-EXACT; I_NCM positive by more than a step; on at least two thirds of the streams where G-DRIFT holds):
+   streams where G-DRIFT holds 1; of them C1-EXACT on every seed and I_NCM POSITIVE: 0 (need 1); their I_NCM labels: positive 0, negative 1, within 0
+   -> DOES NOT ADD SOMETHING (gate CLOSED): the coupling is an integration, not a new capability; C2 is reported without interpretation: I_NCM labels over the G-DRIFT streams: negative 1, within 0, positive 0 (of 1)
+
+================================================================================================================================
+C3: the price of exemplar-free: the coupled learner's best readout against ER-20 (20 raw rows per class), same epochs and stream passes
+================================================================================================================================
+  [synthetic (POS)] head 39.33, NCM 84.15, best NCM 84.15; ER-20 79.93; ER-20 - best -4.214 (step 2.12) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -4.214 (step 1.96) ER-20 BEHIND
+  [rotated synthetic] head 34.85, NCM 71.44, best NCM 71.44; ER-20 67.49; ER-20 - best -3.946 (step 2.79) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -4.147 (step 2.78) ER-20 BEHIND
+  [cnae-9] head 82.08, NCM 49.69, best head 82.08; ER-20 84.90; ER-20 - best +2.812 (step 2.30) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +29.479 (step 2.73) ER-20 AHEAD
+  [eucalyptus] head 39.08, NCM 70.46, best NCM 70.46; ER-20 66.79; ER-20 - best -3.670 (step 1.74) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -3.670 (step 1.74) ER-20 BEHIND
+  [first-order-theorem-proving] head 11.81, NCM 22.48, best NCM 22.48; ER-20 25.77; ER-20 - best +3.283 (step 5.80) within; REPORT ER-20 - SEC NCM (no transport) +3.564 (step 6.04) within
+  [GesturePhaseSegmentationProcessed] head 26.21, NCM 50.29, best NCM 50.29; ER-20 44.16; ER-20 - best -6.126 (step 3.88) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -6.687 (step 3.40) ER-20 BEHIND
+  [har] head 51.73, NCM 45.51, best head 51.73; ER-20 89.83; ER-20 - best +38.102 (step 2.80) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +43.037 (step 2.07) ER-20 AHEAD
+  [isolet] head 62.40, NCM 74.53, best NCM 74.53; ER-20 91.53; ER-20 - best +17.000 (step 2.98) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +5.167 (step 1.58) ER-20 AHEAD
+  [MiceProtein] head 45.45, NCM 86.18, best NCM 86.18; ER-20 93.27; ER-20 - best +7.091 (step 2.26) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +6.909 (step 1.87) ER-20 AHEAD
+  [semeion] head 41.19, NCM 80.13, best NCM 80.13; ER-20 78.50; ER-20 - best -1.630 (step 1.04) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -2.320 (step 1.06) ER-20 BEHIND
+  [steel-plates-fault] head 33.26, NCM 59.89, best NCM 59.89; ER-20 56.55; ER-20 - best -3.342 (step 3.18) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -3.236 (step 3.18) ER-20 BEHIND
+  [wall-robot-navigation] head 22.14, NCM 63.06, best NCM 63.06; ER-20 58.34; ER-20 - best -4.725 (step 4.11) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -4.965 (step 4.11) ER-20 BEHIND
+  [covertype] head 19.50, NCM 58.78, best NCM 58.78; ER-20 47.21; ER-20 - best -11.572 (step 3.26) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -13.113 (step 2.92) ER-20 BEHIND
+  [dionis] head 65.33, NCM 93.89, best NCM 93.89; ER-20 94.73; ER-20 - best +0.839 (step 1.00) within; REPORT ER-20 - SEC NCM (no transport) +0.879 (step 1.00) within
+  [fabert] head 19.28, NCM 46.75, best NCM 46.75; ER-20 29.35; ER-20 - best -17.403 (step 2.38) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -18.262 (step 1.77) ER-20 BEHIND
+  [helena] head 13.68, NCM 53.28, best NCM 53.28; ER-20 46.00; ER-20 - best -7.280 (step 2.75) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -6.760 (step 2.72) ER-20 BEHIND
+  [jannis] head 19.24, NCM 47.90, best NCM 47.90; ER-20 38.78; ER-20 - best -9.120 (step 1.83) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -9.200 (step 1.88) ER-20 BEHIND
+  [volkert] head 6.48, NCM 30.96, best NCM 30.96; ER-20 28.18; ER-20 - best -2.780 (step 3.15) within; REPORT ER-20 - SEC NCM (no transport) -4.080 (step 3.51) ER-20 BEHIND
+  [anneal] head 82.36, NCM 84.16, best NCM 84.16; ER-20 85.62; ER-20 - best +1.461 (step 3.19) within; REPORT ER-20 - SEC NCM (no transport) +2.022 (step 3.34) within
+  [artificial-characters] head 15.22, NCM 35.48, best NCM 35.48; ER-20 44.90; ER-20 - best +9.411 (step 1.42) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +8.951 (step 1.46) ER-20 AHEAD
+  [cardiotocography] head 99.91, NCM 99.43, best head 99.91; ER-20 99.86; ER-20 - best -0.047 (step 1.00) within; REPORT ER-20 - SEC NCM (no transport) +0.519 (step 1.00) within
+  [gas-drift] head 48.99, NCM 61.68, best NCM 61.68; ER-20 90.23; ER-20 - best +28.549 (step 4.82) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +24.084 (step 4.91) ER-20 AHEAD
+  [JapaneseVowels] head 29.83, NCM 85.31, best NCM 85.31; ER-20 89.87; ER-20 - best +4.565 (step 1.42) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +4.545 (step 1.24) ER-20 AHEAD
+  [synthetic_control] head 48.33, NCM 91.00, best NCM 91.00; ER-20 95.17; ER-20 - best +4.167 (step 1.29) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +5.000 (step 1.75) ER-20 AHEAD
+  [pokerhand] head 15.22, NCM 45.70, best NCM 45.70; ER-20 45.18; ER-20 - best -0.520 (step 1.97) within; REPORT ER-20 - SEC NCM (no transport) -0.560 (step 2.10) within
+  [spoken-arabic-digit] head 9.86, NCM 11.02, best NCM 11.02; ER-20 9.76; ER-20 - best -1.260 (step 1.00) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -1.460 (step 1.00) ER-20 BEHIND
+  [walking-activity] head 11.04, NCM 41.76, best NCM 41.76; ER-20 36.16; ER-20 - best -5.600 (step 3.28) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -5.560 (step 3.28) ER-20 BEHIND
+  [volcanoes-d4] head 6.09, NCM 72.01, best NCM 72.01; ER-20 61.00; ER-20 - best -11.011 (step 11.26) within; REPORT ER-20 - SEC NCM (no transport) -10.971 (step 11.39) within
+  [autoUniv-au6-750] head 7.68, NCM 13.11, best NCM 13.11; ER-20 9.40; ER-20 - best -3.709 (step 2.16) ER-20 BEHIND; REPORT ER-20 - SEC NCM (no transport) -3.709 (step 2.35) ER-20 BEHIND
+  [microaggregation2] head 13.49, NCM 24.88, best NCM 24.88; ER-20 31.55; ER-20 - best +6.673 (step 1.22) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +6.673 (step 1.21) ER-20 AHEAD
+  [Indian_pines] head 48.27, NCM 41.70, best head 48.27; ER-20 75.94; ER-20 - best +27.672 (step 6.51) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +28.951 (step 1.80) ER-20 AHEAD
+  [Kuzushiji-MNIST] head 30.88, NCM 55.06, best NCM 55.06; ER-20 63.66; ER-20 - best +8.600 (step 2.94) ER-20 AHEAD; REPORT ER-20 - SEC NCM (no transport) +2.040 (step 1.00) ER-20 AHEAD
+ER-20 ahead of the best readout by more than a step on 11/32, behind on 14/32, within on 7/32; median gap (ER-20 - best) -0.8900
+REPORT ER-20 against the SEC-only NCM (no transport): ahead by more than a step on 11/32, behind on 15/32, within on 6/32; median gap (ER-20 - SEC NCM) -1.0100
+compute (report): forward+backward rows per stream row, coupled learner min 1.083 median 1.208 max 2.508 (its Fisher minibatches; plus forward-only rows for the statistics and the transport); ER-20 min 1.023 median 1.582 max 1.800 (its replay rows)
+
+================================================================================================================================
+Forecasts (DECLARATION.md, written before any code), scored
+================================================================================================================================
+1. C1-EXACT on every stream and seed (160/160); L1, L2, L3 each differ (G-CANFAIL holds); accuracy changes within a step on most streams (L1 13/32, L2 26/32, L3 13/32; need more than 16) -> FAILS
+2. G-DRIFT holds on the rotated stream (fails) and on Kuzushiji-MNIST (fails), and fails on most other SEEN carriers (28/29) -> FAILS
+3. I_NCM negative or within a step on every stream (30/32) and the coupling does not add something (does not add) -> FAILS
+4. ER-20 ahead of the coupled learner's best readout on most streams (11/32; need more than 16) -> FAILS
+
+CRR's reading (fixed in the declaration, graded here):
+   the pause (C1) is Proposition 7's construction: C1-EXACT HOLDS -> the construction holds on the whole coupled state; a check of the construction, not support for CRR
+   own-clock keying (L3) is A3's reading and plain engineering: wall-clock-keyed windows change the learner on 32/32 streams
+   SEC and transport are not CRR rules; CRR's only claim about coupling them (one empty cut covers every piece of state) is C1: HOLDS
+
+summary: C0-ID HOLDS; C1-EXACT HOLDS; G-CANFAIL holds; G-DRIFT FAILS; CPL1 GATE CLOSED; coupling DOES NOT ADD SOMETHING; forecasts 1 FAILS, 2 FAILS, 3 FAILS, 4 FAILS

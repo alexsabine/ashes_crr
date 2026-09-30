@@ -1,0 +1,2630 @@
+{"data":{"dataset":[
+    {"did":42395,
+   "name":"SantanderCustomerSatisfaction",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 21829696,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"179902.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"20098.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"202.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"200000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"200.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":43136,
+   "name":"ACSIncome",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 22101650,
+      "quality":[
+        {"name":"NumberOfFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1664500.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":43138,
+   "name":"ACSPublicCoverage",
+   "version":1,
+   "status":"active",
+   "format":"ARFF",
+   "md5_checksum":"",
+      "file_id": 22101653,
+      "quality":[
+        {"name":"NumberOfFeatures",
+     "value":"19.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1138289.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"19.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":44160,
+   "name":"rl",
+   "version":4,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22103285,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"2485.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"2485.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"4970.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"8.0"
+    }
+        ]
+      }
+  ,  {"did":44161,
+   "name":"road-safety",
+   "version":6,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22103286,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"55881.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"55881.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"33.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"111762.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"4.0"
+    }
+        ]
+      }
+  ,  {"did":44162,
+   "name":"compass",
+   "version":3,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22103287,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"8322.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"8322.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"18.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"16644.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"8.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"10.0"
+    }
+        ]
+      }
+  ,  {"did":46584,
+   "name":"Student_Performance_on_an_Entrance_Examination",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121277,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"210.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"101.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"666.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46585,
+   "name":"QSAR_Bioconcentration_classification",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121278,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"779.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46592,
+   "name":"Cervical_Cancer_Risk_Factors",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121285,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"33.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"858.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"799.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"3622.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"33.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46593,
+   "name":"HCV_data",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121286,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"533.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"615.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"26.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"31.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"11.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46597,
+   "name":"Estimation_of_Obesity_Levels",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121290,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"351.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"272.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"17.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"2111.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"8.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46598,
+   "name":"cdc_diabetes",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121291,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"22.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"253680.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"22.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46600,
+   "name":"maternal_health_risk",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121293,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"406.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"272.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1014.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46601,
+   "name":"Cirrhosis_Patient_Survival_Prediction",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121294,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"232.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"25.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"18.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"418.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"106.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"965.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46602,
+   "name":"Predicting_Risk_Factors_of_Chronic_Kidney_Disease",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121295,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"128.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"72.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"200.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46603,
+   "name":"regensburg_pediatric_appendicitis",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121296,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"483.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"56.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"782.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"782.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"13984.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"17.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46604,
+   "name":"glioma_grading_clinical_and_mutation_features",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121297,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"24.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"839.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"23.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46605,
+   "name":"differentiated_thyroid_cancer_recurrence",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121298,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"275.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"108.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"17.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"383.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46606,
+   "name":"darwin",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121299,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"89.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"85.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"452.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"174.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"450.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46607,
+   "name":"hepatitis_c_virus_hcv_for_egyptian_patients",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121300,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1385.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46608,
+   "name":"drug_reviews_druglib_com",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121301,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"74.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"541.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"8.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"4143.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46609,
+   "name":"sepsis_survival_minimal_clinical_records",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121302,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"110341.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46610,
+   "name":"bone_marrow_transplant_children",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121303,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"37.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"187.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"45.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"81.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"36.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46611,
+   "name":"toxicity",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121304,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"115.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"56.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"1204.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"171.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1203.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46628,
+   "name":"Support2",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121321,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"47.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"9105.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"8799.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"47110.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"39.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46630,
+   "name":"Skin_Cancer_PAD-UFES-20",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121323,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"1342.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"956.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"26.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"2298.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"824.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"10484.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"8.0"
+    }
+        ]
+      }
+  ,  {"did":46633,
+   "name":"BNP_Paribas_Cardif_Claims_Management",
+   "version":2,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121326,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"133.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"114321.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"96565.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"5097471.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"114.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46634,
+   "name":"Santander_Customer_Satisfaction",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121327,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"371.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"76020.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"371.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46635,
+   "name":"Fetal_cardiotocography_dataset",
+   "version":2,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121328,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"40.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"2126.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"37.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46636,
+   "name":"Homesite_Quote_Conversion",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121329,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"299.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"260753.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"205511.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"326623.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"271.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46637,
+   "name":"IEEE-CIS_Fraud_Detection",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121330,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"457.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"590540.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"590540.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"1.29105493E8"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"426.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46640,
+   "name":"LICD",
+   "version":2,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121333,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"581.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"63634.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"63634.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"3.3545438E7"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"573.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46641,
+   "name":"BAF_variant_I",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121334,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"32.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1000000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46642,
+   "name":"BAF_variant_II",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121335,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"32.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1000000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46643,
+   "name":"BAF_variant_III",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121336,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"34.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1000000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46644,
+   "name":"BAF_variant_IV",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121337,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"32.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1000000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46645,
+   "name":"BAF_variant_V",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121338,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"34.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1000000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"29.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46646,
+   "name":"BAF_base",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121339,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"32.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1000000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46647,
+   "name":"AVIDa-SARS-CoV-2",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121340,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"3733.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46648,
+   "name":"AVIDa-hIL6",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121341,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"573891.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46649,
+   "name":"DDXPlus",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121342,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"81767.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"325.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"49.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1292579.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46650,
+   "name":"US_Accidents_March23",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121343,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"46.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"7728394.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"4173845.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"1.2840498E7"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"13.0"
+    }
+        ]
+      }
+  ,  {"did":46651,
+   "name":"product_sentiment_machine_hack",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121344,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"5091.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46652,
+   "name":"news_channel",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121345,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"5149.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1306.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"18.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"20284.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"16.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46653,
+   "name":"wine_reviews",
+   "version":2,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121346,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"10617.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"669.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"30.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"84123.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"5607.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"5644.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46654,
+   "name":"jigsaw_unintended_bias100K",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121347,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"93956.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"6044.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"45.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"100000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"86865.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"1902953.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"41.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":46655,
+   "name":"fake_job_postings2",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121348,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"12725.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"11096.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"21193.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46664,
+   "name":"data_scientist_salary",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121357,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"3608.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1245.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"15841.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"12736.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"15520.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46668,
+   "name":"kick_starter_funding",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121361,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"86502.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":46674,
+   "name":"college_scorecard",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121367,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"119.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"124699.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"118.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46676,
+   "name":"WBCAtt",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121369,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"3329.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1214.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"10298.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46677,
+   "name":"physionet_sepsis",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121370,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"44.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1552210.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"1552210.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"4.3512155E7"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"44.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46678,
+   "name":"mimic_extract_los_3",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121371,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"2028438.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"79.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"19.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"4156450.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"2627432.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"4797904.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46681,
+   "name":"REASONER",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121374,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"35.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"58497.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"59.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"59.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46683,
+   "name":"Dynamically-Generated-Hate-Speech-Dataset",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121376,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"22175.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"18969.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"41144.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"11054.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"11054.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46684,
+   "name":"HolisticBias",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121377,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"170170.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"8908.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"15.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"472991.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"780.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"780.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"2.0"
+    }
+        ]
+      }
+  ,  {"did":46686,
+   "name":"DBPedia",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121379,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"2700.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"187.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"219.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"342781.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46692,
+   "name":"funpedia",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121385,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"29819.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46701,
+   "name":"social_bias_frames",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121394,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"74211.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"2490.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"19.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"147139.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"145205.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"784148.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46708,
+   "name":"Wikipedia_Talk_Labels",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121401,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"715135.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"38.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"16.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"855514.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"12007.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"727142.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"1.0"
+    }
+        ]
+      }
+  ,  {"did":46709,
+   "name":"SOCC",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121402,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"389.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"14.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"16.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1043.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"983.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"2641.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46719,
+   "name":"mental-health-in-tech-survey",
+   "version":3,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121419,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"1031.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"228.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1259.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"1173.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"1892.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46720,
+   "name":"OSMI_Mental_Health_in_Tech_Survey",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121420,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"757.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"333.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"63.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1433.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"1433.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"21961.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46721,
+   "name":"Mental_Health_Dataset",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121421,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"66351.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"50149.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"5.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"17.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"292364.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"5202.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"5202.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46722,
+   "name":"Phishing_Legitimate_full",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121422,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"50.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"10000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"50.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46733,
+   "name":"diabetes_risk_prediction_dataset",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121433,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"320.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"200.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"17.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"520.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46737,
+   "name":"agriculture_dataset_karnataka",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121437,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"1458.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"21.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"13.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"3158.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"58.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"58.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46745,
+   "name":"Advanced_IoT_Dataset",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121445,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"5000.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"5000.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"6.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"14.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"30000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46750,
+   "name":"Dataset-Mental-Disorders",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121464,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"31.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"28.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"19.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"120.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46752,
+   "name":"student_lifestyle_dataset",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121466,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"1029.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"297.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"8.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"2000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"7.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46753,
+   "name":"student_depression_dataset",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121467,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"18.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"27901.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46756,
+   "name":"divorce_prediction",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121470,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"55.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"170.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"55.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46757,
+   "name":"depression_2020",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121471,
+      "quality":[
+        {"name":"NumberOfClasses",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"23.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1429.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"20.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"20.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"23.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46758,
+   "name":"PostPartum_Depression",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121472,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"980.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"523.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"2.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"11.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"1503.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"12.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"27.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46760,
+   "name":"Indicators_of_Anxiety_or_Depression",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121474,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"5364.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"5364.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"3.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"14.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"16092.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"5535.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"8358.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46761,
+   "name":"mental_health_detection",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121475,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"157.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"1.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"16.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"540.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"15.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+  ,  {"did":46762,
+   "name":"air-quality-and-pollution-assessment",
+   "version":1,
+   "status":"active",
+   "format":"arff",
+   "md5_checksum":"",
+      "file_id": 22121476,
+      "quality":[
+        {"name":"MajorityClassSize",
+     "value":"2000.0"
+    }
+    ,    {"name":"MinorityClassSize",
+     "value":"500.0"
+    }
+    ,    {"name":"NumberOfClasses",
+     "value":"4.0"
+    }
+    ,    {"name":"NumberOfFeatures",
+     "value":"10.0"
+    }
+    ,    {"name":"NumberOfInstances",
+     "value":"5000.0"
+    }
+    ,    {"name":"NumberOfInstancesWithMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfMissingValues",
+     "value":"0.0"
+    }
+    ,    {"name":"NumberOfNumericFeatures",
+     "value":"9.0"
+    }
+    ,    {"name":"NumberOfSymbolicFeatures",
+     "value":"0.0"
+    }
+        ]
+      }
+    ]}
+}

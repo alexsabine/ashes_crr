@@ -1,0 +1,35 @@
+CPL1 timing (CPU seconds from cpl_runs/times/, never compared; process_time per run)
+  rotated: total 6.8 s; SEC+T 0.8, SEC 0.7, FT+T 0.7, FT 0.7, closure 0.8, L1 0.9, L2 0.8, L3 0.8, ER-20 0.5
+  scl3_1468: total 60.4 s; SEC+T 7.2, SEC 7.4, FT+T 5.1, FT 4.7, closure 8.4, L1 8.0, L2 8.0, L3 8.3, ER-20 3.3
+  scl3_1475: total 18.6 s; SEC+T 2.2, SEC 2.1, FT+T 1.8, FT 1.9, closure 2.2, L1 2.2, L2 2.3, L3 2.2, ER-20 1.8
+  scl3_1478: total 138.6 s; SEC+T 17.7, SEC 17.9, FT+T 11.7, FT 10.9, closure 17.0, L1 18.3, L2 16.6, L3 17.6, ER-20 11.0
+  scl3_1497: total 13.8 s; SEC+T 1.5, SEC 1.6, FT+T 1.6, FT 1.5, closure 1.6, L1 1.6, L2 1.6, L3 1.6, ER-20 1.3
+  scl3_1501: total 25.2 s; SEC+T 2.9, SEC 2.8, FT+T 2.3, FT 2.2, closure 3.2, L1 3.5, L2 3.3, L3 3.4, ER-20 1.6
+  scl3_188: total 2.4 s; SEC+T 0.3, SEC 0.3, FT+T 0.3, FT 0.3, closure 0.3, L1 0.3, L2 0.3, L3 0.3, ER-20 0.2
+  scl3_300: total 108.7 s; SEC+T 13.4, SEC 13.6, FT+T 8.7, FT 8.1, closure 14.5, L1 14.9, L2 14.1, L3 14.5, ER-20 6.9
+  scl3_40966: total 4.9 s; SEC+T 0.6, SEC 0.5, FT+T 0.5, FT 0.5, closure 0.6, L1 0.6, L2 0.6, L3 0.6, ER-20 0.3
+  scl3_40982: total 6.6 s; SEC+T 0.8, SEC 0.7, FT+T 0.7, FT 0.7, closure 0.8, L1 0.8, L2 0.8, L3 0.8, ER-20 0.6
+  scl3_4538: total 15.5 s; SEC+T 1.7, SEC 1.8, FT+T 1.6, FT 1.5, closure 1.9, L1 1.8, L2 1.7, L3 1.8, ER-20 1.6
+  sec3_1596: total 16.6 s; SEC+T 1.9, SEC 1.9, FT+T 1.8, FT 1.7, closure 1.9, L1 2.0, L2 2.0, L3 2.0, ER-20 1.4
+  sec3_41164: total 200.1 s; SEC+T 24.0, SEC 23.8, FT+T 16.1, FT 16.1, closure 25.8, L1 25.4, L2 25.5, L3 26.7, ER-20 16.7
+  sec3_41166: total 43.8 s; SEC+T 5.2, SEC 4.7, FT+T 4.0, FT 4.1, closure 5.5, L1 5.7, L2 5.4, L3 5.6, ER-20 3.6
+  sec3_41167: total 22.7 s; SEC+T 2.6, SEC 2.6, FT+T 2.4, FT 2.2, closure 2.7, L1 2.8, L2 2.6, L3 2.8, ER-20 2.0
+  sec3_41168: total 16.8 s; SEC+T 1.9, SEC 1.9, FT+T 1.9, FT 1.8, closure 1.9, L1 1.9, L2 1.9, L3 1.9, ER-20 1.7
+  sec3_41169: total 18.4 s; SEC+T 2.0, SEC 2.0, FT+T 2.0, FT 1.8, closure 2.2, L1 2.2, L2 2.2, L3 2.3, ER-20 1.7
+  sec4_1459: total 15.7 s; SEC+T 1.8, SEC 1.7, FT+T 1.7, FT 1.7, closure 1.8, L1 1.8, L2 1.8, L3 1.9, ER-20 1.6
+  sec4_1466: total 9.4 s; SEC+T 1.1, SEC 1.1, FT+T 0.9, FT 1.0, closure 1.1, L1 1.1, L2 1.1, L3 1.3, ER-20 0.7
+  sec4_1476: total 31.8 s; SEC+T 3.7, SEC 3.8, FT+T 3.1, FT 3.1, closure 3.8, L1 3.7, L2 3.9, L3 3.9, ER-20 2.8
+  sec4_375: total 15.6 s; SEC+T 1.7, SEC 1.6, FT+T 1.6, FT 1.6, closure 1.9, L1 1.8, L2 1.8, L3 2.0, ER-20 1.6
+  sec4_377: total 3.8 s; SEC+T 0.4, SEC 0.4, FT+T 0.4, FT 0.4, closure 0.5, L1 0.5, L2 0.5, L3 0.5, ER-20 0.2
+  sec4_46906: total 3.6 s; SEC+T 0.4, SEC 0.4, FT+T 0.4, FT 0.4, closure 0.4, L1 0.4, L2 0.4, L3 0.4, ER-20 0.3
+  sec5_1503: total 17.0 s; SEC+T 2.0, SEC 1.8, FT+T 1.9, FT 1.7, closure 1.9, L1 2.1, L2 1.9, L3 2.0, ER-20 1.7
+  sec5_1509: total 14.9 s; SEC+T 1.6, SEC 1.6, FT+T 1.8, FT 1.5, closure 1.7, L1 1.7, L2 1.7, L3 1.8, ER-20 1.4
+  sec5_1541: total 11.6 s; SEC+T 1.4, SEC 1.3, FT+T 1.3, FT 1.2, closure 1.3, L1 1.3, L2 1.4, L3 1.3, ER-20 1.0
+  sec5_1549: total 4.9 s; SEC+T 0.5, SEC 0.5, FT+T 0.5, FT 0.5, closure 0.6, L1 0.7, L2 0.6, L3 0.6, ER-20 0.3
+  sec5_155: total 11.5 s; SEC+T 1.3, SEC 1.3, FT+T 1.3, FT 1.2, closure 1.4, L1 1.3, L2 1.3, L3 1.4, ER-20 1.0
+  sec5_41671: total 13.1 s; SEC+T 1.5, SEC 1.5, FT+T 1.4, FT 1.4, closure 1.5, L1 1.5, L2 1.6, L3 1.5, ER-20 1.2
+  sec5_41972: total 43.4 s; SEC+T 4.9, SEC 4.9, FT+T 4.2, FT 4.2, closure 5.2, L1 5.1, L2 5.3, L3 5.6, ER-20 4.0
+  sec5_41982: total 229.1 s; SEC+T 27.8, SEC 27.2, FT+T 17.3, FT 17.3, closure 30.2, L1 30.7, L2 29.6, L3 31.1, ER-20 17.9
+  synthetic: total 6.8 s; SEC+T 0.8, SEC 0.7, FT+T 0.7, FT 0.8, closure 0.8, L1 0.9, L2 0.8, L3 0.8, ER-20 0.5
+all streams: 1151.9 CPU s over 32 streams
+wall clock of 'all' (identity + streams on 2 processes + report): 600.4 s

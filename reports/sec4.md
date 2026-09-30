@@ -135,3 +135,9 @@ method. It did not replicate in SEC5.
 - **No CRR-proper ingredient is load-bearing** (`SEC_Analysis/checks/a11_grade.txt`, F11 HOLDS).
 
 SEC6 (`prereg/sec6/PREREG.md`, hashed before its data) carries the instrument gate SEC6-G for this.
+
+**Applied after the fact** (`SEC_Analysis/checks/gate_posthoc.txt`; ledger report row SEC4-1-G):
+- SEC6-G's rule closes the gate here. M6 is not behind the tuned λ on 5/6 carriers, and SEC4-1 needed 5.
+- So by the later rule SEC4-1 would be UNINFORMATIVE, capped at PASS-0.
+- SEC4-1 stands as scored under this pre-registration, which had no such gate. It must not be quoted as evidence that the
+  clipped SEC is tuning-free without SEC4-1-G beside it.

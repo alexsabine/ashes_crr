@@ -1,0 +1,77 @@
+SEC7 development stage (prereg/sec7/DEV_DECLARATION.md, Amendment 1) on the SEEN carriers of SCL3, SEC3, SEC4 and SEC5, seeds 0-4, with the declared random class order and balanced accuracy. Nothing is chosen from D-RUN; it is not evidence and adds no ledger row.
+======================================================================================================================
+D-ID (prereg/sec7/DEV_DECLARATION.md): run7 with the IDENTITY permutation, raw accuracy, seed 0, against pinned records
+   sec4 377 synthetic_control (K 6) bayes_sec_clip: run7 48.333333333333336 pinned 48.333333333333336 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) bayes: run7 40.0 pinned 40.0 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) fixed 1: run7 40.0 pinned 40.0 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) fixed 100: run7 40.833333333333336 pinned 40.833333333333336 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) bayes_sec: run7 48.333333333333336 pinned 48.333333333333336 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) eq 1: run7 45.0 pinned 45.0 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) bayes_sec_clip: run7 84.26966292134831 pinned 84.26966292134831 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) bayes: run7 67.97752808988764 pinned 67.97752808988764 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) fixed 1: run7 65.73033707865169 pinned 65.73033707865169 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) fixed 100: run7 85.39325842696628 pinned 85.39325842696628 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) bayes_sec: run7 84.26966292134831 pinned 84.26966292134831 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) eq 1: run7 65.1685393258427 pinned 65.1685393258427 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) bayes_sec_clip: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) bayes: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) fixed 1: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) fixed 100: run7 0.0 pinned 0.0 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) bayes_sec: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) eq 1: run7 4.635761589403973 pinned 4.635761589403973 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) bayes_sec_clip: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) bayes: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) fixed 1: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) fixed 100: run7 15.984015984015985 pinned 15.984015984015985 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) bayes_sec: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) eq 1: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) si1c: run7 65.83333333333333 SEC6 development record 65.83333333333333 -> equal
+   sec4 377 synthetic_control (K 6) ar1b: run7 45.0 SEC6 development record 45.0 -> equal
+   sec4 377 synthetic_control (K 6) edge: run7 40.833333333333336 SEC6 development record 40.833333333333336 -> equal
+   sec4 377 synthetic_control (K 6) fixed_clip 1: run7 40.0 SEC6 development record 40.0 -> equal
+   sec4 377 synthetic_control (K 6) fixed_clip 1000: run7 45.0 SEC6 development record 45.0 -> equal
+   sec5 41671 microaggregation2 (K 4) si1c: run7 26.073926073926074 SEC6 development record 26.073926073926074 -> equal
+   sec5 41671 microaggregation2 (K 4) ar1b: run7 13.286713286713287 SEC6 development record 13.286713286713287 -> equal
+   sec5 41671 microaggregation2 (K 4) edge: run7 53.14685314685315 SEC6 development record 53.14685314685315 -> equal
+   sec5 41671 microaggregation2 (K 4) fixed_clip 1: run7 13.286713286713287 SEC6 development record 13.286713286713287 -> equal
+   sec5 41671 microaggregation2 (K 4) fixed_clip 1000: run7 13.486513486513488 SEC6 development record 13.486513486513488 -> equal
+D-ID -> holds (34/34 equal; SEC4/SEC5 records on 4 carriers, SEC6 development records on 2)
+----------------------------------------------------------------------------------------------------------------------
+D-GATE-7 (prereg/sec7/DEV_DECLARATION.md) on the 30 SEEN carriers: random class order (default_rng([20261002, openml_id])), balanced accuracy; tuned lambda on balanced accuracy (SEC1's two-stage grid), step = max(1, 2 SE) at it
+   [cnae-9] (scl3, K 8, perm [3, 6, 1, 4, 2, 7, 0, 5]) tuned lambda 2000: balanced 79.0625, step 2.4957; chance 12.50 (tuned − chance +26.67 steps: not floor-bound); edge 30.4167 (-48.6458: BEHIND); clipped SEC 83.8542 (+4.7917: not behind)
+   [eucalyptus] (scl3, K 4, perm [2, 1, 0, 3]) tuned lambda 5: balanced 46.8780, step 1.5836; chance 25.00 (tuned − chance +13.82 steps: not floor-bound); edge 47.1379 (+0.2598: not behind); clipped SEC 46.8780 (+0.0000: not behind)
+   [first-order-theorem-proving] (scl3, K 6, perm [2, 5, 4, 3, 1, 0]) tuned lambda 0.70922: balanced 19.9579, step 1.9396; chance 16.67 (tuned − chance +1.70 steps: FLOOR-BOUND); edge 19.8481 (-0.1098: not behind); clipped SEC 19.8401 (-0.1179: not behind)
+   [GesturePhaseSegmentationProcessed] (scl3, K 4, perm [0, 3, 1, 2]) tuned lambda 0.3: balanced 38.4225, step 1.1724; chance 25.00 (tuned − chance +11.45 steps: not floor-bound); edge 30.7522 (-7.6703: BEHIND); clipped SEC 38.4074 (-0.0151: not behind)
+   [har] (scl3, K 6, perm [0, 4, 2, 1, 3, 5]) tuned lambda 28300: balanced 33.7068, step 1.0000; chance 16.67 (tuned − chance +17.04 steps: not floor-bound); edge 36.2606 (+2.5538: not behind); clipped SEC 34.2541 (+0.5473: not behind)
+   [isolet] (scl3, K 10, perm [4, 2, 1, 7, 0, 3, 9, 8, 5, 6]) tuned lambda 84.9: balanced 44.1333, step 3.0865; chance 10.00 (tuned − chance +11.06 steps: not floor-bound); edge 38.4333 (-5.7000: BEHIND); clipped SEC 56.3667 (+12.2333: not behind)
+   [MiceProtein] (scl3, K 8, perm [2, 1, 5, 4, 7, 6, 0, 3]) tuned lambda 283: balanced 53.3611, step 3.2624; chance 12.50 (tuned − chance +12.52 steps: not floor-bound); edge 36.5714 (-16.7897: BEHIND); clipped SEC 56.0694 (+2.7083: not behind)
+   [semeion] (scl3, K 10, perm [2, 1, 6, 9, 7, 8, 5, 3, 0, 4]) tuned lambda 4230: balanced 44.2359, step 1.0000; chance 10.00 (tuned − chance +34.24 steps: not floor-bound); edge 34.5625 (-9.6734: BEHIND); clipped SEC 47.6371 (+3.4012: not behind)
+   [steel-plates-fault] (scl3, K 6, perm [0, 4, 3, 2, 1, 5]) tuned lambda 30: balanced 38.0424, step 3.9284; chance 16.67 (tuned − chance +5.44 steps: not floor-bound); edge 34.4623 (-3.5802: not behind); clipped SEC 37.8715 (-0.1709: not behind)
+   [wall-robot-navigation] (scl3, K 4, perm [2, 3, 1, 0]) tuned lambda 0.423: balanced 44.2002, step 1.3610; chance 25.00 (tuned − chance +14.11 steps: not floor-bound); edge 50.2993 (+6.0991: not behind); clipped SEC 44.1012 (-0.0990: not behind)
+   [covertype] (sec3, K 6, perm [2, 3, 1, 4, 5, 0]) tuned lambda 5: balanced 41.3084, step 1.4964; chance 16.67 (tuned − chance +16.47 steps: not floor-bound); edge 28.7965 (-12.5119: BEHIND); clipped SEC 40.7768 (-0.5315: not behind)
+   [dionis] (sec3, K 10, perm [8, 4, 6, 5, 2, 3, 9, 1, 7, 0]) tuned lambda 42.3: balanced 69.2996, step 1.7351; chance 10.00 (tuned − chance +34.18 steps: not floor-bound); edge 39.9715 (-29.3280: BEHIND); clipped SEC 72.7443 (+3.4447: not behind)
+   [fabert] (sec3, K 6, perm [5, 1, 4, 2, 0, 3]) tuned lambda 15: balanced 28.2036, step 1.0000; chance 16.67 (tuned − chance +11.54 steps: not floor-bound); edge 31.5420 (+3.3384: not behind); clipped SEC 28.1039 (-0.0996: not behind)
+   [helena] (sec3, K 10, perm [4, 8, 6, 2, 7, 9, 5, 3, 1, 0]) tuned lambda 6: balanced 22.6181, step 1.0000; chance 10.00 (tuned − chance +12.62 steps: not floor-bound); edge 24.4802 (+1.8621: not behind); clipped SEC 22.2686 (-0.3495: not behind)
+   [jannis] (sec3, K 4, perm [2, 0, 1, 3]) tuned lambda 30: balanced 27.0608, step 1.9341; chance 25.00 (tuned − chance +1.07 steps: FLOOR-BOUND); edge 32.8189 (+5.7581: not behind); clipped SEC 26.9022 (-0.1586: not behind)
+   [volkert] (sec3, K 10, perm [0, 5, 2, 6, 9, 1, 8, 3, 7, 4]) tuned lambda 14.1: balanced 16.1721, step 1.0000; chance 10.00 (tuned − chance +6.17 steps: not floor-bound); edge 23.5143 (+7.3422: not behind); clipped SEC 16.3394 (+0.1672: not behind)
+   [anneal] (sec4, K 4, perm [3, 1, 0, 2]) tuned lambda 4230: balanced 50.0981, step 2.4532; chance 25.00 (tuned − chance +10.23 steps: not floor-bound); edge 54.9726 (+4.8745: not behind); clipped SEC 43.6654 (-6.4327: BEHIND)
+   [artificial-characters] (sec4, K 10, perm [4, 3, 0, 5, 7, 1, 8, 2, 9, 6]) tuned lambda 3: balanced 17.0881, step 1.0000; chance 10.00 (tuned − chance +7.09 steps: not floor-bound); edge 19.8527 (+2.7645: not behind); clipped SEC 17.5117 (+0.4236: not behind)
+   [cardiotocography] (sec4, K 10, perm [9, 4, 1, 6, 5, 8, 0, 3, 7, 2]) tuned lambda 8490: balanced 78.8350, step 5.5755; chance 10.00 (tuned − chance +12.35 steps: not floor-bound); edge 51.5521 (-27.2830: BEHIND); clipped SEC 78.1890 (-0.6460: not behind)
+   [gas-drift] (sec4, K 6, perm [1, 5, 4, 3, 2, 0]) tuned lambda 20: balanced 43.1438, step 1.7375; chance 16.67 (tuned − chance +15.24 steps: not floor-bound); edge 39.1024 (-4.0414: BEHIND); clipped SEC 43.4858 (+0.3420: not behind)
+   [JapaneseVowels] (sec4, K 8, perm [3, 0, 5, 6, 4, 7, 1, 2]) tuned lambda 200: balanced 40.3815, step 1.4404; chance 12.50 (tuned − chance +19.36 steps: not floor-bound); edge 36.6664 (-3.7151: BEHIND); clipped SEC 39.3300 (-1.0515: not behind)
+   [synthetic_control] (sec4, K 6, perm [2, 0, 4, 5, 1, 3]) tuned lambda 1000: balanced 66.3333, step 1.8708; chance 16.67 (tuned − chance +26.55 steps: not floor-bound); edge 45.1667 (-21.1667: BEHIND); clipped SEC 66.3333 (+0.0000: not behind)
+   [autoUniv-au6-750] (sec5, K 8, perm [7, 3, 2, 4, 1, 0, 5, 6]) tuned lambda 0.035336: balanced 11.3636, step 1.2448; chance 12.50 (tuned − chance -0.91 steps: FLOOR-BOUND); edge 13.6309 (+2.2673: not behind); clipped SEC 11.3636 (+0.0000: not behind)
+   [Indian_pines] (sec5, K 6, perm [4, 1, 2, 3, 5, 0]) tuned lambda 42.3: balanced 37.7540, step 4.8433; chance 16.67 (tuned − chance +4.35 steps: not floor-bound); edge 41.2781 (+3.5241: not behind); clipped SEC 34.4510 (-3.3029: not behind)
+   [Kuzushiji-MNIST] (sec5, K 10, perm [0, 1, 4, 5, 7, 3, 8, 2, 6, 9]) tuned lambda 1410: balanced 30.1600, step 1.0000; chance 10.00 (tuned − chance +20.16 steps: not floor-bound); edge 35.7400 (+5.5800: not behind); clipped SEC 33.1400 (+2.9800: not behind)
+   [microaggregation2] (sec5, K 4, perm [1, 0, 3, 2]) tuned lambda 0.212766: balanced 36.1207, step 1.9231; chance 25.00 (tuned − chance +5.78 steps: not floor-bound); edge 28.7183 (-7.4024: BEHIND); clipped SEC 36.0399 (-0.0807: not behind)
+   [pokerhand] (sec5, K 4, perm [3, 1, 2, 0]) tuned lambda 0.035336: balanced 41.2461, step 3.0398; chance 25.00 (tuned − chance +5.34 steps: not floor-bound); edge 38.1318 (-3.1143: BEHIND); clipped SEC 41.1122 (-0.1339: not behind)
+   [spoken-arabic-digit] (sec5, K 10, perm [7, 8, 6, 5, 0, 2, 3, 4, 9, 1]) tuned lambda 0.141: balanced 9.7962, step 1.0000; chance 10.00 (tuned − chance -0.20 steps: FLOOR-BOUND); edge 10.2586 (+0.4624: not behind); clipped SEC 9.7356 (-0.0606: not behind)
+   [volcanoes-d4] (sec5, K 4, perm [3, 0, 2, 1]) tuned lambda 0.423: balanced 27.5395, step 5.0790; chance 25.00 (tuned − chance +0.50 steps: FLOOR-BOUND); edge 28.6617 (+1.1222: not behind); clipped SEC 27.5184 (-0.0211: not behind)
+   [walking-activity] (sec5, K 10, perm [1, 0, 6, 4, 9, 2, 3, 5, 7, 8]) tuned lambda 1.41: balanced 13.9046, step 2.1590; chance 10.00 (tuned − chance +1.81 steps: FLOOR-BOUND); edge 17.7753 (+3.8706: not behind); clipped SEC 13.5186 (-0.3860: not behind)
+D-FAIL: edge behind the tuned lambda on 13/30 (need more than half, > 15) -> FAILS: ['cnae-9', 'GesturePhaseSegmentationProcessed', 'isolet', 'MiceProtein', 'semeion', 'covertype', 'dionis', 'cardiotocography', 'gas-drift', 'JapaneseVowels', 'synthetic_control', 'microaggregation2', 'pokerhand']
+D-FLOOR: floor-bound (tuned balanced − 100/K < 3 steps) on 6/30 (need fewer than a quarter, < 7.5) -> holds: ['first-order-theorem-proving', 'jannis', 'autoUniv-au6-750', 'spoken-arabic-digit', 'volcanoes-d4', 'walking-activity']
+   (report) the clipped SEC not behind the tuned lambda (balanced) on 29/30; edge not behind on 17/30
+D-GATE-7 CLOSED
+======================================================================================================================
+the old stream (largest classes first, raw accuracy), for comparison: prereg/sec6/dev_SEC6.txt reads AR1-B  : not behind the tuned lambda 27/30; carriers with a seed below 0.5 x the tuned accuracy (2): ['pokerhand', 'volcanoes-d4'] | SI-1C  : not behind the tuned lambda 28/30; carriers with a seed below 0.5 x the tuned accuracy (2): ['pokerhand', 'volcanoes-d4']; firings (task starts guarded) 379 | (pinned, not rerun) clipped SEC: not behind 26/30; divergent carriers (2): ['pokerhand', 'volcanoes-d4'] | (pinned, not rerun) raw Laplace: not behind 14/30; divergent carriers (2): ['pokerhand', 'volcanoes-d4'] | (pinned, not rerun) unguarded SEC: not behind 20/30; divergent carriers (8): ['cnae-9', 'dionis', 'fabert', 'anneal', 'cardiotocography', 'synthetic_control', 'pokerhand', 'volcanoes-d4']; SEC_Analysis/checks/m_checks.txt reads M6: not behind 24/30, behind 6/30; guard firings 190; fallbacks 368
+D-GATE-7 CLOSED: SEC7 stops (R12; DEV_DECLARATION.md): no D-RUN and no pre-registration. On these carriers a random class order with balanced accuracy does not make the criterion informative.

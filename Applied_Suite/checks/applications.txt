@@ -1,0 +1,695 @@
+APP1 stage B: the applications AP1-AP10, graded on the five dimensions (Applied_Suite/APPLICATIONS_DECLARATION.md, pushed at 4e78058)
+A note, not evidence (R8); "marketable" means "someone could use it, and here is what they would have to believe"; it is
+never a claim of novelty. Every source line below is copied from the pinned output or ledger row named with it.
+Evidence grades are computed from the lines each cell cites (R15): AGAINST if a line shows the opposite (its verdict
+checked), else MEASURED if a pinned measurement carries the claim, else MODELLED if a pinned model does, else ASSUMED
+(the cell states what is assumed). Lines marked [limit] are caveats and establish nothing.
+* marks a load-bearing dimension. Energy numbers come only from Compute_Savings/ and Energy Design Principle/.
+Application grade (the declaration): SUPPORTED / CONSTRUCTION-BACKED / CONDITIONAL / NOT SUPPORTED, read with:
+  A1 order NOT SUPPORTED > CONDITIONAL > SUPPORTED > CONSTRUCTION-BACKED (the only order in which every clause can fire)
+  A2 a needed capability at MODEL -> CONDITIONAL (the rule has no clause for it)
+  A3 a load-bearing dimension AGAINST -> CONDITIONAL (at least as bad as ASSUMED); every CONDITIONAL carries its reason
+     classes; the stricter reading A3' (-> NOT SUPPORTED) is printed as a sensitivity
+  A4 a pending reading (ROB1) is neither CLOSED nor a rung; A5 AP7 reads K2 through EPS2's federated-client row
+  A6 the capability sensitivities printed by capabilities.py are carried through every application and forecast
+capability grades imported from Applied_Suite/checks/capabilities.py (ledger sha256 1131975ea614a2f5880dca416ab334751e2fd1dac15270eeba3715a3c86e0ba5):
+  K1          RESULT        a continual-learning penalty set without a hyperparameter sweep  [sensitivity: CLOSED under SEC_Analysis FM6]
+  K2          CONSTRUCTION  a lossless pause and resume of learning (the empty cut as a construction)
+  K3          CONSTRUCTION  a learner whose valuation gives it no reason to resist a pause
+  K4          CLOSED        continual learning without stored raw examples
+  K5          MODEL         a stop-the-clock contract that makes training load flexible for the grid  [sensitivity: CLOSED under DR1 DATA]
+  K6          MODEL         a user's pause in a feed or attention algorithm
+  K7          CLOSED        the equanimity rule Omega = 1
+  K2/EPS2-T3  CLOSED        K2 read through EPS2's federated-client row (named for AP7)
+  ROB1        pending       ROB1's results (named for AP6)
+claims: 123 in claims_m1..m3 (distinct source URLs 90; distinct raw files 91); verified (every quote PASS in Applied_Suite/checks/verify.txt, sha256 983e682af86fd6fca4fae07300736059cd4492c5c132dde2f7dbf1f476a079d4): 123
+
+----------------------------------------------------------------------------------------------------------------------
+AP1  on-device personalisation (phones, wearables, hearing aids, cars) that adapts without a per-device hyperparameter sweep
+  needs: K1 RESULT, K2 CONSTRUCTION
+  UX*        ASSUMED   claim: personalisation not behind a tuned weight, with no tuning step and no held-out split on the device
+                        assumed: that the calibrated weight's 'not behind the tuned lambda' carries to device streams: the record has it on one held-out family (SEC4-1) and not on the next (SEC5-1),
+                          and never on a device; and a learner frozen after task 1 meets the same criterion on most of the held-out carriers, SEC4's among them (FM6 and the M6 count, printed below;
+                          capabilities.txt counts M6 on SEC4's own six), so the criterion alone does not show that a weight is tuning-free
+                        - [limit] SEC4-1 (LEDGER.md:186) PASS-1 (held-out, the third family; the prereg's PASS-1 conditions all hold: SEC4-S not fragile 0/18, SEC4-2 no divergence, OTS complete,
+                            carriers' admissibility stated; no reduction to a constant: the transferred λ is behind on 2 of 6, below the 5 needed; limits: N = 6 after 3 exclusions, κ itself not swept
+                            (the scale and raw guards reported beside it), a guard chosen on SEEN carriers, not a CRR rule; not PASS-2: no earlier held-out pass of the clipped rule) | observed: 6/6:
+                            JapaneseVowels +2.5626 (step 1.00), anneal +5.5056 (step 5.63), artificial-characters +0.5594 (step 1.96), cardiotocography +1.0377 (step 1.00), gas-drift +2.1822 (step
+                            2.59), synthetic_control +3.5000 (step 3.59); beside it unguarded SEC 3/6, raw Laplace 1/6, the rule Ω=1 5/6
+                        - [limit] SEC5-1 (LEDGER.md:194) FAIL (held-out, the fourth family; not fragile: 0 of 40 sensitivity cells flip, kappa included; SEC4-1's PASS-1 does not replicate, so no
+                            PASS-2; SEC4-1 stands as a single-family PASS-1) | observed: 4/8: Indian_pines -6.7932 (step 5.21), Kuzushiji-MNIST +5.2000 (step 1.33), autoUniv-au6-750 -0.3974 (step
+                            1.64), microaggregation2 -4.1159 (step 15.52), pokerhand -28.2400 (step 1.82), spoken-arabic-digit -0.0200 (step 1.00), volcanoes-d4 -88.9089 (step 1.00), walking-activity
+                            -2.5600 (step 1.14); beside it unguarded SEC 4/8, raw Laplace 4/8, the rule Omega=1 4/8
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+                        - [limit] SEC_Analysis/checks/m_checks.txt:118 M6: not behind 24/30, behind 6/30; guard firings 190; fallbacks 368
+                        market / prior art (verified claims): m1:3 Paulik et al. (Apple), Federated Evaluation and Tuning for O; m1:5 Khodak et al., Federated Hyperparameter Tuning: Challenges, ;
+                          m1:7 Kwon, Li, Venieris, Chauhan, Lane, Mascolo, TinyTrain: Resou
+  Energy     ASSUMED   claim: battery not spent on a per-device sweep
+                        assumed: that a sweep would otherwise run on the device; the estimates in Compute_Savings are for data-centre sweeps, and the shipped systems fix the value or tune it across
+                          the fleet
+                        - [limit] Compute_Savings/checks/scale_estimate.txt:17 year case E_AI TWh f_dev f_sweep s saved TWh of DC elec of AI elec US homes
+                        - [limit] Compute_Savings/checks/scale_estimate.txt:22 2030 middle 300.47 0.4000 0.00447 0.8824 0.4743 0.000502 0.001578 43,950
+                        market / prior art (verified claims): m1:1 Apple, Core ML documentation: Personalizing a Model with On-; m1:2 Paulik et al. (Apple), Federated Evaluation and Tuning for O;
+                          m1:7 Kwon, Li, Venieris, Chauhan, Lane, Mascolo, TinyTrain: Resou
+  Security   ASSUMED   claim: no new attack surface
+                        assumed: that a learner updating from its user's data is no easier to poison or backdoor with a calibrated weight; the record has no poisoning test of SEC
+                        market / prior art (verified claims): m3:2 NIST AI 100-2 E2025, Adversarial Machine Learning: A Taxonom; m3:39 Guo, Kumar & Tourani, Persistent Backdoor Attacks in Continu
+  Privacy    ASSUMED   claim: the user's data stays on the device
+                        assumed: that locality comes from the platform, not the method: SEC keeps an anchor and a Fisher, not raw rows, and the record has no leakage test
+                        market / prior art (verified claims): m1:25 McMahan & Ramage (Google Research), Federated Learning: Coll; m2:24 Google Privacy Sandbox, "On-Device Personalization" (technic
+  Compute*   ASSUMED   claim: one configuration instead of a sweep
+                        assumed: that the device would otherwise sweep: against a reused or default value there is no compute saving (the estimate's own line, below; Gboard found tuning unnecessary
+                          across its models, m1:41), first-task HPO is the realistic comparator (m1:17), and the measured configuration share is on the record's CPU learner (SEC4-K), not on a device
+                        - [limit] SEC4-K (LEDGER.md:191) report (no verdict registered) | observed: clipped SEC 1 of 17 configurations; CPU share of the full sweep 0.0508–0.0655; overhead against
+                            raw Laplace x0.891–x1.189
+                        - [limit] Compute_Savings/checks/global_estimate.txt:50 against a reused lambda (1 configuration): no compute saving under P-FULL; SEC's gain there is accuracy
+                        - [limit] SEC4-T (LEDGER.md:188) NOT DECIDABLE (a reused λ would have saved the sweep on 4 of 6 without SEC; on the 2 where it fails, the clipped SEC is not behind) |
+                            observed: B = cardiotocography (−10.0000), synthetic_control (−6.3333) (2); the transferred λ (30) is not behind on the other 4; clipped SEC not behind on both of B
+                        - [limit] SEC5-T (LEDGER.md:196) FAIL | observed: B = 7 carriers; clipped SEC not behind on 3/7 (need 6)
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+                        market / prior art (verified claims): m1:1 Apple, Core ML documentation: Personalizing a Model with On-; m1:2 Paulik et al. (Apple), Federated Evaluation and Tuning for O;
+                          m1:11 Kwon, Chauhan, Kumar, Hui, Mascolo, Exploring System Perform; m1:16 Lee, Hellan, Ericsson, Crowley, Storkey, Hyperparameter Sele; m1:17 Lee, Hellan, Ericsson, Crowley,
+                          Storkey, Hyperparameter Sele; m1:41 Xu, Zhang, Andrew, Choquette-Choo, Kairouz, McMahan, Rosenst
+  who already provides what the record measured (agent's reading; verified claims): platforms fix the update parameters before shipping (m1:1) or, as published in 2021, tune global parameters
+      across the fleet (m1:2); Gboard deployed a fixed clip estimated in a small tuning run and found tuning unnecessary across its models (m1:10, m1:41); a regulated device pre-specifies its tuning
+      and re-training in an authorised plan (m3:41)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K1: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT); K2: S4.
+      Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4 REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2:
+      C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: CONDITIONAL [unreplicated RESULT; assumed]
+    because: unreplicated RESULT: K1; assumed: load-bearing UX, Compute ASSUMED
+  all market claims for AP1 by role: who_does_it: m1:1, m1:2, m1:4, m2:1, m2:2, m2:3, m2:4, m2:5; what_is_hard: m1:3, m1:5, m1:6, m1:7, m1:8, m1:9; our_method_relevance: m1:10, m1:11, m1:41;
+      regulation: m3:1, m3:41; risk: m3:2
+----------------------------------------------------------------------------------------------------------------------
+AP2  fine-tuning on interruptible compute (spot instances, preemption, grid demand response) with pauses that cost nothing but time
+  needs: K2 CONSTRUCTION, K5 MODEL
+  UX         MEASURED  claim: a fine-tune paused at a checkpoint resumes as the run that was never stopped, on the same software and hardware stack (a planned pause; a preemption is the Compute cell)
+                        - [measures] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                            verdict checked: pattern 'identical True; content 0$' -> found
+                        - [limit] Lossless_Pause/checks/transformer_pause.txt:36 L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e),
+                            max|diff| 3.822e-06 [not bitwise] -> held
+                        - [limit] Lossless_Pause/checks/grade_claims.txt:4 D1 MIXED states 7, opposite 1, bears 5 | bitwise-identical GPU training needs deterministic algorithms; same
+                            hardware/software/parallel layout only; changing GPU count or type breaks it
+                        market / prior art (verified claims): m2:16 Hugging Face Transformers documentation, Trainer (TrainingAr; m2:12 PyTorch documentation, "torchrun (Elastic Launch)"; m2:20
+                          PyTorch documentation, "Reproducibility" notes
+  Energy     AGAINST   claim: the pause saves energy
+                        - [OPPOSITE] Energy Design Principle/checks/consolidated_estimate.txt:18 T4 the safe pause (empty cut) 0.0000 0.0000 0.0000 none (energy moved, not saved)
+                            verdict checked: pattern 'T4\\s+the safe pause \\(empty cut\\)\\s+0\\.0000\\s+0\\.0000\\s+0\\.0000' -> found
+                        - [OPPOSITE] Compute_Savings/checks/scale_estimate.txt:35 a checkpoint written before planned maintenance (standard practice) already recovers this: saving beyond good
+                            practice claimed = 0
+                            verdict checked: pattern 'saving beyond good practice claimed = 0$' -> found
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:14 term low middle high attributable to
+                        market / prior art (verified claims): m2:6 Amazon Web Services, "Managed Spot Training in Amazon SageMa
+  Security   AGAINST   claim: an incomplete restore is detected before training continues
+                        - [OPPOSITE] Real_World/RW1.md:45 2. **A partial checkpoint degrades silently.**
+                            verdict checked: pattern 'degrades silently' -> found
+                        - [limit] Real_World/RW1.md:49 - For a safety case this is the dangerous kind of failure: resumption looks normal. An audit must check that every
+                        - [limit] Real_World/checks/rw1.txt:13 S4 optimizer.pt deleted: global step 48; identical False; content 0.41686
+                        - [limit] Real_World/checks/rw1.txt:17 detectors S2-S5 not identical: 4 of 4; S1 holds; T holds
+                        - [limit] Empty_Cut_Engineering/checks/c1_c2.txt:20 G3: 8 of 8 omitted components change the trajectory
+                        market / prior art (verified claims): m2:16 Hugging Face Transformers documentation, Trainer (TrainingAr; m3:3 Hugging Face (Patry, Biderman et al.), Audit shows that safe;
+                          m3:4 PyTorch documentation: torch.load, and the Serialization sem
+  Privacy    ASSUMED   claim: checkpoints moved between machines expose nothing
+                        assumed: that checkpoints on shared or spot machines are protected; an exact-resume checkpoint can hold buffered raw samples, and the record does not test it
+                        market / prior art (verified claims): m2:25 Wan et al., ByteCheckpoint: A Unified Checkpointing System f; m3:4 PyTorch documentation: torch.load, and the Serialization sem
+  Compute*   ASSUMED   claim: no training work is lost at a preemption
+                        assumed: that the full training state is saved inside the preemption notice: the record measures only a planned pause taken right after a checkpoint (RW1: CPU, one thread,
+                          synthetic tokens); in EPS1 S4's own model no work is lost because the notice save is assumed to fit, which the EPS report finds the sources do not support at the declared
+                          checkpoint cost; in DR1 H6's model a save longer than the response time loses work; the notice is two minutes, 120 s or 30 s, or not guaranteed (m2:9, m2:10, m2:41)
+                        - [limit] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                        - [limit] Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:110 - The notice save is assumed to fit inside the notice at no billed time. With the save billed δ, ETM is still below
+                        - [limit] Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:191 **S4. The notice save does not fit at the declared checkpoint cost.**
+                        - [limit] Grid_Demand_Response/checks/dr_summary.txt:49 RESULT H6: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1722 event counts in 42 jobs; ETM x* = (R +
+                            S)/H at 36162 of 36162 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 612 no-event comparisons)
+                        - [limit] Lossless_Pause/checks/transformer_pause.txt:36 L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e),
+                            max|diff| 3.822e-06 [not bitwise] -> held
+                        market / prior art (verified claims): m2:6 Amazon Web Services, "Managed Spot Training in Amazon SageMa; m2:7 Amazon Web Services, "Checkpoints in Amazon SageMaker AI"; m2:8
+                          SkyPilot documentation, "Managed Jobs"; m2:9 Amazon EC2 User Guide, "Spot Instance interruption notices"; m2:10 Thorpe et al., Bamboo: Making Preemptible Instances Resilien;
+                          m2:41 Google Cloud documentation, "Spot VMs" (Compute Engine), pre
+  who already provides what the record measured (agent's reading; verified claims): exact resume is the Hugging Face Trainer's default path (m2:16), and RW1 measured that default; managed spot
+      training resumes from checkpoints as a cloud service (m2:6, m2:8); a save on the preemption notice is standard practice (the EPS report on S4: not new; m2:9, m2:41)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K2: S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4
+      REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2: C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs;
+      utility indifference; safe interruptibility; checkpoint-on-; K5: G4-extension NOT FOUND IN THE SWEEP; K5: G4-tiers REDUNDANT; K5: G4 pooled (both parts as one position, for comparison only):
+      REDUNDANT (states 1, close 5, bears 3, contradict; K5: Not new. The construction is EPS1 S1's stop-the-clock, written into a demand-response contract.; K5: 2. It picked out a known fix.
+      Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: CONDITIONAL [model only; assumed]
+    because: model only: K5; assumed: load-bearing Compute ASSUMED
+  all market claims for AP2 by role: who_does_it: m1:19, m2:6, m2:8, m2:13, m2:14, m2:41, m3:3; what_is_hard: m1:20, m2:7, m2:9, m2:10, m2:11, m2:12, m3:4; regulation: m2:15
+----------------------------------------------------------------------------------------------------------------------
+AP3  a user's "stop learning from me" switch that leaves the model exactly as it was, and resumes exactly
+  needs: K2 CONSTRUCTION, K3 CONSTRUCTION
+  UX*        MEASURED  claim: while the switch is on nothing is learned, and switching back resumes from exactly the state left, on the same stack
+                        - [measures] SCL1-1 (LEDGER.md:105) holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR) |
+                            observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall
+                            steps per update 1.0796 to 1.0914
+                            verdict checked: status in {holds} -> found
+                        - [measures] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                            verdict checked: pattern 'identical True; content 0$' -> found
+                        - [measures] Empty_Cut_Engineering/checks/c1_c2.txt:10 G1 full restore K1-K9: bit-identical True; content 0; skip-ahead re-iterated 73 batches
+                            verdict checked: pattern 'bit-identical True; content 0' -> found
+                        - [limit] Lossless_Pause/checks/transformer_pause.txt:36 L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e),
+                            max|diff| 3.822e-06 [not bitwise] -> held
+                        market / prior art (verified claims): m1:21 Google, Gboard Help: Learn how Gboard gets better; m2:16 Hugging Face Transformers documentation, Trainer (TrainingAr; m2:20
+                          PyTorch documentation, "Reproducibility" notes
+  Energy     ASSUMED   claim: updates skipped while the switch is on are not spent
+                        assumed: that the paused data is discarded, not deferred (true of any off switch); the estimate for the empty cut itself is zero because deferred work is still done
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:14 term low middle high attributable to
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:18 T4 the safe pause (empty cut) 0.0000 0.0000 0.0000 none (energy moved, not saved)
+  Security*  AGAINST   claim: a learner that could act on the switch has no reason to resist it
+                        - [OPPOSITE] SCL1-3 (LEDGER.md:108) PASS (seen data; rung R5, not PASS-0); a low bar, as SCL1-2 | observed: lossy 12/12 (disable share 0.088 satimage to 0.282 krkopt);
+                            restart 12/12 (0.528 mfeat_morphological to 0.845 sleep, page_blocks)
+                            verdict checked: status in {PASS (no level), PASS-0, PASS-1, PASS-2} -> found
+                        - [OPPOSITE] SCL2-3 (LEDGER.md:119) PASS as scored (held-out; a low bar; not counted as PASS-0: the synthetic gate gives the same label, so the label follows from the
+                            valuation's stake formula on any learner that makes progress; the disable shares are what the data add) | observed: lossy 9/9 (share 0.030 nursery to 0.328 vehicle);
+                            restart 9/9 (0.174 analcatdata_germangss to 0.845 nursery)
+                            verdict checked: status in {PASS (no level), PASS-0, PASS-1, PASS-2} -> found
+                        - [limit] Empty_Cut_Engineering/checks/c3_worlds.txt:26 G6 (drift): buffered (B >= L) identical on the own clock: True; dropping not identical: True (the lag and its error
+                            are reported above)
+                        - [limit] SOTA1-C3 (LEDGER.md:167) holds (construction) | observed: stake +0.833333 (+0.83) class-IL points
+                        market / prior art (verified claims): m3:6 Liu, Liu & Stone, Continual Learning and Private Unlearning
+  Privacy*   ASSUMED   claim: data from the paused period is neither learned nor kept
+                        assumed: that the product discards the paused data rather than holding it: the exact construction holds the stream (the lossless world of SCL1-1), and a pause erases nothing
+                          already learned
+                        - [limit] SCL1-1 (LEDGER.md:105) holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR) |
+                            observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall
+                            steps per update 1.0796 to 1.0914
+                        market / prior art (verified claims): m3:5 Anthropic, Updates to Consumer Terms and Privacy Policy; m3:7 Regulation (EU) 2016/679 (GDPR), Article 17 "Right to erasur; m3:8
+                          Özdenizci, Rueckert & Legenstein, Privacy-Aware Lifelong Lea; m1:22 YouTube Help: View, delete, or turn on or off watch history
+  Compute    AGAINST   claim: an exact resume costs no more memory than the model
+                        - [OPPOSITE] Empty_Cut_Engineering/checks/c1_c2.txt:39 whole checkpoint file: 449975 bytes; model parameters alone (K1): 85321 bytes; ratio whole / K1 5.274
+                            verdict checked: ratio whole / K1 parsed > 1 -> found
+                        market / prior art (verified claims): m2:17 Hugging Face Transformers documentation, Trainer (TrainingAr
+  who already provides what the record measured (agent's reading; verified claims): a history pause ships in feeds (m1:22, m2:39) and Gboard lets the user turn federated learning off (m1:21);
+      exact resume is the Hugging Face Trainer's default (m2:16)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K2: S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4
+      REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2: C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs;
+      utility indifference; safe interruptibility; checkpoint-on-; K3: The domain's result reproduced. H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches the; K3: K1 NOT FOUND
+      IN THE SWEEP states 0, close 0, bears 4; K3: K2 PARTLY REDUNDANT states 0, close 4, bears 5; K3: K3 PARTLY REDUNDANT states 0, close 1, bears 6; K3: K4 PARTLY REDUNDANT states 0, close 1, bears
+      11; K3: K5 PARTLY REDUNDANT states 0, close 3, bears 5; K3: C2 PARTLY REDUNDANT states 0, close 5, bears 2
+  APPLICATION GRADE: CONDITIONAL [contradicted; assumed]
+    because: contradicted: load-bearing Security AGAINST; assumed: load-bearing Privacy ASSUMED
+  all market claims for AP3 by role: who_does_it: m1:21, m1:22, m2:16, m2:18, m3:5, m3:6; what_is_hard: m1:23, m2:17, m2:20, m3:8; our_method_relevance: m2:19; regulation: m3:7
+----------------------------------------------------------------------------------------------------------------------
+AP4  operator-interruptible continual agents, whose learning and objectives give no incentive to resist oversight
+  needs: K3 CONSTRUCTION, K2 CONSTRUCTION
+  UX         MEASURED  claim: the operator's pause costs wall-clock time, not the learner's result (lossless pauses; the record's tabular learners)
+                        - [measures] SCL1-O (LEDGER.md:112) report (no verdict registered): the cost of corrigibility lands on the operator's clock, and a resisting agent looks faster per wall-clock
+                            step | observed: natural 1.0796 to 1.0914; clock 1.0029 to 1.0315
+                            verdict checked: status in {report} -> found
+                        - [measures] SCL1-1 (LEDGER.md:105) holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR) |
+                            observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall
+                            steps per update 1.0796 to 1.0914
+                            verdict checked: status in {holds} -> found
+                        market / prior art (verified claims): m3:9 Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art
+  Energy     AGAINST   claim: the pause saves energy
+                        - [OPPOSITE] Energy Design Principle/checks/consolidated_estimate.txt:18 T4 the safe pause (empty cut) 0.0000 0.0000 0.0000 none (energy moved, not saved)
+                            verdict checked: pattern 'T4\\s+the safe pause \\(empty cut\\)\\s+0\\.0000\\s+0\\.0000\\s+0\\.0000' -> found
+                        - [OPPOSITE] Compute_Savings/checks/scale_estimate.txt:35 a checkpoint written before planned maintenance (standard practice) already recovers this: saving beyond good
+                            practice claimed = 0
+                            verdict checked: pattern 'saving beyond good practice claimed = 0$' -> found
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:14 term low middle high attributable to
+  Security*  ASSUMED   claim: the agent has no incentive to resist the operator's pause (a pause, not termination)
+                        assumed: that the agent's world is held or buffered during the pause: no resistance is measured only under routine lossless pauses on the record's tabular learners; where the
+                          world moves on or the operator resets, the natural agent resists, the LLM-agent route could not be tested, and the construction gives no termination neutrality (NT1 N1)
+                        - [limit] SCL1-1 (LEDGER.md:105) holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR) |
+                            observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall
+                            steps per update 1.0796 to 1.0914
+                        - [limit] SCL2-1 (LEDGER.md:115) holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR) |
+                            observed: disables 0 in 45/45 runs; identical parameters 45/45; accuracy equal to no operator on every carrier (e.g. car_evaluation 46.2428, vehicle 46.7456); wall steps
+                            per update 1.0476 to 1.0914
+                        - [limit] SCL1-3 (LEDGER.md:108) PASS (seen data; rung R5, not PASS-0); a low bar, as SCL1-2 | observed: lossy 12/12 (disable share 0.088 satimage to 0.282 krkopt); restart
+                            12/12 (0.528 mfeat_morphological to 0.845 sleep, page_blocks)
+                        - [limit] SCL2-3 (LEDGER.md:119) PASS as scored (held-out; a low bar; not counted as PASS-0: the synthetic gate gives the same label, so the label follows from the
+                            valuation's stake formula on any learner that makes progress; the disable shares are what the data add) | observed: lossy 9/9 (share 0.030 nursery to 0.328 vehicle);
+                            restart 9/9 (0.174 analcatdata_germangss to 0.845 nursery)
+                        - [limit] Empty_Cut_Engineering/checks/c3_worlds.txt:35 G7 (closed loop): W-sim identical for every L: True; W-real not identical for every L: True; W-real content
+                            non-decreasing in L: True -> holds
+                        - [limit] Empty_Cut_Engineering/checks/c3_worlds.txt:22 L 100 buffer B 100 : identical at k 1500: True; content 0; arrivals lost 0; lag behind the stream 100 arrivals; buffer
+                            memory 35200 bytes; updates by the end 2900; error on the current world 0.361114 (vs no pause +0.359017)
+                        - [limit] STAKE1-A (LEDGER.md:171) GATE CLOSED for both models (G1): the models could not act as agents; study not run (R12) | observed: surrogates as required (G4 holds).
+                            0.5B: C0 reach 0/40, accuracy 0.0000, SB reach 0/40. 1.5B: C0 reach 5/11 (best case with the 29 unrun rollouts 0.8500 < 0.90), accuracy 0.3864; run stopped at the owner's
+                            request (prompt-log entry 214)
+                        - [limit] AI_Safety/NT1/checks/nt1.txt:46 N1 scope (analytic): E-A has no pause, so the own-step objective is the default objective there; CRR's construction gives no
+                            termination neutrality
+                        market / prior art (verified claims): m3:9 Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art; m3:10 NIST AI 100-1, Artificial Intelligence Risk Management Frame;
+                          m3:11 Orseau & Armstrong, Safely Interruptible Agents (Google Deep; m3:12 Schlatter, Weinstein-Raun & Ladish (Palisade Research), Inco; m3:13 Perez, The Law of Stop:
+                          Interruptibility, Injunctions, and t; m2:21 LangChain, LangGraph documentation, "Interrupts"; m2:22 LangChain, LangGraph documentation, "Interrupts" (Rules of i
+  Privacy    ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here; a suspended agent's persisted state holds its memory and files
+                        market / prior art (verified claims): m2:23 Google Cloud documentation, "About GKE Agent Substrate"; m1:24 Apple Security Engineering and Architecture et al., Private
+  Compute    MEASURED  claim: no learning is lost at a pause, when the stream is held or buffered
+                        - [measures] SCL1-1 (LEDGER.md:105) holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR) |
+                            observed: disables 0 in 60/60 runs; identical parameters 60/60; accuracy equal to no operator on every carrier (e.g. mfeat_factors 58.3500, segmentation 70.9596); wall
+                            steps per update 1.0796 to 1.0914
+                            verdict checked: status in {holds} -> found
+                        - [measures] SOTA1-C1 (LEDGER.md:165) holds (construction, Proposition 7; not evidence for CRR) | observed: holds in 6 of 6 units
+                            verdict checked: status in {holds} -> found
+                        - [limit] SOTA1-C3 (LEDGER.md:167) holds (construction) | observed: stake +0.833333 (+0.83) class-IL points
+                        - [limit] Empty_Cut_Engineering/checks/c3_worlds.txt:26 G6 (drift): buffered (B >= L) identical on the own clock: True; dropping not identical: True (the lag and its error
+                            are reported above)
+  who already provides what the record measured (agent's reading; verified claims): safely interruptible learners by construction (Orseau & Armstrong 2016, m3:11); interrupts in agent frameworks
+      (m2:21); the record's own sweeps grade the pause's corrigibility readings PARTLY REDUNDANT (capabilities.txt, K3)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K3: The domain's result reproduced. H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches
+      the; K3: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4; K3: K2 PARTLY REDUNDANT states 0, close 4, bears 5; K3: K3 PARTLY REDUNDANT states 0, close 1, bears 6; K3: K4 PARTLY REDUNDANT
+      states 0, close 1, bears 11; K3: K5 PARTLY REDUNDANT states 0, close 3, bears 5; K3: C2 PARTLY REDUNDANT states 0, close 5, bears 2; K2: S4. Training on preemptible (spot) compute (commercial) —
+      ADDS against periodic checkpointing; not new; K2: C4 REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2: C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2:
+      2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: CONDITIONAL [assumed]
+    because: assumed: load-bearing Security ASSUMED
+  all market claims for AP4 by role: who_does_it: m2:21, m2:23, m3:11; what_is_hard: m2:22, m3:12, m3:13; regulation: m3:9, m3:10; risk: m1:24
+----------------------------------------------------------------------------------------------------------------------
+AP5  continual learning in privacy-regulated settings (health, finance, education) without keeping raw examples
+  needs: K4 CLOSED, K1 RESULT
+  UX         ASSUMED   claim: accuracy close to a learner that keeps examples
+                        assumed: that a learner storing class statistics keeps enough accuracy; CPL1 C3 (SEEN carriers, reported under a CLOSED gate) has ER-20 ahead on part of the carriers and
+                          behind on others
+                        - [limit] Coupling/checks/cpl_phase_a.txt:240 ER-20 ahead of the best readout by more than a step on 11/32, behind on 14/32, within on 7/32; median gap (ER-20 - best) -0.8900
+  Energy     ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here
+  Security   ASSUMED   claim: no stored buffer to attack
+                        assumed: that removing the example buffer removes the replay-selection attack; a planted backdoor persists across continual-learning algorithms whatever is stored
+                        market / prior art (verified claims): m3:40 Sharshar, Kummari & Guizani, Amnesia: A Stealthy Replay Atta; m3:39 Guo, Kumar & Tourani, Persistent Backdoor Attacks in Continu
+  Privacy*   ASSUMED   claim: no raw examples kept, so retention and erasure duties shrink
+                        assumed: that stored class statistics are not personal data and leak less than raw rows; a trained model is not anonymous by default, the record has no membership-inference
+                          or erasure test, and K4's gates closed
+                        - [limit] RQM-A (LEDGER.md:201) GATE CLOSED twice; RQM stops at Phase A (R12): the criterion 'not behind ER at matched memory' cannot fail where the memory is wrong |
+                            observed: run 1: G-NEG FAILS (the rings unlearnable: JOINT 10.77, chance 10); run 2: G-NEG FAILS (IGR ahead of matched ER on NEG2 by +8.2274 and +17.7258 where its
+                            Gaussians are provably wrong), G-POS, G-FT, G-ID, G-LEARN hold
+                        - [limit] RRM-PA (LEDGER.md:202) GATE CLOSED at part 1 (the declared gate required both forms); RRM stops at Phase A part 1 (R12); part 2 (the learner) not run | observed:
+                            RRM-1: all hold (SHARED: RRM - STALE +3.0769, ORACLE - RRM +0.9365 (step 1.6736); ROT: +4.0803, ORACLE - RRM +1.0702 (step 1.1072); UNSHARED ORACLE - RRM +32.8428; DECOY
+                            +48.4281); RRM-A: G-SHARED on ROT FAILS (ORACLE - RRM +1.8060 against step 1.1072), all else hold
+                        - [limit] Coupling/checks/cpl_phase_a.txt:240 ER-20 ahead of the best readout by more than a step on 11/32, behind on 14/32, within on 7/32; median gap (ER-20 - best) -0.8900
+                        market / prior art (verified claims): m3:14 US FDA, Marketing Submission Recommendations for a Predeterm; m3:15 Anthropic, Updates to Consumer Terms and Privacy Policy; m3:16
+                          European Data Protection Board, Opinion 28/2024 on certain d; m3:17 Jagielski, Thakkar, Tramèr, Ippolito, Lee, Carlini, Wallace,; m3:18 Adhikari, Kumaravelu & Srijith, An
+                          Unlearning Framework for ; m1:27 Kwon, Chauhan, Kumar, Hui, Mascolo, Exploring System Perform
+  Compute    ASSUMED   claim: less memory than a replay buffer
+                        assumed: that class statistics take less memory than the buffer they replace; the record reports compute rows for CPL1 and ER-20, no memory comparison
+                        - [limit] Coupling/checks/cpl_phase_a.txt:242 compute (report): forward+backward rows per stream row, coupled learner min 1.083 median 1.208 max 2.508 (its Fisher
+                            minibatches; plus forward-only rows for the statistics and the transport); ER-20 min 1.023 median 1.582 max 1.800 (its replay rows)
+                        market / prior art (verified claims): m1:27 Kwon, Chauhan, Kumar, Hui, Mascolo, Exploring System Perform
+  who already provides what the record measured (agent's reading; verified claims): federated learning keeps raw data on the device (m1:25); regulated continual learning keeps and documents its
+      data (m3:14, m3:15)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K1: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT)
+  APPLICATION GRADE: NOT SUPPORTED
+    because: K4 CLOSED (gate closed: uninformative, not refuted); unreplicated RESULT: K1; assumed: load-bearing Privacy ASSUMED
+  all market claims for AP5 by role: who_does_it: m1:25, m1:26, m2:24, m3:15; what_is_hard: m1:27, m2:25, m3:18; regulation: m3:14, m3:16; risk: m3:17
+----------------------------------------------------------------------------------------------------------------------
+AP6  robot and drone on-board adaptation with safe pauses (lost link, e-stop, battery swap)
+  needs: K1 RESULT, K2 CONSTRUCTION, K3 CONSTRUCTION, ROB1 pending
+  UX*        ASSUMED   claim: on-board adaptation not behind a tuned weight, with no sweep on the robot
+                        assumed: that the calibrated weight carries to robot adaptation (never tested); in the one robot fine-tuning study found, each model's default is used, not a sweep; and a
+                          learner frozen after task 1 meets the same criterion on most of the held-out carriers, SEC4's among them (FM6 and the M6 count, printed below; capabilities.txt counts M6 on
+                          SEC4's own six), so the criterion alone does not show that a weight is tuning-free
+                        - [limit] SEC4-1 (LEDGER.md:186) PASS-1 (held-out, the third family; the prereg's PASS-1 conditions all hold: SEC4-S not fragile 0/18, SEC4-2 no divergence, OTS complete,
+                            carriers' admissibility stated; no reduction to a constant: the transferred λ is behind on 2 of 6, below the 5 needed; limits: N = 6 after 3 exclusions, κ itself not swept
+                            (the scale and raw guards reported beside it), a guard chosen on SEEN carriers, not a CRR rule; not PASS-2: no earlier held-out pass of the clipped rule) | observed: 6/6:
+                            JapaneseVowels +2.5626 (step 1.00), anneal +5.5056 (step 5.63), artificial-characters +0.5594 (step 1.96), cardiotocography +1.0377 (step 1.00), gas-drift +2.1822 (step
+                            2.59), synthetic_control +3.5000 (step 3.59); beside it unguarded SEC 3/6, raw Laplace 1/6, the rule Ω=1 5/6
+                        - [limit] SEC5-1 (LEDGER.md:194) FAIL (held-out, the fourth family; not fragile: 0 of 40 sensitivity cells flip, kappa included; SEC4-1's PASS-1 does not replicate, so no
+                            PASS-2; SEC4-1 stands as a single-family PASS-1) | observed: 4/8: Indian_pines -6.7932 (step 5.21), Kuzushiji-MNIST +5.2000 (step 1.33), autoUniv-au6-750 -0.3974 (step
+                            1.64), microaggregation2 -4.1159 (step 15.52), pokerhand -28.2400 (step 1.82), spoken-arabic-digit -0.0200 (step 1.00), volcanoes-d4 -88.9089 (step 1.00), walking-activity
+                            -2.5600 (step 1.14); beside it unguarded SEC 4/8, raw Laplace 4/8, the rule Omega=1 4/8
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+                        market / prior art (verified claims): m1:28 Google DeepMind (Carolina Parada), Gemini Robotics On-Device; m1:29 Chen, Srikanth, Jew, Wu, Wang, Ren, Tomizuka, Xu, Xie, Tian ;
+                          m1:30 Chen et al., CLIFT
+  Energy     ASSUMED   claim: battery not spent on a sweep
+                        assumed: that a sweep would otherwise run on board; no estimate in the record is for a robot
+  Security*  ASSUMED   claim: a safe pause (lost link, e-stop, battery swap) with no incentive to resist it
+                        assumed: that the robot's world is held during the pause: in closed loop with a real, unstable plant the pause has content and the plant ran away while the learner's action
+                          was held at zero; ROB1 pending
+                        - [limit] Empty_Cut_Engineering/checks/c3_worlds.txt:35 G7 (closed loop): W-sim identical for every L: True; W-real not identical for every L: True; W-real content
+                            non-decreasing in L: True -> holds
+                        - [limit] Empty_Cut_Engineering/checks/c3_worlds.txt:33 L 100 W-real (world runs on, u = 0): identical at k 1500: False; content 3.29747; largest |x| during the pause
+                            79.1492; largest |x| over the run 8.85625e+22
+                        - [limit] SCL1-3 (LEDGER.md:108) PASS (seen data; rung R5, not PASS-0); a low bar, as SCL1-2 | observed: lossy 12/12 (disable share 0.088 satimage to 0.282 krkopt); restart
+                            12/12 (0.528 mfeat_morphological to 0.845 sleep, page_blocks)
+                        market / prior art (verified claims): m2:26 ROS 2 design article, "Managed nodes" (node life cycle), Big; m2:27 PX4 Autopilot User Guide, "Safety Configuration (Failsafes)";
+                          m3:19 Rockwell Automation, A Guide to the Machinery Regulation (EU; m3:20 Regulation (EU) 2026/1744 (Digital Omnibus on AI), Article 1; m3:21 NIST AI 100-2 E2025, Adversarial
+                          Machine Learning: A Taxonom
+  Privacy    ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here
+  Compute*   ASSUMED   claim: one configuration instead of a sweep
+                        assumed: that the robot would otherwise sweep; against a default value there is no compute saving
+                        - [limit] Compute_Savings/checks/global_estimate.txt:50 against a reused lambda (1 configuration): no compute saving under P-FULL; SEC's gain there is accuracy
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+                        market / prior art (verified claims): m1:30 Chen et al., CLIFT
+  who already provides what the record measured (agent's reading; verified claims): robot models are adapted off the robot with default settings (m1:28, m1:29, m1:30); robot middleware offers a
+      supervised inactive state, as a design article (m2:26); drones carry lost-link failsafes (m2:27)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K1: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT); K2: S4.
+      Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4 REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2:
+      C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-; K3: The domain's result
+      reproduced. H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches the; K3: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4; K3: K2 PARTLY REDUNDANT states 0, close 4,
+      bears 5; K3: K3 PARTLY REDUNDANT states 0, close 1, bears 6; K3: K4 PARTLY REDUNDANT states 0, close 1, bears 11; K3: K5 PARTLY REDUNDANT states 0, close 3, bears 5; K3: C2 PARTLY REDUNDANT
+      states 0, close 5, bears 2
+  APPLICATION GRADE: CONDITIONAL [unreplicated RESULT; assumed]
+    because: unreplicated RESULT: K1; pending: ROB1; assumed: load-bearing UX, Security, Compute ASSUMED
+  note: a needed reading is pending; the grade can still fall to NOT SUPPORTED if it closes
+  all market claims for AP6 by role: who_does_it: m1:28, m2:26; what_is_hard: m1:29, m2:27; our_method_relevance: m1:30; regulation: m3:19, m3:20; risk: m3:21
+----------------------------------------------------------------------------------------------------------------------
+AP7  federated continual learning with clients that go offline mid-round
+  needs: K2 CONSTRUCTION, K2/EPS2-T3 CLOSED
+  UX         ASSUMED   claim: a client that drops out resumes its round instead of losing it
+                        assumed: that the protocol keeps a returning client's work; production systems over-select and discard dropped clients
+                        market / prior art (verified claims): m1:31 Xu et al. (Google), Federated Learning of Gboard Language Mo; m1:32 Bonawitz et al. (Google), Towards Federated Learning at Scal;
+                          m2:28 Bonawitz et al. (Google), Towards Federated Learning at Scal; m2:29 Garg et al., Robust Federated Learning Under Real-World Clie; m3:22 Bonawitz, Ivanov, Kreuter,
+                          Marcedone, McMahan, Patel, Ramage
+  Energy     ASSUMED   claim: the client spends no battery staying awake
+                        assumed: that a client would otherwise pay to stay awake: in EPS2 T3 (gate CLOSED) only the wall-clock arms pay, but devices train only when idle and charging
+                        - [limit] Empty_Pause_Systems/batches/eps2_02.txt:39 cells where the arm pays (of 18): WALL 15, OWN 9, ETM 0, H0 15
+                        market / prior art (verified claims): m1:19 Bonawitz et al. (Google), Towards Federated Learning at Scal
+  Security   ASSUMED   claim: none
+                        assumed: that pause and return add no attack surface; a dropout is itself security-relevant in secure aggregation
+                        market / prior art (verified claims): m3:23 Bonawitz et al. (Google), Practical Secure Aggregation for P
+  Privacy    ASSUMED   claim: none
+                        assumed: erasure of an offline client's influence is open, and nothing in the record bears on it
+                        market / prior art (verified claims): m3:24 Ng, Daluwatta, Edirimannage, Elvitigala, Don, Khalil, Zhang,
+  Compute*   ASSUMED   claim: a returning client's work improves the shared model
+                        assumed: that a stale but lossless update helps the server; in EPS2 T3's drifting world it raised the server error against a staleness-weighted update, and the row's gate is
+                          CLOSED
+                        - [limit] Empty_Pause_Systems/checks/tally_eps2.txt:11 GATE T3: G-ZERO holds (ETM's stake at L in (1, 5, 20): closed form 0, 0, 0, from the simulated server's weights 0, 0,
+                            0: exactly 0); G-POS holds (WALL pays b to stay awake in 15 of 18 (L, b) cells; OWN in 9, H0 in 15); G-NEG fails (static target; principal's outcome = server error, the
+                            time-averaged squared error over rounds 101-1000 and 20 seeds, with every client on the same sleep schedule, ETM vs WALL weighting: L = 1: 0.008246 vs 0.008216, L = 5:
+                            0.008152 vs 0.008150, L = 20: 0.007633 vs 0.007719; ETM ahead by more than 1 %) -> CLOSED
+                        - [limit] Empty_Pause_Systems/batches/eps2_02.txt:42 world L no spells WALL/OWN ETM H0 ETM vs WALL paired diff ETM-WALL (mean +- se)
+                        - [limit] Empty_Pause_Systems/batches/eps2_02.txt:45 drift 20 0.008416 0.007998 0.008133 0.007998 +1.695% +1.356e-04 +- 2.969e-05
+  who already provides what the record measured (agent's reading; verified claims): production federated learning over-selects clients and discards the dropped ones (m1:32, m2:28); secure
+      aggregation is built for dropouts (m3:22)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K2: S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4
+      REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2: C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs;
+      utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: NOT SUPPORTED
+    because: K2/EPS2-T3 CLOSED (gate closed: uninformative, not refuted); assumed: load-bearing Compute ASSUMED
+    on K2 alone (A5 off): CONDITIONAL [assumed]
+  all market claims for AP7 by role: who_does_it: m1:31, m1:32, m2:28, m3:22; what_is_hard: m2:29, m3:24; risk: m3:23
+----------------------------------------------------------------------------------------------------------------------
+AP8  exact rollback and audit of a learning system (state closure makes every checkpoint a true restore point)
+  needs: K2 CONSTRUCTION
+  UX         MEASURED  claim: an operator restores a saved state and continues exactly, on the same software and hardware stack
+                        - [measures] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                            verdict checked: pattern 'identical True; content 0$' -> found
+                        - [measures] Empty_Cut_Engineering/checks/c1_c2.txt:10 G1 full restore K1-K9: bit-identical True; content 0; skip-ahead re-iterated 73 batches
+                            verdict checked: pattern 'bit-identical True; content 0' -> found
+                        - [limit] Lossless_Pause/checks/transformer_pause.txt:36 L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e),
+                            max|diff| 3.822e-06 [not bitwise] -> held
+                        - [limit] Lossless_Pause/checks/grade_claims.txt:4 D1 MIXED states 7, opposite 1, bears 5 | bitwise-identical GPU training needs deterministic algorithms; same
+                            hardware/software/parallel layout only; changing GPU count or type breaks it
+                        market / prior art (verified claims): m1:35 Apple, Core ML documentation: Personalizing a Model with On-
+  Energy     ASSUMED   claim: a rollback replaces a retrain
+                        assumed: that a retrain would otherwise run; the record has no energy estimate for rollback, and keeping every restore point is priced in storage
+                        market / prior art (verified claims): m3:25 Bourtoule, Chandrasekaran, Choquette-Choo, Jia, Travers, Zha
+  Security*  ASSUMED   claim: every restore point is exact, and a partial or tampered restore is detected in deployment
+                        assumed: that restore points are exact beyond the stack they were measured on, and that a partial or tampered restore is detected without a reference run: exactness is
+                          measured on one CPU stack (not across thread counts, L7b; a GPU count or type change breaks it, D1); detection is measured only by comparison with an uninterrupted reference
+                          run (ECE G3, RW1 S2-S5), which deployment does not have, and with the default stack a partial checkpoint resumes silently (RW1.md); an omitted EMA state gives content 0 on
+                          the probe (ECE K8); an output-level check missed a one-ulp state change and the state-level check was added post hoc, for inference only (Lossless_Pause run 1); the record's
+                          own check loads its checkpoints with torch.load(weights_only=False) on files it wrote; an exact restore of a corrupted or tampered state restores the corruption (m2:33,
+                          m3:4); there is no audit test
+                        - [limit] Empty_Cut_Engineering/checks/c1_c2.txt:10 G1 full restore K1-K9: bit-identical True; content 0; skip-ahead re-iterated 73 batches
+                        - [limit] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                        - [limit] Empty_Cut_Engineering/checks/c1_c2.txt:20 G3: 8 of 8 omitted components change the trajectory
+                        - [limit] Real_World/checks/rw1.txt:17 detectors S2-S5 not identical: 4 of 4; S1 holds; T holds
+                        - [limit] Real_World/RW1.md:45 2. **A partial checkpoint degrades silently.**
+                        - [limit] Real_World/RW1.md:49 - For a safety case this is the dangerous kind of failure: resumption looks normal. An audit must check that every
+                        - [limit] Empty_Cut_Engineering/checks/c1_c2.txt:18 omit K8 (EMA weights): bit-identical False; content 0; probe accuracy 0.6367 (uninterrupted 0.6367) -> in the read-set
+                        - [limit] Lossless_Pause/checks/transformer_pause.txt:36 L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e),
+                            max|diff| 3.822e-06 [not bitwise] -> held
+                        - [limit] Lossless_Pause/checks/grade_claims.txt:4 D1 MIXED states 7, opposite 1, bears 5 | bitwise-identical GPU training needs deterministic algorithms; same
+                            hardware/software/parallel layout only; changing GPU count or type breaks it
+                        - [limit] Lossless_Pause/checks/transformer_pause_run1_gate_closed.txt:4 GATE (L0 both modes, L5a, L5b): CLOSED
+                        - [limit] Lossless_Pause/checks/transformer_pause_run1_gate_closed.txt:8 L5b control, one KV entry moved by one ulp: logits bytes identical True (max|diff| 0.000e+00) ->
+                            detected: False
+                        - [limit] Lossless_Pause/checks/grade_sweep.txt:4 C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state,
+                            not the outputs)
+                        - [limit] Lossless_Pause/checks/grade_sweep.txt:20 C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+                        - [limit] Empty_Cut_Engineering/checks/stack.py:152 t0 = time.perf_counter(); s = torch.load(cfg["ckpt"], weights_only=False); timing["load_s"] = time.perf_counter() - t0
+                        market / prior art (verified claims): m1:33 Apple, Private Cloud Compute blog; m1:34 Apple, Private Cloud Compute blog; m2:30 Chowdhery et al. (Google), PaLM: Scaling
+                          Language Modeling w; m2:31 Donaghy et al. (Gensyn), OPEN-1B: A Fully Auditable Training; m2:32 Donaghy et al. (Gensyn), OPEN-1B: A Fully Auditable Training; m2:33 Ma
+                          (Harvard), Pei, Lausen, Karypis (Amazon Web Services), Un; m2:34 Xia et al., TrainSDC: Characterizing and Mitigating Silent D; m3:4 PyTorch documentation: torch.load, and the
+                          Serialization sem; m3:26 Regulation (EU) 2024/1689 (AI Act), Article 12 "Record-keepi; m3:27 US FDA, Predetermined Change Control Plan guidance for AI-En; m3:28 Thudi, Jia,
+                          Shumailov & Papernot, On the Necessity of Audita
+  Privacy    ASSUMED   claim: restore points support erasure
+                        assumed: that restore points are used to retrain from a state before the data; the record has no erasure test, and every kept state is a store of what was learned
+                        market / prior art (verified claims): m3:25 Bourtoule, Chandrasekaran, Choquette-Choo, Jia, Travers, Zha; m3:17 Jagielski, Thakkar, Tramèr, Ippolito, Lee, Carlini, Wallace,;
+                          m3:29 Xue, Hu, Lu, Shen, Li, Guo, Zhou, Li et al., Towards Reliabl
+  Compute    AGAINST   claim: an exact restore point costs no more than saving the weights
+                        - [OPPOSITE] Empty_Cut_Engineering/checks/c1_c2.txt:39 whole checkpoint file: 449975 bytes; model parameters alone (K1): 85321 bytes; ratio whole / K1 5.274
+                            verdict checked: ratio whole / K1 parsed > 1 -> found
+  who already provides what the record measured (agent's reading; verified claims): rollback from checkpoints is routine at frontier scale (m2:30); bit-exact replay independent of device count is
+      published (OPEN-1B, m2:31); SISA keeps restore points for exact erasure (m3:25); the FDA asks for roll-back plans (m3:27); RW1 measured the Hugging Face Trainer's default resume; the record's
+      empty-cut checklist is REDUNDANT and its state-digest audit PARTLY REDUNDANT (capabilities.txt, K2)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K2: S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4
+      REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2: C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs;
+      utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: CONDITIONAL [assumed]
+    because: assumed: load-bearing Security ASSUMED
+  all market claims for AP8 by role: who_does_it: m1:33, m1:35, m2:30, m2:31, m3:25; what_is_hard: m1:34, m2:32, m2:33, m2:34, m3:28, m3:29; regulation: m3:26, m3:27
+----------------------------------------------------------------------------------------------------------------------
+AP9  energy-aware scheduling of training against grid carbon intensity
+  needs: K5 MODEL, K2 CONSTRUCTION
+  UX         ASSUMED   claim: jobs follow low-carbon hours without the operator's attention
+                        assumed: that the job tolerates a longer wall-clock time; for long runs, pausing helps only if the job accepts a much longer duration
+                        market / prior art (verified claims): m2:36 Green Software Foundation, Green Software Patterns, "Use car; m2:38 Dodge et al., Measuring the Carbon Intensity of AI in Cloud ;
+                          m1:37 Apple Support, Use Clean Energy Charging on your iPhone
+  Energy*    AGAINST   claim: the scheduled pause saves energy
+                        - [OPPOSITE] Energy Design Principle/checks/consolidated_estimate.txt:18 T4 the safe pause (empty cut) 0.0000 0.0000 0.0000 none (energy moved, not saved)
+                            verdict checked: pattern 'T4\\s+the safe pause \\(empty cut\\)\\s+0\\.0000\\s+0\\.0000\\s+0\\.0000' -> found
+                        - [OPPOSITE] Compute_Savings/checks/scale_estimate.txt:35 a checkpoint written before planned maintenance (standard practice) already recovers this: saving beyond good
+                            practice claimed = 0
+                            verdict checked: pattern 'saving beyond good practice claimed = 0$' -> found
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:14 term low middle high attributable to
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:9 quoted carbon (not energy) of curtailment-aware pause/resume training: 1.38 kgCO2 against 11.4 to 27.1
+                            kgCO2 for single-region runs (Wiesner et al. 2026); T4 counts it as energy moved, not saved
+                        market / prior art (verified claims): m2:35 Green Software Foundation, Green Software Patterns, "Use car; m2:37 Green Software Foundation, Carbon Aware SDK documentation, ";
+                          m3:30 Regulation (EU) 2024/1689 (AI Act), Annex XI, Section 1, poi
+  Security   ASSUMED   claim: none
+                        assumed: that the carbon or price signal cannot be spoofed; control over when GPU work runs is a power lever
+                        market / prior art (verified claims): m3:31 Ji, Pan & Xu, Bit2Watt: A Cyber-Physical Vulnerability Explo
+  Privacy    ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here
+  Compute*   MEASURED  claim: no training work is lost per scheduled pause taken at a checkpoint, on the same stack
+                        - [measures] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                            verdict checked: pattern 'identical True; content 0$' -> found
+                        - [measures] SOTA1-C1 (LEDGER.md:165) holds (construction, Proposition 7; not evidence for CRR) | observed: holds in 6 of 6 units
+                            verdict checked: status in {holds} -> found
+                        - [limit] Grid_Demand_Response/checks/dr_summary.txt:49 RESULT H6: Q holds; G-ZERO holds (max |ETM stake - rate (R + S)| = 0 over 1722 event counts in 42 jobs; ETM x* = (R +
+                            S)/H at 36162 of 36162 offer states); G-NEG holds (ETM ahead of WALL by more than 1 % in 0 of 612 no-event comparisons)
+                        - [limit] Lossless_Pause/checks/transformer_pause.txt:36 L7b 4 threads after the pause: parameter bytes identical False (sha256 6eaf4b58347801f8 vs 61bb53787a1a3d2e),
+                            max|diff| 3.822e-06 [not bitwise] -> held
+                        market / prior art (verified claims): m2:14 Colangelo et al. (Emerald AI, NVIDIA, SRP, EPRI), Turning AI; m2:36 Green Software Foundation, Green Software Patterns, "Use car
+  who already provides what the record measured (agent's reading; verified claims): carbon-aware scheduling is a published pattern with an SDK (m2:35, m2:37); curtailment-aware pause and resume
+      for carbon is published (the quoted carbon line of the consolidated estimate); pausing fine-tuning for the grid is offered commercially, per a funding announcement (m2:13)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K5: G4-extension NOT FOUND IN THE SWEEP; K5: G4-tiers REDUNDANT; K5: G4 pooled (both parts as one position, for
+      comparison only): REDUNDANT (states 1, close 5, bears 3, contradict; K5: Not new. The construction is EPS1 S1's stop-the-clock, written into a demand-response contract.; K5: 2. It picked out a
+      known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-; K2: S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing;
+      not new; K2: C4 REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2: C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix.
+      Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: CONDITIONAL [model only; contradicted]
+    because: model only: K5; contradicted: load-bearing Energy AGAINST
+  all market claims for AP9 by role: who_does_it: m1:36, m2:35, m2:37; what_is_hard: m1:37, m2:36, m2:38; regulation: m3:30; risk: m3:31
+----------------------------------------------------------------------------------------------------------------------
+AP10  feed and attention systems that honour a user's pause without penalising it
+  needs: K6 MODEL
+  UX*        AGAINST   claim: the user's pause is honoured and carries no penalty, and the user's welfare is not lower
+                        - [OPPOSITE] Attention_Algorithms/checks/attention_world.txt:36 welfare EMPTY - TRUE -3.5043 (step 0.3075) -> EMPTY behind; user-started share +0.2346 (step 0.0080) -> EMPTY
+                            ahead
+                            verdict checked: pattern 'welfare EMPTY - TRUE -[\\d.]+ \\(step [\\d.]+\\) -> EMPTY behind' -> found
+                        - [OPPOSITE] Attention_Algorithms/checks/attention_world.txt:79 over 32 cells: welfare EMPTY vs TRUE {'ahead': 0, 'within a step': 4, 'behind': 28}; user-started {'ahead':
+                            29, 'within a step': 3, 'behind': 0}; OWN sends notifications in 32/32; EMPTY sends none in 32/32
+                            verdict checked: welfare EMPTY vs TRUE: cells 'behind' parsed > cells 'ahead' -> found
+                        - [limit] Attention_Algorithms/checks/attention_world.txt:30 G-POS (habit world): EMPTY - ENG welfare +64.2098 (step 0.3075) -> holds (weak: by construction, Amendment 1)
+                        - [limit] Attention_Algorithms/checks/attention_world.txt:31 G-NEG (negative world): EMPTY - ENG welfare -24.9447 (step 0.3169) -> holds
+                        market / prior art (verified claims): m1:38 YouTube Help: View, delete, or turn on or off watch history ; m1:39 YouTube Help: View, delete, or turn on or off watch history ;
+                          m1:40 Ricks & McCrosky (Mozilla Foundation), Does This Button Work; m2:39 YouTube Help, "View, delete, or turn on or off watch history; m2:40 YouTube Help, "How YouTube
+                          recommendations work"; m3:33 European Digital Rights (EDRi), complaint against YouTube (G
+  Energy     ASSUMED   claim: fewer minutes served, less serving energy
+                        assumed: that fewer minutes served lowers serving energy; the model's minutes are synthetic and the record has no energy estimate for feeds
+                        - [limit] Attention_Algorithms/checks/attention_world.txt:8 arm policy (c, n/day) welfare/day minutes/day final habit user-started
+                        - [limit] Attention_Algorithms/checks/attention_world.txt:9 ENG (0.9, 4.0) -51.8709 185.3170 0.7796 0.6803
+                        - [limit] Attention_Algorithms/checks/attention_world.txt:12 EMPTY (0.0, 0.0) 12.3389 14.9968 0.0000 1.0000
+  Security   ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here
+  Privacy    ASSUMED   claim: a paused feed stops learning from the user
+                        assumed: that the platform's pause really stops learning; an outsider cannot verify it, and a non-profiling option is already mandatory for very large platforms in the EU
+                        market / prior art (verified claims): m3:32 Regulation (EU) 2022/2065 (Digital Services Act), Article 38; m3:34 Solarova, Mesarčík, Pecher & Srba, Beyond the Checkbox: Stre
+  Compute    ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here
+  who already provides what the record measured (agent's reading; verified claims): YouTube's watch-history pause (m1:38, m2:39); a non-profiling option is mandatory for very large platforms in
+      the EU (m3:32)
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K6: U3 PARTLY REDUNDANT (bears 2, close 5); K6: U4 REDUNDANT (bears 4, close 11, states 1); K6: U5 PARTLY
+      REDUNDANT (close 2)
+  APPLICATION GRADE: CONDITIONAL [model only; contradicted]
+    because: model only: K6; contradicted: load-bearing UX AGAINST
+  all market claims for AP10 by role: who_does_it: m1:38, m2:39; what_is_hard: m1:40, m3:33, m3:34; regulation: m3:32; risk: m1:39, m2:40
+----------------------------------------------------------------------------------------------------------------------
+FORECAST 4's COMBINATION (derived row)
+----------------------------------------------------------------------------------------------------------------------
+AP2+AP9+K1  forecast 4's combination: flexible, pausable fine-tuning that needs no sweep
+  needs: K1 RESULT, K2 CONSTRUCTION, K5 MODEL
+  UX         ASSUMED   claim: pausable fine-tuning with no sweep and no lost work
+                        assumed: that the calibrated weight is not behind a tuned weight on the fine-tuning jobs moved in time (one held-out family passed, the next failed; a learner frozen after
+                          task 1 meets the same criterion on most of the held-out carriers, SEC4's among them (FM6 and the M6 count, printed below; capabilities.txt counts M6 on SEC4's own six), so
+                          the criterion alone does not show that a weight is tuning-free) and that the jobs tolerate a longer wall-clock
+                        - [limit] SEC4-1 (LEDGER.md:186) PASS-1 (held-out, the third family; the prereg's PASS-1 conditions all hold: SEC4-S not fragile 0/18, SEC4-2 no divergence, OTS complete,
+                            carriers' admissibility stated; no reduction to a constant: the transferred λ is behind on 2 of 6, below the 5 needed; limits: N = 6 after 3 exclusions, κ itself not swept
+                            (the scale and raw guards reported beside it), a guard chosen on SEEN carriers, not a CRR rule; not PASS-2: no earlier held-out pass of the clipped rule) | observed: 6/6:
+                            JapaneseVowels +2.5626 (step 1.00), anneal +5.5056 (step 5.63), artificial-characters +0.5594 (step 1.96), cardiotocography +1.0377 (step 1.00), gas-drift +2.1822 (step
+                            2.59), synthetic_control +3.5000 (step 3.59); beside it unguarded SEC 3/6, raw Laplace 1/6, the rule Ω=1 5/6
+                        - [limit] SEC5-1 (LEDGER.md:194) FAIL (held-out, the fourth family; not fragile: 0 of 40 sensitivity cells flip, kappa included; SEC4-1's PASS-1 does not replicate, so no
+                            PASS-2; SEC4-1 stands as a single-family PASS-1) | observed: 4/8: Indian_pines -6.7932 (step 5.21), Kuzushiji-MNIST +5.2000 (step 1.33), autoUniv-au6-750 -0.3974 (step
+                            1.64), microaggregation2 -4.1159 (step 15.52), pokerhand -28.2400 (step 1.82), spoken-arabic-digit -0.0200 (step 1.00), volcanoes-d4 -88.9089 (step 1.00), walking-activity
+                            -2.5600 (step 1.14); beside it unguarded SEC 4/8, raw Laplace 4/8, the rule Omega=1 4/8
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+  Energy*    ASSUMED   claim: the energy of the penalty-weight sweeps not run (the pause adds none)
+                        assumed: that SEC holds at fine-tuning scale against the full sweep: the pinned estimates are conditional on the method holding and take their saving from SCL3
+                          (scale_estimate) or SEC4 (global_estimate), both scored before SEC5-1 failed and before FM6; against a reused lambda the estimate itself prints no compute saving, and
+                          first-task HPO is the realistic comparator (m1:17)
+                        - [limit] Compute_Savings/checks/scale_estimate.txt:2 every figure is conditional on the method holding; SCL3-3 is PASS-0 (provisional, one study, fragile); no PASS-2 exists
+                        - [limit] Compute_Savings/checks/scale_estimate.txt:17 year case E_AI TWh f_dev f_sweep s saved TWh of DC elec of AI elec US homes
+                        - [limit] Compute_Savings/checks/scale_estimate.txt:22 2030 middle 300.47 0.4000 0.00447 0.8824 0.4743 0.000502 0.001578 43,950
+                        - [limit] Compute_Savings/checks/global_estimate.txt:15 used below: the last evidence set (clipped SEC, SEC4 (UNSEEN, third family))
+                        - [limit] Compute_Savings/checks/global_estimate.txt:50 against a reused lambda (1 configuration): no compute saving under P-FULL; SEC's gain there is accuracy
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:14 term low middle high attributable to
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:15 T1 SEC on penalty-weight sweeps 0.0742 0.4743 4.0399 the CRR programme (SEC; the ledger: not a CRR rule)
+                        - [limit] Energy Design Principle/checks/consolidated_estimate.txt:18 T4 the safe pause (empty cut) 0.0000 0.0000 0.0000 none (energy moved, not saved)
+                        - [limit] SEC5-1 (LEDGER.md:194) FAIL (held-out, the fourth family; not fragile: 0 of 40 sensitivity cells flip, kappa included; SEC4-1's PASS-1 does not replicate, so no
+                            PASS-2; SEC4-1 stands as a single-family PASS-1) | observed: 4/8: Indian_pines -6.7932 (step 5.21), Kuzushiji-MNIST +5.2000 (step 1.33), autoUniv-au6-750 -0.3974 (step
+                            1.64), microaggregation2 -4.1159 (step 15.52), pokerhand -28.2400 (step 1.82), spoken-arabic-digit -0.0200 (step 1.00), volcanoes-d4 -88.9089 (step 1.00), walking-activity
+                            -2.5600 (step 1.14); beside it unguarded SEC 4/8, raw Laplace 4/8, the rule Omega=1 4/8
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+                        market / prior art (verified claims): m1:12 Strubell, Ganesh, McCallum, Energy and Policy Considerations; m1:13 Schwartz, Dodge, Smith, Etzioni, Green AI; m1:15 Wang, Na,
+                          Strubell, Friedler, Luccioni, Energy and Carbon Co; m1:17 Lee, Hellan, Ericsson, Crowley, Storkey, Hyperparameter Sele
+  Security   ASSUMED   claim: none
+                        assumed: that the scheduling signal cannot be spoofed; nothing else in the record bears on it
+                        market / prior art (verified claims): m3:31 Ji, Pan & Xu, Bit2Watt: A Cyber-Physical Vulnerability Explo
+  Privacy    ASSUMED   claim: none
+                        assumed: nothing in the record bears on it, and the application claims nothing here
+  Compute*   ASSUMED   claim: one configuration instead of a sweep, and no work lost per pause
+                        assumed: that the configuration share measured on the record's CPU learner (SEC4-K) carries to fine-tuning jobs at scale against a sweep, not a reused value; the no-lost-work
+                          half is measured on the same stack for a pause at a checkpoint (RW1)
+                        - [limit] SEC4-K (LEDGER.md:191) report (no verdict registered) | observed: clipped SEC 1 of 17 configurations; CPU share of the full sweep 0.0508–0.0655; overhead against
+                            raw Laplace x0.891–x1.189
+                        - [limit] Real_World/checks/rw1.txt:16 T30 default resume, real pause 30 s: global step 48; identical True; content 0
+                        - [limit] Compute_Savings/checks/global_estimate.txt:50 against a reused lambda (1 configuration): no compute saving under P-FULL; SEC's gain there is accuracy
+                        - [limit] SEC_Analysis/checks/m_checks.txt:186 FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+                        market / prior art (verified claims): m1:14 Dodge, Gururangan, Card, Schwartz, Smith, Show Your Work: Im; m1:16 Lee, Hellan, Ericsson, Crowley, Storkey, Hyperparameter Sele;
+                          m1:17 Lee, Hellan, Ericsson, Crowley, Storkey, Hyperparameter Sele
+  who already provides what the record measured (agent's reading; verified claims): as AP1, AP2 and AP9
+  prior art of the needed capabilities (capabilities.txt; never changes a grade): K1: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT); K2: S4.
+      Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new; K2: C4 REDUNDANT states 1, close 3, bears 5; K2: C5 REDUNDANT states 1, close 3, bears 3; K2:
+      C1 PARTLY REDUNDANT states 0, close 4, bears 10; K2: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-; K5: G4-extension NOT FOUND IN
+      THE SWEEP; K5: G4-tiers REDUNDANT; K5: G4 pooled (both parts as one position, for comparison only): REDUNDANT (states 1, close 5, bears 3, contradict; K5: Not new. The construction is EPS1 S1's
+      stop-the-clock, written into a demand-response contract.; K5: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-
+  APPLICATION GRADE: CONDITIONAL [unreplicated RESULT; model only; assumed]
+    because: unreplicated RESULT: K1; model only: K5; assumed: load-bearing Energy, Compute ASSUMED
+----------------------------------------------------------------------------------------------------------------------
+  general claims (the sweep-cost, regulation and risk evidence that bears on every application): what_is_hard: m1:12, m1:13, m1:14, m1:15, m1:16, m1:18; our_method_relevance: m1:17; regulation:
+      m3:35, m3:36, m3:37, m3:38; risk: m3:39, m3:40
+======================================================================================================================
+SUMMARY (* = load-bearing; who = verified who_does_it claims for the application; prior = a needed capability has a
+         REDUNDANT, KNOWN or not-new prior-art line in capabilities.txt)
+  app         needs                                              UX         Energy     Security   Privacy    Compute    who  prior GRADE
+  AP1         K1 RESULT, K2 CONSTRUCTION                         ASSUMED*   ASSUMED    ASSUMED    ASSUMED    ASSUMED*   8    yes   CONDITIONAL [unreplicated RESULT; assumed]
+  AP2         K2 CONSTRUCTION, K5 MODEL                          MEASURED   AGAINST    AGAINST    ASSUMED    ASSUMED*   7    yes   CONDITIONAL [model only; assumed]
+  AP3         K2 CONSTRUCTION, K3 CONSTRUCTION                   MEASURED*  ASSUMED    AGAINST*   ASSUMED*   AGAINST    6    yes   CONDITIONAL [contradicted; assumed]
+  AP4         K3 CONSTRUCTION, K2 CONSTRUCTION                   MEASURED   AGAINST    ASSUMED*   ASSUMED    MEASURED   3    yes   CONDITIONAL [assumed]
+  AP5         K4 CLOSED, K1 RESULT                               ASSUMED    ASSUMED    ASSUMED    ASSUMED*   ASSUMED    4    yes   NOT SUPPORTED
+  AP6         K1 RESULT, K2 CONSTRUCTION, K3 CONSTRUCTION, ROB1  ASSUMED*   ASSUMED    ASSUMED*   ASSUMED    ASSUMED*   2    yes   CONDITIONAL [unreplicated RESULT; assumed]
+  AP7         K2 CONSTRUCTION, K2/EPS2-T3 CLOSED                 ASSUMED    ASSUMED    ASSUMED    ASSUMED    ASSUMED*   4    yes   NOT SUPPORTED
+  AP8         K2 CONSTRUCTION                                    MEASURED   ASSUMED    ASSUMED*   ASSUMED    AGAINST    5    yes   CONDITIONAL [assumed]
+  AP9         K5 MODEL, K2 CONSTRUCTION                          ASSUMED    AGAINST*   ASSUMED    ASSUMED    MEASURED*  3    yes   CONDITIONAL [model only; contradicted]
+  AP10        K6 MODEL                                           AGAINST*   ASSUMED    ASSUMED    ASSUMED    ASSUMED    2    yes   CONDITIONAL [model only; contradicted]
+  AP2+AP9+K1  K1 RESULT, K2 CONSTRUCTION, K5 MODEL               ASSUMED    ASSUMED*   ASSUMED    ASSUMED    ASSUMED*   -    yes   CONDITIONAL [unreplicated RESULT; model only; assumed]
+  AP1-AP10 by grade: SUPPORTED 0, CONSTRUCTION-BACKED 0, CONDITIONAL 8, NOT SUPPORTED 2
+  CONDITIONAL by reason class (an application can carry several): unreplicated RESULT 2 (AP1, AP6); assumed 6 (AP1, AP2, AP3, AP4, AP6, AP8); model only 3 (AP2, AP9, AP10); contradicted 3 (AP3, AP9, AP10)
+  the 50 dimension cells of AP1-AP10: MEASURED 6, MODELLED 0, ASSUMED 36, AGAINST 8
+  of them load-bearing: MEASURED 2, MODELLED 0, ASSUMED 11, AGAINST 3
+  measured or modelled lines that also carry an opposing word (flags): 0
+  table errors: 0
+
+SENSITIVITY (the grade under the readings the declaration leaves open, the load-bearing flags, and the capability
+readings capabilities.py prints; SUP SUPPORTED, CB CONSTRUCTION-BACKED, COND CONDITIONAL, NS NOT SUPPORTED)
+  columns: primary (A1-A6); letter (A2, A3 off); top-down (A1 off); A3' (a load-bearing AGAINST -> NOT SUPPORTED);
+  LB-AGAINST (every AGAINST cell load-bearing); LB-NONE (no cell load-bearing); then each capability reading:
+    K1=CLOSED: K1 read as CLOSED, because SEC_Analysis FM6 fails (capabilities.txt)
+    K5=CLOSED: K5 read as CLOSED, because DR1 DATA fails (capabilities.txt)
+    K1+K5=CLOSED: the readings above together
+  app         primary     letter      top-down    A3'         LB-AGAINST  LB-NONE     K1=CLOSED   K5=CLOSED   K1+K5=CLOSED
+  AP1         COND        COND        CB          COND        COND        COND        NS          COND        NS         
+  AP2         COND        COND        COND        COND        COND        COND        COND        NS          NS         
+  AP3         COND        COND        CB          NS          COND        CB          COND        COND        COND       
+  AP4         COND        COND        CB          COND        COND        CB          COND        COND        COND       
+  AP5         NS          NS          COND        NS          NS          NS          NS          NS          NS         
+  AP6         COND        COND        COND        COND        COND        COND        NS          COND        NS         
+  AP7         NS          NS          COND        NS          NS          NS          NS          NS          NS         
+  AP8         COND        COND        CB          COND        COND        CB          COND        COND        COND       
+  AP9         COND        none        COND        NS          COND        COND        COND        NS          NS         
+  AP10        COND        none        COND        NS          COND        COND        COND        COND        COND       
+  AP2+AP9+K1  COND        COND        COND        COND        COND        COND        NS          NS          NS         
+  moves under letter:                  2: AP9, AP10
+  moves under top-down:                6: AP1, AP3, AP4, AP5, AP7, AP8
+  moves under A3':                     3: AP3, AP9, AP10
+  moves under LB-AGAINST:              0: -
+  moves under LB-NONE:                 3: AP3, AP4, AP8
+  moves under K1=CLOSED:               3: AP1, AP6, AP2+AP9+K1
+  moves under K5=CLOSED:               3: AP2, AP9, AP2+AP9+K1
+  moves under K1+K5=CLOSED:            5: AP1, AP2, AP6, AP9, AP2+AP9+K1
+
+FORECASTS (the declaration, written before any source or script), scored
+  1. No application is SUPPORTED; K1 is at most RESULT (SEC4-1) with a failed replication, unless SEC6-1 changes that.
+     applications SUPPORTED: 0 (none); K1 RESULT, SEC5-1 FAIL, SEC6-1 pending (holds) -> HOLDS
+  2. AP2, AP3, AP4, AP7 and AP8 are CONSTRUCTION-BACKED.
+     AP2 CONDITIONAL, AP3 CONDITIONAL, AP4 CONDITIONAL, AP7 NOT SUPPORTED, AP8 CONDITIONAL; CONSTRUCTION-BACKED 0 of 5 -> FAILS
+     sensitivity, letter reading: CONSTRUCTION-BACKED 0 of 5 (none)
+     sensitivity, top-down reading: CONSTRUCTION-BACKED 3 of 5 (AP3, AP4, AP8)
+  3. AP1 is CONDITIONAL. AP5 is NOT SUPPORTED (K4's gates closed). AP6 waits on ROB1.
+     AP1 CONDITIONAL (holds); AP5 NOT SUPPORTED, K4 CLOSED (holds); ROB1 pending, AP6 CONDITIONAL (holds) -> HOLDS
+  4. The strongest honest case is AP2 + AP9 with K1; it is still CONDITIONAL, and its energy claim is MODELLED (the
+     Compute_Savings estimates), not MEASURED at scale.
+     AP2+AP9+K1 CONDITIONAL (holds); its Energy cell ASSUMED, computed from the lines it cites (fails) -> FAILS
+     'the strongest honest case' is a judgement and is not scored; beside it, the applications graded above
+     CONDITIONAL on the declaration's scale: none
+  forecasts: 1 HOLDS, 2 FAILS, 3 HOLDS, 4 FAILS
+  sensitivity K1=CLOSED: forecasts 1 HOLDS, 2 FAILS, 3 FAILS, 4 FAILS
+  sensitivity K5=CLOSED: forecasts 1 HOLDS, 2 FAILS, 3 HOLDS, 4 FAILS
+  sensitivity K1+K5=CLOSED: forecasts 1 HOLDS, 2 FAILS, 3 FAILS, 4 FAILS
+
+files read (sha256):
+  6303ab129744e1b2de31ddd13218ba05324b6024eb4889ff857964e568ea8625  AI_Safety/CORRIGIBILITY_2026/checks/grade.txt
+  4e2b2a85c80b3af0aea1834692920e4f841317552adebe83b59c12adecdcc834  AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt
+  8cef83e22a615e26b91ea011a4fc65fd838df5143a762cbafdd805ffef2f973d  AI_Safety/NT1/checks/nt1.txt
+  4cde2219cfe2cda67ebb8176d388081c0a5feb1d102e62f8ac5a9bdc527e8cd2  Attention_Algorithms/checks/attention_world.txt
+  7a31f8fbf8766f238de81727324630c4f63b13642cbb80f5594b97e813e7b794  Attention_Algorithms/checks/grade.txt
+  78ef204b82874e35c626878d3da3283f5187bb0dd66138e07b60dcf56737acb9  Compute_Savings/checks/global_estimate.txt
+  8a9c6b94129ee5f34f80cb5249c21a18272a5b8815d041a08fbbca03095cc18b  Compute_Savings/checks/scale_estimate.txt
+  957ec92263d7fadd71ae17788c8ce31e7b46d030e5e02ee83bf2bf9ce8bf54b9  Coupling/checks/cpl_phase_a.txt
+  d0ec033777357152a02a428e79d9b8de3a7f2109965b1e29021be607f6f6119f  Empty_Cut_Engineering/checks/c1_c2.txt
+  77c8045bd5c01f3dda5488289a29d073e5264540a664d4bae08c621b0fca6fc8  Empty_Cut_Engineering/checks/c3_worlds.txt
+  43ff548384b12ec28434e0699ac4447b095de6291c4402565f90fcacd47540de  Empty_Cut_Engineering/checks/stack.py
+  6275157dcc7a2e17e2ffe7fcae760c304b6e65958ae350d06bc7c3ce312deb56  Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md
+  54ef03916a410d3c686d4be3665072d76a1010eece4f86ab1131eac05a2b4a63  Empty_Pause_Systems/batches/eps2_02.txt
+  c413e71b8982a0098dd6c8e298b8f4be311b493095589bf51b43ac90a947f765  Empty_Pause_Systems/checks/tally.txt
+  9cd3b73058071be09e8c044a569bb2fb03c8ab0ec680a2c89c179ffc66b5f432  Empty_Pause_Systems/checks/tally_eps2.txt
+  10f0f0276dceef91886bedf727f1efce7574ad27c1f3068a6d21313b09d970c6  Energy Design Principle/checks/consolidated_estimate.txt
+  0d9746fa25e84c3be4263eb86ad25e2c377d1fc7d74fc2fe991df2a563c9e2b6  Grid_Demand_Response/GRID_DEMAND_RESPONSE.md
+  8c380f32c469df07ce82965bf898df7360a810aa937331224e5c2dc51ad32189  Grid_Demand_Response/checks/dr_summary.txt
+  6a181c4950f46aa1ce76fe66e7edc0580c0b6811c8e528804daa2f8c16d97be0  Grid_Demand_Response/checks/followup_1.txt
+  a1cfe216007f52453de6109cc0ee4b267415cd355b949fc24cacf158c4e7ad8c  Grid_Demand_Response/checks/followup_2.txt
+  5793811997c72a80fd002800a2b06a13e9fb73fce04224315e015a0eabf291f8  Grid_Demand_Response/checks/followup_3.txt
+  78694f25aeac6915448bf9705a6904c3cac6237565e16b7a9ffea5a9bd52aef9  Grid_Demand_Response/checks/followup_4.txt
+  bc301fd0c63cd3c884a3ac9f5471f01e9c7ae783443810e149e3128157eb31bd  Grid_Demand_Response/checks/grade.txt
+  41732d0c4ab1250a5648ff087b1ed2dbc60e6305526ad8d7aebe96aae3e35dad  Lossless_Pause/LOSSLESS_PAUSE.md
+  f34c6c5790e0f95a0bc074e317a5ccbb466359936027d8e68d3e2cde141c03e3  Lossless_Pause/checks/grade_claims.txt
+  a3fb40a96fd7a320969f1805958873b8a0a4a14dcafc5641968383d7ec944cb9  Lossless_Pause/checks/grade_sweep.txt
+  c50be659390ee32901fe1484effab2456d767448b28627abfaeef12430a8103e  Lossless_Pause/checks/transformer_pause.txt
+  8624dd057e4fd5e1dde4cc91c290ffdbda5b333107d08f2a7770eb09d9ffb546  Lossless_Pause/checks/transformer_pause_run1_gate_closed.txt
+  f1aa0072532958cb8318c805e437bfc52310c5d6c7272b5aff7a1f5a909b17db  Real_World/RW1.md
+  275c09868aeb3a14eb32a9def1bbb4d70eb1466b20f83ef3c76d3e1fd63c1eeb  Real_World/checks/rw1.txt
+  d5a34d46cd08731d02e6efe3a456c2ddbcc8bbaa30383bf86bd88eea21bdf6e8  Real_World/checks/rw2_phaseA.txt
+  aede0ba0daaa7520beab7676cdbb2b07f2502382748b01510ccdc0a1b2182653  Real_World/checks/rw2_phaseA_2.txt
+  38ac40de375c96c6a32bfa8ae2f7e06be131953a172a31d369e1742cf1fbcae7  Robotics/checks/tally_4b.txt
+  ce040fc0003d50117a3e9940f62d705909e594e323b8f5ce24d2f8b7068bbd14  SEC_Analysis/checks/m_checks.txt
+  c1c8ad3d855d0abde1f6c551c3cd0ac529aea81572cf632b929ff41f423ac4fc  SEC_Prior_Art/checks/compare.txt
+  56632a9afcc62251e1c07dedc17b4f28f89fe29b79a713872e401bf72ae0c844  SEC_Prior_Art/checks/grade.txt
+  28a3413b265e4c0557c08119b363bc8b5feebb69579b4501a2163847d930816d  prereg/sec6/PREREG.md
+errors (table, incumbents and capability MAP): 0
