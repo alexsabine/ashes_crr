@@ -37,7 +37,10 @@ ZERO, ONE = Fr(0), Fr(1)
 TOL = Fr(1, 100)                         # G-NEG's declared 1 %
 G7_BOUND = Fr(1, 100)                    # the declared expectation: revenue below 1 % of the fleet's compute cost
 
-POST_FIRST_RUN_CHANGES: list[str] = []
+POST_FIRST_RUN_CHANGES: list[str] = [
+    "(1) output only: the cross-check now also prints its agreement count per arm (the first run printed the total only); no "
+    "input, rule, threshold or scored number changed",
+]
 
 # ============================================================================================ sourced inputs (verbatim quotes)
 # (id, dossier, citation, verbatim quote (a substring of the dossier text), regex over the quote, group names)
@@ -644,6 +647,7 @@ def main() -> int:
     print("(drlib.solve, the season's real events and prices known in advance, ties accept) against the online rule; per arm the")
     print("events joined and the revenue (GBP), and whether the two agree event by event")
     xc_n = xc_agree = 0
+    xc_arm = {}
     for s, S in seasons.items():
         for idx in (0, 19, 99):
             job = jobs[idx]
@@ -671,9 +675,13 @@ def main() -> int:
                 rev_on = sum((ev[k]["price"] * m.e1 * m.heff(ev[k]["H"]) * P_JOB for k in on_idx), ZERO)
                 xc_n += 1
                 xc_agree += int(agree)
+                xa = xc_arm.setdefault(arm.name, [0, 0])
+                xa[0] += int(agree)
+                xa[1] += 1
                 print(f"  {s:9} {job.name} {arm.name:4}: offers {len(ev):>4}; backward induction joins {pl['events']:>4}, revenue "
                       f"{f(rev_bi, 2):>11}; online rule joins {n_on:>4}, revenue {f(rev_on, 2):>11}; same events: {dl.yn(agree)}")
-    print(f"  the online rule and backward induction choose the same events in {xc_agree} of {xc_n} (season, job, arm) cells")
+    print(f"  the online rule and backward induction choose the same events in {xc_agree} of {xc_n} (season, job, arm) cells ("
+          + "; ".join(f"{a} {v[0]} of {v[1]}" for a, v in xc_arm.items()) + ")")
     print()
 
     # ------------------------------------------------------------------------------------------------ sensitivities

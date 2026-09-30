@@ -1715,3 +1715,7 @@ Please run full checks on grid demand response.
 ## 242 — 2026-09-30T01:35:53Z
 
 Have we already conducted literature sweeps on the SEC method?
+
+## 243 — 2026-09-30T01:42:09Z
+
+With the SEC, if we were to actually implement it on a handheld device or showcase it on a banking system, what would the user experience be? e.g. how would the use of the device feel tangibly different for the leader of a banking firm and/or the mobile phone general user? Please think carefully. I am thinking for a "feel the difference" interpretation  - end user scenario (assuming the technology gets to that stage)

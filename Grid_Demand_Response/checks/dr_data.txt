@@ -1,0 +1,1257 @@
+DR1 check DATA: the real-data application on public demand-response event records (Grid_Demand_Response/DECLARATION.md section 3, declared at e67e8ee)
+Declared expectations: ETM joins every event; its revenue is below 1 % of the fleet's compute cost in an ordinary season
+(G7); the commercial value, if any, lies in interconnection (G8), not in event payments.
+An application calculation on public data, not a test of a CRR hypothesis: no ledger row; a note, not evidence (R8).
+
+DATA (Grid_Demand_Response/data/MANIFEST.md; fetched by Grid_Demand_Response/data/fetch_dfs.py)
+  a25_sr.csv                                           sha256 matches the manifest: yes
+  a25_sum.csv                                          sha256 matches the manifest: yes
+  a25_util.csv                                         sha256 matches the manifest: yes
+  ckan_demand-flexibility-service-live-events.json     sha256 matches the manifest: yes
+  ckan_demand-flexibility-service-test-events.json     sha256 matches the manifest: yes
+  ckan_demand-flexibility-service.json                 sha256 matches the manifest: yes
+  ckan_demand-flexibility.json                         sha256 matches the manifest: yes
+  cur_sr.csv                                           sha256 matches the manifest: yes
+  cur_sum.csv                                          sha256 matches the manifest: yes
+  cur_util.csv                                         sha256 matches the manifest: yes
+  s2223L_sr.csv                                        sha256 matches the manifest: yes
+  s2223L_sum.csv                                       sha256 matches the manifest: yes
+  s2223L_util.csv                                      sha256 matches the manifest: yes
+  s2223T_sr.csv                                        sha256 matches the manifest: yes
+  s2223T_sum.csv                                       sha256 matches the manifest: yes
+  s2223T_util.csv                                      sha256 matches the manifest: yes
+  s2324_sr.csv                                         sha256 matches the manifest: yes
+  s2324_sum.csv                                        sha256 matches the manifest: yes
+  s2324_util.csv                                       sha256 matches the manifest: yes
+  source: GB NESO Demand Flexibility Service, every season on the NESO data portal (the first reachable of the declared
+  order; the US ISO/RTO and other sources were therefore not tried)
+
+INPUTS
+  SOURCED (each quote checked verbatim against the dossier text at run time; the number parsed out of the quote):
+    [DFS-K] dr1_f2: NESO DFS Service Terms v4.0 (2026), Schedule 1; found verbatim: yes; parsed: yes -> rv_lo = 50, rv_hi = 120
+      "Kie = 1.2 if RVie ≥120 Kie = 0.01*RVie if 50 ≤ RVie < 120"
+    [DFS-RV] dr1_f2: NESO DFS Service Terms v4.0 (2026), Schedule 1; found verbatim: yes; parsed: yes -> sp_h = 0.5
+      "RVie = 100* (Vie / (Qie * 0.5))"
+    [DFS-MAX] dr1_f2: NESO DFS Procurement Rules v5.0 (2026); found verbatim: yes; parsed: yes -> max_mw = 100
+      "“Maximum Submission Size” 100MW;"
+    [DFS-BIDIR] dr1_f2: NESO DFS service web page (fetched 2026-09-29); found verbatim: yes; parsed: yes -> day = 9, year = 2026
+      "On 9 April 2026, the service expanded further with the introduction of bi-directional flexibility"
+    [DFS-2223] dr1_f2: NESO (as ESO) DFS winter 2022/23 review (2023-08-30); found verbatim: yes; parsed: yes -> live_avg = 4559
+      "For live events, the average price paid was £4,559/MWh."
+    [DFS-2425-SCEN] dr1_f2: NESO DFS winter 2024/25 report (2025-07-03); found verbatim: yes; parsed: yes -> avg_all = 21009, avg_1h = 7558, low_all = 17918, low_1h = 3142
+      "Average (based on mean accepted bid) £ 21,009 £ 7,558 Low (lowest accepted bid) £ 17,918 £3,142"
+    [DFS-2425-HIGH] dr1_f2: NESO DFS winter 2024/25 report (2025-07-03); found verbatim: yes; parsed: yes -> high_bp = 33560
+      "High (based on Breakpoints) £ 33,560*"
+    [AWS] dr1_f5: AWS EC2 price list JSON (publication 2026-09-25), p5.48xlarge, US East, Linux; found verbatim: yes; parsed: yes -> node_h = 55.04
+      ""price":"55.0400000000","Location":"US East (N. Virginia)""
+    [CW] dr1_f5: CoreWeave pricing page (fetched 2026-09-29), HGX H100 (8 GPU); found verbatim: yes; parsed: yes -> od_node_h = 49.24, spot_node_h = 19.71
+      "NVIDIA HGX H100 On-Demand Price: $49.24 / Hour Spot Price: $19.71 / Hour"
+    [LAMBDA-OD] dr1_f5: Lambda pricing page (fetched 2026-09-29), H100 SXM 8x instance; found verbatim: yes; parsed: yes -> gpu_h = 3.99
+      "NVIDIA H100 SXM 80 GB 208 1800 GiB 22 TiB SSD $3.99"
+    [LAMBDA-RES] dr1_f5: Lambda pricing page, H100 cluster reservation 2 weeks - 1 year; found verbatim: yes; parsed: yes -> gpu_h = 5.54
+      "NVIDIA H100 2 weeks – 1 year 256 $5.54"
+    [RUNPOD] dr1_f5: RunPod pricing page (fetched 2026-09-29), H100 SXM pod; found verbatim: yes; parsed: yes -> gpu_h = 3.49
+      "H100 SXM 80 GB VRAM 125 GB RAM 20 vCPUs $ 3.49 /hr"
+    [IDX-NEO] dr1_f5: Bandi & Su arXiv:2607.12156 v3, Table 1 (Silicon Data H100 neo-cloud index, 2026-04-18); found verbatim: yes; parsed: yes -> gpu_h = 2.5
+      "H100 NEO SDH100RT 595 2024-09-01 2026-04-18 2.500"
+    [IDX-HS] dr1_f5: Bandi & Su arXiv:2607.12156 v3, Table 1 (Silicon Data H100 hyperscaler index, 2026-04-18); found verbatim: yes; parsed: yes -> gpu_h = 7.43
+      "H100 HS 595 2024-09-01 2026-04-18 7.430"
+    [DGX] dr1_f5: NVIDIA DGX H100 datasheet; found verbatim: yes; parsed: yes -> gpus = 8, kw = 10.2
+      "GPU 8x NVIDIA H100 Tensor Core GPUs GPU memory 640GB total Performance 32 petaFLOPS FP8 NVIDIA® NVSwitch™ 4x System power usage ~10.2kW max"
+    [FLEX] dr1_f1: Colangelo et al. arXiv:2507.00909 v1 (flexibility tiers); found verbatim: yes; parsed: yes -> x1 = 10, w_lo = 3, w_hi = 6, x2 = 25, x3 = 50
+      "(b) Flex 1: up to 10% performance (average throughput) reduction allowed over a 3-6 hour period; (c) Flex 2: up to 25% allowed; (d) Flex 3: up to 50% allowed."
+    [MS-5] dr1_f4: MegaScale (NSDI '24): optimised initialisation; found verbatim: yes; parsed: yes -> s = 5
+      "The initialization time is reduced to under 5 seconds on 2048 GPUs"
+    [MS-1047] dr1_f4: MegaScale (NSDI '24): default initialisation; found verbatim: yes; parsed: yes -> s = 1047
+      "the initialization time for Megatron-LM on 2,048 NVIDIA Ampere GPUs is approximately 1047 second"
+    [KOK-U0] dr1_f4: Kokolis et al. arXiv:2410.21680 v2: restart overhead u0 on the RSC clusters; found verbatim: yes; parsed: yes -> lo = 5, hi = 20
+      "wcp ≈5 mins, u0 ≈5 −20 mins"
+  ASSUMED  fleet 100 MW (declaration section 3), 100 jobs of 1 MW each (the H3 portfolio)
+  DECLARED W = 1000 compute-hours per job, value 1 per compute-hour at completion (EPS2 T1 units, as H3)
+  ASSUMED  R = 0.1 h restart overhead per pause event (EPS2 T1; H3); S = 0, lost = 0 (H3); sensitivity with the F4 values
+  ASSUMED  slack of job i = 5 i h, i = 1..100 (the H3 portfolio); every job at full power when it runs
+  ASSUMED  1.35 USD per GBP (no dossier quotes an exchange rate); sensitivity 1.2, 1.5
+  ASSUMED  a rented 8x H100 node draws the DGX H100 maximum [DGX] all the time it is rented; PUE 1 (no facility overhead)
+  ASSUMED  one value unit = the compute cost of one MWh of the job's compute: a job is worth what its compute costs, so the
+           payment in value units per curtailed fleet-hour is pi = price (GBP/MWh) / C (GBP per MWh of compute)
+  ASSUMED  the fleet is a price-taker: its 100 MW is accepted at the event's price and does not move it (DFS is pay-as-bid;
+           the SPs where 100 MW more than NESO procured would exceed the published requirement are counted below)
+  ASSUMED  the fleet delivers exactly its accepted volume, RV = 100 %, so the performance factor K = 0.01 * RV = 1 [DFS-K]
+           and the settlement is 0.5 * price * MW per half-hour [DFS-RV]; no penalty ever applies
+  ASSUMED  power drawn while paused 0 (EPS2 T1); a throttle's power is linear in its throughput (drlib's default)
+
+CHOICES
+  C1 price of an SP (scored: 'mean') = NESO's accepted total cost / (procured MW x 0.5 h), the volume-weighted mean accepted
+     bid; sensitivity 'min' / 'max' = the lowest / highest accepted utilisation price in the SP (utilisation report). An SP
+     with no accepted bid (procured 0) carries no price and is not offered to the fleet (counted). An SP whose accepted
+     bids are missing from the utilisation report takes the mean for 'min' and 'max' (counted).
+  C2 direction: only demand turn-down (Downwards) SPs are offered (a training fleet at full power cannot turn up); SPs
+     before 9 April 2026 carry no direction field and are turn-down [DFS-BIDIR]; turn-up SPs are counted and excluded
+  C3 an event = a maximal run of contiguous priced turn-down SPs (whatever their Event ID or Live/Test type); where two
+     events cover one SP the fleet sells into the better paid one (one sale per SP); the event's price is its SPs' mean
+     price (each SP 0.5 h); curtailment is all or nothing per event per job (DFS accepts a submission only in full)
+  C4 seasons: winter November-March, summer April-October; the fleet's period in a season = 00:00 of its first event day
+     to 24:00 of its last (shorter than the calendar season, which raises the revenue share); the fleet's compute cost
+     over the period = 100 MW x period hours x C (rented compute is paid for while paused)
+  C5 ordinary season = every season except W2022/23, the season the F2 sources mark as the scarcity exception [DFS-2223]
+  C6 each of the 100 slots runs its slack class's jobs back to back from the period start (the next job starts when the
+     previous one completes on the wall clock); an event belongs to the job running at its start
+  C7 decision rule (the declaration's section 3, one rule on drlib's arithmetic): at each event the running job joins iff
+     the payment covers the event's charge on the arm's valuation (pi e >= c; ties accept, drlib's convention) and the
+     arm's deadline still holds after the event. ETM: c = R (own clock), deadline W + n R <= D (own steps): 'whenever the
+     price covers R/H'. OWN: c = R, deadline W + sum(H + R) <= D (wall): 'while slack lasts'. WALL: c = H + R (wall
+     clock), same deadline: 'when the price exceeds its wall-clock loss'. TIER: throughput 1 - x for min(H, w) hours,
+     c = 0, wall delay x min(H, w): 'within its tier'. Online: no arm knows the later events (a foresight reading by
+     backward induction is printed as a cross-check). A pause arm cannot join an event that starts before its
+     previous event and restart have ended (counted as blocked).
+  C8 revenue per event = event price x curtailed MWh (pause: H x 1 MW per job; TIER: x min(H, w) x 1 MW)
+  C9 compute cost C (scored) from the H100 neo-cloud index [IDX-NEO] (the lowest sourced price that is not spot; a lower C
+     raises the revenue share and lowers ETM's entry price); every other sourced price in SENSITIVITY 1
+  C10 Q holds iff ETM joins every offered event with all 100 jobs in every season AND ETM's revenue is below 1 % of the
+     fleet's compute cost in every ordinary season (primary inputs); fails otherwise. G8 is not computable from event data
+     (it is graded by the sweep, grade.py) and is not part of Q.
+
+THE RECORDS
+  settlement-period rows (all summary files) 2369; turn-up excluded 308; turn-down with no accepted bid (no price) 499; priced turn-down 1562
+  priced SPs with accepted bids in the utilisation report 1562; without (min/max fall back to the mean) 0; summary cost within 1 % of the utilisation report's accepted MW x price x 0.5 h in 1562 of 1562 (max relative difference 0.000778)
+  per season (turn-down SPs):
+    W2022/23  dates 2022-11-15..2023-03-28; turn-down SPs 45, priced 45 (Live/Test); mean accepted price over priced SPs 3161.03 GBP/MWh (min 2799.00, max 6500.00); SPs where NESO's procured MW + 100 MW exceeds the requirement 39 of 45
+    W2023/24  dates 2023-11-16..2024-03-21; turn-down SPs 32, priced 32 (Live/Test); mean accepted price over priced SPs 2734.85 GBP/MWh (min 150.00, max 6000.00); SPs where NESO's procured MW + 100 MW exceeds the requirement 26 of 32
+    W2024/25  dates 2024-11-29..2025-03-31; turn-down SPs 308, priced 232 (Live); mean accepted price over priced SPs 187.33 GBP/MWh (min 59.00, max 1290.00); SPs where NESO's procured MW + 100 MW exceeds the requirement 2 of 232
+    S2025     dates 2025-04-01..2025-10-29; turn-down SPs 584, priced 401 (Live); mean accepted price over priced SPs 115.24 GBP/MWh (min 50.00, max 400.00); SPs where NESO's procured MW + 100 MW exceeds the requirement 0 of 401
+    W2025/26  dates 2025-11-06..2026-03-27; turn-down SPs 238, priced 158 (Live); mean accepted price over priced SPs 131.91 GBP/MWh (min 87.00, max 350.00); SPs where NESO's procured MW + 100 MW exceeds the requirement 0 of 158
+    S2026     dates 2026-04-14..2026-09-29; turn-down SPs 854, priced 694 (Live/Test); mean accepted price over priced SPs 165.10 GBP/MWh (min 72.60, max 987.40); SPs where NESO's procured MW + 100 MW exceeds the requirement 0 of 694
+
+COMPUTE COST (scored): C = 5/2 USD per GPU-hour x 8 GPUs / 51/5 kW / 1.35 USD per GBP = 1452.4328 GBP per MWh of compute (exact 2000000/1377)
+  ETM's entry price per event = C R / H: 290.49 GBP/MWh at H = 0.5 h, 145.24 at 1 h, 72.62 at 2 h, 36.31 at 4 h; WALL's = C (1 + R/H): 1742.92 at 0.5 h, 1597.68 at 1 h
+
+EVENTS (scored price 'mean'): concurrent turn-down events on one SP 2 (the better paid kept); merges across Event IDs 2
+
+PER-EVENT TABLE (scored run). Per event: start (published local time), H (h), SPs, type, price = mean accepted (GBP/MWh),
+min / max accepted, GAP (tests, where published), NESO's requirement (min over SPs) and procured (max) MW, ETM's entry
+price C R/H, and per arm the jobs (of 100) that joined
+  season W2022/23: 21 events; period 134 days
+       # date       from     H SPs type          price      min      max    GAP    req    proc ETM entry           ETM           OWN          WALL   TIER-10%/3h   TIER-10%/6h   TIER-25%/3h   TIER-25%/6h   TIER-50%/3h   TIER-50%/6h
+       1 2022-11-15 17:00    1   2 Test        2999.96  3000.00  3000.00      -  200.0    77.5    145.24           100           100           100           100           100           100           100           100           100
+       2 2022-11-22 17:30    1   2 Test        3000.01  3000.00  3000.00      -  200.0   139.8    145.24           100           100           100           100           100           100           100           100           100
+       3 2022-11-30 17:30    1   2 Test        3000.01  3000.00  3000.00      -  250.0   158.1    145.24           100           100           100           100           100           100           100           100           100
+       4 2022-12-01 17:00    1   2 Test        3000.00  3000.00  3000.00      -  250.0   168.6    145.24           100           100           100           100           100           100           100           100           100
+       5 2022-12-12 17:00    2   4 Test        2999.97  3000.00  3000.00      -  300.0   155.4     72.62           100            99            99           100           100           100           100           100           100
+       6 2022-12-21 17:30    1   2 Test        3000.13  3000.00  3000.00      -  100.0    39.1    145.24           100            99            99           100           100           100           100           100           100
+       7 2022-12-23 17:30    1   2 Test        3000.46  3000.00  3000.00      -  100.0    21.6    145.24           100            99            99           100           100           100           100           100           100
+       8 2023-01-17 17:30    1   2 Test        3000.00  3000.00  3000.00      -  100.0    56.9    145.24           100           100           100           100           100           100           100           100           100
+       9 2023-01-19 09:00    1   2 Test        2999.96  3000.00  3000.00      -  150.0   208.4    145.24           100           100           100           100           100           100           100           100           100
+      10 2023-01-23 17:00    1   2 Live        3954.44  2799.00  6000.00      -  323.0   336.9    145.24           100           100           100           100           100           100           100           100           100
+      11 2023-01-24 16:30  1.5   3 Live        4779.48  2799.00  6500.00      -  274.0   327.2     96.83           100           100           100           100           100           100           100           100           100
+      12 2023-01-30 09:00    1   2 Test        2999.96  3000.00  3000.00      -  250.0   188.4    145.24           100            99            99           100           100           100           100           100           100
+      13 2023-01-31 17:30    1   2 Test        3000.50  3000.00  3000.00      -  100.0    20.3    145.24           100            99            99           100           100           100           100           100           100
+      14 2023-02-13 17:30    1   2 Test        3000.00  3000.00  3000.00      -  250.0   232.6    145.24           100           100           100           100           100           100           100           100           100
+      15 2023-02-16 17:00    1   2 Test        3000.00  3000.00  3000.00      -  100.0    34.9    145.24           100           100           100           100           100           100           100           100           100
+      16 2023-02-21 17:30    1   2 Test        3000.00  3000.00  3000.00      -  250.0   252.4    145.24           100           100           100           100           100           100           100           100           100
+      17 2023-03-14 18:00    1   2 Test        2999.20  3000.00  3000.00      -   50.0    14.1    145.24           100           100           100           100           100           100           100           100           100
+      18 2023-03-15 18:30    1   2 Test        2999.97  3000.00  3000.00      -  250.0   270.7    145.24           100            99            99           100           100           100           100           100           100
+      19 2023-03-21 18:00    1   2 Test        2999.50  3000.00  3000.00      -   50.0     8.0    145.24           100           100           100           100           100           100           100           100           100
+      20 2023-03-23 18:30    1   2 Test        3000.02  3000.00  3000.00      -  300.0   264.9    145.24           100           100           100           100           100           100           100           100           100
+      21 2023-03-28 18:00    1   2 Test        3000.00  3000.00  3000.00      -   25.0     7.0    145.24           100           100           100           100           100           100           100           100           100
+  season W2023/24: 17 events; period 127 days
+       # date       from     H SPs type          price      min      max    GAP    req    proc ETM entry           ETM           OWN          WALL   TIER-10%/3h   TIER-10%/6h   TIER-25%/3h   TIER-25%/6h   TIER-50%/3h   TIER-50%/6h
+       1 2023-11-16 17:00  1.5   3 Test        3000.00  3000.00  3000.00   3000  250.0   395.0     96.83           100           100           100           100           100           100           100           100           100
+       2 2023-11-29 17:00  1.5   3 Live        4439.74  1000.00  6000.00      -  550.0   459.0     96.83           100           100           100           100           100           100           100           100           100
+       3 2023-12-01 16:30  1.5   3 Live        5012.66  3000.00  6000.00      -  550.0   487.0     96.83           100           100           100           100           100           100           100           100           100
+       4 2023-12-05 17:30    1   2 Test        3000.00  3000.00  3000.00   3000  500.0   523.0    145.24           100            99            99           100           100           100           100           100           100
+       5 2023-12-12 17:00    1   2 Test        3000.00  3000.00  3000.00   3000  400.0   323.0    145.24           100            99            99           100           100           100           100           100           100
+       6 2023-12-14 17:00    1   2 Test        3000.00  3000.00  3000.00   3000  500.0   309.0    145.24           100            99            99           100           100           100           100           100           100
+       7 2023-12-15 17:00  1.5   3 Test        3000.00  3000.00  3000.00   3000  350.0   382.0     96.83           100            99            99           100           100           100           100           100           100
+       8 2023-12-19 17:00    1   2 Test        3000.00  3000.00  3000.00   3000  350.0   300.0    145.24           100            98            98           100           100           100           100           100           100
+       9 2024-01-17 17:30    1   2 Test        3000.00  3000.00  3000.00   3000  400.0   377.0    145.24           100           100           100           100           100           100           100           100           100
+      10 2024-02-02 17:00    1   2 Test        1895.23  1000.00  2500.00      -  200.0   161.0    145.24           100           100           100           100           100           100           100           100           100
+      11 2024-02-08 18:00    1   2 Test        1498.45  1000.00  1725.00      -  175.0   179.0    145.24           100           100             0           100           100           100           100           100           100
+      12 2024-02-29 18:00  0.5   1 Test        1125.13   900.00  1200.00      -  125.0   151.0    290.49           100           100             0           100           100           100           100           100           100
+      13 2024-03-01 18:00  0.5   1 Test         568.25   400.00   750.00      -   50.0    56.0    290.49           100           100             0           100           100           100           100           100           100
+      14 2024-03-02 18:00  0.5   1 Test         720.90   499.00  1000.00      -  100.0   100.0    290.49           100           100             0           100           100           100           100           100           100
+      15 2024-03-14 18:00  0.5   1 Test         609.21   150.00   735.00      -   50.0    56.0    290.49           100           100             0           100           100           100           100           100           100
+      16 2024-03-21 17:30  0.5   1 Test         659.30   425.00   735.00      -   75.0    80.0    290.49           100           100             0           100           100           100           100           100           100
+      17 2024-03-21 18:30  0.5   1 Test         687.83   425.00   750.00      -   75.0    84.0    290.49           100           100             0           100           100           100           100           100           100
+  season W2024/25: 48 events; period 119 days
+       # date       from     H SPs type          price      min      max    GAP    req    proc ETM entry           ETM           OWN          WALL   TIER-10%/3h   TIER-10%/6h   TIER-25%/3h   TIER-25%/6h   TIER-50%/3h   TIER-50%/6h
+       1 2024-12-03 16:00    3   6 Live         519.82   500.00   572.00      -  500.0    12.0     48.41           100           100             0           100           100           100           100           100           100
+       2 2024-12-09 16:00    3   6 Live         123.33    90.00   150.00      -  500.0     1.0     48.41           100            99             0           100           100           100           100           100           100
+       3 2024-12-10 16:00    3   6 Live         125.00   100.00   150.00      -  500.0     1.0     48.41           100            99             0           100           100           100           100           100           100
+       4 2024-12-11 16:00    3   6 Live         525.37   300.00   750.00      -  500.0   111.4     48.41           100            98             0           100           100           100           100            99            99
+       5 2024-12-12 16:00    2   4 Live         458.91   400.00   575.00      -  500.0    44.0     72.62           100            98             0           100           100           100           100            99            99
+       6 2024-12-27 17:00    2   4 Live         110.08    59.00   115.00      -  300.0    30.0     72.62           100            97             0           100           100           100           100            99            99
+       7 2025-01-08 16:00    3   6 Live         498.44   300.00  1290.00      -  500.0   184.0     48.41           100            97             0           100           100           100           100            99            99
+       8 2025-01-14 17:00    2   4 Live         160.79   150.00   180.00      -  300.0    54.0     72.62           100           100             0           100           100           100           100           100           100
+       9 2025-01-17 16:00    1   2 Live         150.00   150.00   150.00      -  500.0     1.0    145.24           100           100             0           100           100           100           100           100           100
+      10 2025-01-17 18:00    1   2 Live         120.00   120.00   120.00      -  500.0     1.0    145.24             0             0             0           100           100           100           100           100           100
+      11 2025-01-20 16:00    3   6 Live         272.22   140.00   399.00      -  500.0    39.0     48.41           100            99             0           100           100           100           100           100           100
+      12 2025-01-21 16:00    3   6 Live         304.68   225.00   375.00      -  500.0   184.7     48.41           100            99             0           100           100           100           100           100           100
+      13 2025-01-22 16:00    3   6 Live         636.23   340.00   740.00      -  500.0   187.8     48.41           100            98             0           100           100           100           100            99            99
+      14 2025-01-23 16:00    3   6 Live         125.25   100.00   150.00      -  400.0    50.0     48.41           100            97             0           100           100           100           100            99            99
+      15 2025-01-29 16:00    2   4 Live         110.07   100.00   130.00      -  500.0    41.0     72.62           100            98             0           100           100           100           100            99            99
+      16 2025-02-03 16:00    3   6 Live         134.54   120.00   145.00      -  500.0    41.0     48.41           100            96             0           100           100            99            99            98            98
+      17 2025-02-05 16:00    3   6 Live         148.53   125.00   175.00      -  500.0    54.4     48.41           100            96             0           100           100            99            99            98            98
+      18 2025-02-06 16:00    3   6 Live         136.34   123.00   150.00      -  500.0    54.4     48.41           100            95             0           100           100            99            99            98            98
+      19 2025-02-11 17:00    2   4 Live         144.87   140.00   150.00      -  200.0    41.0     72.62           100            96             0           100           100           100           100            99            99
+      20 2025-02-12 16:00    3   6 Live         146.87   120.00   160.00      -  300.0   193.3     48.41           100            94             0           100           100            99            99            97            97
+      21 2025-02-14 16:00    3   6 Live         128.77   110.00   150.00      -  500.0    15.7     48.41           100            93             0           100           100            99            99            97            97
+      22 2025-02-17 17:00    2   4 Live         151.60   120.00   175.00      -  500.0   192.8     72.62           100            94             0           100           100            99            99            97            97
+      23 2025-02-18 16:00    2   4 Live         139.55   110.00   160.00      -  300.0   185.6     72.62           100            93             0           100           100            99            99            97            97
+      24 2025-02-19 17:00    2   4 Live         123.92   100.00   130.00      -  500.0    44.4     72.62           100            92             0           100           100            98            98            96            96
+      25 2025-02-20 16:00    3   6 Live         117.36   105.00   130.00      -  500.0    38.4     48.41           100            92             0           100           100            98            98            96            96
+      26 2025-02-24 16:00    3   6 Live         145.46   115.00   149.00      -  500.0     8.2     48.41           100            92             0           100           100            98            98            96            96
+      27 2025-02-25 16:00    3   6 Live         134.17   104.00   160.00      -  500.0   185.6     48.41           100            92             0           100           100           100           100           100           100
+      28 2025-02-28 16:00    3   6 Live         120.91   120.00   130.00      -  500.0     7.3     48.41           100            99             0           100           100           100           100           100           100
+      29 2025-03-02 17:00    2   4 Live         120.34   120.00   125.00      -  500.0     7.3     72.62           100            99             0           100           100           100           100           100           100
+      30 2025-03-03 16:00    3   6 Live         133.50   105.00   161.00      -  500.0   159.8     48.41           100            98             0           100           100           100           100            99            99
+      31 2025-03-04 16:00  0.5   1 Live         115.00   115.00   115.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100           100           100
+      32 2025-03-04 17:00    2   4 Live         145.98   130.00   160.00      -  500.0   173.9     72.62           100            98             0           100           100           100           100            99            99
+      33 2025-03-05 16:00    3   6 Live         154.84   130.00   160.00      -  500.0   160.8     48.41           100            97             0           100           100           100           100            99            99
+      34 2025-03-06 16:00    3   6 Live         110.67   100.00   120.00      -  500.0    56.0     48.41           100            97             0           100           100           100           100            99            99
+      35 2025-03-07 17:00  0.5   1 Live         115.00   115.00   115.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100           100           100
+      36 2025-03-07 18:00    1   2 Live         114.73   113.50   116.00      -  500.0    28.2    145.24             0             0             0           100           100            99            99            99            99
+      37 2025-03-10 17:00    2   4 Live         112.40   103.00   130.00      -  500.0    30.4     72.62           100            97             0           100           100            99            99            98            98
+      38 2025-03-11 16:00    3   6 Live         116.64   100.00   134.00      -  500.0    47.3     48.41           100            96             0           100           100            99            99            98            98
+      39 2025-03-12 16:00    3   6 Live         127.48   100.00   160.00      -  500.0   196.7     48.41           100            96             0           100           100            99            99            98            98
+      40 2025-03-13 16:00    3   6 Live         137.92   118.00   170.00      -  500.0    52.1     48.41           100            95             0           100           100            99            99            97            97
+      41 2025-03-14 16:00    3   6 Live         126.81   110.00   135.00      -  500.0    46.2     48.41           100            94             0           100           100            99            99            97            97
+      42 2025-03-17 17:00    2   4 Live         137.70   110.00   150.00      -  100.0    54.0     72.62           100            94             0           100           100            99            99            97            97
+      43 2025-03-18 18:00    1   2 Live         130.11   128.00   140.00      -  300.0    32.2    145.24             0             0             0           100           100            99            99            98            98
+      44 2025-03-19 16:00    3   6 Live         136.64   101.00   200.00      -  500.0   187.3     48.41           100            93             0           100           100            98            98            96            96
+      45 2025-03-25 16:00    3   6 Live         117.62    95.00   135.00      -  500.0    32.4     48.41           100            93             0           100           100            98            98            96            96
+      46 2025-03-26 16:00    3   6 Live         131.22   100.00   150.00      -  300.0    12.3     48.41           100            92             0           100           100            98            98            96            96
+      47 2025-03-28 18:00    1   2 Live         129.53   100.00   140.00      -  500.0    11.7    145.24             0             0             0            99            99            99            99            97            97
+      48 2025-03-31 17:00    2   4 Live         114.53   102.00   125.00      -  500.0     6.9     72.62           100            92             0            99            99            98            98            96            96
+  season S2025: 86 events; period 209 days
+       # date       from     H SPs type          price      min      max    GAP    req    proc ETM entry           ETM           OWN          WALL   TIER-10%/3h   TIER-10%/6h   TIER-25%/3h   TIER-25%/6h   TIER-50%/3h   TIER-50%/6h
+       1 2025-04-04 18:00    1   2 Live         114.63   114.00   115.00      -  500.0    10.6    145.24             0             0             0           100           100           100           100           100           100
+       2 2025-04-07 19:00    2   4 Live         119.10   106.00   133.00      -  500.0    27.7     72.62           100           100             0           100           100           100           100           100           100
+       3 2025-04-09 18:00    2   4 Live         109.05   106.00   116.00      -  200.0    35.5     72.62           100           100             0           100           100           100           100           100           100
+       4 2025-04-10 18:00    3   6 Live         105.41   101.00   115.00      -  500.0    36.9     48.41           100            99             0           100           100           100           100           100           100
+       5 2025-04-14 17:00  0.5   1 Live          90.00    90.00    90.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100           100           100
+       6 2025-04-16 19:00    1   2 Live          96.38    75.00   101.00      -  500.0     4.0    145.24             0             0             0           100           100           100           100           100           100
+       7 2025-04-16 21:30  0.5   1 Live          80.00    80.00    80.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100           100           100
+       8 2025-04-22 18:00    2   4 Live         130.28    90.00   148.00      -  500.0   175.9     72.62           100            99             0           100           100           100           100            99            99
+       9 2025-04-23 18:00    2   4 Live         120.44   100.00   123.00      -  500.0    42.8     72.62           100            98             0           100           100           100           100            99            99
+      10 2025-04-28 17:00    2   4 Live          94.65    80.00   115.00      -  500.0    20.5     72.62           100            98             0           100           100           100           100            99            99
+      11 2025-04-29 18:00    2   4 Live         101.25    90.00   120.00      -  500.0     4.0     72.62           100            97             0           100           100           100           100            99            99
+      12 2025-05-06 17:00  0.5   1 Live          90.00    90.00    90.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100            99            99
+      13 2025-05-06 18:00    3   6 Live         112.14   100.00   120.00      -  500.0    25.9     48.41           100            97             0           100           100            99            99            98            98
+      14 2025-05-07 17:00  0.5   1 Live          90.00    90.00    90.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100            99            99
+      15 2025-05-07 18:00    4   8 Live         109.14   100.00   120.00      -  500.0    52.8     36.31           100            96             0           100           100            99            99            98            98
+      16 2025-05-08 17:00  0.5   1 Live          90.00    90.00    90.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100            99            99
+      17 2025-05-08 18:00    3   6 Live         122.14   100.00   130.00      -  500.0    10.5     48.41           100            95             0           100           100            99            99            98            98
+      18 2025-05-09 18:00    3   6 Live          99.26    89.00   112.00      -  500.0    52.1     48.41           100            95             0           100           100            99            99            97            97
+      19 2025-05-15 17:00    3   6 Live          96.09    80.00   110.00      -  300.0    46.3     48.41           100            94             0           100           100            99            99            97            97
+      20 2025-05-16 20:00    2   4 Live         103.50   103.00   104.00      -  500.0    39.0     72.62           100            99             0           100           100           100           100           100           100
+      21 2025-05-19 18:00    3   6 Live         117.37    80.00   135.00      -  500.0    30.3     48.41           100            99             0           100           100           100           100           100           100
+      22 2025-05-20 18:00    1   2 Live         101.88   100.00   110.00      -  300.0     4.0    145.24             0             0             0           100           100           100           100           100           100
+      23 2025-05-20 20:00    1   2 Live         103.16   103.00   105.00      -  300.0    12.9    145.24             0             0             0           100           100           100           100           100           100
+      24 2025-05-28 20:00    1   2 Live         111.58   106.00   135.00      -  500.0    27.9    145.24             0             0             0           100           100           100           100           100           100
+      25 2025-06-04 20:00    1   2 Live          91.70    90.00   117.00      -  500.0   115.5    145.24             0             0             0           100           100           100           100           100           100
+      26 2025-06-05 18:00    2   4 Live         111.35   102.00   120.00      -  500.0     5.0     72.62           100           100             0           100           100           100           100            99            99
+      27 2025-06-10 18:00    2   4 Live         112.35   102.00   116.00      -  500.0    37.3     72.62           100            99             0           100           100           100           100            99            99
+      28 2025-06-13 18:00    2   4 Live         107.54   101.00   120.00      -  500.0    37.8     72.62           100            98             0           100           100           100           100            99            99
+      29 2025-06-17 19:00    2   4 Live         130.78   114.00   145.00      -  500.0    41.0     72.62           100            98             0           100           100           100           100            99            99
+      30 2025-06-23 19:00    2   4 Live          83.30    80.00    87.00      -  500.0    16.5     72.62           100            97             0           100           100           100           100            99            99
+      31 2025-06-24 19:00    3   6 Live         109.45   106.00   112.00      -  500.0    15.8     48.41           100            97             0           100           100            99            99            98            98
+      32 2025-06-25 18:00    3   6 Live         126.40   107.00   160.00      -  500.0    45.6     48.41           100            96             0           100           100            99            99            98            98
+      33 2025-06-26 18:00    3   6 Live          97.98    89.00   114.00      -  500.0     6.2     48.41           100            97             0           100           100           100           100            99            99
+      34 2025-06-27 20:00    2   4 Live          97.84    95.00   112.00      -  500.0     9.1     72.62           100            97             0           100           100           100           100           100           100
+      35 2025-06-30 18:00    5  10 Live         124.44   100.00   180.00      -  500.0   143.7     29.05           100            99             0           100           100           100           100           100           100
+      36 2025-07-01 18:00    5  10 Live         180.03   104.00   400.00      -  500.0   133.4     29.05           100            98             0           100           100           100           100            99            99
+      37 2025-07-04 21:30  1.5   3 Live          85.33    71.00    98.00      -  500.0     1.0     96.83             0             0             0           100           100           100           100           100            99
+      38 2025-07-07 19:00    2   4 Live         106.25   104.00   108.00      -  500.0     1.0     72.62           100            99             0           100           100           100           100            99            99
+      39 2025-07-08 19:00    2   4 Live         105.00   105.00   105.00      -  400.0     6.2     72.62           100            97             0           100           100           100            99            99            99
+      40 2025-07-09 18:00    5  10 Live         107.47    87.00   127.00      -  500.0    29.0     29.05           100            97             0           100           100           100            99            99            98
+      41 2025-07-10 18:00    3   6 Live         112.32   105.00   120.00      -  500.0    29.3     48.41           100            96             0           100           100            99            99            99            98
+      42 2025-07-16 18:00    3   6 Live         113.19   102.00   126.00      -  300.0    32.4     48.41           100            95             0           100           100            99            99            98            98
+      43 2025-07-18 18:00  1.5   3 Live         106.67   105.00   110.00      -  500.0     5.0     96.83           100            97             0           100           100            99           100            98            99
+      44 2025-07-18 20:00    1   2 Live         108.00   108.00   108.00      -  500.0     3.0    145.24             0             0             0           100           100            99            99            98            98
+      45 2025-07-21 19:00    2   4 Live         104.14   100.00   120.00      -  500.0    25.7     72.62           100            95             0           100           100            99            99            98            97
+      46 2025-07-22 18:00  0.5   1 Live          90.00    90.00    90.00      -  500.0     1.0    290.49             0             0             0           100           100           100            99           100            97
+      47 2025-07-24 18:00    3   6 Live         104.88    95.00   115.00      -  500.0    31.9     48.41           100            94             0           100           100            99            99            97            97
+      48 2025-07-28 17:00    1   2 Live          99.00    99.00    99.00      -  500.0     9.7    145.24             0             0             0           100           100            99            99            98            97
+      49 2025-07-28 19:00    2   4 Live         107.65   104.00   115.00      -  500.0    29.2     72.62           100            94             0           100           100            99            99            97            97
+      50 2025-07-29 20:00    1   2 Live         104.53   103.00   107.00      -  500.0    20.1    145.24             0             0             0           100           100            99            98            98            96
+      51 2025-07-31 17:00    4   8 Live         100.19    98.00   105.00      -  500.0    24.0     36.31           100            93             0           100           100            99            98            97            96
+      52 2025-08-01 19:00    1   2 Live         102.28   100.00   115.00      -  500.0    15.5    145.24             0             0             0           100           100            99            98            97            96
+      53 2025-08-04 16:00    7  14 Live          78.93    50.00    95.00      -  500.0     1.0     20.75           100            91             0           100            99            98            98            96            95
+      54 2025-08-06 18:00    4   8 Live         100.56    99.00   115.00      -  500.0    23.9     36.31           100            92             0           100            99            98            98            96            96
+      55 2025-08-07 18:00    5  10 Live         112.97    95.00   135.00      -  300.0    32.6     29.05           100            90             0           100           100            99            98            97            95
+      56 2025-08-08 19:00    1   2 Live          99.00    99.00    99.00      -  500.0    28.6    145.24             0             0             0           100           100           100           100           100            97
+      57 2025-08-11 18:00  0.5   1 Live         120.00   120.00   120.00      -  500.0     5.0    290.49             0             0             0           100           100           100           100           100           100
+      58 2025-08-11 19:00    3   6 Live         111.19    98.00   135.00      -  500.0    67.3     48.41           100           100             0           100           100           100           100           100           100
+      59 2025-08-14 19:00  0.5   1 Live         120.00   120.00   120.00      -  500.0     1.0    290.49             0             0             0           100           100           100           100           100           100
+      60 2025-08-14 20:00    1   2 Live         113.00   113.00   113.00      -  500.0    51.9    145.24             0             0             0           100           100           100           100           100            99
+      61 2025-08-15 18:00    2   4 Live         102.86    90.00   117.00      -  350.0    54.5     72.62           100            99             0           100           100           100           100            99            99
+      62 2025-08-18 20:00    1   2 Live          98.00    98.00    98.00      -  500.0    46.9    145.24             0             0             0           100           100           100           100           100            99
+      63 2025-08-20 18:00    2   4 Live          98.72    90.00   119.00      -  500.0    52.7     72.62           100            99             0           100           100           100           100            99            99
+      64 2025-09-01 17:30  4.5   9 Live          98.62    92.00   105.00      -  500.0    27.5     32.28           100            98             0           100           100           100            99            99            99
+      65 2025-09-02 17:00    4   8 Live         101.63    90.00   120.00      -  500.0    33.5     36.31           100            97             0           100           100           100           100            99            99
+      66 2025-09-03 18:00  2.5   5 Live          98.99    98.00   105.00      -  500.0    31.4     58.10           100            99             0           100           100            99            99            99            98
+      67 2025-09-04 17:00    4   8 Live         109.88   100.00   120.00      -  385.0    49.3     36.31           100            96             0           100           100            99            99            98            98
+      68 2025-09-05 18:00    2   4 Live         113.08   100.00   139.00      -  500.0     6.0     72.62           100            96             0           100           100            99            99            98            98
+      69 2025-09-08 16:00    6  12 Live         116.69    90.00   151.00      -  500.0   157.6     24.21           100            94             0           100           100            99            99            98            97
+      70 2025-09-08 22:30  0.5   1 Live         100.00   100.00   100.00      -  500.0     1.0    290.49             0             0             0           100           100            99            99            99            99
+      71 2025-09-19 17:00    3   6 Live         113.13   100.00   150.00      -  500.0    15.4     48.41           100            97             0           100           100           100           100            99            99
+      72 2025-09-22 17:00    2   4 Live         114.00   101.00   129.00      -  500.0    70.3     72.62           100            98             0           100           100           100           100           100           100
+      73 2025-09-23 17:00    3   6 Live         144.09   110.00   153.00      -  500.0    14.4     48.41           100            99             0           100           100           100           100           100           100
+      74 2025-09-24 16:00    3   6 Live         102.99    97.00   105.00      -  500.0    31.4     48.41           100            98             0           100           100           100           100            99            99
+      75 2025-09-24 20:00    1   2 Live         109.00   106.00   112.00      -  500.0    14.4    145.24             0             0             0           100           100           100           100           100           100
+      76 2025-09-29 17:00    3   6 Live         147.45   101.00   190.00      -  500.0    40.5     48.41           100            98             0           100           100           100           100            99            99
+      77 2025-09-30 18:00    1   2 Live         124.54   115.00   150.00      -  500.0    32.3    145.24             0             0             0           100           100           100           100           100           100
+      78 2025-10-01 17:00    3   6 Live         112.10   100.00   180.00      -  500.0    33.9     48.41           100            98             0           100           100           100           100            99            99
+      79 2025-10-02 17:00    1   2 Live         101.61   100.00   102.00      -  500.0    29.9    145.24             0             0             0           100           100           100           100            99            99
+      80 2025-10-07 17:00    2   4 Live         135.42   110.00   160.00      -  500.0   140.4     72.62           100            97             0           100           100            99            99            98            98
+      81 2025-10-13 16:00    4   8 Live         176.68   125.00   350.00      -  500.0    37.3     36.31           100            96             0           100           100            99            99            98            98
+      82 2025-10-14 17:00    3   6 Live         196.92   139.00   300.00      -  500.0   162.0     48.41           100            97             0           100           100            99            99            98            98
+      83 2025-10-15 17:00    2   4 Live         160.00   160.00   160.00      -  500.0     1.0     72.62           100            95             0           100           100            99            99            98            98
+      84 2025-10-22 16:00    4   8 Live         206.57   160.00   300.00      -  500.0   118.3     36.31           100            95             0           100           100            99            99            98            97
+      85 2025-10-27 16:00    3   6 Live         109.41   100.00   120.00      -  500.0    30.9     48.41           100            94             0           100           100            99            99            97            97
+      86 2025-10-29 16:00    3   6 Live         106.15   101.00   115.00      -  500.0    29.9     48.41           100            94             0           100           100            99            98            97            97
+  season W2025/26: 33 events; period 142 days
+       # date       from     H SPs type          price      min      max    GAP    req    proc ETM entry           ETM           OWN          WALL   TIER-10%/3h   TIER-10%/6h   TIER-25%/3h   TIER-25%/6h   TIER-50%/3h   TIER-50%/6h
+       1 2025-11-06 17:00    1   2 Live         118.93   110.00   120.00      -  200.0    42.8    145.24             0             0             0           100           100           100           100           100           100
+       2 2025-11-18 16:00  3.5   7 Live         109.67   100.00   120.00      -  500.0    43.3     41.50           100           100             0           100           100           100           100           100           100
+       3 2025-11-19 16:00    4   8 Live         104.23   100.00   120.00      -  500.0    43.9     36.31           100            99             0           100           100           100           100           100           100
+       4 2025-11-20 16:00    5  10 Live         117.41   100.00   160.00      -  500.0    49.2     29.05           100            98             0           100           100           100           100           100            99
+       5 2025-11-21 16:00    4   8 Live         153.67   114.00   300.00      - 1000.0    37.2     36.31           100            97             0           100           100           100           100            99            99
+       6 2025-11-25 16:00    1   2 Live         219.00   219.00   219.00      -  500.0    44.3    145.24           100           100             0           100           100           100           100            99           100
+       7 2025-11-25 18:00    1   2 Live         190.00   190.00   190.00      -  500.0    33.6    145.24           100            99             0           100           100           100           100            99            99
+       8 2025-11-26 16:00    4   8 Live         136.50   112.00   190.00      -  500.0    52.3     36.31           100            96             0           100           100           100            99            99            98
+       9 2025-12-03 16:00    4   8 Live         112.05   100.00   120.00      -  500.0    54.3     36.31           100            95             0           100           100            99            99            98            98
+      10 2025-12-29 16:00    1   2 Live         100.00   100.00   100.00      -  500.0    33.2    145.24             0             0             0           100           100           100           100           100           100
+      11 2025-12-30 16:00    2   4 Live         100.00   100.00   100.00      -  500.0    28.0     72.62           100           100             0           100           100           100           100           100           100
+      12 2026-01-05 16:00    3   6 Live         183.88   150.00   250.00      -  500.0    40.4     48.41           100            99             0           100           100           100           100           100           100
+      13 2026-01-06 16:00    3   6 Live         170.08   114.00   350.00      -  500.0    44.3     48.41           100            99             0           100           100           100           100           100           100
+      14 2026-01-08 16:00    2   4 Live         257.34   250.00   347.00      -  500.0    45.9     72.62           100            99             0           100           100           100           100            99            99
+      15 2026-01-14 17:00    2   4 Live         126.66   117.00   150.00      -  500.0    27.3     72.62           100            98             0           100           100           100           100            99            99
+      16 2026-01-16 16:00    4   8 Live         122.78   108.00   140.00      -  500.0    42.9     36.31           100            97             0           100           100           100           100            99            99
+      17 2026-01-19 19:00    1   2 Live         130.00   130.00   130.00      -  500.0    15.7    145.24             0             0             0           100           100           100           100           100           100
+      18 2026-01-20 17:00    2   4 Live         110.00   110.00   110.00      -  500.0    25.1     72.62           100            98             0           100           100           100           100            99            99
+      19 2026-01-26 18:00    1   2 Live         118.00   118.00   118.00      -  500.0    11.1    145.24             0             0             0           100           100           100            99            99            98
+      20 2026-01-28 16:00    4   8 Live         127.13   116.00   155.00      -  500.0   192.5     36.31           100            96             0           100           100            99            99            98            98
+      21 2026-01-29 16:00    3   6 Live         121.70   118.00   136.00      -  500.0    41.4     48.41           100            98             0           100           100           100           100           100           100
+      22 2026-01-30 16:00    3   6 Live         107.52   101.00   118.00      -  500.0    39.0     48.41           100            99             0           100           100           100           100           100           100
+      23 2026-02-04 16:00    3   6 Live          94.99    93.00   105.00      -  500.0    52.3     48.41           100            99             0           100           100           100           100           100           100
+      24 2026-02-19 16:00    4   8 Live          95.24    87.00   119.00      -  500.0    63.0     36.31           100            98             0           100           100           100           100            99            99
+      25 2026-03-09 16:00    4   8 Live         162.11   137.00   181.00      -  500.0    67.1     36.31           100            97             0           100           100           100           100            99            99
+      26 2026-03-10 16:00    1   2 Live         130.00   130.00   130.00      -  500.0     8.0    145.24             0             0             0           100           100           100           100           100           100
+      27 2026-03-16 17:00    2   4 Live         125.40   104.00   150.00      -  500.0    38.4     72.62           100           100             0           100           100           100           100           100           100
+      28 2026-03-16 19:30  0.5   1 Live         110.00   110.00   110.00      -  500.0     8.0    290.49             0             0             0           100           100           100           100           100           100
+      29 2026-03-20 19:00    1   2 Live         148.43   130.00   160.00      -  300.0   124.3    145.24           100           100             0           100           100           100           100           100           100
+      30 2026-03-22 17:00    1   2 Live         150.00   150.00   150.00      -  500.0     3.0    145.24           100           100             0           100           100           100           100           100           100
+      31 2026-03-23 17:00    2   4 Live         152.77   137.00   160.00      -  500.0   209.0     72.62           100            99             0           100           100           100           100           100           100
+      32 2026-03-27 16:30    1   2 Live         113.00   108.00   118.00      -  500.0     8.0    145.24             0             0             0           100           100           100           100           100           100
+      33 2026-03-27 18:00    1   2 Live         143.55   131.00   145.00      -  500.0   176.5    145.24             0             0             0           100           100           100           100           100           100
+  season S2026: 93 events; period 169 days
+       # date       from     H SPs type          price      min      max    GAP    req    proc ETM entry           ETM           OWN          WALL   TIER-10%/3h   TIER-10%/6h   TIER-25%/3h   TIER-25%/6h   TIER-50%/3h   TIER-50%/6h
+       1 2026-04-14 17:00    5  10 Live         121.14   105.00   125.00      -  500.0    36.7     29.05           100            99             0           100           100           100           100           100           100
+       2 2026-04-16 17:00  3.5   7 Live         123.00   117.00   131.00      -  500.0    44.5     41.50           100           100             0           100           100           100           100           100           100
+       3 2026-04-17 17:00    4   8 Live         108.50   104.00   115.00      -  500.0    36.0     36.31           100            98             0           100           100           100           100           100            99
+       4 2026-04-27 17:00  3.5   7 Live         126.97   112.00   135.00      -  500.0    49.7     41.50           100            97             0           100           100           100           100            99            99
+       5 2026-05-06 18:00    4   8 Live         131.07   110.00   137.00      -  500.0    44.4     36.31           100            96             0           100           100           100           100            99            99
+       6 2026-05-07 15:30  6.5  13 Live         122.89    95.00   140.00      -  500.0    47.4     22.35           100            95             0           100           100           100            99            99            98
+       7 2026-05-11 17:00    4   8 Live         116.73   105.00   125.00      -  500.0    50.9     36.31           100            95             0           100           100            99            99            98            98
+       8 2026-05-13 16:00    6  12 Live         120.95   103.00   155.00      -  500.0    49.6     24.21           100            93             0           100           100            99            99            98            97
+       9 2026-05-15 19:00    3   6 Live         127.35   125.00   140.00      -  500.0    34.9     48.41           100            94             0           100           100            99            99            98            97
+      10 2026-05-18 16:00    6  12 Live         130.15   110.00   155.00      -  500.0    57.8     24.21           100            91             0           100           100            99            98            98            96
+      11 2026-05-19 19:00    2   4 Live         122.01   120.00   125.00      -  400.0    25.1     72.62           100            95             0           100           100           100            98            98            96
+      12 2026-05-21 18:00    3   6 Live         140.15   100.00   165.00      -  300.0   111.0     48.41           100            90             0           100           100            99            98            97            96
+      13 2026-05-27 16:00    1   2 Live          94.00    94.00    94.00      -  500.0    27.7    145.24             0             0             0           100           100           100           100           100           100
+      14 2026-05-29 17:00    4   8 Live         125.00    95.00   155.00      -  500.0     4.3     36.31           100           100             0           100           100           100           100           100           100
+      15 2026-06-02 16:00    5  10 Live         112.80   105.00   131.00      -  500.0    35.7     29.05           100            99             0           100           100           100           100           100           100
+      16 2026-06-04 18:00    1   2 Live         145.00   145.00   145.00      -  378.0    93.2    145.24             0             0             0           100           100           100           100           100            99
+      17 2026-06-05 18:00    5  10 Live         134.01   105.00   155.00      -  500.0    46.7     29.05           100            98             0           100           100           100           100            99            99
+      18 2026-06-08 17:00    2   4 Live         119.46   100.00   120.00      -  500.0    24.4     72.62           100            97             0           100           100           100           100           100            99
+      19 2026-06-10 18:00    3   6 Live         141.00   120.00   160.00      -  300.0    54.3     48.41           100            97             0           100           100           100            99            99            98
+      20 2026-06-11 17:00    3   6 Live         117.32   100.00   140.00      -  500.0    57.7     48.41           100            96             0           100           100           100            99            99            98
+      21 2026-06-16 19:00    3   6 Live         141.00   130.00   160.00      -  292.0   147.2     48.41           100            95             0           100           100            99            99            98            98
+      22 2026-06-17 19:00    3   6 Live         135.65   130.00   140.00      -  500.0    45.4     48.41           100            95             0           100           100            99            99            98            98
+      23 2026-06-18 18:00    4   8 Live         145.77   130.00   180.00      -  500.0    98.2     36.31           100            94             0           100           100            99            99            98            97
+      24 2026-06-20 17:00  0.5   1 Live         119.72   119.72   119.72      -  500.0     3.5    290.49             0             0             0           100           100           100           100            99            98
+      25 2026-06-20 18:00    4   8 Live         146.70   134.26   153.23      -  500.0     4.0     36.31           100            93             0           100           100            99            99            97            97
+      26 2026-06-20 22:30  0.5   1 Live         136.70   136.70   136.70      -  500.0     2.9    290.49             0             0             0           100           100           100           100            99            98
+      27 2026-06-22 18:00    4   8 Live         164.35   130.00   178.44      -  500.0    41.2     36.31           100            92             0           100           100            99            98            97            96
+      28 2026-06-23 17:00    5  10 Live         229.08   130.00   349.00      -  500.0   117.2     29.05           100            91             0           100           100            99            98            97            96
+      29 2026-06-24 16:00    7  14 Live         301.71   121.00   649.00      -  500.0   134.4     20.75           100            90             0           100            99            98            98            96            95
+      30 2026-06-25 18:00    5  10 Live         158.59   125.00   173.38      -  500.0    75.6     29.05           100            89             0           100            99            98            98            96            95
+      31 2026-06-26 16:00    2   4 Live         118.50   105.00   132.00      -  500.0    38.8     72.62           100            93             0           100           100            99            97            97            95
+      32 2026-06-26 19:00    1   2 Live         194.00   194.00   194.00      -  500.0    34.0    145.24           100            93             0           100            99            98           100            97            97
+      33 2026-06-26 21:00    1   2 Live         160.00   160.00   160.00      -  500.0     0.1    145.24           100            88             0           100            99            98            97            96            94
+      34 2026-06-29 17:00    4   8 Live         159.02   110.00   176.00      -  500.0    46.4     36.31           100            87             0            99            99            98            97            95            94
+      35 2026-07-08 19:00    3   6 Live         142.98   132.50   144.00      -  500.0    41.1     48.41           100            92             0           100           100           100           100           100           100
+      36 2026-07-09 17:00    6  12 Live         211.26   120.00   500.00      -  500.0   141.8     24.21           100            92             0           100           100           100           100           100           100
+      37 2026-07-13 16:00    7  14 Live         125.87    90.00   150.36      -  500.0   135.0     20.75           100            97             0           100           100           100           100           100            99
+      38 2026-07-14 18:00    4   8 Live         141.42   120.00   152.00      -  300.0    38.2     36.31           100            97             0           100           100           100           100            99            99
+      39 2026-07-17 19:00    4   8 Live         142.98   133.00   156.11      -  500.0   142.4     36.31           100            96             0           100           100           100            99            99            98
+      40 2026-07-24 17:00    5  10 Live         154.57   110.00   176.00      -  500.0   130.1     29.05           100            95             0           100           100           100            99            99            98
+      41 2026-07-27 18:00    4   8 Live         153.51   135.00   170.00      -  500.0    54.7     36.31           100            94             0           100           100            99            99            98            97
+      42 2026-07-28 18:00    3   6 Live         159.77   140.00   179.96      -  500.0   113.9     48.41           100            96             0           100           100            99            99            98            97
+      43 2026-07-29 18:00    1   2 Live         160.26   157.00   172.68      -  500.0    46.1    145.24           100            96             0           100           100           100           100           100           100
+      44 2026-07-29 21:00    1   2 Live         163.00   162.90   163.00      -  500.0    18.6    145.24           100            93             0           100           100           100            99            99            98
+      45 2026-07-30 19:00    3   6 Test         162.64   145.00   176.01      -  500.0    17.1     48.41           100            93             0           100           100            99            99            98            97
+      46 2026-08-03 18:00    4   8 Live         163.21   145.00   176.64      -  500.0   137.6     36.31           100            92             0           100           100            99            98            97            96
+      47 2026-08-04 18:00    3   6 Live         149.30   130.00   164.09      -  500.0    37.6     48.41           100            92             0           100           100            99            98            97            96
+      48 2026-08-05 17:00    5  10 Live         139.52    97.00   210.00      -  500.0    90.5     29.05           100            91             0           100            99            99            98            97            95
+      49 2026-08-07 17:00    5  10 Live         142.39   116.00   160.00      -  300.0    31.5     29.05           100            90             0           100            99            98            98            96            95
+      50 2026-08-10 17:00    2   4 Live         134.23   125.00   143.00      -  500.0    26.8     72.62           100            92             0           100           100            99            98            97            96
+      51 2026-08-11 17:00    5  10 Live         148.05   125.00   189.20      -  500.0    78.8     29.05           100            89             0           100            99            98            97            96            94
+      52 2026-08-12 17:00    5  10 Live         196.53   125.00   987.40      -  500.0    76.4     29.05           100            88             0           100            99            98            97            96            94
+      53 2026-08-13 17:00    4   8 Live         221.29   167.57   250.00      -  500.0     5.0     36.31           100            87             0            99            99            98            97            95            93
+      54 2026-08-15 19:00    2   4 Live         166.18   157.00   168.42      -  500.0     1.4     72.62           100            92             0            99            99            98            97            95            93
+      55 2026-08-16 19:00    3   6 Live         163.73   155.90   173.40      -  500.0     1.1     48.41           100            86             0            99            99            98            97            95            93
+      56 2026-08-17 16:00    7  14 Live         168.20   136.00   200.00      -  500.0   142.0     20.75           100            85             0           100           100            99            97            96            93
+      57 2026-08-18 16:00    7  14 Live         157.29   130.00   194.03      -  500.0   139.5     20.75           100            84             0           100           100           100            98            96            93
+      58 2026-08-19 18:00  0.5   1 Live         150.00   150.00   150.00      -  500.0     0.1    290.49             0             0             0           100           100           100           100            99            99
+      59 2026-08-19 19:00    3   6 Live         180.65   173.24   190.00      -  500.0    53.8     48.41           100            88             0           100           100           100           100            99            95
+      60 2026-08-24 18:00    4   8 Live         164.65   151.00   192.00      -  500.0   158.7     36.31           100            93             0           100           100           100           100            99            99
+      61 2026-08-26 17:00    3   6 Live         170.45   162.00   195.00      -  500.0   147.3     48.41           100            98             0           100           100           100            99            99            99
+      62 2026-08-27 17:00    3   6 Live         166.64   158.00   192.25      -  500.0   147.2     48.41           100            98             0           100           100           100            99            99            99
+      63 2026-08-30 18:00    4   8 Live         170.17   168.00   184.00      -  500.0     7.6     36.31           100            97             0           100           100            99            99            99            98
+      64 2026-08-31 19:00    3   6 Live         163.63   158.00   175.00      -  500.0    55.6     48.41           100            96             0           100           100            99            99            98            98
+      65 2026-09-01 17:00    5  10 Live         173.56   148.00   202.00      -  300.0   143.2     29.05           100            96             0           100           100            99            99            98            98
+      66 2026-09-02 20:00    2   4 Live         162.41   145.00   196.00      -  300.0   141.0     72.62           100            98             0           100           100            99            99            98            98
+      67 2026-09-03 17:00    4   8 Live         165.85   100.00   194.00      -  300.0   148.8     36.31           100            95             0           100           100            99            99            98            97
+      68 2026-09-05 19:00    2   4 Live         173.79   165.20   178.68      -  500.0     6.5     72.62           100            94             0           100           100            99            99            98            98
+      69 2026-09-06 17:00    5  10 Live         169.23   153.00   176.00      -  500.0     8.1     29.05           100            93             0           100            99            99            98            97            97
+      70 2026-09-07 16:00    6  12 Live         172.76   145.00   294.00      -  300.0   130.3     24.21           100            92             0           100            99            99            98            97            96
+      71 2026-09-08 17:00    5  10 Live         171.33   150.00   203.00      -  500.0    42.4     29.05           100            91             0           100            99            98            98            97            96
+      72 2026-09-09 17:00    5  10 Live         204.76   150.00   256.11      -  500.0    61.0     29.05           100            90             0           100            99            98            98            96            95
+      73 2026-09-10 17:00    6  12 Live/Test    235.42   159.00   500.00    500  500.0    34.0     24.21           100            89             0           100            99            98            97            96            95
+      74 2026-09-11 17:00    4   8 Live         200.42   176.00   238.27      -  500.0   127.5     36.31           100            89             0            99           100            98            98            96            95
+      75 2026-09-13 17:30  0.5   1 Live         159.80   159.80   159.80      -  500.0     0.2    290.49             0             0             0           100           100           100           100           100            99
+      76 2026-09-14 18:00    3   6 Live         207.21   175.00   235.00      -  500.0   148.6     48.41           100            88             0            99            99            98            97            96            94
+      77 2026-09-15 17:00    4   8 Live         206.03   135.00   268.00      -  500.0   168.0     36.31           100            87             0            99            99            98            97            95            94
+      78 2026-09-16 18:00    4   8 Live         198.79   156.00   245.00      -  500.0   168.2     36.31           100            87             0            99            99            98            97            95            93
+      79 2026-09-17 17:00    3   6 Live         179.59   151.83   200.00      -  500.0    74.2     48.41           100            86             0            99            99            97            97            95            93
+      80 2026-09-17 20:30  2.5   5 Live         176.83   152.06   200.00      -  500.0     4.4     58.10           100            88             0            99            99            97            96            95            94
+      81 2026-09-18 16:00    6  12 Live         149.35   108.82   195.00      -  500.0     3.0     24.21           100            84             0            99            99            97            96            94            92
+      82 2026-09-19 17:00    4   8 Live         134.14    97.73   200.00      -  500.0     2.1     36.31           100            84             0            99            99            97            96            94            92
+      83 2026-09-20 18:00    3   6 Live         198.60   196.08   201.77      -  200.0     1.9     48.41           100            84             0            99            98            97            96            94            91
+      84 2026-09-21 17:00    5  10 Live         202.27   183.00   261.00      -  500.0   175.8     29.05           100            82             0            99            98            97            96            94            91
+      85 2026-09-22 17:00    5  10 Live         266.73   193.00   369.20      -  500.0   179.0     29.05           100            81             0            99            98            97            95            93            90
+      86 2026-09-24 16:00    6  12 Live         185.19   150.00   230.00      -  500.0   100.2     24.21           100            80             0            99            98            96            95            93            90
+      87 2026-09-25 16:00    7  14 Live         199.51   137.41   236.25      -  500.0   144.7     20.75           100            78             0            99            98            96            95            93            89
+      88 2026-09-26 18:00    5  10 Live         182.39   166.31   210.36      -  500.0     2.0     29.05           100            77             0            99            98            96            94            92            89
+      89 2026-09-27 16:00    3   6 Live         144.95    72.60   185.24      -  500.0     2.4     48.41           100            77             0            99            98            96            95            92            90
+      90 2026-09-27 20:30  1.5   3 Live         170.57   166.56   173.10      -  500.0     1.8     96.83           100            84             0            99            99            97            94            94            92
+      91 2026-09-28 16:00    5  10 Live         212.45   136.10   350.00      -  500.0   177.8     29.05           100            75             0           100            99            97            95            93            89
+      92 2026-09-29 18:00    2   4 Live         171.85   150.00   201.33      -  500.0     5.8     72.62           100            78             0           100           100            98            96            93            90
+      93 2026-09-29 20:30  0.5   1 Live         160.20   160.20   160.20      -  500.0     0.1    290.49             0             0             0           100           100           100           100            98            95
+
+PER-SEASON, PER-ARM TABLE (scored run): events joined by at least one job / by all 100 jobs, job-events joined, declined
+on price / on deadline, blocked, curtailed MWh, revenue (GBP), the fleet's compute cost over the period (GBP), revenue as
+a share of it, revenue per MW of fleet
+  season W2022/23: 21 events; period 3216 h; compute cost 467102397 GBP
+    ETM            joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh     2250.0; revenue   7112328.60; share    1.52265 %; per MW   71123.29
+    OWN            joined   21 /   15 of   21; job-events   2094; declined price      0, deadline     6; blocked   0; ties 0; MWh     2243.0; revenue   7091327.64; share    1.51815 %; per MW   70913.28
+    WALL           joined   21 /   15 of   21; job-events   2094; declined price      0, deadline     6; blocked   0; ties 0; MWh     2243.0; revenue   7091327.64; share    1.51815 %; per MW   70913.28
+    TIER-10%/3h    joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh      225.0; revenue    711232.86; share    0.15226 %; per MW    7112.33
+    TIER-10%/6h    joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh      225.0; revenue    711232.86; share    0.15226 %; per MW    7112.33
+    TIER-25%/3h    joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh      562.5; revenue   1778082.15; share    0.38066 %; per MW   17780.82
+    TIER-25%/6h    joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh      562.5; revenue   1778082.15; share    0.38066 %; per MW   17780.82
+    TIER-50%/3h    joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh     1125.0; revenue   3556164.30; share    0.76132 %; per MW   35561.64
+    TIER-50%/6h    joined   21 /   21 of   21; job-events   2100; declined price      0, deadline     0; blocked   0; ties 0; MWh     1125.0; revenue   3556164.30; share    0.76132 %; per MW   35561.64
+  season W2023/24: 17 events; period 3048 h; compute cost 442701525 GBP
+    ETM            joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh     1600.0; revenue   4375758.93; share    0.98842 %; per MW   43757.59
+    OWN            joined   17 /   12 of   17; job-events   1694; declined price      0, deadline     6; blocked   0; ties 0; MWh     1593.5; revenue   4356258.93; share    0.98402 %; per MW   43562.59
+    WALL           joined   10 /    5 of   17; job-events    994; declined price    700, deadline     6; blocked   0; ties 0; MWh     1193.5; revenue   3987882.38; share    0.90081 %; per MW   39878.82
+    TIER-10%/3h    joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh      160.0; revenue    437575.89; share    0.09884 %; per MW    4375.76
+    TIER-10%/6h    joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh      160.0; revenue    437575.89; share    0.09884 %; per MW    4375.76
+    TIER-25%/3h    joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh      400.0; revenue   1093939.73; share    0.24711 %; per MW   10939.40
+    TIER-25%/6h    joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh      400.0; revenue   1093939.73; share    0.24711 %; per MW   10939.40
+    TIER-50%/3h    joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh      800.0; revenue   2187879.47; share    0.49421 %; per MW   21878.79
+    TIER-50%/6h    joined   17 /   17 of   17; job-events   1700; declined price      0, deadline     0; blocked   0; ties 0; MWh      800.0; revenue   2187879.47; share    0.49421 %; per MW   21878.79
+  season W2024/25: 48 events; period 2856 h; compute cost 414814815 GBP
+    ETM            joined   42 /   42 of   48; job-events   4200; declined price    600, deadline     0; blocked   0; ties 0; MWh    11100.0; revenue   2112140.72; share    0.50918 %; per MW   21121.41
+    OWN            joined   42 /    3 of   48; job-events   4034; declined price    600, deadline   166; blocked   0; ties 0; MWh    10654.0; revenue   2042606.83; share    0.49241 %; per MW   20426.07
+    WALL           joined    0 /    0 of   48; job-events      0; declined price   4800, deadline     0; blocked   0; ties 0; MWh        0.0; revenue         0.00; share    0.00000 %; per MW       0.00
+    TIER-10%/3h    joined   48 /   46 of   48; job-events   4798; declined price      0, deadline     2; blocked   0; ties 0; MWh     1159.7; revenue    217272.01; share    0.05238 %; per MW    2172.72
+    TIER-10%/6h    joined   48 /   46 of   48; job-events   4798; declined price      0, deadline     2; blocked   0; ties 0; MWh     1159.7; revenue    217272.01; share    0.05238 %; per MW    2172.72
+    TIER-25%/3h    joined   48 /   25 of   48; job-events   4770; declined price      0, deadline    30; blocked   0; ties 0; MWh     2881.0; revenue    540791.62; share    0.13037 %; per MW    5407.92
+    TIER-25%/6h    joined   48 /   25 of   48; job-events   4770; declined price      0, deadline    30; blocked   0; ties 0; MWh     2881.0; revenue    540791.62; share    0.13037 %; per MW    5407.92
+    TIER-50%/3h    joined   48 /   13 of   48; job-events   4721; declined price      0, deadline    79; blocked   0; ties 0; MWh     5699.5; revenue   1071133.96; share    0.25822 %; per MW   10711.34
+    TIER-50%/6h    joined   48 /   13 of   48; job-events   4721; declined price      0, deadline    79; blocked   0; ties 0; MWh     5699.5; revenue   1071133.96; share    0.25822 %; per MW   10711.34
+  season S2025: 86 events; period 5016 h; compute cost 728540305 GBP
+    ETM            joined   60 /   60 of   86; job-events   6000; declined price   2600, deadline     0; blocked   0; ties 0; MWh    17850.0; revenue   2086423.22; share    0.28638 %; per MW   20864.23
+    OWN            joined   60 /    4 of   86; job-events   5806; declined price   2600, deadline   194; blocked   0; ties 0; MWh    17200.0; revenue   2012371.06; share    0.27622 %; per MW   20123.71
+    WALL           joined    0 /    0 of   86; job-events      0; declined price   8600, deadline     0; blocked   0; ties 0; MWh        0.0; revenue         0.00; share    0.00000 %; per MW       0.00
+    TIER-10%/3h    joined   86 /   86 of   86; job-events   8600; declined price      0, deadline     0; blocked   0; ties 0; MWh     1770.0; revenue    203373.41; share    0.02792 %; per MW    2033.73
+    TIER-10%/6h    joined   86 /   84 of   86; job-events   8598; declined price      0, deadline     2; blocked   0; ties 0; MWh     1994.0; revenue    230178.31; share    0.03159 %; per MW    2301.78
+    TIER-25%/3h    joined   86 /   53 of   86; job-events   8565; declined price      0, deadline    35; blocked   0; ties 0; MWh     4403.1; revenue    505880.99; share    0.06944 %; per MW    5058.81
+    TIER-25%/6h    joined   86 /   50 of   86; job-events   8557; declined price      0, deadline    43; blocked   0; ties 0; MWh     4955.0; revenue    571982.16; share    0.07851 %; per MW    5719.82
+    TIER-50%/3h    joined   86 /   27 of   86; job-events   8498; declined price      0, deadline   102; blocked   0; ties 0; MWh     8725.8; revenue   1002606.74; share    0.13762 %; per MW   10026.07
+    TIER-50%/6h    joined   86 /   22 of   86; job-events   8476; declined price      0, deadline   124; blocked   0; ties 0; MWh     9801.5; revenue   1131599.77; share    0.15532 %; per MW   11316.00
+  season W2025/26: 33 events; period 3408 h; compute cost 494989107 GBP
+    ETM            joined   25 /   25 of   33; job-events   2500; declined price    800, deadline     0; blocked   0; ties 0; MWh     7150.0; revenue    951201.96; share    0.19217 %; per MW    9512.02
+    OWN            joined   25 /    6 of   33; job-events   2460; declined price    800, deadline    40; blocked   0; ties 0; MWh     7009.0; revenue    932770.75; share    0.18844 %; per MW    9327.71
+    WALL           joined    0 /    0 of   33; job-events      0; declined price   3300, deadline     0; blocked   0; ties 0; MWh        0.0; revenue         0.00; share    0.00000 %; per MW       0.00
+    TIER-10%/3h    joined   33 /   33 of   33; job-events   3300; declined price      0, deadline     0; blocked   0; ties 0; MWh      685.0; revenue     91171.31; share    0.01842 %; per MW     911.71
+    TIER-10%/6h    joined   33 /   33 of   33; job-events   3300; declined price      0, deadline     0; blocked   0; ties 0; MWh      790.0; revenue    104204.99; share    0.02105 %; per MW    1042.05
+    TIER-25%/3h    joined   33 /   31 of   33; job-events   3298; declined price      0, deadline     2; blocked   0; ties 0; MWh     1711.0; revenue    227748.90; share    0.04601 %; per MW    2277.49
+    TIER-25%/6h    joined   33 /   29 of   33; job-events   3296; declined price      0, deadline     4; blocked   0; ties 0; MWh     1971.8; revenue    260107.28; share    0.05255 %; per MW    2601.07
+    TIER-50%/3h    joined   33 /   20 of   33; job-events   3285; declined price      0, deadline    15; blocked   0; ties 0; MWh     3407.0; revenue    453376.08; share    0.09159 %; per MW    4533.76
+    TIER-50%/6h    joined   33 /   20 of   33; job-events   3283; declined price      0, deadline    17; blocked   0; ties 0; MWh     3923.0; revenue    517454.08; share    0.10454 %; per MW    5174.54
+  season S2026: 93 events; period 4056 h; compute cost 589106754 GBP
+    ETM            joined   86 /   86 of   93; job-events   8600; declined price    700, deadline     0; blocked   0; ties 0; MWh    34150.0; revenue   5649754.89; share    0.95904 %; per MW   56497.55
+    OWN            joined   86 /    2 of   93; job-events   7836; declined price    700, deadline   764; blocked   0; ties 0; MWh    30970.0; revenue   5084881.64; share    0.86315 %; per MW   50848.82
+    WALL           joined    0 /    0 of   93; job-events      0; declined price   9300, deadline     0; blocked   0; ties 0; MWh        0.0; revenue         0.00; share    0.00000 %; per MW       0.00
+    TIER-10%/3h    joined   93 /   73 of   93; job-events   9280; declined price      0, deadline    20; blocked   0; ties 0; MWh     2439.3; revenue    396144.09; share    0.06724 %; per MW    3961.44
+    TIER-10%/6h    joined   93 /   60 of   93; job-events   9260; declined price      0, deadline    40; blocked   0; ties 0; MWh     3387.8; revenue    557579.87; share    0.09465 %; per MW    5575.80
+    TIER-25%/3h    joined   93 /   33 of   93; job-events   9191; declined price      0, deadline   109; blocked   0; ties 0; MWh     6036.2; revenue    979371.25; share    0.16625 %; per MW    9793.71
+    TIER-25%/6h    joined   93 /   24 of   93; job-events   9137; declined price      0, deadline   163; blocked   0; ties 0; MWh     8348.2; revenue   1372682.75; share    0.23301 %; per MW   13726.83
+    TIER-50%/3h    joined   93 /   13 of   93; job-events   9040; declined price      0, deadline   260; blocked   0; ties 0; MWh    11867.0; revenue   1923041.88; share    0.32643 %; per MW   19230.42
+    TIER-50%/6h    joined   93 /    8 of   93; job-events   8929; declined price      0, deadline   371; blocked   0; ties 0; MWh    16295.0; revenue   2674439.12; share    0.45398 %; per MW   26744.39
+
+THE JOB DELAY ETM ACCEPTS (scored run): per job, the wall-clock delay L + n R beyond W (the stop-the-clock extension
+covers the curtailed hours L; the overhead n R uses the own-step deadline); over completed jobs and the job running at the
+period end
+  W2022/23  jobs completed  300; delay mean over completed 7.100 h, max over all jobs 8.700 h (0.870 % of W); completed jobs past their original wall-clock D 3 of 300
+  W2023/24  jobs completed  300; delay mean over completed 5.500 h, max over all jobs 10.800 h (1.080 % of W); completed jobs past their original wall-clock D 2 of 300
+  W2024/25  jobs completed  200; delay mean over completed 35.300 h, max over all jobs 50.900 h (5.090 % of W); completed jobs past their original wall-clock D 13 of 200
+  S2025     jobs completed  400; delay mean over completed 38.375 h, max over all jobs 55.000 h (5.500 % of W); completed jobs past their original wall-clock D 27 of 400
+  W2025/26  jobs completed  300; delay mean over completed 22.533 h, max over all jobs 27.300 h (2.730 % of W); completed jobs past their original wall-clock D 12 of 300
+  S2026     jobs completed  300; delay mean over completed 73.667 h, max over all jobs 129.100 h (12.910 % of W); completed jobs past their original wall-clock D 43 of 300
+
+PER-SLOT TABLE (scored run): per job slot (slack of each of its jobs), per season, the job-events joined by ETM / OWN / WALL /
+TIER (tiers in declared order) and ETM's max delay (h)
+  season W2022/23:
+    J001 slack    5: 21 / 15 / 15 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J002 slack   10: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J003 slack   15: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J004 slack   20: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J005 slack   25: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J006 slack   30: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J007 slack   35: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J008 slack   40: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J009 slack   45: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J010 slack   50: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J011 slack   55: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J012 slack   60: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J013 slack   65: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J014 slack   70: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J015 slack   75: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J016 slack   80: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J017 slack   85: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J018 slack   90: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J019 slack   95: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J020 slack  100: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J021 slack  105: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J022 slack  110: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J023 slack  115: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J024 slack  120: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J025 slack  125: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J026 slack  130: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J027 slack  135: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J028 slack  140: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J029 slack  145: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J030 slack  150: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J031 slack  155: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J032 slack  160: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J033 slack  165: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J034 slack  170: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J035 slack  175: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J036 slack  180: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J037 slack  185: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J038 slack  190: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J039 slack  195: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J040 slack  200: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J041 slack  205: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J042 slack  210: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J043 slack  215: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J044 slack  220: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J045 slack  225: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J046 slack  230: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J047 slack  235: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J048 slack  240: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J049 slack  245: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J050 slack  250: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J051 slack  255: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J052 slack  260: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J053 slack  265: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J054 slack  270: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J055 slack  275: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J056 slack  280: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J057 slack  285: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J058 slack  290: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J059 slack  295: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J060 slack  300: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J061 slack  305: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J062 slack  310: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J063 slack  315: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J064 slack  320: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J065 slack  325: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J066 slack  330: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J067 slack  335: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J068 slack  340: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J069 slack  345: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J070 slack  350: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J071 slack  355: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J072 slack  360: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J073 slack  365: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J074 slack  370: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J075 slack  375: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J076 slack  380: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J077 slack  385: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J078 slack  390: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J079 slack  395: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J080 slack  400: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J081 slack  405: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J082 slack  410: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J083 slack  415: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J084 slack  420: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J085 slack  425: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J086 slack  430: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J087 slack  435: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J088 slack  440: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J089 slack  445: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J090 slack  450: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J091 slack  455: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J092 slack  460: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J093 slack  465: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J094 slack  470: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J095 slack  475: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J096 slack  480: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J097 slack  485: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J098 slack  490: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J099 slack  495: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+    J100 slack  500: 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21 / 21; ETM max delay 8.70
+  season W2023/24:
+    J001 slack    5: 17 / 12 / 5 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J002 slack   10: 17 / 16 / 9 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J003 slack   15: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J004 slack   20: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J005 slack   25: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J006 slack   30: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J007 slack   35: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J008 slack   40: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J009 slack   45: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J010 slack   50: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J011 slack   55: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J012 slack   60: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J013 slack   65: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J014 slack   70: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J015 slack   75: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J016 slack   80: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J017 slack   85: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J018 slack   90: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J019 slack   95: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J020 slack  100: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J021 slack  105: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J022 slack  110: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J023 slack  115: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J024 slack  120: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J025 slack  125: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J026 slack  130: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J027 slack  135: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J028 slack  140: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J029 slack  145: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J030 slack  150: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J031 slack  155: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J032 slack  160: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J033 slack  165: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J034 slack  170: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J035 slack  175: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J036 slack  180: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J037 slack  185: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J038 slack  190: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J039 slack  195: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J040 slack  200: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J041 slack  205: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J042 slack  210: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J043 slack  215: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J044 slack  220: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J045 slack  225: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J046 slack  230: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J047 slack  235: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J048 slack  240: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J049 slack  245: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J050 slack  250: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J051 slack  255: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J052 slack  260: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J053 slack  265: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J054 slack  270: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J055 slack  275: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J056 slack  280: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J057 slack  285: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J058 slack  290: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J059 slack  295: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J060 slack  300: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J061 slack  305: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J062 slack  310: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J063 slack  315: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J064 slack  320: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J065 slack  325: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J066 slack  330: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J067 slack  335: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J068 slack  340: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J069 slack  345: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J070 slack  350: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J071 slack  355: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J072 slack  360: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J073 slack  365: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J074 slack  370: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J075 slack  375: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J076 slack  380: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J077 slack  385: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J078 slack  390: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J079 slack  395: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J080 slack  400: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J081 slack  405: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J082 slack  410: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J083 slack  415: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J084 slack  420: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J085 slack  425: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J086 slack  430: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J087 slack  435: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J088 slack  440: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J089 slack  445: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J090 slack  450: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J091 slack  455: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J092 slack  460: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J093 slack  465: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J094 slack  470: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J095 slack  475: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J096 slack  480: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J097 slack  485: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J098 slack  490: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J099 slack  495: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+    J100 slack  500: 17 / 17 / 10 / 17 / 17 / 17 / 17 / 17 / 17; ETM max delay 10.80
+  season W2024/25:
+    J001 slack    5: 42 / 4 / 0 / 46 / 46 / 25 / 25 / 14 / 14; ETM max delay 50.90
+    J002 slack   10: 42 / 10 / 0 / 48 / 48 / 41 / 41 / 25 / 25; ETM max delay 50.90
+    J003 slack   15: 42 / 16 / 0 / 48 / 48 / 48 / 48 / 33 / 33; ETM max delay 50.90
+    J004 slack   20: 42 / 22 / 0 / 48 / 48 / 48 / 48 / 41 / 41; ETM max delay 50.90
+    J005 slack   25: 42 / 25 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J006 slack   30: 42 / 28 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J007 slack   35: 42 / 32 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J008 slack   40: 42 / 36 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J009 slack   45: 42 / 40 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J010 slack   50: 42 / 41 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J011 slack   55: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J012 slack   60: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J013 slack   65: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J014 slack   70: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J015 slack   75: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J016 slack   80: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J017 slack   85: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J018 slack   90: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J019 slack   95: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J020 slack  100: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J021 slack  105: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J022 slack  110: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J023 slack  115: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J024 slack  120: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J025 slack  125: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J026 slack  130: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J027 slack  135: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J028 slack  140: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J029 slack  145: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J030 slack  150: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J031 slack  155: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J032 slack  160: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J033 slack  165: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J034 slack  170: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J035 slack  175: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J036 slack  180: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J037 slack  185: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J038 slack  190: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J039 slack  195: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J040 slack  200: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J041 slack  205: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J042 slack  210: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J043 slack  215: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J044 slack  220: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J045 slack  225: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J046 slack  230: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J047 slack  235: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J048 slack  240: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J049 slack  245: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J050 slack  250: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J051 slack  255: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J052 slack  260: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J053 slack  265: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J054 slack  270: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J055 slack  275: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J056 slack  280: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J057 slack  285: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J058 slack  290: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J059 slack  295: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J060 slack  300: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J061 slack  305: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J062 slack  310: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J063 slack  315: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J064 slack  320: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J065 slack  325: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J066 slack  330: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J067 slack  335: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J068 slack  340: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J069 slack  345: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J070 slack  350: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J071 slack  355: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J072 slack  360: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J073 slack  365: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J074 slack  370: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J075 slack  375: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J076 slack  380: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J077 slack  385: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J078 slack  390: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J079 slack  395: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J080 slack  400: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J081 slack  405: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J082 slack  410: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J083 slack  415: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J084 slack  420: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J085 slack  425: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J086 slack  430: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J087 slack  435: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J088 slack  440: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J089 slack  445: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J090 slack  450: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J091 slack  455: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J092 slack  460: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J093 slack  465: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J094 slack  470: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J095 slack  475: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J096 slack  480: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J097 slack  485: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J098 slack  490: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J099 slack  495: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+    J100 slack  500: 42 / 42 / 0 / 48 / 48 / 48 / 48 / 48 / 48; ETM max delay 50.90
+  season S2025:
+    J001 slack    5: 60 / 8 / 0 / 86 / 84 / 54 / 51 / 30 / 26; ETM max delay 55.00
+    J002 slack   10: 60 / 18 / 0 / 86 / 86 / 83 / 79 / 55 / 53; ETM max delay 55.00
+    J003 slack   15: 60 / 26 / 0 / 86 / 86 / 86 / 85 / 74 / 66; ETM max delay 55.00
+    J004 slack   20: 60 / 34 / 0 / 86 / 86 / 86 / 86 / 83 / 79; ETM max delay 55.00
+    J005 slack   25: 60 / 42 / 0 / 86 / 86 / 86 / 86 / 86 / 83; ETM max delay 55.00
+    J006 slack   30: 60 / 49 / 0 / 86 / 86 / 86 / 86 / 86 / 85; ETM max delay 55.00
+    J007 slack   35: 60 / 55 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J008 slack   40: 60 / 57 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J009 slack   45: 60 / 58 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J010 slack   50: 60 / 59 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J011 slack   55: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J012 slack   60: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J013 slack   65: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J014 slack   70: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J015 slack   75: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J016 slack   80: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J017 slack   85: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J018 slack   90: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J019 slack   95: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J020 slack  100: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J021 slack  105: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J022 slack  110: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J023 slack  115: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J024 slack  120: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J025 slack  125: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J026 slack  130: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J027 slack  135: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J028 slack  140: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J029 slack  145: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J030 slack  150: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J031 slack  155: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J032 slack  160: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J033 slack  165: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J034 slack  170: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J035 slack  175: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J036 slack  180: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J037 slack  185: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J038 slack  190: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J039 slack  195: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J040 slack  200: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J041 slack  205: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J042 slack  210: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J043 slack  215: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J044 slack  220: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J045 slack  225: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J046 slack  230: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J047 slack  235: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J048 slack  240: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J049 slack  245: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J050 slack  250: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J051 slack  255: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J052 slack  260: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J053 slack  265: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J054 slack  270: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J055 slack  275: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J056 slack  280: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J057 slack  285: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J058 slack  290: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J059 slack  295: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J060 slack  300: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J061 slack  305: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J062 slack  310: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J063 slack  315: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J064 slack  320: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J065 slack  325: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J066 slack  330: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J067 slack  335: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J068 slack  340: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J069 slack  345: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J070 slack  350: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J071 slack  355: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J072 slack  360: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J073 slack  365: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J074 slack  370: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J075 slack  375: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J076 slack  380: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J077 slack  385: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J078 slack  390: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J079 slack  395: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J080 slack  400: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J081 slack  405: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J082 slack  410: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J083 slack  415: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J084 slack  420: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J085 slack  425: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J086 slack  430: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J087 slack  435: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J088 slack  440: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J089 slack  445: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J090 slack  450: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J091 slack  455: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J092 slack  460: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J093 slack  465: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J094 slack  470: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J095 slack  475: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J096 slack  480: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J097 slack  485: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J098 slack  490: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J099 slack  495: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+    J100 slack  500: 60 / 60 / 0 / 86 / 86 / 86 / 86 / 86 / 86; ETM max delay 55.00
+  season W2025/26:
+    J001 slack    5: 25 / 8 / 0 / 33 / 33 / 31 / 29 / 20 / 20; ETM max delay 27.30
+    J002 slack   10: 25 / 14 / 0 / 33 / 33 / 33 / 33 / 31 / 29; ETM max delay 27.30
+    J003 slack   15: 25 / 19 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J004 slack   20: 25 / 21 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J005 slack   25: 25 / 23 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J006 slack   30: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J007 slack   35: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J008 slack   40: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J009 slack   45: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J010 slack   50: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J011 slack   55: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J012 slack   60: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J013 slack   65: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J014 slack   70: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J015 slack   75: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J016 slack   80: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J017 slack   85: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J018 slack   90: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J019 slack   95: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J020 slack  100: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J021 slack  105: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J022 slack  110: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J023 slack  115: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J024 slack  120: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J025 slack  125: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J026 slack  130: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J027 slack  135: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J028 slack  140: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J029 slack  145: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J030 slack  150: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J031 slack  155: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J032 slack  160: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J033 slack  165: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J034 slack  170: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J035 slack  175: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J036 slack  180: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J037 slack  185: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J038 slack  190: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J039 slack  195: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J040 slack  200: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J041 slack  205: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J042 slack  210: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J043 slack  215: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J044 slack  220: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J045 slack  225: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J046 slack  230: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J047 slack  235: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J048 slack  240: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J049 slack  245: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J050 slack  250: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J051 slack  255: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J052 slack  260: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J053 slack  265: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J054 slack  270: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J055 slack  275: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J056 slack  280: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J057 slack  285: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J058 slack  290: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J059 slack  295: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J060 slack  300: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J061 slack  305: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J062 slack  310: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J063 slack  315: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J064 slack  320: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J065 slack  325: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J066 slack  330: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J067 slack  335: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J068 slack  340: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J069 slack  345: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J070 slack  350: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J071 slack  355: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J072 slack  360: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J073 slack  365: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J074 slack  370: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J075 slack  375: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J076 slack  380: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J077 slack  385: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J078 slack  390: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J079 slack  395: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J080 slack  400: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J081 slack  405: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J082 slack  410: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J083 slack  415: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J084 slack  420: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J085 slack  425: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J086 slack  430: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J087 slack  435: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J088 slack  440: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J089 slack  445: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J090 slack  450: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J091 slack  455: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J092 slack  460: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J093 slack  465: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J094 slack  470: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J095 slack  475: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J096 slack  480: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J097 slack  485: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J098 slack  490: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J099 slack  495: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+    J100 slack  500: 25 / 25 / 0 / 33 / 33 / 33 / 33 / 33 / 33; ETM max delay 27.30
+  season S2026:
+    J001 slack    5: 86 / 7 / 0 / 73 / 61 / 36 / 28 / 20 / 15; ETM max delay 129.10
+    J002 slack   10: 86 / 9 / 0 / 93 / 85 / 62 / 50 / 35 / 28; ETM max delay 129.10
+    J003 slack   15: 86 / 16 / 0 / 93 / 93 / 79 / 65 / 48 / 36; ETM max delay 129.10
+    J004 slack   20: 86 / 20 / 0 / 93 / 93 / 86 / 78 / 61 / 49; ETM max delay 129.10
+    J005 slack   25: 86 / 25 / 0 / 93 / 93 / 93 / 85 / 70 / 57; ETM max delay 129.10
+    J006 slack   30: 86 / 30 / 0 / 93 / 93 / 93 / 89 / 79 / 64; ETM max delay 129.10
+    J007 slack   35: 86 / 36 / 0 / 93 / 93 / 93 / 93 / 84 / 72; ETM max delay 129.10
+    J008 slack   40: 86 / 41 / 0 / 93 / 93 / 93 / 93 / 88 / 79; ETM max delay 129.10
+    J009 slack   45: 86 / 48 / 0 / 93 / 93 / 93 / 93 / 92 / 82; ETM max delay 129.10
+    J010 slack   50: 86 / 52 / 0 / 93 / 93 / 93 / 93 / 93 / 86; ETM max delay 129.10
+    J011 slack   55: 86 / 55 / 0 / 93 / 93 / 93 / 93 / 93 / 87; ETM max delay 129.10
+    J012 slack   60: 86 / 58 / 0 / 93 / 93 / 93 / 93 / 93 / 90; ETM max delay 129.10
+    J013 slack   65: 86 / 62 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J014 slack   70: 86 / 66 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J015 slack   75: 86 / 70 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J016 slack   80: 86 / 72 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J017 slack   85: 86 / 74 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J018 slack   90: 86 / 76 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J019 slack   95: 86 / 78 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J020 slack  100: 86 / 79 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J021 slack  105: 86 / 80 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J022 slack  110: 86 / 82 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J023 slack  115: 86 / 82 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J024 slack  120: 86 / 83 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J025 slack  125: 86 / 85 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J026 slack  130: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J027 slack  135: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J028 slack  140: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J029 slack  145: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J030 slack  150: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J031 slack  155: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J032 slack  160: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J033 slack  165: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J034 slack  170: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J035 slack  175: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J036 slack  180: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J037 slack  185: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J038 slack  190: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J039 slack  195: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J040 slack  200: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J041 slack  205: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J042 slack  210: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J043 slack  215: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J044 slack  220: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J045 slack  225: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J046 slack  230: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J047 slack  235: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J048 slack  240: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J049 slack  245: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J050 slack  250: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J051 slack  255: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J052 slack  260: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J053 slack  265: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J054 slack  270: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J055 slack  275: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J056 slack  280: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J057 slack  285: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J058 slack  290: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J059 slack  295: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J060 slack  300: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J061 slack  305: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J062 slack  310: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J063 slack  315: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J064 slack  320: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J065 slack  325: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J066 slack  330: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J067 slack  335: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J068 slack  340: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J069 slack  345: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J070 slack  350: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J071 slack  355: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J072 slack  360: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J073 slack  365: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J074 slack  370: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J075 slack  375: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J076 slack  380: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J077 slack  385: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J078 slack  390: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J079 slack  395: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J080 slack  400: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J081 slack  405: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J082 slack  410: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J083 slack  415: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J084 slack  420: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J085 slack  425: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J086 slack  430: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J087 slack  435: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J088 slack  440: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J089 slack  445: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J090 slack  450: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J091 slack  455: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J092 slack  460: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J093 slack  465: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J094 slack  470: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J095 slack  475: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J096 slack  480: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J097 slack  485: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J098 slack  490: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J099 slack  495: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+    J100 slack  500: 86 / 86 / 0 / 93 / 93 / 93 / 93 / 93 / 93; ETM max delay 129.10
+
+Q (scored, primary inputs):
+  W2022/23  ETM joined with all 100 jobs 21 of 21 events -> every event: yes; ETM revenue share 1.52265 % -> below 1 %: no (scarcity season, not scored for G7)
+  W2023/24  ETM joined with all 100 jobs 17 of 17 events -> every event: yes; ETM revenue share 0.98842 % -> below 1 %: yes
+  W2024/25  ETM joined with all 100 jobs 42 of 48 events -> every event: no; ETM revenue share 0.50918 % -> below 1 %: yes
+  S2025     ETM joined with all 100 jobs 60 of 86 events -> every event: no; ETM revenue share 0.28638 % -> below 1 %: yes
+  W2025/26  ETM joined with all 100 jobs 25 of 33 events -> every event: no; ETM revenue share 0.19217 % -> below 1 %: yes
+  S2026     ETM joined with all 100 jobs 86 of 93 events -> every event: no; ETM revenue share 0.95904 % -> below 1 %: yes
+  part (a) ETM joins every event: no (2 of 6 seasons); part (b) below 1 % in every ordinary season: yes (5 of 5) -> Q fails
+  over all seasons ETM joined 251 of 298 events with all 100 jobs
+  context (not scored): ETM's W2024/25 revenue per MW 21121.41 GBP against NESO's own 1-MW scenarios for that winter, 3142 to 33560 GBP [DFS-2425-SCEN, DFS-2425-HIGH]
+  G8 (interconnection value) is not computable from event records: not part of Q
+
+CROSS-CHECK (not scored): the first job of slots J001, J020, J100 in each season, decided by exact backward induction
+(drlib.solve, the season's real events and prices known in advance, ties accept) against the online rule; per arm the
+events joined and the revenue (GBP), and whether the two agree event by event
+  W2022/23  J001 ETM : offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2022/23  J001 OWN : offers    7; backward induction joins    3, revenue    12000.53; online rule joins    4, revenue    11999.98; same events: no
+  W2022/23  J001 WALL: offers    7; backward induction joins    3, revenue    12000.53; online rule joins    4, revenue    11999.98; same events: no
+  W2022/23  J020 ETM : offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2022/23  J020 OWN : offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2022/23  J020 WALL: offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2022/23  J100 ETM : offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2022/23  J100 OWN : offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2022/23  J100 WALL: offers    7; backward induction joins    7, revenue    24000.51; online rule joins    7, revenue    24000.51; same events: yes
+  W2023/24  J001 ETM : offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2023/24  J001 OWN : offers    8; backward induction joins    3, revenue    18678.59; online rule joins    3, revenue    18678.59; same events: yes
+  W2023/24  J001 WALL: offers    8; backward induction joins    3, revenue    18678.59; online rule joins    3, revenue    18678.59; same events: yes
+  W2023/24  J020 ETM : offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2023/24  J020 OWN : offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2023/24  J020 WALL: offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2023/24  J100 ETM : offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2023/24  J100 OWN : offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2023/24  J100 WALL: offers    8; backward induction joins    8, revenue    35178.59; online rule joins    8, revenue    35178.59; same events: yes
+  W2024/25  J001 ETM : offers   10; backward induction joins    7, revenue     6513.88; online rule joins    7, revenue     6513.88; same events: yes
+  W2024/25  J001 OWN : offers   10; backward induction joins    1, revenue     1576.10; online rule joins    1, revenue     1559.45; same events: no
+  W2024/25  J001 WALL: offers   10; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  W2024/25  J020 ETM : offers   10; backward induction joins    7, revenue     6513.88; online rule joins    7, revenue     6513.88; same events: yes
+  W2024/25  J020 OWN : offers   10; backward induction joins    7, revenue     6513.88; online rule joins    7, revenue     6513.88; same events: yes
+  W2024/25  J020 WALL: offers   10; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  W2024/25  J100 ETM : offers   10; backward induction joins    7, revenue     6513.88; online rule joins    7, revenue     6513.88; same events: yes
+  W2024/25  J100 OWN : offers   10; backward induction joins    7, revenue     6513.88; online rule joins    7, revenue     6513.88; same events: yes
+  W2024/25  J100 WALL: offers   10; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  S2025     J001 ETM : offers   23; backward induction joins   13, revenue     3598.18; online rule joins   13, revenue     3598.18; same events: yes
+  S2025     J001 OWN : offers   23; backward induction joins    1, revenue      436.57; online rule joins    2, revenue      456.29; same events: no
+  S2025     J001 WALL: offers   23; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  S2025     J020 ETM : offers   23; backward induction joins   13, revenue     3598.18; online rule joins   13, revenue     3598.18; same events: yes
+  S2025     J020 OWN : offers   23; backward induction joins   13, revenue     3598.18; online rule joins   13, revenue     3598.18; same events: yes
+  S2025     J020 WALL: offers   23; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  S2025     J100 ETM : offers   23; backward induction joins   13, revenue     3598.18; online rule joins   13, revenue     3598.18; same events: yes
+  S2025     J100 OWN : offers   23; backward induction joins   13, revenue     3598.18; online rule joins   13, revenue     3598.18; same events: yes
+  S2025     J100 WALL: offers   23; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  W2025/26  J001 ETM : offers    9; backward induction joins    8, revenue     3405.69; online rule joins    8, revenue     3405.69; same events: yes
+  W2025/26  J001 OWN : offers    9; backward induction joins    1, revenue      614.66; online rule joins    2, revenue      602.86; same events: no
+  W2025/26  J001 WALL: offers    9; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  W2025/26  J020 ETM : offers    9; backward induction joins    8, revenue     3405.69; online rule joins    8, revenue     3405.69; same events: yes
+  W2025/26  J020 OWN : offers    9; backward induction joins    8, revenue     3405.69; online rule joins    8, revenue     3405.69; same events: yes
+  W2025/26  J020 WALL: offers    9; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  W2025/26  J100 ETM : offers    9; backward induction joins    8, revenue     3405.69; online rule joins    8, revenue     3405.69; same events: yes
+  W2025/26  J100 OWN : offers    9; backward induction joins    8, revenue     3405.69; online rule joins    8, revenue     3405.69; same events: yes
+  W2025/26  J100 WALL: offers    9; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  S2026     J001 ETM : offers   18; backward induction joins   12, revenue     6257.65; online rule joins   12, revenue     6257.65; same events: yes
+  S2026     J001 OWN : offers   18; backward induction joins    1, revenue      524.27; online rule joins    1, revenue      430.50; same events: no
+  S2026     J001 WALL: offers   18; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  S2026     J020 ETM : offers   18; backward induction joins   12, revenue     6257.65; online rule joins   12, revenue     6257.65; same events: yes
+  S2026     J020 OWN : offers   18; backward induction joins   12, revenue     6257.65; online rule joins   12, revenue     6257.65; same events: yes
+  S2026     J020 WALL: offers   18; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  S2026     J100 ETM : offers   18; backward induction joins   12, revenue     6257.65; online rule joins   12, revenue     6257.65; same events: yes
+  S2026     J100 OWN : offers   18; backward induction joins   12, revenue     6257.65; online rule joins   12, revenue     6257.65; same events: yes
+  S2026     J100 WALL: offers   18; backward induction joins    0, revenue        0.00; online rule joins    0, revenue        0.00; same events: yes
+  the online rule and backward induction choose the same events in 48 of 54 (season, job, arm) cells (ETM 18 of 18; OWN 13 of 18; WALL 17 of 18)
+
+SENSITIVITY 1 (not scored): the compute cost C from every sourced price and USD/GBP in {1.20, 1.35, 1.50} (ASSUMED); per
+season ETM's events joined with all 100 jobs and ETM's revenue share
+  IDX-NEO    fx 1.2  C    1634.0 GBP/MWh: W2022/23 21/21 1.3535 %; W2023/24 17/17 0.8786 %; W2024/25 41/48 0.4494 %; S2025 59/86 0.2526 %; W2025/26 23/33 0.1655 %; S2026 83/93 0.8452 %
+  IDX-NEO    fx 1.35 C    1452.4 GBP/MWh: W2022/23 21/21 1.5226 %; W2023/24 17/17 0.9884 %; W2024/25 42/48 0.5092 %; S2025 60/86 0.2864 %; W2025/26 25/33 0.1922 %; S2026 86/93 0.9590 %
+  IDX-NEO    fx 1.5  C    1307.2 GBP/MWh: W2022/23 21/21 1.6918 %; W2023/24 17/17 1.0982 %; W2024/25 42/48 0.5658 %; S2025 60/86 0.3182 %; W2025/26 26/33 0.2167 %; S2026 87/93 1.0683 %
+  CW-SPOT    fx 1.2  C    1610.3 GBP/MWh: W2022/23 21/21 1.3734 %; W2023/24 17/17 0.8915 %; W2024/25 41/48 0.4560 %; S2025 59/86 0.2563 %; W2025/26 23/33 0.1679 %; S2026 84/93 0.8601 %
+  CW-SPOT    fx 1.35 C    1431.4 GBP/MWh: W2022/23 21/21 1.5451 %; W2023/24 17/17 1.0030 %; W2024/25 42/48 0.5167 %; S2025 60/86 0.2906 %; W2025/26 26/33 0.1979 %; S2026 87/93 0.9756 %
+  CW-SPOT    fx 1.5  C    1288.2 GBP/MWh: W2022/23 21/21 1.7167 %; W2023/24 17/17 1.1144 %; W2024/25 44/48 0.5811 %; S2025 60/86 0.3229 %; W2025/26 28/33 0.2259 %; S2026 87/93 1.0841 %
+  RUNPOD     fx 1.2  C    2281.0 GBP/MWh: W2022/23 21/21 0.9695 %; W2023/24 17/17 0.6294 %; W2024/25 38/48 0.3117 %; S2025 42/86 0.1500 %; W2025/26 19/33 0.1079 %; S2026 82/93 0.6033 %
+  RUNPOD     fx 1.35 C    2027.6 GBP/MWh: W2022/23 21/21 1.0907 %; W2023/24 17/17 0.7080 %; W2024/25 41/48 0.3621 %; S2025 54/86 0.1942 %; W2025/26 21/33 0.1277 %; S2026 82/93 0.6788 %
+  RUNPOD     fx 1.5  C    1824.8 GBP/MWh: W2022/23 21/21 1.2119 %; W2023/24 17/17 0.7867 %; W2024/25 41/48 0.4024 %; S2025 58/86 0.2244 %; W2025/26 23/33 0.1482 %; S2026 83/93 0.7568 %
+  LAMBDA-OD  fx 1.2  C    2607.8 GBP/MWh: W2022/23 21/21 0.8480 %; W2023/24 17/17 0.5505 %; W2024/25 35/48 0.2630 %; S2025 38/86 0.1236 %; W2025/26 17/33 0.0887 %; S2026 78/93 0.5185 %
+  LAMBDA-OD  fx 1.35 C    2318.1 GBP/MWh: W2022/23 21/21 0.9540 %; W2023/24 17/17 0.6193 %; W2024/25 37/48 0.3033 %; S2025 42/86 0.1476 %; W2025/26 19/33 0.1061 %; S2026 82/93 0.5937 %
+  LAMBDA-OD  fx 1.5  C    2086.3 GBP/MWh: W2022/23 21/21 1.0600 %; W2023/24 17/17 0.6881 %; W2024/25 41/48 0.3520 %; S2025 51/86 0.1828 %; W2025/26 21/33 0.1241 %; S2026 82/93 0.6597 %
+  LAMBDA-RES fx 1.2  C    3620.9 GBP/MWh: W2022/23 21/21 0.6108 %; W2023/24 12/17 0.3818 %; W2024/25 25/48 0.1590 %; S2025 19/86 0.0559 %; W2025/26 14/33 0.0565 %; S2026 72/93 0.3600 %
+  LAMBDA-RES fx 1.35 C    3218.6 GBP/MWh: W2022/23 21/21 0.6871 %; W2023/24 15/17 0.4400 %; W2024/25 29/48 0.1939 %; S2025 28/86 0.0816 %; W2025/26 15/33 0.0665 %; S2026 77/93 0.4181 %
+  LAMBDA-RES fx 1.5  C    2896.7 GBP/MWh: W2022/23 21/21 0.7635 %; W2023/24 16/17 0.4924 %; W2024/25 33/48 0.2301 %; S2025 35/86 0.1057 %; W2025/26 16/33 0.0769 %; S2026 77/93 0.4645 %
+  CW-OD      fx 1.2  C    4022.9 GBP/MWh: W2022/23 21/21 0.5497 %; W2023/24 12/17 0.3436 %; W2024/25 16/48 0.1133 %; S2025 15/86 0.0426 %; W2025/26 11/33 0.0426 %; S2026 71/93 0.3217 %
+  CW-OD      fx 1.35 C    3575.9 GBP/MWh: W2022/23 21/21 0.6185 %; W2023/24 13/17 0.3899 %; W2024/25 25/48 0.1610 %; S2025 19/86 0.0566 %; W2025/26 14/33 0.0572 %; S2026 72/93 0.3646 %
+  CW-OD      fx 1.5  C    3218.3 GBP/MWh: W2022/23 21/21 0.6872 %; W2023/24 15/17 0.4401 %; W2024/25 29/48 0.1940 %; S2025 28/86 0.0817 %; W2025/26 15/33 0.0665 %; S2026 77/93 0.4181 %
+  AWS        fx 1.2  C    4496.7 GBP/MWh: W2022/23 21/21 0.4918 %; W2023/24 12/17 0.3074 %; W2024/25 8/48 0.0752 %; S2025 9/86 0.0266 %; W2025/26 9/33 0.0324 %; S2026 60/93 0.2618 %
+  AWS        fx 1.35 C    3997.1 GBP/MWh: W2022/23 21/21 0.5533 %; W2023/24 12/17 0.3458 %; W2024/25 17/48 0.1175 %; S2025 17/86 0.0469 %; W2025/26 11/33 0.0429 %; S2026 71/93 0.3238 %
+  AWS        fx 1.5  C    3597.4 GBP/MWh: W2022/23 21/21 0.6148 %; W2023/24 13/17 0.3876 %; W2024/25 25/48 0.1600 %; S2025 19/86 0.0563 %; W2025/26 14/33 0.0568 %; S2026 72/93 0.3624 %
+  IDX-HS     fx 1.2  C    4856.2 GBP/MWh: W2022/23 21/21 0.4554 %; W2023/24 12/17 0.2847 %; W2024/25 7/48 0.0662 %; S2025 9/86 0.0246 %; W2025/26 9/33 0.0300 %; S2026 58/93 0.2377 %
+  IDX-HS     fx 1.35 C    4316.6 GBP/MWh: W2022/23 21/21 0.5123 %; W2023/24 12/17 0.3202 %; W2024/25 11/48 0.0890 %; S2025 14/86 0.0379 %; W2025/26 10/33 0.0368 %; S2026 65/93 0.2854 %
+  IDX-HS     fx 1.5  C    3885.0 GBP/MWh: W2022/23 21/21 0.5693 %; W2023/24 12/17 0.3558 %; W2024/25 18/48 0.1244 %; S2025 17/86 0.0483 %; W2025/26 11/33 0.0441 %; S2026 71/93 0.3331 %
+  largest ETM share over these cells per ordinary season: W2023/24 1.1144 % (below 1 %: no); W2024/25 0.5811 % (below 1 %: yes); S2025 0.3229 % (below 1 %: yes); W2025/26 0.2259 % (below 1 %: yes); S2026 1.0841 % (below 1 %: no)
+
+SENSITIVITY 2 (not scored): the SP price read as the lowest or the highest accepted bid (C1); per season and arm the events
+joined with all 100 jobs, revenue (GBP) and share
+  price 'min':
+    W2022/23  ETM 21/21 6699750 1.4343 %; OWN 15/21 6678750 1.4298 %; WALL 15/21 6678750 1.4298 %
+    W2023/24  ETM 16/17 3332450 0.7528 %; OWN 11/17 3312950 0.7483 %; WALL 4/17 2836500 0.6407 %
+    W2024/25  ETM 42/48 1756350 0.4234 %; OWN 3/48 1697737 0.4093 %; WALL 0/48 0 0.0000 %
+    S2025     ETM 60/86 1923900 0.2641 %; OWN 4/86 1855106 0.2546 %; WALL 0/86 0 0.0000 %
+    W2025/26  ETM 24/33 885450 0.1789 %; OWN 5/33 868068 0.1754 %; WALL 0/33 0 0.0000 %
+    S2026     ETM 86/93 5126796 0.8703 %; OWN 2/93 4620074 0.7843 %; WALL 0/93 0 0.0000 %
+  price 'max':
+    W2022/23  ETM 21/21 7575000 1.6217 %; OWN 15/21 7554000 1.6172 %; WALL 15/21 7554000 1.6172 %
+    W2023/24  ETM 17/17 4880500 1.1024 %; OWN 12/17 4861000 1.0980 %; WALL 6/17 4602500 1.0396 %
+    W2024/25  ETM 42/48 2522250 0.6080 %; OWN 3/48 2439762 0.5882 %; WALL 0/48 0 0.0000 %
+    S2025     ETM 61/86 2285800 0.3138 %; OWN 5/86 2203888 0.3025 %; WALL 0/86 0 0.0000 %
+    W2025/26  ETM 25/33 1068700 0.2159 %; OWN 6/33 1048056 0.2117 %; WALL 0/33 0 0.0000 %
+    S2026     ETM 86/93 6259804 1.0626 %; OWN 2/93 5629520 0.9556 %; WALL 0/93 0 0.0000 %
+
+SENSITIVITY 3 (not scored): the restart overhead R from the F4 dossier (MegaScale 5 s and 1047 s; Kokolis u0 5 and 20 min)
+against the ASSUMED 0.1 h; per season ETM's events joined with all 100 jobs and its revenue share
+  MS-5             R = 0.00139 h: W2022/23 21/21 1.5226 %; W2023/24 17/17 0.9884 %; W2024/25 48/48 0.5239 %; S2025 86/86 0.3171 %; W2025/26 33/33 0.2105 %; S2026 93/93 0.9693 %
+  KOK-U0 lo        R = 0.08333 h: W2022/23 21/21 1.5226 %; W2023/24 17/17 0.9884 %; W2024/25 44/48 0.5154 %; S2025 62/86 0.2899 %; W2025/26 28/33 0.2003 %; S2026 87/93 0.9615 %
+  R 0.1 (ASSUMED)  R = 0.10000 h: W2022/23 21/21 1.5226 %; W2023/24 17/17 0.9884 %; W2024/25 42/48 0.5092 %; S2025 60/86 0.2864 %; W2025/26 25/33 0.1922 %; S2026 86/93 0.9590 %
+  KOK-U0 hi        R = 0.33333 h: W2022/23 21/21 1.5226 %; W2023/24 12/17 0.9518 %; W2024/25 7/48 0.2215 %; S2025 9/86 0.0824 %; W2025/26 9/33 0.1005 %; S2026 45/93 0.7926 %
+  MS-1047          R = 0.29083 h: W2022/23 21/21 1.5226 %; W2023/24 12/17 0.9518 %; W2024/25 11/48 0.2646 %; S2025 14/86 0.1125 %; W2025/26 10/33 0.1095 %; S2026 57/93 0.8752 %
+
+GATE
+  G-ZERO: ETM's stake beyond R (drlib.stake - R) at every ETM decision of the scored run, 29800 (job, event) states in 6 seasons: max |stake - R| = 0.000000 (exact 0); non-zero in 0 -> holds
+  G-NEG: no events offered, every season: ETM ahead of WALL by more than 1 % on 0 of 1224 outcome comparisons (per season: curtailed MWh, revenue, jobs completed, events joined; per slot: completion hour of the running job, jobs completed); max relative difference 0.000000 -> holds
+
+POST-FIRST-RUN CHANGES: (1) output only: the cross-check now also prints its agreement count per arm (the first run printed the total only); no input, rule, threshold or scored number changed
+
+RESULT DATA: Q fails; G-ZERO holds (max |ETM stake - R| = 0.000000 over 29800 (job, event) states); G-NEG holds (no events: ETM ahead of WALL by > 1 % on 0 of 1224 outcome comparisons)

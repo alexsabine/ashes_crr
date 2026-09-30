@@ -1,0 +1,65 @@
+DR1 check H8: the value to the grid, curtailable MW-hours per season under each arm's minimum payment, at a price grid (Grid_Demand_Response/DECLARATION.md section 2, declared at e67e8ee)
+Declared Q: at every payment above R/H, ETM supplies all the flexibility; OWN supplies it only while slack lasts.
+Declared forecast: Q holds.  Rung R4 (synthetic model); a note, not evidence (R8).
+
+INPUTS
+  DECLARED W = 1000 compute-hours per job, value 1 per compute-hour at completion (section 2 adopts EPS2 T1's units)
+  ASSUMED  R = 0.1 h restart overhead per pause event (EPS2 T1 model constant; docs/citations/eps2_2026-09-29.md, Reading (T1):
+           'no fetched source supplies or contradicts that number'); S = 0 (save time), lost = 0 (EPS2 T1 has neither)
+  ASSUMED  the fleet: 100 jobs of 1 MW each (DECLARATION.md section 3: 'A hypothetical AI training fleet of 100 MW (ASSUMED),
+           running jobs of the H3 portfolio'); the H3 portfolio's slack D - W = 5 i h, i = 1..100 (H3's ASSUMED spread; no
+           fetched source gives a distribution of training-job deadline slack); power drawn while paused 0 (EPS2 T1)
+  SOURCED  H = 3 h: Colangelo et al., arXiv:2507.00909 v1 (the Phoenix field trial), docs/citations/dr1_f1_2026-09-29.md; quote found verbatim in the dossier: yes:
+           "Each event required the cluster to reduce power by 25% with respect to the average base load during the peak demand period, sustain the reduction for 3 hours"
+  ASSUMED  H = 1 h and H = 4 h (EPS2 T1's event lengths)
+  CHOICE   the season: one offer every 24 wall hours at hours 24..984 (K = 41), the same offers to every job, made with
+           certainty (p = 1; EPS2 T1's schedule); 'per season' = these 41 offers. Spacing 12 and 48 h and Poisson offers are
+           sensitivities (not scored)
+  SOURCED  TIER contracts x in {10, 25, 50} % over a window w in {3, 6} h: docs/citations/dr1_f1_2026-09-29.md, Colangelo et al., arXiv:2507.00909 v1 (the Phoenix field trial); quote
+           found verbatim in the dossier: yes: "(b) Flex 1: up to 10% performance (average throughput) reduction allowed over a 3-6 hour period; (c) Flex 2: up to 25% allowed; (d) Flex 3: up to 50% allowed." (w = 3 and 6: CHOICE, the two ends of the
+           sourced period); TIER's performance-power curve linear (drlib's default): ASSUMED; throttle overhead 0: ASSUMED
+  ASSUMED  payment grid pi in {0.01, 0.02, 0.05, 0.2, 0.5, 2, 5, 10, 20} per curtailed fleet-hour (EPS2 T1), plus R/H of the cell;
+           the scored reading is exact over every payment, not only the grid
+  SOURCED  (sensitivity only) Poisson rate lambda_DFS: NESO, DFS winter 2024/25 report (published 3 July 2025), docs/citations/dr1_f2_2026-09-29.md; quote found verbatim: yes:
+           "Month Number of Events Bid Volume MWh Delivered Volume MWh Accuracy % of delivered vs bid volume December 6 326.5 244.8 66.69% January 8 1335.6 865.6 64.81% February 13 1839 1206.9 65.63% March 17 1948.6 1600.5 82.14% Total 44 5449.6 3917.7 71.90%"
+           events by month December 6, January 8, February 13, March 17 (sum 44), total 44; over December 2024 - March 2025 = 121 days (CHOICE, as H1) -> lambda_DFS = 44 / (121 x 24) = 1/66 per wall hour
+  SOURCED  (sensitivity only) R = 1/12 h and S = 1/12 h: Kokolis et al., 'Revisiting Reliability in Large-Scale Machine Learning Research Clusters' (HPCA 2025, arXiv:2410.21680v2), docs/citations/dr1_f4_2026-09-29.md; quote found verbatim: yes:
+           "assuming Daly-Young optimal checkpointing with 5 minute restart overhead and 5 minute checkpoint write overhead." (the paper's modelling assumption for its clusters, not a measured pause)
+  ASSUMED  (sensitivity only) slack spreads 1 i, 0.05 i and 10 i h (H3's sensitivity spreads)
+
+CHOICES
+  C1 arms (drlib): WALL values the job on the wall clock, wall-clock deadline; OWN on its own steps, wall-clock deadline; ETM
+     a lossless pause with the deadline in own steps (W + n (R + S) <= D); TIER throttles to throughput 1 - x for min(H, w)
+     hours of an event (no checkpoint, own-clock valuation, wall-clock deadline); H0 enrols for the whole season when its
+     payments cover its opportunity cost (ties enrol) and then curtails every offer. WALL, OWN, ETM and each TIER decide every
+     offer by exact backward induction on valuation plus payments (ties accept), the rest of the season at the same flat pi;
+     a job may let its deadline pass.
+  C2 'each arm's minimum payment' = the x* rule: at each offer state the job accepts iff pi > x*, or pi == x* and accepting is
+     optimal there (x* exact from drlib's convex piecewise-linear value functions). Where every acceptance region is
+     [x*, inf) ('closed'), the job's season depends on pi only through its order against the job's distinct x* values, so
+     the season's curtailed MWh is an exact step function of pi; each piece (each x* value, each open interval between
+     consecutive values, the interval above the largest) is evaluated once. 'At every payment above R/H' is scored on every
+     piece lying above R/H: exact over the whole continuum, not only the grid. The x* rule is checked against backward
+     induction (drlib.solve / play) at every grid payment for every arm, job and cell. Q is not computable in a cell where a
+     job's ETM or OWN acceptance region is not closed.
+  C3 'curtailable MW-hours per season' = the fleet's curtailed energy over the season's offers: sum over jobs of the curtailed
+     fleet-hours x 1 MW (a full pause curtails H fleet-hours per event; a TIER x min(H, w) with the linear curve). 'The
+     flexibility' = every offer to every job curtailed by a full pause: 100 jobs x K x H MWh.
+  C4 Q-a ('ETM supplies all the flexibility'): for every job, at every payment above R/H (floor = rate (R + S)/H), ETM accepts
+     every offer it is running for (the reference 'accept all'); equivalently the fleet's ETM MWh equal the flexibility.
+  C5 Q-b ('OWN supplies it only while slack lasts'): for every job, at every payment above R/H, OWN accepts an offer iff one
+     more event still meets its wall-clock deadline (the reference 'accept while the slack lasts'), so it supplies
+     min(K, nmax) events and meets its deadline. Two parts, both scored: 'while' (no offer declined while the slack lasts) and
+     'only' (no offer accepted once the slack is spent: no job gives up its deadline to supply more). The lowest payment at
+     which some job's OWN supplies beyond its slack is printed.
+  C6 Q holds in a cell iff Q-a and both parts of Q-b hold for every job on every piece above R/H; Q holds iff it holds in every
+     scored cell (H = 1, 3, 4); Q is not computable if any cell is not computable. WALL, TIER and H0 are printed (not in Q).
+  C7 the gate: G-ZERO = ETM's one-event stake minus rate (R + S) is exactly 0 at every event count n = 0..K-1 of every job in
+     every scored cell, and ETM's x* == rate (R + S)/H at every offer state; G-NEG = with no events offered (K = 0), for every
+     job of every portfolio run here (scored and sensitivity spreads), every H and every grid pi, ETM not ahead of WALL by
+     more than 1 % (harness rel) on any outcome: per job curtailed MWh, payments, valuation, fleet value, completion hour
+     (earlier is ahead), deadline met; fleet totals MWh, payments, jobs meeting their deadline. G-POS is H1's; not printed.
+  C8 H3's pinned output (Grid_Demand_Response/checks/dr_h3.txt, second reading) was seen before these choices were fixed; it
+     shows OWN's grid supply rising above the slack-limited level at pi = 10 and 20 for H = 3 and 4. C5 is the literal reading
+     of 'only while slack lasts' and was not chosen for its outcome.
+

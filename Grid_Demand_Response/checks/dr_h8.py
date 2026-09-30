@@ -656,6 +656,8 @@ def main() -> int:
     print(f"  G-NEG over the whole battery (H1-H7 read from their pinned RESULT lines, not recomputed here; H8 as computed above): "
           + ", ".join(f"{h} {w}" for h, w in battery) + f" -> {nb_hold} of {len(battery)} hold")
     print()
+    print("PRE-RUN NOTE: code-test runs on reduced portfolios (6 and 3 jobs, slack 40 i h, not pinned) preceded the first full run;")
+    print("  after them only one table-header wording was changed (no input, choice, reading or threshold)")
     print("POST-FIRST-RUN CHANGES: " + ("none" if not POST_FIRST_RUN_CHANGES else "; ".join(POST_FIRST_RUN_CHANGES)))
     print()
     print(f"RESULT H8: Q {q_word}; G-ZERO {'holds' if gz else 'FAILS'} (max |ETM stake - rate (R + S)| = {f(max(beyond))} over {len(beyond)} "
