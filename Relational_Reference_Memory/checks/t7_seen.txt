@@ -1,0 +1,1 @@
+RRM2 T7 on the 30 SEEN carriers (DECLARATION_3.md, POST HOC, report only); E in {3, 15, 30}; seeds 0-4; diagnostics only
