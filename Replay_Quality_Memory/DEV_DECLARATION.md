@@ -104,3 +104,29 @@ It is NOT DECIDABLE if N < 4.
 
 **The label.** A pass is recorded as "not a CRR rule; the GMR/DGR family with a Gaussian generator in input space, selected
 by the CRR reading" (R8).
+
+## Amendment 1 (2026-09-30, POST HOC: written after Phase A run 1; AGENT_LOG 191)
+
+**What run 1 found** (`checks/phase_a_run1.txt`, pinned as run): **GATE CLOSED**, on G-NEG alone.
+- The concentric-rings stream was unlearnable by this learner: JOINT scored 10.77 and FT 9.90, where chance for 10 classes
+  is 10.
+- So no arm could be behind or ahead of another on it. The control was defective: it tested nothing about the generator.
+- Run 1 stands as the declared result of the declared gate.
+
+**The correction** (post hoc, declared here before run 2).
+- **NEG is replaced by NEG2**, a stream on which a per-class Gaussian is provably the wrong generator and the learner can
+  learn.
+  - **The pairs.** Five pairs of classes (2k, 2k+1), each on its own two coordinates (2k, 2k+1) of d = 20; the other
+    coordinates are N(0, 1).
+    - Class 2k: four tight clusters (sd 0.3) at the corners (±a, ±a).
+    - Class 2k+1: four tight clusters at (±√2·a, 0) and (0, ±√2·a).
+    - a = 3.
+  - **The trap.** Both members of a pair have the **same mean (0) and the same covariance** (a²·I on their two
+    coordinates). So their Gaussians are identical, and Gaussian replay cannot keep them apart once their task has passed.
+    Real stored rows can.
+- **One condition is added to the gate. G-LEARN:** on NEG2, JOINT is ahead of FT by more than a step (the stream is
+  learnable). If G-LEARN fails, the gate is CLOSED again and RQM stops (R12).
+- **Nothing else changes:** the arms, α, the replay batch, the matched memory, G-POS, G-FT, G-ID, the development rule
+  and the prereg shape.
+- **What this amendment cannot do.** It cannot make run 1 open. Run 2's gate is a post hoc gate, and any pre-registration
+  that follows will say so.

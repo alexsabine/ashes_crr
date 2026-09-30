@@ -1,0 +1,36 @@
+RQM Phase A: the synthetic gate (DEV_DECLARATION.md); seeds 0-4; accuracy is class-IL over all 10 classes (%)
+IGR-F shrinkage alpha 0.1; replay batch 10; RFR width 512, lambda 1.0; FGR pseudo-activations clipped at 0 (the ReLU range)
+
+[POS] d 20; matched ER rows per class: IGR-F 12, IGR-D 2; RFR (deterministic) 80.94
+   FT        mean   24.35  seeds  20.40  26.76  25.75  24.08  24.75
+   JOINT     mean   85.35  seeds  85.62  83.61  85.95  86.29  85.28
+   ER-F      mean   78.06  seeds  77.93  77.93  79.93  80.94  73.58
+   ER-D      mean   56.39  seeds  55.52  57.19  54.85  56.86  57.53
+   IGR-F     mean   84.95  seeds  82.27  85.28  85.95  86.29  84.95
+   IGR-D     mean   85.15  seeds  83.61  85.28  86.29  84.28  86.29
+   FGR-F     mean   82.54  seeds  80.27  81.94  85.28  84.28  80.94
+   SEC-CLIP  mean   39.33  seeds  36.45  39.80  41.81  38.80  39.80
+
+[NEG] d 20; matched ER rows per class: IGR-F 12, IGR-D 2; RFR (deterministic) 15.38
+   FT        mean    9.90  seeds   8.70  10.03  10.70  10.37   9.70
+   JOINT     mean   10.77  seeds  11.04  11.04  11.71   9.36  10.70
+   ER-F      mean   10.97  seeds  10.37  12.04  10.37  11.71  10.37
+   ER-D      mean    9.83  seeds   7.69  10.70  11.71  11.71   7.36
+   IGR-F     mean   10.57  seeds  10.37  11.71  10.37  10.70   9.70
+   IGR-D     mean   10.64  seeds  10.37  11.04  10.70  11.37   9.70
+   FGR-F     mean   10.97  seeds  10.03  13.38  11.37   9.70  10.37
+   SEC-CLIP  mean    8.83  seeds   8.36   9.36   8.36   8.70   9.36
+
+----------------------------------------------------------------------------------------------------
+G-POS IGR-F - ER-F on POS +6.8896 (step 2.5259) -> holds
+G-POS IGR-D - ER-D on POS +28.7625 (step 1.0276) -> holds
+G-NEG IGR-F - ER-F on NEG -0.4013 (step 1.0000): behind by more than a step -> FAILS
+G-NEG IGR-D - ER-D on NEG +0.8027 (step 1.9224): behind by more than a step -> FAILS
+G-FT FT - ER-F on POS -53.7124 (step 2.5259) -> holds
+G-FT FT - ER-F on NEG -1.0702 (step 1.0000) -> holds
+G-ID replay forced empty == FT bit for bit: 20/20 -> holds
+GATE CLOSED
+
+reported beside the gate (not gating):
+   POS: CRR ablation IGR-F - FGR-F +2.4080; IGR-F - RFR +4.0134; IGR-F - JOINT -0.4013; SEC-CLIP - ER-F -38.7291
+   NEG: CRR ablation IGR-F - FGR-F -0.4013; IGR-F - RFR -4.8161; IGR-F - JOINT -0.2007; SEC-CLIP - ER-F -2.1405
