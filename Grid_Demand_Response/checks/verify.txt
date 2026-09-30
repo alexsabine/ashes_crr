@@ -1,0 +1,311 @@
+DR1 section 1: verbatim check of every quote in claims.py against its raw_file
+raw root: /tmp/claude-0/dr1_src
+claims 173; quotes 296; fragments (split at "[...]") 311
+fragments by mode: exact 262, rejoined 40, kept 9, hyphen-insensitive 0; NOT FOUND 0; MISSING 0
+quotes verified: 311 of 311 fragments found; ALL FOUND
+
+per claim:
+  F1:0   found     quotes 2, fragments 2 (exact 2) F1/google_1gw_2026.html.txt
+  F1:1   found     quotes 1, fragments 1 (exact 1) F1/google_1gw_2026.html.txt
+  F1:2   found     quotes 1, fragments 1 (exact 1) F1/google_terrell_2025.html.txt
+  F1:3   found     quotes 1, fragments 1 (exact 1) F1/google_terrell_2025.html.txt
+  F1:4   found     quotes 1, fragments 1 (exact 1) F1/google_cloud_2023.html.txt
+  F1:5   found     quotes 2, fragments 2 (exact 1, rejoined 1) F1/radovanovic_2106.11750v1.pdf.txt
+  F1:6   found     quotes 3, fragments 8 (exact 8) F1/iurc_46276_cac_ex1.pdf.txt
+  F1:7   found     quotes 2, fragments 2 (exact 2) F1/iurc_46276_oucc_exceptions.pdf.txt
+  F1:8   found     quotes 1, fragments 1 (exact 1) F1/colangelo_v1.pdf.txt
+  F1:9   found     quotes 3, fragments 3 (exact 2, rejoined 1) F1/colangelo_v1.pdf.txt
+  F1:10  found     quotes 1, fragments 1 (rejoined 1) F1/colangelo_v1.pdf.txt
+  F1:11  found     quotes 1, fragments 1 (exact 1) F1/colangelo_v1.pdf.txt
+  F1:12  found     quotes 1, fragments 1 (rejoined 1) F1/colangelo_v1.pdf.txt
+  F1:13  found     quotes 2, fragments 2 (exact 2) F1/arx_2606.25098v1.pdf.txt
+  F1:14  found     quotes 1, fragments 1 (rejoined 1) F1/arx_2606.25098v1.pdf.txt
+  F1:15  found     quotes 1, fragments 3 (exact 2, rejoined 1) F1/arx_2606.25098v1.pdf.txt
+  F1:16  found     quotes 2, fragments 2 (exact 1, rejoined 1) F1/arx_2606.25098v1.pdf.txt
+  F1:17  found     quotes 1, fragments 1 (exact 1) F1/emerald_expansion_round_2026.html.txt
+  F1:18  found     quotes 3, fragments 3 (exact 3) F1/utilitydive_flex_for_speed.html.txt
+  F1:19  found     quotes 3, fragments 3 (exact 3) F1/utilitydive_flex_for_speed.html.txt
+  F1:20  found     quotes 2, fragments 2 (exact 2) F1/duke_rlg_icc.pdf.txt
+  F1:21  found     quotes 1, fragments 1 (rejoined 1) F1/duke_rlg_icc.pdf.txt
+  F1:22  found     quotes 1, fragments 1 (exact 1) F1/arx_2604.05376v1.pdf.txt
+  F1:23  found     quotes 2, fragments 2 (exact 2) F1/arx_2603.27831v2.pdf.txt
+  F1:24  found     quotes 2, fragments 2 (exact 2) F1/arx_2603.27831v2.pdf.txt
+  F1:25  found     quotes 2, fragments 2 (exact 1, kept 1) F1/arx_2609.05406v1.pdf.txt
+  F1:26  found     quotes 2, fragments 2 (rejoined 2) F1/arx_2609.05406v1.pdf.txt
+  F1:27  found     quotes 1, fragments 1 (rejoined 1) F1/arx_2609.05406v1.pdf.txt
+  F1:28  found     quotes 2, fragments 2 (exact 2) F1/bu_flexdc_sim_eenergy26.pdf.txt
+  F1:29  found     quotes 1, fragments 2 (exact 1, kept 1) F1/arx_2205.11913v3.pdf.txt
+  F1:30  found     quotes 2, fragments 2 (exact 1, rejoined 1) F1/lechowicz_v1.pdf.txt
+  F1:31  found     quotes 2, fragments 3 (exact 2, rejoined 1) F1/ren_islam_icac14.pdf.txt
+  F1:32  found     quotes 1, fragments 1 (rejoined 1) F1/wierman_dcdr_survey_caltech.pdf.txt
+  F1:33  found     quotes 1, fragments 1 (exact 1) F1/epri_publicattachment_97236.pdf.txt
+  F1:34  found     quotes 1, fragments 1 (exact 1) F1/prn_dcflex_nine_sites.html.txt
+  F1:35  found     quotes 1, fragments 1 (exact 1) F1/nvidia_blog_power_flexible_factories.html.txt
+  F1:36  found     quotes 2, fragments 2 (exact 2) F1/nvidia_blog_ai_factories.html.txt
+  F1:37  found     quotes 2, fragments 2 (exact 2) F1/im_release_10359.html.txt
+  F1:38  found     quotes 2, fragments 2 (exact 2) F1/powermag_google_im.html.txt
+  F1:39  found     quotes 1, fragments 1 (exact 1) F1/energyinnovation_dc_flex.pdf.txt
+  F1:40  found     quotes 1, fragments 1 (exact 1) F1/dcf_google_utilities.html.txt
+  F2:0   found     quotes 3, fragments 3 (exact 3) F2/pjm_m11.pdf.txt
+  F2:1   found     quotes 2, fragments 2 (exact 2) F2/pjm_m11.pdf.txt
+  F2:2   found     quotes 2, fragments 2 (exact 2) F2/neso_dfs_pricing_proforma_2024.pdf.txt
+  F2:3   found     quotes 2, fragments 2 (exact 2) F2/neso_dfs_procurement_rules_2026.pdf.txt
+  F2:4   found     quotes 1, fragments 1 (exact 1) F2/neso_dfs_market_guidance_2026.pdf.txt
+  F2:5   found     quotes 1, fragments 1 (exact 1) F2/ercot_clr_page.html.txt
+  F2:6   found     quotes 1, fragments 1 (exact 1) F2/ercot_nodal_s06.docx.txt
+  F2:7   found     quotes 2, fragments 2 (exact 2) F2/ercot_ers_techreq_DecMar27.docx.txt
+  F2:8   found     quotes 2, fragments 2 (exact 2) F2/cpuc_elrp.html.txt
+  F2:9   found     quotes 2, fragments 2 (exact 2) F2/neso_dfs_winter2425_report.pdf.txt
+  F2:10  found     quotes 2, fragments 2 (exact 2) F2/neso_dfs_winter2223_review.pdf.txt
+  F2:11  found     quotes 2, fragments 2 (exact 2) F2/neso_dfs_market_info_aug2026.pdf.txt
+  F2:12  found     quotes 1, fragments 1 (exact 1) F2/pjm_bra_2027_2028_report.pdf.txt
+  F2:13  found     quotes 2, fragments 2 (exact 2) F2/ercot_ers_proc_30M_OctNov26.docx.txt
+  F2:14  found     quotes 1, fragments 1 (exact 1) F2/puct_25507.pdf.txt
+  F2:15  found     quotes 2, fragments 2 (exact 2) F2/cpuc_elrp.html.txt
+  F2:16  found     quotes 2, fragments 2 (exact 2) F2/ercot_nodal_s02.docx.txt
+  F2:17  found     quotes 1, fragments 1 (exact 1) F2/ercot_nodal_s03.docx.txt
+  F2:18  found     quotes 2, fragments 2 (exact 2) F2/pjm_m18.pdf.txt
+  F2:19  found     quotes 2, fragments 2 (exact 2) F2/neso_dfs_participation_guidance_v18.pdf.txt
+  F2:20  found     quotes 1, fragments 1 (exact 1) F2/caiso_rdrr_overview.pdf.txt
+  F2:21  found     quotes 1, fragments 1 (exact 1) F2/pjm_m18.pdf.txt
+  F2:22  found     quotes 1, fragments 1 (exact 1) F2/neso_dfs_procurement_rules_2026.pdf.txt
+  F2:23  found     quotes 1, fragments 1 (exact 1) F2/ercot_trending_batch_v2.pdf.txt
+  F2:24  found     quotes 1, fragments 1 (exact 1) F2/neso_dfs_procurement_rules_2026.pdf.txt
+  F2:25  found     quotes 2, fragments 2 (exact 2) F2/pjm_m18.pdf.txt
+  F2:26  found     quotes 1, fragments 1 (exact 1) F2/wikipedia_reservation_price.html.txt
+  F2:27  found     quotes 1, fragments 1 (exact 1) F2/desnz_reliability_metrics_2023.pdf.txt
+  F2:28  found     quotes 2, fragments 2 (exact 2) F2/le_voll_gb_2013.pdf.txt
+  F3:0   found     quotes 2, fragments 2 (exact 2) F3/nerc_incident_review_large_load_loss.pdf.txt
+  F3:1   found     quotes 4, fragments 6 (exact 6) F3/nerc_whitepaper_large_loads.pdf.txt
+  F3:2   found     quotes 2, fragments 3 (exact 3) F3/nerc_whitepaper_large_loads.pdf.txt
+  F3:3   found     quotes 1, fragments 2 (exact 2) F3/nerc_whitepaper_large_loads.pdf.txt
+  F3:4   found     quotes 2, fragments 2 (exact 1, kept 1) F3/nerc_wp_gaps.pdf.txt
+  F3:5   found     quotes 3, fragments 3 (exact 3) F3/nerc_rg_risk_mitigation.pdf.txt
+  F3:6   found     quotes 1, fragments 1 (exact 1) F3/nerc_rg_risk_mitigation.pdf.txt
+  F3:7   found     quotes 2, fragments 2 (exact 1, kept 1) F3/nerc_level2_aggregated.pdf.txt
+  F3:8   found     quotes 2, fragments 2 (exact 2) F3/nerc_ir_crypto_2026.pdf.txt
+  F3:9   found     quotes 2, fragments 2 (exact 2) F3/nerc_level3_alert.pdf.txt
+  F3:10  found     quotes 2, fragments 2 (exact 2) F3/nerc_large_loads_faq.pdf.txt
+  F3:11  found     quotes 1, fragments 1 (kept 1) F3/nerc_ltra_2025.pdf.txt
+  F3:12  found     quotes 3, fragments 3 (exact 3) F3/ercot_as_study_2024.pdf.txt
+  F3:13  found     quotes 2, fragments 2 (exact 2) F3/ercot_as_study_2024.pdf.txt
+  F3:14  found     quotes 1, fragments 1 (exact 1) F3/ercot_large_loads_as_2024.pdf.txt
+  F3:15  found     quotes 2, fragments 2 (exact 1, kept 1) F3/nerc_lmwg_sep2024.pdf.txt
+  F3:16  found     quotes 2, fragments 2 (exact 2) F3/ercot_dr_overview_2023.pdf.txt
+  F3:17  found     quotes 2, fragments 2 (exact 2) F3/ercot_dr_overview_2023.pdf.txt
+  F3:18  found     quotes 2, fragments 2 (exact 2) F3/ercot_nogrr282_item6.2.pdf.txt
+  F3:19  found     quotes 2, fragments 2 (exact 2) F3/ercot_galaxy_1191nprr.pdf.txt
+  F3:20  found     quotes 1, fragments 1 (exact 1) F3/tx_sb6_enrolled.pdf.txt
+  F3:21  found     quotes 3, fragments 3 (exact 3) F3/wecc_large_loads_risk.pdf.txt
+  F3:22  found     quotes 3, fragments 3 (exact 1, kept 2) F3/arx_2508.14318v2.pdf.txt
+  F3:23  found     quotes 2, fragments 2 (exact 2) F3/google_balance_of_power.html.txt
+  F3:24  found     quotes 3, fragments 3 (exact 1, rejoined 2) F3/arx_2604.15522v2.pdf.txt
+  F3:25  found     quotes 2, fragments 2 (exact 2) F3/arx_2509.07218v6.pdf.txt
+  F3:26  found     quotes 1, fragments 1 (exact 1) F3/arx_2509.07218v6.pdf.txt
+  F3:27  found     quotes 1, fragments 1 (kept 1) F3/arx_2609.05406v1.pdf.txt
+  F3:28  found     quotes 2, fragments 2 (exact 2) F3/arx_1806.07670v1.pdf.txt
+  F3:29  found     quotes 2, fragments 2 (exact 2) F3/michaels_dr_snapback.pdf.txt
+  F3:30  found     quotes 1, fragments 1 (exact 1) F3/arx_2608.22719v1.pdf.txt
+  F3:31  found     quotes 2, fragments 2 (exact 2) F3/arx_2601.12686v1.pdf.txt
+  F3:32  found     quotes 1, fragments 1 (exact 1) F3/arx_2603.00415v2.pdf.txt
+  F4:0   found     quotes 2, fragments 2 (exact 2) F4/pdf_2410.21680v2.pdf.txt
+  F4:1   found     quotes 1, fragments 1 (exact 1) F4/pdf_2410.21680v2.pdf.txt
+  F4:2   found     quotes 1, fragments 1 (exact 1) F4/gemini_sosp23.pdf.txt
+  F4:3   found     quotes 2, fragments 2 (rejoined 2) F4/gemini_sosp23.pdf.txt
+  F4:4   found     quotes 3, fragments 3 (exact 1, rejoined 2) F4/megascale_nsdi24.pdf.txt
+  F4:5   found     quotes 1, fragments 1 (rejoined 1) F4/megascale_nsdi24.pdf.txt
+  F4:6   found     quotes 3, fragments 3 (exact 1, rejoined 2) F4/pdf_2407.20143v4.pdf.txt
+  F4:7   found     quotes 3, fragments 3 (exact 3) F4/pytorch_async_dcp_blog.html.txt
+  F4:8   found     quotes 3, fragments 3 (exact 3) F4/pdf_2407.21783v3.pdf.txt
+  F4:9   found     quotes 1, fragments 1 (exact 1) F4/pdf_2407.21783v3.pdf.txt
+  F4:10  found     quotes 2, fragments 2 (exact 2) F4/pdf_2312.11805v5.pdf.txt
+  F4:11  found     quotes 3, fragments 3 (exact 2, rejoined 1) F4/checkfreq_fast21.pdf.txt
+  F4:12  found     quotes 1, fragments 1 (exact 1) F4/jit_msr_page.html.txt
+  F4:13  found     quotes 2, fragments 2 (exact 1, rejoined 1) F4/pdf_2509.16293v4.pdf.txt
+  F4:14  found     quotes 1, fragments 1 (exact 1) F4/pdf_2204.12013v1.pdf.txt
+  F4:15  found     quotes 1, fragments 1 (exact 1) F4/pdf_2204.12013v1.pdf.txt
+  F4:16  found     quotes 2, fragments 2 (exact 2) F4/aws_spot_interruption_notices.html.txt
+  F4:17  found     quotes 2, fragments 2 (exact 2) F4/gcp_spot_vms.html.txt
+  F4:18  found     quotes 1, fragments 1 (exact 1) F4/k8s_pod_lifecycle.html.txt
+  F4:19  found     quotes 2, fragments 3 (exact 2, rejoined 1) F4/pdf_2507.00909v1.pdf.txt
+  F4:20  found     quotes 1, fragments 1 (rejoined 1) F4/pdf_2507.00909v1.pdf.txt
+  F4:21  found     quotes 2, fragments 2 (rejoined 2) F4/pdf_2205.09646v1.pdf.txt
+  F4:22  found     quotes 2, fragments 2 (exact 1, rejoined 1) F4/pdf_2208.06102v2.pdf.txt
+  F4:23  found     quotes 1, fragments 1 (exact 1) F4/pdf_2312.06902v3.pdf.txt
+  F4:24  found     quotes 2, fragments 2 (exact 1, rejoined 1) F4/pdf_2312.06902v3.pdf.txt
+  F4:25  found     quotes 4, fragments 4 (exact 3, rejoined 1) F4/pdf_2308.12908v1.pdf.txt
+  F4:26  found     quotes 1, fragments 1 (exact 1) F4/pdf_2308.12908v1.pdf.txt
+  F4:27  found     quotes 1, fragments 1 (rejoined 1) F4/pdf_2508.14318v2.pdf.txt
+  F4:28  found     quotes 2, fragments 2 (exact 2) F4/nvidia_smi_docs.html.txt
+  F4:29  found     quotes 1, fragments 1 (exact 1) F4/nvidia_gb300_power_blog.html.txt
+  F4:30  found     quotes 2, fragments 2 (exact 2) F4/nvidia_gb300_power_blog.html.txt
+  F4:31  found     quotes 1, fragments 2 (exact 2) F4/pdf_2010.08679v2.pdf.txt
+  F4:32  found     quotes 1, fragments 1 (rejoined 1) F4/pdf_2406.10707v1.pdf.txt
+  F4:33  found     quotes 2, fragments 2 (rejoined 2) F4/pdf_2406.13768v1.pdf.txt
+  F4:34  found     quotes 1, fragments 1 (exact 1) F4/pdf_2410.06511v3.pdf.txt
+  F5:0   found     quotes 3, fragments 3 (exact 3) F5/spp_chills_order.pdf.txt
+  F5:1   found     quotes 2, fragments 2 (exact 2) F5/spp_chills_order.pdf.txt
+  F5:2   found     quotes 2, fragments 2 (exact 2) F5/pjm_board_letter_20260116.pdf.txt
+  F5:3   found     quotes 3, fragments 3 (exact 3) F5/pjm_el26-67_order.pdf.txt
+  F5:4   found     quotes 1, fragments 1 (exact 1) F5/tx_sb6_enrolled.html.txt
+  F5:5   found     quotes 1, fragments 1 (exact 1) F5/tx_sb6_enrolled.html.txt
+  F5:6   found     quotes 2, fragments 2 (exact 2) F5/pge_flex_newsroom.html.txt
+  F5:7   found     quotes 1, fragments 1 (exact 1) F5/pge_flex_newsroom.html.txt
+  F5:8   found     quotes 4, fragments 4 (exact 4) F5/utilitydive_pge_flex.html.txt
+  F5:9   found     quotes 1, fragments 1 (exact 1) F5/ofgem_dc_reforms.html.txt
+  F5:10  found     quotes 2, fragments 2 (exact 1, rejoined 1) F5/duke_rlg_icc.pdf.txt
+  F5:11  found     quotes 1, fragments 1 (rejoined 1) F5/duke_rlg_icc.pdf.txt
+  F5:12  found     quotes 1, fragments 1 (rejoined 1) F5/duke_rlg_icc.pdf.txt
+  F5:13  found     quotes 2, fragments 2 (exact 2) F5/encoord_blog.html.txt
+  F5:14  found     quotes 1, fragments 1 (exact 1) F5/gridlab_telos_nve_report.pdf.txt
+  F5:15  found     quotes 2, fragments 2 (exact 2) F5/gridlab_telos_nve_report.pdf.txt
+  F5:16  found     quotes 3, fragments 3 (exact 2, rejoined 1) F5/arx_2608.19622v1.pdf.txt
+  F5:17  found     quotes 1, fragments 1 (exact 1) F5/arx_2608.19622v1.pdf.txt
+  F5:18  found     quotes 1, fragments 1 (exact 1) F5/abs_2605.14109.html.txt
+  F5:19  found     quotes 2, fragments 2 (exact 2) F5/carbondirect_5p5bn.html.txt
+  F5:20  found     quotes 1, fragments 1 (exact 1) F5/carbondirect_5p5bn.html.txt
+  F5:21  found     quotes 3, fragments 3 (exact 3) F5/gigaenergy_profit.html.txt
+  F5:22  found     quotes 3, fragments 3 (exact 3) F5/riot_aug2023.html.txt
+  F5:23  found     quotes 1, fragments 1 (exact 1) F5/pjm_bra_2027_2028_report.pdf.txt
+  F5:24  found     quotes 1, fragments 1 (exact 1) F5/puct_25.509.pdf.txt
+  F5:25  found     quotes 1, fragments 1 (exact 1) F5/arx_2601.22487v3.pdf.txt
+  F5:26  found     quotes 1, fragments 1 (exact 1) F5/ey_dr_dc.html.txt
+  F5:27  found     quotes 2, fragments 2 (exact 2) F5/aws_ondemand_useast1_linux.json.txt
+  F5:28  found     quotes 1, fragments 1 (exact 1) F5/aws_p5.html.txt
+  F5:29  found     quotes 3, fragments 3 (exact 3) F5/arx_2607.12156v3.pdf.txt
+  F5:30  found     quotes 1, fragments 1 (exact 1) F5/arx_2607.12156v3.pdf.txt
+  F5:31  found     quotes 1, fragments 1 (exact 1) F5/nvidia_dgx_h100_datasheet.pdf.txt
+  F5:32  found     quotes 1, fragments 1 (exact 1) F5/nvidia_h100.html.txt
+  F5:33  found     quotes 2, fragments 2 (exact 2) F5/eia_epm_5_6_a.html.txt
+  F5:34  found     quotes 2, fragments 2 (exact 2) F5/arx_2405.21015.pdf.txt
+
+raw files read (sha256 of the file as read):
+  c6d016afe19f7070056a9ecae8162175291bcc532ff45f007d6e6015cc96d349 F1/arx_2205.11913v3.pdf.txt
+  0a17b60e0802553986b8b029c14f8281c5513e101451b66cab3b67192ab13478 F1/arx_2603.27831v2.pdf.txt
+  9c473d84cebaf432e35471e0e8d8269d60434f7ac19a0939aa92afa7306e89e2 F1/arx_2604.05376v1.pdf.txt
+  55b96e5db7e5e559a4da632b82cacd93c54fb996a19c5e6ddd7c73ccf8cc4dcc F1/arx_2606.25098v1.pdf.txt
+  f576b37989c397f360b37c573e3be25c1ee17c178694b1d8803abad6f6366196 F1/arx_2609.05406v1.pdf.txt
+  84a124224e1ca42689fafef53cd96ed597b0168887e6d77080178cb7428d585a F1/bu_flexdc_sim_eenergy26.pdf.txt
+  2361542dd834074a6a7bc90195b264e04c51140d687981bf9ac866fbb6c901d8 F1/colangelo_v1.pdf.txt
+  e079f65fe1c03b0128a7d570e375499152c6e95eec3eaa099cbfbc87e278a7d7 F1/dcf_google_utilities.html.txt
+  8a723f5b5a8e8e88cfa1243b50eafaf1e4438def534918175a50cbfece3442d3 F1/duke_rlg_icc.pdf.txt
+  742ab39114e4f34ff1acd0067b878282c3f533aeccc22c24d168f1222c925e13 F1/emerald_expansion_round_2026.html.txt
+  31c50ec88b3a0f18111201da6028224d8073254b398246178ffd41b48361468c F1/energyinnovation_dc_flex.pdf.txt
+  cddd56b45bf3cd778c69371eee1a6d77fa33d8d9e649a2637f96c654f1881eb4 F1/epri_publicattachment_97236.pdf.txt
+  7d012770b1ea3b8bdf274de6eeae0b074099ac3b14721e3a3878288ba0f7cc4c F1/google_1gw_2026.html.txt
+  6c7d71c35360a8b1881f0a5011ff896b33595f85c8abfc7fc27dd5f89a93ab60 F1/google_cloud_2023.html.txt
+  9a6918d61bbdabf7e38f5f687886e667939e512ad88c5d074c3c990cb4ac4895 F1/google_terrell_2025.html.txt
+  67644960a1c22d56e137c486224a59c359807b28dd2d6aeaae22b65a4752109c F1/im_release_10359.html.txt
+  06260c28661fe6f3cccc2d44aa04b800c9728ca43d0963f7590faf74085cf127 F1/iurc_46276_cac_ex1.pdf.txt
+  a8b0232e408ed7a8767530bf785123c6174da0023bc35826c78e4f83f15dea0f F1/iurc_46276_oucc_exceptions.pdf.txt
+  456a3e52ab17f65706b137e9494b678ac3dd64687825484324bb4f7cbbed8c78 F1/lechowicz_v1.pdf.txt
+  5dcd6800723357e425e63973eed71cf15e90da29f3b4421b25e0de345d96eb3c F1/nvidia_blog_ai_factories.html.txt
+  440d1152477fef8c43703b991003245678bd8105109ac3c544bfd14a9fef45ea F1/nvidia_blog_power_flexible_factories.html.txt
+  195e8800cf715acd1ba42f3ca3d4354f3aab216f7d977b9a020b75bc3968db6a F1/powermag_google_im.html.txt
+  1c6ae25f5a87c70cc2a47531193b527d7031c4bb82dd4391e3275834af729ff1 F1/prn_dcflex_nine_sites.html.txt
+  c7a6b4710543d337f7287121d8597098c6ffa4c7bc12ead9c0c5c33dfe6d81a9 F1/radovanovic_2106.11750v1.pdf.txt
+  23ae300cc2cd98672fa8a33c35cbe945000cd7d5b93a46d69e1e604ac392ffe5 F1/ren_islam_icac14.pdf.txt
+  4ecc9fa82f5dae0d314530c7a12b508cc65e1876160b562d78434f9865af8a07 F1/utilitydive_flex_for_speed.html.txt
+  0dca5ce51c385068a1095a27db6500bc7b06b6b5d61e46a926c5e5a90c28b5cc F1/wierman_dcdr_survey_caltech.pdf.txt
+  765b3a653e2c6ec7b78cb609a69e3d7b25453bb37f79ea9bb2fcc637f9f48ee7 F2/caiso_rdrr_overview.pdf.txt
+  c36dec1fcacd8597a3a8e88b1f2ce19c4f68b567c0836684919000133f9b3969 F2/cpuc_elrp.html.txt
+  d9496c848f38484043728dd0e046f2ff1faddf15af4ab39d8fd19f111dc3ea86 F2/desnz_reliability_metrics_2023.pdf.txt
+  11a760da97c449ea2b5c76e1dfeee5a856368f15803ce883865870ad43e9f70d F2/ercot_clr_page.html.txt
+  26a59863ea56baf90f6689ad7aa1268c100c85961d1732e94feb4659b0ac7166 F2/ercot_ers_proc_30M_OctNov26.docx.txt
+  430ddf1eec7a679010f67f0c1314907babcefb71051276e2962b95bdeaff1691 F2/ercot_ers_techreq_DecMar27.docx.txt
+  106ab41452968cbe5f9b8429b1d31b59323c532a102b4a152aa3fcde0d2e566b F2/ercot_nodal_s02.docx.txt
+  1572a16d8e5f8179a08b79c6288a42bcc2b448c6c7d668610c3e5d6ca7de7e3b F2/ercot_nodal_s03.docx.txt
+  09109819304f4832ab88481b214657e4ea58f0ca1d9d2c69e05fbf31921b5651 F2/ercot_nodal_s06.docx.txt
+  358fa765f99cb17698f840030cde03503c0c3a6d6823490ac9974380d43d0155 F2/ercot_trending_batch_v2.pdf.txt
+  2ad802c2c991205820fb52d69e38bde2365a492e4cf91f6939f78ebab4e7b68c F2/le_voll_gb_2013.pdf.txt
+  a0f0ac05fa1a8d2a51844395088810a7e05a9b718d4c6b186af21b7a190bd590 F2/neso_dfs_market_guidance_2026.pdf.txt
+  4af4f82ced929a62c4c223580eafa472df82770788c0e02861c6dcc80cc66013 F2/neso_dfs_market_info_aug2026.pdf.txt
+  d28f70fbd0591ccdb2fd7ea6e925346a08c4a8d753e4f66c285f8c760a060069 F2/neso_dfs_participation_guidance_v18.pdf.txt
+  8c8721d7d78c270c650ee6d25381d55f9ff3ac7a4ff2f58947bc2a051cf085ad F2/neso_dfs_pricing_proforma_2024.pdf.txt
+  d6518d37873e31bafec39289e2f0b0363fd1b7acf55841023230e7b666276060 F2/neso_dfs_procurement_rules_2026.pdf.txt
+  9a75fc539441083978a80b956a3f522ae27e625fe9f539cd0e139ddeebd5e36f F2/neso_dfs_winter2223_review.pdf.txt
+  4d6e83c29a8dbfac68a1f7472ffa7bfcd29f17808de3bcbabeed0a66d2f232b0 F2/neso_dfs_winter2425_report.pdf.txt
+  658bcadef9a89cb228aa5d001bfcc996514201910bf1cce507272bad2c2d5785 F2/pjm_bra_2027_2028_report.pdf.txt
+  4f03e23c8e17151c4080bc886c964a2ef7ee9d8765fd8bd1e5bd750c7d9174f4 F2/pjm_m11.pdf.txt
+  4cc1a41fc34d72578c26e5b9ce36833be37864146dd046ed3bcc0cffaafaf4a7 F2/pjm_m18.pdf.txt
+  b98134114f5ceff31565d11579a88dd393f19aabf5737a3f712eda53d1a3565b F2/puct_25507.pdf.txt
+  809ffefd3439ec99457f7efd33d7fc88301155481a953d85a7c06252ad3d5455 F2/wikipedia_reservation_price.html.txt
+  f5fb9441b564fd85fff55fcf1a5470d734bf91d815cd8ef7a398074b67b4d55b F3/arx_1806.07670v1.pdf.txt
+  fa1b8b1656803aa550a4d25b10b239cd4e19e806dff6ef2be0bb05a8087d86c9 F3/arx_2508.14318v2.pdf.txt
+  25c30242b1b4b59a437d659bbccda00410ba295b3f9f2c139d27ae30a193232f F3/arx_2509.07218v6.pdf.txt
+  2534c95caa760d5464908a74ffd7bb62486114b6aa187d22953c7b689d8f6be4 F3/arx_2601.12686v1.pdf.txt
+  053b59ac402b54feab3f2aca598ae4813f2588be22e1840bb681c285c393fc28 F3/arx_2603.00415v2.pdf.txt
+  cc1896915745e4107426040d936a1485eb87be558e234f8fb1b0ca8366ab0fbe F3/arx_2604.15522v2.pdf.txt
+  332678174b5ee9ff71688947cdfbde9648fcc7ac50608f53e69a5653c704ffc4 F3/arx_2608.22719v1.pdf.txt
+  f576b37989c397f360b37c573e3be25c1ee17c178694b1d8803abad6f6366196 F3/arx_2609.05406v1.pdf.txt
+  bcd44d139a75c80bbd16a24f9fbbc139839fe3f6dcb60fc3b00c79d9507b31d0 F3/ercot_as_study_2024.pdf.txt
+  574d310581383e54957e79ebac3f1d12df708c348cf837120ca1765d2a1c1d60 F3/ercot_dr_overview_2023.pdf.txt
+  51482e74a96d64209f52327b59857ee28d681c0b9014437161e86ade0639ff25 F3/ercot_galaxy_1191nprr.pdf.txt
+  a0a096ff35390a37f1df0a9b55c3d46947b9c41a639b93e04ff9186fcf65d231 F3/ercot_large_loads_as_2024.pdf.txt
+  d91c2919c07ff7ae0151e56c6fd548ea151cd709f8f9fadb5d729173f2f8f556 F3/ercot_nogrr282_item6.2.pdf.txt
+  0e3c693622d3688b6f1ad0578fd755cdfa0707480c893ddb608d0c967aff82af F3/google_balance_of_power.html.txt
+  96b142f88688a4a380cb80368cd3c06391c2a52001a17c989baea3498fd7abe8 F3/michaels_dr_snapback.pdf.txt
+  436865877ab5484960d427dee6e4eedc2fc391c2a499fdb26d954bf0ee7a82b3 F3/nerc_incident_review_large_load_loss.pdf.txt
+  39b2dc855474f0e65914fbcb6963e5410c7660ba52622b6acf7357078a5f02ff F3/nerc_ir_crypto_2026.pdf.txt
+  b35a1104c912b22ae60e9462069a15c04cb2a0f750004bf308358d02c0ab98ee F3/nerc_large_loads_faq.pdf.txt
+  f593ebef9f3c833f6cabaf25865349a6246371242000529b189ec5c8454f9460 F3/nerc_level2_aggregated.pdf.txt
+  a56d48dc227221d2cd44d308c57647da211a262a2a1a851202202e7d8c0ae4d4 F3/nerc_level3_alert.pdf.txt
+  fa6c47f7112a0fb4709b1d6a09c7db5e97e101d61ac84e0add1d0869d6de74d7 F3/nerc_lmwg_sep2024.pdf.txt
+  3282cb9256a19c65a651d10fc16175f3e72330613301f916fb818c074c04c682 F3/nerc_ltra_2025.pdf.txt
+  8daee30df59192f5c759cf5d3c6d24d786fdb6fb46ad956fe50f6dcc3f819c25 F3/nerc_rg_risk_mitigation.pdf.txt
+  6d42494412299b355b8f9c24ce73f6c074da3639da7d8692002febb121969f6c F3/nerc_whitepaper_large_loads.pdf.txt
+  1883412ae81f46fee6b6a6808d4051d244842f6f28906f4173f5dfada83ca2c0 F3/nerc_wp_gaps.pdf.txt
+  93f2f7daff3f5306367c5f3386dfe8409bbcea4f370efc8502e89eeab4cc02e4 F3/tx_sb6_enrolled.pdf.txt
+  9fab2c53dc0868ca92113b6cb3c68defc1468fda69b976a0249a8c41a137ab04 F3/wecc_large_loads_risk.pdf.txt
+  d3cef2f385929027b6f6a84916863a1e59b6760a544ff15a4e818df57c7ca6c0 F4/aws_spot_interruption_notices.html.txt
+  24147c1cc8a7f3f8d5b9d3ee66156668cc440c5983e2ef1090c00e0b2a6b2ea4 F4/checkfreq_fast21.pdf.txt
+  77f28394e9098395fbc5143277780c02a3040acecc5ab3393d0d4c6a691d5e4a F4/gcp_spot_vms.html.txt
+  e25719d0794417f7389c8ea2a39ede091ba053179fb5db78f2a44b72ad3a9c98 F4/gemini_sosp23.pdf.txt
+  9c432ff301132af0e95999c70a2e22bfcbecf9905c89e5fefdc53a6be4b000f2 F4/jit_msr_page.html.txt
+  10a70f18409f04f0a22637e07a3d8bac884154e74ef5fbf9240078dd8441987b F4/k8s_pod_lifecycle.html.txt
+  1cbed877538dbc19643571ff9f5aeb3abed088277396697252a00bdbb3363776 F4/megascale_nsdi24.pdf.txt
+  38cbc147c096f16a7ed5a6a2fa40cec6818be9f727a11fea624cd9019b030af1 F4/nvidia_gb300_power_blog.html.txt
+  fbe5241b5bea1630ae71163278a9ba9a04b761951ffba12e72758e55c227e127 F4/nvidia_smi_docs.html.txt
+  bae9a92e8f3084e7e7de9912600cce0c1e4d529670dca4791db1c78d791c73f2 F4/pdf_2010.08679v2.pdf.txt
+  4d8b083c6350325831c8749a25e31ec6e84880247a64941eacc69cf5bada51bb F4/pdf_2204.12013v1.pdf.txt
+  541d0c093492be126dc87c7d7eb6282293a107803d5cff5f812878bc061357b8 F4/pdf_2205.09646v1.pdf.txt
+  708c3a4e5777190200742532452844c2313b48e04103c671d4931763c0d28404 F4/pdf_2208.06102v2.pdf.txt
+  39c4bfcbdcc76d0b3199460736ae74c05507eda3d25c4fee1b2a34df8e740e6c F4/pdf_2308.12908v1.pdf.txt
+  f969d6a1e771146e21ccb3ba55357add0431980deb44c75bb9f9664f13d4a30c F4/pdf_2312.06902v3.pdf.txt
+  cc5b966519af1b2e3de6c9ffadd545be69146fb83b6a90fc3ff30baa4e8b1dd7 F4/pdf_2312.11805v5.pdf.txt
+  8f75cff10cae396598aaa73c58ab6965e242ca4fdec9e2d5d3f15c0e65db06ac F4/pdf_2406.10707v1.pdf.txt
+  0f3ac4418e660f2794d18f2129626224aea5235d5ee04d1e89928f127c1bac21 F4/pdf_2406.13768v1.pdf.txt
+  6571dfc68a9c3c89dffe0c60471146f41ae937dcd0a5585133f27a763e2784de F4/pdf_2407.20143v4.pdf.txt
+  99afb9521f9461631eff481e72e3408b839e94cdea3f6e914daf332216235537 F4/pdf_2407.21783v3.pdf.txt
+  df238bbf5d0a333fe31a904f6794afe91f641bc0c32fc18033a17edc389859e0 F4/pdf_2410.06511v3.pdf.txt
+  79ae9763a81b0212096452736c9bb8a1c0a02034f4344b1664e301d91532d548 F4/pdf_2410.21680v2.pdf.txt
+  2361542dd834074a6a7bc90195b264e04c51140d687981bf9ac866fbb6c901d8 F4/pdf_2507.00909v1.pdf.txt
+  fa1b8b1656803aa550a4d25b10b239cd4e19e806dff6ef2be0bb05a8087d86c9 F4/pdf_2508.14318v2.pdf.txt
+  055be7ab5e1351075dba01429d2f45340b73dde4122cb07ef44cd287b4f9ae51 F4/pdf_2509.16293v4.pdf.txt
+  45867cd5c1da0e845e5bbff92619edd504812c4e8ec412a6ad4eecd73905ca76 F4/pytorch_async_dcp_blog.html.txt
+  d5a27dedc310eeea8f37805f84316da15f7540a67e42ba504a5ea7097e78566f F5/abs_2605.14109.html.txt
+  831f49c5476526a74d547fe2f47ab2493386a93b5fe888f72abb8acacc8cb4e8 F5/arx_2405.21015.pdf.txt
+  e4c3977717f8a74ec1f0c265e7d3c265767ec0af22960d00976272a531f8ccde F5/arx_2601.22487v3.pdf.txt
+  5498127fd2b93b60ec8eaec554de9ce18a5249ce0a1aee19d700253b72608aa4 F5/arx_2607.12156v3.pdf.txt
+  84327fad403966d26ca3ad3a4faf2860925288f47213d46900bc9b38f9724436 F5/arx_2608.19622v1.pdf.txt
+  7e925f61b398eeb5e7bd6ea03a16f7f0b886afe31f44476a9efa642e97964cf5 F5/aws_ondemand_useast1_linux.json.txt
+  f61cdce5507280f4c1b980f69fb7c99b8c764c57eb4cbf8a02245bb8c0cf7fc1 F5/aws_p5.html.txt
+  ed7716ed0db40b8ced0eb51f0a16e8fe6ef323deaff20c64e723063bb2fabfe7 F5/carbondirect_5p5bn.html.txt
+  8a723f5b5a8e8e88cfa1243b50eafaf1e4438def534918175a50cbfece3442d3 F5/duke_rlg_icc.pdf.txt
+  1e6ffd963ef794b474cbaf56d47ddb370ade6b85f77ee76aad4db0c573081be2 F5/eia_epm_5_6_a.html.txt
+  eca6bfb3324030d335b59fef83773bbc6629f6baab6a21141373087a8ff75cc3 F5/encoord_blog.html.txt
+  01ae902f82b8a821e7a668cdbdf6791a7d3b493d242f3e377fe3ec266ea7f88e F5/ey_dr_dc.html.txt
+  9ad58b2c898a856d7439a4e239fb95fa9a64ce10e6cd17b9ebebd31fb7fcac60 F5/gigaenergy_profit.html.txt
+  199fd057725c9c434e1ab34422195e7f63036e184ce1b56247a55c760ff4b087 F5/gridlab_telos_nve_report.pdf.txt
+  cdf313ddc1f45245f389c5c2d8adad3dd012958280b1fe237f9a6fff3eb37374 F5/nvidia_dgx_h100_datasheet.pdf.txt
+  c3c9bee3f7cb150fcaa330e9dfb4238b77a5bb787db55a1b89374c08cf8f982c F5/nvidia_h100.html.txt
+  2cbd878370b474e1edf9fb0701c2a8c50b8b56164d8ce7bbe85bd3628cd4ee91 F5/ofgem_dc_reforms.html.txt
+  e2b3919e0400c3d21b7c6d5955a14b429f9dc6f3e35c4699c325fe2cd2e745ab F5/pge_flex_newsroom.html.txt
+  300bf4bcc145112f87ff590ddf448d50ed86297402b2b40c4e5f23d70efc92d8 F5/pjm_board_letter_20260116.pdf.txt
+  658bcadef9a89cb228aa5d001bfcc996514201910bf1cce507272bad2c2d5785 F5/pjm_bra_2027_2028_report.pdf.txt
+  678fa9879186c4879611104dc4bf4c59885e9042b212b3037b09f460dc1664da F5/pjm_el26-67_order.pdf.txt
+  6e1473b8ad32f2c60fdfa2dd9012f1b5ae5acd3966816ed713dffc5b5b7c3b3c F5/puct_25.509.pdf.txt
+  cc42f717d8206d6657429eed8259008716e08b597e6b6d7d3a80d8353300fe4e F5/riot_aug2023.html.txt
+  0f4f3f45199c067322e5564cd5dc75c300f1254848db86073020319d5b66b854 F5/spp_chills_order.pdf.txt
+  f97564abf670efdb1795b3108cbbddc3d190823067e18a093137824f1fce7d13 F5/tx_sb6_enrolled.html.txt
+  d092ae83ee56d47c81681d2330f9f4728882062e27e440dae228ecd4f0783687 F5/utilitydive_pge_flex.html.txt

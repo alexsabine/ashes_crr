@@ -504,3 +504,23 @@ SCORED Q PER CELL (exact, every piece above R/H)
 
 SENSITIVITY 1 (not scored): offer spacing 12 and 48 h (EPS2's), the scored portfolio
   spacing 12 h, H 1 (K = 83): Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 18 beyond, OWN beyond its slack from 12.758228 (fails); just above floor 0.1000: flexibility 8300.0, ETM 8267.0, OWN 7575.0 (slack-limited 7575.0) MWh -> Q fails
+  spacing 12 h, H 3 (K = 83): Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 51 beyond, OWN beyond its slack from 4.098374 (fails); just above floor 0.0333: flexibility 24900.0, ETM 24801.0, OWN 18543.0 (slack-limited 18543.0) MWh -> Q fails
+  spacing 12 h, H 4 (K = 83): Q-a 99 of 100 jobs (fails); Q-b while 0 short, only 68 beyond, OWN beyond its slack from 3.073780 (fails); just above floor 0.0250: flexibility 33200.0, ETM 33068.0, OWN 21932.0 (slack-limited 21932.0) MWh -> Q fails
+  spacing 48 h, H 1 (K = 20): Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 4 beyond, OWN beyond its slack from 62.600000 (fails); just above floor 0.1000: flexibility 2000.0, ETM 2000.0, OWN 1964.0 (slack-limited 1964.0) MWh -> Q fails
+  spacing 48 h, H 3 (K = 20): Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 12 beyond, OWN beyond its slack from 17.577193 (fails); just above floor 0.0333: flexibility 6000.0, ETM 6000.0, OWN 5640.0 (slack-limited 5640.0) MWh -> Q fails
+  spacing 48 h, H 4 (K = 20): Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 16 beyond, OWN beyond its slack from 13.182895 (fails); just above floor 0.0250: flexibility 8000.0, ETM 8000.0, OWN 7352.0 (slack-limited 7352.0) MWh -> Q fails
+
+SENSITIVITY 2 (not scored): other slack spreads (ASSUMED, H3's), spacing 24 h
+  slack_i = 1 i h (1..100 h), H 1: Q-a 96 of 100 jobs (fails); Q-b while 0 short, only 45 beyond, OWN beyond its slack from 24.490244 (fails); just above floor 0.1000: flexibility 4100.0, ETM 4036.0, OWN 3175.0 (slack-limited 3175.0) MWh -> Q fails
+  slack_i = 1 i h (1..100 h), H 3: Q-a 96 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 8.163415 (fails); just above floor 0.0333: flexibility 12300.0, ETM 12108.0, OWN 4740.0 (slack-limited 4740.0) MWh -> Q fails
+  slack_i = 1 i h (1..100 h), H 4: Q-a 96 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 6.122561 (fails); just above floor 0.0250: flexibility 16400.0, ETM 16144.0, OWN 4728.0 (slack-limited 4728.0) MWh -> Q fails
+  slack_i = 0.05 i h (0.05..5 h), H 1: Q-a 19 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 24.490244 (fails); just above floor 0.1000: flexibility 4100.0, ETM 2419.0, OWN 184.0 (slack-limited 184.0) MWh -> Q fails
+  slack_i = 0.05 i h (0.05..5 h), H 3: Q-a 19 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 8.163415 (fails); just above floor 0.0333: flexibility 12300.0, ETM 7257.0, OWN 117.0 (slack-limited 117.0) MWh -> Q fails
+  slack_i = 0.05 i h (0.05..5 h), H 4: Q-a 19 of 100 jobs (fails); Q-b while 0 short, only 100 beyond, OWN beyond its slack from 6.122561 (fails); just above floor 0.0250: flexibility 16400.0, ETM 9676.0, OWN 76.0 (slack-limited 76.0) MWh -> Q fails
+  slack_i = 10 i h (10..1000 h), H 1: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 4 beyond, OWN beyond its slack from 31.350000 (fails); just above floor 0.1000: flexibility 4100.0, ETM 4100.0, OWN 4026.0 (slack-limited 4026.0) MWh -> Q fails
+  slack_i = 10 i h (10..1000 h), H 3: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 12 beyond, OWN beyond its slack from 8.805263 (fails); just above floor 0.0333: flexibility 12300.0, ETM 12300.0, OWN 11562.0 (slack-limited 11562.0) MWh -> Q fails
+  slack_i = 10 i h (10..1000 h), H 4: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 16 beyond, OWN beyond its slack from 6.435256 (fails); just above floor 0.0250: flexibility 16400.0, ETM 16400.0, OWN 15072.0 (slack-limited 15072.0) MWh -> Q fails
+
+SENSITIVITY 3 (not scored): Poisson offers at lambda_DFS (SOURCED) with at most one event per 24 h slot (CHOICE); every
+  quantity an exact expectation; Q-a/Q-b read on every reached made offer (probability mass of mismatches)
+  lambda 1/66, p = 50411/165360 (rounding error 2.3e-13), H 1: Q-a 100 of 100 jobs (holds); Q-b while 0 short, only 9 beyond, OWN beyond its slack from 83.608572 (fails); just above floor 0.1000: flexibility 1249.9, ETM 1249.9, OWN 1236.8 (slack-limited 1236.8) MWh -> Q fails

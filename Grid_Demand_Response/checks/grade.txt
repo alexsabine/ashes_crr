@@ -1,0 +1,188 @@
+DR1 section 1: positions G1-G9 graded against the sweep (Grid_Demand_Response/DECLARATION.md, pushed at e67e8ee)
+claims 173 (F1 41, F2 29, F3 33, F4 35, F5 35); quotes 296; readings states 25, close 53, bears 95, contradicts 0; quotes checked in verify.txt
+readings by: grading agent, for the investigator's review; the families' proposed readings are graded in the sensitivity block below
+CHOICE: rule order MIXED (states and contradicts) > REDUNDANT (states) > PARTLY REDUNDANT (close) > NOT FOUND IN THE SWEEP; close + contradicts without states is not MIXED under this rule (the contradicting count is printed)
+CHOICE: G4 is graded in two parts (the extension; the tiers) because the declaration gives it two expected grades; each G4 claim carries its part
+CHOICE: G7 and G8 are positions that are questions the sources answer; their grade is ADDRESSED, the answer is the rule's grade, and hit/miss compares the answer with the declared expected grade
+G4 claims without a part: 0
+CHOICE: hit = the computed grade (for G7, G8 the answer) equals the declared expected grade string exactly
+
+G1           REDUNDANT
+             position: AI training and data-centre load is already used for demand response in the field
+             claims 10: states 6, close 0, bears 4, contradicts 0
+             expected (declaration): REDUNDANT; hit
+              states      F1:0   Google blog, Terrell, 'A new milestone for smart, affordable electricity growth' [datePublished 2026-03-19; Mar 19, 2026; ]
+              states      F1:2   Google blog, Terrell, 'How we're making data centers more flexible to benefit po [datePublished 2025-08-04; fetched 2026-0]
+              states      F1:8   Colangelo et al., Turning AI Data Centers into Grid-Interactive Assets (Phoenix) [arXiv:2507.00909 v1 (Tue, 1 Jul 2025); f]
+              states      F1:13  Williams et al., Power-Flexible AI Data Centers [arXiv:2606.25098 v1 (Tue, 23 Jun 2026); ]
+              states      F1:34  EPRI via PR Newswire, DCFlex expands to nine demonstration sites [Feb 02, 2026; fetched 2026-09-29]
+              states      F1:37  Indiana Michigan Power news release 10359 [August 4, 2025; fetched 2026-09-29]
+              bears       F1:26, F1:36, F3:6, F3:11
+
+G2           PARTLY REDUNDANT
+             position: a training job's cost of a curtailment is its lost work plus restart plus deadline pressure (its opportunity cost), and this sets the payment it needs
+             claims 19: states 0, close 10, bears 9, contradicts 0
+             expected (declaration): PARTLY REDUNDANT; hit
+              close       F1:21  Norris et al., Rethinking Load Growth (Duke) [PDF created 2025-02-10; fetched 2026-09-]
+              close       F1:23  Ji, Crozier & Liska, Quantifying and Attributing Power Flexibility from GPU-Heav [arXiv:2603.27831 v2 (Tue, 30 Jun 2026); ]
+              close       F1:31  Ren & Islam, Colocation Demand Response: Why Do I Turn Off My Servers? (ICAC '14 [PDF created 2014-06-11; ICAC '14; fetche]
+              close       F2:0   PJM Manual 11: Energy & Ancillary Services Market Operations [Revision: 137 Effective Date: July 28, 2]
+              close       F2:2   NESO DFS Pricing Pro-Forma [listed 31 Jul 2024; PDF created 2024-07-]
+              close       F2:3   NESO DFS Procurement Rules [Version: 5.0 Effective From: 18 May 2026]
+              close       F2:5   ERCOT, Load Resource Participation in the ERCOT Markets [undated; fetched 2026-09-29]
+              close       F2:6   ERCOT Nodal Protocols Section 6 [August 28, 2026; fetched 2026-09-29]
+              close       F3:26  Chen et al., Electricity Demand and Grid Impacts of AI Data Centers [arXiv:2509.07218 v6 (4 Aug 2026); fetche]
+              close       F5:25  Jahanshahi et al., Coordinating GPU Data Centers and Power Grid Regulation Servi [arXiv:2601.22487 v3 (24 Jun 2026); fetch]
+              bears       F1:6, F1:7, F1:32, F1:38, F2:4, F2:7, F2:8, F4:1, F5:16
+
+G3           PARTLY REDUNDANT
+             position: a lossless pause (checkpoint and resume, nothing lost) makes the job's curtailment cost about the restart overhead
+             claims 20: states 0, close 6, bears 14, contradicts 0
+             expected (declaration): PARTLY REDUNDANT; hit
+              close       F1:10  Colangelo et al., Phoenix field demonstration [arXiv:2507.00909 v1 (Tue, 1 Jul 2025); f]
+              close       F1:14  Williams et al., Power-Flexible AI Data Centers [arXiv:2606.25098 v1 (Tue, 23 Jun 2026); ]
+              close       F1:29  Gao et al., Deep Learning Workload Scheduling in GPU Datacenters: Taxonomy, Chal [arXiv:2205.11913 v3 (Wed, 1 Jun 2022); f]
+              close       F4:0   Kokolis et al., Revisiting Reliability in Large-Scale Machine Learning Research  [arXiv:2410.21680 v2 (6 Feb 2025); fetche]
+              close       F4:2   Wang et al., GEMINI: Fast Failure Recovery in Distributed Training with In-Memor [SOSP '23; fetched 2026-09-29]
+              close       F4:12  Gupta et al., Just-In-Time Checkpointing (EuroSys 2024), MSR publication page [fetched 2026-09-30]
+              bears       F1:4, F1:24, F1:25, F2:1, F2:24, F4:4, F4:8, F4:10, F4:11, F4:13, F4:15, F4:33, F4:34, F5:30
+
+G4-extension NOT FOUND IN THE SWEEP
+             position: a contract that extends the job's deadline by the curtailed time (stop-the-clock) elicits full participation at the restart cost
+             claims 3: states 0, close 0, bears 3, contradicts 0
+             expected (declaration): NOT FOUND IN THE SWEEP; hit
+              bears       F1:27, F1:30, F2:21
+
+G4-tiers     REDUNDANT
+             position: industry instead uses slowdown tiers
+             claims 6: states 1, close 5, bears 0, contradicts 0
+             expected (declaration): REDUNDANT; hit
+              close       F1:5   Radovanovic et al., Carbon-Aware Computing for Datacenters (Google) [arXiv:2106.11750 v1 (Fri, 11 Jun 2021); ]
+              states      F1:9   Colangelo et al., Phoenix field demonstration [arXiv:2507.00909 v1 (Tue, 1 Jul 2025); f]
+              close       F1:17  Emerald AI, Sivaram, strategic expansion round post [datePublished 2026-04-02; March 31, 2026]
+              close       F1:19  Utility Dive, Trabish 2026 [datePublished 2026-06-26; June 26, 2026;]
+              close       F1:22  Chen & Zheng, To Defer or To Shift? [arXiv:2604.05376 v1 (Tue, 7 Apr 2026); f]
+              close       F1:28  Acun et al., Investigating Power Consumption Flexibility of AI Data Centers for  [PDF created 2026-02-28; E-Energy '26; fe]
+
+G5           REDUNDANT
+             position: flexible AI load carries grid-safety risks: synchronized ramps and power swings, and a rebound peak when paused jobs resume together
+             claims 29: states 13, close 6, bears 10, contradicts 0
+             expected (declaration): REDUNDANT; hit
+              close       F3:0   NERC Incident Review: Considering Simultaneous Voltage-Sensitive Load Reductions [January 8, 2025; PDF creation 2025-01-08]
+              states      F3:1   NERC LLTF White Paper: Characteristics and Risks of Emerging Large Loads [dated July 2025; PDF creation 2025-07-22]
+              states      F3:4   NERC LLWG White Paper: Assessment of Gaps [dated March 2026; PDF creation 2026-03-1]
+              states      F3:5   NERC Reliability Guideline: Risk Mitigation for Emerging Large Loads [dated May 2026; PDF creation 2026-05-01;]
+              states      F3:7   NERC Aggregated Report on Level 2 Industry Recommendation: Large Load Interconne [September 9, 2025; PDF creation 2026-03-]
+              states      F3:10  NERC Large Loads FAQ [dated August 2026; PDF creation 2026-08-]
+              close       F3:14  ERCOT staff, Ancillary Services and Large Loads in ERCOT [May 6, 2024; fetched 2026-09-29]
+              states      F3:15  ERCOT (Springer), Large Loads in ERCOT, NERC LMWG meeting package [September 17, 2024; PDF creation 2024-09]
+              close       F3:18  ERCOT NOGRR282 Large Computational Load Ride-Through Requirements (board item 6. [PDF modified 2025-12-01; fetched 2026-09]
+              close       F3:19  ERCOT NPRR1191 (withdrawn), Galaxy comments [Aug 1, 2023; PDF creation 2023-08-30; fe]
+              states      F3:21  WECC (Elevate), Assessment of Large Load Interconnection Risks in the Western In [dated February 2025; PDF creation 2025-0]
+              states      F3:22  Choukse et al., Power Stabilization for AI Training Datacenters [arXiv:2508.14318 v2 (21 Aug 2025); fetch]
+              states      F3:23  Google Cloud, Balance of power: power and thermal fluctuations in ML infrastruct [February 12, 2025; fetched 2026-09-29]
+              states      F3:24  Jensen et al., EasyRider [arXiv:2604.15522 v2 (11 Sep 2026); fetch]
+              states      F3:25  Chen et al., Electricity Demand and Grid Impacts of AI Data Centers [arXiv:2509.07218 v6 (4 Aug 2026); fetche]
+              close       F3:28  Mueller & Jansen, Large-Scale Demonstration of Precise Demand Response Provided  [arXiv:1806.07670 v1 (20 Jun 2018); fetch]
+              states      F3:30  Chaudhary et al., Correlated AI Data-Center Load Episodes [arXiv:2608.22719 v1 (24 Aug 2026); fetch]
+              close       F3:32  Mohammadi et al., Grid Integration of AI Data Centers: energy storage review [arXiv:2603.00415 v2 (5 May 2026); fetche]
+              states      F4:9   Llama Team, The Llama 3 Herd of Models [arXiv:2407.21783 v3 (23 Nov 2024); fetch]
+              bears       F1:12, F2:22, F3:8, F3:9, F3:13, F3:27, F3:29, F3:31, F4:30, F5:7
+
+G6           PARTLY REDUNDANT
+             position: a lossless pause needs a checkpoint save before the power drops, which limits the demand-response products it can meet (response-time requirements)
+             claims 25: states 0, close 2, bears 23, contradicts 0
+             expected (declaration): PARTLY REDUNDANT; hit
+              close       F4:14  Thorpe et al., Bamboo (NSDI '23) [arXiv:2204.12013 v1 (26 Apr 2022); fetch]
+              close       F4:27  Choukse et al., Power Stabilization for AI Training Datacenters [arXiv:2508.14318 v2 (21 Aug 2025); fetch]
+              bears       F1:16, F2:16, F2:17, F2:18, F2:19, F2:20, F3:2, F3:12, F3:16, F3:20, F4:3, F4:5, F4:6, F4:7, F4:16, F4:17, F4:18, F4:20, F4:23, F4:26, F4:31, F4:32, F5:5
+
+G7           ADDRESSED (answer: REDUNDANT)
+             position: demand-response payments are small against the compute cost of a training fleet
+             claims 25: states 3, close 0, bears 22, contradicts 0
+             expected (declaration): MIXED (expected: small, with exceptions in scarcity events); miss
+              states      F5:11  Norris et al., Rethinking Load Growth (Duke Nicholas Institute) [fetched 2026-09-29]
+              states      F5:14  Cox, Schwartz & Stenclik (GridLab/Telos), NV Energy data-centre flexibility case [dated September 2025; datePublished 2025]
+              states      F5:19  Relae (ex Carbon Direct), The $5.5 Billion-Dollar Case for Enabling Data Center  [March 20, 2026; September 21, 2026; fetc]
+              bears       F2:9, F2:10, F2:11, F2:12, F2:13, F2:14, F2:15, F3:17, F5:1, F5:12, F5:21, F5:22, F5:23, F5:24, F5:26, F5:27, F5:28, F5:29, F5:31, F5:32, F5:33, F5:34
+
+G8           ADDRESSED (answer: REDUNDANT)
+             position: the main commercial value of flexible AI load is faster or larger grid interconnection, not event payments
+             claims 25: states 2, close 20, bears 3, contradicts 0
+             expected (declaration): REDUNDANT; hit
+              close       F1:1   Google blog, Terrell 2026 [datePublished 2026-03-19; Mar 19, 2026; ]
+              close       F1:3   Google blog, Terrell 2025 [datePublished 2025-08-04; fetched 2026-0]
+              close       F1:11  Colangelo et al., Phoenix field demonstration [arXiv:2507.00909 v1 (Tue, 1 Jul 2025); f]
+              close       F1:15  Williams et al., Power-Flexible AI Data Centers [arXiv:2606.25098 v1 (Tue, 23 Jun 2026); ]
+              states      F1:18  Utility Dive, Trabish, 'Data centers are ready to negotiate flexibility for spee [datePublished 2026-06-26; June 26, 2026;]
+              close       F1:20  Norris et al., Rethinking Load Growth (Duke Nicholas Institute) [PDF created 2025-02-10; fetched 2026-09-]
+              close       F1:33  EPRI, DCFlex Flex MOSAIC Framework brief [PDF created 2026-03-24; fetched 2026-09-]
+              close       F1:35  NVIDIA blog, Parker, How Power-Flexible AI Factories Can Stabilize the Global En [datePublished 2026-03-25; fetched 2026-0]
+              close       F1:39  Energy Innovation, Data Center Demand Flexibility (one-page brief) [undated; PDF created 2025-07-07; fetched]
+              close       F1:40  Data Center Frontier, Google Partners With Utilities to Ease AI Data Center Grid [datePublished 2025-09-15; fetched 2026-0]
+              close       F2:23  ERCOT Trending Topics: New Batch Connection Process for Large Electricity Users [June 18, 2026; PDF created 2026-07-20; f]
+              close       F3:3   NERC LLTF White Paper: Characteristics and Risks of Emerging Large Loads [dated July 2025; PDF creation 2025-07-22]
+              close       F5:0   FERC order accepting SPP CHILLS (ER26-1323) [June 5, 2026; 195 FERC ¶ 61,196; fetched]
+              close       F5:2   PJM Board decisional letter, CIFP large load additions [January 16, 2026; fetched 2026-09-29]
+              close       F5:3   FERC order instituting proceeding, PJM (EL26-67) [dated 20260618; June 18, 2026; 195 FERC ]
+              close       F5:6   PG&E Currents, Why Grid Flexibility Is Now Essential [May 06, 2026; fetched 2026-09-30]
+              close       F5:8   Utility Dive, PG&E Flex Connect pilot (Martucci) [fetched 2026-09-30]
+              close       F5:10  Norris et al., Rethinking Load Growth (Duke Nicholas Institute) [fetched 2026-09-29]
+              close       F5:13  Camus, encoord & Princeton ZERO Lab, Flexible Data Centers (blog + executive sum [dated 2025-12-04; fetched 2026-09-29]
+              states      F5:15  Cox, Schwartz & Stenclik (GridLab/Telos), NV Energy data-centre flexibility case [dated September 2025; datePublished 2025]
+              close       F5:17  Khanal et al., Shift or curtail? [arXiv:2608.19622 v1 (20 Aug 2026); fetch]
+              close       F5:18  Lu & Xu, Grid Integration of Gigawatt-Scale AI Data Centers under Connect-and-Ma [arXiv:2605.14109 v1 (13 May 2026); fetch]
+              bears       F5:4, F5:9, F5:20
+
+G9           PARTLY REDUNDANT
+             position: power capping or throttling (running slower) is an alternative to pausing, with different energy and grid effects
+             claims 7: states 0, close 4, bears 3, contradicts 0
+             expected (declaration): REDUNDANT; miss
+              close       F4:19  Colangelo et al., Turning AI Data Centers into Grid-Interactive Assets (Phoenix  [arXiv:2507.00909 v1 (1 Jul 2025); fetche]
+              close       F4:21  McDonald et al., Great Power, Great Responsibility: Recommendations for Reducing [arXiv:2205.09646 v1 (19 May 2022); fetch]
+              close       F4:22  You, Chung & Chowdhury, Zeus (NSDI 2023) [arXiv:2208.06102 v2 (29 Sep 2022); fetch]
+              close       F4:25  Patel et al., POLCA: Power Oversubscription in LLM Cloud Providers [arXiv:2308.12908 v1 (24 Aug 2023); fetch]
+              bears       F4:24, F4:28, F4:29
+
+G4 pooled (both parts as one position, for comparison only): REDUNDANT (states 1, close 5, bears 3, contradicts 0)
+hits against the declared expected grades: 8 of 10 (misses: G7, G9)
+never read as novel: NOT FOUND IN THE SWEEP means only that no source reached in this sweep states the position or comes close to it; it is not a finding of novelty (declaration, Status)
+
+Sensitivity: the same rule on the families' proposed readings ('proposed_reading')
+  G1           REDUNDANT                                states  7, close  2, bears  1, contradicts  0; hit; same as above
+  G2           MIXED                                    states  3, close  7, bears  5, contradicts  4; miss; differs from above (PARTLY REDUNDANT)
+  G3           MIXED                                    states  1, close  6, bears 10, contradicts  3; miss; differs from above (PARTLY REDUNDANT)
+  G4-extension NOT FOUND IN THE SWEEP                   states  0, close  0, bears  3, contradicts  0; hit; same as above
+  G4-tiers     REDUNDANT                                states  2, close  4, bears  0, contradicts  0; hit; same as above
+  G5           MIXED                                    states 18, close  2, bears  6, contradicts  3; miss; differs from above (REDUNDANT)
+  G6           MIXED                                    states  3, close  2, bears 17, contradicts  3; miss; differs from above (PARTLY REDUNDANT)
+  G7           ADDRESSED (answer: MIXED)                states  5, close  0, bears 17, contradicts  3; hit; differs from above (REDUNDANT)
+  G8           ADDRESSED (answer: REDUNDANT)            states 13, close  9, bears  3, contradicts  0; hit; same as above
+  G9           REDUNDANT                                states  4, close  0, bears  3, contradicts  0; hit; differs from above (PARTLY REDUNDANT)
+  hits on the proposed readings: 6 of 10
+  readings changed by the grading agent: 50 of 173 (close -> bears 3, contradicts -> bears 16, states -> bears 7, states -> close 24)
+  single-claim sensitivity: changed readings whose proposed reading, substituted alone, changes the grade: 17
+    F1:23 (G2: close -> states gives REDUNDANT)
+    F2:0 (G2: close -> states gives REDUNDANT)
+    F2:5 (G2: close -> states gives REDUNDANT)
+    F2:12 (G7: bears -> contradicts gives MIXED)
+    F2:16 (G6: bears -> states gives REDUNDANT)
+    F3:8 (G5: bears -> contradicts gives MIXED)
+    F3:12 (G6: bears -> states gives REDUNDANT)
+    F3:13 (G5: bears -> contradicts gives MIXED)
+    F3:16 (G6: bears -> states gives REDUNDANT)
+    F3:29 (G5: bears -> contradicts gives MIXED)
+    F4:0 (G3: close -> states gives REDUNDANT)
+    F4:19 (G9: close -> states gives REDUNDANT)
+    F4:21 (G9: close -> states gives REDUNDANT)
+    F4:22 (G9: close -> states gives REDUNDANT)
+    F4:25 (G9: close -> states gives REDUNDANT)
+    F5:12 (G7: bears -> contradicts gives MIXED)
+    F5:22 (G7: bears -> contradicts gives MIXED)
+
+Definition claims (not graded): 4
+  DEF-reservation-price  F2:25  PJM Manual 18 / Wikipedia 'Reservation price' (PJM Manual 18 part)
+  DEF-reservation-price  F2:26  PJM Manual 18 / Wikipedia 'Reservation price' (Wikipedia part)
+  DEF-VoLL               F2:27  DESNZ, Exploring Reliability Standard Metrics / London Economics VoLL (DESNZ part)
+  DEF-VoLL               F2:28  DESNZ, Exploring Reliability Standard Metrics / London Economics VoLL (London Economics pa
+tags outside G1-G9 and DEF-*: none
