@@ -179,6 +179,9 @@ LEDGER_RULES = (
 CRR2_PREFIXES = ("RLAW",)
 
 
+VERD = {}
+
+
 def ledger():
     print("[3] The ledger: every row allocated by its verdict text (first matching rule) and its data status")
     rows = []; last = {}; crr2 = []
@@ -197,7 +200,7 @@ def ledger():
         last[fam] = seen
         lab = next((l for p, l in LEDGER_RULES if re.search(p, verdict)), None)
         if lab is None: raise SystemExit(f"unmatched verdict in {rid}: {verdict[:80]}")
-        rows.append((rid, seen, lab))
+        rows.append((rid, seen, lab)); VERD[rid] = verdict
     if crr2: print(f"    excluded, CRR 2.0 (owner's instruction, prompt-log entry 139): {len(crr2)} rows ({', '.join(crr2)})")
     for rid, seen, lab in rows: print(f"    {rid:16s} {seen:9s} {lab}")
     c = collections.Counter((s, l) for _, s, l in rows)
@@ -209,6 +212,8 @@ def ledger():
     fails = [r for r in rows if r[2] == "FAIL" and r[1] == "held-out"]
     print(f"    rung R5 PREREG-SEEN, passes on seen data: {len(ps)} ({', '.join(r[0] for r in ps)})")
     print(f"    rung R6 PASS-0 on held-out data: {len(p0)} ({', '.join(r[0] for r in p0)}); R7 PASS-1: {len(p1)}{(' (' + ', '.join(r[0] for r in p1) + ')') if p1 else ''}; R8 PASS-2: 0")
+    for r in p0 + p1:   # a pass is printed with the post hoc instrument check of its criterion, where one exists (row <id>-G)
+        if r[0] + "-G" in VERD: print(f"      beside {r[0]}: {r[0]}-G {VERD[r[0] + '-G'][:150]}")
     print(f"    held-out FAIL rows: {len(fails)} ({', '.join(r[0] for r in fails)}); VOID rows: {sum(r[2] == 'VOID' for r in rows)}; "
           f"controls violated: {sum(r[2] == 'control violated' for r in rows)}")
     return rows

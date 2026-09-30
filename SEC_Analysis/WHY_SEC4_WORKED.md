@@ -109,6 +109,12 @@ clipped passes did.
   after task 1, so the criterion alone cannot show that a method is tuning-free.
 - SEC4-1's own passes are not the weak ones: no tolerance passes, and 2 of 6 floor-bound. But M6 is not behind on five of
   SEC4's six carriers too.
+- **Applied after the fact, SEC6-G's rule (hashed in SEC6) closes the gate for SEC4-1.** M6 is not behind the tuned λ on
+  5/6 of SEC4's carriers, and SEC4-1 needed 5, so the rule would print SEC4-1 UNINFORMATIVE and cap it at PASS-0
+  (`checks/gate_posthoc.txt`; ledger report row SEC4-1-G).
+  - The same rule leaves SCL3-3's PASS-0 standing (7/10, need 8).
+  - It closes the gate for SEC3-3 (5/6) and SEC5-1 (7/8), both FAIL as scored.
+  - The rows stand as scored under their own pre-registrations. This is a post hoc report, not a re-score.
 - SEC6 now carries a gate for this (SEC6-G, below).
 
 ## 2. Why SEC4's family, and not SEC5's
