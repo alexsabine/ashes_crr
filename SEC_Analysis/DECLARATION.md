@@ -140,3 +140,23 @@ this. This amendment adds one analysis. It is post hoc in origin and is labelled
 | **M5** | FREEZE-TOP. The clipped SEC's importance is used only to choose the coordinates at the cap. Those are frozen (snapped to the anchor on every step), and the penalty is removed everywhere else. Run on the 30 carriers, seeds 0–4, with the fraction of coordinates frozen per task recorded. | FM5: within a step of the clipped SEC on at least 80 % of the carriers where the clip fired |
 | **M6** | EDGE, a must-fail control. Every coordinate is set at the cap after task 1: a uniform freeze with no Fisher at all. | FM6: behind the tuned λ on most carriers; freezing everything stops learning |
 | **A13** | The development arms read as mechanism evidence: SI-1C, AR1-B, SEC6's `fixed_clip` (the tuned λ with the clip), the clipped SEC, and the fraction of capped coordinates, all against the tuned λ with and without the clip. Read from `prereg/sec6/dev/` and the M records. | **F13.** The tuned clipped λ is ahead of the unclipped tuned λ by more than a step on at least a third of the 30 carriers: part of SEC4's margins is the clip's |
+
+## Amendment 3 (2026-09-30, after `m_checks.txt` was read; POST HOC in origin; pushed before A14's script exists)
+
+**What prompted it.** FM6 FAILS: M6 (EDGE) is not behind the tuned λ on 24/30. M6 puts every coordinate at the cap after
+task 1, with no Fisher, so the learner stays within one step of task 1's end on every update. Its margins over the tuned λ
+reach +25 to +46 points on several carriers.
+
+**The reading of the frozen loader** (`runs/sec5/frozen/scl3_score.py`, `select_classes`):
+- The classes are ranked by count and relabelled in that order (`ranked = sorted(counts, key=lambda c: (-counts[c], c))`;
+  `order = {c: i for i, c in enumerate(chosen)}`).
+- SEC1's tasks are consecutive label pairs.
+- **So task 1 always holds the two most frequent classes,** and the stratified test set carries the same imbalance.
+- A learner frozen after task 1 then scores roughly the test share of those two classes (if it separates them), and a
+  learner that forgets task 1 loses that share.
+
+| id | question | the computation | forecast |
+|---|---|---|---|
+| **A14** | does the benchmark's class order explain the pass counts? | Per carrier: the task-1 share = (count of the two most frequent used classes) / n × 100, from the header's `class_counts`. Across the 30 carriers of the M runs: Spearman of M6's accuracy with the task-1 share. Across all 42 carriers: Spearman of SEC's margin over the tuned λ, in steps, with the task-1 share. The same for the clipped SEC (14) and for C0 (30). | **F14.** Spearman(M6 accuracy, task-1 share) ≥ 0.8, and Spearman(SEC margin, task-1 share) > 0 |
+
+A12 (Amendment 1) and A13 (Amendment 2) are scripted with A14 in `checks/a12_a14.py`.

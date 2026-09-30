@@ -1,0 +1,191 @@
+======================================================================================================================
+SEC_Analysis mechanism checks M0-M6 (SEC_Analysis/DECLARATION.md; M5, M6 from its Amendment 2): C0 (clipped SEC), M1 (model-Fisher
+Laplace), M2 (endpoint curvature), M4 (arc secant), M5 (FREEZE-TOP), M6 (EDGE), all with SEC4's clip (kappa 0.5); M3 (bayes_s1)
+from the pinned records
+POST HOC on SEEN carriers; declared checks on seen data, not a test; no ledger row. tuned lambda, tacc, step: sec_lib
+======================================================================================================================
+provenance: uv.lock sha256 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2; m_checks.py sha256 145081ff7a393cd9919bd46f9a6952e48f76f75f1b4df10ce53de0de524991eb
+            frozen sec4_score.py c9701c310ac86e10d2a0c8c2362d6dadfdf1b65d167e942a0906eb936a9009f3; sec1_score.py db490c8ac30871ad5105d966adc09866a667acb6d099a9e4bc9dd022e54c3495; numpy 2.5.3, Python 3.14.0rc2
+the m_runs files read (30), with the header each carries (the runner's uv.lock and m_checks.py against the current):
+   scl3_1468.jsonl        bc193c309030060dcd608264b8121ed3d3ee3f94ed0292e1d70405c5df4287f7  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_1475.jsonl        5721b4423e170cf26d11d8132fab6a0a0dae8e11c341e08e8d237efd9a24d571  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_1478.jsonl        e69d725f43769762252824c8a66ed36aa4258698631c7b0c6ddea722219c591a  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_1497.jsonl        790299438d8d6c7ab001899642ff569c4dd9c0627efeeb996db6262eef2b1401  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_1501.jsonl        81fb104ee5335b9bb0d9c9f8142ec08fdd30277e82efd05f5cf898cfe526a4f4  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_188.jsonl         7b21eea0502994b4f1fdf0139bb7ac8f121394383ede608e033375ab10f54601  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_300.jsonl         de6e16ff69a6c4f506b144a2ea16db28cb310f3371a96e234af9b0ca0064385d  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_40966.jsonl       94521c274454151e45419eacb54792ce7e5942c1c23ff9e6183eb6d046d4eb65  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_40982.jsonl       96052becae520ff719591d202074e483e69d0f4e5021a635c21a8a903538acfd  uv.lock SAME, m_checks.py SAME, frozen SAME
+   scl3_4538.jsonl        56127db3b1d21865fcc71f824fccaa350600e656a4387df3e56f5e39247f9c56  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec3_1596.jsonl        89a3837e3645f8e8d2195e1da7d33324a438ecbaf9d461de3f8bfb8a30d7a388  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec3_41164.jsonl       fab7ae520846ecd75f879597c3dd5b2a20c7798ce56f4a43b896b920619f8871  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec3_41166.jsonl       2da60a0610fd1c0bc3313f98c3b2277cd4c4709ceb74bf371058c42c96c7bb25  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec3_41167.jsonl       0269abe053718eed6ce210483e015767955be523e08fe56e15ced46f810a6ca4  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec3_41168.jsonl       3582a8375f6de2ea45f7b699a4d0153c0de395a7074666c4a4f19db05e80d14b  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec3_41169.jsonl       bd2eb9a372a71c1bc27810402aa904291c986791b659de38673c35ee92ef0519  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec4_1459.jsonl        0c569f52702cc0e98ac5f264aec93b7fe4a7bd3b58957b4e3905c4c5fdee23de  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec4_1466.jsonl        bd325f3038ecdb6c3b991c975179ff1c26a6d5e165aebf44c59abf04c399749e  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec4_1476.jsonl        29d37829cb0dfb06737a1aed67c93e06dd33ee1d3310a08f6e1519e9b6baf44e  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec4_375.jsonl         b26f457a441064c94c02241a1eb71c21775c35378caf7e8aeed8e8eb5e9d6e76  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec4_377.jsonl         c05619f879352c3a7a4bf286226c35001aac4108322537f2ce95d5a81611c034  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec4_46906.jsonl       fcb8d45e4c2aba923399fdcd7278098f87c69a67ed2839bce5934692ea4f3e81  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_1503.jsonl        b5eef810187217cdb606e38abcbf3a7ee96bf6ca8cd6114c01d379c51aaced0f  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_1509.jsonl        4e48ec916b86a85d8a9b772b494174c2c4e0b28132da1d32997269a852f4ad60  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_1541.jsonl        1c905c2a3a938c1c680ba46adeca31e7ac16188c699a9901de070b3ca707cc6a  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_1549.jsonl        983f2f142733440e2568e02ef491e5d78e3aa0289cac8610594493e74181a8b4  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_155.jsonl         de9008d396a0993db4683cec1861d1c0a121efd3236a1fc3cfae7aa384229276  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_41671.jsonl       eb77ab5a969928120908fdd461359126264e4c318226e4914f9cd5fc563c08d3  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_41972.jsonl       f27e9ea9ad700cddc6eb2d64a488e61ce410076e7366fc0ed33697cd4b7192e2  uv.lock SAME, m_checks.py SAME, frozen SAME
+   sec5_41982.jsonl       f27f9244f21ee3b306c7e9a11f5116e758c07a771d517d97ee65e972ac5821ec  uv.lock SAME, m_checks.py SAME, frozen SAME
+   headers: uv.lock SAME on 30/30; m_checks.py SAME on 30/30 (CHANGED means this file was edited after the run: the runner's sha256 is in the header); frozen learner SAME on 30/30
+
+carriers with all six arms x seeds 0-4 in m_runs: 30/30
+
+study carrier                              step   tuned     tacc |  C0-tuned fired |  M1-tuned    M1-C0 fired |  M2-tuned    M2-C0 fired |  M4-tuned    M4-C0 fired | c/c_end M2
+scl3  GesturePhaseSegmentationProcessed   1.035    14.1  26.3063 |  -0.1001      0 |  -0.1001   +0.0000     0 |  -0.1001   +0.0000     0 |  -0.1001   +0.0000     0 | 1.787
+scl3  MiceProtein                         1.000  709.22  40.9091 |  +4.5455     14 | -16.0000* -20.5455     0 |  -6.7273* -11.2727     0 |  +5.2727   +0.7273    15 | 8.2
+scl3  cnae-9                              1.731    1410  74.1667 |  +7.9167     15 | -18.2292* -26.1458     0 |  -7.5000* -15.4167     0 |  +9.2708   +1.3542    14 | 11.31
+scl3  eucalyptus                          3.529     1.5  38.5321 |  +0.5505      0 |  -4.5872*  -5.1376     0 |  -0.1835   -0.7339     0 |  +0.7339   +0.1835     0 | 2.373
+scl3  first-order-theorem-proving         1.047     1.5  11.8318 |  -0.0200      0 |  -0.0801   -0.0601     0 |  -0.0400   -0.0200     0 |  +0.0000   +0.0200     0 | 2.341
+scl3  har                                 4.816   28300  52.8671 |  -1.1389      0 |  -4.9351*  -3.7962     0 |  -2.7572   -1.6184     0 |  -1.1988   -0.0599     2 | 16.28
+scl3  isolet                              3.470   20000  62.5667 |  -0.1667     11 |  -9.1333*  -8.9667     0 |  -3.8333*  -3.6667     0 |  +2.2667   +2.4333    17 | 12.95
+scl3  semeion                             1.594    1500  37.4295 |  +3.7618     20 |  -9.4671* -13.2288     0 |  -0.3135   -4.0752     0 |  +3.1975   -0.5643    20 | 9.676
+scl3  steel-plates-fault                  1.191       6  33.4748 |  -0.2122      2 |  -2.4403*  -2.2281     0 |  -0.4775   -0.2653     0 |  +0.5305   +0.7427     4 | 5.824
+scl3  wall-robot-navigation               6.619     100  24.7648 |  -2.6226      0 |  -2.6827   -0.0601     0 |  -2.6226   +0.0000     0 |  -2.6026   +0.0200     0 | 2.138
+sec3  covertype                           4.807      10  22.8629 |  -3.3634      0 |  -0.7608   +2.6026     0 |  -0.8008   +2.5626     0 |  -9.5095*  -6.1461     5 | 4.855
+sec3  dionis                              3.436     141  55.5245 |  +9.8102      8 |  -8.5714* -18.3816     0 |  -0.2198  -10.0300     0 |  +8.4915   -1.3187    12 | 14.92
+sec3  fabert                              1.000    14.1  19.2208 |  +0.0599      6 |  -0.1399   -0.1998     0 |  +0.0400   -0.0200     0 |  +0.2597   +0.1998     6 | 7.613
+sec3  helena                              2.975    8.49  14.0600 |  -0.3800      0 |  -1.0600   -0.6800     0 |  -1.0000   -0.6200     0 |  -0.3400   +0.0400     0 | 3.352
+sec3  jannis                             15.328      60  22.1800 |  -2.9400      0 |  -2.9200   +0.0200     0 |  -2.9400   -0.0000     0 |  -3.1400   -0.2000     0 | 1.049
+sec3  volkert                             1.000       6   5.7600 |  +0.7200      4 |  -0.8800   -1.6000     0 |  -0.0600   -0.7800     0 |  +0.8400   +0.1200     8 | 4.161
+sec4  JapaneseVowels                      1.000      10  27.2673 |  +2.5626      0 |  -1.3013*  -3.8639     0 |  +0.7207   -1.8418     0 |  +2.4224   -0.1401     0 | 10.9
+sec4  anneal                              5.634    42.3  76.8539 |  +5.5056      5 | -10.7865* -16.2921     0 |  +0.1124   -5.3933     0 |  +6.0674   +0.5618     5 | 5.711
+sec4  artificial-characters               1.962    14.1  14.6653 |  +0.5594      0 |  -1.3586   -1.9181     0 |  -0.7792   -1.3387     0 |  +0.1998   -0.3596     0 | 5.499
+sec4  cardiotocography                    1.000  7092.2  98.8679 |  +1.0377     11 |  -9.9528* -10.9906     0 |  -1.8868*  -2.9245     0 |  +1.0377   +0.0000    14 | 18.07
+sec4  gas-drift                           2.594    28.3  46.8068 |  +2.1822      0 |  -1.6216   -3.8038     0 |  +0.5205   -1.6617     0 |  +2.2222   +0.0400     1 | 5.265
+sec4  synthetic_control                   3.590    4230  44.8333 |  +3.5000     10 |  -6.3333*  -9.8333     0 |  -4.0000*  -7.5000     0 |  +6.5000   +3.0000    10 | 11.6
+sec5  Indian_pines                        5.211      20  55.0649 |  -6.7932*     0 | -13.4665*  -6.6733     0 |  -8.4715*  -1.6783     0 |  -4.8951   +1.8981     5 | 1.718
+sec5  Kuzushiji-MNIST                     1.330     300  25.6800 |  +5.2000      4 |  -3.1200*  -8.3200     0 |  +1.5400   -3.6600     0 |  +4.7800   -0.4200     4 | 13.2
+sec5  autoUniv-au6-750                    1.644 0.035336   8.0795 |  -0.3974      0 |  +0.0000   +0.3974     0 |  -0.1325   +0.2649     0 |  -0.3974   +0.0000     1 | 2.733
+sec5  microaggregation2                  15.522      60  17.6024 |  -4.1159      0 |  -4.1558   -0.0400     0 |  -4.1159   +0.0000     0 |  -4.1159   +0.0000     0 | 2.213
+sec5  pokerhand                           1.822     100  43.4600 | -28.2400*     0 | -29.2400*  -1.0000     0 | -28.3000*  -0.0600     0 | -28.2000*  +0.0400     0 | 2.487
+sec5  spoken-arabic-digit                 1.000 0.212766   9.8800 |  -0.0200      0 |  -0.0800   -0.0600     0 |  -0.0400   -0.0200     0 |  -0.1000   -0.0800     0 | 2.596
+sec5  volcanoes-d4                        1.000    1000  94.9950 | -88.9089*     5 | -92.5526*  -3.6436     0 | -91.4114*  -2.5025     1 | -89.2092*  -0.3003     5 | 4.039
+sec5  walking-activity                    1.137 0.212766  13.6000 |  -2.5600*     0 |  -1.3800*  +1.1800     0 |  -2.4200*  +0.1400     0 |  -2.8800*  -0.3200     0 | 4.851
+   (* = behind the tuned lambda: arm - tacc <= -step; differences are seed means in points; fired = guard firings over seeds and tasks)
+
+study carrier                              step | C0 fired seeds C0 capped     max |  M5-tuned    M5-C0   frozen moved |  M6-tuned    M6-C0
+scl3  GesturePhaseSegmentationProcessed   1.035 |        0     0    0.0000  0.0000 |  -0.0801   +0.0200   0.0000     0 | +25.1051  +25.2052
+scl3  MiceProtein                         1.000 |       14     5    0.0004  0.0011 | -14.5455* -19.0909   0.0009     0 |  +0.5455   -4.0000
+scl3  cnae-9                              1.731 |       15     5    0.0000  0.0001 | -17.5000* -25.4167   0.0001     0 | -37.1875* -45.1042
+scl3  eucalyptus                          3.529 |        0     0    0.0000  0.0000 |  -5.8716*  -6.4220   0.0000     0 |  +5.6881   +5.1376
+scl3  first-order-theorem-proving         1.047 |        0     0    0.0000  0.0000 |  -0.0200   +0.0000   0.0000     0 | +26.3063  +26.3263
+scl3  har                                 4.816 |        0     0    0.0000  0.0000 |  -5.1748*  -4.0360   0.0000     0 |  -3.8162   -2.6773
+scl3  isolet                              3.470 |       11     3    0.0000  0.0000 |  -9.2000*  -9.0333   0.0001     0 | -25.4000* -25.2333
+scl3  semeion                             1.594 |       20     5    0.0001  0.0001 |  -9.7806* -13.5423   0.0001     0 |  -4.5768*  -8.3386
+scl3  steel-plates-fault                  1.191 |        2     2    0.0001  0.0005 |  -2.7056*  -2.4934   0.0016     0 |  +6.8435   +7.0557
+scl3  wall-robot-navigation               6.619 |        0     0    0.0000  0.0000 |  -3.6837   -1.0611   0.0000     0 | +43.7237  +46.3463
+sec3  covertype                           4.807 |        0     0    0.0000  0.0000 | -16.2162* -12.8529   0.0008     0 | +29.8498  +33.2132
+sec3  dionis                              3.436 |        8     2    0.0002  0.0007 |  -9.5904* -19.4006   0.0002     0 | -14.4655* -24.2757
+sec3  fabert                              1.000 |        6     4    0.0000  0.0000 |  -0.0999   -0.1598   0.0000     0 | +23.5365  +23.4765
+sec3  helena                              2.975 |        0     0    0.0000  0.0000 |  -1.1600   -0.7800   0.0000     0 |  +9.3600   +9.7400
+sec3  jannis                             15.328 |        0     0    0.0000  0.0000 |  -4.4800   -1.5400   0.0000     0 | +28.4200  +31.3600
+sec3  volkert                             1.000 |        4     4    0.0000  0.0003 |  -1.1600*  -1.8800   0.0001     0 | +28.9600  +28.2400
+sec4  JapaneseVowels                      1.000 |        0     0    0.0000  0.0000 |  -2.7628*  -5.3253   0.0000     0 | +18.2583  +15.6957
+sec4  anneal                              5.634 |        5     5    0.0011  0.0016 | -15.1685* -20.6742   0.0011     0 |  +0.6742   -4.8315
+sec4  artificial-characters               1.962 |        0     0    0.0000  0.0000 |  -2.8571*  -3.4166   0.0000     0 |  +9.4905   +8.9311
+sec4  cardiotocography                    1.000 |       11     5    0.0008  0.0041 |  -7.6887*  -8.7264   0.0038     0 | -44.0566* -45.0943
+sec4  gas-drift                           2.594 |        0     0    0.0000  0.0000 |  -3.4434*  -5.6256   0.0000     0 |  -1.7618   -3.9439
+sec4  synthetic_control                   3.590 |       10     5    0.0005  0.0012 |  -6.3333*  -9.8333   0.0007     0 |  -1.6667   -5.1667
+sec5  Indian_pines                        5.211 |        0     0    0.0000  0.0000 | -19.2807* -12.4875   0.0000     0 |  +2.3177   +9.1109
+sec5  Kuzushiji-MNIST                     1.330 |        4     1    0.0000  0.0000 |  -3.2000*  -8.4000   0.0000     0 |  +8.0000   +2.8000
+sec5  autoUniv-au6-750                    1.644 |        0     0    0.0000  0.0000 |  +0.0000   +0.3974   0.0000     0 |  +7.2848   +7.6821
+sec5  microaggregation2                  15.522 |        0     0    0.0000  0.0000 |  -4.1359   -0.0200   0.0000     0 | +37.0030  +41.1189
+sec5  pokerhand                           1.822 |        0     0    0.0000  0.0000 | -29.5600*  -1.3200   0.0000     0 | +20.8200  +49.0600
+sec5  spoken-arabic-digit                 1.000 |        0     0    0.0000  0.0000 |  -0.0600   -0.0400   0.0000     0 |  +0.0800   +0.1000
+sec5  volcanoes-d4                        1.000 |        5     5    0.0096  0.0185 | -92.7928*  -3.8839   0.0096     0 |  -7.0070* +81.9019
+sec5  walking-activity                    1.137 |        0     0    0.0000  0.0000 |  -3.3200*  -0.7600   0.0003     0 |  +8.9000  +11.4600
+   (C0 fired: firings over seeds and tasks; seeds: seeds with a firing; C0 capped: the fraction of coordinates at or above the
+    cap, mean and max over guarded tasks and seeds (0 where the clip did not fire); frozen: M5's frozen fraction, mean over
+    guarded tasks and seeds; moved: M5's masked coordinates off the anchor at a task's end, summed (0 by construction))
+
+counts over the carriers scored here (not behind = arm - tacc > -step):
+   C0: not behind 26/30, behind 4/30; guard firings 115; fallbacks 6
+   M1: not behind 13/30, behind 17/30; guard firings 0; fallbacks 0
+   M2: not behind 21/30, behind 9/30; guard firings 1; fallbacks 0
+   M4: not behind 26/30, behind 4/30; guard firings 148; fallbacks 2
+   M5: not behind 9/30, behind 21/30; guard firings 149; fallbacks 0
+   M6: not behind 24/30, behind 6/30; guard firings 190; fallbacks 368
+   M4 against C0: within a step (|M4 - C0| < step) on 29/30; one-sided M4 - C0 > -step (report) on 29/30; ahead by more than a step on 0/30
+   the clip fired (C0, at least one seed) on 13/30 carriers, on every seed on 7/30
+   M5 against C0 where the clip fired: within a step on 1/13; one-sided M5 - C0 > -step (report) on 1/13; where it fired on every seed (report): within a step on 0/7
+   M5 construction: masked coordinates off the anchor at a task's end, over all records: 0 -> FROZEN
+
+FM2(a), the median over tasks of c / c_end (pooled over carriers, seeds and tasks; c_end != 0 and both finite):
+   M2 arm's own path (decisive): median 5.858874332330988 (5.859) over 530 of 530 tasks (c or c_end <= 0 in 0) -> > 1: True
+   C0's path, SEC's own c (report): median 4.785063728366711 (4.785) over 530 of 530 tasks (c or c_end <= 0 in 6) -> > 1: True
+   the two paths AGREE on FM2(a)
+   report, tasks with c > 0 and c_end > 0 only: M2 path median 5.859 over 530; C0 path median 4.94 over 524
+
+data path (report): C0 seeds whose clip never fired against the pinned bayes_sec seed (acc and s): IDENTICAL on 99/99 seeds of 23 carriers -> IDENTICAL
+   carriers with no such seed (checked by 'identity' instead, m_identity.txt): scl3:MiceProtein, scl3:cnae-9, scl3:semeion, sec4:anneal, sec4:cardiotocography, sec4:synthetic_control, sec5:volcanoes-d4
+
+FM3 per carrier (the pinned records, all 42): margins against the tuned lambda in steps, * = behind
+   study carrier                              step  bayes_sec   bayes_s1
+   sec1  fars                                1.943    -1.750*    -1.163*
+   sec1  krkopt                              1.000    -0.541     -0.040 
+   sec1  led24                               1.817    +1.688     -2.188*
+   sec1  led7                                1.000    +0.062     -5.500*
+   sec1  mfeat_factors                       4.537    -1.113*   -12.001*
+   sec1  mfeat_morphological                 4.872    +0.554     -7.020*
+   sec1  page_blocks                        10.899    +0.050     +0.050 
+   sec1  satimage                            1.618    +3.439     -7.336*
+   sec1  segmentation                        1.863    -0.325     -0.325 
+   sec1  sleep                               1.115    -0.251     -0.251 
+   sec1  wine_quality_white                  6.739    -0.996     -0.996 
+   sec1  yeast                               6.042    -1.892*    -0.934 
+   scl3  GesturePhaseSegmentationProcessed   1.035    -0.097     -0.097 
+   scl3  MiceProtein                         1.000    +4.545     -2.545*
+   scl3  cnae-9                              1.731   -12.701*   -42.857*
+   scl3  eucalyptus                          3.529    +0.156     +0.156 
+   scl3  first-order-theorem-proving         1.047    -0.019     -0.057 
+   scl3  har                                 4.816    -0.236     -2.497*
+   scl3  isolet                              3.470    -0.048     -5.303*
+   scl3  semeion                             1.594    +2.361    -23.489*
+   scl3  steel-plates-fault                  1.191    -0.178     -1.381*
+   scl3  wall-robot-navigation               6.619    -0.396     -0.396 
+   sec3  covertype                           4.807    -0.700     -0.100 
+   sec3  dionis                              3.436    -1.326*   -15.433*
+   sec3  fabert                              1.000    -3.836*   -19.221*
+   sec3  helena                              2.975    -0.128     -0.188 
+   sec3  jannis                             15.328    -0.192     -0.192 
+   sec3  volkert                             1.000    +0.720     -5.760*
+   sec4  JapaneseVowels                      1.000    +2.563     -2.082*
+   sec4  anneal                              5.634    -1.137*    -1.137*
+   sec4  artificial-characters               1.962    +0.285     -0.631 
+   sec4  cardiotocography                    1.000   -29.906*   -94.953*
+   sec4  gas-drift                           2.594    +0.841    -15.475*
+   sec4  synthetic_control                   3.590    -1.718*    -6.592*
+   sec5  Indian_pines                        5.211    -1.304*    -1.219*
+   sec5  Kuzushiji-MNIST                     1.330    +3.909    -19.304*
+   sec5  autoUniv-au6-750                    1.644    -0.242     -0.161 
+   sec5  microaggregation2                  15.522    -0.265     -0.265 
+   sec5  pokerhand                           1.822   -15.502*   -15.502*
+   sec5  spoken-arabic-digit                 1.000    -0.020     -0.040 
+   sec5  volcanoes-d4                        1.000   -78.719*   -78.719*
+   sec5  walking-activity                    1.137    -2.252*    +0.510 
+   pinned (all 42 carriers of runs/{sec1,scl3,sec3,sec4,sec5}): bayes_sec not behind 29/42 (behind 13); bayes_s1 not behind 18/42 (behind 24)
+
+forecasts (DECLARATION.md; FM5, FM6 from Amendment 2):
+   FM0 C0 seed 0 equals the pinned bayes_sec_clip on the SEC4 and SEC5 carriers: 14/14 (need 14/14) -> HOLDS; all five seeds equal on 14/14 (report)
+   FM1 M1 behind on more carriers than C0: M1 17, C0 4 -> HOLDS
+   FM2 median c / c_end > 1 on the M2 path (5.859: True; C0 path 4.785, AGREE) and M2 behind on more carriers than C0 (M2 9, C0 4: True) -> HOLDS
+   FM3 bayes_s1 behind on more of the 42 carriers than bayes_sec: 24 vs 13 -> HOLDS
+   FM4 M4 within a step of C0 (two-sided) on at least 80% of carriers: 29/30 (need 24) -> HOLDS; one-sided 29/30 (report)
+   FM5 M5 within a step of C0 (two-sided) on at least 80% of the 13 carriers where the clip fired: 1/13 (need 11) -> FAILS; one-sided 1/13 (report)
+   FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS
+
+SEC6 consequences (DECLARATION.md, 'What the results may change'):
+   M1 not behind 13 vs C0 26 (carried iff >= 25) -> NOT CARRIED
+   M2 not behind 21 vs C0 26 (carried iff >= 25) -> NOT CARRIED
+   M4 ahead of C0 by more than a step on 0 (needs >= 3) -> a TIE or a loss, NOT CARRIED

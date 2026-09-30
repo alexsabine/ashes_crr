@@ -170,3 +170,34 @@ stability edge. It is recorded here as a candidate explanation to be read beside
 3. **The development check.** `fixed_clip` is run through D-RUN on the 30 SEEN carriers before the hash, only to show it
    runs and what it gives. Nothing is chosen from it.
 4. **Beside SEC6-C (report):** SI-1C, AR1-B and every other baseline against the tuned clipped λ.
+
+## Amendment 3 (2026-09-30, after P1's mechanism checks on the 30 SEEN carriers; before any SEC6 carrier is fetched; pushed before it is coded)
+
+**What prompted it** (`SEC_Analysis/checks/m_checks.txt`, pinned).
+- M6 (EDGE: every coordinate at SEC4's cap after task 1, no Fisher; the learner stays within one step of task 1's end) is
+  **not behind the tuned λ on 24/30** SEEN carriers. The clipped SEC reaches 26/30.
+- The frozen loader relabels classes by descending count, and SEC1's tasks are consecutive label pairs, so task 1 always
+  holds the two most frequent classes (`SEC_Analysis/DECLARATION.md`, Amendment 3).
+- **Consequence.** On these streams the family's criterion ("not behind the tuned λ") is met on most carriers by a learner
+  that stops learning after task 1. A criterion that a must-fail control meets cannot, on its own, show that a method is
+  tuning-free (R4's rule, applied to the instrument).
+
+**The changes** (learned on the 30 SEEN carriers today; used on the fifth family only on or after 2026-10-01):
+
+1. **A new arm, `edge`, P1's M6 exactly.**
+   - After task 1, the importance is κ / (lr · w) on every coordinate, with κ = 0.5 and w = 1/2, and the anchor is updated
+     at each task's end as for every arm.
+   - Its implementation is checked against P1's pinned M6 records (`SEC_Analysis/checks/m_runs/`) on at least 3 SEEN
+     carriers, bit for bit (D-ID-EDGE).
+2. **A new registered instrument gate, SEC6-G.**
+   - **The rule:** `edge` − tuned λ > −step is counted per carrier.
+   - **If `edge` is not behind on at least need carriers,** the gate is CLOSED: the criterion of SEC6-1 cannot fail on this
+     family. SEC6-1, SEC6-B and SEC6-P are then printed with "UNINFORMATIVE (a learner frozen after task 1 meets the same
+     criterion; SEC6-G)". No PASS level above PASS-0 may be claimed for them.
+   - The same gate is computed against the tuned clipped λ for SEC6-C (SEC6-GC).
+   - **The gates' counts are printed whether open or closed.**
+3. **A new registered secondary, SEC6-1F.** SEC6-1's criterion on the carriers that are not floor-bound (Amendment 1 of
+   `SEC_Analysis/DECLARATION.md`: tuned λ mean − majority-class share × 100 ≥ 3 steps). NOT DECIDABLE if fewer than 4 such
+   carriers.
+4. **A report.** The task-1 share per carrier ((count of the two most frequent used classes) / n × 100), with `edge`'s and
+   the clipped SEC's accuracies beside it.
