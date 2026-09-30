@@ -1,0 +1,278 @@
+OB1 stage 1: the harvested bottlenecks (DECLARATION.md); open = role a, b and c claims present (computed) and short of target (agent); claims 187; sources 75
+
+h1-B1   OPEN | Gap to joint training when the representation is learned
+        claims a 1, b 2, c 1, d 3; benchmark: CIFAR100-B0, from-scratch ViT (~11M params), replay buffer 2,000 (DRDN Table II)
+        best Last 65.40 at 10 steps (DRDN); 62.48 at 20 steps (DER, 224.55M params) against target Bound (joint training) 81.49; gap: 16.09 points at 10 steps, 19.01 at 20 steps (12.30 at 5 steps); same paper, same protocol.
+        CPU-testable: no (the named benchmark trains ViTs/ResNets from scratch over 5-20 steps on GPU; a reduced proxy (small CNN, Split CIFAR-100 subsets) could run on CPU in hours but is not the benchmark)
+        assumes: task boundaries given; a component (token, subnetwork) added per task, parameters grow with tasks
+        assumes: fixed raw-sample replay buffer (2,000)
+        assumes: parameter-space consolidation anchored to the previous task optimum, applied every I steps (clock)
+        assumes: or: features frozen from a pre-trained model (removes the problem by assumption)
+
+h1-B2   OPEN | Cold-start exemplar-free class-IL gap to joint training
+        claims a 1, b 2, c 2, d 2; benchmark: CIFAR-100 / TinyImageNet / ImageNet-Subset cold start, T=10, ResNet-18 (APR Table 1); EFC++ Tables 7-8 (CIFAR-100, ImageNet-1K)
+        best Alast 57.94 (CIFAR-100), 44.35 (TinyImageNet), 62.88 (ImageNet-Subset) (APR Maha); EFC++ 47.52 (CIFAR-100 10 steps), 44.72 (ImageNet-1K 10 steps) against target Joint 78.69, 65.71, 85.39 (APR); Joint Training 71.00, 69.76 (EFC++); gap: APR: 20.75, 21.36, 22.51 points; EFC++: 23.48 (CIFAR-100), 25.04 (ImageNet-1K), 37.29 at 20 steps on CIFAR-100; each within one paper.
+        CPU-testable: no (ResNet-18 from scratch over 10-20 tasks with 100+ epochs per task is GPU-scale (APR reports 31.0 h on ImageNet-Subset on a GPU); only a reduced proxy fits a laptop CPU in hours)
+        assumes: train the backbone throughout and remap stored statistics at each task transition (boundaries given)
+        assumes: or freeze the backbone after the first task (first task assumed representative)
+        assumes: stored class means/covariances as the only memory; covariances held fixed
+        assumes: hyperparameters (shrinkage, lambda) set on a held-out split of each task
+
+h1-B3   OPEN | Estimating the drift of stored class statistics
+        claims a 2, b 2, c 1, d 2; benchmark: ImageNet-1K cold start, 10 and 20 steps (EFC++ Table 8)
+        best EFM Fixed 44.72 (10 steps), 37.46 (20 steps) against target Real Real (oracle statistics) 49.97 (10 steps), 45.55 (20 steps); gap: 5.25 points at 10 steps, 8.09 at 20 steps; the gap grows with steps; real means alone recover most of it.
+        CPU-testable: no (the named benchmark is ImageNet-1K; the oracle-vs-estimate gap itself could be measured on a small synthetic or reduced stream on CPU (a proxy, not the benchmark))
+        assumes: drift estimated from current-task samples only, at each task transition (boundary given)
+        assumes: statistics fixed between transitions; covariances never updated
+        assumes: drift modelled as a smooth (often affine or low-rank) map of the feature space
+
+h1-B4   OPEN | Online single-pass class-IL gap to offline training
+        claims a 1, b 3, c 2, d 4; benchmark: Split CIFAR-100 OCI, (reduced) ResNet-18, batch 10 (NGD for OCL Table 2)
+        best 39.9 ± 0.5 (RV trick + NGD-KFAC, ER, M=10k); 20.3 at M=1k against target Offline 49.7 ± 2.6; gap: 9.8 points with 10k of 50k images stored; 29.4 points at M=1k (same paper). LOR (CVPR 2026) reaches 39.02 at M=5k on its own protocol, with no offline row.
+        CPU-testable: yes (one pass over Split CIFAR-100 with a reduced ResNet-18 and batch 10 is about an hour of CPU per run; the 70-epoch offline reference is several hours; public data)
+        assumes: fixed-size raw-sample buffer; reservoir-type storage
+        assumes: fixed learning rate and batch size (tuned beforehand); hyperparameters must be recalibrated when the distribution shifts
+        assumes: review/balancing steps on the buffer, gradient-conflict corrections computed per step
+        assumes: task labels not required at training (task-free variants)
+
+h1-B5   OPEN | Long task sequences (50-500 tasks)
+        claims a 1, b 1, c 2, d 2; benchmark: CIFAR-100 cold start, T=100 (CIRCLE Table 1); OmniBenchmark-1K 100-301 tasks (CaRE)
+        best AT 45.34 (CIRCLE, fixed random features); 16.40 (EFC++, best trained backbone) against target Joint Training 71.00 (EFC++ paper, CIFAR-100 cold start; CROSS-PAPER); gap: 25.66 points for the best method, 54.60 for the best trained backbone; the in-paper collapse of EFC++ from T=10 to T=100 is 36.28 points. The target is from another paper (flagged); CaRE gives no joint row.
+        CPU-testable: no (frozen-feature arms (CIRCLE-type) run on CPU, but the trained-backbone arms at T=100 and the ViT-B/16 OmniBenchmark runs do not fit in hours)
+        assumes: one adapter/router per task with given boundaries; fixed epochs per task
+        assumes: drift compensation per transition, cost growing with seen classes
+        assumes: or features never learned (random or pre-trained, frozen)
+
+h1-B6   OPEN | Stability gap at task switches
+        claims a 1, b 1, c 1, d 1; benchmark: Split CIFAR-10 and Split mini-ImageNet class-incremental, joint training (Table 1)
+        best avg-min-ACC 79.485 / avg-SG 0.134 (CIFAR-10); 33.165 / 0.300 (mini-ImageNet) (NGM-SGD) against target no transient drop: avg-min-ACC equal to avg-ACC 90.630 / 48.312 (avg-SG 0); gap: transient dip 11.145 points (CIFAR-10), 15.147 points (mini-ImageNet) for the best method; same paper.
+        CPU-testable: yes (Split MNIST / Split CIFAR-10 with small networks and per-step evaluation run on CPU in minutes to hours (note: MNIST is SEEN in this repository))
+        assumes: optimiser timescales (momentum, adaptive rates) fixed on the step clock
+        assumes: the fix adds a second, faster timescale driven by the loss at transitions
+        assumes: deployment workaround: update less often or retrain from scratch
+
+h1-B7   not shown open | Class/task order sensitivity
+        claims a 3, b 1, c 0, d 1; benchmark: CLDyB sequences (ICLR 2025); order-robust CIL (CVPR 2025)
+        best none quoted (order-robustness numbers only in a bar chart; CLDyB gives an aggregate 26% reduction) against target order invariance (stated goal), no number; gap: not shown open: 2025 statements exist but no best-method number against a target was extractable.
+        CPU-testable: yes (order permutations on small benchmarks are cheap; frozen-feature methods run on CPU)
+        assumes: structural changes (APD, HALRP)
+        assumes: class grouping over a frozen pre-trained extractor
+
+h1-B8   not shown open | Gap to joint training with a strong frozen pre-trained model
+        claims a 1, b 0, c 2, d 1; benchmark: CIFAR100, ImageNet-R, CUB, TinyImageNet, Cars with DINO-v2 (AnaCP Table 1)
+        best AnaCP Alast 92.15 (CIFAR100), 86.60 (ImageNet-R) against target Joint fine-tuning 93.35, 88.79; gap: not shown open: the sources state the target is reached (gaps 1.20-2.19, ahead on two datasets); the residual 6% with a weaker PTM (MoCo-v3) is framed as a goal, not an open problem.
+        CPU-testable: yes (with features extracted once by a frozen ViT (about an hour on CPU for CIFAR-100), analytic heads run in minutes)
+        assumes: a strong frozen pre-trained extractor; features never updated by gradient
+        assumes: analytic heads updated by sufficient statistics (order-free, boundary-free)
+
+h2-B1   OPEN | long-horizon sequential knowledge editing
+        claims a 1, b 3, c 2, d 5; benchmark: CounterFact / ZsRE, 10,000 sequential edits (LLaMA3-8B); WikiBigEdit
+        best Neigh. 65.72 (NSE+REVIVE, Eff. 98.89); general ability 86.34% of the unedited model against target unedited LLaMA3 Neigh. 89.73; 100% of general ability; gap: 24.01 points of neighbourhood (locality) and 13.66% of general ability lost after 10,000 edits; on real WikiBigEdit edits the best editor has Gen. 0.754, Loc. 0.631 at 3,000 edits.
+        CPU-testable: no (The named benchmarks use 6-8B models (GPT-J, LLaMA3) and 10,000 sequential edits; ROME/MEMIT need covariance statistics over Wikipedia. A GPT-2-small proxy on CPU is possible but is not the benchmark.)
+        assumes: a fixed set of edited layers for every edit
+        assumes: stored statistics of preserved knowledge (covariance) computed in advance
+        assumes: running normalisation statistics indexed by cumulative edit count, with a warm-up
+        assumes: the original model held fixed as the reference (norm anchor, dominant subspace)
+        assumes: every edit stored; memory grows linearly; a fixed hand-set match threshold
+        assumes: edits treated as mutually independent; edits arrive in fixed-size rounds
+
+h2-B2   OPEN | parametric knowledge updating under real-world drift
+        claims a 1, b 2, c 2, d 4; benchmark: Liu et al. 2026 continuous-knowledge-drift benchmark (LLaMA-3.1-8B); TriviaQA->NQ
+        best LoRA FT Overall 32.17 (Historical 35.14); sparse memory finetuning NQ drop 11% against target Chronos (retrieval, same backbone) Overall 63.64; unupdated Historical 45.95; 0% NQ drop; gap: 31.47 points behind the non-parametric reference; 10.81 points of historical knowledge forgotten; the best sparse method still loses 11% on held-out NQ.
+        CPU-testable: no (8B backbone and a 1.3B memory-layer model; the benchmark data are public but the models are not CPU-hours scale.)
+        assumes: per-instance or per-batch weight updates
+        assumes: replay of old data as the standard
+        assumes: an external calendar timestamp on every fact (retrieval family)
+        assumes: a memory-layer architecture and access statistics on a background corpus
+
+h2-B3   OPEN | continual fine-tuning of LLMs on task streams (TRACE)
+        claims a 1, b 3, c 3, d 3; benchmark: TRACE (8 tasks, LLaMA-2-7B-Chat); SuperNI 15 tasks + MMLU
+        best Muon-OGD AA 49.4, BT -4.7 against target MTL 52.3; PerTaskFT 57.6; gap: 2.9 points below multi-task training and 8.2 below per-task fine-tuning; with 1% replay a 3-5 pp BWT gap remains (OPR cuts it by 42-46%); MMLU general-knowledge forgetting of the best method is 1.4-3.0.
+        CPU-testable: no (7-8B models; TRACE is public but training runs need GPUs.)
+        assumes: known task boundaries and a per-task epoch schedule fixed in advance
+        assumes: stored per-task gradients or a new LoRA adapter per task
+        assumes: a replay buffer of past prompts or gold data (budget rho)
+        assumes: access to pre-training data or gradients (unavailable; estimated by pseudo-data)
+        assumes: the same hyperparameters for every method, tuned once
+
+h2-B4   OPEN | multimodal continual instruction tuning
+        claims a 1, b 2, c 1, d 2; benchmark: UCIT (6 tasks, LLaVA-1.5), MCITlib
+        best DISCO MFN 69.66, BWT -7.45 against target Individual (per-task fine-tuning) 76.19; MFT 75.87; gap: 6.53 points below per-task fine-tuning; general-purpose benchmarks degrade.
+        CPU-testable: no (LLaVA-1.5 (7B) and InternVL backbones; GPU only.)
+        assumes: task-conditioned components (experts, prompts) with the number of experts equal to the number of tasks, fixed in advance
+        assumes: replay of stored or synthesized samples
+        assumes: post-hoc merging of task-specific checkpoints
+
+h2-B5   OPEN | long-horizon task identification for expert routing
+        claims a 1, b 1, c 1, d 2; benchmark: FLEX (34 tasks, MacroScore)
+        best PureLoRA + RanPAC router 56.14 against target oracle routing 60.04; gap: 3.90 MacroScore below oracle routing (DISCO+DDAS 5.08 below); the best routers recover 28-50% of the base-to-oracle gap.
+        CPU-testable: no (MLLM experts; the routing sub-problem could be proxied on frozen features, but not the benchmark.)
+        assumes: one expert per task, created at a supplied task boundary
+        assumes: routing as classification of a ground-truth task label
+        assumes: task identity readable from the input or the execution context
+
+h2-B6   OPEN | multi-stage post-training consolidation (agent continual learning)
+        claims a 1, b 2, c 1, d 1; benchmark: ACLArena (Qwen3-8B-Base, 4 stages: math, search, e-commerce, IF)
+        best shared checkpoint +MMOPD 21.25 / 45.2 / 27.7 / 84.6 against target per-task oracle experts 25.83 / 49.9 / 33.2 / 86.2; gap: shared model 4.6-5.5 points behind the oracles on three of four stages; a routed expert per stage closes all but math (4.79).
+        CPU-testable: no (8B model with RL stages; GPU only.)
+        assumes: stages supplied from outside, fixed in number and order
+        assumes: uniform-weight merging or distillation from per-stage oracles
+        assumes: one parameter-isolated expert per stage, selected by the environment
+
+h2-B7   not shown open | continual pre-training forgetting with replay available
+        claims a 1, b 0, c 1, d 1; benchmark: Abbes et al. 2025 multilingual CPT (3 x 100B tokens; HellaSwag/PiQA/PubMedQA)
+        best 50% replay + Reptile 77.1 against target joint training 72.6; gap: target exceeded by 4.5 points; no 2025-26 open statement found for this setting.
+        CPU-testable: no (100B tokens per phase, 99M-6B models.)
+        assumes: earlier data kept for replay at a fixed ratio
+        assumes: three supplied phases
+
+h2-B8   not shown open | replay-free, task-free continual pre-training at LLM scale
+        claims a 1, b 1, c 0, d 0; benchmark: none with a target (TFGN reports BWT only)
+        best BWT -0.007 (claimed) against target none stated; gap: no B-c: the only 2026 source is a single-author preprint that claims the problem solved, without a joint or replay reference.
+        CPU-testable: no (1B tokens per phase, 0.4-9B models.)
+        assumes: a buffer of prior data
+        assumes: task identifiers at training or inference time
+        assumes: a regularization penalty
+
+h2-B9   not shown open | forgetting in continual RL post-training
+        claims a 1, b 1, c 0, d 0; benchmark: MRCL (5 tasks, Qwen3-VL-4B)
+        best CPO MFN 71.56 (MFT 73.24) against target none stated in the source; gap: no stated target; the paper's own method is 1.68 below its own MFT and above the pretrained model on external benchmarks.
+        CPU-testable: no (2-8B VLMs with RL; GPU only.)
+        assumes: current-task KL regularization (GRPO family)
+        assumes: task sequence supplied
+
+h2-B10  not shown open | stability gap in continual pre-training
+        claims a 1, b 1, c 0, d 0; benchmark: none with a 2025-26 number against a target
+        best  against target ; gap: a 2026 survey names it open; no 2025-26 benchmark number against a target was found.
+        CPU-testable: no (Llama-family CPT.)
+        assumes: a fixed compute budget and data mixture chosen in advance
+
+h3-B1   OPEN | plasticity loss in deep RL under task switches
+        claims a 1, b 2, c 3, d 3; benchmark: continual Gym Control (C-CHAIN, ICML 2025; 4 envs chained with observation noise)
+        best Agg. Score −221.22 (C-CHAIN) against target Agg. Score -147.302 (Oracle: PPO re-initialised at every task switch); gap: Aggregate short by 73.92 return units; per env the Oracle leads on CartPole (by 33.81) and LunarLander (by 7.78) but trails on Acrobot and MountainCar; on continual ProcGen methods exceed the Oracle. Open, but mixed: the target is not an upper bound everywhere.
+        CPU-testable: yes (Gym Control envs with small MLP PPO agents run on a laptop CPU; a reduced chain (fewer seeds or tasks) fits in hours with public simulators (gymnasium). ProcGen/MinAtar variants are heavier.)
+        assumes: resets and refreshes scheduled on the clock (periodic)
+        assumes: task boundary supplied from outside (Oracle re-init, AdamRel timestep reset)
+        assumes: regularisation strength a fixed tuned constant, because non-stationarity is not measured
+        assumes: general regularisers (LayerNorm, SpectralNorm, L2) held fixed through the stream
+
+h3-B2   OPEN | streaming deep RL vs batch/replay
+        claims a 1, b 2, c 1, d 2; benchmark: 50 continuous-control tasks (MuJoCo Gym + DM Control), median normalised score, Stream-X v3
+        best Stream-AC 0.73 against target Best(PPO, SAC): 1.00; gap: Streaming reaches 73% of the batch reference on the median task (gap 0.27). On 58 Atari games Stream-Q 0.99 exceeds batch DQN 0.67, so the gap is specific to continuous control. A 2026 successor (Intentional AC) reports closing "most of the gap" in several environments, figures only.
+        CPU-testable: yes (Streaming updates are batch size 1 and CPU-friendly (Stream-Q even runs on a microcontroller); a subset of MuJoCo tasks at reduced step counts fits in hours; the full 50 tasks x 5M steps x 30 seeds does not.)
+        assumes: batch methods store the past (replay buffer, rollouts)
+        assumes: one prescribed step size and trace parameter held fixed for the whole stream and all tasks
+        assumes: step size set in parameter units (Intentional updates move to output units but keep a global scale fixed)
+        assumes: no learning-rate schedule (clock-indexed decay rejected as non-continual)
+
+h3-B3   OPEN | non-episodic continual RL with endogenous drift (AgarCL)
+        claims a 1, b 1, c 1, d 1; benchmark: AgarCL continual pellet-collection mini-games (Table 9)
+        best mini-game 6 Dense: PPO 5064.4; mini-game 2: SAC 2; mini-game 1: DQN 619 against target Human 7215 (mini-game 6), 682 (mini-game 2), 700 (mini-game 1); gap: Best agent at 70.2%, 0.3% and 88.4% of the human reference on three continual mini-games; full game has no human reference (best SAC 22, random 0.06).
+        CPU-testable: no (The source reports more than seven days on a single machine for SAC on the full game; mini-games are millions of frames with pixel observations. Not laptop-CPU hours.)
+        assumes: plasticity methods designed and tuned on episodic benchmarks with abrupt switches
+        assumes: hyperparameters carried over from a shorter horizon (mini-game 4)
+        assumes: standard (untuned) hyperparameters for the continual baselines
+
+h3-B4   OPEN | warm-started / data-incremental training short of offline joint
+        claims a 2, b 1, c 2, d 2; benchmark: ImageNet-100 in 4 i.i.d. chunks, ResNet-18 from scratch, linear-probe accuracy (Hess et al. 2026)
+        best Incremental Joint 82.75±0.15 (warm-started, all data); Replay (mt =12500) 81.27±0.24 (best continual) against target Joint (offline) 83.68±0.11; gap: Warm-started on all data: 0.93 pt short (plasticity part). Best continual method: 2.41 pt short. DASH (2024) closes the warm-start gap on its own protocol, untested here.
+        CPU-testable: no (The named benchmark is ResNet-18 on ImageNet-100/CIFAR-100 for about 100 epoch-equivalents: GPU-days, not CPU-hours. A small-MLP analogue would run on CPU but is not the named benchmark.)
+        assumes: chunk boundaries given
+        assumes: fixed iteration budget per chunk
+        assumes: replay stores 15-30% of the data to recover co-observation
+        assumes: stationary data (DASH)
+
+h3-B5   not shown open | hyperparameters without a natural horizon (lifetime tuning)
+        claims a 1, b 2, c 0, d 1; benchmark: Continuing Cartpole, Non-stationary Catch, quadruped walk-to-run (Mesbahi et al.); AgarCL
+        best not quoted (figures only) against target not quoted (lifetime-tuned DQN "nearly optimal"); gap: Open by 2026 statements (AgarCL, ICML 2026 position), but no number in any text: NOT SHOWN OPEN.
+        CPU-testable: yes (Continuing Cartpole and Non-stationary Catch with DQN run on CPU in hours.)
+        assumes: one hyperparameter vector chosen before deployment and held fixed
+        assumes: tuning horizon = the evaluation lifetime (or k% of it)
+        assumes: Adam/RMSProp step-size adaptation assumes a stationary gradient scale
+
+h3-B6   not shown open (target reached or no shortfall, per the agent) | supervised loss of plasticity on long task sequences
+        claims a 1, b 2, c 1, d 2; benchmark: Continual ImageNet, Permuted MNIST, Incremental CIFAR-100, Slippery Ant
+        best L2-ER above RESET on all four (figures) against target RESET (re-initialise at each task change); gap: The 2026 frontier reports the target reached on these benchmarks; open statements concern mechanism and theory, not a benchmark gap. NOT SHOWN OPEN.
+        CPU-testable: yes (Permuted MNIST and slowly-changing regression run on CPU in hours.)
+        assumes: abrupt, externally scheduled task switches in the benchmarks
+        assumes: fixed replacement rate per step (continual backprop)
+        assumes: fixed regularisation strength
+
+h3-B7   not shown open | predicting plasticity loss / measuring non-stationarity
+        claims a 0, b 1, c 0, d 0; benchmark: none named
+        best none against target none; gap: Stated open (Klein et al. 2026) but no benchmark or number: NOT SHOWN OPEN.
+        CPU-testable: yes (Synthetic streams would suffice, but there is no benchmark to test against.)
+        assumes: regularisation strength fixed because non-stationarity is unmeasured
+
+h3-B8   not shown open (target reached or no shortfall, per the agent) | task-free continual RL
+        claims a 1, b 1, c 1, d 0; benchmark: none task-free with numbers; Continual World CW10 (task-labelled)
+        best SSDE 0.95 (CW10, task-labelled) against target MTL+PopArt 0.66 (multi-task reference); gap: The task-labelled benchmark is above its multi-task reference; no task-free benchmark with a target was found. NOT SHOWN OPEN.
+        CPU-testable: no (Continual World (MetaWorld, SAC, 1M steps per task) is GPU-scale; no task-free benchmark named.)
+        assumes: tasks given in advance, boundaries clear, stationary within a task
+
+h3-B9   not shown open | plasticity loss at LLM scale
+        claims a 1, b 0, c 0, d 0; benchmark: Multilingual Continual Learning Problem (Hernandez-Garcia et al. 2026)
+        best none (no mitigation reported) against target none stated; gap: No target and no mitigation: NOT SHOWN OPEN here (overlaps H2).
+        CPU-testable: no (Transformer pre-training at 5M-314M parameters is GPU-scale.)
+        assumes: fixed training budget per cycle
+
+h4-B1   OPEN | boundary-free streams (task-free / general CL)
+        claims a 1, b 2, c 2, d 5; benchmark: Si-Blurry ImageNet-R (ViT-B/16, ImageNet-21k), Michel et al. 2025 Tables 1-2
+        best 62.62±0.11 (ConvPrompt + ours, Si-Blurry, VTAB-tuned) against target 69.76±1.38 (same method, clear boundaries); gap: 7.14 points on ImageNet-R (1.85 on CUB, 1.31 on CIFAR100 within spread); FlyPrompt (ICLR 2026) reaches Alast 55.27 on Si-Blurry ImageNet-R with no target reported. The clear-boundary target also removes Si-Blurry's varying task sizes, so the gap is an upper bound on the cost of missing boundaries.
+        CPU-testable: no (The named benchmarks train prompts through a ViT-B/16 on 24k-60k images per run with 5-10 seeds: not hours on a laptop CPU. A frozen-feature variant (precomputed embeddings, prototype or linear heads on a Si-Blurry stream) would be, but it is not the reported benchmark.)
+        assumes: expert/prompt chosen by key-query similarity of the input
+        assumes: logits masked to classes present in the current mini-batch
+        assumes: boundaries used as consolidation (prompt-freeze) triggers; online versions drop the trigger
+        assumes: self-detected shifts over a fixed batch window or fixed per-expert sample budget (clock/count-indexed)
+        assumes: frozen pretrained backbone and access to pretraining data before the stream
+
+h4-B2   not shown open (target reached or no shortfall, per the agent) | hyperparameters without future data
+        claims a 1, b 3, c 2, d 3; benchmark: split-task Tiny ImageNet Class-IL (Lee et al. 2025 Table 3); Si-Blurry CIFAR100 (Michel et al. 2025)
+        best best realistic HPO per benchmark: ESMER 46.69±0.56 (first-task) on Tiny ImageNet Class-IL; ConvPrompt + ours 86.34±3.59 (VTAB-tuned) on Si-Blurry CIFAR100 against target end-of-training (hindsight) HPO: 47.33±0.30; hindsight best of two LRs: 86.34±3.59; gap: Not shown open as a performance gap: the best realistic pipeline is within about one point of, or equal to, its hindsight oracle. Method-specific losses are large (DER++ Tiny ImageNet 3.25 points, untuned defaults 14.23; CODA-P + ours on Si-Blurry CIFAR100 10.43), and rankings change under GTEP (Cha & Cho). The open part is reliability, not the best attainable number.
+        CPU-testable: no (Lee et al. grid (up to 90 configurations x 3 runs, ResNet-18) is GPU-scale; a small synthetic analogue is CPU-feasible but is not the named benchmark.)
+        assumes: tune on the first task and freeze (first task representative)
+        assumes: re-tune per task (task boundaries and repeated training)
+        assumes: tune on memory or past validation data (stored data)
+        assumes: tune on a proxy dataset or scenario of the same shape (transfer; number of tasks known)
+        assumes: no learning-rate schedule online because stream length is unknown
+
+h4-B3   not shown open (target reached or no shortfall, per the agent) | compute-budgeted continual learning
+        claims a 1, b 2, c 2, d 3; benchmark: CIFAR-100 class-IL with 80% memory (Cho et al., ICLR 2026, Table 6)
+        best 77.71 (Ours, weight space consolidation; ±0.8 in Table 2) against target 78.94 (full retraining from scratch); gap: Not shown open on the quoted numbers: 1.23 points at 80% memory, 0.05 at 60%, CL ahead at 4-40%, at replay-level cost per the paper. The large-scale evidence (Prabhu et al. 2023, ImageNet2K/CGLM, ERM-Naive oracle) is in figures only; the quoted text gives method vs naive (11.41 and 3.85 points), not vs an oracle.
+        CPU-testable: no (ImageNet2K/CGLM (1500 GPU-hours) and ResNet CIFAR-100 multi-epoch runs are not laptop-CPU hours.)
+        assumes: fixed compute per time step, equal across steps (clock-indexed allocation)
+        assumes: compute counted in training iterations or FLOPs per step
+        assumes: layers frozen for batches with low Fisher-information gain (information-indexed; prior art)
+        assumes: abundant memory and clean task boundaries (weight-space consolidation)
+
+h4-B4   OPEN | on-device memory-constrained online CL (configuration without hindsight)
+        claims a 2, b 1, c 1, d 1; benchmark: CORe50-NI/-NC/-NIC ("medium and large") with ER on Jetson AGX Xavier / PC (Orion, 2026)
+        best Orion’s 0.22 (plasticity) and 0.30 (stability) against target Oracle (offline brute-force, 42 runs) 0.28 plasticity and 0.33 stability; gap: Plasticity 0.06 below the oracle (21% relative), stability 0.03 (9%); no spread reported. Single 2026 preprint (v1), so the evidence is thin.
+        CPU-testable: no (The result is about GPU memory on embedded boards and a 42-run oracle; a CPU replication would not test the same constraint. SplitCIFAR10 with Avalanche on CPU is feasible but that is where the gap is small.)
+        assumes: configuration chosen by offline search over the whole run (the oracle; uses the future)
+        assumes: decisions taken only at experience (task) boundaries
+        assumes: control threshold decays with a clock/experience index t (Thr_t = Thr_0 e^(-delta t))
+        assumes: memory pressure driven by count of experiences
+
+h4-B5   OPEN | resource-constrained federated / edge CL
+        claims a 1, b 2, c 1, d 1; benchmark: federated class-IL CIFAR-100, final accuracy A(f) (Li et al. 2025, Tables 2-3)
+        best 5.95±0.95 (FedWeIT, extremely limited resources) against target 28.43±1.14 (FOT, sufficient resources); gap: 22.48 points; the constrained setting restricts memory, compute and label rate together, so the gap is not attributable to compute alone. The target is the same methods with sufficient resources, not a joint model.
+        CPU-testable: no (1000+ GPU-hours in the source; a toy federated stream is CPU-feasible but not the benchmark.)
+        assumes: compute budget counted in gradient steps per round (clock-indexed)
+        assumes: cached exemplars or generated samples for replay
+        assumes: methods designed for sufficient resources and truncated
+
+h4-B6   not shown open | real-time streams (the stream does not wait)
+        claims a 1, b 0, c 0, d 1; benchmark: CLOC (Ghunaim et al. 2023)
+        best not quoted (method vs simple baseline only) against target none stated; gap: Not shown open: no 2025-26 statement found in the sweep and no target number; the 2023 source compares with a simple baseline.
+        CPU-testable: no (CLOC has 39 million images.)
+        assumes: delay charged by training complexity relative to stream rate (wall clock)
+
+h4-B7   not shown open | lifetime tuning in continual RL
+        claims a 1, b 1, c 0, d 0; benchmark: continuing Catch / Cartpole / Jelly Bean World (Mesbahi et al., ICML 2025)
+        best plotted only against target plotted only; gap: Not shown open by the definition: a 2025 call to action exists but the results are in figures only, so no B-c numbers could be quoted.
+        CPU-testable: yes (DQN on small continuing environments runs on a laptop CPU in hours; but without quoted numbers there is no target to test against.)
+        assumes: hyperparameters selected over the full lifetime
+        assumes: k-percent tuning: selected on the first fraction of the lifetime
+
+open bottlenecks: 19 of 34
