@@ -11,3 +11,27 @@ anchors 10/class of task 1 (M 20), beta 0.01, pseudo 10 + anchors 10 per step; E
    RRM-1    mean   82.34  seeds  80.60  83.95  81.61  82.27  83.28
    DECOY-1  mean   77.59  seeds  79.26  79.26  80.60  73.58  75.25
    HOPDC-1  mean   82.21  seeds  80.27  83.95  81.61  82.27  82.94
+
+[NEG2] K 10, d 20; RFR (deterministic) 53.51; RRM-1 memory: raw rows 20, stored numbers 56320; ER-20 raw rows 200
+   FT       mean   16.39  seeds  17.39  17.06  13.04  17.06  17.39
+   JOINT    mean   42.41  seeds  39.80  43.14  40.13  40.13  48.83
+   ER-20    mean   32.04  seeds  32.11  33.11  28.09  34.78  32.11
+   IGR-F    mean   36.45  seeds  37.12  36.45  35.45  36.79  36.45
+   ANCH-1   mean   20.54  seeds  21.07  20.74  19.40  18.39  23.08
+   STALE-1  mean   33.51  seeds  32.11  36.45  31.44  30.77  36.79
+   RRM-1    mean   33.98  seeds  33.11  36.45  32.78  31.10  36.45
+   DECOY-1  mean   30.64  seeds  29.77  33.11  27.42  29.77  33.11
+   HOPDC-1  mean   33.85  seeds  32.11  36.45  32.78  31.44  36.45
+
+----------------------------------------------------------------------------------------------------
+G-REL RRM-1 - STALE-1 on POS +0.4682 (step 1.2936) -> FAILS
+G-CANFAIL DECOY-1 - ER-20 on POS -2.3411 (step 1.5399): behind by more than a step -> holds
+G-FT FT - ER-20 on POS -55.5853 (step 1.5399) -> holds
+G-CANFAIL DECOY-1 - ER-20 on NEG2 -1.4047 (step 2.2023): behind by more than a step -> FAILS
+G-FT FT - ER-20 on NEG2 -15.6522 (step 2.2023) -> holds
+G-ID transport forced off == STALE-1 bit for bit: 10/10 -> holds
+T2 GATE CLOSED
+
+reported beside the gate (not gating):
+   POS: RRM-1 - ANCH-1 +38.4615; - ER-20 +2.4080; - JOINT -3.0100; - IGR-F -2.6087; - RFR +1.4047; - HOPDC-1 +0.1338
+   NEG2: RRM-1 - ANCH-1 +13.4448; - ER-20 +1.9398; - JOINT -8.4281; - IGR-F -2.4749; - RFR -19.5318; - HOPDC-1 +0.1338
