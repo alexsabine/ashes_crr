@@ -207,7 +207,7 @@ def main() -> int:
     n_cells = sum(len(r["cells"]) for r in list(h3.values()) + [at3, above3])
     print(f"  closed form for 'flat': ETM's deadline counts own steps (W + n R <= D), so the tightest job (slack {dl.g(smin)} h) accepts all K = "
           f"{', '.join(str(k) for k in Ks)} offers at R/H iff K R <= {dl.g(smin)} h")
-    print(f"  flip threshold: R* = {dl.g(smin)}/{max(Ks)} h = {t3} h = {f(t3, 6)} h = {s_(t3)}; at R*: flat {dl.yn(flat_at)}, Q {at3['word']}; "
+    print(f"  flip threshold: R* = {t3} h = {f(t3, 6)} h = {s_(t3)}; at R*: flat {dl.yn(flat_at)}, Q {at3['word']}; "
           f"at R* + {STEP} h: flat {dl.yn(flat_above)}, Q {above3['word']} -> threshold verified: {dl.yn(ok3)}")
     print(f"  the other two parts (rising, tight, for OWN and WALL) hold in {n_other} of {n_cells} evaluated cells (no closed form printed "
           f"for them)")
@@ -258,6 +258,9 @@ def main() -> int:
     for rpx, key, fx, Cx in ctx:
         print(f"    {key:10} fx {dl.g(fx):4} C {f(Cx, 1):>9} GBP/MWh: price bound {s_(rpx):>11}")
     print(f"  price bound range over these {len(ctx)} costs: {s_(min(c[0] for c in ctx))} to {s_(max(c[0] for c in ctx))}")
+    print("  per sourced R: the number of these costs whose price bound is >= R (necessary for part (a); the block and deadline bounds")
+    print("  above do not depend on C)")
+    print("    " + "; ".join(f"{vid} {s_(h)}: {sum(int(c[0] >= h) for c in ctx)} of {len(ctx)}" for h, vid, _ in sourced))
     print()
 
     # ------------------------------------------------------------------------------------------------ reproduction of the pinned verdicts
@@ -324,7 +327,9 @@ def main() -> int:
           f"({s_(R_lo)} to {s_(R_hi)}, docs/citations/dr1_f4_2026-09-29.md via dr_h4.py)")
     print()
 
-    print("POST-FIRST-RUN CHANGES: none")
+    print("POST-FIRST-RUN CHANGES: (1) output text only: H3's threshold line printed the fraction twice ('5/41 h = 5/41 h'); "
+          "(2) added, context only (not scored): per sourced R, the number of the 24 compute costs whose DATA price bound is >= R; "
+          "no input, predicate, threshold or verdict changed")
     print()
     print("RESULT FOLLOWUP-2 (POST HOC): " + "; ".join(
         f"{cid} Q holds at {tally(res[cid])[0]} of {len(sourced)} sourced R, flips above {s_(thr[cid][0])} (verified "

@@ -1,0 +1,132 @@
+POST HOC (critic follow-up 2; not declared)
+DR1 follow-up 2: the restart overhead R that decides H2, H3 and DATA, swept over the sourced F4 range (Grid_Demand_Response/DECLARATION.md, declared at e67e8ee; not declared there)
+Rung R4 at most; a note, not evidence (R8). No pinned file is edited; the pinned predicates are imported and rerun.
+
+THE R VALUES
+  F4 quotes found verbatim in docs/citations/dr1_f4_2026-09-29.md and parsed (dr_h4.parse_sources): 16 of 16
+  SOURCED restart values (role R in dr_h4.py): 9
+    R-MS-init5          5.00 s = 0.001389 h  [MegaScale, NSDI '24]  CHOICE (dr_h4.py): 'under 5 seconds' taken at its bound; initialisation only, read as the whole restart
+    R-MS-init30        30.00 s = 0.008333 h  [MegaScale, NSDI '24]  CHOICE (dr_h4.py): 'under 30 seconds' (> 10,000 GPUs) taken at its bound; initialisation only
+    R-BC405-load      129.49 s = 0.035969 h  [ByteCheckpoint, arXiv:2407.20143 v4 (NSDI '25), Table 8]  CHOICE (dr_h4.py): TLoad (one component) read as the whole restart
+    R-BC7-load        265.73 s = 0.073814 h  [ByteCheckpoint, arXiv:2407.20143 v4 (NSDI '25), Table 8]  CHOICE (dr_h4.py): TLoad (one component) read as the whole restart
+    R-KOK-u0lo        300.00 s = 0.083333 h  [Kokolis et al., arXiv:2410.21680 v2 (HPCA 2025)]  CHOICE (dr_h4.py): the low end of the paper's restart-overhead range u0
+    R-MS-init361      361.00 s = 0.100278 h  [MegaScale, NSDI '24]  CHOICE (dr_h4.py): one component (initialisation, first optimisation) read as the whole restart
+    R-BR-failover     600.00 s = 0.166667 h  [ByteRobust, arXiv:2509.16293 v4 (SOSP '25)]  CHOICE (dr_h4.py): 'more than 10 minutes' taken at its bound, 10 minutes (a failure failover read as a restart)
+    R-MS-init1047    1047.00 s = 0.290833 h  [MegaScale, NSDI '24]  CHOICE (dr_h4.py): one component (initialisation, default tooling) read as the whole restart
+    R-KOK-u0hi       1200.00 s = 0.333333 h  [Kokolis et al., arXiv:2410.21680 v2 (HPCA 2025)]  CHOICE (dr_h4.py): the high end of the paper's restart-overhead range u0
+  ASSUMED          360.00 s = 0.100000 h  (EPS2 T1's model constant, the value in the pinned H2, H3, DATA)
+  sourced range 5.00 s to 1200.00 s; the ASSUMED 0.1 h lies inside it: yes
+  note: dr_h4.py's 'restart grid (10 values)' is these 9 sourced values plus the ASSUMED 0.1 h (R-EPS2)
+  the pinned scripts' R: H2 0.1000 h; H3 0.1000 h; DATA 0.1000 h -> all equal the ASSUMED 0.1 h: yes
+
+H2 (dr_h2.score_cell; Q: at matched delay ETM and the best tier supply the same curtailed energy within 1 %, in all 8 cells)
+  R id                     R  cells within 1 %  max rel over cells  rel == R/(H+R)  Q
+  R-MS-init5          5.00 s           8 of 8            0.001387         8 of 8  holds
+  R-MS-init30        30.00 s           8 of 8            0.008264         8 of 8  holds
+  R-BC405-load      129.49 s           4 of 8            0.034721         8 of 8  fails
+  R-BC7-load        265.73 s           0 of 8            0.068740         8 of 8  fails
+  R-KOK-u0lo        300.00 s           0 of 8            0.076923         8 of 8  fails
+  ASSUMED-0.1h      360.00 s           0 of 8            0.090909         8 of 8  fails
+  R-MS-init361      361.00 s           0 of 8            0.091139         8 of 8  fails
+  R-BR-failover     600.00 s           0 of 8            0.142857         8 of 8  fails
+  R-MS-init1047    1047.00 s           0 of 8            0.225307         8 of 8  fails
+  R-KOK-u0hi       1200.00 s           0 of 8            0.250000         8 of 8  fails
+  closed form: per cell rel = R/(H + R) (ETM's energy per hour of delay H/(H + R) against the tiers' 1); within 1 % iff R <= H/99: H 1: 36.36 s, H 3: 109.09 s, H 4: 145.45 s, H 6: 218.18 s
+  flip threshold (binding H = 1): R* = 1/99 h = 36.36 s; the predicate at R*: holds; at R* + 1/1000000 h: fails -> threshold verified: yes
+
+H3 (dr_h3.portfolio/analyse/score; Q: ETM's firm supply curve flat at R/H, OWN's and WALL's rising, gap largest for the tight
+tercile, in all 3 H cells). Per cell: jobs (of 100) whose ETM entry price is R/H attained; rising OWN/WALL; tight OWN/WALL
+  R-MS-init5          5.00 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  R-MS-init30        30.00 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  R-BC405-load      129.49 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  R-BC7-load        265.73 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  R-KOK-u0lo        300.00 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  ASSUMED-0.1h      360.00 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  R-MS-init361      361.00 s  H 1: 100 flat yes, rising yes/yes, tight yes/yes; H 3: 100 flat yes, rising yes/yes, tight yes/yes; H 4: 100 flat yes, rising yes/yes, tight yes/yes  -> Q holds
+  R-BR-failover     600.00 s  H 1: 99 flat no, rising yes/yes, tight yes/yes; H 3: 99 flat no, rising yes/yes, tight yes/yes; H 4: 99 flat no, rising yes/yes, tight yes/yes  -> Q fails
+  R-MS-init1047    1047.00 s  H 1: 98 flat no, rising yes/yes, tight yes/yes; H 3: 98 flat no, rising yes/yes, tight yes/yes; H 4: 98 flat no, rising yes/yes, tight yes/yes  -> Q fails
+  R-KOK-u0hi       1200.00 s  H 1: 98 flat no, rising yes/yes, tight yes/yes; H 3: 98 flat no, rising yes/yes, tight yes/yes; H 4: 98 flat no, rising yes/yes, tight yes/yes  -> Q fails
+  closed form for 'flat': ETM's deadline counts own steps (W + n R <= D), so the tightest job (slack 5 h) accepts all K = 41 offers at R/H iff K R <= 5 h
+  flip threshold: R* = 5/41 h = 0.121951 h = 439.02 s; at R*: flat yes, Q holds; at R* + 1/1000000 h: flat no, Q fails -> threshold verified: yes
+  the other two parts (rising, tight, for OWN and WALL) hold in 36 of 36 evaluated cells (no closed form printed for them)
+
+DATA (dr_data.simulate, ETM arm; Q: (a) ETM joins every event with all 100 jobs in every season AND (b) ETM's revenue share
+< 1 % in every ordinary season, all seasons except W2022/23)
+  raw files matching MANIFEST.md sha256: yes (19 files); dr_data sourced quotes found and parsed: yes; C = 1452.4328 GBP per MWh of compute (dr_data.py's scored C)
+  per season: events joined with all 100 jobs / events; job-events declined on price / deadline / blocked; ETM revenue share
+  R-MS-init5          5.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 48/48 (0/0/0) 0.52387 %; S2025 86/86 (0/0/0) 0.31715 %; W2025/26 33/33 (0/0/0) 0.21052 %; S2026 93/93 (0/0/0) 0.96926 %  -> (a) yes, (b) yes, Q holds
+  R-MS-init30        30.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 48/48 (0/0/0) 0.52387 %; S2025 86/86 (0/0/0) 0.31715 %; W2025/26 33/33 (0/0/0) 0.21052 %; S2026 93/93 (0/0/0) 0.96926 %  -> (a) yes, (b) yes, Q holds
+  R-BC405-load      129.49 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 48/48 (0/0/0) 0.52387 %; S2025 79/86 (700/0/0) 0.31282 %; W2025/26 33/33 (0/0/0) 0.21052 %; S2026 93/93 (0/0/0) 0.96926 %  -> (a) no, (b) yes, Q fails
+  R-BC7-load        265.73 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 46/48 (200/0/0) 0.52109 %; S2025 67/86 (1900/0/0) 0.29749 %; W2025/26 31/33 (200/0/0) 0.20739 %; S2026 87/93 (600/0/0) 0.96150 %  -> (a) no, (b) yes, Q fails
+  R-KOK-u0lo        300.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 44/48 (400/0/0) 0.51544 %; S2025 62/86 (2400/0/0) 0.28985 %; W2025/26 28/33 (500/0/0) 0.20032 %; S2026 87/93 (600/0/0) 0.96150 %  -> (a) no, (b) yes, Q fails
+  ASSUMED-0.1h      360.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 42/48 (600/0/0) 0.50918 %; S2025 60/86 (2600/0/0) 0.28638 %; W2025/26 25/33 (800/0/0) 0.19217 %; S2026 86/93 (700/0/0) 0.95904 %  -> (a) no, (b) yes, Q fails
+  R-MS-init361      361.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 42/48 (600/0/0) 0.50918 %; S2025 60/86 (2600/0/0) 0.28638 %; W2025/26 25/33 (800/0/0) 0.19217 %; S2026 86/93 (700/0/0) 0.95904 %  -> (a) no, (b) yes, Q fails
+  R-BR-failover     600.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 17/17 (0/0/0) 0.98842 %; W2024/25 36/48 (1200/0/0) 0.47820 %; S2025 40/86 (4600/0/0) 0.22895 %; W2025/26 19/33 (1400/0/0) 0.16939 %; S2026 79/93 (1300/1/0) 0.93940 %  -> (a) no, (b) yes, Q fails
+  R-MS-init1047    1047.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 12/17 (500/0/0) 0.95177 %; W2024/25 11/48 (3700/0/0) 0.26458 %; S2025 14/86 (7200/0/0) 0.11249 %; W2025/26 10/33 (2300/0/0) 0.10951 %; S2026 57/93 (2400/12/0) 0.87524 %  -> (a) no, (b) yes, Q fails
+  R-KOK-u0hi       1200.00 s  W2022/23 21/21 (0/0/0) 1.52265 %; W2023/24 12/17 (500/0/0) 0.95177 %; W2024/25 7/48 (4100/0/0) 0.22150 %; S2025 9/86 (7700/0/0) 0.08237 %; W2025/26 9/33 (2400/0/0) 0.10045 %; S2026 45/93 (3500/13/0) 0.79261 %  -> (a) no, (b) yes, Q fails
+  closed form for part (a): ETM joins an event iff (price / C) H >= R (its only charge is R, own clock), the event starts no
+  earlier than the previous event's end plus R (else blocked), and n R <= slack (own-step deadline). Bounds:
+    price: R <= min over events of price H / C = 0.02754000 h = 99.14 s (event S2025 2025-04-16 21:30, H 0.5 h, price 80.00 GBP/MWh)
+    block: R <= the shortest gap between consecutive events = 0.5 h = 1800.00 s (W2023/24)
+    deadline (sufficient): R <= tightest slack / most events in a season = 5/93 h = 193.55 s
+  flip threshold: R* = the smallest bound = 0.02754000 h = 99.14 s (exact 1377/50000); at R*: (a) yes, Q holds; at R* + 1/1000000 h: (a) no, Q fails -> threshold verified: yes
+  part (b) holds at 10 of 10 swept values (its largest share, at full participation, is set by the prices, not by R)
+  CONTEXT (not scored): the price bound under every compute cost of dr_data.py's SENSITIVITY 1 (C from each sourced price,
+  USD/GBP in {1.20, 1.35, 1.50} ASSUMED); R* moves with C as 1/C
+    IDX-NEO    fx 1.2  C    1634.0 GBP/MWh: price bound     88.13 s
+    IDX-NEO    fx 1.35 C    1452.4 GBP/MWh: price bound     99.14 s
+    IDX-NEO    fx 1.5  C    1307.2 GBP/MWh: price bound    110.16 s
+    CW-SPOT    fx 1.2  C    1610.3 GBP/MWh: price bound     89.42 s
+    CW-SPOT    fx 1.35 C    1431.4 GBP/MWh: price bound    100.60 s
+    CW-SPOT    fx 1.5  C    1288.2 GBP/MWh: price bound    111.78 s
+    RUNPOD     fx 1.2  C    2281.0 GBP/MWh: price bound     63.13 s
+    RUNPOD     fx 1.35 C    2027.6 GBP/MWh: price bound     71.02 s
+    RUNPOD     fx 1.5  C    1824.8 GBP/MWh: price bound     78.91 s
+    LAMBDA-OD  fx 1.2  C    2607.8 GBP/MWh: price bound     55.22 s
+    LAMBDA-OD  fx 1.35 C    2318.1 GBP/MWh: price bound     62.12 s
+    LAMBDA-OD  fx 1.5  C    2086.3 GBP/MWh: price bound     69.02 s
+    LAMBDA-RES fx 1.2  C    3620.9 GBP/MWh: price bound     39.77 s
+    LAMBDA-RES fx 1.35 C    3218.6 GBP/MWh: price bound     44.74 s
+    LAMBDA-RES fx 1.5  C    2896.7 GBP/MWh: price bound     49.71 s
+    CW-OD      fx 1.2  C    4022.9 GBP/MWh: price bound     35.80 s
+    CW-OD      fx 1.35 C    3575.9 GBP/MWh: price bound     40.27 s
+    CW-OD      fx 1.5  C    3218.3 GBP/MWh: price bound     44.74 s
+    AWS        fx 1.2  C    4496.7 GBP/MWh: price bound     32.02 s
+    AWS        fx 1.35 C    3997.1 GBP/MWh: price bound     36.03 s
+    AWS        fx 1.5  C    3597.4 GBP/MWh: price bound     40.03 s
+    IDX-HS     fx 1.2  C    4856.2 GBP/MWh: price bound     29.65 s
+    IDX-HS     fx 1.35 C    4316.6 GBP/MWh: price bound     33.36 s
+    IDX-HS     fx 1.5  C    3885.0 GBP/MWh: price bound     37.07 s
+  price bound range over these 24 costs: 29.65 s to 111.78 s
+  per sourced R: the number of these costs whose price bound is >= R (necessary for part (a); the block and deadline bounds
+  above do not depend on C)
+    R-MS-init5 5.00 s: 24 of 24; R-MS-init30 30.00 s: 23 of 24; R-BC405-load 129.49 s: 0 of 24; R-BC7-load 265.73 s: 0 of 24; R-KOK-u0lo 300.00 s: 0 of 24; R-MS-init361 361.00 s: 0 of 24; R-BR-failover 600.00 s: 0 of 24; R-MS-init1047 1047.00 s: 0 of 24; R-KOK-u0hi 1200.00 s: 0 of 24
+
+REPRODUCTION AT THE ASSUMED 0.1 h (the sweep's value against the pinned RESULT lines)
+  H2    pinned Q fails; rerun here Q fails -> same: yes
+  H3    pinned Q holds; rerun here Q holds -> same: yes
+  DATA  pinned Q fails; rerun here Q fails -> same: yes
+  DATA per season (events joined with all jobs, revenue share) equal to the pinned 'Q (scored, primary inputs)' lines: yes (6 seasons)
+
+SUMMARY WITH A 'DECIDED BY R' COLUMN (rows parsed from the pinned dr_summary.txt, which is not edited; 'decided by R' =
+the Q verdict differs between sourced values in 5.00 s..1200.00 s; computed for H2, H3, DATA only)
+  check  Q (pinned)   forecast  hit   decided by R  detail
+  H1     holds        Q holds   hit   not swept     ASSUMED R_EPS2 = 0.1 h in dr_h1.py; outside this follow-up
+  H2     fails        Q holds   miss  yes           Q holds at 2, fails at 7 of 9 sourced R; holds iff R <= 36.36 s (verified yes); at the ASSUMED 0.1 h: fails
+  H3     holds        Q holds   hit   yes           Q holds at 6, fails at 3 of 9 sourced R; holds iff R <= 439.02 s (verified yes); at the ASSUMED 0.1 h: holds
+  H4     fails        Q holds   miss  swept inside  dr_h4.py scores every value of its F4 restart grid (its Q is over all of them)
+  H5     holds        Q holds   hit   not swept     ASSUMED R = 0.1 h in dr_h5.py; outside this follow-up
+  H6     holds        Q holds   hit   not swept     ASSUMED R_EPS2 = 0.1 h in dr_h6.py; outside this follow-up
+  H7     holds        Q holds   hit   not swept     ASSUMED R = 0.1 h in dr_h7.py; outside this follow-up
+  H8     fails        Q holds   miss  not swept     ASSUMED R = 0.1 h in dr_h8.py; outside this follow-up
+  DATA   fails        Q holds   miss  yes           Q holds at 2, fails at 7 of 9 sourced R; holds iff R <= 99.14 s (verified yes); at the ASSUMED 0.1 h: fails
+
+THE LABEL (the files are not edited here; each line carrying 'no fetched source supplies' is listed with the label this follow-up's
+numbers support)
+  origin: docs/citations/eps2_2026-09-29.md line 129 (EPS2's reading, written before the DR1 F4 dossier existed)
+  lines in Grid_Demand_Response/checks/: 12: dr_h2.py:27, dr_h2.py:118, dr_h3.py:26, dr_h3.py:163, dr_h7.py:103, dr_h8.py:52, dr_h8.py:324, drlib.py:851, dr_h2.txt:8, dr_h3.txt:8, dr_h8.txt:8, drlib_selftest.txt:6
+  supported label: R = 0.1 h ASSUMED, inside the sourced F4 range (5.00 s to 1200.00 s, docs/citations/dr1_f4_2026-09-29.md via dr_h4.py)
+
+POST-FIRST-RUN CHANGES: (1) output text only: H3's threshold line printed the fraction twice ('5/41 h = 5/41 h'); (2) added, context only (not scored): per sourced R, the number of the 24 compute costs whose DATA price bound is >= R; no input, predicate, threshold or verdict changed
+
+RESULT FOLLOWUP-2 (POST HOC): H2 Q holds at 2 of 9 sourced R, flips above 36.36 s (verified yes), decided by R yes, pinned verdict at 0.1 h reproduced yes; H3 Q holds at 6 of 9 sourced R, flips above 439.02 s (verified yes), decided by R yes, pinned verdict at 0.1 h reproduced yes; DATA Q holds at 2 of 9 sourced R, flips above 99.14 s (verified yes), decided by R yes, pinned verdict at 0.1 h reproduced yes
