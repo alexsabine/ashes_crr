@@ -364,6 +364,12 @@ Relational_Reference_Memory/  RRM (prompt-log entries 248-249): the owner's obje
                            GATE CLOSED on 1 of 8 (RRM-A under rotation; RRM-1 held all), part 2 not run (ledger RRM-PA; PHASE_A.md); sweep
                            docs/citations/rrm_2026-09-30.md, checks/claims.py, verify.py/.txt (58/58), grade.py/.txt (CI-checked): N1, N3, N4, N6
                            REDUNDANT, N2, N5 PARTLY REDUNDANT (the transport itself not found; nearest GATF, MPT); a note, not evidence (R8)
+Grid_Demand_Response/      DR1 (prompt-log entry 241): the empty-pause (stop-the-clock) contract for AI training load in grid demand
+                           response; DECLARATION.md pushed before any source, code or data; sweep G1-G9 (docs/citations/dr1_f1-f5, 173 claims;
+                           checks/grade.py/.txt CI-checked, 8 of 10 hit); checks/drlib.py (selftest 31/31), dr_h1-h8 + dr_data (GB NESO DFS,
+                           data/MANIFEST.md) + dr_summary (CI-checked): gate OPEN (G-ZERO read beyond R + S), Q holds 5 of 8, DATA fails;
+                           verification.md (all survived); POST HOC followup_1-4: H7 FRAGILE, H2/H3/DATA decided by the assumed restart R,
+                           DATA part (b) fails once corrected; GRID_DEMAND_RESPONSE.md; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

@@ -51,8 +51,14 @@ FU = "dr1_followup4_2026-09-29.md"
 TEXT = (CIT / FU).read_text(encoding="utf-8")
 PINNED = (HERE / "dr_data.txt").read_text(encoding="utf-8")
 ZERO, ONE = Fr(0), Fr(1)
-BUG_FIXES: list[str] = []      # bug fixes after this script's first run (none so far)
-WINDOW = Fr(4)                 # CHOICE: the break-even scan covers C in [C0 / 4, 4 C0] (C0 the scored C)
+BUG_FIXES: list[str] = [      # bug fixes after this script's first run
+    "(1) the break-even scan used a fixed window [C0/4, 4 C0]; W2025/26, below 1 % throughout it, printed 'not computable' "
+    "although its break-even lies below C0/4; the window now widens (halving its lower end, doubling its upper end, within "
+    "[C0/1024, 1024 C0]) until the share is at least 1 % at the lower end and below 1 % at the upper end",
+    "(2) output only: the exact rational of C_flip (hundreds of digits) is no longer printed; the decimal is kept",
+]
+WINDOW = Fr(4)                 # CHOICE: the break-even scan starts from C in [C0 / 4, 4 C0] (C0 the scored C) and widens
+WIDEST = Fr(1024)              # CHOICE: ... by factors of 2 up to [C0 / 1024, 1024 C0] until the share straddles 1 %
 EPS = Fr(1, 10**6)             # CHOICE: the verification step just above the break-even C (relative)
 CRITIC = dict(dC=Fr("0.0117"), pue_w=Fr("1.012"), pue_s=Fr("1.043"), phrase=Fr("0.11"))   # the critic's figures (task text)
 
@@ -306,16 +312,22 @@ def main() -> int:
     # ------------------------------------------------------------------------------------------------ break-even scan
     print(f"BREAK-EVEN (scored setting): per season, ETM's revenue is piecewise constant in C (the online rule changes a decision")
     print("only where an event's payment equals its charge, C = price x H / R); the share = revenue / (100 MW x period hours x C).")
-    print(f"Every such breakpoint in [C0/{dl.g(WINDOW)}, {dl.g(WINDOW)} C0] and one point inside every piece between them is run;")
+    print(f"Every such breakpoint in a window (from [C0/{dl.g(WINDOW)}, {dl.g(WINDOW)} C0], halved below / doubled above up to "
+          f"[C0/{dl.g(WIDEST)}, {dl.g(WIDEST)} C0]")
+    print("until the share is >= 1 % at its lower end and < 1 % at its upper end) and one point inside every piece is run;")
     print("C_flip = the largest C in the window at which the share is at least 1 % (the share is below 1 % iff C > C_flip when")
     print("the share crosses 1 % once). Equivalent break-evens at the other inputs fixed at the scored values: PUE_flip = C0 /")
     print("C_flip (below 1 % iff PUE < PUE_flip), FX_flip = 1.35 C0 / C_flip USD per GBP (below 1 % iff USD/GBP < FX_flip),")
     print("H100_flip = 2.50 C_flip / C0 USD per GPU-hour (below 1 % iff the H100 price > H100_flip).")
-    lo_w, hi_w = C0 / WINDOW, C0 * WINDOW
     m0 = dl.Model(jobs[0], dl.ETM)
     flip = {}
     for s in seas:
         K = per[s]["K"]
+        lo_w, hi_w = C0 / WINDOW, C0 * WINDOW
+        while run(s, lo_w)["share"] < dd.G7_BOUND and lo_w > C0 / WIDEST:
+            lo_w /= 2
+        while run(s, hi_w)["share"] >= dd.G7_BOUND and hi_w < C0 * WIDEST:
+            hi_w *= 2
         bps = set()
         for e in evs[s]:
             he = m0.heff(e["H"])
@@ -356,14 +368,14 @@ def main() -> int:
         v_at = run(s, cf)["share"] if cf is not None else None
         v_up = run(s, cf * (1 + EPS))["share"] if cf is not None else None
         ok = (cf is not None and not at_edge and v_at >= dd.G7_BOUND and v_up < dd.G7_BOUND and up == 0 and down == 1)
-        flip[s] = dict(cf=cf, ok=ok, up=up, down=down, nonmono=nonmono, n_bp=len(bps), v_at=v_at, v_up=v_up)
+        flip[s] = dict(cf=cf, ok=ok, up=up, down=down, nonmono=nonmono, n_bp=len(bps), v_at=v_at, v_up=v_up, lo=lo_w, hi=hi_w)
         tag = "" if s in ordinary else "  (W2022/23: not an ordinary season under C5; above the bound at C0)"
-        print(f"  {s:9} breakpoints in window {len(bps):>3}; runs {len(pts):>3}; revenue rises with C at {nonmono} step(s); the share "
+        print(f"  {s:9} window [C0/{dl.g(C0 / lo_w)}, {dl.g(hi_w / C0)} C0]; breakpoints in it {len(bps):>3}; runs {len(pts):>3}; revenue rises with C at {nonmono} step(s); the share "
               f"crosses 1 % downward {down} time(s), upward {up} -> single crossing: {dl.yn(up == 0 and down == 1)}{tag}")
         if cf is None or at_edge:
             print(f"            C_flip not in the window (candidate {f(cf, 4) if cf is not None else '-'}): not computable here")
             continue
-        print(f"            C_flip {f(cf, 4)} GBP/MWh (exact {cf}); share at C_flip {pct(v_at, 6)}, at C_flip x (1 + 1e-6) "
+        print(f"            C_flip {f(cf, 4)} GBP/MWh; share at C_flip {pct(v_at, 6)}, at C_flip x (1 + 1e-6) "
               f"{pct(v_up, 6)} -> verified: {dl.yn(ok)}")
         print(f"            C_flip / C0 - 1 = {pct(cf / C0 - 1, 4)}; PUE_flip {f(C0 / cf, 5)}; FX_flip {f(FX0 * C0 / cf, 5)} USD per "
               f"GBP; H100_flip {f(GPU0 * cf / C0, 4)} USD/GPU-hour")
@@ -500,7 +512,7 @@ def main() -> int:
                 nord += 1
                 nb += int(below)
             fl = flip[s]
-            if fl["ok"] and lo_w <= C <= hi_w:
+            if fl["ok"] and fl["lo"] <= C <= fl["hi"]:
                 xc_n += 1
                 xc_ok += int(below == (C > fl["cf"]))
             cells.append(f"{s} C {f(C, 1)} {r['all100']}/{r['n']} {pct(r['share'], 4)}")

@@ -79,6 +79,8 @@ for n in 01 02; do uv run python Empty_Pause_Systems/batches/eps2_$n.py | cmp - 
 uv run python Empty_Pause_Systems/batches/eps3_01.py | cmp - Empty_Pause_Systems/batches/eps3_01.txt && uv run python Empty_Pause_Systems/checks/tally_eps3.py | cmp - Empty_Pause_Systems/checks/tally_eps3.txt && echo 'EPS3 batch and tally byte-identical to the committed outputs'
 uv run python Replay_Quality_Memory/checks/grade.py | cmp - Replay_Quality_Memory/checks/grade.txt && echo 'RQM grades byte-identical to the committed output'
 uv run python Relational_Reference_Memory/checks/grade.py | cmp - Relational_Reference_Memory/checks/grade.txt && echo 'RRM grades byte-identical to the committed output'
+uv run python Relational_Reference_Memory/checks/grade_w.py | cmp - Relational_Reference_Memory/checks/grade_w.txt && echo 'RRM2 Part W grades byte-identical to the committed output'
+uv run python Grid_Demand_Response/checks/grade.py | cmp - Grid_Demand_Response/checks/grade.txt && uv run python Grid_Demand_Response/checks/dr_summary.py | cmp - Grid_Demand_Response/checks/dr_summary.txt && echo 'DR1 grades and summary byte-identical to the committed outputs'
 uv run python "Energy Design Principle/checks/retro_energy.py" | cmp - "Energy Design Principle/checks/retro_energy.txt" && echo 'energy retrodiction byte-identical to the committed output'
 uv run python "Energy Design Principle/checks/consolidated_estimate.py" | cmp - "Energy Design Principle/checks/consolidated_estimate.txt" && echo 'energy consolidated estimate byte-identical to the committed output'
 uv run python Lossless_Pause/checks/grade_claims.py | cmp - Lossless_Pause/checks/grade_claims.txt && echo 'lossless-pause literature grading byte-identical to the committed output'

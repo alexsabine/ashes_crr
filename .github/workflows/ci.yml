@@ -97,6 +97,9 @@ jobs:
           uv run python Empty_Pause_Systems/checks/tally_eps3.py > /tmp/eps3_t.txt && cmp /tmp/eps3_t.txt Empty_Pause_Systems/checks/tally_eps3.txt
           uv run python Replay_Quality_Memory/checks/grade.py > /tmp/rqm_g.txt && cmp /tmp/rqm_g.txt Replay_Quality_Memory/checks/grade.txt
           uv run python Relational_Reference_Memory/checks/grade.py > /tmp/rrm_g.txt && cmp /tmp/rrm_g.txt Relational_Reference_Memory/checks/grade.txt
+          uv run python Relational_Reference_Memory/checks/grade_w.py > /tmp/rrm_gw.txt && cmp /tmp/rrm_gw.txt Relational_Reference_Memory/checks/grade_w.txt
+          uv run python Grid_Demand_Response/checks/grade.py > /tmp/dr1_g.txt && cmp /tmp/dr1_g.txt Grid_Demand_Response/checks/grade.txt
+          uv run python Grid_Demand_Response/checks/dr_summary.py > /tmp/dr1_s.txt && cmp /tmp/dr1_s.txt Grid_Demand_Response/checks/dr_summary.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

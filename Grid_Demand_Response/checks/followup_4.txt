@@ -1,0 +1,219 @@
+POST HOC (critic follow-up 4; not declared)
+
+DR1 follow-up 4 to check DATA: part (b) (G7) with its ASSUMED PUE, USD/GBP and H100 price replaced by SOURCED values;
+the break-even compute cost C, PUE and USD/GBP per season.
+Binding declaration Grid_Demand_Response/DECLARATION.md (declared at e67e8ee; not edited). dr_data.py and dr_data.txt are not edited:
+dr_data.py is imported unchanged. An application calculation on public data: no ledger row; a note, not evidence (R8).
+
+DATA: 19 raw files; sha256 matches Grid_Demand_Response/data/MANIFEST.md for 19 of 19
+dr_data.py's own sources (dr_data.load_sources, unchanged): 19 of 19 found; used here: [IDX-NEO] H100 neo-cloud index 2.5 USD/GPU-hour on 2026-04-18, [DGX] 8 GPUs, 10.2 kW
+
+SOURCED QUOTES (each checked verbatim, whitespace-normalised, at run time against docs/citations/dr1_followup4_2026-09-29.md)
+  [PUE-G2022] Google 2023 Environmental Report: found yes
+      'In 2022, the average annual power usage effectiveness (PUE) 76 for our global fleet of data centers was 1.10, compared with the industry average of 1.55'
+  [PUE-U2022] Google 2023 Environmental Report, endnote 77: found yes
+      'According to the Uptime Institute’s 2022 Global Data Center Survey, the global average PUE of respondents’ data centers was around 1.55.'
+  [PUE-G2023] Google 2024 Environmental Report: found yes
+      'In 2023, the average annual power usage effectiveness for our data centers was 1.10 compared with the industry average of 1.58,'
+  [PUE-U2023] Google 2024 Environmental Report, endnote: found yes
+      'According to the Uptime Institute’s 2023 Global Data Center Survey, the global average PUE of respondents’ data centers was around 1.58.'
+  [PUE-G2024] Google 2025 Environmental Report: found yes
+      'In 2024, the average annual PUE for our global fleet of data centers was 1.09, compared with the industry average of 1.56,'
+  [PUE-U2024] Google 2025 Environmental Report, endnote: found yes
+      'According to the Uptime Institute’s 2024 Global Data Center Survey, the global average PUE of respondents’ data centers was 1.56.'
+  [PUE-G2025] Google data centers, Power usage effectiveness page (fetched 2026-09-30): found yes
+      'In 2025, the average annual power usage effectiveness for our global fleet of data centers was 1.09.'
+  [PUE-U2025] Google data centers, Power usage effectiveness page, footnote 1: found yes
+      'According to the Uptime Institute’s 2025 Global Data Center Survey, the global average PUE of respondents’ data centers was 1.54.'
+  [BOE-SERIES] Bank of England Database, series XUDLUSS (CSV with titles): found yes
+      'XUDLUSS,Spot exchange rate - US $ into Sterling'
+  [SD-TL-HEAD] Silicon Data blog, H100 Rental Price Over Time (2023–2025) (Dec 21, 2025), table header: found yes
+      'H100 Rental Price Over Time (Per GPU-Hour) Period Hyperscaler Marketplace Neocloud Data-driven context'
+  [SD-TL-2023] Silicon Data blog, H100 Rental Price Over Time, table: found yes
+      '2023-08 to 2023-12 $7.62–$7.77 (med $7.76) Only Hyperscaler is present, prices are tightly clustered around ~$7.7'
+  [SD-TL-2024A] Silicon Data blog, H100 Rental Price Over Time, table: found yes
+      '2024-01 to 2024-05 $7.37–$8.24 (med $7.92) Still Hyperscaler-only'
+  [IEEE-LAUNCH] IEEE Spectrum, Price Index Could Clarify Opaque GPU Costs for AI (Moore, 28 May 2025): found yes
+      'She founded the startup Silicon Data to create a solution: the first worldwide rental price index for a GPU. That rental price index, called the SDH100RT, launched today.'
+  [IEEE-0527] IEEE Spectrum (Moore, 28 May 2025): found yes
+      'Average hourly rental prices for an Nvidia H100 GPU were US $2.37 on 27 May 2025.'
+  [IEEE-WINTER] IEEE Spectrum (Moore, 28 May 2025): found yes
+      'On DeepSeek’s debut, the H100 price went up mildly to $2.50 per hour, but that was still in the $2.40 per hour to $2.60 per hour range from the months before. It then slid to $2.30 per hour for much of February before it started climbing again.'
+  [SD-SEP25-T] Silicon Data blog, H100 Rental Market Cools in September (Oct 20, 2025): found yes
+      'the Silicon Data H100 Rental Index (Bloomberg Ticker: SDH100RT) moved within a narrow range.'
+  [SD-SEP25-A] Silicon Data blog (Oct 20, 2025): found yes
+      'In August, the H100 Rental Index held steady, fluctuating modestly between 2.22 and 2.26,'
+  [SD-SEP25-S] Silicon Data blog (Oct 20, 2025): found yes
+      'By mid-September, the index dipped as low as 2.13, before staging a mild recovery toward 2.16 as the month closed.'
+  [SD-SPIKE] Silicon Data blog, H100 Price Spike (Jan 9, 2026): found yes
+      'Our GPU Rental Index revealed a startling 10% price jump for H100 rentals between December 9, 2025 and January 6, 2026. Hourly rates climbed from $2.00 to $2.20 in just four weeks.'
+  [SD-MAY26-A] Silicon Data blog, H100 index April-May 2026: found yes
+      'The Neocloud index opened April at $2.63, fell to a $2.47 trough by April 8 — about 6% in a week — then recovered most of the way back, closing April at $2.59.'
+  [SD-MAY26-M] Silicon Data blog, H100 index April-May 2026: found yes
+      'The index opened at $2.55 and rose in steps to $2.73 by May 31, peaking at $2.76 on May 30'
+  [SD-MAY26-T] Silicon Data blog, H100 index April-May 2026: found yes
+      'The Neocloud index is the one Silicon Data distributes on Bloomberg, under the ticker SDH100RT; it stood at $2.75 in early June,'
+  [SD-MJ26-A] Silicon Data blog, H200 vs H100 Rental Prices, May to July 2026: found yes
+      'The H100 Neo-Cloud rate rose too, but half as much and all of it early: $2.57 on May 4, $2.73 by the end of May, and $2.75 on July 27 after a June round trip.'
+  [SD-MJ26-B] Silicon Data blog, H200 vs H100 Rental Prices, May to July 2026: found yes
+      'The H100 ran to its series high of $2.79 on June 5 just as the H200 was chopping lower,'
+  [SD-MJ26-C] Silicon Data blog, H200 vs H100 Rental Prices, May to July 2026: found yes
+      'The H100 faded through late June to $2.59 while the H200 recovered,'
+  [SD-IDX-HEAD] Silicon Data H100 Rental Price Index page (fetched 2026-09-30), header: found yes
+      'The Neo-Cloud index is published daily as ticker SDH100RT. Getting Started Talk to sales Neo-Cloud Hyperscaler As of Sep 29, 2026 2.73 USD / GPU-hour'
+  [SD-IDX-FAQ] Silicon Data H100 Rental Price Index page (fetched 2026-09-30), FAQ: found yes
+      'The current H100 rental price is $2.53 per GPU-hour, based on the Silicon Data H100 Rental Price Index (Neo-Cloud ticker SDH100RT).'
+  [BOE-DATA] Bank of England XUDLUSS daily values quoted in the dossier (section 3): 987 days, 2022-11-01 .. 2026-09-28
+
+SCORED SETTING (dr_data.py, unchanged): price 'mean' (C1); C0 = 1452.4328 GBP per MWh of compute = 2.5 USD/GPU-hour [IDX-NEO] x 8 / 10.2 kW / 1.35 USD per GBP (ASSUMED) / PUE 1 (ASSUMED); this script's formula reproduces dr_data.compute_cost_mwh exactly: yes
+  R = 0.1 h (ASSUMED); fleet 100 MW (ASSUMED); the ETM arm; ordinary seasons (C5 as scored): W2023/24, W2024/25, S2025, W2025/26, S2026
+  ASSUMED (this follow-up): a PUE above 1 scales the fleet's compute cost per grid MWh by 1/PUE and the facility overhead
+  falls in proportion while a job is paused (the curtailed grid MW stays 1 MW per job)
+  W2022/23  period 2022-11-15..2023-03-28; here ETM all-100 21 of 21, share 1.52265 %; pinned 1.52265 % -> same: yes
+  W2023/24  period 2023-11-16..2024-03-21; here ETM all-100 17 of 17, share 0.98842 %; pinned 0.98842 % -> same: yes
+  W2024/25  period 2024-12-03..2025-03-31; here ETM all-100 42 of 48, share 0.50918 %; pinned 0.50918 % -> same: yes
+  S2025     period 2025-04-04..2025-10-29; here ETM all-100 60 of 86, share 0.28638 %; pinned 0.28638 % -> same: yes
+  W2025/26  period 2025-11-06..2026-03-27; here ETM all-100 25 of 33, share 0.19217 %; pinned 0.19217 % -> same: yes
+  S2026     period 2026-04-14..2026-09-29; here ETM all-100 86 of 93, share 0.95904 %; pinned 0.95904 % -> same: yes
+  reproduced in 6 of 6 seasons
+
+BREAK-EVEN (scored setting): per season, ETM's revenue is piecewise constant in C (the online rule changes a decision
+only where an event's payment equals its charge, C = price x H / R); the share = revenue / (100 MW x period hours x C).
+Every such breakpoint in a window (from [C0/4, 4 C0], halved below / doubled above up to [C0/1024, 1024 C0]
+until the share is >= 1 % at its lower end and < 1 % at its upper end) and one point inside every piece is run;
+C_flip = the largest C in the window at which the share is at least 1 % (the share is below 1 % iff C > C_flip when
+the share crosses 1 % once). Equivalent break-evens at the other inputs fixed at the scored values: PUE_flip = C0 /
+C_flip (below 1 % iff PUE < PUE_flip), FX_flip = 1.35 C0 / C_flip USD per GBP (below 1 % iff USD/GBP < FX_flip),
+H100_flip = 2.50 C_flip / C0 USD per GPU-hour (below 1 % iff the H100 price > H100_flip).
+  W2022/23  window [C0/4, 4 C0]; breakpoints in it   0; runs   3; revenue rises with C at 0 step(s); the share crosses 1 % downward 1 time(s), upward 0 -> single crossing: yes  (W2022/23: not an ordinary season under C5; above the bound at C0)
+            C_flip 2211.5450 GBP/MWh; share at C_flip 1.000000 %, at C_flip x (1 + 1e-6) 0.999999 % -> verified: yes
+            C_flip / C0 - 1 = 52.2649 %; PUE_flip 0.65675; FX_flip 0.88661 USD per GBP; H100_flip 3.8066 USD/GPU-hour
+  W2023/24  window [C0/4, 4 C0]; breakpoints in it   6; runs  15; revenue rises with C at 0 step(s); the share crosses 1 % downward 1 time(s), upward 0 -> single crossing: yes
+            C_flip 1435.6164 GBP/MWh; share at C_flip 1.000000 %, at C_flip x (1 + 1e-6) 0.999999 % -> verified: yes
+            C_flip / C0 - 1 = -1.1578 %; PUE_flip 1.01171; FX_flip 1.36581 USD per GBP; H100_flip 2.4711 USD/GPU-hour
+  W2024/25  window [C0/4, 4 C0]; breakpoints in it  40; runs  83; revenue rises with C at 0 step(s); the share crosses 1 % downward 1 time(s), upward 0 -> single crossing: yes
+            C_flip 756.8553 GBP/MWh; share at C_flip 1.000000 %, at C_flip x (1 + 1e-6) 0.999999 % -> verified: yes
+            C_flip / C0 - 1 = -47.8905 %; PUE_flip 1.91904; FX_flip 2.59070 USD per GBP; H100_flip 1.3027 USD/GPU-hour
+  S2025     window [C0/4, 4 C0]; breakpoints in it  74; runs 151; revenue rises with C at 0 step(s); the share crosses 1 % downward 1 time(s), upward 0 -> single crossing: yes
+            C_flip 455.3532 GBP/MWh; share at C_flip 1.000000 %, at C_flip x (1 + 1e-6) 0.999999 % -> verified: yes
+            C_flip / C0 - 1 = -68.6489 %; PUE_flip 3.18968; FX_flip 4.30607 USD per GBP; H100_flip 0.7838 USD/GPU-hour
+  W2025/26  window [C0/8, 4 C0]; breakpoints in it  29; runs  61; revenue rises with C at 0 step(s); the share crosses 1 % downward 1 time(s), upward 0 -> single crossing: yes
+            C_flip 305.7658 GBP/MWh; share at C_flip 1.000000 %, at C_flip x (1 + 1e-6) 0.999999 % -> verified: yes
+            C_flip / C0 - 1 = -78.9480 %; PUE_flip 4.75015; FX_flip 6.41270 USD per GBP; H100_flip 0.5263 USD/GPU-hour
+  S2026     window [C0/4, 4 C0]; breakpoints in it  48; runs  99; revenue rises with C at 0 step(s); the share crosses 1 % downward 1 time(s), upward 0 -> single crossing: yes
+            C_flip 1396.5125 GBP/MWh; share at C_flip 1.000000 %, at C_flip x (1 + 1e-6) 0.999999 % -> verified: yes
+            C_flip / C0 - 1 = -3.8501 %; PUE_flip 1.04004; FX_flip 1.40406 USD per GBP; H100_flip 2.4037 USD/GPU-hour
+
+THE CRITIC'S FIGURES (task text) against the break-evens:
+  'a 1.17 % fall in C crosses it' (W2023/24): fall to C_flip 1.1578 % -> rounds to 1.17 %: no
+  'a PUE of 1.012 or more flips W2023/24': PUE_flip 1.01171 -> 1.012 flips it: yes; 1.011 flips it: no
+  '1.043 flips S2026': PUE_flip 1.04004 -> 1.043 flips it: yes; 1.042 flips it: yes
+  the phrase 'below 1 % only within about 11 %': the largest pinned SENSITIVITY-1 share is W2023/24 1.1144 %, which is 11.44 % ABOVE the bound (an overshoot in the worst cell, not a margin); the
+    margins to the bound at the scored inputs are a 1.16 % fall in C (W2023/24) and 3.85 % (S2026) -> the phrase's 11 % is within 1 point of either margin: no
+
+SOURCED PUE (annual fleet averages; Uptime's values as Google quotes them; Uptime's own survey report was NOT REACHED):
+  Google 2022 1.1; 2023 1.1; 2024 1.09; 2025 1.09
+  Uptime 2022 1.55; 2023 1.58; 2024 1.56; 2025 1.54
+  CHOICE: a season takes the PUE of the calendar year holding most of its period; years after 2025 take 2025: W2022/23 -> 2023; W2023/24 -> 2024; W2024/25 -> 2025; S2025 -> 2025; W2025/26 -> 2025; S2026 -> 2025
+
+SOURCED USD/GBP (Bank of England XUDLUSS, daily spot; every quoted day from the season's first to its last event day):
+  W2022/23  days  93; mean 1.21262; min 1.1778; max 1.2404 (ASSUMED in dr_data: 1.35; mean below it: yes)
+  W2023/24  days  88; mean 1.26616; min 1.2433; max 1.2881 (ASSUMED in dr_data: 1.35; mean below it: yes)
+  W2024/25  days  82; mean 1.26098; min 1.2152; max 1.2985 (ASSUMED in dr_data: 1.35; mean below it: yes)
+  S2025     days 144; mean 1.34236; min 1.2755; max 1.3733 (ASSUMED in dr_data: 1.35; mean below it: yes)
+  W2025/26  days  99; mean 1.34066; min 1.308; max 1.379 (ASSUMED in dr_data: 1.35; mean below it: yes)
+  S2026     days 117; mean 1.34436; min 1.3148; max 1.3639 (ASSUMED in dr_data: 1.35; mean below it: yes)
+  (ECB reference rates were fetched as well and are not used; the Bank of England series is sterling's own central bank's)
+
+SOURCED H100 PRICES NEARER EACH SEASON (USD per GPU-hour). CHOICE: a quoted value counts for a season when its dated
+interval (the investigator's reading of the quote's words, printed) overlaps the season's period; the neo-cloud index
+SDH100RT (the scored [IDX-NEO] series) where any value exists, else the hyperscaler (HS) segment, flagged as not
+like-for-like; else NOT FOUND. Low and high = the smallest and largest counted value.
+  W2022/23  NOT FOUND in the fetched sources (earliest counted interval starts 2023-08-01; the season's period ends 2023-03-28)
+  W2023/24  segment HS (NOT like-for-like with IDX-NEO); values 4: 7.62 [SD-TL-2023 2023-08-01..2023-12-31], 7.77 [SD-TL-2023 2023-08-01..2023-12-31], 7.37 [SD-TL-2024A 2024-01-01..2024-05-31], 8.24 [SD-TL-2024A 2024-01-01..2024-05-31] -> low 7.37, high 8.24 (scored 2.5 dated 2026-04-18)
+  W2024/25  segment NEO; values 4: 2.4 [IEEE-WINTER 2024-10-01..2025-01-19], 2.6 [IEEE-WINTER 2024-10-01..2025-01-19], 2.5 [IEEE-WINTER 2025-01-20..2025-01-31], 2.3 [IEEE-WINTER 2025-02-01..2025-02-28] -> low 2.3, high 2.6 (scored 2.5 dated 2026-04-18)
+  S2025     segment NEO; values 5: 2.37 [IEEE-0527 2025-05-27..2025-05-27], 2.22 [SD-SEP25-A 2025-08-01..2025-08-31], 2.26 [SD-SEP25-A 2025-08-01..2025-08-31], 2.13 [SD-SEP25-S 2025-09-01..2025-09-30], 2.16 [SD-SEP25-S 2025-09-01..2025-09-30] -> low 2.13, high 2.37 (scored 2.5 dated 2026-04-18)
+  W2025/26  segment NEO; values 2: 2 [SD-SPIKE 2025-12-09..2025-12-09], 2.2 [SD-SPIKE 2026-01-06..2026-01-06] -> low 2, high 2.2 (scored 2.5 dated 2026-04-18)
+  S2026     segment NEO; values 12: 2.5 [IDX-NEO 2026-04-18..2026-04-18], 2.59 [SD-MAY26-A 2026-04-30..2026-04-30], 2.55 [SD-MAY26-M 2026-05-01..2026-05-01], 2.73 [SD-MAY26-M 2026-05-31..2026-05-31], 2.76 [SD-MAY26-M 2026-05-30..2026-05-30], 2.75 [SD-MAY26-T 2026-06-01..2026-06-10], 2.57 [SD-MJ26-A 2026-05-04..2026-05-04], 2.75 [SD-MJ26-A 2026-07-27..2026-07-27], 2.79 [SD-MJ26-B 2026-06-05..2026-06-05], 2.59 [SD-MJ26-C 2026-06-20..2026-06-30], 2.73 [SD-IDX-HEAD 2026-09-29..2026-09-29], 2.53 [SD-IDX-FAQ 2026-09-29..2026-09-29] -> low 2.5, high 2.79 (scored 2.5 dated 2026-04-18)
+  note: the index page's header (2.73, as of 2026-09-29) and its FAQ (2.53, 'current') disagree; both are counted for S2026
+
+SENSITIVITY ROWS (not scored; SOURCED inputs replacing the ASSUMED ones). Per row and season: C (GBP/MWh), ETM's events
+joined with all 100 jobs, ETM's revenue share; per row, part (b) (below 1 % in every ordinary season, C5 as scored).
+Every cell is a full rerun of dr_data's online rule; cells inside the break-even window are cross-checked against the
+scan (the same C gives the same decision: share < 1 % iff C > C_flip).
+  [PUE 1.09] PUE 1.09 (Google 2024, Google 2025) in every season; H100 2.5, fx 1.35
+      W2022/23 C 1332.5 21/21 1.6597 %; W2023/24 C 1332.5 17/17 1.0774 %; W2024/25 C 1332.5 42/48 0.5550 %; S2025 C 1332.5 60/86 0.3122 %; W2025/26 C 1332.5 26/33 0.2126 %; S2026 C 1332.5 87/93 1.0480 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE 1.1] PUE 1.1 (Google 2022, Google 2023) in every season; H100 2.5, fx 1.35
+      W2022/23 C 1320.4 21/21 1.6749 %; W2023/24 C 1320.4 17/17 1.0873 %; W2024/25 C 1320.4 42/48 0.5601 %; S2025 C 1320.4 60/86 0.3150 %; W2025/26 C 1320.4 26/33 0.2146 %; S2026 C 1320.4 87/93 1.0576 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE 1.54] PUE 1.54 (Uptime 2025) in every season; H100 2.5, fx 1.35
+      W2022/23 C 943.1 21/21 2.3449 %; W2023/24 C 943.1 17/17 1.5222 %; W2024/25 C 943.1 46/48 0.8025 %; S2025 C 943.1 76/86 0.4773 %; W2025/26 C 943.1 32/33 0.3225 %; S2026 C 943.1 87/93 1.4807 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE 1.55] PUE 1.55 (Uptime 2022) in every season; H100 2.5, fx 1.35
+      W2022/23 C 937.1 21/21 2.3601 %; W2023/24 C 937.1 17/17 1.5321 %; W2024/25 C 937.1 46/48 0.8077 %; S2025 C 937.1 76/86 0.4804 %; W2025/26 C 937.1 32/33 0.3246 %; S2026 C 937.1 88/93 1.4928 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE 1.56] PUE 1.56 (Uptime 2024) in every season; H100 2.5, fx 1.35
+      W2022/23 C 931.0 21/21 2.3753 %; W2023/24 C 931.0 17/17 1.5419 %; W2024/25 C 931.0 46/48 0.8129 %; S2025 C 931.0 76/86 0.4835 %; W2025/26 C 931.0 32/33 0.3267 %; S2026 C 931.0 88/93 1.5024 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE 1.58] PUE 1.58 (Uptime 2023) in every season; H100 2.5, fx 1.35
+      W2022/23 C 919.3 21/21 2.4058 %; W2023/24 C 919.3 17/17 1.5617 %; W2024/25 C 919.3 46/48 0.8233 %; S2025 C 919.3 76/86 0.4897 %; W2025/26 C 919.3 32/33 0.3309 %; S2026 C 919.3 88/93 1.5217 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE Google yr] PUE Google of the season's year; H100 2.5, fx 1.35
+      W2022/23 C 1320.4 21/21 1.6749 %; W2023/24 C 1332.5 17/17 1.0774 %; W2024/25 C 1332.5 42/48 0.5550 %; S2025 C 1332.5 60/86 0.3122 %; W2025/26 C 1332.5 26/33 0.2126 %; S2026 C 1332.5 87/93 1.0480 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [PUE Uptime yr] PUE Uptime of the season's year; H100 2.5, fx 1.35
+      W2022/23 C 919.3 21/21 2.4058 %; W2023/24 C 931.0 17/17 1.5419 %; W2024/25 C 943.1 46/48 0.8025 %; S2025 C 943.1 76/86 0.4773 %; W2025/26 C 943.1 32/33 0.3225 %; S2026 C 943.1 87/93 1.4807 %
+      -> below 1 % in 3 of 5 ordinary seasons computed; part (b) no
+  [FX mean] USD/GBP the season's BoE mean; H100 2.5, PUE 1
+      W2022/23 C 1617.0 21/21 1.3677 %; W2023/24 C 1548.6 17/17 0.9270 %; W2024/25 C 1555.0 41/48 0.4722 %; S2025 C 1460.7 60/86 0.2848 %; W2025/26 C 1462.6 25/33 0.1908 %; S2026 C 1458.5 86/93 0.9550 %
+      -> below 1 % in 5 of 5 ordinary seasons computed; part (b) yes
+  [FX min] USD/GBP the season's BoE min; H100 2.5, PUE 1
+      W2022/23 C 1664.8 21/21 1.3284 %; W2023/24 C 1577.1 17/17 0.9103 %; W2024/25 C 1613.5 41/48 0.4551 %; S2025 C 1537.3 60/86 0.2706 %; W2025/26 C 1499.1 24/33 0.1833 %; S2026 C 1491.3 86/93 0.9340 %
+      -> below 1 % in 5 of 5 ordinary seasons computed; part (b) yes
+  [FX max] USD/GBP the season's BoE max; H100 2.5, PUE 1
+      W2022/23 C 1580.8 21/21 1.3990 %; W2023/24 C 1522.2 17/17 0.9431 %; W2024/25 C 1510.0 41/48 0.4863 %; S2025 C 1427.8 60/86 0.2913 %; W2025/26 C 1421.9 26/33 0.1993 %; S2026 C 1437.6 87/93 0.9714 %
+      -> below 1 % in 5 of 5 ordinary seasons computed; part (b) yes
+  [H100 low] H100 the season's sourced low; fx 1.35, PUE 1
+      W2022/23 -; W2023/24 C 4281.8 12/17 0.3229 %; W2024/25 C 1336.2 42/48 0.5535 %; S2025 C 1237.5 62/86 0.3402 %; W2025/26 C 1161.9 30/33 0.2564 %; S2026 C 1452.4 86/93 0.9590 %
+      -> below 1 % in 5 of 5 ordinary seasons computed; part (b) yes
+  [H100 high] H100 the season's sourced high; fx 1.35, PUE 1
+      W2022/23 -; W2023/24 C 4787.2 12/17 0.2888 %; W2024/25 C 1510.5 41/48 0.4861 %; S2025 C 1376.9 60/86 0.3021 %; W2025/26 C 1278.1 28/33 0.2276 %; S2026 C 1620.9 84/93 0.8545 %
+      -> below 1 % in 5 of 5 ordinary seasons computed; part (b) yes
+  [ALL low/Google] ALL SOURCED: H100 low, BoE mean, PUE Google of the season's year
+      W2022/23 -; W2023/24 C 4188.3 12/17 0.3301 %; W2024/25 C 1312.5 42/48 0.5635 %; S2025 C 1141.8 63/86 0.3707 %; W2025/26 C 1073.4 31/33 0.2806 %; S2026 C 1338.1 87/93 1.0437 %
+      -> below 1 % in 4 of 5 ordinary seasons computed; part (b) no
+  [ALL low/Uptime] ALL SOURCED: H100 low, BoE mean, PUE Uptime of the season's year
+      W2022/23 -; W2023/24 C 2926.5 16/17 0.4874 %; W2024/25 C 928.9 46/48 0.8147 %; S2025 C 808.1 77/86 0.5593 %; W2025/26 C 759.8 32/33 0.4003 %; S2026 C 947.1 87/93 1.4745 %
+      -> below 1 % in 4 of 5 ordinary seasons computed; part (b) no
+  [ALL high/Google] ALL SOURCED: H100 high, BoE mean, PUE Google of the season's year
+      W2022/23 -; W2023/24 C 4682.8 12/17 0.2952 %; W2024/25 C 1483.6 42/48 0.4985 %; S2025 C 1270.4 61/86 0.3294 %; W2025/26 C 1180.8 29/33 0.2494 %; S2026 C 1493.3 86/93 0.9328 %
+      -> below 1 % in 5 of 5 ordinary seasons computed; part (b) yes
+  [ALL high/Uptime] ALL SOURCED: H100 high, BoE mean, PUE Uptime of the season's year
+      W2022/23 -; W2023/24 C 3271.9 15/17 0.4329 %; W2024/25 C 1050.1 46/48 0.7207 %; S2025 C 899.2 77/86 0.5026 %; W2025/26 C 835.7 32/33 0.3639 %; S2026 C 1057.0 87/93 1.3213 %
+      -> below 1 % in 4 of 5 ordinary seasons computed; part (b) no
+  cross-check against the break-even scan: 96 of 96 in-window cells agree
+
+BREAK-EVEN H100 PRICE AT THE SOURCED FX (season's BoE mean) AND PUE (Google, Uptime of the season's year): the season
+is below 1 % iff the H100 price exceeds H100* = C_flip x (10.2 kW / 1000) x PUE x fx / 8; against the season's sourced
+H100 range (from the scan's C_flip; valid where the scan verified a single crossing)
+  W2022/23  Google: PUE 1.1, fx 1.2126 -> H100* 3.7612 USD/GPU-hour; - -> no sourced H100 price (not an ordinary season under C5)
+  W2022/23  Uptime: PUE 1.58, fx 1.2126 -> H100* 5.4024 USD/GPU-hour; - -> no sourced H100 price (not an ordinary season under C5)
+  W2023/24  Google: PUE 1.09, fx 1.2662 -> H100* 2.5262 USD/GPU-hour; sourced HS 7.37..8.24 -> below 1 % over the whole sourced range
+  W2023/24  Uptime: PUE 1.56, fx 1.2662 -> H100* 3.6154 USD/GPU-hour; sourced HS 7.37..8.24 -> below 1 % over the whole sourced range
+  W2024/25  Google: PUE 1.09, fx 1.2610 -> H100* 1.3263 USD/GPU-hour; sourced NEO 2.3..2.6 -> below 1 % over the whole sourced range
+  W2024/25  Uptime: PUE 1.54, fx 1.2610 -> H100* 1.8739 USD/GPU-hour; sourced NEO 2.3..2.6 -> below 1 % over the whole sourced range
+  S2025     Google: PUE 1.09, fx 1.3424 -> H100* 0.8495 USD/GPU-hour; sourced NEO 2.13..2.37 -> below 1 % over the whole sourced range
+  S2025     Uptime: PUE 1.54, fx 1.3424 -> H100* 1.2002 USD/GPU-hour; sourced NEO 2.13..2.37 -> below 1 % over the whole sourced range
+  W2025/26  Google: PUE 1.09, fx 1.3407 -> H100* 0.5697 USD/GPU-hour; sourced NEO 2..2.2 -> below 1 % over the whole sourced range
+  W2025/26  Uptime: PUE 1.54, fx 1.3407 -> H100* 0.8049 USD/GPU-hour; sourced NEO 2..2.2 -> below 1 % over the whole sourced range
+  S2026     Google: PUE 1.09, fx 1.3444 -> H100* 2.6091 USD/GPU-hour; sourced NEO 2.5..2.79 -> straddles 1 % within the sourced range
+  S2026     Uptime: PUE 1.54, fx 1.3444 -> H100* 3.6863 USD/GPU-hour; sourced NEO 2.5..2.79 -> at or above 1 % over the whole sourced range
+
+LISTED FIXES (post first run of dr_data.py; listed here, NOT applied, since this follow-up may edit no other file):
+  (1) dr_data.py prints PUE 1 and USD/GBP 1.35 as ASSUMED; both are sourced above. (2) [IDX-NEO] is a 2026-04-18 price
+  applied to seasons from 2022 on; the season-matched values above replace it where found. (3) the margin of part (b) is
+  the break-even table above, not 'about 11 %'.
+BUG FIXES IN THIS SCRIPT AFTER ITS FIRST RUN: (1) the break-even scan used a fixed window [C0/4, 4 C0]; W2025/26, below 1 % throughout it, printed 'not computable' although its break-even lies below C0/4; the window now widens (halving its lower end, doubling its upper end, within [C0/1024, 1024 C0]) until the share is at least 1 % at the lower end and below 1 % at the upper end; (2) output only: the exact rational of C_flip (hundreds of digits) is no longer printed; the decimal is kept
+
+RESULT FOLLOW-UP 4: break-evens (scored inputs) W2023/24 C_flip 1435.62 GBP/MWh (PUE_flip 1.01171, FX_flip 1.3658), S2026 C_flip 1396.51 (PUE_flip 1.04004, FX_flip 1.4041); part (b) holds at 0 of 6 sourced PUE values; at the season's BoE rate: mean yes, min yes, max yes; at the season's H100 price: low yes (5 of 5), high yes (5 of 5); all sourced together: low/Google no (4 of 5), low/Uptime no (4 of 5), high/Google yes (5 of 5), high/Uptime no (4 of 5); DR1's pinned part (b) (yes, 5 of 5) survives every sourced row: no
