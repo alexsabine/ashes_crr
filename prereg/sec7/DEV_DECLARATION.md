@@ -94,3 +94,24 @@ stream changes were chosen from P1's reading of SEEN data on 2026-09-30.
 2. **SEC7-1 FAILS.** The tuned λ chosen on balanced accuracy is a stronger reference than the old one, and SEC5's failure
    modes (the cap, noisy seeds) remain.
 3. **SI-1C is not behind on at least as many carriers as the clipped SEC,** as on SEEN data.
+
+## Amendment 1 (2026-09-30, after the metadata-only selection; no dataset record opened; pushed before any SEC7 code)
+
+**What happened.** `prereg/sec7/carrier_selection.txt` (metadata only) finds only 2 eligible datasets in OpenML study 445
+(volcanoes-b4, autoUniv-au7-1100), against the declared minimum of 6. As declared, SEC7 is NOT RUNNABLE on that family.
+PMLB is no alternative: SEC4's PMLB selection (`prereg/sec4/carrier_selection_pmlb.txt`) found only 4 eligible, mostly
+deprecated copies of SEEN sets.
+
+**The change.** It was made after a metadata count, which is independent of any outcome. SEC7 does not replicate a
+family-level claim; it asks a different question (a stream where the criterion can fail). So its carriers need to be
+unseen and disjoint from every other study's, not drawn from a new suite.
+
+- **The family becomes** the eligible datasets never opened from OpenML studies 445, 454 and 293, pooled in that order.
+  - Eligibility is SEC4's rule, unchanged.
+  - SEEN is `data/SEEN.md` today, plus SEC6's twelve, which are excluded explicitly.
+  - Studies 454 and 293 contribute only their undrawn eligible datasets. SEC5's twelve and SEC6's twelve are excluded.
+- **The draw.** 12, by `default_rng(20261002)` over the sorted eligible ids, as declared.
+- **The metadata** of all three suites is re-fetched today into `prereg/sec7/`.
+- **Nothing else changes.** The stream, the metric, the arms, D-ID, D-GATE-7, the hypotheses and the forecasts are as
+  declared above.
+- **D-GATE-7 runs first,** on the 30 SEEN carriers, and still stops SEC7 if it closes.

@@ -1,0 +1,31 @@
+SEC7 carrier selection (SEC4's rule) from OpenML study 445 (IRT Diverse Dataset Benchmark) alone; cap 12 by a seeded draw (default_rng(20261002)); NOT RUNNABLE below 6 eligible; metadata saved in prereg/sec7/
+OpenML ids listed in data/SEEN.md: 51; SEC6's carriers excluded explicitly (12, from prereg/sec6/PREREG.md): [46584, 46593, 46597, 46603, 46652, 46653, 46676, 46686, 46708, 46721, 46737, 46762]
+study 445: 24 datasets in the data list
+      475 analcatdata_germangss                v1 rows     400 features     6 classes   4 missing       0 K requested  4 -> excluded (SEEN (name in data/SEEN.md))
+     1059 ar1                                  v1 rows     121 features    30 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+     1064 ar6                                  v1 rows     101 features    30 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+     1552 autoUniv-au7-1100                    v1 rows    1100 features    13 classes   5 missing       0 K requested  4 -> ELIGIBLE
+      463 backache                             v1 rows     180 features    32 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+     1121 badges2                              v1 rows     294 features    11 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+       11 balance-scale                        v1 rows     625 features     5 classes   3 missing       0 K requested  2 -> excluded (3 classes (< 4))
+      210 cloud                                v1 rows     108 features     6 classes   0 missing       0 K requested  0 -> excluded (0 classes (< 4))
+       41 glass                                v1 rows     214 features    10 classes   6 missing       0 K requested  6 -> excluded (214 rows (< 400))
+     1513 heart-switzerland                    v1 rows     123 features    13 classes   5 missing       0 K requested  4 -> excluded (123 rows (< 400))
+     1480 ilpd                                 v1 rows     583 features    11 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+     1482 leaf                                 v1 rows     340 features    16 classes  30 missing       0 K requested 10 -> excluded (340 rows (< 400))
+     1056 mc1                                  v1 rows    9466 features    39 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+       18 mfeat-morphological                  v1 rows    2000 features     7 classes  10 missing       0 K requested 10 -> excluded (SEEN (name in data/SEEN.md))
+       22 mfeat-zernike                        v1 rows    2000 features    48 classes  10 missing       0 K requested 10 -> excluded (SEEN (name in data/SEEN.md))
+     1071 mw1                                  v1 rows     403 features    38 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+     1519 robot-failures-lp4                   v1 rows     117 features    91 classes   3 missing       0 K requested  2 -> excluded (3 classes (< 4))
+     4153 Smartphone-Based_Recognition_of_Huma v1 rows     180 features    68 classes   6 missing       0 K requested  6 -> excluded (180 rows (< 400))
+     1507 twonorm                              v1 rows    7400 features    21 classes   2 missing       0 K requested  2 -> excluded (2 classes (< 4))
+       54 vehicle                              v1 rows     846 features    19 classes   4 missing       0 K requested  4 -> excluded (SEEN (OpenML id in data/SEEN.md))
+      685 visualizing_livestock                v1 rows     130 features     3 classes   5 missing       0 K requested  4 -> excluded (130 rows (< 400))
+     1534 volcanoes-b4                         v1 rows   10190 features     4 classes   5 missing       0 K requested  4 -> ELIGIBLE
+      187 wine                                 v1 rows     178 features    14 classes   3 missing       0 K requested  2 -> excluded (3 classes (< 4))
+       62 zoo                                  v1 rows     101 features    17 classes   7 missing       0 K requested  6 -> excluded (101 rows (< 400))
+   pool after study 445: 2 eligible
+suites used: [445]; chosen (2): 1534 volcanoes-b4 K 4; 1552 autoUniv-au7-1100 K 4
+DATASETS = {1534: ('volcanoes-b4', 4, 2), 1552: ('autoUniv-au7-1100', 4, 2)}
+eligible 2 (need >= 6) -> SEC7 NOT RUNNABLE on this family (R12)
