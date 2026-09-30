@@ -497,3 +497,8 @@ CLAIMS = [
      'agent_note': 'Third-party audit (crowdsourced data, not the vendor): user controls change little. Older than 2025-26; '
                    'the controls audited are feedback buttons, not the history pause of m1:38.'},
 ]
+
+# Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Applied_Suite/checks/verify.py; one dict
+# per quote: {'id', 'quote_index', 'action': 'corrected' | 'dropped', 'old', 'new', 'reason'}. The first run of verify.py
+# (2026-09-30) found every quote of this module verbatim, so nothing was corrected or dropped.
+VERIFY_CORRECTIONS = []

@@ -491,3 +491,8 @@ CLAIMS = [
                    'to the user in the product as shipped. AP10 names exactly this (a pause "without penalising it"). The page '
                    'frames it as "a streamlined user experience". Attention_Algorithms/ holds the model-side reading.'},
 ]
+
+# Quotes corrected to the verbatim source text, or dropped, after a NOT FOUND in Applied_Suite/checks/verify.py; one dict
+# per quote: {'id', 'quote_index', 'action': 'corrected' | 'dropped', 'old', 'new', 'reason'}. The first run of verify.py
+# (2026-09-30) found every quote of this module verbatim, so nothing was corrected or dropped.
+VERIFY_CORRECTIONS = []
