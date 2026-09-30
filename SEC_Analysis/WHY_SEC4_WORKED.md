@@ -255,3 +255,18 @@ least-squares secant, not CRR's arc, so it is not a path-length test. It echoes 
 - **Every "floor-bound removed" result is post hoc**, on 16 carriers of which 5 have a pinned clipped arm.
 - **The test after SEC6** should use a stream where the criterion can fail by design: random class order, or balanced
   accuracy. That test is a new pre-registration on a later day.
+
+## Addendum (2026-09-30, after SEC7's development gate; appended, nothing above changed)
+
+The redesign proposed above was tried on the 30 SEEN carriers: a seeded random class order, with balanced accuracy as the
+metric (`prereg/sec7/DEV_DECLARATION.md`, Amendment 1; `prereg/sec7/dev/gate7.txt`; ledger row SEC7-A).
+
+- **It does not make the criterion informative.**
+  - The learner frozen after task 1 is behind the tuned λ on only 13/30. The gate needed more than 15, so D-GATE-7 is
+    CLOSED and SEC7 stopped (R12).
+  - The clipped SEC is not behind on 29/30, and the frozen learner on 17/30.
+- **What that means.** On these class-incremental tabular streams, the tuned EWC-type λ is often no better than freezing
+  after the first task, whatever the class order or metric. "Not behind the tuned λ" therefore cannot show that a
+  method is tuning-free here.
+- **What would be needed.** A SEC test that can fail needs a reference that must beat freezing (or task-incremental
+  heads). That is a new design, declared from scratch on a later day.
