@@ -63,3 +63,10 @@ CHOICES
      shows OWN's grid supply rising above the slack-limited level at pi = 10 and 20 for H = 3 and 4. C5 is the literal reading
      of 'only while slack lasts' and was not chosen for its outcome.
 
+PER-EVENT ARITHMETIC (drlib.event: curtailed fleet-hours e, charge c on the arm's valuation, deadline budget used; job J001)
+  H = 1 (R/H = 0.100000): WALL e 1 c 1.1 use 1.1; OWN e 1 c 0.1 use 1.1; ETM e 1 c 0.1 use 0.1; T10/3h e 0.1 c 0 use 0.1; T10/6h e 0.1 c 0 use 0.1; T25/3h e 0.25 c 0 use 0.25; T25/6h e 0.25 c 0 use 0.25; T50/3h e 0.5 c 0 use 0.5; T50/6h e 0.5 c 0 use 0.5
+  H = 3 (R/H = 0.033333): WALL e 3 c 3.1 use 3.1; OWN e 3 c 0.1 use 3.1; ETM e 3 c 0.1 use 0.1; T10/3h e 0.3 c 0 use 0.3; T10/6h e 0.3 c 0 use 0.3; T25/3h e 0.75 c 0 use 0.75; T25/6h e 0.75 c 0 use 0.75; T50/3h e 1.5 c 0 use 1.5; T50/6h e 1.5 c 0 use 1.5
+  H = 4 (R/H = 0.025000): WALL e 4 c 4.1 use 4.1; OWN e 4 c 0.1 use 4.1; ETM e 4 c 0.1 use 0.1; T10/3h e 0.3 c 0 use 0.3; T10/6h e 0.4 c 0 use 0.4; T25/3h e 0.75 c 0 use 0.75; T25/6h e 1 c 0 use 1; T50/3h e 1.5 c 0 use 1.5; T50/6h e 2 c 0 use 2
+
+CHECK OF THE x* RULE AGAINST BACKWARD INDUCTION (every grid pi and R/H, every job, cell and arm): per arm, states where
+accepts_at(x*, pi) equals solve()'s decision, and jobs whose play() events and MWh equal the piecewise evaluation
