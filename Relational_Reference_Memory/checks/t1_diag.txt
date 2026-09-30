@@ -1,0 +1,74 @@
+RRM2 T1 DIAG gate (DECLARATION_2.md Part T); SEC1's MLP; 20 first-task anchors; beta 0.01; seeds 0-4; errors are mean |p - mu_now| over the classes of the first four tasks (hidden-feature units); NCM accuracy (%)
+  [POS FT] softmax acc mean   24.35; drift explained -0.0370
+     err STALE  mean    0.1197  seeds   0.1257   0.1148   0.1145   0.1245   0.1191
+     err RRM    mean    0.1241  seeds   0.1228   0.1243   0.1150   0.1359   0.1226
+     err DECOY  mean    6.6796  seeds   5.7794   6.5228   7.2223   7.2621   6.6113
+     err HOPDC  mean    0.1478  seeds   0.1543   0.1421   0.1337   0.1628   0.1459
+     NCM ORACLE mean   85.08  seeds  84.95  86.96  84.28  85.28  83.95
+     NCM STALE  mean   85.08  seeds  84.95  86.96  84.28  85.28  83.95
+     NCM RRM    mean   85.15  seeds  84.95  86.96  84.28  85.62  83.95
+     NCM DECOY  mean   43.68  seeds  49.50  43.48  34.45  43.48  47.49
+     NCM HOPDC  mean   85.15  seeds  84.95  86.96  84.28  85.62  83.95
+  [POS ANCH1] softmax acc mean   43.88; drift explained +0.0137
+     err STALE  mean    0.1559  seeds   0.1726   0.1559   0.1556   0.1432   0.1522
+     err RRM    mean    0.1538  seeds   0.1559   0.1615   0.1562   0.1482   0.1471
+     err DECOY  mean    6.7668  seeds   5.8634   6.5796   7.2685   7.3868   6.7355
+     err HOPDC  mean    0.2023  seeds   0.1944   0.2211   0.2086   0.1973   0.1900
+     NCM ORACLE mean   85.22  seeds  84.95  86.96  83.95  85.62  84.62
+     NCM STALE  mean   85.35  seeds  85.28  87.29  84.62  85.62  83.95
+     NCM RRM    mean   85.15  seeds  84.95  86.96  83.95  85.28  84.62
+     NCM DECOY  mean   42.74  seeds  48.16  43.14  34.11  42.14  46.15
+     NCM HOPDC  mean   85.22  seeds  84.95  86.96  83.95  85.62  84.62
+  [POS ER20] softmax acc mean   79.93; drift explained +0.0909
+     err STALE  mean    0.1926  seeds   0.1929   0.1760   0.2029   0.1974   0.1939
+     err RRM    mean    0.1751  seeds   0.1628   0.1594   0.1861   0.1952   0.1720
+     err DECOY  mean    6.7996  seeds   5.8845   6.6178   7.3118   7.4279   6.7562
+     err HOPDC  mean    0.2159  seeds   0.1979   0.2135   0.2386   0.2256   0.2038
+     NCM ORACLE mean   85.42  seeds  84.95  86.62  84.95  86.29  84.28
+     NCM STALE  mean   85.55  seeds  84.62  86.96  85.28  86.29  84.62
+     NCM RRM    mean   85.55  seeds  84.95  86.62  84.95  86.29  84.95
+     NCM DECOY  mean   43.01  seeds  47.83  44.48  34.11  41.47  47.16
+     NCM HOPDC  mean   85.48  seeds  84.62  86.62  84.62  86.29  85.28
+G-T1 POS FT: RRM below STALE on 1/5, DECOY above STALE on 5/5 -> FAILS
+   reported (Amendment 1): RRM error below HOPDC's on 5/5 seeds
+G-T1 POS ANCH1: RRM below STALE on 2/5, DECOY above STALE on 5/5 -> FAILS
+   reported (Amendment 1): RRM error below HOPDC's on 5/5 seeds
+G-T1 POS ER20: RRM below STALE on 5/5, DECOY above STALE on 5/5 -> holds
+   reported (Amendment 1): RRM error below HOPDC's on 5/5 seeds
+  [NEG2 FT] softmax acc mean   16.39; drift explained +0.1374
+     err STALE  mean    0.2212  seeds   0.2257   0.2266   0.2212   0.2230   0.2095
+     err RRM    mean    0.1908  seeds   0.2056   0.1826   0.1998   0.1843   0.1817
+     err DECOY  mean    3.1345  seeds   3.0682   2.1541   4.8630   3.0189   2.5681
+     err HOPDC  mean    0.2057  seeds   0.2076   0.2010   0.2248   0.2028   0.1922
+     NCM ORACLE mean   29.57  seeds  27.09  27.76  31.10  28.76  33.11
+     NCM STALE  mean   29.50  seeds  26.76  28.76  31.44  27.76  32.78
+     NCM RRM    mean   29.23  seeds  26.42  28.43  30.10  29.10  32.11
+     NCM DECOY  mean   23.28  seeds  24.75  24.41  22.41  19.06  25.75
+     NCM HOPDC  mean   29.30  seeds  27.09  28.43  29.43  28.76  32.78
+  [NEG2 ANCH1] softmax acc mean   20.54; drift explained -0.2043
+     err STALE  mean    0.1891  seeds   0.1916   0.2013   0.1765   0.1921   0.1840
+     err RRM    mean    0.2277  seeds   0.2506   0.2153   0.2328   0.2083   0.2317
+     err DECOY  mean    3.2283  seeds   3.1720   2.1989   5.0605   3.0863   2.6238
+     err HOPDC  mean    0.2518  seeds   0.2632   0.2378   0.2695   0.2389   0.2495
+     NCM ORACLE mean   28.36  seeds  26.42  27.09  29.10  27.09  32.11
+     NCM STALE  mean   28.56  seeds  26.42  27.76  30.10  27.09  31.44
+     NCM RRM    mean   28.83  seeds  27.09  27.76  29.10  27.42  32.78
+     NCM DECOY  mean   22.47  seeds  25.42  24.41  19.73  18.73  24.08
+     NCM HOPDC  mean   28.43  seeds  26.76  27.76  28.43  27.09  32.11
+  [NEG2 ER20] softmax acc mean   32.04; drift explained -0.0159
+     err STALE  mean    0.2550  seeds   0.2596   0.2630   0.2496   0.2555   0.2472
+     err RRM    mean    0.2590  seeds   0.2588   0.2428   0.2712   0.2590   0.2634
+     err DECOY  mean    3.2114  seeds   3.1517   2.2026   4.9654   3.1243   2.6128
+     err HOPDC  mean    0.2824  seeds   0.2739   0.2771   0.3067   0.2825   0.2716
+     NCM ORACLE mean   30.37  seeds  29.10  29.43  32.44  27.09  33.78
+     NCM STALE  mean   29.36  seeds  27.09  27.76  31.10  27.42  33.44
+     NCM RRM    mean   29.70  seeds  28.09  28.09  31.44  27.09  33.78
+     NCM DECOY  mean   22.88  seeds  25.42  24.75  22.07  17.73  24.41
+     NCM HOPDC  mean   29.30  seeds  28.09  27.09  30.43  27.42  33.44
+G-T1 NEG2 FT: RRM below STALE on 5/5, DECOY above STALE on 5/5 -> holds
+   reported (Amendment 1): RRM error below HOPDC's on 5/5 seeds
+G-T1 NEG2 ANCH1: RRM below STALE on 0/5, DECOY above STALE on 5/5 -> FAILS
+   reported (Amendment 1): RRM error below HOPDC's on 5/5 seeds
+G-T1 NEG2 ER20: RRM below STALE on 2/5, DECOY above STALE on 5/5 -> FAILS
+   reported (Amendment 1): RRM error below HOPDC's on 5/5 seeds
+T1 GATE CLOSED

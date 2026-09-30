@@ -1,0 +1,13 @@
+RRM2 T2: the learner gate for RRM-1 alone (DECLARATION_2.md; part 1 not blind for this form); seeds 0-4; class-IL accuracy (%)
+anchors 10/class of task 1 (M 20), beta 0.01, pseudo 10 + anchors 10 per step; ER-20 = 20 raw rows per class
+
+[POS] K 10, d 20; RFR (deterministic) 80.94; RRM-1 memory: raw rows 20, stored numbers 56320; ER-20 raw rows 200
+   FT       mean   24.35  seeds  20.40  26.76  25.75  24.08  24.75
+   JOINT    mean   85.35  seeds  85.62  83.61  85.95  86.29  85.28
+   ER-20    mean   79.93  seeds  80.27  77.93  82.61  79.60  79.26
+   IGR-F    mean   84.95  seeds  82.27  85.28  85.95  86.29  84.95
+   ANCH-1   mean   43.88  seeds  38.80  45.82  48.16  41.14  45.48
+   STALE-1  mean   81.87  seeds  79.93  83.61  81.27  81.61  82.94
+   RRM-1    mean   82.34  seeds  80.60  83.95  81.61  82.27  83.28
+   DECOY-1  mean   77.59  seeds  79.26  79.26  80.60  73.58  75.25
+   HOPDC-1  mean   82.21  seeds  80.27  83.95  81.61  82.27  82.94

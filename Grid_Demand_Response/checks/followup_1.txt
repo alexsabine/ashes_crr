@@ -1,0 +1,122 @@
+POST HOC (critic follow-up 1; not declared)
+
+DR1 follow-up 1 to check H7: the scored power point is GPU-scoped; the fleet's power read as g x GPU + (1 - g). An unscored
+sensitivity. Binding declaration Grid_Demand_Response/DECLARATION.md (declared at e67e8ee; not edited). dr_h7.py and
+dr_h7.txt are not edited: dr_h7.py is imported unchanged. Rung R4 at most (synthetic model); a note, not evidence (R8).
+
+SOURCED INPUTS (each quote checked verbatim, at run time, against every dossier named; numbers parsed from the quote)
+  [DGX] NVIDIA DGX H100 datasheet (dr1_f5_2026-09-29.md, dr1_followup1_2026-09-29.md): found; parsed ('8', '10.2')
+      'GPU 8x NVIDIA H100 Tensor Core GPUs GPU memory 640GB total Performance 32 petaFLOPS FP8 NVIDIA® NVSwitch™ 4x System power usage ~10.2kW max'
+  [H100-TDP] NVIDIA H100 product page (dr1_f5_2026-09-29.md, dr1_followup1_2026-09-29.md): found; parsed ('700', '350', '400')
+      'Max Thermal Design Power (TDP) Up to 700W (configurable) 350-400W (configurable)'
+  [H100-COLS] NVIDIA H100 product page (dr1_followup1_2026-09-29.md): found; parsed ('H100 SXM', 'H100 NVL')
+      'H100 SXM H100 NVL'
+  [MCD-TOOLS] McDonald et al., arXiv:2205.09646 v1 (dr1_followup1_2026-09-29.md): found; parsed ('monitoring of GPU usage on a node', 'power draw')
+      'Broadly, these tools enable monitoring of GPU usage on a node and the collection of metrics on Streaming Multi-processor (SM) utilization, GPU memory footprint, power draw, GPU temperatures, PCI Express (PCIe) bandwidth, and several other hardware settings.'
+  [MCD-PERGPU] McDonald et al., arXiv:2205.09646 v1 (dr1_followup1_2026-09-29.md): found; parsed ('every GPU assigned to a job',)
+      'On our system, this data is collected on every node and every GPU assigned to a job.'
+  [MCD-150] McDonald et al., arXiv:2205.09646 v1 (dr1_f4_2026-09-29.md, dr1_followup1_2026-09-29.md): found; parsed ('13.7', '6.8')
+      'Averaging across each choice of conﬁguration, a 150W bound on power utilization led to an average 13.7% decrease in energy usage and 6.8% increase in training time compared to the default maximum.'
+  [MCD-PUE-G] McDonald et al., arXiv:2205.09646 v1 (citing Ascierto and Lawrence, 2020) (dr1_followup1_2026-09-29.md): found; parsed ('1.59',)
+      'A highly efﬁcient datacenter will have a PUE close to 1, such that the facility energy overhead is minimal, while the global average for PUE is 1.59 (Ascierto and Lawrence, 2020).'
+  [MCD-PUE-M] McDonald et al., arXiv:2205.09646 v1 (dr1_followup1_2026-09-29.md): found; parsed ('1.05', '1.49')
+      'For instance the average PUE in January is 1.05 while in July it is 1.49, a 42% difference.'
+  F4 dossier Reading of McDonald et al. (an investigator's reading, not a quote; whitespace-normalised match): 'A cap limits the GPU's maximum draw, not the facility's' -> found
+  dr_h7.py's own sources (dr_h7.load_sources, unchanged): 11 of 11 found
+
+INPUTS AND LABELS
+  LABELLING FIX (post first run of dr_h7.py; listed here, not applied, since this follow-up edits no other file): dr_h7.py's
+    SRC point (t_M, p_M) = (250/267, 863/1068) = (0.936330, 0.808052) is SOURCED as a GPU-scoped average-power fraction
+    (MCD-TOOLS, MCD-PERGPU: GPU tools, per GPU; V100s at 150 W of a 250 W default). Using it as the power fraction of the
+    whole fleet is the reading g = 1 (all fleet power is throttled GPU power): ASSUMED, not SOURCED, and unprinted in dr_h7.
+  g_src = 28/51 = 0.549020 = 8 GPUs x 700 W / 10.2 kW: two SOURCED numbers (DGX, H100-TDP),
+    one ASSUMED equivalence (the DGX H100's GPUs are the 700 W SXM form: H100-COLS gives SXM and NVL columns, and the
+    datasheet names neither) and one CHOICE (the ratio of the two maxima, TDP and '~10.2kW max', is the GPU share at
+    full power; a node's non-GPU draw at full GPU load is not quoted). Node level: no PUE applied.
+  g in {0.6, 0.7, 0.8}: ASSUMED grid points (the follow-up task's); g = 1: dr_h7.py's implicit reading (reproduction check)
+  CHOICE: the non-GPU share (1 - g) is not throttled (constant power during the event), so the fleet's power fraction at
+    throughput t is g p(t) + 1 - g, with p the SRC GPU curve unchanged (its ASSUMED (0, 0) lower end kept); the fleet's energy
+    per own step during the event is (g p(t) + 1 - g)/t. The pause's power while paused stays 0 (dr_h7's ASSUMED; a context
+    reading below gives the paused fleet 1 - g). W, R, D, H, K, P = 100 MW, the depths x and every arm are dr_h7's, unchanged.
+
+FLEET CURVE CHECK: g p(t) + 1 - g equals the piecewise-linear drlib fleet curve at every depth and at t = 1 for every g -> exact
+
+PER-DEPTH TABLE (fleet reading; P = 100 MW). Per g and depth x: GPU power fraction p(t) (SRC), fleet power fraction
+p_f = g p + 1 - g, fleet energy per own step p_f/t (Q2(a) needs < 1), curtailed MW P (1 - p_f), and MW curtailed per hour
+of delay P (1 - p_f)/x against ETM's P H/(H + R) at H = 1 and 6
+          g         x         t      p(t)       p_f     p_f/t        MW  MW/h del  ETM H=1  ETM H=6  Q2(a)
+   0.549020  0.063670  0.936330  0.808052  0.894617  0.955451    10.538   165.513   90.909   98.361  holds
+   0.549020  0.100000  0.900000  0.776700  0.877404  0.974893    12.260   122.596   90.909   98.361  holds
+   0.549020  0.250000  0.750000  0.647250  0.806333  1.075111    19.367    77.467   90.909   98.361  fails
+   0.549020  0.500000  0.500000  0.431500  0.687882  1.375765    31.212    62.424   90.909   98.361  fails
+   0.600000  0.063670  0.936330  0.808052  0.884831  0.945000    11.517   180.882   90.909   98.361  holds
+   0.600000  0.100000  0.900000  0.776700  0.866020  0.962244    13.398   133.980   90.909   98.361  holds
+   0.600000  0.250000  0.750000  0.647250  0.788350  1.051133    21.165    84.660   90.909   98.361  fails
+   0.600000  0.500000  0.500000  0.431500  0.658900  1.317800    34.110    68.220   90.909   98.361  fails
+   0.700000  0.063670  0.936330  0.808052  0.865637  0.924500    13.436   211.029   90.909   98.361  holds
+   0.700000  0.100000  0.900000  0.776700  0.843690  0.937433    15.631   156.310   90.909   98.361  holds
+   0.700000  0.250000  0.750000  0.647250  0.753075  1.004100    24.692    98.770   90.909   98.361  fails
+   0.700000  0.500000  0.500000  0.431500  0.602050  1.204100    39.795    79.590   90.909   98.361  fails
+   0.800000  0.063670  0.936330  0.808052  0.846442  0.904000    15.356   241.176   90.909   98.361  holds
+   0.800000  0.100000  0.900000  0.776700  0.821360  0.912622    17.864   178.640   90.909   98.361  holds
+   0.800000  0.250000  0.750000  0.647250  0.717800  0.957067    28.220   112.880   90.909   98.361  holds
+   0.800000  0.500000  0.500000  0.431500  0.545200  1.090400    45.480    90.960   90.909   98.361  fails
+   1.000000  0.063670  0.936330  0.808052  0.808052  0.863000    19.195   301.471   90.909   98.361  holds
+   1.000000  0.100000  0.900000  0.776700  0.776700  0.863000    22.330   223.300   90.909   98.361  holds
+   1.000000  0.250000  0.750000  0.647250  0.647250  0.863000    35.275   141.100   90.909   98.361  holds
+   1.000000  0.500000  0.500000  0.431500  0.431500  0.863000    56.850   113.700   90.909   98.361  holds
+
+FLIP POINTS IN g (closed form, SRC GPU curve, pause idle 0)
+  Q2(a) at depth x holds iff (g p + 1 - g)/t < 1, i.e. g > g_a(x) = x / (1 - p(1 - x)).
+  Q2(b) at (x, H) holds iff the throttle's net energy per event H (p_f - t) = H (x - g (1 - p)) is below ETM's R, i.e.
+  g > g_b(x, H) = (x - R/H) / (1 - p) (C8's accounting; D does not enter).
+    x = 0.063670: g_a = 0.331707 (exact 68/205); g_b over H = 1: -0.189268, 3: 0.158049, 4: 0.201463, 6: 0.244878
+    x = 0.100000: g_a = 0.447828 (exact 1000/2233); g_b over H = 1: 0.000000, 3: 0.298552, 4: 0.335871, 6: 0.373190
+    x = 0.250000: g_a = 0.708717 (exact 1000/1411); g_b over H = 1: 0.425230, 3: 0.614222, 4: 0.637845, 6: 0.661469
+    x = 0.500000: g_a = 0.879507 (exact 1000/1137); g_b over H = 1: 0.703606, 3: 0.820874, 4: 0.835532, 6: 0.850191
+  Q2(a) holds at every depth iff g > 0.879507 (set by x = 0.50); Q2(b) holds everywhere iff g > 0.850191;
+  so Q (with Q1 and Q3 as computed below) holds iff g > 0.879507. g_src = 0.549020 is below it.
+
+RECOMPUTED Q CLAUSES PER g (dr_h7.py's SENSITIVITY 1 method: 2 D x 4 H cells x 4 depths = 32 pairs; Q1 by stakes only)
+  g = 0.549020 (g_src (SOURCED + ASSUMED equivalence)): Q1 max 0.000000 over 1312 -> holds; Q2(a) 16/32, (b) 18/32 -> fails; Q3 throttle more 16, pause more 16, equal 0 of 32; Q under this curve: fails
+      Q2(a) fails at depths 0.25, 0.50; Q2(b) fails at (x, H) (0.25, 3), (0.25, 4), (0.25, 6), (0.50, 1), (0.50, 3), (0.50, 4), (0.50, 6); closed-form counts (a) 16, (b) 18 -> agree with drlib
+  g = 0.600000 (ASSUMED): Q1 max 0.000000 over 1312 -> holds; Q2(a) 16/32, (b) 18/32 -> fails; Q3 throttle more 16, pause more 16, equal 0 of 32; Q under this curve: fails
+      Q2(a) fails at depths 0.25, 0.50; Q2(b) fails at (x, H) (0.25, 3), (0.25, 4), (0.25, 6), (0.50, 1), (0.50, 3), (0.50, 4), (0.50, 6); closed-form counts (a) 16, (b) 18 -> agree with drlib
+  g = 0.700000 (ASSUMED): Q1 max 0.000000 over 1312 -> holds; Q2(a) 16/32, (b) 24/32 -> fails; Q3 throttle more 24, pause more 8, equal 0 of 32; Q under this curve: fails
+      Q2(a) fails at depths 0.25, 0.50; Q2(b) fails at (x, H) (0.50, 1), (0.50, 3), (0.50, 4), (0.50, 6); closed-form counts (a) 16, (b) 24 -> agree with drlib
+  g = 0.800000 (ASSUMED): Q1 max 0.000000 over 1312 -> holds; Q2(a) 24/32, (b) 26/32 -> fails; Q3 throttle more 26, pause more 6, equal 0 of 32; Q under this curve: fails
+      Q2(a) fails at depths 0.50; Q2(b) fails at (x, H) (0.50, 3), (0.50, 4), (0.50, 6); closed-form counts (a) 24, (b) 26 -> agree with drlib
+  g = 1.000000 (dr_h7's implicit reading): Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+      Q2(a) fails at depths none; Q2(b) fails at (x, H) none; closed-form counts (a) 32, (b) 32 -> agree with drlib
+  closed-form flip points agree with the drlib counts at 5 of 5 g values
+
+REPRODUCTION (g = 1 against the pinned dr_h7.txt)
+  pinned SENSITIVITY 1 SRC line: Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+  this file at g = 1:            Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+  -> reproduced; the pinned scored verdict (RESULT H7) reads 'Q holds'
+
+CONTEXT (not scored)
+  C-a  the NVL column instead of SXM (H100-TDP's 350-400 W; upper end 400 W): g = 0.313725; Q under it: fails
+  C-b  facility level, PUE from McDonald et al. (MCD-PUE-G 1.59, cited by them; MCD-PUE-M 1.05 and 1.49, their own):
+       if the facility overhead tracks the IT load, the share is unchanged (g = g_src); if it is fixed (CHOICE), g = g_src / PUE:
+       PUE 1.05: g = 0.522876; Q2(a) 16/32, (b) 18/32; Q under it: fails
+       PUE 1.49: g = 0.368470; Q2(a) 8/32, (b) 14/32; Q under it: fails
+       PUE 1.59: g = 0.345295; Q2(a) 8/32, (b) 14/32; Q under it: fails
+  C-c  the paused fleet keeps drawing the non-GPU share (ETM idle = 1 - g; CHOICE, the symmetric reading of skeptic 3's
+       item 7): Q2(b) and the Q3 direction recomputed
+       g = 0.549020: Q1 max 0.000000 over 1312 -> holds; Q2(a) 16/32, (b) 32/32 -> fails; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: fails
+       g = 0.600000: Q1 max 0.000000 over 1312 -> holds; Q2(a) 16/32, (b) 32/32 -> fails; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: fails
+       g = 0.700000: Q1 max 0.000000 over 1312 -> holds; Q2(a) 16/32, (b) 32/32 -> fails; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: fails
+       g = 0.800000: Q1 max 0.000000 over 1312 -> holds; Q2(a) 24/32, (b) 32/32 -> fails; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: fails
+       g = 1.000000: Q1 max 0.000000 over 1312 -> holds; Q2(a) 32/32, (b) 32/32 -> holds; Q3 throttle more 32, pause more 0, equal 0 of 32; Q under this curve: holds
+
+FRAGILITY (CHOICE: CLAUDE.md section 4's rule, 'a verdict that flips in > 1 cell is reported as fragile', applied to this
+g grid against the pinned scored verdict)
+  the pinned scored verdict 'Q holds' differs from the recomputed verdict at 4 of 5 g values (0.549020, 0.600000, 0.700000, 0.800000); Q holds at 1.000000
+  -> H7 is FRAGILE in g
+
+POST-FIRST-RUN CHANGES (to this file): none
+LABELLING FIX TO LIST FOR dr_h7.py (post first run; not applied here): the SRC point is GPU-scoped; reading it as the fleet's
+  power fraction is the ASSUMED g = 1.
+
+RESULT FOLLOW-UP 1 (POST HOC, unscored): at the sourced GPU share g = 0.549020 (28/51) Q fails (Q2(a) 16/32, (b) 18/32); Q holds only for g > 0.879507; the pinned verdict 'Q holds' (g = 1) is reproduced and differs at 4 of 5 g values -> H7 FRAGILE
