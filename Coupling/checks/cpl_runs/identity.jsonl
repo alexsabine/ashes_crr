@@ -1,0 +1,19 @@
+{"kind": "synthetic", "seed": 0, "run_guard_acc": 36.45484949832776, "cpl_acc": 36.45484949832776, "same": true, "extras_same": true}
+{"kind": "synthetic", "seed": 1, "run_guard_acc": 39.79933110367893, "cpl_acc": 39.79933110367893, "same": true, "extras_same": true}
+{"kind": "synthetic", "seed": 2, "run_guard_acc": 41.80602006688963, "cpl_acc": 41.80602006688963, "same": true, "extras_same": true}
+{"kind": "synthetic", "seed": 3, "run_guard_acc": 38.79598662207358, "cpl_acc": 38.79598662207358, "same": true, "extras_same": true}
+{"kind": "synthetic", "seed": 4, "run_guard_acc": 39.79933110367893, "cpl_acc": 39.79933110367893, "same": true, "extras_same": true}
+{"kind": "pinned", "study": "sec4", "openml_id": 46906, "dataset": "anneal", "pinned_acc": 84.26966292134831, "cpl_acc": 84.26966292134831, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec4", "openml_id": 1459, "dataset": "artificial-characters", "pinned_acc": 15.484515484515486, "cpl_acc": 15.484515484515486, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec4", "openml_id": 1466, "dataset": "cardiotocography", "pinned_acc": 99.76415094339622, "cpl_acc": 99.76415094339622, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec4", "openml_id": 1476, "dataset": "gas-drift", "pinned_acc": 50.35035035035035, "cpl_acc": 50.35035035035035, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec4", "openml_id": 375, "dataset": "JapaneseVowels", "pinned_acc": 30.630630630630627, "cpl_acc": 30.630630630630627, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec4", "openml_id": 377, "dataset": "synthetic_control", "pinned_acc": 48.333333333333336, "cpl_acc": 48.333333333333336, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 155, "dataset": "pokerhand", "pinned_acc": 20.0, "cpl_acc": 20.0, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 1503, "dataset": "spoken-arabic-digit", "pinned_acc": 10.0, "cpl_acc": 10.0, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 1509, "dataset": "walking-activity", "pinned_acc": 11.200000000000001, "cpl_acc": 11.200000000000001, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 1541, "dataset": "volcanoes-d4", "pinned_acc": 5.7057057057057055, "cpl_acc": 5.7057057057057055, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 1549, "dataset": "autoUniv-au6-750", "pinned_acc": 5.298013245033113, "cpl_acc": 5.298013245033113, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 41671, "dataset": "microaggregation2", "pinned_acc": 13.286713286713287, "cpl_acc": 13.286713286713287, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 41972, "dataset": "Indian_pines", "pinned_acc": 37.56243756243756, "cpl_acc": 37.56243756243756, "same_acc": true, "same_rest": true}
+{"kind": "pinned", "study": "sec5", "openml_id": 41982, "dataset": "Kuzushiji-MNIST", "pinned_acc": 31.2, "cpl_acc": 31.2, "same_acc": true, "same_rest": true}

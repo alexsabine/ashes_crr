@@ -289,12 +289,14 @@ CLAIMS = [
      'source': 'Reese, Abate, Chen, ... Wise, Velagapudi, ... (Agility Robotics), "Escalating hazard-response of dynamically '
                'stable mobile robot in a collaborative environment and related technology", US Patent 12,560,948 B2',
      'version': 'US 12,560,948 B2, granted 24 Feb 2026 (filed 28 Feb 2025; prior publication US 2025/0278092 A1, 4 Sep 2025); '
-                'USPTO image PDF fetched 2026-09-30, text by OCR (RapidOCR); quoted lines chosen where the OCR is clean',
+                'USPTO image PDF fetched 2026-09-30, text by OCR (RapidOCR); every quoted line checked by eye against the page image',
      'url': 'https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12560948',
      'quote': ['This can include transitioning the mobile robot 100 from a transportation state (e.g., an ambulating state) to '
                'a non-transportation state (e.g., a standing state).',
                'Relatedly, decelerating the mobile robot 100 can include moving one of the feet 116a, 116b into contact with '
                'a ground surface while the other of the feet 116a, 116b is in contact with the ground surface.',
+               'Stops in accordance with at least some embodiments of the present technology are protective and '
+               'controlled forms of Cat- [...] egory-1 and Category-2 stops.',
                'Implementing a stop in accordance with at least some embodiments of the present technology can include '
                'moving the mobile robot 100 into a low-energy position before powering-off the mobile robot 100.'],
      'raw_file': T + 'US12560948_ocr.txt',
