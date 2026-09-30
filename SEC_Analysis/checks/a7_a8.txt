@@ -1,0 +1,164 @@
+======================================================================================================================================================
+SEC_Analysis A7 and A8 (SEC_Analysis/DECLARATION.md, pushed at 5f64b5f; prompt-log entry 257): forecasts F7 and F8
+POST HOC on SEEN records; no ledger row; the words are HOLDS / FAILS against the declared forecasts, never PASS
+======================================================================================================================================================
+carriers: 42 (sec1 12, scl3 10, sec3 6, sec4 6, sec5 8); SEC arm 'bayes_sec' on every carrier; clipped SEC 'bayes_sec_clip' on 14; raw Laplace 'bayes' on 42; one-factor SEC 'bayes_s1' on 42
+step = the carrier's step at lambda*_raw, max(1, 2 SE over seeds); not behind = arm - tacc > -step (strict); points are per cent accuracy
+
+======================================================================================================================================================
+A7  do carrier properties predict success?  best single-property threshold split against the not-behind label
+======================================================================================================================================================
+per carrier (per-task n = n_train / tasks; imbalance = largest / smallest used class count; min n_t = the smallest task's training rows, REPORT)
+   study carrier                                d   K tasks n_train per-task n min n_t imbalance  SEC nb clip nb
+   sec1  fars                                  29   6     3    4001    1333.67     381    46.489       N       -
+   sec1  krkopt                                 6  10     5    4000     800.00     326     6.687       Y       -
+   sec1  led24                                 24  10     5    2561     512.20     479     1.139       Y       -
+   sec1  led7                                   7  10     5    2560     512.00     459     1.263       Y       -
+   sec1  mfeat_factors                        216  10     5    1600     320.00     320     1.000       N       -
+   sec1  mfeat_morphological                    6  10     5    1600     320.00     320     1.000       Y       -
+   sec1  page_blocks                           10   4     2    4001    2000.50     150    55.691       Y       -
+   sec1  satimage                              36   6     3    4000    1333.33     826     2.451       Y       -
+   sec1  segmentation                          19   6     3    1584     528.00     528     1.000       Y       -
+   sec1  sleep                                 13   4     2    3999    1999.50     941     4.866       Y       -
+   sec1  wine_quality_white                    11   4     2    3768    1884.00     844    12.560       Y       -
+   sec1  yeast                                  8   6     3    1114     371.33      76    10.523       N       -
+   scl3  GesturePhaseSegmentationProcessed     32   4     2    4000    2000.00    1435     2.716       Y       -
+   scl3  MiceProtein                           77   8     4     442     110.50      84     2.000       Y       -
+   scl3  cnae-9                               856   8     4     768     192.00     192     1.000       N       -
+   scl3  eucalyptus                            19   4     2     434     217.00     170     1.990       Y       -
+   scl3  first-order-theorem-proving           51   6     3    4000    1333.33     721     5.257       Y       -
+   scl3  har                                  561   6     3    4000    1333.33    1146     1.382       Y       -
+   scl3  isolet                               617  10     5    2400     480.00     480     1.000       Y       -
+   scl3  semeion                              256  10     5    1274     254.80     250     1.045       Y       -
+   scl3  steel-plates-fault                    27   6     3    1509     503.00     184     9.347       Y       -
+   scl3  wall-robot-navigation                 24   4     2    4002    2001.00     847     6.714       Y       -
+   sec3  covertype                             54   6     3    4001    1333.67     186    29.878       Y       -
+   sec3  dionis                                60  10     5    3999     799.80     719     1.422       N       -
+   sec3  fabert                               800   6     3    3999    1333.00     972     2.066       N       -
+   sec3  helena                                27  10     5    4001     800.20     592     2.191       Y       -
+   sec3  jannis                                54   4     2    4000    2000.00     785    22.772       Y       -
+   sec3  volkert                              180  10     5    4000     800.00     196     9.385       Y       -
+   sec4  JapaneseVowels                        14   8     4    4001    1000.25     795     1.874       Y       Y
+   sec4  anneal                                38   4     2     712     356.00      86    17.100       N       Y
+   sec4  artificial-characters                  7  10     5    3997     799.40     548     2.357       Y       Y
+   sec4  cardiotocography                      35  10     5    1702     340.40      97    10.925       N       Y
+   sec4  gas-drift                            128   6     3    4002    1334.00     999     1.834       Y       Y
+   sec4  synthetic_control                     60   6     3     480     160.00     160     1.000       N       Y
+   sec5  Indian_pines                         220   6     3    3999    1333.00     310    19.085       N       N
+   sec5  Kuzushiji-MNIST                      784  10     5    4000     800.00     800     1.000       Y       Y
+   sec5  autoUniv-au6-750                      40   8     4     599     149.75      99     2.895       Y       Y
+   sec5  microaggregation2                     20   4     2    3999    1999.50     750     7.374       Y       Y
+   sec5  pokerhand                             10   4     2    4001    2000.50     278    23.598       N       N
+   sec5  spoken-arabic-digit                   14  10     5    4000     800.00     794     1.014       Y       Y
+   sec5  volcanoes-d4                           3   4     2    4001    2000.50      93    96.878       N       N
+   sec5  walking-activity                       4  10     5    4000     800.00     376     4.332       N       N
+number of tasks = K / 2 on all 42 carriers (per_task = 2 everywhere): its splits are K's, so its best error equals K's
+
+A7 (declared, F7): label = bayes_sec not behind; 42 carriers, not behind 29, behind 13; majority baseline (no split, every carrier predicted not behind) errors 13
+   property                  thresholds best errors optimal splits               first best split  misclassified at that split
+   d                                 32          11              2            not behind if x > 5  fars, mfeat_factors, yeast, cnae-9, dionis, fabert, anneal, cardiotocography, synthetic_control, Indian_pines, pokerhand
+   K                                  3          18              1            not behind if x > 5  fars, mfeat_factors, page_blocks, sleep, wine_quality_white, yeast, GesturePhaseSegmentationProcessed, cnae-9, eucalyptus, wall-robot-navigation, dionis, fabert, jannis, cardiotocography, synthetic_control, Indian_pines, microaggregation2, walking-activity
+   n_train                           20          12              1         not behind if x > 1194  fars, mfeat_factors, MiceProtein, eucalyptus, dionis, fabert, cardiotocography, Indian_pines, autoUniv-au6-750, pokerhand, volcanoes-d4, walking-activity
+   per-task n                        28          12              1      not behind if x > 425.667  fars, mfeat_morphological, MiceProtein, eucalyptus, semeion, dionis, fabert, Indian_pines, autoUniv-au6-750, pokerhand, volcanoes-d4, walking-activity
+   imbalance                         35          10              1      not behind if x < 9.95367  mfeat_factors, page_blocks, wine_quality_white, cnae-9, covertype, dionis, fabert, jannis, synthetic_control, walking-activity
+   tasks                              3          18              1          not behind if x > 2.5  fars, mfeat_factors, page_blocks, sleep, wine_quality_white, yeast, GesturePhaseSegmentationProcessed, cnae-9, eucalyptus, wall-robot-navigation, dionis, fabert, jannis, cardiotocography, synthetic_control, Indian_pines, microaggregation2, walking-activity
+   min per-task n (REPORT)           40          10              1           not behind if x > 98  fars, mfeat_factors, MiceProtein, cnae-9, dionis, fabert, synthetic_control, Indian_pines, pokerhand, walking-activity
+   family                   bipartition          13                           majority per family  fars, mfeat_factors, yeast, cnae-9, dionis, fabert, anneal, cardiotocography, synthetic_control, Indian_pines, pokerhand, volcanoes-d4, walking-activity
+   family majorities: sec1 9/12 -> not behind; scl3 9/10 -> not behind; sec3 4/6 -> not behind; sec4 3/6 -> not behind (tied; either side gives the same errors); sec5 4/8 -> not behind (tied; either side gives the same errors)
+   best over the F7 property set (d, K, n_train, per-task n, imbalance, tasks, family): 10 misclassified, reached by imbalance
+   REPORT: best over the declaration's own list alone (d, K, n_train, per-task n, imbalance, family): 10 misclassified, reached by imbalance
+   REPORT permutation null (5000 permutations of the 42 labels, seed 0; F7 property set): best error median 11, 5th percentile 9, min 6, max 13; share with best error <= observed 10: 1440/5000 = 0.288 (0.288)
+
+A7 (REPORT, the clipped label on SEC4 and SEC5): label = bayes_sec_clip not behind; 14 carriers, not behind 10, behind 4; majority baseline (no split, every carrier predicted not behind) errors 4
+   property                  thresholds best errors optimal splits               first best split  misclassified at that split
+   d                                 12           2              2          not behind if x > 5.5  Indian_pines, pokerhand
+   K                                  3           4              1            not behind if x > 5  anneal, Indian_pines, microaggregation2, walking-activity
+   n_train                            8           4              1       not behind if x < 4000.5  JapaneseVowels, gas-drift, Indian_pines, walking-activity
+   per-task n                        10           2              1         not behind if x < 2000  Indian_pines, walking-activity
+   imbalance                         12           1              1      not behind if x < 18.0927  walking-activity
+   tasks                              3           4              1          not behind if x > 2.5  anneal, Indian_pines, microaggregation2, walking-activity
+   min per-task n (REPORT)           13           4              2           not behind if x > 95  anneal, Indian_pines, pokerhand, walking-activity
+   family                   bipartition           4                           majority per family  Indian_pines, pokerhand, volcanoes-d4, walking-activity
+   family majorities: sec4 6/6 -> not behind; sec5 4/8 -> not behind (tied; either side gives the same errors)
+   best over the F7 property set: 1 misclassified, reached by imbalance
+   REPORT permutation null (5000 permutations of the 14 labels, seed 0; F7 property set): best error median 3, 5th percentile 1, min 0, max 4; share with best error <= observed 1: 449/5000 = 0.0898 (0.090)
+
+F7  fewest errors of any single-property split, SEC label, 42 carriers: 10 (imbalance) >= 3 -> True
+F7: HOLDS  (the forecast read: "No single property separates: the best split misclassifies at least 3 carriers")
+    (report: the clipped label's best split on its 14 carriers misclassifies 1; >= 3: False)
+
+======================================================================================================================================================
+A8  was SEC4's family easy?  per family: spread of lambda*_raw, the transferred lambda (SEC4-T's rule), and each arm's not-behind count
+======================================================================================================================================================
+per carrier: loco = exp(median log lambda*_raw of the other carriers of the study) (unsnapped | snapped to EWC_COARSE); loco acc = its raw-grid seed mean; nb = not behind the tuned lambda
+   study carrier                              lam*_raw     tacc   step      loco   snap loco acc  loco st  loco SEC clip Lap  s1
+   sec1  fars                                  21.2766  12.7400  1.943      8.49     10   9.8200   -1.503     N   N    -   N   N
+   sec1  krkopt                                0.70922   6.2926  1.000      14.1     10   0.0000   -6.293     N   Y    -   Y   Y
+   sec1  led24                                    8.49  20.1878  1.817      14.1     10  19.2801   -0.500     Y   Y    -   Y   N
+   sec1  led7                                        3  23.6562  1.000      14.1     10  16.9688   -6.688     N   Y    -   N   N
+   sec1  mfeat_factors                             300  54.4500  4.537      8.49     10  43.3000   -2.458     N   N    -   N   N
+   sec1  mfeat_morphological                      2.83  34.2000  4.872      14.1     10  23.1000   -2.278     N   Y    -   N   N
+   sec1  page_blocks                                30  42.4024 10.899      8.49     10  32.0320   -0.952     Y   Y    -   Y   Y
+   sec1  satimage                                    3  22.8428  1.618      14.1     10  22.6827   -0.099     Y   Y    -   Y   N
+   sec1  segmentation                              300  73.2323  1.863      8.49     10  71.5152   -0.922     Y   Y    -   N   Y
+   sec1  sleep                                      30  23.3367  1.115      8.49     10  22.8771   -0.412     Y   Y    -   Y   Y
+   sec1  wine_quality_white                       14.1  24.9045  6.739      8.49     10  23.0149   -0.280     Y   Y    -   Y   Y
+   sec1  yeast                                    8.49  26.1429  6.042      14.1     10  13.7857   -2.045     N   N    -   N   Y
+   scl3  GesturePhaseSegmentationProcessed        14.1  26.3063  1.035     709.2   1000   0.0000  -25.411     N   Y    -   Y   Y
+   scl3  MiceProtein                            709.22  40.9091  1.000       100    100  28.0000  -12.909     N   Y    -   N   N
+   scl3  cnae-9                                   1410  74.1667  1.731       100    100  60.4167   -7.945     N   N    -   N   N
+   scl3  eucalyptus                                1.5  38.5321  3.529     709.2   1000  17.4312   -5.979     N   Y    -   Y   Y
+   scl3  first-order-theorem-proving               1.5  11.8318  1.047     709.2   1000   0.0000  -11.303     N   Y    -   Y   Y
+   scl3  har                                     28300  52.8671  4.816       100    100  47.8721   -1.037     N   Y    -   N   N
+   scl3  isolet                                  20000  62.5667  3.470       100    100  53.7000   -2.555     N   Y    -   N   N
+   scl3  semeion                                  1500  37.4295  1.594       100    100  30.2821   -4.485     N   Y    -   N   N
+   scl3  steel-plates-fault                          6  33.4748  1.191     709.2   1000   0.0000  -28.107     N   Y    -   N   N
+   scl3  wall-robot-navigation                     100  24.7648  6.619     709.2   1000   0.0000   -3.742     N   Y    -   Y   Y
+   sec3  covertype                                  10  22.8629  4.807      14.1     10  22.8629   +0.000     Y   Y    -   Y   Y
+   sec3  dionis                                    141  55.5245  3.436        10     10  48.3117   -2.099     N   N    -   N   N
+   sec3  fabert                                   14.1  19.2208  1.000        10     10  19.2008   -0.020     Y   N    -   Y   N
+   sec3  helena                                   8.49  14.0600  2.975      14.1     10  11.0200   -1.022     N   Y    -   Y   Y
+   sec3  jannis                                     60  22.1800 15.328        10     10  18.2600   -0.256     Y   Y    -   Y   Y
+   sec3  volkert                                     6   5.7600  1.000      14.1     10   3.7400   -2.020     N   Y    -   Y   N
+   sec4  JapaneseVowels                             10  27.2673  1.000      42.3     30  26.7267   -0.541     Y   Y    Y   N   N
+   sec4  anneal                                   42.3  76.8539  5.634      28.3     30  75.7303   -0.199     Y   N    Y   N   N
+   sec4  artificial-characters                    14.1  14.6653  1.962      42.3     30  14.4855   -0.092     Y   Y    Y   N   Y
+   sec4  cardiotocography                       7092.2  98.8679  1.000      28.3     30  88.8679  -10.000     N   N    Y   N   N
+   sec4  gas-drift                                28.3  46.8068  2.594      42.3     30  44.2242   -0.996     Y   Y    Y   Y   N
+   sec4  synthetic_control                        4230  44.8333  3.590      28.3     30  38.5000   -1.764     N   N    Y   N   N
+   sec5  Indian_pines                               20  55.0649  5.211        60    100   1.8981  -10.203     N   N    N   N   N
+   sec5  Kuzushiji-MNIST                           300  25.6800  1.330        20     30  22.9000   -2.090     N   Y    Y   N   N
+   sec5  autoUniv-au6-750                     0.035336   8.0795  1.644        60    100   0.0000   -4.916     N   Y    Y   Y   Y
+   sec5  microaggregation2                          60  17.6024 15.522        20     30  15.2248   -0.153     Y   Y    Y   Y   Y
+   sec5  pokerhand                                 100  43.4600  1.822        20     30  29.5800   -7.619     N   N    N   N   N
+   sec5  spoken-arabic-digit                  0.212766   9.8800  1.000        60    100   0.0000   -9.880     N   Y    Y   Y   Y
+   sec5  volcanoes-d4                             1000  94.9950  1.000        20     30   9.1291  -85.866     N   N    N   N   N
+   sec5  walking-activity                     0.212766  13.6000  1.137        60    100   0.0000  -11.965     N   N    N   Y   Y
+
+per family (SD of log10 lambda*_raw with ddof 1; counts are not behind / carriers; clip only where recorded)
+   family   N SD lg lam*   min lam*     median   max lam* decades  loco nb loco share    SEC   clip    Lap     s1
+   sec1    12     0.7943     0.7092      11.29        300   2.626    6/12      0.5000   9/12      -   6/12   6/12
+   scl3    10     1.6026        1.5      404.6   2.83e+04   4.276    0/10      0.0000   9/10      -   4/10   4/10
+   sec3     6     0.5427          6      12.05        141   1.371    3/6       0.5000   4/6       -   5/6    3/6 
+   sec4     6     1.2768         10       35.3       7092   2.851    4/6       0.6667   3/6     6/6   1/6    1/6 
+   sec5     8     1.6679    0.03534         40       1000   4.452    1/8       0.1250   4/8     4/8   4/8    4/8 
+   pooled  42     1.3141    0.03534      20.64   2.83e+04   5.904   14/42      0.3333  29/42  10/14  20/42  18/42
+   (pooled: SD over all 42 lambda*_raw; each carrier's transferred lambda is still taken within its own study)
+
+SEC's own saving: on the carriers where the transferred lambda is behind, the arms that are not behind (REPORT beside it: where the transferred lambda is not behind, the arms that are behind)
+   family loco behind SEC nb there clip nb there Lap nb there s1 nb there | loco nb SEC behind there clip behind there  carriers where loco is behind
+   sec1             6        3/6               -        1/6         2/6   |       6            0/6                   -  fars, krkopt, led7, mfeat_factors, mfeat_morphological, yeast
+   scl3            10        9/10              -        4/10        4/10  |       0            0/0                   -  GesturePhaseSegmentationProcessed, MiceProtein, cnae-9, eucalyptus, first-order-theorem-proving, har, isolet, semeion, steel-plates-fault, wall-robot-navigation
+   sec3             3        2/3               -        2/3         1/3   |       3            1/3                   -  dionis, helena, volkert
+   sec4             2        0/2             2/2        0/2         0/2   |       4            1/4                 0/4  cardiotocography, synthetic_control
+   sec5             7        3/7             3/7        3/7         3/7   |       1            0/1                 0/1  Indian_pines, Kuzushiji-MNIST, autoUniv-au6-750, pokerhand, spoken-arabic-digit, volcanoes-d4, walking-activity
+   pooled          28       17/28            5/9       10/28       10/28  |      14            2/14                0/5  (the per-family lists)
+
+F8  transferred-lambda not-behind share: sec4 4/6 = 0.6666666666666666 (0.667) >= sec5 1/8 = 0.125 (0.125) -> True
+F8: HOLDS  (the forecast read: "SEC4's family has a transferred-lambda not-behind share at least as high as SEC5's: part of SEC4's pass is the family's ease")
+
+======================================================================================================================================================
+summary (words computed above)
+   F7    HOLDS   best single-property split, SEC label: 10 misclassified of 42 (imbalance; >= 3); report: clipped label 1 of 14
+   F8    HOLDS   transferred-lambda not-behind share sec4 4/6 = 0.6667 >= sec5 1/8 = 0.1250
+======================================================================================================================================================

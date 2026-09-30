@@ -1,0 +1,28 @@
+======================================================================================================================
+SEC_Analysis M0 identity (SEC_Analysis/DECLARATION.md): m_checks.run_m C0 against the frozen sec4_score.run_guard('clip')
+POST HOC on SEEN carriers; declared checks on seen data, not a test; no ledger row
+======================================================================================================================
+frozen sec1_score.py: runs/sec4/frozen sha256 db490c8ac30871ad...; byte-identical copies in runs/{scl3,sec3,sec4,sec5}/frozen
+frozen scl3_score.py: runs/sec4/frozen sha256 7450734a5c5907b6...; byte-identical copies in runs/{scl3,sec3,sec4,sec5}/frozen
+frozen sec4_score.py: runs/sec4/frozen sha256 c9701c310ac86e10...; byte-identical copies in runs/{sec4,sec5}/frozen
+synthetic stream (SEC1's, K 10, seeds 0-4): C0 equals sec4_score.run_guard('clip') in acc, s, firings and margins on 5/5 -> IDENTICAL
+synthetic stream: the arc secant with 2 windows (1 segment) equals C0 in acc and s on 5/5 -> IDENTICAL
+
+pinned bayes_sec_clip (kappa 0.5, window 0.1/0.1), seed 0, on the 14 SEC4 and SEC5 carriers:
+   study carrier                    id           pinned acc               C0 acc  acc       s/firings/margins
+   sec4  JapaneseVowels            375   30.630630630630627   30.630630630630627  IDENTICAL equal
+   sec4  anneal                  46906    84.26966292134831    84.26966292134831  IDENTICAL equal
+   sec4  artificial-characters    1459   15.484515484515486   15.484515484515486  IDENTICAL equal
+   sec4  cardiotocography         1466    99.76415094339622    99.76415094339622  IDENTICAL equal
+   sec4  gas-drift                1476    50.35035035035035    50.35035035035035  IDENTICAL equal
+   sec4  synthetic_control         377   48.333333333333336   48.333333333333336  IDENTICAL equal
+   sec5  Indian_pines            41972    37.56243756243756    37.56243756243756  IDENTICAL equal
+   sec5  Kuzushiji-MNIST         41982                 31.2                 31.2  IDENTICAL equal
+   sec5  autoUniv-au6-750         1549    5.298013245033113    5.298013245033113  IDENTICAL equal
+   sec5  microaggregation2       41671   13.286713286713287   13.286713286713287  IDENTICAL equal
+   sec5  pokerhand                 155                 20.0                 20.0  IDENTICAL equal
+   sec5  spoken-arabic-digit      1503                 10.0                 10.0  IDENTICAL equal
+   sec5  volcanoes-d4             1541   5.7057057057057055   5.7057057057057055  IDENTICAL equal
+   sec5  walking-activity         1509   11.200000000000001   11.200000000000001  IDENTICAL equal
+
+FM0 (identity on 14 of 14): IDENTICAL on 14/14 -> HOLDS
