@@ -449,7 +449,9 @@ def _ratios(recs, positive=False):
 
 
 def score():
-    D = SL.load_all(); R, H, F = _read_mruns(); prov = provenance()
+    # the scorer prints Python major.minor only (.python-version pins it; the patch level differs across machines and would make this
+    # output machine-dependent, AGENT_LOG 240); each run's full version stays in its m_runs header
+    D = SL.load_all(); R, H, F = _read_mruns(); prov = dict(provenance(), python=".".join(platform.python_version_tuple()[:2]))
     want = [(st, name) for (st, name) in D if st in M_STUDIES]
     have = [k for k in want if k in R and all(a in R[k] for a in ARMS)]
     complete = len(have) == len(want)

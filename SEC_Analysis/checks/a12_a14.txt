@@ -8,7 +8,7 @@ inputs (sha256 over the sorted 'path  sha256' lines of each group):
    runs/*/results_*.jsonl read by sec_lib (50 files): f3e0883c315249ad6e601e910fe7a28949c164272e0e641a563579f5c4229ede
    SEC_Analysis/checks/m_runs/*.jsonl (30 files): e49c981c4b1da0a4202a9774a9d453b189881a39cb74a4e8b1535c73201efeff
    prereg/sec6/dev/{dev,devsi1c,devfclip}_*.jsonl (114 files; 8 loader-excluded carriers x 3 carry only a header): 2e9d856a89c69b2466f7349b08a74ea399055f1bd7ef7d7e89a7920a737bd44b
-   SEC_Analysis/checks/m_checks.json 87e8a7e7a13d855dbb767290d61da50a27a02796966cd02ec20dd24842cd1d9e; uv.lock 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2
+   SEC_Analysis/checks/m_checks.json 20dde9a90f81b439857e91e1be7b72f6e7fff534889a427adee04e164c71484f; uv.lock 34ad60bcd44eaf0b4f3fba52b23a1d169319dbdc7541b9bbb9b02641749ab1e2
 
 ======================================================================================================================================================
 DEFINITIONS  floor = 100 max(class_counts) / n; floor-bound iff tacc - floor < 3 steps; task-1 share = 100 (two largest counts) / n
