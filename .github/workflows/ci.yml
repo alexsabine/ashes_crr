@@ -104,6 +104,15 @@ jobs:
           uv run python SEC_Prior_Art/checks/compare.py > /tmp/spa1_c.txt && cmp /tmp/spa1_c.txt SEC_Prior_Art/checks/compare.txt
           uv run python Open_Bottlenecks/checks/table.py > /tmp/ob1_t.txt && cmp /tmp/ob1_t.txt Open_Bottlenecks/checks/table.txt
           uv run python Open_Bottlenecks/checks/grade_s3.py > /tmp/ob1_g3.txt && cmp /tmp/ob1_g3.txt Open_Bottlenecks/checks/grade_s3.txt
+          uv run python SEC_Analysis/checks/loader_check.py > /tmp/sa_loader_check.txt && cmp /tmp/sa_loader_check.txt SEC_Analysis/checks/loader_check.txt
+          uv run python SEC_Analysis/checks/a1_a3.py > /tmp/sa_a1_a3.txt && cmp /tmp/sa_a1_a3.txt SEC_Analysis/checks/a1_a3.txt
+          uv run python SEC_Analysis/checks/a4_a6.py > /tmp/sa_a4_a6.txt && cmp /tmp/sa_a4_a6.txt SEC_Analysis/checks/a4_a6.txt
+          uv run python SEC_Analysis/checks/a5_a9_a10.py > /tmp/sa_a5_a9_a10.txt && cmp /tmp/sa_a5_a9_a10.txt SEC_Analysis/checks/a5_a9_a10.txt
+          uv run python SEC_Analysis/checks/a7_a8.py > /tmp/sa_a7_a8.txt && cmp /tmp/sa_a7_a8.txt SEC_Analysis/checks/a7_a8.txt
+          uv run python SEC_Analysis/checks/a11_grade.py > /tmp/sa_a11_grade.txt && cmp /tmp/sa_a11_grade.txt SEC_Analysis/checks/a11_grade.txt
+          uv run python SEC_Analysis/checks/a12_a14.py > /tmp/sa_a12_a14.txt && cmp /tmp/sa_a12_a14.txt SEC_Analysis/checks/a12_a14.txt
+          uv run python SEC_Analysis/checks/m_checks.py score > /tmp/sa_m.txt && cmp /tmp/sa_m.txt SEC_Analysis/checks/m_checks.txt
+          uv run python Robotics/checks/reading_tally.py > /tmp/rob_rt.txt && cmp /tmp/rob_rt.txt Robotics/checks/reading_tally.txt
           uv run python "Energy Design Principle/checks/retro_energy.py" > /tmp/re.txt && cmp /tmp/re.txt "Energy Design Principle/checks/retro_energy.txt"
           uv run python "Energy Design Principle/checks/consolidated_estimate.py" > /tmp/ce.txt && cmp /tmp/ce.txt "Energy Design Principle/checks/consolidated_estimate.txt"
           uv run python Lossless_Pause/checks/grade_claims.py > /tmp/gc.txt && cmp /tmp/gc.txt Lossless_Pause/checks/grade_claims.txt

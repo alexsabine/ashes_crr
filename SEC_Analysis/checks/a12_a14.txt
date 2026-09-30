@@ -110,8 +110,8 @@ Amendment 1: 'Every forecast F1-F11 whose decisive count includes floor-bound ca
    F8     SEC_Analysis/checks/a7_a8.txt:296  [held-out floor-bound removed, SEC1 kept whole]  ->  HOLDS
    F9     SEC_Analysis/checks/a5_a9_a10.txt:288  [floor-bound removed from SEC5's clipped failures]  ->  FAILS (vacuous: no case left)
    F10    SEC_Analysis/checks/a5_a9_a10.txt:291  [floor-bound removed from the 30 held-out]  ->  HOLDS
-   F11    SEC_Analysis/checks/a11_grade.txt:221 (lines 220-221: part (b-iv), the only sentence of F11 that counts carriers)  [all floor-bound removed ((b-iv))]  ->  geometric-mean s > 1 on 16/16, more than half: True
-   cited files (sha256): a11_grade.txt 8d97176545afda61fec83ff7b85b20d9020f075301df5c6010ea8b424a6a2532; a1_a3.txt 53351b8547eb9c6c92c638af3ed571f2e619f8d78509364a39a1389de67c7979; a4_a6.txt b52e7059eb1d30337bab7f8fcba2f29458ae4033826150207404007a36a6aa4d; a5_a9_a10.txt 2de5878943e5eb44c03185c50de84e66e81e3a4953d3ac326a23723291da2e9c; a7_a8.txt 2420e52b4f766566d151e883b96d62c5fedbacda09034995f27ab21c55268920
+   F11    SEC_Analysis/checks/a11_grade.txt:230 (lines 229-230: part (b-iv), the only sentence of F11 that counts carriers)  [all floor-bound removed ((b-iv))]  ->  geometric-mean s > 1 on 16/16, more than half: True
+   cited files (sha256): a11_grade.txt 5e798aed3655eec354ef58612feb6388fc8ade91b7d53d217704b531b54b58a7; a1_a3.txt 53351b8547eb9c6c92c638af3ed571f2e619f8d78509364a39a1389de67c7979; a4_a6.txt b52e7059eb1d30337bab7f8fcba2f29458ae4033826150207404007a36a6aa4d; a5_a9_a10.txt 2de5878943e5eb44c03185c50de84e66e81e3a4953d3ac326a23723291da2e9c; a7_a8.txt 2420e52b4f766566d151e883b96d62c5fedbacda09034995f27ab21c55268920
    nothing of F1-F11 is reprinted here; A12's own analysis and F12 are above
 
 ======================================================================================================================================================

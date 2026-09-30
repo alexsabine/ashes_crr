@@ -186,18 +186,27 @@ POST HOC on SEEN records; no ledger row; the words are HOLDS / FAILS against the
 
 [6] THE MECHANISM CHECKS (m_checks.json, m_checks.py's layout only: C0 clipped SEC, M1 true-Fisher Laplace, M2 endpoint curvature, M3 one factor,
     M4 arc secant, M5 FREEZE-TOP, M6 EDGE; their forecasts FM0-FM6 and the SEC6 carry rule are decided in m_checks.txt; nothing here decides F11)
-   pending (m_checks.json not yet written)
+   m_checks.json read; carriers 30
+   C0 clipped SEC (reference): not behind 26/30
+   M1 true-Fisher Laplace, uncalibrated (bears on F, S): not behind 13/30; against C0 -13
+   M2 endpoint-curvature calibration (bears on C: path secant or local curvature): not behind 21/30; against C0 -5
+   M4 arc secant (bears on C): not behind 26/30; against C0 +0
+   M3 one factor, bayes_s1 (bears on S): not behind 18 of 42 (the pinned records), bayes_sec 29
+   M5 FREEZE-TOP (Amendment 2; bears on K): not behind 9/30 (FM5: FAILS)
+   M6 EDGE, a must-fail control (Amendment 2; bears on K): not behind 24/30 (FM6: FAILS)
+   REPORT beside F11: M4 within a step of C0 on 29/30 (FM4: HOLDS); ahead by more than
+      a step on 0/30 (the SEC6 carry rule: not carried). M4 is not SEC's code and performs no CRR-proper operation ([2]), so it cannot make one load-bearing
 
 [7] PER INGREDIENT (field and nearest clause: the agent's classification, not computed; stated: [4]; CRR-proper: computed in [3])
    id field (agent)                        stated            nearest CRR clause (agent)                 CRR-proper evidence (REPORT)
    W  Bayes (Laplace)                      REDUNDANT         H-EQ (a weight rule)                       no         records: 1/2 within a step of lambda*_sec on 31/42
    N  Bayes (online Laplace recursion)     REDUNDANT         A6 / P2-P3 (weights over occasions)        no         not tested
-   F  information geometry / statistics    REDUNDANT         none (the metric: information geometry's)  no         M1: pending
+   F  information geometry / statistics    REDUNDANT         none (the metric: information geometry's)  no         M1: see [6]
    E  optimisation + information geometry  REDUNDANT         A1' (named 'units')                        no         records: s > 1 (geometric mean) on 41/42
-   C  optimisation (BB)                    REDUNDANT         D6 / D2 (arc)                              no         M2, M4: pending
+   C  optimisation (BB)                    REDUNDANT         D6 / D2 (arc)                              no         M2, M4: see [6]
    R  information geometry                 REDUNDANT         D1 (letter rho only)                       no         enters only through S
-   S  optimisation + information geometry  PARTLY REDUNDANT  A1' (named 'units')                        no         records: LOAD-BEARING (raw Laplace); per-task factors LOAD-BEARING (bayes_s1); M1: pending
-   K  optimisation (step-size stability)   REDUNDANT         A6 ('bounded strength')                    no         records: LOAD-BEARING (unclipped SEC); M5, M6: pending
+   S  optimisation + information geometry  PARTLY REDUNDANT  A1' (named 'units')                        no         records: LOAD-BEARING (raw Laplace); per-task factors LOAD-BEARING (bayes_s1); M1: see [6]
+   K  optimisation (step-size stability)   REDUNDANT         A6 ('bounded strength')                    no         records: LOAD-BEARING (unclipped SEC); M5, M6: see [6]
    T  continual-learning protocol          REDUNDANT         A3 / D5 (the cut)                          no         fixed by the stream (not ablatable)
    F maps to no clause: CLAUDE.md sec. 7 'the Fisher–Rao metric, arc, chord and surplus are information geometry's, not CRR's' found verbatim: True
    fields, coarse (the agent's classification, not computed; each ingredient's stating sources are in [4]): Bayes 2, information geometry 2, optimisation 2, optimisation + information geometry 2, protocol 1
