@@ -141,7 +141,7 @@ CLAIMS = [
       'held fixed through the stream.'),
     C('h3:8', 'h3-B1', 'd', CCHAIN,
       ['Adam with Relative Timesteps (AdamRel)',
-       'The oracle baseline learns each task from ran-dom initialization, thus free of the influence of task change.'],
+       'The oracle baseline learns each task from random initialization, thus free of the influence of task change.'],
       'Assumptions: AdamRel resets Adam\'s timestep at each task switch and the Oracle re-initialises at each switch; '
       'both need the task boundary supplied from outside the learner.'),
     C('h3:9', 'h3-B1', 'd', CPR,
