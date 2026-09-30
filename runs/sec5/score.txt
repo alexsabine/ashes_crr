@@ -1,0 +1,105 @@
+======================================================================================================================
+SEC5 scoring (prereg/sec5/PREREG.md): SEC4's clipped SEC (kappa 0.5) replicated on a fourth unseen family; kappa swept; no A6 arm (D-GATE-C closed)
+======================================================================================================================
+carriers scored 8: ['Indian_pines', 'Kuzushiji-MNIST', 'autoUniv-au6-750', 'microaggregation2', 'pokerhand', 'spoken-arabic-digit', 'volcanoes-d4', 'walking-activity']; excluded 4: ['hypothyroid', 'volcanoes-a3', 'volcanoes-a4', 'volcanoes-b2']
+
+[Indian_pines] step 5.2111; tuned lambda 20 (17 grid configurations): 55.0649
+   raw grid: 0.1:37.24  0.3:38.94  1:41.46  3:47.31  3.53357:47.31  5:49.73  7.0922:51.05  10:53.99  14.1:54.23  20:55.06  28.3:45.99  30:48.15  100:1.90  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 48.2717 [37.56 46.25 57.74 51.55 48.25] −tuned -6.7932; fired 0
+   unguarded SEC 48.2717 [37.56 46.25 57.74 51.55 48.25] −tuned -6.7932; raw Laplace 44.4955 (-10.5694); rule Ω=1 10.6893 (-44.3756)
+   clip kappa 0.25: 48.2717 [37.56 46.25 57.74 51.55 48.25] −tuned -6.7932
+   clip kappa 1: 48.2717 [37.56 46.25 57.74 51.55 48.25] −tuned -6.7932
+   3-point sweep: best 30 48.1518; clipped SEC − best3 +0.1199
+   transferred lambda 100: 1.8981 −tuned -53.1668
+   window cells (clip) − tuned: 0.1/0.2:-6.03  0.2/0.1:-7.79  0.2/0.2:-7.45
+
+[Kuzushiji-MNIST] step 1.3303; tuned lambda 300 (17 grid configurations): 25.6800
+   raw grid: 0.1:22.42  0.3:22.42  1:22.42  3:22.48  10:22.62  30:22.90  100:23.68  106.007:23.74  150:24.24  212.766:24.80  300:25.68  423:20.84  600:21.68  849:22.42  1000:22.72  3000:23.68  10000:11.30
+   clipped SEC (kappa 0.5) 30.8800 [31.20 30.40 30.70 30.70 31.40] −tuned +5.2000; fired 4
+   unguarded SEC 30.8800 [31.20 30.40 30.70 30.70 31.40] −tuned +5.2000; raw Laplace 22.4400 (-3.2400); rule Ω=1 28.9800 (+3.3000)
+   clip kappa 0.25: 30.9200 [31.40 30.40 30.70 30.60 31.50] −tuned +5.2400
+   clip kappa 1: 30.8800 [31.20 30.40 30.70 30.70 31.40] −tuned +5.2000
+   3-point sweep: best 30 22.9000; clipped SEC − best3 +7.9800
+   transferred lambda 30: 22.9000 −tuned -2.7800
+   window cells (clip) − tuned: 0.1/0.2:+5.24  0.2/0.1:+5.16  0.2/0.2:+5.12
+
+[autoUniv-au6-750] step 1.6437; tuned lambda 0.035336 (17 grid configurations): 8.0795
+   raw grid: 0.035336:8.08  0.05:8.08  0.070922:8.08  0.1:8.08  0.141:8.08  0.2:8.08  0.283:8.08  0.3:8.08  1:7.95  3:7.68  10:6.09  30:1.06  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 7.6821 [5.30 9.93 8.61 6.62 7.95] −tuned -0.3974; fired 0
+   unguarded SEC 7.6821 [5.30 9.93 8.61 6.62 7.95] −tuned -0.3974; raw Laplace 8.0795 (+0.0000); rule Ω=1 7.5497 (-0.5298)
+   clip kappa 0.25: 7.6821 [5.30 9.93 8.61 6.62 7.95] −tuned -0.3974
+   clip kappa 1: 7.6821 [5.30 9.93 8.61 6.62 7.95] −tuned -0.3974
+   3-point sweep: best 1 7.9470; clipped SEC − best3 -0.2649
+   transferred lambda 100: 0.0000 −tuned -8.0795
+   window cells (clip) − tuned: 0.1/0.2:-0.40  0.2/0.1:-0.40  0.2/0.2:-0.40
+
+[microaggregation2] step 15.5216; tuned lambda 60 (17 grid configurations): 17.6024
+   raw grid: 0.1:13.47  0.3:13.47  1:13.49  3:13.51  10:13.51  10.6007:13.51  15:13.47  21.2766:13.89  30:15.22  42.3:16.70  60:17.60  84.9:12.19  100:10.63  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 13.4865 [13.29 13.69 13.09 13.19 14.19] −tuned -4.1159; fired 0
+   unguarded SEC 13.4865 [13.29 13.69 13.09 13.19 14.19] −tuned -4.1159; raw Laplace 13.4865 (-4.1159); rule Ω=1 13.4665 (-4.1359)
+   clip kappa 0.25: 13.4865 [13.29 13.69 13.09 13.19 14.19] −tuned -4.1159
+   clip kappa 1: 13.4865 [13.29 13.69 13.09 13.19 14.19] −tuned -4.1159
+   3-point sweep: best 30 15.2248; clipped SEC − best3 -1.7383
+   transferred lambda 30: 15.2248 −tuned -2.3776
+   window cells (clip) − tuned: 0.1/0.2:-4.12  0.2/0.1:-4.12  0.2/0.2:-4.12
+
+[pokerhand] step 1.8216; tuned lambda 100 (17 grid configurations): 43.4600
+   raw grid: 0.1:16.04  0.3:16.74  1:15.82  3:12.32  10:11.60  30:29.58  35.3357:32.98  50:39.88  70.922:43.44  100:43.46  141:42.98  200:43.28  283:35.06  300:35.02  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 15.2200 [20.00 15.20 22.80 11.10 7.00] −tuned -28.2400; fired 0
+   unguarded SEC 15.2200 [20.00 15.20 22.80 11.10 7.00] −tuned -28.2400; raw Laplace 11.3200 (-32.1400); rule Ω=1 8.4400 (-35.0200)
+   clip kappa 0.25: 15.2200 [20.00 15.20 22.80 11.10 7.00] −tuned -28.2400
+   clip kappa 1: 15.2200 [20.00 15.20 22.80 11.10 7.00] −tuned -28.2400
+   3-point sweep: best 30 29.5800; clipped SEC − best3 -14.3600
+   transferred lambda 30: 29.5800 −tuned -13.8800
+   window cells (clip) − tuned: 0.1/0.2:-28.32  0.2/0.1:-27.48  0.2/0.2:-27.66
+
+[spoken-arabic-digit] step 1.0000; tuned lambda 0.212766 (17 grid configurations): 9.8800
+   raw grid: 0.1:9.82  0.106007:9.82  0.15:9.84  0.212766:9.88  0.3:9.84  0.423:9.82  0.6:9.84  0.849:9.86  1:9.84  3:9.78  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 9.8600 [10.00 9.50 10.30 9.60 9.90] −tuned -0.0200; fired 0
+   unguarded SEC 9.8600 [10.00 9.50 10.30 9.60 9.90] −tuned -0.0200; raw Laplace 9.8400 (-0.0400); rule Ω=1 9.7600 (-0.1200)
+   clip kappa 0.25: 9.8600 [10.00 9.50 10.30 9.60 9.90] −tuned -0.0200
+   clip kappa 1: 9.8600 [10.00 9.50 10.30 9.60 9.90] −tuned -0.0200
+   3-point sweep: best 1 9.8400; clipped SEC − best3 +0.0200
+   transferred lambda 100: 0.0000 −tuned -9.8800
+   window cells (clip) − tuned: 0.1/0.2:-0.06  0.2/0.1:-0.08  0.2/0.2:-0.04
+
+[volcanoes-d4] step 1.0000; tuned lambda 1000 (17 grid configurations): 94.9950
+   raw grid: 0.1:2.64  0.3:2.70  1:2.86  3:3.08  10:3.56  30:9.13  100:46.79  300:65.87  353.357:75.64  500:79.76  709.22:78.68  1000:94.99  1410:94.99  2000:94.99  2830:94.99  3000:94.99  10000:94.99
+   clipped SEC (kappa 0.5) 6.0861 [5.71 9.11 1.00 9.51 5.11] −tuned -88.9089; fired 5
+   unguarded SEC 16.2763 [7.81 45.75 2.60 13.41 11.81] −tuned -78.7187; raw Laplace 5.3053 (-89.6897); rule Ω=1 5.3654 (-89.6296)
+   clip kappa 0.25: 6.0060 [5.51 8.51 1.10 9.71 5.21] −tuned -88.9890
+   clip kappa 1: 6.7668 [6.11 9.61 1.00 10.41 6.71] −tuned -88.2282
+   3-point sweep: best 1000 94.9950; clipped SEC − best3 -88.9089
+   transferred lambda 30: 9.1291 −tuned -85.8659
+   window cells (clip) − tuned: 0.1/0.2:-88.81  0.2/0.1:-89.95  0.2/0.2:-89.75
+
+[walking-activity] step 1.1367; tuned lambda 0.212766 (17 grid configurations): 13.6000
+   raw grid: 0.1:13.22  0.106007:13.16  0.15:13.42  0.212766:13.60  0.3:13.56  0.423:13.44  0.6:12.76  0.849:12.02  1:11.68  3:9.56  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 11.0400 [11.20 13.40 10.00 9.50 11.10] −tuned -2.5600; fired 0
+   unguarded SEC 11.0400 [11.20 13.40 10.00 9.50 11.10] −tuned -2.5600; raw Laplace 12.6200 (-0.9800); rule Ω=1 11.3200 (-2.2800)
+   clip kappa 0.25: 11.0400 [11.20 13.40 10.00 9.50 11.10] −tuned -2.5600
+   clip kappa 1: 11.0400 [11.20 13.40 10.00 9.50 11.10] −tuned -2.5600
+   3-point sweep: best 1 11.6800; clipped SEC − best3 -0.6400
+   transferred lambda 100: 0.0000 −tuned -13.6000
+   window cells (clip) − tuned: 0.1/0.2:-2.60  0.2/0.1:-2.44  0.2/0.2:-2.44
+
+----------------------------------------------------------------------------------------------------------------------
+SEC5-1 tuning-free, the clipped SEC (kappa 0.5) not behind the tuned lambda: 4/8 (need 6) -> FAIL; Indian_pines:-6.7932 (step 5.21), Kuzushiji-MNIST:+5.2000 (step 1.33), autoUniv-au6-750:-0.3974 (step 1.64), microaggregation2:-4.1159 (step 15.52), pokerhand:-28.2400 (step 1.82), spoken-arabic-digit:-0.0200 (step 1.00), volcanoes-d4:-88.9089 (step 1.00), walking-activity:-2.5600 (step 1.14)
+   beside it (report): unguarded SEC 4/8; raw Laplace 4/8; the rule Ω=1 4/8
+SEC5-2 no divergence: carriers with a clipped seed below half the tuned accuracy: ['pokerhand', 'volcanoes-d4'] (2) -> FAIL; unguarded (report): ['pokerhand', 'volcanoes-d4']
+SEC5-T the saving is SEC's: B = ['Indian_pines', 'Kuzushiji-MNIST', 'autoUniv-au6-750', 'pokerhand', 'spoken-arabic-digit', 'volcanoes-d4', 'walking-activity'] (7); clipped SEC not behind on 3/7 (need 6) -> FAIL
+SEC5-P clipped SEC (1 configuration) not behind the 3-point mini-sweep (3): 6/8 (need 6) -> PASS
+SEC5-S sensitivity over 5 cells x 8 carriers (3 window cells, kappa 0.25 and 1.0): flips in 0 of 40 -> not fragile; by cell: window (0.1, 0.2): 0, window (0.2, 0.1): 0, window (0.2, 0.2): 0, kappa 0.25: 0, kappa 1.0: 0
+   kappa 0.25: not behind 4/8; carriers with a seed below half the tuned accuracy: ['pokerhand', 'volcanoes-d4']
+   kappa 1: not behind 4/8; carriers with a seed below half the tuned accuracy: ['pokerhand', 'volcanoes-d4']
+SEC5-1 level as computed from SEC5-S and SEC5-2: no PASS
+SEC5-K compute (report; CPU seconds from the timing files):
+   Indian_pines: configurations full sweep 17, clipped SEC 1; CPU s full 69.6, clipped SEC 4.3 (share 0.0611), raw Laplace 4.1 (overhead x1.033)
+   Kuzushiji-MNIST: configurations full sweep 17, clipped SEC 1; CPU s full 400.7, clipped SEC 23.9 (share 0.0596), raw Laplace 21.7 (overhead x1.103)
+   autoUniv-au6-750: configurations full sweep 17, clipped SEC 1; CPU s full 7.8, clipped SEC 0.5 (share 0.0615), raw Laplace 0.4 (overhead x1.108)
+   microaggregation2: configurations full sweep 17, clipped SEC 1; CPU s full 19.9, clipped SEC 1.2 (share 0.0623), raw Laplace 1.2 (overhead x0.999)
+   pokerhand: configurations full sweep 17, clipped SEC 1; CPU s full 17.4, clipped SEC 1.0 (share 0.0601), raw Laplace 1.0 (overhead x1.039)
+   spoken-arabic-digit: configurations full sweep 17, clipped SEC 1; CPU s full 24.0, clipped SEC 1.5 (share 0.0614), raw Laplace 1.5 (overhead x0.968)
+   volcanoes-d4: configurations full sweep 17, clipped SEC 1; CPU s full 17.6, clipped SEC 1.0 (share 0.0563), raw Laplace 1.0 (overhead x0.988)
+   walking-activity: configurations full sweep 17, clipped SEC 1; CPU s full 21.3, clipped SEC 1.3 (share 0.0591), raw Laplace 1.2 (overhead x1.039)
+SEC5-E guard firings (report): Indian_pines: 0; Kuzushiji-MNIST: 4; autoUniv-au6-750: 0; microaggregation2: 0; pokerhand: 0; spoken-arabic-digit: 0; volcanoes-d4: 5; walking-activity: 0
