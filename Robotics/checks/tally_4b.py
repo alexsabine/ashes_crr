@@ -149,6 +149,36 @@ def main():
           f"-> {verdict(not wrong_else)}")
     failed = [k for k, ok in (("F1", f1), ("F2", f2), ("F3", f3)) if not ok]
     print(f"overall forecast: {verdict(not failed)}" + (f" (failed: {', '.join(failed)})" if failed else ""))
+    robustness()
+
+
+def robustness():
+    """REPORT (added after the batches' reviews, 2026-09-30; decides nothing): whether each row's label survives the
+    sensitivity readings its batch prints. RA2 and RA7 print a 40-seed sweep; RA4 prints its labels under three readings.
+    A row whose label differs from the scored one in more than one printed cell is FRAGILE (CLAUDE.md's rule for a
+    sensitivity table). Parsed from the pinned batch outputs; nothing is recomputed here."""
+    txt = {b: open(os.path.join(ROOT, "Robotics", "batches", b), encoding="utf-8").read() for b in BATCHES}
+    print()
+    print("REPORT (added after the reviews; decides nothing): label robustness read from each batch's printed sensitivity")
+    m = re.search(r"labels (?:are )?(\d+) ADDS, (\d+) REDUNDANT-DOMAIN: (\d+) of (\d+) differ from the scored label", txt["rob_01.txt"])
+    if m:
+        a, r, d, n = map(int, m.groups())
+        print(f"  RA2  slip seeds 100-139: ADDS {a}, REDUNDANT-DOMAIN {r}; {d} of {n} differ from the scored label -> "
+              f"{'FRAGILE' if d > 1 else 'not fragile'} (where T-N misses it misses on sampling noise, T-C holds)")
+    else:
+        print("  RA2  seed sweep line NOT FOUND")
+    seeds = re.findall(r"^  seed (\d+): .*; (\S+)$", txt["rob_04.txt"], re.M)
+    if seeds:
+        c = collections.Counter(l for _, l in seeds)
+        print(f"  RA7  duty seeds {seeds[0][0]}-{seeds[-1][0]}: " + ", ".join(f"{k} {v}" for k, v in sorted(c.items()))
+              + f"; differ from REDUNDANT-DOMAIN (the scored label) {sum(v for k, v in c.items() if k != 'REDUNDANT-DOMAIN')} of {len(seeds)} -> "
+              + ("FRAGILE" if sum(v for k, v in c.items() if k != 'REDUNDANT-DOMAIN') > 1 else "not fragile"))
+    else:
+        print("  RA7  seed sweep lines NOT FOUND")
+    m = re.search(r"^RA4 READING-DEPENDENT.*$", txt["rob_02.txt"], re.M)
+    print("  RA4  " + ("READING-DEPENDENT (the batch prints the labels by reading; see rob_02.txt)" if m else "no reading flag printed"))
+    print("  reading: a stochastic row's T-N at the harness's 1 % relative tolerance can miss on sampling noise alone; where it"
+          " misses and T-C holds, the harness reads ADDS. Such an ADDS is a tolerance artefact, not a CRR addition.")
 
 
 if __name__ == "__main__":

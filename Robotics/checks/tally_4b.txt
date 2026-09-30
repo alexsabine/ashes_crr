@@ -36,3 +36,9 @@ the declaration's overall forecast (d44e713), computed:
   F3 WRONG is possible for RA1 (scored: RA1's label is REDUNDANT-DOMAIN or WRONG): RA1 reads WRONG -> HOLDS
      not scored, the stronger reading (no row other than RA1 reads WRONG): WRONG elsewhere RA8 -> FAILS
 overall forecast: FAILS (failed: F1)
+
+REPORT (added after the reviews; decides nothing): label robustness read from each batch's printed sensitivity
+  RA2  slip seeds 100-139: ADDS 29, REDUNDANT-DOMAIN 11; 29 of 40 differ from the scored label -> FRAGILE (where T-N misses it misses on sampling noise, T-C holds)
+  RA7  duty seeds 100-139: ADDS 34, REDUNDANT-DOMAIN 6; differ from REDUNDANT-DOMAIN (the scored label) 34 of 40 -> FRAGILE
+  RA4  READING-DEPENDENT (the batch prints the labels by reading; see rob_02.txt)
+  reading: a stochastic row's T-N at the harness's 1 % relative tolerance can miss on sampling noise alone; where it misses and T-C holds, the harness reads ADDS. Such an ADDS is a tolerance artefact, not a CRR addition.
