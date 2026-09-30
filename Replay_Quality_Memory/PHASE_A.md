@@ -46,3 +46,31 @@ The comparator must be one that a wrong memory can lose to. Two routes:
   memory is.
 
 Either needs a negative stream on which IGR is shown, on synthetic data first, to fall behind that comparator.
+
+## The literature grade of M1–M7 (DECLARATION.md §2; `checks/grade.txt`, pinned, CI-checked)
+
+The four sweeps gave 70 claims; `checks/verify.py` found 135 of 135 quotes verbatim in the fetched texts
+(`checks/verify.txt`). The declared rule (MIXED if a source states and a source contradicts; else REDUNDANT if a source
+states; else PARTLY REDUNDANT if one is close) gives:
+
+| | position | grade | declared | |
+|---|---|---|---|---|
+| M1 | statistics memory approaches replay with a fixed or pretrained extractor | REDUNDANT | REDUNDANT | hit |
+| M2 | the main bottleneck is representation drift | MIXED | REDUNDANT | miss |
+| M3 | drift can be compensated from current data only | REDUNDANT | REDUNDANT | hit |
+| M4 | analytic learning on fixed features equals joint training, no stored examples | REDUNDANT | REDUNDANT | hit |
+| M5 | generative or inversion replay recovers much of replay, at a compute and quality cost | PARTLY REDUNDANT | PARTLY REDUNDANT | hit |
+| M6 | stored statistics and generators leak; formal privacy needs more | MIXED | REDUNDANT | miss |
+| M7 | from scratch, exemplar-free methods stay well below replay | MIXED | MIXED | hit |
+
+Hits 5 of 7. Two judgement calls carry the misses, and are the grading agent's per-claim readings, kept as pinned (R15):
+- **M2:** one source (an analytic class-incremental paper built on a vision-language model) was read as contradicting
+  drift as *the* bottleneck, because it names representation rigidity instead.
+- **M6:** four papers were read as contradicting. Three store prototypes or statistics and call that private without a
+  privacy test (PASS, ACIL, EFC). One (Xu et al., federated learning) ran three inversion attacks on shared class
+  prototypes and recovered nothing: a measured contradiction, in part. A reader who counts only measured claims would
+  still grade M6 MIXED on that one source.
+
+**Expectation 3 of DECLARATION.md §5** (a statistics-based candidate stays behind ER on the small from-scratch learner) is
+contradicted on the synthetic streams at matched memory: IGR was ahead of matched ER on both. That is the reason the
+gate closed, not support for the candidate.

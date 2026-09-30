@@ -352,6 +352,12 @@ Empty_Pause_Systems/       EPS1 (prompt-log entry 240): the empty-true-map pause
                            REDUNDANT-DOMAIN 4, REDUNDANT-IG 1, ADDS 2 (neither new); EPS2 (DECLARATION_EPS2.md; demand response, shared resource,
                            federated client offline, rollback): batches/eps2_01-02 + checks/tally_eps2 (CI-checked), T3 gate CLOSED, counted ADDS 3
                            (none new: stop-the-clock contract, preemption with return, Ng et al. 1999); EMPTY_PAUSE_SYSTEMS.md; a note, not evidence (R8)
+Replay_Quality_Memory/     RQM (prompt-log entry 245): replay-quality memory without stored examples; DECLARATION.md pushed before the sweeps
+                           (docs/citations/rqm_q1-q4 + rqm_priorart_2026-09-30.md); checks/claims.py, verify.py/.txt (135/135 verbatim), grade.py/.txt
+                           (CI-checked): M1, M3, M4 REDUNDANT, M5 PARTLY REDUNDANT, M2, M6, M7 MIXED (hits 5 of 7); CRR_READING.md (B1-B10: RESTATES 6,
+                           SILENT 4, no CANDIDATE; selects input-space Gaussian replay, the GMR/DGR family); DEV_DECLARATION.md (+ Amendment 1, post hoc),
+                           checks/rqm_lib.py, phase_a.py + phase_a_run1.txt/phase_a.txt: GATE CLOSED twice (ledger RQM-A; the matched-ER criterion
+                           cannot fail); PHASE_A.md; stopped per R12; a note, not evidence (R8)
 Alexander Plan/            the owner's dossier (prompt-log entry 101): AI-safety findings incl. the scale test (AI_Safety §14),
                            the market, a funding scenario model to 2030 (model/projections.py + pinned .txt; inputs from the
                            record, search summaries in docs/citations/alexander_plan_2026-09-23.md, or named assumptions), an

@@ -1,0 +1,105 @@
+RQM: positions M1-M7 graded against the frontier sweep (DECLARATION.md §2)
+claims 70 (q1 20, q2 19, q3 20, q4 11); readings by grading agent; for the investigator's review; quotes verified in verify.txt
+rule: MIXED if states and contradicts; else REDUNDANT if states; else PARTLY REDUNDANT if close; else NOT FOUND IN THE SWEEP
+
+M1 REDUNDANT              expected REDUNDANT              hit  | states 6, contradicts 0, close 2, bears 2
+     position: exemplar-free methods that store class statistics can approach replay-quality class-IL when the feature extractor is fixed or pretrained
+     states      q1:0   Goswami, Liu, Twardowski, van de Weijer, "FeCAM: Exploiting the Heterogeneity of Cla (v3, 12 Jan 2024)
+     states      q3:0   Janson, Zhang, Aljundi, Elhoseiny, "A Simple Baseline that Questions the Use of Pret (v2, 29 Mar 2023)
+     states      q3:1   Zhuang et al., "F-OAL: Forward-only Online Analytic Learning with Fast Training and  (v2, 4 Nov 2024)
+     states      q3:2   Hayes & Kanan, "Lifelong Machine Learning with Deep Streaming Linear Discriminant An (v3, 17 Apr 2020)
+     states      q3:3   Zhuang et al., "ACIL: Analytic Class-Incremental Learning with Absolute Memorization (v2, 10 Dec 2022)
+     states      q3:4   Zhuang et al., "GACL: Exemplar-Free Generalized Analytic Continual Learning" (arXiv: (v3, 4 Nov 2024)
+     close       q1:1   Zhu, Zhang, Cheng, Liu, "PASS++" (arXiv:2407.14029) (v1, 19 Jul 2024)
+     close       q2:0   van de Ven, Siegelmann, Tolias, "Brain-inspired replay for continual learning with a (published online 2020-)
+     bears       q1:2   He et al., "Semantic Shift Estimation via Dual-Projection and Classifier Reconstruct (v4, 18 May 2025)
+     bears       q3:5   Jučas & Pan, "Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Con (v1, 25 Jun 2026)
+
+M2 MIXED                  expected REDUNDANT              MISS | states 6, contradicts 1, close 1, bears 2
+     position: the main bottleneck of statistics-based memory is representation drift: stored statistics go stale as the backbone learns
+     states      q1:3   Magistri, Trinci, Soutif-Cormerais, van de Weijer, Bagdanov, "Elastic Feature Consol (v3, 30 May 2024)
+     states      q1:4   Gomez-Villa, Goswami, Wang, Bagdanov, Twardowski, van de Weijer, "Exemplar-free Cont (v1, 11 Jul 2024)
+     states      q1:5   Magistri et al., "EFC++" (arXiv:2503.10439; International Journal of Computer Vision (v4, 28 Sep 2026)
+     states      q1:6   Jučas & Pan, "Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Con (v1, 25 Jun 2026)
+     states      q1:7   Xu & Krawczyk, "BiCyc: bidirectional alignment with cycle consistency" (arXiv:2606.0 (v1, 4 Jun 2026)
+     states      q2:1   Wang, Zhang, Su, Zhu, "A Comprehensive Survey of Continual Learning: Theory, Method  (v3, 6 Feb 2024)
+     contradicts q3:6   Zhao et al., "Advancing Analytic Class-Incremental Learning through Vision-Language  (v3, 7 May 2026)
+     close       q3:7   Jučas & Pan, "Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Con (v1, 25 Jun 2026)
+     bears       q3:8   Zhuang et al., "DS-AL: A Dual-Stream Analytic Learning for Exemplar-Free Class-Incre (v1, 26 Mar 2024)
+     bears       q3:9   He et al., "REAL: Representation Enhanced Analytic Learning for Exemplar-Free Class- (v3, 17 Dec 2025)
+
+M3 REDUNDANT              expected REDUNDANT              hit  | states 6, contradicts 0, close 2, bears 1
+     position: drift can be compensated by estimating how old statistics move, from current data only
+     states      q1:8   Yu, Twardowski, Liu, Herranz, Wang, Cheng, Jui, van de Weijer, "Semantic Drift Compe (v1, 1 Apr 2020)
+     states      q1:9   Gomez-Villa et al., "Exemplar-free Continual Representation Learning via Learnable D (v1, 11 Jul 2024)
+     states      q1:10  Goswami, Soutif-Cormerais, Liu, Kamath, Twardowski, van de Weijer, "Resurrecting Old (v1, 29 May 2024)
+     states      q1:11  Rypeść, Cygert, Trzciński, Twardowski, "Task-recency bias strikes back: Adapting cov (v2, 26 Oct 2024)
+     states      q1:12  Honda, "Adversarial Pseudo-replay for Exemplar-free Class-incremental Learning" (APR (v1, 22 Nov 2025)
+     states      q3:10  He et al., "Semantic Shift Estimation via Dual-Projection and Classifier Reconstruct (v4, 18 May 2025)
+     close       q1:13  Magistri et al., "EFC++" (arXiv:2503.10439; International Journal of Computer Vision (v4, 28 Sep 2026)
+     close       q2:2   Tong, Lu, Liu, Gong, "Model Inversion with Layer-Specific Modeling and Alignment for (v1, 30 Oct 2025)
+     bears       q1:14  Jučas & Pan, "Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Con (v1, 25 Jun 2026)
+
+M4 REDUNDANT              expected REDUNDANT              hit  | states 6, contradicts 0, close 1, bears 3
+     position: closed-form (analytic) learning on fixed features equals joint training exactly, with no stored examples
+     states      q1:15  Jučas & Pan, "Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Con (v1, 25 Jun 2026)
+     states      q3:11  Zhuang et al., "ACIL: Analytic Class-Incremental Learning with Absolute Memorization (v2, 10 Dec 2022)
+     states      q3:12  Zhuang et al., "DS-AL: A Dual-Stream Analytic Learning for Exemplar-Free Class-Incre (v1, 26 Mar 2024)
+     states      q3:13  Zhuang et al., "GACL: Exemplar-Free Generalized Analytic Continual Learning" (arXiv: (v3, 4 Nov 2024)
+     states      q3:14  Zhuang et al., "F-OAL: Forward-only Online Analytic Learning with Fast Training and  (v2, 4 Nov 2024)
+     states      q3:15  Fang et al., "AIR: Analytic Imbalance Rectifier for Continual Learning" (arXiv:2408. (v2, 24 Sep 2026)
+     close       q3:16  McDonnell, Gong, Parvaneh, Abbasnejad, van den Hengel, "RanPAC: Random Projections a (v3, 16 Jan 2024)
+     bears       q3:17  Zhuang et al., "ACIL: Analytic Class-Incremental Learning with Absolute Memorization (v2, 10 Dec 2022)
+     bears       q3:18  Hartley et al., "SPARCL: Spectral Partitioned Analytic Continual Learning" (arXiv:26 (v1, 21 Aug 2026)
+     bears       q4:0   Alsulaimawi, "One-Shot Federated Ridge Regression: Exact Recovery via Sufficient Sta (v1, 13 Jan 2026)
+
+M5 PARTLY REDUNDANT       expected PARTLY REDUNDANT       hit  | states 0, contradicts 0, close 8, bears 2
+     position: generative or inversion replay recovers much of replay's accuracy but costs compute and has its own drift and quality limits
+     close       q2:3   Shin, Lee, Kim, Kim, "Continual Learning with Deep Generative Replay" (DGR; arXiv:17 (v3, 12 Dec 2017)
+     close       q2:4   Zhou, Wang, Qi, Ye, Zhan, Liu, "Class-Incremental Learning: A Survey" (arXiv:2302.03 (v2, 15 Jul 2024)
+     close       q2:5   Wang, Zhang, Su, Zhu, "A Comprehensive Survey of Continual Learning: Theory, Method  (v3, 6 Feb 2024)
+     close       q2:6   Cywiński, Deja, Trzciński, Twardowski, Kuciński, "GUIDE: Guidance-based Incremental  (v2, 31 May 2024)
+     close       q2:7   Tong, Lu, Liu, Gong, "Model Inversion with Layer-Specific Modeling and Alignment for (v1, 30 Oct 2025)
+     close       q2:8   Smith, Hsu, Balloch, Shen, Jin, Kira, "Always Be Dreaming: A New Approach for Data-F (v2, 19 Aug 2021)
+     close       q2:9   Jodelet, Liu, Phua, Murata, "Class-Incremental Learning using Diffusion Model for Di (v2, 10 Oct 2023)
+     close       q2:10  Gao, Zhao, Ghanem, Zhang, "R-DFCIL: Relation-Guided Representation Learning for Data (v2, 21 Jul 2022)
+     bears       q2:11  Hsu, Liu, Ramasamy, Kira, "Re-evaluating Continual Learning Scenarios: A Categorizat (v4, 23 Jan 2019)
+     bears       q2:12  Gao & Liu, "DDGR: Continual Learning with Deep Diffusion-based Generative Replay", I (PMLR 202 (2023))
+
+M6 MIXED                  expected REDUNDANT              MISS | states 5, contradicts 4, close 1, bears 0
+     position: class statistics and generators can leak information about training data; formal privacy needs extra mechanisms
+     states      q4:1   Pyrgelis, Troncoso, De Cristofaro, "Knock Knock, Who's There? Membership Inference o (v2, 29 Nov 2017)
+     states      q4:2   Wang et al., "Taming Noise-Induced Prototype Degradation for Privacy-Preserving Pers (v1, 30 Apr 2026)
+     states      q4:3   Farquhar & Gal, "Differentially Private Continual Learning" (arXiv:1902.06497; PiMLA (v1, 18 Feb 2019)
+     states      q4:4   Tobaben, Alrawajfeh, Klasson, Heikkilä, Solin, Honkela, "Privacy Leakage via Output  (v6, 24 Aug 2026)
+     states      q4:5   Carlini et al., "Extracting Training Data from Diffusion Models" (arXiv:2301.13188;  (v1, 30 Jan 2023)
+     contradicts q4:7   Zhu, Zhang, Wang, Yin, Liu, "Prototype Augmentation and Self-Supervision for Increme (CVF open-access camera)
+     contradicts q4:8   Xu et al., "Stabilizing and Improving Federated Learning with Non-IID Data and Clien (v2, 15 Mar 2023)
+     contradicts q4:9   Zhuang et al., "ACIL: Analytic Class-Incremental Learning with Absolute Memorization (v2, 10 Dec 2022)
+     contradicts q4:10  Magistri et al., "Elastic Feature Consolidation for Cold Start Exemplar-Free Increme (v3, 30 May 2024)
+     close       q4:6   Homer et al., "Resolving individuals contributing trace amounts of DNA to highly com (published 29 Aug 2008 )
+
+M7 MIXED                  expected MIXED                  hit  | states 2, contradicts 5, close 2, bears 2
+     position: on small models trained from scratch (no pretraining), exemplar-free methods stay well below replay
+     states      q2:15  van de Ven & Tolias, "Three scenarios for continual learning" (arXiv:1904.07734) (v1, 15 Apr 2019)
+     states      q2:16  Gao, Zhao, Ghanem, Zhang, "R-DFCIL: Relation-Guided Representation Learning for Data (v2, 21 Jul 2022)
+     contradicts q1:16  He et al., "Semantic Shift Estimation via Dual-Projection and Classifier Reconstruct (v4, 18 May 2025)
+     contradicts q1:17  Zhu, Zhang, Cheng, Liu, "PASS++" (arXiv:2407.14029) (v1, 19 Jul 2024)
+     contradicts q2:13  Hsu, Liu, Ramasamy, Kira, "Re-evaluating Continual Learning Scenarios: A Categorizat (v4, 23 Jan 2019)
+     contradicts q2:14  van de Ven & Tolias, "Three scenarios for continual learning" (arXiv:1904.07734) (v1, 15 Apr 2019)
+     contradicts q2:17  Liu et al., "Generative Feature Replay For Class-Incremental Learning" (GFR; arXiv:2 (v1, 20 Apr 2020)
+     close       q1:19  Goswami, Liu, Twardowski, van de Weijer, "FeCAM: Exploiting the Heterogeneity of Cla (v3, 12 Jan 2024)
+     close       q3:19  McDonnell, Gong, Parvaneh, Abbasnejad, van den Hengel, "RanPAC: Random Projections a (v3, 16 Jan 2024)
+     bears       q1:18  Magistri et al., "EFC++" (arXiv:2503.10439; International Journal of Computer Vision (v4, 28 Sep 2026)
+     bears       q2:18  Smith, Hsu, Balloch, Shen, Jin, Kira, "Always Be Dreaming: A New Approach for Data-F (v2, 19 Aug 2021)
+
+summary (position, grade, expected, hit/miss)
+  M1  REDUNDANT               REDUNDANT               hit
+  M2  MIXED                   REDUNDANT               MISS
+  M3  REDUNDANT               REDUNDANT               hit
+  M4  REDUNDANT               REDUNDANT               hit
+  M5  PARTLY REDUNDANT        PARTLY REDUNDANT        hit
+  M6  MIXED                   REDUNDANT               MISS
+  M7  MIXED                   MIXED                   hit
+hits 5 of 7; misses: M2, M6
+not found is never read as novel
