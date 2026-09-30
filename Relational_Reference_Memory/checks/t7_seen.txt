@@ -419,3 +419,18 @@ RRM2 T7 on the 30 SEEN carriers (DECLARATION_3.md, POST HOC, report only); E in 
      ANCH1 relative drift 0.2167; drift explained RRM +0.4037, HOPDC -1.5293
      ER20  relative drift 0.2072; drift explained RRM +0.5308, HOPDC -1.5708
      NCM (ANCH1) ORACLE  37.22  STALE  35.10  RRM  36.42  HOPDC  32.29
+  [Indian_pines E 3]
+     FT    relative drift 0.7709; drift explained RRM +0.5599, HOPDC +0.2371
+     ANCH1 relative drift 0.5808; drift explained RRM +0.4000, HOPDC +0.1155
+     ER20  relative drift 0.4983; drift explained RRM +0.3792, HOPDC +0.0953
+     NCM (ANCH1) ORACLE  63.00  STALE  53.45  RRM  60.82  HOPDC  63.74
+  [Indian_pines E 15]
+     FT    relative drift 0.8390; drift explained RRM +0.6707, HOPDC +0.3696
+     ANCH1 relative drift 0.6351; drift explained RRM +0.4923, HOPDC +0.1547
+     ER20  relative drift 0.5872; drift explained RRM +0.3984, HOPDC +0.0925
+     NCM (ANCH1) ORACLE  64.04  STALE  58.00  RRM  63.24  HOPDC  62.42
+  [Indian_pines E 30]
+     FT    relative drift 0.8486; drift explained RRM +0.6837, HOPDC +0.3668
+     ANCH1 relative drift 0.6200; drift explained RRM +0.5081, HOPDC +0.1220
+     ER20  relative drift 0.5882; drift explained RRM +0.4299, HOPDC +0.0895
+     NCM (ANCH1) ORACLE  63.56  STALE  61.52  RRM  62.70  HOPDC  62.22
