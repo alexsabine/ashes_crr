@@ -1,8 +1,10 @@
 """SEC7 carrier selection (prereg/sec7/DEV_DECLARATION.md, pushed at d377662 before any SEC7 code): SEC5's selection script
 (via SEC6's copy, studies/sec6/select_carriers.py) with SEC4's eligibility rule unchanged, applied to OpenML study 445 (IRT
-Diverse Dataset Benchmark) alone:
-    the eligible datasets of study 445; if more than CAP, CAP are kept: the sorted eligible OpenML ids permuted by numpy
-    default_rng(DRAW_SEED). If fewer than MIN_POOL (6) are eligible, SEC7 is NOT RUNNABLE on this family and stops (R12).
+Diverse Dataset Benchmark), then 454 and 293, pooled in that order (DEV_DECLARATION.md Amendment 1, pushed at 77f32cb: study
+445 alone held 2 eligible):
+    the eligible, never-opened datasets of all three studies (every study is pooled; a dataset in two studies is counted once,
+    from the first); if more than CAP, CAP are kept: the sorted eligible OpenML ids permuted by numpy default_rng(DRAW_SEED).
+    If fewer than MIN_POOL (6) are eligible, SEC7 is NOT RUNNABLE on this family and stops (R12).
     The records considered SEEN are everything in data/SEEN.md on the day, AND SEC6's twelve carriers (read from
     prereg/sec6/PREREG.md's carrier table), excluded explicitly with a printed reason so the two families are disjoint.
 Metadata only: the study record and its data list (qualities), re-fetched today and saved in prereg/sec7/. No dataset
@@ -29,7 +31,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "prereg" / "sec7"
-STUDIES = (445,)                 # prereg/sec7/DEV_DECLARATION.md: study 445 alone
+STUDIES = (445, 454, 293)        # prereg/sec7/DEV_DECLARATION.md Amendment 1: pooled in this order, every study used
 MIN_POOL = 6; CAP = 12; DRAW_SEED = 20261002            # SEC7: NOT RUNNABLE below 6 eligible
 MAX_ROWS_META = 1_000_000
 # records opened under another name (data/SEEN.md): SEC4's aliases, plus the one-hundred-plants feature sets (SEC4 opened
@@ -104,12 +106,12 @@ def select():
     seen_ids = {int(m) for line in seen_txt.splitlines() if "OpenML" in line for m in re.findall(r"\b(\d{1,6}) [A-Za-z]", line)}
     seen |= {norm(n) for line in seen_txt.splitlines() if "OpenML" in line for n in re.findall(r"\b\d{1,6} ([A-Za-z][A-Za-z0-9_.\-]+)", line)}
     sec6 = sec6_ids()
-    print("SEC7 carrier selection (SEC4's rule) from OpenML study 445 (IRT Diverse Dataset Benchmark) alone; cap 12 by a seeded draw "
-          "(default_rng(20261002)); NOT RUNNABLE below 6 eligible; metadata saved in prereg/sec7/")
+    print("SEC7 carrier selection (SEC4's rule; DEV_DECLARATION.md Amendment 1) from OpenML studies 445 (IRT Diverse Dataset Benchmark), "
+          "454 (New_OpenML_Suite_2025_classification) and 293 (AutoML Benchmark Training Datasets), every study pooled in that order; "
+          "cap 12 by a seeded draw (default_rng(20261002)); NOT RUNNABLE below 6 eligible; metadata saved in prereg/sec7/")
     print(f"OpenML ids listed in data/SEEN.md: {len(seen_ids)}; SEC6's carriers excluded explicitly ({len(sec6)}, from prereg/sec6/PREREG.md): {sorted(sec6)}")
     pool = {}; used = []
     for s in STUDIES:
-        if len(pool) >= MIN_POOL: print(f"study {s}: not needed (the pool already holds {len(pool)} >= {MIN_POOL})"); continue
         if not list_json(s).exists(): print(f"study {s}: no saved record (fetch failed): skipped"); continue
         used.append(s); rows = eligible_rows(s, seen, seen_ids, sec6)
         print(f"study {s}: {len(rows)} datasets in the data list")

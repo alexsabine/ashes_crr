@@ -1,0 +1,36 @@
+D-ID (prereg/sec7/DEV_DECLARATION.md): run7 with the IDENTITY permutation, raw accuracy, seed 0, against pinned records
+   sec4 377 synthetic_control (K 6) bayes_sec_clip: run7 48.333333333333336 pinned 48.333333333333336 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) bayes: run7 40.0 pinned 40.0 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) fixed 1: run7 40.0 pinned 40.0 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) fixed 100: run7 40.833333333333336 pinned 40.833333333333336 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) bayes_sec: run7 48.333333333333336 pinned 48.333333333333336 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) eq 1: run7 45.0 pinned 45.0 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) bayes_sec_clip: run7 84.26966292134831 pinned 84.26966292134831 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) bayes: run7 67.97752808988764 pinned 67.97752808988764 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) fixed 1: run7 65.73033707865169 pinned 65.73033707865169 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) fixed 100: run7 85.39325842696628 pinned 85.39325842696628 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) bayes_sec: run7 84.26966292134831 pinned 84.26966292134831 -> equal; s also equal: yes
+   sec4 46906 anneal (K 4) eq 1: run7 65.1685393258427 pinned 65.1685393258427 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) bayes_sec_clip: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) bayes: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) fixed 1: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) fixed 100: run7 0.0 pinned 0.0 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) bayes_sec: run7 5.298013245033113 pinned 5.298013245033113 -> equal; s also equal: yes
+   sec5 1549 autoUniv-au6-750 (K 8) eq 1: run7 4.635761589403973 pinned 4.635761589403973 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) bayes_sec_clip: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) bayes: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) fixed 1: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) fixed 100: run7 15.984015984015985 pinned 15.984015984015985 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) bayes_sec: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec5 41671 microaggregation2 (K 4) eq 1: run7 13.286713286713287 pinned 13.286713286713287 -> equal; s also equal: yes
+   sec4 377 synthetic_control (K 6) si1c: run7 65.83333333333333 SEC6 development record 65.83333333333333 -> equal
+   sec4 377 synthetic_control (K 6) ar1b: run7 45.0 SEC6 development record 45.0 -> equal
+   sec4 377 synthetic_control (K 6) edge: run7 40.833333333333336 SEC6 development record 40.833333333333336 -> equal
+   sec4 377 synthetic_control (K 6) fixed_clip 1: run7 40.0 SEC6 development record 40.0 -> equal
+   sec4 377 synthetic_control (K 6) fixed_clip 1000: run7 45.0 SEC6 development record 45.0 -> equal
+   sec5 41671 microaggregation2 (K 4) si1c: run7 26.073926073926074 SEC6 development record 26.073926073926074 -> equal
+   sec5 41671 microaggregation2 (K 4) ar1b: run7 13.286713286713287 SEC6 development record 13.286713286713287 -> equal
+   sec5 41671 microaggregation2 (K 4) edge: run7 53.14685314685315 SEC6 development record 53.14685314685315 -> equal
+   sec5 41671 microaggregation2 (K 4) fixed_clip 1: run7 13.286713286713287 SEC6 development record 13.286713286713287 -> equal
+   sec5 41671 microaggregation2 (K 4) fixed_clip 1000: run7 13.486513486513488 SEC6 development record 13.486513486513488 -> equal
+D-ID -> holds (34/34 equal; SEC4/SEC5 records on 4 carriers, SEC6 development records on 2)
