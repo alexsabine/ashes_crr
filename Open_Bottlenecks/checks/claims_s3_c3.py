@@ -320,4 +320,30 @@ CLAIMS = [
      'raw_file': 'c3/txt/2210.04865v1.txt',
      'agent_note': 'Bears: KL as a rate of change of the DATA stream (between chunks), for drift prediction; neither the '
                    'learner\'s own change nor a consolidation trigger.'},
+    # ------------------------------------------------------------------ added 2026-09-30 by the investigator (AGENT_LOG 206)
+    {'id': 'c3:24', 'tag': 'c3', 'reading': 'close',
+     'reading_by': "investigator (the owner supplied the full text, prompt-log entry 253; AGENT_LOG 206)",
+     'source': 'Anonymous authors, "Timed Dynamic Expansion for Continual Learning" (TIDE; ICLR 2026 submission, OpenReview '
+               'CA4yNpLTAU; under double-blind review)',
+     'version': 'owner-supplied PDF, 28 pages, received 2026-09-30; sha256 '
+                '93034708a36ad1d7ba9239efbe30446befd69a8e9af16192f62e17f267a4f691',
+     'url': 'https://openreview.net/forum?id=CA4yNpLTAU',
+     'quote': ['The key principle of TIDE is that expansion should occur when forgetting arises instead of at task boundaries.',
+               'TIDE continuously monitors past tasks during training on the current task and allocates new adapters when '
+               'interference is statistically significant.',
+               'where F(A) i denotes the trace approximation of the Fisher score, captures this phenomenon by quantifying the '
+               'weighted sum of parameter shifts, with larger shifts in more important parameters (those with high F) resulting '
+               'in a higher forgetting score.',
+               'Here, α is a confidence level controlling responsiveness.'],
+     'raw_file': 'c3/tide/tide.txt',
+     'agent_note': "Close, and the nearest source for C3. TIDE triggers expansion (adding an adapter, the consolidation-like action) "
+                   "during training, not at task boundaries, when the Fisher-weighted squared displacement of the parameters from "
+                   "a past task's optimum, F_A(k) = sum_i F_i^(A) (theta*_A,i - theta_i)^2 (its Equation 1), is statistically "
+                   "out of distribution against a moving average of its history (p < alpha). Differences from C3: (1) the "
+                   "quantity is the CHORD (Fisher-weighted endpoint displacement from a past task's optimum; about 2 KL for small "
+                   "moves), not the ARC (the accumulated own path since the last consolidation); (2) the reference is each past "
+                   "task's stored optimum, which needs the past task boundaries and memory buffers, not the last consolidation; "
+                   "(3) a significance test against history, not a fixed unit. The chord is the quantity T1X2 found predicts "
+                   "forgetting (the path did not beat the endpoint, ledger T1X2-1), so the part left to C3, the arc, is the side "
+                   "the repository's own record disfavours."},
 ]

@@ -26,9 +26,10 @@ MISSING = {
     'c2': ("accumulation of own change to a unit since the last refresh, for plasticity under task switches; published: resets "
            "on a spike of own predictive KL against a running average (RDumb++), on per-step label flips (ABR), on accumulated "
            "reward-prediction error (SeRe)", True),
-    'c3': ("the own accumulated change as the consolidation trigger; published: the same trigger for communication (Kamp et "
-           "al.; event-triggered FL) and loss-plateau-triggered consolidation (Aljundi et al. 2019; Online-LoRA); TIDE not "
-           "reached", True),
+    'c3': ("the own accumulated change (the arc, since the last consolidation) as the consolidation trigger; published: the "
+           "same trigger for communication (Kamp et al.; event-triggered FL), loss-plateau-triggered consolidation (Aljundi et "
+           "al. 2019; Online-LoRA), and TIDE's expansion on a significant Fisher-weighted displacement from a past task's optimum "
+           "(the chord; added 2026-09-30 from the owner-supplied full text, AGENT_LOG 206)", True),
 }
 
 

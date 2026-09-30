@@ -1767,3 +1767,7 @@ Can you give me a quick summary on the last output from the hop dc comparison an
 Yes. CRR is pointing toward SOTA and we are learning why things work. Now how can we push beyond that method using CRR to the next step? I asked you earlier for bottlenecks, I gave you a possible solution. You tried it then found a paper that already does it.
 
 See the issue here? I need you to find the actual big bottlenecks so we can put crr to the proper test on things that are not currently possible
+
+## 253 — 2026-09-30T05:59:07Z
+
+@"/root/.claude/uploads/77fb7a2b-ce3d-5c52-a1a6-710031fa20e9/39b7e328-24237_Timed_Dynamic_Expansion_.pdf" Here is the paper you requested in full.

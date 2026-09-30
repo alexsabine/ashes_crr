@@ -12,8 +12,8 @@ C2 arc-triggered refresh (plasticity under switches, h3-B1)
    goes on to a stage-4 declaration: yes
 
 C3 arc-triggered consolidation (boundary-free streams, h4-B1, h1-B1)
-   claims 24, sources 24: states 0, close 17, bears 7, contradicts 0 -> PARTLY REDUNDANT
-   missing (investigator): the own accumulated change as the consolidation trigger; published: the same trigger for communication (Kamp et al.; event-triggered FL) and loss-plateau-triggered consolidation (Aljundi et al. 2019; Online-LoRA); TIDE not reached; the part CRR predicts: yes
+   claims 25, sources 24: states 0, close 18, bears 7, contradicts 0 -> PARTLY REDUNDANT
+   missing (investigator): the own accumulated change (the arc, since the last consolidation) as the consolidation trigger; published: the same trigger for communication (Kamp et al.; event-triggered FL), loss-plateau-triggered consolidation (Aljundi et al. 2019; Online-LoRA), and TIDE's expansion on a significant Fisher-weighted displacement from a past task's optimum (the chord; added 2026-09-30 from the owner-supplied full text, AGENT_LOG 206); the part CRR predicts: yes
    goes on to a stage-4 declaration: yes
 
 candidates going on: c1, c2, c3
