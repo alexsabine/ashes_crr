@@ -254,7 +254,8 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     RRM2-T1          seen      gate closed (not run)
     RRM2-T2          seen      gate closed (not run)
     RRM2-T3          seen      gate closed (not run)
-    rows 186; by data status and allocation:
+    OB1-C1-A         seen      gate closed (not run)
+    rows 187; by data status and allocation:
         held-out  FAIL                                                 34
         held-out  NOT DECIDABLE                                        5
         held-out  PASS as scored, forced by the construction (not R6)  3
@@ -281,7 +282,7 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         seen      PASS on seen data                                    8
         seen      VOID                                                 1
         seen      control holds                                        4
-        seen      gate closed (not run)                                5
+        seen      gate closed (not run)                                6
         seen      holds on seen data                                   1
         seen      not a PASS (fragile at the boundary)                 1
         seen      numbers reported                                     1
