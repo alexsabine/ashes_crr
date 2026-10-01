@@ -1,0 +1,48 @@
+SEC6R D-ID-R (prereg/sec6r/DECLARATION.md): the patched loader against SEC6's frozen loader
+[0] PART_B equals the DATASETS line of prereg/sec6r/carrier_selection_sec7.txt: True
+[1] identity on every SEEN nominal-target carrier of SCL3, SEC3, SEC4 and SEC5 (matrices, labels, header):
+   scl3     188 eucalyptus                         n    543 d   19 -> identical
+   scl3     300 isolet                             n   3000 d  617 -> identical
+   scl3    1468 cnae-9                             n    960 d  856 -> identical
+   scl3    1475 first-order-theorem-proving        n   4999 d   51 -> identical
+   scl3    1478 har                                n   5001 d  561 -> identical
+   scl3    1497 wall-robot-navigation              n   5001 d   24 -> identical
+   scl3    1501 semeion                            n   1593 d  256 -> identical
+   scl3    4538 GesturePhaseSegmentationProcessed  n   4999 d   32 -> identical
+   scl3   40966 MiceProtein                        n    552 d   77 -> identical
+   scl3   40982 steel-plates-fault                 n   1886 d   27 -> identical
+   sec3    1596 covertype                          n   5000 d   54 -> identical
+   sec3   40685 shuttle                            n   5000 d    9 -> identical
+   sec3   41164 fabert                             n   5000 d  800 -> identical
+   sec3   41166 volkert                            n   5000 d  180 -> identical
+   sec3   41167 dionis                             n   5000 d   60 -> identical
+   sec3   41168 jannis                             n   5000 d   54 -> identical
+   sec3   41169 helena                             n   5001 d   27 -> identical
+   sec4     375 JapaneseVowels                     n   5000 d   14 -> identical
+   sec4     377 synthetic_control                  n    600 d   60 -> identical
+   sec4    1459 artificial-characters              n   4998 d    7 -> identical
+   sec4    1466 cardiotocography                   n   2126 d   35 -> identical
+   sec4    1476 gas-drift                          n   5001 d  128 -> identical
+   sec4    1491 one-hundred-plants-margin          n      0 d   64 -> identical
+   sec4   23380 cjs                                n      0 d   33 -> identical
+   sec4   46906 anneal                             n    890 d   38 -> identical
+   sec4   46980 MIC                                n      0 d  111 -> identical
+   sec5      57 hypothyroid                        n      0 d   29 -> identical
+   sec5     155 pokerhand                          n   5001 d   10 -> identical
+   sec5    1503 spoken-arabic-digit                n   5000 d   14 -> identical
+   sec5    1509 walking-activity                   n   5000 d    4 -> identical
+   sec5    1529 volcanoes-a3                       n   1413 d    3 -> identical
+   sec5    1530 volcanoes-a4                       n   1410 d    3 -> identical
+   sec5    1532 volcanoes-b2                       n   5000 d    3 -> identical
+   sec5    1541 volcanoes-d4                       n   5000 d    3 -> identical
+   sec5    1549 autoUniv-au6-750                   n    750 d   40 -> identical
+   sec5   41671 microaggregation2                  n   5000 d   20 -> identical
+   sec5   41972 Indian_pines                       n   5000 d  220 -> identical
+   sec5   41982 Kuzushiji-MNIST                    n   5000 d  784 -> identical
+   identical on 38/38
+[2] a STRING target is read (synthetic ARFF in a temporary folder, never the repository):
+   frozen loader: rows kept 0, dropped 240 -> drops every row, as SEC6 found
+   patched loader: rows kept 240, dropped 0, classes used 4, counts [60, 60, 60, 60] -> reads the STRING target
+[3] SEC6's smokefull through this wrapper against prereg/sec6/smokefull.txt (the CPU-seconds line excluded: timing is not deterministic):
+   lines 72 (pinned 72); identical outside the CPU line: True
+D-ID-R -> holds
