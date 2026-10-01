@@ -1,0 +1,4 @@
+Thu Oct  1 00:18:03 UTC 2026
+49c32f4dc30b40ac5f1eef8fbc2690c7e9ddc6a135771eb913f425bd9093cb9c  data/raw/openml/46584_Student_Performance_on_an_Entrance_Examination.arff  https://openml.org/data/v1/download/22121277/Student_Performance_on_an_Entrance_Examination.arff  md5-verified  version 1  downloaded 2026-10-01T00:18:10Z  bytes 54520
+20d1af3ba4370393dd2c09d10fba55ee5457f1e4f0d6d28083b2c70d1d962e92  data/raw/openml/46593_HCV_data.arff  https://openml.org/data/v1/download/22121286/HCV_data.arff  md5-verified  version 1  downloaded 2026-10-01T00:18:14Z  bytes 45125
+475854320a71796c587cdf71bca2848c398d81845bfa112d908d55cb35cfc726  data/raw/openml/46597_Estimation_of_Obesity_Levels.arff  https://openml.org/data/v1/download/22121290/Estimation_of_Obesity_Levels.arff  md5-verified  version 1  downloaded 2026-10-01T00:18:21Z  bytes 276474
