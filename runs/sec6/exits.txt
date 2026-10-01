@@ -1,0 +1,16 @@
+start 2026-10-01T00:34:03Z
+46597 exit 0 2026-10-01T00:34:03Z
+46584 exit 0 2026-10-01T00:34:03Z
+46593 exit 0 2026-10-01T00:34:03Z
+46603 exit 0 2026-10-01T00:34:03Z
+46676 exit 0 2026-10-01T00:34:04Z
+46652 exit 0 2026-10-01T00:34:04Z
+46653 exit 0 2026-10-01T00:34:05Z
+46721 exit 0 2026-10-01T00:34:10Z
+46737 exit 0 2026-10-01T00:34:11Z
+46762 exit 0 2026-10-01T00:34:11Z
+46686 exit 0 2026-10-01T00:34:22Z
+46708 exit 0 2026-10-01T00:34:41Z
+operator kill 2026-10-01T00:35Z: runner stopped while 46686 and 46708 were loading (no exit recorded); both re-run from scratch, partial files kept in runs/sec6/interrupted/
+46686 exit 0 2026-10-01T00:35:19Z (re-run: the first was interrupted by the operator's kill)
+46708 exit 0 2026-10-01T00:35:58Z (re-run: the first was interrupted by the operator's kill)

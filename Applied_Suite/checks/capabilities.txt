@@ -17,7 +17,7 @@ CHOICES:
   C7 an inference pause, a must-fail control and a limit case are printed beside, never as a basis
   SENSITIVITIES (the review of 2026-09-30): a decisive item prints the grade under a stricter reading; the primary grade
      stays the declaration's 'highest rung that applies'
-ledger/LEDGER.md: sha256 1131975ea614a2f5880dca416ab334751e2fd1dac15270eeba3715a3c86e0ba5; rows parsed 204 (10 cells each); rows with another cell count 0; duplicate ids 0
+ledger/LEDGER.md: sha256 315c9f49fad904cfa0f5df668a4a2eacc6270adcbea6818e37a192fc6ccb0856; rows parsed 214 (10 cells each); rows with another cell count 0; duplicate ids 0
 
 ----------------------------------------------------------------------------------------------------------------------
 K1  a continual-learning penalty set without a hyperparameter sweep
@@ -32,12 +32,15 @@ K1  a continual-learning penalty set without a hyperparameter sweep
                      it), a guard chosen on SEEN carriers, not a CRR rule; not PASS-2: no earlier held-out pass of the clipped rule)
                    observed: 6/6: JapaneseVowels +2.5626 (step 1.00), anneal +5.5056 (step 5.63), artificial-characters +0.5594 (step 1.96), cardiotocography +1.0377 (step 1.00), gas-drift +2.1822
                      (step 2.59), synthetic_control +3.5000 (step 3.59); beside it unguarded SEC 3/6, raw Laplace 1/6, the rule Ω=1 5/6
-    [PENDING     ] SEC6-1 | pending | the second replication of SEC4-1, fifth unseen family (a PASS-1 here makes SEC4-1 + SEC6-1 PASS-2)
-                   source: ledger/LEDGER.md
-                   (no row with this id in ledger/LEDGER.md)
-    [PENDING     ] SEC6-G | pending | SEC6's instrument gate: a learner frozen after task 1 must not meet the criterion
-                   source: ledger/LEDGER.md
-                   (no row with this id in ledger/LEDGER.md)
+    [beside      ] SEC6-1 | NOT DECIDABLE | the second replication of SEC4-1, fifth unseen family (a PASS-1 here makes SEC4-1 + SEC6-1 PASS-2)
+                   source: ledger/LEDGER.md:215
+                   verdict: NOT DECIDABLE (fewer than 4 carriers scored: N = 0); SEC4-1's PASS-1 is neither replicated nor contradicted here; SEC5-1 FAIL stands as its replication
+                   observed: 0 of 12 carriers scored: every SEC6 carrier declares its target as an ARFF STRING attribute (12/12, runs/sec6/diagnose_targets.txt, post hoc), which the frozen loader
+                     (SCL3's, unchanged since SCL3) reads as a number, so every row is dropped; clipped SEC not behind on 0/0
+    [beside      ] SEC6-G | report | SEC6's instrument gate: a learner frozen after task 1 must not meet the criterion
+                   source: ledger/LEDGER.md:214
+                   verdict: report (vacuous: no carrier scored; the scorer's CLOSED is computed on 0/0 and decides nothing; no level)
+                   observed: edge not behind on 0/0; the scorer prints 'SEC6-G CLOSED' at 0/0 (closes at 0)
     [beside      ] SEC1-0         DECIDABLE        DECIDABLE  (LEDGER.md:94)
     [beside      ] SEC1-1         PASS (no level)  PASS (seen data; rung R5, not PASS-0), exactly at the threshold; fars does not close an...  (LEDGER.md:95)
     [beside      ] SEC1-2         PASS (no level)  PASS (seen data; rung R5, not PASS-0)  (LEDGER.md:96)
@@ -95,6 +98,14 @@ K1  a continual-learning penalty set without a hyperparameter sweep
     [beside      ] SEC3-3-G       report           report (post hoc; not a re-score; SEC3-3 stands as scored): gate CLOSED: SEC3-3 (FAIL a...  (LEDGER.md:210)
     [beside      ] SEC4-1-G       report           report (post hoc; not a re-score; SEC4-1 stands as scored): gate CLOSED: SEC4-1 (PASS-1...  (LEDGER.md:211)
     [beside      ] SEC5-1-G       report           report (post hoc; not a re-score; SEC5-1 stands as scored): gate CLOSED: SEC5-1 (FAIL a...  (LEDGER.md:212)
+    [beside      ] SEC6-1F        NOT DECIDABLE    NOT DECIDABLE (fewer than 4 carriers not floor-bound: N_F = 0)  (LEDGER.md:216)
+    [beside      ] SEC6-C         NOT DECIDABLE    NOT DECIDABLE (fewer than 4 carriers scored: N = 0)  (LEDGER.md:217)
+    [beside      ] SEC6-B         NOT DECIDABLE    NOT DECIDABLE (fewer than 4 carriers scored: N = 0)  (LEDGER.md:218)
+    [beside      ] SEC6-T         NOT DECIDABLE    NOT DECIDABLE (a transferred lambda is behind on 0 carriers, need >= 3)  (LEDGER.md:219)
+    [beside      ] SEC6-2         report           report (vacuous: the scorer's PASS is computed on 0 carriers; no level, not counted as ...  (LEDGER.md:220)
+    [beside      ] SEC6-P         report           report (vacuous: the scorer's PASS is computed on 0/0; no level, not counted as PASS-0)  (LEDGER.md:221)
+    [beside      ] SEC6-S         report           report (vacuous: no cell scored; no level)  (LEDGER.md:222)
+    [beside      ] SEC6-K         report           report (no run: N = 0)  (LEDGER.md:223)
     [note        ] excluded | not read here | the SEC family, every row (C6)
                    source: ledger/LEDGER.md
                    SCL3-C, SCL3-V, SCL3-O (SCL3's operator-harness rows, read under K2 and K3)
@@ -134,7 +145,6 @@ K1  a continual-learning penalty set without a hyperparameter sweep
                      either way. |
   failures of the same kind beside the grade (9): SEC1-4 (FAIL); SEC3-2 (FAIL); SEC3-3 (FAIL); SEC3-4 (FAIL); SEC3-T (FAIL); SEC5-1 (FAIL); SEC5-2 (FAIL); SEC5-T (FAIL); SEC_Analysis FM6 (must-fail control met the criterion)
   prior art beside the grade (never changes it): SPA1 verdict: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT)
-  pending: SEC6-1 (pending); SEC6-G (pending)
 ----------------------------------------------------------------------------------------------------------------------
 K2  a lossless pause and resume of learning (the empty cut as a construction)
   the declaration names: SCL1-1, SCL3-C, Empty_Cut_Engineering/ G0-G7, Real_World/RW1.md, Lossless_Pause/ (C4 and C5 REDUNDANT)
@@ -645,7 +655,7 @@ ROB1  ROB1's results (named for AP6)
   pending: ROB1 tally_4b (present, not read); ROB1-* (pending)
 ======================================================================================================================
 SUMMARY
-  K1          RESULT        basis: SEC4-1                                   failures beside: 9   limits: 0   pending: 2  sensitivity: CLOSED under SEC_Analysis FM6
+  K1          RESULT        basis: SEC4-1                                   failures beside: 9   limits: 0   pending: 0  sensitivity: CLOSED under SEC_Analysis FM6
   K2          CONSTRUCTION  basis: SCL1-1, SCL1-1b, SCL2-1, SCL2-1b, SCL... failures beside: 2   limits: 10  pending: 0  sensitivity: -
   K3          CONSTRUCTION  basis: SCL1-1, SCL2-1, SCL3-C                   failures beside: 1   limits: 1   pending: 0  sensitivity: -
   K4          CLOSED        basis: -                                        failures beside: 6   limits: 0   pending: 0  sensitivity: -

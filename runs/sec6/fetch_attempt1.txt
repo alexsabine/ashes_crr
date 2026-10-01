@@ -1,0 +1,19 @@
+49c32f4dc30b40ac5f1eef8fbc2690c7e9ddc6a135771eb913f425bd9093cb9c  data/raw/openml/46584_Student_Performance_on_an_Entrance_Examination.arff  https://openml.org/data/v1/download/22121277/Student_Performance_on_an_Entrance_Examination.arff  md5-verified  version 1  downloaded 2026-10-01T00:07:56Z  bytes 54520
+20d1af3ba4370393dd2c09d10fba55ee5457f1e4f0d6d28083b2c70d1d962e92  data/raw/openml/46593_HCV_data.arff  https://openml.org/data/v1/download/22121286/HCV_data.arff  md5-verified  version 1  downloaded 2026-10-01T00:08:04Z  bytes 45125
+475854320a71796c587cdf71bca2848c398d81845bfa112d908d55cb35cfc726  data/raw/openml/46597_Estimation_of_Obesity_Levels.arff  https://openml.org/data/v1/download/22121290/Estimation_of_Obesity_Levels.arff  md5-verified  version 1  downloaded 2026-10-01T00:08:11Z  bytes 276474
+78625b55df515cdea8552553abedde9bf66462aa4b8389d08e1a7a3ca6c4bd63  data/raw/openml/46603_regensburg_pediatric_appendicitis.arff  https://openml.org/data/v1/download/22121296/regensburg_pediatric_appendicitis.arff  md5-verified  version 1  downloaded 2026-10-01T00:08:17Z  bytes 187094
+ac88b01c937ee167f8061c13861c9aefba15e3f8f26d95d7c334875578441a29  data/raw/openml/46652_news_channel.arff  https://openml.org/data/v1/download/22121345/news_channel.arff  md5-verified  version 1  downloaded 2026-10-01T00:08:48Z  bytes 5149124
+ad1d7e71d3283530265776956c38608a0e452adfc039bc79c2b4b069bc7e919a  data/raw/openml/46653_wine_reviews.arff  https://openml.org/data/v1/download/22121346/wine_reviews.arff  md5-verified  version 2  downloaded 2026-10-01T00:10:32Z  bytes 24021943
+00b5629654023d64d2f56b21849fc0461869a23cadfaa0d9c45d8de43049a2d4  data/raw/openml/46676_WBCAtt.arff  https://openml.org/data/v1/download/22121369/WBCAtt.arff  md5-verified  version 1  downloaded 2026-10-01T00:10:41Z  bytes 905959
+curl: (56) Recv failure: Connection reset by peer
+Traceback (most recent call last):
+  File "/home/user/ashes_crr/data/fetch_openml.py", line 46, in <module>
+    dest = RAW / f"{stem}.arff"; curl(desc["url"], dest)
+                                 ~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/user/ashes_crr/data/fetch_openml.py", line 29, in curl
+    subprocess.run(["curl", "-sSfL", "--retry", "3", "--max-time", "900", "-o", str(dest), url], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.14.0rc2-linux-x86_64-gnu/lib/python3.14/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['curl', '-sSfL', '--retry', '3', '--max-time', '900', '-o', '/home/user/ashes_crr/data/raw/openml/46686_DBPedia.arff', 'https://openml.org/data/v1/download/22121379/DBPedia.arff']' returned non-zero exit status 56.
