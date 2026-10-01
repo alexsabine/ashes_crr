@@ -143,3 +143,4 @@ sha256sum -c prereg/sec6/HASH.txt (run from prereg/sec6):
 ./smokefull.txt: OK
 HASH.txt sha256:
 69c37965632ee57d6df0ca6050ff688cf1084d4dd8b5790199697f61d6619eb5  prereg/sec6/HASH.txt
+files OK: 141 of 141 listed in HASH.txt

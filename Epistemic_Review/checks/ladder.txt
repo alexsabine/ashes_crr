@@ -262,9 +262,19 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
     SEC4-1-G         seen      report (no verdict registered)
     SEC5-1-G         seen      report (no verdict registered)
     SEC7-A           seen      gate closed (not run)
-    rows 194; by data status and allocation:
+    SEC6-G           held-out  report (no verdict registered)
+    SEC6-1           held-out  NOT DECIDABLE
+    SEC6-1F          held-out  NOT DECIDABLE
+    SEC6-C           held-out  NOT DECIDABLE
+    SEC6-B           held-out  NOT DECIDABLE
+    SEC6-T           held-out  NOT DECIDABLE
+    SEC6-2           held-out  report (no verdict registered)
+    SEC6-P           held-out  report (no verdict registered)
+    SEC6-S           held-out  report (no verdict registered)
+    SEC6-K           held-out  report (no verdict registered)
+    rows 204; by data status and allocation:
         held-out  FAIL                                                 34
-        held-out  NOT DECIDABLE                                        5
+        held-out  NOT DECIDABLE                                        10
         held-out  PASS as scored, forced by the construction (not R6)  3
         held-out  PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b) 1
         held-out  PASS-0                                               12
@@ -282,7 +292,7 @@ The epistemic ladder (Epistemic_Review/checks/ladder.py): allocations computed f
         held-out  numbers reported                                     1
         held-out  precondition met                                     5
         held-out  reduces to a constant                                1
-        held-out  report (no verdict registered)                       39
+        held-out  report (no verdict registered)                       44
         held-out  sensitivity: fragile                                 5
         held-out  sensitivity: not fragile                             7
         seen      FAIL                                                 5

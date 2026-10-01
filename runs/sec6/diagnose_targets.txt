@@ -1,0 +1,17 @@
+SEC6 carriers: the target's declared ARFF kind and where the frozen loader's rows go (POST HOC; no verdict)
+    id dataset                                  target                   kind     distinct    rows dropped (frozen) dropped by features alone features used
+ 46584 Student_Performance_on_an_Entrance_Exami Performance              string          4     666              666                         0             0
+ 46593 HCV_data                                 Category                 string          5     615              615                        26            11
+ 46597 Estimation_of_Obesity_Levels             NObeyesdad               string          7    2111             2111                         0             8
+ 46603 regensburg_pediatric_appendicitis        Management               string          4     782              782                       782            17
+ 46652 news_channel                             channel                  string          6   20284            20284                         0            16
+ 46653 wine_reviews                             variety                  string         30   84123            84123                      5578             2
+ 46676 WBCAtt                                   label                    string          5   10298            10298                         0             0
+ 46686 DBPedia                                  l3                       string        219  342781           342781                         0             1
+ 46708 Wikipedia_Talk_Labels                    class                    string         15  855514           855514                         0             5
+ 46721 Mental_Health_Dataset                    Occupation               string          5  292364           292364                         0             0
+ 46737 agriculture_dataset_karnataka            Crops                    string         13    3158             3158                         0             7
+ 46762 air-quality-and-pollution-assessment     Air_Quality              string          4    5000             5000                         0             9
+
+target kinds over the 12: string 12
+a carrier whose 'dropped (frozen)' equals its rows while 'dropped by features alone' is smaller lost its rows to the target, not to its features

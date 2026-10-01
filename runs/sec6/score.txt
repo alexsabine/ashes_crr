@@ -1,0 +1,49 @@
+======================================================================================================================
+SEC6 scoring (prereg/sec6/DEV_DECLARATION.md and PREREG.md): SEC4's clipped SEC (kappa 0.5) replicated on a fifth unseen family; kappa swept; against SI-1, SI-0.1, AR1-P, AR1-B, SI-1C, raw Laplace (no P1 arm carried)
+======================================================================================================================
+carriers scored 0: []; excluded 12: ['DBPedia', 'Estimation_of_Obesity_Levels', 'HCV_data', 'Mental_Health_Dataset', 'Student_Performance_on_an_Entrance_Examination', 'WBCAtt', 'Wikipedia_Talk_Labels', 'agriculture_dataset_karnataka', 'air-quality-and-pollution-assessment', 'news_channel', 'regensburg_pediatric_appendicitis', 'wine_reviews']; of them by the d = 0 rule (Amendment 1): ['Mental_Health_Dataset', 'Student_Performance_on_an_Entrance_Examination', 'WBCAtt']
+
+----------------------------------------------------------------------------------------------------------------------
+SEC6-G instrument gate: edge (a learner frozen after task 1, P1's M6) not behind the tuned lambda: 0/0 (closes at 0) -> SEC6-G CLOSED; 
+SEC6-1 tuning-free, the clipped SEC (kappa 0.5) not behind the tuned lambda: 0/0 (need 0) -> NOT DECIDABLE (fewer than 4 carriers scored) [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)]; 
+   beside it (report): unguarded SEC 0/0; the rule Ω=1 0/0
+SEC6-1F SEC6-1's criterion on the carriers not floor-bound (tuned mean − 100 x majority share >= 3 steps): F = [] (0 of 0); the clipped SEC not behind on 0/0 (need 0) -> NOT DECIDABLE (fewer than 4 carriers not floor-bound); floor-bound: []; tuned − majority share in steps: 
+   beside it (report): edge not behind the tuned lambda on F 0/0
+   task-1 share (report; 100 x the two most frequent used classes / n) with edge's and the clipped SEC's accuracies: 
+SEC6-2 no divergence: carriers with a clipped seed below half the tuned accuracy: [] (0) -> PASS; unguarded (report): []
+SEC6-B against the published baselines: the clipped SEC not behind the tuned lambda on 0/0; SI-1 0/0 (clipped SEC strictly more: NO); SI-0.1 0/0 (clipped SEC strictly more: NO); AR1-P 0/0 (clipped SEC strictly more: NO); AR1-B 0/0 (clipped SEC strictly more: NO); SI-1C 0/0 (clipped SEC strictly more: NO); raw Laplace 0/0 (clipped SEC strictly more: NO) -> NOT DECIDABLE (fewer than 4 carriers scored) [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)] (PASS only if strictly more than every one)
+   SI-1: −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+   SI-0.1: −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+   AR1-P: −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+   AR1-B: −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+   SI-1C: −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+   raw Laplace: −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+   edge (control: P1's M6, frozen after task 1; not in SEC6-B's set): not behind 0/0; −tuned ; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+SEC6-T: NOT DECIDABLE (a transferred lambda is behind on only 0 carriers, need >= 3)
+SEC6-P clipped SEC (1 configuration) not behind the 3-point mini-sweep (3): 0/0 (need 0) -> PASS [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)]
+SEC6-S sensitivity over 0 cells x 0 carriers (3 window cells, kappa 0.25 and 1.0): flips in 0 of 0 -> not fragile; by cell: 
+   kappa 0.25: not behind 0/0; carriers with a seed below half the tuned accuracy: []
+   kappa 1: not behind 0/0; carriers with a seed below half the tuned accuracy: []
+SEC6-1 level as computed from SEC6-S, SEC6-2 and SEC6-G: no PASS
+   SEC6-G CLOSED: SEC6-1, SEC6-B and SEC6-P claim no level above PASS-0 (UNINFORMATIVE: a learner frozen after task 1 meets the same criterion)
+   the clipped SEC's family record (primary rows; SEC4 and SEC5 read from runs/sec4/score.txt and runs/sec5/score.txt): SEC4-1 PASS (6/6); SEC5-1 FAIL (4/8); SEC6-1 NOT DECIDABLE (fewer than 4 carriers scored) (0/0) (UNINFORMATIVE: SEC6-G CLOSED) -> PASS on 1 of 3 families
+SEC6-GC instrument gate against the tuned clipped lambda: edge not behind the tuned clipped lambda: 0/0 (closes at 0) -> SEC6-GC CLOSED; 
+SEC6-C tuning-free against the tuned lambda given the same clip: the clipped SEC (kappa 0.5) not behind the tuned clipped lambda: 0/0 (need 0) -> NOT DECIDABLE (fewer than 4 carriers scored) [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-GC)]; 
+   SEC6-GC CLOSED: SEC6-C claims no level above PASS-0 (UNINFORMATIVE: a learner frozen after task 1 meets the same criterion)
+   beside it (report): every arm against the tuned clipped lambda (not behind: arm − tuned clipped > −step_c)
+      clipped SEC: 0/0; 
+      SI-1: 0/0; 
+      SI-0.1: 0/0; 
+      AR1-P: 0/0; 
+      AR1-B: 0/0; 
+      SI-1C: 0/0; 
+      raw Laplace: 0/0; 
+      unguarded SEC: 0/0; 
+      rule Ω=1: 0/0; 
+      edge (control): 0/0; 
+   the tuned clipped lambda against the tuned lambda (report; margin in steps of the tuned lambda): ; ahead by more than a step on 0/0: []
+   the tuned clipped lambda at the largest lambda of its grid (report; SEC1's grid may not reach its optimum): 0/0 []
+SEC6-K compute (report; CPU seconds from the timing files):
+SEC6-E guard firings (report): 
+   fixed_clip (Amendment 2) task starts clipped at the tuned clipped lambda: 
+   SI-1C (Amendment 1) task starts floored or capped: 

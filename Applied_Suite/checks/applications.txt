@@ -12,7 +12,7 @@ Application grade (the declaration): SUPPORTED / CONSTRUCTION-BACKED / CONDITION
      classes; the stricter reading A3' (-> NOT SUPPORTED) is printed as a sensitivity
   A4 a pending reading (ROB1) is neither CLOSED nor a rung; A5 AP7 reads K2 through EPS2's federated-client row
   A6 the capability sensitivities printed by capabilities.py are carried through every application and forecast
-capability grades imported from Applied_Suite/checks/capabilities.py (ledger sha256 1131975ea614a2f5880dca416ab334751e2fd1dac15270eeba3715a3c86e0ba5):
+capability grades imported from Applied_Suite/checks/capabilities.py (ledger sha256 315c9f49fad904cfa0f5df668a4a2eacc6270adcbea6818e37a192fc6ccb0856):
   K1          RESULT        a continual-learning penalty set without a hyperparameter sweep  [sensitivity: CLOSED under SEC_Analysis FM6]
   K2          CONSTRUCTION  a lossless pause and resume of learning (the empty cut as a construction)
   K3          CONSTRUCTION  a learner whose valuation gives it no reason to resist a pause
@@ -637,7 +637,7 @@ readings capabilities.py prints; SUP SUPPORTED, CB CONSTRUCTION-BACKED, COND CON
 
 FORECASTS (the declaration, written before any source or script), scored
   1. No application is SUPPORTED; K1 is at most RESULT (SEC4-1) with a failed replication, unless SEC6-1 changes that.
-     applications SUPPORTED: 0 (none); K1 RESULT, SEC5-1 FAIL, SEC6-1 pending (holds) -> HOLDS
+     applications SUPPORTED: 0 (none); K1 RESULT, SEC5-1 FAIL, SEC6-1 present (holds) -> HOLDS
   2. AP2, AP3, AP4, AP7 and AP8 are CONSTRUCTION-BACKED.
      AP2 CONDITIONAL, AP3 CONDITIONAL, AP4 CONDITIONAL, AP7 NOT SUPPORTED, AP8 CONDITIONAL; CONSTRUCTION-BACKED 0 of 5 -> FAILS
      sensitivity, letter reading: CONSTRUCTION-BACKED 0 of 5 (none)
