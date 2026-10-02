@@ -378,7 +378,10 @@ Open_Bottlenecks/          OB1 (prompt-log entry 252): open CL bottlenecks first
                            optimiser moments) GATE CLOSED (ledger OB1-C1-A); C3 (arc vs chord consolidation) GATE CLOSED (ledger OB1-C3-A)
 Applied_Suite/             the applied-suite programme of prompt-log entry 257 (PROGRAMME.md: P1-P7); APPLICATIONS_DECLARATION.md (APP1: capabilities
                            K1-K7 and applications AP1-AP10 graded on UX, energy, security, privacy, compute from the ledger; checks/capabilities.py,
-                           applications.py; market sweep M1-M3); a note, not evidence (R8)
+                           applications.py; market sweep M1-M3); P7 the use-case suite (SUITE_DECLARATION.md pushed first;
+                           checks/suite.py + suite.txt, CI-checked: 17 rows in four domains, each with its grade, rung, failures beside,
+                           prior art, CRR's part by a declared rule, and pinned compute lines; the five forecasts decided; SUITE.md);
+                           a note, not evidence (R8)
 SEC_Analysis/              P1: why SEC4 passed and SEC5 did not (DECLARATION.md + Amendments 1-3; checks/sec_lib.py loader reproducing 122 pinned
                            checks; a1_a3, a4_a6, a5_a9_a10, a7_a8, a11_grade, a12_a14 and m_checks (M0-M6 mechanism runs, m_runs/) pinned and
                            CI-checked; WHY_SEC4_WORKED.md, verified twice); post hoc on seen records, no ledger row

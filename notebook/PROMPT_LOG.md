@@ -1813,3 +1813,298 @@ What is the omega sweeps in simple terms? Remind me, I lost track
 ## 259 — 2026-10-01T00:53:15Z
 
 Yes, please run full SEC6 checks
+
+## 260 — 2026-10-02T01:20Z (received just before 01:21:00Z; exact second not recorded)
+
+Please stop any pending task and initiate the attached protocol
+
+PRE-PHOENIX AUDIT — ASHES
+
+You are working inside alexsabine/ashes_crr.
+
+Alexander is preparing to build a third repository, provisionally called Phoenix.
+
+Before Phoenix is created, I am asking both Ashes and Embers to perform a final epistemically rigorous audit of their own histories. After each repository has examined itself, you may also inspect the other repository and compare what has happened.
+
+The corresponding repository is:
+
+* Ashes: alexsabine/ashes_crr
+* Embers: alexsabine/embers_CRR
+
+Embers is being given a parallel prompt. This is intentional.
+
+The purpose is not to make CRR look better.
+The purpose is not to rescue failed predictions.
+The purpose is not to relax the adversarial standards.
+The purpose is not to manufacture a positive narrative before Phoenix begins.
+
+The purpose is to establish, as clearly as possible, what has actually happened during the research programme, what different classes of negative result genuinely imply, which observations remain interesting despite not meeting promotion criteria, and whether the current adversarial architecture has sometimes conflated:
+
+* falsification of a CRR principle;
+* falsification of one operationalisation;
+* failure of an experimental instrument;
+* failure of a loader or data pipeline;
+* lack of statistical identifiability;
+* reduction to known mathematics;
+* loss to a comparator;
+* failure of a promotion gate;
+* fragility under sensitivity testing;
+* inconclusive / NOT DECIDABLE outcomes;
+* VOID outcomes;
+* and genuinely substantive empirical failures.
+
+This distinction matters.
+
+1. Preserve the historical record
+
+Treat the repository as an append-only scientific history.
+
+Do not change, soften, relabel, delete, overwrite, reinterpret away, or retroactively rescue any existing verdict.
+
+If a study says FAIL, it remains FAIL.
+
+If it says VOID, it remains VOID.
+
+If it says NOT DECIDABLE, it remains NOT DECIDABLE.
+
+If a result reduced to a constant, conventional method, known theorem, ordinary statistical effect, or domain-standard explanation, preserve that reduction.
+
+If a prediction genuinely lost to a fair comparator, say so plainly.
+
+If a result passed under its registered criteria but later became epistemically weaker because of a post-hoc gate, comparator issue, or broader interpretation, preserve both facts.
+
+Phoenix must inherit the ashes, not rewrite them.
+
+2. Audit the research process itself
+
+Read the current repository carefully, including where relevant:
+
+* canonical mathematics / theory;
+* ontology;
+* ledger;
+* epistemic review;
+* retrodiction batteries;
+* declared prediction sets;
+* continual-learning work;
+* SEC series;
+* Ω / equanimity work;
+* Kalman-filter investigations;
+* RRM / replay / memory findings;
+* HopDC comparisons;
+* Empty True Map / AI-safety work;
+* rupture / lived-surplus tests;
+* reports;
+* preregistrations;
+* agent logs;
+* prompt logs;
+* negative controls;
+* sensitivity analyses;
+* comparator designs;
+* and recent commits.
+
+Do not simply summarize headline verdicts.
+
+Look for the trajectory of reasoning.
+
+Ask:
+
+1. What ideas were initially being investigated?
+2. How were they operationalised?
+3. Which assumptions were added in order to make them testable?
+4. Which of those added assumptions later became the thing that failed?
+5. Which failures genuinely reached the underlying CRR claim?
+6. Which failures reached only one implementation or mathematical translation?
+7. Which observations remained numerically or structurally interesting despite failing a promotion rule?
+8. Which apparent successes later reduced to ordinary mathematics or known mechanisms?
+9. Which apparent failures were actually failures of infrastructure, identifiability, measurement resolution, or frozen implementation?
+10. Has the adversarial protocol at any point become so strong that it prevented reasonable exploratory development before confirmatory testing?
+
+Do not answer the last question rhetorically. Audit it from the record.
+
+3. Build a SALVAGE MAP
+
+Create a new read-only analytical report. Do not alter previous verdicts.
+
+For every important CRR line of inquiry, classify its current state using categories such as:
+
+A. Genuine falsification pressure
+
+A fair test produced evidence against a clearly specified CRR claim or operationalisation.
+
+State exactly what was falsified and how far upward the negative evidence legitimately propagates.
+
+B. Operationalisation failure
+
+A particular mathematical translation of a broader CRR principle failed, while the broader principle was not uniquely entailed by that translation.
+
+State:
+
+core principle → operationalisation → test → failure
+
+and identify the highest level actually challenged.
+
+C. Comparator defeat / reduction
+
+The CRR formulation worked descriptively but was matched or beaten by an ordinary method, fixed rule, known theorem, standard model, or simpler comparator.
+
+These are important. Do not call them CRR evidence.
+
+But record whether anything useful was discovered in the process.
+
+D. Instrument / implementation failure
+
+Loader errors, unavailable data, broken frozen code, unsuitable carrier construction, numerical issues, missing channels, etc.
+
+These must not be treated as empirical evidence against CRR unless there is an independent reason that they bear on the theory.
+
+E. NOT DECIDABLE / identifiability limit
+
+The proposed hypotheses could not be experimentally distinguished at the available resolution or with the available channels.
+
+State what additional measurement or design would make them decidable.
+
+F. Near-win / unresolved empirical structure
+
+A result failed its formal promotion criteria but displayed a repeatable or interesting pattern worthy of exploratory study.
+
+Examples could include:
+
+* a numerical tendency that missed a threshold;
+* an effect that survives many carriers but fails one gate;
+* an apparently useful mechanism whose CRR-specific interpretation is not yet isolated;
+* a phenomenon that performs well but reduces under one comparator;
+* or a finding whose claim architecture was invalid although the empirical pattern itself remains real.
+
+These are not passes.
+
+They are candidate phenomena for Phoenix to understand.
+
+G. Strong surviving lead
+
+Reserve this category for something with unusually good evidence relative to the programme.
+
+It must still be described according to its actual rung.
+
+Do not promote anything beyond the current ledger.
+
+4. Pay particular attention to possible “extinguished leads”
+
+Review especially carefully:
+
+* SEC4 and the later SEC sequence;
+* why SEC4 worked where later SEC variants became gated, uninformative, fragile, or failed;
+* Ω = 1;
+* the Kalman-filter connection and any places where Ω≈1 or related scales arose naturally;
+* continual-learning forgetting / memory-depth rules;
+* RRM / replay-related effects;
+* HopDC drift/noise comparisons;
+* Empty True Map and the model/territory safety work;
+* lived surplus;
+* the ontology and its relationship to the empirical programme;
+* any finding that was mathematically interesting but epistemically downgraded because it was inherited, redundant, descriptive, or non-unique.
+
+For each one distinguish:
+
+Observed phenomenon
+
+from
+
+CRR interpretation
+
+from
+
+ordinary/non-CRR explanation
+
+from
+
+what evidence would distinguish the two.
+
+Do not favour the CRR interpretation.
+
+5. Examine the retrospective → prospective gap
+
+The repository currently contains a substantial retrodictive record and a much harsher held-out record.
+
+Audit this carefully.
+
+Do not mix denominators.
+
+Explain:
+
+* what the retrodictive record genuinely establishes;
+* what it does not establish;
+* what the prospective failures genuinely pressure;
+* whether the predictive programme has repeatedly selected overly specific translations of more abstract CRR ideas;
+* whether there is evidence of overfitting at the conceptual level;
+* and whether there are recurring structures that survived across otherwise failed tests.
+
+A finding that “CRR is good at redescribing known structure but poor at unique prediction” would be a legitimate conclusion if supported.
+
+A finding that “the confirmatory machinery has repeatedly killed immature operationalisations before the underlying principle was properly explored” would also be legitimate if supported.
+
+Do not assume either conclusion in advance.
+
+6. Now inspect Embers
+
+After completing the Ashes self-audit, inspect alexsabine/embers_CRR.
+
+Do not import Embers’ verdicts into Ashes or vice versa.
+
+Instead ask:
+
+* What did Embers inherit from Ashes?
+* What additional mathematical commitments did Embers introduce?
+* Which Embers failures bear on baseline CRR and which bear only on the rotor extension?
+* Where does Embers’ epistemic machinery appear stronger, cleaner, or fairer than Ashes?
+* Where may Embers have become too confirmatory too early?
+* Do Ashes and Embers independently identify the same live leads?
+* Do they independently identify the same dead ends?
+* Where do they disagree about what a failure means?
+
+Produce a section called:
+
+ASHES ↔ EMBERS CROSS-AUDIT
+
+For every material disagreement, state both interpretations without forcing convergence.
+
+7. Produce a Phoenix inheritance table
+
+Finish with a table suitable for a future Phoenix repository.
+
+Columns:
+
+| Lineage ID | Core CRR idea | Operationalisation(s) tried | Strongest supporting observation | Strongest negative evidence | Failure level | Current epistemic status | Mundane explanation | CRR-specific possibility | What Phoenix may explore | What Phoenix must never claim |
+
+Use stable lineage IDs where possible.
+
+Do not create Phoenix yet.
+
+Do not run new confirmatory experiments.
+
+Do not consume fresh holdout data.
+
+Do not alter existing study verdicts.
+
+This is archaeology and epistemic triage.
+
+8. Final question
+
+Finish by answering, from the evidence rather than tone:
+
+Has Ashes become appropriately adversarial, excessively suppressive of exploratory model development, or some mixture of both?
+
+Do not answer with a single adjective.
+
+Identify precisely which parts of the research workflow should remain merciless and which parts should be moved into an explicitly exploratory environment.
+
+The goal is not to keep CRR alive.
+
+The goal is to ensure that things are killed for the right reason, at the right level of abstraction, and only after they have been formulated well enough to deserve the test.
+
+Commit the audit separately from the historical evidence and clearly mark it as a PRE-PHOENIX INTERPRETIVE AUDIT — NO VERDICTS ALTERED.
+
+## 261 — 2026-10-02T03:39Z (logged at 03:39:51Z; received shortly before)
+
+Thank you. Please now summarise what crr is as a mathematical object
+
+Response: answered in chat from theory/CRR.md v3.1 and the Pre-Phoenix audit; no files, studies or verdicts changed.

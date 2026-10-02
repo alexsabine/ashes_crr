@@ -1,0 +1,470 @@
+PRE-PHOENIX AUDIT: mechanical outcome classes of every ledger row (Pre_Phoenix_Audit/checks/outcome_classes.py)
+NO VERDICT ALTERED: the script reads ledger/LEDGER.md and imports Epistemic_Review/checks/ladder.py; it writes nothing.
+ledger/LEDGER.md sha256 e18e96ac6485aa3ee2f8289f67ae7963c68feb77a2eafc0de32330ce919caef2
+Epistemic_Review/checks/ladder.py sha256 1101493c730f3701e492be10c72cd4b10c12d54b4384bbe383e4f35dafa700dc
+
+[0] Rules
+  data status: ladder.py's rule (dataset cell '(Y)' -> held-out, '(N)' -> seen, 'synthetic' -> synthetic, else inherited
+  within the study prefix); rows whose id starts with RLAW are skipped by ladder.py (prompt-log entry 139)
+  and printed here as 'RLAW (outside ladder)'.
+  verdict text: the third cell from the end with '**' removed (ladder.py's reading).
+  outcome class: first matching rule (Python regular expressions on the verdict text):
+    VOID                                           \bVOID\b
+    GATE CLOSED (before data)                      ^GATE CLOSED
+    UNINFORMATIVE                                  UNINFORMATIVE
+    NOT DECIDABLE                                  NOT DECIDABLE
+    PASS-1                                         ^PASS-1
+    PASS-0                                         ^PASS-0|^PASS \(PASS-0
+    FRAGILE                                        ^(FRAGILE|fragile)|^PASS(?=.*FRAGILE)
+    REDUCES / control violated / INERT (+IDLE)     ^(REDUCES|VIOLATED|INERT|IDLE)
+    construction                                   ^holds(?=.*construction)
+    PASS-other                                     ^PASS|^as claimed|stays PASS-0
+    report / no verdict                            ^report|^reported without verdict|no counted verdict
+    FAIL                                           ^FAIL
+    other: control / reproduction holds            ^holds
+    other: not fragile (sensitivity)               ^not fragile
+    other: does not reduce                         ^(DOES NOT REDUCE|does not reduce)
+    other: precondition met (DECIDABLE)            ^(DECIDABLE|decidable)
+    other: UNVERIFIABLE (R1)                       ^UNVERIFIABLE
+    other: numbers reported / no baseline ahead    ^(immaterial|metric matters|no published baseline)
+  INSTR flag (the brief's words; searched in the verdict and in the prediction-to-per-unit cells joined):
+    loader                       (?i)\bloader\b
+    crashed                      (?i)\bcrash(ed|es)?\b
+    VOID                         \bVOID\b
+    runner defect                (?i)runner defect|frozen runner
+    STRING                       \bSTRING\b
+    could not act as agents      (?i)could not act as agents
+    cannot fail                  (?i)cannot fail
+    no positive control          (?i)no positive control
+    not a test of                (?i)not a test of
+  extra words (auditor's addition; reported, do not set INSTR):
+    defect                       (?i)\bdefect
+    design failure               (?i)design failure
+    vacuous                      (?i)\bvacuous\b
+    TypeError                    TypeError
+    did not reach (optimiser)    (?i)did not reach the exact posterior
+  GATE flag: verdict matches (?i)gate[- ]?\w*\s+CLOSED|\bGC CLOSED|-G\s+CLOSED|GATE CLOSED
+
+[1] Every ledger row (235 rows; ladder.py allocates 225, skips 10)
+    id | data status | ladder.py allocation | outcome class | flags
+    ARC-EQ-Q1..Q4          | seen                  | VOID                                                 | VOID                                       | INSTR[VOID]
+    ARC-EQ-LAND            | seen                  | holds on seen data                                   | PASS-other                                 | -
+    ARC-A1                 | seen                  | not a PASS (fragile at the boundary)                 | FRAGILE                                    | -
+    ARC-A2                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    ARC-A3                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    ARC-METRIC             | seen                  | numbers reported                                     | other: numbers reported / no baseline ahead | -
+    ARC-COMPUTE            | seen                  | FAIL                                                 | FAIL                                       | -
+    ARC-T3                 | seen                  | FAIL                                                 | FAIL                                       | -
+    ARC-T1                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    ARC-T1b                | seen                  | FAIL                                                 | FAIL                                       | -
+    ARC-T2                 | seen                  | FAIL                                                 | FAIL                                       | -
+    ARC-R1                 | seen                  | unverifiable (R1)                                    | other: UNVERIFIABLE (R1)                   | -
+    EQX-1                  | held-out              | reduces to a constant                                | REDUCES / control violated / INERT (+IDLE) | -
+    EQX-2                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQX-3                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQX-4                  | held-out              | numbers reported                                     | other: numbers reported / no baseline ahead | -
+    EQX-5                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    MEAS-1..3              | held-out              | VOID                                                 | VOID                                       | INSTR[loader,VOID] extra[TypeError]
+    MEAS2-1                | held-out              | FAIL                                                 | FAIL                                       | -
+    MEAS2-2                | held-out              | FAIL                                                 | FAIL                                       | -
+    MEAS2-3                | held-out              | control line passes (not the hypothesis)             | PASS-other                                 | -
+    EQ2-0                  | held-out              | precondition met                                     | other: precondition met (DECIDABLE)        | -
+    EQ2-1                  | held-out              | PASS, fragile (held-out; relabelled PASS-0 by EQ2-1b) | FRAGILE                                    | -
+    EQ2-2                  | held-out              | does not reduce                                      | other: does not reduce                     | -
+    EQ2-3                  | held-out              | control holds                                        | other: control / reproduction holds        | -
+    EQ2-4                  | held-out              | control violated                                     | REDUCES / control violated / INERT (+IDLE) | -
+    EQ2-5                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ2-6                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ2-7                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ2-S                  | held-out              | sensitivity: fragile                                 | FRAGILE                                    | -
+    EQ2-8                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SAL-A                  | synthetic             | gate closed (not run)                                | GATE CLOSED (before data)                  | INSTR[no positive control] GATE
+    EQ2-1b                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    EQ2R-VOID              | held-out              | VOID                                                 | VOID                                       | INSTR[VOID] extra[defect,TypeError]
+    CC-VOID                | held-out              | VOID                                                 | VOID                                       | INSTR[VOID]
+    EQ3-0                  | held-out              | precondition met                                     | other: precondition met (DECIDABLE)        | -
+    EQ3-1                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ3-2                  | held-out              | does not reduce                                      | other: does not reduce                     | -
+    EQ3-3                  | held-out              | control violated                                     | REDUCES / control violated / INERT (+IDLE) | -
+    EQ3-4                  | held-out              | control violated                                     | REDUCES / control violated / INERT (+IDLE) | -
+    EQ3-5                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ3-6                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ3-7                  | held-out              | no baseline ahead                                    | other: numbers reported / no baseline ahead | -
+    EQ3-S                  | held-out              | sensitivity: fragile                                 | FRAGILE                                    | -
+    EQ3-8                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ3-C                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ3-D                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ3-A                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ3-I                  | held-out              | PASS-0                                               | PASS-0                                     | -
+    EQ3-B                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ3-P                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ2-1c                 | held-out              | PASS-0 kept; replication failed                      | PASS-other                                 | -
+    BAYES1-B0              | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | extra[did not reach (optimiser)]
+    BAYES1-B1              | held-out              | no verdict (precondition failed)                     | report / no verdict                        | -
+    BAYES1-B2-16           | held-out              | no verdict (precondition failed)                     | report / no verdict                        | -
+    BAYES1-B2-1/16         | held-out              | no verdict (precondition failed)                     | report / no verdict                        | -
+    BAYES1-B3              | held-out              | no verdict (precondition failed)                     | report / no verdict                        | -
+    BAYES1-B4              | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    BAYES1-B5              | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    BAYES1-B6              | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    BAYES1-B7              | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    BAYES1-BS              | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    T1X-VOID               | held-out              | VOID                                                 | VOID                                       | INSTR[crashed,VOID] extra[defect]
+    EQ4-0                  | held-out              | precondition met                                     | other: precondition met (DECIDABLE)        | -
+    EQ4-1                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ4-1r                 | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ4-2                  | held-out              | bound idle (diagnostic)                              | REDUCES / control violated / INERT (+IDLE) | -
+    EQ4-3                  | held-out              | FAIL                                                 | FAIL                                       | -
+    EQ4-4                  | held-out              | mechanism inert (positive control not load-bearing)  | REDUCES / control violated / INERT (+IDLE) | -
+    EQ4-5                  | held-out              | control violated                                     | REDUCES / control violated / INERT (+IDLE) | -
+    EQ4-6                  | held-out              | does not reduce                                      | other: does not reduce                     | -
+    EQ4-7                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ4-S                  | held-out              | sensitivity: fragile                                 | FRAGILE                                    | -
+    EQ4-P                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ4-B                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ4-D                  | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    EQ4-I                  | held-out              | PASS-0                                               | PASS-0                                     | -
+    T1X2-0                 | held-out              | precondition met                                     | other: precondition met (DECIDABLE)        | -
+    T1X2-1                 | held-out              | FAIL                                                 | FAIL                                       | -
+    T1X2-2                 | held-out              | FAIL                                                 | FAIL                                       | -
+    T1X2-3                 | held-out              | control holds                                        | other: control / reproduction holds        | -
+    T1X2-S                 | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    T1X2-D                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    T1X2-X                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC1-0                 | seen                  | precondition met                                     | other: precondition met (DECIDABLE)        | -
+    SEC1-1                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    SEC1-2                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    SEC1-3                 | seen                  | PASS on seen data                                    | FRAGILE                                    | -
+    SEC1-4                 | seen                  | FAIL                                                 | FAIL                                       | -
+    SEC1-S                 | seen                  | sensitivity: fragile                                 | FRAGILE                                    | -
+    SEC1-G                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SEC1-R                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SEC1-E                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SEC1-X                 | seen                  | control holds                                        | other: control / reproduction holds        | -
+    SCL1-X                 | seen                  | control holds                                        | other: control / reproduction holds        | -
+    SCL1-1                 | seen                  | control holds                                        | construction                               | -
+    SCL1-1b                | seen                  | control holds                                        | construction                               | -
+    SCL1-2                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    SCL1-3                 | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    SCL1-D                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SCL1-E                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SCL1-F                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SCL1-O                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SCL1-S                 | seen                  | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SCL2-X                 | held-out              | control holds                                        | other: control / reproduction holds        | -
+    SCL2-1                 | held-out              | control holds                                        | construction                               | -
+    SCL2-1b                | held-out              | control holds                                        | construction                               | -
+    SCL2-2                 | held-out              | PASS as scored, forced by the construction (not R6)  | PASS-other                                 | -
+    SCL2-2s                | held-out              | PASS as scored, forced by the construction (not R6)  | PASS-other                                 | -
+    SCL2-3                 | held-out              | PASS as scored, forced by the construction (not R6)  | PASS-other                                 | -
+    SCL2-R                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SCL2-M                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SCL2-RS                | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SCL2-B                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL2-S                 | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SCL2-D                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL2-E                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL2-F                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL2-O                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL3-X                 | held-out              | control holds                                        | other: control / reproduction holds        | -
+    SCL3-0                 | held-out              | precondition met                                     | other: precondition met (DECIDABLE)        | -
+    SCL3-1                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SCL3-2                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SCL3-3                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SCL3-4                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SCL3-S                 | held-out              | sensitivity: fragile                                 | FRAGILE                                    | -
+    SCL3-G                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL3-R                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL3-E                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL3-C                 | held-out              | control holds                                        | construction                               | -
+    SCL3-V                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SCL3-O                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    RLAW-1                 | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-2                 | RLAW (outside ladder) | (skipped by ladder.py)                               | report / no verdict                        | -
+    RLAW-3                 | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-4                 | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-4T                | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-4D                | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-4DT               | RLAW (outside ladder) | (skipped by ladder.py)                               | FRAGILE                                    | -
+    RLAW-5                 | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-U                 | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    RLAW-C                 | RLAW (outside ladder) | (skipped by ladder.py)                               | FAIL                                       | -
+    SOTA1-1a               | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-1b               | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-2                | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:crr-ace        | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:crr-cos        | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:crr-a8         | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:crr-alpha      | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:crr-beta       | held-out              | PASS-0                                               | PASS-0                                     | -
+    SOTA1-3:crr-kd         | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:crr-stepclock  | held-out              | FAIL                                                 | FAIL                                       | -
+    SOTA1-3:pred-fast      | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SOTA1-3:pred-slow      | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SOTA1-S                | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SOTA1-C1               | held-out              | control holds                                        | construction                               | -
+    SOTA1-C2               | held-out              | control holds                                        | construction                               | -
+    SOTA1-C3               | held-out              | control holds                                        | construction                               | -
+    SOTA1-C4               | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SOTA1-R9               | held-out              | control holds                                        | other: control / reproduction holds        | -
+    SOTA1-ND               | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | INSTR[runner defect]
+    STAKE1-A               | synthetic             | gate closed (not run)                                | GATE CLOSED (before data)                  | INSTR[could not act as agents] GATE
+    CARD-1                 | held-out              | FAIL                                                 | FAIL                                       | -
+    CARD-2                 | held-out              | FAIL                                                 | FAIL                                       | -
+    CARD-3                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC3-0                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | -
+    SEC3-1                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | -
+    SEC3-2                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC3-3                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC3-4                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC3-T                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC3-P                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SEC3-S                 | held-out              | sensitivity: fragile                                 | FRAGILE                                    | -
+    SEC3-K                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC3-GR                | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC4-D                 | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SEC4-1                 | held-out              | PASS-1                                               | PASS-1                                     | -
+    SEC4-2                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SEC4-T                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | -
+    SEC4-P                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SEC4-S                 | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SEC4-K                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC4-E                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC5-C-DEV             | seen                  | report (no verdict registered)                       | report / no verdict                        | GATE
+    SEC5-1                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC5-2                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC5-T                 | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC5-P                 | held-out              | PASS-0                                               | PASS-0                                     | -
+    SEC5-S                 | held-out              | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SEC5-K                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC5-E                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    RQM-A                  | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | INSTR[cannot fail] GATE
+    RRM-PA                 | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE
+    RRM2-T1                | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE
+    RRM2-T2                | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE
+    RRM2-T3                | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE
+    OB1-C1-A               | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE extra[defect]
+    OB1-C3-A               | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE extra[design failure]
+    CPL1-A                 | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | GATE
+    SCL3-3-G               | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SEC3-3-G               | seen                  | report (no verdict registered)                       | UNINFORMATIVE                              | GATE
+    SEC4-1-G               | seen                  | report (no verdict registered)                       | UNINFORMATIVE                              | GATE
+    SEC5-1-G               | seen                  | report (no verdict registered)                       | UNINFORMATIVE                              | GATE
+    SEC7-A                 | seen                  | gate closed (not run)                                | GATE CLOSED (before data)                  | INSTR[cannot fail,not a test of] GATE extra[design failure]
+    SEC6-G                 | held-out              | report (no verdict registered)                       | report / no verdict                        | extra[vacuous]
+    SEC6-1                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | INSTR[loader,STRING]
+    SEC6-1F                | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | INSTR[loader,STRING]
+    SEC6-C                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | INSTR[loader,STRING] extra[vacuous]
+    SEC6-B                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | INSTR[loader,STRING]
+    SEC6-T                 | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | INSTR[loader,STRING]
+    SEC6-2                 | held-out              | report (no verdict registered)                       | report / no verdict                        | extra[vacuous]
+    SEC6-P                 | held-out              | report (no verdict registered)                       | report / no verdict                        | extra[vacuous]
+    SEC6-S                 | held-out              | report (no verdict registered)                       | report / no verdict                        | extra[vacuous]
+    SEC6-K                 | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+    SEC6R-A-G              | seen                  | report (no verdict registered)                       | UNINFORMATIVE                              | INSTR[cannot fail] GATE
+    SEC6R-A-1              | seen                  | PASS on seen data                                    | UNINFORMATIVE                              | GATE
+    SEC6R-A-1F             | seen                  | NOT DECIDABLE                                        | NOT DECIDABLE                              | -
+    SEC6R-A-C              | seen                  | PASS on seen data                                    | UNINFORMATIVE                              | GATE
+    SEC6R-A-B              | seen                  | FAIL                                                 | UNINFORMATIVE                              | GATE
+    SEC6R-A-T              | seen                  | NOT DECIDABLE                                        | NOT DECIDABLE                              | -
+    SEC6R-A-2              | seen                  | PASS on seen data                                    | PASS-other                                 | -
+    SEC6R-A-P              | seen                  | PASS on seen data                                    | UNINFORMATIVE                              | GATE
+    SEC6R-A-S              | seen                  | sensitivity: not fragile                             | other: not fragile (sensitivity)           | -
+    SEC6R-A-K              | seen                  | report (no verdict registered)                       | report / no verdict                        | -
+    SEC6R-G                | held-out              | report (no verdict registered)                       | UNINFORMATIVE                              | GATE
+    SEC6R-1                | held-out              | PASS-0                                               | UNINFORMATIVE                              | GATE
+    SEC6R-1F               | held-out              | NOT DECIDABLE                                        | NOT DECIDABLE                              | -
+    SEC6R-GC               | held-out              | report (no verdict registered)                       | UNINFORMATIVE                              | GATE
+    SEC6R-C                | held-out              | PASS-0                                               | UNINFORMATIVE                              | GATE
+    SEC6R-B                | held-out              | FAIL                                                 | UNINFORMATIVE                              | GATE
+    SEC6R-T                | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC6R-2                | held-out              | FAIL                                                 | FAIL                                       | -
+    SEC6R-P                | held-out              | PASS-0                                               | UNINFORMATIVE                              | GATE
+    SEC6R-S                | held-out              | sensitivity: fragile                                 | FRAGILE                                    | -
+    SEC6R-K                | held-out              | report (no verdict registered)                       | report / no verdict                        | -
+
+[2] Tally: outcome class (rows) x data status (columns)
+    class                                            held-out       seen  synthetic RLAW (outs    all
+    VOID                                                    4          1          0          0      5
+    GATE CLOSED (before data)                               0          9          2          0     11
+    UNINFORMATIVE                                           6          8          0          0     14
+    NOT DECIDABLE                                          11          2          0          0     13
+    PASS-1                                                  1          0          0          0      1
+    PASS-0                                                 12          0          0          0     12
+    FRAGILE                                                 7          3          0          1     11
+    REDUCES / control violated / INERT (+IDLE)              7          0          0          0      7
+    construction                                            6          2          0          0      8
+    PASS-other                                              5          9          0          0     14
+    report / no verdict                                    49         11          0          1     61
+    FAIL                                                   36          5          0          8     49
+    other: control / reproduction holds                     5          2          0          0      7
+    other: not fragile (sensitivity)                        7          2          0          0      9
+    other: does not reduce                                  3          0          0          0      3
+    other: precondition met (DECIDABLE)                     5          1          0          0      6
+    other: UNVERIFIABLE (R1)                                0          1          0          0      1
+    other: numbers reported / no baseline ahead             2          1          0          0      3
+    total                                                 166         57          2         10    235
+    rows in the brief's classes 206; rows in 'other:' classes 29
+
+[3] Rows per class (in ledger order)
+    VOID (5):
+        held-out: MEAS-1..3, EQ2R-VOID, CC-VOID, T1X-VOID
+        seen: ARC-EQ-Q1..Q4
+    GATE CLOSED (before data) (11):
+        seen: RQM-A, RRM-PA, RRM2-T1, RRM2-T2, RRM2-T3, OB1-C1-A, OB1-C3-A, CPL1-A, SEC7-A
+        synthetic: SAL-A, STAKE1-A
+    UNINFORMATIVE (14):
+        held-out: SEC6R-G, SEC6R-1, SEC6R-GC, SEC6R-C, SEC6R-B, SEC6R-P
+        seen: SEC3-3-G, SEC4-1-G, SEC5-1-G, SEC6R-A-G, SEC6R-A-1, SEC6R-A-C, SEC6R-A-B, SEC6R-A-P
+    NOT DECIDABLE (13):
+        held-out: BAYES1-B0, SOTA1-ND, SEC3-0, SEC3-1, SEC4-T, SEC6-1, SEC6-1F, SEC6-C, SEC6-B, SEC6-T, SEC6R-1F
+        seen: SEC6R-A-1F, SEC6R-A-T
+    PASS-1 (1):
+        held-out: SEC4-1
+    PASS-0 (12):
+        held-out: EQ2-1b, EQ3-I, EQ4-I, SCL3-1, SCL3-2, SCL3-3, SCL3-4, SOTA1-3:crr-beta, SEC3-P, SEC4-2, SEC4-P, SEC5-P
+    FRAGILE (11):
+        held-out: EQ2-1, EQ2-S, EQ3-S, EQ4-S, SCL3-S, SEC3-S, SEC6R-S
+        seen: ARC-A1, SEC1-3, SEC1-S
+        RLAW (outside ladder): RLAW-4DT
+    REDUCES / control violated / INERT (+IDLE) (7):
+        held-out: EQX-1, EQ2-4, EQ3-3, EQ3-4, EQ4-2, EQ4-4, EQ4-5
+    construction (8):
+        held-out: SCL2-1, SCL2-1b, SCL3-C, SOTA1-C1, SOTA1-C2, SOTA1-C3
+        seen: SCL1-1, SCL1-1b
+    PASS-other (14):
+        held-out: MEAS2-3, EQ2-1c, SCL2-2, SCL2-2s, SCL2-3
+        seen: ARC-EQ-LAND, ARC-A2, ARC-A3, ARC-T1, SEC1-1, SEC1-2, SCL1-2, SCL1-3, SEC6R-A-2
+    report / no verdict (61):
+        held-out: EQX-5, EQ2-5, EQ2-7, EQ2-8, EQ3-5, EQ3-8, EQ3-D, EQ3-B, EQ3-P, BAYES1-B1, BAYES1-B2-16, BAYES1-B2-1/16, BAYES1-B3, BAYES1-B4, BAYES1-B5, BAYES1-B6, BAYES1-B7, EQ4-7, EQ4-P, EQ4-B, EQ4-D, T1X2-D, T1X2-X, SCL2-B, SCL2-D, SCL2-E, SCL2-F, SCL2-O, SCL3-G, SCL3-R, SCL3-E, SCL3-V, SCL3-O, SOTA1-3:pred-fast, SOTA1-3:pred-slow, SOTA1-C4, CARD-3, SEC3-K, SEC3-GR, SEC4-K, SEC4-E, SEC5-K, SEC5-E, SEC6-G, SEC6-2, SEC6-P, SEC6-S, SEC6-K, SEC6R-K
+        seen: SEC1-G, SEC1-R, SEC1-E, SCL1-D, SCL1-E, SCL1-F, SCL1-O, SEC4-D, SEC5-C-DEV, SCL3-3-G, SEC6R-A-K
+        RLAW (outside ladder): RLAW-2
+    FAIL (49):
+        held-out: EQX-2, EQX-3, MEAS2-1, MEAS2-2, EQ2-6, EQ3-1, EQ3-6, EQ3-C, EQ3-A, EQ4-1, EQ4-1r, EQ4-3, T1X2-1, T1X2-2, SCL2-R, SCL2-M, SOTA1-1a, SOTA1-1b, SOTA1-2, SOTA1-3:crr-ace, SOTA1-3:crr-cos, SOTA1-3:crr-a8, SOTA1-3:crr-alpha, SOTA1-3:crr-kd, SOTA1-3:crr-stepclock, CARD-1, CARD-2, SEC3-2, SEC3-3, SEC3-4, SEC3-T, SEC5-1, SEC5-2, SEC5-T, SEC6R-T, SEC6R-2
+        seen: ARC-COMPUTE, ARC-T3, ARC-T1b, ARC-T2, SEC1-4
+        RLAW (outside ladder): RLAW-1, RLAW-3, RLAW-4, RLAW-4T, RLAW-4D, RLAW-5, RLAW-U, RLAW-C
+    other: control / reproduction holds (7):
+        held-out: EQ2-3, T1X2-3, SCL2-X, SCL3-X, SOTA1-R9
+        seen: SEC1-X, SCL1-X
+    other: not fragile (sensitivity) (9):
+        held-out: BAYES1-BS, T1X2-S, SCL2-RS, SCL2-S, SOTA1-S, SEC4-S, SEC5-S
+        seen: SCL1-S, SEC6R-A-S
+    other: does not reduce (3):
+        held-out: EQ2-2, EQ3-2, EQ4-6
+    other: precondition met (DECIDABLE) (6):
+        held-out: EQ2-0, EQ3-0, EQ4-0, T1X2-0, SCL3-0
+        seen: SEC1-0
+    other: UNVERIFIABLE (R1) (1):
+        seen: ARC-R1
+    other: numbers reported / no baseline ahead (3):
+        held-out: EQX-4, EQ3-7
+        seen: ARC-METRIC
+
+[4] The INSTR flag (instrument / pipeline words) and the GATE flag
+    loader                       6: MEAS-1..3, SEC6-1, SEC6-1F, SEC6-C, SEC6-B, SEC6-T
+    crashed                      1: T1X-VOID
+    VOID                         5: ARC-EQ-Q1..Q4, MEAS-1..3, EQ2R-VOID, CC-VOID, T1X-VOID
+    runner defect                1: SOTA1-ND
+    STRING                       5: SEC6-1, SEC6-1F, SEC6-C, SEC6-B, SEC6-T
+    could not act as agents      1: STAKE1-A
+    cannot fail                  3: RQM-A, SEC7-A, SEC6R-A-G
+    no positive control          1: SAL-A
+    not a test of                1: SEC7-A
+    rows with INSTR set: 16
+        GATE CLOSED (before data)                      seen                   2
+        GATE CLOSED (before data)                      synthetic              2
+        NOT DECIDABLE                                  held-out               6
+        UNINFORMATIVE                                  seen                   1
+        VOID                                           held-out               4
+        VOID                                           seen                   1
+    extra 'defect' 3: EQ2R-VOID, T1X-VOID, OB1-C1-A
+    extra 'design failure' 2: OB1-C3-A, SEC7-A
+    extra 'vacuous' 5: SEC6-G, SEC6-C, SEC6-2, SEC6-P, SEC6-S
+    extra 'TypeError' 2: MEAS-1..3, EQ2R-VOID
+    extra 'did not reach (optimiser)' 1: BAYES1-B0
+    rows with GATE set (a closed gate named in the verdict): 26
+        GATE CLOSED (before data)                      seen                   9
+        GATE CLOSED (before data)                      synthetic              2
+        UNINFORMATIVE                                  held-out               6
+        UNINFORMATIVE                                  seen                   8
+        report / no verdict                            seen                   1
+        SAL-A, STAKE1-A, SEC5-C-DEV, RQM-A, RRM-PA, RRM2-T1, RRM2-T2, RRM2-T3, OB1-C1-A, OB1-C3-A, CPL1-A, SEC3-3-G, SEC4-1-G, SEC5-1-G, SEC7-A, SEC6R-A-G, SEC6R-A-1, SEC6R-A-C, SEC6R-A-B, SEC6R-A-P, SEC6R-G, SEC6R-1, SEC6R-GC, SEC6R-C, SEC6R-B, SEC6R-P
+
+[5] Cross-check against ladder.py's allocation (printed, not reconciled)
+    ladder.py PASS-0 rows 15; class PASS-0 here 12; ladder PASS-0 rows classed otherwise here: SEC6R-1 -> UNINFORMATIVE, SEC6R-C -> UNINFORMATIVE, SEC6R-P -> UNINFORMATIVE
+    ladder.py held-out FAIL rows 37; class FAIL held-out here 36; ladder held-out FAIL rows classed otherwise here: SEC6R-B -> UNINFORMATIVE
+    held-out rows 166: PASS-1 or PASS-0 13; FAIL 36; VOID + NOT DECIDABLE + UNINFORMATIVE 21
+    held-out FAIL rows carrying the INSTR flag: 0
+
+[6] Denominators kept apart: this table counts LEDGER rows only. The retrodiction batteries, the synthesis class and
+    PRED70 are separate banks with their own denominators (Epistemic_Review/checks/ladder.txt [1]-[2], [5];
+    Epistemic_Review/checks/redundant_vs_fail.txt [1]); they are not added to any count above.
+
+[7] Held-out rows: study prefix (row id up to the first '-') x outcome class (non-zero cells only)
+    EQX      rows   5 | REDUCES / control violated / INERT (+IDLE) 1; report / no verdict 1; FAIL 2; other: numbers reported / no baseline ahead 1
+    MEAS     rows   1 | VOID 1
+    MEAS2    rows   3 | PASS-other 1; FAIL 2
+    EQ2      rows  12 | PASS-0 1; FRAGILE 2; REDUCES / control violated / INERT (+IDLE) 1; PASS-other 1; report / no verdict 3; FAIL 1; other: control / reproduction holds 1; other: does not reduce 1; other: precondition met (DECIDABLE) 1
+    EQ2R     rows   1 | VOID 1
+    CC       rows   1 | VOID 1
+    EQ3      rows  16 | PASS-0 1; FRAGILE 1; REDUCES / control violated / INERT (+IDLE) 2; report / no verdict 5; FAIL 4; other: does not reduce 1; other: precondition met (DECIDABLE) 1; other: numbers reported / no baseline ahead 1
+    BAYES1   rows  10 | NOT DECIDABLE 1; report / no verdict 8; other: not fragile (sensitivity) 1
+    T1X      rows   1 | VOID 1
+    EQ4      rows  14 | PASS-0 1; FRAGILE 1; REDUCES / control violated / INERT (+IDLE) 3; report / no verdict 4; FAIL 3; other: does not reduce 1; other: precondition met (DECIDABLE) 1
+    T1X2     rows   7 | report / no verdict 2; FAIL 2; other: control / reproduction holds 1; other: not fragile (sensitivity) 1; other: precondition met (DECIDABLE) 1
+    SCL2     rows  15 | construction 2; PASS-other 3; report / no verdict 5; FAIL 2; other: control / reproduction holds 1; other: not fragile (sensitivity) 2
+    SCL3     rows  13 | PASS-0 4; FRAGILE 1; construction 1; report / no verdict 5; other: control / reproduction holds 1; other: precondition met (DECIDABLE) 1
+    SOTA1    rows  19 | NOT DECIDABLE 1; PASS-0 1; construction 3; report / no verdict 3; FAIL 9; other: control / reproduction holds 1; other: not fragile (sensitivity) 1
+    CARD     rows   3 | report / no verdict 1; FAIL 2
+    SEC3     rows  10 | NOT DECIDABLE 2; PASS-0 1; FRAGILE 1; report / no verdict 2; FAIL 4
+    SEC4     rows   7 | NOT DECIDABLE 1; PASS-1 1; PASS-0 2; report / no verdict 2; other: not fragile (sensitivity) 1
+    SEC5     rows   7 | PASS-0 1; report / no verdict 2; FAIL 3; other: not fragile (sensitivity) 1
+    SEC6     rows  10 | NOT DECIDABLE 5; report / no verdict 5
+    SEC6R    rows  11 | UNINFORMATIVE 6; NOT DECIDABLE 1; FRAGILE 1; report / no verdict 1; FAIL 2
+
+[8] Process timing (read only): prompt-log header time -> prereg hash commit -> first scoring/VOID commit
+    study    prompt (header UTC)          hash commit (UTC)            prompt->hash  first score commit (UTC)     hash->score  prev score->hash
+    EQX      PL 3 2026-09-15T18:00        231f75b 2026-09-15T18:14:48Z      14.8 min  0d21b82 2026-09-15T18:20:06Z     0.09 h       n/a
+    MEAS     PL 7 2026-09-15T21:11        32f18c3 2026-09-15T21:21:32Z      10.5 min  57b6302 2026-09-15T21:24:27Z     0.05 h      3.02 h
+    MEAS2    PL 7 2026-09-15T21:11        57b6302 2026-09-15T21:24:27Z      13.4 min  9047ab7 2026-09-15T21:31:50Z     0.12 h      0.00 h
+    CARD     PL 9 2026-09-15T21:40        0c8fe04 2026-09-15T21:46:54Z       6.9 min  5c4311a 2026-09-27T00:29:56Z   266.72 h      0.25 h
+    EQ2      PL 17 2026-09-15T23:18       4ba6035 2026-09-17T00:10:49Z    1492.8 min  455780b 2026-09-17T00:17:44Z     0.12 h       n/a
+    EQ2R     none named                   231cb26 2026-09-17T20:59:18Z         n/a    d04b4c8 2026-09-21T22:01:03Z    97.03 h     20.69 h
+    EQ2R-CC  none named                   708e9b1 2026-09-17T21:07:26Z         n/a    d04b4c8 2026-09-21T22:01:03Z    96.89 h       n/a
+    EQ3      PL 69 2026-09-22T00:59:34    daf50e7 2026-09-22T01:21:32Z      22.0 min  a6d39ff 2026-09-22T01:31:30Z     0.17 h      3.34 h
+    EQ4      PL 74 2026-09-22T04:59:33    a55be4d 2026-09-22T05:39:00Z      39.5 min  c4bdcf1 2026-09-23T04:54:50Z    23.26 h      4.12 h
+    BAYES-1  PL 84 2026-09-22T15:40:05    49072aa 2026-09-22T15:52:37Z      12.5 min  bb5ca5a 2026-09-22T16:04:08Z     0.19 h       n/a
+    T1x      PL 87 2026-09-22T16:17:10    ce825dd 2026-09-22T16:23:24Z       6.2 min  b809477 2026-09-22T16:40:01Z     0.28 h      0.32 h
+    T1x2     none named                   b809477 2026-09-22T16:40:01Z         n/a    a1a3f30 2026-09-23T05:12:54Z    12.55 h      0.00 h
+    SEC1     PL 118 2026-09-23T15:01:21   0f67f2d 2026-09-23T15:18:10Z      16.8 min  3a9b930 2026-09-23T15:25:03Z     0.11 h     10.09 h
+    SCL1     PL 124 2026-09-23T21:02:55   17366b9 2026-09-23T21:15:04Z      12.2 min  3841ad8 2026-09-23T21:23:39Z     0.14 h      5.83 h
+    SCL2     PL 125 2026-09-23T21:27:32   679ae8b 2026-09-23T21:34:54Z       7.4 min  953857b 2026-09-24T00:14:31Z     2.66 h      0.19 h
+    SCL3     PL 127 2026-09-24T01:39:19   05318d4 2026-09-24T01:56:19Z      17.0 min  e9fb5f7 2026-09-25T00:28:20Z    22.53 h      1.70 h
+    RLAW     PL 137 2026-09-24T04:26:27   be82a3f 2026-09-24T05:50:35Z      84.1 min  72edf71 2026-09-25T00:56:21Z    19.10 h       n/a
+    SOTA1    PL 190 2026-09-25T05:27:48   de95c63 2026-09-25T11:51:16Z     383.5 min  45201f5 2026-09-26T17:18:56Z    29.46 h     10.92 h
+    SEC3     PL 227 2026-09-27T23:33:23   916d3d4 2026-09-27T23:42:45Z       9.4 min  c6422e2 2026-09-28T00:34:14Z     0.86 h     30.40 h
+    SEC4     PL 228 2026-09-28T03:50:26   278d0b4 2026-09-28T04:12:59Z      22.6 min  8574912 2026-09-29T00:16:56Z    20.07 h      3.65 h
+    SEC5     PL 238 2026-09-29T02:59:54   576a092 2026-09-29T03:12:07Z      12.2 min  d1bdd27 2026-09-30T00:47:42Z    21.59 h      2.92 h
+    SEC6     PL 257 2026-09-30T07:11:08   1bb1870 2026-09-30T09:51:54Z     160.8 min  0671a35 2026-10-01T00:40:59Z    14.82 h      9.07 h
+    SEC6R    PL 259 2026-10-01T00:53:15   20f7d06 2026-10-01T01:08:02Z      14.8 min  45669e6 2026-10-02T00:24:23Z    23.27 h      0.45 h
+    'prev score->hash' = hours from the PREVIOUS row's first-score commit (table order) to this row's hash commit (n/a when
+    this hash precedes it). Commit times are the authoritative clock (prompt-log correction note after entry 56). From entry
+    57 on, a prompt header time is read 'from date -u at the moment of logging' (the same note), which can be later than
+    receipt, so 'prompt->hash' is a lower bound on receipt->hash; it also excludes design work done before the request.
+
+[9] Follow-ups named in the AGENT_LOG and every AGENT_LOG entry that mentions them
+    BAYES-1b                 named in entry  67; entries mentioning it: 67; later than 67: none
+    H-REG                    named in entry 130; entries mentioning it: 130; later than 130: none
+    LIFE1                    named in entry 162; entries mentioning it: 162; later than 162: none
+    dose-matched             named in entry 122; entries mentioning it: 122; later than 122: none
+    ARC-R                    named in entry 132; entries mentioning it: 132, 134; later than 132: 134
+    EQ5                      named in entry  85; entries mentioning it: 85; later than 85: none
+    causal phase             named in entry  88; entries mentioning it: 88; later than 88: none
+    per-task normalisation   named in entry  95; entries mentioning it: 95; later than 95: none
+    settled occasions        named in entry  94; entries mentioning it: 94; later than 94: none
+    stronger criterion       named in entry 192; entries mentioning it: 192; later than 192: none
+    different reference      named in entry 238; entries mentioning it: 238; later than 238: none
+    surrogate harder         named in entry  71; entries mentioning it: 71; later than 71: none
+    arc-triggered refresh    named in entry 202; entries mentioning it: 202; later than 202: none
+    RW3                      named in entry 158; entries mentioning it: 158; later than 158: none
+    equal exploration        named in entry  73; entries mentioning it: 73, 74; later than 73: 74

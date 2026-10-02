@@ -1,0 +1,7 @@
+PRE-PHOENIX INTERPRETIVE AUDIT — NO VERDICTS ALTERED: label-leak scan of SEEN OpenML raw files
+rule: a {0,1} column whose (value == 1) agrees with (target == c) on >= 0.999 of rows with both present
+files scanned: 62 in data/raw/openml
+
+1466_cardiotocography.arff: target 'Class', rows 2126, classes 10; LEAK CANDIDATES 10: V26->class 1 1.000000; V27->class 2 1.000000; V28->class 3 1.000000; V29->class 4 1.000000; V30->class 5 1.000000; V31->class 6 1.000000; V32->class 7 1.000000; V33->class 8 1.000000; V34->class 9 1.000000; V35->class 10 1.000000
+
+carriers with at least one leak candidate: 1 of 62

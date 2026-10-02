@@ -1,0 +1,86 @@
+PRE-PHOENIX INTERPRETIVE AUDIT — NO VERDICTS ALTERED: derived counts (Pre_Phoenix_Audit/checks/derived_counts.py)
+reads pinned outputs and the ledger; writes nothing; every count is a reading, not a re-score
+   ledger/LEDGER.md sha256 e18e96ac6485aa3ee2f8289f67ae7963c68feb77a2eafc0de32330ce919caef2
+   Epistemic_Review/checks/ladder.txt sha256 5c2c3e382798fddf0b1c11dc4464999fe0e1c9acb0a3c24a56e896b18c13d56b
+   Predictions70/checks/tally.txt sha256 fda9731c6eff3d89192bbffa21b6ec2b2c093078d2ee4e7a487d0dbba052473e
+   runs/t1x2/score.txt sha256 01b5d65e9681900e2d7bd62d58b3bbfe7e5587f8a96c18ecc43ee63af1a6bbe2
+   SEC_Analysis/checks/m_checks.txt sha256 ce040fc0003d50117a3e9940f62d705909e594e323b8f5ce24d2f8b7068bbd14
+   SEC_Analysis/checks/gate_posthoc.txt sha256 68a442780af3adda883bcbc7ae92a2c931ae7270d4a4ab7635b88bb35aa466dd
+   prereg/sec7/dev/gate7.txt sha256 79ae86cbd476d267dbcc6d7f60a948029eb693e467f7740afb74ba74909297cd
+   Continuous_Learning/checks/results_vs_literature.txt sha256 9e9124f2a86f4aec8a68f36971e2d7f0cabf6e4f27a65d034980ebebb33ec6d3
+   Relational_Reference_Memory/checks/t1_seen.txt sha256 477bb50224ba3b4332ba7cd8ea2ab5b1c5654a0252549f9ced77a4f731f02a22
+   Coupling/checks/cpl_phase_a.txt sha256 957ec92263d7fadd71ae17788c8ce31e7b46d030e5e02ee83bf2bf9ce8bf54b9
+   Pre_Phoenix_Audit/checks/outcome_classes.txt sha256 57c7761c1e64bd9bed77f63cd86dee747519200f62db1d632f63718bc997bced
+   Pre_Phoenix_Audit/notes/PROCESS.md sha256 80264430295e1642c9d9368e38cef1d98bfef48e3ec890e68f170388f90903f7
+   data/manifests/eq2r.sha256 sha256 7a4470dcba12b313fa9c468a23680b4f1bc5ca46c6c9534000583f81f78379db
+   data/manifests/t1x.sha256 sha256 fec88bb27862fbf5766f93929dba4c0ce584401b6c00f918b551a39fcc961cde
+   data/manifests/bayes1.sha256 sha256 a32db415e5ce7f70705f53dd3806db4f8931ca2a69f26c047e5ca2821f17310f
+   data/manifests/sec6.sha256 sha256 5d03b8c96089086fb0e141d3779891ef23ebb6ee9aa15ee586405ff9d4b1d8ff
+
+[D1] Held-out PASS rows by lineage (Epistemic_Review/checks/ladder.txt, the rung R6 and R7 lines)
+   R6 PASS-0 rows: 15 (parsed 15)
+   SEC family (SCL3-*, SEC*): 11 ['SCL3-1', 'SCL3-2', 'SCL3-3', 'SCL3-4', 'SEC3-P', 'SEC4-2', 'SEC4-P', 'SEC5-P', 'SEC6R-1', 'SEC6R-C', 'SEC6R-P']
+   EQ family (EQ2-*, EQ3-*, EQ4-*): 3 ['EQ2-1b', 'EQ3-I', 'EQ4-I']
+   other: 1 ['SOTA1-3:crr-beta']
+   R7 PASS-1: 1 (SEC4-1)
+
+[D2] RLAW rows (ledger/LEDGER.md; excluded from the ladder by the owner's instruction, prompt-log entry 139)
+   RLAW rows 10; verdict starting FAIL (excluding 'no counted verdict') 8: ['RLAW-1', 'RLAW-3', 'RLAW-4', 'RLAW-4T', 'RLAW-4D', 'RLAW-5', 'RLAW-U', 'RLAW-C']
+
+[D3] PRED70 rows the harness labels REDUNDANT whose prediction Q fails (Predictions70/checks/tally.txt)
+   REDUNDANT rows parsed 35; Q held 20; Q fails 15: ['P02-2', 'P02-5', 'P04-1', 'P04-2', 'P04-4', 'P06-1', 'P07-3', 'P09-1', 'P09-3', 'P09-5', 'P10-3', 'P12-1', 'P12-3', 'P12-5', 'P13-4']
+
+[D4] T1x2: best path against the weaker endpoint comparators (runs/t1x2/score.txt, the T1x-1 lines)
+   1199_BNG_echoMonths    best path 0.030  E_new 0.085  ewc 0.452  path - E_new -0.055  path - ewc -0.422
+   1201_BNG_breastTumor   best path 0.352  E_new 0.404  ewc 0.490  path - E_new -0.052  path - ewc -0.138
+   feynman_II_36_38       best path -0.004  E_new 0.217  ewc 0.355  path - E_new -0.221  path - ewc -0.359
+   feynman_I_9_18         best path 0.001  E_new 0.433  ewc 0.390  path - E_new -0.432  path - ewc -0.389
+   feynman_test_1         best path 0.073  E_new 0.756  ewc 0.184  path - E_new -0.683  path - ewc -0.111
+   path - E_new <= -0.05 on 5/5; path behind ewc on 5/5
+
+[D5] SEC: carriers on which the do-nothing control (M6 / edge) is BEHIND the tuned lambda
+   (a) P1 mechanism runs (SEC_Analysis/checks/m_checks.txt, second table; C0 - tuned = (M6 - tuned) - (M6 - C0);
+       the M6-behind set is the '*' marks of SEC_Analysis/checks/gate_posthoc.txt). POST HOC, carriers now SEEN.
+      cnae-9                 M6 - tuned -37.1875  C0 - tuned +7.9167 (step 1.731) -> not behind
+      isolet                 M6 - tuned -25.4000  C0 - tuned -0.1667 (step 3.470) -> not behind
+      semeion                M6 - tuned -4.5768  C0 - tuned +3.7618 (step 1.594) -> not behind
+      dionis                 M6 - tuned -14.4655  C0 - tuned +9.8102 (step 3.436) -> not behind
+      cardiotocography       M6 - tuned -44.0566  C0 - tuned +1.0377 (step 1.000) -> not behind
+      volcanoes-d4           M6 - tuned -7.0070  C0 - tuned -88.9089 (step 1.000) -> BEHIND
+      clipped SEC (C0) not behind on 5/6 of the carriers where M6 is behind
+   (b) SEC7 development, SEEN, random class order, balanced accuracy (prereg/sec7/dev/gate7.txt); development, not evidence
+      edge BEHIND on 13; clipped SEC not behind on 13/13; ahead by more than its step on 4/13 ['cnae-9', 'isolet', 'semeion', 'dionis']
+
+[D6] H-EQ rule (Omega = 1) against the in-sample tuned EWC lambda on the LOAD-BEARING carriers of EQ2-EQ4
+   (Continuous_Learning/checks/results_vs_literature.txt; margin = 'rule O=1' - 'EWC tuned'; a report line, no verdict)
+   load-bearing carriers 9; rule ahead 5: mfeat_fourier +3.30, mfeat_pixel +2.10, texture +2.78, mfeat_factors +3.90, mfeat_morphological +3.70
+   rule behind 4: fars -3.74, page_blocks -7.83, segmentation -2.27, yeast -6.78
+   of the carriers where the rule is ahead, mfeat_* (one 2000-digit record set, prereg/scl3/PREREG.md) 4/5
+
+[D7] Kept-anchor transport on the SEEN carriers where there is drift to fix (report lines only; post hoc; SEEN)
+   drift-to-fix carriers (Coupling/checks/cpl_phase_a.txt REPORT under FT): ['har', 'isolet', 'Indian_pines', 'Kuzushiji-MNIST']
+   FT: NCM RRM - STALE (Relational_Reference_Memory/checks/t1_seen.txt, 'summary' block): har +6.7333, isolet +2.6667, Indian_pines +13.6464, Kuzushiji-MNIST +1.7400 -> positive on 4/4 (no step printed)
+   ANCH1: NCM RRM - STALE (Relational_Reference_Memory/checks/t1_seen.txt, 'summary' block): har +2.9570, isolet +0.7667, Indian_pines +7.3726, Kuzushiji-MNIST -1.6400 -> positive on 3/4 (no step printed)
+
+[D8] Request -> hash and hash -> score (Pre_Phoenix_Audit/checks/outcome_classes.txt [8]; commit times)
+   studies with a named request prompt 20; hashed within 25 min of the prompt's header time 15: ['EQX', 'MEAS', 'MEAS2', 'CARD', 'EQ3', 'BAYES-1', 'T1x', 'SEC1', 'SCL1', 'SCL2', 'SCL3', 'SEC3', 'SEC4', 'SEC5', 'SEC6R']
+   others: EQ2 1492.8 min, EQ4 39.5 min, RLAW 84.1 min, SOTA1 383.5 min, SEC6 160.8 min
+   (a lower bound on receipt -> hash: prompt header times from entry 57 on are logging times, outcome_classes.txt [8] note)
+   'prev score->hash' defined on 18 rows (table order, not lineage order); under 24 h on 17; range 0.00 to 30.40 h; over 24 h: SEC3 30.40 h
+
+[D9] Held-out carriers fetched for studies whose primary verdict was VOID or NOT DECIDABLE (data/manifests/*.sha256)
+   eq2r    (EQ2R-VOID): 3 carriers
+   t1x     (T1X-VOID): 6 carriers
+   bayes1  (BAYES1-B0): 6 carriers
+   sec6    (SEC6-1): 12 carriers
+   total 27
+
+[D10] Gates closed before confirmatory data (Pre_Phoenix_Audit/notes/PROCESS.md section 3(a) table; the reason class
+      is the process reader's JUDGEMENT; this only tallies the table as written)
+   gates in the table: 25
+   the ledger's own GATE CLOSED rows (outcome_classes.txt [3]): 11
+
+[D11] Held-out VOID / NOT DECIDABLE / UNINFORMATIVE rows by when the study was first scored
+      (outcome_classes.txt [7] cells; first-score commit dates from outcome_classes.txt [8])
+   CC: 1 (no first-score date matched; counted as early)
+   first scored on or after 2026-09-25: 16; before: 5; total 21
