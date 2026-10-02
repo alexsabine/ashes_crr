@@ -32,7 +32,7 @@ mathematics, or open" (`theory/CRR.md:315`). So:
 | 2026-09-15 ~22:25Z | PR #15 adopted: the amplitude control is scored by paired bootstrap. "leaves MEAS2 at 0/17 either way". | `notebook/PROMPT_LOG.md:149-155,167-180` |
 | 2026-09-17 | Bio battery. The forced-SIR row showed that the event rule decides the class (AGENT_LOG 15). The reset-jump segmentation bias was found and `segment_end` was added (AGENT_LOG 18). | `notebook/AGENT_LOG.md:27,30`; `theory/retrodictions/README.md:181-206` |
 | 2026-09-17 → 09-21 | Synthesis batches. H-L5 rows repeatedly found "the arc is the amplitude" on monotone occasions (e.g. batch 17, 18, 19 readings). The class-map conclusion: "The arc-regular class needs a fixed chord *and* a fixed reset". | `theory/retrodictions/README.md:473,483-485`; `theory/retrodictions/synthesis_batches/batch_17.txt:77`, `batch_19.txt:68,77` |
-| 2026-09-17 | Note for Daniel: H-L5 "needs a carrier that is arc-regular by its own physics … stick-slip … or it is retired". | `docs/notes/2026-09-17_note_for_daniel.md:86-91` |
+| 2026-09-17 | Note for Daniel: H-L5 "needs a carrier that is arc-regular by its own physics … stick-slip … or it is retired". | `docs/notes/2026-09-17_note_for_daniel.md:88-91` |
 | 2026-09-26 | Life_Sciences CD-1: on cell size (adder, sizer, timer) "control (i) can never be beaten … H-L5 is empty here". | `Life_Sciences/LIFE_SCIENCES.md:26,55-68` |
 | 2026-09-26/27 | Lab L03 runs CARD as committed. Investigator's forecast, written before the data: "CARD-1 FAIL". | `labs/L03_pulse/LAB.md:30-32`; AGENT_LOG 164-165 (`notebook/AGENT_LOG.md:177-178`) |
 | 2026-09-29 | PRED70: 7 H-L5 ADDS rows. "None of them survives H-L5's own amplitude control" (post hoc). | `Predictions70/PREDICTIONS70.md:43-56`; `Predictions70/checks/tally.txt:81-82` |
@@ -82,7 +82,7 @@ mathematics, or open" (`theory/CRR.md:315`). So:
   S-A′ and S-G2 with cv_amp equal to cv_arc at printed precision (0.000/0.000 and 0.001/0.001). It prints no amplitude CI.
   - The repository's own gate_L5R docstring says such a one-hump row "is not a positive control for 'beyond control (i)'"
     (`src/crr/surrogates/gate.py:332-334`).
-  - The standing gate_L5 scores amplitude only as a veto (`gate.py:80-95,98-99`), but CARD scores it strictly
+  - The standing gate_L5 scores amplitude only as a veto (`gate.py:80-95,102-103`), but CARD scores it strictly
     (`card_score.py:135`).
   - So CARD's hashed gate showed that the instrument can see arc against clock. It did not show that it can see arc beyond
     amplitude on a one-hump trace.
@@ -143,7 +143,7 @@ mathematics, or open" (`theory/CRR.md:315`). So:
 - **B (operationalisation).**
   - Measles was tested on a 1-D Poisson transform of cases, not on the SIR simplex SCOPE planned (`theory/SCOPE.md:121`).
     So the "first Fisher-native carrier" claim (`theory/CRR.md:220-222`) is native only in the 1-D sense, where the arc is a
-    reparametrised total variation (SCOPE §7 item 2, `theory/SCOPE.md:261-263`).
+    reparametrised total variation (SCOPE §7 item 2, `theory/SCOPE.md:262-264`).
   - CARD deviated from CLAUDE.md §4's pressure-onset / dicrotic-notch boundary.
 
   Neither changes the verdicts' direction, because the bare inequality failed too. But the multi-dimensional Fisher arc,
