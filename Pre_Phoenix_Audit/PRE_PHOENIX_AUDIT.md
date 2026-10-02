@@ -298,6 +298,8 @@ ordinary explanation / what would distinguish) are tabulated in the lineage note
 
 - **Verdict on the kill:** killed at the right level (the instrument). Separately, the method failed directly (SEC5-1, SEC3-3,
   SEC6R-B, SEC6R-2).
+- **One of SEC4-1's six carriers leaks its label** (cardiotocography; §13 item 11; verified by `checks/label_leak.py`). This
+  is an admissibility defect the frozen loader did not screen for. It is recorded beside SEC4-1, not re-scored.
 - **The clean method question was never asked on an informative stream.** That is an untested *method* lead, not an
   extinguished CRR lead, since SEC is not CRR.
 - **SEC7.** The family-level gate discarded a per-carrier subset on which SEC looked consistent. On the 13 carriers where the
@@ -352,8 +354,7 @@ ordinary explanation / what would distinguish) are tabulated in the lineage note
 
 | layer | |
 |---|---|
-| phenomenon | on the 4 SEEN carriers with drift to fix, kept-anchor transport (NCM RRM − STALE) is positive on 4/4 under FT (no step printed). Current-task-anchor transport was behind STALE by more than a step on 2 of
-  the same 4 (isolet, Kuzushiji-MNIST) and within a step on 2 (`derived_counts.txt` [D7]; `Coupling/checks/cpl_phase_a.txt:149-175`) |
+| phenomenon | on the 4 SEEN carriers with drift to fix, kept-anchor transport (NCM RRM − STALE) is positive on 4/4 under FT (no step printed). Current-task-anchor transport was behind STALE by more than a step on 2 of the same 4 (isolet, Kuzushiji-MNIST) and within a step on 2 (`derived_counts.txt` [D7]; `Coupling/checks/cpl_phase_a.txt:149-175`) |
 | CRR reading | the owner's "first object" reading. Not a CRR.md claim |
 | ordinary explanation | anchor provenance in the HopDC / transport-keys family; kept anchors are 20 raw rows |
 | what would distinguish | a declared test on unseen carriers screened for drift to fix. None of it would be CRR evidence |
@@ -884,7 +885,7 @@ lineages are in §9, `notes/EMBERS_CROSS_AUDIT.md` §8.1 and `notes/EMBERS_ADDEN
 
 | Lineage ID | Core CRR idea | Operationalisation(s) tried | Strongest supporting observation | Strongest negative evidence | Failure level | Current epistemic status | Mundane explanation | CRR-specific possibility | What Phoenix may explore | What Phoenix must never claim |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **L-SEC** | *none*: the Laplace weight with a secant units calibration (+ AR1 clip); it grew out of H-EQ's R7 baseline; A1′ "names" it in hindsight | SEC1 (seen), SCL3, SEC3, SEC4 (clip), SEC5, SEC6, SEC6R; P1 mechanism runs | SEC4-1 PASS-1 (6/6) as scored; SCL3-3 PASS-0 with its post hoc gate OPEN (by one carrier) | SEC4-1-G CLOSED (frozen learner 5/6); SEC5-1 FAIL (not fragile); SEC6R-B "FAIL (UNINFORMATIVE: SEC6R-G CLOSED …)" (AR1-B, SI-1C 8/9 against 7/9); SEC6R-2 FAIL; FM6 24/30 | the method on class-IL tabular streams; the passes at instrument level | SEC4-1 PASS-1 as scored; its post hoc SEC4-1-G says it "would be printed UNINFORMATIVE and capped at PASS-0"; no PASS-2 | Laplace + Barzilai–Borwein secant + AR1; lenient class-IL criterion | none (F11: 0 of 7 operational clauses) | the calibration on a criterion a frozen learner fails; a pre-declared per-carrier informativeness rule; AR1-B and SI-1C as baselines | that SEC is CRR evidence or tuning-free; SEC4-1 without SEC4-1-G; any compute/energy/CO₂ saving |
+| **L-SEC** | *none*: the Laplace weight with a secant units calibration (+ AR1 clip); it grew out of H-EQ's R7 baseline; A1′ "names" it in hindsight | SEC1 (seen), SCL3, SEC3, SEC4 (clip), SEC5, SEC6, SEC6R; P1 mechanism runs | SEC4-1 PASS-1 (6/6) as scored; SCL3-3 PASS-0 with its post hoc gate OPEN (by one carrier) | SEC4-1-G CLOSED (frozen learner 5/6); SEC5-1 FAIL (not fragile); SEC6R-B "FAIL (UNINFORMATIVE: SEC6R-G CLOSED …)" (AR1-B, SI-1C 8/9 against 7/9); SEC6R-2 FAIL; FM6 24/30 | the method on class-IL tabular streams; the passes at instrument level | SEC4-1 PASS-1 as scored; its post hoc SEC4-1-G says it "would be printed UNINFORMATIVE and capped at PASS-0"; no PASS-2 | Laplace + Barzilai–Borwein secant + AR1; lenient class-IL criterion | none (F11: 0 of 7 operational clauses) | the calibration on a criterion a frozen learner fails; a pre-declared per-carrier informativeness rule; AR1-B and SI-1C as baselines | that SEC is CRR evidence or tuning-free; SEC4-1 without SEC4-1-G and the cardiotocography label leak (§13); any compute/energy/CO₂ saving |
 | **L-APP** | CRR as a source of applied savings and designs | compute/energy estimates; APP1; P7 suite; ROB1 | SCL3 9/10 at 0.0588 of the sweep's compute (`Compute_Savings`) | CRR's part: not load-bearing 4, none 2, not decided by a pinned source 11 of 17 suite rows (`suite.txt:889`); the GLOBAL_ESTIMATE premise "not currently support[ed]"; ROB1 candidates REDUNDANT | applied premise (rests on L-SEC's criterion) | notes with addenda; Energy CONSOLIDATED lacks one (§13) | known methods (SEC, checkpointing, Wald) | none shown | a tuning-cost study with a criterion that can fail, framed as engineering | any saving attributable to CRR; the Alexander Plan's figures as forecasts |
 
 ---
@@ -1028,3 +1029,18 @@ No historical file was edited to resolve any of these.
    EQ3-1's not-behind carriers share records with EQ2/EQ2R carriers (L-EQ §4 Q9).
 10. **A compressed ledger phrase.** SAL-A's "no positive control exists for this operationalisation" (ledger; CLAUDE.md §3.3)
     is narrower than the gate's own reading (`prereg/sal/PHASE_A.md:39-46`): the instrument saw S, and the effect was absent.
+11. **A label leak in a SEC4-1 carrier, reported by Embers and verified here.**
+    - **The finding.** OpenML 1466 (cardiotocography), one of SEC4-1's six scored carriers, carries ten {0, 1} columns
+      (V26–V35). Each equals the indicator of one class on all 2126 rows (agreement 1.000000). Embers reported it
+      ([Embers@de6c05a] `audits/sec5/README.md:52-61`).
+    - **The check.** `Pre_Phoenix_Audit/checks/label_leak.py` scanned the 62 SEEN OpenML raw files in `data/raw/openml`. It
+      reads raw data and is rerun by hand. Its output, `label_leak.txt`, shows that cardiotocography is the only carrier with a
+      leak candidate: 1 of 62.
+    - **No Ashes record of it.** No Ashes record mentions it, and the frozen loader did not screen for it.
+    - **What it changes.** This audit re-scores nothing:
+      - SEC4-1 stays "PASS-1 as scored", with SEC4-1-G beside it.
+      - Embers' own reading is that without the carrier SEC4-1 is 5/5 (need 4).
+      - The addendum's reading is that SEC4-1-G would still close (M6 is behind only on cardiotocography).
+      - Phoenix should verify both readings and treat carrier admissibility (leak screening) as a pre-hash check.
+12. **Records opened by Embers are missing from Ashes' `data/SEEN.md`.** These are the PSU runs p5156 and p5565, and the
+    carriers Embers' ESEC2 walk opened (addendum §1.6 item 4). Under R11, Phoenix must treat them as SEEN.
