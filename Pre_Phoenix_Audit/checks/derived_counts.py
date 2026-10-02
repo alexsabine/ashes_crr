@@ -196,6 +196,17 @@ def d8_timing():
     print(f"   studies with a named request prompt {len(named)}; hashed within 25 min of the prompt's header time {len(within)}: {within}")
     print("   others: " + ", ".join(f"{n} {t} min" for n, t in named if t > 25.0))
     print("   (a lower bound on receipt -> hash: prompt header times from entry 57 on are logging times, outcome_classes.txt [8] note)")
+    prev = []
+    for x in lines[i0 + 2:]:
+        if not x.startswith("    ") or x.startswith("    'prev"):
+            break
+        m = re.search(r"(\d+\.\d+) h\s+(\d+\.\d+) h\s*$", x)
+        if m:
+            prev.append((x.split()[0], float(m.group(2))))
+    under = [n for n, h in prev if h < 24.0]
+    print(f"   'prev score->hash' defined on {len(prev)} rows (table order, not lineage order); under 24 h on {len(under)}; "
+          f"range {min(h for _, h in prev):.2f} to {max(h for _, h in prev):.2f} h; over 24 h: "
+          + ", ".join(f"{n} {h:.2f} h" for n, h in prev if h >= 24.0))
 
 
 def d9_consumed():

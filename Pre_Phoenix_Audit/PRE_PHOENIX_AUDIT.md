@@ -38,7 +38,9 @@ data. Embers' verdicts are not imported into Ashes, and Ashes' verdicts are not 
    - The fourth, H-CUT, has never had a real-data test of any kind.
    - The existential reading of H-L5 ("which class a real system belongs to", `theory/CRR.md:216-217`) was never tested on
      the class expected to be arc-regular (stick-slip).
-2. **Every apparent success reduces to known mathematics or to a construction:**
+2. **Every apparent success reduces to known mathematics or to a construction.** The one exception is SEC's secant units
+   calibration, which SPA1 did not find stated in any source (S2 PARTLY REDUNDANT). It is not CRR and is classed F (§5).
+   The reductions:
    - the clipped SEC is Laplace, plus a secant units calibration, plus AR1's clip (SPA1 "KNOWN"; P1 F11 "0 of 7 operational
      clauses");
    - the equanimity rule is MGDA / VQGAN / GradNorm α = 0;
@@ -63,11 +65,14 @@ data. Embers' verdicts are not imported into Ashes, and Ashes' verdicts are not 
 6. **The adversarial machinery was merciless and correct about what it scored.** Its failures were of a different kind:
    - **Mis-aimed criteria.** Construct validity lagged: the "not behind the tuned λ" weakness was flagged on 2026-09-25, and the
      control entered a pre-registration on 2026-09-30.
-   - **Theory decisions skipped.** The v3.2 decision list was written and never decided, and four EQ studies tested the ratio
-     law the record had said needed choosing first.
-   - **Confirmation that outran formulation.** Prompt-to-hash times were often minutes (`outcome_classes.txt` [8]).
-   - **Synthetic Phase-A gates closed with the finality of a held-out FAIL.** First-run design closures were never followed by
-     a later redesign: SAL, Rupture, Cut_Content, OB1-C3 and RRM2 on a learner that barely drifts.
+   - **Theory decisions skipped.** The v3.2 decision list was written and never decided. Five studies tested the ratio law
+     after the record had said a choice was needed first: EQ2R, EQ3, EQ4, BAYES-1 and SOTA1.
+   - **Confirmation that outran formulation, in named cases.** H-L5's real-data preregistrations were hashed before the
+     analysis that located its content. The SCL1 reset observation was hashed for replication 7.4 minutes after the request.
+     Request-to-hash times are often minutes, but PROCESS warns that tempo alone does not measure maturity (§8.2).
+   - **Synthetic Phase-A gates closed with the finality of a held-out FAIL.** For SAL, Rupture, Cut_Content, OB1-C3 and RRM2
+     (on a learner that barely drifts), no later redesign was ever declared. After other closures, 5 redesigns opened and 5
+     closed again (PROCESS §3(a)).
 
    §8 and §11 give the evidence and the split between what should stay merciless and what belongs in an exploratory zone.
 7. **Embers, the rotor extension, read at 7082f23.**
@@ -100,7 +105,10 @@ data. Embers' verdicts are not imported into Ashes, and Ashes' verdicts are not 
 | NOT DECIDABLE | 11 | 2 | 0 | 0 |
 | VOID | 4 | 1 | 0 | 0 |
 | GATE CLOSED before data | 0 | 9 | 2 | 0 |
+| PASS-other (seen-data passes, forced passes, and others) | 5 | 9 | 0 | 0 |
 | report / no verdict | 49 | 11 | 0 | 1 |
+| other (holds 7, not fragile 9, does not reduce 3, DECIDABLE 6, UNVERIFIABLE 1, numbers 3) | 22 | 7 | 0 | 0 |
+| total | 166 | 57 | 2 | 10 |
 
 **Reconciliation with the ladder.** The ladder (`Epistemic_Review/checks/ladder.txt`) counts held-out PASS-0 15, PASS-1 1 and
 FAIL 37. The difference from this table is classification only (`outcome_classes.txt` [5]): SEC6R-1, SEC6R-C and SEC6R-P are
@@ -119,13 +127,13 @@ does not undo it. Any summary that quotes the ladder alone omits them.
 | 09-14/15 | Archive recomputed (ARC-*). CRR.md v3.1 approved and frozen; its last commit is 09-17 (455780b). EQX: H-EQ "REDUCES". MEAS2: H-L5 FAIL. CARD hashed, not run (PhysioNet 403) | L-EQ, L-L5, L-ONT |
 | 09-16/17 | The external spec arrives. SPEC_RECONCILIATION: "two 'equanimity' laws under one name … the owner must decide" (never decided). EQ2: PASS, FRAGILE. SAL gate CLOSED. SYNTHESIS class defined | L-EQ, L-SURP, L-RETRO |
 | 09-17 → 21 | Synthesis batches 01-26. H-L5 content located in S > 0 (the "threshold fixes the chord" class map). EQ2R VOID (frozen-scorer bug) | L-RETRO, L-L5 |
-| 09-21/22 | Ontology 01-08: "the cut, as computed, needs the future"; v3.2 decision list (never adopted). omega_sweeps; EQ3 (FAIL 5/6); BAYES-1 (NOT DECIDABLE); T1x VOID → T1x2 | L-ONT, L-EQ, L-T1 |
+| 09-21/22 | Ontology 01-08: "CRR's Now, as computed, needs the future" (`ontology/01_the_cut.md:1`); v3.2 decision list (never adopted). omega_sweeps; EQ3 (FAIL: not behind on 5/6, need 6/6); BAYES-1 (NOT DECIDABLE); T1x VOID → T1x2 | L-ONT, L-EQ, L-T1 |
 | 09-23 | EQ4 FAIL; T1X2 FAIL 5/5; Adam / prior-art checks; Rupture gate CLOSED. SEC defined, SEC1 (R5). Off-switch / self-model / Proposition 7 → SCL1, SCL2 (reset observation FAIL) | L-EQ, L-T1, L-CUT, L-SEC, L-PAUSE |
 | 09-24/25 | RLAW: every admissible row FAIL. SCL3: the first strongly anchored PASS-0s (SEC). FOREVER clock gate CLOSED; clock_cut = Wald. AGENT_LOG 131 flags the "not behind" criterion. SOTA1 hashed | L-RLAW, L-SEC, L-CLK |
 | 09-26/27 | SOTA1: CRR-SCL BEHIND ER-ACE, SOTA1-2 FAIL. STAKE1 gate CLOSED (models could not act as agents). CARD run as frozen: FAIL. labs/; G-CD3 OPEN | L-EQ, L-PAUSE, L-L5, L-CUT |
 | 09-28/29 | SEC3 FAIL; SEC4 **PASS-1**; PRED70; EPS1-3; DR1 | L-SEC, L-RETRO, L-PAUSE |
 | 09-30 | SEC5 FAIL. SPA1 KNOWN. P1: the frozen learner meets the criterion 24/30 (FM6 FAILS); post hoc gates (SEC4-1-G CLOSED). SEC7 dev gate CLOSED. RQM, RRM, RRM2, OB1-C1/C3, CPL1: all gates CLOSED within one night | L-SEC, L-MEM, L-CLK |
-| 10-01/02 | SEC6 NOT DECIDABLE (loader). SEC6R: gate CLOSED, passes UNINFORMATIVE, SEC6R-2/B/T FAIL. P7 suite: CRR's part load-bearing in 0 of 17 rows | L-SEC, L-APP |
+| 10-01/02 | SEC6 NOT DECIDABLE (loader). SEC6R: gate CLOSED, passes UNINFORMATIVE, SEC6R-2/B/T FAIL. P7 suite: CRR's part load-bearing in none of the 6 rows a pinned source decides; 11 of 17 not decided | L-SEC, L-APP |
 
 ---
 
@@ -174,9 +182,10 @@ The assumptions that recur across lineages:
 |---|---|---|
 | H-L5 (`:200-209`) | MEAS2-1/2 FAIL 0/17; CARD-1 FAIL 1/29, CARD-2 FAIL 5/29; all not fragile | the hypothesis as a universal claim; measles and the pulse are not in the arc-regular class. Not the existential reading |
 | H-T1 (`:242-250`) | T1X2-1/2 FAIL 5/5, not fragile; path also behind E_new and EWC distance 5/5 | the hypothesis as stated, for small MLPs on tabular regression. Not LM-class models (never run) |
-| H-EQ (`:166-177`, `:313` "fails if ties either") | EQX-1 REDUCES, EQX-3 FAIL, EQX-4 "the Euclidean ratio beats the Fisher ratio"; SOTA1-2 FAIL (−2.94 against MKD's λ, strongly anchored, not fragile) | the hypothesis as written, for same-units replay and for a distillation past term on Split-CIFAR-100 |
+| H-EQ (`:166-177`: "a present batch and a replayed past batch"; `:313` "fails if ties either") | EQX-1 REDUCES, EQX-3 FAIL, EQX-4 "the Euclidean ratio beats the Fisher ratio" | the hypothesis as stated, for same-units replay on tabular class-IL streams (weakly anchored) |
+| H-EQ's rule outside its stated domain (past terms other than a replayed batch) | SOTA1-2 FAIL (−2.94 against MKD's λ on a distillation past term, strongly anchored; SOTA1-S is the sensitivity of SOTA1-1, not of SOTA1-2). EQ3-1 FAIL and EQ4-1r FAIL on an online-EWC penalty past term | one operationalisation each, applied in the same way. `Continuous_Learning/CROSS_VERIFICATION.md:352` reads CRR.md as not restricting the past term; CRR.md's own wording names a replayed batch, so this audit scopes all three alike |
 | Ω = 1 as a distinguished value | EQX-2, EQ2-6, EQ3-6 FAIL; EQ3-P, EQ4-P plateaus; BAYES1-B6 best Ω below 1 on every carrier; analytically the equal-norm rule is stationary on the whole Pareto front (`theory/checks/omega_sweeps.txt` [2]) | the equal-pull-*magnitude* reading, in any norm. Not the equal-precision reading, which was never chosen or tested |
-| H-CUT (`:123-131`) | no real-data row; PRED70 WRONG on 2 synthetic models (R4) | the hypothesis applied to two synthetic models only |
+| H-CUT (`:123-131`) | no real-data row; PRED70 rows read as FALSIFIES on 2 synthetic models, P11-2 and P13-2 (`Epistemic_Review/checks/redundant_vs_fail.txt`) (R4) | the hypothesis applied to two synthetic models only |
 
 The audit found nothing that reaches an axiom (A1–A8) as ontology. RLAW-C reaches the CRR 2.0 law. That law is an addition:
 CRR.md says "no retention law is claimed" (`theory/CRR.md:270-271`).
@@ -235,18 +244,18 @@ The "level reached" column states how far upward the evidence legitimately propa
 | H-T1 | **A** (+ C, E) | H-T1 as stated, one learner class. **C:** v3.1's E_old comparator is near-definitional, though the result does not depend on it. **E:** whether D6 should be measured at resolution σ | T1X2-1/2; `derived_counts.txt` [D4] |
 | H-EQ on replay (EQX) | **A + C** | H-EQ as stated, same-units replay; reduces to ER-sum | EQX-1..4 |
 | Ω = 1 as a value | **A + C** | the equal-magnitude reading, analytically and in any norm; MGDA-family property | EQX-2, EQ2-6, EQ3-6, BAYES1-B6; omega_sweeps |
-| Equanimity as the KD weight | **A** | H-EQ as written (CRR.md "does not restrict the past term") on Split-CIFAR-100 | SOTA1-2 |
-| Normalised penalty step on EWC | **F + C** (D, E parts) | one operationalisation outside H-EQ's stated domain; PASS-0 fragile, then FAIL 5/6 and 4/6; controls VIOLATED; the frozen-learner control never run on these carriers | EQ2-1b, EQ3-1, EQ4-1r; `derived_counts.txt` [D6] |
+| Equanimity as the KD weight | **A** (one operationalisation) | the equal-norm rule as a distillation weight on Split-CIFAR-100, strongly anchored. Outside CRR.md's "replayed past batch", scoped as EQ3-1 and EQ4-1r are | SOTA1-2 |
+| Normalised penalty step on EWC | **F + C** (D, E parts) | one operationalisation outside H-EQ's stated domain; PASS-0 fragile, then FAIL (not behind on 5/6) and FAIL (not behind on 4/6); controls VIOLATED; the frozen-learner control never run on these carriers | EQ2-1b, EQ3-1, EQ4-1r; `derived_counts.txt` [D6] |
 | "Which Ω = 1" (ratio / equal precision / Fisher speed / surplus slope) | **E** (conceptual) | not decidable until the theory text chooses | `theory/SPEC_RECONCILIATION.md:67-80`; batch_02 row 4 INTERNAL |
 | H-CUT / A3 | **E** (+ D) | not decidable: CRR.md does not fix the phase; under the causal phase-plane reading H-CUT is empty on 1-D traces; the Hilbert phase fails on multi-harmonic carriers | batch_07 row 3; rupture T5; `ontology/01_the_cut.md` |
-| G-CD3 / LIFE1 (antipode against the initiation adder) | **F** | synthetic gate OPEN; the one runnable H-CUT test; blocked by loader risk under R2 (AGENT_LOG 162); investigator forecast FAIL | `Life_Sciences/LIFE_SCIENCES.md:86-110` |
+| G-CD3 / LIFE1 (antipode against the initiation adder) | **F** | synthetic gate OPEN; the one runnable H-CUT test; deferred for loader risk under R2/R3 and never resumed (AGENT_LOG 162); investigator forecast FAIL | `Life_Sciences/LIFE_SCIENCES.md:86-110, 127` |
 | Rupture detector δ(Now) | **B** (+ D) | one detector design on the Hilbert phase; PC1 required to beat peak segmentation, which CRR.md:121 says coincides with the antipode where they do not disagree | `Rupture_Detection/RUPTURE_DETECTION.md` |
 | Surplus-weighted replay (SAL) | **A at R4** (+ B, E) | one operationalisation: the instrument saw S (Spearman +0.83 with forgetting), and e^{λS} reallocation still did not help. T5 (measured influence) never run | SAL-A |
 | RLAW (CRR 2.0) | **A** (+ C, D, E, F) | the added law, refuted everywhere; it reaches no CRR.md claim (O1 "no retention law is claimed"); the leave-one-unit-out constant beats it everywhere | RLAW-*; `reports/rlaw.md` |
 | SEC / clipped SEC as tuning-free | **C + A (method level)** | one method on class-IL tabular streams with a 256-unit MLP. SEC3-3, SEC5-1, SEC6R-B/2/T FAIL; SPA1 KNOWN. No CRR principle is load-bearing (F11), so nothing propagates to CRR | L-SEC §5 |
 | the "not behind the tuned λ" passes | **D/E** (instrument) | criterion + stream: met by the frozen learner (FM6; SEC4-1-G, SEC6R-G, SEC6R-A-G CLOSED; SEC7-A). SCL3-3-G OPEN by one carrier. The P rows' gate was never computed | L-SEC O1, O4, O7 |
 | the FAILs labelled "would be printed UNINFORMATIVE" (SEC3-3-G, SEC5-1-G) | **A (method level)** | the method lost a lenient criterion that freezing after task 1 met; they "stand as scored" | L-SEC §5–6 |
-| secant units calibration | **F** | held-out SCL3-4 PASS-0 (span 18866.67× → 500.00×) against SEC1-4 and SEC3-4 FAIL; never tested on a criterion that can fail; not CRR | L-SEC O5 |
+| secant units calibration | **F** | held-out SCL3-4 PASS-0 (span 18866.67× → 500.00×) against SEC1-4 FAIL (seen) and SEC3-4 FAIL (held-out), on a span criterion independent of "not behind"; its "not behind" tests are uninformative; not CRR | L-SEC O5 |
 | SEC where the do-nothing control is behind | **F (weak)** | post hoc, SEEN, small N: clipped SEC not behind on 5/6 (P1 runs), 13/13 (SEC7 development) | `derived_counts.txt` [D5] |
 | Empty cut / Proposition 7 / lossless pause | **C** (construction) | a Bellman identity plus checkpoint/resume; holds by construction; bears on CRR in neither direction | SCL1-1, SCL2-1, SCL3-C, SOTA1-C1..C3; L-PAUSE §4.1 |
 | "failed valuations resist" (SCL1-2/3, SCL2-2/2s/3) | none of A–G as evidence | forced by the valuations' arithmetic (AGENT_LOG 105). Note: SCL1-2 and SCL1-3 still count among the ladder's 13 R5 passes (`ladder.txt:334`) | L-PAUSE §4.2 |
@@ -261,7 +270,7 @@ The "level reached" column states how far upward the evidence legitimately propa
 | kept-anchor drift transport | **F** (non-CRR) | never gated in a learner with large drift; positive on 4/4 SEEN drift-to-fix carriers under FT (post hoc, no step) | `derived_counts.txt` [D7]; RRM2-T1..T3 E; CPL1-A A (current-task anchors only) |
 | the retrodictive banks | **C** dominant; **A at R4** on H-L5/H-CUT in synthetic models; **B** for APPLICATION and KNOB rows | coverage, not unique prediction | §7 |
 | the ontology | **D** (the tense finding is an instrument fact); **E** (C1 is a theorem; C2 is a family of estimators); **F** (C3/A3 never tested) | only commitment C6 (the four hypotheses) reached held-out data | L-RETRO-ONT-APP §3 |
-| the applied savings | **C** + **E/D** (rests on SEC's criterion) | CRR's part load-bearing in 0 of 17 suite rows (`Applied_Suite/checks/suite.txt:889`) | L-APP |
+| the applied savings | **C** + **E/D** (rests on SEC's criterion) | CRR's part: "CRR-proper but not load-bearing 4 … none 2 … not decided by a pinned source 11" (`Applied_Suite/checks/suite.txt:889`); "not load-bearing" means not shown to bear load, not shown irrelevant (`:48`) | L-APP |
 | **G** | **none** | — | — |
 
 ---
@@ -293,13 +302,13 @@ ordinary explanation / what would distinguish) are tabulated in the lineage note
 | layer | |
 |---|---|
 | phenomenon | a plateau over Ω, with no peak at 1 |
-| CRR reading | "the principal place where a philosophical commitment becomes a risky numerical statement" |
+| CRR reading | the external specification calls Ω = 1 "the principal place where a philosophical commitment becomes a risky numerical statement" (`theory/external/CRR_test_specification_GPT6_Astra_2026-09-16.md:69`) |
 | ordinary explanation | equal-norm balancing is stationary on the whole Pareto front, so it does not choose; a known MGDA-family property |
 | what would distinguish | an equanimity rule that selects a point on the front, stated in CRR.md before a test |
 
 - Killed at the right level for the magnitude reading.
 - **The equal-precision reading was never chosen or tested,** although `SPEC_RECONCILIATION.md:79` required the choice before
-  any further EQ pre-registration and four studies followed. This is the record's clearest case of confirmatory machinery
+  any further EQ pre-registration and five studies followed (EQ2R, EQ3, EQ4, BAYES-1, SOTA1). This is the record's clearest case of confirmatory machinery
   running ahead of theory formulation.
 - That reading's natural home is inverse-variance (Bayes) weighting, which is not CRR-specific
   (`theory/retrodictions/crr_retrodictions.txt:142`).
@@ -316,7 +325,9 @@ ordinary explanation / what would distinguish) are tabulated in the lineage note
 | what would distinguish | a CRR-only prediction of the v a system *has*. RLAW tried the gain route and every admissible row failed |
 
 - Not extinguished: there was nothing CRR-specific to extinguish.
-- **The productive descendant** is SEC's units calibration, seeded by CR5 (AGENT_LOG 143). It is not CRR.
+- **The productive descendant** is SEC's units calibration. It grew out of the H-EQ programme's Laplace baseline and EQ3's
+  miscalibration finding (AGENT_LOG 143). The Cramér–Rao reading CR5 came later (2026-09-25) and is labelled hindsight. SEC
+  is not CRR.
 
 **Forgetting and memory-depth rules** (L-RLAW, L-T1).
 
@@ -335,7 +346,8 @@ ordinary explanation / what would distinguish) are tabulated in the lineage note
 
 | layer | |
 |---|---|
-| phenomenon | on the 4 SEEN carriers with drift to fix, kept-anchor transport (NCM RRM − STALE) is positive on 4/4 under FT. Current-task-anchor transport hurt on the same carriers (`derived_counts.txt` [D7]; `Coupling/checks/cpl_phase_a.txt:149-175`) |
+| phenomenon | on the 4 SEEN carriers with drift to fix, kept-anchor transport (NCM RRM − STALE) is positive on 4/4 under FT (no step printed). Current-task-anchor transport was behind STALE by more than a step on 2 of
+  the same 4 (isolet, Kuzushiji-MNIST) and within a step on 2 (`derived_counts.txt` [D7]; `Coupling/checks/cpl_phase_a.txt:149-175`) |
 | CRR reading | the owner's "first object" reading. Not a CRR.md claim |
 | ordinary explanation | anchor provenance in the HopDC / transport-keys family; kept anchors are 20 raw rows |
 | what would distinguish | a declared test on unseen carriers screened for drift to fix. None of it would be CRR evidence |
@@ -408,7 +420,8 @@ ordinary explanation / what would distinguish) are tabulated in the lineage note
 **What the retrodictive record establishes.**
 - CRR's vocabulary attaches to a very wide range of domain mathematics.
 - Where a CRR-proper ingredient changed a number and the result could be checked, it landed on the domain's known value 69 of
-  97 times (Wilson 95 % interval 0.6145 to 0.7921). It could miss: WRONG 28, FAILS 20.
+  97 times (Wilson 95 % interval 0.6145 to 0.7921). It could miss: WRONG 28 within that denominator; FAILS 20 in the separate
+  197-row battery layer.
 
 **What it does not establish.**
 - **Unique prediction.** SHARP was reached 0 times, the flow is supplied by the framework 0 times, and 0 clean ADDS remain.
@@ -484,8 +497,9 @@ lineage note.
 **One cost: held-out data consumed by infrastructure.**
 - 27 held-out carriers were fetched for studies whose primary verdict became VOID or NOT DECIDABLE: EQ2R 3, T1x 6, BAYES-1 6,
   SEC6 12 (`derived_counts.txt` [D9]).
-- The frozen-code rule converted each defect into lost carriers. That cost is the price of the rule's integrity, and it
-  was paid correctly.
+- The frozen-code rule turned three code or loader defects (EQ2R, T1x, SEC6) into lost carriers. BAYES-1's six were lost
+  to an optimiser tolerance set on a surrogate, and its B1–B7 lines were still reported. The cost is the price of the rule's
+  integrity, and it was paid correctly.
 
 ### 8.2 Before the hash: where maturity was missing
 
@@ -493,12 +507,14 @@ lineage note.
    - 15 of the 20 studies with a named request prompt were hashed within 25 minutes of that prompt's logged time
      (`derived_counts.txt` [D8]: EQX, MEAS, MEAS2, CARD, EQ3, BAYES-1, T1x, SEC1, SCL1, SCL2, SCL3, SEC3, SEC4, SEC5, SEC6R).
    - This is a lower bound on receipt → hash, and some designs were templated in CLAUDE.md §4–§6 beforehand (PROCESS §3(b)).
-   - Within a lineage, each successor was hashed 0 to 9.07 h after the previous first score (`outcome_classes.txt` [8]).
+   - From the previous study's first score to the next hash: under 24 h on 17 of the 18 rows where it is defined (table
+     order, not lineage order; range 0.00 to 30.40 h; `derived_counts.txt` [D8]).
 2. **Theory decisions skipped.**
    - "Before any further EQ prereg the owner must decide which law carries the name" (`theory/SPEC_RECONCILIATION.md:79`).
-     No decision is recorded, yet EQ3, EQ4, BAYES-1 and SOTA1 followed (L-EQ §4 Q6).
+     No decision is recorded, yet EQ2R, EQ3, EQ4, BAYES-1 and SOTA1 followed (L-EQ §4 Q6).
    - The v3.2 decision list (`ontology/05_next_steps.md` §2) has stood open since 2026-09-22. It covers which phase A3 cuts
-     on, the event rule, the segmentation rule and A6's scope. CRR.md is still v3.1.
+     on, A3 on projective carriers, the unit on a count carrier, which Ω = 1, P3's normalisation, what a partial reset is
+     (segmentation), whether a law is part of the settled past, and the FEP reading. CRR.md is still v3.1.
 3. **Criterion construct validity lagged.**
    - The SEC criterion's weakness was flagged on 2026-09-25 (AGENT_LOG 131: 13 of 37 carrier-scorings INERT; a proposal for
      "a pre-registered load-bearing criterion").
@@ -516,8 +532,9 @@ lineage note.
      2026-09-17 → 21.
    - CARD then ran as frozen on 2026-09-26/27 (AGENT_LOG 164 rejected a fresh prereg as rule-shopping). The protocol worked as
      designed; the cost was a second real-data test on an operationalisation chosen before the content was understood.
-6. **Immature observation, immediate confirmation.** The SCL1 reset observation went to a hashed held-out replication about 15
-   minutes after the owner asked (prompt 125 at 21:27:32Z; SCL2 prereg at 21:34:54Z). No exploration of mechanism, dose or task
+6. **Immature observation, immediate confirmation.** The SCL1 reset observation went to a hashed held-out replication about 7
+   minutes after the owner's logged request (prompt 125 at 21:27:32Z; SCL2 prereg commit 679ae8b at 21:34:54Z; 7.4 min in
+   `outcome_classes.txt` [8]). No exploration of mechanism, dose or task
    count came first. The FAIL (SCL2-R) is correctly scoped to the observation.
 
 ### 8.3 Phase-A and development gates: where closure became finality
@@ -541,8 +558,10 @@ lineage note.
 **What happened next.**
 - After a first closure, redesigns opened 5 times and closed again 5 times (PROCESS §3(a), judgement).
 - Three of the redesigns that opened lead to the record's held-out passes: EQ2-1b, SCL3 through SEC1, and SEC4-1.
-- Same-day redesign was refused each time as gate-shopping (CLAUDE.md §10). The stated route was "a new declaration, labelled
-  post hoc, on a later day … only on the owner's instruction" (AL 122, 192, 209).
+- Some redesigns ran the same day when declared before the rerun: Adam Declaration 3 (AL 93), SEC1's gate v1 (AL 96) and
+  Lossless Amendment 1 (AL 147). After the closures at AL 122, 192, 205, 209 and 238, a redesign under the same declaration
+  was refused as gate-shopping (CLAUDE.md §10). The entries leave any redesign to a new declaration, AL 122 and 192 "only on
+  the owner's instruction".
 - 13 named follow-ups never reappear in the AGENT_LOG (`outcome_classes.txt` [9]): BAYES-1b, H-REG, LIFE1, the dose-matched
   CUT1, EQ5, the causal-phase cut, per-task normalisation, Ω scaled by settled occasions, a stronger RQM criterion, a SEC
   reference that can fail, a harder FED surrogate, the arc-triggered refresh C2, and RW3.
@@ -552,16 +571,19 @@ lineage note.
   just yet" (PL 106). Declared synthetic exploration followed (Adam_SGD), then SEC (AL 96, 143). That lineage produced the
   record's only PASS-1, which a post hoc gate later emptied.
 
-**A direct protocol block.**
-- LIFE1, the one runnable real-data H-CUT test (G-CD3 OPEN), was not registered.
+**A protocol deferral that was never resumed.**
+- LIFE1, the one runnable real-data H-CUT test (G-CD3 OPEN), was not registered. AL 162: the pre-registration "is not
+  written today", and R3 barred a data step before 2026-09-27 in any case.
 - A header-only check of the data's schema was ruled to be "opening data before the hash" (AL 162).
-- Together with the VOID precedent of blind loaders, R2 as interpreted stopped the only ready test of CRR's most distinctive
-  hypothesis.
+- Together with the VOID precedent of blind loaders, R2 as interpreted deferred the only ready test of CRR's most distinctive
+  hypothesis. The follow-up never reappears (`outcome_classes.txt` [9]), and the record does not separate the rule from the
+  owner's change of direction.
 
 ### 8.4 Where exploration happened, and where it went
 
 **Exploration was plentiful but unrecorded or unstructured.**
-- **L-EQ:** ten synthetic batteries; an off-repository playground "permitted by the owner" whose numbers stay off the record
+- **L-EQ:** a series of synthetic batteries (listed in L-EQ §8); an "owner-permitted" off-repository playground whose numbers
+  stay off the record
   (AL 3); a dev run on SEEN carriers before EQ4.
 - **L-SEC:** development stages on SEEN carriers (SEC4-D on 16, SEC5-C-DEV on 22, SEC6 D-RUN on 30, SEC7 on 30). SEC itself was
   defined "in scratchpad work on synthetic quadratic worlds (… not in the repository)" (`prereg/sec1/PREREG.md:54`).
@@ -583,7 +605,7 @@ lineage note.
 development before confirmatory or gate testing in these places:
 - the Phase-A gates closed on design defects and treated as final: SAL, Rupture, Cut_Content, OB1-C3, RRM2 on a non-drifting
   learner, Maps P5 on a mis-specified secondary condition, RQM's uncloseable criterion;
-- the LIFE1 schema block;
+- the LIFE1 schema deferral, never resumed;
 - the failure to decide the theory's open readings (which equanimity, which phase, which event rule) before running four EQ
   studies and two H-L5 studies.
 
@@ -762,8 +784,8 @@ lineages are in §9 and `notes/EMBERS_CROSS_AUDIT.md`.
 |---|---|---|---|---|---|---|---|---|---|---|
 | **L-L5** | "change has its own clock": arc between own events is more regular than clock time (`CRR.md:196-219`) | CV(arc) vs CV(clock) beyond amplitude, identity-metric and peak controls; measles (1-D Poisson), cardiac BP/ECG (R-R); synthetic banks | MEAS2-3 control line 12/17 (not H-L5); CARD-2 bare inequality 19/29 (amplitude ties) | MEAS2-1 0/17, CARD-1 1/29, CARD-2 5/29, all not fragile; PRED70: 7/7 "arc-regular" rows fail the amplitude control | hypothesis as stated (the universal reading) | FAIL on both real carriers; existential reading untested | timing set by the domain's dynamics; arc = chord = amplitude on monotone occasions (P1) | arc-regularity *beyond amplitude* through S > 0 compensation on multi-hump occasions; stick-slip | which real systems have S > 0 compensation; a pre-decided event and segmentation rule; a multi-dimensional Fisher carrier; stick-slip | that H-L5 holds for measles or the pulse; threshold-system arc-regularity as CRR evidence; p4581 |
 | **L-T1** | forgetting tracks the Fisher path, not the endpoint (`CRR.md:242-250`) | per-step Σ√(2KL) on probes; MLP regression, lr controlled, held-out R² | ARC-T1 (seen, lr-confounded; beaten by E_old 0.99351) | T1X2-1/2 FAIL 5/5, not fragile; path also behind E_new and EWC distance 5/5 ([D4]) | hypothesis as stated, one learner class | FAIL (held-out, weakly anchored) | loss-based forgetting is an endpoint function; the per-step path is mini-batch noise (S/C* 72–275) | a refinement-convergent path; forecasting forgetting before the endpoint exists; LM-class learners | those three | that path length predicts forgetting better than an endpoint |
-| **L-EQ** | equanimity: settled past and present exert equal pull, Ω = 1 (`CRR.md:166-177`) | Fisher/Euclidean gradient-norm ratio (EMA 0.9, cap) on replay, EWC penalty, EQ-B clip, exact-posterior comparison, KD weight; Kalman; drifting-units synthetic worlds | EQ2-1b PASS-0 (fragile; replication failed); 5 of 9 load-bearing carriers ahead, 4 on one digit set ([D6]) | EQX-1 REDUCES, EQX-3 FAIL; SOTA1-2 FAIL (−2.94, strongly anchored); EQ3-1, EQ4-1r FAIL; Ω a plateau | hypothesis as stated (same-units replay; KD); the equal-*magnitude* reading analytically | REDUCES / FAIL; best rows PASS-0 at most | MGDA / VQGAN / GradNorm α = 0; the Bayes count weight; Riccati | an equanimity that *selects* a trade-off (equal precision, never chosen); per-task normalisation + P3 age weights (never declared) | decide which equanimity first; the drifting-units regime on real carriers; the knife edge as a plasticity diagnostic | that Ω = 1 is optimal, Bayes-optimal or a threshold; that the rule is new; that EQ2-1b/EQ3-I/EQ4-I are findings |
-| **L-CUT** | the cut: an empty, oriented antipode of an intrinsic phase; own events sit there, not at the extremum (`CRR.md:101-131`) | Hilbert-phase antipodes; H-CUT diagnostics (CARD-3, MEAS2-3); δ(Now) rupture CUSUM; content-bearing resets; G-CD3 | G-CD3 synthetic gate OPEN | no real-data H-CUT test; Rupture gate CLOSED (PC1 behind peak; T5 190.297×); PRED70 WRONG on 2 synthetic models | instrument / one operationalisation (no stated-hypothesis test) | NOT DECIDABLE until CRR.md fixes the phase | the domain's own trigger sets events; the Hilbert phase is non-causal and harmonic-sensitive | the antipode against the initiation adder (LIFE1) | decide the phase (own event / Poincaré / analytic); LIFE1 with a declared schema-only loader check; a rupture positive control where antipode and extremum disagree | that the antipode beats peak cuts; that δ(Now) detects ruptures; that any real system's events sit at the antipode |
+| **L-EQ** | equanimity: settled past and present exert equal pull, Ω = 1 (`CRR.md:166-177`) | Fisher/Euclidean gradient-norm ratio (EMA 0.9, cap) on replay, EWC penalty, EQ-B clip, exact-posterior comparison, KD weight; Kalman; drifting-units synthetic worlds | EQ2-1b PASS-0 (fragile; replication failed); positive margin against the tuned λ on 5 of 9 load-bearing carriers, 4 of them on one digit set (report only, [D6]) | EQX-1 REDUCES, EQX-3 FAIL; SOTA1-2 FAIL (−2.94, strongly anchored; distillation past term); EQ3-1, EQ4-1r FAIL; Ω a plateau | hypothesis as stated (same-units replay); one operationalisation each for the EWC and KD past terms; the equal-*magnitude* reading analytically | REDUCES / FAIL; best rows PASS-0 at most | MGDA / VQGAN / GradNorm α = 0; the Bayes count weight; Riccati | an equanimity that *selects* a trade-off (equal precision, never chosen); per-task normalisation + P3 age weights (never declared) | decide which equanimity first; the drifting-units regime on real carriers; the knife edge as a plasticity diagnostic | that Ω = 1 is optimal, Bayes-optimal or a threshold; that the rule is new; that EQ2-1b/EQ3-I/EQ4-I are findings |
+| **L-CUT** | the cut: an empty, oriented antipode of an intrinsic phase; own events sit there, not at the extremum (`CRR.md:101-131`) | Hilbert-phase antipodes; H-CUT diagnostics (CARD-3, MEAS2-3); δ(Now) rupture CUSUM; content-bearing resets; G-CD3 | none (G-CD3's synthetic gate OPEN shows only that the design can separate the readings) | no real-data H-CUT test; Rupture gate CLOSED (PC1 behind peak; T5 190.297×); PRED70 WRONG on 2 synthetic models | instrument / one operationalisation (no stated-hypothesis test) | untested: no ledger row tests H-CUT; salvage class E until CRR.md fixes the phase | the domain's own trigger sets events; the Hilbert phase is non-causal and harmonic-sensitive | the antipode against the initiation adder (LIFE1) | decide the phase (own event / Poincaré / analytic); LIFE1 with a declared schema-only loader check; a rupture positive control where antipode and extremum disagree | that the antipode beats peak cuts; that δ(Now) detects ruptures; that any real system's events sit at the antipode |
 
 **CRR-derived lineages**
 
@@ -773,7 +795,7 @@ lineages are in §9 and `notes/EMBERS_CROSS_AUDIT.md`.
 | **L-RLAW** | CRR 2.0: memory depth α* = K(v_own), zero parameters (O1 route 1) | local-level v from input drift; five unseen domains | RLAW-4DT tracking 0.523 (FRAGILE) | RLAW-U 0/5; RLAW-C FAIL (0/112); the constant beats the law everywhere; none fragile | the added law (not a CRR.md claim: "no retention law is claimed") | FAIL, strongly anchored; outside the ladder by the owner's instruction | memory is a domain trait (diffusivity, sluggishness) | memory derived from the system's *own* state model (O1 proper, never derived) | O1 derivations on now-SEEN RLAW data, exploratory | that the law holds anywhere; that the ladder's FAIL count includes RLAW |
 | **L-CLK** | index learning by own change, not steps (the slogan at `CRR.md:196`, not H-L5) | FOREVER swaps; own-clock stopping; arc-clocked Adam (C1); arc-triggered consolidation (C3); own-clock slow model (SOTA1) | C3 firings near hidden switches (confounded); C1 S1 timing effect (beaten by MECTA-M) | SOTA1-3:crr-stepclock FAIL (TIE, held-out); OB1-C1 G-TIME S2 FAIL; clock gate CLOSED; clock_cut = Wald | one operationalisation each | FAIL / GATE CLOSED; C2 never run | Wald's SPRT; Ebbinghaus; Čencov; decay distribution as a hyperparameter | the arc as a change detector with a constant-rate null | consolidation timing in a stream where consolidation matters; C1 with a β-retuned STEP control; SOTA1's arm with λ swept | that ARC detects boundaries; that FOREVER supports CRR; that own-clock rules beat step clocks |
 | **L-PAUSE** | the empty cut: zero content, zero stake, on the agent's own clock (A3 + A1′ + A6; Proposition 7 lives in AI_Safety, not CRR.md) | ring MDP valuations; lossless own-step pause in learners (SCL1–3, SOTA1-C); NT1 vs DReST; STAKE1 (LLMs); EPS/DR1/Attention transpositions | constructions hold bitwise (SCL1-1, SCL2-1, SCL3-C, SOTA1-C1..C3) | STAKE1-A: the models could not act as agents (no agent-level test); Attention: EMPTY behind TRUE on welfare 28/32; A4b drift-seeking; "A3 = indifference" cost the task | transposition only (CRR.md states no safety claim) | construction (C) + untested prediction (E) | a Bellman identity; checkpoint/resume; utility indifference; POST/DReST | H-C vs H-S vs H-A on a capable agent; necessity (zero stake with nonzero content) | STAKE1 on a capable model; a head-to-head with indifference, safe interruptibility and DReST; the reasoned-pause band; Maps P5 re-declared | that constructions are CRR evidence; that SCL1-2/3 and SCL2-2/2s/3 are passes about agents; novelty of the own-clock pause; that ETM improves welfare; that A3 entails the natural-time design |
-| **L-MEM** | settled content regenerated without stored examples (A3/A6 transposed; the owner's "first object") | input-space Gaussian replay (IGR); anchor-referenced transport (RRM-1/A); HopDC-type transport in a coupled learner | IGR within 0.4013 of JOINT on POS; kept-anchor transport positive on 4/4 SEEN drift-to-fix carriers ([D7], post hoc) | RQM-A (criterion cannot fail); RRM2-T1..T3 (no drift); CPL1-A (current-task anchors hurt) | instrument / one operationalisation | GATE CLOSED ×8 | GMR/DGR; HopDC / SLDC / transport keys; iCaRL/SDC | none identified (the record grades the reading RESTATES) | kept-anchor transport in a learner with real drift; anchor provenance as a variable; GMR at a fixed realistic budget | that CRR found or predicted these methods; that "the HopDC finding" is this repository's |
+| **L-MEM** | settled content regenerated without stored examples (A3/A6 transposed; the owner's "first object") | input-space Gaussian replay (IGR); anchor-referenced transport (RRM-1/A); HopDC-type transport in a coupled learner | IGR within 0.4013 of JOINT on POS; kept-anchor transport positive on 4/4 SEEN drift-to-fix carriers ([D7], post hoc) | RQM-A (criterion cannot fail); RRM2-T1..T3 (no drift); CPL1-A (current-task anchors hurt) | instrument / one operationalisation | GATE CLOSED: 6 ledger rows (RQM-A closed twice) | GMR/DGR; HopDC / SLDC / transport keys; iCaRL/SDC | none identified (the record grades the reading RESTATES) | kept-anchor transport in a learner with real drift; anchor provenance as a variable; GMR at a fixed realistic budget | that CRR found or predicted these methods; that "the HopDC finding" is this repository's |
 | **L-RETRO** | CRR as a synthesis that lands where domains are known, and sometimes adds | batteries (197 rows), SYNTHESIS (164), PRED70 (70, declared first), labs, FRONTIER | hit rate 69 of 97 (0.7113) where checkable | SHARP 0 of 197; framework flow 0 of 109; ADDS 0 clean after literature; PRED70 Q held 35, failed 33 | coverage, not prediction; R4 on H-L5/H-CUT in synthetic models | R1–R3 (R3 unreviewed: 0 named experts) | a correct non-generative grammar lands REDUNDANT by construction | the bounded-memory threshold shift as a cross-domain map; L01; 7 PRED70 A6 candidates | a decoy-framework base rate; literature check of the 7 candidates; the bank as a translation atlas | that 0.7113 is predictive; that ADDS rows are novel; that REDUNDANT means right (15 PRED70 REDUNDANT rows failed Q, [D3]); pooled denominators |
 | **L-ONT** | a process ontology: occasions, empty cut, regenerating past, empty future (A1–A8) | the instrument's readings of A1′, A3, A6; tense, self-model and off-switch tests | Poincaré section within 1 sample of the registered cuts, with no future (`ontology/01_the_cut.md:55-56`) | the registered cut reads the future (instrument); only C6 reached held-out data | instrument (tense); E for C1–C2 | v3.1 frozen since 2026-09-17; v3.2 undecided | Čencov; exponential kernels; information geometry + MaxEnt | none tested beyond C6 | decide v3.2 first; implement the causal section and gate_TENSE; re-read H-L5 rows under it | that the ontology is tested beyond C6; that the tense finding refutes A8 as ontology; kinships as evidence |
 
@@ -781,8 +803,8 @@ lineages are in §9 and `notes/EMBERS_CROSS_AUDIT.md`.
 
 | Lineage ID | Core CRR idea | Operationalisation(s) tried | Strongest supporting observation | Strongest negative evidence | Failure level | Current epistemic status | Mundane explanation | CRR-specific possibility | What Phoenix may explore | What Phoenix must never claim |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **L-SEC** | *none*: the Laplace weight with a secant units calibration (+ AR1 clip); it grew out of H-EQ's R7 baseline; A1′ "names" it in hindsight | SEC1 (seen), SCL3, SEC3, SEC4 (clip), SEC5, SEC6, SEC6R; P1 mechanism runs | SEC4-1 PASS-1 (6/6) as scored; SCL3-3 PASS-0 with its post hoc gate OPEN (by one carrier) | SEC4-1-G CLOSED (frozen learner 5/6); SEC5-1 FAIL (not fragile); SEC6R-B FAIL (AR1-B, SI-1C 8/9 vs 7/9); SEC6R-2 FAIL; FM6 24/30 | the method on class-IL tabular streams; the passes at instrument level | PASS-1 as scored + UNINFORMATIVE by the later gate; no PASS-2 | Laplace + Barzilai–Borwein secant + AR1; lenient class-IL criterion | none (F11: 0 of 7 operational clauses) | the calibration on a criterion a frozen learner fails; a pre-declared per-carrier informativeness rule; AR1-B and SI-1C as baselines | that SEC is CRR evidence or tuning-free; SEC4-1 without SEC4-1-G; any compute/energy/CO₂ saving |
-| **L-APP** | CRR as a source of applied savings and designs | compute/energy estimates; APP1; P7 suite; ROB1 | SCL3 9/10 at 0.0588 of the sweep's compute (`Compute_Savings`) | CRR's part load-bearing in 0 of 17 suite rows; the GLOBAL_ESTIMATE premise "not currently support[ed]"; ROB1 candidates REDUNDANT | applied premise (rests on L-SEC's criterion) | notes with addenda; Energy CONSOLIDATED lacks one (§13) | known methods (SEC, checkpointing, Wald) | none shown | a tuning-cost study with a criterion that can fail, framed as engineering | any saving attributable to CRR; the Alexander Plan's figures as forecasts |
+| **L-SEC** | *none*: the Laplace weight with a secant units calibration (+ AR1 clip); it grew out of H-EQ's R7 baseline; A1′ "names" it in hindsight | SEC1 (seen), SCL3, SEC3, SEC4 (clip), SEC5, SEC6, SEC6R; P1 mechanism runs | SEC4-1 PASS-1 (6/6) as scored; SCL3-3 PASS-0 with its post hoc gate OPEN (by one carrier) | SEC4-1-G CLOSED (frozen learner 5/6); SEC5-1 FAIL (not fragile); SEC6R-B "FAIL (UNINFORMATIVE: SEC6R-G CLOSED …)" (AR1-B, SI-1C 8/9 against 7/9); SEC6R-2 FAIL; FM6 24/30 | the method on class-IL tabular streams; the passes at instrument level | SEC4-1 PASS-1 as scored; its post hoc SEC4-1-G says it "would be printed UNINFORMATIVE and capped at PASS-0"; no PASS-2 | Laplace + Barzilai–Borwein secant + AR1; lenient class-IL criterion | none (F11: 0 of 7 operational clauses) | the calibration on a criterion a frozen learner fails; a pre-declared per-carrier informativeness rule; AR1-B and SI-1C as baselines | that SEC is CRR evidence or tuning-free; SEC4-1 without SEC4-1-G; any compute/energy/CO₂ saving |
+| **L-APP** | CRR as a source of applied savings and designs | compute/energy estimates; APP1; P7 suite; ROB1 | SCL3 9/10 at 0.0588 of the sweep's compute (`Compute_Savings`) | CRR's part: not load-bearing 4, none 2, not decided by a pinned source 11 of 17 suite rows (`suite.txt:889`); the GLOBAL_ESTIMATE premise "not currently support[ed]"; ROB1 candidates REDUNDANT | applied premise (rests on L-SEC's criterion) | notes with addenda; Energy CONSOLIDATED lacks one (§13) | known methods (SEC, checkpointing, Wald) | none shown | a tuning-cost study with a criterion that can fail, framed as engineering | any saving attributable to CRR; the Alexander Plan's figures as forecasts |
 
 ---
 
@@ -793,8 +815,8 @@ lineages are in §9 and `notes/EMBERS_CROSS_AUDIT.md`.
 **What was appropriately adversarial, and should remain merciless:**
 1. **Numbers from scripts (R1) and the append-only ledger (R8).** Every reader could trace every verdict. No verdict needed
    reconstruction, and post hoc weakening was added as rows (SEC4-1-G), never as edits.
-2. **Hash before data, strong anchoring and frozen copies (R2).** Three VOID studies cost carriers, and the rule never allowed
-   a quiet rescue. Keep it.
+2. **Hash before data, strong anchoring and frozen copies (R2).** VOID and NOT DECIDABLE studies cost 27 held-out carriers
+   (EQ2R, T1x, BAYES-1, SEC6; [D9]), and the rule never allowed a quiet rescue. Keep it.
 3. **Score as committed, per unit, with sensitivity tables (R5, R6).** The held-out FAILs that carry the record's real
    information are robust because of this: MEAS2-1, CARD-1, T1X2-1, SOTA1-1a, SEC5-1, RLAW.
 4. **Baselines that can win, and reduction to a constant reported as such (R7).** This is where most "successes" were
@@ -823,13 +845,14 @@ recorded and committed, with outputs labelled exploratory. It is never quotable 
    criterion fail? Can the loader read the family's format (STRING targets)? Can the model act as an agent? Each of these was
    discovered by a gate or a held-out run. Each is a pilot question.
 3. **Theory formulation.** Before a confirmatory test of an ambiguous principle, decide the reading in the theory text: which
-   equanimity, which intrinsic phase, which event rule, which segmentation, A6's scope. An exploratory environment can map the
+   equanimity, which intrinsic phase, which event rule, which segmentation, A6's scope (the last two are not yet on the v3.2
+   list). An exploratory environment can map the
    candidate readings side by side, as SAL's three untried translations and H-EQ's four "1"s should have been. The protocol
    should forbid confirmatory hashing of a hypothesis whose reading is on an open decision list (`SPEC_RECONCILIATION.md:79`;
    `ontology/05_next_steps.md` §2).
 4. **Schema-level data checks.** Reading a file's header or attribute types under a declared, hashed loader check should not
-   count as opening the data. The LIFE1 block (AL 162) shows the current reading can stop the only runnable test of a
-   hypothesis.
+   count as opening the data. The LIFE1 deferral (AL 162), never resumed, shows how the current reading can hold up the
+   only runnable test of a hypothesis.
 5. **Literature checks before declaration, not after.** ADDS dissolved within a day of its check. RQM and RRM were designed
    before their prior art was found. OB1 then changed the order (AL 201), and the change should be kept.
 6. **Off-repository playgrounds and scratchpads become committed exploratory logs.** SEC came from scratchpad work "not in the
@@ -838,21 +861,23 @@ recorded and committed, with outputs labelled exploratory. It is never quotable 
 
 **What was too loose, and should become stricter.** This is the other half of the mixture.
 1. **Tempo from request to hash.** Fifteen of twenty studies were hashed within 25 minutes of the logged request
-   ([D8]). A minimum maturity checklist should apply before any hash:
+   ([D8]). That is a lower bound, some designs were templated beforehand, and tempo alone does not measure maturity (PROCESS
+   §8). The named cases in §8.2 show where it mattered. A minimum maturity checklist should apply before any hash:
    - frozen-runner smoke on every arm;
    - a loader validated on the target format;
    - a must-fail control on the criterion;
    - shown headroom;
    - the theory reading decided.
 2. **Applied extrapolation from PASS-0 or single-family PASS-1 rows.** GLOBAL_ESTIMATE, Energy CONSOLIDATED and the Alexander
-   Plan valued results that had not replicated. Only PASS-2 may leave the ledger (CLAUDE.md §7). Valuation notes should be
-   held to the same rule.
-3. **Confirmatory tests of observations seen once.** SCL2 was hashed about 15 minutes after the request, on an unexplored
+   Plan valued results that had not replicated. CLAUDE.md §7: "Only a PASS-2 may be quoted outside the ledger as a finding."
+   Valuation notes should be held to the same rule.
+3. **Confirmatory tests of observations seen once.** SCL2 was hashed about 7 minutes after the logged request, on an unexplored
    observation. Such observations belong in the exploratory stage first.
 
 **The principle behind the split.** The request asks that "things are killed for the right reason, at the right level of
 abstraction, and only after they have been formulated well enough to deserve the test".
-- Ashes killed for the right reason at the held-out layer.
+- Ashes killed for the right reason at the held-out layer. One readers' disagreement remains open (§8.5, SEC3-3 and SEC5-1
+  beside CLOSED gates), and CARD ran on an operationalisation fixed before H-L5's content was understood (§8.2).
 - It mostly stated the level correctly. The notes find a few compressions: SAL's "no positive control", OB1's unscoped
   "H-T1 failed", and CRR.md's "H-EQ is retired as an adaptive rule".
 - It did not reliably wait until a hypothesis was formulated well enough. The fix is not to weaken the held-out layer. It is to
@@ -866,13 +891,16 @@ The expectations were declared at 37d333a, before any reading.
 
 1. **"Most held-out FAILs will reach one operationalisation, not a CRR principle; a minority will reach the stated hypotheses
    directly (H-L5 on real carriers; H-T1 against the old-probe endpoint)."** Held, with two corrections.
-   - H-EQ also failed at the level of the hypothesis as written (EQX-1/3, SOTA1-2). The expectation omitted it.
+   - H-EQ also failed at the level of the hypothesis as stated, on replay (EQX-1 REDUCES, EQX-3 FAIL). The expectation omitted
+     it.
    - H-T1's failure does not depend on the old-probe endpoint: E_new and the EWC distance also win ([D4]).
-   - Of the 36 held-out FAIL rows (`outcome_classes.txt` [7]), the stated-hypothesis rows are EQX 2, MEAS2 2, CARD 2, T1X2 2
-     and SOTA1-2. The rest reach EQ operationalisations outside H-EQ's domain, the SOTA1 design and components, the SCL1
-     observation, or SEC, which is not CRR.
+   - Of the 36 held-out FAIL rows (`outcome_classes.txt` [7]):
+     - the stated-hypothesis rows are EQX-3, MEAS2-1/2, CARD-1/2 and T1X2-1/2;
+     - EQX-2 reaches Ω = 1 as a value (CLAUDE.md §6's EQ-2);
+     - the rest reach EQ operationalisations outside H-EQ's "replayed past batch" (EQ2–EQ4; SOTA1-2's distillation term),
+       the SOTA1 design and components, the SCL1 observation, or SEC, which is not CRR.
 2. **"Several 'successes' will reduce to known mathematics."** Held, more strongly than expected: every success reduced (§4
-   Q8).
+   Q8). The one exception is SEC's units calibration, which is not CRR and is unresolved (F).
 3. **"Instrument and identifiability failures will be a substantial share of the non-PASS outcomes since 2026-09-25."** Held.
    16 of the 21 held-out VOID / NOT DECIDABLE / UNINFORMATIVE rows belong to studies first scored on or after 2026-09-25
    ([D11]). The expectation did not foresee two things:
@@ -883,7 +911,7 @@ The expectations were declared at 37d333a, before any reading.
    suppressive part sits mostly *before* the held-out layer:
    - in Phase-A finality;
    - in skipped theory decisions;
-   - in one R2 interpretation (LIFE1).
+   - in one R2 interpretation (the LIFE1 deferral).
 
    It also did not foresee that the record shows an equally important *too-loose* part: tempo and applied extrapolation.
 

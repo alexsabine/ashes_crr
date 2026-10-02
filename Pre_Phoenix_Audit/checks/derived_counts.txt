@@ -66,6 +66,7 @@ reads pinned outputs and the ledger; writes nothing; every count is a reading, n
    studies with a named request prompt 20; hashed within 25 min of the prompt's header time 15: ['EQX', 'MEAS', 'MEAS2', 'CARD', 'EQ3', 'BAYES-1', 'T1x', 'SEC1', 'SCL1', 'SCL2', 'SCL3', 'SEC3', 'SEC4', 'SEC5', 'SEC6R']
    others: EQ2 1492.8 min, EQ4 39.5 min, RLAW 84.1 min, SOTA1 383.5 min, SEC6 160.8 min
    (a lower bound on receipt -> hash: prompt header times from entry 57 on are logging times, outcome_classes.txt [8] note)
+   'prev score->hash' defined on 18 rows (table order, not lineage order); under 24 h on 17; range 0.00 to 30.40 h; over 24 h: SEC3 30.40 h
 
 [D9] Held-out carriers fetched for studies whose primary verdict was VOID or NOT DECIDABLE (data/manifests/*.sha256)
    eq2r    (EQ2R-VOID): 3 carriers
