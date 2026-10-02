@@ -33,7 +33,8 @@ with a corrected loader. CARD was hashed 6.9 min after PL 9 (:121), but its data
 AL 2).
 
 **Phase 2 (2026-09-15/17): EQ2.** The design ran through owner prompts PL 17-31. A playground outside the repository
-(AL 3) showed the effect only where the owner hoped. A first gate with a convex positive control closed: "a fixed
+(AL 3) showed the rule helping EWC-type penalties and harming distillation constraints; its numbers were kept off the
+record. A first gate with a convex positive control closed: "a fixed
 weight is metric-optimal on a quadratic" (AL 4). A second positive control opened, and EQ2 was hashed (OC:431). It is
 the only study with a long design phase before its hash: 1492.8 min from PL 17 (OC:431).
 
@@ -142,7 +143,7 @@ learner frozen after task 1 (AL 222). That finding was applied to the record's o
   - **VOID, 4 studies:** MEAS, EQ2R, EQ2R-CC, T1x (ledger MEAS-1..3, EQ2R-VOID, CC-VOID, T1X-VOID).
   - **NOT DECIDABLE on the primary, 2:** BAYES-1 (BAYES1-B0) and SEC6 (SEC6-1).
   - **FAIL or REDUCES on the primary, 11:** EQX (EQX-1 REDUCES, EQX-3), MEAS2, CARD, EQ3 (EQ3-1), EQ4 (EQ4-1), T1x2,
-    SCL2 (SCL2-R, the one hypothesis that could fail on the data; SCL2-2/3 are "PASS as scored ... not counted as
+    SCL2 (SCL2-R and SCL2-M FAIL; SCL2-2, SCL2-2s and SCL2-3 are "PASS as scored ... not counted as
     PASS-0"), RLAW, SOTA1, SEC3, SEC5.
   - **PASS on seen data, rung R5, 2:** SEC1 and SCL1.
   - **Held-out PASS-0 or PASS-1, 4:**
