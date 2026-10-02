@@ -69,7 +69,16 @@ data. Embers' verdicts are not imported into Ashes, and Ashes' verdicts are not 
    - **Synthetic Phase-A gates closed with the finality of a held-out FAIL.** First-run design closures were never followed by
      a later redesign: SAL, Rupture, Cut_Content, OB1-C3 and RRM2 on a learner that barely drifts.
 
-   §9 and §11 give the evidence and the split between what should stay merciless and what belongs in an exploratory zone.
+   §8 and §11 give the evidence and the split between what should stay merciless and what belongs in an exploratory zone.
+7. **Embers, the rotor extension, read at 7082f23.**
+   - Its ledger holds no PASS. No Embers failure reaches a hypothesis stated in Ashes' CRR.md.
+   - It is stricter than Ashes in four places: blame tables before data, decidability settled before held-out units are
+     opened, multiplicity, and verified anchors.
+   - It shares Ashes' two weaknesses: tempo, and no sanctioned way to validate a loader before the hash.
+   - The two repositories converge independently on three live leads: stick-slip; indexing by the system's own events; the
+     identifiability of the cut as A3's gating problem. They also converge on the main dead ends.
+   - They disagree most on what the antipode's record means (D2) and on how far one FAIL propagates (D8). §9 states both
+     sides.
 
 ---
 
@@ -601,7 +610,136 @@ criterion validity: GLOBAL_ESTIMATE was re-pinned on SEC4-1 the day before SEC5-
 
 ## 9. ASHES ↔ EMBERS CROSS-AUDIT
 
-[Completed from `Pre_Phoenix_Audit/notes/EMBERS_CROSS_AUDIT.md`.]
+This section summarises `notes/EMBERS_CROSS_AUDIT.md`, where every claim carries an [Embers] or [Ashes] file:line citation.
+- **What was read.** Embers was read only at commit 7082f23 (2026-09-28T23:52:33Z). A `git ls-remote` on 2026-10-02 returned
+  the same HEAD, so this is Embers' current published state. Nothing in Embers was modified or run.
+- **Verdicts are not imported.** Each repository's verdicts are quoted in its own words and labelled with its name.
+
+### 9.1 What Embers is, and what it inherited
+
+**What it is.**
+- "A restricted, unvalidated rotor extension of `ashes_crr`" ([Embers] `CLAUDE.md:6`).
+- It was built in about 45 hours and pins Ashes at 0edbc37 for theory and rules.
+- Its ledger has 12 rows and no PASS of any level.
+- Its primary rows: H1CARD-1 "FAIL"; H1RESP-1 and H1GAIT-1 "NOT DECIDABLE"; STK1-1 "VOID".
+
+**What it inherited.**
+- Ashes' CLAUDE.md R1–R15 and the ladder, snapshotted verbatim and enforced by script.
+- The synthesis harness, "ported verbatim in logic".
+- Ashes' SEEN list.
+- Ashes' verdicts, as *priors and lessons*, never as Embers rows ([Embers] `CRR_Ashes/README.md:202-222`;
+  `docs/DOMAIN_PORTFOLIO.md:166-182`).
+
+**Timing caveat.** Embers read Ashes when its ledger had 165 rows and no PASS-1. SEC4–SEC6R postdate it.
+
+### 9.2 What Embers added: the rotor extension
+
+It adds the following to CRR.md v3.1, which "has no equations of motion" ([Ashes] `theory/CRR.md:31-32`):
+- the cut as the first passage through half of the **intrinsic Fisher arc** of an identifiable statistical circle, with the
+  ordinary angular antipode as its *ablation*;
+- the intrinsic, not ambient, chord;
+- σ in Fisher-length units;
+- constitutive laws of motion, while "not claim[ing] a universal law of motion";
+- a regeneration seed separate from the phase, "an explicit revision" of A6;
+- a cost bound;
+- hypotheses H1 (the Fisher antipode beats the angular antipode and a fitted lag at locating an independently measured
+  event), H2 (memory-coupled flow) and H3 (cost).
+- Its transfer audit names exactly two structural commitments: S1 (the Fisher half-turn) and S2 (occasion-counted ageing,
+  q^(n−j)).
+
+### 9.3 Which Embers failures bear on baseline CRR, and which only on the rotor
+
+**No Embers ledger failure reaches a hypothesis stated in [Ashes] `theory/CRR.md`.**
+- H1CARD-1 tests H1, the Fisher antipode against the angular antipode, not H-CUT (antipode against extremum). Embers' own
+  pre-data blame table limits it to "H1 for this (system, observation law) class" ([Embers] `prereg/h1card/PREREG.md:187`).
+- H1GAIT and H1RESP are bridge outcomes: a loader issue and a resolution issue.
+- STK1-1 is VOID (a file format and an HTTP 404). Had it run, it was the one Embers line that could bear on a *baseline*
+  commitment: A6/P3 ageing counted in occasions, and A1′ natural time. Its successor stk2 is hashed but not run at 7082f23.
+- At R4 or as wording, Embers' synthetic WRONG rows bear on baseline A6. A6 fails where a domain accumulates or needs
+  several timescales, which CRR.md itself excludes. Maths_Repair MR-003 is a scope note on P3's ⟨k⟩ = q/(1−q), which holds on
+  infinite support only.
+- MR-002 and MR-004 bear on A3's identifiability under any Fisher-arc reading. The Fisher antipode is a property of the pair
+  (rotor, observation law), and it differs from the angular antipode only through the odd harmonics of √g.
+
+### 9.4 Where Embers' machinery is stronger, cleaner or fairer than Ashes'
+
+1. A Bitcoin anchor is *verified* before every data step, including retrodiction declarations.
+2. **A blame table in every prereg, fixed before data.** It states which conjunct a FAIL refutes and which it does not. Ashes
+   had to reconstruct this level after the fact; it is most of what this audit's salvage map does.
+3. **Decidability settled on training units before held-out units are opened** (the H1 calibration gate). Ashes' SEC
+   instrument gates were computed after scoring, so they produced UNINFORMATIVE rows.
+4. **Multiplicity:** Bonferroni within a same-day batch, with m fixed before the hash. Ashes has no family-wise rule.
+5. **The adversarial code audit pinned with its defects in it** (DEFECT 11 → 0).
+6. **Theory-level gaps stated as gaps** (MR-002), not left in an undecided list.
+7. **Every prereg records an honest prior** ("FAIL (P ≈ 0.80)").
+
+### 9.5 Where Embers may have become too confirmatory too early
+
+1. **Tempo.** The first held-out data step came about 3 h 38 min after prompt 1.
+2. **Data consumed without a verdict.** Three of its four scored real-data studies ended without a hypothesis verdict, for
+   data-plumbing reasons that metadata-only scouting could not see. The records were consumed.
+3. **A test that could not support its hypothesis.** The one FAIL (H1CARD) was run on a carrier chosen by a channel-count
+   rule, with a recorded prior of "FAIL (P ≈ 0.80)". Embers' own portfolio says a PASS there "cannot validate the
+   rotor-specific cut theorem".
+4. **One FAIL read too broadly.** That FAIL then supported the sentence that S1 "has not survived"
+   ([Embers] `docs/TRANSFER_CANDIDATES.md:89`). This is stronger than Embers' own blame table and its rule of two FAILs per
+   class.
+5. **The same suppressive effect as Ashes.** "No peek before the anchor" covered file formats, so exploratory contact with
+   real data before the hash was effectively zero. Ashes has the same effect (LIFE1).
+
+### 9.6 Do they identify the same live leads and the same dead ends?
+
+**Live leads: independent convergence on three points.** Neither repository has a G.
+- **Laboratory stick-slip as the right next carrier.** Ashes wants it for H-L5's existential reading; Embers wants it for S2.
+  Neither ran a test that scored.
+- **Indexing by the system's own events.** In Ashes this is natural time and the own clock: the one held-out learner test
+  TIEd. In Embers it is occasion-counted memory, VOID or pending.
+- **The identifiability of the cut** (which phase, which carrier, which event) as the problem that gates A3.
+
+**Dead ends, mostly the same.**
+- **Agreed independently, on disjoint system sets:**
+  - retrodictive consistency is not evidence;
+  - A6 fails where a domain accumulates;
+  - at R4, the antipode loses to domain triggers and extrema.
+- **Agreed because Embers read Ashes** (inherited, so not independent confirmations):
+  - H-EQ's CRR-specific parts failed or reduced;
+  - H-L5 fails on measles and the pulse;
+  - the empty cut is a construction.
+
+### 9.7 Disagreements: both interpretations, no convergence forced
+
+| # | topic | Ashes reading | Embers reading | what would decide |
+|---|---|---|---|---|
+| D1 | What "half a turn" in A3 is measured in | intrinsic phase, unspecified in CRR.md; implemented as the analytic-signal phase + π; the choice is open (H-CUT class E) | half the intrinsic Fisher arc of a chosen observation law; the angular antipode is the ablation (an "additional modelling commitment") | a theory decision first (Ashes v3.2 item 1; Embers MR-002). Then one study scoring own events against the Fisher antipode, the angular antipode, the extremum and a fitted lag, on a carrier with large odd harmonics |
+| D2 | The status of the antipodal cut | the lineage audit: "No ledger row tests H-CUT … Not extinguished", class E; R4 WRONG rows reach H-CUT only in model systems. **Ashes' ontology summary is more negative:** "found undecided and, where decided, wrong" (`ontology/02_commitments.md:149`), so part of this disagreement is inside Ashes | "Domain events sit at extrema, not antipodes"; after H1CARD, S1 "has not survived" | a held-out H-CUT test on own events with its own gate: G-CD3/LIFE1 (Ashes) or odd-harmonic carriers (Embers). Neither has run |
+| D3 | What a fair cut test needs | the system's own event on the carrier, scored against the extremum | an *independent* event channel: "Never derive the tested event from the phase used to predict it" | a gate running both designs on the same surrogates, to see whether same-channel events create circular alignment |
+| D4 | A6's successor state | the Fréchet mean of past occasion contents; the cut resets C | the seed is distinct from the phase: "an explicit revision" | definitional; an owner decision. A domain where the phase does not jump at the cut makes literal A6 an extra impulse |
+| D5 | Laws of motion | CRR has none; the framework supplies the flow in 0 of 109 FLOW rows | adds constitutive laws but claims none universal; physics is "supplied by the domain" | the repositories' texts agree; the difference is with the owner's framing. An S2-type transfer test (fit in one condition, predict another) would show whether the laws carry content |
+| D6 | The chord in D3/P1 | "the geodesic distance" on the manifold; S = 0 iff monotone in 1-D | requires the *intrinsic* chord. The ambient simplex chord gives a monotone half-turn positive surplus (1.397009 against 0.880169) | mathematical: a v3.2 wording decision. No Ashes text addresses it |
+| D7 | The unit σ | 1.4826·MAD of a raw occasion statistic; renaming a constant unit cannot move an H-L5 verdict | σ must be a Fisher length; a raw residual cannot divide a Fisher arc when detectability varies with the state | a declared rerun of one SEEN study under both units, on a carrier whose metric varies along the record |
+| D8 | How far one held-out FAIL propagates | H-L5: A at the universal level, not the existential one. H-T1: A for one learner class | "empirical readings of H-L5, D6/H-T1 and the regeneration law retracted for those classes", although Embers' own rule asks for two FAILs per class, and its taxonomy calls the retraction counts "a proposal for the owner" | for H-T1, Ashes' numbers already show that the FAIL does not rest only on E_old ([D4]). For H-L5, a test on a carrier with an arc-regular prior (stick-slip). For semantics, a propagation rule adopted before data |
+| D9 | What RLAW reaches | the added law only; not A6/P3 ("CRR does not fix q"; "no retention law is claimed") | listed under the A6 lesson: "A6 fails where domains accumulate … RLAW-U 0/5" | textual. CRR.md supports the Ashes reading. Embers juxtaposes the two; it does not claim entailment |
+| D10 | Where RLAW is counted | outside the ladder at the owner's request; a separate column here | "the ladder omits the cleanest negative in the record" | a reporting choice; both call the rows FAIL |
+| D11 | What the empty-cut work is | a construction; it does not propagate to CRR.md | "R0 in substance"; prior art | no disagreement of substance; only the rung label differs |
+
+**Reading.**
+- D1–D3 are one cluster: both repositories found the same identifiability problem and answered it differently. Ashes left
+  the phase open. Embers fixed one answer, tested it, and found the answer is itself relative to the instrument (MR-002).
+- Ashes' implemented cut is structurally closer to Embers' *ablation* than to Embers' hypothesis. H1CARD registers no
+  angular-against-lag comparison, so it gives no verdict on the angular reading.
+- D2 and D8 are disagreements about the *meaning* of failures. On both, the Ashes lineage audit is more conservative about
+  propagation than the lessons Embers drew from Ashes. On D2, Ashes' own ontology summary sides with Embers.
+
+### 9.8 What Phoenix inherits from Embers' machinery
+
+The Ashes-side recommendations in §11 already ask for a pre-hash maturity stage. Embers shows four concrete devices for it:
+- a blame table before data;
+- a decidability gate on training units before held-out units are opened;
+- multiplicity within a batch;
+- a verified anchor.
+
+Embers also shows the same gap Ashes has. Neither repository has a sanctioned way to validate a loader or a file schema
+without "opening" held-out data, and both lost held-out records to that gap.
 
 ---
 
@@ -668,7 +806,10 @@ lineages are in §9 and `notes/EMBERS_CROSS_AUDIT.md`.
 7. **Separate denominators, the ladder, and "construction ≠ evidence".** These stopped the retrodictive banks and the pause
    constructions from being counted as confirmation.
 8. **The instrument gate on the success criterion (SEC6-G).** It arrived late. It should become merciless *earlier*: every
-   "not behind" or "matches" criterion needs a must-fail control declared before any hash.
+   "not behind" or "matches" criterion needs a must-fail control declared before any hash. Embers' two devices
+   (§9.4) belong here too:
+   - decidability settled on training units before held-out units are opened;
+   - a pre-data blame table stating which conjunct a FAIL refutes.
 
 **What was too final too early, and should move into an explicitly exploratory environment.** "Exploratory" here means
 recorded and committed, with outputs labelled exploratory. It is never quotable as evidence, and it ends in a frozen gate.
