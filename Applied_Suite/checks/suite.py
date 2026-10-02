@@ -26,15 +26,16 @@ use cases per domain and checks the count against its rows). Each prints:
   CRR's part  the DECLARED RULE below, applied to pinned lines.
   compute / energy  only a line a pinned output (or a ledger row's observed column) states, quoted with its file and line.
 
-THE DECLARED RULE FOR CRR'S PART (printed again at the top of the output)
+THE DECLARED RULE FOR CRR'S PART (this section and CHOICES are printed at the top of the output from this docstring)
   CRR-proper ingredients are the list in CLAUDE.md sec. 7 (the SYNTHESIS class), read from the per-commitment table of
-  Epistemic_Review/checks/ladder.txt [2], not typed: A3/D5, A6, P2/P3, A1'/D1, H-L5, D6/H-T1, H-EQ, A7/A8. Proposition 7,
-  information geometry (metric, arc, chord, surplus) and engineering are not on it. A line 'names' an ingredient if one of these tokens appears in it (or in its declared column).
+  Epistemic_Review/checks/ladder.txt [2] and printed once above this text; it is not typed here. Proposition 7,
+  information geometry (metric, arc, chord, surplus) and engineering are not on it. A line 'names' an ingredient if one
+  of the listed tokens appears in it (or in its declared column).
   Each row lists decider lines with a role: trace (a pinned trace that counts CRR-proper operations in the mechanism), confirm
   (a verdict line that must be found with it), names, notproper (the source states the scored ingredient is not CRR-proper),
   notapplied (the source states no CRR reading was applied), nottest (the source states its checks are not a test of CRR or
   can fail only on an implementation or restore error), ablation (a pinned ablation, with the ingredient it removes),
-  basis (the ledger rows that show the named ingredient reaching no rung: printed with the reason).
+  basis (a chosen subset of the row's ledger rows, printed beside the value; they do not decide it).
   The value, first rule that applies:
     'none'                            a trace line counts 0 CRR-proper operations and every confirm line is found; or a
                                       notproper or notapplied line is found
@@ -50,9 +51,13 @@ THE DECLARED RULE FOR CRR'S PART (printed again at the top of the output)
     not decided     the ingredient line names no listed token; or a nottest line of the battery row is found (its reading
                     says the test could have failed only through an enumeration or restore error, or holds by
                     construction); or its null does not remove the named ingredient: the null line must match the
-                    ingredient's own null, read from theory/CRR.md (A3/D5: another cut, CRR.md's A3 line; H-L5: the
-                    amplitude control as well as the clock, CRR.md's 'beyond three controls' line); an ingredient with no
-                    null declared here is not decided
+                    ingredient's own null, tied to a theory/CRR.md line (A3/D5: another cut rule, CRR.md 'A3 is testable
+                    only where the antipodal cut and the peak cut disagree'; H-L5: the amplitude control as well as the
+                    clock, CRR.md 'beyond three controls'); an ingredient with no null declared here is not decided.
+                    The null check is a WORD MATCH on the battery row's null line (A3/D5: 'cut', 'cuts', 'segmentation',
+                    'extremum', or 'a fixed delay from onset', read as a fixed-time cut; H-L5: 'amplitude'); the rows it
+                    decided are printed under RB3
+                    a WRONG, INTERNAL or UNSTATED outcome (and a T-G that is not computable) decides nothing: not decided
     'CRR-proper and load-bearing'  otherwise, if T-G differs from the null and the outcome is REDUNDANT-DOMAIN or ADDS (in the
                     row's own synthetic model; a FRAGILE label in tally_4b.txt is printed with it)
     'CRR-proper but not load-bearing'  if T-G agrees with the null (REDUNDANT-IG)
@@ -60,7 +65,7 @@ THE DECLARED RULE FOR CRR'S PART (printed again at the top of the output)
   source' and prints each item's value.
   'not load-bearing' means not shown to bear load by any pinned test; it does not mean shown irrelevant.
 
-CHOICES (printed again at the top of the output; each is in AGENT_LOG):
+CHOICES (each is in AGENT_LOG):
   S1 the SEC family row reads the declared ids (SCL3-3, SEC3-3, SEC4-1, SEC5-1), every row whose id starts with SEC6-, SEC6R-
      (SEC6's replacement study: Part A on SEC6's twelve carriers, Part B on SEC7's) or SEC7-, and P1's post hoc instrument-gate
      rows (SCL3-3-G, SEC3-3-G, SEC4-1-G, SEC5-1-G); and P1's FM6 and F11 lines.
@@ -124,8 +129,9 @@ DESIGN = r'design failure|not a test of'
 KNOWNW = ('REDUNDANT', 'KNOWN', 'REDUNDANT-DOMAIN', 'RESTATES')
 CRRMD = 'theory/CRR.md'
 # the null each listed ingredient must remove, with the theory/CRR.md line that states it (the SYNTHESIS sub-rule)
-NULL_OF = {'A3': (r'\bcuts?\b', r'^\*\*\[A3\] The cut is the oriented antipode'),
-           'D5': (r'\bcuts?\b', r'^\*\*\[A3\] The cut is the oriented antipode'),
+A3NULL = r'\bcuts?\b|segmentation|extremum|a fixed delay from onset'
+NULL_OF = {'A3': (A3NULL, r'A3 is testable only where the antipodal cut and the peak cut'),
+           'D5': (A3NULL, r'A3 is testable only where the antipodal cut and the peak cut'),
            'H-L5': (r'amplitude', r'^and this holds beyond three controls')}
 PRIOR_WORDS = [(r'NOT FOUND IN THE SWEEP', 'NOT FOUND IN THE SWEEP'), (r'\bNOT FOUND\b', 'NOT FOUND'),
                (r'PARTLY REDUNDANT', 'PARTLY REDUNDANT'), (r'REDUNDANT-DOMAIN', 'REDUNDANT-DOMAIN'),
@@ -212,14 +218,18 @@ ROWS = [
     {'id': 'CL3', 'domain': 'Continual learning', 'name': 'consolidation timing', 'scale': 'APP1',
      'declared': [('L', 'OB1-C3-A')],
      'items': [L('OB1-C3-A', 'arc-triggered consolidation against the chord and loss triggers, boundary-free streams'),
-               F('Open_Bottlenecks/checks/c3_phase_a.txt', r'^C3 GATE', 'GATEWORD', 'the C3 gate line', label='OB1 C3 gate')],
+               F('Open_Bottlenecks/checks/c3_phase_a.txt', r'^C3 GATE', 'BESIDE',
+                 'the pinned gate line OB1-C3-A reads (its source; one gate, counted once as the ledger row)',
+                 label='OB1 C3 gate line')],
      'prior': [F(OBG, r'-> ', 'PRIOR', 'OB1 stage 3, C3', anchor=r'^C3 arc-triggered consolidation', label='OB1 stage 3 C3')],
      'crr': [D('names', OBR, r'^\| h4-B1 ', col=2)],
      'compute': []},
     {'id': 'CL4', 'domain': 'Continual learning', 'name': 'optimiser clocks', 'scale': 'APP1',
      'declared': [('L', 'OB1-C1-A')],
      'items': [L('OB1-C1-A', 'arc-clocked Adam moments against the stability gap'),
-               F('Open_Bottlenecks/checks/c1_phase_a.txt', r'^C1 GATE', 'GATEWORD', 'the C1 gate line', label='OB1 C1 gate')],
+               F('Open_Bottlenecks/checks/c1_phase_a.txt', r'^C1 GATE', 'BESIDE',
+                 'the pinned gate line OB1-C1-A reads (its source; one gate, counted once as the ledger row)',
+                 label='OB1 C1 gate line')],
      'prior': [F(OBG, r'-> ', 'PRIOR', 'OB1 stage 3, C1', anchor=r'^C1 arc-clocked optimiser moments', label='OB1 stage 3 C1')],
      'crr': [D('names', OBR, r'^\| h1-B6 ', col=2)],
      'compute': []},
@@ -230,6 +240,8 @@ ROWS = [
      'prior': [],
      'beside': [F('Continuous_Learning/ADAM_AND_PRIOR_ART.md', r'^3\. \*\*Without its smoothing the rule is the VQGAN', 'PRIOR',
                   'the Omega rule against its prior art', label='ADAM_AND_PRIOR_ART 3')],
+     # the 'basis' lines are a CHOSEN SUBSET of CL5's ledger rows, printed beside the value; they do not decide it (the value
+     # follows from the named ingredient and the row's APP1 grade)
      'crr': [D('names', 'theory/CRR.md', r'^\| H-EQ \| '),
              D('basis', CAP.LEDGER, r'^\| EQX-1 \| '), D('basis', CAP.LEDGER, r'^\| EQ4-3 \| '),
              D('basis', CAP.LEDGER, r'^\| EQ4-4 \| '), D('basis', CAP.LEDGER, r'^\| SOTA1-2 \| ')],
@@ -459,14 +471,16 @@ def adjust_ledger_item(x, ledger):
         return x
     v = ledger['rows'][x['label']]['verdict'].replace('*', '')
     if x['status'] == 'report' and re.search(r'gate CLOSED', v):
-        x['status'], x['effect'], x['rung'] = 'instrument gate CLOSED', 'failure', None
+        x['status'], x['effect'], x['rung'] = 'instrument gate CLOSED', 'uninformative', None
         named = [r for r in re.findall(r'\b([A-Z][A-Z0-9]*-[A-Za-z0-9-]+)\b', v)
                  if r in ledger['rows'] and CAP.status_of(ledger['rows'][r]['verdict']) in ('PASS-1', 'PASS-2')]
         if named:
             x['decisive'] = ('cap', 'a closed instrument gate on %s (SEC6-G\'s rule) removes its PASS-1/PASS-2 rung' % ', '.join(named))
     elif x['status'] == 'report' and re.search(r'gate OPEN', v):
         x['status'] = 'instrument gate OPEN'
-    elif x['status'].startswith('PASS') and 'UNINFORMATIVE' in v:
+    elif x['effect'] == 'failure' and re.search(DESIGN, v):
+        x['effect'] = 'design'
+    if x['effect'] != 'uninformative' and 'UNINFORMATIVE' in v and 'UNINFORMATIVE' not in x['status']:
         x['status'] = x['status'] + ' UNINFORMATIVE'
     return x
 
@@ -487,24 +501,33 @@ def read_items(specs, ledger, cache, absent):
     return items
 
 
+CLOSING = ('failure', 'design', 'uninformative')
+
+
+def suite_grade(items, drop=()):
+    """capabilities.py's grade_of with the S2 split: a failure, a design failure and an uninformative mark each count as
+    'at least one failure or closed gate' for CLOSED (APP1's CLOSED: no rung reached); none of them is a rung."""
+    return CAP.grade_of([dict(x, effect='failure') if x['effect'] in CLOSING else x for x in items], drop=drop)
+
+
 def app1_grade(items):
-    g = CAP.grade_of(items)
-    fails = [x for x in items if x['effect'] == 'failure']
+    g = suite_grade(items)
+    true = [x for x in items if x['effect'] == 'failure']
+    marks = [x for x in items if x['effect'] == 'uninformative']
+    design = [x for x in items if x['effect'] == 'design']
     basis = [x for x in items if x['effect'] == 'rung' and x['rung'] == g]
     closed_by = None
     if g == 'CLOSED':
-        closed_by = 'gate' if all('gate CLOSED' in x['status'] or x['status'] == 'GATE CLOSED' for x in fails) else 'test'
+        closing = true + marks + design
+        closed_by = 'gate' if all('gate CLOSED' in x['status'] or x['status'] == 'GATE CLOSED' for x in closing) else 'test'
     sens = []
     for x in items:
         dd = x.get('decisive')
-        if not dd or x['effect'] != 'failure':
+        if not dd or x['effect'] not in CLOSING:
             continue
-        sg = CAP.grade_of(items, drop=('RESULT', 'FINDING')) if dd[0] == 'cap' else 'CLOSED'
+        sg = suite_grade(items, drop=('RESULT', 'FINDING')) if dd[0] == 'cap' else 'CLOSED'
         if sg != g:
             sens.append((sg, x['label']))
-    marks = [x for x in fails if x['status'] == 'instrument gate CLOSED']
-    design = [x for x in fails if x not in marks and re.search(DESIGN, x['text'])]
-    true = [x for x in fails if x not in marks and x not in design]
     return {'grade': g, 'basis': basis, 'failures': true, 'marks': marks, 'design': design, 'closed_by': closed_by,
             'sens': sens, 'errors': [x for x in items if x['effect'] == 'error']}
 
@@ -783,14 +806,21 @@ def evaluate(row, ctx):
             blk = ra_block(ra, tr['batch'], cache)
             rr = lad['synth'].get(oc)
             ng = lad['neg'].get(oc)
-            rung = ('%s (ladder.txt:%d)' % rr if rr else "a negative ('%s' in ladder.txt [5]:%d), not a rung" % ng if ng
-                    else 'not on the ladder')
+            rung = ('%s (ladder.txt:%d)' % rr if rr else "not a rung (ladder.txt [5]:%d counts it under '%s')" % (ng[1], ng[0])
+                    if ng else 'not on the ladder')
             flags = []
             for fl in (r'FRAGILE', r'READING-DEPENDENT'):
                 n_, l_ = read_line(TALLY4B, r'^\s+%s\s.*%s' % (ra, fl), cache)
                 if l_ is not None:
                     flags.append('%s: tally_4b.txt:%d' % (fl, n_))
             v, why = ra_value(ra, blk, oc, toks, cache) if blk else ('not decided by a pinned source', 'batch output absent')
+            if blk and 'ingredient' in blk and 'null' in blk and not any(
+                    re.search(NOTPROPER, blk[k][1]) for k in ('ingredient', 'T-G', 'FLAG') if k in blk):
+                for t in tokens_in(blk['ingredient'][1], toks):
+                    if t in NULL_OF:
+                        m_ = re.search(NULL_OF[t][0], blk['null'][1])
+                        res.setdefault('nullchecks', []).append('%s %s: null %s:%d -> %s' % (
+                            ra, t, blk['path'], blk['null'][0], ('matched %r' % m_.group(0)) if m_ else 'not matched'))
             per.append({'ra': ra, 'outcome': oc, 'rung': rung, 'value': v, 'why': why, 'tally': '%s:%d  %s' % (
                 TALLY4B, tr['_line'], tr['_text']), 'blk': blk, 'Q': tr.get('Q'), 'flags': flags})
         res['per'] = per
@@ -805,6 +835,8 @@ def evaluate(row, ctx):
             res['own_rung'] = 'no outcome on a ladder rung'
         res['failures'] = ['%s %s (Q %s)' % (p['ra'], p['outcome'], p['Q']) for p in per if p['outcome'] == 'WRONG']
         if sc == 'BATTERY':
+            res['notes'].append('the sub-rule\'s null check is a word match; the rows it decided: %s' % (
+                '; '.join(res.get('nullchecks', [])) or 'none'))
             n, line = read_line(TALLY4B, r'^overall forecast: ', cache)
             res['failures'].append(ref(TALLY4B, n, line))
             for pat in (r'^\s+RA2\s+slip seeds', r'^\s+RA7\s+duty seeds', r'^\s+RA4\s+READING-DEPENDENT'):
@@ -892,12 +924,13 @@ def print_row(res, ctx):
     if row['scale'] == 'APP1':
         for x in res['items']:
             tag = {'rung': x['rung'] or '', 'failure': 'FAILURE', 'beside': 'beside', 'prior': 'prior art', 'pending': 'PENDING',
-                   'error': 'ERROR', 'limit': 'limit', 'note': 'note'}[x['effect']]
+                   'error': 'ERROR', 'limit': 'limit', 'note': 'note', 'uninformative': 'UNINFORMATIVE',
+                   'design': 'DESIGN FAIL'}[x['effect']]
             src = x['src'] if not x.get('from_ledger') else 'LEDGER.md:%s' % x['src'].split(':')[-1]
             W('%s | %s | %s' % (x['label'], x['status'], CAP.short(x['text'].replace('verdict: ', ''), 150)), indent=24,
-              first='    [%-12s] ' % tag[:12])
+              first='    [%-13s] ' % tag)
             print('                       source: %s%s' % (src, ('; observed: ' + CAP.short(x['observed'], 110)) if
-                                                          x.get('from_ledger') and x['effect'] in ('failure', 'rung') else ''))
+                                                          x.get('from_ledger') and x['effect'] in CLOSING + ('rung',) else ''))
     for ln in res['lines']:
         W(ln, indent=8, first='    - ')
     for c in res.get('cells', []):
@@ -940,11 +973,16 @@ def print_row(res, ctx):
     # CRR's part
     v, why, _ = res['crr']
     W("CRR'S PART: %s  (%s)" % (v, why), indent=4, first='  ')
+    printed_basis = False
     for f in res.get('crr_found', []):
         dd, n, line = f[0], f[1], f[2]
         if dd['path'] == CAP.LEDGER:
             cells = [c.strip() for c in line.strip().strip('|').split(' | ')]
             line = '%s verdict: %s' % (cells[0], cells[7].replace('*', '')) if len(cells) == 10 else line
+        if dd['role'] == 'basis' and not printed_basis:
+            print('    - (the basis lines below are a chosen subset of the row\'s ledger rows, printed beside the value; they do '
+                  'not decide it)')
+            printed_basis = True
         W('[%s] %s:%d  %s' % (dd['role'], dd['path'], n, CAP.short(line, 200)), indent=8, first='    - ')
     # compute
     if res['compute']:
@@ -1085,11 +1123,19 @@ def forecasts(results, ctx):
                                          'holds' if f4a else 'fails', ref(GS3, n, line) if line else 'line not found',
                                          'holds' if f4b else 'fails'), f4a and f4b))
     # 5
-    knownp = [(r['row']['id'], x['label']) for r in results for x in r['prior']
-              if x['effect'] == 'prior' and prior_word(x['text']) in KNOWNW and r['crr'][0] != 'none']
+    knownd = {}
+    for r in results:
+        if r['crr'][0] == 'none':
+            continue
+        for x in r['prior']:
+            if x['effect'] == 'prior' and prior_word(x['text']) in KNOWNW:
+                knownd.setdefault(x['src'], []).append(r['row']['id'])
+    reading_rows = [r for r in results if r['row']['scale'] == 'READING']
+    reading_known = [(r['row']['id'], x['label'], prior_word(x['text'])) for r in reading_rows for x in r['prior']
+                     if x['effect'] == 'prior' and prior_word(x['text']) in KNOWNW]
     none_rows = [r['row']['id'] for r in results if r['crr'][0] == 'none']
     cons = [r['row']['id'] for r in results if r['app1'] == 'CONSTRUCTION']
-    f5a = bool(knownp) and bool(cons)
+    f5a = bool(reading_known) and bool(cons)
     f5b = r8['count'] == 0 and not finding
     capres = ctx['capres']
     needed = {}
@@ -1112,16 +1158,20 @@ def forecasts(results, ctx):
     who = {k: [a['id'] for a in APP.APPS if k in [n for n, _ in ctx['evs'][a['id']]['need']]] for k in other}
     f5lit = not other and f5c
     g41 = ctx['ledger']['rows'].get('SEC4-1-G')
-    out.append(("rule: HOLDS iff (a) at least one declared prior-art line reads REDUNDANT, REDUNDANT-DOMAIN, RESTATES or KNOWN in "
-                "a row whose CRR's part is not 'none' (CRR's reading pointed there) and at least one row grades CONSTRUCTION; "
+    out.append(("rule: HOLDS iff (a) a row that is itself a CRR reading (scale READING: the reading's own candidates graded "
+                "against the literature) has a declared prior-art line reading REDUNDANT, REDUNDANT-DOMAIN, RESTATES or KNOWN, and at "
+                "least one row grades CONSTRUCTION (beside: the distinct such lines in every row whose CRR's part is not 'none'; each "
+                "says the graded method or position is published or restated, and does not say CRR's reading produced it); "
                 "(b) the ladder's R8 PASS-2 count is 0 and no row grades FINDING; (c) OPERATIONALISATION (an agent's choice, "
                 "AGENT_LOG 247): 'rest on' = the capabilities APP1's applications AP1-AP10 need at CONSTRUCTION or above; these must "
                 "be the pause capabilities (name contains 'pause') and one RESULT, K1, whose RESULT rests on one ledger row, and among "
                 "the CL rows only CL1 grades RESULT; capabilities needed below CONSTRUCTION (MODEL, CLOSED, pending) are not counted",
-                '(a) rows excluded because their CRR\'s part is none: %s; prior-art lines read as known %d (rows %s); CONSTRUCTION '
-                'rows %s -> %s; (b) R8 %s, FINDING rows %s -> %s; '
+                '(a) rests on: %s; beside: rows excluded because their CRR\'s part is none: %s; distinct prior-art lines read as '
+                'known in the other rows %d (by row: %s); CONSTRUCTION rows %s -> %s; (b) R8 %s, FINDING rows %s -> %s; '
                 '(c) needed at CONSTRUCTION or above: %s; pause capabilities %s; RESULT %s, resting on %s; CL rows at RESULT %s -> %s' % (
-                    ', '.join(none_rows) or 'none', len(knownp), ', '.join(sorted({i for i, _ in knownp})), ', '.join(cons) or 'none',
+                    '; '.join('%s %s %s' % k for k in reading_known) or 'none', ', '.join(none_rows) or 'none', len(knownd),
+                    ', '.join('%s %d' % (i, sum(1 for v in knownd.values() if i in v))
+                              for i in sorted({i for v in knownd.values() for i in v})), ', '.join(cons) or 'none',
                     'holds' if f5a else 'fails',
                     r8['count'], ', '.join(finding) or 'none', 'holds' if f5b else 'fails',
                     ', '.join('%s %s' % (k, held[k]) for k in sorted(held)), ', '.join(sorted(pause_caps)) or 'none',

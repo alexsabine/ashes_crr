@@ -10,8 +10,8 @@ quotable outside the ledger. Only a PASS-2 is, and the suite has none.
   the fields of each row and five forecasts.
 - **One script computes every field.** `Applied_Suite/checks/suite.py` reads `ledger/LEDGER.md` by row id and reads each
   pinned output line by line. Its output is pinned as `suite.txt`.
-- **CI compares it byte for byte, but rarely gets there.** The CI line sits after `omega_sweeps` and the other long checks,
-  so a run seldom reaches it (AGENT_LOG 244). `scripts/check_all.sh` runs the same comparison.
+- **CI compares it byte for byte, but rarely gets there.** The CI line sits after `omega_sweeps` (`ci.yml:40`) and before
+  BAYES-1's smoke check (`ci.yml:182`), so a run seldom reaches it (AGENT_LOG 244). `scripts/check_all.sh` runs the same comparison.
 - **It reuses APP1 by import.** The ledger parser, the status words and the APP1 grade rule come from
   `capabilities.py`. The application grades come from `applications.py`, and the script checks them against the pinned
   `applications.txt` (all match).
@@ -27,12 +27,15 @@ quotable outside the ledger. Only a PASS-2 is, and the suite has none.
 - **What is printed beside each grade,** in three groups:
   - **Failures:** a failed, reduced or violated test, a closed gate of the row's own test, or a must-fail control that met
     the criterion.
-  - **Uninformative marks:** instrument gates that make another row UNINFORMATIVE.
-  - **Design failures:** closed gates that their own verdict calls a design failure or not a test of the method.
+  - **Uninformative marks:** instrument gates that make another row UNINFORMATIVE. They are tagged UNINFORMATIVE, not
+    FAILURE.
+  - **Design failures:** closed gates that their own verdict calls a design failure or not a test of the method. They are
+    tagged DESIGN FAIL.
+  - A row with no rung is CLOSED if it has any of the three. Where a ledger row and its pinned gate line record the same
+    gate, the ledger row is counted once and the gate line is printed beside it as its source.
 - **The rungs** come from `Epistemic_Review/checks/ladder.txt`.
 - **CRR's part** is decided by a rule printed at the top of suite.txt and applied to pinned lines. The CRR-proper
-  ingredients are read from the ladder's per-commitment table: A3, D5, A6, P2, P3, A1', D1, H-L5, D6, H-T1, H-EQ, A7, A8.
-  Proposition 7 is not on the list. The rule gives one of three values, or 'not decided by a pinned source':
+  ingredients are read once from the ladder's per-commitment table. Proposition 7 is not on the list. The rule gives one of three values, or 'not decided by a pinned source':
   - **none:** a pinned trace counts 0 CRR-proper operations in the mechanism, or the source says no CRR-proper ingredient
     was scored or applied.
   - **CRR-proper but not load-bearing:** a pinned line names an ingredient, and the row reaches no rung on APP1's scale.
@@ -44,8 +47,10 @@ quotable outside the ledger. Only a PASS-2 is, and the suite has none.
 - **The battery sub-rule.** The SYNTHESIS battery rows (RA1-RA10) follow the same rule, with two additions:
   - A battery row whose own reading says the test "could have failed only through" an enumeration or restore error is no
     test of CRR.
-  - A row's null must remove the named ingredient. For A3 that null is another cut; for H-L5 it must include the amplitude
-    control as well as the clock (`theory/CRR.md`).
+  - A row's null must remove the named ingredient. For A3 that null is another cut rule (`theory/CRR.md`: "A3 is testable
+    only where the antipodal cut and the peak cut"). For H-L5 it must include the amplitude control as well as the clock.
+    The check is a word match on the row's null line. suite.txt prints which battery rows it decided.
+  - A WRONG, INTERNAL or UNSTATED outcome decides nothing.
 - **Prior art.** It comes from the sources the declaration names: SPA1, OB1, ROB1 stage 3, APP1's M sweeps and the
   prior-art lines APP1 prints for a capability, Lossless_Pause and CORRIGIBILITY_2026. Verdicts the repository holds in
   other sources are printed "beside (not a declared source)" and counted nowhere.
@@ -61,13 +66,14 @@ uninformative marks / design failures.
 |---|---|---|---|---|---|---|
 | CL1 | tuning-free penalty strength (the SEC family) | RESULT (SEC4-1) | R7 (SEC4-1) | 7/6/1 | SPA1: KNOWN; Lossless_Pause C3: PARTLY REDUNDANT | none |
 | CL2 | exemplar-free memory | CLOSED | no R5-R8 ledger row | 6/0/0 | OB1 reading h1-B2, h1-B3: RESTATES; beside, not declared: RQM, RRM and RRM2 sweeps | CRR-proper but not load-bearing (A3, A6) |
-| CL3 | consolidation timing | CLOSED | no R5-R8 ledger row | 1/0/1 | OB1 stage 3 C3: PARTLY REDUNDANT | CRR-proper but not load-bearing (A3, D6) |
-| CL4 | optimiser clocks | CLOSED | no R5-R8 ledger row | 2/0/0 | OB1 stage 3 C1: PARTLY REDUNDANT | CRR-proper but not load-bearing (H-L5, D6) |
+| CL3 | consolidation timing | CLOSED | no R5-R8 ledger row | 0/0/1 | OB1 stage 3 C3: PARTLY REDUNDANT | CRR-proper but not load-bearing (A3, D6) |
+| CL4 | optimiser clocks | CLOSED | no R5-R8 ledger row | 1/0/0 | OB1 stage 3 C1: PARTLY REDUNDANT | CRR-proper but not load-bearing (H-L5, D6) |
 | CL5 | the equanimity rule Omega = 1 | CLOSED | R6 (EQ2-1b, EQ3-I, EQ4-I) | 16/0/0 | beside, not declared: ADAM_AND_PRIOR_ART.md, "Without its smoothing the rule is the VQGAN adaptive weight" | CRR-proper but not load-bearing (H-EQ) |
 
 **CL1, the SEC family.**
 - **The grade.** CL1 is RESULT because SEC4-1 is the record's one PASS-1.
-- **Failures.** SEC3-3, SEC5-1, SEC6R-2, SEC6R-B, SEC6R-T and SEC6R-A-B fail. P1's must-fail control FM6 met the
+- **Failures.** SEC3-3, SEC5-1, SEC6R-2 and SEC6R-T fail. SEC6R-B and SEC6R-A-B fail and are marked UNINFORMATIVE by
+  their own verdicts. P1's must-fail control FM6 met the
   criterion: "FM6 M6 behind the tuned lambda on most carriers: 6/30 (need more than 15) -> FAILS".
 - **Uninformative marks.** These instrument gates read CLOSED: SEC3-3-G, SEC4-1-G, SEC5-1-G, SEC6R-G, SEC6R-GC and
   SEC6R-A-G. SCL3-3-G reads gate OPEN.
@@ -87,12 +93,14 @@ uninformative marks / design failures.
 - **How CRR's part is decided.** It is decided by each row's grade, not by a trace. Each names an ingredient and reaches
   no rung.
 - **CL2-CL4.** Their tests are development gates, and every one closed.
-  - In CL3 the gate is OB1-C3-A, which is also a design failure: "consolidation has no effect in the declared stream".
+  - CL3's one gate is OB1-C3-A, counted once, as a design failure: "consolidation has no effect in the declared stream".
+  - CL4's one gate is OB1-C1-A, counted once.
 - **CL5.** Its ingredient is named by `theory/CRR.md`'s table row for H-EQ: "Ω = 1 gradient balance beats ER-sum and best
   fixed w".
   - **Failures.** It has 16, among them EQX-1 "REDUCES: Ω = 1 ≡ a fixed replay weight (ER-sum family)", EQ4-3 ("the clip
     is the load-bearing part and a fixed weight carries it as well") and SOTA1-2 FAIL.
-  - **Beside them.** EQ4-4 reads INERT.
+  - **Beside them.** EQ4-4 reads INERT. These lines are a chosen subset of CL5's ledger rows, printed beside the value;
+    they do not decide it.
   - **Passes below a rung, printed beside it.** EQ2-1 PASS (no level), EQ2-1b PASS-0, EQ3-I PASS-0, EQ4-I PASS (no
     level) and EQ2-3 holds. EQ2-2, EQ3-2 and EQ4-6 read DOES NOT REDUCE.
 
@@ -137,8 +145,10 @@ is not "novel".
 - RA2 and RA3 read none: their own lines say the scored ingredient is not CRR-proper. RA2 is FRAGILE.
 - RA4 and RA10 name Proposition 7, which is not on the list. RA4 is READING-DEPENDENT.
 - RA5 names A3, but its reading says the test "could have failed only through" an enumeration or restore error. Its null
-  (dropped optimiser state, rng or buffers) removes the state closure, not A3. So, like AS1, it is not decided.
-- RA7 names H-L5, but its null is the clock only, with no amplitude control. RA7 is FRAGILE.
+  line names no cut rule (the word match reads "not matched"). So, like AS1, it is not decided.
+- RA7 names H-L5, but its null line names the clock only and no amplitude control (word match "not matched"). RA7 is
+  FRAGILE.
+- RA9 (INTERNAL) and RA1 and RA8 (WRONG) are outside the basis. Their outcomes decide nothing.
 
 So RB3 is not decided by a pinned source. RA1 and RA8 read WRONG, and the battery's overall forecast FAILS.
 
@@ -174,7 +184,9 @@ So RB3 is not decided by a pinned source. RA1 and RA8 read WRONG, and the batter
   - The whole checkpoint is 5.274 times the parameters alone (`Empty_Cut_Engineering/checks/c1_c2.txt`). APP1 grades the
     Compute dimension AGAINST for AP8 and AP3 on this line.
   - The safe pause saves 0.0000 energy: "energy moved, not saved" (`Energy Design Principle/checks/consolidated_estimate.txt`).
-  - The "saving beyond good practice claimed = 0" (`Compute_Savings/checks/scale_estimate.txt`).
+  - `Compute_Savings/checks/scale_estimate.txt:35` reads: "a checkpoint written before planned maintenance (standard
+    practice) already recovers this: saving beyond good practice claimed = 0". Here "this" is the training time lost at
+    planned stops, the bound of that file's section [4] (the empty cut).
 - **Every other row.** suite.txt prints no pinned figure for it.
 
 ## The honest headline (forecast 5, as decided)
@@ -183,10 +195,12 @@ So RB3 is not decided by a pinned source. RA1 and RA8 read WRONG, and the batter
 decides **FAILS** under the literal reading of clause (c).
 
 - **(a) A reading that points to known methods and to constructions that hold.**
-  - Rows whose CRR's part is none (CL1, RB1) are not counted.
-  - 26 prior-art lines from declared sources read REDUNDANT, REDUNDANT-DOMAIN, RESTATES or KNOWN, in rows AS1, CL2, RB2,
-    TS1, TS2, TS3, TS4 and TS5.
-  - Four rows grade CONSTRUCTION (AS1, AS2, TS1, TS2).
+  - **What it rests on.** It rests on RB2, the one row that is itself a CRR reading. Its candidates C-R1, C-R2 and C-R3
+    each read REDUNDANT in ROB1 stage 3.
+  - **Beside it.** Rows whose CRR's part is none (CL1, RB1) are left out. The other rows hold 14 distinct declared
+    prior-art lines that read REDUNDANT, REDUNDANT-DOMAIN, RESTATES or KNOWN, counted once each. Each line says the method
+    or position it grades is published or restated. It does not say that CRR's reading produced it.
+  - **Constructions.** Four rows grade CONSTRUCTION (AS1, AS2, TS1, TS2).
 - **(b) No held-out finding.** The ladder's R8 PASS-2 count is 0, and no row grades FINDING.
 - **(c) What the applications rest on.**
   - **The operationalisation.** "Rest on" is read as "need at CONSTRUCTION or above". Those capabilities are K1 RESULT,
@@ -222,8 +236,6 @@ are printed beside them in suite.txt.
 **The pause rows are not decided.**
 - **Why.** The construction holds bit for bit on the stacks tested, but its sources say they do not test CRR ("Nothing here
   tests CRR.").
-- **What the sources say about the checkpoint.** Standard practice already recovers it: "a checkpoint written before
-  planned maintenance (standard practice) already recovers this".
 - **Its prior art.**
   - The checklist and the own-clock cut read REDUNDANT (Lossless_Pause C4, C5).
   - The zero-stake pause reads PARTLY REDUNDANT (Lossless_Pause C2).
@@ -235,7 +247,6 @@ are printed beside them in suite.txt.
 - **CL1 down to CLOSED.** If SEC4-1-G or FM6 is read as decisive, CL1 reads CLOSED.
 - **CL2-CL5, AS3.** Each needs a new study whose gate opens. AS3's gate closed because the models could not act as agents
   (STAKE1-A).
-- **AS1, AS2, TS1, TS2.** CRR's part would be decided only by a test that its own source declares a test of CRR.
 - **TS1, TS2.** TS1's application grade is CONDITIONAL because a load-bearing dimension is ASSUMED. TS2's is CONDITIONAL
   because one is contradicted and one is ASSUMED (applications.txt).
 - **TS4.** TS4 falls to CLOSED if DR1 DATA is read as decisive.
