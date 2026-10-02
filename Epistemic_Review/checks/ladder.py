@@ -214,6 +214,8 @@ def ledger():
     print(f"    rung R6 PASS-0 on held-out data: {len(p0)} ({', '.join(r[0] for r in p0)}); R7 PASS-1: {len(p1)}{(' (' + ', '.join(r[0] for r in p1) + ')') if p1 else ''}; R8 PASS-2: 0")
     for r in p0 + p1:   # a pass is printed with the post hoc instrument check of its criterion, where one exists (row <id>-G)
         if r[0] + "-G" in VERD: print(f"      beside {r[0]}: {r[0]}-G {VERD[r[0] + '-G'][:150]}")
+        elif re.search(r"gate (CLOSED|OPEN)", VERD.get(r[0].rsplit("-", 1)[0] + "-G", "")):   # a study-level instrument gate (SEC6R-G beside SEC6R-1)
+            g = r[0].rsplit("-", 1)[0] + "-G"; print(f"      beside {r[0]}: {g} {VERD[g][:150]}")
     print(f"    held-out FAIL rows: {len(fails)} ({', '.join(r[0] for r in fails)}); VOID rows: {sum(r[2] == 'VOID' for r in rows)}; "
           f"controls violated: {sum(r[2] == 'control violated' for r in rows)}")
     return rows

@@ -1,0 +1,35 @@
+Fri Oct  2 00:06:58 UTC 2026
+sha256sum -c prereg/sec6r/HASH.txt (run from prereg/sec6r):
+../../runs/sec6r/frozen/CRR.md: OK
+../../runs/sec6r/frozen/scl2_score.py: OK
+../../runs/sec6r/frozen/scl3_score.py: OK
+../../runs/sec6r/frozen/sec1_score.py: OK
+../../runs/sec6r/frozen/sec3_score.py: OK
+../../runs/sec6r/frozen/sec4_score.py: OK
+../../runs/sec6r/frozen/sec5_score.py: OK
+../../runs/sec6r/frozen/sec5_select_carriers.py: OK
+../../runs/sec6r/frozen/sec6_score.py: OK
+../../runs/sec6r/frozen/sec6_select_carriers.py: OK
+../../runs/sec6r/frozen/sec6r_score.py: OK
+../../runs/sec6r/frozen/select_carriers.py: OK
+../../runs/sec6r/frozen/select_carriers_pmlb.py: OK
+./DECLARATION.md: OK
+./PREREG.md: OK
+./carrier_selection_sec7.txt: OK
+./devid_r.txt: OK
+./devid_r_frozen.txt: OK
+./feat_1534.json: OK
+./feat_1538.json: OK
+./feat_1542.json: OK
+./feat_1552.json: OK
+./feat_183.json: OK
+./feat_279.json: OK
+./feat_40985.json: OK
+./feat_46608.json: OK
+./feat_46684.json: OK
+./feat_46709.json: OK
+./feat_46745.json: OK
+./feat_46761.json: OK
+HASH.txt sha256:
+dc9c64d723a05e57c0b7b690dceb30e8e12f5fe60898b2d546fe641c82fe4a66  prereg/sec6r/HASH.txt
+files OK: 30 of 30 listed in HASH.txt

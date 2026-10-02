@@ -1,0 +1,238 @@
+======================================================================================================================
+SEC6 scoring (prereg/sec6/DEV_DECLARATION.md and PREREG.md): SEC4's clipped SEC (kappa 0.5) replicated on a fifth unseen family; kappa swept; against SI-1, SI-0.1, AR1-P, AR1-B, SI-1C, raw Laplace (no P1 arm carried)
+======================================================================================================================
+carriers scored 9: ['Advanced_IoT_Dataset', 'HolisticBias', 'abalone', 'autoUniv-au7-1100', 'drug_reviews_druglib_com', 'mental_health_detection', 'meta_stream_intervals.arff', 'tamilnadu-electricity', 'volcanoes-d1']; excluded 3: ['SOCC', 'volcanoes-b4', 'volcanoes-e1']; of them by the d = 0 rule (Amendment 1): []
+
+[Advanced_IoT_Dataset] step 2.8973; tuned lambda 28300 (17 grid configurations): 80.6387
+   raw grid: 0.1:63.61  0.3:63.61  1:63.61  3:63.61  10:63.63  30:63.77  100:64.11  300:64.47  1000:67.03  3000:69.32  3533.57:70.04  5000:71.52  7092.2:73.35  10000:76.27  14100:78.22  20000:79.16  28300:80.64
+   clipped SEC (kappa 0.5) 78.5828 [82.14 78.74 82.14 77.35 72.55] −tuned -2.0559; fired 0
+   unguarded SEC 78.5828 [82.14 78.74 82.14 77.35 72.55] −tuned -2.0559; rule Ω=1 73.3533 (-7.2854)
+   SI-1: 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -80.6387; −clipped SEC -78.5828; non-finite seeds 5; largest max_k(lr 2 w imp_k) 1.957e+30
+   SI-0.1: 71.3174 [66.67 69.76 86.83 66.67 66.67] −tuned -9.3214; −clipped SEC -7.2655; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.03593
+   AR1-P: 73.7525 [72.36 72.55 82.14 69.16 72.55] −tuned -6.8862; −clipped SEC -4.8303; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.05257
+   AR1-B: 83.7126 [82.14 87.52 87.72 82.14 79.04] −tuned +3.0739; −clipped SEC +5.1297; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 92.1357 [88.12 94.01 100.00 90.02 88.52] −tuned +11.4970; −clipped SEC +13.5529; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 63.6128 [61.88 67.56 69.66 57.09 61.88] −tuned -17.0259; −clipped SEC -14.9701; non-finite seeds 0
+   clip kappa 0.25: 78.5828 [82.14 78.74 82.14 77.35 72.55] −tuned -2.0559
+   clip kappa 1: 78.5828 [82.14 78.74 82.14 77.35 72.55] −tuned -2.0559
+   3-point sweep: best 1000 67.0259; clipped SEC − best3 +11.5569
+   transferred lambda 10: 63.6327 −tuned -17.0060
+   window cells (clip) − tuned: 0.1/0.2:-1.96  0.2/0.1:-3.23  0.2/0.2:-3.21
+   tuned clipped lambda (fixed_clip, kappa 0.5) 28300 (17 grid configurations): 80.6387, step_c 2.8973; −tuned lambda +0.0000 (+0.00 steps of the tuned lambda); firings at it 0
+   clipped grid: 0.1:63.61  0.3:63.61  1:63.61  3:63.61  10:63.63  30:63.77  100:64.11  300:64.47  1000:67.03  3000:69.32  3533.57:70.04  5000:71.52  7092.2:73.35  10000:76.27  14100:78.22  20000:79.16  28300:80.64
+   clipped SEC − tuned clipped lambda -2.0559 (step_c 2.90)
+   edge (control, P1's M6) 55.6886 [55.89 66.57 64.97 44.01 47.01] −tuned -24.9501; −tuned clipped -24.9501; −clipped SEC -22.8942; task-1 share 33.33; majority share 16.67 (tuned − majority share +22.08 steps)
+
+[HolisticBias] step 1.0000; tuned lambda 0.035336 (17 grid configurations): 29.3706
+   raw grid: 0.035336:29.37  0.05:29.37  0.070922:29.37  0.1:29.37  0.141:29.37  0.2:29.37  0.283:29.37  0.3:29.37  1:29.37  3:29.37  10:11.75  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000; fired 1
+   unguarded SEC 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000; rule Ω=1 29.3706 (+0.0000)
+   SI-1: 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -29.3706; −clipped SEC -29.3706; non-finite seeds 5; largest max_k(lr 2 w imp_k) 2593
+   SI-0.1: 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 3.438
+   AR1-P: 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 29.7303 [29.37 29.47 31.07 29.37 29.37] −tuned +0.3596; −clipped SEC +0.3596; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0
+   clip kappa 0.25: 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000
+   clip kappa 1: 29.3706 [29.37 29.37 29.37 29.37 29.37] −tuned +0.0000
+   3-point sweep: best 1 29.3706; clipped SEC − best3 +0.0000
+   transferred lambda 10: 11.7483 −tuned -17.6224
+   window cells (clip) − tuned: 0.1/0.2:+0.00  0.2/0.1:+0.00  0.2/0.2:+0.00
+   tuned clipped lambda (fixed_clip, kappa 0.5) 0.035336 (17 grid configurations): 29.3706, step_c 1.0000; −tuned lambda +0.0000 (+0.00 steps of the tuned lambda); firings at it 0
+   clipped grid: 0.035336:29.37  0.05:29.37  0.070922:29.37  0.1:29.37  0.141:29.37  0.2:29.37  0.283:29.37  0.3:29.37  1:29.37  3:29.37  10:29.37  30:29.37  100:29.37  300:29.37  1000:29.37  3000:29.37  10000:29.37
+   clipped SEC − tuned clipped lambda +0.0000 (step_c 1.00)
+   edge (control, P1's M6) 34.2058 [32.77 32.77 35.96 35.36 34.17] −tuned +4.8352; −tuned clipped +4.8352; −clipped SEC +4.8352; task-1 share 68.74; majority share 35.98 (tuned − majority share -6.61 steps)
+
+[abalone] step 1.5416; tuned lambda 6 (17 grid configurations): 7.5134
+   raw grid: 0.1:6.20  0.3:6.23  1:6.44  1.06007:6.44  1.5:6.42  2.12766:6.42  3:6.52  4.23:5.32  6:7.51  8.49:3.13  10:2.73  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 6.2299 [6.42 6.15 6.28 6.02 6.28] −tuned -1.2834; fired 2
+   unguarded SEC 6.2299 [6.42 6.15 6.28 6.02 6.28] −tuned -1.2834; rule Ω=1 6.5241 (-0.9893)
+   SI-1: 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -7.5134; −clipped SEC -6.2299; non-finite seeds 5; largest max_k(lr 2 w imp_k) 212
+   SI-0.1: 6.4171 [6.68 6.28 6.42 6.28 6.42] −tuned -1.0963; −clipped SEC +0.1872; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1.32
+   AR1-P: 6.3369 [6.55 6.15 6.55 6.02 6.42] −tuned -1.1765; −clipped SEC +0.1070; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 6.4706 [6.68 6.28 6.55 6.42 6.42] −tuned -1.0428; −clipped SEC +0.2406; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 7.2460 [6.28 10.43 6.68 6.55 6.28] −tuned -0.2674; −clipped SEC +1.0160; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 6.3369 [6.55 6.28 6.42 6.42 6.02] −tuned -1.1765; −clipped SEC +0.1070; non-finite seeds 0
+   clip kappa 0.25: 6.2299 [6.42 6.15 6.28 6.02 6.28] −tuned -1.2834
+   clip kappa 1: 6.2299 [6.42 6.15 6.28 6.02 6.28] −tuned -1.2834
+   3-point sweep: best 1 6.4439; clipped SEC − best3 -0.2139
+   transferred lambda 10: 2.7273 −tuned -4.7861
+   window cells (clip) − tuned: 0.1/0.2:-1.28  0.2/0.1:-1.26  0.2/0.2:-1.28
+   tuned clipped lambda (fixed_clip, kappa 0.5) 30 (17 grid configurations): 6.9251, step_c 1.0000; −tuned lambda -0.5882 (-0.38 steps of the tuned lambda); firings at it 20
+   clipped grid: 0.1:6.20  0.3:6.23  1:6.44  3:6.42  10:6.76  10.6007:6.82  15:6.90  21.2766:6.90  30:6.93  42.3:6.87  60:6.87  84.9:6.79  100:6.76  300:6.58  1000:6.47  3000:6.44  10000:6.47
+   clipped SEC − tuned clipped lambda -0.6952 (step_c 1.00)
+   edge (control, P1's M6) 19.3316 [18.85 19.79 19.25 20.32 18.45] −tuned +11.8182; −tuned clipped +12.4064; −clipped SEC +13.1016; task-1 share 35.38; majority share 18.43 (tuned − majority share -7.08 steps)
+
+[autoUniv-au7-1100] step 3.1463; tuned lambda 30 (17 grid configurations): 31.1111
+   raw grid: 0.1:28.68  0.3:28.57  1:28.36  3:28.25  10:29.74  10.6007:29.63  15:29.95  21.2766:30.16  30:31.11  42.3:30.79  60:30.69  84.9:30.79  100:30.79  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 28.5714 [26.46 26.98 30.16 28.57 30.69] −tuned -2.5397; fired 0
+   unguarded SEC 28.5714 [26.46 26.98 30.16 28.57 30.69] −tuned -2.5397; rule Ω=1 28.2540 (-2.8571)
+   SI-1: 5.8201 [0.00 0.00 29.10 0.00 0.00] −tuned -25.2910; −clipped SEC -22.7513; non-finite seeds 4; largest max_k(lr 2 w imp_k) 81.74
+   SI-0.1: 28.5714 [26.46 26.98 30.16 28.57 30.69] −tuned -2.5397; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.1639
+   AR1-P: 27.4074 [26.46 23.81 26.46 30.16 30.16] −tuned -3.7037; −clipped SEC -1.1640; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 28.3598 [26.46 26.98 29.10 28.57 30.69] −tuned -2.7513; −clipped SEC -0.2116; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 32.0635 [30.69 30.16 32.80 35.98 30.69] −tuned +0.9524; −clipped SEC +3.4921; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 28.4656 [26.46 26.98 29.63 28.57 30.69] −tuned -2.6455; −clipped SEC -0.1058; non-finite seeds 0
+   clip kappa 0.25: 28.5714 [26.46 26.98 30.16 28.57 30.69] −tuned -2.5397
+   clip kappa 1: 28.5714 [26.46 26.98 30.16 28.57 30.69] −tuned -2.5397
+   3-point sweep: best 30 31.1111; clipped SEC − best3 -2.5397
+   transferred lambda 10: 29.7354 −tuned -1.3757
+   window cells (clip) − tuned: 0.1/0.2:-2.54  0.2/0.1:-2.54  0.2/0.2:-2.54
+   tuned clipped lambda (fixed_clip, kappa 0.5) 0.1 (17 grid configurations): 28.6772, step_c 1.6865; −tuned lambda -2.4339 (-0.77 steps of the tuned lambda); firings at it 0
+   clipped grid: 0.035336:28.57  0.05:28.57  0.070922:28.57  0.1:28.68  0.141:28.68  0.2:28.68  0.283:28.57  0.3:28.57  1:28.36  3:28.25  10:28.25  30:28.36  100:28.25  300:28.47  1000:28.36  3000:27.83  10000:27.41
+   clipped SEC − tuned clipped lambda -0.1058 (step_c 1.69)
+   edge (control, P1's M6) 31.8519 [28.57 26.98 36.51 35.45 31.75] −tuned +0.7407; −tuned clipped +3.1746; −clipped SEC +3.2804; task-1 share 58.18; majority share 32.21 (tuned − majority share -0.35 steps)
+
+[drug_reviews_druglib_com] step 1.0000; tuned lambda 0.212766 (17 grid configurations): 9.1429
+   raw grid: 0.1:8.95  0.106007:8.95  0.15:8.95  0.212766:9.14  0.3:9.14  0.423:9.14  0.6:9.14  0.849:9.14  1:8.76  3:4.19  10:1.33  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 9.1429 [9.52 8.57 9.52 8.57 9.52] −tuned +0.0000; fired 17
+   unguarded SEC 8.9524 [8.57 8.57 9.52 8.57 9.52] −tuned -0.1905; rule Ω=1 8.9524 (-0.1905)
+   SI-1: 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -9.1429; −clipped SEC -9.1429; non-finite seeds 5; largest max_k(lr 2 w imp_k) 5.05e+64
+   SI-0.1: 8.9524 [9.52 8.57 8.57 8.57 9.52] −tuned -0.1905; −clipped SEC -0.1905; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.2747
+   AR1-P: 9.3333 [8.57 8.57 10.48 10.48 8.57] −tuned +0.1905; −clipped SEC +0.1905; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 9.1429 [9.52 8.57 9.52 8.57 9.52] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 9.1429 [8.57 8.57 9.52 8.57 10.48] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 9.1429 [9.52 8.57 9.52 8.57 9.52] −tuned +0.0000; −clipped SEC +0.0000; non-finite seeds 0
+   clip kappa 0.25: 9.1429 [9.52 8.57 9.52 8.57 9.52] −tuned +0.0000
+   clip kappa 1: 9.1429 [9.52 8.57 9.52 8.57 9.52] −tuned +0.0000
+   3-point sweep: best 1 8.7619; clipped SEC − best3 +0.3810
+   transferred lambda 10: 1.3333 −tuned -7.8095
+   window cells (clip) − tuned: 0.1/0.2:+0.00  0.2/0.1:+0.00  0.2/0.2:+0.00
+   tuned clipped lambda (fixed_clip, kappa 0.5) 14100 (17 grid configurations): 10.2857, step_c 1.0000; −tuned lambda +1.1429 (+1.14 steps of the tuned lambda); firings at it 20
+   clipped grid: 0.1:8.95  0.3:9.14  1:9.14  3:8.76  10:8.76  30:8.57  100:8.76  300:8.57  1000:9.14  3000:9.71  3533.57:9.71  5000:9.71  7092.2:10.29  10000:10.29  14100:10.29  20000:10.29  28300:9.52
+   clipped SEC − tuned clipped lambda -1.1429 (step_c 1.00)
+   edge (control, P1's M6) 11.2381 [12.38 12.38 11.43 11.43 8.57] −tuned +2.0952; −tuned clipped +0.9524; −clipped SEC +2.0952; task-1 share 25.24; majority share 14.15 (tuned − majority share -5.01 steps)
+
+[mental_health_detection] step 7.3413; tuned lambda 7.0922 (17 grid configurations): 28.7755
+   raw grid: 0.1:24.49  0.3:24.49  1:24.49  3:26.73  3.53357:26.33  5:28.16  7.0922:28.78  10:28.57  14.1:26.33  20:25.92  28.3:26.73  30:24.08  100:25.92  300:25.10  1000:20.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 24.4898 [26.53 17.35 30.61 23.47 24.49] −tuned -4.2857; fired 3
+   unguarded SEC 25.1020 [26.53 17.35 30.61 23.47 27.55] −tuned -3.6735; rule Ω=1 24.8980 (-3.8776)
+   SI-1: 25.9184 [29.59 25.51 25.51 23.47 25.51] −tuned -2.8571; −clipped SEC +1.4286; non-finite seeds 0; largest max_k(lr 2 w imp_k) 254.7
+   SI-0.1: 24.4898 [26.53 17.35 30.61 23.47 24.49] −tuned -4.2857; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.2799
+   AR1-P: 25.3061 [26.53 17.35 34.69 23.47 24.49] −tuned -3.4694; −clipped SEC +0.8163; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 24.4898 [26.53 17.35 30.61 23.47 24.49] −tuned -4.2857; −clipped SEC +0.0000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 27.1429 [26.53 27.55 25.51 29.59 26.53] −tuned -1.6327; −clipped SEC +2.6531; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 24.4898 [26.53 17.35 30.61 23.47 24.49] −tuned -4.2857; −clipped SEC +0.0000; non-finite seeds 0
+   clip kappa 0.25: 24.4898 [26.53 17.35 30.61 23.47 24.49] −tuned -4.2857
+   clip kappa 1: 24.4898 [26.53 17.35 30.61 23.47 24.49] −tuned -4.2857
+   3-point sweep: best 1 24.4898; clipped SEC − best3 +0.0000
+   transferred lambda 10: 28.5714 −tuned -0.2041
+   window cells (clip) − tuned: 0.1/0.2:-4.29  0.2/0.1:-4.29  0.2/0.2:-4.29
+   tuned clipped lambda (fixed_clip, kappa 0.5) 14100 (17 grid configurations): 25.5102, step_c 5.5890; −tuned lambda -3.2653 (-0.44 steps of the tuned lambda); firings at it 5
+   clipped grid: 0.1:24.49  0.3:24.49  1:24.49  3:24.49  10:24.49  30:24.49  100:24.49  300:24.69  1000:24.49  3000:24.49  3533.57:24.49  5000:24.49  7092.2:24.69  10000:25.31  14100:25.51  20000:25.10  28300:24.90
+   clipped SEC − tuned clipped lambda -1.0204 (step_c 5.59)
+   edge (control, P1's M6) 23.8776 [31.63 24.49 19.39 22.45 21.43] −tuned -4.8980; −tuned clipped -1.6327; −clipped SEC -0.6122; task-1 share 55.80; majority share 31.98 (tuned − majority share -0.44 steps)
+
+[meta_stream_intervals.arff] step 3.2296; tuned lambda 70.922 (17 grid configurations): 37.0600
+   raw grid: 0.1:19.36  0.3:20.28  1:22.78  3:26.78  10:32.08  30:35.56  35.3357:35.78  50:36.66  70.922:37.06  100:36.76  141:29.00  200:6.80  283:6.52  300:6.46  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 26.6000 [25.40 27.40 29.60 28.70 21.90] −tuned -10.4600; fired 3
+   unguarded SEC 26.6000 [25.40 27.40 29.60 28.70 21.90] −tuned -10.4600; rule Ω=1 35.3600 (-1.7000)
+   SI-1: 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -37.0600; −clipped SEC -26.6000; non-finite seeds 5; largest max_k(lr 2 w imp_k) 97.62
+   SI-0.1: 33.0600 [39.50 35.20 34.00 30.40 26.20] −tuned -4.0000; −clipped SEC +6.4600; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.1338
+   AR1-P: 22.2600 [22.40 22.60 23.30 23.20 19.80] −tuned -14.8000; −clipped SEC -4.3400; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 36.6800 [39.40 37.30 40.70 34.00 32.00] −tuned -0.3800; −clipped SEC +10.0800; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 43.4200 [44.80 44.20 44.20 38.40 45.50] −tuned +6.3600; −clipped SEC +16.8200; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 25.8600 [31.10 27.00 26.20 22.60 22.40] −tuned -11.2000; −clipped SEC -0.7400; non-finite seeds 0
+   clip kappa 0.25: 26.6000 [25.40 27.40 29.60 28.70 21.90] −tuned -10.4600
+   clip kappa 1: 26.6000 [25.40 27.40 29.60 28.70 21.90] −tuned -10.4600
+   3-point sweep: best 30 35.5600; clipped SEC − best3 -8.9600
+   transferred lambda 10: 32.0800 −tuned -4.9800
+   window cells (clip) − tuned: 0.1/0.2:-10.50  0.2/0.1:-10.12  0.2/0.2:-10.20
+   tuned clipped lambda (fixed_clip, kappa 0.5) 70.922 (17 grid configurations): 37.0600, step_c 3.2296; −tuned lambda +0.0000 (+0.00 steps of the tuned lambda); firings at it 3
+   clipped grid: 0.1:19.36  0.3:20.28  1:22.78  3:26.78  10:32.08  30:35.56  35.3357:35.78  50:36.66  70.922:37.06  100:36.76  141:35.50  200:33.66  283:31.42  300:31.10  1000:26.16  3000:22.78  10000:21.44
+   clipped SEC − tuned clipped lambda -10.4600 (step_c 3.23)
+   edge (control, P1's M6) 61.0000 [52.10 63.70 61.70 64.50 63.00] −tuned +23.9400; −tuned clipped +23.9400; −clipped SEC +34.4000; task-1 share 65.40; majority share 52.04 (tuned − majority share -4.64 steps)
+
+[tamilnadu-electricity] step 1.0000; tuned lambda 1.41 (17 grid configurations): 9.8600
+   raw grid: 0.1:9.74  0.3:9.74  0.353357:9.76  0.5:9.74  0.70922:9.78  1:9.80  1.41:9.86  2:9.84  2.83:9.82  3:9.80  10:0.00  30:0.00  100:0.00  300:0.00  1000:0.00  3000:0.00  10000:0.00
+   clipped SEC (kappa 0.5) 9.7400 [9.70 8.90 9.70 10.00 10.40] −tuned -0.1200; fired 0
+   unguarded SEC 9.7400 [9.70 8.90 9.70 10.00 10.40] −tuned -0.1200; rule Ω=1 9.8800 (+0.0200)
+   SI-1: 0.0000 [0.00 0.00 0.00 0.00 0.00] −tuned -9.8600; −clipped SEC -9.7400; non-finite seeds 5; largest max_k(lr 2 w imp_k) 636.6
+   SI-0.1: 9.8800 [9.90 8.90 9.70 10.00 10.90] −tuned +0.0200; −clipped SEC +0.1400; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.775
+   AR1-P: 10.0400 [9.60 9.60 9.90 10.20 10.90] −tuned +0.1800; −clipped SEC +0.3000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 9.8400 [9.80 8.80 9.80 10.00 10.80] −tuned -0.0200; −clipped SEC +0.1000; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 10.0000 [9.20 9.30 11.10 10.40 10.00] −tuned +0.1400; −clipped SEC +0.2600; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 9.7400 [9.70 8.90 9.70 10.00 10.40] −tuned -0.1200; −clipped SEC +0.0000; non-finite seeds 0
+   clip kappa 0.25: 9.7400 [9.70 8.90 9.70 10.00 10.40] −tuned -0.1200
+   clip kappa 1: 9.7400 [9.70 8.90 9.70 10.00 10.40] −tuned -0.1200
+   3-point sweep: best 1 9.8000; clipped SEC − best3 -0.0600
+   transferred lambda 10: 0.0000 −tuned -9.8600
+   window cells (clip) − tuned: 0.1/0.2:-0.12  0.2/0.1:-0.12  0.2/0.2:-0.12
+   tuned clipped lambda (fixed_clip, kappa 0.5) 14100 (17 grid configurations): 10.1200, step_c 1.0000; −tuned lambda +0.2600 (+0.26 steps of the tuned lambda); firings at it 20
+   clipped grid: 0.1:9.74  0.3:9.74  1:9.80  3:9.84  10:9.98  30:9.96  100:10.02  300:10.00  1000:9.96  3000:10.02  3533.57:10.02  5000:10.08  7092.2:10.06  10000:10.08  14100:10.12  20000:10.10  28300:10.04
+   clipped SEC − tuned clipped lambda -0.3800 (step_c 1.00)
+   edge (control, P1's M6) 10.1200 [10.40 10.40 10.10 8.90 10.80] −tuned +0.2600; −tuned clipped +0.0000; −clipped SEC +0.3800; task-1 share 20.14; majority share 10.08 (tuned − majority share -0.22 steps)
+
+[volcanoes-d1] step 23.9039; tuned lambda 14100 (17 grid configurations): 83.1431
+   raw grid: 0.1:1.42  0.3:1.42  1:1.48  3:1.52  10:1.74  30:2.00  100:39.30  300:50.31  1000:80.72  3000:81.80  3533.57:80.14  5000:81.92  7092.2:79.66  10000:82.48  14100:83.14  20000:79.94  28300:80.30
+   clipped SEC (kappa 0.5) 2.3223 [2.20 2.30 1.60 3.50 2.00] −tuned -80.8208; fired 5
+   unguarded SEC 6.1261 [1.10 23.32 1.60 2.10 2.50] −tuned -77.0170; rule Ω=1 2.3223 (-80.8208)
+   SI-1: 71.2312 [92.79 55.36 85.29 71.17 51.55] −tuned -11.9119; −clipped SEC +68.9089; non-finite seeds 0; largest max_k(lr 2 w imp_k) 330.6
+   SI-0.1: 1.7017 [1.50 1.70 1.50 2.10 1.70] −tuned -81.4414; −clipped SEC -0.6206; non-finite seeds 0; largest max_k(lr 2 w imp_k) 0.6613
+   AR1-P: 5.7658 [1.80 2.80 2.40 12.51 9.31] −tuned -77.3774; −clipped SEC +3.4434; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   AR1-B: 1.7618 [1.70 2.10 1.60 1.80 1.60] −tuned -81.3814; −clipped SEC -0.5606; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   SI-1C: 29.3894 [31.13 23.22 22.42 33.13 37.04] −tuned -53.7538; −clipped SEC +27.0671; non-finite seeds 0; largest max_k(lr 2 w imp_k) 1
+   raw Laplace: 1.8018 [1.80 2.30 1.60 1.50 1.80] −tuned -81.3413; −clipped SEC -0.5205; non-finite seeds 0
+   clip kappa 0.25: 2.2222 [2.30 2.30 1.60 3.00 1.90] −tuned -80.9209
+   clip kappa 1: 3.4034 [3.50 5.51 1.60 3.90 2.50] −tuned -79.7397
+   3-point sweep: best 1000 80.7207; clipped SEC − best3 -78.3984
+   transferred lambda 10: 1.7417 −tuned -81.4014
+   window cells (clip) − tuned: 0.1/0.2:-80.86  0.2/0.1:-81.16  0.2/0.2:-81.16
+   tuned clipped lambda (fixed_clip, kappa 0.5) 28300 (17 grid configurations): 6.7067, step_c 4.7856; −tuned lambda -76.4364 (-3.20 steps of the tuned lambda); firings at it 5
+   clipped grid: 0.1:1.42  0.3:1.42  1:1.48  3:1.52  10:1.74  30:2.68  100:4.24  300:5.19  1000:5.25  3000:5.25  3533.57:5.25  5000:5.33  7092.2:5.49  10000:5.77  14100:5.95  20000:6.49  28300:6.71
+   clipped SEC − tuned clipped lambda -4.3844 (step_c 4.79)
+   edge (control, P1's M6) 78.3784 [83.98 89.79 74.47 48.55 95.10] −tuned -4.7648; −tuned clipped +71.6717; −clipped SEC +76.0561; task-1 share 97.74; majority share 95.02 (tuned − majority share -0.50 steps)
+
+----------------------------------------------------------------------------------------------------------------------
+SEC6-G instrument gate: edge (a learner frozen after task 1, P1's M6) not behind the tuned lambda: 8/9 (closes at 7) -> SEC6-G CLOSED; Advanced_IoT_Dataset:-24.9501 (step 2.90), HolisticBias:+4.8352 (step 1.00), abalone:+11.8182 (step 1.54), autoUniv-au7-1100:+0.7407 (step 3.15), drug_reviews_druglib_com:+2.0952 (step 1.00), mental_health_detection:-4.8980 (step 7.34), meta_stream_intervals.arff:+23.9400 (step 3.23), tamilnadu-electricity:+0.2600 (step 1.00), volcanoes-d1:-4.7648 (step 23.90)
+SEC6-1 tuning-free, the clipped SEC (kappa 0.5) not behind the tuned lambda: 7/9 (need 7) -> PASS [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)]; Advanced_IoT_Dataset:-2.0559 (step 2.90), HolisticBias:+0.0000 (step 1.00), abalone:-1.2834 (step 1.54), autoUniv-au7-1100:-2.5397 (step 3.15), drug_reviews_druglib_com:+0.0000 (step 1.00), mental_health_detection:-4.2857 (step 7.34), meta_stream_intervals.arff:-10.4600 (step 3.23), tamilnadu-electricity:-0.1200 (step 1.00), volcanoes-d1:-80.8208 (step 23.90)
+   beside it (report): unguarded SEC 7/9; the rule Ω=1 7/9
+SEC6-1F SEC6-1's criterion on the carriers not floor-bound (tuned mean − 100 x majority share >= 3 steps): F = ['Advanced_IoT_Dataset'] (1 of 9); the clipped SEC not behind on 1/1 (need 1) -> NOT DECIDABLE (fewer than 4 carriers not floor-bound); floor-bound: ['HolisticBias', 'abalone', 'autoUniv-au7-1100', 'drug_reviews_druglib_com', 'mental_health_detection', 'meta_stream_intervals.arff', 'tamilnadu-electricity', 'volcanoes-d1']; tuned − majority share in steps: Advanced_IoT_Dataset:+22.08, HolisticBias:-6.61, abalone:-7.08, autoUniv-au7-1100:-0.35, drug_reviews_druglib_com:-5.01, mental_health_detection:-0.44, meta_stream_intervals.arff:-4.64, tamilnadu-electricity:-0.22, volcanoes-d1:-0.50
+   beside it (report): edge not behind the tuned lambda on F 0/1
+   task-1 share (report; 100 x the two most frequent used classes / n) with edge's and the clipped SEC's accuracies: Advanced_IoT_Dataset: 33.33 (edge 55.69, clipped SEC 78.58), HolisticBias: 68.74 (edge 34.21, clipped SEC 29.37), abalone: 35.38 (edge 19.33, clipped SEC 6.23), autoUniv-au7-1100: 58.18 (edge 31.85, clipped SEC 28.57), drug_reviews_druglib_com: 25.24 (edge 11.24, clipped SEC 9.14), mental_health_detection: 55.80 (edge 23.88, clipped SEC 24.49), meta_stream_intervals.arff: 65.40 (edge 61.00, clipped SEC 26.60), tamilnadu-electricity: 20.14 (edge 10.12, clipped SEC 9.74), volcanoes-d1: 97.74 (edge 78.38, clipped SEC 2.32)
+SEC6-2 no divergence: carriers with a clipped seed below half the tuned accuracy: ['volcanoes-d1'] (1) -> FAIL; unguarded (report): ['volcanoes-d1']
+SEC6-B against the published baselines: the clipped SEC not behind the tuned lambda on 7/9; SI-1 2/9 (clipped SEC strictly more: yes); SI-0.1 6/9 (clipped SEC strictly more: yes); AR1-P 5/9 (clipped SEC strictly more: yes); AR1-B 8/9 (clipped SEC strictly more: NO); SI-1C 8/9 (clipped SEC strictly more: NO); raw Laplace 6/9 (clipped SEC strictly more: yes) -> FAIL [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)] (PASS only if strictly more than every one)
+   SI-1: −tuned Advanced_IoT_Dataset:-80.6387, HolisticBias:-29.3706, abalone:-7.5134, autoUniv-au7-1100:-25.2910, drug_reviews_druglib_com:-9.1429, mental_health_detection:-2.8571, meta_stream_intervals.arff:-37.0600, tamilnadu-electricity:-9.8600, volcanoes-d1:-11.9119; carriers with a seed below half the tuned accuracy (SEC6-2's rule): ['Advanced_IoT_Dataset', 'HolisticBias', 'abalone', 'autoUniv-au7-1100', 'drug_reviews_druglib_com', 'meta_stream_intervals.arff', 'tamilnadu-electricity']
+   SI-0.1: −tuned Advanced_IoT_Dataset:-9.3214, HolisticBias:+0.0000, abalone:-1.0963, autoUniv-au7-1100:-2.5397, drug_reviews_druglib_com:-0.1905, mental_health_detection:-4.2857, meta_stream_intervals.arff:-4.0000, tamilnadu-electricity:+0.0200, volcanoes-d1:-81.4414; carriers with a seed below half the tuned accuracy (SEC6-2's rule): ['volcanoes-d1']
+   AR1-P: −tuned Advanced_IoT_Dataset:-6.8862, HolisticBias:+0.0000, abalone:-1.1765, autoUniv-au7-1100:-3.7037, drug_reviews_druglib_com:+0.1905, mental_health_detection:-3.4694, meta_stream_intervals.arff:-14.8000, tamilnadu-electricity:+0.1800, volcanoes-d1:-77.3774; carriers with a seed below half the tuned accuracy (SEC6-2's rule): ['volcanoes-d1']
+   AR1-B: −tuned Advanced_IoT_Dataset:+3.0739, HolisticBias:+0.0000, abalone:-1.0428, autoUniv-au7-1100:-2.7513, drug_reviews_druglib_com:+0.0000, mental_health_detection:-4.2857, meta_stream_intervals.arff:-0.3800, tamilnadu-electricity:-0.0200, volcanoes-d1:-81.3814; carriers with a seed below half the tuned accuracy (SEC6-2's rule): ['volcanoes-d1']
+   SI-1C: −tuned Advanced_IoT_Dataset:+11.4970, HolisticBias:+0.3596, abalone:-0.2674, autoUniv-au7-1100:+0.9524, drug_reviews_druglib_com:+0.0000, mental_health_detection:-1.6327, meta_stream_intervals.arff:+6.3600, tamilnadu-electricity:+0.1400, volcanoes-d1:-53.7538; carriers with a seed below half the tuned accuracy (SEC6-2's rule): ['volcanoes-d1']
+   raw Laplace: −tuned Advanced_IoT_Dataset:-17.0259, HolisticBias:+0.0000, abalone:-1.1765, autoUniv-au7-1100:-2.6455, drug_reviews_druglib_com:+0.0000, mental_health_detection:-4.2857, meta_stream_intervals.arff:-11.2000, tamilnadu-electricity:-0.1200, volcanoes-d1:-81.3413; carriers with a seed below half the tuned accuracy (SEC6-2's rule): ['volcanoes-d1']
+   edge (control: P1's M6, frozen after task 1; not in SEC6-B's set): not behind 8/9; −tuned Advanced_IoT_Dataset:-24.9501, HolisticBias:+4.8352, abalone:+11.8182, autoUniv-au7-1100:+0.7407, drug_reviews_druglib_com:+2.0952, mental_health_detection:-4.8980, meta_stream_intervals.arff:+23.9400, tamilnadu-electricity:+0.2600, volcanoes-d1:-4.7648; carriers with a seed below half the tuned accuracy (SEC6-2's rule): []
+SEC6-T the saving is SEC's: B = ['Advanced_IoT_Dataset', 'HolisticBias', 'abalone', 'drug_reviews_druglib_com', 'meta_stream_intervals.arff', 'tamilnadu-electricity', 'volcanoes-d1'] (7); clipped SEC not behind on 5/7 (need 6) -> FAIL
+SEC6-P clipped SEC (1 configuration) not behind the 3-point mini-sweep (3): 7/9 (need 7) -> PASS [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-G)]
+SEC6-S sensitivity over 5 cells x 9 carriers (3 window cells, kappa 0.25 and 1.0): flips in 2 of 45 -> FRAGILE; by cell: window (0.1, 0.2): 0, window (0.2, 0.1): 1, window (0.2, 0.2): 1, kappa 0.25: 0, kappa 1.0: 0
+   kappa 0.25: not behind 7/9; carriers with a seed below half the tuned accuracy: ['volcanoes-d1']
+   kappa 1: not behind 7/9; carriers with a seed below half the tuned accuracy: ['volcanoes-d1']
+SEC6-1 level as computed from SEC6-S, SEC6-2 and SEC6-G: PASS-0 (not PASS-1: fragile, divergence, SEC6-G CLOSED)
+   SEC6-G CLOSED: SEC6-1, SEC6-B and SEC6-P claim no level above PASS-0 (UNINFORMATIVE: a learner frozen after task 1 meets the same criterion)
+   the clipped SEC's family record (primary rows; SEC4 and SEC5 read from runs/sec4/score.txt and runs/sec5/score.txt): SEC4-1 PASS (6/6); SEC5-1 FAIL (4/8); SEC6-1 PASS (7/9) (UNINFORMATIVE: SEC6-G CLOSED) -> PASS on 2 of 3 families
+SEC6-GC instrument gate against the tuned clipped lambda: edge not behind the tuned clipped lambda: 8/9 (closes at 7) -> SEC6-GC CLOSED; Advanced_IoT_Dataset:-24.9501 (step_c 2.90), HolisticBias:+4.8352 (step_c 1.00), abalone:+12.4064 (step_c 1.00), autoUniv-au7-1100:+3.1746 (step_c 1.69), drug_reviews_druglib_com:+0.9524 (step_c 1.00), mental_health_detection:-1.6327 (step_c 5.59), meta_stream_intervals.arff:+23.9400 (step_c 3.23), tamilnadu-electricity:+0.0000 (step_c 1.00), volcanoes-d1:+71.6717 (step_c 4.79)
+SEC6-C tuning-free against the tuned lambda given the same clip: the clipped SEC (kappa 0.5) not behind the tuned clipped lambda: 7/9 (need 7) -> PASS [UNINFORMATIVE (a learner frozen after task 1 meets the same criterion; SEC6-GC)]; Advanced_IoT_Dataset:-2.0559 (step_c 2.90), HolisticBias:+0.0000 (step_c 1.00), abalone:-0.6952 (step_c 1.00), autoUniv-au7-1100:-0.1058 (step_c 1.69), drug_reviews_druglib_com:-1.1429 (step_c 1.00), mental_health_detection:-1.0204 (step_c 5.59), meta_stream_intervals.arff:-10.4600 (step_c 3.23), tamilnadu-electricity:-0.3800 (step_c 1.00), volcanoes-d1:-4.3844 (step_c 4.79)
+   SEC6-GC CLOSED: SEC6-C claims no level above PASS-0 (UNINFORMATIVE: a learner frozen after task 1 meets the same criterion)
+   beside it (report): every arm against the tuned clipped lambda (not behind: arm − tuned clipped > −step_c)
+      clipped SEC: 7/9; Advanced_IoT_Dataset:-2.0559, HolisticBias:+0.0000, abalone:-0.6952, autoUniv-au7-1100:-0.1058, drug_reviews_druglib_com:-1.1429, mental_health_detection:-1.0204, meta_stream_intervals.arff:-10.4600, tamilnadu-electricity:-0.3800, volcanoes-d1:-4.3844
+      SI-1: 2/9; Advanced_IoT_Dataset:-80.6387, HolisticBias:-29.3706, abalone:-6.9251, autoUniv-au7-1100:-22.8571, drug_reviews_druglib_com:-10.2857, mental_health_detection:+0.4082, meta_stream_intervals.arff:-37.0600, tamilnadu-electricity:-10.1200, volcanoes-d1:+64.5245
+      SI-0.1: 5/9; Advanced_IoT_Dataset:-9.3214, HolisticBias:+0.0000, abalone:-0.5080, autoUniv-au7-1100:-0.1058, drug_reviews_druglib_com:-1.3333, mental_health_detection:-1.0204, meta_stream_intervals.arff:-4.0000, tamilnadu-electricity:-0.2400, volcanoes-d1:-5.0050
+      AR1-P: 7/9; Advanced_IoT_Dataset:-6.8862, HolisticBias:+0.0000, abalone:-0.5882, autoUniv-au7-1100:-1.2698, drug_reviews_druglib_com:-0.9524, mental_health_detection:-0.2041, meta_stream_intervals.arff:-14.8000, tamilnadu-electricity:-0.0800, volcanoes-d1:-0.9409
+      AR1-B: 7/9; Advanced_IoT_Dataset:+3.0739, HolisticBias:+0.0000, abalone:-0.4545, autoUniv-au7-1100:-0.3175, drug_reviews_druglib_com:-1.1429, mental_health_detection:-1.0204, meta_stream_intervals.arff:-0.3800, tamilnadu-electricity:-0.2800, volcanoes-d1:-4.9449
+      SI-1C: 8/9; Advanced_IoT_Dataset:+11.4970, HolisticBias:+0.3596, abalone:+0.3209, autoUniv-au7-1100:+3.3862, drug_reviews_druglib_com:-1.1429, mental_health_detection:+1.6327, meta_stream_intervals.arff:+6.3600, tamilnadu-electricity:-0.1200, volcanoes-d1:+22.6827
+      raw Laplace: 5/9; Advanced_IoT_Dataset:-17.0259, HolisticBias:+0.0000, abalone:-0.5882, autoUniv-au7-1100:-0.2116, drug_reviews_druglib_com:-1.1429, mental_health_detection:-1.0204, meta_stream_intervals.arff:-11.2000, tamilnadu-electricity:-0.3800, volcanoes-d1:-4.9049
+      unguarded SEC: 7/9; Advanced_IoT_Dataset:-2.0559, HolisticBias:+0.0000, abalone:-0.6952, autoUniv-au7-1100:-0.1058, drug_reviews_druglib_com:-1.3333, mental_health_detection:-0.4082, meta_stream_intervals.arff:-10.4600, tamilnadu-electricity:-0.3800, volcanoes-d1:-0.5806
+      rule Ω=1: 7/9; Advanced_IoT_Dataset:-7.2854, HolisticBias:+0.0000, abalone:-0.4011, autoUniv-au7-1100:-0.4233, drug_reviews_druglib_com:-1.3333, mental_health_detection:-0.6122, meta_stream_intervals.arff:-1.7000, tamilnadu-electricity:-0.2400, volcanoes-d1:-4.3844
+      edge (control): 8/9; Advanced_IoT_Dataset:-24.9501, HolisticBias:+4.8352, abalone:+12.4064, autoUniv-au7-1100:+3.1746, drug_reviews_druglib_com:+0.9524, mental_health_detection:-1.6327, meta_stream_intervals.arff:+23.9400, tamilnadu-electricity:+0.0000, volcanoes-d1:+71.6717
+   the tuned clipped lambda against the tuned lambda (report; margin in steps of the tuned lambda): Advanced_IoT_Dataset:+0.00, HolisticBias:+0.00, abalone:-0.38, autoUniv-au7-1100:-0.77, drug_reviews_druglib_com:+1.14, mental_health_detection:-0.44, meta_stream_intervals.arff:+0.00, tamilnadu-electricity:+0.26, volcanoes-d1:-3.20; ahead by more than a step on 1/9: ['drug_reviews_druglib_com']
+   the tuned clipped lambda at the largest lambda of its grid (report; SEC1's grid may not reach its optimum): 2/9 ['Advanced_IoT_Dataset', 'volcanoes-d1']
+SEC6-K compute (report; CPU seconds from the timing files):
+   Advanced_IoT_Dataset: configurations full sweep 17, clipped SEC 1; CPU s full 8.5, clipped SEC 0.5 (share 0.0543), raw Laplace 0.5 (overhead x0.944); SI-1 0.5, SI-0.1 0.5, AR1-P 0.4, AR1-B 0.5, SI-1C 0.6; tuned clipped lambda's sweep (17) 8.2; edge 0.5
+   HolisticBias: configurations full sweep 17, clipped SEC 1; CPU s full 6.4, clipped SEC 0.3 (share 0.0547), raw Laplace 0.4 (overhead x0.947); SI-1 0.4, SI-0.1 0.4, AR1-P 0.4, AR1-B 0.4, SI-1C 0.4; tuned clipped lambda's sweep (17) 6.3; edge 0.4
+   abalone: configurations full sweep 17, clipped SEC 1; CPU s full 7.7, clipped SEC 0.5 (share 0.0607), raw Laplace 0.5 (overhead x1.021); SI-1 0.5, SI-0.1 0.5, AR1-P 0.5, AR1-B 0.5, SI-1C 0.5; tuned clipped lambda's sweep (17) 7.8; edge 0.4
+   autoUniv-au7-1100: configurations full sweep 17, clipped SEC 1; CPU s full 2.2, clipped SEC 0.1 (share 0.0535), raw Laplace 0.1 (overhead x0.920); SI-1 0.1, SI-0.1 0.1, AR1-P 0.1, AR1-B 0.1, SI-1C 0.1; tuned clipped lambda's sweep (17) 2.1; edge 0.1
+   drug_reviews_druglib_com: configurations full sweep 17, clipped SEC 1; CPU s full 2.5, clipped SEC 0.1 (share 0.0521), raw Laplace 0.1 (overhead x1.033); SI-1 0.1, SI-0.1 0.1, AR1-P 0.1, AR1-B 0.1, SI-1C 0.1; tuned clipped lambda's sweep (17) 2.1; edge 0.1
+   mental_health_detection: configurations full sweep 17, clipped SEC 1; CPU s full 1.4, clipped SEC 0.1 (share 0.0620), raw Laplace 0.1 (overhead x0.973); SI-1 0.1, SI-0.1 0.1, AR1-P 0.1, AR1-B 0.1, SI-1C 0.1; tuned clipped lambda's sweep (17) 1.5; edge 0.1
+   meta_stream_intervals.arff: configurations full sweep 17, clipped SEC 1; CPU s full 18.9, clipped SEC 1.1 (share 0.0598), raw Laplace 1.1 (overhead x1.015); SI-1 1.4, SI-0.1 1.5, AR1-P 1.0, AR1-B 1.1, SI-1C 1.4; tuned clipped lambda's sweep (17) 18.7; edge 1.1
+   tamilnadu-electricity: configurations full sweep 17, clipped SEC 1; CPU s full 8.7, clipped SEC 0.5 (share 0.0602), raw Laplace 0.5 (overhead x0.957); SI-1 0.6, SI-0.1 0.6, AR1-P 0.5, AR1-B 0.6, SI-1C 0.6; tuned clipped lambda's sweep (17) 8.9; edge 0.6
+   volcanoes-d1: configurations full sweep 17, clipped SEC 1; CPU s full 7.6, clipped SEC 0.5 (share 0.0626), raw Laplace 0.4 (overhead x1.164); SI-1 0.5, SI-0.1 0.5, AR1-P 0.4, AR1-B 0.5, SI-1C 0.5; tuned clipped lambda's sweep (17) 8.1; edge 0.4
+SEC6-E guard firings (report): Advanced_IoT_Dataset: 0; HolisticBias: 1; abalone: 2; autoUniv-au7-1100: 0; drug_reviews_druglib_com: 17; mental_health_detection: 3; meta_stream_intervals.arff: 3; tamilnadu-electricity: 0; volcanoes-d1: 5
+   fixed_clip (Amendment 2) task starts clipped at the tuned clipped lambda: Advanced_IoT_Dataset: 0; HolisticBias: 0; abalone: 20; autoUniv-au7-1100: 0; drug_reviews_druglib_com: 20; mental_health_detection: 5; meta_stream_intervals.arff: 3; tamilnadu-electricity: 20; volcanoes-d1: 5
+   SI-1C (Amendment 1) task starts floored or capped: Advanced_IoT_Dataset: 9; HolisticBias: 5; abalone: 20; autoUniv-au7-1100: 5; drug_reviews_druglib_com: 20; mental_health_detection: 5; meta_stream_intervals.arff: 15; tamilnadu-electricity: 20; volcanoes-d1: 5
