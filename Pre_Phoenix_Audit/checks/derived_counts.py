@@ -35,6 +35,12 @@ SOURCES = [
     "Continuous_Learning/checks/results_vs_literature.txt",
     "Relational_Reference_Memory/checks/t1_seen.txt",
     "Coupling/checks/cpl_phase_a.txt",
+    "Pre_Phoenix_Audit/checks/outcome_classes.txt",
+    "Pre_Phoenix_Audit/notes/PROCESS.md",
+    "data/manifests/eq2r.sha256",
+    "data/manifests/t1x.sha256",
+    "data/manifests/bayes1.sha256",
+    "data/manifests/sec6.sha256",
 ]
 
 
@@ -174,13 +180,55 @@ def d7_rrm_drift():
               + ", ".join(f"{c} {f(v)}" for c, v in vals) + f" -> positive on {sum(v > 0 for _, v in vals)}/{len(vals)} (no step printed)")
 
 
+def d8_timing():
+    print("\n[D8] Request -> hash and hash -> score (Pre_Phoenix_Audit/checks/outcome_classes.txt [8]; commit times)")
+    lines = read("Pre_Phoenix_Audit/checks/outcome_classes.txt")
+    i0 = [i for i, x in enumerate(lines) if x.startswith("[8]")][0]
+    named = []; within = []
+    for x in lines[i0 + 2:]:
+        if not x.startswith("    ") or x.startswith("    'prev"):
+            break
+        m = re.match(r"\s+(\S+)\s+PL \d+ .*?\s(\d+\.\d+) min\s", x)
+        if m:
+            named.append((m.group(1), float(m.group(2))))
+            if float(m.group(2)) <= 25.0:
+                within.append(m.group(1))
+    print(f"   studies with a named request prompt {len(named)}; hashed within 25 min of the prompt's header time {len(within)}: {within}")
+    print("   others: " + ", ".join(f"{n} {t} min" for n, t in named if t > 25.0))
+    print("   (a lower bound on receipt -> hash: prompt header times from entry 57 on are logging times, outcome_classes.txt [8] note)")
+
+
+def d9_consumed():
+    print("\n[D9] Held-out carriers fetched for studies whose primary verdict was VOID or NOT DECIDABLE (data/manifests/*.sha256)")
+    tot = 0
+    for study, row in (("eq2r", "EQ2R-VOID"), ("t1x", "T1X-VOID"), ("bayes1", "BAYES1-B0"), ("sec6", "SEC6-1")):
+        files = [x.split()[1] for x in read(f"data/manifests/{study}.sha256") if x.strip()]
+        carriers = sorted({Path(f).name.split(".")[0] for f in files})
+        tot += len(carriers)
+        print(f"   {study:7} ({row}): {len(carriers)} carriers")
+    print(f"   total {tot}")
+
+
+def d10_gates():
+    print("\n[D10] Gates closed before confirmatory data (Pre_Phoenix_Audit/notes/PROCESS.md section 3(a) table; the reason class")
+    print("      is the process reader's JUDGEMENT; this only tallies the table as written)")
+    lines = read("Pre_Phoenix_Audit/notes/PROCESS.md")
+    i0 = [i for i, x in enumerate(lines) if x.startswith("### 3(a)")][0]
+    i1 = [i for i, x in enumerate(lines) if x.startswith("### 3(b)")][0]
+    rows = [x for x in lines[i0:i1] if re.match(r"\| \d+ \|", x)]
+    print(f"   gates in the table: {len(rows)}")
+    oc = [x for x in read("Pre_Phoenix_Audit/checks/outcome_classes.txt") if x.strip().startswith("GATE CLOSED (before data) (")][0]
+    n_gate = re.search(r"\((\d+)\):", oc).group(1)
+    print(f"   the ledger's own GATE CLOSED rows (outcome_classes.txt [3]): {n_gate}")
+
+
 def main():
     print("PRE-PHOENIX INTERPRETIVE AUDIT — NO VERDICTS ALTERED: derived counts (Pre_Phoenix_Audit/checks/derived_counts.py)")
     print("reads pinned outputs and the ledger; writes nothing; every count is a reading, not a re-score")
     for s in SOURCES:
         print(f"   {s} sha256 {sha(s)}")
     print()
-    d1_ladder_passes(); d2_rlaw(); d3_pred70(); d4_t1x2(); d5_sec_subset(); d6_eq_margins(); d7_rrm_drift()
+    d1_ladder_passes(); d2_rlaw(); d3_pred70(); d4_t1x2(); d5_sec_subset(); d6_eq_margins(); d7_rrm_drift(); d8_timing(); d9_consumed(); d10_gates()
 
 
 if __name__ == "__main__":

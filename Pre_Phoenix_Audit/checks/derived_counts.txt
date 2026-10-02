@@ -10,6 +10,12 @@ reads pinned outputs and the ledger; writes nothing; every count is a reading, n
    Continuous_Learning/checks/results_vs_literature.txt sha256 9e9124f2a86f4aec8a68f36971e2d7f0cabf6e4f27a65d034980ebebb33ec6d3
    Relational_Reference_Memory/checks/t1_seen.txt sha256 477bb50224ba3b4332ba7cd8ea2ab5b1c5654a0252549f9ced77a4f731f02a22
    Coupling/checks/cpl_phase_a.txt sha256 957ec92263d7fadd71ae17788c8ce31e7b46d030e5e02ee83bf2bf9ce8bf54b9
+   Pre_Phoenix_Audit/checks/outcome_classes.txt sha256 57c7761c1e64bd9bed77f63cd86dee747519200f62db1d632f63718bc997bced
+   Pre_Phoenix_Audit/notes/PROCESS.md sha256 80264430295e1642c9d9368e38cef1d98bfef48e3ec890e68f170388f90903f7
+   data/manifests/eq2r.sha256 sha256 7a4470dcba12b313fa9c468a23680b4f1bc5ca46c6c9534000583f81f78379db
+   data/manifests/t1x.sha256 sha256 fec88bb27862fbf5766f93929dba4c0ce584401b6c00f918b551a39fcc961cde
+   data/manifests/bayes1.sha256 sha256 a32db415e5ce7f70705f53dd3806db4f8931ca2a69f26c047e5ca2821f17310f
+   data/manifests/sec6.sha256 sha256 5d03b8c96089086fb0e141d3779891ef23ebb6ee9aa15ee586405ff9d4b1d8ff
 
 [D1] Held-out PASS rows by lineage (Epistemic_Review/checks/ladder.txt, the rung R6 and R7 lines)
    R6 PASS-0 rows: 15 (parsed 15)
@@ -55,3 +61,20 @@ reads pinned outputs and the ledger; writes nothing; every count is a reading, n
    drift-to-fix carriers (Coupling/checks/cpl_phase_a.txt REPORT under FT): ['har', 'isolet', 'Indian_pines', 'Kuzushiji-MNIST']
    FT: NCM RRM - STALE (Relational_Reference_Memory/checks/t1_seen.txt, 'summary' block): har +6.7333, isolet +2.6667, Indian_pines +13.6464, Kuzushiji-MNIST +1.7400 -> positive on 4/4 (no step printed)
    ANCH1: NCM RRM - STALE (Relational_Reference_Memory/checks/t1_seen.txt, 'summary' block): har +2.9570, isolet +0.7667, Indian_pines +7.3726, Kuzushiji-MNIST -1.6400 -> positive on 3/4 (no step printed)
+
+[D8] Request -> hash and hash -> score (Pre_Phoenix_Audit/checks/outcome_classes.txt [8]; commit times)
+   studies with a named request prompt 20; hashed within 25 min of the prompt's header time 15: ['EQX', 'MEAS', 'MEAS2', 'CARD', 'EQ3', 'BAYES-1', 'T1x', 'SEC1', 'SCL1', 'SCL2', 'SCL3', 'SEC3', 'SEC4', 'SEC5', 'SEC6R']
+   others: EQ2 1492.8 min, EQ4 39.5 min, RLAW 84.1 min, SOTA1 383.5 min, SEC6 160.8 min
+   (a lower bound on receipt -> hash: prompt header times from entry 57 on are logging times, outcome_classes.txt [8] note)
+
+[D9] Held-out carriers fetched for studies whose primary verdict was VOID or NOT DECIDABLE (data/manifests/*.sha256)
+   eq2r    (EQ2R-VOID): 3 carriers
+   t1x     (T1X-VOID): 6 carriers
+   bayes1  (BAYES1-B0): 6 carriers
+   sec6    (SEC6-1): 12 carriers
+   total 27
+
+[D10] Gates closed before confirmatory data (Pre_Phoenix_Audit/notes/PROCESS.md section 3(a) table; the reason class
+      is the process reader's JUDGEMENT; this only tallies the table as written)
+   gates in the table: 25
+   the ledger's own GATE CLOSED rows (outcome_classes.txt [3]): 11
