@@ -222,13 +222,43 @@ def d10_gates():
     print(f"   the ledger's own GATE CLOSED rows (outcome_classes.txt [3]): {n_gate}")
 
 
+def d11_late_instrument():
+    print("\n[D11] Held-out VOID / NOT DECIDABLE / UNINFORMATIVE rows by when the study was first scored")
+    print("      (outcome_classes.txt [7] cells; first-score commit dates from outcome_classes.txt [8])")
+    lines = read("Pre_Phoenix_Audit/checks/outcome_classes.txt")
+    i7 = [i for i, x in enumerate(lines) if x.startswith("[7]")][0]
+    i8 = [i for i, x in enumerate(lines) if x.startswith("[8]")][0]
+    cells = {}
+    for x in lines[i7 + 1:i8]:
+        m = re.match(r"\s+(\S+)\s+rows\s+\d+ \|(.*)", x)
+        if m:
+            n = sum(int(k) for c, k in re.findall(r"(VOID|NOT DECIDABLE|UNINFORMATIVE) (\d+)", m.group(2)))
+            cells[m.group(1)] = n
+    first = {}
+    for x in lines[i8 + 2:]:
+        m = re.match(r"\s+(\S+)\s+.*?\s(\w{7}) (2026-\d\d-\d\d)T\S+\s+\d+\.\d+ h", x)
+        if m:
+            first[m.group(1).upper().replace("-", "")] = m.group(3)
+    late = early = 0
+    for k, n in cells.items():
+        d = first.get(k.upper().replace("-", ""))
+        if d is None:
+            print(f"   {k}: {n} (no first-score date matched; counted as early)")
+            early += n
+        elif d >= "2026-09-25":
+            late += n
+        else:
+            early += n
+    print(f"   first scored on or after 2026-09-25: {late}; before: {early}; total {late + early}")
+
+
 def main():
     print("PRE-PHOENIX INTERPRETIVE AUDIT — NO VERDICTS ALTERED: derived counts (Pre_Phoenix_Audit/checks/derived_counts.py)")
     print("reads pinned outputs and the ledger; writes nothing; every count is a reading, not a re-score")
     for s in SOURCES:
         print(f"   {s} sha256 {sha(s)}")
     print()
-    d1_ladder_passes(); d2_rlaw(); d3_pred70(); d4_t1x2(); d5_sec_subset(); d6_eq_margins(); d7_rrm_drift(); d8_timing(); d9_consumed(); d10_gates()
+    d1_ladder_passes(); d2_rlaw(); d3_pred70(); d4_t1x2(); d5_sec_subset(); d6_eq_margins(); d7_rrm_drift(); d8_timing(); d9_consumed(); d10_gates(); d11_late_instrument()
 
 
 if __name__ == "__main__":

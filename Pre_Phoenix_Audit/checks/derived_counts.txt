@@ -78,3 +78,8 @@ reads pinned outputs and the ledger; writes nothing; every count is a reading, n
       is the process reader's JUDGEMENT; this only tallies the table as written)
    gates in the table: 25
    the ledger's own GATE CLOSED rows (outcome_classes.txt [3]): 11
+
+[D11] Held-out VOID / NOT DECIDABLE / UNINFORMATIVE rows by when the study was first scored
+      (outcome_classes.txt [7] cells; first-score commit dates from outcome_classes.txt [8])
+   CC: 1 (no first-score date matched; counted as early)
+   first scored on or after 2026-09-25: 16; before: 5; total 21
