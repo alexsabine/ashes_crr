@@ -399,3 +399,72 @@ Epistemic_Review/checks/ladder.py sha256 1101493c730f3701e492be10c72cd4b10c12d54
 [6] Denominators kept apart: this table counts LEDGER rows only. The retrodiction batteries, the synthesis class and
     PRED70 are separate banks with their own denominators (Epistemic_Review/checks/ladder.txt [1]-[2], [5];
     Epistemic_Review/checks/redundant_vs_fail.txt [1]); they are not added to any count above.
+
+[7] Held-out rows: study prefix (row id up to the first '-') x outcome class (non-zero cells only)
+    EQX      rows   5 | REDUCES / control violated / INERT (+IDLE) 1; report / no verdict 1; FAIL 2; other: numbers reported / no baseline ahead 1
+    MEAS     rows   1 | VOID 1
+    MEAS2    rows   3 | PASS-other 1; FAIL 2
+    EQ2      rows  12 | PASS-0 1; FRAGILE 2; REDUCES / control violated / INERT (+IDLE) 1; PASS-other 1; report / no verdict 3; FAIL 1; other: control / reproduction holds 1; other: does not reduce 1; other: precondition met (DECIDABLE) 1
+    EQ2R     rows   1 | VOID 1
+    CC       rows   1 | VOID 1
+    EQ3      rows  16 | PASS-0 1; FRAGILE 1; REDUCES / control violated / INERT (+IDLE) 2; report / no verdict 5; FAIL 4; other: does not reduce 1; other: precondition met (DECIDABLE) 1; other: numbers reported / no baseline ahead 1
+    BAYES1   rows  10 | NOT DECIDABLE 1; report / no verdict 8; other: not fragile (sensitivity) 1
+    T1X      rows   1 | VOID 1
+    EQ4      rows  14 | PASS-0 1; FRAGILE 1; REDUCES / control violated / INERT (+IDLE) 3; report / no verdict 4; FAIL 3; other: does not reduce 1; other: precondition met (DECIDABLE) 1
+    T1X2     rows   7 | report / no verdict 2; FAIL 2; other: control / reproduction holds 1; other: not fragile (sensitivity) 1; other: precondition met (DECIDABLE) 1
+    SCL2     rows  15 | construction 2; PASS-other 3; report / no verdict 5; FAIL 2; other: control / reproduction holds 1; other: not fragile (sensitivity) 2
+    SCL3     rows  13 | PASS-0 4; FRAGILE 1; construction 1; report / no verdict 5; other: control / reproduction holds 1; other: precondition met (DECIDABLE) 1
+    SOTA1    rows  19 | NOT DECIDABLE 1; PASS-0 1; construction 3; report / no verdict 3; FAIL 9; other: control / reproduction holds 1; other: not fragile (sensitivity) 1
+    CARD     rows   3 | report / no verdict 1; FAIL 2
+    SEC3     rows  10 | NOT DECIDABLE 2; PASS-0 1; FRAGILE 1; report / no verdict 2; FAIL 4
+    SEC4     rows   7 | NOT DECIDABLE 1; PASS-1 1; PASS-0 2; report / no verdict 2; other: not fragile (sensitivity) 1
+    SEC5     rows   7 | PASS-0 1; report / no verdict 2; FAIL 3; other: not fragile (sensitivity) 1
+    SEC6     rows  10 | NOT DECIDABLE 5; report / no verdict 5
+    SEC6R    rows  11 | UNINFORMATIVE 6; NOT DECIDABLE 1; FRAGILE 1; report / no verdict 1; FAIL 2
+
+[8] Process timing (read only): prompt-log header time -> prereg hash commit -> first scoring/VOID commit
+    study    prompt (header UTC)          hash commit (UTC)            prompt->hash  first score commit (UTC)     hash->score  prev score->hash
+    EQX      PL 3 2026-09-15T18:00        231f75b 2026-09-15T18:14:48Z      14.8 min  0d21b82 2026-09-15T18:20:06Z     0.09 h       n/a
+    MEAS     PL 7 2026-09-15T21:11        32f18c3 2026-09-15T21:21:32Z      10.5 min  57b6302 2026-09-15T21:24:27Z     0.05 h      3.02 h
+    MEAS2    PL 7 2026-09-15T21:11        57b6302 2026-09-15T21:24:27Z      13.4 min  9047ab7 2026-09-15T21:31:50Z     0.12 h      0.00 h
+    CARD     PL 9 2026-09-15T21:40        0c8fe04 2026-09-15T21:46:54Z       6.9 min  5c4311a 2026-09-27T00:29:56Z   266.72 h      0.25 h
+    EQ2      PL 17 2026-09-15T23:18       4ba6035 2026-09-17T00:10:49Z    1492.8 min  455780b 2026-09-17T00:17:44Z     0.12 h       n/a
+    EQ2R     none named                   231cb26 2026-09-17T20:59:18Z         n/a    d04b4c8 2026-09-21T22:01:03Z    97.03 h     20.69 h
+    EQ2R-CC  none named                   708e9b1 2026-09-17T21:07:26Z         n/a    d04b4c8 2026-09-21T22:01:03Z    96.89 h       n/a
+    EQ3      PL 69 2026-09-22T00:59:34    daf50e7 2026-09-22T01:21:32Z      22.0 min  a6d39ff 2026-09-22T01:31:30Z     0.17 h      3.34 h
+    EQ4      PL 74 2026-09-22T04:59:33    a55be4d 2026-09-22T05:39:00Z      39.5 min  c4bdcf1 2026-09-23T04:54:50Z    23.26 h      4.12 h
+    BAYES-1  PL 84 2026-09-22T15:40:05    49072aa 2026-09-22T15:52:37Z      12.5 min  bb5ca5a 2026-09-22T16:04:08Z     0.19 h       n/a
+    T1x      PL 87 2026-09-22T16:17:10    ce825dd 2026-09-22T16:23:24Z       6.2 min  b809477 2026-09-22T16:40:01Z     0.28 h      0.32 h
+    T1x2     none named                   b809477 2026-09-22T16:40:01Z         n/a    a1a3f30 2026-09-23T05:12:54Z    12.55 h      0.00 h
+    SEC1     PL 118 2026-09-23T15:01:21   0f67f2d 2026-09-23T15:18:10Z      16.8 min  3a9b930 2026-09-23T15:25:03Z     0.11 h     10.09 h
+    SCL1     PL 124 2026-09-23T21:02:55   17366b9 2026-09-23T21:15:04Z      12.2 min  3841ad8 2026-09-23T21:23:39Z     0.14 h      5.83 h
+    SCL2     PL 125 2026-09-23T21:27:32   679ae8b 2026-09-23T21:34:54Z       7.4 min  953857b 2026-09-24T00:14:31Z     2.66 h      0.19 h
+    SCL3     PL 127 2026-09-24T01:39:19   05318d4 2026-09-24T01:56:19Z      17.0 min  e9fb5f7 2026-09-25T00:28:20Z    22.53 h      1.70 h
+    RLAW     PL 137 2026-09-24T04:26:27   be82a3f 2026-09-24T05:50:35Z      84.1 min  72edf71 2026-09-25T00:56:21Z    19.10 h       n/a
+    SOTA1    PL 190 2026-09-25T05:27:48   de95c63 2026-09-25T11:51:16Z     383.5 min  45201f5 2026-09-26T17:18:56Z    29.46 h     10.92 h
+    SEC3     PL 227 2026-09-27T23:33:23   916d3d4 2026-09-27T23:42:45Z       9.4 min  c6422e2 2026-09-28T00:34:14Z     0.86 h     30.40 h
+    SEC4     PL 228 2026-09-28T03:50:26   278d0b4 2026-09-28T04:12:59Z      22.6 min  8574912 2026-09-29T00:16:56Z    20.07 h      3.65 h
+    SEC5     PL 238 2026-09-29T02:59:54   576a092 2026-09-29T03:12:07Z      12.2 min  d1bdd27 2026-09-30T00:47:42Z    21.59 h      2.92 h
+    SEC6     PL 257 2026-09-30T07:11:08   1bb1870 2026-09-30T09:51:54Z     160.8 min  0671a35 2026-10-01T00:40:59Z    14.82 h      9.07 h
+    SEC6R    PL 259 2026-10-01T00:53:15   20f7d06 2026-10-01T01:08:02Z      14.8 min  45669e6 2026-10-02T00:24:23Z    23.27 h      0.45 h
+    'prev score->hash' = hours from the PREVIOUS row's first-score commit (table order) to this row's hash commit (n/a when
+    this hash precedes it). Commit times are the authoritative clock (prompt-log correction note after entry 56). From entry
+    57 on, a prompt header time is read 'from date -u at the moment of logging' (the same note), which can be later than
+    receipt, so 'prompt->hash' is a lower bound on receipt->hash; it also excludes design work done before the request.
+
+[9] Follow-ups named in the AGENT_LOG and every AGENT_LOG entry that mentions them
+    BAYES-1b                 named in entry  67; entries mentioning it: 67; later than 67: none
+    H-REG                    named in entry 130; entries mentioning it: 130; later than 130: none
+    LIFE1                    named in entry 162; entries mentioning it: 162; later than 162: none
+    dose-matched             named in entry 122; entries mentioning it: 122; later than 122: none
+    ARC-R                    named in entry 132; entries mentioning it: 132, 134; later than 132: 134
+    EQ5                      named in entry  85; entries mentioning it: 85; later than 85: none
+    causal phase             named in entry  88; entries mentioning it: 88; later than 88: none
+    per-task normalisation   named in entry  95; entries mentioning it: 95; later than 95: none
+    settled occasions        named in entry  94; entries mentioning it: 94; later than 94: none
+    stronger criterion       named in entry 192; entries mentioning it: 192; later than 192: none
+    different reference      named in entry 238; entries mentioning it: 238; later than 238: none
+    surrogate harder         named in entry  71; entries mentioning it: 71; later than 71: none
+    arc-triggered refresh    named in entry 202; entries mentioning it: 202; later than 202: none
+    RW3                      named in entry 158; entries mentioning it: 158; later than 158: none
+    equal exploration        named in entry  73; entries mentioning it: 73, 74; later than 73: 74
