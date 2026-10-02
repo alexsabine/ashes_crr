@@ -22,6 +22,28 @@ are in prompt-log entry 260, §6 ([Ashes] `notebook/PROMPT_LOG.md:2047-2068`). T
   and the ANCHOR/fetch logs.
 - **Edit scope.** Nothing in Embers was modified or executed. Only this file was written in Ashes.
 
+**Corrections after independent verification (2026-10-02; the text below is otherwise as written).**
+1. **The record is not limited to 7082f23.** That is the HEAD of Embers `main` only. Embers' work continued on the unmerged
+   branch `claude/eager-allen-5rjiem`, now at de6c05a, 72 commits later. That branch is read in
+   `notes/EMBERS_ADDENDUM_de6c05a.md`. Statements below about stk2 being "pending", about 12 ledger rows, and about "four
+   scored real-data studies" are as of 7082f23. At de6c05a:
+   - STK2-1 is VOID;
+   - the ledger has 22 rows;
+   - four of six real-data studies have no hypothesis verdict.
+2. **§6.4, "same, reached on disjoint system sets"** (A6 accumulation; antipode against extremum). The systems are disjoint,
+   but Embers had adopted both Ashes lessons before its batteries ([Embers] `CRR_Ashes/README.md:208-212`), and rows were
+   declared expecting WRONG ([Embers] `retro/DECLARATION_R2.md:157`). Read these as replicated on new systems, primed, not
+   independent.
+3. **§5.1, "Signed tags".** Embers' `docs/keys/tag_signer_ssh.pub` is 0 bytes, already at 7082f23 (Embers AGENT_LOG 87 on the
+   branch).
+4. **§5.4 item 3.** Ashes' SEC instrument gates were registered in SEC6 and SEC6R, computed on held-out units at scoring, and
+   applied post hoc to SCL3, SEC3, SEC4 and SEC5.
+5. **§5.5 item 2.**
+   - "Chosen by a channel-count rule" should read "≥ 2 physical channels and an expected asymmetric waveform (odd
+     harmonics)" ([Embers] `notebook/AGENT_LOG.md:33`).
+   - Two of the plumbing risks (H1GAIT's side labels, p5156's format) were flagged before the freeze.
+   - The phrase "no peek before the anchor" is a paraphrase, not a quotation.
+
 ---
 
 ## 0 Summary
