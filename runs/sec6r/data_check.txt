@@ -1,0 +1,30 @@
+183 abalone .arff: sha256 a75351597c04719e793dd5fc9bee926bae0f06e413fe77591f01e4688154988e manifest a75351597c04719e793dd5fc9bee926bae0f06e413fe77591f01e4688154988e -> ok
+183 abalone .json: sha256 d8db8dc0561467f08905f208590d3f8e9cd61ef2d5a5b0e3fac971c05c1a3245 manifest d8db8dc0561467f08905f208590d3f8e9cd61ef2d5a5b0e3fac971c05c1a3245 -> ok
+279 meta_stream_intervals.arff .arff: sha256 d164aac50c7903342e441f26ee6c3e218f2c84506bd47a8b1c09bf0d013f1878 manifest d164aac50c7903342e441f26ee6c3e218f2c84506bd47a8b1c09bf0d013f1878 -> ok
+279 meta_stream_intervals.arff .json: sha256 3efbed4efeec10c8e984048ea99028db8e50c683d99d213b4d5b62556bb0a747 manifest 3efbed4efeec10c8e984048ea99028db8e50c683d99d213b4d5b62556bb0a747 -> ok
+1534 volcanoes-b4 .arff: sha256 6851e81d0d1e901dab7f8283f15df357b7ad2138d1317afd3cd7e3402c4e8e4e manifest 6851e81d0d1e901dab7f8283f15df357b7ad2138d1317afd3cd7e3402c4e8e4e -> ok
+1534 volcanoes-b4 .json: sha256 5e9578f8ecbe8a62e9c711af162ee4097f744cff4729f2a4b89c6e52354d25f7 manifest 5e9578f8ecbe8a62e9c711af162ee4097f744cff4729f2a4b89c6e52354d25f7 -> ok
+1538 volcanoes-d1 .arff: sha256 a891f6dbc27cc4b18929f8b3db99380b8c7589c5ac4558862dc5ec9ffea7ade0 manifest a891f6dbc27cc4b18929f8b3db99380b8c7589c5ac4558862dc5ec9ffea7ade0 -> ok
+1538 volcanoes-d1 .json: sha256 0ea0a7e71a7058669fd247acce9c6c5e898ca52b6cce0f12906d7340534c4170 manifest 0ea0a7e71a7058669fd247acce9c6c5e898ca52b6cce0f12906d7340534c4170 -> ok
+1542 volcanoes-e1 .arff: sha256 305c65a2b367277e3bf8b9db88fbd96ff9e56b26e9f13aecc90e1cef4c37ac09 manifest 305c65a2b367277e3bf8b9db88fbd96ff9e56b26e9f13aecc90e1cef4c37ac09 -> ok
+1542 volcanoes-e1 .json: sha256 11a73d00c71cf6a338d8b52d20ab4ab14be6bd2f19d1841a2a6e3f7bb8904c63 manifest 11a73d00c71cf6a338d8b52d20ab4ab14be6bd2f19d1841a2a6e3f7bb8904c63 -> ok
+1552 autoUniv-au7-1100 .arff: sha256 0b1365d1d09c0d4b91aa70edafa1960b7325020bf87dc0375f9cc512117aabf9 manifest 0b1365d1d09c0d4b91aa70edafa1960b7325020bf87dc0375f9cc512117aabf9 -> ok
+1552 autoUniv-au7-1100 .json: sha256 00b822f13e941592a89983d5cd4a034027ea0c037a61fd0069693090125961dd manifest 00b822f13e941592a89983d5cd4a034027ea0c037a61fd0069693090125961dd -> ok
+40985 tamilnadu-electricity .arff: sha256 373c0391d415c8dab6e483a39a3a085bd7573003af356fde8b8a5b253a63e0a1 manifest 373c0391d415c8dab6e483a39a3a085bd7573003af356fde8b8a5b253a63e0a1 -> ok
+40985 tamilnadu-electricity .json: sha256 590d7a74093f8fc00c952144ee1a48a2311e7986d1eb5a66fed28f476ab90591 manifest 590d7a74093f8fc00c952144ee1a48a2311e7986d1eb5a66fed28f476ab90591 -> ok
+46608 drug_reviews_druglib_com .arff: sha256 682a7bebcc4f2252df89ce7b33a282875dd769aec3143053bf3f9b9136e73896 manifest 682a7bebcc4f2252df89ce7b33a282875dd769aec3143053bf3f9b9136e73896 -> ok
+46608 drug_reviews_druglib_com .json: sha256 a2411d59dc7bc3b1841a5af2efb0af497341f708bf2ac176a5b4440dc2a2a959 manifest a2411d59dc7bc3b1841a5af2efb0af497341f708bf2ac176a5b4440dc2a2a959 -> ok
+46684 HolisticBias .arff: sha256 a2a797577d0a1f73febb20f7b31f94471e34a9e62a7c568be261845f7d13027f manifest a2a797577d0a1f73febb20f7b31f94471e34a9e62a7c568be261845f7d13027f -> ok
+46684 HolisticBias .json: sha256 6554665ff0bff89df50f800362b8b45ef9f20e9c05600989214ed6cf8e6ec687 manifest 6554665ff0bff89df50f800362b8b45ef9f20e9c05600989214ed6cf8e6ec687 -> ok
+46709 SOCC .arff: sha256 db1680ee5f5c2f09fa32b242baf49ba8688025cbbde628c5519ab5ba5dd5d4d3 manifest db1680ee5f5c2f09fa32b242baf49ba8688025cbbde628c5519ab5ba5dd5d4d3 -> ok
+46709 SOCC .json: sha256 bf13134ceb21850d0437b77b123265d3d761532bcea916e3646b4b62f4306d1c manifest bf13134ceb21850d0437b77b123265d3d761532bcea916e3646b4b62f4306d1c -> ok
+46745 Advanced_IoT_Dataset .arff: sha256 c02187e4b24cf8e316018589a47c3cb3ae35dd361b0874b6a95bdcbcff13ea73 manifest c02187e4b24cf8e316018589a47c3cb3ae35dd361b0874b6a95bdcbcff13ea73 -> ok
+46745 Advanced_IoT_Dataset .json: sha256 c9ba46e05b712a0e09ebd14495c40a55c349246b4b186971324ec4cb5d65bfd8 manifest c9ba46e05b712a0e09ebd14495c40a55c349246b4b186971324ec4cb5d65bfd8 -> ok
+46761 mental_health_detection .arff: sha256 c89b850dcbc4220f2c948f09e90d9f4cf2c49316c374650fff608e33737f8850 manifest c89b850dcbc4220f2c948f09e90d9f4cf2c49316c374650fff608e33737f8850 -> ok
+46761 mental_health_detection .json: sha256 b02ad97bb678cd159e05923aed671960ceeeeccdc6d0c88c4877ec8bff932cca manifest b02ad97bb678cd159e05923aed671960ceeeeccdc6d0c88c4877ec8bff932cca -> ok
+data check: all 24 raw files match data/manifests/sec6r.sha256
+d = 0 self-test (Amendment 1): selftest_d0 (2 string attributes, 4-class target, 240 rows): features_used 0, excluded True, reason 'd = 0: no usable feature after the loader', run records 0 -> as required
+d = 1 self-test: selftest_d1 (one numeric attribute added): features_used 1, excluded False; SEC1's run_all and every SEC6 arm ran: 385 run records, 14 modes ['ar1b', 'ar1p', 'bayes', 'bayes_s1', 'bayes_sec', 'bayes_sec_clip', 'edge', 'eq', 'fixed', 'fixed_clip', 'fixed_sec', 'si01', 'si1', 'si1c'], non-finite 0 -> as required
+score on the two: carriers scored 1: ['selftest_d1']; excluded 1: ['selftest_d0']; of them by the d = 0 rule (Amendment 1): ['selftest_d0'] -> as required
+   (report) without the rule, SEC1's MLP at d = 0 raises: ZeroDivisionError (division by zero)
+d = 0 rule self-test -> holds

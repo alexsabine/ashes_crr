@@ -1,15 +1,24 @@
-Fri Oct  2 00:07:17 UTC 2026
 a75351597c04719e793dd5fc9bee926bae0f06e413fe77591f01e4688154988e  data/raw/openml/183_abalone.arff  https://openml.org/data/v1/download/3620/abalone.arff  md5-verified  version 1  downloaded 2026-10-02T00:07:24Z  bytes 192330
+d8db8dc0561467f08905f208590d3f8e9cd61ef2d5a5b0e3fac971c05c1a3245  data/raw/openml/183_abalone.json  https://www.openml.org/api/v1/json/data/183  description  downloaded 2026-10-02T00:07:24Z
 d164aac50c7903342e441f26ee6c3e218f2c84506bd47a8b1c09bf0d013f1878  data/raw/openml/279_meta_stream_intervals.arff.arff  https://openml.org/data/v1/download/1786463/meta_stream_intervals.arff.arff  md5-verified  version 1  downloaded 2026-10-02T00:09:21Z  bytes 23081388
+3efbed4efeec10c8e984048ea99028db8e50c683d99d213b4d5b62556bb0a747  data/raw/openml/279_meta_stream_intervals.arff.json  https://www.openml.org/api/v1/json/data/279  description  downloaded 2026-10-02T00:09:21Z
 6851e81d0d1e901dab7f8283f15df357b7ad2138d1317afd3cd7e3402c4e8e4e  data/raw/openml/1534_volcanoes-b4.arff  https://openml.org/data/v1/download/1593730/volcanoes-b4.arff  md5-verified  version 1  downloaded 2026-10-02T00:09:26Z  bytes 190961
+5e9578f8ecbe8a62e9c711af162ee4097f744cff4729f2a4b89c6e52354d25f7  data/raw/openml/1534_volcanoes-b4.json  https://www.openml.org/api/v1/json/data/1534  description  downloaded 2026-10-02T00:09:26Z
 a891f6dbc27cc4b18929f8b3db99380b8c7589c5ac4558862dc5ec9ffea7ade0  data/raw/openml/1538_volcanoes-d1.arff  https://openml.org/data/v1/download/1593734/volcanoes-d1.arff  md5-verified  version 1  downloaded 2026-10-02T00:09:30Z  bytes 163975
+0ea0a7e71a7058669fd247acce9c6c5e898ca52b6cce0f12906d7340534c4170  data/raw/openml/1538_volcanoes-d1.json  https://www.openml.org/api/v1/json/data/1538  description  downloaded 2026-10-02T00:09:30Z
 305c65a2b367277e3bf8b9db88fbd96ff9e56b26e9f13aecc90e1cef4c37ac09  data/raw/openml/1542_volcanoes-e1.arff  https://openml.org/data/v1/download/1593738/volcanoes-e1.arff  md5-verified  version 1  downloaded 2026-10-02T00:09:33Z  bytes 22258
+11a73d00c71cf6a338d8b52d20ab4ab14be6bd2f19d1841a2a6e3f7bb8904c63  data/raw/openml/1542_volcanoes-e1.json  https://www.openml.org/api/v1/json/data/1542  description  downloaded 2026-10-02T00:09:33Z
 0b1365d1d09c0d4b91aa70edafa1960b7325020bf87dc0375f9cc512117aabf9  data/raw/openml/1552_autoUniv-au7-1100.arff  https://openml.org/data/v1/download/1593748/autoUniv-au7-1100.arff  md5-verified  version 1  downloaded 2026-10-02T00:09:39Z  bytes 59499
+00b822f13e941592a89983d5cd4a034027ea0c037a61fd0069693090125961dd  data/raw/openml/1552_autoUniv-au7-1100.json  https://www.openml.org/api/v1/json/data/1552  description  downloaded 2026-10-02T00:09:39Z
 373c0391d415c8dab6e483a39a3a085bd7573003af356fde8b8a5b253a63e0a1  data/raw/openml/40985_tamilnadu-electricity.arff  https://openml.org/data/v1/download/18151942/tamilnadu-electricity.arff  md5-verified  version 3  downloaded 2026-10-02T00:09:45Z  bytes 1234837
+590d7a74093f8fc00c952144ee1a48a2311e7986d1eb5a66fed28f476ab90591  data/raw/openml/40985_tamilnadu-electricity.json  https://www.openml.org/api/v1/json/data/40985  description  downloaded 2026-10-02T00:09:45Z
 682a7bebcc4f2252df89ce7b33a282875dd769aec3143053bf3f9b9136e73896  data/raw/openml/46608_drug_reviews_druglib_com.arff  https://openml.org/data/v1/download/22121301/drug_reviews_druglib_com.arff  md5-verified  version 1  downloaded 2026-10-02T00:10:01Z  bytes 3109316
+a2411d59dc7bc3b1841a5af2efb0af497341f708bf2ac176a5b4440dc2a2a959  data/raw/openml/46608_drug_reviews_druglib_com.json  https://www.openml.org/api/v1/json/data/46608  description  downloaded 2026-10-02T00:10:01Z
 a2a797577d0a1f73febb20f7b31f94471e34a9e62a7c568be261845f7d13027f  data/raw/openml/46684_HolisticBias.arff  https://openml.org/data/v1/download/22121377/HolisticBias.arff  md5-verified  version 1  downloaded 2026-10-02T00:17:56Z  bytes 104107128
+6554665ff0bff89df50f800362b8b45ef9f20e9c05600989214ed6cf8e6ec687  data/raw/openml/46684_HolisticBias.json  https://www.openml.org/api/v1/json/data/46684  description  downloaded 2026-10-02T00:17:56Z
 db1680ee5f5c2f09fa32b242baf49ba8688025cbbde628c5519ab5ba5dd5d4d3  data/raw/openml/46709_SOCC.arff  https://openml.org/data/v1/download/22121402/SOCC.arff  md5-verified  version 1  downloaded 2026-10-02T00:18:09Z  bytes 726298
+bf13134ceb21850d0437b77b123265d3d761532bcea916e3646b4b62f4306d1c  data/raw/openml/46709_SOCC.json  https://www.openml.org/api/v1/json/data/46709  description  downloaded 2026-10-02T00:18:09Z
 c02187e4b24cf8e316018589a47c3cb3ae35dd361b0874b6a95bdcbcff13ea73  data/raw/openml/46745_Advanced_IoT_Dataset.arff  https://openml.org/data/v1/download/22121445/Advanced_IoT_Dataset.arff  md5-verified  version 1  downloaded 2026-10-02T00:18:42Z  bytes 6818871
+c9ba46e05b712a0e09ebd14495c40a55c349246b4b186971324ec4cb5d65bfd8  data/raw/openml/46745_Advanced_IoT_Dataset.json  https://www.openml.org/api/v1/json/data/46745  description  downloaded 2026-10-02T00:18:42Z
 c89b850dcbc4220f2c948f09e90d9f4cf2c49316c374650fff608e33737f8850  data/raw/openml/46761_mental_health_detection.arff  https://openml.org/data/v1/download/22121475/mental_health_detection.arff  md5-verified  version 1  downloaded 2026-10-02T00:18:47Z  bytes 38818
-manifest -> data/manifests/sec6r.sha256
-exit 0
+b02ad97bb678cd159e05923aed671960ceeeeccdc6d0c88c4877ec8bff932cca  data/raw/openml/46761_mental_health_detection.json  https://www.openml.org/api/v1/json/data/46761  description  downloaded 2026-10-02T00:18:47Z
