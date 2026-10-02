@@ -455,7 +455,147 @@ value, and the CRR 2.0 law. Not the axioms as ontology. Not H-CUT, which was nev
 
 ## 8. Question 10: did the adversarial protocol prevent reasonable exploratory development before confirmatory testing?
 
-[PROCESS-dependent section: completed below from `Pre_Phoenix_Audit/notes/PROCESS.md` and `outcome_classes.txt` [8]–[9].]
+Audited stage by stage, from `Pre_Phoenix_Audit/notes/PROCESS.md` (cited "PROCESS §n") and the Question-10 sections of each
+lineage note.
+
+### 8.1 The held-out scoring layer: merciless and correct
+
+**What it did.**
+- It refused to delete nulls (PL 11; AL 2).
+- It refused to patch frozen code or score partial results (AL 40, 69, 153, 241).
+- It refused to tune positive controls or thresholds after seeing results (AL 4, 13, 88, 118, 178, 192, 205, 238).
+- It kept first-run outputs beside labelled post-run lines.
+- It turned its own best pass into a caveat in the ledger (SEC4-1-G).
+- **Robustness of the failures.** The large-effect failures are not fragile: MEAS2-1, CARD-1, T1X2-1, SOTA1-1a, SEC5-1.
+- **Not weaponised against passes.** Post hoc additions weakened fails as well as passes: SEC3-3-G and SEC5-1-G sit beside
+  FAILs (PROCESS §3(e)).
+
+**Finding.** The record contains no case in which this layer suppressed a result that later proved real (PROCESS §7).
+
+**One cost: held-out data consumed by infrastructure.**
+- 27 held-out carriers were fetched for studies whose primary verdict became VOID or NOT DECIDABLE: EQ2R 3, T1x 6, BAYES-1 6,
+  SEC6 12 (`derived_counts.txt` [D9]).
+- The frozen-code rule converted each defect into lost carriers. That cost is the price of the rule's integrity, and it
+  was paid correctly.
+
+### 8.2 Before the hash: where maturity was missing
+
+1. **Tempo.**
+   - 15 of the 20 studies with a named request prompt were hashed within 25 minutes of that prompt's logged time
+     (`derived_counts.txt` [D8]: EQX, MEAS, MEAS2, CARD, EQ3, BAYES-1, T1x, SEC1, SCL1, SCL2, SCL3, SEC3, SEC4, SEC5, SEC6R).
+   - This is a lower bound on receipt → hash, and some designs were templated in CLAUDE.md §4–§6 beforehand (PROCESS §3(b)).
+   - Within a lineage, each successor was hashed 0 to 9.07 h after the previous first score (`outcome_classes.txt` [8]).
+2. **Theory decisions skipped.**
+   - "Before any further EQ prereg the owner must decide which law carries the name" (`theory/SPEC_RECONCILIATION.md:79`).
+     No decision is recorded, yet EQ3, EQ4, BAYES-1 and SOTA1 followed (L-EQ §4 Q6).
+   - The v3.2 decision list (`ontology/05_next_steps.md` §2) has stood open since 2026-09-22. It covers which phase A3 cuts
+     on, the event rule, the segmentation rule and A6's scope. CRR.md is still v3.1.
+3. **Criterion construct validity lagged.**
+   - The SEC criterion's weakness was flagged on 2026-09-25 (AGENT_LOG 131: 13 of 37 carrier-scorings INERT; a proposal for
+     "a pre-registered load-bearing criterion").
+   - SEC3, SEC4 and SEC5 were then registered without such a criterion (L-SEC §7, the reader's grep). The must-fail control
+     entered a pre-registration with SEC6, on 2026-09-30, after the PASS-1 had been labelled.
+   - The defect surfaced only after 30 held-out carriers had been scored (PROCESS §3(e)).
+4. **Positive controls tested an easier property than the scored criterion** (L-HYP cross-lineage 4):
+   - CARD: the gate_L5 positive controls tie amplitude, while CARD scores amplitude strictly;
+   - Rupture PC1: its rationale beats clock windows, but it was required to beat peak segmentation;
+   - T1: S-H2 builds path dependence into F by fiat;
+   - SAL: "surplus tracks forgetting" is not the same as "e^{S} replay is optimal".
+5. **Conceptual analysis arrived after the hashes.**
+   - H-L5's real-data tests were hashed on 2026-09-15 (measles: request 21:11Z → MEAS2 hash 21:24:27Z; cardiac: 6.9 min).
+   - The analysis that located H-L5's non-trivial content in S > 0, and showed that the event rule decides the class, came on
+     2026-09-17 → 21.
+   - CARD then ran as frozen on 2026-09-26/27 (AGENT_LOG 164 rejected a fresh prereg as rule-shopping). The protocol worked as
+     designed; the cost was a second real-data test on an operationalisation chosen before the content was understood.
+6. **Immature observation, immediate confirmation.** The SCL1 reset observation went to a hashed held-out replication about 15
+   minutes after the owner asked (prompt 125 at 21:27:32Z; SCL2 prereg at 21:34:54Z). No exploration of mechanism, dose or task
+   count came first. The FAIL (SCL2-R) is correctly scoped to the observation.
+
+### 8.3 Phase-A and development gates: where closure became finality
+
+**The closures.**
+- 25 gates closed before any confirmatory data. Only 11 are ledger rows; the rest are in AGENT_LOG and notes
+  (`derived_counts.txt` [D10]).
+- By the process reader's classification (judgement, PROCESS §3(a)), the most common reasons were:
+  - the hypothesis did no work, or was behind its comparator, on a gate that could have opened;
+  - a positive control that was absent, could not win, or was invisible;
+  - a design defect of the declared world.
+- Several closures were found by the gate itself, on questions a short headroom pilot would have answered:
+  - unlearnable rings (RQM run 1);
+  - a criterion that cannot fail (RQM run 2, SEC7);
+  - a learner whose features barely drift (RRM2-T1..T3);
+  - a consolidation action with no effect (OB1-C3: G-MATTER and G-TIMING are pilot questions frozen into the gate);
+  - no headroom (RW2 twice; Adam Declaration 2).
+
+  L-MEM-CLK §L-MEM 7 notes that none of these needed held-out data to find.
+
+**What happened next.**
+- After a first closure, redesigns opened 5 times and closed again 5 times (PROCESS §3(a), judgement).
+- Three of the redesigns that opened lead to the record's held-out passes: EQ2-1b, SCL3 through SEC1, and SEC4-1.
+- Same-day redesign was refused each time as gate-shopping (CLAUDE.md §10). The stated route was "a new declaration, labelled
+  post hoc, on a later day … only on the owner's instruction" (AL 122, 192, 209).
+- 13 named follow-ups never reappear in the AGENT_LOG (`outcome_classes.txt` [9]): BAYES-1b, H-REG, LIFE1, the dose-matched
+  CUT1, EQ5, the causal-phase cut, per-task normalisation, Ω scaled by settled occasions, a stronger RQM criterion, a SEC
+  reference that can fail, a harder FED surrogate, the arc-triggered refresh C2, and RW3.
+- The record does not separate the protocol from the owner's change of direction as the cause. After most closures the next
+  prompt points elsewhere (PROCESS §3(d)).
+- One R12-spirit stop was overridden by the owner: "I don't really want to give up on the continuous learning equanimity idea
+  just yet" (PL 106). Declared synthetic exploration followed (Adam_SGD), then SEC (AL 96, 143). That lineage produced the
+  record's only PASS-1, which a post hoc gate later emptied.
+
+**A direct protocol block.**
+- LIFE1, the one runnable real-data H-CUT test (G-CD3 OPEN), was not registered.
+- A header-only check of the data's schema was ruled to be "opening data before the hash" (AL 162).
+- Together with the VOID precedent of blind loaders, R2 as interpreted stopped the only ready test of CRR's most distinctive
+  hypothesis.
+
+### 8.4 Where exploration happened, and where it went
+
+**Exploration was plentiful but unrecorded or unstructured.**
+- **L-EQ:** ten synthetic batteries; an off-repository playground "permitted by the owner" whose numbers stay off the record
+  (AL 3); a dev run on SEEN carriers before EQ4.
+- **L-SEC:** development stages on SEEN carriers (SEC4-D on 16, SEC5-C-DEV on 22, SEC6 D-RUN on 30, SEC7 on 30). SEC itself was
+  defined "in scratchpad work on synthetic quadratic worlds (… not in the repository)" (`prereg/sec1/PREREG.md:54`).
+- **L-PAUSE:** an entire safety programme ran at R4, with declared batteries.
+- **L-RETRO:** banks totalling 197 + 164 + 70 rows.
+
+**What the exploration lacked.**
+- It had no committed log of maturity, so the maturity of a design before its hash cannot be audited (PROCESS §7).
+- It had no development loop between "declared" and "gated". A first synthetic gate run was the first test of the design
+  *and* its last.
+- The bank's exploration graded coverage ("does CRR agree with X?"). It never produced a revised CRR rule (L-RETRO-ONT-APP
+  §2.11).
+
+### 8.5 Answer to Question 10, from the record
+
+**Yes, in specific places. Not at the held-out scoring layer.**
+
+**Where it happened.** The adversarial protocol, together with the programme's tempo, prevented reasonable exploratory
+development before confirmatory or gate testing in these places:
+- the Phase-A gates closed on design defects and treated as final: SAL, Rupture, Cut_Content, OB1-C3, RRM2 on a non-drifting
+  learner, Maps P5 on a mis-specified secondary condition, RQM's uncloseable criterion;
+- the LIFE1 schema block;
+- the failure to decide the theory's open readings (which equanimity, which phase, which event rule) before running four EQ
+  studies and two H-L5 studies.
+
+**Mostly not the strictness of R1–R15 as such.** The rules allowed new declarations on later days. The binding constraints
+were three:
+- **No exploratory stage.** There was no recognised, recorded exploratory stage between idea and gate, so exploration either
+  stayed off the record or happened as a gate.
+- **Tempo.** Hashes came minutes after requests.
+- **Attention.** The programme moved on after closures; 13 follow-ups were never resumed.
+
+**Also the opposite failure.** In the SEC chain and the applied valuations, confirmation and extrapolation ran *ahead* of
+criterion validity: GLOBAL_ESTIMATE was re-pinned on SEC4-1 the day before SEC5-1 FAILed and SEC4-1-G closed (L-APP §4.5).
+
+**A disagreement between readers, recorded without forcing it.**
+- **L-SEC (§5, §6.2).** SEC3-3 and SEC5-1 should still be read as negative method evidence. A method that fails a lenient
+  criterion, one a do-nothing learner meets, is behind where freezing was not.
+- **PROCESS (§8).** A fail beside a CLOSED criterion gate must not be claimed as evidence against the method, "any more than its
+  pass".
+- **The ledger's own wording.** It supports the second reading for the label ("would be printed UNINFORMATIVE") and the first
+  for the scoring ("FAIL as scored", "stands as scored").
+- **What would decide it.** The same arms on a criterion the frozen learner fails.
 
 ---
 
