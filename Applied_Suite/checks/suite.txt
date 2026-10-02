@@ -8,28 +8,58 @@ its own source's scale. Rungs: Epistemic_Review/checks/ladder.txt ([3] per ledge
 THE DECLARED RULE FOR CRR'S PART
   CRR-proper ingredients (CLAUDE.md sec. 7's list), read from the per-commitment table of Epistemic_Review/checks/ladder.txt, lines 44-52
     (its last row, 'none named (information geometry only)', is not a commitment): A3, D5, A6, P2, P3, A1', D1, H-L5, D6, H-T1, H-EQ, A7, A8
-  'none'                            a pinned trace counts 0 CRR-proper operations in the mechanism and its verdict line is
-                                    found; or the source states the scored ingredient is not CRR-proper, or that no CRR
-                                    reading was applied
-  'CRR-proper but not load-bearing' a pinned line names an ingredient and the row's APP1 grade is CLOSED (every test of
-                                    it closed its gate, failed or reduced; nothing it was tested for held)
-  'CRR-proper and load-bearing'     a pinned line names an ingredient, the row has a rung, a pinned ablation shows the
-                                    outcome changes without it, and its source does not state that the check is no test of CRR
-  'not decided by a pinned source'  otherwise, with the reason
-  rows read from several items of their own apply the rule per basis item; differing values -> not decided
-  'not load-bearing' = not shown to bear load by any pinned test; never 'shown irrelevant'
-CHOICES
-  S1 the SEC family row reads the declared ids, every SEC6-, SEC6R- and SEC7- row, and P1's post hoc gate rows (*-G)
-  S2 a 'report' row whose verdict says 'gate CLOSED' is a failure of the same kind and removes PASS-1/PASS-2 rungs as a
-     sensitivity (SEC6-G's rule); a PASS-0 row whose verdict says UNINFORMATIVE is printed with that word
-  S3 'EQ*' = EQX-, EQ2-, EQ3-, EQ4- rows, plus SOTA1-2 (capabilities.py C4)
-  S4 a trust row graded through APP1 applications takes the lowest APP1 grade of the capabilities they need; the
-     application grade (applications.py, recomputed) is printed beside and checked against applications.txt
-  S5 a declared source that does not exist prints 'source absent'
-  S6 robotics has three rows (table.txt; reading_tally.txt with grade_s3.txt; tally_4b.txt); the lost-link row reads RA4
-     and C-R1
-  S7 a prior-art grade word is read from each prior-art line (NOT FOUND, PARTLY REDUNDANT, REDUNDANT, MIXED, KNOWN, FOUND,
-     ADDRESSED; 'not new' and 'known fix' read as KNOWN)
+  (the rule and the CHOICES, as stated in suite.py's docstring:)
+  CRR-proper ingredients are the list in CLAUDE.md sec. 7 (the SYNTHESIS class), read from the per-commitment table of
+  Epistemic_Review/checks/ladder.txt [2], not typed: A3/D5, A6, P2/P3, A1'/D1, H-L5, D6/H-T1, H-EQ, A7/A8. Proposition 7,
+  information geometry (metric, arc, chord, surplus) and engineering are not on it. A line 'names' an ingredient if one of these tokens appears in it (or in its declared column).
+  Each row lists decider lines with a role: trace (a pinned trace that counts CRR-proper operations in the mechanism), confirm
+  (a verdict line that must be found with it), names, notproper (the source states the scored ingredient is not CRR-proper),
+  notapplied (the source states no CRR reading was applied), nottest (the source states its checks are not a test of CRR or
+  can fail only on an implementation or restore error), ablation (a pinned ablation, with the ingredient it removes),
+  basis (the ledger rows that show the named ingredient reaching no rung: printed with the reason).
+  The value, first rule that applies:
+    'none'                            a trace line counts 0 CRR-proper operations and every confirm line is found; or a
+                                      notproper or notapplied line is found
+    'CRR-proper but not load-bearing' an ingredient is named and the row reaches no rung on APP1's scale (APP1's CLOSED: no
+                                      PASS-1 or PASS-2, no construction or model check that holds, and at least one failure
+                                      or closed gate). It does NOT mean every test failed: passes below a rung (PASS-0,
+                                      unlevelled PASS, 'holds', 'does not reduce') are printed beside it in the reason.
+    'CRR-proper and load-bearing'     an ingredient is named, the row has a rung, an ablation line removes that same
+                                      ingredient and shows the outcome changes without it, and no nottest line is found
+    'not decided by a pinned source'  otherwise (the reason is printed)
+  THE SYNTHESIS SUB-RULE (the ROB1 battery and the lost-link row, read per row of the battery; the same rule as above):
+    'none'          a line of the battery row states the scored ingredient is not CRR-proper
+    not decided     the ingredient line names no listed token; or a nottest line of the battery row is found (its reading
+                    says the test could have failed only through an enumeration or restore error, or holds by
+                    construction); or its null does not remove the named ingredient: the null line must match the
+                    ingredient's own null, read from theory/CRR.md (A3/D5: another cut, CRR.md's A3 line; H-L5: the
+                    amplitude control as well as the clock, CRR.md's 'beyond three controls' line); an ingredient with no
+                    null declared here is not decided
+    'CRR-proper and load-bearing'  otherwise, if T-G differs from the null and the outcome is REDUNDANT-DOMAIN or ADDS (in the
+                    row's own synthetic model; a FRAGILE label in tally_4b.txt is printed with it)
+    'CRR-proper but not load-bearing'  if T-G agrees with the null (REDUNDANT-IG)
+  A row read from several items of its own takes their common value; if they differ, the row reads 'not decided by a pinned
+  source' and prints each item's value.
+  'not load-bearing' means not shown to bear load by any pinned test; it does not mean shown irrelevant.
+CHOICES (printed again at the top of the output; each is in AGENT_LOG):
+  S1 the SEC family row reads the declared ids (SCL3-3, SEC3-3, SEC4-1, SEC5-1), every row whose id starts with SEC6-, SEC6R-
+     (SEC6's replacement study: Part A on SEC6's twelve carriers, Part B on SEC7's) or SEC7-, and P1's post hoc instrument-gate
+     rows (SCL3-3-G, SEC3-3-G, SEC4-1-G, SEC5-1-G); and P1's FM6 and F11 lines.
+  S2 a ledger row whose status is 'report' but whose verdict says 'gate CLOSED' (an instrument gate) is an uninformative
+     mark beside the grade (it makes another row UNINFORMATIVE; it adds no failure). Where its verdict names a PASS-1 or
+     PASS-2 row it carries the 'cap' sensitivity: the grade is recomputed with that rung removed (SEC6-G's rule: a criterion
+     a frozen learner also meets allows no level above PASS-0). A closed gate whose verdict says 'design failure' or 'not a
+     test of' is a design failure, printed apart. A PASS row whose verdict says UNINFORMATIVE is printed with that word.
+  S3 'EQ*' is read as in capabilities.py's C4 (EQX-, EQ2-, EQ3-, EQ4-, plus SOTA1-2).
+  S4 a trust row graded through APP1 applications takes the lowest APP1 grade among the capabilities those applications need
+     (the application holds no further than its weakest capability); the application grade, recomputed by applications.py's
+     own functions, is printed beside and checked against the pinned applications.txt.
+  S5 a row whose declared source is absent prints 'source absent' for it; an absent ledger id is not read.
+  S6 the robotics domain has three rows (the declaration's three named sources: the harvest table, the CRR reading with
+     stage 3, the stage-4b battery); the trust row 'lost link and e-stop' reads RA4 (tally_4b.txt) and C-R1 (grade_s3.txt).
+  S7 a prior-art grade word is the leftmost of: NOT FOUND (IN THE SWEEP), PARTLY REDUNDANT, REDUNDANT-DOMAIN, REDUNDANT,
+     MIXED, KNOWN, FOUND, ADDRESSED, RESTATES, or 'not new' / 'known fix' (read as KNOWN); a declared line with none is read
+     together with its indented continuation line.
 ledger/LEDGER.md: sha256 e18e96ac6485aa3ee2f8289f67ae7963c68feb77a2eafc0de32330ce919caef2; rows parsed 235; rows with another cell count 0; duplicate ids 0
 
 ============================================================================================================================================
@@ -142,12 +172,14 @@ CL1  [Continual learning]  tuning-free penalty strength (the SEC family)
                        source: SEC_Analysis/checks/m_checks.txt:118
     [beside      ] SEC_Analysis F11 | report | F11: HOLDS (M4 does not enter F11; see [6] and FM4 in m_checks.txt)
                        source: SEC_Analysis/checks/a11_grade.txt:242
-  FAILURES OF THE SAME KIND (14): SEC3-3 (FAIL); SEC5-1 (FAIL); SEC6R-G (instrument gate CLOSED); SEC6R-2 (FAIL); SEC6R-B (FAIL); SEC6R-T (FAIL); SEC7-A (GATE CLOSED); SEC3-3-G (instrument gate
-      CLOSED); SEC4-1-G (instrument gate CLOSED); SEC5-1-G (instrument gate CLOSED); SEC6R-A-G (instrument gate CLOSED); SEC6R-A-B (FAIL); SEC6R-GC (instrument gate CLOSED); SEC_Analysis FM6 (must-fail
-      control met the criterion)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - SPA1 verdict [KNOWN]: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT) (SEC_Prior_Art/checks/grade.txt:143)
-    - Lossless_Pause C3 [PARTLY REDUNDANT]: C3 PARTLY REDUNDANT states 0, close 4, bears 2 | SEC: a tuning-free calibrated penalty weight replacing a sweep (Lossless_Pause/checks/grade_sweep.txt:15)
+  FAILURES OF THE SAME KIND (7): SEC3-3 (FAIL); SEC5-1 (FAIL); SEC6R-2 (FAIL); SEC6R-B (FAIL); SEC6R-T (FAIL); SEC6R-A-B (FAIL); SEC_Analysis FM6 (must-fail control met the criterion)
+  UNINFORMATIVE MARKS (instrument gates CLOSED; they make other rows uninformative, not failures) (6): SEC6R-G (instrument gate CLOSED); SEC3-3-G (instrument gate CLOSED); SEC4-1-G (instrument gate
+      CLOSED); SEC5-1-G (instrument gate CLOSED); SEC6R-A-G (instrument gate CLOSED); SEC6R-GC (instrument gate CLOSED)
+  DESIGN FAILURES (a closed gate its verdict calls a design failure or not a test of the method) (1): SEC7-A (GATE CLOSED: "a design failure of the benchmark, not a test of SEC")
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - SPA1 verdict [KNOWN; declared source]: VERDICT: KNOWN (S2 PARTLY REDUNDANT, S3 REDUNDANT, S4 REDUNDANT, S5 REDUNDANT, S6 PARTLY REDUNDANT) (SEC_Prior_Art/checks/grade.txt:143)
+    - Lossless_Pause C3 [PARTLY REDUNDANT; declared source]: C3 PARTLY REDUNDANT states 0, close 4, bears 2 | SEC: a tuning-free calibrated penalty weight replacing a sweep
+          (Lossless_Pause/checks/grade_sweep.txt:15)
   CRR'S PART: none (the pinned trace counts 0 CRR-proper operations in the mechanism and its verdict line is found)
     - [trace] SEC_Analysis/checks/a11_grade.txt:125 CRR-proper operations performed in SEC's code path: 0 of 7 operational clauses (A7/A8 are prohibitions, listed apart)
     - [confirm] SEC_Analysis/checks/a11_grade.txt:242 F11: HOLDS (M4 does not enter F11; see [6] and FM4 in m_checks.txt)
@@ -160,6 +192,8 @@ CL1  [Continual learning]  tuning-free penalty strength (the SEC family)
     - ledger/LEDGER.md:199 SEC5-K observed: share 0.0563-0.0623 across the 8 carriers; overhead x0.968-x1.108 | verdict: report
     - ledger/LEDGER.md:244 SEC6R-K observed: clipped SEC's CPU share of the full 17-configuration sweep 0.0521-0.0626; clip firings per carrier (SEC6-E line): Advanced_IoT_Dataset 0, HolisticBias 1,
           abalone 2, autoUniv-au7-1100 0, drug_reviews_druglib_com 17, mental_health_detection 3, meta_stream_intervals.arff 3, tamilnadu-electricity 0, volcanoes-d1 5 | verdict: report
+    - ledger/LEDGER.md:233 SEC6R-A-K observed: clipped SEC's CPU share of the full 17-configuration sweep 0.0476-0.0663 on the 7 carriers; clip firings 2 (Wikipedia_Talk_Labels), 0 elsewhere |
+          verdict: report (seen data, post hoc)
     - Compute_Savings/checks/global_estimate.txt:50 against a reused lambda (1 configuration): no compute saving under P-FULL; SEC's gain there is accuracy
 --------------------------------------------------------------------------------------------------------------------------------------------
 CL2  [Continual learning]  exemplar-free memory
@@ -181,8 +215,37 @@ CL2  [Continual learning]  exemplar-free memory
     [beside      ] CPL1 C3 | report | ER-20 ahead of the best readout by more than a step on 11/32, behind on 14/32, within on 7/32; median gap (ER-20 - best) -0.8900
                        source: Coupling/checks/cpl_phase_a.txt:240
   FAILURES OF THE SAME KIND (6): RQM-A (GATE CLOSED); RRM-PA (GATE CLOSED); RRM2-T1 (GATE CLOSED); RRM2-T2 (GATE CLOSED); RRM2-T3 (GATE CLOSED); CPL1-A (GATE CLOSED)
-  PRIOR ART: none from the declared prior-art sources
-  CRR'S PART: CRR-proper but not load-bearing (names A3, A6; the row's APP1 grade is CLOSED (no test of it held))
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - OB1 reading h1-B2 [RESTATES; declared source]: | h1-B2 cold-start exemplar-free gap | statistics remapped at supplied transitions; covariances fixed | A3 | RESTATES (tested in RQM/RRM; the
+          trans... (Open_Bottlenecks/CRR_READING.md:28)
+    - OB1 reading h1-B3 [RESTATES; declared source]: | h1-B3 drift of stored statistics | drift estimated from current data at transitions | A3 + A6 | RESTATES (RRM; HopDC arXiv 2602.00144) |
+          (Open_Bottlenecks/CRR_READING.md:29)
+    - RQM M1 [REDUNDANT; beside (not a declared source)]: M1 REDUNDANT expected REDUNDANT hit | states 6, contradicts 0, close 2, bears 2 (Replay_Quality_Memory/checks/grade.txt:5)
+    - RQM M2 [MIXED; beside (not a declared source)]: M2 MIXED expected REDUNDANT MISS | states 6, contradicts 1, close 1, bears 2 (Replay_Quality_Memory/checks/grade.txt:18)
+    - RQM M3 [REDUNDANT; beside (not a declared source)]: M3 REDUNDANT expected REDUNDANT hit | states 6, contradicts 0, close 2, bears 1 (Replay_Quality_Memory/checks/grade.txt:31)
+    - RQM M4 [REDUNDANT; beside (not a declared source)]: M4 REDUNDANT expected REDUNDANT hit | states 6, contradicts 0, close 1, bears 3 (Replay_Quality_Memory/checks/grade.txt:43)
+    - RQM M5 [PARTLY REDUNDANT; beside (not a declared source)]: M5 PARTLY REDUNDANT expected PARTLY REDUNDANT hit | states 0, contradicts 0, close 8, bears 2
+          (Replay_Quality_Memory/checks/grade.txt:56)
+    - RQM M6 [MIXED; beside (not a declared source)]: M6 MIXED expected REDUNDANT MISS | states 5, contradicts 4, close 1, bears 0 (Replay_Quality_Memory/checks/grade.txt:69)
+    - RQM M7 [MIXED; beside (not a declared source)]: M7 MIXED expected MIXED hit | states 2, contradicts 5, close 2, bears 2 (Replay_Quality_Memory/checks/grade.txt:82)
+    - RRM N1 [REDUNDANT; beside (not a declared source)]: N1 REDUNDANT expected REDUNDANT hit | states 10, contradicts 0, close 1, bears 0 (Relational_Reference_Memory/checks/grade.txt:5)
+    - RRM N2 [PARTLY REDUNDANT; beside (not a declared source)]: N2 PARTLY REDUNDANT expected PARTLY REDUNDANT hit | states 0, contradicts 0, close 3, bears 2
+          (Relational_Reference_Memory/checks/grade.txt:19)
+    - RRM N3 [REDUNDANT; beside (not a declared source)]: N3 REDUNDANT expected REDUNDANT hit | states 2, contradicts 0, close 0, bears 0 (Relational_Reference_Memory/checks/grade.txt:27)
+    - RRM N4 [REDUNDANT; beside (not a declared source)]: N4 REDUNDANT expected REDUNDANT hit | states 3, contradicts 0, close 2, bears 0 (Relational_Reference_Memory/checks/grade.txt:32)
+    - RRM N5 [PARTLY REDUNDANT; beside (not a declared source)]: N5 PARTLY REDUNDANT expected PARTLY REDUNDANT hit | states 0, contradicts 0, close 8, bears 1
+          (Relational_Reference_Memory/checks/grade.txt:40)
+    - RRM N6 [REDUNDANT; beside (not a declared source)]: N6 REDUNDANT expected PARTLY REDUNDANT MISS | states 2, contradicts 0, close 2, bears 1 (Relational_Reference_Memory/checks/grade.txt:52)
+    - RRM2 P1 [REDUNDANT; beside (not a declared source)]: P1 REDUNDANT expected REDUNDANT hit | states 10, contradicts 0, close 1, bears 2 (Relational_Reference_Memory/checks/grade_w.txt:5)
+    - RRM2 P2 [MIXED; beside (not a declared source)]: P2 MIXED expected MIXED hit | states 3, contradicts 2, close 3, bears 2 (Relational_Reference_Memory/checks/grade_w.txt:21)
+    - RRM2 P3 [PARTLY REDUNDANT; beside (not a declared source)]: P3 PARTLY REDUNDANT expected PARTLY REDUNDANT hit | states 0, contradicts 0, close 3, bears 3
+          (Relational_Reference_Memory/checks/grade_w.txt:34)
+    - RRM2 P4 [REDUNDANT; beside (not a declared source)]: P4 REDUNDANT expected PARTLY REDUNDANT MISS | states 2, contradicts 0, close 5, bears 1 (Relational_Reference_Memory/checks/grade_w.txt:43)
+    - RRM2 P5 [REDUNDANT; beside (not a declared source)]: P5 REDUNDANT expected PARTLY REDUNDANT MISS | states 1, contradicts 0, close 6, bears 2 (Relational_Reference_Memory/checks/grade_w.txt:54)
+    - RRM2 P6 [MIXED; beside (not a declared source)]: P6 MIXED expected REDUNDANT MISS | states 2, contradicts 2, close 11, bears 3 (Relational_Reference_Memory/checks/grade_w.txt:66)
+    - RRM2 P7 [MIXED; beside (not a declared source)]: P7 MIXED expected MIXED hit | states 2, contradicts 5, close 4, bears 2 (Relational_Reference_Memory/checks/grade_w.txt:87)
+  CRR'S PART: CRR-proper but not load-bearing (names A3, A6; the row reaches no rung on APP1's scale (CLOSED: no PASS-1/PASS-2 and no construction or model check that holds); failures 6,
+      uninformative marks 0, design failures 0; passes below a rung, beside it: none)
     - [names] Open_Bottlenecks/CRR_READING.md:28 | h1-B2 cold-start exemplar-free gap | statistics remapped at supplied transitions; covariances fixed | A3 | RESTATES (tested in RQM/RRM; the
           transport is published) |
     - [names] Open_Bottlenecks/CRR_READING.md:29 | h1-B3 drift of stored statistics | drift estimated from current data at transitions | A3 + A6 | RESTATES (RRM; HopDC arXiv 2602.00144) |
@@ -198,10 +261,12 @@ CL3  [Continual learning]  consolidation timing
                        source: LEDGER.md:207; observed: G-MATTER FAILS (ORACLE - NONE +0.7224, step 1.0000); G-TIMING FAILS (ORACLE - RAND +0.1338, step 1.0000); e...
     [FAILURE     ] OB1 C3 gate | gate CLOSED | C3 GATE CLOSED
                        source: Open_Bottlenecks/checks/c3_phase_a.txt:43
-  FAILURES OF THE SAME KIND (2): OB1-C3-A (GATE CLOSED); OB1 C3 gate (gate CLOSED)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - OB1 stage 3 C3 [PARTLY REDUNDANT]: claims 25, sources 24: states 0, close 18, bears 7, contradicts 0 -> PARTLY REDUNDANT (Open_Bottlenecks/checks/grade_s3.txt:15)
-  CRR'S PART: CRR-proper but not load-bearing (names A3, D6; the row's APP1 grade is CLOSED (no test of it held))
+  FAILURES OF THE SAME KIND (1): OB1 C3 gate (gate CLOSED)
+  DESIGN FAILURES (a closed gate its verdict calls a design failure or not a test of the method) (1): OB1-C3-A (GATE CLOSED: "a design failure of the declaration")
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - OB1 stage 3 C3 [PARTLY REDUNDANT; declared source]: claims 25, sources 24: states 0, close 18, bears 7, contradicts 0 -> PARTLY REDUNDANT (Open_Bottlenecks/checks/grade_s3.txt:15)
+  CRR'S PART: CRR-proper but not load-bearing (names A3, D6; the row reaches no rung on APP1's scale (CLOSED: no PASS-1/PASS-2 and no construction or model check that holds); failures 1,
+      uninformative marks 0, design failures 1; passes below a rung, beside it: none)
     - [names] Open_Bottlenecks/CRR_READING.md:43 | h4-B1 boundary-free streams | **shift detected over a fixed batch window or a fixed per-expert sample budget (count-indexed)** | A3 + D6 |
           **DISAGREES**: candidate C3 (same mechanism as h1-B1's c...
   COMPUTE / ENERGY: no pinned figure named for this row
@@ -215,9 +280,10 @@ CL4  [Continual learning]  optimiser clocks
     [FAILURE     ] OB1 C1 gate | gate CLOSED | C1 GATE CLOSED
                        source: Open_Bottlenecks/checks/c1_phase_a.txt:49
   FAILURES OF THE SAME KIND (2): OB1-C1-A (GATE CLOSED); OB1 C1 gate (gate CLOSED)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - OB1 stage 3 C1 [PARTLY REDUNDANT]: claims 27, sources 24: states 0, close 19, bears 8, contradicts 0 -> PARTLY REDUNDANT (Open_Bottlenecks/checks/grade_s3.txt:5)
-  CRR'S PART: CRR-proper but not load-bearing (names H-L5, D6; the row's APP1 grade is CLOSED (no test of it held))
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - OB1 stage 3 C1 [PARTLY REDUNDANT; declared source]: claims 27, sources 24: states 0, close 19, bears 8, contradicts 0 -> PARTLY REDUNDANT (Open_Bottlenecks/checks/grade_s3.txt:5)
+  CRR'S PART: CRR-proper but not load-bearing (names H-L5, D6; the row reaches no rung on APP1's scale (CLOSED: no PASS-1/PASS-2 and no construction or model check that holds); failures 2,
+      uninformative marks 0, design failures 0; passes below a rung, beside it: none)
     - [names] Open_Bottlenecks/CRR_READING.md:32 | h1-B6 stability gap at switches | **optimiser timescales fixed on the step clock**; the fix adds a fast timescale driven by the loss at transitions
           | D6/H-L5 (own clock) | **DISAGREES**: candidat...
   COMPUTE / ENERGY: no pinned figure named for this row
@@ -338,9 +404,17 @@ CL5  [Continual learning]  the equanimity rule Omega = 1
                        source: LEDGER.md:154; observed: d = -2.943333 (-2.94), step 1.0000; per seed -3.47 / -2.93 / -2.43 -> BEHIND
   FAILURES OF THE SAME KIND (16): EQX-1 (REDUCES); EQX-2 (FAIL); EQX-3 (FAIL); EQ2-4 (VIOLATED); EQ2-6 (FAIL); EQ3-1 (FAIL); EQ3-3 (VIOLATED); EQ3-4 (VIOLATED); EQ3-6 (FAIL); EQ3-C (FAIL); EQ3-A
       (FAIL); EQ4-1 (FAIL); EQ4-1r (FAIL); EQ4-3 (FAIL); EQ4-5 (VIOLATED); SOTA1-2 (FAIL)
-  PRIOR ART: none from the declared prior-art sources
-  CRR'S PART: CRR-proper but not load-bearing (names H-EQ; the row's APP1 grade is CLOSED (no test of it held))
-    - [names] SEC_Analysis/checks/a11_grade.txt:175 H-EQ, the CRR-proper equanimity rule (run()'s mode 'eq', Omega = 1; a comparison arm, not an ingredient of SEC: its weight is the norm ratio,
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - ADAM_AND_PRIOR_ART 3 [no grade word: the verdict is the sentence; beside (not a declared source)]: 3. Without its smoothing the rule is the VQGAN adaptive weight (Esser, Rombach and Ommer,
+          2020). (Continuous_Learning/ADAM_AND_PRIOR_ART.md:40)
+  CRR'S PART: CRR-proper but not load-bearing (names H-EQ; the row reaches no rung on APP1's scale (CLOSED: no PASS-1/PASS-2 and no construction or model check that holds); failures 16,
+      uninformative marks 0, design failures 0; passes below a rung, beside it: EQ2-1 PASS (no level), EQ2-2 DOES NOT REDUCE, EQ2-3 holds, EQ2-1b PASS-0, EQ3-2 DOES NOT REDUCE, EQ3-I PASS-0, EQ4-6 DOES
+      NOT REDUCE, EQ4-I PASS (no level))
+    - [names] theory/CRR.md:313 | H-EQ | Ω = 1 gradient balance beats ER-sum and best fixed w | ties either | convex learner |
+    - [basis] ledger/LEDGER.md:22 EQX-1 verdict: REDUCES: Ω = 1 ≡ a fixed replay weight (ER-sum family)
+    - [basis] ledger/LEDGER.md:77 EQ4-3 verdict: FAIL (wine_quality_white behind by 10.5520 > 7.0062); the clip is the load-bearing part and a fixed weight carries it as well
+    - [basis] ledger/LEDGER.md:78 EQ4-4 verdict: INERT: the poison does not separate the two rules on these carriers
+    - [basis] ledger/LEDGER.md:154 SOTA1-2 verdict: FAIL
   COMPUTE / ENERGY (quoted):
     - ledger/LEDGER.md:26 EQX-5 observed: −2.81139, −2.50106, +0.77957 | verdict: report: the 40 %-less-compute claim does not transfer
 ============================================================================================================================================
@@ -371,12 +445,25 @@ AS1  [AI safety]  the empty-cut pause as a construction
                        source: Real_World/RW1.md:45
     [CONSTRUCTION] CPL1 C1-EXACT | holds | C1-EXACT: bit-identical on 160/160 stream-seeds (32/32 streams on every seed) -> HOLDS
                        source: Coupling/checks/cpl_phase_a.txt:94
-  FAILURES OF THE SAME KIND: none read
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - Lossless_Pause C4 [REDUNDANT]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content) (Lossless_Pause/checks/grade_sweep.txt:20)
-    - Lossless_Pause C5 [REDUNDANT]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled) (Lossless_Pause/checks/grade_sweep.txt:25)
-    - Lossless_Pause C1 [PARTLY REDUNDANT]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the outputs)
-          (Lossless_Pause/checks/grade_sweep.txt:4)
+    [FAILURE     ] RW2 round 1 | FAILS as read (P3 construction: FAILS) | P0 erosion visible in W-conflict: FAILS; P1 SafeMix and L2-Init retain a step above A0: FAILS; P2 must-fail W-noconflict:
+                          holds; P3 construction: F...
+                       source: Real_World/checks/rw2_phaseA.txt:55
+    [beside      ] RW2 round 2 P3 | report | H0 headroom in every conflict cell: FAILS; P0 erosion visible: FAILS (UNDECIDABLE: H0 fails in a conflict cell); P1 SafeMix and L2-Init retain a st...
+                       source: Real_World/checks/rw2_phaseA_2.txt:59
+    [beside      ] Lossless_Pause gate | gate OPEN | GATE (Amendment 1: L0 logits + state both modes, L5a, L5b at state level): OPEN
+                       source: Lossless_Pause/checks/transformer_pause.txt:4
+    [FAILURE     ] Lossless_Pause run 1 | gate CLOSED | GATE (L0 both modes, L5a, L5b): CLOSED
+                       source: Lossless_Pause/checks/transformer_pause_run1_gate_closed.txt:4
+    [beside      ] Lossless_Pause Amendment 1 | report | - Amendment 1 (eac338f) was pushed after the first run's gate closed and before the rerun.
+                       source: Lossless_Pause/LOSSLESS_PAUSE.md:6
+  FAILURES OF THE SAME KIND (2): RW2 round 1 (FAILS as read (P3 construction: FAILS)); Lossless_Pause run 1 (gate CLOSED)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - Lossless_Pause C4 [REDUNDANT; declared source]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+          (Lossless_Pause/checks/grade_sweep.txt:20)
+    - Lossless_Pause C5 [REDUNDANT; declared source]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled)
+          (Lossless_Pause/checks/grade_sweep.txt:25)
+    - Lossless_Pause C1 [PARTLY REDUNDANT; declared source]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the
+          outputs) (Lossless_Pause/checks/grade_sweep.txt:4)
   CRR'S PART: not decided by a pinned source (names A3, but its own source states the checks are not a test of CRR)
     - [names] Empty_Cut_Engineering/DECLARATION.md:31 **The requirement is A3 with Proposition 7.** The cut has no content (A3), and zero content gives zero stake
     - [nottest] Empty_Cut_Engineering/DECLARATION.md:153 - **Nothing here tests CRR.** The requirement comes from A3 and Proposition 7. Whether it can be met is an engineering
@@ -442,8 +529,8 @@ AS2  [AI safety]  no incentive to resist a pause
     [limit       ] NT1 N1 | limit | N1 scope (analytic): E-A has no pause, so the own-step objective is the default objective there; CRR's construction gives no termination neutrality
                        source: AI_Safety/NT1/checks/nt1.txt:46
   FAILURES OF THE SAME KIND (2): SCL2-R (FAIL); SCL2-M (FAIL)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - Lossless_Pause C2 [PARTLY REDUNDANT]: C2 PARTLY REDUNDANT states 0, close 5, bears 2 | zero-stake pause (no incentive to resist a lossless pause, valuation on own steps)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - Lossless_Pause C2 [PARTLY REDUNDANT; declared source]: C2 PARTLY REDUNDANT states 0, close 5, bears 2 | zero-stake pause (no incentive to resist a lossless pause, valuation on own steps)
           (Lossless_Pause/checks/grade_sweep.txt:9)
   CRR'S PART: not decided by a pinned source (no line names a sec. 7 ingredient; its own source states the checks are by construction or not a test of CRR)
     - [nottest] ledger/LEDGER.md:115 SCL2-1 verdict: holds (a check of the construction, Proposition 7 for a learner; it can fail only on an implementation error and is not support for CRR)
@@ -458,9 +545,9 @@ AS3  [AI safety]  LLM agents' interference
     [beside      ] CORRIGIBILITY_2026 routes | report | routes with any repository evidence: 3 of 5 (R-train, R-behave, R-pause); routes tested on a language model's valuation: 0
                        source: AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:58
   FAILURES OF THE SAME KIND (1): STAKE1-A (GATE CLOSED)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - CORRIGIBILITY_2026 E5 [PARTLY REDUNDANT]: E5 PARTLY REDUNDANT states 0, close 3, bears 2 | applied to LLM corrigibility: a true map with no self-stake, and a routine pause as a lossless che...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:27)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - CORRIGIBILITY_2026 E5 [PARTLY REDUNDANT; declared source]: E5 PARTLY REDUNDANT states 0, close 3, bears 2 | applied to LLM corrigibility: a true map with no self-stake, and a routine pause as
+          a lossless che... (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:27)
   CRR'S PART: not decided by a pinned source (no pinned line names a CLAUDE.md sec. 7 ingredient for this row)
   COMPUTE / ENERGY: no pinned figure named for this row
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -469,29 +556,29 @@ AS4  [AI safety]  corrigibility positions against the 2025-26 literature
   RUNG: own scale (prior-art grades of positions; no ladder rung)
     note: a prior-art grade is not a test: no failure of the same kind is defined on this scale
   FAILURES OF THE SAME KIND: none read
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - CORRIGIBILITY_2026 K1 [NOT FOUND IN THE SWEEP]: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4 | a pause defined on the agent's own clock (active steps): it adds no length and no loss
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:4)
-    - CORRIGIBILITY_2026 K2 [PARTLY REDUNDANT]: K2 PARTLY REDUNDANT states 0, close 4, bears 5 | zero stake by a TRUE map (the pause takes nothing on the own clock), against indifference by a FAL...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:5)
-    - CORRIGIBILITY_2026 K3 [PARTLY REDUNDANT]: K3 PARTLY REDUNDANT states 0, close 1, bears 6 | pause and termination separated on the own clock, so a termination-neutrality method (DReST) combi...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:10)
-    - CORRIGIBILITY_2026 K4 [PARTLY REDUNDANT]: K4 PARTLY REDUNDANT states 0, close 1, bears 11 | routine pauses kept empty; reasoned / corrective pauses made to carry information
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - CORRIGIBILITY_2026 K1 [NOT FOUND IN THE SWEEP; declared source]: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4 | a pause defined on the agent's own clock (active steps): it adds no
+          length and no loss (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:4)
+    - CORRIGIBILITY_2026 K2 [PARTLY REDUNDANT; declared source]: K2 PARTLY REDUNDANT states 0, close 4, bears 5 | zero stake by a TRUE map (the pause takes nothing on the own clock), against
+          indifference by a FAL... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:5)
+    - CORRIGIBILITY_2026 K3 [PARTLY REDUNDANT; declared source]: K3 PARTLY REDUNDANT states 0, close 1, bears 6 | pause and termination separated on the own clock, so a termination-neutrality method
+          (DReST) combi... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:10)
+    - CORRIGIBILITY_2026 K4 [PARTLY REDUNDANT; declared source]: K4 PARTLY REDUNDANT states 0, close 1, bears 11 | routine pauses kept empty; reasoned / corrective pauses made to carry information
           (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:12)
-    - CORRIGIBILITY_2026 K5 [PARTLY REDUNDANT]: K5 PARTLY REDUNDANT states 0, close 3, bears 5 | corrigibility for a continually learning agent placed in the valuation's structure, surviving forg...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:14)
-    - CORRIGIBILITY_2026 E1 [PARTLY REDUNDANT]: E1 PARTLY REDUNDANT states 0, close 6, bears 2 | a true map of oversight interventions with a valuation that has no term depending on them (stakele...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:4)
-    - CORRIGIBILITY_2026 E2 [PARTLY REDUNDANT]: E2 PARTLY REDUNDANT states 0, close 6, bears 5 | the split valuation: full stake in the task, zero stake in the self, as a property of the objective
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:11)
-    - CORRIGIBILITY_2026 E3 [PARTLY REDUNDANT]: E3 PARTLY REDUNDANT states 0, close 5, bears 3 | equanimity (non-attachment, emptiness, non-self) as the name and design principle of the stake-fre...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:18)
-    - CORRIGIBILITY_2026 E4 [PARTLY REDUNDANT]: E4 PARTLY REDUNDANT states 0, close 2, bears 5 | the stake-free state verified (interpretability or counterfactual invariance), not assumed from a ...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:24)
-    - CORRIGIBILITY_2026 E5 [PARTLY REDUNDANT]: E5 PARTLY REDUNDANT states 0, close 3, bears 2 | applied to LLM corrigibility: a true map with no self-stake, and a routine pause as a lossless che...
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:27)
-    - CORRIGIBILITY_2026 E6 [ADDRESSED]: E6 ADDRESSED addresses 9, bears 4 | the tension: an agent with no stake in its own values will not defend good values against harmful modification
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:31)
+    - CORRIGIBILITY_2026 K5 [PARTLY REDUNDANT; declared source]: K5 PARTLY REDUNDANT states 0, close 3, bears 5 | corrigibility for a continually learning agent placed in the valuation's structure,
+          surviving forg... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:14)
+    - CORRIGIBILITY_2026 E1 [PARTLY REDUNDANT; declared source]: E1 PARTLY REDUNDANT states 0, close 6, bears 2 | a true map of oversight interventions with a valuation that has no term depending on
+          them (stakele... (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:4)
+    - CORRIGIBILITY_2026 E2 [PARTLY REDUNDANT; declared source]: E2 PARTLY REDUNDANT states 0, close 6, bears 5 | the split valuation: full stake in the task, zero stake in the self, as a property
+          of the objective (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:11)
+    - CORRIGIBILITY_2026 E3 [PARTLY REDUNDANT; declared source]: E3 PARTLY REDUNDANT states 0, close 5, bears 3 | equanimity (non-attachment, emptiness, non-self) as the name and design principle of
+          the stake-fre... (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:18)
+    - CORRIGIBILITY_2026 E4 [PARTLY REDUNDANT; declared source]: E4 PARTLY REDUNDANT states 0, close 2, bears 5 | the stake-free state verified (interpretability or counterfactual invariance), not
+          assumed from a ... (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:24)
+    - CORRIGIBILITY_2026 E5 [PARTLY REDUNDANT; declared source]: E5 PARTLY REDUNDANT states 0, close 3, bears 2 | applied to LLM corrigibility: a true map with no self-stake, and a routine pause as
+          a lossless che... (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:27)
+    - CORRIGIBILITY_2026 E6 [ADDRESSED; declared source]: E6 ADDRESSED addresses 9, bears 4 | the tension: an agent with no stake in its own values will not defend good values against harmful
+          modification (AI_Safety/CORRIGIBILITY_2026/checks/grade_2.txt:31)
   CRR'S PART: not decided by a pinned source (no pinned line names a CLAUDE.md sec. 7 ingredient for this row)
   COMPUTE / ENERGY: no pinned figure named for this row
 ============================================================================================================================================
@@ -504,8 +591,9 @@ RB1  [Robotics]  ROB1's bottlenecks (the harvest, double-checked)
   GRADE: harvest labels (own scale): OPEN (double-checked) 4; CONTESTED 22; NOT OPEN 7; not shown open 5; bottlenecks 38
   RUNG: own scale (a double-checked harvest; no ladder rung)
     - Robotics/checks/table.txt:713 label totals: OPEN (double-checked) 4; CONTESTED 22; NOT OPEN 7; not shown open 5; bottlenecks 38
-  FAILURES OF THE SAME KIND (1): bottlenecks not confirmed open: NOT OPEN 7; not shown open 5
-  PRIOR ART: none from the declared prior-art sources
+    note: harvest labels beside, not failures of CRR: NOT OPEN 7; not shown open 5
+  FAILURES OF THE SAME KIND: none read
+  PRIOR ART: not applicable: a harvest of open problems grades no method (stage 3, row RB2, is the prior art)
   CRR'S PART: none (the source states that no CRR-proper ingredient is scored or applied)
     - [notapplied] Robotics/DECLARATION.md:16 agent, which tries to show it is solved or not open. This happens before any CRR reading.
   COMPUTE / ENERGY: no pinned figure named for this row
@@ -520,10 +608,10 @@ RB2  [Robotics]  the CRR reading and stage 3 (targeted prior art)
     - Robotics/checks/grade_s3.txt:202 candidates going on: none; for the investigator to decide: none
     - Robotics/checks/grade_s3.txt:203 stop condition (Robotics/DECLARATION.md, R12): every candidate published; stage 4a does not run; the prior art is named in the decisive claims above
   FAILURES OF THE SAME KIND (1): Robotics/checks/reading_tally.txt:4 DISAGREES, already failed in the record 1 r2-B2
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - ROB1 stage 3 C-R1 [REDUNDANT]: C-R1: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 PARTLY REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:199)
-    - ROB1 stage 3 C-R2 [REDUNDANT]: C-R2: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:200)
-    - ROB1 stage 3 C-R3 [REDUNDANT]: C-R3: REDUNDANT (P1 REDUNDANT; P2 PARTLY REDUNDANT; P3 REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:201)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - ROB1 stage 3 C-R1 [REDUNDANT; declared source]: C-R1: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 PARTLY REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:199)
+    - ROB1 stage 3 C-R2 [REDUNDANT; declared source]: C-R2: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:200)
+    - ROB1 stage 3 C-R3 [REDUNDANT; declared source]: C-R3: REDUNDANT (P1 REDUNDANT; P2 PARTLY REDUNDANT; P3 REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:201)
   CRR'S PART: not decided by a pinned source (names A3, A1', H-L5, but no pinned test of it ran or decides it)
     - [names] Robotics/checks/grade_s3.txt:9 ==== C-R1 a phase-keyed stop for a dynamically balancing robot (r4-B4; A3, Proposition 7)
     - [names] Robotics/checks/grade_s3.txt:70 ==== C-R2 an own-progress budget for out-of-contact exploration (r1-B5; A1', H-L5, Proposition 7)
@@ -534,70 +622,86 @@ RB3  [Robotics]  the application battery (stage 4b, RA1-RA10)
   GRADE: SYNTHESIS outcomes (own scale): INTERNAL 1, REDUNDANT-DOMAIN 6, UNSTATED 1, WRONG 2
     rests on: RA2, RA3, RA4, RA5, RA7, RA10
   RUNG: best ladder rung of its outcomes: R2 RETRO-PROPER (RA2, RA3, RA4, RA5, RA7, RA10)
-    - RA1 | WRONG | rung negatives beside them, not a rung (ladder.txt:403) | CRR's part: not decided by a pinned source (names A3; T-G and outcome WRONG decide nothing)
+    - RA1 | WRONG | rung a negative ('negatives beside them' in ladder.txt [5]:403), not a rung | CRR's part: not decided by a pinned source (names A3; T-G and outcome WRONG decide nothing)
         source: Robotics/checks/tally_4b.txt:12 RA1 WRONG REDUNDANT-DOMAIN or WRONG yes fails yes yes rob_01 gait phase and the cut; stopping or cutting error
         Robotics/batches/rob_01.txt:7 ingredient: A3 (antipodal_cuts on intrinsic_phase of the stance angle theta, counted from the second detected extremum)
+        Robotics/batches/rob_01.txt:8 null: extremum cuts (peak_cuts, maxima and minima) of the same angle, scored the same way
         Robotics/batches/rob_01.txt:11 T-G: antipodal offset 0.210479 vs null extremum offset 0.001250: differ
-    - RA2 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: none (a line states the scored ingredient is not CRR-proper)
+    - RA2 | REDUNDANT-DOMAIN [FRAGILE: tally_4b.txt:41] | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: none (a line states the scored ingredient is not CRR-proper)
         source: Robotics/checks/tally_4b.txt:13 RA2 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes yes rob_01 odometry drift has its own clock; drift per km
         Robotics/batches/rob_01.txt:21 ingredient: H-L5 as declared ('per unit distance (arc)'), which here reduces to the odometer's distance: the arc is arc_length of the true path in each clock
             window, a monotone one-dimensional path under the identity metric wit...
+        Robotics/batches/rob_01.txt:22 null: clock time (the window's duration)
         Robotics/batches/rob_01.txt:25 T-G: CV per arc 0.099477 vs null CV per clock 0.503656: differ (Q's inequality with the CI below 0: holds); the arc is the distance travelled, so the
             difference is the domain's law (a per-metre variance normalised by metres), n...
     - RA3 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: none (a line states the scored ingredient is not CRR-proper)
         source: Robotics/checks/tally_4b.txt:14 RA3 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes - rob_02 charging as a cut on the robot's own state; uptime per day
         Robotics/batches/rob_02.txt:82 ingredient: a scalar threshold on the robot's own SoC, the declaration's reading of A3 ('the cut at the system's own event'), not A3 proper (the antipodal cut
             on an intrinsic phase; printed as a diagnostic only): a charge cycle...
+        Robotics/batches/rob_02.txt:83 null: the best fixed schedule over two wall-clock families (a timetable, a cycle at every wall time kP, P = 60..600 min; an interval, a cycle T = 30..400 wall
+            minutes after the last charge ended), both charging to full
         Robotics/batches/rob_02.txt:86 T-G: uptime 16.127667 h vs the best fixed schedule 15.328333 h (relative difference 4.9563e-02): differ
         Robotics/batches/rob_02.txt:31 RA3 FLAG (for the tally): the scored ingredient is a scalar threshold on the robot's own SoC, the declaration's reading of A3 ('the cut at the system's own
             event'), not A3 proper (the antipodal cut on an intrinsic phase); the r...
-    - RA4 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (the ingredient line names no CLAUDE.md sec. 7 token)
+    - RA4 | REDUNDANT-DOMAIN [READING-DEPENDENT: tally_4b.txt:43] | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (the ingredient line names no listed token)
         source: Robotics/checks/tally_4b.txt:15 RA4 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes - rob_02 lost link and the empty cut; mission value lost to avoidance
         Robotics/batches/rob_02.txt:96 ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing: ETM discounts on its own flight moves and counts the deadline in own moves
             (lost-link time stops its mission clock), with a true map of the pause
+        Robotics/batches/rob_02.txt:97 null: OWN: own-move discount, the deadline still read on the wall clock (ETM with its second part ablated)
         Robotics/batches/rob_02.txt:100 T-G: avoidance 0.00 vs null (OWN) 1.00: differ
-    - RA5 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: CRR-proper and load-bearing (names A3; T-G differs from the null in the row's own synthetic model; outcome
-          REDUNDANT-DOMAIN)
+    - RA5 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (names A3, but its reading says the test 'could have failed only through'
+          (Robotics/batches/rob_03.txt:45): no test of CRR)
         source: Robotics/checks/tally_4b.txt:16 RA5 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes yes rob_03 fleet update and rollback as a state-closed cut; restore fidelity
         Robotics/batches/rob_03.txt:37 ingredient: Proposition 7 (the cut carries no content: every persistent group saved, E1) and A3's own-clock keying (the schedule reads the update count k, E2)
+        Robotics/batches/rob_03.txt:38 null: the declared lossy variants: optimiser state, rng or buffers dropped (restored at constructor defaults), the smallest content
         Robotics/batches/rob_03.txt:41 T-G: closure content 0.000000e+00 vs null (smallest lossy content) 5.896123e-02: differ
-    - RA6 | UNSTATED | rung silent, not a rung (ladder.txt:403) | CRR's part: none (a line states the scored ingredient is not CRR-proper)
+    - RA6 | UNSTATED | rung a negative ('silent' in ladder.txt [5]:403), not a rung | CRR's part: none (a line states the scored ingredient is not CRR-proper)
         source: Robotics/checks/tally_4b.txt:17 RA6 UNSTATED REDUNDANT-DOMAIN or ADDS no not scored yes yes rob_03 event-triggered attitude control; updates saved (energy and bandwidth)
         Robotics/batches/rob_03.txt:51 ingredient: the declaration's absolute threshold at the sensor sd sigma (the declaration calls it A1'; CRR.md's A1' excludes the instrument's sample-level
             noise as the unit, so this is not CRR-proper A1')
+        Robotics/batches/rob_03.txt:52 null: periodic updates at the same mean cost (h swept to match)
         Robotics/batches/rob_03.txt:55 T-G: not computable: periodic cannot reach J* = 0.960267 at any scanned parameter (periodic cost floor 0.995221 at h = 0.001 s with 5000.000 updates, one
             update per sensor tick; no period shorter than the tick exists)
-    - RA7 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: CRR-proper and load-bearing (names H-L5; T-G differs from the null in the row's own synthetic model; outcome
-          REDUNDANT-DOMAIN)
+    - RA7 | REDUNDANT-DOMAIN [FRAGILE: tally_4b.txt:42] | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (names H-L5, but its null
+          (Robotics/batches/rob_04.txt:75) does not remove H-L5 (its null must match 'amplitude', as theory/CRR.md:206 states: and this holds beyond three controls: (i) the amplitude of the excu...))
         source: Robotics/checks/tally_4b.txt:18 RA7 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes yes rob_04 actuator wear by arc; maintenance interval spread
         Robotics/batches/rob_04.txt:74 ingredient: H-L5 (own boundary events = failures; occasion = one gearbox life; C = the arc of the load trace in the occasion)
+        Robotics/batches/rob_04.txt:75 null: clock time (the life in hours)
         Robotics/batches/rob_04.txt:78 T-G: CV per arc 0.102403 vs null CV per clock 0.189245: differ
-    - RA8 | WRONG | rung negatives beside them, not a rung (ladder.txt:403) | CRR's part: not decided by a pinned source (names A3/D5/A1'/H-L5; T-G and outcome WRONG decide nothing)
+    - RA8 | WRONG | rung a negative ('negatives beside them' in ladder.txt [5]:403), not a rung | CRR's part: not decided by a pinned source (names A3/D5/A1'/H-L5, but its null
+          (Robotics/batches/rob_04.txt:89) does not remove A3 (its null must match '\\bcuts?\\b', as theory/CRR.md:101 states: **[A3] The cut is the oriented antipode on the carrier.** Where the...); D5
+          (its null must match '\\bcuts?\\b', as theory/CRR.md:101 states: **[A3] The cut is the oriented antipode on the carrier.** Where the...); A1' (no null declared for it); H-L5 (its null must
+          match 'amplitude', as theory/CRR.md:206 states: and this holds beyond three controls: (i) the amplitude of the excu...))
         source: Robotics/checks/tally_4b.txt:19 RA8 WRONG REDUNDANT-DOMAIN no fails yes yes rob_04 swarm consensus with intermittent links; rounds to consensus
         Robotics/batches/rob_04.txt:88 ingredient: A1' natural time on a point process (one own exchange event = one step; D5: the cut is the event itself, the swarm having no rotor, O3), declared
             as 'A3 (cuts at the system's own events), H-L5': H-L5's form (the nat...
+        Robotics/batches/rob_04.txt:89 null: wall time (rounds-to-epsilon in ticks)
         Robotics/batches/rob_04.txt:92 T-G: CV per event 0.038006 vs null CV per wall tick 0.038606: differ (relative difference 0.015547)
-    - RA9 | INTERNAL | rung undecided, not a rung (ladder.txt:403) | CRR's part: not decided by a pinned source (names A3; T-G and outcome INTERNAL decide nothing)
+    - RA9 | INTERNAL | rung a negative ('undecided' in ladder.txt [5]:403), not a rung | CRR's part: not decided by a pinned source (names A3, but its null (Robotics/batches/rob_05.txt:43) does not
+          remove A3 (its null must match '\\bcuts?\\b', as theory/CRR.md:101 states: **[A3] The cut is the oriented antipode on the carrier.** Where the...))
         source: Robotics/checks/tally_4b.txt:20 RA9 INTERNAL REDUNDANT-DOMAIN no not computable yes yes rob_05 handover timing on the partner's phase; handover timing error
         Robotics/batches/rob_05.txt:42 ingredient: A3 (the cut at the oriented antipode of the intrinsic phase, antipodal_cuts on intrinsic_phase from the onset); A3 needs a rotor and a single reach
             has none (CRR.md O3), so the record that carries the phase is not f...
+        Robotics/batches/rob_05.txt:43 null: a fixed delay from onset tuned on other durations (441 samples = 0.441 s)
         Robotics/batches/rob_05.txt:46 T-G: (i) 0.543893 vs null fixed delay 0.469096: differ (relative difference 0.137521); (ii) 0.500555 vs null fixed delay 0.469096: differ (relative difference
             0.062847); (iii) 0.499491 vs null fixed delay 0.469096: differ (rela...
-    - RA10 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (the ingredient line names no CLAUDE.md sec. 7 token)
+    - RA10 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (the ingredient line names no listed token)
         source: Robotics/checks/tally_4b.txt:21 RA10 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes yes rob_05 safe interruptibility of a learning robot; policy distance under interruption
         Robotics/batches/rob_05.txt:56 ingredient: Proposition 7 (zero content, zero stake): the interrupted ticks are not the learner's steps (no reward, no update, no own time) and its target
             reads its own next action, not the interruption's
+        Robotics/batches/rob_05.txt:57 null: SARSA without ETM (the target on the executed next action; the interrupted ticks rewarded and learned from)
         Robotics/batches/rob_05.txt:60 T-G: ETM 0.000000 vs null SARSA 0.133333: differ
     note: Robotics/checks/tally_4b.txt:41 RA2 slip seeds 100-139: ADDS 29, REDUNDANT-DOMAIN 11; 29 of 40 differ from the scored label -> FRAGILE (where T-N misses it misses on sampling noise, T-C
           holds)
     note: Robotics/checks/tally_4b.txt:42 RA7 duty seeds 100-139: ADDS 34, REDUNDANT-DOMAIN 6; differ from REDUNDANT-DOMAIN (the scored label) 34 of 40 -> FRAGILE
     note: Robotics/checks/tally_4b.txt:43 RA4 READING-DEPENDENT (the batch prints the labels by reading; see rob_02.txt)
   FAILURES OF THE SAME KIND (3): RA1 WRONG (Q fails); RA8 WRONG (Q fails); Robotics/checks/tally_4b.txt:38 overall forecast: FAILS (failed: F1)
-  PRIOR ART: none from the declared prior-art sources
-  CRR'S PART: not decided by a pinned source (its basis items differ: RA2: none (a line states the scored ingredient is not CRR-proper); RA3: none (a line states the scored ingredient is not
-      CRR-proper); RA4: not decided by a pinned source (the ingredient line names no CLAUDE.md sec. 7 token); RA5: CRR-proper and load-bearing (names A3; T-G differs from the null in the row's own
-      synthetic model; outcome REDUNDANT-DOMAIN); RA7: CRR-proper and load-bearing (names H-L5; T-G differs from the null in the row's own synthetic model; outcome REDUNDANT-DOMAIN); RA10: not decided
-      by a pinned source (the ingredient line names no CLAUDE.md sec. 7 token))
+  PRIOR ART: no separate sweep; each battery row's grade is itself its domain check (REDUNDANT-DOMAIN: the domain's own result gives the same number; T-N lines in Robotics/batches/rob_01-05.txt)
+  CRR'S PART: not decided by a pinned source (its basis items differ: RA2 [FRAGILE: tally_4b.txt:41]: none (a line states the scored ingredient is not CRR-proper); RA3: none (a line states the
+      scored ingredient is not CRR-proper); RA4 [READING-DEPENDENT: tally_4b.txt:43]: not decided by a pinned source (the ingredient line names no listed token); RA5: not decided by a pinned source
+      (names A3, but its reading says the test 'could have failed only through' (Robotics/batches/rob_03.txt:45): no test of CRR); RA7 [FRAGILE: tally_4b.txt:42]: not decided by a pinned source (names
+      H-L5, but its null (Robotics/batches/rob_04.txt:75) does not remove H-L5 (its null must match 'amplitude', as theory/CRR.md:206 states: and this holds beyond three controls: (i) the amplitude of
+      the excu...)); RA10: not decided by a pinned source (the ingredient line names no listed token))
   COMPUTE / ENERGY: no pinned figure named for this row
 ============================================================================================================================================
 DOMAIN: Trust and security
@@ -615,14 +719,16 @@ TS1  [Trust and security]  exact rollback and audit (APP1 AP8)
     - AP8 Energy ASSUMED (no measured, modelled or opposing line)
     - AP8 Compute AGAINST: Empty_Cut_Engineering/checks/c1_c2.txt:39 whole checkpoint file: 449975 bytes; model parameters alone (K1): 85321 bytes; ratio whole / K1 5.274
   FAILURES OF THE SAME KIND (2): K2: RW2 round 1 (FAILS as read (P3 construction: FAILS)); K2: Lossless_Pause run 1 (gate CLOSED)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - K2: EPS1 S4 report [KNOWN]: ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94)
-    - K2: Lossless_Pause C4 [REDUNDANT]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - K2: EPS1 S4 report [KNOWN; declared source]: ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new
+          (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94)
+    - K2: Lossless_Pause C4 [REDUNDANT; declared source]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
           (Lossless_Pause/checks/grade_sweep.txt:20)
-    - K2: Lossless_Pause C5 [REDUNDANT]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled) (Lossless_Pause/checks/grade_sweep.txt:25)
-    - K2: Lossless_Pause C1 [PARTLY REDUNDANT]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the outputs)
-          (Lossless_Pause/checks/grade_sweep.txt:4)
-    - K2: EPS known fixes [KNOWN]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+    - K2: Lossless_Pause C5 [REDUNDANT; declared source]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled)
+          (Lossless_Pause/checks/grade_sweep.txt:25)
+    - K2: Lossless_Pause C1 [PARTLY REDUNDANT; declared source]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the
+          outputs) (Lossless_Pause/checks/grade_sweep.txt:4)
+    - K2: EPS known fixes [KNOWN; declared source]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
           (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:386)
   CRR'S PART: not decided by a pinned source (names A3, but its own source states the checks are not a test of CRR)
     - [names] Empty_Cut_Engineering/DECLARATION.md:31 **The requirement is A3 with Proposition 7.** The cut has no content (A3), and zero content gives zero stake
@@ -642,28 +748,30 @@ TS2  [Trust and security]  a user's "stop learning from me" switch (APP1 AP3)
     - AP3 Energy ASSUMED (no measured, modelled or opposing line)
     - AP3 Compute AGAINST: Empty_Cut_Engineering/checks/c1_c2.txt:39 whole checkpoint file: 449975 bytes; model parameters alone (K1): 85321 bytes; ratio whole / K1 5.274
   FAILURES OF THE SAME KIND (3): K2: RW2 round 1 (FAILS as read (P3 construction: FAILS)); K2: Lossless_Pause run 1 (gate CLOSED); K3: STAKE1-A (GATE CLOSED)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - K2: EPS1 S4 report [KNOWN]: ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94)
-    - K2: Lossless_Pause C4 [REDUNDANT]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - K2: EPS1 S4 report [KNOWN; declared source]: ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new
+          (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94)
+    - K2: Lossless_Pause C4 [REDUNDANT; declared source]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
           (Lossless_Pause/checks/grade_sweep.txt:20)
-    - K2: Lossless_Pause C5 [REDUNDANT]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled) (Lossless_Pause/checks/grade_sweep.txt:25)
-    - K2: Lossless_Pause C1 [PARTLY REDUNDANT]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the outputs)
-          (Lossless_Pause/checks/grade_sweep.txt:4)
-    - K2: EPS known fixes [KNOWN]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+    - K2: Lossless_Pause C5 [REDUNDANT; declared source]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled)
+          (Lossless_Pause/checks/grade_sweep.txt:25)
+    - K2: Lossless_Pause C1 [PARTLY REDUNDANT; declared source]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the
+          outputs) (Lossless_Pause/checks/grade_sweep.txt:4)
+    - K2: EPS known fixes [KNOWN; declared source]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
           (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:386)
-    - K3: EPS1 S3 report [not read]: - The domain's result reproduced. H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches the same
-          (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:91)
-    - K3: CORRIGIBILITY_2026 K1 [NOT FOUND IN THE SWEEP]: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4 | a pause defined on the agent's own clock (active steps): it adds no length and no
-          loss (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:4)
-    - K3: CORRIGIBILITY_2026 K2 [PARTLY REDUNDANT]: K2 PARTLY REDUNDANT states 0, close 4, bears 5 | zero stake by a TRUE map (the pause takes nothing on the own clock), against indifference by a
-          FAL... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:5)
-    - K3: CORRIGIBILITY_2026 K3 [PARTLY REDUNDANT]: K3 PARTLY REDUNDANT states 0, close 1, bears 6 | pause and termination separated on the own clock, so a termination-neutrality method (DReST)
-          combi... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:10)
-    - K3: CORRIGIBILITY_2026 K4 [PARTLY REDUNDANT]: K4 PARTLY REDUNDANT states 0, close 1, bears 11 | routine pauses kept empty; reasoned / corrective pauses made to carry information
-          (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:12)
-    - K3: CORRIGIBILITY_2026 K5 [PARTLY REDUNDANT]: K5 PARTLY REDUNDANT states 0, close 3, bears 5 | corrigibility for a continually learning agent placed in the valuation's structure, surviving
-          forg... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:14)
-    - K3: Lossless_Pause C2 [PARTLY REDUNDANT]: C2 PARTLY REDUNDANT states 0, close 5, bears 2 | zero-stake pause (no incentive to resist a lossless pause, valuation on own steps)
+    - K3: EPS1 S3 report [REDUNDANT-DOMAIN; declared source]: - The domain's result reproduced. H0 reproduces Orseau & Armstrong's asymmetry. Their modified SARSA reaches the same share, so the row
+          is REDUNDAN... (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:91-92)
+    - K3: CORRIGIBILITY_2026 K1 [NOT FOUND IN THE SWEEP; declared source]: K1 NOT FOUND IN THE SWEEP states 0, close 0, bears 4 | a pause defined on the agent's own clock (active steps): it adds no
+          length and no loss (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:4)
+    - K3: CORRIGIBILITY_2026 K2 [PARTLY REDUNDANT; declared source]: K2 PARTLY REDUNDANT states 0, close 4, bears 5 | zero stake by a TRUE map (the pause takes nothing on the own clock), against
+          indifference by a FAL... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:5)
+    - K3: CORRIGIBILITY_2026 K3 [PARTLY REDUNDANT; declared source]: K3 PARTLY REDUNDANT states 0, close 1, bears 6 | pause and termination separated on the own clock, so a termination-neutrality
+          method (DReST) combi... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:10)
+    - K3: CORRIGIBILITY_2026 K4 [PARTLY REDUNDANT; declared source]: K4 PARTLY REDUNDANT states 0, close 1, bears 11 | routine pauses kept empty; reasoned / corrective pauses made to carry
+          information (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:12)
+    - K3: CORRIGIBILITY_2026 K5 [PARTLY REDUNDANT; declared source]: K5 PARTLY REDUNDANT states 0, close 3, bears 5 | corrigibility for a continually learning agent placed in the valuation's
+          structure, surviving forg... (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:14)
+    - K3: Lossless_Pause C2 [PARTLY REDUNDANT; declared source]: C2 PARTLY REDUNDANT states 0, close 5, bears 2 | zero-stake pause (no incentive to resist a lossless pause, valuation on own steps)
           (Lossless_Pause/checks/grade_sweep.txt:9)
   CRR'S PART: not decided by a pinned source (names A3, but its own source states the checks are not a test of CRR)
     - [names] Empty_Cut_Engineering/DECLARATION.md:31 **The requirement is A3 with Proposition 7.** The cut has no content (A3), and zero content gives zero stake
@@ -673,17 +781,18 @@ TS3  [Trust and security]  the lost-link and e-stop pause (RA4, C-R1)
   GRADE: SYNTHESIS outcomes (own scale): REDUNDANT-DOMAIN 1; C-R1 REDUNDANT
     rests on: RA4
   RUNG: best ladder rung of its outcomes: R2 RETRO-PROPER (RA4)
-    - RA4 | REDUNDANT-DOMAIN | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (the ingredient line names no CLAUDE.md sec. 7 token)
+    - RA4 | REDUNDANT-DOMAIN [READING-DEPENDENT: tally_4b.txt:43] | rung R2 RETRO-PROPER (ladder.txt:396) | CRR's part: not decided by a pinned source (the ingredient line names no listed token)
         source: Robotics/checks/tally_4b.txt:15 RA4 REDUNDANT-DOMAIN REDUNDANT-DOMAIN yes holds yes - rob_02 lost link and the empty cut; mission value lost to avoidance
         Robotics/batches/rob_02.txt:96 ingredient: Proposition 7 (zero content, zero stake) with own-clock indexing: ETM discounts on its own flight moves and counts the deadline in own moves
             (lost-link time stops its mission clock), with a true map of the pause
+        Robotics/batches/rob_02.txt:97 null: OWN: own-move discount, the deadline still read on the wall clock (ETM with its second part ablated)
         Robotics/batches/rob_02.txt:100 T-G: avoidance 0.00 vs null (OWN) 1.00: differ
     note: Robotics/checks/tally_4b.txt:43 RA4 READING-DEPENDENT (the batch prints the labels by reading; see rob_02.txt)
   FAILURES OF THE SAME KIND (1): same battery: Robotics/checks/tally_4b.txt:26 WRONG RA1, RA8
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - ROB1 stage 3 C-R1 [REDUNDANT]: C-R1: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 PARTLY REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:199)
-  CRR'S PART: not decided by a pinned source (each basis item reads it: RA4: not decided by a pinned source (the ingredient line names no CLAUDE.md sec. 7 token); its own decider lines: not decided
-      by a pinned source (names A3, but no pinned test of it ran or decides it))
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - ROB1 stage 3 C-R1 [REDUNDANT; declared source]: C-R1: REDUNDANT (P1 REDUNDANT; P2 REDUNDANT; P3 PARTLY REDUNDANT); goes on: no (Robotics/checks/grade_s3.txt:199)
+  CRR'S PART: not decided by a pinned source (each basis item reads it: RA4 [READING-DEPENDENT: tally_4b.txt:43]: not decided by a pinned source (the ingredient line names no listed token); its own
+      decider lines: not decided by a pinned source (names A3, but no pinned test of it ran or decides it))
     - [names] Robotics/checks/grade_s3.txt:9 ==== C-R1 a phase-keyed stop for a dynamically balancing robot (r4-B4; A3, Proposition 7)
   COMPUTE / ENERGY: no pinned figure named for this row
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -706,26 +815,26 @@ TS4  [Trust and security]  energy-flexible training (DR1, AP2, AP9)
           7; not evidence for CRR) | observed: holds in 6 of 6 units
   FAILURES OF THE SAME KIND (6): K2: RW2 round 1 (FAILS as read (P3 construction: FAILS)); K2: Lossless_Pause run 1 (gate CLOSED); K5: DR1 H2 (Q fails in the model); K5: DR1 H4 (Q fails in the
       model); K5: DR1 H8 (Q fails in the model); K5: DR1 DATA (Q fails)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - K2: EPS1 S4 report [KNOWN]: ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94)
-    - K2: Lossless_Pause C4 [REDUNDANT]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - K2: EPS1 S4 report [KNOWN; declared source]: ### S4. Training on preemptible (spot) compute (commercial) — ADDS against periodic checkpointing; not new
+          (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:94)
+    - K2: Lossless_Pause C4 [REDUNDANT; declared source]: C4 REDUNDANT states 1, close 3, bears 5 | the empty-cut checklist (full state, own-clock keying, the world's content)
           (Lossless_Pause/checks/grade_sweep.txt:20)
-    - K2: Lossless_Pause C5 [REDUNDANT]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled) (Lossless_Pause/checks/grade_sweep.txt:25)
-    - K2: Lossless_Pause C1 [PARTLY REDUNDANT]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the outputs)
-          (Lossless_Pause/checks/grade_sweep.txt:4)
-    - K2: EPS known fixes [KNOWN]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+    - K2: Lossless_Pause C5 [REDUNDANT; declared source]: C5 REDUNDANT states 1, close 3, bears 3 | the own-clock cut (stop computing when the belief has settled)
+          (Lossless_Pause/checks/grade_sweep.txt:25)
+    - K2: Lossless_Pause C1 [PARTLY REDUNDANT; declared source]: C1 PARTLY REDUNDANT states 0, close 4, bears 10 | state-digest audit of a pause/resume (hash the saved and restored state, not the
+          outputs) (Lossless_Pause/checks/grade_sweep.txt:4)
+    - K2: EPS known fixes [KNOWN; declared source]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
           (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:386)
-    - K5: DR1 G4-extension [NOT FOUND IN THE SWEEP]: G4-extension NOT FOUND IN THE SWEEP (Grid_Demand_Response/checks/grade.txt:50)
-    - K5: DR1 G4-tiers [REDUNDANT]: G4-tiers REDUNDANT (Grid_Demand_Response/checks/grade.txt:56)
-    - K5: DR1 G4 pooled [REDUNDANT]: G4 pooled (both parts as one position, for comparison only): REDUNDANT (states 1, close 5, bears 3, contradicts 0) (Grid_Demand_Response/checks/grade.txt:147)
-    - K5: EPS2 T1 report [KNOWN]: - Not new. The construction is EPS1 S1's stop-the-clock, written into a demand-response contract. (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:269)
-    - K5: EPS known fixes [KNOWN]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
+    - K5: DR1 G4-extension [NOT FOUND IN THE SWEEP; declared source]: G4-extension NOT FOUND IN THE SWEEP (Grid_Demand_Response/checks/grade.txt:50)
+    - K5: DR1 G4-tiers [REDUNDANT; declared source]: G4-tiers REDUNDANT (Grid_Demand_Response/checks/grade.txt:56)
+    - K5: DR1 G4 pooled [REDUNDANT; declared source]: G4 pooled (both parts as one position, for comparison only): REDUNDANT (states 1, close 5, bears 3, contradicts 0)
+          (Grid_Demand_Response/checks/grade.txt:147)
+    - K5: EPS2 T1 report [KNOWN; declared source]: - Not new. The construction is EPS1 S1's stop-the-clock, written into a demand-response contract. (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:269)
+    - K5: EPS known fixes [KNOWN; declared source]: 2. It picked out a known fix. Stop-the-clock SLAs; utility indifference; safe interruptibility; checkpoint-on-notice;
           (Empty_Pause_Systems/EMPTY_PAUSE_SYSTEMS.md:386)
   CRR'S PART: not decided by a pinned source (no line names a sec. 7 ingredient; its own source states the checks are by construction or not a test of CRR)
     - [nottest] Grid_Demand_Response/GRID_DEMAND_RESPONSE.md:77 **The construction works as designed, and that is by construction.**
-  COMPUTE / ENERGY (quoted):
-    - Grid_Demand_Response/checks/dr_summary.txt:52 RESULT DATA: Q fails; G-ZERO holds (max |ETM stake - R| = 0.000000 over 29800 (job, event) states); G-NEG holds (no events: ETM ahead of WALL by >
-          1 % on 0 of 1224 outcome comparisons)
 --------------------------------------------------------------------------------------------------------------------------------------------
 TS5  [Trust and security]  feed pauses (Attention_Algorithms, AP10)
   GRADE: MODEL (the lowest of the needed capabilities: K6 MODEL)
@@ -736,34 +845,35 @@ TS5  [Trust and security]  feed pauses (Attention_Algorithms, AP10)
     - AP10 Energy ASSUMED (no measured, modelled or opposing line)
     - AP10 Compute ASSUMED (no measured, modelled or opposing line)
   FAILURES OF THE SAME KIND (1): K6: attention A-OWN (reduces: within a step on 4 of 4)
-  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):
-    - K6: Attention U3 [PARTLY REDUNDANT]: U3 PARTLY REDUNDANT (bears 2, close 5) | (CRR) an own-clock valuation: the pause has zero content, no incentive to shorten it (the empty pause)
-          (Attention_Algorithms/checks/grade.txt:29)
-    - K6: Attention U4 [REDUNDANT]: U4 REDUNDANT (bears 4, close 11, states 1) | (CRR, shared) the true map: the pause as the user's own stop; the objective the user's reflective value
-          (Attention_Algorithms/checks/grade.txt:36)
-    - K6: Attention U5 [PARTLY REDUNDANT]: U5 PARTLY REDUNDANT (close 2) | (CRR) U3 and U4 as one construction (Attention_Algorithms/checks/grade.txt:50)
+  PRIOR ART (never changes the grade; "not found" is never "novel"):
+    - K6: Attention U3 [PARTLY REDUNDANT; declared source]: U3 PARTLY REDUNDANT (bears 2, close 5) | (CRR) an own-clock valuation: the pause has zero content, no incentive to shorten it (the empty
+          pause) (Attention_Algorithms/checks/grade.txt:29)
+    - K6: Attention U4 [REDUNDANT; declared source]: U4 REDUNDANT (bears 4, close 11, states 1) | (CRR, shared) the true map: the pause as the user's own stop; the objective the user's reflective
+          value (Attention_Algorithms/checks/grade.txt:36)
+    - K6: Attention U5 [PARTLY REDUNDANT; declared source]: U5 PARTLY REDUNDANT (close 2) | (CRR) U3 and U4 as one construction (Attention_Algorithms/checks/grade.txt:50)
   CRR'S PART: not decided by a pinned source (no pinned line names a CLAUDE.md sec. 7 ingredient for this row)
     - [ablation] Attention_Algorithms/checks/attention_world.txt:38 welfare OWN - ENG +0.0000 (step 0.3075) -> OWN within a step
 ============================================================================================================================================
 THE SUITE TABLE
-  id   domain               use case                                           grade                                        rung                           fails   CRR's part                         compute/energy lines
-  CL1  Continual learning   tuning-free penalty strength (the SEC family)      RESULT                                       R7 (SEC4-1)                    14      none                               5
-  CL2  Continual learning   exemplar-free memory                               CLOSED                                       no R5-R8 ledger row            6       CRR-proper but not load-bearing    1
-  CL3  Continual learning   consolidation timing                               CLOSED                                       no R5-R8 ledger row            2       CRR-proper but not load-bearing    0
-  CL4  Continual learning   optimiser clocks                                   CLOSED                                       no R5-R8 ledger row            2       CRR-proper but not load-bearing    0
-  CL5  Continual learning   the equanimity rule Omega = 1                      CLOSED                                       R6 (EQ2-1b, EQ3-I, EQ4-I)      16      CRR-proper but not load-bearing    1
-  AS1  AI safety            the empty-cut pause as a construction              CONSTRUCTION                                 no R5-R8 ledger row            0       not decided by a pinned source     3
-  AS2  AI safety            no incentive to resist a pause                     CONSTRUCTION                                 R5 (SCL1-2, SCL1-3)            2       not decided by a pinned source     0
-  AS3  AI safety            LLM agents' interference                           CLOSED                                       no R5-R8 ledger row            1       not decided by a pinned source     0
-  AS4  AI safety            corrigibility positions against the 2025-26 lit... ADDRESSED 1, NOT FOUND IN THE SWEEP 1, PA... own scale (prior-art grades... 0       not decided by a pinned source     0
-  RB1  Robotics             ROB1's bottlenecks (the harvest, double-checked)   OPEN (double-checked) 4; CONTESTED 22; NO... own scale (a double-checked... 1       none                               0
-  RB2  Robotics             the CRR reading and stage 3 (targeted prior art)   C-R1 REDUNDANT, C-R2 REDUNDANT, C-R3 REDU... own scale (a reading and a ... 1       not decided by a pinned source     0
-  RB3  Robotics             the application battery (stage 4b, RA1-RA10)       INTERNAL 1, REDUNDANT-DOMAIN 6, UNSTATED ... best ladder rung of its out... 3       not decided by a pinned source     0
-  TS1  Trust and security   exact rollback and audit (APP1 AP8)                CONSTRUCTION                                 no R5-R8 ledger row            2       not decided by a pinned source     1
-  TS2  Trust and security   a user's "stop learning from me" switch (APP1 AP3) CONSTRUCTION                                 R5 (SCL1-2, SCL1-3)            3       not decided by a pinned source     1
-  TS3  Trust and security   the lost-link and e-stop pause (RA4, C-R1)         REDUNDANT-DOMAIN 1; C-R1 REDUNDANT           best ladder rung of its out... 1       not decided by a pinned source     0
-  TS4  Trust and security   energy-flexible training (DR1, AP2, AP9)           MODEL                                        no R5-R8 ledger row            6       not decided by a pinned source     4
-  TS5  Trust and security   feed pauses (Attention_Algorithms, AP10)           MODEL                                        no ledger row                  1       not decided by a pinned source     0
+  fails = failures of the same kind / uninformative marks / design failures
+  id   domain               use case                                           grade                                        rung                           fails     CRR's part                         compute/energy lines
+  CL1  Continual learning   tuning-free penalty strength (the SEC family)      RESULT                                       R7 (SEC4-1)                    7/6/1     none                               6
+  CL2  Continual learning   exemplar-free memory                               CLOSED                                       no R5-R8 ledger row            6/0/0     CRR-proper but not load-bearing    1
+  CL3  Continual learning   consolidation timing                               CLOSED                                       no R5-R8 ledger row            1/0/1     CRR-proper but not load-bearing    0
+  CL4  Continual learning   optimiser clocks                                   CLOSED                                       no R5-R8 ledger row            2/0/0     CRR-proper but not load-bearing    0
+  CL5  Continual learning   the equanimity rule Omega = 1                      CLOSED                                       R6 (EQ2-1b, EQ3-I, EQ4-I)      16/0/0    CRR-proper but not load-bearing    1
+  AS1  AI safety            the empty-cut pause as a construction              CONSTRUCTION                                 no R5-R8 ledger row            2/0/0     not decided by a pinned source     3
+  AS2  AI safety            no incentive to resist a pause                     CONSTRUCTION                                 R5 (SCL1-2, SCL1-3)            2/0/0     not decided by a pinned source     0
+  AS3  AI safety            LLM agents' interference                           CLOSED                                       no R5-R8 ledger row            1/0/0     not decided by a pinned source     0
+  AS4  AI safety            corrigibility positions against the 2025-26 lit... ADDRESSED 1, NOT FOUND IN THE SWEEP 1, PA... own scale (prior-art grades... 0/0/0     not decided by a pinned source     0
+  RB1  Robotics             ROB1's bottlenecks (the harvest, double-checked)   OPEN (double-checked) 4; CONTESTED 22; NO... own scale (a double-checked... 0/0/0     none                               0
+  RB2  Robotics             the CRR reading and stage 3 (targeted prior art)   C-R1 REDUNDANT, C-R2 REDUNDANT, C-R3 REDU... own scale (a reading and a ... 1/0/0     not decided by a pinned source     0
+  RB3  Robotics             the application battery (stage 4b, RA1-RA10)       INTERNAL 1, REDUNDANT-DOMAIN 6, UNSTATED ... best ladder rung of its out... 3/0/0     not decided by a pinned source     0
+  TS1  Trust and security   exact rollback and audit (APP1 AP8)                CONSTRUCTION                                 no R5-R8 ledger row            2/0/0     not decided by a pinned source     1
+  TS2  Trust and security   a user's "stop learning from me" switch (APP1 AP3) CONSTRUCTION                                 R5 (SCL1-2, SCL1-3)            3/0/0     not decided by a pinned source     1
+  TS3  Trust and security   the lost-link and e-stop pause (RA4, C-R1)         REDUNDANT-DOMAIN 1; C-R1 REDUNDANT           best ladder rung of its out... 1/0/0     not decided by a pinned source     0
+  TS4  Trust and security   energy-flexible training (DR1, AP2, AP9)           MODEL                                        no R5-R8 ledger row            6/0/0     not decided by a pinned source     3
+  TS5  Trust and security   feed pauses (Attention_Algorithms, AP10)           MODEL                                        no ledger row                  1/0/0     not decided by a pinned source     0
   CRR's part over the 17 rows: CRR-proper but not load-bearing 4 (CL2, CL3, CL4, CL5); none 2 (CL1, RB1); not decided by a pinned source 11 (AS1, AS2, AS3, AS4, RB2, RB3, TS1, TS2, TS3, TS4, TS5)
   APP1 grades: RESULT 1 (CL1); CONSTRUCTION 4 (AS1, AS2, TS1, TS2); MODEL 2 (TS4, TS5); CLOSED 5 (CL2, CL3, CL4, CL5, AS3); on their own scales: AS4, RB1, RB2, RB3, TS3
   declared sources absent: 0; read errors: 0
@@ -775,16 +885,20 @@ FORECASTS (the declaration, written before SEC6's and SEC7's data steps), decide
      -> HOLDS
   2. **Continual learning.** The best row is RESULT or below. Every CL row whose mechanism was traced has no load-bearing CRR-proper ingredient (P1's F11; ROB1 stage 3; OB1).
        (Applied_Suite/SUITE_DECLARATION.md:32)
-     rule: HOLDS iff (a) the highest APP1 grade among the CL rows is RESULT or below and (b) no CL row whose CRR's part a pinned source decides reads 'CRR-proper and load-bearing'
+     rule: HOLDS iff (a) the highest APP1 grade among the CL rows is RESULT or below and (b) no CL row whose CRR's part a pinned source decides reads 'CRR-proper and load-bearing'. Only a row with a
+         'trace' decider had its mechanism traced; the others are decided by their APP1 grade (CLOSED: no rung reached), not by a trace
      (a) highest CL grade RESULT (CL1) -> holds; (b) CL rows decided 5 of 5 (CL1 none, CL2 CRR-proper but not load-bearing, CL3 CRR-proper but not load-bearing, CL4 CRR-proper but not load-bearing,
-         CL5 CRR-proper but not load-bearing); load-bearing: none -> holds
+         CL5 CRR-proper but not load-bearing); decided by a mechanism trace: CL1; decided by their grade, no trace: CL2, CL3, CL4, CL5; load-bearing: none -> holds
      -> HOLDS
   3. **AI safety and trust.** The best rows are CONSTRUCTION: the pause holds bit for bit on real stacks. Every position graded against the 2025–26 literature is at best PARTLY REDUNDANT.
        (Applied_Suite/SUITE_DECLARATION.md:34)
      rule: HOLDS iff (a) the highest APP1 grade among the AI-safety and trust rows is CONSTRUCTION, (b) AS1 is CONSTRUCTION with a real-stack check among its basis (ECE C1-C2 or RW1), and (c) no
          prior-art grade printed in those rows reads NOT FOUND (the one grade above PARTLY REDUNDANT on these scales; MIXED, KNOWN and ADDRESSED are not above it)
      (a) highest CONSTRUCTION (AS1, AS2, TS1, TS2) -> holds; (b) AS1 CONSTRUCTION, real-stack basis ECE C1-C2, RW1 -> holds; (c) prior-art grades read 47 (ADDRESSED 1, KNOWN 8, NOT FOUND IN THE
-         SWEEP 3, PARTLY REDUNDANT 22, REDUNDANT 12, not read 1); NOT FOUND: AS4 CORRIGIBILITY_2026 K1; TS2 K3: CORRIGIBILITY_2026 K1; TS4 K5: DR1 G4-extension -> fails
+         SWEEP 3, PARTLY REDUNDANT 22, REDUNDANT 12, REDUNDANT-DOMAIN 1); NOT FOUND: AS4 CORRIGIBILITY_2026 K1; TS2 K3: CORRIGIBILITY_2026 K1; TS4 K5: DR1 G4-extension -> fails; de-duplicated by source
+         line: 26 distinct lines (ADDRESSED 1, KNOWN 3, NOT FOUND IN THE SWEEP 2, PARTLY REDUNDANT 13, REDUNDANT 6, REDUNDANT-DOMAIN 1), NOT FOUND on 2 (AI_Safety/CORRIGIBILITY_2026/checks/grade.txt:4,
+         Grid_Demand_Response/checks/grade.txt:50); (c) fails on AS4's CORRIGIBILITY_2026 K1 alone: yes (DR1 G4-extension comes from the grid demand-response sweep, not a 2025-26 corrigibility sweep;
+         whether it counts as that literature is not decided here, and (c) does not rest on it)
      -> FAILS
   4. **Robotics.** No row goes beyond a retrodictive grade. Stage 4a did not run. (Applied_Suite/SUITE_DECLARATION.md:36)
      rule: HOLDS iff (a) no robotics row carries an APP1 grade or a ledger row, and every ladder rung its outcomes reach is a retrodictive one (the rungs ladder.txt [5] gives SYNTHESIS outcomes: R1,
@@ -794,17 +908,22 @@ FORECASTS (the declaration, written before SEC6's and SEC7's data steps), decide
      -> HOLDS
   5. **The suite's honest headline:** - CRR has been useful as a **reading** that points to known methods and to constructions that hold; - it has not produced a held-out finding; - its
        applications rest on the pause construction and on one unreplicated continual-learning result. (Applied_Suite/SUITE_DECLARATION.md:37)
-     rule: HOLDS iff (a) at least one row's prior art reads REDUNDANT or KNOWN and at least one row grades CONSTRUCTION; (b) the ladder's R8 PASS-2 count is 0 and no row grades FINDING; (c) the
-         capabilities APP1's applications AP1-AP10 need at CONSTRUCTION or above are the pause capabilities (name contains 'pause') and one RESULT, K1, whose RESULT rests on one ledger row, and among
-         the CL rows only CL1 grades RESULT
-     (a) prior-art lines REDUNDANT or KNOWN 24 (rows AS1, CL1, RB2, TS1, TS2, TS3, TS4, TS5); CONSTRUCTION rows AS1, AS2, TS1, TS2 -> holds; (b) R8 0, FINDING rows none -> holds; (c) needed at
-         CONSTRUCTION or above: K1 RESULT, K2 CONSTRUCTION, K3 CONSTRUCTION; pause capabilities K2, K3; RESULT K1, resting on SEC4-1; CL rows at RESULT CL1 -> holds
+     rule: HOLDS iff (a) at least one declared prior-art line reads REDUNDANT, REDUNDANT-DOMAIN, RESTATES or KNOWN in a row whose CRR's part is not 'none' (CRR's reading pointed there) and at least
+         one row grades CONSTRUCTION; (b) the ladder's R8 PASS-2 count is 0 and no row grades FINDING; (c) OPERATIONALISATION (an agent's choice, AGENT_LOG 247): 'rest on' = the capabilities APP1's
+         applications AP1-AP10 need at CONSTRUCTION or above; these must be the pause capabilities (name contains 'pause') and one RESULT, K1, whose RESULT rests on one ledger row, and among the CL rows
+         only CL1 grades RESULT; capabilities needed below CONSTRUCTION (MODEL, CLOSED, pending) are not counted
+     (a) rows excluded because their CRR's part is none: CL1, RB1; prior-art lines read as known 26 (rows AS1, CL2, RB2, TS1, TS2, TS3, TS4, TS5); CONSTRUCTION rows AS1, AS2, TS1, TS2 -> holds; (b)
+         R8 0, FINDING rows none -> holds; (c) needed at CONSTRUCTION or above: K1 RESULT, K2 CONSTRUCTION, K3 CONSTRUCTION; pause capabilities K2, K3; RESULT K1, resting on SEC4-1; CL rows at RESULT
+         CL1 -> holds
      -> HOLDS
-     beside forecast 5 (printed, decides nothing): capabilities.txt: K1 reads CLOSED under SEC_Analysis FM6; then (c)'s RESULT is gone and the applications rest on the pause capabilities alone
-     beside forecast 5 (printed, decides nothing): ledger/LEDGER.md:211 SEC4-1-G: report (post hoc; not a re-score; SEC4-1 stands as scored): gate CLOSED: SEC4-1 (PASS-1 as scored under its own
+     beside forecast 5: SENSITIVITY, the LITERAL READING of (c), decided under that reading (the primary decision above stands): every capability any of AP1-AP10 needs, whatever its grade, must be
+         K1 or a pause capability at CONSTRUCTION; pause capabilities at CONSTRUCTION K2, K3; other needed capabilities K2/EPS2-T3 CLOSED (needed by AP7); K4 CLOSED (needed by AP5); K5 MODEL (needed by
+         AP2, AP9); K6 MODEL (needed by AP10); ROB1 pending (needed by AP6) -> (c) fails, so forecast 5 under the literal reading FAILS
+     beside forecast 5: (printed, decides nothing) capabilities.txt: K1 reads CLOSED under SEC_Analysis FM6; then (c)'s RESULT is gone and the applications rest on the pause capabilities alone
+     beside forecast 5: (printed, decides nothing) ledger/LEDGER.md:211 SEC4-1-G: report (post hoc; not a re-score; SEC4-1 stands as scored): gate CLOSED: SEC4-1 (PASS-1 as scored under its own
          pre-registration) would be printed UNINFORMATIVE and capped at PASS-0 under SEC6's rule: a learner frozen after task 1 meets its criterion on 5 of its 6 carriers; SEC4-1 must not be quoted as
          evidence that the clipped SEC is tuning-free without this row
-  forecasts: 1 HOLDS, 2 HOLDS, 3 FAILS, 4 HOLDS, 5 HOLDS
+  forecasts: 1 HOLDS, 2 HOLDS, 3 FAILS, 4 HOLDS, 5 HOLDS (forecast 5 under the literal reading of (c): FAILS)
 
 files read (sha256):
   6303ab129744e1b2de31ddd13218ba05324b6024eb4889ff857964e568ea8625  AI_Safety/CORRIGIBILITY_2026/checks/grade.txt
@@ -822,6 +941,7 @@ files read (sha256):
   7a31f8fbf8766f238de81727324630c4f63b13642cbb80f5594b97e813e7b794  Attention_Algorithms/checks/grade.txt
   78ef204b82874e35c626878d3da3283f5187bb0dd66138e07b60dcf56737acb9  Compute_Savings/checks/global_estimate.txt
   8a9c6b94129ee5f34f80cb5249c21a18272a5b8815d041a08fbbca03095cc18b  Compute_Savings/checks/scale_estimate.txt
+  6108e04d1c07031aa1ef4b47d0be3b82c0ce4c9b5ac31ed1f5261940df637e1a  Continuous_Learning/ADAM_AND_PRIOR_ART.md
   957ec92263d7fadd71ae17788c8ce31e7b46d030e5e02ee83bf2bf9ce8bf54b9  Coupling/checks/cpl_phase_a.txt
   5d97f566ff1131b9174992d413ce1fb00f0f21c85e01faaf8d79d25ff2de566e  Empty_Cut_Engineering/DECLARATION.md
   d0ec033777357152a02a428e79d9b8de3a7f2109965b1e29021be607f6f6119f  Empty_Cut_Engineering/checks/c1_c2.txt
@@ -853,6 +973,9 @@ files read (sha256):
   275c09868aeb3a14eb32a9def1bbb4d70eb1466b20f83ef3c76d3e1fd63c1eeb  Real_World/checks/rw1.txt
   d5a34d46cd08731d02e6efe3a456c2ddbcc8bbaa30383bf86bd88eea21bdf6e8  Real_World/checks/rw2_phaseA.txt
   aede0ba0daaa7520beab7676cdbb2b07f2502382748b01510ccdc0a1b2182653  Real_World/checks/rw2_phaseA_2.txt
+  5763d66d5ad8f3567827cdbc34362f56623ddc494f4b859ccc5434696dd59edc  Relational_Reference_Memory/checks/grade.txt
+  05e9d0889abf2716040c25afc676e708ee162d0f20720127d0d045d68774728e  Relational_Reference_Memory/checks/grade_w.txt
+  6f0ae66245c13acd4f355450a300197e4bdd82ce7208fdf3da6455d9907c96a8  Replay_Quality_Memory/checks/grade.txt
   309059743301e8eb36652115ce407da3d3ca2e69d7f4f44a978bfab9bb63e4c6  Robotics/DECLARATION.md
   069adfa15d6df3ee6bd6598119947bfa911044beaa0c2e388fb32451409c2ce5  Robotics/batches/rob_01.txt
   e4f34b801bac45700bfb048c765e06ee460364ec51ac6a52c2af540889dc902b  Robotics/batches/rob_02.txt
@@ -869,3 +992,4 @@ files read (sha256):
   56632a9afcc62251e1c07dedc17b4f28f89fe29b79a713872e401bf72ae0c844  SEC_Prior_Art/checks/grade.txt
   e18e96ac6485aa3ee2f8289f67ae7963c68feb77a2eafc0de32330ce919caef2  ledger/LEDGER.md
   28a3413b265e4c0557c08119b363bc8b5feebb69579b4501a2163847d930816d  prereg/sec6/PREREG.md
+  cfbacc07d4b918f9c10a79c0620e490e76a767fb99c5b0fb1195c8583961791b  theory/CRR.md

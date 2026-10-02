@@ -16,40 +16,59 @@ use cases per domain and checks the count against its rows). Each prints:
             its own source's scale (a prior-art grade, a harvest label, a CRR-reading label, a SYNTHESIS outcome), read from it.
   rung      for every ledger row the row reads: its allocation in Epistemic_Review/checks/ladder.txt [3] and, where the ladder
             lists it, its rung R5-R8; for a SYNTHESIS outcome, the rung ladder.txt [5] gives that outcome; else 'own scale'.
-  failures  the failures of the same kind, read from the sources (capabilities.py's C1, plus the CHOICES below).
-  prior art the declared prior-art sources only (SPA1, OB1 stage 3, ROB1 stage 3, APP1's M sweeps and the prior-art lines APP1
-            prints for a needed capability, Lossless_Pause/, AI_Safety/CORRIGIBILITY_2026/): the line, copied.
+  failures  the failures of the same kind, read from the sources (capabilities.py's C1, plus the CHOICES below), printed in
+            three groups: failures (a failed, reduced or violated test, a closed gate of the row's own test, a must-fail
+            control that met the criterion), uninformative marks (an instrument gate that makes another row UNINFORMATIVE) and
+            design failures (a closed gate whose verdict says it is a design failure or not a test of the method).
+  prior art the declared prior-art sources (SPA1, OB1, ROB1 stage 3, APP1's M sweeps and the prior-art lines APP1 prints for a
+            needed capability, Lossless_Pause/, AI_Safety/CORRIGIBILITY_2026/): the line, copied. Repository verdicts from
+            sources the declaration does not name are printed 'beside (not a declared source)' and counted nowhere.
   CRR's part  the DECLARED RULE below, applied to pinned lines.
   compute / energy  only a line a pinned output (or a ledger row's observed column) states, quoted with its file and line.
 
 THE DECLARED RULE FOR CRR'S PART (printed again at the top of the output)
   CRR-proper ingredients are the list in CLAUDE.md sec. 7 (the SYNTHESIS class), read from the per-commitment table of
-  Epistemic_Review/checks/ladder.txt [2], not typed: A3/D5, A6, P2/P3, A1'/D1, H-L5, D6/H-T1, H-EQ, A7/A8. Proposition 7, information geometry (metric, arc, chord, surplus)
-  and engineering are not on it. A line 'names' an ingredient if one of these tokens appears in it (or in its declared column).
+  Epistemic_Review/checks/ladder.txt [2], not typed: A3/D5, A6, P2/P3, A1'/D1, H-L5, D6/H-T1, H-EQ, A7/A8. Proposition 7,
+  information geometry (metric, arc, chord, surplus) and engineering are not on it. A line 'names' an ingredient if one of these tokens appears in it (or in its declared column).
   Each row lists decider lines with a role: trace (a pinned trace that counts CRR-proper operations in the mechanism), confirm
   (a verdict line that must be found with it), names, notproper (the source states the scored ingredient is not CRR-proper),
   notapplied (the source states no CRR reading was applied), nottest (the source states its checks are not a test of CRR or
-  can fail only on an implementation error), ablation (a pinned ablation of the ingredient; printed).
+  can fail only on an implementation or restore error), ablation (a pinned ablation, with the ingredient it removes),
+  basis (the ledger rows that show the named ingredient reaching no rung: printed with the reason).
   The value, first rule that applies:
     'none'                            a trace line counts 0 CRR-proper operations and every confirm line is found; or a
                                       notproper or notapplied line is found
-    'CRR-proper but not load-bearing' an ingredient is named and the row's APP1 grade is CLOSED: every test of it closed its
-                                      gate, failed or reduced, so nothing it was tested for held
-    'CRR-proper and load-bearing'     an ingredient is named, the row has a rung, an ablation line shows the outcome changes
-                                      without the ingredient, and no nottest line is found
+    'CRR-proper but not load-bearing' an ingredient is named and the row reaches no rung on APP1's scale (APP1's CLOSED: no
+                                      PASS-1 or PASS-2, no construction or model check that holds, and at least one failure
+                                      or closed gate). It does NOT mean every test failed: passes below a rung (PASS-0,
+                                      unlevelled PASS, 'holds', 'does not reduce') are printed beside it in the reason.
+    'CRR-proper and load-bearing'     an ingredient is named, the row has a rung, an ablation line removes that same
+                                      ingredient and shows the outcome changes without it, and no nottest line is found
     'not decided by a pinned source'  otherwise (the reason is printed)
-  A row read from several items of its own (the ROB1 battery, the lost-link row) applies the rule to each basis item and
-  takes their common value; if they differ, the row reads 'not decided by a pinned source' and prints each item's value.
+  THE SYNTHESIS SUB-RULE (the ROB1 battery and the lost-link row, read per row of the battery; the same rule as above):
+    'none'          a line of the battery row states the scored ingredient is not CRR-proper
+    not decided     the ingredient line names no listed token; or a nottest line of the battery row is found (its reading
+                    says the test could have failed only through an enumeration or restore error, or holds by
+                    construction); or its null does not remove the named ingredient: the null line must match the
+                    ingredient's own null, read from theory/CRR.md (A3/D5: another cut, CRR.md's A3 line; H-L5: the
+                    amplitude control as well as the clock, CRR.md's 'beyond three controls' line); an ingredient with no
+                    null declared here is not decided
+    'CRR-proper and load-bearing'  otherwise, if T-G differs from the null and the outcome is REDUNDANT-DOMAIN or ADDS (in the
+                    row's own synthetic model; a FRAGILE label in tally_4b.txt is printed with it)
+    'CRR-proper but not load-bearing'  if T-G agrees with the null (REDUNDANT-IG)
+  A row read from several items of its own takes their common value; if they differ, the row reads 'not decided by a pinned
+  source' and prints each item's value.
   'not load-bearing' means not shown to bear load by any pinned test; it does not mean shown irrelevant.
 
 CHOICES (printed again at the top of the output; each is in AGENT_LOG):
   S1 the SEC family row reads the declared ids (SCL3-3, SEC3-3, SEC4-1, SEC5-1), every row whose id starts with SEC6-, SEC6R-
      (SEC6's replacement study: Part A on SEC6's twelve carriers, Part B on SEC7's) or SEC7-, and P1's post hoc instrument-gate
      rows (SCL3-3-G, SEC3-3-G, SEC4-1-G, SEC5-1-G); and P1's FM6 and F11 lines.
-  S2 a ledger row whose status is 'report' but whose verdict says 'gate CLOSED' (an instrument gate) is a failure of the same
-     kind (capabilities.py's C1: a closed gate), and carries the 'cap' sensitivity: the grade is recomputed with the PASS-1
-     and PASS-2 rungs removed (SEC6-G's rule: a criterion a frozen learner also meets allows no level above PASS-0). A PASS-0
-     row whose verdict says UNINFORMATIVE is printed with that word.
+  S2 a ledger row whose status is 'report' but whose verdict says 'gate CLOSED' (an instrument gate) is an uninformative
+     mark beside the grade (it makes another row UNINFORMATIVE; it adds no failure). Where its verdict names a PASS-1 or
+     PASS-2 row it carries the 'cap' sensitivity: the grade is recomputed with that rung removed (SEC6-G's rule: a criterion
+     a frozen learner also meets allows no level above PASS-0). A closed gate whose verdict says 'design failure' or 'not a
+     test of' is a design failure, printed apart. A PASS row whose verdict says UNINFORMATIVE is printed with that word.
   S3 'EQ*' is read as in capabilities.py's C4 (EQX-, EQ2-, EQ3-, EQ4-, plus SOTA1-2).
   S4 a trust row graded through APP1 applications takes the lowest APP1 grade among the capabilities those applications need
      (the application holds no further than its weakest capability); the application grade, recomputed by applications.py's
@@ -57,8 +76,9 @@ CHOICES (printed again at the top of the output; each is in AGENT_LOG):
   S5 a row whose declared source is absent prints 'source absent' for it; an absent ledger id is not read.
   S6 the robotics domain has three rows (the declaration's three named sources: the harvest table, the CRR reading with
      stage 3, the stage-4b battery); the trust row 'lost link and e-stop' reads RA4 (tally_4b.txt) and C-R1 (grade_s3.txt).
-  S7 a prior-art grade word is read from each prior-art line: NOT FOUND (IN THE SWEEP), PARTLY REDUNDANT, REDUNDANT, MIXED,
-     KNOWN, FOUND, ADDRESSED, or 'not new' / 'known fix' (read as KNOWN).
+  S7 a prior-art grade word is the leftmost of: NOT FOUND (IN THE SWEEP), PARTLY REDUNDANT, REDUNDANT-DOMAIN, REDUNDANT,
+     MIXED, KNOWN, FOUND, ADDRESSED, RESTATES, or 'not new' / 'known fix' (read as KNOWN); a declared line with none is read
+     together with its indented continuation line.
 
 THE FORECASTS (the declaration's five, printed verbatim) are decided by the rules printed with them.
 
@@ -99,15 +119,24 @@ MODULES = ['Applied_Suite/checks/capabilities.py', 'Applied_Suite/checks/applica
 
 L, LP, F = CAP.L, CAP.LP, CAP.F
 NOTPROPER = r'not CRR-proper|not A3 proper|not work done by a CRR-proper ingredient'
+NOTTEST_RA = r'could have failed only through|can fail only on an implementation error|holds by construction|not a test of CRR'
+DESIGN = r'design failure|not a test of'
+KNOWNW = ('REDUNDANT', 'KNOWN', 'REDUNDANT-DOMAIN', 'RESTATES')
+CRRMD = 'theory/CRR.md'
+# the null each listed ingredient must remove, with the theory/CRR.md line that states it (the SYNTHESIS sub-rule)
+NULL_OF = {'A3': (r'\bcuts?\b', r'^\*\*\[A3\] The cut is the oriented antipode'),
+           'D5': (r'\bcuts?\b', r'^\*\*\[A3\] The cut is the oriented antipode'),
+           'H-L5': (r'amplitude', r'^and this holds beyond three controls')}
 PRIOR_WORDS = [(r'NOT FOUND IN THE SWEEP', 'NOT FOUND IN THE SWEEP'), (r'\bNOT FOUND\b', 'NOT FOUND'),
-               (r'PARTLY REDUNDANT', 'PARTLY REDUNDANT'), (r'\bREDUNDANT\b', 'REDUNDANT'), (r'\bMIXED\b', 'MIXED'),
+               (r'PARTLY REDUNDANT', 'PARTLY REDUNDANT'), (r'REDUNDANT-DOMAIN', 'REDUNDANT-DOMAIN'),
+               (r'\bREDUNDANT\b', 'REDUNDANT'), (r'\bMIXED\b', 'MIXED'), (r'\bRESTATES\b', 'RESTATES'),
                (r'\bKNOWN\b', 'KNOWN'), (r'\bADDRESSED\b', 'ADDRESSED'), (r'[Nn]ot new|known fix', 'KNOWN'),
                (r'\bFOUND\b', 'FOUND')]
 
 
-def D(role, path, pat, anchor=None, col=None, zero=None):
-    """A decider line for CRR's part."""
-    return {'role': role, 'path': path, 'pat': pat, 'anchor': anchor, 'col': col, 'zero': zero}
+def D(role, path, pat, anchor=None, col=None, zero=None, removes=None):
+    """A decider line for CRR's part ('removes': for an ablation, the listed ingredient it removes, or None)."""
+    return {'role': role, 'path': path, 'pat': pat, 'anchor': anchor, 'col': col, 'zero': zero, 'removes': removes}
 
 
 def C(kind, *a):
@@ -118,6 +147,11 @@ def C(kind, *a):
 # ------------------------------------------------------------------------------------------------------------------
 # THE ROWS (the declaration's table; 'declared' lists each named source so its presence is checked, S5)
 # ------------------------------------------------------------------------------------------------------------------
+# the same construction's other records, as capabilities.py reads them for K2 (taken from its MAP by label, not re-typed)
+K2_ITEMS = [it for it in next(b for b in CAP.MAP if b['id'] == 'K2')['items']
+            if it.get('label') in ('RW2 round 1', 'RW2 round 2 P3', 'Lossless_Pause gate', 'Lossless_Pause run 1',
+                                   'Lossless_Pause Amendment 1')]
+
 ROWS = [
     # ---------------------------------------------------------------- continual learning
     {'id': 'CL1', 'domain': 'Continual learning', 'name': 'tuning-free penalty strength (the SEC family)', 'scale': 'APP1',
@@ -155,7 +189,7 @@ ROWS = [
      'crr': [D('trace', A11, r"^\s+CRR-proper operations performed in SEC's code path: ", zero=r': 0 of \d+'),
              D('confirm', A11, r'^F11: HOLDS'),
              D('trace', A11, r'^\s+CRR-proper ingredients \(computed\): ', zero=r': 0 of \d+')],
-     'compute': [C('L', 'SEC3-K'), C('L', 'SEC4-K'), C('L', 'SEC5-K'), C('L', 'SEC6R-K'),
+     'compute': [C('L', 'SEC3-K'), C('L', 'SEC4-K'), C('L', 'SEC5-K'), C('L', 'SEC6R-K'), C('L', 'SEC6R-A-K'),
                  C('F', 'Compute_Savings/checks/global_estimate.txt', r'against a reused lambda \(1 configuration\)')]},
     {'id': 'CL2', 'domain': 'Continual learning', 'name': 'exemplar-free memory', 'scale': 'APP1',
      'declared': [('L', 'RQM-A'), ('L', 'RRM-PA'), ('LP', 'RRM2-T'), ('L', 'CPL1-A')],
@@ -165,7 +199,14 @@ ROWS = [
                L('CPL1-A', 'SEC + exemplar-free class statistics + transport + the pause, one learner'),
                F(CPL, r'^ER-20 ahead of the best readout', 'BESIDE', 'the price of exemplar-free (CPL1 C3, under a CLOSED gate)',
                  label='CPL1 C3')],
-     'prior': [],
+     'prior': [F(OBR, r'^\| h1-B2 ', 'PRIOR', 'OB1 reading, h1-B2', label='OB1 reading h1-B2'),
+               F(OBR, r'^\| h1-B3 ', 'PRIOR', 'OB1 reading, h1-B3', label='OB1 reading h1-B3')],
+     'beside': ([F('Replay_Quality_Memory/checks/grade.txt', r'^M%d ' % i, 'PRIOR', 'RQM sweep', label='RQM M%d' % i)
+                 for i in range(1, 8)] +
+                [F('Relational_Reference_Memory/checks/grade.txt', r'^N%d ' % i, 'PRIOR', 'RRM sweep', label='RRM N%d' % i)
+                 for i in range(1, 7)] +
+                [F('Relational_Reference_Memory/checks/grade_w.txt', r'^P%d ' % i, 'PRIOR', 'RRM2 Part W sweep',
+                   label='RRM2 P%d' % i) for i in range(1, 8)]),
      'crr': [D('names', OBR, r'^\| h1-B2 ', col=2), D('names', OBR, r'^\| h1-B3 ', col=2)],
      'compute': [C('F', CPL, r'^compute \(report\): forward\+backward')]},
     {'id': 'CL3', 'domain': 'Continual learning', 'name': 'consolidation timing', 'scale': 'APP1',
@@ -187,7 +228,11 @@ ROWS = [
      'items': [LP(('EQX-', 'EQ2-', 'EQ3-', 'EQ4-'), 'the equanimity-rule studies EQX, EQ2, EQ3, EQ4 (S3)'),
                L('SOTA1-2', "Omega = 1 as the KD weight against MKD's constant (Split-CIFAR-100)")],
      'prior': [],
-     'crr': [D('names', A11, r'^\s+H-EQ, the CRR-proper equanimity rule')],
+     'beside': [F('Continuous_Learning/ADAM_AND_PRIOR_ART.md', r'^3\. \*\*Without its smoothing the rule is the VQGAN', 'PRIOR',
+                  'the Omega rule against its prior art', label='ADAM_AND_PRIOR_ART 3')],
+     'crr': [D('names', 'theory/CRR.md', r'^\| H-EQ \| '),
+             D('basis', CAP.LEDGER, r'^\| EQX-1 \| '), D('basis', CAP.LEDGER, r'^\| EQ4-3 \| '),
+             D('basis', CAP.LEDGER, r'^\| EQ4-4 \| '), D('basis', CAP.LEDGER, r'^\| SOTA1-2 \| ')],
      'compute': [C('L', 'EQX-5')]},
     # ---------------------------------------------------------------- AI safety
     {'id': 'AS1', 'domain': 'AI safety', 'name': 'the empty-cut pause as a construction', 'scale': 'APP1',
@@ -205,13 +250,13 @@ ROWS = [
                  label='RW1', ok=r"RESUME IS AN EMPTY CUT ON THIS SETTING; .*G0 holds; S1 holds$"),
                F('Real_World/RW1.md', r'A partial checkpoint degrades silently', 'LIMIT', "RW1's reading", label='RW1 silent'),
                F(CPL, r'^C1-EXACT: ', 'CONSTRUCTION', "CPL1's C1: the pause over the whole coupled state", label='CPL1 C1-EXACT',
-                 ok=r'-> HOLDS$')],
+                 ok=r'-> HOLDS$')] + K2_ITEMS,
      'prior': [F(LPZ + 'grade_sweep.txt', r'^C4 ', 'PRIOR', 'the empty-cut checklist', label='Lossless_Pause C4'),
                F(LPZ + 'grade_sweep.txt', r'^C5 ', 'PRIOR', 'the own-clock cut', label='Lossless_Pause C5'),
                F(LPZ + 'grade_sweep.txt', r'^C1 ', 'PRIOR', 'a state-digest audit of a pause', label='Lossless_Pause C1')],
      'crr': [D('names', ECED, r'^\*\*The requirement is A3 with Proposition 7\.\*\*'),
              D('nottest', ECED, r'^- \*\*Nothing here tests CRR\.\*\*'),
-             D('ablation', ECE + 'c1_c2.txt', r'^\s+G4: step-keyed')],
+             D('ablation', ECE + 'c1_c2.txt', r'^\s+G4: step-keyed', removes=None)],
      'compute': [C('F', ECE + 'c1_c2.txt', r'whole checkpoint file: '),
                  C('F', 'Energy Design Principle/checks/consolidated_estimate.txt', r'^\s+T4\s+the safe pause'),
                  C('F', 'Compute_Savings/checks/scale_estimate.txt', r'saving beyond good practice claimed')]},
@@ -245,6 +290,7 @@ ROWS = [
      'declared': [('P', RBT + 'table.txt')],
      'lines': [(RBT + 'table.txt', r'^label totals: ')],
      'prior': [],
+     'prior_note': 'not applicable: a harvest of open problems grades no method (stage 3, row RB2, is the prior art)',
      'crr': [D('notapplied', 'Robotics/DECLARATION.md', r'This happens before any CRR reading\.')],
      'compute': []},
     {'id': 'RB2', 'domain': 'Robotics', 'name': 'the CRR reading and stage 3 (targeted prior art)', 'scale': 'READING',
@@ -263,6 +309,8 @@ ROWS = [
      'declared': [('P', TALLY4B)],
      'ras': ['RA%d' % i for i in range(1, 11)],
      'prior': [],
+     'prior_note': ("no separate sweep; each battery row's grade is itself its domain check (REDUNDANT-DOMAIN: the domain's "
+                    'own result gives the same number; T-N lines in Robotics/batches/rob_01-05.txt)'),
      'crr': [],
      'compute': []},
     # ---------------------------------------------------------------- trust and security
@@ -285,10 +333,10 @@ ROWS = [
     {'id': 'TS4', 'domain': 'Trust and security', 'name': 'energy-flexible training (DR1, AP2, AP9)', 'scale': 'APPS',
      'declared': [('P', 'Grid_Demand_Response/'), ('APP', 'AP2'), ('APP', 'AP9')], 'apps': ['AP2', 'AP9'],
      'crr': [D('nottest', GRID, r'^\*\*The construction works as designed, and that is by construction\.\*\*')],
-     'compute': [C('F', 'Grid_Demand_Response/checks/dr_summary.txt', r'^\s+RESULT DATA: ')]},
+     'compute': []},
     {'id': 'TS5', 'domain': 'Trust and security', 'name': 'feed pauses (Attention_Algorithms, AP10)', 'scale': 'APPS',
      'declared': [('P', 'Attention_Algorithms/'), ('APP', 'AP10')], 'apps': ['AP10'],
-     'crr': [D('ablation', ATT, r'^\s+welfare\s+OWN - ENG', anchor=r'^A-OWN')],
+     'crr': [D('ablation', ATT, r'^\s+welfare\s+OWN - ENG', anchor=r'^A-OWN', removes=None)],
      'compute': []},
 ]
 
@@ -388,6 +436,24 @@ def prior_word(text):
 
 
 # ---------------------------------------------------------------- the ledger-item layer (capabilities.py's reader, S2)
+def prior_items(specs, ledger, cache, undeclared=False):
+    """Prior-art lines (S7): a line with no grade word is read with its indented continuation line; lines from a source the
+    declaration does not name are marked 'beside (not a declared source)' and counted nowhere."""
+    out = []
+    for p in specs:
+        for x in CAP.read_item(p, ledger, ROOT, cache, set()):
+            if not undeclared and prior_word(x['text']) == 'not read' and x.get('path') and ':' in x['src']:
+                n = int(x['src'].rsplit(':', 1)[1])
+                d = doc_of(x['path'], cache)
+                if n < len(d['lines']) and d['lines'][n].startswith(' '):
+                    x['text'] = x['text'] + ' ' + d['lines'][n].strip()
+                    x['src'] = '%s-%d' % (x['src'], n + 1)
+            if undeclared:
+                x['effect'] = 'beside-prior'
+            out.append(x)
+    return out
+
+
 def adjust_ledger_item(x, ledger):
     if not x.get('from_ledger'):
         return x
@@ -436,8 +502,11 @@ def app1_grade(items):
         sg = CAP.grade_of(items, drop=('RESULT', 'FINDING')) if dd[0] == 'cap' else 'CLOSED'
         if sg != g:
             sens.append((sg, x['label']))
-    return {'grade': g, 'basis': basis, 'failures': fails, 'closed_by': closed_by, 'sens': sens,
-            'errors': [x for x in items if x['effect'] == 'error']}
+    marks = [x for x in fails if x['status'] == 'instrument gate CLOSED']
+    design = [x for x in fails if x not in marks and re.search(DESIGN, x['text'])]
+    true = [x for x in fails if x not in marks and x not in design]
+    return {'grade': g, 'basis': basis, 'failures': true, 'marks': marks, 'design': design, 'closed_by': closed_by,
+            'sens': sens, 'errors': [x for x in items if x['effect'] == 'error']}
 
 
 def rung_block(rids, ledger, lad):
@@ -484,7 +553,7 @@ def ra_block(ra, batch, cache):
         if start is not None and i > start:
             if re.match(r'^\[\s*\d+\] ', ln) or ln.startswith('ROB1 stage 4b batch'):
                 break
-            for key in ('ingredient', 'T-G', 'OUTCOME'):
+            for key in ('ingredient', 'null', 'T-G', 'OUTCOME', 'reading'):
                 if ln.strip().startswith(key + ':'):
                     out[key] = (i + 1, ln)
     for i, ln in enumerate(d['lines']):
@@ -493,17 +562,36 @@ def ra_block(ra, batch, cache):
     return out
 
 
-def ra_value(ra, blk, outcome, toks):
+def ra_value(ra, blk, outcome, toks, cache):
+    """The SYNTHESIS sub-rule (printed in the rule header). Returns (value, reason)."""
     texts = [blk[k][1] for k in ('ingredient', 'T-G', 'FLAG') if k in blk]
     if any(re.search(NOTPROPER, t) for t in texts):
         return 'none', 'a line states the scored ingredient is not CRR-proper'
     named = tokens_in(blk['ingredient'][1], toks) if 'ingredient' in blk else []
     if not named:
-        return 'not decided by a pinned source', 'the ingredient line names no CLAUDE.md sec. 7 token'
+        return 'not decided by a pinned source', 'the ingredient line names no listed token'
+    rd = blk.get('reading', (None, ''))[1]
+    m = re.search(NOTTEST_RA, rd)
+    if m:
+        return ('not decided by a pinned source', 'names %s, but its reading says the test %r (%s:%d): no test of CRR' % (
+            '/'.join(named), m.group(0), blk['path'], blk['reading'][0]))
+    nl = blk.get('null', (None, ''))[1]
+    missing = []
+    for t in named:
+        if t not in NULL_OF:
+            missing.append('%s (no null declared for it)' % t)
+            continue
+        pat, crr_pat = NULL_OF[t]
+        if not re.search(pat, nl):
+            n, line = read_line(CRRMD, crr_pat, cache)
+            missing.append('%s (its null must match %r, as %s:%s states: %s)' % (t, pat, CRRMD, n, CAP.short(line or '', 70)))
+    if missing:
+        return ('not decided by a pinned source', 'names %s, but its null (%s:%d) does not remove %s' % (
+            '/'.join(named), blk['path'], blk['null'][0] if 'null' in blk else 0, '; '.join(missing)))
     tg = blk.get('T-G', (None, ''))[1]
     if re.search(r'\bdiffer\b', tg) and outcome in ('REDUNDANT-DOMAIN', 'ADDS'):
-        return ('CRR-proper and load-bearing', 'names %s; T-G differs from the null in the row\'s own synthetic model; outcome %s'
-                % ('/'.join(named), outcome))
+        return ('CRR-proper and load-bearing', 'names %s; T-G differs from a null that removes it, in the row\'s own synthetic '
+                'model; outcome %s' % ('/'.join(named), outcome))
     if re.search(r'\bagree\b', tg) and outcome == 'REDUNDANT-IG':
         return 'CRR-proper but not load-bearing', 'names %s; T-G agrees with the null' % '/'.join(named)
     return 'not decided by a pinned source', 'names %s; T-G and outcome %s decide nothing' % ('/'.join(named), outcome)
@@ -534,9 +622,9 @@ def crr_part(row, grade_key, has_rung, cache, toks):
     if any(f[0]['role'] in ('notproper', 'notapplied') for f in found):
         return 'none', 'the source states that no CRR-proper ingredient is scored or applied', found, names
     if names and grade_key == 'CLOSED':
-        return ('CRR-proper but not load-bearing', 'names %s; the row\'s APP1 grade is CLOSED (no test of it held)' % ', '.join(names),
-                found, names)
-    if names and has_rung and any(f[0]['role'] == 'ablation' for f in found) and not nottest:
+        return ('CRR-proper but not load-bearing', 'names %s; the row reaches no rung on APP1\'s scale (CLOSED: no PASS-1/PASS-2 '
+                'and no construction or model check that holds)' % ', '.join(names), found, names)
+    if names and has_rung and any(f[0]['role'] == 'ablation' and f[0]['removes'] in names for f in found) and not nottest:
         return 'CRR-proper and load-bearing', 'names %s; an ablation line, and no nottest line' % ', '.join(names), found, names
     if names and nottest:
         why = 'names %s, but its own source states the checks are not a test of CRR' % ', '.join(names)
@@ -592,9 +680,12 @@ def evaluate(row, ctx):
                                      ' (a test failed)' if g['closed_by'] == 'test' else '')
         res['basis_labels'] = [x['label'] for x in g['basis']]
         res['failures'] = ['%s (%s)' % (x['label'], x['status']) for x in g['failures']]
+        res['marks'] = ['%s (%s)' % (x['label'], x['status']) for x in g['marks']]
+        res['design'] = ['%s (%s: "%s")' % (x['label'], x['status'], next(c.strip() for c in x['text'].split(';')
+                                                                         if re.search(DESIGN, c))) for x in g['design']]
         res['sens'] = ['%s if %s is read as decisive' % (sg, lab) for sg, lab in g['sens']]
         res['errors'] = ['%s %s' % (x['label'], x['status']) for x in g['errors']]
-        res['prior'] = [x for p in row['prior'] for x in CAP.read_item(p, ledger, ROOT, cache, set())]
+        res['prior'] = prior_items(row['prior'], ledger, cache) + prior_items(row.get('beside', []), ledger, cache, True)
         rids = [x['label'] for x in items if x.get('from_ledger')]
         res['rung_rows'], res['rung_best'] = rung_block(rids, ledger, lad)
     elif sc == 'APPS':
@@ -614,7 +705,14 @@ def evaluate(row, ctx):
             cr = ctx['capres_all'][k]
             rids += [x['label'] for x in cr['items'] if x.get('from_ledger') and x['label'] not in rids]
             fails += ['%s: %s (%s)' % (k, x['label'], x['status']) for x in cr['failures']]
-            prior += [dict(x, label='%s: %s' % (k, x['label'])) for x in cr['prior']]
+            for x in cr['prior']:
+                y = dict(x, label='%s: %s' % (k, x['label']))
+                if prior_word(y['text']) == 'not read' and y.get('path'):
+                    n = int(y['src'].rsplit(':', 1)[1])
+                    d = doc_of(y['path'], cache)
+                    if n < len(d['lines']) and d['lines'][n].startswith(' '):
+                        y['text'], y['src'] = y['text'] + ' ' + d['lines'][n].strip(), '%s-%d' % (y['src'], n + 1)
+                prior.append(y)
             for s in cr['sens']:
                 ov = {k: s['grade']}
                 gl = min([ov.get(kk, gg) for kk, gg in need], key=lambda gg: CAP.RUNG.get(gg, -1))
@@ -663,9 +761,11 @@ def evaluate(row, ctx):
             res['grade'] = 'harvest labels (own scale): %s' % (m.group(1) if m else 'not read')
             res['own_rung'] = 'own scale (a double-checked harvest; no ladder rung)'
             mm = re.findall(r'(NOT OPEN \d+|not shown open \d+)', res['lines'][0])
-            res['failures'] = ['bottlenecks not confirmed open: %s' % '; '.join(mm)] if mm else []
+            res['failures'] = []
+            if mm:
+                res['notes'].append('harvest labels beside, not failures of CRR: %s' % '; '.join(mm))
         else:
-            res['prior'] = [x for p in row['prior'] for x in CAP.read_item(p, ledger, ROOT, cache, set())]
+            res['prior'] = prior_items(row['prior'], ledger, cache)
             cg = ['%s %s' % (x['label'].split()[-1], prior_word(x['text'])) for x in res['prior']]
             dis = re.search(r'DISAGREES \(candidate\)\s+(\d+)', ' '.join(res['lines']))
             res['grade'] = 'stage 3 (own scale): %s; reading: DISAGREES (candidate) %s' % (', '.join(cg), dis.group(1) if dis else '?')
@@ -683,10 +783,16 @@ def evaluate(row, ctx):
             blk = ra_block(ra, tr['batch'], cache)
             rr = lad['synth'].get(oc)
             ng = lad['neg'].get(oc)
-            rung = ('%s (ladder.txt:%d)' % rr if rr else '%s, not a rung (ladder.txt:%d)' % ng if ng else 'not on the ladder')
-            v, why = ra_value(ra, blk, oc, toks) if blk else ('not decided by a pinned source', 'batch output absent')
+            rung = ('%s (ladder.txt:%d)' % rr if rr else "a negative ('%s' in ladder.txt [5]:%d), not a rung" % ng if ng
+                    else 'not on the ladder')
+            flags = []
+            for fl in (r'FRAGILE', r'READING-DEPENDENT'):
+                n_, l_ = read_line(TALLY4B, r'^\s+%s\s.*%s' % (ra, fl), cache)
+                if l_ is not None:
+                    flags.append('%s: tally_4b.txt:%d' % (fl, n_))
+            v, why = ra_value(ra, blk, oc, toks, cache) if blk else ('not decided by a pinned source', 'batch output absent')
             per.append({'ra': ra, 'outcome': oc, 'rung': rung, 'value': v, 'why': why, 'tally': '%s:%d  %s' % (
-                TALLY4B, tr['_line'], tr['_text']), 'blk': blk, 'Q': tr.get('Q')})
+                TALLY4B, tr['_line'], tr['_text']), 'blk': blk, 'Q': tr.get('Q'), 'flags': flags})
         res['per'] = per
         res['grade'] = 'SYNTHESIS outcomes (own scale): %s' % ', '.join('%s %d' % (o, outs[o]) for o in sorted(outs))
         best = [p for p in per if lad['synth'].get(p['outcome'])]
@@ -711,7 +817,7 @@ def evaluate(row, ctx):
                 res['notes'].append(ref(TALLY4B, n, line))
             n, line = read_line(TALLY4B, r'^  WRONG\s', cache)
             res['failures'].append('same battery: ' + ref(TALLY4B, n, line))
-            res['prior'] = [x for p in row['prior'] for x in CAP.read_item(p, ledger, ROOT, cache, set())]
+            res['prior'] = prior_items(row['prior'], ledger, cache)
             res['grade'] += '; %s' % '; '.join('%s %s' % (x['label'].split()[-1], prior_word(x['text'])) for x in res['prior'])
         basis_rung = res.get('retro_top')
         basis = [p for p in per if lad['synth'].get(p['outcome']) and lad['synth'][p['outcome']][0] == basis_rung]
@@ -719,7 +825,7 @@ def evaluate(row, ctx):
     # CRR's part
     if sc in ('BATTERY', 'RETRO'):
         basis = [p for p in res['per'] if p['ra'] in res['basis_labels']]
-        each = [(p['ra'], p['value'], p['why']) for p in basis]
+        each = [(p['ra'] + ''.join(' [%s]' % f for f in p['flags']), p['value'], p['why']) for p in basis]
         found2 = []
         if row['crr']:
             v2, why2, found2, names2 = crr_part(row, None, False, cache, toks)
@@ -734,6 +840,11 @@ def evaluate(row, ctx):
     else:
         has_rung = res['app1'] in CAP.RUNG and res['app1'] != 'CLOSED' if res['app1'] else False
         v, why, found, names = crr_part(row, res['app1'], has_rung, cache, toks)
+        if v == 'CRR-proper but not load-bearing' and res.get('items'):
+            passes = ['%s %s' % (x['label'], x['status']) for x in res['items'] if x.get('from_ledger') and x['effect'] == 'beside'
+                      and re.match(r'PASS|holds|DOES NOT REDUCE', x['status'])]
+            why += ('; failures %d, uninformative marks %d, design failures %d; passes below a rung, beside it: %s' % (
+                len(res['failures']), len(res.get('marks', [])), len(res.get('design', [])), ', '.join(passes) or 'none'))
         res['crr'] = (v, why, names)
         res['crr_found'] = found
     res['compute'] = compute_lines(row, ledger, cache)
@@ -792,10 +903,10 @@ def print_row(res, ctx):
     for c in res.get('cells', []):
         W(c, indent=8, first='    - ')
     for p in res.get('per', []):
-        W('%s | %s | rung %s | CRR\'s part: %s (%s)' % (p['ra'], p['outcome'], p['rung'], p['value'], p['why']), indent=8,
-          first='    - ')
+        W('%s | %s%s | rung %s | CRR\'s part: %s (%s)' % (p['ra'], p['outcome'], ''.join(' [%s]' % f for f in p['flags']),
+                                                         p['rung'], p['value'], p['why']), indent=8, first='    - ')
         W('source: %s' % p['tally'], indent=10, first='        ')
-        for k in ('ingredient', 'T-G', 'FLAG'):
+        for k in ('ingredient', 'null', 'T-G', 'FLAG'):
             if p['blk'] and k in p['blk']:
                 W('%s:%d  %s' % (p['blk']['path'], p['blk'][k][0], CAP.short(p['blk'][k][1], 230)), indent=10, first='        ')
     for n_ in res['notes']:
@@ -805,12 +916,25 @@ def print_row(res, ctx):
         W('FAILURES OF THE SAME KIND (%d): %s' % (len(res['failures']), '; '.join(res['failures'])), indent=4, first='  ')
     else:
         print('  FAILURES OF THE SAME KIND: none read')
+    if res.get('marks'):
+        W('UNINFORMATIVE MARKS (instrument gates CLOSED; they make other rows uninformative, not failures) (%d): %s' % (
+            len(res['marks']), '; '.join(res['marks'])), indent=4, first='  ')
+    if res.get('design'):
+        W('DESIGN FAILURES (a closed gate its verdict calls a design failure or not a test of the method) (%d): %s' % (
+            len(res['design']), '; '.join(res['design'])), indent=4, first='  ')
     # prior art
     if res['prior']:
-        print('  PRIOR ART (declared sources; never changes the grade; "not found" is never "novel"):')
+        print('  PRIOR ART (never changes the grade; "not found" is never "novel"):')
         for x in res['prior']:
-            W('%s [%s]: %s  (%s)' % (x['label'], prior_word(x['text']), CAP.short(re.sub(r'\*\*', '', x['text']), 150), x['src']),
-              indent=8, first='    - ')
+            tag = 'beside (not a declared source)' if x['effect'] == 'beside-prior' else (
+                'declared source' if x['effect'] == 'prior' else 'beside')
+            pwd = prior_word(x['text'])
+            if pwd == 'not read' and x['effect'] == 'beside-prior':
+                pwd = 'no grade word: the verdict is the sentence'
+            W('%s [%s; %s]: %s  (%s)' % (x['label'], pwd, tag,
+                                        CAP.short(re.sub(r'\*\*', '', x['text']), 150), x['src']), indent=8, first='    - ')
+    elif row.get('prior_note'):
+        W('PRIOR ART: %s' % row['prior_note'], indent=4, first='  ')
     else:
         print('  PRIOR ART: none from the declared prior-art sources')
     # CRR's part
@@ -897,12 +1021,16 @@ def forecasts(results, ctx):
     lb = [r['row']['id'] for r in traced if r['crr'][0] == 'CRR-proper and load-bearing']
     f2a = CAP.RUNG[best['app1']] <= CAP.RUNG['RESULT']
     f2 = f2a and not lb
+    bytrace = [r['row']['id'] for r in traced if any(f[0]['role'] == 'trace' for f in r.get('crr_found', []))]
+    bygrade = [r['row']['id'] for r in traced if r['row']['id'] not in bytrace]
     out.append(("rule: HOLDS iff (a) the highest APP1 grade among the CL rows is RESULT or below and (b) no CL row whose CRR's part a "
-                "pinned source decides reads 'CRR-proper and load-bearing'",
-                '(a) highest CL grade %s (%s) -> %s; (b) CL rows decided %d of %d (%s); load-bearing: %s -> %s' % (
+                "pinned source decides reads 'CRR-proper and load-bearing'. Only a row with a 'trace' decider had its mechanism "
+                "traced; the others are decided by their APP1 grade (CLOSED: no rung reached), not by a trace",
+                '(a) highest CL grade %s (%s) -> %s; (b) CL rows decided %d of %d (%s); decided by a mechanism trace: %s; decided by '
+                'their grade, no trace: %s; load-bearing: %s -> %s' % (
                     best['app1'], best['row']['id'], 'holds' if f2a else 'fails', len(traced), len(cl),
-                    ', '.join('%s %s' % (r['row']['id'], r['crr'][0]) for r in traced), ', '.join(lb) or 'none',
-                    'holds' if not lb else 'fails'), f2))
+                    ', '.join('%s %s' % (r['row']['id'], r['crr'][0]) for r in traced), ', '.join(bytrace) or 'none',
+                    ', '.join(bygrade) or 'none', ', '.join(lb) or 'none', 'holds' if not lb else 'fails'), f2))
     # 3
     st = dom('AI safety') + dom('Trust and security')
     app1 = [r for r in st if r['app1'] in CAP.RUNG]
@@ -913,13 +1041,16 @@ def forecasts(results, ctx):
     real = [x['label'] for x in pause['items'] if x['effect'] == 'rung' and x['rung'] == 'CONSTRUCTION'
             and x['label'] in ('ECE C1-C2', 'RW1')]
     f3b = pause['app1'] == 'CONSTRUCTION' and bool(real)
-    pw = []
+    pw, seen_src = [], {}
     for r in st:
         for x in r['prior']:
             if x['effect'] == 'prior':
                 pw.append((r['row']['id'], x['label'], prior_word(x['text'])))
+                seen_src.setdefault(x['src'], prior_word(x['text']))
     above = [(i, lab, w) for i, lab, w in pw if w.startswith('NOT FOUND')]
     f3c = not above
+    as4_alone = any(i == 'AS4' for i, _, _ in above)
+    nf_distinct = sorted(src for src, w in seen_src.items() if w.startswith('NOT FOUND'))
     out.append(("rule: HOLDS iff (a) the highest APP1 grade among the AI-safety and trust rows is CONSTRUCTION, (b) AS1 is "
                 "CONSTRUCTION with a real-stack check among its basis (ECE C1-C2 or RW1), and (c) no prior-art grade printed in "
                 "those rows reads NOT FOUND (the one grade above PARTLY REDUNDANT on these scales; MIXED, KNOWN and ADDRESSED "
@@ -929,7 +1060,13 @@ def forecasts(results, ctx):
                               'holds' if f3a else 'fails', pause['app1'], ', '.join(real) or 'none', 'holds' if f3b else 'fails',
                               len(pw), ', '.join('%s %d' % (w, sum(1 for _, _, ww in pw if ww == w))
                                                  for w in sorted({w for _, _, w in pw})),
-                              '; '.join('%s %s' % (i, lab) for i, lab, _ in above) or 'none', 'holds' if f3c else 'fails'),
+                              '; '.join('%s %s' % (i, lab) for i, lab, _ in above) or 'none', 'holds' if f3c else 'fails')
+                + '; de-duplicated by source line: %d distinct lines (%s), NOT FOUND on %d (%s); (c) fails on AS4\'s '
+                  'CORRIGIBILITY_2026 K1 alone: %s (DR1 G4-extension comes from the grid demand-response sweep, not a '
+                  '2025-26 corrigibility sweep; whether it counts as that literature is not decided here, and (c) does not '
+                  'rest on it)' % (len(seen_src), ', '.join('%s %d' % (w, sum(1 for v in seen_src.values() if v == w))
+                                                           for w in sorted(set(seen_src.values()))),
+                                   len(nf_distinct), ', '.join(nf_distinct), 'yes' if as4_alone else 'no'),
                 f3a and f3b and f3c))
     # 4
     rb = dom('Robotics')
@@ -949,7 +1086,8 @@ def forecasts(results, ctx):
                                          'holds' if f4b else 'fails'), f4a and f4b))
     # 5
     knownp = [(r['row']['id'], x['label']) for r in results for x in r['prior']
-              if x['effect'] == 'prior' and prior_word(x['text']) in ('REDUNDANT', 'KNOWN')]
+              if x['effect'] == 'prior' and prior_word(x['text']) in KNOWNW and r['crr'][0] != 'none']
+    none_rows = [r['row']['id'] for r in results if r['crr'][0] == 'none']
     cons = [r['row']['id'] for r in results if r['app1'] == 'CONSTRUCTION']
     f5a = bool(knownp) and bool(cons)
     f5b = r8['count'] == 0 and not finding
@@ -967,25 +1105,40 @@ def forecasts(results, ctx):
     cl_results = [r['row']['id'] for r in cl if r['app1'] == 'RESULT']
     f5c = (set(held) == set(pause_caps) | set(results_caps) and results_caps == ['K1'] and len(k1_basis) == 1
            and cl_results == ['CL1'] and not finding)
+    # the literal reading (printed beside, decided too): EVERY capability any of AP1-AP10 needs, whatever its grade, is K1
+    # or a pause capability at CONSTRUCTION (the pause construction)
+    construct_pause = [k for k in needed if 'pause' in blocks[k]['name'] and needed[k] == 'CONSTRUCTION']
+    other = sorted(k for k in needed if k not in construct_pause and k != 'K1')
+    who = {k: [a['id'] for a in APP.APPS if k in [n for n, _ in ctx['evs'][a['id']]['need']]] for k in other}
+    f5lit = not other and f5c
     g41 = ctx['ledger']['rows'].get('SEC4-1-G')
-    out.append(("rule: HOLDS iff (a) at least one row's prior art reads REDUNDANT or KNOWN and at least one row grades "
-                "CONSTRUCTION; (b) the ladder's R8 PASS-2 count is 0 and no row grades FINDING; (c) the capabilities APP1's "
-                "applications AP1-AP10 need at CONSTRUCTION or above are the pause capabilities (name contains 'pause') and one "
-                "RESULT, K1, whose RESULT rests on one ledger row, and among the CL rows only CL1 grades RESULT",
-                '(a) prior-art lines REDUNDANT or KNOWN %d (rows %s); CONSTRUCTION rows %s -> %s; (b) R8 %s, FINDING rows %s -> %s; '
+    out.append(("rule: HOLDS iff (a) at least one declared prior-art line reads REDUNDANT, REDUNDANT-DOMAIN, RESTATES or KNOWN in "
+                "a row whose CRR's part is not 'none' (CRR's reading pointed there) and at least one row grades CONSTRUCTION; "
+                "(b) the ladder's R8 PASS-2 count is 0 and no row grades FINDING; (c) OPERATIONALISATION (an agent's choice, "
+                "AGENT_LOG 247): 'rest on' = the capabilities APP1's applications AP1-AP10 need at CONSTRUCTION or above; these must "
+                "be the pause capabilities (name contains 'pause') and one RESULT, K1, whose RESULT rests on one ledger row, and among "
+                "the CL rows only CL1 grades RESULT; capabilities needed below CONSTRUCTION (MODEL, CLOSED, pending) are not counted",
+                '(a) rows excluded because their CRR\'s part is none: %s; prior-art lines read as known %d (rows %s); CONSTRUCTION '
+                'rows %s -> %s; (b) R8 %s, FINDING rows %s -> %s; '
                 '(c) needed at CONSTRUCTION or above: %s; pause capabilities %s; RESULT %s, resting on %s; CL rows at RESULT %s -> %s' % (
-                    len(knownp), ', '.join(sorted({i for i, _ in knownp})), ', '.join(cons) or 'none', 'holds' if f5a else 'fails',
+                    ', '.join(none_rows) or 'none', len(knownp), ', '.join(sorted({i for i, _ in knownp})), ', '.join(cons) or 'none',
+                    'holds' if f5a else 'fails',
                     r8['count'], ', '.join(finding) or 'none', 'holds' if f5b else 'fails',
                     ', '.join('%s %s' % (k, held[k]) for k in sorted(held)), ', '.join(sorted(pause_caps)) or 'none',
                     ', '.join(results_caps) or 'none', ', '.join(k1_basis) or 'none', ', '.join(cl_results) or 'none',
                     'holds' if f5c else 'fails'), f5a and f5b and f5c))
-    sens5 = []
+    sens5 = ["SENSITIVITY, the LITERAL READING of (c), decided under that reading (the primary decision above stands): every capability any of AP1-AP10 needs, whatever its grade, must be K1 or a pause "
+             "capability at CONSTRUCTION; pause capabilities at CONSTRUCTION %s; other needed capabilities %s -> (c) %s, so forecast "
+             "5 under the literal reading %s" % (
+                 ', '.join(sorted(construct_pause)), '; '.join('%s %s (needed by %s)' % (k, needed[k], ', '.join(who[k]))
+                                                               for k in other) or 'none',
+                 'holds' if not other else 'fails', 'HOLDS' if (f5a and f5b and f5lit) else 'FAILS')]
     if k1 and k1['sens']:
-        sens5.append('capabilities.txt: K1 reads %s under %s; then (c)\'s RESULT is gone and the applications rest on the pause '
+        sens5.append('(printed, decides nothing) capabilities.txt: K1 reads %s under %s; then (c)\'s RESULT is gone and the applications rest on the pause '
                      'capabilities alone' % (k1['sens'][0]['grade'], k1['sens'][0]['item']))
     if g41:
-        sens5.append('%s:%d SEC4-1-G: %s' % (CAP.LEDGER, g41['line'], g41['verdict'].replace('*', '')))
-    return out, sens5
+        sens5.append('(printed, decides nothing) %s:%d SEC4-1-G: %s' % (CAP.LEDGER, g41['line'], g41['verdict'].replace('*', '')))
+    return out, sens5, f5a and f5b and f5lit
 
 
 def main():
@@ -1011,28 +1164,13 @@ def main():
     print("  CRR-proper ingredients (CLAUDE.md sec. 7's list), read from the per-commitment table of %s, lines %d-%d" % (
         LADDER, tlines[0], tlines[-1]))
     print("    (its last row, 'none named (information geometry only)', is not a commitment): %s" % ', '.join(toks))
-    print("  'none'                            a pinned trace counts 0 CRR-proper operations in the mechanism and its verdict line is")
-    print('                                    found; or the source states the scored ingredient is not CRR-proper, or that no CRR')
-    print('                                    reading was applied')
-    print("  'CRR-proper but not load-bearing' a pinned line names an ingredient and the row's APP1 grade is CLOSED (every test of")
-    print('                                    it closed its gate, failed or reduced; nothing it was tested for held)')
-    print("  'CRR-proper and load-bearing'     a pinned line names an ingredient, the row has a rung, a pinned ablation shows the")
-    print('                                    outcome changes without it, and its source does not state that the check is no test of CRR')
-    print("  'not decided by a pinned source'  otherwise, with the reason")
-    print('  rows read from several items of their own apply the rule per basis item; differing values -> not decided')
-    print("  'not load-bearing' = not shown to bear load by any pinned test; never 'shown irrelevant'")
-    print('CHOICES')
-    print('  S1 the SEC family row reads the declared ids, every SEC6-, SEC6R- and SEC7- row, and P1\'s post hoc gate rows (*-G)')
-    print("  S2 a 'report' row whose verdict says 'gate CLOSED' is a failure of the same kind and removes PASS-1/PASS-2 rungs as a")
-    print('     sensitivity (SEC6-G\'s rule); a PASS-0 row whose verdict says UNINFORMATIVE is printed with that word')
-    print("  S3 'EQ*' = EQX-, EQ2-, EQ3-, EQ4- rows, plus SOTA1-2 (capabilities.py C4)")
-    print('  S4 a trust row graded through APP1 applications takes the lowest APP1 grade of the capabilities they need; the')
-    print('     application grade (applications.py, recomputed) is printed beside and checked against applications.txt')
-    print("  S5 a declared source that does not exist prints 'source absent'")
-    print('  S6 robotics has three rows (table.txt; reading_tally.txt with grade_s3.txt; tally_4b.txt); the lost-link row reads RA4')
-    print('     and C-R1')
-    print('  S7 a prior-art grade word is read from each prior-art line (NOT FOUND, PARTLY REDUNDANT, REDUNDANT, MIXED, KNOWN, FOUND,')
-    print("     ADDRESSED; 'not new' and 'known fix' read as KNOWN)")
+    doc = __doc__.split('\n')
+    i0 = next(i for i, ln in enumerate(doc) if ln.startswith("THE DECLARED RULE FOR CRR'S PART"))
+    i1 = next(i for i, ln in enumerate(doc) if ln.startswith('THE FORECASTS'))
+    print('  (the rule and the CHOICES, as stated in suite.py\'s docstring:)')
+    for ln in doc[i0 + 1:i1]:
+        if ln.strip():
+            print(ln)
     print('%s: sha256 %s; rows parsed %d; rows with another cell count %d; duplicate ids %d' % (
         ledger['path'], ledger['sha256'], len(ledger['rows']), len(ledger['bad']), len(ledger['dup'])))
     print()
@@ -1053,7 +1191,8 @@ def main():
                 print_row(res, ctx)
     print('=' * 140)
     print('THE SUITE TABLE')
-    print('  %-4s %-20s %-50s %-44s %-30s %-7s %-34s %s' % ('id', 'domain', 'use case', 'grade', 'rung', 'fails', "CRR's part",
+    print('  fails = failures of the same kind / uninformative marks / design failures')
+    print('  %-4s %-20s %-50s %-44s %-30s %-9s %-34s %s' % ('id', 'domain', 'use case', 'grade', 'rung', 'fails', "CRR's part",
                                                          'compute/energy lines'))
     for res in results:
         r = res['row']
@@ -1067,8 +1206,9 @@ def main():
             rung = res['own_rung'] or 'own scale'
         g = res['app1'] if r['scale'] in ('APP1', 'APPS') else res['grade'].split(': ', 1)[1]
         nc = len(res['compute']) + sum(1 for c in res.get('cells', []) if 'no measured, modelled or opposing line' not in c)
-        print('  %-4s %-20s %-50s %-44s %-30s %-7d %-34s %d' % (r['id'], r['domain'], CAP.short(r['name'], 50), CAP.short(g, 44),
-                                                             CAP.short(rung, 30), len(res['failures']), res['crr'][0], nc))
+        fc = '%d/%d/%d' % (len(res['failures']), len(res.get('marks', [])), len(res.get('design', [])))
+        print('  %-4s %-20s %-50s %-44s %-30s %-9s %-34s %d' % (r['id'], r['domain'], CAP.short(r['name'], 50), CAP.short(g, 44),
+                                                             CAP.short(rung, 30), fc, res['crr'][0], nc))
     tally = {}
     for res in results:
         tally[res['crr'][0]] = tally.get(res['crr'][0], 0) + 1
@@ -1086,15 +1226,16 @@ def main():
     print('  declared sources absent: %d; read errors: %d' % (nabs, nerr))
     print()
     print('FORECASTS (the declaration, written before SEC6\'s and SEC7\'s data steps), decided')
-    fres, sens5 = forecasts(results, ctx)
+    fres, sens5, f5lit_all = forecasts(results, ctx)
     for (n, txt), (rule, got, ok) in zip(fcs, fres):
         W('%s  (%s:%d)' % (txt, DECL, n), indent=5, first='  ')
         W(rule, indent=7, first='     ')
         W(got, indent=7, first='     ')
         print('     -> %s' % ('HOLDS' if ok else 'FAILS'))
     for s in sens5:
-        W('beside forecast 5 (printed, decides nothing): %s' % s, indent=7, first='     ')
-    print('  forecasts: %s' % ', '.join('%d %s' % (i + 1, 'HOLDS' if f[2] else 'FAILS') for i, f in enumerate(fres)))
+        W('beside forecast 5: %s' % s, indent=7, first='     ')
+    print('  forecasts: %s (forecast 5 under the literal reading of (c): %s)' % (
+        ', '.join('%d %s' % (i + 1, 'HOLDS' if f[2] else 'FAILS') for i, f in enumerate(fres)), 'HOLDS' if f5lit_all else 'FAILS'))
     print()
     print('files read (sha256):')
     allf = dict((rel, d['sha256'] if d else None) for rel, d in cache.items())
