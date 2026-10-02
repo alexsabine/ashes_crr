@@ -73,7 +73,59 @@ ledger does not.)
 
 ## Part B: the held-out test
 
-Pending. The data step is on or after 2026-10-02T00:00Z, and this section is written after its rows.
+This section is written after ledger rows SEC6R-G … SEC6R-K and quotes them.
+
+**The data step (2026-10-02).**
+- **The hash** dc9c64d7 was unchanged: 30/30 files OK (`runs/sec6r/hash_check_datastep.txt`).
+- **The anchor.** OpenTimestamps is complete in Bitcoin blocks 969375, 969398 and 969440 (`runs/sec6r/ots_upgrade.txt`).
+- **The fetch.** Twelve carriers were fetched from 00:07:24Z. All 24 raw files matched the manifest (`runs/sec6r/data_check.txt`).
+- **The runs.** All twelve exited 0 (`runs/sec6r/exits.txt`). The rerun of autoUniv-au7-1100 is byte-identical
+  (`runs/sec6r/rerun_cmp.txt`).
+- **The carriers.** Nine were scored. Three were excluded by the registered class floor, because K falls to 2: SOCC,
+  volcanoes-b4 and volcanoes-e1.
+
+**The answer. The gate closes again, so the passes are uninformative.** The clipped SEC is not behind the tuned λ on 7/9,
+exactly the 7 needed. But a learner frozen after task 1 is not behind on 8/9. As registered, SEC6R-1, SEC6R-C and SEC6R-P
+are therefore PASS-0 and UNINFORMATIVE. SEC6R-1 is also FRAGILE and its divergence check FAILS. So SEC4-1 gets no PASS-2.
+
+| row | question | observed | verdict |
+|---|---|---|---|
+| SEC6R-G | is the criterion failed by the frozen learner? | edge not behind 8/9 (closes at 7) | gate CLOSED (report) |
+| SEC6R-1 | clipped SEC not behind the tuned λ | 7/9 (need 7); behind on meta_stream_intervals.arff (−10.4600, step 3.23) and volcanoes-d1 (−80.8208, step 23.90) | PASS-0, UNINFORMATIVE |
+| SEC6R-1F | the same, on carriers not floor-bound | N_F = 1 of 9 | NOT DECIDABLE |
+| SEC6R-GC / C | clipped SEC against the tuned clipped λ | 7/9; GC CLOSED (edge 8/9) | PASS-0, UNINFORMATIVE |
+| SEC6R-B | does the clipped SEC beat every published baseline? | clipped SEC 7/9; SI-1 2/9, SI-0.1 6/9, AR1-P 5/9, AR1-B 8/9, SI-1C 8/9, raw Laplace 6/9 | FAIL |
+| SEC6R-T | is the saving SEC's? | \|B\| = 7; 5/7 (need 6) | FAIL |
+| SEC6R-2 | no divergence | volcanoes-d1: clipped SEC 2.3223 against the tuned λ (14100) 83.1431 | FAIL |
+| SEC6R-P | against the 3-point mini-sweep | 7/9 | PASS-0, UNINFORMATIVE |
+| SEC6R-S | sensitivity (3 windows, κ 0.25 and 1.0) | 2 of 45 flips | FRAGILE |
+| SEC6R-K | compute | CPU share of the full sweep 0.0521–0.0626 | report |
+
+**What the numbers show** (all from `runs/sec6r/score.txt`):
+- **volcanoes-d1 repeats SEC5's failure mode on volcanoes-d4.** The tuned λ is 14100, and the clip caps the penalty far
+  below the strength that carrier needs. The clipped SEC (2.3223) and the rule Ω = 1 (2.3223) both collapse.
+- **AR1-B and SI-1C each beat the clipped SEC** on this family's criterion (8/9 against 7/9). These are two published-style
+  baselines with no units calibration.
+- **Only Advanced_IoT_Dataset is not floor-bound.** It is also the one carrier where the frozen learner is behind the
+  tuned λ (−24.9501).
+
+**The SEC family's record after SEC6R:**
+- SEC4-1: PASS-1 as scored on one family, and UNINFORMATIVE under the later gate (SEC4-1-G).
+- SEC5-1: FAIL.
+- SEC6: NOT DECIDABLE.
+- SEC6R-1: PASS-0, UNINFORMATIVE, FRAGILE, divergence FAIL.
+
+No PASS-2 exists. The scorer's family line ("PASS on 2 of 3 families") counts SEC6R-1's uninformative pass as a family
+pass; the ledger does not.
+
+## Sensitivity and exclusions
+
+| | Part A (seen) | Part B (held-out) |
+|---|---|---|
+| carriers | 12 | 12 |
+| scored | 7 | 9 |
+| excluded (by rule) | 5: d = 0 3, class floor 1, missing features 1 | 3: class floor |
+| SEC6-S flips | 0 of 35 | 2 of 45 (FRAGILE) |
 
 ## What a surrogate would have done
 

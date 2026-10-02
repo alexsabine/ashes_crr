@@ -12,7 +12,7 @@ Application grade (the declaration): SUPPORTED / CONSTRUCTION-BACKED / CONDITION
      classes; the stricter reading A3' (-> NOT SUPPORTED) is printed as a sensitivity
   A4 a pending reading (ROB1) is neither CLOSED nor a rung; A5 AP7 reads K2 through EPS2's federated-client row
   A6 the capability sensitivities printed by capabilities.py are carried through every application and forecast
-capability grades imported from Applied_Suite/checks/capabilities.py (ledger sha256 f9e4a8327f26435fd19b8021aead90a28f897e59595b551dccde196f4f13f3aa):
+capability grades imported from Applied_Suite/checks/capabilities.py (ledger sha256 e18e96ac6485aa3ee2f8289f67ae7963c68feb77a2eafc0de32330ce919caef2):
   K1          RESULT        a continual-learning penalty set without a hyperparameter sweep  [sensitivity: CLOSED under SEC_Analysis FM6]
   K2          CONSTRUCTION  a lossless pause and resume of learning (the empty cut as a construction)
   K3          CONSTRUCTION  a learner whose valuation gives it no reason to resist a pause

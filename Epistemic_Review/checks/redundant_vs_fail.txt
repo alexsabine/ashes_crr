@@ -6,7 +6,7 @@ Redundant / consistent / descriptive against fails, and PRED70's WRONG rows unde
       the 41 CONSIST rows re-read: redundant 29, WRONG 3, INTERNAL 9, ADDS 0, UNSTATED 0
       the 86 DESCR rows re-read: redundant 55, WRONG 14, INTERNAL 12, ADDS 2, UNSTATED 3
   (c) PRED70, 70 declared predictions: REDUNDANT-IG 19 + REDUNDANT-DOMAIN 16 = 35 redundant; WRONG 18; ADDS 14; INTERNAL 2; UNSTATED 1  -> redundant : fail = 35:18 (1.94 to 1)
-  (d) the held-out ledger (pre-registered, unseen data): PASS-0 12, PASS-1 1, FAIL 34 (no redundant grade exists on the ledger: a pass that reduces to a constant is its own allocation)
+  (d) the held-out ledger (pre-registered, unseen data): PASS-0 15, PASS-1 1, FAIL 37 (no redundant grade exists on the ledger: a pass that reduces to a constant is its own allocation)
   retrodictive + synthetic layers together (a + b + c; rows of (b) are re-reads of (a), so this double-counts by design): consistent/descriptive/redundant 260, fail 66
 
 [2] PRED70's WRONG rows: should any be REDUNDANT?
