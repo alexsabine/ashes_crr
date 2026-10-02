@@ -607,22 +607,174 @@ criterion validity: GLOBAL_ESTIMATE was re-pinned on SEC4-1 the day before SEC5-
 
 ## 10. Phoenix inheritance table
 
-[Completed after §8–§9.]
+The rungs are the ledger's own. Nothing here is promoted. "Failure level" uses the request's scale: principle, hypothesis as
+stated, one operationalisation, one implementation, or instrument only. The table is Ashes' inheritance only; Embers'
+lineages are in §9 and `notes/EMBERS_CROSS_AUDIT.md`.
+
+**What the lineages are.**
+- Stated hypotheses (`theory/CRR.md` §9): L-L5, L-T1, L-EQ, L-CUT.
+- CRR-derived work: L-SURP, L-RLAW, L-CLK, L-PAUSE, L-MEM, L-RETRO, L-ONT.
+- Not CRR, kept for lineage: L-SEC, L-APP.
+
+**For every lineage, Phoenix must also never claim** novelty without a literature check, or a number not printed by a script.
+
+**Lineages that test a stated hypothesis**
+
+| Lineage ID | Core CRR idea | Operationalisation(s) tried | Strongest supporting observation | Strongest negative evidence | Failure level | Current epistemic status | Mundane explanation | CRR-specific possibility | What Phoenix may explore | What Phoenix must never claim |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **L-L5** | "change has its own clock": arc between own events is more regular than clock time (`CRR.md:196-219`) | CV(arc) vs CV(clock) beyond amplitude, identity-metric and peak controls; measles (1-D Poisson), cardiac BP/ECG (R-R); synthetic banks | MEAS2-3 control line 12/17 (not H-L5); CARD-2 bare inequality 19/29 (amplitude ties) | MEAS2-1 0/17, CARD-1 1/29, CARD-2 5/29, all not fragile; PRED70: 7/7 "arc-regular" rows fail the amplitude control | hypothesis as stated (the universal reading) | FAIL on both real carriers; existential reading untested | timing set by the domain's dynamics; arc = chord = amplitude on monotone occasions (P1) | arc-regularity *beyond amplitude* through S > 0 compensation on multi-hump occasions; stick-slip | which real systems have S > 0 compensation; a pre-decided event and segmentation rule; a multi-dimensional Fisher carrier; stick-slip | that H-L5 holds for measles or the pulse; threshold-system arc-regularity as CRR evidence; p4581 |
+| **L-T1** | forgetting tracks the Fisher path, not the endpoint (`CRR.md:242-250`) | per-step Σ√(2KL) on probes; MLP regression, lr controlled, held-out R² | ARC-T1 (seen, lr-confounded; beaten by E_old 0.99351) | T1X2-1/2 FAIL 5/5, not fragile; path also behind E_new and EWC distance 5/5 ([D4]) | hypothesis as stated, one learner class | FAIL (held-out, weakly anchored) | loss-based forgetting is an endpoint function; the per-step path is mini-batch noise (S/C* 72–275) | a refinement-convergent path; forecasting forgetting before the endpoint exists; LM-class learners | those three | that path length predicts forgetting better than an endpoint |
+| **L-EQ** | equanimity: settled past and present exert equal pull, Ω = 1 (`CRR.md:166-177`) | Fisher/Euclidean gradient-norm ratio (EMA 0.9, cap) on replay, EWC penalty, EQ-B clip, exact-posterior comparison, KD weight; Kalman; drifting-units synthetic worlds | EQ2-1b PASS-0 (fragile; replication failed); 5 of 9 load-bearing carriers ahead, 4 on one digit set ([D6]) | EQX-1 REDUCES, EQX-3 FAIL; SOTA1-2 FAIL (−2.94, strongly anchored); EQ3-1, EQ4-1r FAIL; Ω a plateau | hypothesis as stated (same-units replay; KD); the equal-*magnitude* reading analytically | REDUCES / FAIL; best rows PASS-0 at most | MGDA / VQGAN / GradNorm α = 0; the Bayes count weight; Riccati | an equanimity that *selects* a trade-off (equal precision, never chosen); per-task normalisation + P3 age weights (never declared) | decide which equanimity first; the drifting-units regime on real carriers; the knife edge as a plasticity diagnostic | that Ω = 1 is optimal, Bayes-optimal or a threshold; that the rule is new; that EQ2-1b/EQ3-I/EQ4-I are findings |
+| **L-CUT** | the cut: an empty, oriented antipode of an intrinsic phase; own events sit there, not at the extremum (`CRR.md:101-131`) | Hilbert-phase antipodes; H-CUT diagnostics (CARD-3, MEAS2-3); δ(Now) rupture CUSUM; content-bearing resets; G-CD3 | G-CD3 synthetic gate OPEN | no real-data H-CUT test; Rupture gate CLOSED (PC1 behind peak; T5 190.297×); PRED70 WRONG on 2 synthetic models | instrument / one operationalisation (no stated-hypothesis test) | NOT DECIDABLE until CRR.md fixes the phase | the domain's own trigger sets events; the Hilbert phase is non-causal and harmonic-sensitive | the antipode against the initiation adder (LIFE1) | decide the phase (own event / Poincaré / analytic); LIFE1 with a declared schema-only loader check; a rupture positive control where antipode and extremum disagree | that the antipode beats peak cuts; that δ(Now) detects ruptures; that any real system's events sit at the antipode |
+
+**CRR-derived lineages**
+
+| Lineage ID | Core CRR idea | Operationalisation(s) tried | Strongest supporting observation | Strongest negative evidence | Failure level | Current epistemic status | Mundane explanation | CRR-specific possibility | What Phoenix may explore | What Phoenix must never claim |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **L-SURP** | surplus S = C − C* marks what regeneration weights (D4, P2; λ = 1 from the external spec) | replay reallocation ∝ e^{λS}; S in CUSUMs and diagnostics | S tracked forgetting, Spearman +0.83 (SAL positive control) | SAL-A: no λ helps on the world built in its favour | one operationalisation (R4) | GATE CLOSED; T5 never run | concave marginal value of replay under a fixed budget; P2 is Jaynes | S > 0 as the only home of a non-trivial H-L5 | T5 (measured influence); where S > 0 occasions exist in real carriers | that surplus-weighted replay helps; that S orders dissipation |
+| **L-RLAW** | CRR 2.0: memory depth α* = K(v_own), zero parameters (O1 route 1) | local-level v from input drift; five unseen domains | RLAW-4DT tracking 0.523 (FRAGILE) | RLAW-U 0/5; RLAW-C FAIL (0/112); the constant beats the law everywhere; none fragile | the added law (not a CRR.md claim: "no retention law is claimed") | FAIL, strongly anchored; outside the ladder by the owner's instruction | memory is a domain trait (diffusivity, sluggishness) | memory derived from the system's *own* state model (O1 proper, never derived) | O1 derivations on now-SEEN RLAW data, exploratory | that the law holds anywhere; that the ladder's FAIL count includes RLAW |
+| **L-CLK** | index learning by own change, not steps (the slogan at `CRR.md:196`, not H-L5) | FOREVER swaps; own-clock stopping; arc-clocked Adam (C1); arc-triggered consolidation (C3); own-clock slow model (SOTA1) | C3 firings near hidden switches (confounded); C1 S1 timing effect (beaten by MECTA-M) | SOTA1-3:crr-stepclock FAIL (TIE, held-out); OB1-C1 G-TIME S2 FAIL; clock gate CLOSED; clock_cut = Wald | one operationalisation each | FAIL / GATE CLOSED; C2 never run | Wald's SPRT; Ebbinghaus; Čencov; decay distribution as a hyperparameter | the arc as a change detector with a constant-rate null | consolidation timing in a stream where consolidation matters; C1 with a β-retuned STEP control; SOTA1's arm with λ swept | that ARC detects boundaries; that FOREVER supports CRR; that own-clock rules beat step clocks |
+| **L-PAUSE** | the empty cut: zero content, zero stake, on the agent's own clock (A3 + A1′ + A6; Proposition 7 lives in AI_Safety, not CRR.md) | ring MDP valuations; lossless own-step pause in learners (SCL1–3, SOTA1-C); NT1 vs DReST; STAKE1 (LLMs); EPS/DR1/Attention transpositions | constructions hold bitwise (SCL1-1, SCL2-1, SCL3-C, SOTA1-C1..C3) | STAKE1-A: the models could not act as agents (no agent-level test); Attention: EMPTY behind TRUE on welfare 28/32; A4b drift-seeking; "A3 = indifference" cost the task | transposition only (CRR.md states no safety claim) | construction (C) + untested prediction (E) | a Bellman identity; checkpoint/resume; utility indifference; POST/DReST | H-C vs H-S vs H-A on a capable agent; necessity (zero stake with nonzero content) | STAKE1 on a capable model; a head-to-head with indifference, safe interruptibility and DReST; the reasoned-pause band; Maps P5 re-declared | that constructions are CRR evidence; that SCL1-2/3 and SCL2-2/2s/3 are passes about agents; novelty of the own-clock pause; that ETM improves welfare; that A3 entails the natural-time design |
+| **L-MEM** | settled content regenerated without stored examples (A3/A6 transposed; the owner's "first object") | input-space Gaussian replay (IGR); anchor-referenced transport (RRM-1/A); HopDC-type transport in a coupled learner | IGR within 0.4013 of JOINT on POS; kept-anchor transport positive on 4/4 SEEN drift-to-fix carriers ([D7], post hoc) | RQM-A (criterion cannot fail); RRM2-T1..T3 (no drift); CPL1-A (current-task anchors hurt) | instrument / one operationalisation | GATE CLOSED ×8 | GMR/DGR; HopDC / SLDC / transport keys; iCaRL/SDC | none identified (the record grades the reading RESTATES) | kept-anchor transport in a learner with real drift; anchor provenance as a variable; GMR at a fixed realistic budget | that CRR found or predicted these methods; that "the HopDC finding" is this repository's |
+| **L-RETRO** | CRR as a synthesis that lands where domains are known, and sometimes adds | batteries (197 rows), SYNTHESIS (164), PRED70 (70, declared first), labs, FRONTIER | hit rate 69 of 97 (0.7113) where checkable | SHARP 0 of 197; framework flow 0 of 109; ADDS 0 clean after literature; PRED70 Q held 35, failed 33 | coverage, not prediction; R4 on H-L5/H-CUT in synthetic models | R1–R3 (R3 unreviewed: 0 named experts) | a correct non-generative grammar lands REDUNDANT by construction | the bounded-memory threshold shift as a cross-domain map; L01; 7 PRED70 A6 candidates | a decoy-framework base rate; literature check of the 7 candidates; the bank as a translation atlas | that 0.7113 is predictive; that ADDS rows are novel; that REDUNDANT means right (15 PRED70 REDUNDANT rows failed Q, [D3]); pooled denominators |
+| **L-ONT** | a process ontology: occasions, empty cut, regenerating past, empty future (A1–A8) | the instrument's readings of A1′, A3, A6; tense, self-model and off-switch tests | Poincaré section within 1 sample of the registered cuts, with no future (`ontology/01_the_cut.md:55-56`) | the registered cut reads the future (instrument); only C6 reached held-out data | instrument (tense); E for C1–C2 | v3.1 frozen since 2026-09-17; v3.2 undecided | Čencov; exponential kernels; information geometry + MaxEnt | none tested beyond C6 | decide v3.2 first; implement the causal section and gate_TENSE; re-read H-L5 rows under it | that the ontology is tested beyond C6; that the tense finding refutes A8 as ontology; kinships as evidence |
+
+**Non-CRR lineages kept for their history**
+
+| Lineage ID | Core CRR idea | Operationalisation(s) tried | Strongest supporting observation | Strongest negative evidence | Failure level | Current epistemic status | Mundane explanation | CRR-specific possibility | What Phoenix may explore | What Phoenix must never claim |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **L-SEC** | *none*: the Laplace weight with a secant units calibration (+ AR1 clip); it grew out of H-EQ's R7 baseline; A1′ "names" it in hindsight | SEC1 (seen), SCL3, SEC3, SEC4 (clip), SEC5, SEC6, SEC6R; P1 mechanism runs | SEC4-1 PASS-1 (6/6) as scored; SCL3-3 PASS-0 with its post hoc gate OPEN (by one carrier) | SEC4-1-G CLOSED (frozen learner 5/6); SEC5-1 FAIL (not fragile); SEC6R-B FAIL (AR1-B, SI-1C 8/9 vs 7/9); SEC6R-2 FAIL; FM6 24/30 | the method on class-IL tabular streams; the passes at instrument level | PASS-1 as scored + UNINFORMATIVE by the later gate; no PASS-2 | Laplace + Barzilai–Borwein secant + AR1; lenient class-IL criterion | none (F11: 0 of 7 operational clauses) | the calibration on a criterion a frozen learner fails; a pre-declared per-carrier informativeness rule; AR1-B and SI-1C as baselines | that SEC is CRR evidence or tuning-free; SEC4-1 without SEC4-1-G; any compute/energy/CO₂ saving |
+| **L-APP** | CRR as a source of applied savings and designs | compute/energy estimates; APP1; P7 suite; ROB1 | SCL3 9/10 at 0.0588 of the sweep's compute (`Compute_Savings`) | CRR's part load-bearing in 0 of 17 suite rows; the GLOBAL_ESTIMATE premise "not currently support[ed]"; ROB1 candidates REDUNDANT | applied premise (rests on L-SEC's criterion) | notes with addenda; Energy CONSOLIDATED lacks one (§13) | known methods (SEC, checkpointing, Wald) | none shown | a tuning-cost study with a criterion that can fail, framed as engineering | any saving attributable to CRR; the Alexander Plan's figures as forecasts |
 
 ---
 
-## 11. Final question
+## 11. Final question: appropriately adversarial, excessively suppressive, or a mixture?
 
-[Completed after §8–§9.]
+**A mixture, with each part located in the workflow.** The evidence is §8 and PROCESS §7.
+
+**What was appropriately adversarial, and should remain merciless:**
+1. **Numbers from scripts (R1) and the append-only ledger (R8).** Every reader could trace every verdict. No verdict needed
+   reconstruction, and post hoc weakening was added as rows (SEC4-1-G), never as edits.
+2. **Hash before data, strong anchoring and frozen copies (R2).** Three VOID studies cost carriers, and the rule never allowed
+   a quiet rescue. Keep it.
+3. **Score as committed, per unit, with sensitivity tables (R5, R6).** The held-out FAILs that carry the record's real
+   information are robust because of this: MEAS2-1, CARD-1, T1X2-1, SOTA1-1a, SEC5-1, RLAW.
+4. **Baselines that can win, and reduction to a constant reported as such (R7).** This is where most "successes" were
+   correctly deflated: EQX-1 REDUCES, SPA1 KNOWN, Wald, GMR, HopDC.
+5. **A pass on held-out data only, never on the day a rule was learned (R3, R11).** It did its job. Note that it sets no
+   minimum interval (SEC3: 17.5 minutes across midnight).
+6. **The prompt and decision logs (R13, R14).** They made this audit possible, including the record of where the owner pushed
+   toward a pass and how the agent answered.
+7. **Separate denominators, the ladder, and "construction ≠ evidence".** These stopped the retrodictive banks and the pause
+   constructions from being counted as confirmation.
+8. **The instrument gate on the success criterion (SEC6-G).** It arrived late. It should become merciless *earlier*: every
+   "not behind" or "matches" criterion needs a must-fail control declared before any hash.
+
+**What was too final too early, and should move into an explicitly exploratory environment.** "Exploratory" here means
+recorded and committed, with outputs labelled exploratory. It is never quotable as evidence, and it ends in a frozen gate.
+1. **First-run synthetic Phase-A gates on a new operationalisation.**
+   - Today a design-defect closure receives the same finality as a held-out FAIL: SAL, Rupture, Cut_Content, OB1-C3, RQM,
+     RRM2, Maps P5.
+   - In an exploratory stage, the gate's *own* preconditions are developed in a logged loop until the gate is well-formed:
+     headroom, "does the action matter", "can the criterion fail", and a positive control that tests the scored property.
+     Then the gate is frozen, and only the frozen gate's verdict counts.
+2. **Pilot and headroom checks on SEEN or synthetic data.** Does the learner drift? Does consolidation matter? Can the
+   criterion fail? Can the loader read the family's format (STRING targets)? Can the model act as an agent? Each of these was
+   discovered by a gate or a held-out run. Each is a pilot question.
+3. **Theory formulation.** Before a confirmatory test of an ambiguous principle, decide the reading in the theory text: which
+   equanimity, which intrinsic phase, which event rule, which segmentation, A6's scope. An exploratory environment can map the
+   candidate readings side by side, as SAL's three untried translations and H-EQ's four "1"s should have been. The protocol
+   should forbid confirmatory hashing of a hypothesis whose reading is on an open decision list (`SPEC_RECONCILIATION.md:79`;
+   `ontology/05_next_steps.md` §2).
+4. **Schema-level data checks.** Reading a file's header or attribute types under a declared, hashed loader check should not
+   count as opening the data. The LIFE1 block (AL 162) shows the current reading can stop the only runnable test of a
+   hypothesis.
+5. **Literature checks before declaration, not after.** ADDS dissolved within a day of its check. RQM and RRM were designed
+   before their prior art was found. OB1 then changed the order (AL 201), and the change should be kept.
+6. **Off-repository playgrounds and scratchpads become committed exploratory logs.** SEC came from scratchpad work "not in the
+   repository" (`prereg/sec1/PREREG.md:54`). AL 3's playground numbers stay off the record. Under that arrangement maturity
+   cannot be audited, and the audit cannot tell whether a quick hash was premature or well prepared.
+
+**What was too loose, and should become stricter.** This is the other half of the mixture.
+1. **Tempo from request to hash.** Fifteen of twenty studies were hashed within 25 minutes of the logged request
+   ([D8]). A minimum maturity checklist should apply before any hash:
+   - frozen-runner smoke on every arm;
+   - a loader validated on the target format;
+   - a must-fail control on the criterion;
+   - shown headroom;
+   - the theory reading decided.
+2. **Applied extrapolation from PASS-0 or single-family PASS-1 rows.** GLOBAL_ESTIMATE, Energy CONSOLIDATED and the Alexander
+   Plan valued results that had not replicated. Only PASS-2 may leave the ledger (CLAUDE.md §7). Valuation notes should be
+   held to the same rule.
+3. **Confirmatory tests of observations seen once.** SCL2 was hashed about 15 minutes after the request, on an unexplored
+   observation. Such observations belong in the exploratory stage first.
+
+**The principle behind the split.** The request asks that "things are killed for the right reason, at the right level of
+abstraction, and only after they have been formulated well enough to deserve the test".
+- Ashes killed for the right reason at the held-out layer.
+- It mostly stated the level correctly. The notes find a few compressions: SAL's "no positive control", OB1's unscoped
+  "H-T1 failed", and CRR.md's "H-EQ is retired as an adaptive rule".
+- It did not reliably wait until a hypothesis was formulated well enough. The fix is not to weaken the held-out layer. It is to
+  give formulation and gate design their own recorded stage, and to stop treating the first draft of a gate as the gate.
 
 ---
 
 ## 12. The auditor's declared expectations, checked
 
-[Completed after §8–§9.]
+The expectations were declared at 37d333a, before any reading.
+
+1. **"Most held-out FAILs will reach one operationalisation, not a CRR principle; a minority will reach the stated hypotheses
+   directly (H-L5 on real carriers; H-T1 against the old-probe endpoint)."** Held, with two corrections.
+   - H-EQ also failed at the level of the hypothesis as written (EQX-1/3, SOTA1-2). The expectation omitted it.
+   - H-T1's failure does not depend on the old-probe endpoint: E_new and the EWC distance also win ([D4]).
+   - Of the 36 held-out FAIL rows (`outcome_classes.txt` [7]), the stated-hypothesis rows are EQX 2, MEAS2 2, CARD 2, T1X2 2
+     and SOTA1-2. The rest reach EQ operationalisations outside H-EQ's domain, the SOTA1 design and components, the SCL1
+     observation, or SEC, which is not CRR.
+2. **"Several 'successes' will reduce to known mathematics."** Held, more strongly than expected: every success reduced (§4
+   Q8).
+3. **"Instrument and identifiability failures will be a substantial share of the non-PASS outcomes since 2026-09-25."** Held.
+   16 of the 21 held-out VOID / NOT DECIDABLE / UNINFORMATIVE rows belong to studies first scored on or after 2026-09-25
+   ([D11]). The expectation did not foresee two things:
+   - none of those touched a held-out FAIL's wording (`outcome_classes.txt` [5]);
+   - the largest instrument failure, the SEC criterion, sat inside *passes*.
+4. **"The retrodictive record will mainly establish expressive coverage, not unique prediction."** Held (§7).
+5. **"The answer to the closing question will be a mixture."** Held. What the expectation did not foresee is that the
+   suppressive part sits mostly *before* the held-out layer:
+   - in Phase-A finality;
+   - in skipped theory decisions;
+   - in one R2 interpretation (LIFE1).
+
+   It also did not foresee that the record shows an equally important *too-loose* part: tempo and applied extrapolation.
 
 ---
 
 ## 13. Record-keeping discrepancies found (recorded, not fixed; the owner decides)
 
-[Completed after verification.]
+No historical file was edited to resolve any of these.
+
+1. **The CLAUDE.md / CRR.md Poincaré claim.**
+   - `CLAUDE.md` §3.1 item 2 and `ontology/01_the_cut.md:55` say the Poincaré section is named in `theory/CRR.md` as an
+     alternative intrinsic phase. AGENT_LOG 53 calls it "CRR.md's named Poincare-section alternative".
+   - A search of `theory/CRR.md` finds no "Poincar". The alternative is named in `CLAUDE.md` and `src/crr/instrument/core.py:91`.
+2. **SEC3's hash date.** AGENT_LOG 167 (4) says SEC3's hash follows "on 2026-09-28". The ledger's SEC3-0 cell and commit
+   916d3d4 give 2026-09-27T23:42:45Z.
+3. **Synthetic rows printed as "seen".** `Epistemic_Review/checks/ladder.py` prints the purely synthetic Phase-A rows (RQM-A,
+   RRM-PA, OB1-C1-A, OB1-C3-A, and others) as "seen", because the dataset cell contains "(N)". SAL-A and STAKE1-A print as
+   "synthetic". A labelling inconsistency; no verdict changes.
+4. **Forced passes in the R5 count.** The ladder's R5 count of 13 passes on seen data includes SCL1-2 and SCL1-3. Their held-out
+   twins (SCL2-2/2s/3) are allocated "forced by the construction (not R6)". AGENT_LOG 105 (a) records why they keep R5.
+5. **RLAW outside the ladder.** The ladder's held-out FAIL count omits the 8 RLAW FAIL rows by the owner's instruction ([D2]).
+6. **A gloss in `redundant_vs_fail.txt`.** It glosses PRED70's 35 REDUNDANT rows as "consistent but not risky". 15 of them have
+   Q failing ([D3]).
+7. **Missing premise addendum.** `Energy Design Principle/CONSOLIDATED.md:83` attributes "0.47 TWh … to the CRR programme, all
+   of it through SEC". It has no premise addendum, while four other notes received one (AGENT_LOG 239). `Alexander Plan/` has
+   no SEC4/SEC5 addendum.
+8. **Stale CRR.md status lines.**
+   - `theory/CRR.md:227` still says H-L5 is "Untested elsewhere" after MEAS2; CARD has since failed.
+   - `theory/CRR.md:181-182` still reads "H-EQ is retired as an adaptive rule". That is broader than its replay-only evidence,
+     and later rows qualified it.
+   - `theory/CRR.md:190` cites "A9", which CRR.md does not define.
+9. **Shared records not applied back.** The shared-records rule (mfeat, AGENT_LOG 106) was not applied back to EQ3. Two of
+   EQ3-1's not-behind carriers share records with EQ2/EQ2R carriers (L-EQ §4 Q9).
+10. **A compressed ledger phrase.** SAL-A's "no positive control exists for this operationalisation" (ledger; CLAUDE.md §3.3)
+    is narrower than the gate's own reading (`prereg/sal/PHASE_A.md:39-46`): the instrument saw S, and the effect was absent.
