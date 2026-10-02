@@ -254,7 +254,7 @@ surplus-weight law, gated CLOSED in SAL (AGENT_LOG 13; L-SURP).
   (`CONTINUOUS_LEARNING.md:475-480`).
 - **The "Bayes optimum" belief.** Refuted: "Ω = 1 coincides with the Bayes optimum only when the trajectory happens to stop at
   the posterior mode" (`omega_sweeps.md:22-25`); CR6 "OFF THE MODE" (`cramer_rao_reading.txt:45`).
-- **SOTA1-2.** It reaches H-EQ as written, because CRR.md "does not restrict the past term" (`CROSS_VERIFICATION.md:347-349`).
+- **SOTA1-2.** It reaches H-EQ as written, because CRR.md "does not restrict the past term" (`CROSS_VERIFICATION.md:348-353`).
   It is strongly anchored and not fragile (SOTA1-S), with a mechanism that matches the knife edge (`FINDINGS.md:28`).
 
 **Q6. Which failures reached only one implementation or mathematical translation?**
@@ -298,7 +298,7 @@ surplus-weight law, gated CLOSED in SAL (AGENT_LOG 13; L-SURP).
   REDUCES.
 - **The rule's direction.** It is MGDA on normalised gradients and the IMTL-G / Nash-MTL two-task solution, with a "max
   relative deviation over 1000 random pairs … 5.164e-15" (`pareto_identities.txt:2-4,18`). MEGA-II takes the bisector
-  (`CONTINUOUS_LEARNING.md:477-479`).
+  (`CONTINUOUS_LEARNING.md:477-478`).
 - **The unsmoothed weight.** It is "the VQGAN adaptive weight (Esser, Rombach and Ommer, 2020)": 7.7432 against 7.7434
   (`adam_checks_2.txt:3,7`). It is also GradNorm at α = 0 without the learning (`CROSS_VERIFICATION.md:333-337`).
 - **The scale-robustness "win" of `omega_vs_methods.txt:25`.** "The test measures the bound, not CRR"
@@ -365,7 +365,7 @@ surplus-weight law, gated CLOSED in SAL (AGENT_LOG 13; L-SURP).
 | (1) observed | Best Ω = 0.5 / 2.0 / 1.41 (EQ2-6); 2.0 / 4.0 / 2.0 / 2.83 / 1.0 / 2.83 (EQ3-6); plateau width 9/9 on 4/6 (EQ3-P); best Ω 0.71 / 0.5 / 0.5 / 0.71 / 0.5 / 0.71 with no plateau in the posterior metric (BAYES1-B6) |
 | (2) CRR interpretation | Ω = 1 is "the principal place where a philosophical commitment becomes a risky numerical statement" (spec [P7]) |
 | (3) ordinary explanation | At Ω = 1 every point of the Pareto curve is stationary; with exact gradients there is a knife edge at 1; "smoothing and mini-batch noise" widen it into a plateau (`omega_sweeps.md:33-55`). This is a published MGDA-family property (`CONTINUOUS_LEARNING.md:475-476`) |
-| (4) what would distinguish | A version of equanimity that selects a point on the front (e.g. equal *precision* / count weighting), stated in CRR.md before a test. The record's selecting principles are "not CRR's" (`CONTINUOUS_LEARNING.md:480-481`) |
+| (4) what would distinguish | A version of equanimity that selects a point on the front (e.g. equal *precision* / count weighting), stated in CRR.md before a test. The record's selecting principles are "not CRR's" (`CONTINUOUS_LEARNING.md:481-482`) |
 
 ### 5.3 Non-inferiority of the normalised penalty step on online EWC (EQ2-1b, EQ3-1, EQ4-1r)
 
@@ -391,7 +391,7 @@ surplus-weight law, gated CLOSED in SAL (AGENT_LOG 13; L-SURP).
 |---|---|
 | (1) observed | BEHIND MKD's λ by −2.94 on 3/3 seeds (SOTA1-2), strongly anchored; not fragile in its sensitivity cells (SOTA1-S, including cap 100 and smoothing 0.5). Post hoc: the H-EQ weight sat at the cap 10 in 217 of 270 samples; the uncapped median was 11.457; the fast head's newest-task class-IL accuracy was 0.02 with H-EQ against 27.98 without the pull (`FINDINGS.md:27-28`) |
 | (2) CRR interpretation | Equal pull between the settled past (slow model) and the present |
-| (3) ordinary explanation | Distillation is a constraint whose gradient length is not a distance-from-past measure (`CROSS_VERIFICATION.md:343-349`). Equal-norm balancing at a knife edge yields stasis. A smaller KD weight (including 0) was better in this setting (post hoc) |
+| (3) ordinary explanation | Distillation is a constraint whose gradient length is not a distance-from-past measure (`CROSS_VERIFICATION.md:348-353`). Equal-norm balancing at a knife edge yields stasis. A smaller KD weight (including 0) was better in this setting (post hoc) |
 | (4) what would distinguish | An equanimity rule that is not an equal-norm ratio, declared before a test. The synthetic preview already showed "MKD's constant was AHEAD of Ω = 1 (−4.11)" (`prereg/sota1/PREREG.md:129`), and AGENT_LOG 140(4) records that it was deliberately not used to change arms |
 
 ### 5.6 Where a "1" arises naturally (Bayes, Laplace, Kalman, Cramér–Rao)
@@ -423,7 +423,7 @@ surplus-weight law, gated CLOSED in SAL (AGENT_LOG 13; L-SURP).
 | Normalised penalty step on online EWC (EQ2-EQ4, SEC1-R, SCL3/SEC3 rule columns) | **F + C** (and D, E components) | equal pull → Euclidean ratio on an EWC penalty, cap 1e4 → non-inferiority vs in-sample λ → PASS-0 fragile / FAIL 5/6 / FAIL 4/6; controls VIOLATED | One operationalisation **outside CRR.md's stated domain** (a penalty, not a replayed batch). The negative evidence (controls, fragility, replication 4/6) reaches that operationalisation. The positive evidence is capped at PASS-0 and reduces to prior art |
 | EQ-B (bounded rule) | **C** | equal pull + present-step clip → EQ4 clean and poisoned → EQ4-1 FAIL, EQ4-3 FAIL, EQ4-4 INERT | **One implementation enhancement**: "the clip is the load-bearing part and a fixed weight carries it as well" (EQ4-3) |
 | BAYES-1 | **E + D** (with report-level negative structure) | equal pull → rule vs exact posterior → B0 NOT DECIDABLE | **Instrument only** for the verdict. The report-level margins point against the rule being near-Bayes, which the mathematics already says (`omega_sweeps.txt` [1]) |
-| SOTA1-2 (KD weight) | **A** | equal pull → ratio as the KD weight, cap 10 → online Split-CIFAR-100 vs MKD λ → BEHIND −2.94 | **The hypothesis as written in CRR.md** ("does not restrict the past term", `CROSS_VERIFICATION.md:347-349`), for distillation past terms on one benchmark. Strongly anchored; not fragile. The record had already proposed excluding such terms (v3.2 proposal, not adopted) |
+| SOTA1-2 (KD weight) | **A** | equal pull → ratio as the KD weight, cap 10 → online Split-CIFAR-100 vs MKD λ → BEHIND −2.94 | **The hypothesis as written in CRR.md** ("does not restrict the past term", `CROSS_VERIFICATION.md:348-353`), for distillation past terms on one benchmark. Strongly anchored; not fragile. The record had already proposed excluding such terms (v3.2 proposal, not adopted) |
 | SOTA1-3:crr-cos ("H-EQ at the head") | **A** at operationalisation level (TIE → FAIL) | equal class-weight norms → cosine head ablation → +0.80 TIE | One operationalisation (the cosine head). Its retrodictive grade was MIXED 19/20 on published ablations (`CL Design Principle/checks/retro_sota.txt:17`), a retro→prospective gap |
 | SOTA1-1 (integrated learner) | **C** (design comparison, "not a CRR hypothesis", `reports/sota1.md:46-47`) | — | The design, not CRR |
 | SOTA1-3:crr-beta | **C** | — | DER++'s β term; PASS-0 for a published mechanism |
@@ -536,7 +536,7 @@ within an hour (AGENT_LOG 4).
   left no room to measure convergence on the carriers first. A registered "convergence-scaled budget" is named only for a
   later day.
 - **One correction round, then stop.** FED stopped after one correction ("Tuning this surrogate until it passes is exactly
-  what the protocol forbids in spirit", `fed_phaseA.md:43-44`). SAL was CLOSED with alternative operationalisations rejected
+  what the protocol forbids in spirit", `fed_phaseA.md:45-47`). SAL was CLOSED with alternative operationalisations rejected
   as a "forking path" (AGENT_LOG 13). In L-EQ these stops seem justified by the gates' own content (nothing to win).
 - **Synthetic previews were not allowed to steer SOTA1's design.** AGENT_LOG 140(4): "switching the headline learner to
   crr-kdfixed or dropping the cosine head / A8 / KD after seeing synthetic results" was rejected as tuning on the gate. The
